@@ -116,8 +116,7 @@ The pre-trained model in ResNet-50 is used to classify 1000 categories in the Im
 ```python
 import mindspore.nn as nn
 from mindvision.classification.models import resnet50
-from mindspore import load_checkpoint, load_param_into_net
-from mindspore.train import Model
+import mindspore as ms
 
 net = resnet50(pretrained=True)
 
@@ -142,7 +141,7 @@ opt = nn.Momentum(params=net.trainable_params(), learning_rate=0.001, momentum=0
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Instantiate the model.
-model = Model(net, loss, opt, metrics={"Accuracy": nn.Accuracy()})
+model = ms.Model(net, loss, opt, metrics={"Accuracy": nn.Accuracy()})
 ```
 
 #### Training and Evaluation
@@ -200,23 +199,23 @@ Define the `visualize_mode` function to visualize model prediction.
 
 ```python
 import matplotlib.pyplot as plt
-from mindspore import Tensor
+import mindspore as ms
 
 
 def visualize_model(best_ckpt_path, val_ds):
     num_class = 2  # Perform binary classification on wolf and dog images.
     net = resnet50(num_class)
     # Load model parameters.
-    param_dict = load_checkpoint(best_ckpt_path)
-    load_param_into_net(net, param_dict)
-    model = Model(net)
+    param_dict = ms.load_checkpoint(best_ckpt_path)
+    ms.load_param_into_net(net, param_dict)
+    model = ms.Model(net)
     # Load the validation dataset.
     data = next(val_ds.create_dict_iterator())
     images = data["image"].asnumpy()
     labels = data["label"].asnumpy()
     class_name = {0: "dogs", 1: "wolves"}
     # Predict the image type.
-    output = model.predict(Tensor(data['image']))
+    output = model.predict(ms.Tensor(data['image']))
     pred = np.argmax(output.asnumpy(), axis=1)
 
     # Display the image and the predicted value of the image.
@@ -252,8 +251,7 @@ When fixed features are used for training, all network layers except the last la
 ```python
 import mindspore.nn as nn
 from mindvision.classification.models import resnet50
-from mindspore import load_checkpoint, load_param_into_net
-from mindspore.train import Model
+import mindspore as ms
 
 net_work = resnet50(pretrained=True)
 
@@ -274,7 +272,7 @@ opt = nn.Momentum(params=net_work.trainable_params(), learning_rate=0.001, momen
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Instantiate the model.
-model1 = Model(net_work, loss, opt, metrics={"Accuracy": nn.Accuracy()})
+model1 = ms.Model(net_work, loss, opt, metrics={"Accuracy": nn.Accuracy()})
 ```
 
 #### Training and Evaluation

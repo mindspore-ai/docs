@@ -224,19 +224,18 @@ After the code of the forward training part and the code of the decoding part ar
 Based on the preceding code, `nn.Cell` is used for encapsulation. The complete CRF layer is implemented as follows:
 
 ```python
-import mindspore
+import mindspore as ms
 import mindspore.nn as nn
 import mindspore.numpy as mnp
-from mindspore import Parameter
 from mindspore.common.initializer import initializer, Uniform
 
 def sequence_mask(seq_length, max_length, batch_first=False):
-    """Generate the mask matrix based on the actual length and maximum length of the sequence."
+    """Generate the mask matrix based on the actual length and maximum length of the sequence."""
     range_vector = mnp.arange(0, max_length, 1, seq_length.dtype)
     result = range_vector < seq_length.view(seq_length.shape + (1,))
     if batch_first:
-        return result.astype(mindspore.int64)
-    return result.astype(mindspore.int64).swapaxes(0, 1)
+        return result.astype(ms.int64)
+    return result.astype(ms.int64).swapaxes(0, 1)
 
 class CRF(nn.Cell):
     def __init__(self, num_tags: int, batch_first: bool = False, reduction: str = 'sum') -> None:
@@ -248,9 +247,9 @@ class CRF(nn.Cell):
         self.num_tags = num_tags
         self.batch_first = batch_first
         self.reduction = reduction
-        self.start_transitions = Parameter(initializer(Uniform(0.1), (num_tags,)), name='start_transitions')
-        self.end_transitions = Parameter(initializer(Uniform(0.1), (num_tags,)), name='end_transitions')
-        self.transitions = Parameter(initializer(Uniform(0.1), (num_tags, num_tags)), name='transitions')
+        self.start_transitions = ms.Parameter(initializer(Uniform(0.1), (num_tags,)), name='start_transitions')
+        self.end_transitions = ms.Parameter(initializer(Uniform(0.1), (num_tags,)), name='end_transitions')
+        self.transitions = ms.Parameter(initializer(Uniform(0.1), (num_tags, num_tags)), name='transitions')
 
     def construct(self, emissions, tags=None, seq_length=None):
         if tags is None:
@@ -266,7 +265,7 @@ class CRF(nn.Cell):
             max_length, batch_size = tags.shape
 
         if seq_length is None:
-            seq_length = mnp.full((batch_size,), max_length, mindspore.int64)
+            seq_length = mnp.full((batch_size,), max_length, ms.int64)
 
         mask = sequence_mask(seq_length, max_length)
 
@@ -293,7 +292,7 @@ class CRF(nn.Cell):
             batch_size, max_length = emissions.shape[:2]
 
         if seq_length is None:
-            seq_length = mnp.full((batch_size,), max_length, mindspore.int64)
+            seq_length = mnp.full((batch_size,), max_length, ms.int64)
 
         mask = sequence_mask(seq_length, max_length)
 
@@ -389,9 +388,9 @@ def prepare_sequence(seqs, word_to_idx, tag_to_idx):
         seq_outputs.append(idxs)
         label_outputs.append(labels)
 
-    return mindspore.Tensor(seq_outputs, mindspore.int64), \
-            mindspore.Tensor(label_outputs, mindspore.int64), \
-            mindspore.Tensor(seq_length, mindspore.int64)
+    return ms.Tensor(seq_outputs, ms.int64), \
+            ms.Tensor(label_outputs, ms.int64), \
+            ms.Tensor(seq_length, ms.int64)
 ```
 
 ```python
