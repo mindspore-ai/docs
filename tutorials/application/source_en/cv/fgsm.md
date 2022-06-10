@@ -159,10 +159,10 @@ print("{}".format(acc))
 Load the trained LeNet model.
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
-param_dict = load_checkpoint("checkpoint_lenet-5_1875.ckpt")
-load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint("checkpoint_lenet-5_1875.ckpt")
+ms.load_param_into_net(network, param_dict)
 ```
 
 ### Implementing FGSM
@@ -202,7 +202,7 @@ Then, implement the FGSM attack according to formula (2):
 
 ```python
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 
 class FastGradientSignMethod:
     """Implement the FGSM attack."""
@@ -225,8 +225,8 @@ class FastGradientSignMethod:
 
     def generate(self, inputs, labels):
         # Implement FGSM.
-        inputs_tensor = Tensor(inputs)
-        labels_tensor = Tensor(labels)
+        inputs_tensor = ms.Tensor(inputs)
+        labels_tensor = ms.Tensor(labels)
         gradient = self._gradient(inputs_tensor, labels_tensor)
         # Generate perturbations.
         perturbation = self._eps*gradient
@@ -266,7 +266,7 @@ for data in ds_test:
     labels = data['label']
     test_images.append(images)
     test_labels.append(labels)
-    pred_labels = np.argmax(model.predict(Tensor(images)).asnumpy(), axis=1)
+    pred_labels = np.argmax(model.predict(ms.Tensor(images)).asnumpy(), axis=1)
     predict_labels.append(pred_labels)
 
 test_images = np.concatenate(test_images)
@@ -288,7 +288,7 @@ import mindspore.ops as ops
 fgsm = FastGradientSignMethod(network, eps=0.0, loss_fn=net_loss)
 advs = fgsm.batch_generate(test_images, true_labels, batch_size=32)
 
-adv_predicts = model.predict(Tensor(advs)).asnumpy()
+adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
 adv_predicts = np.argmax(adv_predicts, axis=1)
 accuracy = np.mean(np.equal(adv_predicts, true_labels))
 print(accuracy)
@@ -304,7 +304,7 @@ Set **$\varepsilon$** to **0.5** and try to run the attack.
 fgsm = FastGradientSignMethod(network, eps=0.5, loss_fn=net_loss)
 advs = fgsm.batch_generate(test_images, true_labels, batch_size=32)
 
-adv_predicts = model.predict(Tensor(advs)).asnumpy()
+adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
 adv_predicts = np.argmax(adv_predicts, axis=1)
 accuracy = np.mean(np.equal(adv_predicts, true_labels))
 print(accuracy)

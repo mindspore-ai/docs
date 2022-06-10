@@ -271,11 +271,11 @@ For the table query operation from a token to an index ID, use the `text.Lookup`
 > In addition to pre-processing the `text` data in the dataset, the `label` data needs to be converted to the float32 format to meet the subsequent model training requirements.
 
 ```python
-import mindspore
+import mindspore as ms
 
 lookup_op = dataset.text.Lookup(vocab, unknown_token='<unk>')
 pad_op = dataset.transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
-type_cast_op = dataset.transforms.TypeCast(mindspore.float32)
+type_cast_op = dataset.transforms.TypeCast(ms.float32)
 ```
 
 After the preprocessing is complete, you need to add data to the dataset processing pipeline and use the `map` API to add operations to the specified column.
@@ -357,11 +357,10 @@ After the sentence feature is obtained through LSTM encoding, the sentence featu
 
 ```python
 import math
-import mindspore
+import mindspore as ms
 import mindspore.nn as nn
 import mindspore.numpy as mnp
 import mindspore.ops as ops
-from mindspore import Tensor
 from mindspore.common.initializer import Uniform, HeUniform
 
 class RNN(nn.Cell):
@@ -369,7 +368,7 @@ class RNN(nn.Cell):
                  bidirectional, dropout, pad_idx):
         super().__init__()
         vocab_size, embedding_dim = embeddings.shape
-        self.embedding = nn.Embedding(vocab_size, embedding_dim, embedding_table=Tensor(embeddings), padding_idx=pad_idx)
+        self.embedding = nn.Embedding(vocab_size, embedding_dim, embedding_table=ms.Tensor(embeddings), padding_idx=pad_idx)
         self.rnn = nn.LSTM(embedding_dim,
                            hidden_dim,
                            num_layers=n_layers,
@@ -506,12 +505,12 @@ The model building, training, and evaluation logic design are complete. The foll
 By default, MindSpore uses the static graph mode (Define and Run) for training. In the first step, computational graph is built, which is time-consuming but improves the overall training efficiency. To perform single-step debugging or use the dynamic graph mode, you can use the following code:
 
 ```python
-from mindspore import set_context, PYNATIVE_MODE
-set_context(mode=PYNATIVE_MODE)
+import mindspore as ms
+ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
 ```python
-from mindspore import save_checkpoint
+import mindspore as ms
 
 num_epochs = 5
 best_valid_loss = float('inf')
@@ -523,7 +522,7 @@ for epoch in range(num_epochs):
 
     if valid_loss < best_valid_loss:
         best_valid_loss = valid_loss
-        save_checkpoint(net, ckpt_file_name)
+        ms.save_checkpoint(net, ckpt_file_name)
 ```
 
 ```text
@@ -548,10 +547,10 @@ After model training is complete, you need to test or deploy the model. In this 
 > The `load_param_into_net` API returns the weight name that does not match the checkpoint in the model. If the weight name matches the checkpoint, an empty list is returned.
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
-param_dict = load_checkpoint(ckpt_file_name)
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint(ckpt_file_name)
+ms.load_param_into_net(net, param_dict)
 ```
 
 ```text
@@ -593,7 +592,7 @@ def predict_sentiment(model, vocab, sentence):
     model.set_train(False)
     tokenized = sentence.lower().split()
     indexed = vocab.tokens_to_ids(tokenized)
-    tensor = mindspore.Tensor(indexed, mindspore.int32)
+    tensor = ms.Tensor(indexed, ms.int32)
     tensor = tensor.expand_dims(0)
     prediction = model(tensor)
     return score_map[int(np.round(prediction.asnumpy()))]

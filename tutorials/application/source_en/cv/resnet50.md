@@ -365,23 +365,22 @@ Define the `visualize_model` function, use the model with the highest validation
 
 ```python
 import matplotlib.pyplot as plt
-from mindspore import Tensor
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 
 def visualize_model(best_ckpt_path, val_ds):
     num_class = 10  # Perform binary classification on wolf and dog images.
     net = resnet50(num_class)
     # Load model parameters.
-    param_dict = load_checkpoint(best_ckpt_path)
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(best_ckpt_path)
+    ms.load_param_into_net(net, param_dict)
     model = Model(net)
     # Load the validation dataset.
     data = next(val_ds.create_dict_iterator())
     images = data["image"].asnumpy()
     labels = data["label"].asnumpy()
     # Predict the image type.
-    output = model.predict(Tensor(data['image']))
+    output = model.predict(ms.Tensor(data['image']))
     pred = np.argmax(output.asnumpy(), axis=1)
 
     # Display the image and the predicted value of the image.

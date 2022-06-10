@@ -85,10 +85,10 @@ The directory structure of the downloaded dataset is as follows:
 First, define some inputs for the execution process:
 
 ```python
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
 # Use the graph execution mode and specify the training platform to GPU. If the Ascend platform is required, replace it with Ascend.
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 data_root = "./datasets"  # Dataset root directory
 batch_size = 128 # Batch size
@@ -106,11 +106,11 @@ Define the `create_dataset_imagenet` function to process and augment data.
 
 ```python
 import numpy as np
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-from mindspore import nn, ops, Tensor
-from mindspore import dtype as mstype
+from mindspore import nn, ops
 
 def create_dataset_imagenet(dataset_path):
     """Data loading"""
@@ -180,14 +180,14 @@ The code implementation of the generator is as follows:
 from mindspore.common import initializer as init
 
 def conv_t(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="pad"):
-    """Define the transposed convolutional layer.""
+    """Define the transposed convolutional layer."""
     weight_init = init.Normal(mean=0, sigma=0.02)
     return nn.Conv2dTranspose(in_channels, out_channels,
                               kernel_size=kernel_size, stride=stride, padding=padding,
                               weight_init=weight_init, has_bias=False, pad_mode=pad_mode)
 
 def bn(num_features):
-    """Define the BatchNorm2d layer.""
+    """Define the BatchNorm2d layer."""
     gamma_init = init.Normal(mean=1, sigma=0.02)
     return nn.BatchNorm2d(num_features=num_features, gamma_init=gamma_init)
 
@@ -329,7 +329,7 @@ To trace the learning progress of the generator, during the training process, a 
 ```python
 # Create a batch of implicit vectors to observe G.
 np.random.seed(1)
-fixed_noise = Tensor(np.random.randn(64, nz, 1, 1), dtype=mstype.float32)
+fixed_noise = ms.Tensor(np.random.randn(64, nz, 1, 1), dtype=ms.float32)
 
 # Set optimizers for the generator and discriminator, respectively.
 optimizerD = nn.Adam(netD.trainable_params(), learning_rate=lr, beta1=beta1)
@@ -384,7 +384,7 @@ myTrainOneStepCellForG = nn.TrainOneStepCell(netG_with_criterion, optimizerG)
 Train the DCGAN cyclically, and collect the loss of the generator and discriminator every 50 iterations to facilitate subsequent drawing of the image of the loss function during the training process.
 
 ```python
-from mindspore import save_checkpoint
+import mindspore as ms
 
 # Instantiate the DCGAN.
 dcgan = DCGAN(myTrainOneStepCellForD, myTrainOneStepCellForG)
@@ -402,8 +402,8 @@ print("Starting Training Loop...")
 for epoch in range(num_epochs):
     # Read data for each epoch of training.
     for i, d in enumerate(data_loader):
-        real_data = Tensor(d['image'])
-        latent_code = Tensor(d["latent_code"])
+        real_data = ms.Tensor(d['image'])
+        latent_code = ms.Tensor(d["latent_code"])
         netD_loss, netG_loss = dcgan(real_data, latent_code)
         if i % 50 == 0 or i == size - 1:
             # Output training records.
@@ -417,8 +417,8 @@ for epoch in range(num_epochs):
     image_list.append(img.transpose(0, 2, 3, 1).asnumpy())
 
     # Save the network model parameters as a CKPT file.
-    save_checkpoint(netG, "Generator.ckpt")
-    save_checkpoint(netD, "Discriminator.ckpt")
+    ms.save_checkpoint(netG, "Generator.ckpt")
+    ms.save_checkpoint(netD, "Discriminator.ckpt")
 ```
 
 ```python
@@ -482,7 +482,7 @@ showGif(image_list)
 As shown in the preceding figure, the image quality becomes better as the number of training iterations increases. If the number of training epochs increases and the value of `num_epochs` is greater than 50, the generated anime avatar face image is similar to that in the dataset. The following describes how to load the GAN parameter file [Generator.ckpt](https://download.mindspore.cn/vision/classification/Generator.ckpt) in which the number of training epochs is 50 to generate an image. The code is as follows:
 
 ```python
-from mindspore import load_checkpoint
+import mindspore as ms
 from mindvision import dataset
 
 dl_path = "./netG"
@@ -492,7 +492,7 @@ dl = dataset.DownLoad()  # Download the `Generator.ckpt` file.
 dl.download_url(url=dl_url, path=dl_path)
 
 # Obtain model parameters from the file and load them to the network.
-param_dict = load_checkpoint("./netG/Generator.ckpt", netG)
+param_dict = ms.load_checkpoint("./netG/Generator.ckpt", netG)
 
 img64 = netG(fixed_noise).transpose(0, 2, 3, 1).asnumpy()
 
