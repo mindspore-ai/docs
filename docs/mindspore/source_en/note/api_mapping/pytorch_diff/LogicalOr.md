@@ -29,6 +29,8 @@ MindSpore: Computes the “logical OR” of two tensors element-wise. The input 
 ```python
 import numpy as np
 import torch
+import mindspore as ms
+from mindspore import ops
 
 # MindSpore
 x = ms.Tensor(np.array([True, False, True]), ms.bool_)

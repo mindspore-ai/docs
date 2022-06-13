@@ -123,7 +123,7 @@ Eager mode of the text operator supports `numpy.array` type data as input parame
 
 ```python
 import mindspore.dataset.text.transforms as text
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # Define a WhitespaceTokenizer op and execute it immediately
 txt = "Welcome to Beijing !"
@@ -132,7 +132,7 @@ print("Tokenize result: {}".format(txt))
 
 # Define a ToNumber op and execute it immediately
 txt = ["123456"]
-to_number = text.ToNumber(mstype.int32)
+to_number = text.ToNumber(ms.int32)
 txt = to_number(txt)
 print("ToNumber result: {}, type: {}".format(txt, type(txt[0])))
 ```

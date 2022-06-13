@@ -15,7 +15,7 @@ A code example is as follows:
 ```python
 import numpy as np
 from mindspore.ops import MultitypeFuncGraph
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
 add = MultitypeFuncGraph('add')
@@ -27,8 +27,8 @@ def add_scalar(x, y):
 def add_tensor(x, y):
     return ops.add(x, y)
 
-tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+tensor1 = ms.Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+tensor2 = ms.Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 print('tensor', add(tensor1, tensor2))
 print('scalar', add(1, 2))
 ```
@@ -48,8 +48,7 @@ scalar 3
 A code example is as follows:
 
 ```python
-from mindspore import dtype as mstype
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.ops import MultitypeFuncGraph, HyperMap
 import mindspore.ops as ops
 
@@ -63,7 +62,7 @@ def add_tensor(x, y):
     return ops.tensor_add(x, y)
 
 add_map = HyperMap(add)
-output = add_map((Tensor(1, mstype.float32), Tensor(2, mstype.float32), 1), (Tensor(3, mstype.float32), Tensor(4, mstype.float32), 2))
+output = add_map((ms.Tensor(1, ms.float32), ms.Tensor(2, ms.float32), 1), (ms.Tensor(3, ms.float32), ms.Tensor(4, ms.float32), 2))
 print("output =", output)
 ```
 

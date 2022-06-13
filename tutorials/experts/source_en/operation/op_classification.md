@@ -18,11 +18,10 @@ For example, if you want to use the pow function and use the Primitive operator,
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
+input_x = ms.Tensor(np.array([1.0, 2.0, 4.0]), ms.float32)
 input_y = 3.0
 # Instantiate Pow operator before using Primitive operator
 pow = ops.Pow()
@@ -47,11 +46,10 @@ The following code shows the use of maxPool, the maximum pooling operator:
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-x = Tensor(np.arange(1 * 3 * 3 * 4).reshape((1, 3, 3, 4)), mindspore.float32)
+x = ms.Tensor(np.arange(1 * 3 * 3 * 4).reshape((1, 3, 3, 4)), ms.float32)
 maxpool_op = ops.MaxPool(pad_mode="VALID", kernel_size=2, strides=1)
 output = maxpool_op(x)
 print(output)
@@ -65,11 +63,10 @@ The following code shows the use of logarithmic operator Log:
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-x = Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
+x = ms.Tensor(np.array([1.0, 2.0, 4.0]), ms.float32)
 log_oo = ops.Log()
 output = log_oo(x)
 print(output)
@@ -83,11 +80,10 @@ The following code shows the use of the transpose operators Transpose:
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-input_x = Tensor(np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]), mindspore.float32)
+input_x = ms.Tensor(np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]), ms.float32)
 input_perm = (0, 2, 1)
 transpose_op = ops.Transpose()
 output = transpose_op(input_x, input_perm)
@@ -106,9 +102,9 @@ import numpy as np
 import mindspore.ops as ops
 import mindspore.nn as nn
 from mindspore.communication import init
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
 class Net(nn.Cell):
     def __init__(self):
@@ -117,7 +113,7 @@ class Net(nn.Cell):
     def construct(self, x):
         return self.allgather(x)
 
-input_x = Tensor(np.ones([2, 8]).astype(np.float32))
+input_x = ms.Tensor(np.ones([2, 8]).astype(np.float32))
 net = Net()
 output = net(input_x)
 print(output)
@@ -156,12 +152,11 @@ The following code shows the use of convolutional operator Conv2d:
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 
 net = nn.Conv2d(120, 240, 4, has_bias=False, weight_init='normal')
-x = Tensor(np.ones([1, 120, 1024, 640]), mindspore.float32)
+x = ms.Tensor(np.ones([1, 120, 1024, 640]), ms.float32)
 output = net(x).shape
 print(output)
 ```
@@ -174,12 +169,11 @@ The following code shows the use of the maximum pooling operators MaxPool2d:
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 
 pool = nn.MaxPool2d(kernel_size=3, stride=1)
-x = Tensor(np.random.randint(0, 10, [1, 2, 4, 4]), mindspore.float32)
+x = ms.Tensor(np.random.randint(0, 10, [1, 2, 4, 4]), ms.float32)
 output = pool(x)
 print(output.shape)
 ```
@@ -192,14 +186,13 @@ The following code shows the use of the SoftmaxCrossEntropyWithLogits loss funct
 
 ```python
 import numpy as np
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-logits = Tensor(np.array([[3, 5, 6, 9, 12, 33, 42, 12, 32, 72]]), mindspore.float32)
+logits = ms.Tensor(np.array([[3, 5, 6, 9, 12, 33, 42, 12, 32, 72]]), ms.float32)
 labels_np = np.array([[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]]).astype(np.float32)
-labels = Tensor(labels_np)
+labels = ms.Tensor(labels_np)
 output = loss(logits, labels)
 print(output)
 ```
@@ -212,7 +205,7 @@ The following code shows the use of the Momentum optimizer:
 
 ```python
 import mindspore.nn as nn
-from mindspore import Model
+import mindspore as ms
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
@@ -232,5 +225,5 @@ optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=
 # The final parameters order in which the optimizer will be followed is the value of 'order_params'.
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim, metrics=None)
+model = ms.Model(net, loss_fn=loss, optimizer=optim, metrics=None)
 ```

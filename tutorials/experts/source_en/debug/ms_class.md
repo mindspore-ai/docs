@@ -17,17 +17,18 @@ After decorating a custom class with @ms_class, you can create and call the inst
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
-    value = Tensor(np.array([1, 2, 3]))
+    value = ms.Tensor(np.array([1, 2, 3]))
 
 class Net(nn.Cell):
     def construct(self):
         return InnerNet().value
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -38,12 +39,13 @@ ms_class support custom class nesting use, custom classes and nn. Cell nesting u
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class Inner:
     def __init__(self):
-        self.value = Tensor(np.array([1, 2, 3]))
+        self.value = ms.Tensor(np.array([1, 2, 3]))
 
 @ms_class
 class InnerNet:
@@ -59,7 +61,7 @@ class Net(nn.Cell):
         out = self.inner_net.inner.value
         return out
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -69,15 +71,16 @@ ms_class only support decorating custom classes, not nn. Cell and nonclass types
 
 ```python
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class Net(nn.Cell):
     def construct(self, x):
         return x
 
-set_context(mode=GRAPH_MODE)
-x = Tensor(1)
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(1)
 net = Net()
 net(x)
 ```
@@ -106,8 +109,8 @@ Support call a class's attributes by class name, and calling a class's methods b
 
 ```python
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
@@ -125,9 +128,9 @@ class Net(nn.Cell):
     def construct(self, x, y):
         return self.inner_net.number + self.inner_net.act(x, y)
 
-set_context(mode=GRAPH_MODE)
-x = Tensor(2, dtype=mstype.int32)
-y = Tensor(3, dtype=mstype.int32)
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
 net = Net()
 out = net(x, y)
 print(out)
@@ -138,12 +141,13 @@ Calling private attributes and magic methods is not supported, and the method fu
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
     def __init__(self):
-        self.value = Tensor(np.array([1, 2, 3]))
+        self.value = ms.Tensor(np.array([1, 2, 3]))
 
 class Net(nn.Cell):
     def __init__(self):
@@ -154,7 +158,7 @@ class Net(nn.Cell):
         out = self.inner_net.__str__()
         return out
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 ```
@@ -170,7 +174,8 @@ In the static graph mode, when you create the instance of the custom class in a 
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
@@ -182,7 +187,7 @@ class Net(nn.Cell):
         net = InnerNet(2)
         return net.number
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -193,8 +198,8 @@ For other scenarios, when creating an instance of a custom class, there is a res
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
@@ -209,8 +214,8 @@ class Net(nn.Cell):
     def construct(self):
         return self.inner.number
 
-set_context(mode=GRAPH_MODE)
-x = Tensor(2, dtype=mstype.int32)
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
 net = Net(x)
 out = net()
 print(out)
@@ -223,8 +228,8 @@ When you call an instance of a custom class, the `__call__` function method of t
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
@@ -240,9 +245,9 @@ class Net(nn.Cell):
         out = net(x, y)
         return out
 
-set_context(mode=GRAPH_MODE)
-x = Tensor(2, dtype=mstype.int32)
-y = Tensor(3, dtype=mstype.int32)
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
 net = Net()
 out = net(x, y)
 print(out)
@@ -253,8 +258,8 @@ If the class does not define the `__call__` function, an error message will be r
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore import set_context, GRAPH_MODE, Tensor, ms_class
+import mindspore as ms
+from mindspore import ms_class
 
 @ms_class
 class InnerNet:
@@ -267,9 +272,9 @@ class Net(nn.Cell):
         out = net(x, y)
         return out
 
-set_context(mode=GRAPH_MODE)
-x = Tensor(2, dtype=mstype.int32)
-y = Tensor(3, dtype=mstype.int32)
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
 net = Net()
 out = net(x, y)
 print(out)

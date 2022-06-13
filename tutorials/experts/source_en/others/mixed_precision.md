@@ -95,12 +95,12 @@ The following is a basic code example. First, import the required libraries and 
 import numpy as np
 import mindspore.nn as nn
 from mindspore.nn import Accuracy
-from mindspore import Model, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 
-set_context(mode=GRAPH_MODE)
-set_context(device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_context(device_target="CPU")
 
 class LeNet5(nn.Cell):
     """
@@ -169,7 +169,7 @@ network = LeNet5(10)
 # Define Loss and Optimizer
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3", loss_scale_manager=None)
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3", loss_scale_manager=None)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)
@@ -196,13 +196,12 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore.nn import Accuracy
-from mindspore import Model, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 ```
 
 The network is defined in the same way regardless of whether FP32 or FP16 is used. The difference is that after the network is defined, the dense layer is declared to use FP16 for computing when the network model is initialized, that is, `net.dense.to_float(mstype.float16)`.
@@ -271,7 +270,7 @@ network = LeNet5(10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
 network.conv1.to_float(mstype.float16)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 
 model.train(epoch=2, train_dataset=ds_train)
 ```
@@ -340,16 +339,15 @@ The detailed use of `FixedLossScaleManager` is as follows:
 
    ```python
    import numpy as np
-   import mindspore
+   import mindspore as ms
    import mindspore.nn as nn
+   import mindspore as ms
    from mindspore.nn import Accuracy
-   from mindspore import set_context, GRAPH_MODE, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
-   from mindspore import LossMonitor
    from mindspore.common.initializer import Normal
    from mindspore import dataset as ds
 
-   mindspore.set_seed(0)
-   set_context(mode=GRAPH_MODE)
+   ms.set_seed(0)
+   ms.set_context(mode=ms.GRAPH_MODE)
    ```
 
 2. Define the LeNet5 network model, and any network model can use the Loss Scale mechanism.
@@ -365,10 +363,8 @@ The detailed use of `FixedLossScaleManager` is as follows:
 
        Returns:
            Tensor, output tensor
-   ```
-
-   ```python
        """
+
        def __init__(self, num_class=10, num_channel=1):
            super(LeNet5, self).__init__()
            self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
@@ -425,18 +421,18 @@ The detailed use of `FixedLossScaleManager` is as follows:
    ```python
    # Define Loss Scale, optimizer and model
    #1) Drop the parameter update if there is an overflow
-   loss_scale_manager = FixedLossScaleManager()
+   loss_scale_manager = ms.FixedLossScaleManager()
    net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-   model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+   model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
    #2) Execute parameter update even if overflow occurs
    loss_scale = 1024.0
-   loss_scale_manager = FixedLossScaleManager(loss_scale, False)
+   loss_scale_manager = ms.FixedLossScaleManager(loss_scale, False)
    net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
-   model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+   model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
    # Run training
-   model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()])
+   model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()])
    ```
 
    The running result is as follows:
@@ -465,8 +461,8 @@ This is due to the fact that when configured in this way, the division between t
 It should be noted that some of the optimizers provided by MindSpore, such as `AdamWeightDecay`, do not provide the `loss_scale` parameter. If you use `FixedLossScaleManager` and the `drop_overflow_update` is configured as False, and the division between the gradient and the `loss_scale` is not performed in the optimizer, you need to customize the `TrainOneStepCell` and divide the gradient by `loss_scale` in it so that the final calculation is correct, as defined as follows:
 
 ```python
-import mindspore
-from mindspore import nn, ops, Tensor
+import mindspore as ms
+from mindspore import nn, ops
 
 grad_scale = ops.MultitypeFuncGraph("grad_scale")
 
@@ -478,7 +474,7 @@ class CustomTrainOneStepCell(nn.TrainOneStepCell):
     def __init__(self, network, optimizer, sens=1.0):
         super(CustomTrainOneStepCell, self).__init__(network, optimizer, sens)
         self.hyper_map = ops.HyperMap()
-        self.reciprocal_sense = Tensor(1 / sens, mindspore.float32)
+        self.reciprocal_sense = ms.Tensor(1 / sens, ms.float32)
 
     def scale_grad(self, gradients):
         gradients = self.hyper_map(ops.partial(grad_scale, self.reciprocal_sense), gradients)
@@ -506,7 +502,8 @@ class CustomTrainOneStepCell(nn.TrainOneStepCell):
 After defining `TrainOneStepCell`, the training network needs to be manually built, which is as follows:
 
 ```python
-from mindspore import nn, FixedLossScaleManager
+import mindspore as ms
+from mindspore import nn
 
 network = LeNet5(10)
 
@@ -516,7 +513,7 @@ net_opt = nn.AdamWeightDecay(network.trainable_params(), learning_rate=0.01)
 
 # Define LossScaleManager
 loss_scale = 1024.0
-loss_scale_manager = FixedLossScaleManager(loss_scale, False)
+loss_scale_manager = ms.FixedLossScaleManager(loss_scale, False)
 
 # Build train network
 net_with_loss = nn.WithLossCell(network, net_loss)
@@ -536,7 +533,7 @@ for epoch in range(epochs):
         result = net_with_train(d["data"], d["label"])
 
 #2) Define Model and run
-model = Model(net_with_train)
+model = ms.Model(net_with_train)
 
 ds_train = create_dataset()
 
@@ -559,9 +556,9 @@ The detailed use is as follows and we only need to define LossScale in `FixedLos
 # Define Loss Scale, optimizer and model
 scale_factor = 4
 scale_window = 3000
-loss_scale_manager = DynamicLossScaleManager(scale_factor, scale_window)
+loss_scale_manager = ms.DynamicLossScaleManager(scale_factor, scale_window)
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 ```
 
 > The pictures are cited from [automatic-mixed-precision](https://developer.nvidia.com/automatic-mixed-precision).

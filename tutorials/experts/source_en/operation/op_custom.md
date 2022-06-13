@@ -55,10 +55,11 @@ The following example (test_custom_hybrid.py) shows how to write a custom operat
 
 ```python
 import numpy as np
-from mindspore import Tensor, ops, set_context
+import mindspore as ms
+from mindspore import ops
 from mindspore.ops import ms_hybrid
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 # Operator implementation, Hybrid DSL
 @ms_hybrid
@@ -75,7 +76,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -112,11 +113,11 @@ Here is the content of test_custom_tbe.py:
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context
+import mindspore as ms
 import mindspore.ops as ops
 from mindspore.ops import DataType, CustomRegOp, custom_info_register
 
-set_context(device_target="Ascend")
+ms.set_context(device_target="Ascend")
 
 # Operator implementation, and operator information registration
 @custom_info_register(CustomRegOp() \
@@ -144,7 +145,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -184,13 +185,12 @@ The contents of test_dropout_aicpu.py are as follows:
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 from mindspore.ops import CustomRegOp, custom_info_register, DataType
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 # Operator implementation, registering operator information
 dropout2d_op_info = CustomRegOp("Dropout2D") \
@@ -225,7 +225,7 @@ class NetDropout2D(nn.Cell):
     def __init__(self, keep_prob=0.5):
         super(NetDropout2D, self).__init__()
         self.op = ops.Custom(dropout2d_aicpu, out_shape=lambda x, _, cust_attr: (x, x), \
-                              out_dtype=lambda x, _, cust_attr: (x, mstype.bool_), func_type="aicpu")
+                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu")
         self.keep_prob = keep_prob
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
@@ -234,7 +234,7 @@ class NetDropout2D(nn.Cell):
 
 if __name__ == "__main__":
     # Defines a custom operator of type aicpu
-    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
     dropout2d_nn = NetDropout2D(0.5)
     output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
@@ -330,10 +330,10 @@ Write the test case test_custom_aot.py:
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -341,7 +341,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -404,10 +404,10 @@ Write the test case test_custom_aot.py:
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -415,7 +415,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -452,10 +452,10 @@ Here is the content of test_custom_pyfunc.py:
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 def add(a, b):
     return a + b
@@ -466,7 +466,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -514,16 +514,16 @@ Secondly, refer to the Julia function written above in a custom operator in the 
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 if __name__ == "__main__":
     op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -640,10 +640,10 @@ Here is the content of test_custom_akg.py:
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 # Operator implementation, Hybrid DSL
 def add(a, b):
@@ -659,7 +659,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -707,11 +707,11 @@ Take test_grad.py as an example to show the usage of the backpropagation functio
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 # Forward computation of custom operator
 def square(x):
@@ -751,7 +751,7 @@ class Net(Cell):
 if __name__ == "__main__":
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
-    dx = ops.GradOperation(sens_param=True)(Net())(Tensor(x), Tensor(sens))
+    dx = ops.GradOperation(sens_param=True)(Net())(ms.Tensor(x), ms.Tensor(sens))
     print(dx)
 ```
 
@@ -779,7 +779,7 @@ The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function
 
 ```python
 import numpy as np
-from mindspore import ops, Tensor
+import mindspore as ms
 from mindspore.ops import ms_hybrid
 
 @ms_hybrid
@@ -800,8 +800,8 @@ np_y = np.random.normal(0, 1, [4, 4]).astype(np.float32)
 
 print(outer_product(np_x, np_y))
 
-input_x = Tensor(np_x)
-input_y = Tensor(np_y)
+input_x = ms.Tensor(np_x)
+input_y = ms.Tensor(np_y)
 
 test_op_akg = ops.Custom(outer_product)
 out = test_op_akg(input_x, input_y)

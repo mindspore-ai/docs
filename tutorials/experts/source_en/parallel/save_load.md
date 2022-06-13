@@ -71,8 +71,8 @@ net = TrainOneStepCell(net, opt)
 param_dicts = []
 for i in range(rank_size):
     file_name = os.path.join("./node"+str(i), "CKP_1-4_32.ckpt")  # checkpoint file name of current node
-    param_dict = load_checkpoint(file_name)  
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(file_name)  
+    ms.load_param_into_net(net, param_dict)
     param_dict = {}
     for _, param in net.parameters_and_names():
         param_dict[param.name] = param
@@ -90,7 +90,7 @@ In the preceding information:
 Call the `build_searched_strategy` API to obtain the slice strategy of model.
 
 ```python
-strategy = build_searched_strategy("./strategy_train.ckpt")
+strategy = ms.build_searched_strategy("./strategy_train.ckpt")
 ```
 
 In the preceding information:
@@ -117,7 +117,7 @@ The parameter name is weight and the slice strategy is to perform slice in a 4-d
 2. Call the `merge_sliced_parameter` API to merge the sliced parameters.
 
    ```python
-   merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
+   merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
    ```
 
 > If there are multiple model parallel parameters, repeat steps 1 to 2 to process them one by one.
@@ -131,10 +131,10 @@ The parameter name is weight and the slice strategy is to perform slice in a 4-d
    for (key, value) in param_dict.items():
        each_param = {}
        each_param["name"] = key
-       if isinstance(value.data, Tensor):
+       if isinstance(value.data, ms.Tensor):
            param_data = value.data
        else:
-           param_data = Tensor(value.data)
+           param_data = ms.Tensor(value.data)
        each_param["data"] = param_data
        param_list.append(each_param)
    ```
@@ -142,7 +142,7 @@ The parameter name is weight and the slice strategy is to perform slice in a 4-d
 2. Call the `save_checkpoint` API to write the parameter data to a file and generate a new checkpoint file.
 
     ```python
-    save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
+    ms.save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
     ```
 
     In the preceding information:
@@ -165,7 +165,7 @@ In the single-device training/inference scenario, data slice is not involved. In
 Call the `load_checkpoint` API to load model parameter data from the checkpoint file.
 
 ```python
-param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
+param_dict = ms.load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```
 
 - `load_checkpoint`: loads the checkpoint model parameter file and returns a parameter dictionary.
@@ -207,8 +207,8 @@ Data distribution after slicing is as follows:
 
     ```python
     rank = get_rank()
-    tensor_slice = Tensor(slice_list[rank])
-    tensor_slice_moments = Tensor(slice_moments_list[rank])
+    tensor_slice = ms.Tensor(slice_list[rank])
+    tensor_slice_moments = ms.Tensor(slice_moments_list[rank])
     ```
 
     - `get_rank`: obtains the ID of the current device in the cluster.
@@ -229,8 +229,8 @@ Call the `load_param_into_net` API to load the model parameter data to the netwo
 ```python
 net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
-load_param_into_net(net, param_dict)
-load_param_into_net(opt, param_dict)
+ms.load_param_into_net(net, param_dict)
+ms.load_param_into_net(opt, param_dict)
 ```
 
 ## Example
@@ -265,14 +265,13 @@ User process:
     import numpy as np
     import os
     import mindspore.nn as nn
-    from mindspore import Tensor, Parameter
+    import mindspore as ms
     import mindspore.ops as ops
-    from mindspore import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
 
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
-            self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+            self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
@@ -289,14 +288,14 @@ User process:
         param_dicts = []
         for i in range(rank_size):
             file_name = os.path.join("./node"+str(i), old_ckpt_file)
-            param_dict = load_checkpoint(file_name)  
-            load_param_into_net(net, param_dict)
+            param_dict = ms.load_checkpoint(file_name)  
+            ms.load_param_into_net(net, param_dict)
             param_dict = {}
             for _, param in net.parameters_and_names():
                 param_dict[param.name] = param
                 param_dicts.append(param_dict)
 
-        strategy = build_searched_strategy(strategy_file)
+        strategy = ms.build_searched_strategy(strategy_file)
         param_dict = {}
 
         for paramname in ["weight", "moments.weight"]:
@@ -307,7 +306,7 @@ User process:
                 sliced_parameters.append(parameter)
 
             # merge the parallel parameters of the model
-            merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
+            merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
             param_dict[paramname] = merged_parameter
 
         # convert param_dict to list type data
@@ -315,15 +314,15 @@ User process:
         for (key, value) in param_dict.items():
             each_param = {}
             each_param["name"] = key
-            if isinstance(value.data, Tensor):
+            if isinstance(value.data, ms.Tensor):
                 param_data = value.data
             else:
-                param_data = Tensor(value.data)
+                param_data = ms.Tensor(value.data)
             each_param["data"] = param_data
             param_list.append(each_param)
 
         # call the API to generate a new CheckPoint file
-        save_checkpoint(param_list, new_ckpt_file)
+        ms.save_checkpoint(param_list, new_ckpt_file)
 
         return
 
@@ -438,26 +437,25 @@ User process:
    import os
    import mindspore.nn as nn
    from mindspore.communication import init
-   from mindspore import Tensor, Parameter
    import mindspore.ops as ops
-   from mindspore import load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
+   import mindspore as ms
 
    from mindspore.communication import init
    devid = int(os.getenv('DEVICE_ID'))
-   set_context(mode=GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
+   ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
    init()
 
    class Net(nn.Cell):
        def __init__(self,weight_init):
            super(Net, self).__init__()
-           self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+           self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
            self.fc = ops.MatMul(transpose_b=True)
 
        def construct(self, x):
            x = self.fc(x, self.weight)
            return x
    def train_mindspore_impl_fc(input, label, ckpt_file):
-       param_dict = load_checkpoint(ckpt_file)
+       param_dict = ms.load_checkpoint(ckpt_file)
 
        for paramname in ["weight", "moments.weight"]:
            # get layer wise model parallel parameter
@@ -466,16 +464,16 @@ User process:
            slice_list = np.split(new_param.data.asnumpy(), 2, axis=0)
            # Load the corresponding data slice
            rank = get_rank()
-           tensor_slice = Tensor(slice_list[rank])
+           tensor_slice = ms.Tensor(slice_list[rank])
            # modify model parameter data values
            new_param.set_data(tensor_slice, True)
 
            # load the modified parameter data into the network
            weight = np.ones([4, 8]).astype(np.float32)
            net = Net(weight)
-           load_param_into_net(net, param_dict)
+           ms.load_param_into_net(net, param_dict)
            opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
-           load_param_into_net(opt, param_dict)
+           ms.load_param_into_net(opt, param_dict)
            # train code
            ...
 
