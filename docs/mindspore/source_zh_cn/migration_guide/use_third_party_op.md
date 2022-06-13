@@ -157,11 +157,11 @@ gpu: python setup.py leaky_relu.cu leaky_relu_gpu.so
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 def LeakyRelu():
     return ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
@@ -177,7 +177,7 @@ class Net(Cell):
 if __name__ == "__main__":
     x0 = np.array([[0.0, -0.1], [-0.2, 1.0]]).astype(np.float32)
     net = Net()
-    output = net(Tensor(x0))
+    output = net(ms.Tensor(x0))
     print(output)
 ```
 

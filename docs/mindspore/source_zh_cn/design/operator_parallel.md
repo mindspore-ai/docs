@@ -33,10 +33,10 @@ Tensor Redistribution用于处理不同Tensor Layout之间的转换，它能在�
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as ops
-from mindspore import set_auto_parallel_context
+from mindspore import ops
+import mindspore as ms
 
-set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
+ms.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
 
 class DenseMatMulNet(nn.Cell):
     def __init__(self):
@@ -94,7 +94,7 @@ class DenseMatMulNet(nn.Cell):
 ```python
 from mindspore.nn import Cell
 from mindspore.ops import operations as ops
-from mindspore import Parameter
+import mindspore as ms
 from mindspore.common.initializer import initializer
 
 
@@ -102,7 +102,7 @@ class Net(Cell):
     def __init__(self):
         super().__init__()
         self.matmul = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.weight = Parameter(initializer("normal", [32, 16]), "w1")
+        self.weight = ms.Parameter(initializer("normal", [32, 16]), "w1")
 
         self.relu = ops.ReLU().shard(((8, 1),))
 

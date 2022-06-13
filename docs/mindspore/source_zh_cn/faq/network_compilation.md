@@ -37,9 +37,9 @@ A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, set_context, GRAPH_MODE
+from mindspore import nn
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -52,9 +52,9 @@ class Net(nn.Cell):
         else:
             return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
 
-input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = Tensor(2, ms.float32)
-input_b = Tensor(6, ms.float32)
+input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = ms.Tensor(2, ms.float32)
+input_b = ms.Tensor(6, ms.float32)
 net = Net()
 out_me = net(input_x, input_a, input_b)
 ```
@@ -82,9 +82,9 @@ The function call stack (See file 'analyze_fail.dat' for more details):
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, set_context, GRAPH_MODE
+from mindspore import nn
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -97,9 +97,9 @@ class Net(nn.Cell):
         else:
             return self.reducesum(x)    # shape:(), dype: Float32
 
-input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = Tensor(2, ms.float32)
-input_b = Tensor(6, ms.float32)
+input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = ms.Tensor(2, ms.float32)
+input_b = ms.Tensor(6, ms.float32)
 net = Net()
 out = net(input_x, input_a, input_b)
 ```
@@ -125,10 +125,11 @@ The function call stack (See file 'analyze_fail.dat' for more details):
 
 ```python
 import mindspore.ops as ops
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
-x = Tensor([1.0])
-y = Tensor([2.0])
+x = ms.Tensor([1.0])
+y = ms.Tensor([2.0])
 grad = ops.GradOperation(get_by_list=False, sens_param=True)
 sens = 1.0
 
@@ -184,10 +185,11 @@ class BpropUserDefinedNet(nn.Cell):
 例如代码
 
 ```python
-from mindspore import Tensor, ms_function, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
-ZERO = Tensor([0], mstype.int32)
-ONE = Tensor([1], mstype.int32)
+import mindspore as ms
+from mindspore import ms_function
+
+ZERO = ms.Tensor([0], ms.int32)
+ONE = ms.Tensor([1], ms.int32)
 @ms_function
 def f(x):
     y = ZERO
@@ -203,8 +205,8 @@ def f(x):
     return z
 
 def test_endless():
-    set_context(mode=GRAPH_MODE)
-    x = Tensor([5], mstype.int32)
+    ms.set_context(mode=ms.GRAPH_MODE)
+    x = ms.Tensor([5], ms.int32)
     f(x)
 
 ```
@@ -279,9 +281,9 @@ A: JIT Fallback从静态图的角度出发考虑静态图和动态图的统一�
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def construct(self, x, y):
@@ -312,17 +314,18 @@ A: MindSpore当前对数据类型为bool的Tensor[后续简称Tensor(bool)]支�
 例如代码：
 
 ```python
-from mindspore import set_context, ops, ms_function, Tensor, dtype
+from mindspore import ops, ms_function
+import mindspore as ms
 
-set_context(save_graphs=True, save_graphs_path='graph_path')
+ms.set_context(save_graphs=True, save_graphs_path='graph_path')
 
 @ms_function
 def test_logic(x, y):
     z = x and y
     return z and x
 
-x = Tensor(True, dtype.bool_)
-y = Tensor(True, dtype.bool_)
+x = ms.Tensor(True, ms.bool_)
+y = ms.Tensor(True, ms.bool_)
 grad = ops.GradOperation(get_all=True)
 grad_net = grad(test_logic)
 out = grad_net(x, y)

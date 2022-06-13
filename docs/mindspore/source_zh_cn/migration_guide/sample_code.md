@@ -148,7 +148,7 @@ input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the
 
 ```python
 import os
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
@@ -184,7 +184,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
         vision.HWC2CHW()
     ]
 
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
     data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
@@ -497,8 +497,7 @@ opt = Momentum(group_params, lr, momentum)
 
 ```python
 import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 from mindspore.nn import LossBase
 import mindspore.ops as ops
 
@@ -509,8 +508,8 @@ class CrossEntropySmooth(LossBase):
         super(CrossEntropySmooth, self).__init__()
         self.onehot = ops.OneHot()
         self.sparse = sparse
-        self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
-        self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
+        self.on_value = ms.Tensor(1.0 - smooth_factor, ms.float32)
+        self.off_value = ms.Tensor(1.0 * smooth_factor / (num_classes - 1), ms.float32)
         self.ce = nn.SoftmaxCrossEntropyWithLogits(reduction=reduction)
 
     def construct(self, logit, label):
@@ -574,9 +573,8 @@ loss = CrossEntropySmooth(sparse=True, reduction="mean",smooth_factor=label_smoo
 import os
 import argparse
 import ast
-from mindspore import set_seed, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn
@@ -586,7 +584,7 @@ from src.dataset import create_dataset
 from src.resnet import resnet50
 from src.cross_entropy_smooth import CrossEntropySmooth
 
-set_seed(1)
+ms.set_seed(1)
 
 parser = argparse.ArgumentParser(description='Image classification')
 parser.add_argument('--run_distribute', type=ast.literal_eval, default=False, help='Run distribute')
@@ -600,11 +598,11 @@ if __name__ == '__main__':
     rank_id = int(os.getenv('RANK_ID', '0'))
 
     # init context
-    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
     if rank_size > 1:
-       set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+       ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
                                          gradients_mean=True)
-       set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+       ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
        init()
 
     # create dataset
@@ -645,17 +643,17 @@ if __name__ == '__main__':
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=config.label_smooth_factor,
                               num_classes=config.class_num)
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'})
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'})
 
     # define callbacks
-    time_cb = TimeMonitor(data_size=step_size)
-    loss_cb = LossMonitor()
+    time_cb = ms.TimeMonitor(data_size=step_size)
+    loss_cb = ms.LossMonitor()
     cb = [time_cb, loss_cb]
     if config.save_checkpoint:
         #config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
-        config_ck = CheckpointConfig(save_checkpoint_steps=5,
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=5,
                                      keep_checkpoint_max=config.keep_checkpoint_max)
-        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=config.save_checkpoint_path, config=config_ck)
+        ckpt_cb = ms.ModelCheckpoint(prefix="resnet", directory=config.save_checkpoint_path, config=config_ck)
         cb += [ckpt_cb]
 
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
@@ -673,7 +671,7 @@ if __name__ == '__main__':
 
 ```python
 import os
-from mindspore import set_auto_parallel_context, set_context, GRAPH_MODE, ParallelMode
+import mindspore as ms
 from mindspore.communication import init
 
 device_id = int(os.getenv('DEVICE_ID', '0'))
@@ -681,11 +679,11 @@ rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
 
 # init context
-set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 if rank_size > 1:
-   set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+   ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
                                      gradients_mean=True)
-   set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
    # init distribute training
    init()
 ```
@@ -722,9 +720,8 @@ dataset = create_dataset(args_opt.dataset_path, config.batch_size, rank_size, ra
 """train resnet."""
 import os
 import argparse
-from mindspore import set_seed, Model, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore import load_checkpoint, load_param_into_net
 
 from src.config import config
 from src.dataset import create_dataset
@@ -736,14 +733,14 @@ parser.add_argument('--checkpoint_path', type=str, default=None, help='Checkpoin
 parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
 args_opt = parser.parse_args()
 
-set_seed(1)
+ms.set_seed(1)
 
 
 
 if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID', '0'))
     # init context
-    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 
     # create dataset
     dataset = create_dataset(args_opt.dataset_path, config.batch_size, do_train=False)
@@ -753,8 +750,8 @@ if __name__ == '__main__':
     net = resnet50(class_num=config.class_num)
 
     # load checkpoint
-    param_dict = load_checkpoint(args_opt.checkpoint_path)
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(args_opt.checkpoint_path)
+    ms.load_param_into_net(net, param_dict)
     net.set_train(False)
 
     # define loss, model
@@ -762,7 +759,7 @@ if __name__ == '__main__':
                               num_classes=config.class_num)
 
     # define model
-    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)
@@ -792,19 +789,19 @@ if __name__ == '__main__':
 分析Profiling数据是性能调优阶段必不可少的步骤，MindSpore 的性能和精度调优工具 [MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html) 提供了丰富的性能和精度调优方法，对于性能调优，最重要的信息就是Profiling数据。Profiling可以收集整网训练过程中端到端的详细性能数据，包含数据准备和迭代轨迹。在迭代轨迹中，你可以看到每个算子的起始运行时间、结束运行时间、调用次数和调用顺序等非常详细的信息，这对我们性能调优非常有帮助。生成Profiling数据的方式如下：
 
 ```python
-from mindspore import Profiler
-from mindspore import Model, nn, set_context, GRAPH_MODE, set_auto_parallel_context, ParallelMode
+import mindspore as ms
+from mindspore import nn
 
 # init context
-set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
 
 # init profiler, profiling data will be stored under folder ./data by default
-profiler = Profiler()
+profiler = ms.Profiler()
 
 # ...
 
 # start training
-Model.train()
+ms.Model.train()
 
 # end training, parse profiling data to readable text
 profiler.analyse()
@@ -837,11 +834,11 @@ rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
 
 # init context
-set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 if rank_size > 1:
-   set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+   ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
                                      gradients_mean=True)
-   set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
    init()
 ```
 

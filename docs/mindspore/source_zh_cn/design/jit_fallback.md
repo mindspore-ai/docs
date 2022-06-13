@@ -23,18 +23,15 @@ JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.minds
 ```python
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
-from mindspore import dtype as mstype
-
 
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
    def construct(self):
-      return ms.Tensor(1, dtype=mstype.int32)
+      return ms.Tensor(1, dtype=ms.int32)
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 print(net())
 ```
@@ -57,7 +54,6 @@ JIT Fallback支持在静态图模式下调用第三方库的对象和方法。
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
@@ -69,7 +65,7 @@ class Net(nn.Cell):
       c = a + b
       return ms.Tensor(c)
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 print(net())
 ```
@@ -90,7 +86,6 @@ JIT Fallback支持在静态图模式下使用Python原生的print来打印常量
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
@@ -107,7 +102,7 @@ class Net(nn.Cell):
       print("np_sum: ", np_sum)
       return tensor_sum, ms.Tensor(np_sum)
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 net()
 ```
@@ -125,7 +120,6 @@ tensor_sum: (2, 4, 6, 8, 10)
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
@@ -141,7 +135,7 @@ class Net(nn.Cell):
       print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
       return tensor_sum, ms.Tensor(np_sum)
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 net()
 ```
@@ -160,8 +154,7 @@ JIT Fallback支持在静态图模式下使用raise和assert。
 
 ```python
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
-
+import mindspore as ms
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
@@ -173,7 +166,7 @@ class Net(nn.Cell):
          x += 1
       return x
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 net(-1)
 ```
@@ -188,7 +181,7 @@ ValueError: x should be greater than 0.
 
 ```python
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
 class Net(nn.Cell):
    def __init__(self):
@@ -199,7 +192,7 @@ class Net(nn.Cell):
       assert 1 in [2, 3, 4]
       return x
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 net()
 ```

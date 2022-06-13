@@ -37,14 +37,13 @@
 数据集定义部分如下。
 
 ```python
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import set_context, GRAPH_MODE
-from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 init()
 ds.config.set_seed(1000) # set dataset seed to make sure that all cards read the same data
 def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_w_num=1):
@@ -65,7 +64,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op]
@@ -104,12 +103,12 @@ dataset_strategy接口还有以下几点限制：
 
 ```python
 import os
-from mindspore import ParallelMode, set_auto_parallel_context, set_auto_parallel_context
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+import mindspore as ms
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 slice_h_num = 1
 slice_w_num = 8
 batch_size = 256
-set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
+ms.set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
 data_path = os.getenv('DATA_PATH')
 dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_num, slice_w_num=slice_w_num)
 ```

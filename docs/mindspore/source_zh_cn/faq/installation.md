@@ -286,12 +286,12 @@ A: 目前MindSpore仅支持计算能力大于5.3的设备。
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="Ascend")
-x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+ms.set_context(device_target="Ascend")
+x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x,y))
 ```
 
