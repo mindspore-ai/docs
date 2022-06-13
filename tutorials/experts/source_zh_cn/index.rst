@@ -42,6 +42,7 @@
    :maxdepth: 1
    :caption: 调试调优
 
+   debug/function_debug
    debug/mindir
    debug/dump
    debug/custom_debug
