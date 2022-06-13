@@ -221,7 +221,7 @@ Accuracy is 0.6667
 
 ## MindSpore Print Operator
 
-MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). The `Print` operator is only supported in Ascend environment.
+MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). The `Print` operator is supported in Ascend and GPU environment.
 The method of using the MindSpore `Print` operator is the same as using other operators. You need to assert MindSpore `Print` operator in `__init__` and invoke it using `construct`. The following is an example.
 
 ```python
