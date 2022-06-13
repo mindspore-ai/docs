@@ -123,16 +123,16 @@ class ResNet(nn.Cell):
 - 最后，需要在LossCell外包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于`stage`的数量。
 
 ```python
-from mindspore import Model, nn, ParallelMode, set_auto_parallel_context
+import mindspore as ms
+from mindspore import nn
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from resnet import resnet50
 
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    set_auto_parallel_context(pipeline_stages=2, full_batch=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
+    ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
+    loss_cb = ms.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -142,7 +142,7 @@ def test_train_cifar(epoch_size=10):
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
     opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = Model(net_pipeline, optimizer=opt)
+    model = ms.Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 

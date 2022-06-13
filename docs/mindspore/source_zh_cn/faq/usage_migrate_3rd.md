@@ -12,7 +12,7 @@ A: 需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义�
 
 ```python
 import torch
-from mindspore import Tensor, save_checkpoint
+import mindspore as ms
 
 def pytorch2mindspore(default_file = 'torch_resnet.pth'):
     # read pth file
@@ -22,9 +22,9 @@ def pytorch2mindspore(default_file = 'torch_resnet.pth'):
         param_dict = {}
         parameter = par_dict[name]
         param_dict['name'] = name
-        param_dict['data'] = Tensor(parameter.numpy())
+        param_dict['data'] = ms.Tensor(parameter.numpy())
         params_list.append(param_dict)
-    save_checkpoint(params_list,  'ms_resnet.ckpt')
+    ms.save_checkpoint(params_list,  'ms_resnet.ckpt')
 ```
 
 <br/>

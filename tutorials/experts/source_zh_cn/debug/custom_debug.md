@@ -21,11 +21,11 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 使用方法：在`model.train`方法中传入`Callback`对象，它可以是一个`Callback`列表，例：
 
 ```python
-from mindspore import ModelCheckpoint, LossMonitor, SummaryCollector
+import mindspore as ms
 
-ckpt_cb = ModelCheckpoint()
-loss_cb = LossMonitor()
-summary_cb = SummaryCollector(summary_dir='./summary_dir')
+ckpt_cb = ms.ModelCheckpoint()
+loss_cb = ms.LossMonitor()
+summary_cb = ms.SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
@@ -69,9 +69,9 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 - 在规定时间内终止训练。
 
     ```python
-    from mindspore import Callback
+    import mindspore as ms
 
-    class StopAtTime(Callback):
+    class StopAtTime(ms.Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
@@ -98,9 +98,9 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
-    from mindspore import Callback
+    import mindspore as ms
 
-    class SaveCallback(Callback):
+    class SaveCallback(ms.Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
             self.model = eval_model
@@ -132,7 +132,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 > <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
-from mindspore import Model
+import mindspore as ms
 import mindspore.nn as nn
 
 metrics = {
@@ -142,7 +142,7 @@ metrics = {
     'recall': nn.Recall(),
     'f1_score': nn.F1()
 }
-model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
 result = model.eval(ds_eval)
 ```
 
@@ -165,12 +165,12 @@ result = model.eval(ds_eval)
 通过如下代码可以更清楚了解到`Accuracy`是如何运行的：
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.nn import Accuracy
 import numpy as np
 
-x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
-y = Tensor(np.array([1, 0, 1]))
+x = ms.Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
+y = ms.Tensor(np.array([1, 0, 1]))
 metric = Accuracy()
 metric.clear()
 metric.update(x, y)
@@ -186,18 +186,17 @@ Accuracy is 0.6667
 
 ## Print算子功能介绍
 
-MindSpore的自研`Print`算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。目前`Print`算子仅支持在Ascend环境下使用。
+MindSpore的自研`Print`算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。目前`Print`算子支持在Ascend、GPU环境下使用。
 
 `Print`算子使用方法与其他算子相同，在网络中的`__init__`声明算子并在`construct`进行调用，具体使用实例及输出结果如下：
 
 ```python
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class PrintDemo(nn.Cell):
     def __init__(self):
@@ -208,8 +207,8 @@ class PrintDemo(nn.Cell):
         self.print('print Tensor x and Tensor y:', x, y)
         return x
 
-x = Tensor(np.ones([2, 1]).astype(np.int32))
-y = Tensor(np.ones([2, 2]).astype(np.int32))
+x = ms.Tensor(np.ones([2, 1]).astype(np.int32))
+y = ms.Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```
@@ -271,7 +270,8 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 2. 通过 `context` 配置RDR。
 
     ```python
-    set_context(env_config_path="./mindspore_config.json")
+    import mindspore as ms
+    ms.set_context(env_config_path="./mindspore_config.json")
     ```
 
 #### 通过环境变量配置RDR
@@ -312,7 +312,8 @@ MindSpore内存复用功能默认开启，可以通过以下方式手动控制�
 2. 通过 `context` 配置内存复用功能。
 
     ```python
-    set_context(env_config_path="./mindspore_config.json")
+    import mindspore as ms
+    ms.set_context(env_config_path="./mindspore_config.json")
     ```
 
 ## 日志相关的环境变量和配置

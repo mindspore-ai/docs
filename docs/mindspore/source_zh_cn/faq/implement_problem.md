@@ -280,12 +280,12 @@ A: 以下拟合案例是基于MindSpore线性拟合官方案例改编而成。
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, set_context, GRAPH_MODE
-from mindspore import LossMonitor
+from mindspore import nn
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
- def get_data(num, w=2.0, b=3.0):
+def get_data(num, w=2.0, b=3.0):
     # f(x)=w * sin(x) + b
     # f(x)=2 * sin(x) +3
     for i in range(num):
@@ -319,11 +319,11 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = Model(net, net_loss, opt)
+    model = ms.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
 
-    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
@@ -549,10 +549,10 @@ A: 在静态图模式下，由于使用的是静态编译，对于算子输出�
 例如如下代码在静态图模式下执行，输入数据的类型都为int类型，根据静态图编译，其输出结果也是int类型。
 
 ```python
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore import nn
 
-set_context(mode=GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):

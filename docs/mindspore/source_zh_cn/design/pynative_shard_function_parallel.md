@@ -60,9 +60,9 @@ def shard(fn, in_strategy, out_strategy, device="Ascend", level=0):
 如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为
 
 ```python
-from mindspore import set_context, PYNATIVE_MODE, set_auto_parallel_context, ParallelMode
-set_context(mode=PYNATIVE_MODE)
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL,
+import mindspore as ms
+ms.set_context(mode=ms.PYNATIVE_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
                                   search_mode="sharding_propagation", device_num=8)
 ```
 
@@ -216,7 +216,7 @@ bash run_fusion_example.sh
 执行过程中，框架会自动为`shard`的输入函数进行算子级别的模型并行，每个算子的并行策略由框架搜索得到，整个过程用户无感知。可以按如下操作存图
 
 ```python
-set_context(save_graphs=True)
+ms.set_context(save_graphs=True)
 ```
 
 在`step_parallel_end.ir`中可以看到具体每一个算子的并行策略。

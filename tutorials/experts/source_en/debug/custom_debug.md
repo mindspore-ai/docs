@@ -214,7 +214,7 @@ Accuracy is 0.6667
 
 ## MindSpore Print Operator Introduction
 
-MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). The `Print` operator is only supported in Ascend environment.
+MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). The `Print` operator is supported in Ascend and GPU environment.
 The method of using the MindSpore `Print` operator is the same as that of other operators. You need to declare the operator in the `__init__` in the network and call it in`construct`, and the specific usage examples and output results are as follows:
 
 ```python
@@ -297,7 +297,8 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 2. Configure RDR via `context`.
 
     ```python
-    set_context(env_config_path="./mindspore_config.json")
+    import mindspore as ms
+    ms.set_context(env_config_path="./mindspore_config.json")
     ```
 
 #### Set RDR by Environment Variables
@@ -339,7 +340,8 @@ The MindSpore memory multiplexing function is turned on by default, and the func
 2. Configure the memory multiplexing function through `context`.
 
     ```python
-    set_context(env_config_path="./mindspore_config.json")
+    import mindspore as ms
+    ms.set_context(env_config_path="./mindspore_config.json")
     ```
 
 ## Log-related Environment Variables and Configurations
