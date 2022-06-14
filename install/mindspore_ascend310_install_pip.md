@@ -135,9 +135,9 @@ pip uninstall te topi hccl -y
 
 ```bash
 pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
 ### 安装GCC
@@ -255,7 +255,7 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
@@ -268,7 +268,7 @@ export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
 ## AICPU path
 export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```

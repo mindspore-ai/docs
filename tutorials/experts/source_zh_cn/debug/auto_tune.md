@@ -18,9 +18,9 @@ AutoTune工具包含RL和GA两种调优模式。其中, `RL`主要支持elewise�
 # run包安装根目录
 LOCAL_ASCEND=/usr/local/Ascend
 # run包启动依赖so路径
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/fwkacllib/lib64:$LD_LIBRARY_PATH
-export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin:${LOCAL_ASCEND}/fwkacllib/bin:$PATH
-export PYTHONPATH=${LOCAL_ASCEND}/fwkacllib/python/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/lib64:$LD_LIBRARY_PATH
+export PATH=${LOCAL_ASCEND}/ccec_compiler/bin:${LOCAL_ASCEND}/bin:$PATH
+export PYTHONPATH=${LOCAL_ASCEND}/python/site-packages:$PYTHONPATH
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp
 
 # 离线调优环境变量

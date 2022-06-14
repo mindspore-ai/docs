@@ -184,9 +184,9 @@ conda activate mindspore_py37
 
 ```bash
 pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
 如果升级了昇腾AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
@@ -217,7 +217,7 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
 ## TBE operator implementation tool path
@@ -227,7 +227,7 @@ export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
 ## AICPU path
 export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
@@ -298,7 +298,7 @@ pip uninstall te topi hccl -y
 然后重新安装：
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```

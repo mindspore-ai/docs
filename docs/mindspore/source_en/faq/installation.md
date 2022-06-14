@@ -103,7 +103,7 @@ The detailed steps can refer to the practice provided by the community [Zhang Xi
 
 <font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
 
-A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
+A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
 
 <br/>
 
