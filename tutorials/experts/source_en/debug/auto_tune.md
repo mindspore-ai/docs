@@ -18,9 +18,9 @@ When you enable the AutoTune tool, you need to configure the relevant required e
 # Run package installation directory
 LOCAL_ASCEND=/usr/local/Ascend
 # Run package startup depends path
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/fwkacllib/lib64:$LD_LIBRARY_PATH
-export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin:${LOCAL_ASCEND}/fwkacllib/bin:$PATH
-export PYTHONPATH=${LOCAL_ASCEND}/fwkacllib/python/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/lib64:$LD_LIBRARY_PATH
+export PATH=${LOCAL_ASCEND}/ccec_compiler/bin:${LOCAL_ASCEND}/bin:$PATH
+export PYTHONPATH=${LOCAL_ASCEND}/python/site-packages:$PYTHONPATH
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp
 
 # Offline tuning environment variables
