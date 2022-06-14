@@ -214,7 +214,7 @@ Accuracy is 0.6667
 
 ## Print算子功能介绍
 
-MindSpore的自研`Print`算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。目前`Print`算子仅支持在Ascend环境下使用。
+MindSpore的自研`Print`算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。目前`Print`算子支持在Ascend、GPU环境下使用。
 
 `Print`算子使用方法与其他算子相同，在网络中的`__init__`声明算子并在`construct`进行调用，具体使用实例及输出结果如下：
 
