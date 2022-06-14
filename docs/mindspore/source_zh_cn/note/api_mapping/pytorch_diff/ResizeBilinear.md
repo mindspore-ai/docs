@@ -32,7 +32,7 @@ MindSpore：仅支持`bilinear`模式对数据进行采样。
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 import torch
 import numpy as np
@@ -40,7 +40,7 @@ import numpy as np
 # In MindSpore, it is predetermined to use bilinear to resize the input image.
 x = np.random.randn(1, 2, 3, 4).astype(np.float32)
 resize = nn.ResizeBilinear()
-tensor = Tensor(x)
+tensor = ms.Tensor(x)
 output = resize(tensor, (5, 5))
 print(output.shape)
 # Out：

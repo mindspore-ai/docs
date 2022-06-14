@@ -37,11 +37,10 @@ MindSpore: 按值升序沿给定维度对输入张量的元素进行排序。 �
 import numpy as np
 import torch
 import mindspore.ops as ops
-from mindspore import Tensor, Parameter
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # MindSpore
-x = Tensor(np.array([[8, 2, 1], [5, 9, 3], [4, 6, 7]]), mstype.float16)
+x = ms.Tensor(np.array([[8, 2, 1], [5, 9, 3], [4, 6, 7]]), ms.float16)
 sort = ops.Sort()
 output = sort(x)
 print(output)

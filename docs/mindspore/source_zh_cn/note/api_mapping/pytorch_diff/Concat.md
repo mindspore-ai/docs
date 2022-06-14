@@ -33,18 +33,17 @@ MindSpore: 当前要求输入tensor的数据类型保持一致，若不一致时
 ## 代码示例
 
 ```python
-import mindspore
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import Tensor
 import torch
 import numpy as np
 
 # In MindSpore，converting low precision to high precision is needed before concat.
-a = Tensor(np.ones([2, 3]).astype(np.float16))
-b = Tensor(np.ones([2, 3]).astype(np.float32))
+a = ms.Tensor(np.ones([2, 3]).astype(np.float16))
+b = ms.Tensor(np.ones([2, 3]).astype(np.float32))
 concat_op = ops.Concat()
 cast_op = ops.Cast()
-output = concat_op((cast_op(a, mindspore.float32), b))
+output = concat_op((cast_op(a, ms.float32), b))
 print(output.shape)
 # Out：
 # (4, 3)

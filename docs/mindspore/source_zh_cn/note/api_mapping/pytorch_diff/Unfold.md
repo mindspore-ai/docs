@@ -37,9 +37,8 @@ MindSpore：输出张量，数据类型与x相同的4维张量，形状为[out_b
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import dtype as mstype
 import torch
 import numpy as np
 
@@ -51,7 +50,7 @@ print(output.size())
 # torch.Size([2, 30, 4])
 
 net = nn.Unfold(ksizes=[1, 2, 2, 1], strides=[1, 2, 2, 1], rates=[1, 2, 2, 1])
-image = Tensor(np.ones([2, 5, 3, 4]), dtype=mstype.float16)
+image = ms.Tensor(np.ones([2, 5, 3, 4]), dtype=ms.float16)
 output = net(image)
 print(output.shape)
 # Out：

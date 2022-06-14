@@ -17,9 +17,9 @@ losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses,
 ## mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
 ```python
-from mindspore import ParallelMode, set_auto_parallel_context
+import mindspore as ms
 from mindspore.communication import init
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 # Run net, the same with stand alone training
 ```

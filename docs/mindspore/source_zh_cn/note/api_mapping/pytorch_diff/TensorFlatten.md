@@ -27,10 +27,9 @@ mindspore.Tensor.flatten(order="C")
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 
-a = Tensor([[1,2], [3,4]], mindspore.float32)
+a = ms.Tensor([[1,2], [3,4]], ms.float32)
 print(a.flatten())
 # [1. 2. 3. 4.]
 print(a.flatten('F'))

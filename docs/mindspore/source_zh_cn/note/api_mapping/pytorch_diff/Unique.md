@@ -33,15 +33,14 @@ MindSpore：升序输出所有的唯一值，以及输入的tensor的各元素�
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, the tensor containing unique elements in ascending order.
 # As well as another tensor containing the corresponding indices will be directly returned.
-x = Tensor(np.array([1, 2, 5, 2]), mindspore.int32)
+x = ms.Tensor(np.array([1, 2, 5, 2]), ms.int32)
 unique = ops.Unique()
 output, indices = unique(x)
 print(output)

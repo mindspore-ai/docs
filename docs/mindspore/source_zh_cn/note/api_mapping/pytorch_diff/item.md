@@ -27,11 +27,11 @@ MindSpore：返回Tensor中指定index的值，适用于一个或多个元素的
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 import torch
 
-x = Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
+x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.item((0,1)))
 # Out：
 # 2.0

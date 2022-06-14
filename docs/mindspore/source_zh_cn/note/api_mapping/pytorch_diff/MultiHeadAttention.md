@@ -64,14 +64,13 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列和目�
 ```python
 import numpy as np
 from mindspore.nn.transformer import MultiHeadAttention
-from mindspore import dtype as mstype
-from mindspore import Tensor
+import mindspore as ms
 model = MultiHeadAttention(batch_size=32, hidden_size=512, src_seq_length=10, tgt_seq_length=20,
                            num_heads=8)
-query = Tensor(np.random.rand(32, 10, 512), mstype.float32)
-key = Tensor(np.random.rand(32, 20, 512), mstype.float32)
-value = Tensor(np.random.rand(32, 20, 512), mstype.float32)
-attention_mask = Tensor(np.ones((32, 10, 20)), mstype.float16)
+query = ms.Tensor(np.random.rand(32, 10, 512), ms.float32)
+key = ms.Tensor(np.random.rand(32, 20, 512), ms.float32)
+value = ms.Tensor(np.random.rand(32, 20, 512), ms.float32)
+attention_mask = ms.Tensor(np.ones((32, 10, 20)), ms.float16)
 output, past = model(query, key, value, attention_mask)
 print(output.shape)
 # output:

@@ -88,17 +88,17 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列和目�
 
 ```python
 import numpy as np
-from mindspore import dtype as mstype
+import mindspore as ms
 from mindspore.nn.transformer import Transformer
-from mindspore import Tensor
+
 model = Transformer(batch_size=32, encoder_layers=1,
                     decoder_layers=1, hidden_size=512, ffn_hidden_size=2048,
                     src_seq_length=10, tgt_seq_length=20)
-encoder_input_value = Tensor(np.random.rand(32, 10, 512), mstype.float32)
-encoder_input_mask = Tensor(np.ones((32, 10, 10)), mstype.float16)
-decoder_input_value = Tensor(np.random.rand(32, 20, 512), mstype.float32)
-decoder_input_mask = Tensor(np.ones((32, 20, 20)), mstype.float16)
-memory_mask = Tensor(np.ones((32, 20, 10)), mstype.float16)
+encoder_input_value = ms.Tensor(np.random.rand(32, 10, 512), ms.float32)
+encoder_input_mask = ms.Tensor(np.ones((32, 10, 10)), ms.float16)
+decoder_input_value = ms.Tensor(np.random.rand(32, 20, 512), ms.float32)
+decoder_input_mask = ms.Tensor(np.ones((32, 20, 20)), ms.float16)
+memory_mask = ms.Tensor(np.ones((32, 20, 10)), ms.float16)
 output, en_past, de_past = model(encoder_input_value, encoder_input_mask, decoder_input_value,
                                  decoder_input_mask, memory_mask)
 print(output.shape)

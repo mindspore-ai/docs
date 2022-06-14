@@ -25,10 +25,9 @@ mindspore.Tensor.sum(axis=None, dtype=None, keepdims=False, initial=None)
 ## 代码示例
 
 ```python
-from mindspore import Tensor
-import mindspore
+import mindspore as ms
 
-a = Tensor([10, -5], mindspore.float32)
+a = ms.Tensor([10, -5], ms.float32)
 print(a.sum()) # 5.0
 print(a.sum(initial=2)) # 7.0
 

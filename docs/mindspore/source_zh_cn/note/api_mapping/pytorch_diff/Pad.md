@@ -39,9 +39,9 @@ MindSpore：paddings参数是一个shape为(n, 2)的tuple，n为输入数据的�
 import numpy as np
 import torch
 import mindspore.nn as nn
-from mindspore import Tensor
+import mindspore as ms
 
-x = Tensor(np.ones([1, 2, 2, 3]).astype(np.float32))
+x = ms.Tensor(np.ones([1, 2, 2, 3]).astype(np.float32))
 pad_op = nn.Pad(paddings=((0, 0), (0, 0), (2, 2), (1, 1)))
 output = pad_op(x)
 print(output.shape)

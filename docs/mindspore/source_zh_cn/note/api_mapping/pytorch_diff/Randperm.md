@@ -40,13 +40,12 @@ MindSpore: 生成从0到n-1的n个随机样本，不重复。如果max_length大
 ```python
 import torch
 import mindspore.ops as ops
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # MindSpore
 # The result of every execution is different because this operator will generate n random samples.
 randperm = ops.Randperm(max_length=30, pad=-1)
-n = Tensor([20], dtype=mstype.int32)
+n = ms.Tensor([20], dtype=ms.int32)
 output = randperm(n)
 print(output)
 # Out:

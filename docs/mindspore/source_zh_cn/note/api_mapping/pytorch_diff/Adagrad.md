@@ -45,9 +45,7 @@ MindSpore：支持所有的参数使用相同的学习率以及不同的参数�
 import numpy as np
 import torch
 import mindspore.nn as nn
-from mindspore import Tensor, Parameter
-from mindspore import Model
-from mindspore import dtype as mstype
+import mindspore as ms
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
@@ -67,7 +65,7 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 # The final parameters order in which the optimizer will be followed is the value of 'order_params'.
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
 
 # The following implements Adagrad with torch.
 input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))

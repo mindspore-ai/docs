@@ -27,10 +27,10 @@ mindspore.Tensor.cumsum(self, axis=None, dtype=None)
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 
-a = Tensor(np.ones((2,3)).astype("float32"))
+a = ms.Tensor(np.ones((2,3)).astype("float32"))
 print(a.cumsum(axis=0))
 # [[1. 1. 1.]
 #  [2. 2. 2.]]

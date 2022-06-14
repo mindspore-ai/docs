@@ -43,15 +43,14 @@ MindSpore：仅支持五维数据(N, C, Din, Hin, Win)。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore
 net = ops.MaxPool3D((3, 2, 2), strides=2)
-x = Tensor(np.ones([20, 16, 50, 44, 31]), mindspore.float32)
+x = ms.Tensor(np.ones([20, 16, 50, 44, 31]), ms.float32)
 output = net(x).shape
 print(output)
 # Out:

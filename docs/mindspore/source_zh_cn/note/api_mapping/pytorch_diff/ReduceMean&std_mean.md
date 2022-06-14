@@ -35,13 +35,13 @@ MindSpore：计算指定维度数据的平均值。
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, only the mean of given dimension will be returned.
-input_x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+input_x = ms.Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 op = ops.ReduceMean(keep_dims=True)
 output = op(x=input_x, axis=1)
 print(output)

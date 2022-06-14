@@ -35,31 +35,31 @@ MindSpore中目前只有`parameter`的概念，通过`requires_grad`属性来区
 ```python
 import mindspore
 import numpy as np
-from mindspore import Tensor, nn
+from mindspore import nn
 
 class ConvBN(nn.Cell):
-  def __init__(self):
-    super(ConvBN, self).__init__()
-    self.conv = nn.Conv2d(3, 64, 3)
-    self.bn = nn.BatchNorm2d(64)
-  def construct(self, x):
-    x = self.conv(x)
-    x = self.bn(x)
-    return x
+    def __init__(self):
+        super(ConvBN, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return x
 
 class MyNet(nn.Cell):
-  def __init__(self):
-    super(MyNet, self).__init__()
-    self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
-  def construct(self, x):
-    return self.build_block(x)
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
+    def construct(self, x):
+        return self.build_block(x)
 
 # The following implements mindspore.nn.Cell.untrainable_params() with MindSpore.
 net = MyNet()
 print(type(net.untrainable_params()), "\n")
 for params in net.untrainable_params():
-  print("Name: ", params.name)
-  print("params: ", params)
+    print("Name: ", params.name)
+    print("params: ", params)
 ```
 
 ```text

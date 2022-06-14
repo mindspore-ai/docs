@@ -30,14 +30,14 @@ MindSpore：将一个给定的tensor广播成指定形状的tensor。
 ## 代码示例
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, the parameter shape is passed to reshape input_x.
 shape = (2, 3)
-input_x = Tensor(np.array([1, 2, 3]).astype(np.float32))
+input_x = ms.Tensor(np.array([1, 2, 3]).astype(np.float32))
 broadcast_to = ops.BroadcastTo(shape)
 output = broadcast_to(input_x)
 print(output.shape)

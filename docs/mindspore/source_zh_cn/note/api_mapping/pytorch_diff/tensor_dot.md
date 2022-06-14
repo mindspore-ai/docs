@@ -34,16 +34,15 @@ MindSpore：计算两个tensor在任意轴上的点乘，支持任意维度的te
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, tensor of any dimension will be supported.
 # And parameters will be set to specify how to compute among dimensions.
-input_x1 = Tensor(np.array([2, 3, 4]), mindspore.float32)
-input_x2 = Tensor(np.array([2, 1, 3]), mindspore.float32)
+input_x1 = ms.Tensor(np.array([2, 3, 4]), ms.float32)
+input_x2 = ms.Tensor(np.array([2, 1, 3]), ms.float32)
 output = ops.tensor_dot(input_x1, input_x2, 1)
 print(output)
 # Out：

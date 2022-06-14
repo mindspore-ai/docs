@@ -40,14 +40,13 @@ MindSpore：支持labels是稀疏矩阵，且通过reduction参数可对loss求m
 # The following implements SoftmaxCrossEntropyWithLogits with MindSpore.
 import numpy as np
 import tensorflow as tf
-import mindspore
 import mindspore.nn as nn
-from mindspore import Tensor
+import mindspore as ms
 
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='sum')
-logits = Tensor(np.array([[3, 5, 6, 9], [42, 12, 32, 72]]), mindspore.float32)
+logits = ms.Tensor(np.array([[3, 5, 6, 9], [42, 12, 32, 72]]), ms.float32)
 labels_np = np.array([1, 0]).astype(np.int32)
-labels = Tensor(labels_np)
+labels = ms.Tensor(labels_np)
 output = loss(logits, labels)
 print(output)
 # Out：

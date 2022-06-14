@@ -62,10 +62,10 @@ print(m.result().numpy())
 
 
 import numpy as np
-from mindspore import nn, Tensor
+from mindspore import nn
 
-x = Tensor(np.array([[0.2, 0.5, 0.1], [0.3, 0.1, 0.1], [0.9, 0.6, 0.1], [0.9, 0.6, 0.97], [0.2, 0.6, 0.8]]))
-y = Tensor(np.array([[0, 1, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1]]))
+x = ms.Tensor(np.array([[0.2, 0.5, 0.1], [0.3, 0.1, 0.1], [0.9, 0.6, 0.1], [0.9, 0.6, 0.97], [0.2, 0.6, 0.8]]))
+y = ms.Tensor(np.array([[0, 1, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1]]))
 metric = nn.Recall('classification')
 metric.update(x, y)
 print(metric.eval(average=True), metric.eval())

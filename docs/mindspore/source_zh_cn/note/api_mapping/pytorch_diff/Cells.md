@@ -28,26 +28,26 @@ MindSpore：获取网络中的外层子模块，返回类型为odict_values。
 
 ```python
 # The following implements mindspore.nn.Cell.cells() with MindSpore.
-import mindspore
+import mindspore as ms
 import numpy as np
-from mindspore import Tensor, nn
+from mindspore import nn
 
 class ConvBN(nn.Cell):
-  def __init__(self):
-    super(ConvBN, self).__init__()
-    self.conv = nn.Conv2d(3, 64, 3)
-    self.bn = nn.BatchNorm2d(64)
-  def construct(self, x):
-    x = self.conv(x)
-    x = self.bn(x)
-    return x
+    def __init__(self):
+        super(ConvBN, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return x
 
 class MyNet(nn.Cell):
-  def __init__(self):
-    super(MyNet, self).__init__()
-    self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
-  def construct(self, x):
-    return self.build_block(x)
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
+    def construct(self, x):
+        return self.build_block(x)
 
 net = MyNet()
 print(net.cells())
@@ -69,26 +69,26 @@ odict_values([SequentialCell<
 import torch.nn as nn
 
 class ConvBN(nn.Module):
-  def __init__(self):
-    super(ConvBN, self).__init__()
-    self.conv = nn.Conv2d(3, 64, 3)
-    self.bn = nn.BatchNorm2d(64)
-  def forward(self, x):
-    x = self.conv(x)
-    x = self.bn(x)
-    return x
+    def __init__(self):
+        super(ConvBN, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return x
 
 class MyNet(nn.Module):
-  def __init__(self):
-    super(MyNet, self).__init__()
-    self.build_block = nn.Sequential(ConvBN(), nn.ReLU())
-  def construct(self, x):
-    return self.build_block(x)
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.build_block = nn.Sequential(ConvBN(), nn.ReLU())
+    def construct(self, x):
+        return self.build_block(x)
 
 net = MyNet()
 print(net.children())
 for child in net.children():
-  print(child)
+    print(child)
 ```
 
 ```text

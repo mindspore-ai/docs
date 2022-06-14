@@ -41,18 +41,16 @@ MindSpore：构造稀疏张量，只能在`Cell`的构造方法中使用，PyNat
 # In MindSpore：
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import SparseTensor
 class Net(nn.Cell):
     def __init__(self, shape):
         super(Net, self).__init__()
         self.shape = shape
     def construct(self, indices, values):
-        x = SparseTensor(indices, values, self.shape)
+        x = ms.SparseTensor(indices, values, self.shape)
         return x.indices, x.values, x.shape
 
-indices = Tensor([[0, 1], [1, 2]])
-values = Tensor([1, 2], dtype=ms.float32)
+indices = ms.Tensor([[0, 1], [1, 2]])
+values = ms.Tensor([1, 2], dtype=ms.float32)
 out = Net((3, 4))(indices, values)
 print(out[0])
 print(out[1])

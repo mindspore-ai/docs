@@ -36,15 +36,14 @@ MindSpore：仅支持L2范式。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, you can directly pass data into the function, and the default dimension is 0.
 l2_normalize = ops.L2Normalize()
-input_x = Tensor(np.array([1.0, 2.0, 3.0]), mindspore.float32)
+input_x = ms.Tensor(np.array([1.0, 2.0, 3.0]), ms.float32)
 output = l2_normalize(input_x)
 print(output)
 # Out：

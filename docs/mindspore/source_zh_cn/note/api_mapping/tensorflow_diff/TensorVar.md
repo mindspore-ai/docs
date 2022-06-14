@@ -27,11 +27,10 @@ tf.math.reduce_variance(input_tensor, axis=None, keepdims=False, name=None)
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 
-a = Tensor(np.array([[1, 2], [3, 4]]), mindspore.float32)
+a = ms.Tensor(np.array([[1, 2], [3, 4]]), ms.float32)
 print(a.var()) # 1.25
 print(a.var(axis=0)) # [1. 1.]
 print(a.var(axis=1)) # [0.25 0.25]

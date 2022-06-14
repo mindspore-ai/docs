@@ -30,17 +30,16 @@ MindSpore: 按元素计算两个输入张量的逻辑与。输入可以是bool�
 import numpy as np
 import torch
 import mindspore.ops as ops
-from mindspore import Tensor, Parameter
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # MindSpore
-x = Tensor(np.array([True, False, True]), mstype.bool_)
-y = Tensor(np.array([True, True, False]), mstype.bool_)
+x = ms.Tensor(np.array([True, False, True]), ms.bool_)
+y = ms.Tensor(np.array([True, True, False]), ms.bool_)
 logical_and = ops.LogicalAnd()
 print(logical_and(x, y))
 # [ True False False]
-x = Tensor(np.array([True, False, True]), mstype.bool_)
-y = Tensor(np.array([True, True, False]), mstype.int32)
+x = ms.Tensor(np.array([True, False, True]), ms.bool_)
+y = ms.Tensor(np.array([True, True, False]), ms.int32)
 logical_and = ops.LogicalAnd()
 print(logical_and(x, y))
 # TypeError: For primitive[LogicalAnd], the input argument[x, y, ] must be a type of {Tensor[Bool],}, but got Int32.

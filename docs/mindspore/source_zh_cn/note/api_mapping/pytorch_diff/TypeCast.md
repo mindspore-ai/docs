@@ -33,7 +33,6 @@ MindSpore：将输入的numpy.ndarray图像转换为所需的数据类型。
 ```python
 import numpy as np
 import mindspore.dataset as ds
-from mindspore import Tensor
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader

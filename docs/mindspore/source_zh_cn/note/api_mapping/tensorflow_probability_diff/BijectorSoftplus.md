@@ -38,14 +38,13 @@ MindSpore：公式：$Y = g(X) = log(1 + e ^ {kX}) / k $，sharpness = k。所�
 # The following implements bijector.Softplus with MindSpore.
 import tensorflow as tf
 import tensorflow_probability.python as tfp
-import mindspore
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
 import mindspore.nn.probability.bijector as msb
 
 # To initialize a Softplus bijector of sharpness 2.0.
 softplus = msb.Softplus(2.0)
-value = Tensor([2], dtype=mindspore.float32)
+value = ms.Tensor([2], dtype=ms.float32)
 ans1 = softplus.forward(value)
 print(ans1)
 #Out:

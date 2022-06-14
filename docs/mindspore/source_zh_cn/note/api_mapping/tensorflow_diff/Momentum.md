@@ -43,8 +43,7 @@ MindSpore：支持所有的参数使用相同的学习率以及不同的参数�
 # The following implements Momentum with MindSpore.
 import tensorflow as tf
 import mindspore.nn as nn
-from mindspore import Tensor, Parameter
-from mindspore import Model
+import mindspore as ms
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
@@ -64,7 +63,7 @@ optim = nn.Momentum(group_params, learning_rate=0.1, weight_decay=0.0)
 # The final parameters order in which the optimizer will be followed is the value of 'order_params'.
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
 
 # The following implements MomentumOptimizer with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))

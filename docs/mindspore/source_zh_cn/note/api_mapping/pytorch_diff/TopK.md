@@ -36,15 +36,14 @@ MindSpore：目前仅支持获取最后维度的前k项最大值。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 
 # In MindSpore, obtain the first k largest entries of the last dimension.
 topk = ops.TopK()
 k = 3
-input_x = Tensor([[1, 2, 3, 4], [2, 4, 6, 8]], mindspore.float16)
+input_x = ms.Tensor([[1, 2, 3, 4], [2, 4, 6, 8]], ms.float16)
 values, indices = topk(input_x, k)
 print(values)
 print(indices)
