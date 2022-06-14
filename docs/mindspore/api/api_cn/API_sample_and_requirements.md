@@ -164,6 +164,18 @@
 7. 当前rst文档作为整个API的文档页面时，需要添加标题，且标题名称为当前接口的全名；当前rst文档作为其他rst文档的引用时，不需要添加标题。
 8. `mindspore.train`和`mindspore.nn.transformer`模块下的接口，需要将每个API的文档分别放于`train`和`transformer`目录下，并在`mindspore.train.rst`和`mindspore.nn.transformer.rst`文件中通过`.. include::`的写法将接口引入过来；其他模块下的接口结构参考英文的API文档。
 
+9. 引入类的用法
+
+    ```text
+
+    :class:`类的全称`
+
+    ```
+
+    a. 引用其他类的内容，类的全称类似于mindspore.nn.Metric，包含一级二级类别的名称。
+
+    b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
+
 ## 参考
 
 - 有关rst的书写规则，请参考[rst入门](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)。
