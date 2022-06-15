@@ -27,10 +27,9 @@ mindspore.Tensor.clip(xmin, xmax, dtype=None)
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 
-x = Tensor([1, 2, 3, -4, 0, 3, 2, 0]).astype(mindspore.int32)
+x = ms.Tensor([1, 2, 3, -4, 0, 3, 2, 0]).astype(ms.int32)
 print(x.clip(0, 2))
 # [1 2 2 0 0 2 2 0]
 print(x.clip(0., 2.))

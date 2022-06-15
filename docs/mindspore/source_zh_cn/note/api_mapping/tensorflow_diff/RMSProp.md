@@ -46,7 +46,7 @@ MindSpore：
 ```python
 # The following implements RMSprop with MindSpore.
 import mindspore.nn as nn
-from mindspore import Model
+import mindspore as ms
 
 class Net(nn.Cell):
     def __init__(self):
@@ -72,7 +72,7 @@ group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralizati
 
 optim = nn.RMSProp(group_params, learning_rate=0.1, weight_decay=0.0)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-model = Model(net, loss_fn=loss, optimizer=optim, metrics={"accuracy"})
+model = ms.Model(net, loss_fn=loss, optimizer=optim, metrics={"accuracy"})
 ```
 
 TensorFlow：

@@ -48,15 +48,14 @@ MindSpore：目前仅支持整数p范式的归一化。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, only Lp norm is supported.
 net = ops.LpNorm(axis=0, p=2)
-input_x = Tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]), mindspore.float32)
+input_x = ms.Tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]), ms.float32)
 output = net(input_x)
 print(output)
 # Out：

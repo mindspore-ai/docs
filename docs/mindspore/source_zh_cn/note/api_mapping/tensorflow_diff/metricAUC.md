@@ -30,12 +30,12 @@ MindSpore：调用`mindspore.nn.auc`接口前需先使用`mindspore.nn.ROC`得�
 ## 代码示例
 
 ```python
-from mindspore import Tensor, nn
+from mindspore import nn
 import numpy as np
 
-x = Tensor(np.array([[0.28, 0.55, 0.15, 0.05], [0.10, 0.20, 0.05, 0.05], [0.20, 0.05, 0.15, 0.05],
+x = ms.Tensor(np.array([[0.28, 0.55, 0.15, 0.05], [0.10, 0.20, 0.05, 0.05], [0.20, 0.05, 0.15, 0.05],
                     [0.05, 0.05, 0.05, 0.75], [0.05, 0.05, 0.05, 0.75]]))
-y = Tensor(np.array([0, 1, 2, 3, 2]))
+y = ms.Tensor(np.array([0, 1, 2, 3, 2]))
 metric = nn.ROC(class_num=4)
 metric.update(x, y)
 fpr, tpr, thresholds = metric.eval()

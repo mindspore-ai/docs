@@ -62,13 +62,12 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列长度�
 
 ```python
 import numpy as np
-from mindspore import dtype as mstype
+import mindspore as ms
 from mindspore.nn.transformer import TransformerEncoder
-from mindspore import Tensor
 model = TransformerEncoder(batch_size=32, num_layers=2, hidden_size=512,
                            ffn_hidden_size=2048, seq_length=10, num_heads=8)
-encoder_input_value = Tensor(np.random.rand(32, 10, 512), mstype.float32)
-encoder_input_mask = Tensor(np.ones((32, 10, 10)), mstype.float16)
+encoder_input_value = ms.Tensor(np.random.rand(32, 10, 512), ms.float32)
+encoder_input_mask = ms.Tensor(np.ones((32, 10, 10)), ms.float16)
 output, past = model(encoder_input_value, encoder_input_mask)
 print(output.shape)
 # output:

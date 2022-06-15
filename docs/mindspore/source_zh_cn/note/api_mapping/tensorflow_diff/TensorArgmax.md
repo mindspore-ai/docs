@@ -27,10 +27,9 @@ mindspore.Tensor.argmax(axis=None)
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 
-a = Tensor([[1, 10, 166.32, 62.3], [1, -5, 2, 200]], mindspore.float32)
+a = ms.Tensor([[1, 10, 166.32, 62.3], [1, -5, 2, 200]], ms.float32)
 print(a.argmax())
 print(a.argmax(axis=0))
 print(a.argmax(axis=1))

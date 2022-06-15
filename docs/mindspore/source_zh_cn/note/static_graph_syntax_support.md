@@ -139,10 +139,11 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import ms_function, Tensor
+  import mindspore as ms
+  from mindspore import ms_function
   import numpy as np
 
-  t = Tensor(np.array([1, 2, 3]))
+  t = ms.Tensor(np.array([1, 2, 3]))
 
   @ms_function()
   def test_index():
@@ -197,10 +198,11 @@ x: ((1, 2, 3), 4, 5)
   `int`、`slice`索引示例如下：
 
   ```python
-  from mindspore import ms_function, Tensor
+  import mindspore as ms
+  from mindspore import ms_function
   import numpy as np
 
-  t = Tensor(np.array([1, 2, 3]))
+  t = ms.Tensor(np.array([1, 2, 3]))
 
   @ms_function()
   def test_index():
@@ -230,7 +232,8 @@ x: ((1, 2, 3), 4, 5)
   `Tensor`索引示例如下：
 
   ```python
-  from mindspore import Tensor, nn, dtype
+  import mindspore as ms
+  from mindspore import nn
 
   class Net(nn.Cell):
       def __init__(self):
@@ -243,7 +246,7 @@ x: ((1, 2, 3), 4, 5)
           ret = self.layers[index](x)
           return ret
 
-  x = Tensor([-1.0], dtype.float32)
+  x = ms.Tensor([-1.0], ms.float32)
 
   net = Net()
   ret = net(x, 0)
@@ -273,10 +276,11 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import ms_function, Tensor
+  import mindspore as ms
+  from mindspore import ms_function
   import numpy as np
 
-  x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
+  x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
   @ms_function()
   def test_dict():
@@ -306,10 +310,11 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import ms_function, Tensor
+  import mindspore as ms
+  from mindspore import ms_function
   import numpy as np
 
-  x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
+  x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
   @ms_function()
   def test_dict():
@@ -346,12 +351,12 @@ x: ((1, 2, 3), 4, 5)
 如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.ops import constexpr
 
 @constexpr
 def generate_tensor():
-    return Tensor(np.ones((3, 4)))
+    return ms.Tensor(np.ones((3, 4)))
 
 x = generate_tensor()
 print('x:{}'.format(x))
@@ -386,12 +391,13 @@ x:[[1. 1. 1. 1.]
   示例如下：
 
   ```python
-  from mindspore import ms_function, Tensor
+  import mindspore as ms
+  from mindspore import ms_function
   import numpy as np
 
-  x = Tensor(np.array([[True, False, True], [False, True, False]]))
-  y = Tensor(np.ones((2, 3), np.float32))
-  z = Tensor(np.ones((2, 2, 3)))
+  x = ms.Tensor(np.array([[True, False, True], [False, True, False]]))
+  y = ms.Tensor(np.ones((2, 3), np.float32))
+  z = ms.Tensor(np.ones((2, 2, 3)))
 
   x_shape = x.shape
   x_dtype = x.dtype
@@ -469,14 +475,15 @@ x:[[1. 1. 1. 1.]
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor, nn, dtype, Parameter
+import mindspore as ms
+from mindspore import ms_function, nn
 import numpy as np
 from mindspore.ops import constexpr
 
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.weight = Parameter(Tensor(3, dtype.float32), name="w")
+        self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
         self.m = 2
 
     def construct(self, x, y):
@@ -515,7 +522,8 @@ ret:1
 示例如下：
 
 ```python
-from mindspore import Tensor, nn, dtype, ops
+import mindspore as ms
+from mindspore import nn, ops
 import numpy as np
 
 class Net(nn.Cell):
@@ -527,8 +535,8 @@ class Net(nn.Cell):
         out = self.matmul(x, y)  # Primitive调用
         return out
 
-x = Tensor(np.ones(shape=[1, 3]), dtype.float32)
-y = Tensor(np.ones(shape=[3, 4]), dtype.float32)
+x = ms.Tensor(np.ones(shape=[1, 3]), ms.float32)
+y = ms.Tensor(np.ones(shape=[3, 4]), ms.float32)
 net = Net()
 ret = net(x, y)
 print('ret:{}'.format(ret))
@@ -669,10 +677,11 @@ ret:[[3. 3. 3. 3.]]
 示例1：
 
 ```python
-from mindspore import ms_function, Tensor, dtype
+import mindspore as ms
+from mindspore import ms_function
 
-x = Tensor([1, 2], dtype.int32)
-y = Tensor([0, 3], dtype.int32)
+x = ms.Tensor([1, 2], ms.int32)
+y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
@@ -698,10 +707,11 @@ ret:xx
 示例2：
 
 ```python
-from mindspore import ms_function, Tensor, dtype
+import mindspore as ms
+from mindspore import ms_function
 
-x = Tensor([1, 2], dtype.int32)
-y = Tensor([0, 3], dtype.int32)
+x = ms.Tensor([1, 2], ms.int32)
+y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
@@ -716,7 +726,7 @@ def test_cond(x, y):
 
 ret = test_cond(x, y)
 print('ret:{}'.format(ret))
-````
+```
 
 `if`分支中`out`被赋值的变量或者常量`m`与`else`分支中`out`被赋值的变量或者常量`n`的数据类型必须一致。
 
@@ -729,10 +739,11 @@ ret:xx
 示例3：
 
 ```python
-from mindspore import ms_function, Tensor, dtype
+import mindspore as ms
+from mindspore import ms_function
 
-x = Tensor([1, 2], dtype.int32)
-y = Tensor([0, 3], dtype.int32)
+x = ms.Tensor([1, 2], ms.int32)
+y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 
 @ms_function()
@@ -777,10 +788,11 @@ ret:xx
 示例：
 
 ```python
-from mindspore import ms_function, Tensor
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-z = Tensor(np.ones((2, 3)))
+z = ms.Tensor(np.ones((2, 3)))
 
 @ms_function()
 def test_cond():
@@ -1037,10 +1049,11 @@ ret:(4, 16, 36, 64, 100)
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-z = Tensor(np.ones((6, 4, 5)))
+z = ms.Tensor(np.ones((6, 4, 5)))
 
 @ms_function()
 def test():
@@ -1086,10 +1099,11 @@ z_len:6
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-z = Tensor(np.ones((6, 4, 5)))
+z = ms.Tensor(np.ones((6, 4, 5)))
 
 @ms_function()
 def test():
@@ -1297,10 +1311,11 @@ z:(0, 1, 2)
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-y = Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
+y = ms.Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
 
 @ms_function()
 def test():
@@ -1383,11 +1398,12 @@ class SingleSubNet(FatherNet):
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-x = Tensor(np.array([1, 2, 3]))
-y = Tensor(np.array([1, 2, 3]))
+x = ms.Tensor(np.array([1, 2, 3]))
+y = ms.Tensor(np.array([1, 2, 3]))
 
 @ms_function()
 def test(x, y):
@@ -1418,11 +1434,12 @@ ret:[ 1  4 27]
 示例如下：
 
 ```python
-from mindspore import ms_function, Tensor, dtype
+import mindspore as ms
+from mindspore import ms_function
 import numpy as np
 
-x = Tensor(np.array([1, 2, 3]), dtype.int32)
-y = Tensor(3, dtype.int32)
+x = ms.Tensor(np.array([1, 2, 3]), ms.int32)
+y = ms.Tensor(3, ms.int32)
 
 @ms_function()
 def test(x, y):
@@ -1501,7 +1518,8 @@ ret:(1, 3, 5)
 示例如下：
 
 ```python
-from mindspore import nn, ops, Tensor
+import mindspore as ms
+from mindspore import nn, ops
 import numpy as np
 
 class Net(nn.Cell):
@@ -1524,9 +1542,9 @@ class GradNet(nn.Cell):
         return self.grad_all(self.forward_net)(x, y, z)
 
 flag = "ok"
-input_x = Tensor(np.ones((2, 3)).astype(np.float32))
+input_x = ms.Tensor(np.ones((2, 3)).astype(np.float32))
 input_y = 2
-input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+input_z = ms.Tensor(np.ones((2, 3)).astype(np.float32) * 2)
 
 net = Net(flag)
 grad_net = GradNet(net)
@@ -1574,14 +1592,15 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    示例如下：
 
    ```python
-   from mindspore import nn, Tensor, Parameter
+   import mindspore as ms
+   from mindspore import nn
    import numpy as np
 
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
            self.x = 2
-           self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
+           self.par = ms.Parameter(ms.Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
            self.par[0] = y

@@ -35,14 +35,13 @@ MindSpore：输出为元组(最小值的索引, 最小值)。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # Output tuple(index of min, min).
-input_x = Tensor(np.array([0.0, 0.4, 0.6, 0.7, 0.1]), mindspore.float32)
+input_x = ms.Tensor(np.array([0.0, 0.4, 0.6, 0.7, 0.1]), ms.float32)
 argmin = ops.ArgMinWithValue()
 index, output = argmin(input_x)
 print(index)

@@ -27,11 +27,10 @@ tf.math.reduce_std(input_tensor, axis=None, keepdims=False, name=None)
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 
-a = Tensor(np.array([[1, 2], [3, 4]]), mindspore.float32)
+a = ms.Tensor(np.array([[1, 2], [3, 4]]), ms.float32)
 print(a.std()) # 1.118034
 print(a.std(axis=0)) # [1. 1.]
 print(a.std(axis=1)) # [0.5 0.5]

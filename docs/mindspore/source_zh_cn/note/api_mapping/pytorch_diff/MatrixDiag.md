@@ -31,8 +31,8 @@ MindSpore：根据给定的值返回一个对角矩阵，对于k维的输入，�
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor, nn
+import mindspore as ms
+from mindspore import nn
 import torch
 import numpy as np
 
@@ -44,7 +44,7 @@ x3 = np.random.randn(2, 3, 4)
 matrix_diag = nn.MatrixDiag()
 for n, x in enumerate([x1, x2, x3]):
     try:
-        input_x = Tensor(x, mindspore.float32)
+        input_x = ms.Tensor(x, ms.float32)
         output = matrix_diag(input_x)
         print('input shape: {}; output size: {}'.format(
             str(n + 1), str(output.shape)

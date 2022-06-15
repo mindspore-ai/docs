@@ -67,7 +67,8 @@ TensorFlow：
 MindSpore：
 
 ```python
-from mindspore import nn, Model
+import mindspore as ms
+from mindspore import nn
 from mindspore.common.initializer import Normal
 
 class LinearNet(nn.Cell):
@@ -82,5 +83,5 @@ net = LinearNet()
 crit = nn.MSELoss()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-model = Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
+model = ms.Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
 ```

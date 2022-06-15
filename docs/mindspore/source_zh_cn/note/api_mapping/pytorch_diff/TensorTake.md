@@ -29,12 +29,11 @@ mindspore.Tensor.take(indices, axis=None, mode="clip")
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 
-a = Tensor([[1, 2, 8],[3, 4, 6]], mindspore.float32)
-indices = Tensor(np.array([1, 10]))
+a = ms.Tensor([[1, 2, 8],[3, 4, 6]], ms.float32)
+indices = ms.Tensor(np.array([1, 10]))
 # take(self, indices, axis=None, mode='clip'):
 print(a.take(indices))
 # [2. 6.]

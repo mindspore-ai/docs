@@ -48,10 +48,10 @@ MindSpore：momentum参数的默认值为0.9，与Pytorch的momentum关系为1-m
 import numpy as np
 import torch
 import mindspore.nn as nn
-from mindspore import Tensor
+import mindspore as ms
 
 net = nn.BatchNorm2d(num_features=2, momentum=0.8)
-x = Tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
+x = ms.Tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
 output = net(x)
 print(output)
 # Out:

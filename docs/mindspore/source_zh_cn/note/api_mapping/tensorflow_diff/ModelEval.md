@@ -61,7 +61,8 @@ model.predict_generator(generate_data(5), steps=2)
 ```
 
 ```python
-from mindspore import nn, Model
+import mindspore as ms
+from mindspore import nn
 import numpy as np
 from mindspore import dataset as ds
 
@@ -85,7 +86,7 @@ class LinearNet(nn.Cell):
 net = LinearNet()
 crit = nn.MSELoss()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.05, momentum=0.9)
-model = Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
+model = ms.Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
 
 test_dataset = create_dataset()
 model.eval(test_dataset)

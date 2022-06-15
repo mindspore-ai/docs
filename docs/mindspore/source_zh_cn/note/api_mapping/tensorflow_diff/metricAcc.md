@@ -122,13 +122,13 @@ mindspore.nn.Accuracy：
 
 ```python
 import numpy as np
-from mindspore import nn, Tensor
-import mindspore
+from mindspore import nn
+import mindspore as ms
 
 # classification
-y_pred = Tensor(np.array([[0.2, 0.5, 0.4], [0.3, 0.1, 0.4], [0.9, 0.6, 0.4]]), mindspore.float32) # 1 2 0
-y_true1 = Tensor(np.array([1, 2, 1]), mindspore.float32) # y_true1: index of category
-y_true2 = Tensor(np.array([[0, 1, 0], [0, 0, 1], [0, 1, 0]]), mindspore.float32) # y_true2: one hot encoding
+y_pred = ms.Tensor(np.array([[0.2, 0.5, 0.4], [0.3, 0.1, 0.4], [0.9, 0.6, 0.4]]), ms.float32) # 1 2 0
+y_true1 = ms.Tensor(np.array([1, 2, 1]), ms.float32) # y_true1: index of category
+y_true2 = ms.Tensor(np.array([[0, 1, 0], [0, 0, 1], [0, 1, 0]]), ms.float32) # y_true2: one hot encoding
 
 acc = nn.Accuracy('classification')
 acc.update(y_pred, y_true1)
@@ -141,8 +141,8 @@ print(acc.eval())
 # 0.6666666666666666
 
 # multilabel:
-y_pred = Tensor(np.array([[0, 1, 0], [1, 0, 1], [0, 1, 1]]), mindspore.float32)
-y_true = Tensor(np.array([[0, 1, 1], [1, 0, 1], [0, 1, 0]]), mindspore.float32)
+y_pred = ms.Tensor(np.array([[0, 1, 0], [1, 0, 1], [0, 1, 1]]), ms.float32)
+y_true = ms.Tensor(np.array([[0, 1, 1], [1, 0, 1], [0, 1, 0]]), ms.float32)
 
 acc = nn.Accuracy('multilabel')
 acc.update(y_pred, y_true)

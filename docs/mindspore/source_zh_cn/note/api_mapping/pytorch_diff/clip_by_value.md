@@ -36,15 +36,14 @@ MindSpore：将'x'的值限制在一个范围内，其下限为'clip_value_min'�
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
-min_value = Tensor(5, mindspore.float32)
-max_value = Tensor(20, mindspore.float32)
-x = Tensor(np.array([[1., 25., 5., 7.], [4., 11., 6., 21.]]), mindspore.float32)
+min_value = ms.Tensor(5, ms.float32)
+max_value = ms.Tensor(20, ms.float32)
+x = ms.Tensor(np.array([[1., 25., 5., 7.], [4., 11., 6., 21.]]), ms.float32)
 output = ops.clip_by_value(x, min_value, max_value)
 print(output)
 # Out：

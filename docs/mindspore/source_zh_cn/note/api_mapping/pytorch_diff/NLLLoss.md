@@ -37,8 +37,7 @@ MindSpore：仅支持二维数据 (N, C)。
 ## 代码示例
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 import mindspore.ops as ops
 import torch
@@ -47,9 +46,9 @@ import numpy as np
 # In MindSpore
 m = nn.LogSoftmax(axis=1)
 loss = ops.NLLLoss()
-input = Tensor(np.random.randn(3, 5), mindspore.float32)
-labels = Tensor([1, 0, 4], mindspore.int32)
-weight = Tensor(np.random.rand(5), mindspore.float32)
+input = ms.Tensor(np.random.randn(3, 5), ms.float32)
+labels = ms.Tensor([1, 0, 4], ms.int32)
+weight = ms.Tensor(np.random.rand(5), ms.float32)
 loss, weight = loss(m(input), labels, weight)
 print(loss)
 # Out:
