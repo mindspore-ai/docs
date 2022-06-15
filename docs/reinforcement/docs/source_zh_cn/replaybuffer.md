@@ -81,7 +81,6 @@ MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API. 用户可�
 ```python
 from mindspore_rl.core.replay_buffer import ReplayBuffer
 import mindspore as ms
-from mindspore import Tensor
 sample_size = 2
 capacity = 100000
 shapes = [(4,), (1,), (1,), (4,)]
@@ -96,10 +95,10 @@ replaybuffer = ReplayBuffer(sample_size, capacity, shapes, types)
 * 插入操作
 
 ```python
-state = Tensor([0.1, 0.2, 0.3, 0.4], ms.float32)
-action = Tensor([1], ms.int32)
-reward = Tensor([1], ms.float32)
-new_state = Tensor([0.4, 0.3, 0.2, 0.1], ms.float32)
+state = ms.Tensor([0.1, 0.2, 0.3, 0.4], ms.float32)
+action = ms.Tensor([1], ms.int32)
+reward = ms.Tensor([1], ms.float32)
+new_state = ms.Tensor([0.4, 0.3, 0.2, 0.1], ms.float32)
 replaybuffer.insert([state, action, reward, new_state])
 replaybuffer.insert([state, action, reward, new_state])
 ```

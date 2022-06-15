@@ -16,11 +16,10 @@
 callback function
 """
 import time
-from mindspore import Callback
-from mindspore import save_checkpoint
+import mindspore as ms
 
 # stop training at runtime*60 second
-class StopAtTime(Callback):
+class StopAtTime(ms.Callback):
     """
     Args:
         run_time (float): set training time
@@ -50,7 +49,7 @@ class StopAtTime(Callback):
         cb_params = run_context.original_args()
         print(cb_params.list_callback)
 
-class SaveCallback(Callback):
+class SaveCallback(ms.Callback):
     """
     save the maximum accuracy checkpoint
     """
@@ -66,5 +65,5 @@ class SaveCallback(Callback):
         if result['accuracy'] > self.acc:
             self.acc = result['accuracy']
             file_name = str(self.acc) + ".ckpt"
-            save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
+            ms.save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
             print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)

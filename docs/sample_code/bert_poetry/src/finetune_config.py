@@ -19,7 +19,7 @@ config settings, will be used in finetune.py
 
 import os
 from easydict import EasyDict as edict
-from mindspore import dtype as mstype
+import mindspore as ms
 from .bert_model import BertConfig
 
 bs = 16
@@ -74,6 +74,6 @@ bert_net_cfg = BertConfig(
     use_relative_positions=False,
     input_mask_from_dataset=True,
     token_type_ids_from_dataset=True,
-    dtype=mstype.float32,
-    compute_type=mstype.float16,
+    dtype=ms.float32,
+    compute_type=ms.float16,
 )

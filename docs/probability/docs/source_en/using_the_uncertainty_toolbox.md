@@ -71,6 +71,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
 from mindspore.dataset.vision import Inter
+import mindspore as ms
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
                    num_parallel_workers=1):
@@ -94,7 +95,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
         vision.Rescale(rescale, shift),
         vision.HWC2CHW()
     ]
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
@@ -115,7 +116,7 @@ This example uses the LeNet5 deep neural network, which is implemented in MindSp
 
 ```python
 import mindspore.nn as nn
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):
@@ -167,15 +168,14 @@ download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-w
 Load the DNN network and the training dataset that need uncertainty measurement. Since the uncertainty measurement requires a Bayesian network, when the initialized uncertainty measurement tool is called for the first time, the DNN network will be converted to The Bayesian network is trained, and after completion, the corresponding data can be passed in to measure accidental uncertainty or cognitive uncertainty.
 
 ```python
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn.probability.toolbox import UncertaintyEvaluation
-from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # get trained model
 network = LeNet5()
-param_dict = load_checkpoint('checkpoint_lenet.ckpt')
-load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint('checkpoint_lenet.ckpt')
+ms.load_param_into_net(network, param_dict)
 # get train
 ds_train = create_dataset('./datasets/MNIST_Data/train')
 evaluation = UncertaintyEvaluation(model=network,

@@ -16,17 +16,12 @@
 import argparse
 import os
 
-from mindspore import Tensor, set_context, GRAPH_MODE, set_auto_parallel_context
+
 from mindspore.nn import Momentum
-from mindspore import Model
-from mindspore import ParallelMode
-from mindspore import LossMonitor, TimeMonitor
-from mindspore import FixedLossScaleManager
+import mindspore as ms
 from mindspore.communication import init
-from mindspore import set_seed
 from mindspore import nn
 from mindspore.common import initializer as weight_init
-
 from models.official.cv.resnet.src.lr_generator import get_lr
 from models.official.cv.resnet.src.CrossEntropySmooth import CrossEntropySmooth
 from models.official.cv.resnet.src.dataset import create_dataset2 as create_dataset
@@ -35,7 +30,7 @@ from models.official.cv.resnet.src.metric import ClassifyCorrectCell
 from resnet import resnet50 as resnet
 
 
-set_seed(1)
+ms.set_seed(1)
 
 
 def init_weight(network):
@@ -72,10 +67,10 @@ if __name__ == '__main__':
     parser.add_argument('--data_path', type=str, default="./data", help='path where the dataset is saved')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target="Ascend")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
     device_id = int(os.getenv('DEVICE_ID'))
-    set_context(device_id=device_id)
-    set_auto_parallel_context(device_num=16, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+    ms.set_context(device_id=device_id)
+    ms.set_auto_parallel_context(device_num=16, parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
     init()
 
     # define train dataset
@@ -90,13 +85,13 @@ if __name__ == '__main__':
 
     # define loss
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, num_classes=1001)
-    loss_scale = FixedLossScaleManager(1024, drop_overflow_update=False)
+    loss_scale = ms.FixedLossScaleManager(1024, drop_overflow_update=False)
 
     # define optimizer
     group_params = init_group_params(net)
     lr = get_lr(lr_init=0, lr_end=0.0, lr_max=0.8, warmup_epochs=5, total_epochs=90, steps_per_epoch=step_size,
                 lr_decay_mode="linear")
-    lr = Tensor(lr)
+    lr = ms.Tensor(lr)
     opt = Momentum(group_params, lr, 0.9, loss_scale=1024)
 
     # define eval_network
@@ -115,11 +110,11 @@ if __name__ == '__main__':
     }
 
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, amp_level="O2", boost_level="O2",
-                  keep_batchnorm_fp32=False, boost_config_dict=boost_dict, eval_network=dist_eval_network)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, amp_level="O2", boost_level="O2",
+                     keep_batchnorm_fp32=False, boost_config_dict=boost_dict, eval_network=dist_eval_network)
 
     # define callback
-    cb = [TimeMonitor(data_size=step_size), LossMonitor()]
+    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
 
     print("============== Starting Training ==============")
     model.train(90, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=True)

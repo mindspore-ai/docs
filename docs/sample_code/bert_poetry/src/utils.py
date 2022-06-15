@@ -17,12 +17,10 @@
 Functional Cells used in Bert finetune and evaluation.
 '''
 import numpy as np
+import mindspore as ms
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal, initializer
 import mindspore.ops as ops
-from mindspore import Tensor, ParallelMode, get_auto_parallel_context, get_context
-from mindspore import Parameter, ParameterTuple
-from mindspore import dtype as mstype
 from mindspore.nn import DistributedGradReducer
 from mindspore.communication import get_group_size
 from .bert_model import BertModel
@@ -53,25 +51,25 @@ class BertPoetryCell(nn.TrainOneStepWithLossScaleCell):
 
         super(BertPoetryCell, self).__init__(network, optimizer, scale_update_cell)
         self.network = network
-        self.weights = ParameterTuple(network.trainable_params())
+        self.weights = ms.ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad = ops.GradOperation(
             get_by_list=True,
             sens_param=True)
         self.reducer_flag = False
         self.allreduce = ops.AllReduce()
-        self.parallel_mode = get_auto_parallel_context("parallel_mode")
-        if self.parallel_mode in [ParallelMode.DATA_PARALLEL, ParallelMode.HYBRID_PARALLEL]:
+        self.parallel_mode = ms.get_auto_parallel_context("parallel_mode")
+        if self.parallel_mode in [ms.ParallelMode.DATA_PARALLEL, ms.ParallelMode.HYBRID_PARALLEL]:
             self.reducer_flag = True
         self.grad_reducer = None
         if self.reducer_flag:
-            mean = get_auto_parallel_context("mirror_mean")
+            mean = ms.get_auto_parallel_context("mirror_mean")
             degree = get_group_size()
             self.grad_reducer = DistributedGradReducer(optimizer.parameters, mean, degree)
-        self.is_distributed = (self.parallel_mode != ParallelMode.STAND_ALONE)
+        self.is_distributed = (self.parallel_mode != ms.ParallelMode.STAND_ALONE)
         self.cast = ops.Cast()
         self.gpu_target = False
-        if get_context("device_target") == "GPU":
+        if ms.get_context("device_target") == "GPU":
             self.gpu_target = True
             self.float_status = ops.FloatStatus()
             self.addn = ops.AddN()
@@ -81,14 +79,14 @@ class BertPoetryCell(nn.TrainOneStepWithLossScaleCell):
             self.get_status = ops.NPUGetFloatStatus()
             self.clear_before_grad = ops.NPUClearFloatStatus()
         self.reduce_sum = ops.ReduceSum(keep_dims=False)
-        self.base = Tensor(1, mstype.float32)
+        self.base = ms.Tensor(1, ms.float32)
         self.less_equal = ops.LessEqual()
         self.hyper_map = ops.HyperMap()
         self.loss_scale = None
         self.loss_scaling_manager = scale_update_cell
         if scale_update_cell:
-            self.loss_scale = Parameter(Tensor(scale_update_cell.get_loss_scale(), dtype=mstype.float32),
-                                        name="loss_scale")
+            self.loss_scale = ms.Parameter(ms.Tensor(scale_update_cell.get_loss_scale(), dtype=ms.float32),
+                                           name="loss_scale")
 
     def construct(self,
                   input_ids,
@@ -111,7 +109,7 @@ class BertPoetryCell(nn.TrainOneStepWithLossScaleCell):
                                                  token_type_id,
                                                  pad_mask,
                                                  self.cast(scaling_sens,
-                                                           mstype.float32))
+                                                           ms.float32))
         grads = self.hyper_map(ops.partial(grad_scale, scaling_sens), grads)
         grads = self.hyper_map(ops.partial(clip_grad, GRADIENT_CLIP_TYPE, GRADIENT_CLIP_VALUE), grads)
         if self.reducer_flag:
@@ -137,13 +135,13 @@ class BertPoetryModel(nn.Cell):
         self.num_tokens = num_tokens
         idx = np.arange(config.seq_length)
         mask = idx[None, :] <= idx[:, None]
-        self.mask = Tensor([mask], mstype.float32)
+        self.mask = ms.Tensor([mask], ms.float32)
         self.MLM_Dense = nn.Dense(config.hidden_size, config.hidden_size,\
                                 has_bias=True, weight_init=TruncatedNormal(0.02),\
-                                activation='gelu').to_float(mstype.float16)
+                                activation='gelu').to_float(ms.float16)
         self.layer_norm = nn.LayerNorm((config.hidden_size,))
         self.matmul = ops.MatMul(transpose_b=True)
-        self.biasadd = Parameter(initializer('zero', self.num_tokens), name='MLM_output_biasadd')
+        self.biasadd = ms.Parameter(initializer('zero', self.num_tokens), name='MLM_output_biasadd')
         self.softmax = ops.Softmax(axis=-1)
         self.seq_length = config.seq_length
         self.hidden_size = config.hidden_size
@@ -151,7 +149,7 @@ class BertPoetryModel(nn.Cell):
         self.reshape = ops.Reshape()
         self.batch_matmul = ops.BatchMatMul()
         ones = np.ones(shape=(config.batch_size, config.seq_length, config.seq_length))
-        self.lower_triangle_mask = Tensor(np.tril(ones), dtype=mstype.float32)
+        self.lower_triangle_mask = ms.Tensor(np.tril(ones), dtype=ms.float32)
         self.multiply = ops.Mul()
 
     def construct(self, input_ids, token_type_id, input_mask):
@@ -159,7 +157,7 @@ class BertPoetryModel(nn.Cell):
         input_shape = ops.Shape()(input_mask)
         shape_right = (input_shape[0], 1, input_shape[1])
         shape_left = input_shape + (1,)
-        input_mask = self.cast(input_mask, mstype.float32)
+        input_mask = self.cast(input_mask, ms.float32)
         mask_left = self.reshape(input_mask, shape_left)
         mask_right = self.reshape(input_mask, shape_right)
         attention_mask = self.batch_matmul(mask_left, mask_right)
@@ -170,9 +168,9 @@ class BertPoetryModel(nn.Cell):
         bert_output = ops.Reshape()(sequence_output, (-1, self.hidden_size))
         MLM_output = self.MLM_Dense(bert_output)
         MLM_output = self.layer_norm(MLM_output)
-        embedding_tables = ops.Cast()(embedding_tables, mstype.float16)
+        embedding_tables = ops.Cast()(embedding_tables, ms.float16)
         output = self.matmul(MLM_output, embedding_tables)
-        output = ops.Cast()(output, mstype.float32)
+        output = ops.Cast()(output, ms.float32)
         output = output + self.biasadd
         output = ops.Reshape()(output, (-1, self.seq_length, self.num_tokens))
 
@@ -189,8 +187,8 @@ class BertPoetry(nn.Cell):
         self.num_tokens = 3191
         self.poetry = model
         self.onehot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = ms.Tensor(1.0, ms.float32)
+        self.off_value = ms.Tensor(0.0, ms.float32)
         self.reduce_sum = ops.ReduceSum()
         self.reduce_mean = ops.ReduceMean()
         self.reshape = ops.Reshape()
@@ -210,7 +208,7 @@ class BertPoetry(nn.Cell):
         per_example_loss = self.neg(self.reduce_sum(one_hot_labels * self.log(logits), self.last_idx))
         loss = per_example_loss * pad_mask[:, 1:]
         loss = self.reduce_sum(loss) / self.reduce_sum(pad_mask)
-        return_value = self.cast(loss, mstype.float32)
+        return_value = self.cast(loss, ms.float32)
         return return_value
 
 
@@ -226,16 +224,16 @@ class BertLearningRate(nn.WarmUpLR):
             self.warmup_flag = True
             self.warmup_lr = nn.WarmUpLR(learning_rate, warmup_steps)
         self.decay_lr = nn.PolynomialDecayLR(learning_rate, end_learning_rate, decay_steps, power)
-        self.warmup_steps = Tensor(np.array([warmup_steps]).astype(np.float32))
+        self.warmup_steps = ms.Tensor(np.array([warmup_steps]).astype(np.float32))
         self.greater = ops.Greater()
-        self.one = Tensor(np.array([1.0]).astype(np.float32))
+        self.one = ms.Tensor(np.array([1.0]).astype(np.float32))
         self.cast = ops.Cast()
 
     def construct(self, global_step):
         """construct BertLearningRate"""
         decay_lr = self.decay_lr(global_step)
         if self.warmup_flag:
-            is_warmup = self.cast(self.greater(self.warmup_steps, global_step), mstype.float32)
+            is_warmup = self.cast(self.greater(self.warmup_steps, global_step), ms.float32)
             warmup_lr = self.warmup_lr(global_step)
             lr = (self.one - is_warmup) * decay_lr + is_warmup * warmup_lr
         else:

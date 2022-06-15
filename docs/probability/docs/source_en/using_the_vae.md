@@ -61,7 +61,7 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 The dataset is enhanced to meet the requirements of VAE network training. In this example, the pixel size of the original image is increased from $28\\times28$ to $32\\times32$, and multiple images are formed into a batch to accelerate training.
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
@@ -110,11 +110,11 @@ The main function of the hidden space is to store the characteristics of the mod
 ```python
 import os
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 from mindspore.nn.probability.dpn import VAE
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 IMAGE_SHAPE=(-1, 1, 32, 32)
 image_path = os.path.join("./datasets/MNIST_Data", "train")
 
@@ -225,7 +225,7 @@ Use the trained model to check the ability to reconstruct the data. Here, take a
 
 ```python
 sample = next(ds_train.create_dict_iterator(output_numpy=True, num_epochs=1))
-sample_x = Tensor(sample['image'], dtype=mstype.float32)
+sample_x = ms.Tensor(sample['image'], dtype=ms.float32)
 
 reconstructed_sample = vae.reconstruct_sample(sample_x)
 print('The shape of the reconstructed sample is ', reconstructed_sample.shape)

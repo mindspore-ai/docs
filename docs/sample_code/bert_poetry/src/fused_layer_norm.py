@@ -14,10 +14,9 @@
 # ============================================================================
 """fused layernorm"""
 import mindspore.ops as ops
-from mindspore import Parameter
+import mindspore as ms
 from mindspore.common.initializer import initializer
 from mindspore.ops import constexpr
-from mindspore import dtype as mstype
 from mindspore.nn import Cell
 
 import numpy as np
@@ -90,9 +89,9 @@ class FusedLayerNorm(Cell):
         self.normalized_shape = normalized_shape
         self.begin_norm_axis = begin_norm_axis
         self.begin_params_axis = begin_params_axis
-        self.gamma = Parameter(initializer(
+        self.gamma = ms.Parameter(initializer(
             gamma_init, normalized_shape), name="gamma")
-        self.beta = Parameter(initializer(
+        self.beta = ms.Parameter(initializer(
             beta_init, normalized_shape), name="beta")
         self.layer_norm = ops.LayerNorm(begin_norm_axis=self.begin_norm_axis, begin_params_axis=self.begin_params_axis)
 
@@ -102,8 +101,8 @@ class FusedLayerNorm(Cell):
     def construct(self, input_x):
         """construct FusedLayerNorm cell"""
         if self.use_batch_norm and self.training:
-            ones = ops.Fill()(mstype.float32, ops.shape(input_x)[:self.begin_norm_axis], 1.0)
-            zeros = ops.Fill()(mstype.float32, ops.shape(input_x)[:self.begin_norm_axis], 0.0)
+            ones = ops.Fill()(ms.float32, ops.shape(input_x)[:self.begin_norm_axis], 1.0)
+            zeros = ops.Fill()(ms.float32, ops.shape(input_x)[:self.begin_norm_axis], 0.0)
             shape_x = ops.shape(input_x)
             norm_shape = get_shape_for_norm(shape_x, self.begin_norm_axis)
             input_x = ops.reshape(input_x, norm_shape)

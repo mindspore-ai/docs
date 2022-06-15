@@ -294,23 +294,22 @@ The `Distribution` base class invokes the private API in the `Beta` to implement
 Use `Normal` as an example. Create a normal distribution whose average value is 0.0 and standard deviation is 1.0.
 
 ```python
-from mindspore import Tensor, set_context, PYNATIVE_MODE
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.nn.probability.distribution as msd
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
-my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
+my_normal = msd.Normal(0.0, 1.0, dtype=ms.float32)
 
 mean = my_normal.mean()
 var = my_normal.var()
 entropy = my_normal.entropy()
 
-value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
+value = ms.Tensor([-0.5, 0.0, 0.5], dtype=ms.float32)
 prob = my_normal.prob(value)
 cdf = my_normal.cdf(value)
 
-mean_b = Tensor(1.0, dtype=mstype.float32)
-sd_b = Tensor(2.0, dtype=mstype.float32)
+mean_b = ms.Tensor(1.0, dtype=ms.float32)
+sd_b = ms.Tensor(2.0, dtype=ms.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
 
 # get the distribution args as a tuple
@@ -343,15 +342,14 @@ In graph mode, `Distribution` subclasses can be used on the network.
 
 ```python
 import mindspore.nn as nn
-from mindspore import Tensor, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.nn.probability.distribution as msd
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
+        self.normal = msd.Normal(0.0, 1.0, dtype=ms.float32)
 
     def construct(self, value, mean, sd):
         pdf = self.normal.prob(value)
@@ -359,9 +357,9 @@ class Net(nn.Cell):
         return pdf, kl
 
 net = Net()
-value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
-mean = Tensor(1.0, dtype=mstype.float32)
-sd = Tensor(1.0, dtype=mstype.float32)
+value = ms.Tensor([-0.5, 0.0, 0.5], dtype=ms.float32)
+mean = ms.Tensor(1.0, dtype=ms.float32)
+sd = ms.Tensor(1.0, dtype=ms.float32)
 pdf, kl = net(value, mean, sd)
 print("pdf: ", pdf)
 print("kl: ", kl)
@@ -404,17 +402,17 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
-from mindspore import Tensor, dtype, set_context, PYNATIVE_MODE
+import mindspore as ms
 
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
-normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
+normal = msd.Normal(0.0, 1.0, dtype=ms.float32)
 exp = msb.Exp()
 LogNormal = msd.TransformedDistribution(exp, normal, seed=0, name="LogNormal")
 
 # compute cumulative distribution function
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
+tx = ms.Tensor(x, dtype=ms.float32)
 cdf = LogNormal.cdf(tx)
 
 # generate samples from the distribution
@@ -451,7 +449,7 @@ sample shape:
 When the `TransformedDistribution` is constructed to map the transformed `is_constant_jacobian = true` (for example, `ScalarAffine`), the constructed `TransformedDistribution` instance can use the `mean` API to calculate the average value. For example:
 
 ```python
-normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
+normal = msd.Normal(0.0, 1.0, dtype=ms.float32)
 scalaraffine = msb.ScalarAffine(1.0, 2.0)
 trans_dist = msd.TransformedDistribution(scalaraffine, normal, seed=0)
 mean = trans_dist.mean()
@@ -471,13 +469,13 @@ In graph mode, the `TransformedDistribution` class can be used on the network.
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor, dtype, set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
-    def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
+    def __init__(self, shape, dtype=ms.float32, seed=0, name='transformed_distribution'):
         super(Net, self).__init__()
         # create TransformedDistribution distribution
         self.exp = msb.Exp()
@@ -493,7 +491,7 @@ class Net(nn.Cell):
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
-tx = Tensor(x, dtype=dtype.float32)
+tx = ms.Tensor(x, dtype=ms.float32)
 cdf, sample = net(tx)
 print("cdf: ", cdf)
 print("sample shape: ", sample.shape)
@@ -621,14 +619,14 @@ The following uses `PowerTransform` as an example. Create a `PowerTransform` obj
 import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
-from mindspore import Tensor, dtype, set_context, PYNATIVE_MODE
+import mindspore as ms
 
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 powertransform = msb.PowerTransform(power=2.)
 
 x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
+tx = ms.Tensor(x, dtype=ms.float32)
 forward = powertransform.forward(tx)
 inverse = powertransform.inverse(tx)
 forward_log_jaco = powertransform.forward_log_jacobian(tx)
@@ -658,10 +656,9 @@ In graph mode, the `Bijector` subclass can be used on the network.
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.nn.probability.bijector as msb
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -678,7 +675,7 @@ class Net(nn.Cell):
 
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
-tx = Tensor(x, dtype=mstype.float32)
+tx = ms.Tensor(x, dtype=ms.float32)
 forward, inverse, forward_log_jaco, inverse_log_jaco = net(tx)
 print("forward: ", forward)
 print("inverse: ", inverse)
@@ -827,7 +824,7 @@ After obtaining the trained VAE network, use `vae.generate_sample` to generate a
 ```python
 generated_sample = vae.generate_sample(64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
-    sample_x = Tensor(sample['image'], dtype=mstype.float32)
+    sample_x = ms.Tensor(sample['image'], dtype=ms.float32)
     reconstructed_sample = vae.reconstruct_sample(sample_x)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
@@ -841,11 +838,11 @@ The shape of the generated sample is (64, 1, 32, 32)
 The CVAE training process is similar to the VAE training process. However, when a trained CVAE network is used to generate a new sample and rebuild a new sample, label information needs to be input. For example, the generated new sample is 64 digits ranging from 0 to 7.
 
 ```python
-sample_label = Tensor([i for i in range(0, 8)] * 8, dtype=mstype.int32)
+sample_label = ms.Tensor([i for i in range(0, 8)] * 8, dtype=ms.int32)
 generated_sample = cvae.generate_sample(sample_label, 64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
-    sample_x = Tensor(sample['image'], dtype=mstype.float32)
-    sample_y = Tensor(sample['label'], dtype=mstype.int32)
+    sample_x = m.Tensor(sample['image'], dtype=ms.float32)
+    sample_y = ms.Tensor(sample['label'], dtype=ms.int32)
     reconstructed_sample = cvae.reconstruct_sample(sample_x, sample_y)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
@@ -970,13 +967,13 @@ Before using the model, you need to train the model. The following uses LeNet5 a
 
 ```python
 from mindspore.nn.probability.toolbox import UncertaintyEvaluation
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 if __name__ == '__main__':
     # get trained model
     network = LeNet5()
-    param_dict = load_checkpoint('checkpoint_lenet.ckpt')
-    load_param_into_net(network, param_dict)
+    param_dict = ms.load_checkpoint('checkpoint_lenet.ckpt')
+    ms.load_param_into_net(network, param_dict)
     # get train and eval dataset
     ds_train = create_dataset('workspace/mnist/train')
     ds_eval = create_dataset('workspace/mnist/test')
@@ -989,7 +986,7 @@ if __name__ == '__main__':
                                        ale_uncer_model_path=None,
                                        save_model=False)
     for eval_data in ds_eval.create_dict_iterator():
-        eval_data = Tensor(eval_data['image'], mstype.float32)
+        eval_data = ms.Tensor(eval_data['image'], ms.float32)
         epistemic_uncertainty = evaluation.eval_epistemic_uncertainty(eval_data)
         aleatoric_uncertainty = evaluation.eval_aleatoric_uncertainty(eval_data)
     print('The shape of epistemic uncertainty is ', epistemic_uncertainty.shape)
@@ -1033,7 +1030,7 @@ if __name__ == '__main__':
     ds_eval = create_dataset('workspace/mnist/test')
     model = ood.train(ds_train)
     for sample in ds_eval.create_dict_iterator(output_numpy=True, num_epochs=1):
-        sample_x = Tensor(sample['image'], dtype=mstype.float32)
+        sample_x = ms.Tensor(sample['image'], dtype=ms.float32)
         score = ood.predict_outlier_score(sample_x)
         outlier = ood.predict_outlier(sample_x)
         print(score, outlier)

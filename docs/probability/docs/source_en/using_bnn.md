@@ -26,9 +26,9 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 Set the training mode to graph mode and the computing platform to GPU.
 
 ```python
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE, save_graphs=False, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, save_graphs=False, device_target="GPU")
 ```
 
 ## Data Preparation
@@ -104,7 +104,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
         vision.Rescale(rescale, shift),
         vision.HWC2CHW()
     ]
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
@@ -129,7 +129,7 @@ In this example, a probabilistic programming method will be introduced, using th
 import mindspore.nn as nn
 from mindspore.nn.probability import bnn_layers
 import mindspore.ops as ops
-from mindspore import dtype as mstype
+import mindspore as ms
 
 
 class BNNLeNet5(nn.Cell):
@@ -246,7 +246,7 @@ Perform training.
 
 ```python
 from mindspore.nn import TrainOneStepCell
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 
 net_with_loss = bnn_layers.WithBNNLossCell(network, criterion, dnn_factor=60000, bnn_factor=0.000001)

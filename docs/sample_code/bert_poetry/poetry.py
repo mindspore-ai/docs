@@ -23,18 +23,13 @@ import argparse
 from src.utils import BertPoetry, BertPoetryCell, BertLearningRate, BertPoetryModel
 from src.finetune_config import cfg, bert_net_cfg
 from src.poetry_dataset import create_poetry_dataset, create_tokenizer
-from mindspore import load_checkpoint, load_param_into_net, GRAPH_MODE, set_context
+import mindspore as ms
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import AdamWeightDecay
-from mindspore import Model
-from mindspore import Callback, TimeMonitor
-from mindspore import CheckpointConfig, ModelCheckpoint
-from mindspore import Tensor, Parameter, export
-from mindspore import dtype as mstype
 from generator import generate_random_poetry, generate_hidden
 import numpy as np
 
-class LossCallBack(Callback):
+class LossCallBack(ms.Callback):
     '''
     Monitor the loss in training.
     If the loss is NAN or INF, terminate training.
@@ -70,7 +65,7 @@ def test_train():
             devid = int(os.getenv('DEVICE_ID'))
         except TypeError:
             devid = 0
-        set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=devid)
+        ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=devid)
 
     poetry, tokenizer, keep_words = create_tokenizer()
     print("total vocab_size after filtering is ", len(keep_words))
@@ -92,11 +87,11 @@ def test_train():
                                    power=cfg.AdamWeightDecay.power)
     optimizer = AdamWeightDecay(netwithloss.trainable_params(), lr_schedule)
     # load checkpoint into network
-    ckpt_config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch, keep_checkpoint_max=1)
-    ckpoint_cb = ModelCheckpoint(prefix=cfg.ckpt_prefix, directory=cfg.ckpt_dir, config=ckpt_config)
-    time_cb = TimeMonitor(dataset.get_dataset_size())
+    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=steps_per_epoch, keep_checkpoint_max=1)
+    ckpoint_cb = ms.ModelCheckpoint(prefix=cfg.ckpt_prefix, directory=cfg.ckpt_dir, config=ckpt_config)
+    time_cb = ms.TimeMonitor(dataset.get_dataset_size())
 
-    param_dict = load_checkpoint(cfg.pre_training_ckpt)
+    param_dict = ms.load_checkpoint(cfg.pre_training_ckpt)
     new_dict = {}
 
 
@@ -109,15 +104,15 @@ def test_train():
             value = param_dict[key]
             np_value = value.data.asnumpy()
             np_value = np_value[keep_words]
-            tensor_value = Tensor(np_value, mstype.float32)
-            parameter_value = Parameter(tensor_value, name=key)
+            tensor_value = ms.Tensor(np_value, ms.float32)
+            parameter_value = ms.Parameter(tensor_value, name=key)
             new_dict[key] = parameter_value
 
-    load_param_into_net(netwithloss, new_dict)
+    ms.load_param_into_net(netwithloss, new_dict)
     update_cell = DynamicLossScaleUpdateCell(loss_scale_value=2**32, scale_factor=2, scale_window=1000)
     netwithgrads = BertPoetryCell(netwithloss, optimizer=optimizer, scale_update_cell=update_cell)
 
-    model = Model(netwithgrads)
+    model = ms.Model(netwithgrads)
     model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb, time_cb], dataset_sink_mode=True)
 
 def test_eval(model_ckpt_path):
@@ -128,12 +123,12 @@ def test_eval(model_ckpt_path):
             devid = int(os.getenv('DEVICE_ID'))
         except TypeError:
             devid = 0
-        set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=devid)
+        ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=devid)
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
     poetrymodel.set_train(False)
-    param_dict = load_checkpoint(model_ckpt_path)
-    load_param_into_net(poetrymodel, param_dict)
+    param_dict = ms.load_checkpoint(model_ckpt_path)
+    ms.load_param_into_net(poetrymodel, param_dict)
 
     # random generation/continue
     start_time = time.time()
@@ -184,15 +179,15 @@ def export_net(model_ckpt_path):
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
     poetrymodel.set_train(False)
-    param_dict = load_checkpoint(model_ckpt_path)
-    load_param_into_net(poetrymodel, param_dict)
+    param_dict = ms.load_checkpoint(model_ckpt_path)
+    ms.load_param_into_net(poetrymodel, param_dict)
     input_id = np.ones(shape=(1, 128))
     token_type_id = np.ones(shape=(1, 128))
     pad_mask = np.ones(shape=(1, 128))
-    export(poetrymodel, Tensor(input_id, mstype.int32),\
-            Tensor(token_type_id, mstype.int32),\
-            Tensor(pad_mask, mstype.float32),\
-            file_name='./serving/bert/1/poetry', file_format='MINDIR')
+    ms.export(poetrymodel, ms.Tensor(input_id, ms.int32),\
+              ms.Tensor(token_type_id, ms.int32),\
+              ms.Tensor(pad_mask, ms.float32),\
+              file_name='./serving/bert/1/poetry', file_format='MINDIR')
 
 parser = argparse.ArgumentParser(description='Bert finetune')
 parser.add_argument('--device_target', type=str, default='Ascend', help='Device target')
