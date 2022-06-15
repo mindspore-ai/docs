@@ -57,12 +57,12 @@ The following example (test_custom_hybrid.py) shows how to write a custom operat
 import numpy as np
 import mindspore as ms
 from mindspore import ops
-from mindspore.ops import ms_hybrid
+from mindspore.ops import ms_kernel
 
 ms.set_context(device_target="GPU")
 
 # Operator implementation, Hybrid DSL
-@ms_hybrid
+@ms_kernel
 def add(a, b):
     c = output_tensor(a.shape, a.dtype)
     for i0 in range(a.shape[0]):
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 In this case,
 
 - The Hybrid type is the default type for Custom.
-- The input of custom operators with Hybrid type must be a function with [`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_hybrid.html).
+- The input of custom operators with Hybrid type must be a function with [`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_kernel.html).
 - When defining a custom operator for the Hybrid type, you can use the built-in automatic shape/dtype derivation function, or you can manually enter the shape/dtype deduction function.
 
 Execute case:
@@ -775,14 +775,14 @@ The execution result is as follows:
 
 ### MindSpore Hybrid Syntax Specification
 
-The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function definitions, indentation, and annotations. Functions written in MindSpore Hybrid DSL can be used as ordinary `numpy` functions after adding ms_hybrid decorators, or they can be custom operators used for Custom.
+The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function definitions, indentation, and annotations. Functions written in MindSpore Hybrid DSL can be used as ordinary `numpy` functions after adding ms_kernel decorators, or they can be custom operators used for Custom.
 
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore.ops import ms_hybrid
+from mindspore.ops import ms_kernel
 
-@ms_hybrid
+@ms_kernel
 def outer_product(a, b):
     d = allocate(a.shape, a.dtype)
     c = output_tensor(a.shape, a.dtype)
@@ -822,7 +822,7 @@ Tensor variables, besides those in the inputs of the function, must be declared 
 Example of Tensor allocation:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     # We can use a and b directly as input tensors
 
@@ -846,7 +846,7 @@ Scalar variables will regard its first assignment as the declaration. The assign
 Example of using Scalar variable:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, a.dtype)
 
@@ -883,7 +883,7 @@ When writing assignment expressions, users must take care of the dtype of the ex
 Example of dtype casting:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -900,7 +900,7 @@ Currently, only the `for` loop is supported. `while`, `break`, and `continue` ar
 Loops are the same as those in Python. `range` and `grid` are supported to express extents of loops. `range` is for one-dimensional loops and accept a number as the upper bound of the loop, such as:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -916,7 +916,7 @@ The iteration space of the above loops is `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`.
 `grid` is for multi-dimensional loops and accepts `tuple` as its input. For example, the above code can be also written as follows in `grid`:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -928,7 +928,7 @@ def kernel_func(a, b):
 Right now `arg` is equivalent to a three dimensional index `(i,j,k)`, with upper bound 4, 5, 6 respectively. We also have access to each element in `arg`, such as:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
@@ -948,7 +948,7 @@ The shape attribute of a Tensor is a `tuple`. We have access to its element with
 Once `grid` accepts one Tensor's `shape` attribute as its input, then the dimension of the loops is the same as the dimension of the Tensor. For example:
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
@@ -967,6 +967,7 @@ Currently, we support keywords including:
 - Memory allocation: `allocate`, `output_tensor`
 - Datatype keywords: `int32`, `float16`, `float32`, `float64`
 - For keywords: `for`, `range`, `grid`
+- Scheduling keywords: `for`, `range`, `grid`
 - In current version, some CPU/GPU platform only keywords:
     - Math keywords: `rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2` (only on GPU), `expm1` (only on GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - Datatype keywords: `int8`, `int16`, `int64`
