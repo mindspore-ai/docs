@@ -18,11 +18,10 @@ This sample code is applicable to CPU, GPU and Ascend.
 """
 import os
 import json
-from mindspore import log as logger, set_context, GRAPH_MODE
-from mindspore import Model
+from mindspore import log as logger
+import mindspore as ms
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 from src.lenet import LeNet5
 from src.datasets import create_dataset
 from custom_callback import StopAtTime
@@ -70,7 +69,7 @@ if __name__ == "__main__":
     set_dump_info()
     set_log_info()
 
-    set_context(mode=GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
     lr = 0.01
     momentum = 0.9
     epoch_size = 3
@@ -90,15 +89,15 @@ if __name__ == "__main__":
         'f1_score': nn.F1()
         }
     net_opt = nn.Momentum(network.trainable_params(), lr, momentum)
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=model_path, config=config_ck)
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+    ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet", directory=model_path, config=config_ck)
 
-    model = Model(network, net_loss, net_opt, metrics=metrics)
+    model = ms.Model(network, net_loss, net_opt, metrics=metrics)
 
     print("============== Starting Training ==============")
     ds_train = create_dataset(train_data_path, repeat_size=repeat_size)
     stop_cb = StopAtTime(run_time=0.6)
-    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor(375), stop_cb], dataset_sink_mode=False)
+    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, ms.LossMonitor(375), stop_cb], dataset_sink_mode=False)
 
     print("============== Starting Testing ==============")
     ds_eval = create_dataset(eval_data_path, repeat_size=repeat_size)

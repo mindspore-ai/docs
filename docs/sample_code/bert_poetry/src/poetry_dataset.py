@@ -5,7 +5,7 @@ from collections import defaultdict
 import numpy as np
 import mindspore.dataset as de
 import mindspore.dataset.transforms as transforms
-from mindspore import dtype as mstype
+import mindspore as ms
 from .finetune_config import cfg
 from .poetry_utils import Tokenizer
 
@@ -108,8 +108,8 @@ def create_poetry_dataset(batch_size, poetry, tokenizer):
     dt = PoetryDataGenerator(batch_size, poetry, tokenizer)
     ds = de.GeneratorDataset(dt, ["input_ids", "token_type_id", "pad_mask"])
     #ds.set_dataset_size(dt.__len__())
-    int_type_cast_op = transforms.TypeCast(mstype.int32)
-    float_type_cast_op = transforms.TypeCast(mstype.float32)
+    int_type_cast_op = transforms.TypeCast(ms.int32)
+    float_type_cast_op = transforms.TypeCast(ms.float32)
     ds = ds.map(input_columns="input_ids", operations=int_type_cast_op)
     ds = ds.map(input_columns="token_type_id", operations=int_type_cast_op)
     ds = ds.map(input_columns="pad_mask", operations=float_type_cast_op)

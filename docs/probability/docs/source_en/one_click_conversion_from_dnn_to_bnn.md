@@ -58,9 +58,9 @@ Because the BNN of the entire model needs to be converted, it is necessary to as
 import pprint
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn.probability import transforms
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE,device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE,device_target="GPU")
 
 network = LeNet5()
 lr = 0.01

@@ -1,7 +1,6 @@
 """bert generator"""
 import numpy as np
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 from src.finetune_config import cfg as settings
 from src.poetry_dataset import padding, create_tokenizer
 
@@ -25,9 +24,9 @@ def generate_random_poetry(model, s=''):
 
         pad_mask = (_target_ids != 0).astype(np.float32)
 
-        _target_ids = Tensor([_target_ids], mstype.int32)
-        _segment_ids = Tensor([_segment_ids], mstype.int32)
-        pad_mask = Tensor([pad_mask], mstype.float32)
+        _target_ids = ms.Tensor([_target_ids], ms.int32)
+        _segment_ids = ms.Tensor([_segment_ids], ms.int32)
+        pad_mask = ms.Tensor([pad_mask], ms.float32)
 
         _probas = model(_target_ids, _segment_ids, pad_mask).asnumpy()
         _probas = _probas[0, index-1, 3:]
@@ -65,9 +64,9 @@ def generate_hidden(model, head=""):
             _segment_ids = padding(np.array(segment_ids), length=length)
             pad_mask = (_target_ids != 0).astype(np.float32)
 
-            _target_ids = Tensor([_target_ids], mstype.int32)
-            _segment_ids = Tensor([_segment_ids], mstype.int32)
-            pad_mask = Tensor([pad_mask], mstype.float32)
+            _target_ids = ms.Tensor([_target_ids], ms.int32)
+            _segment_ids = ms.Tensor([_segment_ids], ms.int32)
+            pad_mask = ms.Tensor([pad_mask], ms.float32)
             _probas = model(_target_ids, _segment_ids, pad_mask).asnumpy()
 
             _probas = _probas[0, index-1, 3:]

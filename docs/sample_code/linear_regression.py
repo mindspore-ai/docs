@@ -4,10 +4,10 @@ This sample code is applicable to CPU, GPU and Ascend.
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, set_context, GRAPH_MODE
-from mindspore import LossMonitor
+from mindspore import nn
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
 
 def get_data(num, w=2.0, b=3.0):
@@ -45,8 +45,8 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = Model(net, net_loss, opt)
+    model = ms.Model(net, net_loss, opt)
     ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
-    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
     for param in net.trainable_params():
         print(param, param.asnumpy())

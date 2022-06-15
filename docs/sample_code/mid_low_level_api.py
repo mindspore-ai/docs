@@ -47,12 +47,12 @@ class MyL1Loss(nn.LossBase):
         x = self.abs(base - target)
         return self.get_loss(x)
 
-# from mindspore import dtype as mstype
+# import mindspore as ms
 # class MyMomentum(nn.Optimizer):
 #     """使用基础算子定义优化器"""
 #     def __init__(self, params, learning_rate, momentum=0.9, use_nesterov=False):
 #         super(MyMomentum, self).__init__(learning_rate, params)
-#         self.momentum = ms.Parameter(ms.Tensor(momentum, mstype.float32), name="momentum")
+#         self.momentum = ms.Parameter(ms.Tensor(momentum, ms.float32), name="momentum")
 #         self.use_nesterov = use_nesterov
 #         self.moments = self.parameters.clone(prefix="moments", init="zeros")
 #         self.assign = ops.Assign()
