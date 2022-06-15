@@ -51,7 +51,7 @@ MindSpore Golden Stick同时为算法开发者提供修改网络定义的基础�
    :maxdepth: 1
    :caption: API参考
 
-   golden_stick
+   mindspore_gs
 
 .. toctree::
    :glob:
