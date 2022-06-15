@@ -54,12 +54,12 @@ Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](#mindspore-hybrid语�
 ```python
 import numpy as np
 from mindspore import Tensor, ops, set_context
-from mindspore.ops import ms_hybrid
+from mindspore.ops import ms_kernel
 
 set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
-@ms_hybrid
+@ms_kernel
 def add(a, b):
     c = output_tensor(a.shape, a.dtype)
     for i0 in range(a.shape[0]):
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - Hybrid类型是Custom的默认类型。
-- Hybrid类型自定义算子的输入必须是一个带有[`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_hybrid.html)的函数。
+- Hybrid类型自定义算子的输入必须是一个带有[`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_kernel.html)的函数。
 - Hybrid类型自定义算子定义时可以使用自带的自动shape/dtype推导函数，也可以手动输入shape/dtype推导函数。
 
 执行用例：
@@ -778,9 +778,9 @@ MindSpore Hybrid DSL的语法与Python语法类似，例如函数定义，缩进
 ```python
 import numpy as np
 from mindspore import ops, Tensor
-from mindspore.ops import ms_hybrid
+from mindspore.ops import ms_kernel
 
-@ms_hybrid
+@ms_kernel
 def outer_product(a, b):
     d = allocate(a.shape, a.dtype)
     c = output_tensor(a.shape, a.dtype)
@@ -820,7 +820,7 @@ MindSpore Hybrid DSL中的变量包括Tensor和Scalar两种形式。
 Tensor分配的示例代码如下：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     # a和b作为输入tensor，可以直接使用
 
@@ -844,7 +844,7 @@ def kernel_func(a, b):
 Scalar变量使用的示例代码如下：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a):
     c = output_tensor(a.shape, a.dtype)
 
@@ -882,7 +882,7 @@ MindSpore Hybrid DSL支持基本的四则运算表达，包括 `+, -, *, /`，�
 类型转换代码示例如下：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -900,7 +900,7 @@ def kernel_func(a):
 基本循环的写法和Python一样，循环维度的表达可以使用 `range`和 `grid`关键词。`range`表示一维的循环维度，接受一个参数表示循环的上限，例如：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -916,7 +916,7 @@ def kernel_func(a, b):
 `grid`表示多维网格，接受的输入为 `tuple` ，例如上面的代码用 `grid`表达后如下：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -928,7 +928,7 @@ def kernel_func(a, b):
 此时，参数 `arg`等价于一个三维index `(i,j,k)`，其上限分别为4，5，6。对参数 `arg`我们可以取其中的某个分量，例如
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -948,7 +948,7 @@ def kernel_func(a, b):
 同时，在 `grid`关键词中我们接受某个Tensor对象的 `shape`属性，那么循环的维度由Tensor的维度决定。例如：
 
 ```python
-@ms_hybrid
+@ms_kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
@@ -967,6 +967,7 @@ def kernel_func(a, b):
 - 内存分配：`allocate`, `output_tensor`
 - 数据类型转化：`int32`, `float16`, `float32`, `float64`
 - 循环表达：`for`, `range`, `grid`
+- 调度源语：`serial`, `vec`, `grid`
 - 在当前版本中，我们对CPU/GPU后端提供部分进阶关键词：
     - 数学函数：`rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`(仅GPU), `expm1`(仅GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - 数据类型转换：`int8`，`int16`，`int64`
