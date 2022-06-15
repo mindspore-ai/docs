@@ -16,7 +16,8 @@
 Net
 '''
 import numpy as np
-from mindspore import Tensor, Parameter, ops
+import mindspore as ms
+from mindspore import ops
 from mindspore.nn import Cell
 
 
@@ -26,7 +27,7 @@ class Net(Cell):
         """init"""
         super().__init__()
         matmul_np = np.full(matmul_size, 0.5, dtype=np.float32)
-        self.matmul_weight = Parameter(Tensor(matmul_np))
+        self.matmul_weight = ms.Parameter(ms.Tensor(matmul_np))
         self.matmul = ops.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
         self.neg = ops.Neg()
         if strategy is not None:

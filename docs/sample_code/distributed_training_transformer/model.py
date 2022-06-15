@@ -17,7 +17,7 @@ Model for training transformers
 """
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import dtype as mstype
+import mindspore as ms
 from mindspore.nn.transformer import Transformer, VocabEmbedding, AttentionMask, CrossEntropyLoss
 from mindspore.nn import Dense as Linear
 
@@ -96,7 +96,7 @@ class Net(nn.Cell):
         encoder_embed, _ = self.src_embedding(encoder_input, encoder_position)
         decoder_embed, _ = self.tgt_embedding(decoder_input, decoder_position)
         input_mask_value = self.no_equal(decoder_input, 1)
-        input_mask_value = ops.Cast()(input_mask_value, mstype.float32)
+        input_mask_value = ops.Cast()(input_mask_value, ms.float32)
         decoder_mask = self.attention_mask(input_mask_value)
         decoder_output, _, _ = self.base1(encoder_embed,
                                           encoder_mask,

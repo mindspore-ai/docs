@@ -19,14 +19,12 @@ import os
 import argparse
 import mindspore.dataset as ds
 import mindspore.nn as nn
-from mindspore import Model, load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.common.initializer import Normal
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 from mindspore.nn import Accuracy
-from mindspore import dtype as mstype
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from utils.dataset import download_dataset
 
@@ -54,7 +52,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_nml_op = vision.Rescale(rescale_nml, shift_nml) # normalize images
     rescale_op = vision.Rescale(rescale, shift) # rescale images
     hwc2chw_op = vision.HWC2CHW() # change shape from (height, width, channel) to (channel, height, width) to fit network.
-    type_cast_op = transforms.TypeCast(mstype.int32) # change data type of label to int32 to fit network
+    type_cast_op = transforms.TypeCast(ms.int32) # change data type of label to int32 to fit network
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
@@ -102,16 +100,16 @@ def train_net(network_model, epoch_size, data_path, repeat_size, ckpoint_cb, sin
     print("============== Starting Training ==============")
     # load training dataset
     ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
-    network_model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
+    network_model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, ms.LossMonitor()], dataset_sink_mode=sink_mode)
 
 
 def test_net(network, network_model, data_path):
     """Define the evaluation method."""
     print("============== Starting Testing ==============")
     # load the saved model for evaluation
-    param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
+    param_dict = ms.load_checkpoint("checkpoint_lenet-1_1875.ckpt")
     # load parameter to the network
-    load_param_into_net(network, param_dict)
+    ms.load_param_into_net(network, param_dict)
     # load testing dataset
     ds_eval = create_dataset(os.path.join(data_path, "test"))
     acc = network_model.eval(ds_eval, dataset_sink_mode=False)
@@ -123,7 +121,7 @@ if __name__ == "__main__":
     parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'],
                         help='device where the code will be implemented (default: CPU)')
     args = parser.parse_args()
-    set_context(mode=GRAPH_MODE, device_target=args.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args.device_target)
     dataset_sink_mode = not args.device_target == "CPU"
     # download mnist dataset
     download_dataset()
@@ -139,11 +137,11 @@ if __name__ == "__main__":
     net = LeNet5()
     # define the optimizer
     net_opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # save the network model and parameters for subsequence fine-tuning
-    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+    ckpoint = ms.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     # group layers into an object with training and evaluation features
-    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    model = ms.Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     train_net(model, train_epoch, mnist_path, dataset_size, ckpoint, dataset_sink_mode)
     test_net(net, model, mnist_path)

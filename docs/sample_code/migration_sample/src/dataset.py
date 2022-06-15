@@ -15,7 +15,7 @@
 """
 create train or eval dataset.
 """
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
@@ -56,7 +56,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
         vision.HWC2CHW()
     ]
 
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # call data operations by map
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)

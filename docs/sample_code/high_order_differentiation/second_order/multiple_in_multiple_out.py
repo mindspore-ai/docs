@@ -19,9 +19,9 @@ This sample code is applicable to GPU and Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -48,8 +48,8 @@ class GradSec(nn.Cell):
         super(GradSec, self).__init__()
         self.grad = ops.GradOperation(get_all=True, sens_param=True)
         self.network = network
-        self.sens1 = Tensor(np.array([1]).astype('float32'))
-        self.sens2 = Tensor(np.array([0]).astype('float32'))
+        self.sens1 = ms.Tensor(np.array([1]).astype('float32'))
+        self.sens2 = ms.Tensor(np.array([0]).astype('float32'))
     def construct(self, x, y):
         dxdx, dxdy = self.grad(self.network)(x, y, (self.sens1, self.sens2))
         dydx, dydy = self.grad(self.network)(x, y, (self.sens2, self.sens1))
@@ -58,7 +58,7 @@ class GradSec(nn.Cell):
 net = Net()
 firstgrad = Grad(net) # first order
 secondgrad = GradSec(firstgrad) # second order
-x_train = Tensor(np.array([4], dtype=np.float32))
-y_train = Tensor(np.array([5], dtype=np.float32))
+x_train = ms.Tensor(np.array([4], dtype=np.float32))
+y_train = ms.Tensor(np.array([5], dtype=np.float32))
 input_dxdx, input_dxdy, input_dydx, input_dydy = secondgrad(x_train, y_train)
 print(input_dxdx, input_dxdy, input_dydx, input_dydy)

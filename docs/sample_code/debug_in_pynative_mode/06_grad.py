@@ -2,10 +2,9 @@
 This sample code is applicable to Ascend.
 """
 import mindspore.ops as ops
-from mindspore import dtype as mstype, set_context, PYNATIVE_MODE
-from mindspore import Tensor
+import mindspore as ms
 
-set_context(mode=PYNATIVE_MODE, device_target="Ascend")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="Ascend")
 
 def mul(x, y):
     return x * y
@@ -13,4 +12,4 @@ def mul(x, y):
 def mainf(x, y):
     return ops.GradOperation(get_all=True)(mul)(x, y)
 
-print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
+print(mainf(ms.Tensor(1, ms.int32), ms.Tensor(2, ms.int32)))

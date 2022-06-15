@@ -15,9 +15,7 @@
 """train resnet."""
 import os
 import argparse
-from mindspore import set_seed, set_context, GRAPH_MODE
-from mindspore import Model
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from src.config import config
 from src.dataset import create_dataset
@@ -29,14 +27,14 @@ parser.add_argument('--checkpoint_path', type=str, default=None, help='Checkpoin
 parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
 args_opt = parser.parse_args()
 
-set_seed(1)
+ms.set_seed(1)
 
 
 
 if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID', '0'))
     # init context
-    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 
     # create dataset
     dataset = create_dataset(args_opt.dataset_path, config.batch_size, do_train=False)
@@ -46,8 +44,8 @@ if __name__ == '__main__':
     net = resnet50(class_num=config.class_num)
 
     # load checkpoint
-    param_dict = load_checkpoint(args_opt.checkpoint_path)
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(args_opt.checkpoint_path)
+    ms.load_param_into_net(net, param_dict)
     net.set_train(False)
 
     # define loss, model
@@ -55,7 +53,7 @@ if __name__ == '__main__':
                               num_classes=config.class_num)
 
     # define model
-    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)

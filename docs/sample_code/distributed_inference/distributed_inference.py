@@ -17,23 +17,23 @@ Distributed inference
 """
 import numpy as np
 from net import Net
-from mindspore import Model, Tensor, load_distributed_checkpoint, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.communication import init
 
 
 def test_inference():
     """distributed inference after distributed training"""
-    set_context(mode=GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     init(backend_name="hccl")
-    set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
-                                      strategy_ckpt_load_file="./train_strategy.ckpt", device_num=8)
+    ms.set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
+                                 strategy_ckpt_load_file="./train_strategy.ckpt", device_num=8)
 
     predict_data = create_predict_data()
     network = Net(matmul_size=(96, 16))
-    model = Model(network)
-    predict_layout = model.infer_predict_layout(Tensor(predict_data))
+    model = ms.Model(network)
+    predict_layout = model.infer_predict_layout(ms.Tensor(predict_data))
     ckpt_file_list = create_ckpt_file_list()
-    load_distributed_checkpoint(network, ckpt_file_list, predict_layout)
+    ms.load_distributed_checkpoint(network, ckpt_file_list, predict_layout)
     predict_result = model.predict(predict_data)
     print(predict_result)
 
@@ -41,7 +41,7 @@ def test_inference():
 def create_predict_data():
     """user-defined predict data"""
     inputs_np = np.random.randn(128, 96).astype(np.float32)
-    return Tensor(inputs_np)
+    return ms.Tensor(inputs_np)
 
 
 def create_ckpt_file_list():

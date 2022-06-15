@@ -17,10 +17,9 @@ Train file for training transformers
 """
 import argparse
 from mindspore.nn.transformer import TransformerOpParallelConfig
-from mindspore import Model, ParallelMode, set_auto_parallel_context, reset_auto_parallel_context
+import mindspore as ms
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
-from mindspore import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
 from dataset import ToyDataset, Tokenzier
 from model import Net
@@ -124,9 +123,9 @@ def main():
         dp = device_num // args_opt.mp // args_opt.pipeline_stage
         print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
         gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
-        reset_auto_parallel_context()
-        set_auto_parallel_context(
-            parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
+        ms.reset_auto_parallel_context()
+        ms.set_auto_parallel_context(
+            parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
             device_num=device_num, enable_parallel_optimizer=True,
             parallel_optimizer_config={"gradient_accumulation_shard": gradient_accumulation_shard})
@@ -163,17 +162,17 @@ def main():
         opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
 
     if not args_opt.train:
-        model = Model(net)
+        model = ms.Model(net)
     else:
-        model = Model(net, optimizer=opt)
+        model = ms.Model(net, optimizer=opt)
 
     callback_size = 1
     # single vs pipeline (save a slice of the model)
-    ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
-                                   integrated_save=False)
-    ckpoint_cb = ModelCheckpoint(prefix="test",
-                                 config=ckpt_config)
-    callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
+    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
+                                      integrated_save=False)
+    ckpoint_cb = ms.ModelCheckpoint(prefix="test",
+                                    config=ckpt_config)
+    callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
     model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 
 

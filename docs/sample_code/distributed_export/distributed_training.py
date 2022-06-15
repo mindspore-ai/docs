@@ -18,27 +18,25 @@ Dsistributed training
 import os
 from dataset import FakeData
 from net import Net
-from mindspore import Model, ParallelMode, GRAPH_MODE, set_context, set_auto_parallel_context, \
-    reset_auto_parallel_context
-from mindspore import CheckpointConfig, ModelCheckpoint
+import mindspore as ms
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 
 
 def test_train():
     """distributed training"""
-    set_context(mode=GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     parallel_dataset = FakeData()
     strategy = ((2, 1), (1, 4))
-    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
-                              device_num=8,
-                              strategy_ckpt_save_file="./train_strategy.ckpt")
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL,
+                                 device_num=8,
+                                 strategy_ckpt_save_file="./train_strategy.ckpt")
     network = Net(matmul_size=(96, 16), strategy=strategy)
     net_opt = Momentum(network.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
-    model = Model(network=network, loss_fn=net_loss, optimizer=net_opt)
-    ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+    model = ms.Model(network=network, loss_fn=net_loss, optimizer=net_opt)
+    ckpt_config = ms.CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
     global_rank_id = int(os.getenv("RANK_ID"))
     ckpt_path = './rank_{}_ckpt'.format(global_rank_id)
-    ckpt_callback = ModelCheckpoint(prefix='parallel', directory=ckpt_path, config=ckpt_config)
+    ckpt_callback = ms.ModelCheckpoint(prefix='parallel', directory=ckpt_path, config=ckpt_config)
     model.train(epoch=2, train_dataset=parallel_dataset, callbacks=[ckpt_callback], dataset_sink_mode=False)
-    reset_auto_parallel_context()
+    ms.reset_auto_parallel_context()

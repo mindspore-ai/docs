@@ -19,16 +19,14 @@ This sample code is applicable to GPU and Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor, set_context, GRAPH_MODE
-from mindspore import Parameter
-from mindspore import dtype as mstype
-set_context(mode=GRAPH_MODE, device_target="GPU")
+import mindspore as ms
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.matmul = ops.MatMul()
-        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+        self.z = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='z')
     def construct(self, x, y):
         x = x * self.z
         out = self.matmul(x, y)
@@ -39,12 +37,12 @@ class GradNetWrtX(nn.Cell):
         super(GradNetWrtX, self).__init__()
         self.net = net
         self.grad_op = ops.GradOperation(sens_param=True)
-        self.grad_wrt_output = Tensor([[0.1, 0.6, 0.2], [0.8, 1.3, 1.1]], dtype=mstype.float32)
+        self.grad_wrt_output = ms.Tensor([[0.1, 0.6, 0.2], [0.8, 1.3, 1.1]], dtype=ms.float32)
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, y, self.grad_wrt_output)
 
-input_x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
-input_y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
+input_x = ms.Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=ms.float32)
+input_y = ms.Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=ms.float32)
 output = GradNetWrtX(Net())(input_x, input_y)
 print(output)

@@ -22,9 +22,7 @@ import shutil
 import urllib.request
 from urllib.parse import urlparse
 import random
-import mindspore
-from mindspore import dtype as mstype
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
@@ -35,7 +33,7 @@ import numpy as np
 
 
 # Fix the global random seed, 0 is not preferred to be the seed number.
-mindspore.set_seed(1)
+ms.set_seed(1)
 np.random.seed(1)
 random.seed(1)
 
@@ -105,7 +103,7 @@ def create_dataset_cifar10(data_path, batch_size=32, repeat_size=1, status="trai
     #     random_crop_op = vision.RandomCrop([32, 32], [4, 4, 4, 4])
     #     random_horizontal_op = vision.RandomHorizontalFlip()
     channel_swap_op = vision.HWC2CHW()
-    typecast_op = transforms.TypeCast(mstype.int32)
+    typecast_op = transforms.TypeCast(ms.int32)
     cifar_ds = cifar_ds.map(operations=typecast_op, input_columns="label")
     # if status == "train":
     #     cifar_ds = cifar_ds.map(operations=random_crop_op, input_columns="image")
@@ -229,11 +227,11 @@ def train(ds_train):
        None.
     """
     device_target = "Ascend"
-    set_context(mode=GRAPH_MODE, device_target=device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_with_loss = nn.WithLossCell(network, net_loss)
-    lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
+    lr = ms.Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = nn.Momentum(net_with_loss.trainable_params(), learning_rate=lr, momentum=0.9)
     # define training net
     train_net = nn.TrainOneStepCell(net_with_loss, net_opt)

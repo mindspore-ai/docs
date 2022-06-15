@@ -18,17 +18,16 @@ This sample code is applicable to Ascend, CPU and GPU.
 import os
 import time
 import json
+import mindspore as ms
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
-from mindspore import Model, save_checkpoint, set_context, GRAPH_MODE
-from mindspore import Callback, LossMonitor
 from mindspore import log as logger
 
 from src.dataset import create_train_dataset, create_eval_dataset
 from src.net import Net
 
 
-class StopAtTime(Callback):
+class StopAtTime(ms.Callback):
     """StopAtTime"""
     def __init__(self, run_time):
         """init"""
@@ -53,7 +52,7 @@ class StopAtTime(Callback):
             run_context.request_stop()
 
 
-class SaveCallback(Callback):
+class SaveCallback(ms.Callback):
     """SaveCallback"""
     def __init__(self, eval_model, ds_eval):
         """init"""
@@ -69,7 +68,7 @@ class SaveCallback(Callback):
         if result['Accuracy'] > self.acc:
             self.acc = result['Accuracy']
             file_name = str(self.acc) + ".ckpt"
-            save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
+            ms.save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
             print("Save the maximum accuracy checkpoint, the accuracy is", self.acc)
 
 def set_dump_info():
@@ -107,13 +106,13 @@ def set_log_info():
 if __name__ == "__main__":
     set_dump_info()
     set_log_info()
-    set_context(mode=GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     train_dataset = create_train_dataset()
     eval_dataset = create_eval_dataset()
     net = Net()
     net_opt = Momentum(net.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
-    model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': nn.Accuracy()})
+    model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': nn.Accuracy()})
     model.train(epoch=100,
                 train_dataset=train_dataset,
-                callbacks=[LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)
+                callbacks=[ms.LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)
