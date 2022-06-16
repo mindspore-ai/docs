@@ -95,15 +95,21 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 `GradCAM`是一个典型及有效的梯度解释器：
 
 ```python
+from PIL import Image
 import mindspore as ms
 from mindspore import Tensor
 from mindspore_xai.explainer import GradCAM
+from mindspore_xai.visual.cv.saliency import saliency_to_image
 
 # 通常指定最后一层的卷积层
 grad_cam = GradCAM(net, layer="layer4")
 
 # 3 是'boat'类的ID
-saliency = grad_cam(boat_image, targets=3)
+saliency = grad_cam(boat_image, targets=3, show=False)
+
+# 将热力图转换为 PIL.Image.Image 对象
+boat_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, boat_img)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
@@ -162,7 +168,7 @@ load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
 
-# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmod 则使用
+# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmoid 则使用
 # BCEWithLogitsLoss 作为损失函数
 ood_net.train(train_ds, loss_fn=SoftmaxCrossEntropyWithLogits())
 
@@ -221,14 +227,20 @@ class MyLeNet5(nn.Cell):
 现在，我们可以使用训练好的`OoDNet`去构造`RISEPlus`解释器输出热力图：
 
 ```python
+from PIL import Image
+from mindspore_xai.visual.cv.saliency import saliency_to_image
+
 # 如果是要从 checkpoint 文件读取 OoDNet 的权重，我们就要传入一个新构造的下游分类器对象
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
 param_dict = load_checkpoint('ood_net.ckpt')
-load_param_into_net(ood_net)
+load_param_into_net(ood_net, param_dict)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
 boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
-saliency = rise_plus(boat_image, targets=3)
+saliency = rise_plus(boat_image, targets=3, show=False)
+
+boat_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, boat_img)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
