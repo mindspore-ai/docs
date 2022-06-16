@@ -14,7 +14,7 @@
 # ============================================================================
 """Create train or eval dataset."""
 import os
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
@@ -71,7 +71,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
 
     trans += [resize_op, rescale_op, normalize_op, change_swap_op]
 
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     dataset = dataset.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
     dataset = dataset.map(operations=trans, input_columns="image", num_parallel_workers=8)

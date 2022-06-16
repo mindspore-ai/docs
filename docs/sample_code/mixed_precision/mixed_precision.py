@@ -17,8 +17,7 @@
 This sample code is applicable to GPU and Ascend.
 """
 import mindspore.nn as nn
-from mindspore import Model, set_context, GRAPH_MODE
-from mindspore import LossMonitor
+import mindspore as ms
 from mindspore.nn import Accuracy
 from src.lenet import LeNet5
 from src.datasets import create_dataset
@@ -26,7 +25,7 @@ from src.datasets import create_dataset
 
 if __name__ == "__main__":
 
-    set_context(mode=GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
     ds_train = create_dataset("./datasets/MNIST_Data/train", 32)
     ds_eval = create_dataset("./datasets/MNIST_Data/test", 32)
@@ -37,10 +36,10 @@ if __name__ == "__main__":
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
     # amp_leval=O2 in GPU, amp_leval=O3 in Ascend, O0 is without mixed precision
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+    model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 
     # Run training
-    model.train(epoch=1, callbacks=[LossMonitor()], train_dataset=ds_train)
+    model.train(epoch=1, callbacks=[ms.LossMonitor()], train_dataset=ds_train)
 
     # Run training
     acc = model.eval(ds_eval, dataset_sink_mode=False)

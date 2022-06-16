@@ -20,13 +20,10 @@ import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
-from mindspore import dtype as mstype, set_context, GRAPH_MODE
+import mindspore as ms
 
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.nn import Accuracy
-from mindspore import Model
-from mindspore import save_checkpoint, load_checkpoint, load_param_into_net
-from mindspore import CheckpointConfig, ModelCheckpoint, LossMonitor
 from mindspore.common.initializer import Normal
 
 
@@ -56,7 +53,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
     rescale_op = vision.Rescale(rescale, shift)
     hwc2chw_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
@@ -100,7 +97,7 @@ class LeNet5(nn.Cell):
 
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
     lr = 0.01
     momentum = 0.9
 
@@ -114,7 +111,7 @@ if __name__ == "__main__":
     net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define the model
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     epoch_size = 1
     mnist_path = "./datasets/MNIST_Data"
@@ -125,18 +122,18 @@ if __name__ == "__main__":
     print("========== The Training Model is Defined. ==========")
 
     # train the model and export the encrypted CheckPoint file through Callback
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF',
-                                 enc_mode='AES-GCM')
-    ckpoint_cb = ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
-    model.train(10, train_dataset, dataset_sink_mode=False, callbacks=[ckpoint_cb, LossMonitor(1875)])
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF',
+                                    enc_mode='AES-GCM')
+    ckpoint_cb = ms.ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
+    model.train(10, train_dataset, dataset_sink_mode=False, callbacks=[ckpoint_cb, ms.LossMonitor(1875)])
     acc = model.eval(eval_dataset, dataset_sink_mode=False)
     print("Accuracy: {}".format(acc["Accuracy"]))
 
     # export the encrypted CheckPoint file through save_checkpoint
-    save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+    ms.save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 
     # load encrypted CheckPoint file and eval
-    param_dict = load_checkpoint('lenet_enc-10_1875.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
-    load_param_into_net(network, param_dict)
+    param_dict = ms.load_checkpoint('lenet_enc-10_1875.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+    ms.load_param_into_net(network, param_dict)
     acc = model.eval(eval_dataset, dataset_sink_mode=False)
     print("Accuracy loading encrypted CheckPoint: {}".format(acc["Accuracy"]))

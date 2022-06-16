@@ -16,22 +16,22 @@ With the tutorial package, we have to get the sample image, trained classifier, 
 
 ```python
 # have to change the current directory to xai/examples/ first
-from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
+import mindspore as ms
 from mindspore_xai.explainer import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # only PYNATIVE_MODE is supported
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 # 20 classes
 num_classes = 20
 
 # load the trained classifier
 net = resnet50(num_classes)
-param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
+ms.load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] Tensor
 boat_image = load_image_tensor('xai_examples_data/test/boat.jpg')
@@ -70,14 +70,13 @@ If the object region or bounding box is provided, `Localization` can be used. It
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import Tensor
 from mindspore_xai.benchmark import Localization
 
 # top-left:80,66 bottom-right:223,196 is the bounding box of a boat
 mask = np.zeros([1, 1, 224, 224])
 mask[:, :, 66:196, 80:223] = 1
 
-mask = Tensor(mask, dtype=ms.float32)
+mask = ms.Tensor(mask, dtype=ms.float32)
 
 localization = Localization(num_classes)
 

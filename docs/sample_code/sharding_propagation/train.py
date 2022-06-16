@@ -17,15 +17,11 @@ This sample code is applicable to Ascend.
 """
 import numpy as np
 import mindspore as ms
-from mindspore import Tensor, Parameter, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Cell, Momentum
 import mindspore.ops as ops
-from mindspore import Model
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 import mindspore.dataset as ds
 import mindspore.communication as D
-from mindspore import LossMonitor
-from mindspore import ModelCheckpoint
 
 
 step_per_epoch = 4
@@ -40,8 +36,8 @@ class Dense(Cell):
     """Dense layer"""
     def __init__(self, in_channels, out_channels):
         super().__init__()
-        self.weight = Parameter(Tensor(np.ones([in_channels, out_channels]), dtype=ms.float32), name="weight1")
-        self.bias = Parameter(Tensor(np.ones([out_channels]), dtype=ms.float32), name="bias")
+        self.weight = ms.Parameter(ms.Tensor(np.ones([in_channels, out_channels]), dtype=ms.float32), name="weight1")
+        self.bias = ms.Parameter(ms.Tensor(np.ones([out_channels]), dtype=ms.float32), name="bias")
         self.matmul = ops.MatMul()
         self.add = ops.Add()
 
@@ -66,11 +62,11 @@ class FFN(Cell):
         return x
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="Ascend", save_graphs=True)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=True)
     D.init()
     rank = D.get_rank()
-    set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",
-                              device_num=8, full_batch=True)
+    ms.set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",
+                                 device_num=8, full_batch=True)
 
     np.random.seed(1)
     input_data = np.random.rand(64, 64).astype(np.float32)
@@ -83,10 +79,10 @@ if __name__ == "__main__":
     momentum = 0.1
     epoch_size = 1
 
-    callback = [LossMonitor(), ModelCheckpoint(directory="{}".format(rank))]
+    callback = [ms.LossMonitor(), ms.ModelCheckpoint(directory="{}".format(rank))]
 
     dataset = ds.GeneratorDataset(fake_dataset, ["input", "label"])
     loss = SoftmaxCrossEntropyWithLogits()
     opt = Momentum(net.trainable_params(), learning_rate, momentum)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=callback, dataset_sink_mode=False)

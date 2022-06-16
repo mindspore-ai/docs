@@ -83,8 +83,7 @@ import os
 from collections.abc import Iterable
 
 import mindspore.nn as nn
-from mindspore import ParameterTuple, set_context, GRAPH_MODE
-from mindspore import DatasetHelper, save_checkpoint
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from models.official.cv.lenet.src.dataset import create_dataset
@@ -133,7 +132,7 @@ class TrainForwardBackward(Cell):
         self.network = network
         self.network.set_grad()
         self.network.add_flags(defer_inline=True)
-        self.weights = ParameterTuple(network.trainable_params())
+        self.weights = ms.ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
         self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
@@ -221,7 +220,7 @@ class GradientAccumulation:
         """
         Training process. The data would be passed to network directly.
         """
-        dataset_helper = DatasetHelper(train_dataset, dataset_sink_mode=False, epoch_num=epoch)
+        dataset_helper = ms.DatasetHelper(train_dataset, dataset_sink_mode=False, epoch_num=epoch)
 
         for i in range(epoch):
             step = 0
@@ -235,7 +234,7 @@ class GradientAccumulation:
 
             train_dataset.reset()
 
-        save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
+        ms.save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
 ```
 
 #### Training and Saving the Model
@@ -251,7 +250,7 @@ if __name__ == "__main__":
                         help='path where the dataset is saved')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target=args.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args.device_target)
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
     net = LeNet5(10)
@@ -322,12 +321,10 @@ import argparse
 import os
 
 import mindspore.nn as nn
-from mindspore import Model, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import WithLossCell, TrainOneStepCell, Accuracy
 from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
-from mindspore import LossMonitor, TimeMonitor
-from mindspore import load_checkpoint, load_param_into_net
 
 from models.official.cv.lenet.src.dataset import create_dataset
 from models.official.cv.lenet.src.lenet import LeNet5
@@ -377,23 +374,23 @@ if __name__ == "__main__":
                         help='path where the dataset is saved')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target=args.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args.device_target)
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
     net = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
-    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+    time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
 
     train_net = nn.WithLossCell(net, net_loss)
     train_net = TrainGradAccumulationStepsCell(train_net, net_opt, 1.0, 5)
-    model = Model(train_net)
+    model = ms.Model(train_net)
 
     print("============== Starting Training ==============")
-    model.train(10, ds_train, callbacks=[time_cb, LossMonitor()])
+    model.train(10, ds_train, callbacks=[time_cb, ms.LossMonitor()])
 
     print("============== Starting Testing ==============")
-    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    model = ms.Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     ds_eval = create_dataset(os.path.join(args.data_path, "test"), 32, 1)
     if ds_eval.get_dataset_size() == 0:
         raise ValueError("Please check dataset size > 0 and batch_size <= dataset size")

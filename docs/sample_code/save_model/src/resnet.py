@@ -15,20 +15,19 @@
 """Resnet network."""
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor
 import mindspore.ops as ops
-
+import mindspore as ms
 
 def weight_variable_0(shape):
     """weight_variable_0"""
     zeros = np.zeros(shape).astype(np.float32)
-    return Tensor(zeros)
+    return ms.Tensor(zeros)
 
 
 def weight_variable_1(shape):
     """weight_variable_1"""
     ones = np.ones(shape).astype(np.float32)
-    return Tensor(ones)
+    return ms.Tensor(ones)
 
 
 def conv3x3(in_channels, out_channels, stride=1, padding=0):

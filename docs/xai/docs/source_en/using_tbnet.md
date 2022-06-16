@@ -251,23 +251,23 @@ The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train
 The complete example code of this step is [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py).
 
 ```python
-from mindspore import context, load_checkpoint, load_param_into_net, Tensor, export
+import mindspore as ms
 from src.tbnet import TBNet
 
 ...
 
 network = TBNet(cfg.num_items, cfg.num_references, cfg.num_relations, cfg.embedding_dim)
-param_dict = load_checkpoint(ckpt_path)
-load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint(ckpt_path)
+ms.load_param_into_net(network, param_dict)
 
-item = Tensor(np.ones((1,)).astype(np.int))
-rl1 = Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
-ref = Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
-rl2 = Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
-his = Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
+item = ms.Tensor(np.ones((1,)).astype(np.int))
+rl1 = ms.Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
+ref = ms.Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
+rl2 = ms.Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
+his = ms.Tensor(np.ones((1, cfg.per_item_paths)).astype(np.int))
 inputs = [item, rl1, ref, rl2, his]
 file_name = os.path.realpath(args.file_name)
-export(network, *inputs, file_name=file_name, file_format=args.file_format)
+ms.export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
 The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export).

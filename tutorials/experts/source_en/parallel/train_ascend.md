@@ -97,11 +97,11 @@ The sample code for calling the HCCL is as follows:
 
 ```python
 import os
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...
 ```
@@ -117,7 +117,7 @@ In the preceding code:
 During distributed training, data is imported in data parallel mode. The following takes the CIFAR-10 dataset as an example to describe how to import the CIFAR-10 dataset in data parallel mode. `data_path` indicates the dataset path, which is also the path of the `cifar-10-batches-bin` folder.
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
@@ -141,7 +141,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
@@ -182,9 +182,8 @@ Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based
 In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html).
 
 ```python
-from mindspore import Tensor, Parameter
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class HybridParallelNet(nn.Cell):
@@ -192,7 +191,7 @@ class HybridParallelNet(nn.Cell):
         super(HybridParallelNet, self).__init__()
         # initialize the weight which is sliced at the second dimension
         weight_init = np.random.rand(512, 128/2).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+        self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
         self.fc = ops.MatMul()
         self.reduce = ops.ReduceSum()
         self.allreduce = ops.AllReduce(op='sum')
@@ -211,9 +210,8 @@ Compared with the auto parallel mode, semi auto parallel mode supports manual co
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `((1, 1), (1, 2))`, which means `self.weight` is sliced at the second dimension.
 
 ```python
-from mindspore import Tensor, Parameter
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SemiAutoParallelNet(nn.Cell):
@@ -221,7 +219,7 @@ class SemiAutoParallelNet(nn.Cell):
         super(SemiAutoParallelNet, self).__init__()
         # initialize full tensor weight
         weight_init = np.random.rand(512, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init))
+        self.weight = ms.Parameter(ms.Tensor(weight_init))
         # set shard strategy
         self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
@@ -246,8 +244,7 @@ In the loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multi
 
 ```python
 import mindspore.ops as ops
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):
@@ -256,8 +253,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.exp = ops.Exp()
         self.sum = ops.ReduceSum(keep_dims=True)
         self.onehot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = ms.Tensor(1.0, ms.float32)
+        self.off_value = ms.Tensor(0.0, ms.float32)
         self.div = ops.Div()
         self.log = ops.Log()
         self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
@@ -303,25 +300,24 @@ If multiple network cases exist in the script, call `reset_auto_parallel_context
 In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL`.
 
 ```python
-from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-set_context(mode=GRAPH_MODE, device_target="Ascend")
-set_context(device_id=device_id) # set device_id
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+ms.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -589,32 +585,32 @@ In MindSpore, four distributed parallel training modes are supported, namely Aut
 It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. It should be noted that in parallel mode, you need to specify a different checkpoint save path for the scripts running on each device to prevent conflicts when reading and writing files, The code is as follows:
 
 ```python
-from mindspore import ModelCheckpoint, CheckpointConfig
-from mindspore import set_auto_parallel_context, ParallelMode
+import mindspore as ms
+
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    ckpt_config = ms.CheckpointConfig()
+    ckpt_callback = ms.ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```
 
 After saving the checkpoint file, users can easily load model parameters for reasoning or retraining. For example, the following code can be used for retraining:
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint(pretrain_ckpt_path)
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint(pretrain_ckpt_path)
+ms.load_param_into_net(net, param_dict)
 ```
 
 For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html).
@@ -624,23 +620,23 @@ By default, sliced parameters would be merged before saving automatocally. Howev
 In retraining with multiple devices scenarios, users can infer shard strategy of retraining with `model.infer_train_layout` (only dataset sink mode is supported). The shard strategy will be used as `predict_strategy` for `load_distributed_checkpoint` function, which restores sliced parameters from `strategy_ckpt_load_file` (training strategy) to `predict_strategy` (retraining strategy) and load them into `model.train_network`. If there is only one device in retraining, `predict_strategy` could be `None`. The code is as follows:
 
 ```python
-from mindspore import load_distributed_checkpoint, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.communication import init
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
-set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+ms.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
 # create model and dataset
 dataset = create_custom_dataset()
 resnet = ResNet50()
 opt = Momentum()
 loss = SoftmaxCrossEntropyWithLogits()
-model = Model(resnet, loss, opt)
+model = ms.Model(resnet, loss, opt)
 # infer train strategy
 layout_dict = model.infer_train_layout(dataset, True, 100)
 # load into `model.train_network` net
 ckpt_file_list = create_ckpt_file_list()
-load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
+ms.load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
 # training the model
 model.train(2, dataset)
 ```
@@ -652,13 +648,13 @@ model.train(2, dataset)
 In data parallel mode, checkpoint is used in the same way as in auto parallel mode. You just need to change:
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
 to:
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 > Under data parallel mode, we recommend to load the same checkpoint for each device to avoid accuracy problems. `parameter_broadcast` could also be used for sharing the values of parameters among devices.
@@ -673,8 +669,8 @@ To save the model, you can use the following code:
 ...
 net = SemiAutoParallelNet()
 ...
-ckpt_config = CheckpointConfig()
-ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
+ckpt_config = ms.CheckpointConfig()
+ckpt_callback = ms.ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
 ```
 
 To load the model, you can use the following code:
@@ -682,8 +678,8 @@ To load the model, you can use the following code:
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint(pretrain_ckpt_path)
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint(pretrain_ckpt_path)
+ms.load_param_into_net(net, param_dict)
 ```
 
 For the three parallel training modes described above, the checkpoint file is saved in a complete way on each device. Users also can save only the checkpoint file of this device on each device, take Semi Auto parallel Mode as an example for explanation.
@@ -694,14 +690,14 @@ Change the checkpoint configuration policy from:
 
 ```python
 # config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+ckpt_config = ms.CheckpointConfig(keep_checkpoint_max=1)
 ```
 
 to:
 
 ```python
 # config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+ckpt_config = ms.CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
 It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html#integrating-the-saved-checkpoint-files).

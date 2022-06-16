@@ -22,11 +22,9 @@ import time
 import numpy as np
 import moxing as mox
 
-from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore import Callback, LossMonitor
-from mindspore import FixedLossScaleManager
 from mindspore.communication import init
 import mindspore.dataset as ds
 
@@ -38,7 +36,7 @@ np.random.seed(1)
 ds.config.set_seed(1)
 
 
-class PerformanceCallback(Callback):
+class PerformanceCallback(ms.Callback):
     """
     Training performance callback.
 
@@ -117,10 +115,11 @@ def resnet50_train(args):
     local_data_path = '/cache/data'
 
     # set graph mode and parallel mode
-    set_context(mode=GRAPH_MODE, device_target="Ascend", save_graphs=False)
-    set_context(device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=False)
+    ms.set_context(device_id=device_id)
     if device_num > 1:
-        set_auto_parallel_context(device_num=device_num, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+        ms.set_auto_parallel_context(device_num=device_num, parallel_mode=ms.ParallelMode.DATA_PARALLEL,\
+            gradients_mean=True)
         init()
         local_data_path = os.path.join(local_data_path, str(device_id))
 
@@ -141,19 +140,19 @@ def resnet50_train(args):
     net = resnet50(class_num=class_num)
     # reduction='mean' means that apply reduction of mean to loss
     loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    lr = Tensor(get_lr(global_step=0, total_epochs=epoch_size, steps_per_epoch=train_step_size))
+    lr = ms.Tensor(get_lr(global_step=0, total_epochs=epoch_size, steps_per_epoch=train_step_size))
     opt = Momentum(net.trainable_params(), lr, momentum=0.9, weight_decay=1e-4, loss_scale=loss_scale_num)
-    loss_scale = FixedLossScaleManager(loss_scale_num, False)
+    loss_scale = ms.FixedLossScaleManager(loss_scale_num, False)
 
     # amp_level="O2" means that the hybrid precision of O2 mode is used for training
     # the whole network except that batchnoram will be cast into float16 format and dynamic loss scale will be used
     # 'keep_batchnorm_fp32 = False' means that use the float16 format
-    model = Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'}, amp_level="O2", keep_batchnorm_fp32=False,
-                  loss_scale_manager=loss_scale)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'}, amp_level="O2", keep_batchnorm_fp32=False,
+                     loss_scale_manager=loss_scale)
 
     # define performance callback to show ips and loss callback to show loss for every epoch
     performance_cb = PerformanceCallback(batch_size)
-    loss_cb = LossMonitor()
+    loss_cb = ms.LossMonitor()
     cb = [performance_cb, loss_cb]
 
     print(f'Start run training, total epoch: {epoch_size}.')

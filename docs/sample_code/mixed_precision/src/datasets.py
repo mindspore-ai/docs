@@ -20,7 +20,7 @@ import mindspore.dataset.vision as vision
 from mindspore.dataset.vision import Inter
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
-from mindspore import dtype as mstype
+import mindspore as ms
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
                    num_parallel_workers=1):
@@ -41,7 +41,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
     rescale_op = vision.Rescale(rescale, shift)
     hwc2chw_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)

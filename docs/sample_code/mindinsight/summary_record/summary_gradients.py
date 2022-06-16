@@ -21,19 +21,16 @@ import os
 import shutil
 import urllib.request
 from urllib.parse import urlparse
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
-from mindspore import dtype as mstype
 
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore import LossMonitor, TimeMonitor
 from mindspore.nn import Accuracy
-from mindspore import SummaryCollector
-from mindspore import Tensor, Model, set_context, GRAPH_MODE
 import numpy as np
 
 
@@ -101,7 +98,7 @@ def create_dataset_cifar10(data_path, batch_size=32, repeat_size=1, status="trai
         random_crop_op = vision.RandomCrop([32, 32], [4, 4, 4, 4])
         random_horizontal_op = vision.RandomHorizontalFlip()
     channel_swap_op = vision.HWC2CHW()
-    typecast_op = transforms.TypeCast(mstype.int32)
+    typecast_op = transforms.TypeCast(ms.int32)
     cifar_ds = cifar_ds.map(operations=typecast_op, input_columns="label")
     if status == "train":
         cifar_ds = cifar_ds.map(operations=random_crop_op, input_columns="image")
@@ -241,20 +238,20 @@ def train(ds_train):
        None.
     """
     device_target = "GPU"
-    set_context(mode=GRAPH_MODE, device_target=device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
+    lr = ms.Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = MyOptimizer(network.trainable_params(), learning_rate=lr, momentum=0.9)
-    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
+    model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
-    summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_gradients",
-                                         collect_freq=200, keep_default_action=False, collect_tensor_freq=200)
+    summary_collector = ms.SummaryCollector(summary_dir="./summary_dir/summary_gradients",
+                                            collect_freq=200, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, ms.LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 
 

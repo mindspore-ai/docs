@@ -1,13 +1,12 @@
 """PyNative Shard Function Parallel Example"""
 import numpy as np
 import mindspore as ms
-from mindspore import Tensor, Model, set_context, PYNATIVE_MODE, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 from mindspore import nn
 
-set_context(mode=PYNATIVE_MODE)
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL,
-                                  search_mode="sharding_propagation", device_num=8)
+ms.set_context(mode=ms.PYNATIVE_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
+                             search_mode="sharding_propagation", device_num=8)
 init()
 
 class BasicBlock(nn.Cell):
@@ -54,6 +53,6 @@ class Net1(Net):
         return x
 
 net = Net1()
-model = Model(net)
-input_data = Tensor(np.random.normal(size=(16, 10)), ms.float32)
+model = ms.Model(net)
+input_data = ms.Tensor(np.random.normal(size=(16, 10)), ms.float32)
 output = model.train_network(input_data)
