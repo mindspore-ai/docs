@@ -16,7 +16,7 @@
 Dataset
 '''
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.communication import init, get_rank, get_group_size
 
 
@@ -73,7 +73,7 @@ class FakeData:
         target_onehot = np.zeros(shape=(self.rank_batch_size, self.num_classes))
         target_onehot[np.arange(self.rank_batch_size), target] = 1
         target_ret = target_onehot.astype(self.label_data_type)
-        return Tensor(img_ret), Tensor(target_ret)
+        return ms.Tensor(img_ret), ms.Tensor(target_ret)
 
     def __len__(self):
         """get size"""

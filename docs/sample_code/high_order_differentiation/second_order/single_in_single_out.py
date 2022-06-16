@@ -19,9 +19,9 @@ This sample code is applicable to GPU and Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -51,6 +51,6 @@ class GradSec(nn.Cell):
 net = Net()
 firstgrad = Grad(net) # first order
 secondgrad = GradSec(firstgrad) # second order
-x_train = Tensor(np.array([1.0], dtype=np.float32))
+x_train = ms.Tensor(np.array([1.0], dtype=np.float32))
 output = secondgrad(x_train)
 print(output)

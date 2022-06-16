@@ -17,8 +17,8 @@ import math
 import numpy as np
 from scipy.stats import truncnorm
 from mindspore import nn
-from mindspore import dtype as mstype
-from mindspore import Tensor
+from mindspore import ops
+import mindspore as ms
 
 
 def conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):
@@ -29,12 +29,12 @@ def conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):
     mu, sigma = 0, stddev
     weight = truncnorm(-2, 2, loc=mu, scale=sigma).rvs(out_channel * in_channel * kernel_size * kernel_size)
     weight = np.reshape(weight, (out_channel, in_channel, kernel_size, kernel_size))
-    return Tensor(weight, dtype=mstype.float32)
+    return ms.Tensor(weight, dtype=ms.float32)
 
 
 def _weight_variable(shape, factor=0.01):
     init_value = np.random.randn(*shape).astype(np.float32) * factor
-    return Tensor(init_value)
+    return ms.Tensor(init_value)
 
 
 def calculate_gain(nonlinearity, param=None):
@@ -108,7 +108,7 @@ def _conv3x3(in_channel, out_channel, stride=1, use_se=False, res_base=False):
         weight = conv_variance_scaling_initializer(in_channel, out_channel, kernel_size=3)
     else:
         weight_shape = (out_channel, in_channel, 3, 3)
-        weight = Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
+        weight = ms.Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
     if res_base:
         return nn.Conv2d(in_channel, out_channel, kernel_size=3, stride=stride,
                          padding=1, pad_mode='pad', weight_init=weight)
@@ -121,7 +121,7 @@ def _conv1x1(in_channel, out_channel, stride=1, use_se=False, res_base=False):
         weight = conv_variance_scaling_initializer(in_channel, out_channel, kernel_size=1)
     else:
         weight_shape = (out_channel, in_channel, 1, 1)
-        weight = Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
+        weight = ms.Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
     if res_base:
         return nn.Conv2d(in_channel, out_channel, kernel_size=1, stride=stride,
                          padding=0, pad_mode='pad', weight_init=weight)
@@ -134,7 +134,7 @@ def _conv7x7(in_channel, out_channel, stride=1, use_se=False, res_base=False):
         weight = conv_variance_scaling_initializer(in_channel, out_channel, kernel_size=7)
     else:
         weight_shape = (out_channel, in_channel, 7, 7)
-        weight = Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
+        weight = ms.Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
     if res_base:
         return nn.Conv2d(in_channel, out_channel,
                          kernel_size=7, stride=stride, padding=3, pad_mode='pad', weight_init=weight)
@@ -158,10 +158,10 @@ def _bn_last(channel):
 def _fc(in_channel, out_channel, use_se=False):
     if use_se:
         weight = np.random.normal(loc=0, scale=0.01, size=out_channel * in_channel)
-        weight = Tensor(np.reshape(weight, (out_channel, in_channel)), dtype=mstype.float32)
+        weight = ms.Tensor(np.reshape(weight, (out_channel, in_channel)), dtype=ms.float32)
     else:
         weight_shape = (out_channel, in_channel)
-        weight = Tensor(kaiming_uniform(weight_shape, a=math.sqrt(5)))
+        weight = ms.Tensor(kaiming_uniform(weight_shape, a=math.sqrt(5)))
     return nn.Dense(in_channel, out_channel, has_bias=True, weight_init=weight, bias_init=0)
 
 
@@ -206,11 +206,11 @@ class ResidualBlock(nn.Cell):
         self.conv3 = _conv1x1(channel, out_channel, stride=1, use_se=self.use_se)
         self.bn3 = _bn(out_channel)
         if self.se_block:
-            self.se_global_pool = P.ReduceMean(keep_dims=False)
+            self.se_global_pool = ops.ReduceMean(keep_dims=False)
             self.se_dense_0 = _fc(out_channel, int(out_channel / 4), use_se=self.use_se)
             self.se_dense_1 = _fc(int(out_channel / 4), out_channel, use_se=self.use_se)
             self.se_sigmoid = nn.Sigmoid()
-            self.se_mul = P.Mul()
+            self.se_mul = ops.Mul()
         self.relu = nn.ReLU()
 
         self.down_sample = False
@@ -254,7 +254,7 @@ class ResidualBlock(nn.Cell):
             out = self.relu(out)
             out = self.se_dense_1(out)
             out = self.se_sigmoid(out)
-            out = F.reshape(out, F.shape(out) + (1, 1))
+            out = ops.reshape(out, ops.shape(out) + (1, 1))
             out = self.se_mul(out, out_se)
 
         if self.down_sample:
@@ -385,7 +385,7 @@ class ResNet(nn.Cell):
         else:
             self.conv1 = _conv7x7(3, 64, stride=2, res_base=self.res_base)
         self.bn1 = _bn(64, self.res_base)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
         if self.res_base:
             self.pad = nn.Pad(paddings=((0, 0), (0, 0), (1, 1), (1, 1)))
@@ -420,7 +420,7 @@ class ResNet(nn.Cell):
                                        use_se=self.use_se,
                                        se_block=self.se_block)
 
-        self.mean = P.ReduceMean(keep_dims=True)
+        self.mean = ops.ReduceMean(keep_dims=True)
         self.flatten = nn.Flatten()
         self.end_point = _fc(out_channels[3], num_classes, use_se=self.use_se)
 

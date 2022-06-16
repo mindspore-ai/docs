@@ -13,12 +13,10 @@
 # limitations under the License.
 # ============================================================================
 """define loss function for network"""
-import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import dtype as mstype
 from mindspore.nn import LossBase
+import mindspore.nn as nn
 import mindspore.ops as ops
-
+import mindpsore as ms
 
 class CrossEntropySmooth(LossBase):
     """CrossEntropy"""
@@ -26,8 +24,8 @@ class CrossEntropySmooth(LossBase):
         super(CrossEntropySmooth, self).__init__()
         self.onehot = ops.OneHot()
         self.sparse = sparse
-        self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
-        self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
+        self.on_value = ms.Tensor(1.0 - smooth_factor, ms.float32)
+        self.off_value = ms.Tensor(1.0 * smooth_factor / (num_classes - 1), ms.float32)
         self.ce = nn.SoftmaxCrossEntropyWithLogits(reduction=reduction)
 
     def construct(self, logit, label):

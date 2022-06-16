@@ -17,20 +17,18 @@ Resnet50_distributed_training
 """
 import os
 import mindspore.nn as nn
-from mindspore import dtype as mstype, set_auto_parallel_context
+import mindspore as ms
 import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-set_context(mode=GRAPH_MODE, device_target="Ascend")
-set_context(device_id=device_id) # set device_id
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+ms.set_context(device_id=device_id) # set device_id
 init()
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):     # pylint: disable=missing-docstring
@@ -51,7 +49,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
@@ -78,8 +76,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
         self.exp = ops.Exp()
         self.sum = ops.ReduceSum(keep_dims=True)
         self.onehot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = ms.Tensor(1.0, ms.float32)
+        self.off_value = ms.Tensor(0.0, ms.float32)
         self.div = ops.RealDiv()
         self.log = ops.Log()
         self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
@@ -89,7 +87,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
         self.sparse = sparse
         self.max = ops.ReduceMax(keep_dims=True)
         self.sub = ops.Sub()
-        self.eps = Tensor(1e-24, mstype.float32)
+        self.eps = ms.Tensor(1e-24, ms.float32)
 
     def construct(self, logit, label):      # pylint: disable=missing-docstring
         logit_max = self.max(logit, -1)
@@ -108,8 +106,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
 
 def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -117,5 +115,5 @@ def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)

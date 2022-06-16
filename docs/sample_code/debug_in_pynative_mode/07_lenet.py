@@ -4,11 +4,11 @@ This sample code is applicable to Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor, ParameterTuple, PYNATIVE_MODE, set_context
+import mindspore as ms
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.nn import WithLossCell, Momentum
 
-set_context(mode=PYNATIVE_MODE, device_target="Ascend")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="Ascend")
 
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
     """weight initial for conv layer"""
@@ -75,7 +75,7 @@ class GradWrap(nn.Cell):
     def __init__(self, network):
         super(GradWrap, self).__init__(auto_prefix=False)
         self.network = network
-        self.weights = ParameterTuple(filter(lambda x: x.requires_grad, network.get_parameters()))
+        self.weights = ms.ParameterTuple(filter(lambda x: x.requires_grad, network.get_parameters()))
 
     def construct(self, x, label):
         weights = self.weights
@@ -88,9 +88,9 @@ net_with_criterion = WithLossCell(net, criterion)
 train_network = GradWrap(net_with_criterion)
 train_network.set_train()
 
-input_data = Tensor(np.ones([net.batch_size, 1, 32, 32]).astype(np.float32) * 0.01)
-input_label = Tensor(np.ones([net.batch_size]).astype(np.int32))
-output = net(Tensor(input_data))
+input_data = ms.Tensor(np.ones([net.batch_size, 1, 32, 32]).astype(np.float32) * 0.01)
+input_label = ms.Tensor(np.ones([net.batch_size]).astype(np.int32))
+output = net(ms.Tensor(input_data))
 loss_output = criterion(output, input_label)
 grads = train_network(input_data, input_label)
 success = optimizer(grads)

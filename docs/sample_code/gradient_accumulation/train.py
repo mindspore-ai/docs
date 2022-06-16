@@ -19,7 +19,7 @@ import argparse
 import os
 
 import mindspore.nn as nn
-from mindspore import ParameterTuple, DatasetHelper, save_checkpoint, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from models.official.cv.lenet.src.dataset import create_dataset
@@ -50,7 +50,7 @@ class TrainForwardBackward(Cell):           # pylint: disable=missing-docstring
         self.network = network
         self.network.set_grad()
         self.network.add_flags(defer_inline=True)
-        self.weights = ParameterTuple(network.trainable_params())
+        self.weights = ms.ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
         self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
@@ -122,7 +122,7 @@ class GradientAccumulation:         # pylint: disable=missing-docstring
         """
         Training process. The data would be passed to network directly.
         """
-        dataset_helper = DatasetHelper(train_dataset, dataset_sink_mode=False, epoch_num=epoch)
+        dataset_helper = ms.DatasetHelper(train_dataset, dataset_sink_mode=False, epoch_num=epoch)
 
         for i in range(epoch):
             step = 0
@@ -136,7 +136,7 @@ class GradientAccumulation:         # pylint: disable=missing-docstring
 
             train_dataset.reset()
 
-        save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt")
+        ms.save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt")
 
 
 if __name__ == "__main__":
@@ -147,7 +147,7 @@ if __name__ == "__main__":
                         help='path where the dataset is saved')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target=args.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args.device_target)
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
     net = LeNet5(10)

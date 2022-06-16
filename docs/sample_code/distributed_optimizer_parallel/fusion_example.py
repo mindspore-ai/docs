@@ -1,9 +1,9 @@
 """Parallel Optimizer Fusion Example"""
 from mindspore.communication import init
-from mindspore import nn, set_auto_parallel_context
-from mindspore import ParallelMode
+from mindspore import nn
+import mindspore as ms
 init()
-set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
 
 class DenseLayer(nn.Cell):
     """A base layer with two dense layer"""

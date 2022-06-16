@@ -1,10 +1,10 @@
 """Cell Fusion Example"""
 import os
 from mindspore.communication import init
-from mindspore import nn, set_context, GRAPH_MODE, set_auto_parallel_context
-from mindspore import ParallelMode
-set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
-set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+import mindspore as ms
+from mindspore import nn
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 
 class DenseLayer(nn.Cell):

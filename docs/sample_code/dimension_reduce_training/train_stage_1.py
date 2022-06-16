@@ -16,15 +16,9 @@
 import argparse
 import os
 
-from mindspore import set_context, GRAPH_MODE, set_auto_parallel_context
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import Model
-from mindspore import ParallelMode
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore import FixedLossScaleManager
 from mindspore.communication import init
-from mindspore import set_seed
 from mindspore import nn
 from mindspore.common import initializer as weight_init
 
@@ -36,7 +30,7 @@ from models.official.cv.resnet.src.model_utils.local_adapter import get_rank_id
 from resnet import resnet50 as resnet
 
 
-set_seed(1)
+ms.set_seed(1)
 
 
 def init_weight(network):
@@ -73,12 +67,12 @@ if __name__ == '__main__':
     parser.add_argument('--data_path', type=str, default="./data", help='path where the dataset is saved')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target="Ascend")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
     device_id = int(os.getenv('DEVICE_ID'))
-    set_context(device_id=device_id)
-    set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+    ms.set_context(device_id=device_id)
+    ms.set_auto_parallel_context(device_num=8, parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
     all_reduce_fusion_config = [85, 160]
-    set_auto_parallel_context(all_reduce_fusion_config=all_reduce_fusion_config)
+    ms.set_auto_parallel_context(all_reduce_fusion_config=all_reduce_fusion_config)
     init()
 
     # define train dataset
@@ -93,34 +87,34 @@ if __name__ == '__main__':
 
     # define loss
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, num_classes=1001)
-    loss_scale = FixedLossScaleManager(1024, drop_overflow_update=False)
+    loss_scale = ms.FixedLossScaleManager(1024, drop_overflow_update=False)
 
     # define optimizer
     group_params = init_group_params(net)
     lr = get_lr(lr_init=0, lr_end=0.0, lr_max=0.8, warmup_epochs=5, total_epochs=90, steps_per_epoch=step_size,
                 lr_decay_mode="linear")
-    lr = Tensor(lr)
+    lr = ms.Tensor(lr)
     opt = Momentum(group_params, lr, 0.9, loss_scale=1024)
 
     # define metrics
     metrics = {"acc"}
 
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics, amp_level="O2",
-                  boost_level="O0", keep_batchnorm_fp32=False)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics, amp_level="O2",
+                     boost_level="O0", keep_batchnorm_fp32=False)
 
     # define callback_1
-    cb = [TimeMonitor(data_size=step_size), LossMonitor()]
+    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
     if get_rank_id() == 0:
-        config_ck = CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
-        ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
+        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
         cb += [ck_cb]
 
     # define callback_2: save weights for stage 2
     if get_rank_id() == 0:
-        config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
-                                     saved_network=net)
-        ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca", config=config_ck)
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
+                                        saved_network=net)
+        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca", config=config_ck)
         cb += [ck_cb]
 
     print("============== Starting Training ==============")

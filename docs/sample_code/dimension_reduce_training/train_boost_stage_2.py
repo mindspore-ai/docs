@@ -16,14 +16,9 @@
 import argparse
 import os
 
-from mindspore import set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import SGD
-from mindspore import Model
-from mindspore import ParallelMode
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
-from mindspore import set_seed
-from mindspore import load_checkpoint, load_param_into_net
 
 from models.official.cv.resnet.src.CrossEntropySmooth import CrossEntropySmooth
 from models.official.cv.resnet.src.dataset import create_dataset2 as create_dataset
@@ -32,7 +27,7 @@ from models.official.cv.resnet.src.model_utils.local_adapter import get_rank_id
 from resnet import resnet50 as resnet
 
 
-set_seed(1)
+ms.set_seed(1)
 
 
 def init_group_params(network):
@@ -58,10 +53,10 @@ if __name__ == '__main__':
     parser.add_argument('--pca_mat_path', type=str, default="", help='path to load pca_mat')
     args = parser.parse_args()
 
-    set_context(mode=GRAPH_MODE, device_target="Ascend")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
     device_id = int(os.getenv('DEVICE_ID'))
-    set_context(device_id=device_id)
-    set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+    ms.set_context(device_id=device_id)
+    ms.set_auto_parallel_context(device_num=8, parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
     init()
 
     # define train dataset
@@ -73,8 +68,8 @@ if __name__ == '__main__':
     # define net
     net = resnet(num_classes=1001)
     if os.path.isfile(args.pretrained_weight_path):
-        weight_dict = load_checkpoint(args.pretrained_weight_path)
-    load_param_into_net(net, weight_dict)
+        weight_dict = ms.load_checkpoint(args.pretrained_weight_path)
+    ms.load_param_into_net(net, weight_dict)
 
     # define loss
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, num_classes=1001)
@@ -108,13 +103,13 @@ if __name__ == '__main__':
     }
 
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, boost_level="O1", boost_config_dict=boost_dict)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, boost_level="O1", boost_config_dict=boost_dict)
 
     # define callback
-    cb = [TimeMonitor(data_size=step_size), LossMonitor()]
+    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
     if get_rank_id() == 0:
-        config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=2)
-        ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_2", config=config_ck)
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=2)
+        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_2", config=config_ck)
         cb += [ck_cb]
 
     print("============== Starting Training ==============")

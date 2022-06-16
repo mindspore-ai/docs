@@ -22,10 +22,9 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
-from mindspore import dtype as mstype
-from mindspore import nn, Model, set_context, GRAPH_MODE
+import mindspore as ms
+from mindspore import nn
 from mindspore.common.initializer import Normal
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
 from mindspore.nn import Accuracy
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
@@ -50,7 +49,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1, num_parallel_workers
     shift_nml = -1 * 0.1307 / 0.3081
 
     # define map operations
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
     c_trans = [
         vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
         vision.Rescale(rescale_nml, shift_nml),
@@ -96,7 +95,7 @@ class LeNet5(nn.Cell):
         return x
 
 
-class EvalCallBack(Callback):
+class EvalCallBack(ms.Callback):
     """Precision verification using callback function."""
     # define the operator required
     def __init__(self, models, eval_dataset, eval_per_epochs, epochs_per_eval):
@@ -134,7 +133,7 @@ def download_dataset(dataset_url, path):
 
 if __name__ == "__main__":
     # set args, train it
-    set_context(mode=GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
     train_data_path = "./datasets/MNIST_Data/train"
     eval_data_path = "./datasets/MNIST_Data/test"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_data_path)
@@ -154,9 +153,9 @@ if __name__ == "__main__":
     net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     # define the optimizer
     net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-    config_ck = CheckpointConfig(save_checkpoint_steps=eval_per_epoch*1875, keep_checkpoint_max=15)
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=ckpt_save_dir, config=config_ck)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=eval_per_epoch*1875, keep_checkpoint_max=15)
+    ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet", directory=ckpt_save_dir, config=config_ck)
+    model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     epoch_per_eval = {"epoch": [], "acc": []}
     eval_cb = EvalCallBack(model, eval_data, eval_per_epoch, epoch_per_eval)
-    model.train(epoch_size, train_data, callbacks=[ckpoint_cb, LossMonitor(375), eval_cb], dataset_sink_mode=False)
+    model.train(epoch_size, train_data, callbacks=[ckpoint_cb, ms.LossMonitor(375), eval_cb], dataset_sink_mode=False)

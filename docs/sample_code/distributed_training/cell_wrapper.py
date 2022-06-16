@@ -16,8 +16,8 @@
 grad accumulation cell wrapper
 """
 import numpy as np
-from mindspore import dtype as mstype
-from mindspore import ops, Tensor, Parameter, get_auto_parallel_context
+import mindspore as ms
+from mindspore import ops
 from mindspore.nn import Cell, TrainOneStepCell, TrainOneStepWithLossScaleCell
 from mindspore.nn.wrap.loss_scale import _grad_scale
 from mindspore.common.initializer import initializer
@@ -38,7 +38,7 @@ update_accu_grads = ops.MultitypeFuncGraph("update_accu_grads")
 @update_accu_grads.register("Tensor", "Tensor")
 def _update_accu_grads(accu_grad, grad):
     succ = True
-    return ops.depend(succ, ops.assign_add(accu_grad, cast(grad, mstype.float32)))
+    return ops.depend(succ, ops.assign_add(accu_grad, cast(grad, ms.float32)))
 
 
 class TrainAccuStepsCell(TrainOneStepCell):
@@ -46,7 +46,7 @@ class TrainAccuStepsCell(TrainOneStepCell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainAccuStepsCell, self).__init__(network, optimizer, sens)
         self.accumulation = False
-        self.accumulation_steps = get_auto_parallel_context("grad_accumulation_step")
+        self.accumulation_steps = ms.get_auto_parallel_context("grad_accumulation_step")
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')
         self.hyper_map = ops.HyperMap()
 
@@ -75,12 +75,12 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
     def __init__(self, network, optimizer, scale_sense):
         super(TrainAccuStepsWithLossScaleCell, self).__init__(network, optimizer, scale_sense)
         self.accumulation = False
-        self.accumulation_steps = get_auto_parallel_context("grad_accumulation_step")
-        self.one = Tensor(np.array([1]).astype(np.int32))
-        self.zero = Tensor(np.array([0]).astype(np.int32))
+        self.accumulation_steps = ms.get_auto_parallel_context("grad_accumulation_step")
+        self.one = ms.Tensor(np.array([1]).astype(np.int32))
+        self.zero = ms.Tensor(np.array([0]).astype(np.int32))
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')
-        self.accu_overflow = Parameter(initializer(0, [1], mstype.int32))
-        self.accu_loss = Parameter(initializer(0, [1], mstype.float32))
+        self.accu_overflow = ms.Parameter(initializer(0, [1], ms.int32))
+        self.accu_loss = ms.Parameter(initializer(0, [1], ms.float32))
         self.cast = ops.Cast()
         self.logical_or = ops.LogicalOr()
         self.not_equal = ops.NotEqual()

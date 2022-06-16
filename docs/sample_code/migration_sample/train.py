@@ -16,9 +16,8 @@
 import os
 import argparse
 import ast
-from mindspore import set_seed, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn
@@ -28,7 +27,7 @@ from src.dataset import create_dataset
 from src.resnet import resnet50
 from src.cross_entropy_smooth import CrossEntropySmooth
 
-set_seed(1)
+ms.set_seed(1)
 
 parser = argparse.ArgumentParser(description='Image classification')
 parser.add_argument('--run_distribute', type=ast.literal_eval, default=False, help='Run distribute')
@@ -42,10 +41,11 @@ if __name__ == '__main__':
     rank_id = int(os.getenv('RANK_ID', '0'))
 
     # init context
-    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
     if rank_size > 1:
-        set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-        set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+        ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,\
+            gradients_mean=True)
+        ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
         init()
 
     # create dataset
@@ -86,17 +86,17 @@ if __name__ == '__main__':
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=config.label_smooth_factor,
                               num_classes=config.class_num)
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'})
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'})
 
     # define callbacks
-    time_cb = TimeMonitor(data_size=step_size)
-    loss_cb = LossMonitor()
+    time_cb = ms.TimeMonitor(data_size=step_size)
+    loss_cb = ms.LossMonitor()
     cb = [time_cb, loss_cb]
     if config.save_checkpoint:
         #config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
-        config_ck = CheckpointConfig(save_checkpoint_steps=5,
-                                     keep_checkpoint_max=config.keep_checkpoint_max)
-        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=config.save_checkpoint_path, config=config_ck)
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=5,
+                                        keep_checkpoint_max=config.keep_checkpoint_max)
+        ckpt_cb = ms.ModelCheckpoint(prefix="resnet", directory=config.save_checkpoint_path, config=config_ck)
         cb += [ckpt_cb]
 
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
