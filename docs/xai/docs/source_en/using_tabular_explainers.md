@@ -157,10 +157,10 @@ shap_kernel = SHAPKernel(predict_fn, data, feature_names=feature_names, class_na
 
 ```python
 from mindspore_xai.explainer import SHAPGradient
-from mindspore import set_context, PYNATIVE_MODE
+import mindspore as ms
 
 # Gradient only works under PYNATIVE_MODE.
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 # initialize the explainer
 shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names=class_names)
 # explain

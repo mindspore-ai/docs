@@ -26,7 +26,8 @@ In the directory `export_model`, use [export_matmul.py](https://gitee.com/mindsp
 import os
 from shutil import copyfile
 import numpy as np
-from mindspore import Tensor, Parameter, ops, export, set_context, GRAPH_MODE
+import mindspore as ms
+from mindspore import ops
 from mindspore.nn import Cell
 
 
@@ -37,7 +38,7 @@ class Net(Cell):
         """init"""
         super().__init__()
         matmul_np = np.full(matmul_size, init_val, dtype=np.float32)
-        self.matmul_weight = Parameter(Tensor(matmul_np))
+        self.matmul_weight = ms.Parameter(ms.Tensor(matmul_np))
         self.matmul = ops.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
         self.sum = ops.ReduceSum()
 
@@ -50,17 +51,17 @@ class Net(Cell):
 
 def export_net():
     """Export matmul net , and copy output model `matmul_0.mindir` and `matmul_1.mindir` to directory ../matmul/1"""
-    set_context(mode=GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     network = Net(matmul_size=(96, 16), init_val=0.5)
     # subgraph 0: 128,96 matmul 16,96 -> 128,16 reduce sum axis 0-> 16
     predict_data = np.random.randn(128, 96).astype(np.float32)
     # pylint: disable=protected-access
-    export(network, Tensor(predict_data), file_name="matmul_0", file_format="MINDIR")
+    ms.export(network, ms.Tensor(predict_data), file_name="matmul_0", file_format="MINDIR")
 
     # subgraph 1: 8,96 matmul 16,96 -> 8,16 reduce sum axis 0-> 16
     predict_data = np.random.randn(8, 96).astype(np.float32)
     # pylint: disable=protected-access
-    export(network, Tensor(predict_data), file_name="matmul_1", file_format="MINDIR")
+    ms.export(network, ms.Tensor(predict_data), file_name="matmul_1", file_format="MINDIR")
 
     dst_dir = '../matmul/1'
     try:

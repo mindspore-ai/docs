@@ -48,7 +48,8 @@ export_model
 
 ```python
 import numpy as np
-from mindspore import Tensor, Parameter, ops
+import mindspore as ms
+from mindspore import ops
 from mindspore.nn import Cell
 
 
@@ -56,7 +57,7 @@ class Net(Cell):
     def __init__(self, matmul_size, transpose_a=False, transpose_b=False, strategy=None):
         super().__init__()
         matmul_np = np.full(matmul_size, 0.5, dtype=np.float32)
-        self.matmul_weight = Parameter(Tensor(matmul_np))
+        self.matmul_weight = ms.Parameter(ms.Tensor(matmul_np))
         self.matmul = ops.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
         self.neg = ops.Neg()
         if strategy is not None:
@@ -73,28 +74,28 @@ class Net(Cell):
 ```python
 import numpy as np
 from net import Net
-from mindspore import Model, Tensor, export, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.communication import init
 
 
 def test_inference():
     """distributed inference after distributed training"""
-    set_context(mode=GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     init(backend_name="hccl")
-    set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
-                                      device_num=8, group_ckpt_save_file="./group_config.pb")
+    ms.set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
+                                         device_num=8, group_ckpt_save_file="./group_config.pb")
 
     predict_data = create_predict_data()
     network = Net(matmul_size=(96, 16))
-    model = Model(network)
-    model.infer_predict_layout(Tensor(predict_data))
-    export(model.predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
+    model = ms.Model(network)
+    model.infer_predict_layout(ms.Tensor(predict_data))
+    ms.export(model.predict_network, ms.Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 
 
 def create_predict_data():
     """user-defined predict data"""
     inputs_np = np.random.randn(128, 96).astype(np.float32)
-    return Tensor(inputs_np)
+    return ms.Tensor(inputs_np)
 ```
 
 使用[export_model.sh](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/export_model.sh)，导出分布式模型。执行成功后会在上一级目录创建`model`目录，结构如下：

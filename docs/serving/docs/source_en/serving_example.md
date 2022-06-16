@@ -24,12 +24,11 @@ In the directory `export_model`, use [add_model.py](https://gitee.com/mindspore/
 import os
 from shutil import copyfile
 import numpy as np
-from mindspore import set_context, GRAPH_MODE
 import mindspore.nn as nn
 import mindspore.ops as ops
 import mindspore as ms
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 
 class Net(nn.Cell):

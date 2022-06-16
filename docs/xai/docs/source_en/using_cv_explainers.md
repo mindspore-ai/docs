@@ -71,20 +71,20 @@ In order to explain an image classification predication, we have to have a train
 
 ```python
 # have to change the current directory to xai/examples/ first
-from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
+import mindspore as ms
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # only PYNATIVE_MODE is supported
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 # 20 classes
 num_classes = 20
 
 # load the trained classifier
 net = resnet50(num_classes)
-param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
+ms.load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] Tensor
 boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
@@ -97,7 +97,6 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 ```python
 from PIL import Image
 import mindspore as ms
-from mindspore import Tensor
 from mindspore_xai.explainer import GradCAM
 from mindspore_xai.visual.cv.saliency import saliency_to_image
 
@@ -126,7 +125,7 @@ from common.dataset import load_dataset
 test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=Tensor([3, 3, 3, 3], dtype=ms.int32))
+    saliencies = grad_cam(images, targets=ms.Tensor([3, 3, 3, 3], dtype=ms.int32))
     # other custom operations ...
 ```
 
@@ -146,7 +145,7 @@ First, we need to train an OoD detector(`OoDNet`) with the classifier training d
 
 ```python
 # have to change the current directory to xai/examples/ first
-from mindspore import set_context, save_checkpoint, load_checkpoint, load_param_into_net, PYNATIVE_MODE
+import mindspore as ms
 from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
 from mindspore_xai.tool.cv import OoDNet
 from mindspore_xai.explainer import RISEPlus
@@ -154,7 +153,7 @@ from common.dataset import load_dataset
 from common.resnet import resnet50
 
 # only PYNATIVE_MODE is supported
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 num_classes = 20
 
@@ -163,8 +162,8 @@ train_ds = load_dataset('xai_examples_data/train').batch(4)
 
 # load the trained classifier
 net = resnet50(num_classes)
-param_dict = load_checkpoint('xai_examples_data/ckpt/resnet50.ckpt')
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint('xai_examples_data/ckpt/resnet50.ckpt')
+ms.load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
 
@@ -172,7 +171,7 @@ ood_net = OoDNet(underlying=net, num_classes=num_classes)
 # the classifier is Softmax, use BCEWithLogitsLoss if the activation function is Sigmoid
 ood_net.train(train_ds, loss_fn=SoftmaxCrossEntropyWithLogits())
 
-save_checkpoint(ood_net, 'ood_net.ckpt')
+ms.save_checkpoint(ood_net, 'ood_net.ckpt')
 ```
 
 The classifier for `OoDNet` must be a subclass of `nn.Cell`, in `__init__()` which must:
@@ -232,8 +231,8 @@ from mindspore_xai.visual.cv.saliency import saliency_to_image
 
 # create a new classifier as the underlying when loading OoDNet from a checkpoint
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
-param_dict = load_checkpoint('ood_net.ckpt')
-load_param_into_net(ood_net, param_dict)
+param_dict = ms.load_checkpoint('ood_net.ckpt')
+ms.load_param_into_net(ood_net, param_dict)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
 saliency = rise_plus(boat_image, targets=3, show=False)

@@ -156,10 +156,10 @@ shap_kernel = SHAPKernel(predict_fn, data, feature_names=feature_names, class_na
 
 ```python
 from mindspore_xai.explainer import SHAPGradient
-from mindspore import set_context, PYNATIVE_MODE
+import mindspore as ms
 
 # 梯度仅在 PYNATIVE_MODE 下有效。
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 # 初始化解释器
 shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names=class_names)
 # 解释

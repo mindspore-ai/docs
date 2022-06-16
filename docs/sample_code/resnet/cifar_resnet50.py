@@ -18,16 +18,13 @@ This sample code is applicable to Ascend.
 import os
 import random
 import argparse
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.communication import init
 from mindspore.nn import Momentum
-from mindspore import Model, ParallelMode, GRAPH_MODE, set_context, set_auto_parallel_context
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
-from mindspore import load_checkpoint, load_param_into_net
 from resnet import resnet50
 
 random.seed(1)
@@ -46,11 +43,11 @@ args_opt = parser.parse_args()
 
 data_home = args_opt.dataset_path
 
-set_context(mode=GRAPH_MODE, device_target=args_opt.device_target)
+ms.set_context(mode=ms.GRAPH_MODE, device_target=args_opt.device_target)
 
 if args_opt.device_target == "Ascend":
     device_id = int(os.getenv('DEVICE_ID', '0'))
-    set_context(device_id=device_id)
+    ms.set_context(device_id=device_id)
 
 def create_dataset(repeat_num=1, training=True):
     """
@@ -76,7 +73,7 @@ def create_dataset(repeat_num=1, training=True):
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = []
     if training:
@@ -102,8 +99,8 @@ def create_dataset(repeat_num=1, training=True):
 if __name__ == '__main__':
     # in this way by judging the mark of args, users will decide which function to use
     if not args_opt.do_eval and args_opt.run_distribute:
-        set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
-                                  all_reduce_fusion_config=[140])
+        ms.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
+                                     all_reduce_fusion_config=[140])
         init()
 
     epoch_size = args_opt.epoch_size
@@ -111,22 +108,22 @@ if __name__ == '__main__':
     ls = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
 
-    model = Model(net, loss_fn=ls, optimizer=opt, metrics={'acc'})
+    model = ms.Model(net, loss_fn=ls, optimizer=opt, metrics={'acc'})
 
     # as for train, users could use model.train
     if args_opt.do_train:
         dataset = create_dataset()
         batch_num = dataset.get_dataset_size()
-        config_ck = CheckpointConfig(save_checkpoint_steps=batch_num, keep_checkpoint_max=35)
-        ckpoint_cb = ModelCheckpoint(prefix="train_resnet_cifar10", directory="./", config=config_ck)
-        loss_cb = LossMonitor()
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=batch_num, keep_checkpoint_max=35)
+        ckpoint_cb = ms.ModelCheckpoint(prefix="train_resnet_cifar10", directory="./", config=config_ck)
+        loss_cb = ms.LossMonitor()
         model.train(epoch_size, dataset, callbacks=[ckpoint_cb, loss_cb])
 
     # as for evaluation, users could use model.eval
     if args_opt.do_eval:
         if args_opt.checkpoint_path:
-            param_dict = load_checkpoint(args_opt.checkpoint_path)
-            load_param_into_net(net, param_dict)
+            param_dict = ms.load_checkpoint(args_opt.checkpoint_path)
+            ms.load_param_into_net(net, param_dict)
         eval_dataset = create_dataset(training=False)
         res = model.eval(eval_dataset)
         print("result: ", res)

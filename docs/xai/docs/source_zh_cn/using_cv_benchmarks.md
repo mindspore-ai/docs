@@ -16,22 +16,22 @@
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
-from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
+import mindspore as ms
 from mindspore_xai.explainer import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # 只支持 PYNATIVE_MODE
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 # 有20个类
 num_classes = 20
 
 # 加载训练好的分类器
 net = resnet50(num_classes)
-param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
+ms.load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] Tensor
 boat_image = load_image_tensor('xai_examples_data/test/boat.jpg')
@@ -70,14 +70,13 @@ score = robustness.evaluate(grad_cam, boat_image, targets=3, saliency=saliency)
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import Tensor
 from mindspore_xai.benchmark import Localization
 
 # 左上角：80,66 到 右下角：223,196 是一条船的界框
 mask = np.zeros([1, 1, 224, 224])
 mask[:, :, 66:196, 80:223] = 1
 
-mask = Tensor(mask, dtype=ms.float32)
+mask = ms.Tensor(mask, dtype=ms.float32)
 
 localization = Localization(num_classes)
 

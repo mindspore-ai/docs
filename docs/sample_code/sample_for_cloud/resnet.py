@@ -16,12 +16,12 @@
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor
+import mindspore as ms
 
 
 def _weight_variable(shape, factor=0.01):
     init_value = np.random.randn(*shape).astype(np.float32) * factor
-    return Tensor(init_value)
+    return ms.Tensor(init_value)
 
 
 def _conv3x3(in_channel, out_channel, stride=1):
