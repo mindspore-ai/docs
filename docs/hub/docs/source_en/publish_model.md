@@ -27,30 +27,27 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ├── mindspore_hub_conf.py
    ```
 
-3. Create a `{model_name}_{model_version}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/ascend/0.7` using this [template](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#). Here `ascend` refers to the hardware platform for the pre-trained model, and `0.7` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
+3. Create a `{model_name}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/1.6` using this [template](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#). Here `1.6` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
 
    ```text
    hub
    ├── mshub_res
    │   ├── assets
    │       ├── mindspore
-   │           ├── gpu
-   │               ├── 0.7
-   │           ├── ascend
-   │               ├── 0.7
-   │                   ├── googlenet_v1_cifar10.md
+   │           ├── 1.6
+   │               ├── googlenet_cifar10.md
    │   ├── tools
    │       ├── get_sha256.py
    │       ├── load_markdown.py
    │       └── md_validator.py
    ```
 
-   Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
+   Note that it is required to fill in the `{model_name}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
 
    ```text
    file-format: ckpt
-   asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt
-   asset-sha256: 114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7
+   asset-link: https://download.mindspore.cn/models/r1.6/googlenet_ascend_v160_cifar10_official_cv_acc92.53.ckpt
+   asset-sha256: b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7
    ```
 
    The MindSpore Hub supports multiple model file formats including:
@@ -59,7 +56,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    - [AIR](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-air-model)
    - [ONNX](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-onnx-model)
 
-   For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7`.
+   For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`.
 
    ```bash
    cd ../tools
@@ -69,7 +66,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 4. Check the format of the markdown file locally using `hub/mshub_res/tools/md_validator.py` by running the following command. The output is `All Passed`，which indicates that the format and content of the `.md` file meets the requirements.
 
    ```bash
-   python md_validator.py --check_path ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
+   python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md
    ```
 
 5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#) for more information about creating a PR.

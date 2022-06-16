@@ -27,30 +27,27 @@
    ├── mindspore_hub_conf.py
    ```
 
-3. 参照[模板](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#)，在`hub/mshub_res/assets/mindspore/ascend/0.7`文件夹下创建`{model_name}_{model_version}_{dataset}.md`文件，其中`ascend`为模型运行的硬件平台，`0.7`为MindSpore的版本号，`hub/mshub_res`的目录结构为：
+3. 参照[模板](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#)，在`hub/mshub_res/assets/mindspore/1.6`文件夹下创建`{model_name}_{dataset}.md`文件，其中`1.6`为MindSpore的版本号，`hub/mshub_res`的目录结构为：
 
    ```text
    hub
    ├── mshub_res
    │   ├── assets
    │       ├── mindspore
-   │           ├── gpu
-   │               ├── 0.7
-   │           ├── ascend
-   │               ├── 0.7
-   │                   ├── googlenet_v1_cifar10.md
+   │           ├── 1.6
+   │               ├── googlenet_cifar10.md
    │   ├── tools
    │       ├── get_sha256.py
    │       ├── load_markdown.py
    │       └── md_validator.py
    ```
 
-   注意，`{model_name}_{model_version}_{dataset}.md`文件中需要补充如下所示的`file-format`、`asset-link` 和 `asset-sha256`信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值。
+   注意，`{model_name}_{dataset}.md`文件中需要补充如下所示的`file-format`、`asset-link` 和 `asset-sha256`信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值。
 
    ```text
    file-format: ckpt
-   asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt
-   asset-sha256: 114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7
+   asset-link: https://download.mindspore.cn/models/r1.6/googlenet_ascend_v160_cifar10_official_cv_acc92.53.ckpt
+   asset-sha256: b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7
    ```
 
    其中，MindSpore Hub支持的模型文件格式有：
@@ -59,7 +56,7 @@
    - [AIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出air格式文件)
    - [ONNX](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出onnx格式文件)
 
-   对于每个预训练模型，执行以下命令，用来获得`.md`文件`asset-sha256`处所需的哈希值，其中`googlenet.ckpt`是从步骤1的存储位置处下载并保存到`tools`文件夹的预训练模型，运行后输出的哈希值为`114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7`。
+   对于每个预训练模型，执行以下命令，用来获得`.md`文件`asset-sha256`处所需的哈希值，其中`googlenet.ckpt`是从步骤1的存储位置处下载并保存到`tools`文件夹的预训练模型，运行后输出的哈希值为`b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`。
 
    ```bash
    cd /hub/mshub_res/tools
@@ -69,7 +66,7 @@
 4. 使用`hub/mshub_res/tools/md_validator.py`在本地核对`.md`文件的格式，执行以下命令，输出结果为`All Passed`，表示`.md`文件的格式和内容均符合要求。
 
    ```bash
-   python md_validator.py --check_path ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
+   python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md
    ```
 
 5. 在`mindspore/hub`仓创建PR，详细创建方式可以参考[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#)。
