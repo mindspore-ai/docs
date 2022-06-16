@@ -95,15 +95,21 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 `GradCAM` is a typical and effective gradient based explainer:
 
 ```python
+from PIL import Image
 import mindspore as ms
 from mindspore import Tensor
 from mindspore_xai.explainer import GradCAM
+from mindspore_xai.visual.cv.saliency import saliency_to_image
 
 # usually specify the last convolutional layer
 grad_cam = GradCAM(net, layer="layer4")
 
 # 3 is the class id of 'boat'
-saliency = grad_cam(boat_image, targets=3)
+saliency = grad_cam(boat_image, targets=3, show=False)
+
+# convert the saliency map to a PIL.Image.Image object
+boat_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, boat_img)
 ```
 
 The returned `saliency` is a 1x1x224x224 tensor for an 1xCx224x224 image tensor, which stores all pixel importances (range:[0.0, 1.0]) to the classification decision of 'boat'. Users may specify any class to be explained.
@@ -163,7 +169,7 @@ load_param_into_net(net, param_dict)
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
 
 # use SoftmaxCrossEntropyWithLogits as loss function if the activation function of
-# the classifier is Softmax, use BCEWithLogitsLoss if the activation function is Sigmod
+# the classifier is Softmax, use BCEWithLogitsLoss if the activation function is Sigmoid
 ood_net.train(train_ds, loss_fn=SoftmaxCrossEntropyWithLogits())
 
 save_checkpoint(ood_net, 'ood_net.ckpt')
@@ -221,13 +227,19 @@ class MyLeNet5(nn.Cell):
 Now we can use `RISEPlus` with the trained `OoDNet`:
 
 ```python
+from PIL import Image
+from mindspore_xai.visual.cv.saliency import saliency_to_image
+
 # create a new classifier as the underlying when loading OoDNet from a checkpoint
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
 param_dict = load_checkpoint('ood_net.ckpt')
 load_param_into_net(ood_net, param_dict)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
-saliency = rise_plus(boat_image, targets=3)
+saliency = rise_plus(boat_image, targets=3, show=False)
+
+boat_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, boat_img)
 ```
 
 The returned `saliency` is an 1x1x224x224 tensor for an 1xCx224x224 image tensor.
