@@ -23,13 +23,13 @@ The example code below is an expression of Equation (1). Since MindSpore is func
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Parameter, Tensor
+import mindspore as ms
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.w = Parameter(np.array([6.0]), name='w')
-        self.b = Parameter(np.array([1.0]), name='b')
+        self.w = ms.Parameter(np.array([6.0]), name='w')
+        self.b = ms.Parameter(np.array([1.0]), name='b')
 
     def construct(self, x):
         f = self.w * x + self.b
@@ -41,7 +41,7 @@ Define the derivative class `GradNet`. In the `__init__` function, define the `s
 $$f^{'}(x)=w\tag {2}$$
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.ops as ops
 
 class GradNet(nn.Cell):
@@ -64,7 +64,7 @@ Derive the above equation:
 $$f^{'}(x)=w=6 \tag {4}$$
 
 ```python
-x = Tensor([100], dtype=mstype.float32)
+x = Tensor([100], dtype=ms.float32)
 output = GradNet(Net())(x)
 
 print(output)
@@ -81,13 +81,13 @@ MindSpore calculates the first-order derivative using `ops.GradOperation (get_al
 To compute weight derivatives, you need to set `get_by_list` in `ops.GradOperation` to `True`.
 
 ```python
-from mindspore import ParameterTuple
+import mindspore as ms
 
 class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
         self.net = net
-        self.params = ParameterTuple(net.trainable_params())
+        self.params = ms.ParameterTuple(net.trainable_params())
         self.grad_op = ops.GradOperation(get_by_list=True)  # Set the first-order derivative of the weight parameters.
 
     def construct(self, x):
@@ -99,7 +99,7 @@ Next, derive the function:
 
 ```python
 # Perform a derivative calculation on the function.
-x = Tensor([100], dtype=mstype.float32)
+x = ms.Tensor([100], dtype=ms.float32)
 fx = GradNet(Net())(x)
 
 # Print the result.
@@ -114,11 +114,14 @@ bgrad: [1.]
 If derivation is not required for some weights, set `requires_grad` to `False` when defining the derivation network and declaring the corresponding weight parameters.
 
 ```python
+import mindspore as ms
+from mindspore import ops
+
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.w = Parameter(Tensor(np.array([6], np.float32)), name='w')
-        self.b = Parameter(Tensor(np.array([1.0], np.float32)), name='b', requires_grad=False)
+        self.w = ms.Parameter(ms.Tensor(np.array([6], np.float32)), name='w')
+        self.b = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='b', requires_grad=False)
 
     def construct(self, x):
         out = x * self.w + self.b
@@ -128,7 +131,7 @@ class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
         self.net = net
-        self.params = ParameterTuple(net.trainable_params())
+        self.params = ms.ParameterTuple(net.trainable_params())
         self.grad_op = ops.GradOperation(get_by_list=True)
 
     def construct(self, x):
@@ -136,7 +139,7 @@ class GradNet(nn.Cell):
         return gradient_function(x)
 
 # Construct a derivative network.
-x = Tensor([5], dtype=mstype.float32)
+x = ms.Tensor([5], dtype=ms.float32)
 fw = GradNet(Net())(x)
 
 print(fw)
@@ -158,13 +161,13 @@ class GradNet(nn.Cell):
         # Derivative operation.
         self.grad_op = ops.GradOperation(sens_param=True)
         # Scale an index.
-        self.grad_wrt_output = Tensor([0.1], dtype=mstype.float32)
+        self.grad_wrt_output = Tensor([0.1], dtype=ms.float32)
 
     def construct(self, x):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, self.grad_wrt_output)
 
-x = Tensor([6], dtype=mstype.float32)
+x = ms.Tensor([6], dtype=ms.float32)
 output = GradNet(Net())(x)
 
 print(output)
@@ -184,8 +187,8 @@ from mindspore.ops import stop_gradient
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.w = Parameter(Tensor(np.array([6], np.float32)), name='w')
-        self.b = Parameter(Tensor(np.array([1.0], np.float32)), name='b')
+        self.w = ms.Parameter(ms.Tensor(np.array([6], np.float32)), name='w')
+        self.b = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='b')
 
     def construct(self, x):
         out = x * self.w + self.b
@@ -197,14 +200,14 @@ class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
         self.net = net
-        self.params = ParameterTuple(net.trainable_params())
+        self.params = ms.ParameterTuple(net.trainable_params())
         self.grad_op = ops.GradOperation(get_by_list=True)
 
     def construct(self, x):
         gradient_function = self.grad_op(self.net, self.params)
         return gradient_function(x)
 
-x = Tensor([100], dtype=mstype.float32)
+x = ms.Tensor([100], dtype=ms.float32)
 output = GradNet(Net())(x)
 
 print(f"wgrad: {output[0]}\nbgrad: {output[1]}")

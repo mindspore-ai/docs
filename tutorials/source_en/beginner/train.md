@@ -37,11 +37,11 @@ Given the predicted value and the target value, we calculate the error (loss val
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor
+import mindspore as ms
 
 loss = nn.L1Loss()
-output_data = Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
-target_data = Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
+output_data = ms.Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
+target_data = ms.Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
 
 print(loss(output_data, target_data))
 ```
@@ -81,11 +81,10 @@ The model training sample code is as follows:
 
 ```python
 import mindspore.nn as nn
-from mindspore import Model
+import mindspore as ms
 
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
-from mindvision.engine.callback import LossMonitor
 
 # 1. Build a dataset.
 download_train = Mnist(path="./mnist", split="train", batch_size=batch_size, repeat_num=1, shuffle=True, resize=32, download=True)
@@ -98,10 +97,10 @@ net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 # 3.2 Define an optimizer function.
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=learning_rate, momentum=momentum)
 # 3.3 Initialize model parameters.
-model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'acc'})
+model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'acc'})
 
 # 4. Train the neural network.
-model.train(epochs, dataset_train, callbacks=[LossMonitor(learning_rate, 1875)])
+model.train(epochs, dataset_train, callbacks=[ms.LossMonitor(learning_rate, 1875)])
 ```
 
 ```text

@@ -10,11 +10,10 @@ The following uses the MNIST dataset as an example to describe how to save and l
 
 ```python
 import mindspore.nn as nn
-from mindspore import Model
+import mindspore as ms
 
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
-from mindvision.engine.callback import LossMonitor
 
 epochs = 10 # Training epochs
 
@@ -29,10 +28,10 @@ net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 # 3.2 Define an optimizer function.
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
 # 3.3 Initialize model parameters.
-model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
+model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
 # 4. Train the neural network.
-model.train(epochs, dataset_train, callbacks=[LossMonitor(0.01, 1875)])
+model.train(epochs, dataset_train, callbacks=[ms.LossMonitor(0.01, 1875)])
 ```
 
 ```text
@@ -87,16 +86,16 @@ During model training, you can use the `callbacks` parameter in `model.train` to
 You can set `CheckpointConfig` to configure the Checkpoint policy as required. The following describes the usage:
 
 ```python
-from mindspore import ModelCheckpoint, CheckpointConfig
+import mindspore as ms
 
 # Set the value of epoch_num.
 epoch_num = 5
 
 # Set the model saving parameters.
-config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
 
 # Apply the model saving parameters.
-ckpoint = ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
+ckpoint = ms.ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
 model.train(epoch_num, dataset_train, callbacks=[ckpoint])
 ```
 
@@ -130,19 +129,19 @@ To load the model weight, you need to create an instance of the same model and t
 The sample code is as follows:
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
 
 # Save the model parameters to the parameter dictionary. The model parameters saved during the training are loaded.
-param_dict = load_checkpoint("./lenet/lenet-5_1875.ckpt")
+param_dict = ms.load_checkpoint("./lenet/lenet-5_1875.ckpt")
 
 # Redefine a LeNet neural network.
 net = lenet(num_classes=10, pretrained=False)
 
 # Load parameters to the network.
-load_param_into_net(net, param_dict)
+ms.load_param_into_net(net, param_dict)
 model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
 ```
 
