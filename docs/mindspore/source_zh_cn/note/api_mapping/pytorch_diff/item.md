@@ -39,7 +39,7 @@ print(x.item((0,1)))
 y = Tensor([1.0])
 print(y.item())
 # Out:
-# [1.]
+# 1.0
 
 z = torch.tensor([1.0])
 print(z.item())

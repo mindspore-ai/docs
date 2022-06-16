@@ -236,7 +236,6 @@ class LeNet5(nn.Cell):
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
         self.cast = ops.Cast()
-        #x = self.max_pool2d(self.relu(self.conv1(x)))
 
     def construct(self, x):
         x = self.conv1(x)
