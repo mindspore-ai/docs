@@ -37,21 +37,21 @@
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import reset_auto_parallel_context, set_auto_parallel_context, ParallelMode
+import mindspore as ms
 init()
 device_num = get_group_size()
 rank = get_rank()
 print("rank_id is {}, device_num is {}".format(rank, device_num))
-reset_auto_parallel_context()
+ms.reset_auto_parallel_context()
 # 下述的并行配置用户只需要配置其中一种模式
 # 数据并行模式
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 # 半自动并行模式
-# set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+# ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 # 自动并行模式
-# set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL)
+# ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL)
 # 混合并行模式
-# set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
+# ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.HYBRID_PARALLEL)
 ```
 
 下述涉及的自动并行接口，例如`set_auto_parallel_context`中的接口配置。分布式并行训练在各场景的支持情况如下表。
@@ -69,7 +69,7 @@ set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 
 ```python
 import numpy as np
-from mindspore import Tensor, Model, Parameter, set_auto_parallel_context, ParallelMode
+import mindspore as ms
 from mindspore.communication import init
 from mindspore import ops, nn
 
@@ -78,7 +78,7 @@ class DataParallelNet(nn.Cell):
         super(DataParallelNet, self).__init__()
         # 初始化权重
         weight_init = np.random.rand(512, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init))
+        self.weight = ms.Parameter(ms.Tensor(weight_init))
         self.fc = ops.MatMul()
         self.reduce = ops.ReduceSum()
 
@@ -89,9 +89,9 @@ class DataParallelNet(nn.Cell):
 
 init()
 # 设置并行模式为数据并行，其他方式一致
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
-model = Model(net)
+model = ms.Model(net)
 model.train(*args, **kwargs)
 ```
 
@@ -103,7 +103,7 @@ model.train(*args, **kwargs)
 
   ```python
   # 训练方式一：通过Model接口调用，仅支持这种方式
-  model = Model(net, *args, **kwargs)
+  model = ms.Model(net, *args, **kwargs)
   model.train(*args, **kwargs)
 
   # 训练方式二：自定义循环，这种方式不支持
@@ -119,7 +119,7 @@ model.train(*args, **kwargs)
 
     ```python
     import numpy as np
-    from mindspore import Tensor, Model, Parameter, set_auto_parallel_context, ParallelMode
+    import mindspore as ms
     from mindspore.communication import init
     from mindspore import ops, nn
 
@@ -128,8 +128,8 @@ model.train(*args, **kwargs)
             super(SemiAutoParallelNet, self).__init__()
             # 初始化权重
             weight_init = np.random.rand(128, 128).astype(np.float32)
-            self.weight = Parameter(Tensor(weight_init))
-            self.weight2 = Parameter(Tensor(weight_init))
+            self.weight = ms.Parameter(ms.Tensor(weight_init))
+            self.weight2 = ms.Parameter(ms.Tensor(weight_init))
             # 设置切分策略。在construct中fc的输入有两个，第一个输入是x，第二个输入是权重self.weight
             # 因此shard需要提供一个tuple元组，分别对应每个输入tensor在对应维度的切分份数
             # (1,1)表示输入x的每一维度都没有切分
@@ -146,9 +146,9 @@ model.train(*args, **kwargs)
             return x
 
     init()
-    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
-    model = Model(net)
+    model = ms.Model(net)
     model.train(*args, **kwargs)
     ```
 
@@ -156,15 +156,15 @@ model.train(*args, **kwargs)
 
 ```python
 import numpy as np
-from mindspore import Tensor, Parameter
+import mindspore as ms
 from mindspore import ops, nn
 class SemiAutoParallelNet(nn.Cell):
     def __init__(self):
         super(SemiAutoParallelNet, self).__init__()
         # 初始化权重
         weight_init = np.random.rand(128, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init))
-        self.weight2 = Parameter(Tensor(weight_init))
+        self.weight = ms.Parameter(ms.Tensor(weight_init))
+        self.weight2 = ms.Parameter(ms.Tensor(weight_init))
         # 设置切分策略
         self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.fc2 = ops.MatMul().shard(((8, 1),(1, 1)))
@@ -204,13 +204,13 @@ class SemiAutoParallelNet(nn.Cell):
 用户可以通过如下代码去设置上述的策略搜索算法：
 
 ```python
-from mindspore import set_auto_parallel_context, ParallelMode
+import mindspore as ms
 # 设置动态规划算法进行策略搜索
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="dynamic_programming")
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="dynamic_programming")
 # 设置双递归方法进行策略搜索
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 # 设置切分策略传播算法
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
 ```
 
 > - 在`sharding_propagation`模式下，算法根据用户设置的`shard`策略传播到整个模型，在`dynamic_programming`模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
@@ -222,9 +222,9 @@ set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode=
 
 ```python
 import numpy as np
-from mindspore import Tensor, Model, set_auto_parallel_context, ParallelMode
+import mindspore as ms
 from mindspore.communication import init
-from mindspore import ops, nn, Parameter
+from mindspore import ops, nn
 
 class HybridParallelNet(nn.Cell):
     def __init__(self):
@@ -244,7 +244,7 @@ class HybridParallelNet(nn.Cell):
         #                  output = allreduce(output)
         #         输出结果shape为(32, 128)的tensor
         weight_init = np.random.rand(256, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init))
+        self.weight = ms.Parameter(ms.Tensor(weight_init))
         self.fc = ops.MatMul()
         self.reduce = ops.AllReduce()
 
@@ -254,9 +254,9 @@ class HybridParallelNet(nn.Cell):
         return x
 
 init()
-set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
-model = Model(net)
+model = ms.Model(net)
 model.train(*args, **kwargs)
 ```
 
@@ -271,13 +271,13 @@ model.train(*args, **kwargs)
 - 模型并行导入。模型并行导入的方式主要针对图像领域中图像尺寸太大无法在单卡进行计算时，直接在输入流程上就对图像进行切分。MindSpore在`set_auto_parallel_context`中提供了`dataset_strategy`接口，用户可以通过这个接口配置更加灵活的输入策略。注意，当用户使用此接口时，需要确保`dataset`返回的`tensor`符合对应的切分策略。如下代码所示：
 
   ```python
-  from mindspore import set_auto_parallel_context
+  import mindspore as ms
   # 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
-  set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
+  ms.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
-  set_auto_parallel_context(dataset_strategy="data_parallel")
+  ms.set_auto_parallel_context(dataset_strategy="data_parallel")
   # 相当于设置full_batch=True
-  set_auto_parallel_context(dataset_strategy="full_batch")
+  ms.set_auto_parallel_context(dataset_strategy="full_batch")
   ```
 
 因此，在用户设置上述的配置之后，需要**手动**设置dataset的获取顺序，确保每卡的数据是期望的。

@@ -53,10 +53,11 @@ Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](#mindspore-hybrid语�
 
 ```python
 import numpy as np
-from mindspore import Tensor, ops, set_context
+from mindspore import ops
+import mindspore as ms
 from mindspore.ops import ms_kernel
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
 @ms_kernel
@@ -73,7 +74,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -110,11 +111,11 @@ test_custom_tbe.py内容：
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 from mindspore.ops import DataType, CustomRegOp, custom_info_register
 
-set_context(device_target="Ascend")
+ms.set_context(device_target="Ascend")
 
 # 算子实现，注册算子信息
 @custom_info_register(CustomRegOp() \
@@ -142,7 +143,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -181,13 +182,12 @@ test_dropout_aicpu.py内容：
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 from mindspore.ops import CustomRegOp, custom_info_register, DataType
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 # 算子实现，注册算子信息
 dropout2d_op_info = CustomRegOp("Dropout2D") \
@@ -222,7 +222,7 @@ class NetDropout2D(nn.Cell):
     def __init__(self, keep_prob=0.5):
         super(NetDropout2D, self).__init__()
         self.op = ops.Custom(dropout2d_aicpu, out_shape=lambda x, _, cust_attr: (x, x), \
-                              out_dtype=lambda x, _, cust_attr: (x, mstype.bool_), func_type="aicpu")
+                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu")
         self.keep_prob = keep_prob
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
@@ -231,7 +231,7 @@ class NetDropout2D(nn.Cell):
 
 if __name__ == "__main__":
     # 定义aicpu类型的自定义算子
-    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
     dropout2d_nn = NetDropout2D(0.5)
     output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
@@ -327,10 +327,10 @@ nvcc --shared -Xcompiler -fPIC -o add.so add.cu
 
 ```python
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 if __name__ == "__main__":
     # 定义aot类型的自定义算子
@@ -338,7 +338,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -401,10 +401,10 @@ g++ --shared -fPIC -o add.so add.cc
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # 定义aot类型的自定义算子
@@ -412,7 +412,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -449,10 +449,10 @@ test_custom_pyfunc.py内容：
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 def add(a, b):
     return a + b
@@ -463,7 +463,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -511,17 +511,17 @@ end
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # 定义julia类型的自定义算子
     op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -638,10 +638,10 @@ test_custom_akg.py内容：
 
 ```python
 import numpy as np
-from mindspore import set_context, Tensor
+import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
 def add(a, b):
@@ -657,7 +657,7 @@ if __name__ == "__main__":
 
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
     print(output)
 ```
 
@@ -705,11 +705,11 @@ python test_custom_akg.py
 
 ```python
 import numpy as np
-from mindspore import set_context, GRAPH_MODE, Tensor
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 # 自定义算子正向实现
 def square(x):
@@ -749,7 +749,7 @@ class Net(Cell):
 if __name__ == "__main__":
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
-    dx = ops.GradOperation(sens_param=True)(Net())(Tensor(x), Tensor(sens))
+    dx = ops.GradOperation(sens_param=True)(Net())(ms.Tensor(x), ms.Tensor(sens))
     print(dx)
 ```
 
@@ -777,7 +777,7 @@ MindSpore Hybrid DSL的语法与Python语法类似，例如函数定义，缩进
 
 ```python
 import numpy as np
-from mindspore import ops, Tensor
+import mindspore as ms
 from mindspore.ops import ms_kernel
 
 @ms_kernel
@@ -798,8 +798,8 @@ np_y = np.random.normal(0, 1, [4, 4]).astype(np.float32)
 
 print(outer_product(np_x, np_y))
 
-input_x = Tensor(np_x)
-input_y = Tensor(np_y)
+input_x = ms.Tensor(np_x)
+input_y = ms.Tensor(np_y)
 
 test_op_akg = ops.Custom(outer_product)
 out = test_op_akg(input_x, input_y)

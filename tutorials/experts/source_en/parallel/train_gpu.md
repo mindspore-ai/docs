@@ -66,7 +66,7 @@ The sample code for calling the HCCL is as follows and sets the file name as ncc
 import numpy as np
 import mindspore.ops as ops
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+import mindspore as ms
 from mindspore.communication import init, get_rank
 
 
@@ -80,10 +80,10 @@ class Net(nn.Cell):
 
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
     init("nccl")
     value = get_rank()
-    input_x = Tensor(np.array([[value]]).astype(np.float32))
+    input_x = ms.Tensor(np.array([[value]]).astype(np.float32))
     net = Net()
     output = net(input_x)
     print(output)
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 In the preceding information,
 
-- `mode=GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+- `mode=ms.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
 - `device_target="GPU"`: specifies device as GPU.
 - `init("nccl")`: enables NCCL communication and completes the distributed training initialization.
 - `get_rank()`: obtains the rank number of  the current process.
@@ -132,7 +132,7 @@ tar -zxvf cifar-10-binary.tar.gz
 During distributed training, data is imported in the data parallel mode. Taking the CIFAR-10 dataset as an example, we introduce the method of importing the CIFAR-10 dataset in parallel. `data_path` refers to the path of the dataset, that is, the path of the `cifar-10-batches-bin` folder.
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
@@ -157,7 +157,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
@@ -207,8 +207,7 @@ In the Loss section, we take the form of `SoftmaxCrossEntropyWithLogits`, that i
 
 ```python
 import mindspore.ops as ops
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.nn as nn
 
 
@@ -218,8 +217,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.exp = ops.Exp()
         self.sum = ops.ReduceSum(keep_dims=True)
         self.onehot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = ms.Tensor(1.0, ms.float32)
+        self.off_value = ms.Tensor(0.0, ms.float32)
         self.div = ops.RealDiv()
         self.log = ops.Log()
         self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
@@ -263,26 +262,25 @@ If there are multiple network use cases in the script, call `reset_auto_parallel
 In the example below, we specify the parallel mode as automatic parallelism, and the user needs to switch to data parallel mode by simply changing `parallel_mode` to `DATA_PARALLEL`.
 
 ```python
-from mindspore import Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from mindspore.communication import init
 from resnet import resnet50
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 init("nccl")
 
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -425,20 +423,20 @@ On GPU hardware platform, the following shows how to run a distributed training 
 Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
 
 ```python
-from mindspore import set_context, GRAPH_MODE, set_ps_context, set_auto_parallel_context, ParallelMode
+import mindspore as ms
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="GPU")
-    set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True,
-                           client_password="123456", server_password="123456")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+    ms.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True,
+                              client_password="123456", server_password="123456")
     init("nccl")
     ...
 ```
 
 Where:
 
-- `mode=GRAPH_MODE`: uses the distributed training, which requires specifying the run mode as graph mode (PyNative mode does not support parallelism).
+- `mode=ms.GRAPH_MODE`: uses the distributed training, which requires specifying the run mode as graph mode (PyNative mode does not support parallelism).
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
 - By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl") can be called, otherwise the initialization of the networking will fail.
 
@@ -574,7 +572,8 @@ that is, perform 2-host and 8-card distributed training tasks.
 If you want to start data parallel mode training, you need to change the `set_auto_parallel_context` in the script `resnet50_distributed_training_gpu.py` to `DATA_PARALLEL`:
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+import mindspore as ms
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 The script will run in the background, and the log file will be saved to the current directory. A total of 10 epochs are run, each of which has 234 steps, and the results of the Loss part are saved in the worker_*.log. After the loss value grep is out, the example is as follows:
@@ -637,8 +636,10 @@ export MS_RECOVERY_PATH=“/xxx/xxx”      # Configure the persistence path fol
 2) Configure the checkpoint save interval, for example:
 
 ```python
-ckptconfig = CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
-ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
+import mindspore as ms
+
+ckptconfig = ms.CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
+ckpoint_cb = ms.ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
 ```
 
 Each Worker turns on save checkpoint and uses a different path (as in the example above, the directory setting uses the rank id to ensure that the paths are not the same) to prevent checkpoint save conflicts of the same name. checkpoint is used for abnormal process recovery and normal process rollback. Training rollback means that each worker in the cluster is restored to the state corresponding to the latest checkpoint, and the data side also falls back to the corresponding step, and then continues training. The interval between saving checkpoints is configurable, which determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps that are reverted to the last save checkpoint, but the frequent saving of checkpoints may also affect the training efficiency, and the larger the interval, the opposite effect. keep_checkpoint_max set to at least 2 (to prevent checkpoint save failure).

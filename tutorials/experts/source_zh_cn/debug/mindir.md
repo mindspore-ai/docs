@@ -64,14 +64,12 @@ if __name__ == "__main__":
 下面以一个简单的例子来说明IR文件的内容（内容可能随着MindSpore的版本升级而出现一些变化），运行该脚本：
 
 ```python
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
 from mindspore import ops
-from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE)
-set_context(save_graphs=True, save_graphs_path="./")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_context(save_graphs=True, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -90,8 +88,8 @@ class Net(nn.Cell):
         c = self.mul(b, self.func(a, b))
         return c
 
-input1 = Tensor(3, mstype.float32)
-input2 = Tensor(2, mstype.float32)
+input1 = ms.Tensor(3, ms.float32)
+input2 = ms.Tensor(2, ms.float32)
 net = Net()
 out = net(input1, input2)
 print(out)
@@ -281,15 +279,15 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 例如执行下面一段代码：
 
 ```python
-  1 from mindspore import set_context, GRAPH_MODE
+  1 import mindspore as ms
   2 import mindspore.nn as nn
-  3 from mindspore import Tensor
+  3
   4 from mindspore.nn import Cell
   5 from mindspore import ops
-  6 from mindspore import dtype as mstype
+  6
   7
-  8 set_context(mode=GRAPH_MODE)
-  9 set_context(save_graphs=True)
+  8 ms.set_context(mode=ms.GRAPH_MODE)
+  9 ms.set_context(save_graphs=True)
  10
  11 class Net(nn.Cell):
  12     def __init__(self):
@@ -308,8 +306,8 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
  25         c = self.mul(b, self.func(a, a, b))
  26         return c
  27
- 28 input1 = Tensor(3, mstype.float32)
- 29 input2 = Tensor(2, mstype.float32)
+ 28 input1 = ms.Tensor(3, ms.float32)
+ 29 input2 = ms.Tensor(2, ms.float32)
  30 net = Net()
  31 out = net(input1, input2)
  32 print(out)

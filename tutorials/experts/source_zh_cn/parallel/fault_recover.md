@@ -45,15 +45,14 @@ export GROUP_INFO_FILE=./group_info.pb
 权重存储的代码部分如下，需要注意，训练时通过指定dataset_sink_mode为True以配置为下沉模式。
 
 ```python
-from mindspore import Model, ParallelMode
+import mindspore as ms
 from mindspore.nn import PipelineCell
-from mindspore import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 def train():
     # model create
     # checkpoint save
-    ckpt_config = CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
-                                   integrated_save=False)
-    ckpoint_cb = ModelCheckpoint(prefix="test", config=ckpt_config)
+    ckpt_config = ms.CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
+                                      integrated_save=False)
+    ckpoint_cb = ms.ModelCheckpoint(prefix="test", config=ckpt_config)
     callback = [ckpoint_cb]
     model.train(4, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
@@ -82,9 +81,8 @@ epoch: 1 step: 77, loss is 6.271424
 如下面的例子，0卡的group_info.pb解析出来后，发现0卡和4卡的权重切分是完全一致的，当0卡的checkpoint丢失时，可以直接复制4卡checkpoint作为0卡的checkpoint，进行恢复。
 
 ```python
-
-from mindspore import restore_group_info_list
-rank_list = restore_group_info_list("./ckpt_dir0/group_info.pb")
+import mindspore as ms
+rank_list = ms.restore_group_info_list("./ckpt_dir0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
@@ -92,14 +90,14 @@ print(rank_list) // [0, 4]
 
 ```python
 import os
-from mindspore import ParallelMode
+import mindspore as ms
 def recover_train():
     # model create
     # checkpoint load
     if args_opt.ckpt_file:
-        param_dict = load_checkpoint(args_opt.ckpt_file)
+        param_dict = ms.load_checkpoint(args_opt.ckpt_file)
         model.build(train_dataset=dataset, epoch=4)
-        load_param_into_net(net, param_dict)
+        ms.load_param_into_net(net, param_dict)
     model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
 

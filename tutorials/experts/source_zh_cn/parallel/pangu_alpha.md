@@ -19,7 +19,7 @@
 > 脚本和文章中使用config.data_parallel和config.model_parallel指代数据并行切分维度大小和模型并行切分维度大小。
 
 ```python
-from mindspore import Parameter
+import mindspore as ms
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 from mindspore.nn import Cell
@@ -31,8 +31,8 @@ class VocabEmbedding(Cell):
         super(VocabEmbedding, self).__init__()
         self.vocab_size = vocab_size
         self.hidden_size = hidden_size
-        self.embedding_table = Parameter(initializer(param_init, [self.vocab_size, self.hidden_size]),
-                                         name='embedding_table', parallel_optimizer=False)
+        self.embedding_table = ms.Parameter(initializer(param_init, [self.vocab_size, self.hidden_size]),
+                                            name='embedding_table', parallel_optimizer=False)
         if parallel_config.vocab_emb_dp:
             self.gather = ops.GatherV2().shard(((1, 1), (parallel_config.data_parallel, 1)))
         else:
@@ -132,9 +132,9 @@ FeedForward可以直接调用`mindspore.nn.transformer.FeedForward`实现。Feed
 
 ```python
 from mindspore.common.initializer import initializer
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, Parameter
-from mindspore import dtype as mstype
+from mindspore import nn
 from mindspore.nn import get_activation
 from mindspore.nn.transformer import OpParallelConfig
 
@@ -153,8 +153,8 @@ class Linear(nn.Cell):
                  activation=None,
                  transpose_b=True,
                  expert_num=1,
-                 param_init_type=mstype.float32,
-                 compute_dtype=mstype.float16):
+                 param_init_type=ms.float32,
+                 compute_dtype=ms.float16):
         super(Linear, self).__init__()
         if transpose_b:
             weight_shape = [out_channels, in_channels]
@@ -163,20 +163,20 @@ class Linear(nn.Cell):
         self.expert_num = expert_num
         if self.expert_num > 1:
             self.expert_flag = True
-            self.weight = Parameter(initializer(weight_init, [self.expert_num] + weight_shape, param_init_type),
-                                    name="weight")
+            self.weight = ms.Parameter(initializer(weight_init, [self.expert_num] + weight_shape, param_init_type),
+                                       name="weight")
             self.matmul = ops.BatchMatMul(transpose_b=transpose_b)
         else:
             self.expert_flag = False
-            self.weight = Parameter(initializer(weight_init, weight_shape, param_init_type), name="weight")
+            self.weight = ms.Parameter(initializer(weight_init, weight_shape, param_init_type), name="weight")
             self.matmul = ops.MatMul(transpose_b=transpose_b)
         self.bias = None
         self.has_bias = has_bias
         if self.has_bias:
-            if isinstance(bias_init, Tensor):
+            if isinstance(bias_init, ms.Tensor):
                 if bias_init.ndim != 1 or bias_init.shape[0] != out_channels:
                     raise ValueError("Bias init shape error.")
-            self.bias = Parameter(initializer(bias_init, [out_channels], param_init_type), name="bias")
+            self.bias = ms.Parameter(initializer(bias_init, [out_channels], param_init_type), name="bias")
             self.bias_add = ops.Add()
         self.act_name = activation
         self.activation = get_activation(activation) if isinstance(activation, str) else activation
@@ -221,7 +221,7 @@ class FeedForward(nn.Cell):
                  dropout_rate,
                  hidden_act='gelu',
                  expert_num=1,
-                 param_init_type=mstype.float32,
+                 param_init_type=ms.float32,
                  parallel_config=default_dpmp_config):
         super(FeedForward, self).__init__()
         dp = parallel_config.data_parallel
@@ -254,7 +254,7 @@ class FeedForward(nn.Cell):
         self.cast = ops.Cast()
 
     def construct(self, x):
-        x = self.cast(x, mstype.float16)
+        x = self.cast(x, ms.float16)
         # returned shape is [bs, seq_length, ffn_hidden_size] or [bs * seq_length, ffn_hidden_size]
         hidden = self.mapping(x)
         output = self.projection(hidden)
