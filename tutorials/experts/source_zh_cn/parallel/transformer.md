@@ -52,9 +52,9 @@
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
 ```python
-from mindspore import set_auto_parallel_context, ParallelMode
+import mindspore as ms
 from mindspore.nn.transformer import TransformerOpParallelConfig
-set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 parallel_config = TransformerOpParallelConfig(data_parallel=1, model_parallel=8)
 ```
 
@@ -189,8 +189,8 @@ loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 然后设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信算子进行梯度的同步。注意`gradient_accumulation_shard`默认对应的值为True，如果用户为了提高性能，可以将此参数设置为False。
 
 ```python
-from mindspore import ParallelMode, set_auto_parallel_context
-set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
+import mindspore as ms
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
 ```
 
 关于`stage_num`的说明如下，MindSpore通过`stage_num`来判断是否进入流水线并行训练。
@@ -202,11 +202,10 @@ set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradien
 
 ```python
 import argparse
+import mindspore as ms
 from mindspore.nn.transformer import TransformerOpParallelConfig
-from mindspore import Model, ParallelMode, reset_auto_parallel_context, set_auto_parallel_context
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
-from mindspore import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
 from dataset import ToyDataset, Tokenzier
 from model import Net
@@ -258,12 +257,12 @@ def main():
         dp = device_num // args_opt.mp // args_opt.pipeline_stage
         print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
         gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
-        reset_auto_parallel_context()
-        set_auto_parallel_context(
-            parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
-            full_batch=True, loss_repeated_mean=True,
-            device_num=device_num, enable_parallel_optimizer=True,
-            parallel_optimizer_config={"gradient_accumulation_shard": gradient_accumulation_shard})
+        ms.reset_auto_parallel_context()
+        ms.set_auto_parallel_context(
+               parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
+               full_batch=True, loss_repeated_mean=True,
+               device_num=device_num, enable_parallel_optimizer=True,
+               parallel_optimizer_config={"gradient_accumulation_shard": gradient_accumulation_shard})
     else:
         dp = 1
 
@@ -297,16 +296,16 @@ def main():
         opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
 
     if not args_opt.train:
-        model = Model(net)
+        model = ms.Model(net)
     else:
-        model = Model(net, optimizer=opt)
+        model = ms.Model(net, optimizer=opt)
 
     callback_size = 1
-    ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
-                                   integrated_save=False)
-    ckpoint_cb = ModelCheckpoint(prefix="test",
-                                 config=ckpt_config)
-    callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
+    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
+                                      integrated_save=False)
+    ckpoint_cb = ms.ModelCheckpoint(prefix="test",
+                                    config=ckpt_config)
+    callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
     model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 
 if __name__ == "__main__":
@@ -379,12 +378,12 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 下面是调用集合通信库样例代码：
 
 ```python
-import os\
+import os
 from mindspore.communication import init
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...
 ```

@@ -17,11 +17,10 @@
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import Tensor
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -34,7 +33,7 @@ class Net(nn.Cell):
 def test_net():
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     square = Net()
-    output = square(Tensor(x))
+    output = square(ms.Tensor(x))
     print("x: ", x)
     print("output: ", output)
 

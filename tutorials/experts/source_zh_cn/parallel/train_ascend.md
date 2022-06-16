@@ -97,18 +97,18 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 
 ```python
 import os
-from mindspore import set_context, GRAPH_MODE
+import mindpsore as ms
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...
 ```
 
 其中，
 
-- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式当前仅支持数据并行）。
+- `mode=ms.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式当前仅支持数据并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init`：使能HCCL通信，并完成分布式训练初始化操作。
 
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，即`cifar-10-batches-bin`文件夹的路径。
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
@@ -141,7 +141,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = transforms.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
@@ -182,9 +182,8 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)。
 
 ```python
-from mindspore import Tensor, Parameter
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class HybridParallelNet(nn.Cell):
@@ -192,7 +191,7 @@ class HybridParallelNet(nn.Cell):
         super(HybridParallelNet, self).__init__()
         # initialize the weight which is sliced at the second dimension
         weight_init = np.random.rand(512, 128/2).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+        self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
         self.fc = ops.MatMul()
         self.reduce = ops.ReduceSum()
         self.allreduce = ops.AllReduce(op='sum')
@@ -211,9 +210,8 @@ class HybridParallelNet(nn.Cell):
 以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`((1, 1),(1, 2))`，指定`self.weight`在第二维度上被切分两份。
 
 ```python
-from mindspore import Tensor, Parameter
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SemiAutoParallelNet(nn.Cell):
@@ -221,7 +219,7 @@ class SemiAutoParallelNet(nn.Cell):
         super(SemiAutoParallelNet, self).__init__()
         # initialize full tensor weight
         weight_init = np.random.rand(512, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init))
+        self.weight = ms.Parameter(ms.Tensor(weight_init))
         # set shard strategy
         self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
@@ -245,9 +243,8 @@ class SemiAutoParallelNet(nn.Cell):
 在Loss部分，我们采用`SoftmaxCrossEntropyWithLogits`的展开形式，即按照数学公式，将其展开为多个小算子进行实现，样例代码如下：
 
 ```python
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import Tensor
-from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):
@@ -256,8 +253,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.exp = ops.Exp()
         self.sum = ops.ReduceSum(keep_dims=True)
         self.onehot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = ms.Tensor(1.0, ms.float32)
+        self.off_value = ms.Tensor(0.0, ms.float32)
         self.div = ops.RealDiv()
         self.log = ops.Log()
         self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
@@ -267,7 +264,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = ops.ReduceMax(keep_dims=True)
         self.sub = ops.Sub()
-        self.eps = Tensor(1e-24, mstype.float32)
+        self.eps = ms.Tensor(1e-24, ms.float32)
 
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
@@ -304,25 +301,24 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`。
 
 ```python
-from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-set_context(mode=GRAPH_MODE, device_target="Ascend")
-set_context(device_id=device_id) # set device_id
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+ms.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -592,12 +588,11 @@ OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参
 自动并行模式（Auto Parallel）下模型参数的保存和加载与单卡用法基本相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
 
 ```python
-from mindspore import ModelCheckpoint, CheckpointConfig
-from mindspore import set_auto_parallel_context, ParallelMode
+import mindspore as ms
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = ms.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -605,21 +600,21 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
-    model = Model(net, loss_fn=loss, optimizer=opt)
+    ckpt_config = ms.CheckpointConfig()
+    ckpt_callback = ms.ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```
 
 保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码加载模型：
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint(pretrain_ckpt_path)
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint(pretrain_ckpt_path)
+ms.load_param_into_net(net, param_dict)
 ```
 
 详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#保存和加载模型hybrid-parallel模式)。
@@ -629,23 +624,23 @@ load_param_into_net(net, param_dict)
 针对采用多卡再训练及微调的场景，用户可以使用`model.infer_train_layout`函数推导再训练分布式策略（该函数当前仅支持数据集下沉模式），再传递给`load_distributed_checkpoint`函数中`predict_strategy`参数，该函数从所有分片的模型文件中加载需要的部分进行合并切分操作，将参数从`strategy_ckpt_load_file`（训练策略）恢复到`predict_strategy`（再训练策略），最后加载到`model.train_network`中。若采用单卡进行再训练及微调，可以直接将`predict_strategy`置为`None`。参考代码如下：
 
 ```python
-from mindspore import load_distributed_checkpoint, set_context, GRAPH_MODE, set_auto_parallel_context
+import mindspore as ms
 from mindspore.communication import init
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
-set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+ms.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
 # create model and dataset
 dataset = create_custom_dataset()
 resnet = ResNet50()
 opt = Momentum()
 loss = SoftmaxCrossEntropyWithLogits()
-model = Model(resnet, loss, opt)
+model = ms.Model(resnet, loss, opt)
 # infer train strategy
 layout_dict = model.infer_train_layout(dataset, True, 100)
 # load into `model.train_network` net
 ckpt_file_list = create_ckpt_file_list()
-load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
+ms.load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
 # training the model
 model.train(2, dataset)
 ```
@@ -657,13 +652,13 @@ model.train(2, dataset)
 数据并行模式（Data Parallel）下checkpoint的使用方法和自动并行模式（Auto Parallel）一样，只需要将`test_train_cifar`中
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
 修改为:
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 > 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
@@ -678,8 +673,8 @@ set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_me
 ...
 net = SemiAutoParallelNet()
 ...
-ckpt_config = CheckpointConfig()
-ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+ckpt_config = ms.CheckpointConfig()
+ckpt_callback = ms.ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
 ```
 
 加载模型时，可以使用如下代码来实现：

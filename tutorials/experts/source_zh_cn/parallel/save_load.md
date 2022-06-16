@@ -71,8 +71,8 @@ net = TrainOneStepCell(net, opt)
 param_dicts = []
 for i in range(rank_size):
     file_name = os.path.join("./node"+str(i), "CKP_1-4_32.ckpt")  # checkpoint file name of current node
-    param_dict = load_checkpoint(file_name)  
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(file_name)  
+    ms.load_param_into_net(net, param_dict)
     param_dict = {}
     for _, param in net.parameters_and_names():
         param_dict[param.name] = param
@@ -90,7 +90,7 @@ for i in range(rank_size):
 调用`build_searched_strategy`接口，得到模型各个参数的切分策略。
 
 ```python
-strategy = build_searched_strategy("./strategy_train.cpkt")
+strategy = ms.build_searched_strategy("./strategy_train.cpkt")
 ```
 
 其中，
@@ -117,7 +117,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 2. 调用`merge_sliced_parameter`接口进行参数合并。
 
     ```python
-    merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
+    merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
     ```
 
 > 如果存在多个模型并行的参数，则需要重复步骤1到步骤2循环逐个处理。
@@ -131,10 +131,10 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
     for (key, value) in param_dict.items():
         each_param = {}
         each_param["name"] = key
-        if isinstance(value.data, Tensor):
+        if isinstance(value.data, ms.Tensor):
             param_data = value.data
         else:
-            param_data = Tensor(value.data)
+            param_data = ms.Tensor(value.data)
         each_param["data"] = param_data
         param_list.append(each_param)
     ```
@@ -142,7 +142,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 2. 调用`save_checkpoint`接口，将参数数据写入文件，生成新的CheckPoint文件。
 
    ```python
-   save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
+   ms.save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
    ```
 
     其中，
@@ -162,7 +162,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 调用`load_checkpoint`接口，从CheckPoint文件中加载模型参数数据。
 
 ```python
-param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
+param_dict = ms.load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```
 
 - `load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
@@ -203,8 +203,8 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 
     ```python
     rank = get_rank()
-    tensor_slice = Tensor(slice_list[rank])
-    tensor_slice_moments = Tensor(slice_moments_list[rank])
+    tensor_slice = ms.Tensor(slice_list[rank])
+    tensor_slice_moments = ms.Tensor(slice_moments_list[rank])
     ```
 
     - `get_rank`：获取当前设备在集群中的ID。
@@ -225,8 +225,8 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```python
 net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
-load_param_into_net(net, param_dict)
-load_param_into_net(opt, param_dict)
+ms.load_param_into_net(net, param_dict)
+ms.load_param_into_net(opt, param_dict)
 ```
 
 ## 示例
@@ -264,14 +264,13 @@ load_param_into_net(opt, param_dict)
     import numpy as np
     import os
     import mindspore.nn as nn
-    from mindspore import Tensor, Parameter
+    import mindspore as ms
     import mindspore.ops as ops
-    from mindspore import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
 
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
-            self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+            self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
@@ -288,14 +287,14 @@ load_param_into_net(opt, param_dict)
         param_dicts = []
         for i in range(rank_size):
             file_name = os.path.join("./node"+str(i), old_ckpt_file)
-            param_dict = load_checkpoint(file_name)  
-            load_param_into_net(net, param_dict)
+            param_dict = ms.load_checkpoint(file_name)  
+            ms.load_param_into_net(net, param_dict)
             param_dict = {}
             for _, param in net.parameters_and_names():
                 param_dict[param.name] = param
                 param_dicts.append(param_dict)
 
-        strategy = build_searched_strategy(strategy_file)
+        strategy = ms.build_searched_strategy(strategy_file)
         param_dict = {}
 
         for paramname in ["weight", "moments.weight"]:
@@ -306,7 +305,7 @@ load_param_into_net(opt, param_dict)
                 sliced_parameters.append(parameter)
 
             # merge the parallel parameters of the model
-            merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
+            merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
             param_dict[paramname] = merged_parameter
 
         # convert param_dict to list type data
@@ -314,15 +313,15 @@ load_param_into_net(opt, param_dict)
         for (key, value) in param_dict.items():
             each_param = {}
             each_param["name"] = key
-            if isinstance(value.data, Tensor):
+            if isinstance(value.data, ms.Tensor):
                 param_data = value.data
             else:
-                param_data = Tensor(value.data)
+                param_data = ms.Tensor(value.data)
             each_param["data"] = param_data
             param_list.append(each_param)
 
         # call the API to generate a new CheckPoint file
-        save_checkpoint(param_list, new_ckpt_file)
+        ms.save_checkpoint(param_list, new_ckpt_file)
 
         return
 
@@ -436,28 +435,26 @@ load_param_into_net(opt, param_dict)
     import numpy as np
     import os
     import mindspore.nn as nn
-    from mindspore import set_context, GRAPH_MODE
+    import mindspore as ms
     from mindspore.communication import init
-    from mindspore import Tensor, Parameter
     import mindspore.ops as ops
-    from mindspore import load_checkpoint, load_param_into_net
 
     from mindspore.communication import init
     devid = int(os.getenv('DEVICE_ID'))
-    set_context(mode=GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
+    ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
     init()
 
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
-            self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
+            self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
             x = self.fc(x, self.weight)
             return x
     def train_mindspore_impl_fc(input, label, ckpt_file):
-        param_dict = load_checkpoint(ckpt_file)
+        param_dict = ms.load_checkpoint(ckpt_file)
 
         for paramname in ["weight", "moments.weight"]:
             # get layer wise model parallel parameter
@@ -466,16 +463,16 @@ load_param_into_net(opt, param_dict)
             slice_list = np.split(new_param.data.asnumpy(), 2, axis=0)
             # Load the corresponding data slice
             rank = get_rank()
-            tensor_slice = Tensor(slice_list[rank])
+            tensor_slice = ms.Tensor(slice_list[rank])
             # modify model parameter data values
             new_param.set_data(tensor_slice, True)
 
             # load the modified parameter data into the network
             weight = np.ones([4, 8]).astype(np.float32)
             net = Net(weight)
-            load_param_into_net(net, param_dict)
+            ms.load_param_into_net(net, param_dict)
             opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
-            load_param_into_net(opt, param_dict)
+            ms.load_param_into_net(opt, param_dict)
             # train code
             ...
 
@@ -489,7 +486,7 @@ load_param_into_net(opt, param_dict)
 
     其中，
 
-    - `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+    - `mode=ms.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
     - `device_id`：卡物理序号，即卡所在机器中的实际序号。
     - `init`：完成分布式训练初始化操作。
 
