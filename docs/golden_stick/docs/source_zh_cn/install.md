@@ -18,7 +18,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/gol
 
 ## 源码编译安装
 
-下载[源码](https://gitee.com/mindspore/golden_stick)，下载后进入`golden_stick`目录。
+下载[源码](https://gitee.com/mindspore/golden-stick)，下载后进入`golden_stick`目录。
 
 ```shell
 bash build.sh
