@@ -55,15 +55,15 @@ Run the following command in a network-enabled environment to verify the install
 ```python
 import mindspore_hub as mshub
 
-model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
+model = mshub.load("mindspore/1.6/lenet_mnist", num_class = 10)
 ```
 
 If it prompts the following information, the installation is successful:
 
 ```text
-Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
+Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/1.6/lenet_mnist.md
 
 Download finished!
 File size = 0.00 Mb
-Checking /home/ma-user/.mscache/mindspore/cpu/1.0/lenet_v1_mnist.md...Passed!
+Checking /home/ma-user/.mscache/mindspore/1.6/lenet_mnist.md...Passed!
 ```

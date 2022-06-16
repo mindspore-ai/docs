@@ -53,15 +53,15 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Hub/an
 ```python
 import mindspore_hub as mshub
 
-model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
+model = mshub.load("mindspore/1.6/lenet_mnist", num_class = 10)
 ```
 
 如果出现下列提示，说明安装成功：
 
 ```text
-Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
+Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/1.6/lenet_mnist.md
 
 Download finished!
 File size = 0.00 Mb
-Checking /home/ma-user/.mscache/mindspore/cpu/1.0/lenet_v1_mnist.md...Passed!
+Checking /home/ma-user/.mscache/mindspore/1.6/lenet_mnist.md...Passed!
 ```
