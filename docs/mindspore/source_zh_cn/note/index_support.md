@@ -182,7 +182,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     索引`Tuple`的数据类型可以为`int`、`bool`、`None`、`slice`、`ellipsis`、`Tensor`、`List`、`Tuple`。支持单层和多层`Tuple`索引取值，单层`Tuple`索引取值：`tensor_x[tuple_index]`，多层`Tuple`索引取值：`tensor_x[tuple_index0][tuple_index1]...`。`Tuple`中包含的`List`与`Tuple`包含元素规则与单独的`List`规则相同，其他元素规则与单独元素也相同。
 
-    索引`Tuple`中元素按照最终索引Broadcast规则，分为`Basic Index`、`Advanced Index`两类。`Basic Index`包含`slice`、`ellipsis`与`None`三种类型，`Advanced Index`包含`int`、`bool`、`Tensor`、`List`、`Tuple`等五种类型。索引过程中，所有的`Advanced Index`将会做Broadcast，若`Advaned Index`连续，最终broadcast shape将插入在第一个`Advanced Index`位置；若不连续，则broadcast shape插入在`0`位置。
+    索引`Tuple`中元素按照最终索引Broadcast规则，分为`Basic Index`、`Advanced Index`两类。`Basic Index`包含`slice`、`ellipsis`、`int`与`None`四种类型，`Advanced Index`包含、`bool`、`Tensor`、`List`、`Tuple`等四种类型。索引过程中，所有的`Advanced Index`将会做Broadcast，若`Advaned Index`连续，最终broadcast shape将插入在第一个`Advanced Index`位置；若不连续，则broadcast shape插入在`0`位置。
 
     索引里除`None`扩展对应维度，`bool`扩展对应维度后与`Advanced Index`做Broadcast。除`ellipsis`、`bool`、`None`外每个元素操作对应位置维度，即`Tuple`中第0个元素操作第0维，第1个元素操作第1维，以此类推。每个元素的索引规则与该元素类型索引取值规则一致。
 
