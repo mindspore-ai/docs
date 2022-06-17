@@ -1,5 +1,5 @@
 MindSpore Dev Toolkit文档
-================
+============================
 
 MindSpore Dev Toolkit是一款面向MindSpore开发者的开发套件。通过深度学习、智能搜索及智能推荐等技术，打造智能计算最佳体验，致力于全面提升MindSpore框架的易用性，助力MindSpore生态推广。
 
@@ -43,7 +43,7 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 2. 启动Pycharm单击左上菜单栏，选择File->Settings->Plugins->Install Plugin from Disk。
    如图：
 
-  .. image:: docs/devtoolkit/docs/source_zh_cn/images/clip_image050.jpg
+  .. image:: ./images/clip_image050.jpg
 
 3. 选择插件zip包。
 
@@ -51,3 +51,15 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 ----------------------------
 
 请阅读 `源码编译指导 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/compiling.html>`_ 。
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 使用指南
+
+   compiling
+   mindspore_project_wizard
+   operator_search
+   search
+   smart_completion
+
