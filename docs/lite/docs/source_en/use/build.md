@@ -35,7 +35,7 @@ Modules in MindSpore Lite:
     - [Maven](https://archive.apache.org/dist/maven/maven-3/) >= 3.3.1
         - Configure environment variables: `export MAVEN_HOME=MAVEN path`.
         - Add the bin directory to the PATH: `export PATH=${MAVEN_HOME}/bin:$PATH`.
-    - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+    - [OpenJDK](https://openjdk.java.net/install/)  1.8 to 1.15
         - Configure environment variables: `export JAVA_HOME=JDK path`.
         - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`.
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)

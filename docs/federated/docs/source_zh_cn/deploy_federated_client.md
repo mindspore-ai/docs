@@ -138,7 +138,7 @@ android.jetifier.blacklist=bcprov
 ### 运行依赖
 
 - [Python](https://www.python.org/downloads/)>=3.7.0
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- [OpenJDK](https://openjdk.java.net/install/) 1.8 到 1.15
 
 ### 构建依赖环境
 

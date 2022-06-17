@@ -25,7 +25,7 @@
     - 编译依赖：
         - [Git](https://git-scm.com/downloads) >= 2.28.0
         - [Maven](https://maven.apache.org/download.cgi) >= 3.3
-        - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+        - [OpenJDK](https://openjdk.java.net/install/) 1.8 到 1.15
 
 - 编译构建
 
