@@ -84,26 +84,25 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 Before training, MindSpore needs to declare whether the intermediate process and result of the network model need to be saved during training. Therefore, the `ModelCheckpoint` API is used to save the network model and parameters for subsequent fine-tuning.
 
 ```python
-from mindspore import ModelCheckpoint, CheckpointConfig
+import mindspore as ms
 
 # Set the model saving parameters. The checkpoint steps are 1875.
-config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
 
 # Apply the model saving parameters.
-ckpoint = ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
+ckpoint = ms.ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
 ```
 
 The `model.train` API provided by MindSpore can be used to easily train the network. `LossMonitor` can monitor the changes of the `loss` value during the training process.
 
 ```python
-from mindvision.engine.callback import LossMonitor
-from mindspore import Model
+import mindspore as ms
 
 # Initialize the model parameters.
-model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
+model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
 # Train the network model. The model name is lenet-1_1875.ckpt.
-model.train(10, dataset_train, callbacks=[ckpoint, LossMonitor(0.01, 1875)])
+model.train(10, dataset_train, callbacks=[ckpoint, ms.LossMonitor(0.01, 1875)])
 ```
 
 ```text
@@ -151,12 +150,12 @@ The model accuracy data is displayed in the output content. In the example, the 
 ## Loading the Model
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 # Load the saved model used for testing.
-param_dict = load_checkpoint("./lenet/lenet-1_1875.ckpt")
+param_dict = ms.load_checkpoint("./lenet/lenet-1_1875.ckpt")
 # Load parameters to the network.
-load_param_into_net(network, param_dict)
+ms.load_param_into_net(network, param_dict)
 ```
 
 ```text
@@ -174,7 +173,7 @@ Use the generated model to predict the classification of a single image. The pro
 
 ```python
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 import matplotlib.pyplot as plt
 
 mnist = Mnist("./mnist", split="train", batch_size=6, resize=32)
@@ -191,7 +190,7 @@ for i in range(1, 7):
 plt.show()
 
 # Use the model.predict function to predict the classification of the image.
-output = model.predict(Tensor(data['image']))
+output = model.predict(ms.Tensor(data['image']))
 predicted = np.argmax(output.asnumpy(), axis=1)
 
 # Output the predicted classification and the actual classification.

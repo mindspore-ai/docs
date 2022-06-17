@@ -97,12 +97,11 @@ Add the `nn.Conv2d` layer and add a convolution function to the network to help 
 ```python
 import numpy as np
 
-from mindspore import Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # The number of channels input is 1, the number of channels of output is 6, the convolutional kernel size is 5 x 5, and the parameters are initialized using the normal operator, and the pixels are not filled.
 conv2d = nn.Conv2d(1, 6, 5, has_bias=False, weight_init='normal', pad_mode='same')
-input_x = Tensor(np.ones([1, 1, 32, 32]), mstype.float32)
+input_x = ms.Tensor(np.ones([1, 1, 32, 32]), ms.float32)
 
 print(conv2d(input_x).shape)
 ```
@@ -116,9 +115,10 @@ print(conv2d(input_x).shape)
 Add the `nn.ReLU` layer and add a non-linear activation function to the network to help the neural network learn various complex features.
 
 ```python
+import mindspore as ms
 relu = nn.ReLU()
 
-input_x = Tensor(np.array([-1, 2, -3, 2, -1]), mstype.float16)
+input_x = ms.Tensor(np.array([-1, 2, -3, 2, -1]), ms.float16)
 
 output = relu(input_x)
 print(output)
@@ -133,8 +133,9 @@ print(output)
 Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 array to a 6 x 7 x 7 array.
 
 ```python
+import mindspore as ms
 max_pool2d = nn.MaxPool2d(kernel_size=4, stride=4)
-input_x = Tensor(np.ones([1, 6, 28, 28]), mstype.float32)
+input_x = ms.Tensor(np.ones([1, 6, 28, 28]), ms.float32)
 
 print(max_pool2d(input_x).shape)
 ```
@@ -148,8 +149,9 @@ print(max_pool2d(input_x).shape)
 Initialize the `nn.Flatten` layer and convert the 1 x 16 x 5 x 5 array into 400 consecutive arrays.
 
 ```python
+import mindspore as ms
 flatten = nn.Flatten()
-input_x = Tensor(np.ones([1, 16, 5, 5]), mstype.float32)
+input_x = ms.Tensor(np.ones([1, 16, 5, 5]), ms.float32)
 output = flatten(input_x)
 
 print(output.shape)
@@ -164,8 +166,9 @@ print(output.shape)
 Initialize the `nn.Dense` layer and perform linear transformation on the input matrix.
 
 ```python
+import mindspore as ms
 dense = nn.Dense(400, 120, weight_init='normal')
-input_x = Tensor(np.ones([1, 400]), mstype.float32)
+input_x = ms.Tensor(np.ones([1, 400]), ms.float32)
 output = dense(input_x)
 
 print(output.shape)

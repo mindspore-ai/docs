@@ -127,8 +127,7 @@ This chapter uses MobileNet V2 pre-trained model for fine-tuning, and uses the d
 
 ```python
 import mindspore.nn as nn
-from mindspore import Model
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from mindvision.classification.models import mobilenet_v2
 from mindvision.engine.loss import CrossEntropySmooth
@@ -137,7 +136,7 @@ from mindvision.engine.loss import CrossEntropySmooth
 network = mobilenet_v2(num_classes=2, resize=224)
 
 # Save model parameters to param_dict.
-param_dict = load_checkpoint("./mobilenet_v2_1.0_224.ckpt")
+param_dict = ms.load_checkpoint("./mobilenet_v2_1.0_224.ckpt")
 
 # Obtain the parameter name of the last convolutional layer of the mobilenet_v2 network.
 filter_list = [x.name for x in network.head.classifier.get_parameters()]
@@ -154,7 +153,7 @@ def filter_ckpt_parameter(origin_dict, param_filter):
 filter_ckpt_parameter(param_dict, filter_list)
 
 # Load the pre-trained model parameters as the network initialization weight.
-load_param_into_net(network, param_dict)
+ms.load_param_into_net(network, param_dict)
 
 # Define the optimizer.
 network_opt = nn.Momentum(params=network.trainable_params(), learning_rate=0.01, momentum=0.9)
@@ -166,7 +165,7 @@ network_loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0
 metrics = {"Accuracy": nn.Accuracy()}
 
 # Initialize the model.
-model = Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metrics)
+model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metrics)
 ```
 
 ```text
@@ -188,14 +187,14 @@ Train and evaluate the network, and use the `mindvision.engine.callback.ValAccMo
 
 ```python
 from mindvision.engine.callback import ValAccMonitor
-from mindspore import TimeMonitor
+import mindspore as ms
 
 num_epochs = 10
 
 # Train and verify the model. After the training is completed, save the CKPT file with the highest evaluation accuracy, `best.ckpt`, in the current directory.
 model.train(num_epochs,
             dataset_train,
-            callbacks=[ValAccMonitor(model, dataset_val, num_epochs), TimeMonitor()])
+            callbacks=[ValAccMonitor(model, dataset_val, num_epochs), ms.TimeMonitor()])
 ```
 
 ```text
@@ -242,7 +241,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-from mindspore import Tensor
+import mindspore as ms
 
 def visualize_model(path):
     image = Image.open(path).convert("RGB")
@@ -264,9 +263,9 @@ def visualize_model(path):
 
     # Define and load the network.
     net = mobilenet_v2(num_classes=2, resize=224)
-    param_dict = load_checkpoint("./best.ckpt")
-    load_param_into_net(net, param_dict)
-    model = Model(net)
+    param_dict = ms.load_checkpoint("./best.ckpt")
+    ms.load_param_into_net(net, param_dict)
+    model = ms.Model(net)
 
     # Use the model for prediction.
     pre = model.predict(Tensor(image))
@@ -293,16 +292,16 @@ plt.show()
 After model training is complete, the trained network model (CKPT file) is converted into the MindIR format for subsequent inference on the mobile phone. The `mobilenet_v2_1.0_224.mindir` file is generated in the current directory through the `export` interface.
 
 ```python
-from mindspore import export, Tensor
+import mindspore as ms
 
 # Define and load the network parameters.
 net = mobilenet_v2(num_classes=2, resize=224)
-param_dict = load_checkpoint("best.ckpt")
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint("best.ckpt")
+ms.load_param_into_net(net, param_dict)
 
 # Export the model from the CKPT format to the MINDIR format.
 input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
-export(net, Tensor(input_np), file_name="mobilenet_v2_1.0_224", file_format="MINDIR")
+ms.export(net, ms.Tensor(input_np), file_name="mobilenet_v2_1.0_224", file_format="MINDIR")
 ```
 
 ## Inference and Deployment on the Mobile Phone

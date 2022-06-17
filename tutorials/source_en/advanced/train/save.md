@@ -29,10 +29,10 @@ Saving model parameters during training. MindSpore provides two saving strategie
     - `keep_checkpoint_max`: indicates how many CheckPoint files to save at most, with a default value of 5.
 
     ```python
-    from mindspore import CheckpointConfig
+    import mindspore as ms
 
     # Save one CheckPoint file every 32 steps, and up to 10 CheckPoint files
-    config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
     ```
 
     In the case that the iteration policy script ends normally, the CheckPoint file of the last step is saved by default.
@@ -45,10 +45,10 @@ Saving model parameters during training. MindSpore provides two saving strategie
     - `keep_checkpoint_per_n_minutes`: indicates how many checkPoint files are kept every few minutes, with a default value of 0.
 
     ```python
-    from mindspore import CheckpointConfig
+    import mindspore as ms
 
     # Save a CheckPoint file every 30 seconds and a CheckPoint file every 3 minutes
-    config_ck = CheckpointConfig(save_checkpoint_seconds=30, keep_checkpoint_per_n_minutes=3)
+    config_ck = ms.CheckpointConfig(save_checkpoint_seconds=30, keep_checkpoint_per_n_minutes=3)
     ```
 
     `save_checkpoint_seconds` parameters cannot be used with `save_checkpoint_steps` parameters. If both parameters are set, the `save_checkpoint_seconds` parameters are invalid.
@@ -58,15 +58,15 @@ Saving model parameters during training. MindSpore provides two saving strategie
     MindSpore provides a breakpoint renewal function, when the user turns on the function, if an exception occurs during training, MindSpore will automatically save the CheckPoint file (end-of-life CheckPoint) when the exception occurred. The function of breakpoint renewal is controlled by the `exception_save` parameter (bool type) in CheckpointConfig, which is turned on when set to True, and closed by False, which defaults to False. The end-of-life CheckPoint file saved by the breakpoint continuation function does not affect the CheckPoint saved in the normal process, and the naming mechanism and save path are consistent with the normal process settings, the only difference is that the '_breakpoint' will be added at the end of the end of the CheckPoint file name to distinguish. Its usage is as follows:
 
     ```python
-    from mindspore import ModelCheckpoint, CheckpointConfig
+    import mindspore as ms
 
     # Configure the breakpoint continuation function to turn on
-    config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
+    config_ck = ms.CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
     ```
 
     If an exception occurs during training, the end-of-life CheckPoint is automatically saved, and if an exception occurs in the 10th step of the 10th epoch in the training, the saved end-of-life CheckPoint file is as follows.
 
-    ```python
+    ```text
     # The end-of-life CheckPoint file name will be marked by '_breakpoint' to distinguish it from the normal process checkPoint.
     resnet50-10_10_breakpoint.ckpt  
     ```
@@ -86,11 +86,10 @@ You can use `save_checkpoint` function to save network weight parameters in the 
     The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
 
     ```python
-    from mindspore import save_checkpoint, Tensor
-    from mindspore import dtype as mstype
+    import mindspore as ms
 
-    save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
-    save_checkpoint(save_list, "hyper_param.ckpt")
+    save_list = [{"name": "lr", "data": ms.Tensor(0.01, ms.float32)}, {"name": "train_epoch", "data": ms.Tensor(20, ms.int32)}]
+    ms.save_checkpoint(save_list, "hyper_param.ckpt")
     ```
 
 2. `integrated_save` parameter
@@ -98,7 +97,7 @@ You can use `save_checkpoint` function to save network weight parameters in the 
     indicates whether the parameters are saved in a merge, and the default is True. In the model parallel scenario, Tensor is split into programs run by different cards. If integrated_save is set to True, these split Tensors are merged and saved in each checkpoint file, so that the checkpoint file saves the complete training parameters.
 
     ```python
-    save_checkpoint(net, "resnet50-2_32.ckpt", integrated_save=True)
+    ms.save_checkpoint(net, "resnet50-2_32.ckpt", integrated_save=True)
     ```
 
 3. `async_save` parameter
@@ -106,7 +105,7 @@ You can use `save_checkpoint` function to save network weight parameters in the 
     indicates whether the asynchronous save function is enabled, which defaults to False. If set to True, multithreading is turned on to write checkpoint files, allowing training and save tasks to be performed in parallel, saving the total time the script runs when training large-scale networks.
 
     ```python
-    save_checkpoint(net, "resnet50-2_32.ckpt", async_save=True)
+    ms.save_checkpoint(net, "resnet50-2_32.ckpt", async_save=True)
     ```
 
 4. `append_dict` parameter
@@ -116,7 +115,7 @@ You can use `save_checkpoint` function to save network weight parameters in the 
     ```python
     save_dict = {"epoch_num": 2, "lr": 0.01}
     # In addition to the parameters in net, the information save_dict is also saved in the ckpt file
-    save_checkpoint(net, "resnet50-2_32.ckpt",append_dict=save_dict)
+    ms.save_checkpoint(net, "resnet50-2_32.ckpt", append_dict=save_dict)
     ```
 
 ## Transfer Learning
@@ -131,7 +130,7 @@ In the following example, since the number of classification classes of the Resn
 
 ```python
 from mindvision.classification.models import resnet50
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 from mindvision.dataset import DownLoad
 
 # Download the pre-trained model for Resnet50
@@ -140,7 +139,7 @@ dl.download_url('https://download.mindspore.cn/vision/classification/resnet50_22
 # Define a resnet50 network with a classification class of 2
 resnet = resnet50(2)
 # Model parameters are saved to the param_dict
-param_dict = load_checkpoint("resnet50_224.ckpt")
+param_dict = ms.load_checkpoint("resnet50_224.ckpt")
 
 # Get a list of parameter names for the fully connected layer
 param_filter = [x.name for x in resnet.head.get_parameters()]
@@ -158,7 +157,7 @@ def filter_ckpt_parameter(origin_dict, param_filter):
 filter_ckpt_parameter(param_dict, param_filter)
 
 # Prints the updated model parameters
-load_param_into_net(resnet, param_dict)
+ms.load_param_into_net(resnet, param_dict)
 ```
 
 ```text
@@ -183,16 +182,16 @@ If you want to perform inference across platforms or hardware (Ascend AI process
 
 ```python
 import numpy as np
-from mindspore import Tensor, export, load_checkpoint
+import mindspore as ms
 from mindvision.classification.models import resnet50
 
 resnet = resnet50(1000)
-load_checkpoint("resnet50_224.ckpt", net=resnet)
+ms.load_checkpoint("resnet50_224.ckpt", net=resnet)
 
 input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
 
 # Export the file resnet50_224.mindir to the current folder
-export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='MINDIR')
+ms.export(resnet, ms.Tensor(input_np), file_name='resnet50_224', file_format='MINDIR')
 ```
 
 If you wish to save the data preprocess operations into MindIR and use them to perform inference, you can pass the Dataset object into export method:
@@ -200,7 +199,7 @@ If you wish to save the data preprocess operations into MindIR and use them to p
 ```python
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
-from mindspore import export, load_checkpoint
+import mindspore as ms
 from mindvision.classification.models import resnet50
 from mindvision.dataset import DownLoad
 
@@ -226,9 +225,9 @@ de_dataset = create_dataset_for_renset(path)
 resnet = resnet50()
 
 # Load the preprocessing model parameters into the network
-load_checkpoint("resnet50_224.ckpt", net=resnet)
+ms.load_checkpoint("resnet50_224.ckpt", net=resnet)
 # Export a MindIR file with preprocessing information
-export(resnet, de_dataset, file_name='resnet50_224', file_format='MINDIR')
+ms.export(resnet, de_dataset, file_name='resnet50_224', file_format='MINDIR')
 ```
 
 > - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
@@ -255,16 +254,16 @@ When you have a CheckPoint file, if you want to do inference on Ascend AI proces
 
 ```python
 import numpy as np
-from mindspore import Tensor, export, load_checkpoint
+import mindspore as ms
 from mindvision.classification.models import resnet50
 
 resnet = resnet50()
-load_checkpoint("resnet50_224.ckpt", net=resnet)
+ms.load_checkpoint("resnet50_224.ckpt", net=resnet)
 
 input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
 
 # Save the resnet50_224.onnx file to the current directory
-export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='ONNX')
+ms.export(resnet, ms.Tensor(input_np), file_name='resnet50_224', file_format='ONNX')
 ```
 
 > - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
@@ -276,16 +275,16 @@ If you want to perform inference on the Ascend AI processor, you can also genera
 
 ```python
 import numpy as np
-from mindspore import Tensor, export, load_checkpoint
+import mindspore as ms
 from mindvision.classification.models import resnet50
 
 resnet = resnet50()
 # Load parameters into the network
-load_checkpoint("resnet50_224.ckpt", net=resnet)
+ms.load_checkpoint("resnet50_224.ckpt", net=resnet)
 # Network input
 input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
 # Save the resnet50_224.air file to the current directory
-export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='AIR')
+ms.export(resnet, ms.Tensor(input_np), file_name='resnet50_224', file_format='AIR')
 ```
 
 If file_name does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.
