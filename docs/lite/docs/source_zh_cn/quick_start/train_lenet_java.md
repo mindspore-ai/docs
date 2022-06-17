@@ -18,7 +18,7 @@
 
     - [Maven](https://maven.apache.org/download.cgi) >= 3.3
 
-    - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+    - [OpenJDK](https://openjdk.java.net/install/) 1.8 到 1.15
 
 ### 下载MindSpore并编译端侧训练Java包
 

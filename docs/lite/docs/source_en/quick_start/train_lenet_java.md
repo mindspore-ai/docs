@@ -18,7 +18,7 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 
     - [Maven](https://maven.apache.org/download.cgi) 3.3 or later
 
-    - [OpenJDK](https://openjdk.java.net/install/) 1.8 or later
+    - [OpenJDK](https://openjdk.java.net/install/) 1.8 to 1.15
 
 ### Downloading MindSpore and Building the Java Package for On-device Training
 

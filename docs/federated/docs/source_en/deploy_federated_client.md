@@ -138,7 +138,7 @@ After setting up the dependencies shown above in the Android project, you only n
 ### Running Dependencies
 
 - [Python](https://www.python.org/downloads/) >= 3.7.0
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- [OpenJDK](https://openjdk.java.net/install/) 1.8 to 1.15
 
 ### Building a Dependency Environment
 
