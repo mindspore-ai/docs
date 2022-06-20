@@ -42,19 +42,18 @@
 
 ### BatchNorm折叠
 
-基本卷积Conv操作为：
+为了规约输出数据范围，卷积或者全连接层后通常会加入BatchNorm算子，在训练过阶段BatchNorm作为一个独立的算子，统计输出的均值和方差（如下左图），在推理阶段则将其融入权重和Bias中，称为BatchNorm折叠（如下右图）。
 
-$$y_{out}=w \cdot x+b$$
+![](../images/quantization_aware_training2.png)
 
-大部分网络模型中为了对卷积后的数据进行规约，会使用BatchNorm层。因此Conv和BatchNorm两个算子在正向传播的时候，根据公式可以融合为一个算子，该操作称为BN折叠：
+BatchNorm折叠的公式如下：
 
 $$y_{bn}=\operatorname{BN}\left(y_{cout}\right)=BN(w \cdot x+b)=\widehat{w} \cdot x+\widehat{b}$$
 
-网络模型中经常使用BN层对数据进行规约，有效降低上下层之间的数据依赖性。然而大部分在推理框架当中都会对BN层和卷积操作进行融合，为了更好地模拟在推理时的算子融合操作，这里对BN层进行folding处理。MindSpore在进行感知量化训练的时候会默认进行BN折叠。
+在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数规约实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据规约
+在金箍棒中进一步将权重校正和规约融合，提升性能。
 
-下面左边图是普通训练时模型，右边图是融合后推理时模型。
-
-![](../images/quantization_aware_training2.png)
+![](../images/quantization_aware_training3.png)
 
 ## 感知量化训练
 
@@ -73,9 +72,183 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 ## 感知量化训练示例
 
-### 应用量化算法生成量化网络
+感知量化训练与一般训练步骤基本一致,在构造网络阶段需要应用金箍棒的量化算法生成量化模型，完整流程如下：
 
-### 导出量化模型
+1. 加载数据集，处理数据。
+2. 定义网络。
+3. 定义金箍棒量化算法，应用算法生成量化模型。
+4. 定义优化器、损失函数和callbacks。
+5. 训练网络，保存模型文件。
+6. 加载模型文件，对比量化后精度。
+
+接下来以LeNet5网络为例，分别叙述这些步骤。
+
+> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/lenet/README_CN.md#应用金箍棒模型压缩算法)
+> ，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
+
+### 加载数据集
+
+```python
+ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
+```
+
+代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)
+ ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
+
+### 定义原网络
+
+```python
+from src.lenet import LeNet5
+...
+network = LeNet5(config.num_classes)
+print(network)
+```
+
+原始网络结构如下：
+
+```commandline
+LeNet5<
+  (conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+  (conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+  (relu): ReLU<>
+  (max_pool2d): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
+  (flatten): Flatten<>
+  (fc1): Dense<input_channels=400, output_channels=120, has_bias=True>
+  (fc2): Dense<input_channels=120, output_channels=84, has_bias=True>
+  (fc3): Dense<input_channels=84, output_channels=10, has_bias=True>
+  >
+```
+
+LeNet5网络定义见[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) 。
+
+### 应用量化算法
+
+量化网络是指在原网络定义的基础上，修改需要量化的网络层后生成的带有伪量化节点的网络，通过构造金箍棒下的`SimulatedQuantizationAwareTraining`类，并将其应用到原网络上将原网络转换为量化网络。
+
+```python
+from mindspore_gs import SimulatedQuantizationAwareTraining as SimQAT
+
+...
+algo = SimQAT()
+quanted_network = algo.apply(network)
+print(quanted_network)
+```
+
+量化网络结构如下：
+
+```commandline
+LeNet5Opt<
+  (_handler):
+  ...
+  (Conv2dQuant): QuantizeWrapperCell<
+    (_handler): Conv2dQuant<
+      in_channels=1, out_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+      (fake_quant_weight): SimulatedFakeQuantizerPerChannel<bit_num=8, symmetric=True, narrow_range=False, ema=False(0.999), per_channel=True(0, 6), quant_delay=0>
+      >
+    (_input_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    (_output_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    >
+  (Conv2dQuant_1): QuantizeWrapperCell<
+    (_handler): Conv2dQuant<
+      in_channels=6, out_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+      (fake_quant_weight): SimulatedFakeQuantizerPerChannel<bit_num=8, symmetric=True, narrow_range=False, ema=False(0.999), per_channel=True(0, 16), quant_delay=0>
+      >
+    (_input_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    (_output_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    >
+  (DenseQuant): QuantizeWrapperCell<
+    (_handler): DenseQuant<
+      in_channels=400, out_channels=120, weight=Parameter (name=DenseQuant._handler.weight, shape=(120, 400), dtype=Float32, requires_grad=True), has_bias=True, bias=Parameter (name=DenseQuant._handler.bias, shape=(120,), dtype=Float32, requires_grad=True)
+      (fake_quant_weight): SimulatedFakeQuantizerPerChannel<bit_num=8, symmetric=True, narrow_range=False, ema=False(0.999), per_channel=True(0, 120), quant_delay=0>
+      >
+    (_input_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    (_output_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    >
+  (DenseQuant_1): QuantizeWrapperCell<
+    (_handler): DenseQuant<
+      in_channels=120, out_channels=84, weight=Parameter (name=DenseQuant_1._handler.weight, shape=(84, 120), dtype=Float32, requires_grad=True), has_bias=True, bias=Parameter (name=DenseQuant_1._handler.bias, shape=(84,), dtype=Float32, requires_grad=True)
+      (fake_quant_weight): SimulatedFakeQuantizerPerChannel<bit_num=8, symmetric=True, narrow_range=False, ema=False(0.999), per_channel=True(0, 84), quant_delay=0>
+      >
+    (_input_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    (_output_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    >
+  (DenseQuant_2): QuantizeWrapperCell<
+    (_handler): DenseQuant<
+      in_channels=84, out_channels=10, weight=Parameter (name=DenseQuant_2._handler.weight, shape=(10, 84), dtype=Float32, requires_grad=True), has_bias=True, bias=Parameter (name=DenseQuant_2._handler.bias, shape=(10,), dtype=Float32, requires_grad=True)
+      (fake_quant_weight): SimulatedFakeQuantizerPerChannel<bit_num=8, symmetric=True, narrow_range=False, ema=False(0.999), per_channel=True(0, 10), quant_delay=0>
+      >
+    (_input_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    (_output_quantizer): SimulatedFakeQuantizerPerLayer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=0>
+    >
+  >
+```
+
+### 定义优化器、损失函数和训练的callbacks
+
+```python
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
+time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
+                             keep_checkpoint_max=config.keep_checkpoint_max)
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", config=config_ck)
+```
+
+### 训练模型，保存模型文件
+
+```python
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+model.train(config.epoch_size, ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor()])
+```
+
+运行结果如下：
+
+```commandline
+epoch:1 step: 1875, loss is 0.1609785109
+Train epoch time: 18172.836 ms, per step time: 9.692 ms
+epoch:2 step: 1875, loss is 0.00334590533
+Train epoch time: 8617.408 ms, per step time: 4.596 ms
+epoch:3 step: 1875, loss is 0.00310735423
+Train epoch time: 8526.766 ms, per step time: 4.548 ms
+epoch:4 step: 1875, loss is 0.00962805934
+Train epoch time: 8585.520 ms, per step time: 4.579 ms
+epoch:5 step: 1875, loss is 0.00363082927
+Train epoch time: 8512.096 ms, per step time: 4.540 ms
+epoch:6 step: 1875, loss is 0.00169560452
+Train epoch time: 8303.8515 ms, per step time: 4.429 ms
+epoch:7 step: 1875, loss is 0.08799523115
+Train epoch time: 8417.257 ms, per step time: 4.489 ms
+epoch:8 step: 1875, loss is 0.0838107979
+Train epoch time: 8416.146 ms, per step time: 4.489 ms
+epoch:9 step: 1875, loss is 0.00722093607
+Train epoch time: 8425.732 ms, per step time: 4.484 ms
+epoch:10 step: 1875, loss is 0.00027961225
+Train epoch time: 8544.641 ms, per step time: 4.552 ms
+```
+
+### 加载模型，对比精度
+
+按照[lenet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/lenet) 步骤获得普通训练的模型精度：
+
+```commandline
+'Accuracy':0.9842
+```
+
+加载上一步得到的模型文件，导入量化后模型评估精度。
+
+```python
+param_dict = load_checkpoint(config.checkpoint_file_path)
+load_param_into_net(network, param_dict)
+ds_eval = create_dataset(os.path.join(config.data_path), config.batch_size)
+acc = model.eval(ds_eval)
+print(acc)
+```
+
+```commandline
+'Accuracy':0.990484
+```
+
+LeNet5应用感知量化训练后精度未下降。
 
 ## 参考文献
 
