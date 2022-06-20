@@ -6,10 +6,3 @@ MindSpore Golden Stick
    :caption: API
 
    mindspore_gs
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-
-   RELEASE

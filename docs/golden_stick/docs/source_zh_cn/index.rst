@@ -52,10 +52,3 @@ MindSpore Golden Stick同时为算法开发者提供修改网络定义的基础�
    :caption: API参考
 
    mindspore_gs
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-
-   RELEASE
