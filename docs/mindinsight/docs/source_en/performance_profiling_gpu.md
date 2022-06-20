@@ -115,7 +115,7 @@ Figure 3 displays the statistics for the Kernel, including:
 
 #### Operator Interface Analysis
 
-Users can query the performance data of the specified GPU operator and HOSTCPU operator by using `profiler.op_analyze(op_name="XXX")` interface .The query performance data is the operator execution times, total operator execution time and average operator execution time under different tensor input. The data is in JSON format and can be quickly viewed by using the JSON parsing tool. The interface is used as follows:
+Users can query the performance data of the specified CUDA operator and HOSTCPU operator by using `profiler.op_analyze (op_name="XXX")` interface .The queried performance data is the operator execution side (`op_side`), execution times (`op_occurrences`), total operator execution time (`op_total_time(us)`) and average operator execution time (`op_avg_time(us)`) under different tensor input (`input_shape`). The data is in JSON format and can be quickly viewed by using the JSON parsing tool. The interface is used as follows:
 
 Example 1:
 
@@ -141,7 +141,11 @@ operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
 print(operation_info)  # json
 ```
 
-Description: `op_analyse()` can use device_id parameter to specify which card operator performance data to parse, which defaults to `device_id=0`.
+Description:
+
+- The performance data obtained from the GPU platform by using this interface is CUDA kernel data. The performance data fields(`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) data is derived from the (`occurrences(times)`, `total_duration(us)`, `avg_duration(us/time)`) information in the kernel information list shown in Figure 3. The difference is that CUDA operator performance data obtained by using the operator performance interface will be summarized according to the type of the operator(Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindInsight to view detailed CUDA kernel performance data.
+- In heterogeneous scenarios, the CPU performance data fields (`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) came from the information (`op_occurrences(times)`, `op_total_time(us)`, `op_avg_time(us/time)`) on the HOST CPU page. The difference is that the CPU operator performance data obtained by using the operator performance interface is summarized according to the type of the operator (Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindInsight to view detailed CPU kernel performance data.
+- For the `op_analyse()` interface, the device_id parameter is used to specify which card's operator performance data to parse, which defaults to `device_id=0` when the interface is parsing based on offline data.
 
 ### Timeline Analysis
 

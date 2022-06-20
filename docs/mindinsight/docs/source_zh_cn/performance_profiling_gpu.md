@@ -114,7 +114,7 @@ class StopAtStep(ms.Callback):
 
 #### 算子接口分析
 
-可通过`profiler.op_analyse(op_name="xxx")`接口查询指定的GPU算子、HOSTCPU算子的性能数据。查询的性能数据为算子在不同的张量输入下的算子执行次数，算子执行总耗时以及算子执行平均耗时。其数据格式为JSON数据，可借助JSON解析工具快速查看，接口使用示例如下：
+可通过`profiler.op_analyse(op_name="xxx")`接口查询指定的CUDA内核算子、HOSTCPU算子的性能数据。查询的性能数据为算子在不同的张量（`input_shape`）输入下的算子执行侧（`op_side`）、执行次数（`op_occurrences`）、算子执行总耗时（`op_total_time(us)`）以及算子执行平均耗时（`op_avg_time(us)`），其数据格式为JSON数据，可借助JSON解析工具快速查看，接口使用示例如下：
 
 使用方式1：
 
@@ -139,7 +139,11 @@ operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
 print(operation_info)  # json
 ```
 
-说明：`op_analyse()`可使用device_id参数指定解析哪张卡的算子性能数据，默认为`device_id=0`。
+说明：
+
+- GPU平台下使用该接口获取的性能数据为CUDA内核数据，获取的性能数据字段（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）数据来源于图3所示内核信息列表的（`occurrences(次)`, `total_duration(us)`, `avg_duration(us/次)`）信息，不同点在于使用算子性能接口获取的CUDA算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindInsight查看详细的CUDA内核性能数据。
+- 异构场景下，获取的CPU性能数据字段信息（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）来源于算子耗时统计排名HOST CPU页面的（`op_occurrences(次)`, `op_total_time(us)`, `op_avg_time(us/次)`）信息，不同点在于使用算子性能接口获取的CPU算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindInsight查看详细的HOST CPU算子性能数据。
+- 对于`op_analyse()`接口，可使用device_id参数指定解析哪张卡的算子性能数据，当接口基于离线数据进行解析时，默认`device_id=0`。
 
 ### Timeline分析
 

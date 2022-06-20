@@ -27,6 +27,8 @@
 
 .. include:: profiling/profiling_timeline.txt
 
+.. include:: profiling/profiling_dynamic_shape.txt
+
 .. include:: profiling/profiling_resoure.txt
 
 .. include:: profiling/profiling_specifications.txt

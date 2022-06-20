@@ -19,6 +19,7 @@ debugging on Ascend AI processors.
 .. include:: profiling/profiling_calculation_quantity.txt
 .. include:: profiling/profiling_data_preparation.txt
 .. include:: profiling/profiling_timeline.txt
+.. include:: profiling/profiling_dynamic_shape.txt
 .. include:: profiling/profiling_resoure.txt
 .. include:: profiling/profiling_specifications.txt
 .. include:: profiling/profiling_notices.txt
