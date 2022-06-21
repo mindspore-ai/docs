@@ -49,7 +49,6 @@
    debug/ms_class
    debug/op_compilation
    debug/auto_tune
-   debug/dataset_autotune
    debug/fixing_randomness
    debug/pynative
    debug/graph_fusion_engine
