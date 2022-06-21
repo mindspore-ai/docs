@@ -18,7 +18,7 @@ MindSpore Hub包含以下功能：
                device_target="Ascend",
                device_id=0)
    
-   model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+   model = "mindspore/1.6/googlenet_cifar10"
    
    # Initialize the number of classes based on the pre-trained model.
    network = mshub.load(model, num_classes=10)
