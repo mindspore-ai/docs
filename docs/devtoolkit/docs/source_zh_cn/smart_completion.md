@@ -21,5 +21,16 @@
 
 ## 备注
 
-PyCharm的2021以后版本，会根据机器学习重新排列补全内容。此行为可能导致插件的补全条目排序靠后。可以在设置中停用此功能，使用MindSpore Dev Toolkit提供的排序.
-![img](images/clip_image093.png)
+1. PyCharm的2021以后版本，会根据机器学习重新排列补全内容。此行为可能导致插件的补全条目排序靠后。可以在设置中停用此功能，使用MindSpore Dev Toolkit提供的排序。
+
+   ![img](images/clip_image093.jpg)
+
+2. 关闭此选项前后的对比。
+
+    * 关闭后。
+
+      ![img](images/clip_image094.jpg)
+
+    * 关闭前。
+
+      ![img](images/clip_image096.jpg)

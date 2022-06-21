@@ -37,31 +37,31 @@
 
 3. 使用IntelliJ IDEA打开项目。
 
-    * File -> Open。
+    3.1 File -> Open。
 
       ![img](images/clip_image033.jpg)
 
-    * 打开下载项目文件位置。
+    3.2 打开下载项目文件位置。
 
       ![img](images/clip_image034.jpg)
 
-    * 点击右下角弹窗中的load或右键settings.gradle文件选中Link Gradle Project。
+    3.3 点击右下角弹窗中的load或右键settings.gradle文件选中Link Gradle Project。
 
       ![img](images/clip_image035.jpg)
 
       ![img](images/clip_image036.jpg)
 
-4. 如果提示没有JDK，请选择一个JDK。
+4. 如果提示没有JDK，请选择一个JDK。***有JDK可以跳过此步骤***
 
-    * 没有JDK情况下，页面如下图显示。
+    4.1 没有JDK情况下，页面如下图显示。
 
       ![img](images/clip_image037.jpg)
 
-    * File->Project Structure。
+    4.2 File->Project Structure。
 
       ![img](images/clip_image038.jpg)
 
-    * 选择JDK11。
+    4.3 选择JDK11。
 
       ![img](images/clip_image039.jpg)
 

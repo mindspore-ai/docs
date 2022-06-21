@@ -24,25 +24,25 @@
 
 3. Miniconda下载安装。***已经安装过conda的可以跳过此步骤。***
 
-    * 点击Install Miniconda Automatically按钮。
+    3.1 点击Install Miniconda Automatically按钮。
 
       ![img](images/clip_image006.jpg)
 
-    * 选择下载安装文件夹。**建议不修改路径，使用默认路径安装conda。**
+    3.2 选择下载安装文件夹。**建议不修改路径，使用默认路径安装conda。**
 
       ![img](images/clip_image008.jpg)
 
-    * 点击Install按钮，等待下载安装。
+    3.3 点击Install按钮，等待下载安装。
 
       ![img](images/clip_image010.jpg)
 
       ![img](images/clip_image012.jpg)
 
-    * Miniconda下载安装完成。
+    3.4 Miniconda下载安装完成。
 
       ![img](images/clip_image014.jpg)
 
-    * 根据提示重新启动PyCharm或者稍后自行重新启动PyCharm。
+    3.5 根据提示重新启动PyCharm或者稍后自行重新启动PyCharm。
 
       ![img](images/clip_image015.jpg)
 
@@ -62,25 +62,25 @@
 
 6. 选择硬件环境和MindSpore项目最佳实践模板。
 
-    * 选择硬件环境。
+    6.1 选择硬件环境。
 
       ![img](images/clip_image020.jpg)
 
-    * 选择最佳实践模板。最佳实践模版是MindSpore提供一些样例项目，以供新用户熟悉MindSpore。最佳实践模版可以直接运行。
+    6.2 选择最佳实践模板。最佳实践模版是MindSpore提供一些样例项目，以供新用户熟悉MindSpore。最佳实践模版可以直接运行。
 
       ![img](images/clip_image021.jpg)
 
 7. 点击Create按钮新建项目，等待MindSpore下载安装成功。
 
-    * 点击Create按钮创建MindSpore新项目。
+    7.1 点击Create按钮创建MindSpore新项目。
 
       ![img](images/clip_image022.jpg)
 
-    * 正在创建创建conda环境。
+    7.2 正在创建创建conda环境。
 
       ![img](images/clip_image023.jpg)
 
-    * 正在通过conda配置MindSpore。
+    7.3 正在通过conda配置MindSpore。
 
       ![img](images/clip_image024.jpg)
 

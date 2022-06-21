@@ -21,6 +21,8 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 
   - Linux
 
+  - MacOS（仅支持x86架构，补全功能暂未上线）
+
 - 插件支持的PyCharm版本:
 
   - 2020.3
@@ -36,9 +38,9 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 
 1. 获取插件安装包
 
-  1. 下载`插件Zip包 <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.7.0.zip>`_ 。
+  1.1 下载 `插件Zip包 <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.8.0.zip>`_ 。
 
-  2. 参见下文源码构建章节
+  1.2 参见下文源码构建章节
 
 2. 启动Pycharm单击左上菜单栏，选择File->Settings->Plugins->Install Plugin from Disk。
    如图：
@@ -46,6 +48,12 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
   .. image:: ./images/clip_image050.jpg
 
 3. 选择插件zip包。
+
+  .. image:: ./images/clip_image052.jpg
+
+4. 插件安装成功。
+
+  .. image:: ./images/clip_image054.jpg
 
 源码构建
 ----------------------------
