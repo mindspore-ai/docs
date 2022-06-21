@@ -86,7 +86,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
   图 3
 
-  搜索地址：[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)
+  搜索地址：[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)。
 
 - 报错案例
 
@@ -112,7 +112,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 ### 调试定位
 
-#### 策略选择：
+#### 策略选择
 
 - 静转动调试策略
 
@@ -122,7 +122,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 - 异步转同步调试策略
 
   动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有其他告警信息，影响报错分析。
-  MindSpore提供切换同步执行的方法，通过设置pynative_synchronize = True 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[pynative同步执行](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)
+  MindSpore提供切换同步执行的方法，通过设置pynative_synchronize = True 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[pynative同步执行](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
 
 - 二分法策略
 
@@ -132,11 +132,11 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
   演绎推理是根据问题推断原因并进一步验证得出结论的过程，MindSpore的报错调试即是根据问题传播的因果链条逐步反向推理，定位问题出的根本原因。例如，MindSpore算子执行报错问题，其直接原因是算子的输入数据含有非法值，而非法值是有前一个算子的计算得出，此时需要分析前一个算子的输入数据和计算过程是否正确。如果前一个算子的计算过程存在问题，即确认了问题范围，如果前一个算子的输入数据也存在非法值，则需要继续分析前面的算子，直到找到问题的根源。
 
-#### 问题复现：
+#### 问题复现
 
 问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考[固定随机性](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html)。
 
-#### 调试验证：
+#### 调试验证
 
 - 动态图调试
 
@@ -150,34 +150,37 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 - 静态图调试
 
-1. ops.Print算子
+    1. ops.Print算子
 
-    静态图模式下，MindSpore提供ops.Print算子，用于打印计算图中Tensor信息或字符串信息。
+        静态图模式下，MindSpore提供ops.Print算子，用于打印计算图中Tensor信息或字符串信息。
 
-    ```python
-    class PrintDemo(nn.Cell):
-        def __init__(self):
-            super(PrintDemo, self).__init__()
-            self.print = ops.Print()
-        def construct(self, x, y):
-            self.print('print Tensor x and Tensor y:', x, y)
-            return x
-    x = Tensor(np.ones([2, 1]).astype(np.int32))
-    y = Tensor(np.ones([2, 2]).astype(np.int32))
-    net = PrintDemo()
-    output = net(x, y)
-    ```
+        ```python
+        class PrintDemo(nn.Cell):
+            def __init__(self):
+                super(PrintDemo, self).__init__()
+                self.print = ops.Print()
+            def construct(self, x, y):
+                self.print('print Tensor x and Tensor y:', x, y)
+                return x
+        x = Tensor(np.ones([2, 1]).astype(np.int32))
+        y = Tensor(np.ones([2, 2]).astype(np.int32))
+        net = PrintDemo()
+        output = net(x, y)
+        ```
 
-2. 调试器
+    2. 调试器
 
-    计算图执行阶段报错可以使用Debugger调试工具。使用调试器，可以做到以下几点：
+        计算图执行阶段报错可以使用Debugger调试工具。使用调试器，可以做到以下几点：
 
-    - 结合计算图在调试器界面查看图节点的输出结果；
-    - 设置监测点，监测训练异常情况（比如检查张量溢出），在异常发生时追踪错误原因；
-    - 查看权重等参数的变化情况；
-    - 查看图节点和源代码的对应关系。
+          1. 结合计算图在调试器界面查看图节点的输出结果；
 
-    具体使用方法参考：[可视化调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)。
+          2. 设置监测点，监测训练异常情况（比如检查张量溢出），在异常发生时追踪错误原因；
+
+          3. 查看权重等参数的变化情况；
+
+          4. 查看图节点和源代码的对应关系。
+
+        具体使用方法参考：[可视化调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)。
 
 ## 网络执行调试
 

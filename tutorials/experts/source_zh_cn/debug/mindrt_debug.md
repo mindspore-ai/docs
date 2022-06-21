@@ -33,7 +33,7 @@
         TypeError: The function construct needs 0 positional argument and 0 default argument, but provided 1
         ```
 
-        这是因为，用户自定义实现`construct`函数时，函数参数列表错误，缺少'self'： `"def construct(*inputs, **kwargs):"`。此时，MindSpore在进行语法解析时发生报错。
+        这是因为，用户自定义实现`construct`函数时，函数参数列表错误，缺少`self`，例如`"def construct(*inputs, **kwargs):"`。此时，MindSpore在进行语法解析时发生报错。
 
         参考实例链接：
 
@@ -55,7 +55,7 @@
         Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
         ```
 
-        由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致:一个是2*3*4*5的四位Tensor，另一个是标量，导致编译报错。
+        由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致:一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
 
         参考实例链接：
 
@@ -67,7 +67,7 @@
         RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
         ```
 
-        超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用*context.set_context(max_call_depth=value)*调大函数调用栈的阈值。
+        超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`context.set_context(max_call_depth=value)`调大函数调用栈的阈值。
 
         参考实例链接：
 
@@ -105,5 +105,7 @@
 
 - 设备内存不足问题
 
-    MindSpore在昇腾后端（Ascend）上的内存管理方法及常见问题参考[MindSpore Ascend 内存管理](https://bbs.huaweicloud.com/forum/thread-171161-1-1.html)。
+    在调试网络的时候，经常会遇到`Out Of Memory`报错，MindSpore在Ascend设备上对内存分成4层进行管理。包括Runtime，Context，双游标和内存复用。
+
+    关于MindSpore在昇腾后端（Ascend）上的内存管理及常见问题的具体内容，请参考[MindSpore Ascend 内存管理](https://bbs.huaweicloud.com/forum/thread-171161-1-1.html)。
 
