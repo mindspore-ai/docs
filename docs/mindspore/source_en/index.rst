@@ -16,7 +16,6 @@ MindSpore Documentation
    design/auto_gradient
    design/distributed_training_design
    design/mindir
-   design/data_engine
    design/thor
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
