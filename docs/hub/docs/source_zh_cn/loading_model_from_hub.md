@@ -29,7 +29,7 @@
                             device_target="Ascend",
                             device_id=0)
 
-    model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+    model = "mindspore/1.6/googlenet_cifar10"
 
     # Initialize the number of classes based on the pre-trained model.
     network = mshub.load(model, num_classes=10)
@@ -66,7 +66,7 @@
    from mindspore import Model
    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=0)
 
-   model = "mindspore/ascend/1.0/mobilenetv2_v1.0_openimage"
+   model = "mindspore/1.6/mobilenetv2_imagenet2012"
    network = mshub.load(model, num_classes=500, include_top=False, activation="Sigmoid")
    network.set_train(False)
    ```
@@ -193,7 +193,7 @@
 7. 在测试集上测试模型精度。
 
    ```python
-   model = "mindspore/ascend/1.0/mobilenetv2_v1.0_openimage"
+   model = "mindspore/1.6/mobilenetv2_imagenet2012"
 
    network = mshub.load(model, num_classes=500, pretrained=True, include_top=False, activation="Sigmoid")
    network.set_train(False)
