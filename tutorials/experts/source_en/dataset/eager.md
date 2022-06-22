@@ -23,7 +23,7 @@ MindSpore currently supports executing various data augmentation operators in th
 - [vision module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html)
 - Submodule transforms, an image augmentation operator implemented based on OpenCV/Pillow.
 
-- [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html#mindspore-dataset-text-transforms)
+- [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html)
 - Submodule transforms, text processing operators implemented based on Jieba, ICU4C etc.
 
 - [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
