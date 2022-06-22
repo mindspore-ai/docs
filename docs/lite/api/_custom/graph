@@ -2178,6 +2178,13 @@ MindSpore Lite API
                 p.write("\n"+"".join(javaresult))
                 p.write("""   api_java/graph
    api_java/lite_java_example""")
+                p.write("""
+.. toctree::
+   :maxdepth: 1
+   :caption: Python API
+
+   mindspore_lite
+""")
 
 
         dira='./source_zh_cn/generate/'
@@ -2231,6 +2238,13 @@ MindSpore Lite API
                 p.write("\n"+"".join(javaresult))
                 p.write("""   api_java/graph
    api_java/lite_java_example""")
+                p.write("""
+.. toctree::
+   :maxdepth: 1
+   :caption: Python API
+
+   mindspore_lite
+""")
 
 
     def generateAPIRootHeader(self):
