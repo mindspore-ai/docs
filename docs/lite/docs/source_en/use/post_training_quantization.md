@@ -6,7 +6,7 @@
 
 ## Overview
 
-Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this function is integrated into the model conversion tool `conveter_lite`. You can add command line parameters to convert a model into a quantization model.
+Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this function is integrated into the model conversion tool `converter_lite`. You can add command line parameters to convert a model into a quantization model.
 
 MindSpore Lite quantization after training is classified into two types:
 
