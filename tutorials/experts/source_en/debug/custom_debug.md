@@ -252,18 +252,6 @@ Tensor(shape=[2, 2], dtype=Int32, value=
  [1 1]])
 ```
 
-## Data Dump Introduction
-
-When training the network, if the training result deviates from the expectation, the input and output of the operator can be saved for debugging through the data dump function. For detailed Dump function introduction, please refer to [Dump Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#dump-introduction).
-
-### Synchronous Dump
-
-Synchronous Dump function usage reference [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-step).
-
-### Asynchronous Dump
-
-Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-step)。
-
 ## Running Data Recorder
 
 Running Data Recorder(RDR) is the feature MindSpore provides to record data while training program is running. If a running exception occurs in MindSpore, the pre-recorded data in MindSpore is automatically exported to assist in locating the cause of the running exception. Different exceptions will export different data, for instance, the occurrence of `Run task error` exception, the computational graph, execution sequence of the graph, memory allocation and other information will be exported to assist in locating the cause of the exception.

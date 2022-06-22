@@ -19,10 +19,17 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Operator Execution
+   :caption: network
 
-   operation/op_classification
-   operation/op_overload
+   network/op_overload
+   network/custom_cell_reverse
+   network/ms_class
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Custom Operator
+
    operation/op_ascend
    operation/op_custom
 
@@ -42,15 +49,8 @@ For Experts
    :maxdepth: 1
    :caption: Debugging and Tuning
 
-   debug/mindir
-   debug/dump
-   debug/custom_debug
-   debug/ms_class
-   debug/op_compilation
-   debug/auto_tune
-   debug/fixing_randomness
-   debug/pynative
-   debug/graph_fusion_engine
+   debug/performance_optimization
+   Precision Optimization↗ <https://mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html>
 
 .. toctree::
    :glob:

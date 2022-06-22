@@ -225,18 +225,6 @@ Tensor(shape=[2, 2], dtype=Int32, value=
  [1 1]])
 ```
 
-## 数据Dump功能介绍
-
-训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump功能说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#dump功能说明)。
-
-### 同步Dump功能使用方法
-
-同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump)。
-
-### 异步Dump功能使用方法
-
-异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)。
-
 ## Running Data Recorder
 
 Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的功能。要记录的数据将会在MindSpore中进行预设，运行训练脚本时，如果MindSpore出现了运行异常，则会自动地导出MindSpore中预先记录的数据以辅助定位运行异常的原因。不同的运行异常将会导出不同的数据，比如出现`Run task error`异常，将会导出计算图、图执行顺序、内存分配等信息以辅助定位异常的原因。

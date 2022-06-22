@@ -19,10 +19,17 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 算子执行
+   :caption: 网络构建
 
-   operation/op_classification
-   operation/op_overload
+   network/op_overload
+   network/custom_cell_reverse
+   network/ms_class
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 自定义算子
+
    operation/op_ascend
    operation/op_custom
 
@@ -43,15 +50,8 @@
    :caption: 调试调优
 
    debug/function_debug
-   debug/mindir
-   debug/dump
-   debug/custom_debug
-   debug/ms_class
-   debug/op_compilation
-   debug/auto_tune
-   debug/fixing_randomness
-   debug/pynative
-   debug/graph_fusion_engine
+   debug/performance_optimization
+   精度调优↗ <https://mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html>
 
 .. toctree::
    :glob:
@@ -77,5 +77,5 @@
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
-   others/ms_operator
+   others/ms_operator 
    
