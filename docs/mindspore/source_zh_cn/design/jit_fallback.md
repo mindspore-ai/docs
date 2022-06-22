@@ -846,7 +846,7 @@ res: 2
 
 2. JIT Fallback对标动态图的支持能力，须在动态图语法范围内，包括但不限于数据类型等。
 
-3. 当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，不支持通过for来对Numpy Array数据的遍历。例如：
+3. 当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，例如：
 
    ```python
    import numpy as np
@@ -862,25 +862,6 @@ res: 2
    res = func()
    print("res: ", res)
    ```
-
-   暂不支持通过for来对Numpy Array数据的遍历。例如：
-
-   ```python
-   import numpy as np
-   import mindspore as ms
-   from mindspore import ms_function
-
-   @ms_function
-   def func():
-       x = np.array([1, 2, 3])
-       out = 0
-       for i in x:
-         out += i
-       return ms.Tensor(out)
-
-    res = func()
-    print("res: ", res)
-    ```
 
 4. 不支持运行时(Runtime)阶段的JIT Fallback。
 
