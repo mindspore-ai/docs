@@ -2178,7 +2178,7 @@ MindSpore Lite API
                 p.write("\n"+"".join(javaresult))
                 p.write("""   api_java/graph
    api_java/lite_java_example""")
-                p.write("""
+                p.write("\n\n"+"""
 .. toctree::
    :maxdepth: 1
    :caption: Python API
@@ -2238,7 +2238,7 @@ MindSpore Lite API
                 p.write("\n"+"".join(javaresult))
                 p.write("""   api_java/graph
    api_java/lite_java_example""")
-                p.write("""
+                p.write("\n\n"+"""
 .. toctree::
    :maxdepth: 1
    :caption: Python API
