@@ -5,10 +5,11 @@ MindSpore Dev Toolkit
    :glob:
    :maxdepth: 1
    :caption: operating guide
+   :hidden:
 
    compiling
    mindspore_project_wizard
    operator_search
-   search
+   knowledge_search
    smart_completion
 

@@ -8,12 +8,12 @@ MindSpore Dev Toolkit目前提供以下四项功能：
 - `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/mindspore_project_wizard.html>`_
 - `智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/smart_completion.html>`_
 - `算子互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/operator_search.html>`_
-- `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/search.html>`_
+- `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/knowledge_search.html>`_
 
 系统需求
 ------------------------------
 
-MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 插件。PyCharm是一款多平台Python IDE。
+MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 插件。PyCharm是一款多平台Python IDE。
 
 - 插件支持的操作系统：
 
@@ -38,22 +38,22 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 
 1. 获取插件安装包
 
-  1.1 下载 `插件Zip包 <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.8.0.zip>`_ 。
+   1.1 下载 `插件Zip包 <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.8.0.zip>`_ 。
 
-  1.2 参见下文源码构建章节
+   1.2 参见下文源码构建章节
 
 2. 启动Pycharm单击左上菜单栏，选择File->Settings->Plugins->Install Plugin from Disk。
    如图：
 
-  .. image:: ./images/clip_image050.jpg
+   .. image:: ./images/clip_image050.jpg
 
 3. 选择插件zip包。
 
-  .. image:: ./images/clip_image052.jpg
+   .. image:: ./images/clip_image052.jpg
 
 4. 插件安装成功。
 
-  .. image:: ./images/clip_image054.jpg
+   .. image:: ./images/clip_image054.jpg
 
 源码构建
 ----------------------------
@@ -64,6 +64,7 @@ MindSpore Dev ToolKit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
    :glob:
    :maxdepth: 1
    :caption: 使用指南
+   :hidden:
 
    compiling
    mindspore_project_wizard
