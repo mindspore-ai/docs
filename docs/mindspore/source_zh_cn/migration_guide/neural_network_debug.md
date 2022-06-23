@@ -115,7 +115,7 @@
 
 - MindSpore提供了丰富的工具获取网络中间数据，可根据实际情况选用。
 
-    - [数据Dump功能](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#数据dump功能介绍)
+    - [数据Dump功能](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#dump功能说明)
     - [使用Print算子打印相关信息](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#print算子功能介绍)
     - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)
 

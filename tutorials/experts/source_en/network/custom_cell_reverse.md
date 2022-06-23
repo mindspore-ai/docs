@@ -1,6 +1,6 @@
 # Customizing **bprop** Function
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/custom_cell_reverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/network/custom_cell_reverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Users can customize backpropagation (calculation) function of the nn.Cell object, thus control the process of the nn.Cell object gradient calculation, locating gradient problems.
 
