@@ -117,7 +117,7 @@ If the loss errors are large, the problem locating can be done by using followin
 
 - MindSpore provides various tools for acquiring intermediate network data, which can be used according to the actual situation.
 
-    - [Data Dump function](https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#data-dump-introduction)
+    - [Data Dump function](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#dump-introduction)
     - [Use Print Operator To Print Related Information](https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#mindspore-print-operator-introduction)
     - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html)
 

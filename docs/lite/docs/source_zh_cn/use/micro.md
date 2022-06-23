@@ -169,7 +169,7 @@ mindspore-lite-{version}-linux-x64
 
 不同的平台在代码集成和编译部署上会有不同的差异
 
-- 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在MCU上执行推理)
+- 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在mcu上执行推理)
 
 - 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
@@ -279,7 +279,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 #### 集成模型推理代码及推理包
 
-- 将生成的推理代码拷贝到工程内，并将[下载Cortex-M架构推理包](#下载Cortex-M架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
+- 将生成的推理代码拷贝到工程内，并将[下载Cortex-M架构推理包](#下载cortex-m架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
 
     ```text
     test_stm32f767                                   # MCU工程目录
@@ -415,7 +415,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 #### 集成模型推理代码
 
-- 将生成的推理代码拷贝到MCU工程内，并将[下载Cortex-M架构推理包](#下载Cortex-M架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
+- 将生成的推理代码拷贝到MCU工程内，并将[下载Cortex-M架构推理包](#下载cortex-m架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
 
     ```text
     stm32f767                                       # MCU工程目录
