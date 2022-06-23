@@ -36,7 +36,7 @@ mindspore-lite-{version}-linux-x64
         ├── converter                # 模型转换工具
         │   └── converter_lite       # 可执行程序
         └── lib                      # 转换工具依赖的动态库
-            ├── libglog.so.0         # Glog的动态库
+            ├── libmindspore_glog.so.0         # Glog的动态库
             ├── libmslite_converter_plugin.so  # 注册插件的动态库
             ├── libopencv_core.so.4.5          # OpenCV的动态库
             ├── libopencv_imgcodecs.so.4.5     # OpenCV的动态库
@@ -157,7 +157,7 @@ mindspore-lite-{version}-win-x64
         │   └── converter_lite.exe    # 可执行程序
         └── lib
             ├── libgcc_s_seh-1.dll    # MinGW动态库
-            ├── libglog.dll           # Glog的动态库
+            ├── libmindspore_glog.dll            # Glog的动态库
             ├── libmslite_converter_plugin.dll   # 注册插件的动态库
             ├── libmslite_converter_plugin.dll.a # 注册插件的动态库的链接文件
             ├── libssp-0.dll          # MinGW动态库

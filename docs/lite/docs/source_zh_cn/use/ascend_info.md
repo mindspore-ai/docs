@@ -22,10 +22,21 @@
 
 - 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.3），安装方式请参考[配套指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003)。
+- 确认安装昇腾AI处理器配套软件包。
 
-    - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
-    - 安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+    - 昇腾软件包提供商用版和社区版两种下载途径：
+
+        1. 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 22.0.RC1安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100246310)。
+
+        2. 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`5.1.RC1.alpha005`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+    - 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
+    - 安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
+
+        ```bash
+        pip uninstall te topi -y
+        ```
+
+        默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
 
         ```bash
         pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-{version}-py3-none-any.whl

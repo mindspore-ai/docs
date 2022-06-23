@@ -22,10 +22,22 @@ This document describes how to use MindSpore Lite to perform inference and use t
 
 - If you use the ARM architecture, ensure that the pip version matching Python is 19.3 or later.
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.3) is installed. For details about the installation method, see [the installation guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003).
+- Ensure that Ascend AI processor software package is installed.
 
-    - Ensure that the current user can access the installation path `/usr/local/Ascend` of the software package. If the current user does not have the permission, add the current user to a user group to which `/usr/local/Ascend` belongs as the root user.
-    - Ensure that the .whl package provided in the software package is installed. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
+    - Ascend software package provides two distributions, commercial edition and community edition:
+
+        1. Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC1 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100246310).
+
+        2. Community edition has no restrictions, choose `5.1.RC1.alpha005` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+
+    - The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+    - Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
+
+        ```bash
+        pip uninstall te topi -y
+        ```
+
+        Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
 
         ```bash
         pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-{version}-py3-none-any.whl
