@@ -9,6 +9,6 @@
   dataset/iterator
   dataset/record
   dataset/custom
-  dataset/enhanced_image_data
-  dataset/enhanced_text_data
-  dataset/enhanced_graph_data
+  dataset/augment_image_data
+  dataset/augment_text_data
+  dataset/augment_graph_data
