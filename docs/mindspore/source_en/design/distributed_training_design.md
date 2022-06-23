@@ -137,7 +137,7 @@ Operator-level parallelism is a distributed computation of operators by splittin
 
 The users can set the sharding strategy of each operator in the forward network, and the framework models each operator and its input tensor according to the sharding strategy of the operator, so that the computational logic of the operator remains mathematically equivalent before and after the sharding.
 
-### [Pipeline Parallel](https://www.mindspore.cn/docs/en/master/design/pipeline_parallel.html)
+### [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html)
 
 When there are a large number of cluster devices, if only the operator level is used in parallel, communication needs to be carried out on the communication domain of the entire cluster, which may make communication inefficient and reduce overall performance.
 

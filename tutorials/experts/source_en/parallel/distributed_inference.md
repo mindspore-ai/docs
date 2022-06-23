@@ -24,7 +24,7 @@ This tutorial would focus on the process that the model slices are saved on each
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`. The parallel mode is either auto parallel or semi-automatic parallelism.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.
-    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to call `PipelineCell`. The pipeline distributed training tutorial can be referred the link: <https://www.mindspore.cn/docs/en/master/design/pipeline_parallel.html>.
+    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to call `PipelineCell`. The pipeline distributed training tutorial can be referred the link: <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html>.
 
 2. Set context and infer inference strategy according to the inference data.
 
