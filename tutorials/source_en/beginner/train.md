@@ -85,6 +85,7 @@ import mindspore as ms
 
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
+from mindvision.engine.callback import LossMonitor
 
 # 1. Build a dataset.
 download_train = Mnist(path="./mnist", split="train", batch_size=batch_size, repeat_num=1, shuffle=True, resize=32, download=True)
@@ -100,7 +101,7 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=learning_rate, m
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'acc'})
 
 # 4. Train the neural network.
-model.train(epochs, dataset_train, callbacks=[ms.LossMonitor(learning_rate, 1875)])
+model.train(epochs, dataset_train, callbacks=[LossMonitor(learning_rate, 1875)])
 ```
 
 ```text

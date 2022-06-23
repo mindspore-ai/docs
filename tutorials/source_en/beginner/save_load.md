@@ -12,6 +12,7 @@ The following uses the MNIST dataset as an example to describe how to save and l
 import mindspore.nn as nn
 import mindspore as ms
 
+from mindvision.engine.callback import LossMonitor
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
 
@@ -31,7 +32,7 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
 # 4. Train the neural network.
-model.train(epochs, dataset_train, callbacks=[ms.LossMonitor(0.01, 1875)])
+model.train(epochs, dataset_train, callbacks=[LossMonitor(0.01, 1875)])
 ```
 
 ```text
