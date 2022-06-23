@@ -199,7 +199,7 @@ for i in os.listdir(src_dir):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
-import mindspore_lite
+# import mindspore_lite
 
 lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
 if lite_package_path == "null":

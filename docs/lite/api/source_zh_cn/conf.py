@@ -79,7 +79,7 @@ for i in os.listdir(src_dir):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
-import mindspore_lite
+# import mindspore_lite
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
