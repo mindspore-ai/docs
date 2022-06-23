@@ -195,7 +195,7 @@ mindspore-lite-{version}-linux-x64
 
 ### 生成MCU推理代码
 
-为MCU生成推理代码，请参考[为模型生成推理代码](#为模型生成推理代码)章节，只需将Micro配置项中的`target=x86`改为`target=Cortex-M`，就可以为MCU生成推理代码。
+为MCU生成推理代码，请参考[模型推理代码生成](#模型推理代码生成)章节，只需将Micro配置项中的`target=x86`改为`target=Cortex-M`，就可以为MCU生成推理代码。
 生成成功之后，文件夹内容如下所示：
 
 ```text
