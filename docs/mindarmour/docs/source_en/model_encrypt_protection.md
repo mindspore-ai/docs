@@ -57,7 +57,7 @@ In the preceding code, `dec_key` and `dec_mode` are specified to enable the func
 
 The methods in distributed scenarios are similar. You only need to specify `dec_key` and `dec_mode` when calling `load_distributed_checkpoint`.
 
-## Safely Exporting a MindIR File
+## Safely Exporting a Model File
 
 The `export` API provided by MindSpore can be used to export models in MindIR, AIR, or ONNX format. When exporting a MindIR model, you can use the following method to enable encryption protection:
 
@@ -67,7 +67,31 @@ input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
 ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
-> Currently, the AIR and ONNX formats do not support encryption protection.
+MindIR, AIR, or ONNX formats support user-customized encryption protection. The encryption method must follow the format below:
+
+```python
+def encrypt_func(model_stream : bytes, key : bytes):
+    plain_data = BytesIO()
+    # customized encryption algorithm
+    plain_data.write(model_stream)
+    return plain_data.getvalue()
+```
+
+The parameters for customized encryption are model stream (bytes) and encryption key (bytes). The encryption method must return the encrypted model stream in bytes too. The customized encryption method is passed from the parameter `enc_mode`.
+
+You can use the following method to enable customized encryption protection:
+
+```python
+import mindspore as ms
+def encrypt_func(model_stream : bytes, key : bytes):
+    plain_data = BytesIO()
+    # customized encryption algorithm
+    plain_data.write(model_stream)
+    return plain_data.getvalue()
+
+input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
+ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode=encrypt_func)
+```
 
 ## Loading the Ciphertext MindIR File
 
@@ -77,6 +101,34 @@ If you write scripts using Python on the cloud, you can use the `load` API to lo
 import mindspore as ms
 graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
+
+If the model is exported with customized encryption method, you should load the cipher file with customized decryption method. The decryption method must follow the format below:
+
+```python
+def decrypt_func(cipher_file : str, key : bytes):
+    with open(cipher_file, 'rb') as f:
+        plain_data = f.read()
+    # customized decryption algorithm
+    f.close()
+    return plain_data
+```
+
+The parameters for customized decryption are cipher file name (str) and decryption key (bytes). The decryption method must return the decrypted model stream in bytes. The customized decryption method is passed from the parameter `dec_mode`. The decrpytion key and the encryption key should be the same.
+
+You can use the following method to enable loading the customized-decrypted model:
+
+```python
+import mindspore as ms
+def decrypt_func(cipher_file : str, key : bytes):
+    with open(cipher_file, 'rb') as f:
+        plain_data = f.read()
+    # customized decryption algorithm
+    f.close()
+    return plain_data
+graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode=decrypt_func)
+```
+
+> When using the customized encryption-decryption to export and load the model, the MindSpore framework would not check the correctness of encryption/decryption algorithm. The user should guarantee the correctness of such algorithms.
 
 For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html).
 
