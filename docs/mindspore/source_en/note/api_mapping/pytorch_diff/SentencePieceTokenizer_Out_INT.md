@@ -12,16 +12,16 @@ torchtext.data.functional.sentencepiece_numericalizer(
 
 For more information, see [torchtext.data.functional.sentencepiece_numericalizer](https://pytorch.org/text/0.10.0/data_functional.html#sentencepiece-numericalizer).
 
-## mindspore.dataset.text.transforms.SentencePieceTokenizer
+## mindspore.dataset.text.SentencePieceTokenizer
 
 ```python
-class mindspore.dataset.text.transforms.SentencePieceTokenizer(
+class mindspore.dataset.text.SentencePieceTokenizer(
     mode,
     out_type
 )
 ```
 
-For more information, see [mindspore.dataset.text.transforms.SentencePieceTokenizer](https://mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.transforms.SentencePieceTokenizer.html#mindspore.dataset.text.transforms.SentencePieceTokenizer).
+For more information, see [mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer).
 
 ## Differences
 

@@ -13,10 +13,10 @@ torchtext.data.utils.ngrams_iterator(
 
 更多内容详见[torchtext.data.utils.ngrams_iterator](https://pytorch.org/text/0.10.0/data_utils.html#ngrams-iterator)。
 
-## mindspore.dataset.text.transforms.Ngram
+## mindspore.dataset.text.Ngram
 
 ```python
-class mindspore.dataset.text.transforms.Ngram(
+class mindspore.dataset.text.Ngram(
     n,
     left_pad=("", 0),
     right_pad=("", 0),
@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Ngram(
 )
 ```
 
-更多内容详见[mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram)。
+更多内容详见[mindspore.dataset.text.Ngram](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.Ngram.html#mindspore.dataset.text.Ngram)。
 
 ## 使用方式
 

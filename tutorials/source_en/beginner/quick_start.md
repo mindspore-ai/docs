@@ -97,12 +97,13 @@ The `model.train` API provided by MindSpore can be used to easily train the netw
 
 ```python
 import mindspore as ms
+from mindvision.engine.callback import LossMonitor
 
 # Initialize the model parameters.
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
 # Train the network model. The model name is lenet-1_1875.ckpt.
-model.train(10, dataset_train, callbacks=[ckpoint, ms.LossMonitor(0.01, 1875)])
+model.train(10, dataset_train, callbacks=[ckpoint, LossMonitor(0.01, 1875)])
 ```
 
 ```text
