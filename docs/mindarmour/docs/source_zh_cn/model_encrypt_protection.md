@@ -57,7 +57,7 @@ param_dict = ms.load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', d
 
 分布式场景的方式类似，在调用`load_distributed_checkpoint`时指定`dec_key`和`dec_mode`即可。
 
-## 安全导出MindIR文件
+## 安全导出模型文件
 
 MindSpore提供的`export`接口可导出MindIR、AIR、ONNX等格式的模型，在导出MindIR模型时可用如下方式启用加密保护：
 
@@ -67,7 +67,31 @@ input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
 ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
-> AIR和ONNX格式暂不支持加密保护。
+AIR、ONNX、MindIR格式支持自定义加密保护，自定义加密函数需满足如下规范：
+
+```python
+def encrypt_func(model_stream : bytes, key : bytes):
+    plain_data = BytesIO()
+    # 自定义加密算法
+    plain_data.write(model_stream)
+    return plain_data.getvalue()
+```
+
+其中，自定义加密函数的参数为二进制格式的模型（bytes）和密钥（bytes），并返回加密后的二进制序列化模型，自定义加密算法从`enc_mode`处传入。
+
+具体用法如下：
+
+```python
+import mindspore as ms
+def encrypt_func(model_stream : bytes, key : bytes):
+    plain_data = BytesIO()
+    # 自定义加密算法
+    plain_data.write(model_stream)
+    return plain_data.getvalue()
+
+input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
+ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode=encrypt_func)
+```
 
 ## 加载密文MindIR文件
 
@@ -77,6 +101,34 @@ ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_k
 import mindspore as ms
 graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
+
+如模型文件使用自定义加密导出，需使用配套自定义解密算法进行解密加载。自定义解密函数需满足如下规范：
+
+```python
+def decrypt_func(cipher_file : str, key : bytes):
+    with open(cipher_file, 'rb') as f:
+        plain_data = f.read()
+    # 自定义解密算法
+    f.close()
+    return plain_data
+```
+
+其中，自定义解密函数需要两个参数：文件名（str）和解密密钥（bytes），并返回解密后的二进制模型文件。自定义解密算法从`dec_mode`处传入，解密密钥需与加密密钥保持一致。
+
+具体用法如下：
+
+```python
+import mindspore as ms
+def decrypt_func(cipher_file : str, key : bytes):
+    with open(cipher_file, 'rb') as f:
+        plain_data = f.read()
+    # 自定义解密算法
+    f.close()
+    return plain_data
+graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode=decrypt_func)
+```
+
+> 使用自定义加解密对模型进行导出加载时，MindSpore框架不会对加解密函数的正确性进行验证，需用户自行检查算法。
 
 对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html)：
 
