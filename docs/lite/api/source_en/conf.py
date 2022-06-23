@@ -183,6 +183,24 @@ exec(source_code, sphinx_builder_html.__dict__)
 import tarfile
 import re
 
+# Copy source files of chinese python api from mindspore repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python_en')
+
+for i in os.listdir(src_dir):
+    if '.' in i:
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
+
+import mindspore_lite
+
 lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
 if lite_package_path == "null":
     print("LITE_PACKAGE_PATH: This environment variable does not exist")
