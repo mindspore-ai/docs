@@ -26,4 +26,4 @@ Profiler在PyNative模式下进行性能调试。PyNative模式目前支持算�
 
 .. include:: profiling/profiling_specifications.txt
      
-.. include:: profiling/profiling_notices.txt
+.. include:: profiling/profiling_notices_pynative.txt
