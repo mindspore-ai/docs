@@ -25,4 +25,4 @@ This article describes how to use MindSpore Profiler for performance debugging o
 
 .. include:: profiling/profiling_specifications.txt
      
-.. include:: profiling/profiling_notices.txt
+.. include:: profiling/profiling_notices_pynative.txt

@@ -4,4 +4,5 @@ Notices
 - Currently the training and inference process does not support
   performance debugging, only individual training or inference is
   supported.
-- Ascend performance debugging does not support multi-subgraph scenarios and control flow scenarios.
+- Ascend performance debugging does not support dynamic Shape
+  scenarios, multi-subgraph scenarios, and control flow scenarios.
