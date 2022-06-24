@@ -67,7 +67,7 @@ html_theme = 'sphinx_rtd_theme'
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python_en')
+src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python')
 
 for i in os.listdir(src_dir):
     if '.' in i:
@@ -79,7 +79,7 @@ for i in os.listdir(src_dir):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
-# import mindspore_lite
+import mindspore_lite
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
