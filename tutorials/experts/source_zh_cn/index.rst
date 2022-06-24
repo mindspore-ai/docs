@@ -60,13 +60,12 @@
 
    parallel/introduction
    parallel/communicate_ops
-   parallel/train_ascend
-   parallel/train_gpu
+   parallel/distributed_case
    parallel/distributed_inference
    parallel/save_load
-   parallel/transformer
-   parallel/pangu_alpha
    parallel/fault_recover
+   parallel/multi_dimensional
+   parallel/other_fearures
 
 .. toctree::
    :glob:
@@ -77,5 +76,5 @@
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
-   others/ms_operator 
+ 
    
