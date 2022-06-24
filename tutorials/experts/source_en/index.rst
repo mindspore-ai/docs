@@ -58,10 +58,11 @@ For Experts
    :caption: Distributed Parallel
 
    parallel/introduction
-   parallel/train_ascend
-   parallel/train_gpu
+   parallel/distributed_case
    parallel/distributed_inference
    parallel/save_load
+   parallel/multi_dimensional
+   parallel/other_features
 
 .. toctree::
    :glob:
@@ -72,5 +73,4 @@ For Experts
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
-   others/ms_operator
    

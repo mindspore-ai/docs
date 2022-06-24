@@ -398,9 +398,9 @@ Due to training safety and reliability requirements, MindSpore GPUs also support
 
 OpenMPI plays the role of synchronizing data and inter-process networking on the Host side in distributed training scenarios. MindSpore replaces openMPI capabilities by **reusing the Parameter Server mode training architecture**.
 
-Refer to the [Parameter Server Mode](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html) training tutorial to start multiple MindSpore training processes as `Workers`, and start an additional `Scheduler` with minor modifications to the script. You can perform **distributed training without relying on OpenMPI**.
+Refer to the [Parameter Server Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial to start multiple MindSpore training processes as `Workers`, and start an additional `Scheduler` with minor modifications to the script. You can perform **distributed training without relying on OpenMPI**.
 
-Before executing the Worker script, you need to export environment variables, such as [Environment Variable Settings](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html#environment-variable-setting):
+Before executing the Worker script, you need to export environment variables, such as [Environment Variable Settings](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -420,7 +420,7 @@ On GPU hardware platform, the following shows how to run a distributed training 
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
 
-Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
+Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
 
 ```python
 import mindspore as ms
