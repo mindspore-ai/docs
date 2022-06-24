@@ -445,9 +445,9 @@ hccn_tool -i 6 -netdetect -s address 192.98.94.141
 hccn_tool -i 7 -netdetect -s address 192.98.95.141
 ```
 
-`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.98.92.131`表示2号服务器的设备0的ip地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100221413/c715a52a)。
+`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.98.92.131`表示2号服务器的设备0的ip地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
 
-在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100221413/7620ee2)。
+在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59)。
 
 ```bash
 hccn_tool -i 0 -net_health -g
