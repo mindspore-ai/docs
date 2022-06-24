@@ -5,4 +5,5 @@ Data Processing
   :maxdepth: 1
 
   dataset/record
-  dataset/enhanced_image_data
+  dataset/augment_common_data
+  dataset/augment_image_data
