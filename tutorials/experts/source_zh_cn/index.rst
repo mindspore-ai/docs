@@ -65,7 +65,7 @@
    parallel/save_load
    parallel/fault_recover
    parallel/multi_dimensional
-   parallel/other_fearures
+   parallel/other_features
 
 .. toctree::
    :glob:
