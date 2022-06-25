@@ -43,7 +43,7 @@ MindSpore Golden Stick是一个开源的模型压缩算法集，提供了一套�
    :maxdepth: 1
    :caption: 剪枝算法
 
-   pruner/pruner
+   pruner/overview
    pruner/scop
 
 .. toctree::
