@@ -11,11 +11,15 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import re
 import sys
 import textwrap
 import shutil
 import glob
+from sphinx.ext import autodoc as sphinx_autodoc
+import sphinx.ext.autosummary.generate as g
 
+sys.path.append(os.path.abspath('../_ext'))
 sys.path.append(os.path.abspath("../_custom"))
 from exhale import graph as exh_graph
 
@@ -35,11 +39,21 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_markdown_tables',
-    'myst_parser',
     'breathe',
     'exhale',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx_markdown_tables',
+    'myst_parser',
+    'nbsphinx',
     'sphinx.ext.mathjax',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 source_suffix = {
@@ -57,6 +71,10 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+autodoc_inherit_docstrings = False
+
+autosummary_generate = True
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -65,6 +83,75 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 
 html_search_language = 'en'
+
+import sphinx_rtd_theme
+layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+layout_src = '../../../../resource/_static/layout.html'
+if os.path.exists(layout_target):
+    os.remove(layout_target)
+shutil.copy(layout_src, layout_target)
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
+}
+
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
+def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
+
+# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
+gfile_abs_path = os.path.abspath(g.__file__)
+autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
+autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
+with open(gfile_abs_path, "r+", encoding="utf8") as f:
+    data = f.read()
+    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
+    exec(data, g.__dict__)
+
+# Modify default signatures for autodoc.
+autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
+autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
+get_param_func_str = r"""\
+import re
+import inspect as inspect_
+
+def get_param_func(func):
+    try:
+        source_code = inspect_.getsource(func)
+        if func.__doc__:
+            source_code = source_code.replace(func.__doc__, '')
+        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+        if "@classmethod" in source_code:
+            all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+        else:
+            all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+        return all_params
+    except:
+        return ''
+
+def get_obj(obj):
+    if isinstance(obj, type):
+        return obj.__init__
+
+    return obj
+"""
+
+with open(autodoc_source_path, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    exec(get_param_func_str, sphinx_autodoc.__dict__)
+    exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
@@ -181,7 +268,6 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 exec(source_code, sphinx_builder_html.__dict__)
 
 import tarfile
-import re
 
 # Copy source files of chinese python api from mindspore repository.
 from sphinx.util import logging
@@ -199,7 +285,15 @@ for i in os.listdir(src_dir):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
+lite_dir = './mindspore_lite'
+if os.path.exists(lite_dir):
+    shutil.rmtree(lite_dir)
+
 import mindspore_lite
+
+des_sir = "../include"
+if os.path.exists(des_sir):
+    shutil.rmtree(des_sir)
 
 lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
 if lite_package_path == "null":
