@@ -32,22 +32,27 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting) below will not take effect.
     - Use `mindspore.reset_ps_context()` to disable Parameter Server training mode.
 
-2. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
+2. Secondly, call `mindspore.communication.init()` to initialize distributed training. Including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
+
+    - Because `Ascend` backend depends on `rank table` configuration file to initialize `HCCL`, when running Parameter Server training mode on `Ascend` backend, `rank table` file needs to be configured.(Including when trainin with only one Worker and one Server)
+
+3. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
 
     - Use `mindspore.nn.Cell.set_param_ps()` to set all weight recursions of `nn.Cell`.
     - Use `mindspore.Parameter.set_param_ps()` to set the weight.
     - The size of the weight which is updated by Parameter Server should not exceed INT_MAX(2^31 - 1) bytes.
     - The interface `set_param_ps` can receive a `bool` parameter:`init_in_server`, indicating whether this training parameter is initialized on the Server side. `init_in_server` defaults to `False`, indicating that this training parameter is initialized on Worker. Currently, only the training parameter `embedding_table` of the `EmbeddingLookup` operator is supported to be initialized on Server side to solve the problem of insufficient memory caused by the initialization of a large shape `embedding_table` on Worker. The `EmbeddingLookup` operator's `target` attribute needs to be set to 'CPU'. The training parameter initialized on the Server side will no longer be synchronized to Worker. If it involves multi-Server training and saves CheckPoint, each Server will save a CheckPoint after the training.
 
-3. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
+4. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 
     ```python
     set_ps_context(enable_ps=True)
+    init()
     network = LeNet5(cfg.num_classes)
     network.set_param_ps()
     ```
 
-4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. The Embedding cache supports the sparse mode. User need to set the `sparse` parameter of all the `EmbeddingLookup` operators that enable cache to True. The sparse mode will deduplicate the input feature id of the operator to reduce the amount of calculation and communication. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
+5. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. The Embedding cache supports the sparse mode. User need to set the `sparse` parameter of all the `EmbeddingLookup` operators that enable cache to True. The sparse mode will deduplicate the input feature id of the operator to reduce the amount of calculation and communication. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
 
     ```python
     set_auto_parallel_context(full_batch=True,
