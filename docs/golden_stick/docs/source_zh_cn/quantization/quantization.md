@@ -250,6 +250,10 @@ print(acc)
 
 LeNet5应用感知量化训练后精度未下降。
 
+## 总结
+
+本文主要介绍了量化的作用、常用量化算法的原理，并给出了示例介绍如何应用MindSpore Golden Stick中的感知量化算法。量化算法可以在精度不下降或者下降较少的前提下大幅降低模型尺寸，提升模型推理性能，欢迎使用金箍棒的感知量化训练功能！
+
 ## 参考文献
 
 [1] Jacob B, Kligys S, Chen B, et al. Quantization and training of neural networks for efficient integer-arithmetic-only inference[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018: 2704-2713.
