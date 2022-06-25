@@ -4,7 +4,9 @@
 
 ## Overview
 
-A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD(Stochastic Gradient Descent) training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
+A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD(Stochastic Gradient Descent) training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out in horizontally (add or delete resources of the worker and server). In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
+
+## Basic Principle
 
 In the parameter server implementation of MindSpore, the self-developed communication framework (core) is used as the basic architecture. Based on the remote communication capability provided by the core and abstract Send/Broadcast primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
 
@@ -32,7 +34,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting) below will not take effect.
     - Use `mindspore.reset_ps_context()` to disable Parameter Server training mode.
 
-2. Secondly, call `mindspore.communication.init()` to initialize distributed training. Including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
+2. Secondly, call `mindspore.communication.init()` to initialize distributed training, including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
 
     - Because `Ascend` backend depends on `rank table` configuration file to initialize `HCCL`, when running Parameter Server training mode on `Ascend` backend, `rank table` file needs to be configured.(Including when trainin with only one Worker and one Server)
 
@@ -43,7 +45,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - The size of the weight which is updated by Parameter Server should not exceed INT_MAX(2^31 - 1) bytes.
     - The interface `set_param_ps` can receive a `bool` parameter:`init_in_server`, indicating whether this training parameter is initialized on the Server side. `init_in_server` defaults to `False`, indicating that this training parameter is initialized on Worker. Currently, only the training parameter `embedding_table` of the `EmbeddingLookup` operator is supported to be initialized on Server side to solve the problem of insufficient memory caused by the initialization of a large shape `embedding_table` on Worker. The `EmbeddingLookup` operator's `target` attribute needs to be set to 'CPU'. The training parameter initialized on the Server side will no longer be synchronized to Worker. If it involves multi-Server training and saves CheckPoint, each Server will save a CheckPoint after the training.
 
-4. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
+4. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the Parameter Server:
 
     ```python
     set_ps_context(enable_ps=True)
