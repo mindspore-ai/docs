@@ -1,5 +1,7 @@
 # 应用SLB算法
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 背景
 
 传统的量化方法在计算梯度时，通常使用STE(Straight Through Estimator) [1]或者自行设计的梯度计算方式[2]。由于量化函数的不可微，往往会导致计算出来的梯度有误差，从而提供不准确的优化方向，导致最终性能比较差。因此，迫切需要一种能规避这种不准确梯度估计的量化神经网络学习方法。
