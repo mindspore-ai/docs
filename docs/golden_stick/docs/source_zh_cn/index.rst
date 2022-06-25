@@ -35,7 +35,8 @@ MindSpore Golden Stick是一个开源的模型压缩算法集，提供了一套�
    :maxdepth: 1
    :caption: 量化算法
 
-   quantization/quantization
+   quantization/overview
+   quantization/simqat
    quantization/slb
 
 .. toctree::
