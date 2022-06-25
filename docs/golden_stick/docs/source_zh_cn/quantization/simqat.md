@@ -1,7 +1,6 @@
 # 应用SimQAT算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/quantization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -18,16 +17,15 @@ SimQAT是一种最基础的感知量化算法，其具体原理来源于谷歌�
 
 为了规约输出数据范围，卷积或者全连接层后通常会加入BatchNorm算子，在训练过阶段BatchNorm作为一个独立的算子，统计输出的均值和方差（如下左图），在推理阶段则将其融入权重和Bias中，称为BatchNorm折叠（如下右图）。
 
-![](../images/quantization_aware_training2.png)
+![](../images/quantization/simqat/bnfold_in_infer.png)
 
 BatchNorm折叠的公式如下：
 
 $$y_{bn}=\operatorname{BN}\left(y_{cout}\right)=BN(w \cdot x+b)=\widehat{w} \cdot x+\widehat{b}$$
 
-在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数规约实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据规约
-在金箍棒中进一步将权重校正和规约融合，提升性能。
+在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数规约实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据规约。在金箍棒中会进一步将权重校正和权重数据规约融合（如下右图），提升性能。
 
-![](../images/quantization_aware_training3.png)
+![](../images/quantization/simqat/bnfold_in_train.png)
 
 ## 感知量化训练
 
