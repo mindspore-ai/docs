@@ -37,7 +37,7 @@ import numpy as np
 import mindspore.dataset as ds
 from mindspore.dataset.vision import ConvertMode
 
-image = np.random.random((28, 28, 1))
+image = np.random.random((28, 28, 1)).astype(np.float32)
 result = ds.vision.ConvertColor(ConvertMode.COLOR_GRAY2RGB)(image)
 print(result.shape)
 # (28, 28, 3)
