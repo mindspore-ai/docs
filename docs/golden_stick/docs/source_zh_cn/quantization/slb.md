@@ -58,7 +58,7 @@ SLB量化训练与一般训练步骤一致，在定义量化网络和生成量�
 
 接下来以ResNet18网络为例，分别叙述这些步骤。
 
-> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/resnet/README_CN.md#应用金箍棒模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py)为精度验证代码。
+> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README_CN.md#应用金箍棒模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py)为精度验证代码。
 
 ### 加载数据集
 
