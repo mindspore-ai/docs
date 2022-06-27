@@ -178,9 +178,6 @@ def setup(app):
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
 
 import mindspore_lite
 
