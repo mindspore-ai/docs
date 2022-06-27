@@ -55,7 +55,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 接下来以LeNet5网络为例，分别叙述这些步骤。
 
-> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/lenet/README_CN.md#应用金箍棒模型压缩算法)
+> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README_CN.md#应用金箍棒模型压缩算法)
 > ，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
 
 ### 加载数据集
