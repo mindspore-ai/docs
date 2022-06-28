@@ -1039,8 +1039,8 @@ Currently, we support keywords including:
 - Memory allocation: `allocate`, `output_tensor`
 - Datatype keywords: `int32`, `float16`, `float32`, `float64`
 - For keywords: `for`, `range`, `grid`
-- Scheduling keywords: `for`, `range`, `grid`
-- In current version, some CPU/GPU platform only keywords:
+- Scheduling keywords: `serial`, `vec`, `parallel`, `reduce`
+- In current version, advanced keywords are provided for the CPU/GPU backend:
     - Math keywords: `rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2` (only on GPU), `expm1` (only on GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - Datatype keywords: `int8`, `int16`, `int64`
 
