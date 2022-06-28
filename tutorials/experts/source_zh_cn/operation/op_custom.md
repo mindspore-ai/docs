@@ -939,6 +939,78 @@ def kernel_func(a, b):
 
 那么循环内的表达式等价于 `out[i, j, k] = a[i, j, k] + b[i]`。
 
+#### 调度原语
+
+从1.8版本开始，MindSpore Hybrid DSL 提供调度原语以描述不同类型的循环。在 Ascend 后端，调度原语将协助新 DSA 多面体调度器生成代码。此类调度原语包括：`serial`， `vectorize`， `parallel`， 和 `reduce`。
+
+`serial` 会提示调度器该循环在调度生成时应保持前后顺序，不要做会改变顺序的调度变换，例如：
+
+```python
+@ms_kernel
+def serial_test(a, b):
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in serial(row):
+        for j in serial(j):
+            b[i] = b[i] - a[i, j] * b[j]
+    return b
+```
+
+这里 `serial` 提示 `i` 和 `j` 的计算有依赖关系，调度时应保持 `i` 和 `j` 从小的大的顺序。
+
+`vectorize` 一般用于最内层循环，会提示调度器该循环有生成向量化指令的机会 ，例如：
+
+```python
+@ms_kernel
+def vector_test(a, b):
+    out = output_tensor(a.shape, a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in range(row):
+        for j in vectorize(col):
+            out[i, j] = a[i, j] + b[0, i]
+    return out
+```
+
+这里 `vectorize` 提示最内层 `j` 轴循环包含同质化计算，调度时可以生成向量化指令加速内层循环。
+
+`parallel` 一般用于最外层循环，会提示调度器该循环有并行执行机会，例如：
+
+```python
+@ms_kernel
+def parallel_test(a, b):
+    out = output_tensor(a.shape, a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in parallel(row):
+        for j in range(col):
+            out[i, j] = a[i, j] + b[0, j]
+    return out
+```
+
+这里 `parallel` 提示最外层 `i` 轴循环无依赖关系，调度时可以并行加速。
+
+`reduce` 会提示调度器该循环为运算中的一个 Reduction 轴，例如：
+
+```python
+def reduce_test(a):
+    out = output_tensor((a.shape[0], ), a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in range(row):
+        out[i] = 0.0
+        for k in reduce(col):
+            out[i] = out[i] + a[i, k]
+    return out
+```
+
+这里 `reduce` 对应的 `k` 轴为累加轴。
+
+用户在使用调度原语的时候需要注意：
+
+- 上述调度原语只会在 Ascend 后端影响调度。在CPU和GPU后端，上述调度原语将被处理成普通的 `for` 循环关键词。
+- 调度原语对于调度器只是提示作用，当调度原语的提示和调度器自身的分析验证相矛盾时，调度器将把上述调度原语将被处理成普通的 `for` 循环关键词。
+
 #### 属性
 
 当前只支持对Tensor对象属性shape和dtype，例如 `a.shape`，`c.dtype`。

@@ -939,9 +939,81 @@ def kernel_func(a, b):
 
 Then the expression inside loops is equivalent to `out[i, j, k] = a[i, j, k] + b[i]`.
 
+#### Scheduling keywords
+
+From version 1.8, MindSpore Hybrid DSL provides scheduling keywords to describe the type of loops. On the Ascend backend, scheduling keywords will help the new DSA polyhedron scheduler generate codes. The scheduling keywords include `serial`, `vectorize`, `parallel`, and `reduce`.
+
+`serial` indicates that the scheduler should keep the order of the loop and not apply loop transformations on such loops. For example,
+
+```python
+@ms_kernel
+def serial_test(a, b):
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in serial(row):
+        for j in serial(j):
+            b[i] = b[i] - a[i, j] * b[j]
+    return b
+```
+
+Here `serial` indicates that there are dependence relations on `i` and `j`. `i` and `j` should be in ascending order during the scheduling.
+
+`vectorize` is usually used in the innermost loop, indicating the chance of generation vector instructions. For example
+
+```python
+@ms_kernel
+def vector_test(a, b):
+    out = output_tensor(a.shape, a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in range(row):
+        for j in vectorize(col):
+            out[i, j] = a[i, j] + b[0, i]
+    return out
+```
+
+Here `vectorize` indicates that the innermost `j` loop conducts the same computation at each iteration and that the computation can be accelerated via vector instructions.
+
+`parallel` is usually used in the outermost loop, indicating the chance of parallelization. For example
+
+```python
+@ms_kernel
+def parallel_test(a, b):
+    out = output_tensor(a.shape, a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in parallel(row):
+        for j in range(col):
+            out[i, j] = a[i, j] + b[0, j]
+    return out
+```
+
+Here `parallel` indicates that there is no dependency between each iteration of the `i` loop and that the computation can be accelerated via parallelization.
+
+`reduce` indicates that the loop is a reduction axis. For example,
+
+```python
+def reduce_test(a):
+    out = output_tensor((a.shape[0], ), a.dtype)
+    row = a.shape[0]
+    col = a.shape[1]
+    for i in range(row):
+        out[i] = 0.0
+        for k in reduce(col):
+            out[i] = out[i] + a[i, k]
+    return out
+```
+
+Here `reduce` indicates that `k` is a reduction axis.
+
+Notice that：
+
+- The scheduling keywords will only influence the scheduling on the Ascend backend. On the CPU or GPU backend, the above scheduling keywords will be treated as the usual `for` keyword.
+- The scheduling keywords only provide hints to the scheduler. When the hints from the scheduling keywords contradict the analysis and validation result from the scheduler, the above scheduling keywords will be treated as the usual `for` keyword.
+
 #### Attribute
 
-Current we support only tensor's `shape` and `dtype` attributes, such as `a.shape`, and `c.dtype`.
+Currently we support only tensor's `shape` and `dtype` attributes, such as `a.shape`, and `c.dtype`.
 
 The shape attribute of a Tensor is a `tuple`. We have access to its element with a **fixed** index, such as `a.shape[0]`.
 
