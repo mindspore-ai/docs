@@ -1039,7 +1039,7 @@ def kernel_func(a, b):
 - 内存分配：`allocate`, `output_tensor`
 - 数据类型转化：`int32`, `float16`, `float32`, `float64`
 - 循环表达：`for`, `range`, `grid`
-- 调度源语：`serial`, `vec`, `grid`
+- 调度源语：`serial`, `vec`, `parallel`, `reduce`
 - 在当前版本中，我们对CPU/GPU后端提供部分进阶关键词：
     - 数学函数：`rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`(仅GPU), `expm1`(仅GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - 数据类型转换：`int8`，`int16`，`int64`
