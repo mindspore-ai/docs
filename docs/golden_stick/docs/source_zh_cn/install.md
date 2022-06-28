@@ -25,7 +25,7 @@ bash build.sh
 pip install output/mindspore_gs-0.1.0-py3-none-any.whl
 ```
 
-其中，`build.sh`为`golden_stick`目录下的编译脚本文件。
+其中，`build.sh`为`golden-stick`目录下的编译脚本文件。
 
 ## 验证安装是否成功
 
