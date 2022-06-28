@@ -27,18 +27,20 @@ pip install requests
 详细报错内容举例如下：
 
 ```text
-docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: 404: Error links in the line
+ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: Error link: https://xxxxx
 ```
 
 以报错信息内容举例：
 
-`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: 404: Error link in the file.{失效链接}`
+`ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: Error link: https://xxxxx`
+
+- 链接检测状态：`ERROR`表示检测出了链接报错，如果是`WARRING`表示该失效链接属于`gitee.com`中的链接，可能由于文件正在合入而造成的链接报错。
 
 - 检测文件：`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb`
 
-- 报错代码：`404`。即该行中存在状态码是404的链接，即不存在该网址。
+- 报错行：`line_2`，表示报错链接位于文档中的第二行。
 
-- 报错的链接。
+- 报错的链接: `Error link: https://xxxxx`。即具体的报错链接。
 
 ## 检测白名单设置
 
@@ -56,3 +58,8 @@ https://xxxxx.com
 https://xxx.com/xxx.html
 ...
 ```
+
+注意：
+
+- 每行只能写一条白名单链接。
+- 支持使用`*`来进行白名单链接的模糊匹配。例如：`https://www.mindspore*/tutorials*`
