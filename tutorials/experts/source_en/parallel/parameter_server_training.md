@@ -32,9 +32,9 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting) below will not take effect.
     - Use `mindspore.reset_ps_context()` to disable Parameter Server training mode.
 
-2. Secondly, call `mindspore.communication.init()` to initialize distributed training. Including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
+2. Secondly, call `mindspore.communication.init()` to initialize distributed training, including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
 
-    - Because `Ascend` backend depends on `rank table` configuration file to initialize `HCCL`, when running Parameter Server training mode on `Ascend` backend, `rank table` file needs to be configured.(Including when trainin with only one Worker and one Server)
+    - Launching Parameter Server training through `mpirun` is no longer supported in and after MindSpore-1.8.0 version. MindSpore uses built-in communication module to build the cluster and initialize collective communication, so `data parallel`/`auto parallel` modes are still available on `Worker` process side. Please refer to the link [Training without Relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) for details.
 
 3. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
 
