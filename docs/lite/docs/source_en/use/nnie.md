@@ -285,7 +285,7 @@ For details about integration, see [Using C++ Interface to Perform Inference](ht
 
 During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH environment variable provides functions related to the SVP tool chain and supports the configuration of fields except caffemodel_file, prototxt_file, is_simulation and instructions_name. The implementation is as follows:
 
-### NHWC, the Format of the Running Input on the Board
+### NHWC the Format of the Running Input on the Board
 
   The `ms` model after conversion accepts only the data input in NHWC format. If image_type is declared as 0, float32 data in NHWC format is received. If image_type is declared as 1, uint8 data input in NHWC format is received.
 
@@ -301,7 +301,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   You only need to provide image_list whose quantity is the same as that of model inputs. If the model contains the ROI pooling or PSROI pooling layer, you need to provide roi_coordinate_file, the quantity and sequence correspond to the number and sequence of the ROI pooling or PSROI pooling layer in the .prototxt file.
 
-### Suffix _cpu of the Node Name in the prototxt File
+### Suffix \_cpu of the Node Name in the prototxt File
 
   In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in custom operator mode.
 
@@ -331,7 +331,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   In this example, a custom operator of the MY_CUSTOM type is defined. During inference, you need to register a custom operator of the MY_CUSTOM type.
 
-### Suffix _report of the Top Domain in the prototxt File
+### Suffix \_report of the Top Domain in the prototxt File
 
   When converting the NNIE model, MindSpore Lite fuses most operators into the binary file for NNIE running. Users cannot view the output of the intermediate operators. In this case, you can add the _report suffix to the top domain, during image composition conversion, the output of the intermediate operator is added to the output of the fused layer. If the operator has output (not fused), the output remains unchanged.
 
