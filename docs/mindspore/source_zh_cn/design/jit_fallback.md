@@ -125,10 +125,8 @@ class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
-   def construct(self):
-      x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-      y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-      tensor_sum = x + y
+   def construct(self, input_x, input_y):
+      tensor_sum = input_x + input_y
       x = np.array([1, 2, 3, 4, 5])
       y = np.array([1, 2, 3, 4, 5])
       np_sum = x + y
@@ -136,14 +134,16 @@ class Net(nn.Cell):
       return tensor_sum, ms.Tensor(np_sum)
 
 ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
+y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
 net = Net()
-net()
+net(x, y)
 ```
 
 输出结果：
 
 ```text
-TypeError: For 'Print', the type of 'input' should be one of Tensor, Int, Float, Bool, String, but got kMetaTypeExternal.
+ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)', the inputs should be constant, but found variable 'tensor_sum' to be nonconstant.
 ```
 
 ### 使用raise和assert
