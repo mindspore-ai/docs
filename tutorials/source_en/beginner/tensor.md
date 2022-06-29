@@ -58,6 +58,7 @@ from mindspore.common.initializer import One, Normal
 ms.set_seed(1)
 
 tensor1 = ms.Tensor(shape=(2, 2), dtype=ms.float32, init=One())
+# Generates an array with values sampled from Normal distribution N(0.01,0.1) in order to initialize a tensor
 tensor2 = ms.Tensor(shape=(2, 2), dtype=ms.float32, init=Normal())
 
 print("tensor1:\n", tensor1)
@@ -103,12 +104,8 @@ output shape: (2, 2)
 ```python
 import mindspore as ms
 
-shape = (2, 2)
-ones = ops.Ones()
-output = ones(shape, ms.float32)
-
 zeros = ops.Zeros()
-output = zeros(shape, ms.float32)
+output = zeros((2, 2), ms.float32)
 print(output)
 ```
 
