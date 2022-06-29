@@ -143,7 +143,7 @@ net = lenet(num_classes=10, pretrained=False)
 
 # Load parameters to the network.
 load_param_into_net(net, param_dict)
-model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
+model = Model(net, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
 ```
 
 - The `load_checkpoint` method loads the network parameters in the parameter file to the `param_dict` dictionary.
