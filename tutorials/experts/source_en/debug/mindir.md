@@ -61,7 +61,7 @@ In addition, because the backend is closer to the bottom layer, non-framework de
 
 ## IR File Contents Introduction
 
-The following is an example to describe the contents of the IR file (the content may have some changes with the version upgrade of MindSpore). Run the script:
+The following is an example to describe the contents of the IR file. Run the script:
 
 ```python
 import mindspore as ms
@@ -96,7 +96,7 @@ print(out)
 
 ### ir Introduction
 
-Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0012.ir` file output after execution. The file contents are as follows:
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0012.ir` file output after execution. The file contents are as follows (Here is MindSpore 1.6, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 #IR entry      : @1_construct_wrapper.21
@@ -150,14 +150,19 @@ Use a text editing software (for example, `vi`) to open the `04_abstract_special
  49 }
 ```
 
-The above contents can be divided into two parts, the first part is the input list and the second part is the graph structure.
-The first line tells us the name of the top MindSpore graph about the network, `1_construct_wrapper.21`, or the entry graph.
-Line 3 tells us how many inputs are in the network.
-Line 5 to 6 are the input list, which is in the format of `%para[No.]_[name] : <[data_type]x[shape]>`.
-Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` defined in the network. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
-Taking graph `2_construct.22` as an example, Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul` defined in the function `__init__`. In another place (line 19), figure `3_func.23` is called in the form of `call @3_func.23`, corresponding to the execution of the two-digit division of the function `func` in the script.
+The above contents can be divided into two parts. The first part is the input list and the second part is the graph structure:
 
-The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax)) information format is as follows: from left to right, the ordinal number, node name - debug_name, operator name - op_name, input node - arg, attributes of the node - primitive_attrs, input and output specifications, source code parsing call stack and other information. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
+- Line 1 tells us `1_construct_wrapper.21`, the name of the top MindSpore graph about the network, which is the entry graph.
+- Line 3 tells us how many inputs are in the network.
+- Line 5 to 6 are the input list, which is in the format of `%para[No.]_[name] : <[data_type]x[shape]>`.
+- Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` defined in the network. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
+
+Taking graph `2_construct.22` as an example:
+
+- Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul` defined in the function `__init__`.
+- Line 19 shows that figure `3_func.23` is called in the form of `call @3_func.23`, corresponding to the execution of the two-digit division of the function `func` in the script.
+
+The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax)) information format is as follows: from left to right, the ordinal number, node name - debug_name, operator name - op_name, input node - arg, attributes of the node - primitive_attrs, input and output specifications, source code parsing call stack and other information. Because the ANF graph is a unidirectional acyclic graph, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
 
 ```text
   %[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
@@ -176,7 +181,7 @@ About the corresponding source code:
 
 ### dat Introduction
 
-Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0013.dat` file. The file contents are as follows:
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0013.dat` file. The file contents are as follows (Here is MindSpore 1.6, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 # [No.1] 1_construct_wrapper.21
@@ -239,13 +244,15 @@ Use a text editing software (for example, `vi`) to open the `04_abstract_special
  58 # num of total function graphs: 3
 ```
 
-Above, it lists all the graphs beginning with the entry graph.
-Line 1 indicates graph `1_construct_wrapper.21` whose id is `No.1`. And line 7 calls graph `2_construct.22`.
-line 17 to 39 shows the information of graph `2_construct.22`.
-Taking graph `2_construct.22` whose information is located at Line 17 to 39 as an example. Line 18 tells us which function this graph is parsed from. Line 20 to 21 indicates the input information which is in the format of `%para[No.] : [data_type][shape]    # [name]`.
-Line 23 to 32 indicates the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`.
-Line 34 to 39 shows the execution order of the compute nodes in the graph, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
-Line 58 indicates the number of graphs. Here is 3.
+Above, it lists all the graphs beginning with the entry graph. Line 1 indicates graph `1_construct_wrapper.21` whose id is `No.1`. And line 7 calls graph `2_construct.22`. Line 17 to 39 show the information of graph `2_construct.22`.
+
+Taking graph `2_construct.22` whose information is located at Line 17 to 39 as an example:
+
+- Line 18 tells us which function this graph is parsed from.
+- Line 20 to 21 indicates the input information which is in the format of `%para[No.] : [data_type][shape]    # [name]`.
+- Line 23 to 32 indicates the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`.
+- Line 34 to 39 shows the execution order of the compute nodes in the graph, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
+- Line 58 indicates the number of graphs. Here is 3.
 
 The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax)) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
 
@@ -272,7 +279,7 @@ For models with multiple operators, the picture will be very large. It is recomm
 
 In the process of MindSpore compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find the reason by analyzing the exception information and analyze_fail.dat.
 
-For example, we run the script below.
+### Example 1: parameters number mismatch
 
 ```python
   1 import mindspore as ms
@@ -345,7 +352,7 @@ And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actu
 We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(23)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
 
-Sometimes the exception information is not enough easy to understand. Or we want to see the part of graph information that have evaluated. We use text editing software (e.g., vi) to open the file (in parentheses on line 20) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content:
+Sometimes when the exception information is not enough easy to understand, or we want to see the part of graph information that have evaluated, we use text editing software (e.g., vi) to open the file (in parentheses on line 20) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content (Here is MindSpore 1.6, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 # [No.1] construct_wrapper.0
@@ -401,4 +408,122 @@ Sometimes the exception information is not enough easy to understand. Or we want
 The file `analyze_fail.dat` has the same information format with the file `.dat`. The only difference is `analyze_fail.dat` will locate the node which inferring failed.
 Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 1` at line 30. This last arrow points to the node that derives the error, which is `%3 = FuncGraph::fg_18(%1, %1, %2)...`, which expresses the information of the node in IR. How to view the dat file has been described in the `Dat File Introduction` section earlier, and will not be repeated here.
 The node at line 31 to 32 have an error. Its IR expression is `%3 = FuncGraph::fg_18(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. From the source parsing call stack, it can be known that the function is actually `self.func`, which is defined in the script as `def dunc(x, y):...`.
-In the function definition, only two parameters are needed, so there will be a deduction failure error here, and we need to modify the number of parameters passed in the script to solve the problem.
+In the function definition, only two parameters are needed, so there will be a deduction failure error, and we need to modify the number of parameters passed in the script to solve the problem.
+
+### Example 2: BiasAdd inputs shape mismatch
+
+```python
+  1 import numpy as np
+  2 import mindspore
+  3 from mindspore import nn, ops, context, Tensor, Parameter
+  4 from mindspore.common.initializer import initializer
+  5
+  6 class Net(nn.Cell):
+  7   def __init__(self):
+  8     super(Net, self).__init__()
+  9     self.weight = Parameter(initializer('normal', [32, 8]), name="weight")
+ 10     self.bias = Parameter(initializer('zeros', [4]), name="bias")
+ 11
+ 12     self.matmul = ops.MatMul()
+ 13     self.bias_add = ops.BiasAdd()
+ 14
+ 15   def construct(self, x1):
+ 16     x = self.matmul(x1, self.weight)
+ 17     x = self.bias_add(x, self.bias)
+ 18     return x
+ 19
+ 20 net = Net()
+ 21 x = Tensor(np.arange(3*32).reshape(3, 32), mindspore.float32)
+ 22 out = net(x)
+ 23 print('out', out.shape)
+```
+
+An error happens.
+
+```text
+
+ Traceback (most recent call last):
+  File "test.py", line 22, in <module>
+    out = net(x)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 573, in __call__
+    out = self.compile_and_run(*args)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 956, in compile_and_run
+    self.compile(*inputs)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 929, in compile
+    _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+  File "/home/workspace/mindspore/build/package/mindspore/common/api.py", line 1076, in compile
+    result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+ValueError: For 'BiasAdd', bias[0] shape must be equal to input_x[1] shape when data_format is NHWC or input_x[1] shape, but got bias[0] shape: 4, input_x[1] or input_x[1] shape: 8.
+
+----------------------------------------------------
+- The Traceback of Net Construct Code:
+----------------------------------------------------
+The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+# 0 In file test.py(17)
+    x = self.bias_add(x, self.bias)
+        ^
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
+```
+
+The above reports that the errors is caused by the mismatching of the shape of the first input and the second input of the operator `BiasAdd`. To further understand what changes have taken place in the shape of the operator, we use text editing software (e.g., vi) to open the file that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content (Here is MindSpore 1.8, and the content may have some imperceptible changes with the version upgrade):
+
+```text
+  1 #===============================================================================
+  2 #1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
+  3 #2.You can search the last `------------------------>` to the node which is inferred failed.
+  4 #3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  5 #===============================================================================
+  6
+  7 # [No.1] construct_wrapper.1
+  8 # In file test.py(15)/  def construct(self, x1):/
+  9 funcgraph fg_1(
+ 10         %para1 : Tensor(F32)[3, 32]    # x1
+ 11         , %para2 : Ref[Tensor(F32)][4]    # bias
+ 12         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
+ 13     ) {
+ 14
+ 15 #------------------------> 0
+ 16     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
+ 17 #[CNode]3
+ 18     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+ 19       # In file test.py(18)/    return x/#[CNode]4
+ 20 }
+ 21 # order:
+ 22 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
+ 23 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+ 24
+ 25
+ 26 # [No.2] construct.2
+ 27 # In file test.py(15)/  def construct(self, x1):/
+ 28 funcgraph fg_2[fg_1](
+ 29         %para4 : Tensor(F32)[3, 32]    # x1
+ 30     ) {
+ 31     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1=Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
+ 32       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
+ 33
+ 34 #------------------------> 1
+ 35     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #scope: Default
+ 36       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
+ 37     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
+ 38       # In file test.py(18)/    return x/#[CNode]5
+ 39 }
+ 40 # order:
+ 41 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
+ 42 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
+ 43 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 44
+ 45
+ 46 #===============================================================================
+ 47 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+```
+
+Search `------------------------>` to the position where inferring failed at line 34. According to `...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`, `BiasAdd`'s inputs are `%1` and `%para2`. That `%1`' with shape `[3, 8]` and `%para2` with shape `[4]` doesn't meet the requirement about `bias (Tensor) - The bias tensor, with shape (C). C must be the same as channel dimension C of input_x...` for `BiasAdd` API. Thus, an error happens.
+
+To solve this problem, we need modify the shape of `%1` or `%para2` (namely `self.bias`).
+
+- For `%para2` (namely `self.bias`), we modify the shape of `self.bias` by `self.bias = Parameter(initializer('zeros', [8]), name="bias")`.
+- For `%1`, we need know what `%1` is. According to line 31, `%1` is a `MatMul` with output shape `[3, 8]`. Its inputs are `(%para4, %para3)`. The first input (namely given arg `x`) shape is `[3, 32]` and the second input (namely `self.weight`) shape is `[32, 8]`. To meet the requirement of `BiasAdd` with the data shape `[4]`, the shape of `%1` output needs to be `[3, 4]`. Therefore, we modify `self.weight` by `self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`.

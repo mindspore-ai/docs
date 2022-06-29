@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
 ## IR文件解读
 
-下面以一个简单的例子来说明IR文件的内容（内容可能随着MindSpore的版本升级而出现一些变化），运行该脚本：
+下面以一个简单的例子来说明IR文件的内容，运行该脚本：
 
 ```python
 import mindspore as ms
@@ -97,7 +97,7 @@ print(out)
 
 ### ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0012.ir`，内容如下所示：
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0012.ir`，内容如下所示（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 #IR entry      : @1_construct_wrapper.21
@@ -151,12 +151,17 @@ print(out)
  49 }
 ```
 
-以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息。
-其中第1行告诉了我们该网络的顶图名称`1_construct_wrapper.21`，也就是入口图。
-第3行告诉了我们该网络有多少个输入。
-第5-6行是输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。
-第8行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第42行的入口图`1_construct_wrapper.21`；第32行的图`3_func.23`，对应着网络中定义的函数`func(x, y)`；第12行的图`2_construct.22`，即对应`construct`函数。
-对于具体的图来说（此处我们以图`2_construct.22`为例），第10-28行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子。另外还有一处（第19行）以`call @3_func.23`的形式，调用了图`3_func.23`，对应脚本中调用函数`func`执行两数相除的行为。
+以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息：
+
+- 第1行告诉了我们该网络的顶图名称 `1_construct_wrapper.21`，也就是入口图。
+- 第3行告诉了我们该网络有多少个输入。
+- 第5-6行是输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。
+- 第8行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第42行的入口图`1_construct_wrapper.21`；第32行的图`3_func.23`，对应着网络中定义的函数`func(x, y)`；第12行的图`2_construct.22`，即对应`construct`函数。
+
+对于具体的图来说（此处我们以图`2_construct.22`为例）：
+
+- 第10-28行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子。
+- 第19行以`call @3_func.23`的形式，调用了图`3_func.23`，对应脚本中调用函数`func`执行两数相除的行为。
 
 `CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
 由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第15行表明该节点是由脚本中`a = self.sub(x, 1)`这一行解析而来。
@@ -179,7 +184,7 @@ print(out)
 
 ### dat文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0014.dat`，内容如下所示：
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0014.dat`，内容如下所示（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # [No.1] 1_construct_wrapper.21
@@ -242,14 +247,15 @@ print(out)
  58 # num of total function graphs: 3
 ```
 
-以上内容，从顶图开始，以顺序方式展示了所有图的信息。
-其中，第1行表示序号为`No.1`，图名为`1_construct_wrapper.21`。在顶图之中，第7行调用了图`2_construct.22`。
-图`2_construct.22`的信息位于第17-39行，我们以该图为例展开详细说明。
-第18行表示该图对应脚本中的函数定义所在的位置。
-第20-21行表示图的输入信息，格式为：`%para[序号] : [data_type][shape]    # [name]`.
-第23-32行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子，其中第27行表示对另一张图的调用。
-第34-39表示图中计算节点的执行序，与代码执行的先后顺序对应。格式为：`序号: 所属图名称:节点名称{[0]: 第一个输入的信息, [1]: 第二个输入的信息, ...}`。 对于`CNode`而言，第一个输入表示该节点承载的计算方式。
-第58行表示图的数量，此处为3。
+以上内容，从顶图开始，以顺序方式展示了所有图的信息。其中，第1行表示序号为`No.1`，图名为`1_construct_wrapper.21`。在顶图之中，第7行调用了图`2_construct.22`。
+
+图`2_construct.22`的信息位于第17-39行，我们以该图为例展开详细说明：
+
+- 第18行表示该图对应脚本中的函数定义所在的位置。
+- 第20-21行表示图的输入信息，格式为：`%para[序号] : [data_type][shape]    # [name]`.
+- 第23-32行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子，其中第27行表示对另一张图的调用。
+- 第34-39表示图中计算节点的执行序，与代码执行的先后顺序对应。格式为：`序号: 所属图名称:节点名称{[0]: 第一个输入的信息, [1]: 第二个输入的信息, ...}`。 对于`CNode`而言，第一个输入表示该节点承载的计算方式。
+- 第58行表示图的数量，此处为3。
 
 `CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、输出规格、算子名称-op_name、节点的属性-attr、输入节点-arg、输入节点的规格、所在的命名空间、关联代码行等信息。
 
@@ -276,7 +282,7 @@ dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
 
 MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.dat文件，来定位出脚本中存在的问题。
 
-例如执行下面一段代码：
+### 例子1：参数数量不匹配
 
 ```python
   1 import mindspore as ms
@@ -349,7 +355,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...”。
 表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # [No.1] construct_wrapper.0
@@ -406,3 +412,121 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第30行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3 = FuncGraph::fg_18(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看dat文件前文`dat文件介绍`一节中已经介绍，此处不再赘述。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
+
+### 例子2：BiasAdd输入之间shape不匹配
+
+```python
+  1 import numpy as np
+  2 import mindspore
+  3 from mindspore import nn, ops, context, Tensor, Parameter
+  4 from mindspore.common.initializer import initializer
+  5
+  6 class Net(nn.Cell):
+  7   def __init__(self):
+  8     super(Net, self).__init__()
+  9     self.weight = Parameter(initializer('normal', [32, 8]), name="weight")
+ 10     self.bias = Parameter(initializer('zeros', [4]), name="bias")
+ 11
+ 12     self.matmul = ops.MatMul()
+ 13     self.bias_add = ops.BiasAdd()
+ 14
+ 15   def construct(self, x1):
+ 16     x = self.matmul(x1, self.weight)
+ 17     x = self.bias_add(x, self.bias)
+ 18     return x
+ 19
+ 20 net = Net()
+ 21 x = Tensor(np.arange(3*32).reshape(3, 32), mindspore.float32)
+ 22 out = net(x)
+ 23 print('out', out.shape)
+```
+
+会出现如下的报错：
+
+```text
+
+ Traceback (most recent call last):
+  File "test.py", line 22, in <module>
+    out = net(x)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 573, in __call__
+    out = self.compile_and_run(*args)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 956, in compile_and_run
+    self.compile(*inputs)
+  File "/home/workspace/mindspore/build/package/mindspore/nn/cell.py", line 929, in compile
+    _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+  File "/home/workspace/mindspore/build/package/mindspore/common/api.py", line 1076, in compile
+    result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+ValueError: For 'BiasAdd', bias[0] shape must be equal to input_x[1] shape when data_format is NHWC or input_x[1] shape, but got bias[0] shape: 4, input_x[1] or input_x[1] shape: 8.
+
+----------------------------------------------------
+- The Traceback of Net Construct Code:
+----------------------------------------------------
+The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+# 0 In file test.py(17)
+    x = self.bias_add(x, self.bias)
+        ^
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
+```
+
+根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 1.8，后续版本中内容可能会有一些细微变化）：
+
+```text
+  1 #===============================================================================
+  2 #1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
+  3 #2.You can search the last `------------------------>` to the node which is inferred failed.
+  4 #3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  5 #===============================================================================
+  6
+  7 # [No.1] construct_wrapper.1
+  8 # In file test.py(15)/  def construct(self, x1):/
+  9 funcgraph fg_1(
+ 10         %para1 : Tensor(F32)[3, 32]    # x1
+ 11         , %para2 : Ref[Tensor(F32)][4]    # bias
+ 12         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
+ 13     ) {
+ 14
+ 15 #------------------------> 0
+ 16     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
+ 17 #[CNode]3
+ 18     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+ 19       # In file test.py(18)/    return x/#[CNode]4
+ 20 }
+ 21 # order:
+ 22 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
+ 23 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+ 24
+ 25
+ 26 # [No.2] construct.2
+ 27 # In file test.py(15)/  def construct(self, x1):/
+ 28 funcgraph fg_2[fg_1](
+ 29         %para4 : Tensor(F32)[3, 32]    # x1
+ 30     ) {
+ 31     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1=Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
+ 32       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
+ 33
+ 34 #------------------------> 1
+ 35     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #scope: Default
+ 36       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
+ 37     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
+ 38       # In file test.py(18)/    return x/#[CNode]5
+ 39 }
+ 40 # order:
+ 41 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
+ 42 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
+ 43 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 44
+ 45
+ 46 #===============================================================================
+ 47 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+```
+
+搜索`------------------------>`来到第34行，即推导出错的位置。根据`...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`可知，算子`BiasAdd`的输入是`%1`和`%para2`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
+
+因此，为了解决该问题，我们要么修改`%1`的shape，要么修改`%para2`（即`self.bias`）的shape。
+
+- 如果修改`self.bias`的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
+- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第31行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para4, %para3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
