@@ -55,7 +55,7 @@ Run the following command in a network-enabled environment to verify the install
 ```python
 import mindspore_hub as mshub
 
-model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
+model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class=10)
 ```
 
 If it prompts the following information, the installation is successful:
@@ -66,4 +66,21 @@ Downloading data from url https://gitee.com/mindspore/hub/raw/r1.6/mshub_res/ass
 Download finished!
 File size = 0.00 Mb
 Checking /home/ma-user/.mscache/mindspore/cpu/1.0/lenet_v1_mnist.md...Passed!
+```
+
+## FAQ
+
+<font size=3>**Q: What to do when `SSL: CERTIFICATE_VERIFY_FAILED` occurs?**</font>
+
+A: Due to your network environment, for example, if you use a proxy to connect to the Internet, SSL verification failure may occur on Python because of incorrect certificate configuration. In this case, you can use either of the following methods to solve this problem:
+
+Configure the SSL certificate **(recommended)**.
+Before import mindspore_hub, please add the codes (the fastest method).
+
+```python
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+import mindspore_hub as mshub
+model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class=10)
 ```

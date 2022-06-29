@@ -53,7 +53,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Hub/an
 ```python
 import mindspore_hub as mshub
 
-model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
+model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class=10)
 ```
 
 如果出现下列提示，说明安装成功：
@@ -64,4 +64,21 @@ Downloading data from url https://gitee.com/mindspore/hub/raw/r1.6/mshub_res/ass
 Download finished!
 File size = 0.00 Mb
 Checking /home/ma-user/.mscache/mindspore/cpu/1.0/lenet_v1_mnist.md...Passed!
+```
+
+## FAQ
+
+<font size=3>**Q: 遇到`SSL: CERTIFICATE_VERIFY_FAILED`怎么办？**</font>
+
+A: 由于你的网络环境，例如你使用代理连接互联网，往往会由于证书配置问题导致python出现ssl verification failed的问题，此时有两种解决方法：
+
+配置好SSL证书 **（推荐）**
+在加载mindspore_hub前增加如下代码进行解决（最快）
+
+```python
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+import mindspore_hub as mshub
+model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class=10)
 ```
