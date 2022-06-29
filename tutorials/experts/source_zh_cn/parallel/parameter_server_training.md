@@ -36,7 +36,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 2. 然后调用`mindspore.communication.init()`，这一步骤初始化分布式训练，包括`Server`、`Worker`和`Scheduler`三种节点的组网，集合通信初始化(HCCL, NCCL)。
 
-    - 由于`Ascend`后端，依赖于`rank table`配置文件进行`HCCL`集合通信初始化，在使用`Ascend`后端的Parameter Server模式训练时，需要配置对应的`rank table`文件。（包括单Worker，单Server训练）
+    - MindSpore 1.8.0版本及以后，不再支持使用`mpirun`启动Parameter Server训练，MindSpore使用内置通信模块进行集群搭建以及集合通信初始化，因此`Worker`进程侧的数据并行/自动并行等特性依旧能够使用，详见[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#%E4%B8%8D%E4%BE%9D%E8%B5%96openmpi%E8%BF%9B%E8%A1%8C%E8%AE%AD%E7%BB%83)。
 
 3. 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新，并且可以控制参数初始化位置：
 
