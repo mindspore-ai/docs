@@ -45,7 +45,7 @@
 
       ![img](images/clip_image034.jpg)
 
-    3.3 点击右下角弹窗中的load或右键settings.gradle文件选中Link Gradle Project。
+    3.3 点击右下角弹窗中的load或右键pycharm/settings.gradle文件选中Link Gradle Project。
 
       ![img](images/clip_image035.jpg)
 

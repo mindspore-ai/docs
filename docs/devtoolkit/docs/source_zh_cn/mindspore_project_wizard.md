@@ -42,7 +42,7 @@
 
       ![img](images/clip_image014.jpg)
 
-    3.5 根据提示重新启动PyCharm或者稍后自行重新启动PyCharm。
+    3.5 根据提示重新启动PyCharm或者稍后自行重新启动PyCharm。***注意：接下来的步骤必须重启PyCharm后方可继续***
 
       ![img](images/clip_image015.jpg)
 
