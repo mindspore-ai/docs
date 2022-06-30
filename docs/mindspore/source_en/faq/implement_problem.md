@@ -597,3 +597,14 @@ Change the execution mode and change GRAPH_MODE to PYNATIVE_MODE. Since the Pyth
 Therefore, in the scenario where the subsequent operator clearly needs to use int, it is recommended to use Python's divisibility symbol `//`.
 
 <br/>
+
+<font size=3>**Q: Why will running the script on GPU stuck for a long time on version 1.8?**</font>
+
+A: In order to be compatible with more GPU architectures, NVCC compiles CUDA files into PTX files first, and compiles them into binary executable files when using them for the first time. Therefore, compilation time will be consumed.
+Compared with the previous version, version 1.8 has added many CUDA operators, resulting in an increase in the compilation time of this part (The time varies according to the equipment. For example, the first compilation time on V100 is about 5 minutes).
+This compilation will generate a cache file (taking the Ubuntu system as an example, the cache file is located in `~/.nv/computecache`), and the cache file will be directly loaded during subsequent execution.
+Therefore, it will be stuck for several minutes during the first use, and the subsequent use will be a normal time consumption.
+
+Subsequent versions will be pre-compiled and optimized.
+
+<br/>
