@@ -77,7 +77,7 @@ auto_tune=false
 | activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
 | bias_correction         | 可选 | 是否对量化误差进行校正 | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
 | per_channel         | 可选 | 采用PerChannel或PerLayer的量化方式 | Boolean  | True    | True，False。设置为False，启用PerLayer量化方式。 |
-| target_device         | 可选 | 全量化支持多硬件后端。设置特定硬件后，量化模型会调用专有硬件量化算子库进行推理；如果未设置，转换模型调用通用量化算子库。 | String  | -    | NVGPU: 转换后的量化模型可以在NVIDIA GPU上执行量化推理；DSP: 转换后的量化模型可以在DSP硬件上执行量化推理。 |
+| target_device         | 可选 | 全量化支持多硬件后端。设置特定硬件后，量化模型会调用专有硬件量化算子库进行推理；如果未设置，转换模型调用通用量化算子库。 | String  | -    | NVGPU: 转换后的量化模型可以在NVIDIA GPU上执行量化推理；<br/>DSP: 转换后的量化模型可以在DSP硬件上执行量化推理。 |
 
 通用全量化（PerChannel量化方式）参数配置如下所示：
 
@@ -119,8 +119,8 @@ DSP全量化参数配置如下：
 [full_quant_param]
 # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
 activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
+# Whether to correct the quantization error.
+bias_correction=false
 # Supports specific hardware backends
 target_device=DSP
 ```
