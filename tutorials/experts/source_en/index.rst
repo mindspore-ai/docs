@@ -28,6 +28,16 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Model Training Optimization
+
+   others/mixed_precision
+   others/gradient_accumulation
+   others/adaptive_summation
+   others/dimention_reduce_training
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Custom Operator
 
    operation/op_ascend
@@ -67,10 +77,6 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Advanced Features
+   :caption:
 
-   others/mixed_precision
-   others/gradient_accumulation
-   others/adaptive_summation
-   others/dimention_reduce_training
-   
+   env/env_var_list

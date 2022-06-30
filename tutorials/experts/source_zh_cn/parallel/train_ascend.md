@@ -577,7 +577,7 @@ OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参
 
 ### 非下沉场景训练
 
-图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)=1来指定以非图下沉方式训练模型。该方式必须采用OpenMPI的mpirun进行分布式训练。
+图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/tutorials/experts/zh-CN/master/env/env_var_list.html)=1来指定以非图下沉方式训练模型。该方式必须采用OpenMPI的mpirun进行分布式训练。
 
 ## 分布式训练模型参数保存和加载
 

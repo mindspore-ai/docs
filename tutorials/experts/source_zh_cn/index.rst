@@ -28,6 +28,16 @@
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 模型训练优化
+
+   others/mixed_precision
+   others/gradient_accumulation
+   others/adaptive_summation
+   others/dimention_reduce_training
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 自定义算子
 
    operation/op_ascend
@@ -70,11 +80,6 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 其他特性
+   :caption:
 
-   others/mixed_precision
-   others/gradient_accumulation
-   others/adaptive_summation
-   others/dimention_reduce_training
- 
-   
+   env/env_var_list
