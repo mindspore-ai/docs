@@ -99,22 +99,13 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
    As shown below， the new dataset used for fine-tuning is the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html). It is noted here we need to download the `binary version` dataset. After downloading and decompression, the following code can be used for data loading and processing. It is noted the `dataset_path` is the path to the dataset and should be given by the user.
 
    ```python
-   def create_cifar10dataset(dataset_path, batch_size, do_train):
-       if do_train:
-           usage, shuffle = "train", True
-       else:
-           usage, shuffle = "test", False
-
-       data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
+   def create_cifar10dataset(dataset_path, batch_size, usage='train', shuffle=True):
+       data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=shuffle)
 
        # define map operations
-       trans = [vision.Resize((256, 256))]
-       if do_train:
-           trans += [
-               vision.RandomHorizontalFlip(prob=0.5),
-           ]
-
-       trans += [
+       trans = [
+           vision.Resize((256, 256)),
+           vision.RandomHorizontalFlip(prob=0.5),
            vision.Rescale(1.0 / 255.0, 0.0),
            vision.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
            vision.HWC2CHW()
@@ -131,7 +122,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 
    # Create Dataset
    dataset_path = "/path_to_dataset/cifar-10-batches-bin"
-   dataset = create_cifar10dataset(dataset_path, batch_size=32, do_train=True)
+   dataset = create_cifar10dataset(dataset_path, batch_size=32, usage='train', shuffle=True)
    ```
 
 5. Define `loss`, `optimizer` and `learning rate`.
