@@ -37,7 +37,7 @@
 
 3. 使用IntelliJ IDEA打开项目。
 
-    3.1 File -> Open。
+    3.1 选择File选项卡下的Open选项。***File -> Open***
 
       ![img](images/clip_image033.jpg)
 
@@ -77,7 +77,7 @@
 
     ![img](images/clip_image044.jpg)
 
-8. 构建完成后至项目目录下/build/distributions目录下获取插件安装包。
+8. 构建完成后至项目目录下/pycharm/build/distributions目录下获取插件安装包。
 
     ![img](images/clip_image046.jpg)
 

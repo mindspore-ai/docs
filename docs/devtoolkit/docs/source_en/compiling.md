@@ -78,7 +78,7 @@ The following describes how to compile the MindSpore Dev ToolKit project based o
 
     ![img](images/clip_image044.jpg)
 
-8. Obtain the plug-in installation package from the **/build/distributions** directory in the project directory.
+8. Obtain the plug-in installation package from the **/pycharm/build/distributions** directory in the project directory.
 
     ![img](images/clip_image046.jpg)
 

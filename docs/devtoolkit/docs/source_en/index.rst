@@ -47,7 +47,7 @@ Installation
 
    .. image:: ./images/clip_image050.jpg
 
-3. Select the ZIP package of the plug-in.
+3. Select the ZIP package of the plug-in (take version 1.7 as an example).
 
    .. image:: ./images/clip_image052.jpg
 
