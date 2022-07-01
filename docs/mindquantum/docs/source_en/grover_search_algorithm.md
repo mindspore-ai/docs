@@ -116,7 +116,8 @@ As an example, we now generate a uniform superposition of 3 qubits by running th
 
 ```python
 # pylint: disable=W0104
-from mindquantum import Circuit, UN, H, Z
+from mindquantum.core.circuit import Circuit, UN
+from mindquantum.core.gates import H, Z
 from mindquantum.simulator import Simulator
 
 n_qubits = 3                                 # Set the number of qubits to 3

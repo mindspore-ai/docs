@@ -33,9 +33,10 @@ Now suppose we don't know the phase information of the `T` gate, but only know t
 First import the relevant dependencies.
 
 ```python
-from mindquantum.core import Circuit, UN, T, H, X, Power, BARRIER
+from mindquantum.core.gates import T, H, X, Power, BARRIER
+from mindquantum.core.circuit import Circuit, UN
 from mindquantum.simulator import Simulator
-from mindquantum.algorithm import qft
+from mindquantum.algorithm.library import qft
 import numpy as np
 ```
 
@@ -112,7 +113,7 @@ Select the backend, pass in the total number of bits to create a simulator, evol
 
 ```python
 # pylint: disable=W0104
-from mindquantum import Measure
+from mindquantum.core.gates import Measure
 sim = Simulator('projectq', circ.n_qubits)                      # Create an emulator
 sim.apply_circuit(circ)                                         # Evolving the circuit with the simulator
 qs = sim.get_qs()                                               # Obtain the evolved quantum state

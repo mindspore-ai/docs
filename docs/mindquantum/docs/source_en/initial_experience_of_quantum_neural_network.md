@@ -36,8 +36,8 @@ Import the modules that this tutorial depends on.
 
 ```python
 import numpy as np                            # Import the numpy library and abbreviated as np
-from mindquantum.core import Circuit          # Import the Circuit module for building quantum circuits
-from mindquantum.core import H, RX, RY, RZ    # Import quantum gates H, RX, RY, RZ
+from mindquantum.core.circuit import Circuit          # Import the Circuit module for building quantum circuits
+from mindquantum.core.gates import H, RX, RY, RZ    # Import quantum gates H, RX, RY, RZ
 ```
 
 ## Building Encoder
@@ -141,8 +141,8 @@ From the summary of the complete quantum circuit, it can be seen that the quantu
 We perform a Pauli `Z` operator measurement on the 0th qubit to construct the corresponding Hamiltonian.
 
 ```python
-from mindquantum.core import QubitOperator           # Import the QubitOperator module for constructing the Pauli operator
-from mindquantum.core import Hamiltonian             # Import the Hamiltonian module for building the Hamiltonian
+from mindquantum.core.operators import QubitOperator           # Import the QubitOperator module for constructing the Pauli operator
+from mindquantum.core.operators import Hamiltonian             # Import the Hamiltonian module for building the Hamiltonian
 
 ham = Hamiltonian(QubitOperator('Z0', -1))           # Perform the Pauli Z operator measurement on the 0th qubit and set the coefficient to -1 to construct the corresponding Hamiltonian
 print(ham)

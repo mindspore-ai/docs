@@ -37,13 +37,14 @@ Import the modules on which this tutorial depends.
 
 ```python
 import numpy as np
+import mindquantum as mq
 from openfermion.chem import MolecularData
 from openfermionpyscf import run_pyscf
-import mindquantum as mq
-from mindquantum import Hamiltonian
-from mindquantum.core import X, RX
-from mindquantum.core import Circuit
-from mindquantum.algorithm.nisq.chem import generate_uccsd
+from mindquantum.core.gates import X
+from mindquantum.core.circuit import Circuit
+from mindquantum.core.operators import Hamiltonian
+from mindquantum.simulator import Simulator
+from mindquantum.algorithm.nisq import generate_uccsd
 import mindspore as ms
 from mindspore.common.initializer import initializer
 
@@ -408,10 +409,10 @@ In the preceding part, the `generate_uccsd` is used to build all the content req
 First, import some extra dependencies, including the related functions of the HiQfermion module in MindQuantum.
 
 ```python
-from mindquantum.algorithm.nisq.chem import Transform
-from mindquantum.algorithm.nisq.chem import get_qubit_hamiltonian
-from mindquantum.algorithm.nisq.chem import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
-from mindquantum.core import TimeEvolution
+from mindquantum.algorithm.nisq import Transform
+from mindquantum.algorithm.nisq import get_qubit_hamiltonian
+from mindquantum.algorithm.nisq import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
+from mindquantum.core.operators import TimeEvolution
 from mindquantum.framework import MQAnsatzOnlyLayer
 ```
 

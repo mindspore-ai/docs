@@ -42,9 +42,10 @@ In this task, we want to calculate the expected value of the Hamiltonian $Z_0, X
 
 ```python
 import numpy as np
-from mindquantum import QubitOperator
-from mindquantum import Simulator
-from mindquantum import Circuit, TimeEvolution, Hamiltonian, H
+from mindquantum.core.operators import QubitOperator, TimeEvolution, Hamiltonian
+from mindquantum.simulator import Simulator
+from mindquantum.core.circuit import Circuit
+from mindquantum.core.gates import H
 
 # Define the axis of rotation in Hilbert space
 axis = QubitOperator('Y0', 1 / np.sqrt(2)) + QubitOperator('X0', -1 / np.sqrt(2))

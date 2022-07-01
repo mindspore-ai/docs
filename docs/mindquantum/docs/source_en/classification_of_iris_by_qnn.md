@@ -198,9 +198,9 @@ The values of the parameters α0, α1,...,α6 in the Encoder are substituted wit
 
 ```python
 # pylint: disable=W0104
-from mindquantum.core import Circuit                 # Import the Circuit module for building quantum circuits
-from mindquantum.core import UN                      # Import UN module
-from mindquantum.core import H, X, RZ                # Import quantum gates H, X, RZ
+from mindquantum.core.circuit import Circuit         # Import the Circuit module for building quantum circuits
+from mindquantum.core.circuit import UN              # Import UN module
+from mindquantum.core.gates import H, X, RZ          # Import quantum gates H, X, RZ
 
 encoder = Circuit()                                  # Initialize the quantum circuit
 
@@ -252,8 +252,8 @@ Here, we use HardwareEfficientAnsatz, the encoding method shown in the above qua
 
 ```python
 # pylint: disable=W0104
-from mindquantum.algorithm import HardwareEfficientAnsatz                                           # Import HardwareEfficientAnsatz
-from mindquantum.core import RY                                                                     # Import quantum gate RY
+from mindquantum.algorithm.nisq import HardwareEfficientAnsatz                                      # Import HardwareEfficientAnsatz
+from mindquantum.core.gates import RY                                                               # Import quantum gate RY
 
 ansatz = HardwareEfficientAnsatz(4, single_rot_gate_seq=[RY], entangle_gate=X, depth=3).circuit     # Building Ansatz with HardwareEfficientAnsatz
 ansatz.summary()                                                                                    # Summary Ansatz
@@ -316,8 +316,8 @@ From the summary of the complete quantum circuit, it can be seen that the quantu
 We perform Pauli Z operator measurements on the 2nd and 3rd qubits respectively, to construct the corresponding Hamiltonian.
 
 ```python
-import QubitOperator                     # Import the QubitOperator module for constructing the Pauli operator
-import Hamiltonian                       # Import the Hamiltonian module for building the Hamiltonian
+from mindquantum.core.operators import QubitOperator                     # Import the QubitOperator module for constructing the Pauli operator
+from mindquantum.core.operators import Hamiltonian                       # Import the Hamiltonian module for building the Hamiltonian
 
 bitOperator(f'Z{i}')) for i in [2, 3]]   # Perform the Pauli Z operator measurement on the 2nd and 3rd qubits respectively, and set the coefficients to 1 to construct the corresponding Hamiltonian
 ```
