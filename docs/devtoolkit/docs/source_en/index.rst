@@ -15,7 +15,7 @@ System Requirements
 
 MindSpore Dev Toolkit is a `PyCharm <https://www.jetbrains.com/pycharm/>`_ plug-in. PyCharm is a cross-platform Python IDE.
 
-- OSs supported by the plug-in:
+- Operating systems supported by the plug-in:
 
   - Windows 10
 
