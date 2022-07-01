@@ -69,6 +69,6 @@ MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
    compiling
    mindspore_project_wizard
    operator_search
-   search
+   knowledge_search
    smart_completion
 

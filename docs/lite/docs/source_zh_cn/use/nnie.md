@@ -297,7 +297,7 @@ cd /user/mindspore
 
         在加载模型之后，在用户调用`mindspore::Model::Build`接口进行模型编译前，通过调用`mindspore::Model::LoadConfig`接口，将配置文件路径传入实现配置，一个nnie配置文件内容示例如下：
 
-        ```txt
+        ```text
         [nnie]
         TimeStep=1
         MaxROINum=0
@@ -309,7 +309,7 @@ cd /user/mindspore
 
         在加载模型之后，在用户调用`mindspore::Model::Build`接口进行模型编译前，通过调用`mindspore::Model::UpdateConfig`接口，也可以配置以上配置项，如下示例所示：
 
-        ```txt
+        ```text
         // ms_model是`mindspore::Model`类的一个实例
         ms_model.UpdateConfig("nnie", std::make_pair("TimeStep", "1"));
         ms_model.UpdateConfig("nnie", std::make_pair("MaxROINum", "0"));

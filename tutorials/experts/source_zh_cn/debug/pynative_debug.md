@@ -47,7 +47,7 @@ print("grads: ", grads)
 
 1. 用户通过在脚本中导入“pdb”，即可使用pdb的断点调试功能，如下：
 
-```import
+```python
 import pdb
 ```
 

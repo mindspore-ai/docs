@@ -299,7 +299,7 @@ For the integrated use of NNIE, there are the following precautions:
 
         After loading the model, before the user calls the `mindspore::Model::Build` interface to compile the model, the path of the configuration file is passed into the implementation configuration by calling the `mindspore::Model::LoadConfig` interface. An example of the content of a NNIE configuration file is as follows:
 
-        ```txt
+        ```text
         [nnie]
         TimeStep=1
         MaxROINum=0
@@ -311,7 +311,7 @@ For the integrated use of NNIE, there are the following precautions:
 
         After loading the model, the user can also configure the above configuration items by calling the `mindspore::Model::UpdateConfig` interface before calling the `mindspore::Model::Build` interface for model compilation, as shown in the following example :
 
-        ```txt
+        ```text
         // ms_model is an instance of the `mindspore::Model` class
         ms_model.UpdateConfig("nnie", std::make_pair("TimeStep", "1"));
         ms_model.UpdateConfig("nnie", std::make_pair("MaxROINum", "0"));
