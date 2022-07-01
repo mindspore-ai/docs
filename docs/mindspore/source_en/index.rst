@@ -12,7 +12,6 @@ MindSpore Documentation
    :caption: Design
    :hidden:
 
-   design/white_paper
    design/auto_gradient
    design/distributed_training_design
    design/mindir
@@ -23,15 +22,13 @@ MindSpore Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Note
+   :caption: Specification
    :hidden:
 
    note/benchmark
    note/network_list
    note/operator_list
    note/syntax_list
-   note/env_var_list
-   note/api_mapping
 
 .. toctree::
    :glob:
@@ -60,6 +57,15 @@ MindSpore Documentation
    api_python/mindspore.scipy
    api_python/mindspore.boost
    C++ API↗ <https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html>
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: API Mapping
+   :hidden:
+
+   note/api_mapping/pytorch_api_mapping
+   note/api_mapping/tensorflow_api_mapping
 
 .. toctree::
    :glob:
@@ -109,7 +115,7 @@ MindSpore Documentation
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/white_paper.html" class="article-link">
+                     <a href="./design/auto_gradiant.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Design</span>
@@ -159,7 +165,7 @@ MindSpore Documentation
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/api_mapping.html" class="article-link">
+                     <a href="./note/api_mapping/pytorch_api_mapping.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">API Mapping</span>

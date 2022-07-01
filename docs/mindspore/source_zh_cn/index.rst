@@ -12,7 +12,6 @@ MindSpore 文档
    :caption: 设计
    :hidden:
 
-   design/white_paper
    design/all_scenarios
    design/auto_gradient
    design/dynamic_graph_and_static_graph
@@ -29,13 +28,12 @@ MindSpore 文档
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 参考
+   :caption: 规格
    :hidden:
 
    note/benchmark
    note/network_list
    note/operator_list
-   note/env_var_list
    note/syntax_list
    note/api_mapping
 
@@ -66,6 +64,15 @@ MindSpore 文档
    api_python/mindspore.scipy
    api_python/mindspore.boost
    C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: API映射
+   :hidden:
+
+   note/api_mapping/pytorch_api_mapping
+   note/api_mapping/tensorflow_api_mapping
 
 .. toctree::
    :glob:
@@ -117,7 +124,7 @@ MindSpore 文档
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/white_paper.html" class="article-link">
+                     <a href="./design/all_scenarios.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">设计</span>
@@ -167,7 +174,7 @@ MindSpore 文档
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/api_mapping.html" class="article-link">
+                     <a href="./note/api_mapping/pytorch_api_mapping.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">API映射</span>

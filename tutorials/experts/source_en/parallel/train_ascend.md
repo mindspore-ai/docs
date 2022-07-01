@@ -574,7 +574,7 @@ OpenMPI multi-host training generally adopts the way of configuring hostfile, ad
 
 ### Non-sink Mode Training
 
-In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/en/master/note/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`.
+In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/tutorials/experts/en/master/env/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`.
 
 ## Saving and Loading Distributed Training Model Parameters
 
