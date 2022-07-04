@@ -35,7 +35,6 @@ MindSpore 文档
    note/network_list
    note/operator_list
    note/syntax_list
-   note/api_mapping
 
 .. toctree::
    :glob:
