@@ -2462,7 +2462,7 @@ virtual void *Prepare(void *ptr)
 
 #### aligned_size_
 
-内存对齐的字节数。
+内存对齐的字节数。默认值: `32` 。
 
 ## Status
 
@@ -2477,7 +2477,7 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 ~Status() = default;
 ```
 
-#### Prepare
+#### StatusCode
 
 ```cpp
 enum StatusCode StatusCode() const;
