@@ -98,7 +98,7 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 from PIL import Image
 import mindspore as ms
 from mindspore_xai.explainer import GradCAM
-from mindspore_xai.visual.cv.saliency import saliency_to_image
+from mindspore_xai.visual.cv import saliency_to_image
 
 # usually specify the last convolutional layer
 grad_cam = GradCAM(net, layer="layer4")
@@ -227,7 +227,7 @@ Now we can use `RISEPlus` with the trained `OoDNet`:
 
 ```python
 from PIL import Image
-from mindspore_xai.visual.cv.saliency import saliency_to_image
+from mindspore_xai.visual.cv import saliency_to_image
 
 # create a new classifier as the underlying when loading OoDNet from a checkpoint
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)

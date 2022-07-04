@@ -99,7 +99,7 @@ from PIL import Image
 import mindspore as ms
 from mindspore import Tensor
 from mindspore_xai.explainer import GradCAM
-from mindspore_xai.visual.cv.saliency import saliency_to_image
+from mindspore_xai.visual.cv import saliency_to_image
 
 # 通常指定最后一层的卷积层
 grad_cam = GradCAM(net, layer="layer4")
@@ -228,7 +228,7 @@ class MyLeNet5(nn.Cell):
 
 ```python
 from PIL import Image
-from mindspore_xai.visual.cv.saliency import saliency_to_image
+from mindspore_xai.visual.cv import saliency_to_image
 
 # 如果是要从 checkpoint 文件读取 OoDNet 的权重，我们就要传入一个新构造的下游分类器对象
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
