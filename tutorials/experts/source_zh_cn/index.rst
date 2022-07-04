@@ -80,6 +80,5 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption:
 
    env/env_var_list
