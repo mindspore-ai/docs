@@ -143,7 +143,11 @@ net = lenet(num_classes=10, pretrained=False)
 
 # Load parameters to the network.
 ms.load_param_into_net(net, param_dict)
-model = Model(net, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
+
+# Redefine an optimizer function.
+net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
+
+model = ms.Model(net, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
 ```
 
 - The `load_checkpoint` method loads the network parameters in the parameter file to the `param_dict` dictionary.
