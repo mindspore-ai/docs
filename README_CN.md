@@ -113,7 +113,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
       sudo apt install doxygen
       ```
 
-3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/r1.8/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/r1.8/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/r1.8/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/r1.8/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
 ## 版权
 

@@ -1,6 +1,6 @@
 # 模型加密保护
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -9,7 +9,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 
 以下通过示例来介绍加密导出和解密加载的方法。
 
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## 安全导出CheckPoint文件
 
@@ -130,7 +130,7 @@ graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode=decryp
 
 > 使用自定义加解密对模型进行导出加载时，MindSpore框架不会对加解密函数的正确性进行验证，需用户自行检查算法。
 
-对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html)：
+对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/r1.8/api_cpp/mindspore.html)：
 
 在加载密文模型时，通过指定`dec_key`和`dec_mode`对模型进行解密。
 

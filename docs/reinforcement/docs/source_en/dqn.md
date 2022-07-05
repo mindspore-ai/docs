@@ -1,6 +1,6 @@
 # Deep Q Learning (DQN) with MindSpore Reinforcement
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## summary
 
@@ -62,7 +62,7 @@ A top-level entry has sub-entries that describe the component. The *number* entr
 
 For the DQN algorithm, we configure one actor `'number': 1`, its Python class `'type': DQNActor`, and three behaviour policies `'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`.
 
-Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/master/reinforcement.html) for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/r1.8/reinforcement.html) for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 

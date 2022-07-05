@@ -1,6 +1,6 @@
 # 网络构建与训练常见错误分析
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/mindrt_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/mindrt_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 静态图模式下，网络构建与训练过程的常见的报错类型如下表所示：
 
@@ -59,7 +59,7 @@
 
         参考实例链接：
 
-        [MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/master/faq/network_compilation.html?highlight=type%20join%20failed)
+        [MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/r1.8/faq/network_compilation.html?highlight=type%20join%20failed)
 
         for语句以及while语句可能存在循环次数过大，导致函数调用栈超限的问题。报错信息如下所示：
 

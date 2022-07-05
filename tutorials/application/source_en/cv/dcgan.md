@@ -1,6 +1,6 @@
 # Generating Cartoon Head Portrait via DCGAN
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/dcgan.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/application/source_en/cv/dcgan.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 In the following tutorial, we will use sample code to show how to set up the network, optimizer, calculate the loss function, and initialize the model weight. This [Anime Avatar Face Image Dataset](https://download.mindspore.cn/dataset/Faces/faces.zip) contains 70,171 96 x 96 anime avatar face images.
 
@@ -268,7 +268,7 @@ MindSpore encapsulates the loss function and optimizer into cells. Due to the pa
 
 ## Loss Function
 
-When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used to add the loss function and optimizer to `D` and `G`.
+When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used to add the loss function and optimizer to `D` and `G`.
 
 - Connect the generator and loss function. The code is as follows:
 

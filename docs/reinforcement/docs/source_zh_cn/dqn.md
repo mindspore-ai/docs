@@ -1,6 +1,6 @@
 # 使用MindSpore Reinforcement实现深度Q学习（DQN）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 摘要
@@ -63,7 +63,7 @@ algorithm_config = {
 
 对于DQN算法，我们配置了一个Actor `'number': 1`，它的Python类`'type': DQNActor`，以及三个行为策略`'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`。
 
-其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/reinforcement.html)。
+其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/r1.8/reinforcement.html)。
 
 请注意，MindSpore Reinforcement使用单个*policy*类来定义算法使用的所有策略和神经网络。通过这种方式，它隐藏了策略和神经网络之间数据共享和通信的复杂性。
 

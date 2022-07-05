@@ -5,10 +5,10 @@ MindSpore Dev Toolkit is a development kit for MindSpore developers. It uses tec
 
 MindSpore Dev Toolkit provides the following functions:
 
-- `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/master/mindspore_project_wizard.html>`_
-- `Code completion <https://www.mindspore.cn/devtoolkit/docs/en/master/smart_completion.html>`_
-- `Operator search <https://www.mindspore.cn/devtoolkit/docs/en/master/operator_search.html>`_
-- `Document search <https://www.mindspore.cn/devtoolkit/docs/en/master/knowledge_search.html>`_
+- `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/r1.8/mindspore_project_wizard.html>`_
+- `Code completion <https://www.mindspore.cn/devtoolkit/docs/en/r1.8/smart_completion.html>`_
+- `Operator search <https://www.mindspore.cn/devtoolkit/docs/en/r1.8/operator_search.html>`_
+- `Document search <https://www.mindspore.cn/devtoolkit/docs/en/r1.8/knowledge_search.html>`_
 
 System Requirements
 ------------------------------
@@ -58,7 +58,7 @@ Installation
 Source Code Build
 ----------------------------
 
-See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs/en/master/compiling.html>`_.
+See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs/en/r1.8/compiling.html>`_.
 
 .. toctree::
    :glob:

@@ -1,6 +1,6 @@
 # Using CV Benchmarks
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_cv_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_en/using_cv_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## What are CV Benchmarks
 
@@ -8,9 +8,9 @@ Benchmarks are algorithms evaluating the goodness of saliency maps from explaine
 
 ## Preparations
 
-The complete code of the tutorial below is [using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_benchmarks.py).
+The complete code of the tutorial below is [using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/r1.8/examples/using_cv_benchmarks.py).
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_cv_explainers.html#downloading-data-package) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.8/using_cv_explainers.html#downloading-data-package) instructions to download the necessary files for the tutorial.
 
 With the tutorial package, we have to get the sample image, trained classifier, explainer and optionally the saliency map ready:
 

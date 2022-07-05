@@ -1,6 +1,6 @@
 # Using TB-Net Whitebox Recommendation Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_tbnet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_en/using_tbnet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## What is TB-Net
 
@@ -53,11 +53,11 @@ mv data xai/models/whitebox/tbnet
 
 ### Preparing Python Environment
 
-TB-Net is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html). GPUs are supported.
+TB-Net is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/r1.8/installation.html). GPUs are supported.
 
 ## Data Pre-processing
 
-The complete example code of this step is [preprocess.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/preprocess.py).
+The complete example code of this step is [preprocess.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/preprocess.py).
 
 Before training the TB-Net, we have to convert the source datafile to relation path data.
 
@@ -83,7 +83,7 @@ The content of source datafiles for different purposes are slightly different:
 
 - `src_train.csv`: For training, the numbers of rows of `p` rating and `c` + `x` rating items should be roughly the same by re-sampling, there is no need to list all items in every user.
 - `src_test.csv`: For evaluation, very similar to `src_train.csv` but with less amount of data.
-- `src_infer.csv`: For inference, must contain data of ONLY ONE user. ALL `c`, `p` and `x` rating items should be listed. In [preprocess.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/preprocess.py), only the `c` and `x` items are put as recommendation candidates in path data.
+- `src_infer.csv`: For inference, must contain data of ONLY ONE user. ALL `c`, `p` and `x` rating items should be listed. In [preprocess.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/preprocess.py), only the `c` and `x` items are put as recommendation candidates in path data.
 
 ### Converting to Relation Path Data
 
@@ -143,7 +143,7 @@ Dataset `./data/stream` will be processed with path data `train.csv`, `test.csv`
 
 ## Training and Evaluation
 
-The complete example code of this step is [train.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/train.py).
+The complete example code of this step is [train.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/train.py).
 
 ```python
 from src.tbnet import TBNet, NetWithLossCell, TrainStepWrapCell, EvalNet
@@ -177,7 +177,7 @@ for i in range(args.epochs):
     print(f'checkpoint saved: {ckpt_path}')
 ```
 
-We can see from the above code snap of [train.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/train.py) that `tbnet.py`, `metrics.py` and `dataset.py` provides all the classes for training TB-Net like other MindSpore models. It trains with dataset created from `./data/steam/train.csv` and `./data/steam/test.csv` (for evaluation).
+We can see from the above code snap of [train.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/train.py) that `tbnet.py`, `metrics.py` and `dataset.py` provides all the classes for training TB-Net like other MindSpore models. It trains with dataset created from `./data/steam/train.csv` and `./data/steam/test.csv` (for evaluation).
 
 ### Running train.py
 
@@ -191,7 +191,7 @@ python train.py
 
 ## Inference with Explanations
 
-The complete example code of this step is [infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py).
+The complete example code of this step is [infer.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/infer.py).
 
 ```python
 from src.tbnet import TBNet
@@ -234,7 +234,7 @@ for suggest in suggestions:
             break
 ```
 
-We can see from the above code snap of [infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py) that class `Recommender` aggregates all inference results from TB-Net and gives top-k item recommendations. Each recommended item comes with a sorted list of relation paths beginning from the most important one. All IDs and relation names returned by `Recommender` are from `./data/steam/id_maps.json` that originated from the source datafile `./data/steam/src_train.csv`.
+We can see from the above code snap of [infer.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/infer.py) that class `Recommender` aggregates all inference results from TB-Net and gives top-k item recommendations. Each recommended item comes with a sorted list of relation paths beginning from the most important one. All IDs and relation names returned by `Recommender` are from `./data/steam/id_maps.json` that originated from the source datafile `./data/steam/src_train.csv`.
 
 ### Running infer.py
 
@@ -248,7 +248,7 @@ The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train
 
 ## Exporting Trained Model
 
-The complete example code of this step is [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py).
+The complete example code of this step is [export.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/export.py).
 
 ```python
 import mindspore as ms
@@ -270,7 +270,7 @@ file_name = os.path.realpath(args.file_name)
 ms.export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export).
+The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore/mindspore.export.html#mindspore.export).
 
 ### Running export.py
 
@@ -284,4 +284,4 @@ The trained model will be exported as `./tbnet.mindir`.
 
 ## Example Script Arguments and Model Performance
 
-For the detail descriptions of the example script arguments and model performance, please refer to [README.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README.md).
+For the detail descriptions of the example script arguments and model performance, please refer to [README.md](https://gitee.com/mindspore/xai/blob/r1.8/models/whitebox/tbnet/README.md).

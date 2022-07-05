@@ -1,6 +1,6 @@
 # 使用表格类解释器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_zh_cn/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 简介
 
@@ -15,7 +15,7 @@
 |  SHAPKernel  |       支持        |     支持     |
 | SHAPGradient |       支持        |  <blank>   |
 
-以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
+以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/r1.8/examples/using_tabular_explainers.py).
 
 ## 准备数据集
 

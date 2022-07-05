@@ -1,6 +1,6 @@
 # 剪枝算法概述
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/pruner/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_zh_cn/pruner/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文是在介绍具体的剪枝算法之前，介绍一些剪枝算法的基本概念，帮助用户理解。如果已经对剪枝算法有较深的理解，可以直接跳转到[示例](#示例)小节。
 
@@ -20,4 +20,4 @@
 
 ## 示例
 
-当前版本中，金箍棒提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/pruner/scop.html)了解如何应用金箍棒中的剪枝算法。
+当前版本中，金箍棒提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.8/pruner/scop.html)了解如何应用金箍棒中的剪枝算法。

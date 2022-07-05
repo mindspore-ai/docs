@@ -1,6 +1,6 @@
 # 使用成员推理测试模型安全性
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/test_model_security_membership_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/test_model_security_membership_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -12,7 +12,7 @@
 
 >本例面向Ascend 910处理器，您可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
+><https://gitee.com/mindspore/mindarmour/blob/r1.8/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## 实现阶段
 

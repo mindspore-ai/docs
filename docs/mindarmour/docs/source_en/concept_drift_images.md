@@ -1,6 +1,6 @@
 # Implementing the Concept Drift Detection Application of Image Data
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_en/concept_drift_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ This example provides a method for detecting a distribution change of image data
 5. Execute the concept drift detection function.
 6. View the execution result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_check_images_lenet.py>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/blob/r1.8/examples/reliability/concept_drift_check_images_lenet.py>.
 
 ## Preparations
 

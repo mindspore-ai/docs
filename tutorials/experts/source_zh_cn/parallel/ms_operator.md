@@ -1,6 +1,6 @@
 # 在K8S集群上进行分布式训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 MindSpore Operator 是遵循Kubernetes的Operator模式（基于CRD-Custom Resource Definition功能），实现的在Kubernetes上进行分布式训练的插件。其中，MindSpore Operator在CRD中定义了Scheduler、PS、Worker三种角色，用户只需通过简单的YAML文件配置，就可以轻松地在K8S上使用MindSpore进行分布式训练。MindSpore Operator的代码仓详见：[ms-operator](https://gitee.com/mindspore/ms-operator/)。
 
@@ -36,7 +36,7 @@ MindSpore Operator 是遵循Kubernetes的Operator模式（基于CRD-Custom Resou
 
 当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。
 
-在[config/samples/](https://gitee.com/mindspore/ms-operator/tree/master/config/samples)中有运行样例。以数据并行的Scheduler、Worker启动为例，其中数据集和网络脚本需提前准备：
+在[config/samples/](https://gitee.com/mindspore/ms-operator/tree/r1.8/config/samples)中有运行样例。以数据并行的Scheduler、Worker启动为例，其中数据集和网络脚本需提前准备：
 
 ```shell
 kubectl apply -f config/samples/ms_wide_deep_dataparallel.yaml

@@ -5,10 +5,10 @@ MindSpore Dev Toolkit是一款面向MindSpore开发者的开发套件。通过�
 
 MindSpore Dev Toolkit目前提供以下四项功能：
 
-- `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/mindspore_project_wizard.html>`_
-- `智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/smart_completion.html>`_
-- `算子互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/operator_search.html>`_
-- `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/knowledge_search.html>`_
+- `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/mindspore_project_wizard.html>`_
+- `智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/smart_completion.html>`_
+- `算子互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/operator_search.html>`_
+- `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/knowledge_search.html>`_
 
 系统需求
 ------------------------------
@@ -58,7 +58,7 @@ MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 源码构建
 ----------------------------
 
-请阅读 `源码编译指导 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/compiling.html>`_ 。
+请阅读 `源码编译指导 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/compiling.html>`_ 。
 
 .. toctree::
    :glob:

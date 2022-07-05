@@ -1,6 +1,6 @@
 # Using Tabular Explainers
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_en/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction
 
@@ -15,7 +15,7 @@ All explainers support `PYNATIVE_MODE`. All explainers except `SHAPGradient` sup
 |  SHAPKernel  |      Supported      |     Supported      |
 | SHAPGradient |      Supported      |      <blank>       |
 
-The complete code of the tutorial below is [using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
+The complete code of the tutorial below is [using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/r1.8/examples/using_tabular_explainers.py).
 
 ## Import Dataset
 
