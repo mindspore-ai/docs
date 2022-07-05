@@ -37,12 +37,11 @@ $$H=\sum_{(i,j)\in C}(Z_iZ_j-1)/2$$
 ## Importing Dependencies
 
 ```python
-from mindquantum.simulator import Simulator
-from mindquantum.core import Circuit
-from mindquantum.core import Hamiltonian, UN
-from mindquantum.core import H, ZZ, RX
+from mindquantum.core.circuit import Circuit, UN
+from mindquantum.core.gates import H, ZZ, RX
+from mindquantum.core.operators import Hamiltonian, QubitOperator
 from mindquantum.framework import MQAnsatzOnlyLayer
-from mindquantum.core import QubitOperator
+from mindquantum.simulator import Simulator
 import networkx as nx
 import mindspore.nn as nn
 import numpy as np

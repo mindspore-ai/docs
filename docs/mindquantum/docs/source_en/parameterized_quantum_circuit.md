@@ -20,7 +20,7 @@ Import required modules.
 ```python
 import numpy as np
 import mindquantum as mq
-from mindquantum.core import H, X, Y, RY, RX
+from mindquantum.core.gates import H, X, Y, RY, RX
 ```
 
 ## Quantum Gate
@@ -159,7 +159,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
 By continuously adding quantum gates acting on different bits to the quantum circuit, the construction of the quantum circuit can be completed quickly.
 
 ```python
-from mindquantum.core import Circuit
+from mindquantum.core.circuit import Circuit
 
 encoder = Circuit()
 encoder += H.on(0)

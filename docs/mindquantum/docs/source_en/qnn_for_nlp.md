@@ -20,14 +20,14 @@ Import relevant dependencies of the tutorial.
 ```python
 import numpy as np
 import time
-from mindquantum.core import QubitOperator
 import mindspore as ms
 import mindspore.ops as ops
 import mindspore.dataset as ds
 from mindspore import nn
 from mindquantum.framework import MQLayer
-from mindquantum.core import Hamiltonian, RX, RY, X, H
-from mindquantum.core import Circuit, UN
+from mindquantum.core.gates import RX, RY, X, H
+from mindquantum.core.circuit import Circuit, UN
+from mindquantum.core.operators import Hamiltonian, QubitOperator
 ```
 
 This tutorial implements a [CBOW model](https://blog.csdn.net/u010665216/article/details/78724856), which predicts a word based on its position. For example, "I love natural language processing", this sentence can be divided by five words, which are \["I", "love", "natural", "language", "processing"\]. When the selected window is 2, the task to be completed would be to predict the word "natural" given \[“I”, “love”, “language”, “processing”\]. In the following, we will build a quantum neural network for word embedding to deal with the this task.
