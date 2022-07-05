@@ -723,7 +723,7 @@ MindSpore支持类型：
 
 dict() 函数：用于创建一个字典。此外 dict 还可以返回对象的有效属性列表，由于涉及一些自定义类别，MindSpore 暂时不支持。
 
-MindSpore 当前 dict 支支持 String 为 key，不支持其他类型为 key。
+MindSpore 当前 dict 支持 String 为 key，不支持其他类型为 key。
 
 ```python
 import mindspore as ms
