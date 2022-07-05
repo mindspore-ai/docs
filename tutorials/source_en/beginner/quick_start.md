@@ -1,6 +1,6 @@
 # Quickstart: Handwritten Digit Recognition
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This section runs through the basic process of MindSpore deep learning, using the LeNet5 network model as an example to implement common tasks in deep learning.
 
@@ -12,7 +12,7 @@ Datasets are crucial for model training. A good dataset can effectively improve 
 
 > You can download the dataset from [MNIST dataset download page](http://yann.lecun.com/exdb/mnist/), decompress it, and save it according to the following directory structure.
 
-The [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
+The [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.8/index.html) suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
 
 ```python
 from mindvision.dataset import Mnist
@@ -163,14 +163,14 @@ ms.load_param_into_net(network, param_dict)
 []
 ```
 
-> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/r1.8/beginner/save_load.html#loading-the-model).
 
 ## Validating the Model
 
 Use the generated model to predict the classification of a single image. The procedure is as follows:
 
 > - The predicted image is randomly generated, and the execution result may be different each time.
-> - The example uses the mindspore Tensor module, please see [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html).
+> - The example uses the mindspore Tensor module, please see [Tensor](https://www.mindspore.cn/tutorials/en/r1.8/beginner/tensor.html).
 
 ```python
 import numpy as np

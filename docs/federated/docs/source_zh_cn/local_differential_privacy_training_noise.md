@@ -1,6 +1,6 @@
 # 局部差分隐私加噪训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/federated/docs/source_zh_cn/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 联邦学习过程中，用户数据仅用于客户端设备的本地训练，不需要上传至中心服务器，可以避免泄露用户个人数据。然而，传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。攻击者获取到客户端上传的明文模型后，可以通过重构、模型逆向等攻击方式，恢复参与学习的用户个人数据，导致用户隐私泄露。
 

@@ -1,6 +1,6 @@
 # 比较与tf.image.rot90的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/rot90.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/rot90.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.image.rot90
 
@@ -26,7 +26,7 @@ class mindspore.dataset.vision.Rotate(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.Rotate](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Rotate.html#mindspore.dataset.vision.Rotate)。
+更多内容详见[mindspore.dataset.vision.Rotate](https://mindspore.cn/docs/zh-CN/r1.8/api_python/dataset_vision/mindspore.dataset.vision.Rotate.html#mindspore.dataset.vision.Rotate)。
 
 ## 使用方式
 

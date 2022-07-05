@@ -1,6 +1,6 @@
 # Android Application Development Based on JNI Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -30,7 +30,7 @@ In addition, you can use the preset model to perform transfer learning to implem
 
 ## Converting a Model
 
-After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the .mindir format to a .ms model.
+After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorials/en/r1.8/advanced/train/save.html#export-mindir-model). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/docs/en/r1.8/use/converter_tool.html) to convert the .mindir format to a .ms model.
 
 Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 
@@ -78,13 +78,13 @@ The following section describes how to build and execute an on-device image clas
 
     ![install](../images/app1.png)
 
-    By default, the MindSpore Vision classification module has a built-in general AI network model to identify and classify images. You can also [custom model](https://mindspore.cn/tutorials/en/master/beginner/infer.html) for debugging on the APP.
+    By default, the MindSpore Vision classification module has a built-in general AI network model to identify and classify images. You can also [custom model](https://mindspore.cn/tutorials/en/r1.8/beginner/infer.html) for debugging on the APP.
 
    ![result](../images/app2.png)
 
 ## Detailed Description of the Sample Program  
 
-The Android sample program for image classification on the device is divided into the JAVA layer and the JNI layer. The JAVA layer mainly completes the rendering function of the Android page and the subsequent inference operation of obtaining an image by taking a photo or opening the mobile phone album, while the JNI layer is in [Runtime](https://www.mindspore.cn/lite/docs/en/master/use/runtime.html) to complete the process of model inference.
+The Android sample program for image classification on the device is divided into the JAVA layer and the JNI layer. The JAVA layer mainly completes the rendering function of the Android page and the subsequent inference operation of obtaining an image by taking a photo or opening the mobile phone album, while the JNI layer is in [Runtime](https://www.mindspore.cn/lite/docs/en/r1.8/use/runtime.html) to complete the process of model inference.
 
 > The JNI layer implementation of the sample program, the implementation of the JAVA layer page rendering function, and the image frame processing and other functions are described in detail here. The reader needs to have a certain basic knowledge of Android development.
 
@@ -127,7 +127,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/r1.8/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
 In this example, the build process automatically downloads the `mindspore-lite-{version}-android-{arch}.tar.gz` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
@@ -135,7 +135,7 @@ In this example, the build process automatically downloads the `mindspore-lite-{
 >
 > arch: Operating system arm64 or arm32.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-android-{arch}` folder to the directory of `src/main/cpp`.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/r1.8/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-android-{arch}` folder to the directory of `src/main/cpp`.
 
 ```text
 android{

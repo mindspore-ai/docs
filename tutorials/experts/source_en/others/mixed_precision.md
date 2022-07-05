@@ -1,6 +1,6 @@
 # Enabling Mixed Precision
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -85,9 +85,9 @@ The specific implementation steps for using the `Model` interface are:
 
 2. Define a network: This step is the same as that for defining a common network (no new configuration is required).
 
-3. Create a dataset: For this step, refer to [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
+3. Create a dataset: For this step, refer to [Data Processing](https://www.mindspore.cn/tutorials/en/r1.8/advanced/dataset.html).
 
-4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
+4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.Model.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
 
 The following is a basic code example. First, import the required libraries and declarations, and define the LeNet-5 network model.
 
@@ -322,7 +322,7 @@ The dynamic loss scale algorithm is as follows:
 
 ## Loss scale used in MindSpore
 
-The following two APIs in MindSpore that use the loss scaling algorithm are described separately  [FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.FixedLossScaleManager.html) and [DynamicLossScaleManager]( https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.DynamicLossScaleManager.html).
+The following two APIs in MindSpore that use the loss scaling algorithm are described separately  [FixedLossScaleManager](https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.FixedLossScaleManager.html) and [DynamicLossScaleManager]( https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.DynamicLossScaleManager.html).
 
 ### FixedLossScaleManager
 

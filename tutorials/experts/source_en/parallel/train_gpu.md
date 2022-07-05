@@ -1,6 +1,6 @@
 # Distributed Parallel Training Example (GPU)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ This tutorial describes how to train a ResNet-50 network by using a CIFAR-10 dat
 
 > You can download the complete sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/r1.8/docs/sample_code/distributed_training>
 
 The directory structure is as follows:
 
@@ -189,7 +189,7 @@ Unlike stand-alone machines, the `num_shards` and `shard_id` parameters need to 
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py).
+In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/resnet/resnet.py).
 
 > - In semi-automatic parallel mode, operators without a policy configured default to data parallelism.
 > - The automatic parallel mode supports automatically obtaining efficient operator parallel policies through the policy search algorithm, and also allows users to manually configure specific parallel policies for operators.
@@ -197,7 +197,7 @@ In the **Data Parallelism** and **Auto Parallelism** modes, the network is defin
 
 ## Defining the Loss Function and Optimizer
 
-Consistent with the [Distributed Parallel Training Basics Sample](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) on Ascend.
+Consistent with the [Distributed Parallel Training Basics Sample](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/train_ascend.html) on Ascend.
 
 ### Defining the Loss Function
 
@@ -299,7 +299,7 @@ The following takes the distributed training script for eight devices as an exam
 
 > Obtain the running script of the example from:
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh>
+> <https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/distributed_training/run_gpu.sh>
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 
@@ -390,7 +390,7 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## Saving and Loading the Distributed Training Model Parameter
 
-When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
+When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
 
 ## Training without Relying on OpenMPI
 
@@ -398,9 +398,9 @@ Due to training safety and reliability requirements, MindSpore GPUs also support
 
 OpenMPI plays the role of synchronizing data and inter-process networking on the Host side in distributed training scenarios. MindSpore replaces openMPI capabilities by **reusing the Parameter Server mode training architecture**.
 
-Refer to the [Parameter Server Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial to start multiple MindSpore training processes as `Workers`, and start an additional `Scheduler` with minor modifications to the script. You can perform **distributed training without relying on OpenMPI**.
+Refer to the [Parameter Server Mode](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/parameter_server_training.html) training tutorial to start multiple MindSpore training processes as `Workers`, and start an additional `Scheduler` with minor modifications to the script. You can perform **distributed training without relying on OpenMPI**.
 
-Before executing the Worker script, you need to export environment variables, such as [Environment Variable Settings](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting):
+Before executing the Worker script, you need to export environment variables, such as [Environment Variable Settings](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/parameter_server_training.html#environment-variable-setting):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -418,9 +418,9 @@ On GPU hardware platform, the following shows how to run a distributed training 
 
 > You can find the running directory of the sample here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> <https://gitee.com/mindspore/docs/tree/r1.8/docs/sample_code/distributed_training>.
 
-Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
+Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
 
 ```python
 import mindspore as ms
@@ -440,7 +440,7 @@ Where:
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
 - By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl") can be called, otherwise the initialization of the networking will fail.
 
-To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
+To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
 
 The script content `run_gpu_cluster.sh` is as follows, before starting the Worker and Scheduler, you need to add the relevant environment variable settings:
 
@@ -612,7 +612,7 @@ To support SSL security authentication between nodes/processes, to enable securi
 - cipher_list: Cipher suites (list of supported SSL encryption types).
 - cert_expire_warning_time_in_day: the alarm time when the certificate expires.
 
-The key in the p12 file is stored in ciphertext, and the password needs to be passed in at startup. For specific parameters, please refer to `client_password` and `server_password` fields in the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context).
+The key in the p12 file is stored in ciphertext, and the password needs to be passed in at startup. For specific parameters, please refer to `client_password` and `server_password` fields in the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context).
 
 ### Disaster Tolerance Recovery
 
@@ -646,7 +646,7 @@ Each Worker turns on save checkpoint and uses a different path (as in the exampl
 
 > The running directory of the sample:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> <https://gitee.com/mindspore/docs/tree/r1.8/docs/sample_code/distributed_training>.
 
 The scripts involved are `run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`. The script content `run_gpu_cluster_recovery.sh` is as follows:
 

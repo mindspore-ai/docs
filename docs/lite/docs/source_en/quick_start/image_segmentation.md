@@ -1,6 +1,6 @@
 # Android Application Development Based on Java Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -101,13 +101,13 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
+Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/r1.8/use/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
 
 > version: version number in the output file, which is the same as the version number of the built branch code.
 
 In this example, the MindSpore Lite version file is automatically downloaded using the `app/download.gradle` file during the build process and stored in the `app/libs` directory.
 
-Note: If the automatic download fails, manually download the related library file [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), decompress it, and save it to the corresponding directory.
+Note: If the automatic download fails, manually download the related library file [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/r1.8/use/downloads.html), decompress it, and save it to the corresponding directory.
 
 ### Downloading and Deploying the Model File
 

@@ -1,6 +1,6 @@
 # Parameter Server模式
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -31,12 +31,12 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 1. 首先调用`mindspore.set_ps_context(enable_ps=True)`开启Parameter Server训练模式.
 
     - 此接口需在`mindspore.communication.init()`之前调用。
-    - 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html#环境变量设置)则不会生效。
+    - 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/parallel/parameter_server_training.html#环境变量设置)则不会生效。
     - 调用`mindspore.reset_ps_context()`可以关闭Parameter Server训练模式。
 
 2. 然后调用`mindspore.communication.init()`，这一步骤初始化分布式训练，包括`Server`、`Worker`和`Scheduler`三种节点的组网，集合通信初始化(HCCL, NCCL)。
 
-    - MindSpore 1.8.0版本及以后，不再支持使用`mpirun`启动Parameter Server训练，MindSpore使用内置通信模块进行集群搭建以及集合通信初始化，因此`Worker`进程侧的数据并行/自动并行等特性依旧能够使用，详见[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#%E4%B8%8D%E4%BE%9D%E8%B5%96openmpi%E8%BF%9B%E8%A1%8C%E8%AE%AD%E7%BB%83)。
+    - MindSpore 1.8.0版本及以后，不再支持使用`mpirun`启动Parameter Server训练，MindSpore使用内置通信模块进行集群搭建以及集合通信初始化，因此`Worker`进程侧的数据并行/自动并行等特性依旧能够使用，详见[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/parallel/train_gpu.html#%E4%B8%8D%E4%BE%9D%E8%B5%96openmpi%E8%BF%9B%E8%A1%8C%E8%AE%AD%E7%BB%83)。
 
 3. 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新，并且可以控制参数初始化位置：
 
@@ -54,7 +54,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
     network.set_param_ps()
     ```
 
-5. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。Embedding cache支持sparse模式，需要将所有开启cache的`EmbeddingLookup`算子的`sparse`参数都设为True，sparse模式会对该算子输入的特征id做去重处理，以降低计算与通信量。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>。
+5. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。Embedding cache支持sparse模式，需要将所有开启cache的`EmbeddingLookup`算子的`sparse`参数都设为True，sparse模式会对该算子输入的特征id做去重处理，以降低计算与通信量。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>。
 
     ```python
     set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)

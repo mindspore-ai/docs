@@ -1,6 +1,6 @@
 # 发布模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/hub/docs/source_zh_cn/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -27,7 +27,7 @@
    ├── mindspore_hub_conf.py
    ```
 
-3. 参照[模板](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#)，在`hub/mshub_res/assets/mindspore/1.6`文件夹下创建`{model_name}_{dataset}.md`文件，其中`1.6`为MindSpore的版本号，`hub/mshub_res`的目录结构为：
+3. 参照[模板](https://gitee.com/mindspore/hub/blob/r1.8/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#)，在`hub/mshub_res/assets/mindspore/1.6`文件夹下创建`{model_name}_{dataset}.md`文件，其中`1.6`为MindSpore的版本号，`hub/mshub_res`的目录结构为：
 
    ```text
    hub
@@ -51,10 +51,10 @@
    ```
 
    其中，MindSpore Hub支持的模型文件格式有：
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#保存模型)
-   - [MINDIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出mindir格式文件)
-   - [AIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出air格式文件)
-   - [ONNX](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出onnx格式文件)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#保存模型)
+   - [MINDIR](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#导出mindir格式文件)
+   - [AIR](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#导出air格式文件)
+   - [ONNX](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#导出onnx格式文件)
 
    对于每个预训练模型，执行以下命令，用来获得`.md`文件`asset-sha256`处所需的哈希值，其中`googlenet.ckpt`是从步骤1的存储位置处下载并保存到`tools`文件夹的预训练模型，运行后输出的哈希值为`b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`。
 
@@ -69,6 +69,6 @@
    python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md
    ```
 
-5. 在`mindspore/hub`仓创建PR，详细创建方式可以参考[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#)。
+5. 在`mindspore/hub`仓创建PR，详细创建方式可以参考[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/r1.8/CONTRIBUTING.md#)。
 
-一旦你的PR合入到`mindspore/hub`的master分支，你的模型将于24小时内在[MindSpore Hub 网站](https://www.mindspore.cn/resources/hub)上显示。有关模型上传的更多详细信息，请参考[README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#)。
+一旦你的PR合入到`mindspore/hub`的master分支，你的模型将于24小时内在[MindSpore Hub 网站](https://www.mindspore.cn/resources/hub)上显示。有关模型上传的更多详细信息，请参考[README](https://gitee.com/mindspore/hub/blob/r1.8/mshub_res/README.md#)。

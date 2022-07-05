@@ -1,12 +1,12 @@
 # Other Features
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## [Sharding Propagation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html)
+## [Sharding Propagation](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/sharding_propagation.html)
 
 In operator-level parallelism, the user is required to configure a slicing strategy for each operator in the forward network (if not configured, the data-parallel policy is used by default). The slicing strategy propagation feature can configure only a few operators to automatically generate a feasible sharding strategy for operators without a sharding strategy, and achieve the effect of minimizing communication overhead.
 
-## [Parameter Server Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html)
+## [Parameter Server Training](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/parameter_server_training.html)
 
 Parameter Server is a widely used architecture in distributed training, which has better flexibility, scalability, and node disaster tolerance than the AllReduce training method of data parallel synchronization. The parameter server supports both synchronous SGD (Stochastic Gradient Descent) and asynchronous SGD training algorithms. In terms of scalability, the calculation of the model and the update of the model are deployed in the worker and server processes respectively, so that the resources of the worker and server can be scaled horizontally independently (adding or removing the worker and server resources). In addition, in the environment of large-scale data centers, computing equipment, networks and storage often have various failures that lead to some node abnormalities, and under the architecture of parameter servers, such failures can be easily handled without affecting the tasks in training.
 
@@ -22,7 +22,7 @@ When doing distributed training, you need to import the training dataset to each
 
 In dynamic graph mode, you specify that a part of the network structure executes in graph mode and performs various parallel operations.
 
-## [Performing Distributed Training on K8S Clusters](https://www.mindspore.cn/tutorials/experts/en/master/parallel/ms_operator.html)
+## [Performing Distributed Training on K8S Clusters](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/ms_operator.html)
 
 MindSpore Operator is a plugin that follows Kubernetes' Operator pattern (based on the CRD-Custom Resource Definition feature) and implements distributed training on Kubernetes. MindSpore Operator defines Scheduler, PS, worker three roles in CRD, and users can easily use MindSpore on K8S for distributed training through simple YAML file configuration. The code repository of mindSpore Operator is described in: [ms-operator](https://gitee.com/mindspore/ms-operator/).
 

@@ -1,10 +1,10 @@
 # JIT Fallback
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/jit_fallback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/jit_fallback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-MindSpore框架支持静态图模式和动态图模式两种方式。在静态图模式下，先将Python代码编译成静态计算图，然后执行静态计算图。由于语法解析的限制，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)，语法使用存在约束限制。在动态图模式下，Python代码会通过Python解释器执行，用户可以使用任意Python语法。可以看到，静态图和动态图的编译流程不一致，语法约束限制也不同。关于静态图和动态图的更多介绍，请参考[静态图和动态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph.html)。
+MindSpore框架支持静态图模式和动态图模式两种方式。在静态图模式下，先将Python代码编译成静态计算图，然后执行静态计算图。由于语法解析的限制，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.8/note/static_graph_syntax_support.html)，语法使用存在约束限制。在动态图模式下，Python代码会通过Python解释器执行，用户可以使用任意Python语法。可以看到，静态图和动态图的编译流程不一致，语法约束限制也不同。关于静态图和动态图的更多介绍，请参考[静态图和动态图](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/pynative_graph.html)。
 
 JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否使用JIT Fallback特性的能力，提供了开关`MS_DEV_ENABLE_FALLBACK`，当前默认已经打开。如果需要关闭，可以使用命令：`export MS_DEV_ENABLE_FALLBACK=0`。
 
@@ -16,7 +16,7 @@ JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一�
 
 ### 创建和使用Tensor
 
-JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html)，暂不支持Tensor.asnumpy()。
+JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore/mindspore.Tensor.html)，暂不支持Tensor.asnumpy()。
 
 代码用例如下，用例中的`Tensor(1, dtype=mstype.int32)`是通过JIT Fallback支持的。
 
@@ -78,9 +78,9 @@ print(net())
 
 ### 使用Python原生的print打印
 
-JIT Fallback支持在静态图模式下使用Python原生的print来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生print是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
+JIT Fallback支持在静态图模式下使用Python原生的print来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生print是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
 
-为了便于理解，举例如下。tensor_sum涉及Tensor相加，即运行时阶段才能得到结果，在调用print时，实际调用的是静态图模式中的Print算子，参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。而np_num是由两个NumPy常量相加得到的结果，即通过JIT Fallback支持的用法，因此在调用print时，使用的是Python原生print。由于两者的打印时机不同，最终导致显示np_sum在tensor_sum之前，即通过JIT Fallback支持的Python原生print的打印结果会在Print算子之前。
+为了便于理解，举例如下。tensor_sum涉及Tensor相加，即运行时阶段才能得到结果，在调用print时，实际调用的是静态图模式中的Print算子，参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.8/note/static_graph_syntax_support.html)。而np_num是由两个NumPy常量相加得到的结果，即通过JIT Fallback支持的用法，因此在调用print时，使用的是Python原生print。由于两者的打印时机不同，最终导致显示np_sum在tensor_sum之前，即通过JIT Fallback支持的Python原生print的打印结果会在Print算子之前。
 
 ```python
 import numpy as np
@@ -201,7 +201,7 @@ net()
 
 ### 调用Python内置函数
 
-MindSpore在静态图模式下已经支持了一些Python内置函数，包括但不限于len、isinstance、map、zip等，详情请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。通过JIT Fallback，可以在常量场景中支持更多的Python内置函数的用法。下面简单举例支持的部分Python内置函数。
+MindSpore在静态图模式下已经支持了一些Python内置函数，包括但不限于len、isinstance、map、zip等，详情请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.8/note/static_graph_syntax_support.html)。通过JIT Fallback，可以在常量场景中支持更多的Python内置函数的用法。下面简单举例支持的部分Python内置函数。
 
 #### abs()
 
@@ -908,7 +908,7 @@ res: 2
    res: 3.0
    ```
 
-5. 通过JIT Fallback支持的NumPy第三方库，与MindSpore提供的[mindspore.numpy](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.numpy.html)不同。
+5. 通过JIT Fallback支持的NumPy第三方库，与MindSpore提供的[mindspore.numpy](https://mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore.numpy.html)不同。
 
    mindspore.numpy是通过MindSpore框架的算子能力实现的，涉及运行时阶段的算子计算，无法在编译期阶段推导其结果(变量的推导结果为None)。示例代码如下，对`mnp.average(x)`的结果使用Tensor()方法，不符合常量场景的条件，将会引发报错。
 

@@ -1,6 +1,6 @@
 # Saving and Exporting Models
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/train/save.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/advanced/train/save.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ The following uses examples to describe how to save MindSpore CheckPoint files, 
 
 ## Saving the models
 
-The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
+The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.8/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
 
 ### Saving the models during the training
 
@@ -83,7 +83,7 @@ You can use `save_checkpoint` function to save network weight parameters in the 
 
 1. `save_obj` parameter
 
-    The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
+    The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.8/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
 
     ```python
     import mindspore as ms
@@ -122,7 +122,7 @@ You can use `save_checkpoint` function to save network weight parameters in the 
 
 In the transfer learning scenario, when using a pre-trained model for training, the model parameters in the CheckPoint file cannot be used directly, and they need to be modified according to the actual situation to be suitable for the current network model. This section describes how to remove the fully connected layer parameter from a pre-trained model for Resnet50.
 
-First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html).
+First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.8/index.html).
 
 The training model is loaded using the `load_checkpoint` interface, which returns a Ditt type, the dictionary's key is the name of each layer of the network, the type is the character Type Str; the value, dictionary value is the parameter value of the network layer, and the type is Parameter.
 

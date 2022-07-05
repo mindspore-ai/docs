@@ -1,6 +1,6 @@
 <!--  Thanks for sending a pull request!  Here are some tips for you:
 
-If this is your first time, please read our contributor guidelines: https://github.com/mindspore-ai/mindspore/blob/master/CONTRIBUTING.md
+If this is your first time, please read our contributor guidelines: https://github.com/mindspore-ai/mindspore/blob/r1.8/CONTRIBUTING.md
 -->
 
 **What type of PR is this?**

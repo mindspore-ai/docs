@@ -1,6 +1,6 @@
 # Overview
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The following describes the Huawei AI full-stack solution and the position of MindSpore in the solution. Developers who are interested in MindSpore can visit the [MindSpore community](https://gitee.com/mindspore/mindspore) and click [Watch, Star, and Fork](https://gitee.com/mindspore/mindspore).
 
@@ -16,13 +16,13 @@ The following figure shows the overall MindSpore architecture:
 
 - **ModelZoo**: provides available deep learning algorithm networks, and more developers are welcome to contribute new networks. ([ModelZoo](https://gitee.com/mindspore/models))
 - **Extend**: The MindSpore expansion package supports new domain scenarios, such as GNN, deep probabilistic programming, and reinforcement learning. More developers are expected to contribute and build the library.
-- **Science**: MindScience is a scientific computing kit for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre-and post-processing tools that accelerate application development of the scientific computing ([More Information](https://mindspore.cn/mindscience/docs/en/master/index.html)).
+- **Science**: MindScience is a scientific computing kit for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre-and post-processing tools that accelerate application development of the scientific computing ([More Information](https://mindspore.cn/mindscience/docs/en/r1.8/index.html)).
 - **Expression**: Python-based frontend expression and programming interfaces. In the future, Huawei plans to continue to provide interconnection with third-party front-end systems, such as C/C++ and Huawei-developed programming language front-end (currently in the pre-research phase), to introduce more third-party ecosystems.
 - **Data**: provides functions such as efficient data processing, common dataset loading and programming interfaces, and allows users to flexibly define processing registration and pipeline parallel optimization.
 - **Compiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
 - **Runtime**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
-- **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/master/index.html)).
-- **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection. ([Learn more] (<https://mindspore.cn/mindarmour/docs/en/master/index.html>))
+- **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/r1.8/index.html)).
+- **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection. ([Learn more] (<https://mindspore.cn/mindarmour/docs/en/r1.8/index.html>))
 
 ### Execution Process
 

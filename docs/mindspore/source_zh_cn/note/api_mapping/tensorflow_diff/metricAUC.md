@@ -1,6 +1,6 @@
 # 比较与tf.keras.metrics.AUC的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricAUC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricAUC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.keras.metrics.AUC
 
@@ -19,7 +19,7 @@ tf.keras.metrics.AUC(
 mindspore.nn.auc(x, y, reorder=False)
 ```
 
-更多内容详见[mindspore.nn.auc](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.auc.html#mindspore.nn.auc)。
+更多内容详见[mindspore.nn.auc](https://mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.auc.html#mindspore.nn.auc)。
 
 ## 使用方式
 

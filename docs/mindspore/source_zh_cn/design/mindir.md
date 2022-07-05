@@ -1,18 +1,18 @@
 # 中间表达MindIR
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 简介
 
 中间表示（IR）是程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，因此IR的设计需要考虑从源语言到目标语言的转换难度，同时考虑程序分析和优化的易用性和性能。
 
-MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。关于ANF-IR的具体介绍，可以参考[MindSpore IR文法定义](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)。
+MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。关于ANF-IR的具体介绍，可以参考[MindSpore IR文法定义](https://www.mindspore.cn/docs/zh-CN/r1.8/design/mindir.html#文法定义)。
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的一些中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
-- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 文法定义
 
@@ -76,7 +76,7 @@ lambda (x, y)
     c end
 ```
 
-对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/ir.dot)：
+对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/images/ir/ir.dot)：
 
 ![image](./images/ir/ir.png)
 
@@ -104,7 +104,7 @@ def hof(x):
     return res
 ```
 
-对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/hof.dot)：
+对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/images/ir/hof.dot)：
 
 ![image](./images/ir/hof.png)
 
@@ -127,7 +127,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/cf.dot)：
+对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/images/ir/cf.dot)：
 
 ![image](./images/ir/cf.png)
 
@@ -154,7 +154,7 @@ def ms_closure():
     return out1, out2
 ```
 
-对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/closure.dot)：
+对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_zh_cn/design/images/ir/closure.dot)：
 
 ![image](./images/ir/closure.png)
 

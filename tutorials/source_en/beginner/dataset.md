@@ -1,10 +1,10 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
-[mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and datasets in standard formats, enabling users to quickly process data. For an image dataset, you can use `mindvision.dataset` to load and process the dataset. This chapter first describes how to load and process the CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
+[mindspore.dataset](https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and datasets in standard formats, enabling users to quickly process data. For an image dataset, you can use `mindvision.dataset` to load and process the dataset. This chapter first describes how to load and process the CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
 
 > `mindvision.dataset` is a dataset interface developed based on `mindspore.dataset`. In addition to providing dataset loading capabilities, `mindvision.dataset` provides dataset download, data processing, and data argumentation capabilities.
 

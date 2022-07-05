@@ -1,6 +1,6 @@
 # Saving and Loading the Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The previous section describes how to adjust hyperparameters and train network models. During network model training, we want to save the intermediate and final results for fine-tuning and subsequent model deployment and inference. This section describes how to save and load a model.
 
@@ -82,7 +82,7 @@ In the preceding command, `network` indicates the training network, and `"./MyNe
 
 ### Saving the Model During Training
 
-During model training, you can use the `callbacks` parameter in `model.train` to transfer the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) object (usually used together with [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CheckpointConfig.html#mindspore.CheckpointConfig)) to save model parameters and generate a checkpoint (CKPT) file.
+During model training, you can use the `callbacks` parameter in `model.train` to transfer the [ModelCheckpoint](https://mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) object (usually used together with [CheckpointConfig](https://mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.CheckpointConfig.html#mindspore.CheckpointConfig)) to save model parameters and generate a checkpoint (CKPT) file.
 
 You can set `CheckpointConfig` to configure the Checkpoint policy as required. The following describes the usage:
 

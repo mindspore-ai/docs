@@ -1,6 +1,6 @@
 # Image Classification Transfer Learning
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/transfer_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/application/source_en/cv/transfer_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 In an actual application scenario, the training dataset is insufficient. As a result, few people train the entire network from the beginning. Generally, training is performed on a very large basic dataset to obtain a pre-trained model, and then the model is used to initialize a weight parameter of the network, or the model is applied to a specific task as a fixed feature extraction device. The following uses the transfer learning method to classify wolf and dog images in the ImageNet dataset.
 

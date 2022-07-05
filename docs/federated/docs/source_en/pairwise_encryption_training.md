@@ -1,6 +1,6 @@
 # Pairwise encryption training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/pairwise_encryption_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/federated/docs/source_en/pairwise_encryption_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 During federated learning, user data is used only for local device training and does not need to be uploaded to the central server. This prevents personal data leakage.
 However, in the conventional federated learning framework, models are migrated to the cloud in plaintext. There is still a risk of indirect disclosure of user privacy.
@@ -49,7 +49,7 @@ In addition, most of the workers participating in the training are unstable edge
 
 `share_client_ratio` indicates the client threshold decrease ratio of public key broadcast round, secret sharing round and secret reconstruction round. The value must be less than or equal to 1.
 
-`reconstruct_secrets_threshold` indicates the number of secret shares required to reconstruct a secret. The value must be less than the number of clients that participate in updateModel, which is start_fl_job_threshold*update_model_ratio (those two parameters can refer to 'set_fl_context' in [this file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/context.py)).
+`reconstruct_secrets_threshold` indicates the number of secret shares required to reconstruct a secret. The value must be less than the number of clients that participate in updateModel, which is start_fl_job_threshold*update_model_ratio (those two parameters can refer to 'set_fl_context' in [this file](https://gitee.com/mindspore/mindspore/blob/r1.8/mindspore/python/mindspore/context.py)).
 
 To ensure system security, the value of `reconstruct_secrets_threshold` must be greater than half of the number of federated learning clients when the server and client are not colluded.
 When the server and client are colluded, the value of `reconstruct_secrets_threshold` must be greater than two thirds of the number of federated learning clients.

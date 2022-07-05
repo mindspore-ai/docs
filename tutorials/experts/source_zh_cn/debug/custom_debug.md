@@ -1,6 +1,6 @@
 # 自定义调试信息
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -38,7 +38,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 用户可以基于`Callback`基类，根据自身的需求，实现自定义`Callback`。
 
-`Callback`基类定义请参考[API详情](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Callback.html)，其中以“on_train”为前缀的方法对应训练过程的不同阶段，以“on_eval”为前缀的方法对应推理过程的不同阶段，没有“on_train”或“on_eval”前缀的方法同时兼容推理和训练过程。自定义callback重写类方法时，建议使用以“on_train”或“on_eval”前缀的方法。
+`Callback`基类定义请参考[API详情](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore/mindspore.Callback.html)，其中以“on_train”为前缀的方法对应训练过程的不同阶段，以“on_eval”为前缀的方法对应推理过程的不同阶段，没有“on_train”或“on_eval”前缀的方法同时兼容推理和训练过程。自定义callback重写类方法时，建议使用以“on_train”或“on_eval”前缀的方法。
 
 `Callback`可以把训练过程中的重要信息记录下来，通过把一个字典类型变量`RunContext.original_args()`传递给`Callback`对象，
 用户可以在各个自定义的`Callback`中获取到相关属性，执行自定义操作。也可以自定义其他变量传递给`RunContext.original_args()`对象。
@@ -64,7 +64,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 > 自定义`Callback`样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/debugging_info/custom_callback.py>
 
 - 在规定时间内终止训练。
 
@@ -129,7 +129,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 
 > `metrics`使用样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 import mindspore as ms

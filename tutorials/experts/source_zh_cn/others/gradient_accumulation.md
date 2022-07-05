@@ -1,6 +1,6 @@
 # 梯度累积算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -58,7 +58,7 @@ $$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
 
 下面以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下个步骤。
 
-> 您可以在这里下载主要的训练样例代码：[train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py)
+> 您可以在这里下载主要的训练样例代码：[train.py](https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/gradient_accumulation/train.py)
 
 由于需要使用models仓中的LeNet网络，请先执行如下命令拉取models仓的代码：
 
@@ -305,7 +305,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 在Boost模式下，只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
 
-> 你可以在这里下载主要的训练样例代码：[train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py)
+> 你可以在这里下载主要的训练样例代码：[train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/r1.8/docs/sample_code/gradient_accumulation/train_and_eval_boost.py)
 
 #### 导入需要的库文件
 
