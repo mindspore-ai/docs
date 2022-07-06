@@ -46,7 +46,7 @@
 
       ![img](images/clip_image015.jpg)
 
-4. 如果用户本地已经安装过Conda，但是Conda executable没有自动填充，点击文件夹按钮，选择本地已安装的conda的路径。
+4. 确认Conda executable路径已正确填充。 如果Conda executable没有自动填充，点击文件夹按钮，选择本地已安装的conda的路径。
 
     ![img](images/clip_image016.jpg)
 
