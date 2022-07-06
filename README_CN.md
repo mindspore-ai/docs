@@ -68,7 +68,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 2. 下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://gitee.com/mindspore/docs.git -b r1.8
    ```
 
 3. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。

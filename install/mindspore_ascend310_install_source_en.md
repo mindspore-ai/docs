@@ -217,7 +217,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.8
 ```
 
 ## Compiling MindSpore
