@@ -91,7 +91,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 ### 示例程序结构
 
 ```text
-app
+enginelibrary
 ├── src/main
 │   ├── assets # 资源文件
 |   |   └── mobilenetv2.ms # 存放的模型文件
@@ -110,11 +110,8 @@ app
 |   |   └── MSNetWork.cpp # MindSpore接口封装
 │   |
 │   ├── java # java层应用代码
-│   │   └── com.mindspore.vision
-│   │       ├── train # 图像处理及MindSpore JNI调用相关实现
-│   │       │   └── ...
-│   │       └── ui # 页面绘制拍照或获取相册图片操作
-│   │           └── ...
+│   │   └── com.mindspore.enginelibrary
+│   │       └── train # 图像处理及MindSpore JNI调用相关实现
 │   │
 │   ├── res # 存放Android相关的资源文件
 │   └── AndroidManifest.xml # Android配置文件
@@ -211,7 +208,7 @@ target_link_libraries( # Specifies the target library.
 
 在JNI层调用MindSpore Lite C++ API实现端侧推理。
 
-推理代码流程如下，完整代码请参见[CommonMindSporeNetnative.cpp](https://gitee.com/mindspore/vision/blob/master/android/app/src/main/cpp/classification/CommonMindSporeNetnative.cpp)。
+推理代码流程如下，完整代码请参见[CommonMindSporeNetnative.cpp](https://gitee.com/mindspore/vision/blob/master/android/enginelibrary/src/main/cpp/classification/CommonMindSporeNetnative.cpp)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
