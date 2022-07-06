@@ -47,7 +47,7 @@ MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 
    .. image:: ./images/clip_image050.jpg
 
-3. 选择下载好的插件包（以1.7版本安装包为例）
+3. 选择下载好的插件包（以1.7版本安装包为例）。
 
    .. image:: ./images/clip_image052.jpg
 
