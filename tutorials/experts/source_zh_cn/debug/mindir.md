@@ -475,58 +475,57 @@ mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
 根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 1.8，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 #===============================================================================
-  2 #1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
-  3 #2.You can search the last `------------------------>` to the node which is inferred failed.
-  4 #3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
-  5 #===============================================================================
-  6
-  7 # [No.1] construct_wrapper.1
-  8 # In file test.py(15)/  def construct(self, x1):/
-  9 funcgraph fg_1(
- 10         %para1 : Tensor(F32)[3, 32]    # x1
- 11         , %para2 : Ref[Tensor(F32)][4]    # bias
- 12         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
- 13     ) {
- 14
- 15 #------------------------> 0
- 16     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
- 17 #[CNode]3
- 18     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
- 19       # In file test.py(18)/    return x/#[CNode]4
- 20 }
- 21 # order:
- 22 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
- 23 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+  1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
+  2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  4 # ===============================================================================
+  5
+  6 # [No.1] construct_wrapper.1
+  7 # In file test.py(15)/  def construct(self, x1):/
+  8 funcgraph fg_1(
+  9         %para1 : Tensor(F32)[3, 32]    # x1
+ 10         , %para2 : Ref[Tensor(F32)][4]    # bias
+ 11         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
+ 12     ) {
+ 13
+ 14 #------------------------> 0
+ 15     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
+ 16 #[CNode]3
+ 17     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+ 18       # In file test.py(18)/    return x/#[CNode]4
+ 19 }
+ 20 # order:
+ 21 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
+ 22 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+ 23
  24
- 25
- 26 # [No.2] construct.2
- 27 # In file test.py(15)/  def construct(self, x1):/
- 28 funcgraph fg_2[fg_1](
- 29         %para4 : Tensor(F32)[3, 32]    # x1
- 30     ) {
- 31     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1=Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
- 32       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
- 33
- 34 #------------------------> 1
- 35     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #scope: Default
- 36       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
- 37     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
- 38       # In file test.py(18)/    return x/#[CNode]5
- 39 }
- 40 # order:
- 41 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
- 42 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
- 43 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 25 # [No.2] construct.2
+ 26 # In file test.py(15)/  def construct(self, x1):/
+ 27 funcgraph fg_2[fg_1](
+ 28         %para4 : Tensor(F32)[3, 32]    # x1
+ 29     ) {
+ 30     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1    =Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
+ 31       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
+ 32
+ 33 #------------------------> 1
+ 34     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #sco    pe: Default
+ 35       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
+ 36     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
+ 37       # In file test.py(18)/    return x/#[CNode]5
+ 38 }
+ 39 # order:
+ 40 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
+ 41 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
+ 42 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 43
  44
- 45
- 46 #===============================================================================
- 47 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+ 45 #===============================================================================
+ 46 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
 ```
 
-搜索`------------------------>`来到第34行，即推导出错的位置。根据`...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`可知，算子`BiasAdd`的输入是`%1`和`%para2`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
+搜索`------------------------>`来到第33行，即推导出错的位置。根据`...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`可知，算子`BiasAdd`的输入是`%1`和`%para2`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
 
 因此，为了解决该问题，我们要么修改`%1`的shape，要么修改`%para2`（即`self.bias`）的shape。
 
 - 如果修改`self.bias`的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
-- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第31行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para4, %para3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
+- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第30行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para4, %para3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
