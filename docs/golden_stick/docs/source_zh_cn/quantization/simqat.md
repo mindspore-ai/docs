@@ -106,7 +106,7 @@ quanted_network = algo.apply(network)
 print(quanted_network)
 ```
 
-量化网络结构如下：
+量化网络结构如下，其中QuantizerWrapperCell为感知量化训练对原有Conv2d或者Dense的封装类，包括了原有的算子以及输入输出和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html#mindspore_gs.SimulatedQuantizationAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 LeNet5Opt<
@@ -221,6 +221,8 @@ print(acc)
 ```
 
 LeNet5应用感知量化训练后精度未下降。
+
+> 此处模型并非最终部署模型，由于增加了伪量化节点，ckpt大小相较原始模型略有增加。
 
 ## 总结
 
