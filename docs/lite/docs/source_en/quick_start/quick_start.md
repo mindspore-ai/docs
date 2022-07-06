@@ -91,7 +91,7 @@ The Android sample program for image classification on the device is divided int
 ### Sample Program Structure
 
 ```text
-app
+enginelibrary
 ├── src/main
 │   ├── assets # resource files
 |   |   └── mobilenetv2.ms # stored model file
@@ -110,11 +110,8 @@ app
 |   |   └── MSNetWork.cpp # MindSpore interface encapsulation
 │   |
 │   ├── java # Java-layer application code
-│   │   └── com.mindspore.vision
-│   │       ├── train # Implementation of image processing and MindSpore JNI Calling
-│   │       │   └── ...
-│   │       └── ui # page rendering and the operation of taking a photo or opening the mobile phone album
-│   │           └── ...
+│   │   └── com.mindspore.enginelibrary
+│   │       └── train # Implementation of image processing and MindSpore JNI Calling
 │   │
 │   ├── res # resource files related to Android
 │   └── AndroidManifest.xml # Android configuration file
@@ -211,7 +208,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference process code is as follows. For details about the complete code, see [CommonMindSporeNetnative.cpp](https://gitee.com/mindspore/vision/blob/master/android/app/src/main/cpp/classification/CommonMindSporeNetnative.cpp).
+The inference process code is as follows. For details about the complete code, see [CommonMindSporeNetnative.cpp](https://gitee.com/mindspore/vision/blob/master/android/enginelibrary/src/main/cpp/classification/CommonMindSporeNetnative.cpp).
 
 1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.  
 
