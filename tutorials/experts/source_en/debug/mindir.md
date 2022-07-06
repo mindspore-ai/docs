@@ -472,58 +472,57 @@ mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
 The above reports that the errors is caused by the mismatching of the shape of the first input and the second input of the operator `BiasAdd`. To further understand what changes have taken place in the shape of the operator, we use text editing software (e.g., vi) to open the file that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content (Here is MindSpore 1.8, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
-  1 #===============================================================================
-  2 #1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
-  3 #2.You can search the last `------------------------>` to the node which is inferred failed.
-  4 #3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
-  5 #===============================================================================
-  6
-  7 # [No.1] construct_wrapper.1
-  8 # In file test.py(15)/  def construct(self, x1):/
-  9 funcgraph fg_1(
- 10         %para1 : Tensor(F32)[3, 32]    # x1
- 11         , %para2 : Ref[Tensor(F32)][4]    # bias
- 12         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
- 13     ) {
- 14
- 15 #------------------------> 0
- 16     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
- 17 #[CNode]3
- 18     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
- 19       # In file test.py(18)/    return x/#[CNode]4
- 20 }
- 21 # order:
- 22 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
- 23 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+  1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
+  2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  4 # ===============================================================================
+  5
+  6 # [No.1] construct_wrapper.1
+  7 # In file test.py(15)/  def construct(self, x1):/
+  8 funcgraph fg_1(
+  9         %para1 : Tensor(F32)[3, 32]    # x1
+ 10         , %para2 : Ref[Tensor(F32)][4]    # bias
+ 11         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
+ 12     ) {
+ 13
+ 14 #------------------------> 0
+ 15     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
+ 16 #[CNode]3
+ 17     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+ 18       # In file test.py(18)/    return x/#[CNode]4
+ 19 }
+ 20 # order:
+ 21 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
+ 22 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
+ 23
  24
- 25
- 26 # [No.2] construct.2
- 27 # In file test.py(15)/  def construct(self, x1):/
- 28 funcgraph fg_2[fg_1](
- 29         %para4 : Tensor(F32)[3, 32]    # x1
- 30     ) {
- 31     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1=Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
- 32       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
- 33
- 34 #------------------------> 1
- 35     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #scope: Default
- 36       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
- 37     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
- 38       # In file test.py(18)/    return x/#[CNode]5
- 39 }
- 40 # order:
- 41 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
- 42 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
- 43 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 25 # [No.2] construct.2
+ 26 # In file test.py(15)/  def construct(self, x1):/
+ 27 funcgraph fg_2[fg_1](
+ 28         %para4 : Tensor(F32)[3, 32]    # x1
+ 29     ) {
+ 30     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1    =Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
+ 31       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
+ 32
+ 33 #------------------------> 1
+ 34     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #sco    pe: Default
+ 35       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
+ 36     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
+ 37       # In file test.py(18)/    return x/#[CNode]5
+ 38 }
+ 39 # order:
+ 40 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
+ 41 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
+ 42 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
+ 43
  44
- 45
- 46 #===============================================================================
- 47 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+ 45 #===============================================================================
+ 46 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
 ```
 
-Search `------------------------>` to the position where inferring failed at line 34. According to `...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`, `BiasAdd`'s inputs are `%1` and `%para2`. That `%1`' with shape `[3, 8]` and `%para2` with shape `[4]` doesn't meet the requirement about `bias (Tensor) - The bias tensor, with shape (C). C must be the same as channel dimension C of input_x...` for `BiasAdd` API. Thus, an error happens.
+Search `------------------------>` to the position where inferring failed at line 33. According to `...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`, `BiasAdd`'s inputs are `%1` and `%para2`. That `%1`' with shape `[3, 8]` and `%para2` with shape `[4]` doesn't meet the requirement about `bias (Tensor) - The bias tensor, with shape (C). C must be the same as channel dimension C of input_x...` for `BiasAdd` API. Thus, an error happens.
 
 To solve this problem, we need modify the shape of `%1` or `%para2` (namely `self.bias`).
 
 - For `%para2` (namely `self.bias`), we modify the shape of `self.bias` by `self.bias = Parameter(initializer('zeros', [8]), name="bias")`.
-- For `%1`, we need know what `%1` is. According to line 31, `%1` is a `MatMul` with output shape `[3, 8]`. Its inputs are `(%para4, %para3)`. The first input (namely given arg `x`) shape is `[3, 32]` and the second input (namely `self.weight`) shape is `[32, 8]`. To meet the requirement of `BiasAdd` with the data shape `[4]`, the shape of `%1` output needs to be `[3, 4]`. Therefore, we modify `self.weight` by `self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`.
+- For `%1`, we need know what `%1` is. According to line 30, `%1` is a `MatMul` with output shape `[3, 8]`. Its inputs are `(%para4, %para3)`. The first input (namely given arg `x`) shape is `[3, 32]` and the second input (namely `self.weight`) shape is `[32, 8]`. To meet the requirement of `BiasAdd` with the data shape `[4]`, the shape of `%1` output needs to be `[3, 4]`. Therefore, we modify `self.weight` by `self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`.
