@@ -1,6 +1,6 @@
 # 优化器并行
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
 
 ## 概述
 

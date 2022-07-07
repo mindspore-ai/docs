@@ -1,6 +1,6 @@
 # Gradient Accumulation Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -38,7 +38,7 @@ $$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
 
 Eventually accumulating the gradient in the previous step yields the sum of the gradients of the same size as using the global Batche size.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/GradientAccumulation1.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/experts/source_zh_cn/others/images/GradientAccumulation1.png)
 
 In the actual project, there are two points to pay attention to on the tuning parameters and algorithms:
 

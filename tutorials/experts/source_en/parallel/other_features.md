@@ -1,6 +1,6 @@
 # Other Features
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 ## [Sharding Propagation](https://www.mindspore.cn/tutorials/experts/en/r1.8/parallel/sharding_propagation.html)
 

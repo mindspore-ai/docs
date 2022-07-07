@@ -1,6 +1,6 @@
 # Multi Dimensional
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 As deep learning evolves, models get larger and larger. For example, in the field of NLP, in just a few years, the amount of parameters has developed from BERT's 100 million to GPT-3's 170 billion, and then to Pangu alpha 200 billion, and the current industry has even proposed a million billion. It can be seen that the scale of parameters has shown an exponential growth trend in recent years. On the other hand, with the development of related technologies in the fields of big data and the Internet, the datasets available for model training are also rapidly expanding, such as recommendations, natural language processing and other scenarios of the dataset that can reach terabytes.
 
