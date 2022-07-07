@@ -20,9 +20,9 @@
 
 | 常见错误类型 | 错误说明 | 案例分析 |
 |-------------|---------|---|
-| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html) |
-| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html) |
-| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html) |
+| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87) |
+| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD) |
+| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA) |
 
 ## 网络构建与训练错误分析
 
@@ -32,11 +32,11 @@
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
-| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html)|
-| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html) |
-| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html) |
-| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html) |
-| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html) |
+| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
+| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%AF%AD%E6%B3%95%E9%97%AE%E9%A2%98) |
+| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF) |
+| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E6%89%A7%E8%A1%8C%E9%94%99%E8%AF%AF) |
+| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3) |
 
 - 动态图模式错误分析
 
