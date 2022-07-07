@@ -20,9 +20,9 @@
 
 | 常见错误类型 | 错误说明 | 案例分析 |
 |-------------|---------|---|
-| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html) |
-| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html) |
-| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html) |
+| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87) |
+| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD) |
+| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA) |
 
 ## 网络构建与训练错误分析
 
@@ -32,11 +32,11 @@
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
-| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html)|
-| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html) |
-| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html) |
-| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html) |
-| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html) |
+| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
+| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html#%E8%AF%AD%E6%B3%95%E9%97%AE%E9%A2%98) |
+| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF) |
+| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E6%89%A7%E8%A1%8C%E9%94%99%E8%AF%AF) |
+| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/debug/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3) |
 
 - 动态图模式错误分析
 
@@ -114,7 +114,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         错误原因：
 
-        这段代码在第0维度进行了取切片操作。但是配置的策略(2,2)表示分别对输入Tensor的第0维度和第1维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r1.8/note/operator_list_parallel.html)中对算子切分的说明，
+        这段代码在第0维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第0维度和第1维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r1.8/note/operator_list_parallel.html)中对算子切分的说明，
 
         > 仅支持值为全0的mask；需要切分的维度必须全部提取；输入在strides不为1对应的维度不支持切分
 
@@ -154,7 +154,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
         ```
 
         有很多算子的输入可以是常量，比如加减乘除的运算、concat/gather等算子的axis，对于此类输入有常量scalar的运算，配置算子策略时需注意，不要为这些常量配置策略。如果按照如上方式为减法运算配置策略，对于常量1配置了策略（1，）则会报错。
-        意思是输入策略的index=1处也就是（1）这个策略的长度是1，不等于对应的输入的长度是0，因为此时的输入是一个常数标量。
+        意思是输入策略的index=1处也就是（1,）这个策略的长度是1，不等于对应的输入的长度是0，因为此时的输入是一个常数标量。
 
         修改后代码：
 
@@ -184,7 +184,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
             return self.sub(x, 1)
         ```
 
-        这段代码在8卡环境下以半自动并行模式运行，因为没有对示例中Sub算子配置策略，Sub算子的默认策略为数据并行。假设输入的x是大小为[2, 4]的矩阵。那么在开始编译之后，就会报错说最后导致输入的维度不够切分而报错。因此这种情况下，我们需要修改策略如下（切分度要小于输入Tensor的维度）
+        这段代码在8卡环境下以半自动并行模式运行，因为没有对示例中Sub算子配置策略，Sub算子的默认策略为数据并行。假设输入的x是大小为[2, 4]的矩阵。那么在开始编译之后，就会报错说最后导致输入的维度不够切分而报错。因此这种情况下，我们需要修改策略如下（切分度要小于输入Tensor的维度）。
 
         ```python
         class MySub(nn.Cell):
@@ -196,9 +196,11 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
             return self.sub(x, 1)
         ```
 
+        其中，切分策略(2, 1)表示对第一个输入Tensor的第0维切分2份，第1维切分成1份即不切分。由于`ops.Sub`第二个输入是一个标量无法切分，所以设置切分策略维空()。
+
 - 并行脚本错误
 
-    使用8卡Ascend设备进行训练时，利用bash脚本进行启动任务，脚本如下所示：
+    使用8卡Ascend设备进行训练时，利用bash脚本进行启动任务，正常情况下的脚本如下所示：
 
     ```bash
     #!/bin/bash
@@ -223,7 +225,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
     echo "The program launch succeed, the log is under device0/train.log0."
     ```
 
-    一般容易出现的错误的场景是：
+    通常容易出现的错误的场景有：
 
     1）使用for循环启动的训练任务数`RANK_SIZE`与配置文件`rank_table_8pcs.json`中配置的设备数不匹配，引起报错。
 

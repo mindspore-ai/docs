@@ -27,7 +27,7 @@
 
 报错分析是获取报错内容，理解报错描述并分析原因的过程。
 
-#### 归纳信息
+#### 信息归纳
 
 进行网络报错调试的第一步是进行信息归纳，这里的信息归纳是指将获取到的各种信息进行归类整理并理解信息含义，为进行错误分析提供依据。一般在错误发生时需要获取几类信息：
 
@@ -121,8 +121,9 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 - 异步转同步调试策略
 
-  动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有其他告警信息，影响报错分析。
-  MindSpore提供切换同步执行的方法，通过设置pynative_synchronize = True 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[pynative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/pynative_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
+  动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
+
+  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/pynative_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
 
 - 二分法策略
 
