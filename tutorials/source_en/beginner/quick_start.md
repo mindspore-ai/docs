@@ -14,6 +14,8 @@ Datasets are crucial for model training. A good dataset can effectively improve 
 
 The [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
 
+> The sample code in this chapter relies on the third-party package `mindvision`, which can be installed by using the command `pip install mindvision`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
+
 ```python
 from mindvision.dataset import Mnist
 
