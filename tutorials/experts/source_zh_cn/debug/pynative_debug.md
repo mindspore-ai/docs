@@ -1,6 +1,6 @@
 # PyNative 调试
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/pynative_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/pynative_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 简介
 

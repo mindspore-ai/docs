@@ -1,6 +1,6 @@
 # 其他特性
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/parallel/other_features.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
 
 ## [切分策略传播](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/parallel/sharding_propagation.html)
 

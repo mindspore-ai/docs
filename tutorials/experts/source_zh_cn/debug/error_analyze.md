@@ -1,6 +1,6 @@
 # 错误分析
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_zh_cn/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 如前文所述，错误分析是指基于获取到的网络、框架各种信息（例如：错误信息、网络代码等信息）进行错误原因分析，推断错误的可能原因。
 

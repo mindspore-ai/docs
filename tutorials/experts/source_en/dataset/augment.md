@@ -1,6 +1,6 @@
 # Auto Augmentation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -339,7 +339,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
 > For a better demonstration of the effect, only 5 images are loaded here, and no `shuffle` operation is performed when reading, nor `Normalize` and `HWC2CHW` operations are performed when automatic data augmentation is performed.
 
-![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_en/dataset/images/auto_augmentation.png)
+![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/experts/source_en/dataset/images/auto_augmentation.png)
 
 The running result can be seen that the augmentation effect of each image in the batch, the horizontal direction represents 5 images of 1 batch, and the vertical direction represents 5 batches.
 
