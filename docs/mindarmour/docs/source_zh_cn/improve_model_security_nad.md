@@ -1,6 +1,6 @@
 # 使用NAD算法提升模型安全性
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/improve_model_security_nad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/improve_model_security_nad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
 
 ## 概述
 
