@@ -31,16 +31,11 @@
 
 ### 安装MindSpore Vision
 
-- 使用git克隆MindSpore Vision仓库。
+- 源码安装
 
     ```shell
     git clone https://gitee.com/mindspore/vision.git
     cd vision
-    ```
-
-- 源码安装
-
-    ```shell
     python setup.py install
     ```
 
