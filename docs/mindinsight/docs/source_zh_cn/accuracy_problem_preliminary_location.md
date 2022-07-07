@@ -1,6 +1,6 @@
 # 精度问题初步定位指南
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
 
 本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/accuracy_optimization.html)。
 

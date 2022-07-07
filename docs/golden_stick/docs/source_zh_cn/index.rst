@@ -5,7 +5,7 @@ MindSpore Golden Stick是一个开源的模型压缩算法集，提供了一套�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_zh_cn/images/golden-stick-arch.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/docs/golden_stick/docs/source_zh_cn/images/golden-stick-arch.png" width="700px" alt="" >
 
 设计思路
 ---------------------------------------
@@ -23,7 +23,7 @@ MindSpore Golden Stick是一个开源的模型压缩算法集，提供了一套�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_zh_cn/images/workflow.png" width="800px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/docs/golden_stick/docs/source_zh_cn/images/workflow.png" width="800px" alt="" >
 
 1. 训练阶段
 

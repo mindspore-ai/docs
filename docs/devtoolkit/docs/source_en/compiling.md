@@ -1,6 +1,6 @@
 # Source Code Compilation Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/devtoolkit/docs/source_en/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/devtoolkit/docs/source_en/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 The following describes how to compile the MindSpore Dev ToolKit project based on the IntelliJ IDEA source code.
 
