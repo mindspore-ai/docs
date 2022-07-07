@@ -1,6 +1,6 @@
 # Tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/tensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/tensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 

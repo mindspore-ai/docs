@@ -1,6 +1,6 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
@@ -14,7 +14,7 @@ In the network training and inference process, raw data is generally stored in d
 
 The following figure shows the overall process.
 
-![dataset-pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
+![dataset-pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
 
 ### Dataset
 
@@ -38,7 +38,7 @@ After the dataset loads data to the memory, the data is organized as tensors. Te
 
 In the following example, the CIFAR-10 dataset is loaded through the `mindvision.dataset.Cifar10` interface. The CIFAR-10 dataset contains a total of 60,000 32 x 32 color images which are evenly divided into 10 classes and classified into 50,000 training images and 10,000 test images. The `Cifar10` interface allows users to download and load the CIFAR-10 dataset.
 
-![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/cifar10.jpg)
+![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/source_zh_cn/beginner/images/cifar10.jpg)
 
 + `path`: indicates the root directory of the dataset.
 + `split`: indicates the training, test, or inference dataset. The value can be `train` (default value), `test`, or `infer`.

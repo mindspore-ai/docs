@@ -1,6 +1,6 @@
 # Saving and Loading the Model
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 The previous section describes how to adjust hyperparameters and train network models. During network model training, we want to save the intermediate and final results for fine-tuning and subsequent model deployment and inference. This section describes how to save and load a model.
 
