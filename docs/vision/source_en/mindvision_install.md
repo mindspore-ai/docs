@@ -31,16 +31,11 @@
 
 ### Install MindSpore Vision
 
-- Clone the MindSpore Vision repository.
+- Installing MindSpore Vision by Source Code
 
     ```shell
     git clone https://gitee.com/mindspore/vision.git
     cd vision
-    ```
-
-- Installing MindSpore Vision by Source Code
-
-    ```shell
     python setup.py install
     ```
 
