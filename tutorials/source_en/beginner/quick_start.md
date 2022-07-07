@@ -1,6 +1,6 @@
 # Quickstart: Handwritten Digit Recognition
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
 This section runs through the basic process of MindSpore deep learning, using the LeNet5 network model as an example to implement common tasks in deep learning.
 
@@ -8,7 +8,7 @@ This section runs through the basic process of MindSpore deep learning, using th
 
 Datasets are crucial for model training. A good dataset can effectively improve training accuracy and efficiency. The MNIST dataset used in the example consists of 28 x 28 grayscale images of 10 classes. The training dataset contains 60,000 images, and the test dataset contains 10,000 images.
 
-![mnist](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/mnist.png)
+![mnist](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/source_zh_cn/beginner/images/mnist.png)
 
 > You can download the dataset from [MNIST dataset download page](http://yann.lecun.com/exdb/mnist/), decompress it, and save it according to the following directory structure.
 
@@ -52,7 +52,7 @@ The directory structure of the downloaded dataset files is as follows:
 
 Except the input layer, LeNet contains seven layers: three convolutional layers, two subsampling layers, and two fully-connected layers.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/source_zh_cn/beginner/images/lenet.png)
 
 The MindSpore Vision Suite provides the LeNet model interface `lenet`, which defines the network model as follows:
 
