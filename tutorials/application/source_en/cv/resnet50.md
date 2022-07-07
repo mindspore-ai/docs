@@ -18,10 +18,10 @@ In ResNet, a residual network is proposed to alleviate the degradation problem, 
 
 ## Preparing and Loading Datasets
 
-[The CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) contains 60,000 32 x 32 color images in 10 classes, with 6,000 images per class. There are 50,000 training images and 10,000 test images. The following example uses the `mindvision.dataset.Cifar10` API to download and load the CIFAR-10 dataset.
+[The CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) contains 60,000 32 x 32 color images in 10 classes, with 6,000 images per class. There are 50,000 training images and 10,000 test images. The following example uses the `mindvision.classification.dataset.Cifar10` API to download and load the CIFAR-10 dataset.
 
 ```python
-from mindvision.dataset import Cifar10
+from mindvision.classification.dataset import Cifar10
 
 # Dataset root directory
 data_dir = "./datasets"
