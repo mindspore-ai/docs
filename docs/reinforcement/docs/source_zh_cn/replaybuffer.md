@@ -64,7 +64,7 @@
 
 ### ReplayBuffer的创建
 
-MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API. 用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/master/example/dqn/src/config.py)的配置文件:
+MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API. 用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/r1.8/example/dqn/src/config.py)的配置文件:
 
 ```python
 'replay_buffer':
@@ -90,7 +90,7 @@ replaybuffer = ReplayBuffer(sample_size, capacity, shapes, types)
 
 ### 使用创建的ReplayBuffer
 
-以API形式创建的[ReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/core/replay_buffer.py)进行数据操作为例：
+以API形式创建的[ReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/r1.8/mindspore_rl/core/replay_buffer.py)进行数据操作为例：
 
 * 插入操作
 
