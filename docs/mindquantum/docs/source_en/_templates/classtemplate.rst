@@ -12,6 +12,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
+    :exclude-members: bprop, construct, extend_repr
     :members:
 
 {% else %}
