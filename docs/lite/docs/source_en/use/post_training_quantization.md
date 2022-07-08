@@ -380,7 +380,7 @@ When setting the `debug_info_save_path` parameter, the relevant debug report wil
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
 
-The summary file`output_summary.csv` contains the cosine similarity accuracy information of all output Tensors. The related fields are as follows：
+The quantized output summary report `output_summary.csv` contains the accuracy information of the output layer Tensor of the entire network. The related fields are as follows：
 
 | Type           | Name              |
 | -------------- | ----------------- |
@@ -409,7 +409,7 @@ The data distribution statistics report `report_*.csv`will count the original da
 | Clip             | The Clip                                                     |
 | CosineSimilarity | Cosine similarity compared with the original data            |
 
-The quantization parameter file `quant_param.csv` contains the quantization parameter information of all quantized Tensors. The quantization parameter related fields are as follows:
+The quantization parameter report `quant_param.csv` contains the quantization parameter information of all quantized Tensors. The related fields of the quantization parameter are as follows:
 
 | Type           | Name                                 |
 | -------------- | ------------------------------------ |
