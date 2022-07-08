@@ -20,7 +20,7 @@ In classification tasks, softmax distribution is used to calculate the probabili
 
 The formula on the left is a standard softmax function, and the formula on the right is the softmax function after the temperature factor is introduced in the SLB algorithm.
 
-! [Softmax function](../images/quantization/slb/slb_2.png)
+![Softmax function](../images/quantization/slb/slb_2.png)
 
 The following figure shows the change process of softmax distribution when the temperature factor is gradually adjusted. The rightmost figure shows the one-hot distribution.
 
@@ -130,7 +130,7 @@ quant_net = algo.apply(net)
 print(quant_net)
 ```
 
-The quantized network structure is as follows:
+The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
 
 ```commandline
 ResNetOpt<
@@ -150,14 +150,14 @@ ResNetOpt<
       (relu): ReLU<>
       (Conv2dSlbQuant): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       >
@@ -170,14 +170,14 @@ ResNetOpt<
       (relu): ReLU<>
       (Conv2dSlbQuant): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       >
@@ -189,8 +189,8 @@ ResNetOpt<
   (end_point): Dense<input_channels=512, output_channels=10, has_bias=True>
   (Conv2dSlbQuant): QuantizeWrapperCell<
     (_handler): Conv2dSlbQuant<
-      in_channels=3, out_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False
-      (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+      in_channels=3, out_channels=64, kernel_size=(7, 7), weight_bit_num=1, stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False
+      (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
       >
     >
   >
@@ -327,7 +327,7 @@ print(acc)
 'top_1_accuracy': 0.9485176282051282, 'top_5_accuracy': 0.9965945512820513.
 ```
 
-In graph mode, apply SLB quantization to ResNet-18 and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, and W1 indicates that the weight is 1 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. SLB quantization greatly reduces model parameters, making it easier to deploy models on devices with limited resources.
+In graph mode, apply SLB quantization to ResNet-18 and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, and W1 indicates that the weight is 1 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. SLB quantization greatly reduces model parameters, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits. The final quantization model, that is, the final deployment model, is obtained by selecting the preset quantization weights according to the weight probability matrix.
 
 | Quantization Type| Top 1 Accuracy| Top 5 Accuracy|
 | --- | --- | --- |
