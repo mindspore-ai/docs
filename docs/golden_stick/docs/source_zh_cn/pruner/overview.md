@@ -20,4 +20,4 @@
 
 ## 示例
 
-当前版本中，金箍棒提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.8/pruner/scop.html)了解如何应用金箍棒中的剪枝算法。
+当前版本中，金箍棒提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/pruner/scop.html)了解如何应用金箍棒中的剪枝算法。
