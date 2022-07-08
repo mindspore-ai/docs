@@ -127,6 +127,8 @@ Classes
 
 - :doc:`../generate/classmindspore_Delegate`
 
+- :doc:`../generate/classmindspore_CoreMLDelegate`
+
 - :doc:`../generate/classmindspore_DelegateModel`
 
 - :doc:`../generate/classmindspore_DepComputer`

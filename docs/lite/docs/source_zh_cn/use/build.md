@@ -350,6 +350,12 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | -I | 选择目标架构 | arm64、arm32 | 无 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 8 |
 
+#### `mindspore/lite/CMakeLists.txt`的选项
+
+| 选项                   | 参数说明           | 取值范围 | 默认值 |
+|----------------------|----------------| ---- | ---- |
+| MSLITE_ENABLE_COREML | 是否启用CoreML后端推理 | on、off | off |
+
 ### 编译示例
 
 首先，在进行编译之前，需从MindSpore代码仓下载源码。

@@ -6,49 +6,50 @@
 
 ### 类
 
-| 类名 | 描述 |
-| --- | --- |
-| [Context](#context) | 保存执行中的环境变量。 |
-| [DeviceInfoContext](#deviceinfocontext) | 不同硬件设备的环境信息。 |
-| [CPUDeviceInfo](#cpudeviceinfo) | 模型运行在CPU上的配置，仅MindSpore Lite支持。 |
-| [GPUDeviceInfo](#gpudeviceinfo) | 模型运行在GPU上的配置。 |
-| [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅MindSpore Lite支持。 |
-| [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
-| [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置。 |
-| [Serialization](#serialization) | 汇总了模型文件读写的方法。 |
-| [Buffer](#buffer) | Buff数据类。 |
-| [Model](#model) | MindSpore中的模型，便于计算图管理。 |
-| [MSTensor](#mstensor) | MindSpore中的张量。 |
-| [QuantParam](#quantparam) | MSTensor中的一组量化参数。 |
-| [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
-| [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
-| [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。 |
-| [SchemaVersion](#schemaversion) | MindSpore Lite 执行推理时模型文件的版本，仅MindSpore Lite支持。 |
-| [KernelIter](#kerneliter) | MindSpore Lite 算子列表的迭代器，仅MindSpore Lite支持。 |
-| [DelegateModel](#delegatemodel) | MindSpore Lite Delegate机制封装的模型，仅MindSpore Lite支持。 |
-| [TrainCfg](#traincfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
-| [MixPrecisionCfg](#mixprecisioncfg) | MindSpore Lite训练混合精度配置类，仅MindSpore Lite支持。 |
-| [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
-| [Metrics](#metrics) | MindSpore Lite训练指标类，仅MindSpore Lite支持。 |
-| [TrainCallBack](#traincallback) | MindSpore Lite训练回调类，仅MindSpore Lite支持。 |
-| [TrainCallBackData](#traincallbackdata) | 定义了训练回调的一组参数，仅MindSpore Lite支持。 |
-| [CkptSaver](#ckptsaver) | MindSpore Lite训练模型文件保存类，仅MindSpore Lite支持。 |
-| [LossMonitor](#lossmonitor) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
-| [LRScheduler](#lrscheduler) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
-| [StepLRLambda](#steplrlambda) | MindSpore Lite训练学习率的一组参数，仅MindSpore Lite支持。 |
-| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子，仅MindSpore Lite支持。 |
-| [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
-| [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
-| [CharVersion](#charversion) | 获取当前版本号，仅MindSpore Lite支持。 |
-| [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
-| [Allocator](#allocator) | 内存管理基类。 |
-| [Status](#status) | 返回状态类。 |
-| [Graph](#graph) | 图类。 |
-| [CellBase](#cellbase) | 容器基类。 |
-| [Cell](#cell) | 容器类。 |
-| [GraphCell](#graphcell) | 图容器类。 |
-| [RunnerConfig](#runnerconfig) | 模型并发推理配置参数。 |
-| [ModelParallelRunner](#modelparallelrunner) | 模型并发推理类。 |
+| 类名                                               | 描述                                                |
+|--------------------------------------------------|---------------------------------------------------|
+| [Context](#context)                              | 保存执行中的环境变量。                                       |
+| [DeviceInfoContext](#deviceinfocontext)          | 不同硬件设备的环境信息。                                      |
+| [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置，仅MindSpore Lite支持。                   |
+| [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置，仅MindSpore Lite支持。                   |
+| [Ascend910DeviceInfo](#ascend910deviceinfo)      | 模型运行在Ascend910上的配置，MindSpore Lite不支持。             |
+| [Ascend310DeviceInfo](#ascend310deviceinfo)      | 模型运行在Ascend310上的配置。                               |
+| [Serialization](#serialization)                  | 汇总了模型文件读写的方法。                                     |
+| [Buffer](#buffer)                                | Buff数据类。                                          |
+| [Model](#model)                                  | MindSpore中的模型，便于计算图管理。                            |
+| [MSTensor](#mstensor)                            | MindSpore中的张量。                                    |
+| [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 |
+| [MSKernelCallBack](#mskernelcallback)            | MindSpore回调函数包装器，仅MindSpore Lite支持。               |
+| [MSCallBackParam](#mscallbackparam)              | MindSpore回调函数的参数，仅MindSpore Lite支持。               |
+| [Delegate](#delegate)                            | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。     |
+| [CoreMLDelegate](#coreml_delegate)               | MindSpore Lite接入CoreML框架的代理，仅MindSpore Lite支持。    |
+| [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行推理时模型文件的版本，仅MindSpore Lite支持。    |
+| [KernelIter](#kerneliter)                        | MindSpore Lite 算子列表的迭代器，仅MindSpore Lite支持。        |
+| [DelegateModel](#delegatemodel)                  | MindSpore Lite Delegate机制封装的模型，仅MindSpore Lite支持。 |
+| [TrainCfg](#traincfg)                            | MindSpore Lite训练配置类，仅MindSpore Lite支持。            |
+| [MixPrecisionCfg](#mixprecisioncfg)              | MindSpore Lite训练混合精度配置类，仅MindSpore Lite支持。        |
+| [AccuracyMetrics](#accuracymetrics)              | MindSpore Lite训练精度类，仅MindSpore Lite支持。            |
+| [Metrics](#metrics)                              | MindSpore Lite训练指标类，仅MindSpore Lite支持。            |
+| [TrainCallBack](#traincallback)                  | MindSpore Lite训练回调类，仅MindSpore Lite支持。            |
+| [TrainCallBackData](#traincallbackdata)          | 定义了训练回调的一组参数，仅MindSpore Lite支持。                   |
+| [CkptSaver](#ckptsaver)                          | MindSpore Lite训练模型文件保存类，仅MindSpore Lite支持。        |
+| [LossMonitor](#lossmonitor)                      | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。         |
+| [LRScheduler](#lrscheduler)                      | MindSpore Lite训练配置类，仅MindSpore Lite支持。            |
+| [StepLRLambda](#steplrlambda)                    | MindSpore Lite训练学习率的一组参数，仅MindSpore Lite支持。       |
+| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子，仅MindSpore Lite支持。              |
+| [TimeMonitor](#timemonitor)                      | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。          |
+| [TrainAccuracy](#trainaccuracy)                  | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。         |
+| [CharVersion](#charversion)                      | 获取当前版本号，仅MindSpore Lite支持。                        |
+| [Version](#version)                              | 获取当前版本号，仅MindSpore Lite支持。                        |
+| [Allocator](#allocator)                          | 内存管理基类。                                           |
+| [Status](#status)                                | 返回状态类。                                            |
+| [Graph](#graph)                                  | 图类。                                               |
+| [CellBase](#cellbase)                            | 容器基类。                                             |
+| [Cell](#cell)                                    | 容器类。                                              |
+| [GraphCell](#graphcell)                          | 图容器类。                                             |
+| [RunnerConfig](#runnerconfig)                    | 模型并发推理配置参数。                                       |
+| [ModelParallelRunner](#modelparallelrunner)      | 模型并发推理类。                                          |
 
 ### 枚举
 
@@ -1614,6 +1615,48 @@ virtual Status Build(DelegateModel *model) = 0;
 ```
 
 Delegate在线构图。
+
+- 参数
+
+    - `model`: 指向存储[DelegateModel](#delegatemodel)实例的指针。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+## CoreMLDelegate
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+`CoreMLDelegate`继承自`Delegate`类，定义了CoreML框架接入MindSpore Lite的代理接口。
+
+### 构造函数
+
+```cpp
+CoreMLDelegate();
+```
+
+### 公有成员函数
+
+#### Init
+
+```cpp
+Status Init() overirde;
+```
+
+初始化CoreMLDelegate资源，仅在内部图编译阶段调用。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+Status Build(DelegateModel *model) override;
+```
+
+CoreMLDelegate在线构图，仅在内部图编译阶段调用。
 
 - 参数
 
