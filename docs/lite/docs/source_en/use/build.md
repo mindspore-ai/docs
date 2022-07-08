@@ -350,6 +350,12 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | -I | Selects an applicable architecture. | arm64, arm32 | None |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
 
+#### The options of `mindspore/lite/CMakeLists.txt`
+
+| Option               | Parameter Description            | Value Range | Defaults |
+|----------------------|----------------------------------| ---- | ---- |
+| MSLITE_ENABLE_COREML | Whether to enable CoreML backend | on, off | off |
+
 ### Compilation Example
 
 First, use the git tool to download the source code from the MindSpore code repository.

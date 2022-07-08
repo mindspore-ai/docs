@@ -219,6 +219,35 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
+### Configuring the CoreML Backend
+
+If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#coreml_delegate) class，and use [SetDelegate]() to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
+
+The following sample code shows how to create the CPU and CoreML heterogeneous inference backend：
+
+```cpp
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+    std::cerr << "New context failed." << std::endl;
+}
+auto &device_list = context->MutableDeviceInfo();
+
+// Set CPU device after NPU as second choice.
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+device_list.push_back(cpu_device_info);
+
+auto coreml_delegate = std::make_shared<CoreMLDelegate>();
+if (coreml_delegate == nullptr) {
+    std::cerr << "New CoreMLDelegate failed." << std::endl;
+}
+context->SetDelegate(coreml_delegate);
+```
+
+> The CoreML backend is only supported on devices whose operating system version is not lower than iOS 11 for now.
+
 ## Model Creating Loading and Building
 
 When MindSpore Lite is used for inference, [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is the main entry for inference. You can use [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to load, build and execute model. Use the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step to call the [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of Model to load and build the runtime model.

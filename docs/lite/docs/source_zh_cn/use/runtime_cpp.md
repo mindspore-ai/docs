@@ -218,6 +218,35 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
+### 配置使用CoreML后端
+
+当需要执行的后端为CoreML时，只需实例化[CoreMLDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#coreml_delegate)类，并将实例对象通过[SetDelegate]()接口传入上下文对象(context)即可。这与NPU和GPU等以硬件为区分的后端配置步骤有些许不同。
+
+下面示例代码演示了如何创建CPU与CoreML异构推理后端：
+
+```cpp
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+    std::cerr << "New context failed." << std::endl;
+}
+auto &device_list = context->MutableDeviceInfo();
+
+// Set CPU device after NPU as second choice.
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+device_list.push_back(cpu_device_info);
+
+auto coreml_delegate = std::make_shared<CoreMLDelegate>();
+if (coreml_delegate == nullptr) {
+    std::cerr << "New CoreMLDelegate failed." << std::endl;
+}
+context->SetDelegate(coreml_delegate);
+```
+
+> 当前CoreML后端暂时只支持操作系统版本不低于iOS 11的设备。
+
 ## 模型创建加载与编译
 
 使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，调用Model的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口来实现模型加载与模型编译。
