@@ -377,7 +377,7 @@ bit_num=8
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
 
-量化概览文件`output_summary.csv`包含所有输出层Tensor的精度信息，相关字段如下所示：
+量化输出汇总报告`output_summary.csv`包含整图输出层Tensor的精度信息，相关字段如下所示：
 
 | Type           | Name              |
 | -------------- | ----------------- |
@@ -406,7 +406,7 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 | Clip             | 截断率                                                   |
 | CosineSimilarity | 和原始数据对比的余弦相似度                               |
 
-量化参数文件`quant_param.csv`包含所有量化Tensor的量化参数信息，量化参数相关字段如下所示：
+量化参数报告`quant_param.csv`包含所有量化Tensor的量化参数信息，量化参数相关字段如下所示：
 
 | Type           | Name              |
 | -------------- | ----------------- |
