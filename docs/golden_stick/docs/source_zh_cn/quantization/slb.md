@@ -130,7 +130,7 @@ quant_net = algo.apply(net)
 print(quant_net)
 ```
 
-量化后的网络结构如下：
+量化后的网络结构如下，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 ResNetOpt<
@@ -150,14 +150,14 @@ ResNetOpt<
       (relu): ReLU<>
       (Conv2dSlbQuant): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       >
@@ -170,14 +170,14 @@ ResNetOpt<
       (relu): ReLU<>
       (Conv2dSlbQuant): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
-          in_channels=64, out_channels=64, kernel_size=(3, 3), stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
-          (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+          in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
+          (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
         >
       >
@@ -189,8 +189,8 @@ ResNetOpt<
   (end_point): Dense<input_channels=512, output_channels=10, has_bias=True>
   (Conv2dSlbQuant): QuantizeWrapperCell<
     (_handler): Conv2dSlbQuant<
-      in_channels=3, out_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False
-      (fake_quant_weight): SlbFakeQuantizerPerLayer<>
+      in_channels=3, out_channels=64, kernel_size=(7, 7), weight_bit_num=1, stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False
+      (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
       >
     >
   >
@@ -327,7 +327,7 @@ print(acc)
 'top_1_accuracy': 0.9485176282051282, 'top_5_accuracy': 0.9965945512820513.
 ```
 
-在Graph模式下，对ResNet18网络应用SLB量化，并使用CIFAR-10数据集评估，实验结果如下图所示。其中，W32表示全精度模型。W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit。可以发现，在当前任务中，与全精度模型相比，4bit权重量化后的模型top1精度没有损失，1bit权重量化的top1精度损失在0.6%以内。SLB量化大幅降低了模型的参数量，使得在资源受限的端侧部署模型变得更加便利。
+在Graph模式下，对ResNet18网络应用SLB量化，并使用CIFAR-10数据集评估，实验结果如下图所示。其中，W32表示全精度模型。W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit。可以发现，在当前任务中，与全精度模型相比，4bit权重量化后的模型top1精度没有损失，1bit权重量化的top1精度损失在0.6%以内。SLB量化大幅降低了模型的参数量，使得在资源受限的端侧部署模型变得更加便利。此处模型并非最终部署模型，由于增加了伪量化节点和权值概率矩阵，ckpt大小相较原始模型有较大程度的增加，增幅受权重量化比特影响，量化后的比特数越大增幅越大。根据权值概率矩阵对预设的量化权值进行挑选，便得到最终的量化模型，即最终部署模型。
 
 | 量化类型 | top1精度 | top5精度 |
 | --- | --- | --- |
