@@ -1,66 +1,66 @@
-# 应用SLB算法
+# Applying the SLB Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_en/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
-## 背景
+## Background
 
-传统的量化方法在计算梯度时，通常使用STE(Straight Through Estimator) [1]或者自行设计的梯度计算方式[2]。由于量化函数的不可微，往往会导致计算出来的梯度有误差，从而提供不准确的优化方向，导致最终性能比较差。因此，迫切需要一种能规避这种不准确梯度估计的量化神经网络学习方法。
+In a conventional quantization method, a gradient is usually calculated by using straight through estimator (STE) [1] or a self-designed gradient calculation manner [2]. Due to that the quantization function is not differentiable, an error usually occurs in a calculated gradient. An inaccurate optimization direction results in relatively poor final performance. Therefore, there is an urgent need for a quantitative neural network learning method that can avoid this inaccurate gradient estimation.
 
-## 算法原理介绍
+## Algorithm Principles
 
-SLB(Searching for low-bit weights) [3]是华为诺亚自研的权重量化算法，提供了一种基于权值搜索的低比特量化算法，能避开不准确的梯度估计。针对低比特网络量化，由于量化网络权值的有效解数量比较少，因此，对网络的量化可以通过对权值搜索实现，即将量化过程转换成权值搜索的过程。对给定量化网络预设一组量化权值，然后定义一个概率矩阵来表示不同量化权值被保留的概率，在训练阶段通过优化概率矩阵实现网络权重的量化。
+Searching for low-bit weights (SLB) [3] is a weight quantization algorithm developed by Huawei Noah's Ark Lab. It provides a low-bit quantization algorithm based on weight search to avoid inaccurate gradient estimation. For quantization of a low-bit network, the number of effective solutions for quantizing the network weight is small. Therefore, the quantization of the network may be implemented through weight search, that is, the quantization process is converted into a weight search process. A group of quantization weights are preset for the quantization network, and then a probability matrix is defined to represent the probability that different quantization weights are retained. In the training phase, the network weights are quantized by optimizing the probability matrix.
 
-下面左边图是传统量化算法，训练时量化浮点权重，并用不准确的梯度更新权重，最后对浮点权重做量化。右边图是SLB量化算法，利用连续松弛策略搜索离散权重，训练时优化离散权重的分布，最后根据概率挑选离散权重实现量化。
+The figure on the left shows the traditional quantization algorithm. During training, the floating-point weights are quantized, the weights are updated using inaccurate gradients, and then the floating-point weights are quantized. The figure on the right shows the SLB quantization algorithm. It uses the continuous relaxation strategy to search for discrete weights, optimizes the distribution of discrete weights during training, and selects discrete weights based on the probability to implement quantization.
 
-![SLB算法对比](../images/quantization/slb/slb_1.png)
+![SLB algorithm comparison](../images/quantization/slb/slb_1.png)
 
-### 温度因子
+### Temperature Factor
 
-在分类任务中，softmax分布通常用于计算输出被分为各个类的概率。因此，SLB也使用softmax分布来计算权重被量化为各个量化权值的概率，并最终根据最大概率挑选对应权值作为量化结果。为了提高量化结果的置信度，SLB引入了温度因子，通过逐步调整温度因子，能使softmax分布逐渐变得陡峭，慢慢趋近于one-hot分布，从而最大化量化结果的置信度，缩减量化误差。
+In classification tasks, softmax distribution is used to calculate the probability that the output is classified into different classes. Therefore, the SLB also uses softmax distribution to calculate the probability that a weight is quantized into each quantized weight, and finally selects a corresponding weight as a quantization result based on the maximum probability. To improve the confidence of the quantization result, the SLB introduces a temperature factor. By gradually adjusting the temperature factor, the softmax distribution gradually becomes steep and gradually approaches the one-hot distribution, thereby maximizing the confidence of the quantization result and reducing the error.
 
-下面左边公式是标准的softmax函数，右边是SLB算法中引入了温度因子后的softmax函数。
+The formula on the left is a standard softmax function, and the formula on the right is the softmax function after the temperature factor is introduced in the SLB algorithm.
 
-![softmax函数](../images/quantization/slb/slb_2.png)
+![Softmax function](../images/quantization/slb/slb_2.png)
 
-下图展示了逐步调整温度因子时，softmax分布的变化过程，最右侧是one-hot分布。
+The following figure shows the change process of softmax distribution when the temperature factor is gradually adjusted. The rightmost figure shows the one-hot distribution.
 
-![softmax分布变化](../images/quantization/slb/slb_3.png)
+![Softmax distribution change](../images/quantization/slb/slb_3.png)
 
-## 算法特点
+## Algorithm Features
 
-- 提出了一种新的权值搜索方法，用于训练量化深度神经网络，能规避不准确梯度估计。
-- 利用连续松弛策略搜索离散权重，训练时优化离散权重的概率分布，最后根据概率挑选离散权重实现量化。
-- 为了进一步消除搜索后的性能差距，保证训练和测试的一致性，提出了逐步调整温度因子的策略。
-- 与传统的量化算法相比，规避了不准确的梯度更新过程，能获得更好的性能，在极低比特量化中更有优势。
+- A new weight search method is proposed for training quantization deep neural networks, which can avoid inaccurate gradient estimation.
+- The continuous relaxation strategy is used to search for discrete weights, optimize the probability distribution of discrete weights during training, and finally select discrete weights according to the probability to realize quantization.
+- In order to further eliminate the performance gap after search and ensure the consistency of training and testing, a strategy of gradually adjusting the temperature factor is proposed.
+- Compared with the traditional quantization algorithm, this algorithm avoids the inaccurate gradient updating process, obtains better performance, and has more advantages in very low bit quantization.
 
-## SLB量化训练
+## SLB Quantization Training
 
-表1：SLB量化训练规格
+Table 1: SLB quantization training specifications
 
-| 规格 | 规格说明 |
+| Specifications| Description|
 | --- | --- |
-| 硬件支持 | GPU |
-| 网络支持 | ResNet18，具体请参见<https://gitee.com/mindspore/models/tree/master/official/cv/resnet#应用MindSpore Golden Stick模型压缩算法>。 |
-| 方案支持 | 支持1、2、4比特的权重量化方案。 |
-| 数据类型支持 | GPU平台支持FP32。 |
-| 运行模式支持 | Graph模式和PyNative模式。 |
+| Hardware| GPU |
+| Networks| ResNet-18. For details, see <https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick>.|
+| Solutions| Supports 1-, 2-, and 4-bit weight quantization solutions.|
+| Data types| The GPU platform supports FP32.|
+| Running modes| Graph mode and PyNative mode|
 
-## SLB量化训练示例
+## SLB Quantization Training Example
 
-SLB量化训练与一般训练步骤一致，在定义量化网络和生成量化模型阶段需要进行额外的操作，完整流程如下：
+The procedure of SLB quantization training is the same as that of common training. Additional operations need to be performed in the phases of defining a quantization network and generating a quantization model. The complete process is as follows:
 
-1. 加载数据集，处理数据。
-2. 定义网络。
-3. 定义SLB量化算法，应用算法生成量化模型。
-4. 定义优化器、损失函数和callbacks。
-5. 训练网络，保存模型文件。
-6. 加载模型文件，对比量化后精度。
+1. Load the dataset and process data.
+2. Define a network.
+3. Define the SLB quantization algorithm and use the algorithm to generate a quantization model.
+4. Define the optimizer, loss function, and callbacks.
+5. Train the network and save the model file.
+6. Load the model file and compare the accuracy after quantization.
 
-接下来以ResNet18网络为例，分别叙述这些步骤。
+The following uses the LeNet-18 as an example to describe these steps.
 
-> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README_CN.md#应用MindSpore Golden Stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py)为精度验证代码。
+> For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#). [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
 
-### 加载数据集
+### Loading a Dataset
 
 ```python
 dataset = create_dataset(dataset_path=config.data_path, do_train=True,
@@ -69,9 +69,9 @@ dataset = create_dataset(dataset_path=config.data_path, do_train=True,
                          distribute=config.run_distribute)
 ```
 
-代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py)，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml)中配置，下同。
+In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py), and `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml).
 
-### 定义原网络
+### Defining the Original Network
 
 ```python
 from src.resnet import resnet18 as resnet
@@ -81,9 +81,9 @@ net = resnet(class_num=config.class_num)
 print(net)
 ```
 
-原始网络结构如下：
+The original network structure is as follows:
 
-```text
+```commandline
 ResNet<
   (conv1): Conv2d<input_channels=3, output_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False, weight_init=..., bias_init=zeros, format=NCHW>
   (bn1): BatchNorm2d<num_features=64, eps=1e-05, momentum=0.9, gamma=Parameter (name=bn1.gamma, shape=(64,), dtype=Float32, requires_grad=True), beta=Parameter (name=bn1.beta, shape=(64,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=bn1.moving_mean, shape=(64,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=bn1.moving_variance, shape=(64,), dtype=Float32, requires_grad=False)>
@@ -113,11 +113,11 @@ ResNet<
   >
 ```
 
-ResNet18网络定义见[resnet.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)。
+For details about the ResNet-18 definition, see [resnet.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py).
 
-### 应用量化算法
+### Applying the Quantization Algorithm
 
-量化网络是指在原网络定义的基础上，修改需要量化的网络层后生成的带有伪量化节点的网络，通过构造MindSpore Golden Stick下的`SlbQuantAwareTraining`类，并将其应用到原网络上将原网络转换为量化网络。`QuantDtype`是定义了各种量化比特的类，通过调用`SlbQuantAwareTraining`类的`set_weight_quant_dtype`接口可以实现权重量化比特的自定义。
+After a network layer to be quantized is modified based on the original network definition, a network with fake quantization nodes is generated. This network is a quantization network. The `SlbQuantAwareTraining` class under the MindSpore Golden Stick is constructed and applied to the original network to convert the original network into a quantization network. `QuantDtype` is a class that defines various quantization bits. You can customize the weight quantization bits by calling the `set_weight_quant_dtype` API of the `SlbQuantAwareTraining` class.
 
 ```python
 from mindspore_gs import SlbQuantAwareTraining as SlbQAT
@@ -130,9 +130,9 @@ quant_net = algo.apply(net)
 print(quant_net)
 ```
 
-量化后的网络结构如下，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/r0.1/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
 
-```text
+```commandline
 ResNetOpt<
   (_handler): ResNet<...>
   (conv1): Conv2d<input_channels=3, output_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False, weight_init=..., bias_init=zeros, format=NCHW>
@@ -196,11 +196,11 @@ ResNetOpt<
   >
 ```
 
-与原网络相比，量化后的网络里面的conv被替换成了Conv2dSlbQuant。
+Compared with the original network, conv in the quantized network is replaced with Conv2dSlbQuant.
 
-### 定义优化器、损失函数和训练的callbacks
+### Defining the Optimizer, Loss Function, and Training Callbacks
 
-对于SLB量化算法，除了要定义训练中常用的callbacks，还需要定义一个支持温度因子动态调整的callback类`TemperatureScheduler`。
+For the SLB quantization algorithm, in addition to the callbacks commonly used in training, a callback class `TemperatureScheduler` that supports dynamic adjustment of the temperature factor needs to be defined.
 
 ```python
 import mindspore as ms
@@ -276,9 +276,9 @@ ckpt_cb = ModelCheckpoint(prefix="resnet", directory="./ckpt", config=config_ck)
 cb += [ckpt_cb]
 ```
 
-代码中get_lr引用自[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py)，init_group_params和init_loss_scale都引用自[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)。
+In the code, `get_lr` is referenced from [lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py), and `init_group_params` and `init_loss_scale` are referenced from [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py).
 
-### 训练模型，保存模型文件
+### Training the Model and Saving the Model File
 
 ```python
 dataset_sink_mode = target != "CPU"
@@ -286,9 +286,9 @@ model.train(config.epoch_size - config.has_trained_epoch, dataset, callbacks=cb,
             sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
 ```
 
-运行部分结果如下：
+The running result is as follows:
 
-```text
+```commandline
 epoch: 1 step: 1562, loss is 1.4536957
 Train epoch time: 101539.306 ms, per step time: 65.006 ms
 epoch: 2 step: 1562, loss is 1.3616204
@@ -303,15 +303,15 @@ epoch: 6 step: 1562, loss is 0.8985137
 Train epoch time: 94106.722 ms, per step time: 60.248 ms
 ```
 
-### 加载模型，对比精度
+### Loading the Model and Comparing the Accuracy
 
-按照[resnet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)步骤获得普通训练的模型精度：
+Obtain the accuracy of the common training model according to the steps in the [ResNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/resnet).
 
-```text
+```commandline
 'top_1_accuracy': 0.9544270833333334, 'top_5_accuracy': 0.9969951923076923
 ```
 
-加载上一步得到的模型文件，导入量化后模型评估精度。
+Load the model file obtained in the previous step and import the quantized model for accuracy evaluation.
 
 ```python
 param_dict = ms.load_checkpoint(config.checkpoint_file_path)
@@ -323,20 +323,20 @@ acc = model.eval(ds_eval)
 print(acc)
 ```
 
-```text
+```commandline
 'top_1_accuracy': 0.9485176282051282, 'top_5_accuracy': 0.9965945512820513.
 ```
 
-在Graph模式下，对ResNet18网络应用SLB量化，并使用CIFAR-10数据集评估，实验结果如下图所示。其中，W32表示全精度模型。W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit。可以发现，在当前任务中，与全精度模型相比，4bit权重量化后的模型top1精度没有损失，1bit权重量化的top1精度损失在0.6%以内。SLB量化大幅降低了模型的参数量，使得在资源受限的端侧部署模型变得更加便利。此处模型并非最终部署模型，由于增加了伪量化节点和权值概率矩阵，ckpt大小相较原始模型有较大程度的增加，增幅受权重量化比特影响，量化后的比特数越大增幅越大。根据权值概率矩阵对预设的量化权值进行挑选，便得到最终的量化模型，即最终部署模型。
+In graph mode, apply SLB quantization to ResNet-18 and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, and W1 indicates that the weight is 1 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. SLB quantization greatly reduces model parameters, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits. The final quantization model, that is, the final deployment model, is obtained by selecting the preset quantization weights according to the weight probability matrix.
 
-| 量化类型 | top1精度 | top5精度 |
+| Quantization Type| Top 1 Accuracy| Top 5 Accuracy|
 | --- | --- | --- |
 | W32 | 0.9544 | 0.9970 |
 | W4 | 0.9534 | 0.9970 |
 | W2 | 0.9503 | 0.9967 |
 | W1 | 0.9485 | 0.9966 |
 
-## 参考文献
+## References
 
 [1] Bengio, Yoshua, Nicholas Léonard, and Aaron Courville. Estimating or propagating gradients through stochastic neurons for conditional computation. 2013.
 
