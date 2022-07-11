@@ -83,7 +83,7 @@ print(net)
 
 The original network structure is as follows:
 
-```commandline
+```text
 ResNet<
   (conv1): Conv2d<input_channels=3, output_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False, weight_init=..., bias_init=zeros, format=NCHW>
   (bn1): BatchNorm2d<num_features=64, eps=1e-05, momentum=0.9, gamma=Parameter (name=bn1.gamma, shape=(64,), dtype=Float32, requires_grad=True), beta=Parameter (name=bn1.beta, shape=(64,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=bn1.moving_mean, shape=(64,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=bn1.moving_variance, shape=(64,), dtype=Float32, requires_grad=False)>
@@ -132,7 +132,7 @@ print(quant_net)
 
 The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
 
-```commandline
+```text
 ResNetOpt<
   (_handler): ResNet<...>
   (conv1): Conv2d<input_channels=3, output_channels=64, kernel_size=(7, 7), stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False, weight_init=..., bias_init=zeros, format=NCHW>
@@ -288,7 +288,7 @@ model.train(config.epoch_size - config.has_trained_epoch, dataset, callbacks=cb,
 
 The running result is as follows:
 
-```commandline
+```text
 epoch: 1 step: 1562, loss is 1.4536957
 Train epoch time: 101539.306 ms, per step time: 65.006 ms
 epoch: 2 step: 1562, loss is 1.3616204
@@ -307,7 +307,7 @@ Train epoch time: 94106.722 ms, per step time: 60.248 ms
 
 Obtain the accuracy of the common training model according to the steps in the [ResNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/resnet).
 
-```commandline
+```text
 'top_1_accuracy': 0.9544270833333334, 'top_5_accuracy': 0.9969951923076923
 ```
 
@@ -323,7 +323,7 @@ acc = model.eval(ds_eval)
 print(acc)
 ```
 
-```commandline
+```text
 'top_1_accuracy': 0.9485176282051282, 'top_5_accuracy': 0.9965945512820513.
 ```
 
