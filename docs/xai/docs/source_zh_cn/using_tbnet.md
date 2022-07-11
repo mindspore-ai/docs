@@ -281,4 +281,4 @@ python export.py --config_path ./data/steam/config.json --checkpoint_path ./chec
 
 ## 用例脚本参数及模型性能指标
 
-请参考 [README_CN.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README_CN.md) 以了解各个用例脚本的详细参数及模型性能指标。
+请参考 [README_CN.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README_CN.md#) 以了解各个用例脚本的详细参数及模型性能指标。

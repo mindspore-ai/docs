@@ -284,4 +284,4 @@ The trained model will be exported as `./tbnet.mindir`.
 
 ## Example Script Arguments and Model Performance
 
-For the detail descriptions of the example script arguments and model performance, please refer to [README.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README.md).
+For the detail descriptions of the example script arguments and model performance, please refer to [README.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README.md#).
