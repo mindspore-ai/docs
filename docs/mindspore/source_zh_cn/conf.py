@@ -271,6 +271,66 @@ try:
 except Exception as e:
     print(e)
 
+# 删除并获取ops下多余的接口文件名
+def ops_interface_name():
+    dir_list = ['mindspore.ops.functional.rst', 'mindspore.ops.rst']
+    interface_name_list = []
+    for i in dir_list:
+        target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
+        with open(target_path,'r+',encoding='utf8') as f:
+            content =  f.read()
+            if interface_name_list:
+                interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)",content)
+            else:
+                interface_name_list = re.findall("mindspore\.ops\.(\w*)",content)
+    all_rst = []
+    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/ops')):
+        if j.split('.')[-1]=='rst':
+            if 'func' in j.split('.')[-2]:
+                all_rst.append(j.split('.')[-2][5:])
+            else:
+                all_rst.append(j.split('.')[-2])
+
+    extra_interface_name = set(all_rst).difference(set(interface_name_list))
+    print(extra_interface_name)
+    if extra_interface_name:
+        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
+            extra_write_list = []
+            for k in extra_interface_name:
+                k = "mindspore.ops." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)):
+                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/ops',k))
+                    extra_write_list.append(k)
+            g.write(str(extra_write_list))
+
+# 删除并获取nn下多余的接口文件名
+def nn_interface_name():
+    interface_name_list = []
+    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
+    with open(target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+        interface_name_list = re.findall("mindspore\.nn\.(\w*)",content)
+    all_rst = []
+    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/nn')):
+        if j.split('.')[-1]=='rst':
+            if 'optim_' not in j:
+                all_rst.append(j.split('.')[-2])
+
+    extra_interface_name = set(all_rst).difference(set(interface_name_list))
+    print(extra_interface_name)
+    if extra_interface_name:
+        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
+            extra_write_list = []
+            for k in extra_interface_name:
+                k = "mindspore.nn." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/nn',k)):
+                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/nn',k))
+                    extra_write_list.append(k)
+            g.write(str(extra_write_list))
+
+ops_interface_name()
+nn_interface_name()
+
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
 def setup(app):
