@@ -1,72 +1,72 @@
-# 应用SimQAT算法
+# Applying the SimQAT Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_zh_cn/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_en/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
-## 背景
+## Background
 
-SimQAT是一种最基础的感知量化算法，其具体原理来源于谷歌的[量化白皮书](https://arxiv.org/abs/2106.08295)，是一种基于伪量化节点的感知量化算法。
+SimQAT is a basic quantization aware algorithm based on fake quantization nodes. Its principles come from Google's [A White Paper on Neural Network Quantization](https://arxiv.org/abs/2106.08295).
 
-### 伪量化节点
+### Fake Quantization Node
 
-伪量化节点，是指感知量化训练中插入的节点，用以寻找网络数据分布，并反馈损失精度，具体作用如下：
+A fake quantization node is a node inserted during quantization aware training, and is used to search for network data distribution and feed back a loss in accuracy. The specific functions are as follows:
 
-- 找到网络数据的分布，即找到待量化参数的最大值和最小值；
-- 模拟量化为低比特时的精度损失，把该损失作用到网络模型中，传递给损失函数，让优化器在训练过程中对该损失值进行优化。
+- Find the distribution of network data, that is, find the maximum and minimum values of the parameters to be quantized.
+- Simulate the accuracy loss of low-bit quantization, apply the loss to the network model, and transfer the loss to the loss function, so that the optimizer optimizes the loss value during training.
 
-### BatchNorm折叠
+### BatchNorm Folding
 
-为了规约输出数据范围，卷积或者全连接层后通常会加入BatchNorm算子，在训练过阶段BatchNorm作为一个独立的算子，统计输出的均值和方差（如下左图），在推理阶段则将其融入权重和Bias中，称为BatchNorm折叠（如下右图）。
+To specify the output data range, the BatchNorm operator is added after the convolutional or fully connected layer. In the training phase, the BatchNorm operator is used as an independent operator to collect statistics on the output average value and variance (as shown in the left figure in the following figure). In the inference phase, the BatchNorm operator is integrated into the weight and bias. It is called BatchNorm folding (as shown in the right figure below).
 
 ![](../images/quantization/simqat/bnfold_in_infer.png)
 
-BatchNorm折叠的公式如下：
+The formula for folding BatchNorm is as follows:
 
 $$y_{bn}=\operatorname{BN}\left(y_{cout}\right)=BN(w \cdot x+b)=\widehat{w} \cdot x+\widehat{b}$$
 
-在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数规约实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据规约。在MindSpore Golden Stick中会进一步将权重校正和权重数据规约融合（如下右图），提升性能。
+In quantization aware training, to accurately simulate the folding operation in inference, the paper [1] uses two sets of convolutions to calculate the current BatchNorm parameter, and uses the calculated parameter to specify the weight value of the actual convolution (as shown in the left figure below). CorrectionMul is used for weight calibration, and mulFold is used for weight data specification. The weight calibration and weight data specification are further integrated in the MindSpore Golden Stick (as shown in the right figure below) to improve performance.
 
 ![](../images/quantization/simqat/bnfold_in_train.png)
 
-## 感知量化训练
+## Quantization Aware Training
 
-MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟量化操作，过程中仍然采用浮点数计算，并通过反向传播学习更新网络参数，使得网络参数更好地适应量化带来的损失。对于权值和数据的量化，MindSpore采用了参考文献[1]中的方案。
+MindSpore's quantization aware training uses fake quantization nodes to simulate quantization operations. During the training, floating-point numbers are still used for computation, and network parameters are updated through backward propagation learning, so that the network parameters can better adapt to the loss caused by quantization. MindSpore adopts the solution in reference [1] for the quantization of weights and data.
 
-表1：感知量化训练规格
+Table 1: Quantization aware training specifications
 
-| 规格 | 规格说明 |
+| Specifications| Description|
 | --- | --- |
-| 硬件支持 | GPU |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/models/tree/master>。 |
-| 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
-| 方案支持 | 支持8比特的量化方案。 |
-| 数据类型支持 | GPU平台支持FP32。 |
-| 运行模式支持 | Graph模式和PyNative模式 |
+| Hardware| GPU |
+| Networks| The supported networks include LeNet and ResNet-50. For details, see <https://gitee.com/mindspore/models/tree/master>.|
+| Algorithms| Asymmetric, symmetric, layer-by-layer, and channel-by-channel quantization algorithms.|
+| Solutions| 8-bit quantization solution|
+| Data types| The GPU platform supports FP32.|
+| Running modes| Graph mode and PyNative mode|
 
-## 感知量化训练示例
+## Quantization Aware Training Example
 
-感知量化训练与一般训练步骤基本一致,在构造网络阶段需要应用MindSpore Golden Stick的量化算法生成量化模型，完整流程如下：
+The procedure of quantization aware training is basically the same as that of common training. In the network construction phase, the quantization algorithm of the MindSpore Golden Stick is used to generate a quantization model. The complete process is as follows:
 
-1. 加载数据集，处理数据。
-2. 定义网络。
-3. 定义MindSpore Golden Stick量化算法，应用算法生成量化模型。
-4. 定义优化器、损失函数和callbacks。
-5. 训练网络，保存模型文件。
-6. 加载模型文件，对比量化后精度。
+1. Load the dataset and process data.
+2. Define a network.
+3. Define the MindSpore Golden Stick quantization algorithm and use the algorithm to generate a quantization model.
+4. Define the optimizer, loss function, and callbacks.
+5. Train the network and save the model file.
+6. Load the model file and compare the accuracy after quantization.
 
-接下来以LeNet5网络为例，分别叙述这些步骤。
+The following uses the LeNet-5 as an example to describe these steps.
 
-> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README_CN.md#应用MindSpore Golden Stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
+> For the complete code, see the [LeNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README.md#apply-algorithm-in-mindspore-golden-stick).The [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) is the complete training code, and the [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) is the accuracy verification code.
 
-### 加载数据集
+### Loading a Dataset
 
 ```python
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
 
-代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)
- ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
+In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py).
+ `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
 
-### 定义原网络
+### Defining the Original Network
 
 ```python
 from src.lenet import LeNet5
@@ -75,9 +75,9 @@ network = LeNet5(config.num_classes)
 print(network)
 ```
 
-原始网络结构如下：
+The original network structure is as follows:
 
-```text
+```commandline
 LeNet5<
   (conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
   (conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
@@ -90,11 +90,11 @@ LeNet5<
   >
 ```
 
-LeNet5网络定义见[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) 。
+For details about the ResNet-5 definition, see [lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py).
 
-### 应用量化算法
+### Applying the Quantization Algorithm
 
-量化网络是指在原网络定义的基础上，修改需要量化的网络层后生成的带有伪量化节点的网络，通过构造MindSpore Golden Stick下的`SimulatedQuantizationAwareTraining`类，并将其应用到原网络上将原网络转换为量化网络。
+After a network layer to be quantized is modified based on the original network definition, a network with fake quantization nodes is generated. This network is a quantization network. The `SimulatedQuantizationAwareTraining` class under the MindSpore Golden Stick is constructed and applied to the original network to convert the original network into a quantization network.
 
 ```python
 from mindspore_gs import SimulatedQuantizationAwareTraining as SimQAT
@@ -105,9 +105,9 @@ quanted_network = algo.apply(network)
 print(quanted_network)
 ```
 
-量化网络结构如下，其中QuantizerWrapperCell为感知量化训练对原有Conv2d或者Dense的封装类，包括了原有的算子以及输入输出和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html#mindspore_gs.SimulatedQuantizationAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+The quantized network structure is as follows:
 
-```text
+```commandline
 LeNet5Opt<
   (_handler):
   ...
@@ -154,7 +154,7 @@ LeNet5Opt<
   >
 ```
 
-### 定义优化器、损失函数和训练的callbacks
+### Defining the Optimizer, Loss Function, and Training Callbacks
 
 ```python
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
@@ -165,16 +165,16 @@ config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
 ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", config=config_ck)
 ```
 
-### 训练模型，保存模型文件
+### Training the Model and Saving the Model File
 
 ```python
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 model.train(config.epoch_size, ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor()])
 ```
 
-运行结果如下：
+The result is as follows:
 
-```text
+```commandline
 epoch:1 step: 1875, loss is 0.1609785109
 Train epoch time: 18172.836 ms, per step time: 9.692 ms
 epoch:2 step: 1875, loss is 0.00334590533
@@ -197,15 +197,15 @@ epoch:10 step: 1875, loss is 0.00027961225
 Train epoch time: 8544.641 ms, per step time: 4.552 ms
 ```
 
-### 加载模型，对比精度
+### Loading the Model and Comparing the Accuracy
 
-按照[lenet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/lenet) 步骤获得普通训练的模型精度：
+Obtain the accuracy of the common training model according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/lenet).
 
-```text
+```commandline
 'Accuracy':0.9842
 ```
 
-加载上一步得到的模型文件，导入量化后模型评估精度。
+Load the model file obtained in the previous step and import the quantized model for accuracy evaluation.
 
 ```python
 param_dict = load_checkpoint(config.checkpoint_file_path)
@@ -215,18 +215,16 @@ acc = model.eval(ds_eval)
 print(acc)
 ```
 
-```text
+```commandline
 'Accuracy':0.990484
 ```
 
-LeNet5应用感知量化训练后精度未下降。
+The accuracy of LeNet-5 does not decrease after quantization aware training.
 
-> 此处模型并非最终部署模型，由于增加了伪量化节点，ckpt大小相较原始模型略有增加。
+## Summary
 
-## 总结
+This document describes the functions of quantization and principles of common quantization algorithms, and provides examples to describe how to use the quantization aware algorithm of MindSpore Golden Stick. The quantization algorithm can greatly reduce the model size and improve the model inference performance without decreasing the accuracy. Try it out yourself.
 
-本文主要介绍了量化的作用、常用量化算法的原理，并给出了示例介绍如何应用MindSpore Golden Stick中的感知量化算法。量化算法可以在精度不下降或者下降较少的前提下大幅降低模型尺寸，提升模型推理性能，欢迎使用MindSpore Golden Stick的感知量化训练功能！
-
-## 参考文献
+## References
 
 [1] Jacob B, Kligys S, Chen B, et al. Quantization and training of neural networks for efficient integer-arithmetic-only inference[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018: 2704-2713.
