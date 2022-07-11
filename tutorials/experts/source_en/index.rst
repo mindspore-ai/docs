@@ -77,5 +77,6 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Environment Variables
 
    env/env_var_list
