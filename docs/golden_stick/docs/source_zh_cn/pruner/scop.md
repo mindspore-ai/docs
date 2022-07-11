@@ -46,7 +46,7 @@ SCOP训练分为Knockoff阶段和Finetune阶段，Knockoff阶段对应于前文�
 
 ### Knockoff Data阶段
 
-初始化ResNet50网络，加载预训练模型，通过PrunerKfCompressAlgo进行节点替换，得到Knockoff阶段的网络，并进行训练。
+初始化ResNet50网络，加载预训练模型，通过PrunerKfCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py))，得到Knockoff阶段的网络，并进行训练。
 
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
@@ -95,7 +95,7 @@ step_5: loss=4.715785
 
 ### Finetune阶段
 
-通过Knockoff阶段确认冗余的卷积核，通过PrunerFtCompressAlgo进行节点替换删除冗余卷积核，进行完整的训练并保存模型。
+通过Knockoff阶段确认冗余的卷积核，通过PrunerFtCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py))删除冗余卷积核，进行完整的训练并保存模型。
 
 ```python
 from mindspore_gs import Kf_Conv2d
