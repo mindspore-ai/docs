@@ -31,7 +31,7 @@ During network training, the MindSpore Golden Stick does not have great impact o
 
 - **Optimize the model using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the model is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see [Applying the SimQAT Algorithm](https://mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html).
 
-- **Register the MindSpore Golden Stick callback API:** Register the callback algorithm of the MindSpore Golden Stick with the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and [register the object with the model](https://www.mindspore.cn/tutorials/en/master/advanced/train/callback.html).
+- **Register the MindSpore Golden Stick callback API:** Register the callback algorithm of the MindSpore Golden Stick with the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and [register the object with the model](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/callback.html).
 
 2. Deployment
 
@@ -39,7 +39,7 @@ During network training, the MindSpore Golden Stick does not have great impact o
 
 .. note::
  - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
- - For details about the "network training or retraining" step in the process, see [MindSpore Training and Evaluation](https://mindspore.cn/tutorials/en/master/advanced/train/train_eval.html).
+ - For details about the "network training or retraining" step in the process, see [MindSpore Training and Evaluation](https://mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html).
  - For details about the "ms.export" step in the process, see [Exporting MINDIR Model](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model).
  - For details about "model optimization" and "model export" in the process, see [Converting Models for Inference](https://mindspore.cn/lite/docs/en/master/use/converter_tool.html).
  - For details about the "MindSpore inference runtime" step in the process, see [MindSpore Inference Runtime](https://mindspore.cn/lite/docs/en/master/use/runtime.html).
