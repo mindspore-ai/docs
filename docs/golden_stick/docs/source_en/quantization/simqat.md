@@ -77,7 +77,7 @@ print(network)
 
 The original network structure is as follows:
 
-```commandline
+```text
 LeNet5<
   (conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
   (conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
@@ -107,7 +107,7 @@ print(quanted_network)
 
 The quantized network structure is as follows:
 
-```commandline
+```text
 LeNet5Opt<
   (_handler):
   ...
@@ -174,7 +174,7 @@ model.train(config.epoch_size, ds_train, callbacks=[time_cb, ckpoint_cb, LossMon
 
 The result is as follows:
 
-```commandline
+```text
 epoch:1 step: 1875, loss is 0.1609785109
 Train epoch time: 18172.836 ms, per step time: 9.692 ms
 epoch:2 step: 1875, loss is 0.00334590533
@@ -201,7 +201,7 @@ Train epoch time: 8544.641 ms, per step time: 4.552 ms
 
 Obtain the accuracy of the common training model according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/lenet).
 
-```commandline
+```text
 'Accuracy':0.9842
 ```
 
@@ -215,7 +215,7 @@ acc = model.eval(ds_eval)
 print(acc)
 ```
 
-```commandline
+```text
 'Accuracy':0.990484
 ```
 
