@@ -23,8 +23,10 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge 或 Miniforge|
+    |M1|ARM|11.3|Python 3.8.5-3.9|Mambaforge 或 Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda 或 MiniConda|
+
+> 注意：支持M1芯片（ARM架构）macOS的最低Python版本为3.8.5
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
 
@@ -42,10 +44,10 @@
   conda activate mindspore_py37
   ```
 
-- 如果您希望使用Python3.8.0版本(适配64-bit macOS 10.15或11.3)：
+- 如果您希望使用Python3.8.5版本(适配64-bit macOS 10.15或11.3)：
 
   ```bash
-  conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.0
+  conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.5
   conda activate mindspore_py38
   ```
 
