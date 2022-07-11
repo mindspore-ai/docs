@@ -125,6 +125,14 @@ A: MindSpore relies on the third-party library `pillow` for some data processing
 
 <br/>
 
+<font size=3>**Q: What should I do if error message `ImportError: dlopen ... no suitable image found.  Did find:
+..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture` is generated when I execute MindSpore on macOS for ARM with python 3.8.5?**</font>
+
+A: The default version of psutil in python3.8.5 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflitcts when running MindSpore. To fix this, run `conda install psutil` if you are using conda, or `pip uninstall psutil; pip install --no-binary :all: psutil` if you are using pip, replacing psutil with a correct version for ARM.
+For detailed reasons, please refer to [this post on stackoverflow](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp)
+
+<br/>
+
 ## Source Code Compilation Installation
 
 <font size=3>**Q: What is the difference between `bash -p` and `bash -e` during compilation?**</font>
