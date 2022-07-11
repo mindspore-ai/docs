@@ -20,13 +20,15 @@ This document describes how to quickly install MindSpore on macOS by pip.
 
     |Chip|Architecture|macOS Version|Supported Python Version|
     |-|-|-|-|
-    |M1|ARM|11.3|Python 3.8-3.9|
+    |M1|ARM|11.3|Python 3.8.5-3.9|
     |Intel|x86_64|10.15/11.3|Python 3.7-3.9|
+
+> Note: Python 3.8.5 is the oldest version that supports macOS for M1 Chip (ARM Architecture)
 
 - Ensure that right Python version is installed. If not installed, download and install Python from:
 
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
-    - Python 3.8.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.8.0/python-3.8.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.8.0/python-3.8.0-macosx10.9.pkg)。
+    - Python 3.8.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.8.5/python-3.8.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.8.5/python-3.8.5-macosx10.9.pkg)。
     - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
 
 ## Installing MindSpore
