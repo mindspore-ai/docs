@@ -78,6 +78,7 @@ Typical Application Scenarios
    mindarmour.adv_robustness.detectors
    mindarmour.adv_robustness.evaluations
    mindarmour.fuzz_testing
+   mindarmour.natural_robustness.transform.image
    mindarmour.privacy.diff_privacy
    mindarmour.privacy.evaluation
    mindarmour.privacy.sup_privacy
