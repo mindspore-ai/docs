@@ -79,6 +79,7 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    mindarmour.adv_robustness.detectors
    mindarmour.adv_robustness.evaluations
    mindarmour.fuzz_testing
+   mindarmour.natural_robustness.transform.image
    mindarmour.privacy.diff_privacy
    mindarmour.privacy.evaluation
    mindarmour.privacy.sup_privacy
