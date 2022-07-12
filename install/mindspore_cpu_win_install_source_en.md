@@ -29,11 +29,14 @@ For the detailed steps, see the third-party dependency software installation sec
 - Ensure that [CMake 3.18.3](https://github.com/Kitware/Cmake/releases/tag/v3.18.3) is installed.
 - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path of `cmake.exe` to the environment variable PATH.
 - Ensure that [ActivePerl 5.28.1.2801 or later](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe) is installed.
-- Ensure that you have Python versions between 3.7 to 3.9 installed. Consider the following examples:
+- Ensure that you have Python versions between 3.7.5 to 3.9 installed. Consider the following examples:
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/python-3.7.5-amd64.exe).
     - Python 3.8.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.8.0/python-3.8.0-amd64.exe).
     - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/python-3.9.0-amd64.exe).
     - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path of `python.exe` to the environment variable Path. The `Scripts` folder in the same directory of `python.exe` is the pip file that comes with Python, and you also need to add the path of the pip file to the environment variable Path.
+
+> Note: Python 3.7.5 is the oldest version that supports compiling MindSpore for Windows from source code.
+
 - Ensure that [wheel 0.32.0 and later](https://pypi.org/project/wheel/) is installed.
 
 ## Downloading Source Code from Code Repository
