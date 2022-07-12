@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## pip安装
+## Pip安装
 
 <font size=3>**Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta，出现问题: `cannot open shared object file:No such file or directory`。**</font>
 
@@ -78,32 +78,6 @@ A: 您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)�
 
 <br/>
 
-<font size=3>**Q: MindSpore是否支持Nvidia GPU独立显卡+Windows操作系统的个人电脑？**</font>
-
-A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Windows+GPU的支持还在开发中。
-如果希望在GPU+Windows的环境上运行，可以尝试使用WSL+docker的方式，操作思路:
-
-1. 以WSL方式安装起Ubuntu18.04，参考<https://docs.microsoft.com/en-us/windows/wsl/install-win10>。
-2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考<https://docs.nvidia.com/cuda/wsl-user-guide/index.html>。
-
-   > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
-3. 参考<https://gitee.com/mindspore/mindspore#docker镜像>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
-
-    ```docker
-    docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
-    ```
-
-详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://bbs.huaweicloud.com/blogs/212446)。
-在此感谢社区成员[张辉](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345)的分享。
-
-<br/>
-
-<font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
-
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
-
-<br/>
-
 <font size=3>**Q: pip同时安装MindSpore CPU和GPU版本，import时报错 `cannot import name 'context' from 'mindspore'`，应该怎么办？**</font>
 
 A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个Python环境可能产生目录相互覆盖问题，导致无法使用，如果需要使用多平台版本的MindSpore时（例如同时使用CPU和GPU版本），请先卸载其他版本再安装新版本。
@@ -130,7 +104,15 @@ A: ARM版macOS上的Python3.8.5包含的psutil无法正确识别当前系统的�
 
 <br/>
 
-## 源码编译安装
+## Conda安装
+
+<font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
+
+A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
+
+<br/>
+
+## Source安装
 
 <font size=3>**Q: 编译时`bash -p`方式和 `bash -e`方式的区别？**</font>
 
@@ -142,39 +124,21 @@ A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编�
 
 <br/>
 
-<font size=3>**Q: 在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？**</font>
-
-A: arm64版本编译: `bash build.sh -I arm64`；arm32版本编译: `bash build.sh -I arm32`；注意要先设置环境变量，指定Android NDK路径: `export ANDROID_NDK=/path/to/android-ndk`，编译成功后，在output目录可以找到编译出的包。
-
-<br/>
-
 <font size=3>**Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。**</font>
 
 A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
 
 <br/>
 
+<font size=3>**Q: 在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？**</font>
+
+A: arm64版本编译: `bash build.sh -I arm64`；arm32版本编译: `bash build.sh -I arm32`；注意要先设置环境变量，指定Android NDK路径: `export ANDROID_NDK=/path/to/android-ndk`，编译成功后，在output目录可以找到编译出的包。
+
+<br/>
+
 <font size=3>**Q: 源码编译MindSpore过程时间过长，或时常中断该怎么办？**</font>
 
 A: MindSpore通过submodule机制引入第三方依赖包，其中`Protobuf`依赖包（v3.13.0）下载速度不稳定，建议您提前进行包缓存。
-
-<br/>
-
-<font size=3>**Q: 如何改变第三方依赖库安装路径？**</font>
-
-A: 第三方依赖库的包默认安装在build/mindspore/.mslib目录下，可以设置环境变量MSLIBS_CACHE_PATH来改变安装目录，比如 `export MSLIBS_CACHE_PATH = ~/.mslib`。
-
-<br/>
-
-<font size=3>**Q: MindSpore要求的配套软件版本与Ubuntu默认版本不一致怎么办？**</font>
-
-A: 当前MindSpore只提供版本配套关系，需要您手动进行配套软件的安装升级。（**注明**: MindSpore要求Python3.7.5和gcc7.3，Ubuntu 16.04默认为Python3.5和gcc5，Ubuntu 18.04默认自带Python3.7.3和gcc7.4）。
-
-<br/>
-
-<font size=3>**Q: 执行用例报错`No module named 'mindpore.version'`，应该怎么办？**</font>
-
-A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
 
 <br/>
 
@@ -187,6 +151,12 @@ A: 这种报错可能是在编译的时候由于网络问题导致一些第三�
 <font size=3>**Q: 环境上安装了Python3.7.5，环境变量设置正确，编译MindSpore时仍然报错`Python3 not found`，应该怎么办？**</font>
 
 A: 可能是因为当前环境上的Python未包含动态库。编译MindSpore需要动态链接Python库，因此需要使用开启动态库编译选项的Python3.7.5，即在源码编译Python时使用`./configure --enable-shared`命令。
+
+<br/>
+
+<font size=3>**Q: 如何改变第三方依赖库安装路径？**</font>
+
+A: 第三方依赖库的包默认安装在build/mindspore/.mslib目录下，可以设置环境变量MSLIBS_CACHE_PATH来改变安装目录，比如 `export MSLIBS_CACHE_PATH = ~/.mslib`。
 
 <br/>
 
@@ -222,6 +192,40 @@ A: 可能的原因有:
 
 A: Python的setuptools组件从58.3.0版本宣布放弃直接调用setup.py的使用方式，因此在安装了较高版本的setuptools的Python环境中源码编译时会遇到类似告警。该告警暂不影响MindSpore的使用，我们将在后续的版本中更换打包方式。
 详情可以参照[setuptools版本记录](https://setuptools.pypa.io/en/latest/history.html#v58-3-0)
+
+<br/>
+
+<font size=3>**Q: MindSpore要求的配套软件版本与Ubuntu默认版本不一致怎么办？**</font>
+
+A: 当前MindSpore只提供版本配套关系，需要您手动进行配套软件的安装升级。（**注明**: MindSpore要求Python3.7.5和gcc7.3，Ubuntu 16.04默认为Python3.5和gcc5，Ubuntu 18.04默认自带Python3.7.3和gcc7.4）。
+
+<br/>
+
+<font size=3>**Q: 执行用例报错`No module named 'mindpore.version'`，应该怎么办？**</font>
+
+A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
+
+<br/>
+
+## Docker安装
+
+<font size=3>**Q: MindSpore是否支持Nvidia GPU独立显卡+Windows操作系统的个人电脑？**</font>
+
+A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Windows+GPU的支持还在开发中。
+如果希望在GPU+Windows的环境上运行，可以尝试使用WSL+docker的方式，操作思路:
+
+1. 以WSL方式安装起Ubuntu18.04，参考<https://docs.microsoft.com/en-us/windows/wsl/install-win10>。
+2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考<https://docs.nvidia.com/cuda/wsl-user-guide/index.html>。
+
+   > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
+3. 参考<https://gitee.com/mindspore/mindspore#docker镜像>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
+
+    ```docker
+    docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
+    ```
+
+详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://bbs.huaweicloud.com/blogs/212446)。
+在此感谢社区成员[张辉](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345)的分享。
 
 <br/>
 
