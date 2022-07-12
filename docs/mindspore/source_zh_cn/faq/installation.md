@@ -218,6 +218,13 @@ A: 可能的原因有:
 
 <br/>
 
+<font size=3>**Q: 编译完成时告警，`SetuptoolsDeprecationWarning: setup.py install is deprecated ...`怎么办？**</font>
+
+A: Python的setuptools组件从58.3.0版本宣布放弃直接调用setup.py的使用方式，因此在安装了较高版本的setuptools的Python环境中源码编译时会遇到类似告警。该告警暂不影响MindSpore的使用，我们将在后续的版本中更换打包方式。
+详情可以参照[setuptools版本记录](https://setuptools.pypa.io/en/latest/history.html#v58-3-0)
+
+<br/>
+
 ## 卸载
 
 <font size=3>**Q: 如何卸载MindSpore？**</font>
