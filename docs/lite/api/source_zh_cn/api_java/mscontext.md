@@ -25,8 +25,8 @@ MSContext类用于配置运行时的上下文配置。
 | [int getInterOpParallelNum()](#getinteropparallelnum)                                         |
 | [void setThreadAffinity(int mode)](#setthreadaffinity)                                        |
 | [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     |
-| [void setThreadAffinity(ArrayList\<Integer\> coreList)](#setthreadaffinity-1)                 |
-| [ArrayList\<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                |
+| [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 |
+| [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                |
 | [void setEnableParallel(boolean isParallel)](#setenableparallel)                              |
 | [boolean getEnableParallel()](#getenableparallel)                                             |
 | [DeviceType](#devicetype)                                                                     |
