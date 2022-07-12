@@ -221,6 +221,13 @@ A: The possible reasons are:
 
 <br/>
 
+<font size=3>**Q: A warning `SetuptoolsDeprecationWarning: setup.py install is deprecated ...` occurs when finishing compilation, what should I do?**</font>
+
+A: Setuptools, a Python package which manages generation of Python whl packages, has deprecated direct calling of setup.py since 58.3.0, hence you may run into such warnings while using a Python environment with a newer version of setuptools installed. This does not affect the usage of MindSpore, and we will update our pacakaging methods in a future version.
+For more details, please refer to [setuptools version history](https://setuptools.pypa.io/en/latest/history.html#v58-3-0)
+
+<br/>
+
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
