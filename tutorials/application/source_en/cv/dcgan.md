@@ -133,7 +133,7 @@ def create_dataset_imagenet(dataset_path):
     return data_set
 
 # Obtain the processed dataset.
-data = create_dataset_imagenet(data_root, num_parallel_workers=4)
+data = create_dataset_imagenet(data_root)
 
 # Obtain the dataset size.
 size = data.get_dataset_size()
@@ -150,8 +150,8 @@ data_iter = next(data.create_dict_iterator(output_numpy=True))
 # Visualize some training data.
 plt.figure(figsize=(10, 3), dpi=140)
 for i, image in enumerate(data_iter['image'][:30], 1):
-    plt.axis("off")
     plt.subplot(3, 10, i)
+    plt.axis("off")
     plt.imshow(image.transpose(1, 2, 0))
 plt.show()
 ```
