@@ -2131,7 +2131,7 @@ class ExhaleRoot(object):
                 mycontent = content.findall(data)
                 for i in range(0, len(mycontent)):
                     mystr = "".join(mystr) + "\n"
-                    result = "".join(mycontent[i]).replace("- :ref:`exhale_", "../generate/").replace("`", "")
+                    result = "".join(mycontent[i]).replace("- :ref:`exhale_", "- :doc:`../generate/")
                     result = result.replace("class_class", "class").replace("struct_struct", "struct").replace("union_union", "union")
                     result = re.sub(r'(Classes|Typedefs|Enums)\n----(.*)', r'.. toctree::\n  :maxdepth: 1\n  :caption: \1', result)
                     out_path = "/".join(dirC.split("/")[:-1])+"/{}".format(file)
