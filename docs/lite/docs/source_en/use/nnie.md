@@ -75,7 +75,8 @@ To load the extension module when converting, users need to configure the path o
 | Parameter | Attribute | Function Description | Parameter Type | Default Value | Value Range |
 | --------- | --------- | -------------------- | -------------- | ------------- | ----------- |
 | plugin_path | Optional | Third-party library path | String | - | If there are more than one, please use `;` to separate. |
-| disable_fusion | Optional | Indicate whether to correct the quantization error | String | off | off or on. |
+| disable_fusion | Optional | Indicate whether to close fusion | String | off | off or on. |
+| fusion_blacklists | Optional | Specified fusion operator names to be closed | String | - |  If there are more than one, please use `,` to separate |
 
 We have generated the default configuration file which restores the relative path of the NNIE dynamic library for the users in the released package. The users need to decide whether the configuration file needs to be modified manually. The content is as follows:
 
@@ -83,6 +84,59 @@ We have generated the default configuration file which restores the relative pat
 [registry]
 plugin_path=../providers/Hi3516D/libmslite_nnie_converter.so
 ```
+
+If the user needs to turn off the specified operator fusions, the fusion configuration of the the specified operator names to be closed are as follows：
+
+```ini
+[registry]
+# When parameter `disable_fusion` is configured as `off`, the user can turn off the specified operator fusions by configuring parameter `fusion_blacklists`. While parameter `disable_fusion` is configured as `on`, the parameter  `fusion_blacklists` does not work.
+disable_fusion=off
+fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
+```
+
+The operator fusion names are as follows：
+| No | the operator fusion name |
+| ---- | -------- |
+| 1 | AddConcatActivationFusion  |
+| 2 | SqueezeFusion  |
+| 3| TransposeFusion  |
+| 4 | ReshapeReshapeFusion  |
+| 5 | ConvBiasaddFusion  |
+| 6 | ConvBatchNormFusion  |
+| 7 | ConvScaleFusion  |
+| 8 | GroupNormFusion  |
+| 9 | TfNormFusion  |
+| 10 | OnnxLayerNormFusion  |
+| 11 | OnnxLayerNormFusion2  |
+| 12 | BatchMatMulFusion  |
+| 13 | BatchNormToScaleFusion  |
+| 14 | SigmoidMulFusion  |
+| 15 | ActivationFusion  |
+| 16 | ConvActivationFusion  |
+| 17 | ConvTupleGetItemFusion  |
+| 18 | ConvTupleActivationFusion  |
+| 19 | TfliteLstmCellFusion  |
+| 20 | TfLstmCellFusion  |
+| 21 | TfBidirectionGruFusion  |
+| 22 | TfGeLUFusion  |
+| 23 | OnnxGeLUFusion  |
+| 24 | TfliteRelPosMultiHeadAttentionFusion  |
+| 25 | GLUFusion  |
+| 26 | ConstFoldPass  |
+| 27 | AffineFusion  |
+| 28 | AffineActivationFusion  |
+| 29 | ConvConvFusion  |
+| 30 | ConvPadFusion  |
+| 31 | MatMulAddFusion  |
+| 32 | MatMulMulFusion  |
+| 33 | TransposeMatMulFusion  |
+| 34 | MulAddFusion  |
+| 35 | ScaleActivationFusion  |
+| 36 | ScaleScaleFusion  |
+| 37 | FullConnectedFusion  |
+| 38 | FullconnectedAddFusion  |
+| 39 | TensorDotFusion  |
+| 40 | MatMulActivationFusion  |
 
 #### NNIE Configuration
 
