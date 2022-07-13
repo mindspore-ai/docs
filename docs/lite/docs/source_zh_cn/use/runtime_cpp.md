@@ -220,7 +220,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用CoreML后端
 
-当需要执行的后端为CoreML时，只需实例化[CoreMLDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#coreml_delegate)类，并将实例对象通过[SetDelegate]()接口传入上下文对象(context)即可。这与NPU和GPU等以硬件为区分的后端配置步骤有些许不同。
+当需要执行的后端为CoreML时，只需实例化[CoreMLDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#coremldelegate)类，并将实例对象通过[SetDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdelegate)接口传入上下文对象(context)即可。这与NPU和GPU等以硬件为区分的后端配置步骤有些许不同。
 
 下面示例代码演示了如何创建CPU与CoreML异构推理后端：
 

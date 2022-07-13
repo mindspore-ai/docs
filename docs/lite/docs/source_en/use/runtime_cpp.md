@@ -221,7 +221,7 @@ device_list.push_back(cpu_device_info);
 
 ### Configuring the CoreML Backend
 
-If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#coreml_delegate) class，and use [SetDelegate]() to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
+If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class，and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
 
 The following sample code shows how to create the CPU and CoreML heterogeneous inference backend：
 
