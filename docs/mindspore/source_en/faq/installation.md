@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_en/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
-## Installing by Using pip
+## Installing by Using Pip
 
 <font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?**</font>
 
@@ -62,8 +62,7 @@ A: It is generally a proxy configuration problem. You can use `export http_proxy
 
 <font size=3>**Q: What should I do when an error prompts during installing by using  pip?**</font>
 
-A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
-use `python3.7 -m pip install` instead of `pip install` command.
+A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you use `python3.7 -m pip install` instead of `pip install` command.
 
 <br/>
 
@@ -76,34 +75,6 @@ A: Please execute `pip config list` to check the software library index `index-u
 <font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?**</font>
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions/en) and manually install it via `pip install`.
-
-<br/>
-
-<font size=3>**Q: Whether MindSpore can support Nvidia GPU discrete graphics + Windows operating system pc?**</font>
-
-A: At present, the support of MindSpore is the combination configuration of GPU +Linux and CPU + Windows, and the support of Windows + GPU is still under development.
-
-If you want to run on a GPU+Windows environment, you can try to use WSL+docker, the operation idea:
-
-1. For installing Ubuntu18.04 in WSL mode, refer to <https://docs.microsoft.com/en-us/windows/wsl/install-win10>.
-
-2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to <https://docs.nvidia.com/cuda/wsl-user-guide/index.html>.
-
->Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
-
-3. Referring to <https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>, take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
-
-```docker
-docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
-```
-
-The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://bbs.huaweicloud.com/blogs/212446). Thanks to the community member [Zhang Hui](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345) for sharing.
-
-<br/>
-
-<font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
-
-A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
 
 <br/>
 
@@ -133,7 +104,15 @@ For detailed reasons, please refer to [this post on stackoverflow](https://stack
 
 <br/>
 
-## Source Code Compilation Installation
+## Installing by Using Conda
+
+<font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
+
+A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
+
+<br/>
+
+## Installing by Using Source
 
 <font size=3>**Q: What is the difference between `bash -p` and `bash -e` during compilation?**</font>
 
@@ -145,39 +124,21 @@ For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follow
 
 <br/>
 
-<font size=3>**Q: A cross compiler has been installed on Linux, but how do I write compilation commands?**</font>
-
-A: To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. To set environment variables, specify the Android NDK path:  `export ANDROID_NDK=/path/to/android-ndk`. After the compilation is successful, find the compiled package in the output directory.
-
-<br/>
-
 <font size=3>**Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.**</font>
 
 A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
 
 <br/>
 
+<font size=3>**Q: A cross compiler has been installed on Linux, but how do I write compilation commands?**</font>
+
+A: To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. To set environment variables, specify the Android NDK path:  `export ANDROID_NDK=/path/to/android-ndk`. After the compilation is successful, find the compiled package in the output directory.
+
+<br/>
+
 <font size=3>**Q: What should I do if the source code compilation process takes too long or is often interrupted?**</font>
 
 A: MindSpore imports the third party dependency package through the submodule mechanism, among which `Protobuf` v3.13.0 might not have the optimal or steady download speed. It is recommended that you perform package cache in advance.
-
-<br/>
-
-<font size=3>**Q: How to change installation directory of the third party libraries?**</font>
-
-A: The third party library packages will be installed in build/mindspore/.mslib, and you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
-
-<br/>
-
-<font size=3>**Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?**</font>
-
-A: Currently, MindSpore only provides version matching relationships, which requires you to manually install and upgrade the companion software. (**Note**: MindSpore requires Python3.7.5 and gcc7.3, and the default version in Ubuntu 16.04 are Python3.5 and gcc5, whereas the default one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
-
-<br/>
-
-<font size=3>**Q: What should I do when the error message`No module named 'mindpore.version` is displayed when the use case is executed?**</font>
-
-A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
 
 <br/>
 
@@ -190,6 +151,12 @@ A: This error may be due to network problems at the time of compilation caused b
 <font size=3>**Q: What should I do when I have installed Python 3.7.5 and set environment variables accordingly, but still failed compiling MindSpore, with error message `Python3 not found`?**</font>
 
 A: It's probably due to the lack of shared libraries in current Python environment. Compiling MindSpore requires linking Python share libraries, hence you may need to compile and install Python 3.7.5 from source, using command `./configure --enable-shared`.
+
+<br/>
+
+<font size=3>**Q: How to change installation directory of the third party libraries?**</font>
+
+A: The third party library packages will be installed in build/mindspore/.mslib, and you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
 
 <br/>
 
@@ -225,6 +192,42 @@ A: The possible reasons are:
 
 A: Setuptools, a Python package which manages generation of Python whl packages, has deprecated direct calling of setup.py since 58.3.0, hence you may run into such warnings while using a Python environment with a newer version of setuptools installed. This does not affect the usage of MindSpore, and we will update our pacakaging methods in a future version.
 For more details, please refer to [setuptools version history](https://setuptools.pypa.io/en/latest/history.html#v58-3-0)
+
+<br/>
+
+<font size=3>**Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?**</font>
+
+A: Currently, MindSpore only provides version matching relationships, which requires you to manually install and upgrade the companion software. (**Note**: MindSpore requires Python3.7.5 and gcc7.3, and the default version in Ubuntu 16.04 are Python3.5 and gcc5, whereas the default one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
+
+<br/>
+
+<font size=3>**Q: What should I do when the error message`No module named 'mindpore.version` is displayed when the use case is executed?**</font>
+
+A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
+
+<br/>
+
+## Installing by Using Docker
+
+<font size=3>**Q: Whether MindSpore can support Nvidia GPU discrete graphics + Windows operating system pc?**</font>
+
+A: At present, the support of MindSpore is the combination configuration of GPU +Linux and CPU + Windows, and the support of Windows + GPU is still under development.
+
+If you want to run on a GPU+Windows environment, you can try to use WSL+docker, the operation idea:
+
+1. For installing Ubuntu18.04 in WSL mode, refer to <https://docs.microsoft.com/en-us/windows/wsl/install-win10>.
+
+2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to <https://docs.nvidia.com/cuda/wsl-user-guide/index.html>.
+
+>Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
+
+3. Referring to <https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>, take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
+
+```docker
+docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
+```
+
+The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://bbs.huaweicloud.com/blogs/212446). Thanks to the community member [Zhang Hui](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345) for sharing.
 
 <br/>
 
