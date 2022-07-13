@@ -271,6 +271,13 @@ try:
 except Exception as e:
     print(e)
 
+federated_dir = './api_python/federated'
+probability_dir = './api_python/probability'
+if os.path.exists(federated_dir):
+    shutil.rmtree(federated_dir)
+if os.path.exists(probability_dir):
+    shutil.rmtree(probability_dir)
+
 # 删除并获取ops下多余的接口文件名
 def ops_interface_name():
     dir_list = ['mindspore.ops.functional.rst', 'mindspore.ops.rst']

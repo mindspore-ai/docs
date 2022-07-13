@@ -19,7 +19,7 @@ Design Guidelines
    The model compression algorithm is usually designed or optimized for a specific network structure, and seldom focuses on a specific network definition. The MindSpore Golden Stick provides the capability of modifying the front-end network definitions through APIs so that algorithm developers can focus on algorithm implementation without reinventing the wheel for different network definitions. In addition, the MindSpore Golden Stick provides some commissioning capabilities, including network dump, layer-by-layer profiling, algorithm effect analysis, and visualization, to help algorithm developers improve development and research efficiency and help users find algorithms that meet their requirements.
 
 General Process of Applying the MindSpore Golden Stick
----------------------------------------
+------------------------------------------------------
 
 .. raw:: html
 
