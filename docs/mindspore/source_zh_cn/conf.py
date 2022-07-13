@@ -271,6 +271,13 @@ try:
 except Exception as e:
     print(e)
 
+federated_dir = './api_python/federated'
+probability_dir = './api_python/probability'
+if os.path.exists(federated_dir):
+    shutil.rmtree(federated_dir)
+if os.path.exists(probability_dir):
+    shutil.rmtree(probability_dir)
+
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
 def setup(app):
