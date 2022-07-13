@@ -701,7 +701,7 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
@@ -744,7 +744,7 @@ Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
