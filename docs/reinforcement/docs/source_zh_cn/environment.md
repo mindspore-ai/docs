@@ -6,7 +6,7 @@
 
 强化学习领域中，智能体与环境交互过程中，学习策略来使得数值化的收益信号最大化。“环境”作为待解决的问题，是强化学习领域中重要的要素。
 
-目前强化学习使用的环境种类繁多：[Mujoco](https://github.com/deepmind/mujoco)、[MPE](https://github.com/openai/multiagent-particle-envs)、[Atari](https://github.com/gsurma/atari)、[PySC2](https://www.deepmind.com/blog/deepmind-and-blizzard-open-starcraft-ii-ai-research-environment)、[SMAC](https://github/oxwhirl/smac)、[TORCS](https://github.com/ugo-nama-kun/gym_torcs)、[Isaac](https://github.com/NVIDIA-Omniverse/IsaacGymEnvs)等，目前MindSpore Reinforcement接入了Gym、SMAC两个环境，后续随着算法的丰富，还会逐渐接入更多的环境。本文将介绍如何在MindSpore Reinforcement下接入第三方环境。
+目前强化学习使用的环境种类繁多：[Mujoco](https://github.com/deepmind/mujoco)、[MPE](https://github.com/openai/multiagent-particle-envs)、[Atari](https://github.com/gsurma/atari)、[PySC2](https://www.github.com/deepmind/pysc2)、[SMAC](https://github/oxwhirl/smac)、[TORCS](https://github.com/ugo-nama-kun/gym_torcs)、[Isaac](https://github.com/NVIDIA-Omniverse/IsaacGymEnvs)等，目前MindSpore Reinforcement接入了Gym、SMAC两个环境，后续随着算法的丰富，还会逐渐接入更多的环境。本文将介绍如何在MindSpore Reinforcement下接入第三方环境。
 
 ## 将环境Python函数封装为算子
 
