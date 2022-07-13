@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-x64
         ├── converter                # Model conversion tool
         │   └── converter_lite       # Executable program
         └── lib                      # The dynamic link library that converter depends
-            ├── libglog.so.0         # Dynamic library of Glog
+            ├── libmindspore_glog.so.0         # Dynamic library of Glog
             ├── libmslite_converter_plugin.so  # Dynamic library of plugin registry
             ├── libopencv_core.so.4.5          # Dynamic library of OpenCV
             ├── libopencv_imgcodecs.so.4.5     # Dynamic library of OpenCV
@@ -157,7 +157,7 @@ mindspore-lite-{version}-win-x64
         │   └── converter_lite.exe    # Executable program
         └── lib
             ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
-            ├── libglog.dll           # Dynamic library of Glog
+            ├── libmindspore_glog.dll            # Dynamic library of Glog
             ├── libmslite_converter_plugin.dll   # Dynamic library of plugin registry
             ├── libmslite_converter_plugin.dll.a # Link file of Dynamic library of plugin registry
             ├── libssp-0.dll          # Dynamic library of MinGW
