@@ -31,7 +31,7 @@ class mindspore.nn.Conv2d(
     pad_mode='same',
     padding=0,
     dilation=1,
-    groups=1,
+    group=1,
     has_bias=False,
     weight_init='normal',
     bias_init='zeros',
