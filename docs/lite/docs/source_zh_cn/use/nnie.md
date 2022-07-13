@@ -76,7 +76,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 | ---- | ---- | -------- | -------- | ------ | -------- |
 | plugin_path | 可选 | 第三方库加载路径 | String | - | 如有多个请用`;`分隔 |
 | disable_fusion | 可选 | 是否关闭融合优化 | String | off | off、on |
-| fusion_blacklists | 可选 | 关闭融合名单列表 | String | - | 如有多个请用`,`分隔 |
+| fusion_blacklists | 可选 | 关闭指定融合算子名称 | String | - | 如有多个请用`,`分隔 |
 
 发布件中已为用户生成好默认的配置文件（converter.cfg）。文件内保存着NNIE动态库的相对路径，用户需要依据实际情况，决定是否需要手动修改该配置文件。该配置文件内容如下：
 
@@ -85,13 +85,13 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 plugin_path=../providers/Hi3516D/libmslite_nnie_converter.so
 ```
 
-如果用户需要关闭指定融合优化，关闭指定名单融合配置如下所示：
+如果用户需要关闭指定算子融合优化，关闭指定名单融合配置如下所示：
 
 ```ini
 [registry]
 # 当参数disable_fusion=off时，可通过配置fusion_blacklists关闭指定融合优化，当参数disable_fusion=on时，关闭所有融合优化，参数fusion_blacklists不生效。
 disable_fusion=off
-fusion_blacklists=TransposeFusion,ConvBiasaddFusion
+fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
 ```
 
  融合算子名单如下所示：
