@@ -19,10 +19,7 @@
 ## 确认系统环境信息
 
 - 确认安装Windows 10是x86架构64位操作系统。
-- 确认安装Python 3.7-3.9之间的任意版本。以下列版本为例：
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/python-3.7.5-amd64.exe)。
-    - Python 3.8.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.8.0/python-3.8.0-amd64.exe)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/python-3.9.0-amd64.exe)。
+- 确认安装Python 3.7-3.9之间的任意版本。如果未安装或者已安装其他版本的Python，可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 安装Python完毕后，将Python和pip添加到系统环境变量。
     - 添加Python：控制面板->系统->高级系统设置->环境变量。双击系统变量中的Path，将`python.exe`的路径添加进去。
     - 添加pip：`python.exe`同一级目录中的`Scripts`文件夹即为Python自带的pip文件，将其路径添加到系统环境变量中即可。

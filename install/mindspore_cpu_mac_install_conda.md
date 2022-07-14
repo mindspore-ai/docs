@@ -23,10 +23,10 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.8.5-3.9|Mambaforge 或 Miniforge|
+    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge 或 Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda 或 MiniConda|
 
-> 注意：支持M1芯片（ARM架构）macOS的最低Python版本为3.8.5
+> 注意：[Python 3.8.10](https://www.python.org/downloads/release/python-3810/) 或通过Conda安装的Python 3.8.5版本是支持M1芯片（ARM架构）macOS的最低Python版本
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
 
