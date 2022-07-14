@@ -89,7 +89,7 @@ lime = LIMETabular(net, feature_stats, feature_names=feature_names, class_names=
 lime_outputs = lime(inputs, targets, show=True)
 print("LIMETabular:")
 for i, exps in enumerate(lime_outputs):
-    for j, exp in enumerate(exps):
+    for exp in exps:
         print("对于第 {} 个样本的类别 {} 的解释：".format(i, class_names[targets]))
         print(exp, '\n')
 ```
@@ -129,7 +129,7 @@ shap_kernel = SHAPKernel(net, data, feature_names=feature_names, class_names=cla
 shap_kernel_outputs = shap_kernel(inputs, targets, show=True)
 print("SHAPKernel:")
 for i, exps in enumerate(shap_kernel_outputs):
-    for j, exp in enumerate(exps):
+    for exp in exps:
         print("对于第 {} 个样本的类别 {} 的解释：".format(i, class_names[targets]))
         print(exp, '\n')
 ```
@@ -166,7 +166,7 @@ shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names
 shap_gradient_outputs = shap_gradient(inputs, targets, show=True)
 print("SHAPGradient:")
 for i, exps in enumerate(shap_gradient_outputs):
-    for j, exp in enumerate(exps):
+    for exp in exps:
         print("对于第 {} 个样本的类别 {} 的解释：".format(i, class_names[targets]))
         print(exp, '\n')
 ```
