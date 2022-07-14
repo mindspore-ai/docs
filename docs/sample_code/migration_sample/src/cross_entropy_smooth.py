@@ -16,7 +16,7 @@
 from mindspore.nn import LossBase
 import mindspore.nn as nn
 import mindspore.ops as ops
-import mindpsore as ms
+import mindspore as ms
 
 class CrossEntropySmooth(LossBase):
     """CrossEntropy"""

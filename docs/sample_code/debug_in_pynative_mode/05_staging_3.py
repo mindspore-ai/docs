@@ -4,7 +4,7 @@ This sample code is applicable to Ascend.
 import numpy as np
 from mindspore import ms_function
 import mindspore.nn as nn
-import mindspre as ms
+import mindspore as ms
 
 
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="Ascend")

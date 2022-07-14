@@ -421,7 +421,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
 ```python
-import mindpsore as ms
+import mindspore as ms
 from mindspore.communication import init
 
 if __name__ == "__main__":
