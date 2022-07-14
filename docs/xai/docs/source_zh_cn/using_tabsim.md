@@ -29,7 +29,7 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 
 `<digest file>`：输出的摘要文件的保存路径。
 
-`<bins>`：[可选] 离散数字列的箱数，默认值：10。
+`<bins>`：[可选] 数值列的离散化箱数 [2 - 32]，默认值：10。
 
 `<clip sd>`：[可选] 定义离群值的平均值偏离标准差数，离群值将被剪裁。 默认值：3，设置为 0 或以下将不会剪裁离群值。
 
@@ -39,7 +39,7 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 
 标题模式：`<col name>|<col type>,<col name>|<col type>,<col name>|<col type>,...`
 
-`<col name>`：列名，允许的模式： `[0-9a-zA-Z_\-]+`
+`<col name>`：列名，允许的正则表达式： `[0-9a-zA-Z_\-]+`
 
 `<col type>`：列类型，选项：'int', 'float', 'str', 'cat'
 
@@ -48,9 +48,9 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 - 'str'：字符串，允许的正则表达式：`[0-9a-zA-Z_\-\+\.]*`
 - 'cat'：分类值，底层数据类型为无序整数
 
-'int' 和 'float' 是数字，而 'str' 和 'cat' 是离散列，每个离散列中最多允许 256 个不同的值。
+'int' 和 'float' 是数值，而 'str' 和 'cat' 是离散列，每个离散列中最多允许 256 个不同的值。
 
-或者，用户可以在离散列之前添加 '*' 来指定最多一个标签列（不允许使用数字列）。
+或者，用户可以在离散列之前添加 '*' 来指定最多一个标签列（不允许使用数值列）。
 
 标题示例: `col_A|int,col_B|float,col_C|str,*col_D|cat`
 
