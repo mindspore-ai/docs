@@ -38,11 +38,11 @@ y = ms.Tensor(np.array([True, True, False]), ms.bool_)
 logical_and = ops.LogicalAnd()
 print(logical_and(x, y))
 # [ True False False]
-x = ms.Tensor(np.array([True, False, True]), ms.bool_)
-y = ms.Tensor(np.array([True, True, False]), ms.int32)
+x = ms.Tensor(np.array([True, False, True]), ms.int32)
+y = ms.Tensor(np.array([True, True, False]), ms.bool_)
 logical_and = ops.LogicalAnd()
 print(logical_and(x, y))
-# TypeError: For primitive[LogicalAnd], the input argument[x, y, ] must be a type of {Tensor[Bool],}, but got Int32.
+# TypeError: For primitive[LogicalAnd], the input argument[x] must be a type of {Tensor[Bool],}, but got Int32.
 
 # Pytorch
 print(torch.logical_and(torch.tensor([True, False, True]), torch.tensor([True, False, False])))
