@@ -29,10 +29,7 @@
 - 确认安装[CMake 3.18.3版本](https://github.com/Kitware/Cmake/releases/tag/v3.18.3)。
     - 安装路径中不能出现中文和日文，安装完成后将`cmake.exe`的路径添加到系统环境变量Path中。
 - 确认安装[ActivePerl 5.28.1.2801版本](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe)。
-- 确认安装Python 3.7.5-3.9之间的任意版本。以下列版本为例：
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/python-3.7.5-amd64.exe)。
-    - Python 3.8.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.8.0/python-3.8.0-amd64.exe)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/python-3.9.0-amd64.exe)。
+- 确认安装Python 3.7-3.9之间的任意版本。如果未安装或者已安装其他版本的Python，可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
     - 安装路径中不能出现中文等特殊符号，安装完成后需要将`python.exe`的路径添加到系统环境变量Path中，Python自带的pip文件在`python.exe`同级目录的`Scripts`文件夹中，也需要将pip文件的路径添加到系统环境变量Path中。
 
 > 注意：支持源码编译Windows版本MindSpore的最低Python版本为3.7.5。
