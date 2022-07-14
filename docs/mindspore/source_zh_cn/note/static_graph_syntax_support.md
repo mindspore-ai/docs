@@ -32,7 +32,7 @@
 
 支持在网络里定义`Number`，即支持语法：`y = 1`、`y = 1.2`、 `y = True`。
 
-不支持在网络里强转`Number`，即不支持语法：`y = int(x)`、`y = float(x)`、`y = bool(x)`。
+当数据为常量时，即在编译时期可以获取到数值，支持在网络里强转`Number`。 即支持语法：`y = int(x)`、`y = float(x)`、`y = bool(x)`。
 
 #### String
 
