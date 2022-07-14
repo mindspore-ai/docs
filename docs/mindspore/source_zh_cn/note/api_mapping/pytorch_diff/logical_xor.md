@@ -36,9 +36,9 @@ x2 = np.array([False, False])
 print(np.logical_xor(x1, x2))
 # [True False]
 x1 = np.array([0, 1, 10, 0])
-x2 = np.array([4, 0, 1, 0])
+x2 = np.array([4, 0, 1, 0], dtype=bool)
 print(np.logical_xor(x1, x2))
-# TypeError: For primitive[LogicalOr], the input argument[x, y, ] must be a type of {Tensor[Bool],}, but got Int32.
+# TypeError: For primitive[LogicalOr], the input argument[x] must be a type of {Tensor[Bool],}, but got Int32.
 
 # PyTorch
 print(torch.logical_xor(torch.tensor([True, False, True]), torch.tensor([True, False, False])))
