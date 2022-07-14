@@ -29,7 +29,7 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 
 `<digest file>`: Path of the digest file to be saved.
 
-`<bins>`: [optional] Number of bins for discretizing numeric columns, default: 10
+`<bins>`: [optional] Number of bins [2 - 32] for discretizing numeric columns, default: 10
 
 `<clip sd>`: [optional] Number of standard deviations away from the mean that defines the outliers, outlier values
 will be clipped. default: 3, setting to 0 or less will disable the value clipping.
