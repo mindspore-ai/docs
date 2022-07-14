@@ -367,7 +367,7 @@ A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数
 
 <font size=3>**Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？**</font>
 
-A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpre Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
+A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpore Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
 
 - 在`__getitem__`函数中执行Numpy array - MindSpore Tensor - Numpy array的就地转换。其中Tensor `tensor`和Numpy array `ndarray_1`共享同一块内存，Tensor `tensor`在`__getitem__`函数退出时超出作用域，其所指向的内存将被释放。
 

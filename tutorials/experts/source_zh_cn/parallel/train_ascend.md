@@ -97,7 +97,7 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 
 ```python
 import os
-import mindpsore as ms
+import mindspore as ms
 from mindspore.communication import init
 
 if __name__ == "__main__":
