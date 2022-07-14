@@ -32,7 +32,7 @@ Supports `int`, `float`, and `bool`, but does not support complex numbers.
 
 `Number` can be defined on the network. That is, the syntax `y = 1`, `y = 1.2`, and `y = True` are supported.
 
-Forcible conversion to `Number` is not supported on the network. That is, the syntax `y = int(x)`, `y = float(x)`, and `y = bool(x)` are not supported.
+When the data is constant, which mean the value of the data can be gotten at compile time, the forcible conversion to `Number` is supported on the network. That is, the syntax `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported.
 
 #### String
 
