@@ -170,14 +170,14 @@ Tensor indexing is similar to NumPy indexing Indexing starts from 0, negative in
 tensor = ms.Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 
 print("First row: {}".format(tensor[0]))
-print("value of top right corner: {}".format(tensor[1, 1]))
+print("value of bottom right corner: {}".format(tensor[1, 1]))
 print("Last column: {}".format(tensor[:, -1]))
 print("First column: {}".format(tensor[..., 0]))
 ```
 
 ```text
 First row: [0. 1.]
-value of top right corner: 3.0
+value of bottom right corner: 3.0
 Last column: [1. 3.]
 First column: [0. 2.]
 ```
