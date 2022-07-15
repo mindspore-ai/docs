@@ -144,11 +144,11 @@ void setThreadNum(int threadNum)
 ## getThreadNum
 
 ```java
-void int getThreadNum()
+int getThreadNum()
 ```
 
 获取当MSContext的线程数量设置，该选项仅MindSpore Lite有效。
-若未初始化 MSContext 则不会做任何操作，并在日志中输出空指针信息。
+若未初始化 MSContext 则会返回-1，并在日志中输出空指针信息。
 
 - 返回值
 

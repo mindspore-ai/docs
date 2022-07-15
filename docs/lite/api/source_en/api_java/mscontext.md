@@ -178,7 +178,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 
 - Returns
 
-      The current operators parallel number setting.
+    The current operators parallel number setting.
 
 ## setThreadAffinity
 
