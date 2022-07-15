@@ -1,16 +1,16 @@
 # 应用SLB算法
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
-传统的量化方法在计算梯度时，通常使用STE(Straight Through Estimator) [1]或者自行设计的梯度计算方式[2]。由于量化函数的不可微，往往会导致计算出来的梯度有误差，从而提供不准确的优化方向，导致最终性能比较差。因此，迫切需要一种能规避这种不准确梯度估计的量化神经网络学习方法。
+传统的量化方法在计算梯度时，通常使用STE(Straight Through Estimator) [1]或者自行设计的梯度计算方式[2]。量化函数的不可微往往会导致计算出来的梯度有误差，从而提供不准确的优化方向，导致最终推理精度比较差。因此，迫切需要一种能规避这种不准确梯度估计的量化神经网络学习方法。
 
 ## 算法原理介绍
 
 SLB(Searching for low-bit weights) [3]是华为诺亚自研的权重量化算法，提供了一种基于权值搜索的低比特量化算法，能避开不准确的梯度估计。针对低比特网络量化，由于量化网络权值的有效解数量比较少，因此，对网络的量化可以通过对权值搜索实现，即将量化过程转换成权值搜索的过程。对给定量化网络预设一组量化权值，然后定义一个概率矩阵来表示不同量化权值被保留的概率，在训练阶段通过优化概率矩阵实现网络权重的量化。
 
-下面左边图是传统量化算法，训练时量化浮点权重，并用不准确的梯度更新权重，最后对浮点权重做量化。右边图是SLB量化算法，利用连续松弛策略搜索离散权重，训练时优化离散权重的分布，最后根据概率挑选离散权重实现量化。
+下面左边图是用传统量化算法做二值量化，训练时用不准确的梯度更新浮点权重，最后对浮点权重做二值化(用sigmoid函数)处理得到量化权重。右边图是用SLB量化算法做二值量化，利用连续松弛策略搜索离散权重，训练时优化离散权重的权值概率矩阵，最后根据概率挑选离散权重实现量化。左边图中红色点对应的单个值是由sigmoid函数得到，表示权重被量化为-1的概率。蓝色点对应的单个值是由sigmoid函数得到，表示权重被量化为+1的概率。传统量化算法中不准确的梯度更新会影响浮点权重的更新，从而导致这里的概率出现较大的偏差。右边图中红蓝相间的点对应的2个值是由softmax函数得到，表示权重被量化为-1或+1的概率。由于避开了不准确的梯度更新，这里的概率会更精准。
 
 ![SLB算法对比](../images/quantization/slb/slb_1.png)
 
@@ -30,17 +30,19 @@ SLB(Searching for low-bit weights) [3]是华为诺亚自研的权重量化算法
 
 - 提出了一种新的权值搜索方法，用于训练量化深度神经网络，能规避不准确梯度估计。
 - 利用连续松弛策略搜索离散权重，训练时优化离散权重的概率分布，最后根据概率挑选离散权重实现量化。
-- 为了进一步消除搜索后的性能差距，保证训练和测试的一致性，提出了逐步调整温度因子的策略。
-- 与传统的量化算法相比，规避了不准确的梯度更新过程，能获得更好的性能，在极低比特量化中更有优势。
+- 为了进一步消除搜索后的推理精度差距，保证训练和测试的一致性，提出了逐步调整温度因子的策略。
+- 与传统的量化算法相比，规避了不准确的梯度更新过程，能获得更高的推理精度，在极低比特量化中更有优势。
 
 ## SLB量化训练
+
+SLB量化算法的训练规格如下表所示。
 
 表1：SLB量化训练规格
 
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU |
-| 网络支持 | ResNet18，具体请参见<https://gitee.com/mindspore/models/tree/master/official/cv/resnet#应用MindSpore Golden Stick模型压缩算法>。 |
+| 网络支持 | ResNet18，具体请参见<https://gitee.com/mindspore/models/tree/master/official/cv/resnet#应用mindspore-golden-stick模型压缩算法>。 |
 | 方案支持 | 支持1、2、4比特的权重量化方案。 |
 | 数据类型支持 | GPU平台支持FP32。 |
 | 运行模式支持 | Graph模式和PyNative模式。 |
@@ -58,7 +60,7 @@ SLB量化训练与一般训练步骤一致，在定义量化网络和生成量�
 
 接下来以ResNet18网络为例，分别叙述这些步骤。
 
-> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README_CN.md#应用MindSpore Golden Stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py)为精度验证代码。
+> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py)为精度验证代码。
 
 ### 加载数据集
 
@@ -130,7 +132,7 @@ quant_net = algo.apply(net)
 print(quant_net)
 ```
 
-量化后的网络结构如下，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+量化后的网络结构如下，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 ResNetOpt<
@@ -279,6 +281,8 @@ cb += [ckpt_cb]
 代码中get_lr引用自[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py)，init_group_params和init_loss_scale都引用自[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py)。
 
 ### 训练模型，保存模型文件
+
+定义好模型后，开始进行训练。
 
 ```python
 dataset_sink_mode = target != "CPU"
