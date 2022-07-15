@@ -410,7 +410,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     Note that whether setting `set_context(save_graphs=True)` may cause different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory).
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
-    - `op_debug_mode`: Reserved field, set to 0.
+    - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator will be dumped.
     - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) for details. The default value is `bin`.
 
 2. Set Dump environment variable.
