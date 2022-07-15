@@ -10,11 +10,11 @@ Deep learning models such as a convolutional neural network (CNN) have been wide
 
 Neural network pruning is a general model compression method. It reduces the number of parameters and computation workload by removing some parameters from the neural network. It is classified into unstructured pruning and structured pruning. Take the convolutional neural network (CNN) as an example. Unstructured pruning is to remove some weights from the convolution kernel. Although it can achieve a high compression ratio, the actual acceleration depends on the special hardware design. It is difficult to obtain benefits on the Ascend, GPU, and CPU platforms. Structured pruning directly removes the complete convolution kernel from the CNN without damaging the network topology. It can directly accelerate model inference without specific software and hardware design.
 
-Finding a redundant convolution kernel is a key step in structured pruning. There are two common methods: In the first method, no training data is required, and the importance of different convolution kernels is determined by defining some assumptions about importance of the convolution kernels. For example, a typical assumption is that a convolution kernel with a small norm is not important, and cutting off some convolution kernels with a small norm does not affect network performance too much. Another method is data driven, in which training data is introduced to learn importance of different convolution kernels. For example, an additional control coefficient is introduced for each convolution kernel, and importance of different convolution kernels is measured by learning their control coefficients. A convolution kernel of a small control coefficient is considered unimportant. Scientific Control for Reliable Neural Network Pruning (SCOP) is driven by data. It introduces knockoff features as a reference and sets up control experiments to reduce the interference of various irrelevant factors to the pruning process and improve the reliability of pruning results.
+Finding a redundant convolution kernel is a key step in structured pruning. There are two common methods: In the first method, no training data is required, and the importance of different convolution kernels is determined by defining some assumptions about importance of the convolution kernels. A typical assumption is that a convolution kernel with a small norm is not important, and cutting off some convolution kernels with small norm does not affect network performance too much. Another method is data driven, in which training data is introduced to learn importance of different convolution kernels. For example, an additional control coefficient is introduced for each convolution kernel, and importance of different convolution kernels is measured by learning their control coefficients. A convolution kernel that corresponds to a small control coefficient is considered unimportant.
 
 ![](../images/pruner/scop/scop.png)
 
-A typical neural network pruning method: SCOP. As shown in the preceding figure, real data and knockoff data are input to the network at the same time to generate real features and knockoff features. If the knockoff feature corresponding to a convolution kernel suppresses the real feature, the convolution kernel is considered redundant and should be deleted.
+A typical neural network pruning method: Reliable Neural Network Pruning (SCOP) based on Scientific Control is driven by data. It introduces knockoff features as a reference, sets up control experiments to reduce the interference of various irrelevant factors to the pruning process and improve the reliability of pruning results. As shown in the preceding figure, real data and knockoff data are input to the network at the same time to generate real features and knockoff features separately. If the knockoff feature corresponding to a convolution kernel suppresses the real feature, the convolution kernel is considered redundant and should be deleted.
 
 ## SCOP Training
 
@@ -27,7 +27,7 @@ Table 1: SCOP training specifications
 | Hardware    | GPU and Ascend AI 910 Processor hardware platforms                          |
 | Networks    | ResNet series networks. For details, see <https://gitee.com/mindspore/models/tree/master>.|
 | Algorithms    | Structured pruning algorithms                                          |
-| Data types| The Ascend platform supports pruning training on FP32 networks, and the GPU platform supports FP32.|
+| Data types| The Ascend and the GPU platforms support pruning training on FP32 networks.|
 | Running modes| Graph mode and PyNative mode                                     |
 
 ## SCOP Training Example
@@ -190,35 +190,6 @@ The following are the accuracy (top_1_accuracy), pruning rate (prune_rate), mode
 ```text
 result:{'top_1_accuracy': 0.9273838141025641} prune_rate=0.45 ckpt=~/resnet50_cifar10/train_parallel0/resnet-400_390.ckpt params=10587835
 ```
-
-## Exporting a Pruned Model
-
-The quantization model deployed on the device-side hardware platform is in the general model format (such as AIR and MindIR). The export procedure is as follows:
-
-1. Define a pruned network.
-2. Load the checkpoint file saved during pruning-based training.
-3. Export the pruned model.
-
-```python
-from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
-
-if __name__ == "__main__":
-    ...
-    # define fusion network
-    net = resnet(class_num=config.class_num)
-    net = PrunerKfCompressAlgo({}).apply(net)
-    net = PrunerFtCompressAlgo({}).apply(net)
-
-    # load quantization aware network checkpoint
-    param_dict = load_checkpoint(config.ckpt_path)
-    load_param_into_net(net, param_dict)
-
-    # export network
-    inputs = Tensor(np.ones([1, 1, cfg.image_height, cfg.image_width]), mindspore.float32)
-    export(network, inputs, file_name="ResNet_SCOP", file_format='MINDIR')
-```
-
-After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/r1.8/infer/inference.html).
 
 ## SCOP Effect
 
