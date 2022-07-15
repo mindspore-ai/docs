@@ -4,13 +4,13 @@
 
 ## Background
 
-In a conventional quantization method, a gradient is usually calculated by using straight through estimator (STE) [1] or a self-designed gradient calculation manner [2]. Due to that the quantization function is not differentiable, an error usually occurs in a calculated gradient. An inaccurate optimization direction results in relatively poor final performance. Therefore, there is an urgent need for a quantitative neural network learning method that can avoid this inaccurate gradient estimation.
+In a conventional quantization method, a gradient is usually calculated by using straight through estimator (STE) [1] or a self-designed gradient calculation manner [2]. Due to that the quantization function is not differentiable, an error usually occurs in a calculated gradient. An inaccurate optimization direction results in relatively poor final inference performance. Therefore, there is an urgent need for a quantitative neural network learning method that can avoid this inaccurate gradient estimation.
 
 ## Algorithm Principles
 
 Searching for low-bit weights (SLB) [3] is a weight quantization algorithm developed by Huawei Noah's Ark Lab. It provides a low-bit quantization algorithm based on weight search to avoid inaccurate gradient estimation. For quantization of a low-bit network, the number of effective solutions for quantizing the network weight is small. Therefore, the quantization of the network may be implemented through weight search, that is, the quantization process is converted into a weight search process. A group of quantization weights are preset for the quantization network, and then a probability matrix is defined to represent the probability that different quantization weights are retained. In the training phase, the network weights are quantized by optimizing the probability matrix.
 
-The figure on the left shows the traditional quantization algorithm. During training, the floating-point weights are quantized, the weights are updated using inaccurate gradients, and then the floating-point weights are quantized. The figure on the right shows the SLB quantization algorithm. It uses the continuous relaxation strategy to search for discrete weights, optimizes the distribution of discrete weights during training, and selects discrete weights based on the probability to implement quantization.
+The figure on the left shows the traditional quantization algorithm used to do binary quantization. During training, the floating-point weights are updated with inaccurate gradients. Finally, the floating-point weights are processed by binarization (sigmoid function) to obtain the quantized weights. The figure on the right shows the SLB quantization algorithm used to do binary quantization. It uses the continuous relaxation strategy to search for discrete weights, optimizes the weight probability matrix of discrete weights during training, and selects discrete weights based on the probability to implement quantization. The single value corresponding to the red dots in the left figure is obtained by the sigmoid function, which represents the probability that the weight is quantized to -1. The single value corresponding to the blue dots is obtained by the sigmoid function, which represents the probability that the weight is quantized to +1. Inaccurate gradient update in traditional quantization algorithm will affect the update of floating point weight, resulting in a large deviation in the probability here. The two values corresponding to the red and blue dots in the right figure are obtained by the softmax function and represent the probability that the weight is quantized to -1 or +1. By avoiding inaccurate gradient updates, the probability is more accurate.
 
 ![SLB algorithm comparison](../images/quantization/slb/slb_1.png)
 
@@ -30,10 +30,12 @@ The following figure shows the change process of softmax distribution when the t
 
 - A new weight search method is proposed for training quantization deep neural networks, which can avoid inaccurate gradient estimation.
 - The continuous relaxation strategy is used to search for discrete weights, optimize the probability distribution of discrete weights during training, and finally select discrete weights according to the probability to realize quantization.
-- In order to further eliminate the performance gap after search and ensure the consistency of training and testing, a strategy of gradually adjusting the temperature factor is proposed.
-- Compared with the traditional quantization algorithm, this algorithm avoids the inaccurate gradient updating process, obtains better performance, and has more advantages in very low bit quantization.
+- In order to further eliminate the inference performance gap after search and ensure the consistency of training and testing, a strategy of gradually adjusting the temperature factor is proposed.
+- Compared with the traditional quantization algorithm, this algorithm avoids the inaccurate gradient updating process, obtains better inference performance, and has more advantages in very low bit quantization.
 
 ## SLB Quantization Training
+
+The training specifications of SLB quantization algorithm are shown in the following table.
 
 Table 1: SLB quantization training specifications
 
@@ -58,7 +60,7 @@ The procedure of SLB quantization training is the same as that of common trainin
 
 The following uses the LeNet-18 as an example to describe these steps.
 
-> For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#). [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
+> For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick). [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
 
 ### Loading a Dataset
 
@@ -279,6 +281,8 @@ cb += [ckpt_cb]
 In the code, `get_lr` is referenced from [lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py), and `init_group_params` and `init_loss_scale` are referenced from [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py).
 
 ### Training the Model and Saving the Model File
+
+Once the model is defined, the training begins.
 
 ```python
 dataset_sink_mode = target != "CPU"
