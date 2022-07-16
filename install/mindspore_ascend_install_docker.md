@@ -66,7 +66,7 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 执行以下命令启动Docker容器实例：
 
 ```bash
-docker run -it --ipc=host \
+docker run -it -u root --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -92,7 +92,7 @@ docker run -it --ipc=host \
 如需使用MindInsight，需设置`--network`参数为”host”模式, 例如:
 
 ```bash
-docker run -it --ipc=host \
+docker run -it -u root --ipc=host \
                --network host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
