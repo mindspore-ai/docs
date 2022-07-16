@@ -8,14 +8,14 @@ SimQAT is a basic quantization aware algorithm based on fake quantization nodes.
 
 ### Fake Quantization Node
 
-A fake quantization node is a node inserted during quantization aware training, and is used to search for network data distribution and feed back a loss in accuracy. The specific functions are as follows:
+A fake quantization node is a kind of node which is inserted into network during quantization aware training, and is used to search for network data distribution and feed back a loss in accuracy. The specific functions are as follows:
 
 - Find the distribution of network data, that is, find the maximum and minimum values of the parameters to be quantized.
 - Simulate the accuracy loss of low-bit quantization, apply the loss to the network model, and transfer the loss to the loss function, so that the optimizer optimizes the loss value during training.
 
 ### BatchNorm Folding
 
-To specify the output data range, the BatchNorm operator is added after the convolutional or fully connected layer. In the training phase, the BatchNorm operator is used as an independent operator to collect statistics on the output average value and variance (as shown in the left figure in the following figure). In the inference phase, the BatchNorm operator is integrated into the weight and bias. It is called BatchNorm folding (as shown in the right figure below).
+To normalize the output data, the BatchNorm operator is added after the convolutional or fully connected layer. In the training phase, the BatchNorm operator is used as an independent operator to collect statistics on the output average value and variance (as shown in the left figure in the following figure). In the inference phase, the BatchNorm operator is integrated into the weight and bias. It is called BatchNorm folding (as shown in the right figure below).
 
 ![](../images/quantization/simqat/bnfold_in_infer.png)
 
@@ -23,7 +23,7 @@ The formula for folding BatchNorm is as follows:
 
 $$y_{bn}=\operatorname{BN}\left(y_{cout}\right)=BN(w \cdot x+b)=\widehat{w} \cdot x+\widehat{b}$$
 
-In quantization aware training, to accurately simulate the folding operation in inference, the paper [1] uses two sets of convolutions to calculate the current BatchNorm parameter, and uses the calculated parameter to specify the weight value of the actual convolution (as shown in the left figure below). CorrectionMul is used for weight calibration, and mulFold is used for weight data specification. The weight calibration and weight data specification are further integrated in the MindSpore Golden Stick (as shown in the right figure below) to improve performance.
+In quantization aware training, to accurately simulate the folding operation in inference, the paper [1] uses two sets of convolutions to calculate the current BatchNorm parameter, and uses the calculated parameter to normalize the weight value of the actual convolution (as shown in the left figure below). CorrectionMul is used for weight calibration, and mulFold is used for weight data specification. The weight calibration and weight data specification are further integrated in the MindSpore Golden Stick (as shown in the right figure below) to improve training performance.
 
 ![](../images/quantization/simqat/bnfold_in_train.png)
 
@@ -59,6 +59,8 @@ The following uses the LeNet-5 as an example to describe these steps.
 
 ### Loading a Dataset
 
+Load MNIST dataset using MindData:
+
 ```python
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
@@ -67,6 +69,8 @@ In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/
  `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
 
 ### Defining the Original Network
+
+Instantiate a LeNet5 network:
 
 ```python
 from src.lenet import LeNet5
@@ -156,6 +160,8 @@ LeNet5Opt<
 
 ### Defining the Optimizer, Loss Function, and Training Callbacks
 
+Use Momentum as optimizer and SoftmaxCrossEntropyWithLogits as loss function for LeNet5 training.
+
 ```python
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
@@ -166,6 +172,8 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", conf
 ```
 
 ### Training the Model and Saving the Model File
+
+Call `train` method of class `Model` to start training:
 
 ```python
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})

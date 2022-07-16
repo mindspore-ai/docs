@@ -1,22 +1,36 @@
 MindSpore Golden Stick
 =============================
 
-MindSpore Golden Stick is an open-source model compression algorithm set. It provides a set of user APIs for application algorithms, allowing users to use model compression algorithms such as quantization and pruning in a unified and convenient manner. The MindSpore Golden Stick also provides algorithm developers with basic capabilities of modifying network definitions. It abstracts an IR layer between the algorithm and network definition to shield the specific network definition from algorithm developers so that they can focus on algorithm logic development.
+MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei's Noah team and Huawei's MindSpore team. The architecture diagram of MindSpore Golden Stick is shown in the figure below, which is divided into five parts:
 
 .. raw:: html
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/docs/golden_stick/docs/source_en/images/golden-stick-arch.png" width="700px" alt="" >
 
+1. The underlying MindSpore Rewrite module provides the ability to modify the front-end network. Based on the interface provided by this module, algorithm developers can add, delete, query and modify the nodes and topology relationships of the MindSpore front-end network according to specific rules;
+
+2. Based on MindSpore Rewrite, MindSpore Golden Stick will provide various types of algorithms, such as SimQAT algorithm, SLB quantization algorithm, SCOP pruning algorithm, etc.;
+
+3. At the upper level of the algorithm, MindSpore Golden Stick also plans advanced technologies such as AMC (automatic model compression technology), NAS (network structure search), and HAQ (hardware-aware automatic quantization). This feature will be provided in future;
+
+4. In order to facilitate developers to analyze and debug algorithms, MindSpore Golden Stick provides some tools, such as visualization tool, profiler tool, summary tool, etc. This feature will be provided in future;
+
+5. In the outermost layer, MindSpore Golden Stick encapsulates a set of concise user interface.
+
+> The architecture diagram is the overall picture of MindSpore Golden Stick, which includes the features that have been implemented in the current version and the capabilities planned in RoadMap. Please refer to release notes for available features in current version.
+
 Design Guidelines
 ---------------------------------------
 
-1. Provide unified algorithm APIs to reduce the learning cost of application algorithms.
+In addition to providing rich model compression algorithms, an important design concept of MindSpore Golden Stick is try to provide users with the most unified and concise experience for a wide variety of model compression algorithms in the industry, and reduce the cost of algorithm application for users. MindSpore Golden Stick implements this philosophy through two initiatives:
 
-   There are various types of model compression algorithms, such as the quantization aware training algorithm, pruning algorithm, matrix decomposition algorithm, and knowledge distillation algorithm. In each type of compression algorithm, there are various specific algorithms. For example, LSQ and PACT are both quantization aware training algorithms. Different algorithms are usually applied in different manners, which increases learning costs of a user for applying an algorithm. The MindSpore Golden Stick streamlines and abstracts the algorithm application process and provides a set of unified algorithm APIs to minimize the learning cost of algorithm applications. This also facilitates the exploration of technologies such as automatic model compression (AMC) and neural architecture search (NAS) based on the algorithm ecosystem.
+1. Unified algorithm interface design to reduce user application costs:
 
-2. Provide the capability of modifying network definitions to reduce algorithm access costs.
+   There are many types of model compression algorithms, such as quantization-aware training algorithms, pruning algorithms, matrix decomposition algorithms, knowledge distillation algorithms, etc. In each type of compression algorithm, there are also various specific algorithms, such as LSQ and PACT, which are both quantization-aware training algorithms. Different algorithms are often applied in different ways, which increases the learning cost for users to apply algorithms. MindSpore Golden Stick sorts out and abstracts the algorithm application process, and provides a set of unified algorithm application interfaces to minimize the learning cost of algorithm application. At the same time, this also facilitates the exploration of advanced technologies such as AMC (automatic model compression technology), NAS (network structure search), and HAQ (hardware-aware automatic quantization) based on the algorithm ecology.
 
-   The model compression algorithm is usually designed or optimized for a specific network structure, and seldom focuses on a specific network definition. The MindSpore Golden Stick provides the capability of modifying the front-end network definitions through APIs so that algorithm developers can focus on algorithm implementation without reinventing the wheel for different network definitions. In addition, the MindSpore Golden Stick provides some commissioning capabilities, including network dump, layer-by-layer profiling, algorithm effect analysis, and visualization, to help algorithm developers improve development and research efficiency and help users find algorithms that meet their requirements.
+2. Provide front-end network modification capabilities to reduce algorithm development costs：
+
+   Model compression algorithms are often designed or optimized for specific network structures. For example, perceptual quantization algorithms often insert fake-quantization nodes on the Conv2d, Conv2d + BatchNorm2d, or Conv2d + BatchNorm2d + Relu structures in the network. MindSpore Golden Stick provides the ability to modify the front-end network through API. Based on this ability, algorithm developers can formulate general network transform rules to implement the algorithm logic without needing to implement the algorithm logic for each specific network. In addition, MindSpore Golden Stick also provides some debugging capabilities, including visualization tool, profiler tool, summary tool, aiming to help algorithm developers improve development and research efficiency, and help users find algorithms that meet their needs.
 
 General Process of Applying the MindSpore Golden Stick
 ------------------------------------------------------
@@ -42,12 +56,12 @@ During network training, the MindSpore Golden Stick does not have great impact o
  - For details about the "network training or retraining" step in the process, see [MindSpore Training and Evaluation](https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html).
  - For details about the "ms.export" step in the process, see [Exporting MINDIR Model](https://www.mindspore.cn/tutorials/en/r1.8/advanced/train/save.html#export-mindir-model).
  - For details about "model optimization" and "model export" in the process, see [Converting Models for Inference](https://mindspore.cn/lite/docs/en/r1.8/use/converter_tool.html).
- - For details about the "MindSpore inference runtime" step in the process, see [MindSpore Inference Runtime](https://mindspore.cn/lite/docs/en/r1.8/use/runtime.html).
+ - For details about the "MindSpore inference runtime" step in the process, see [MindSpore Inference Runtime](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html).
 
-Planning
+Roadmap
 ---------------------------------------
 
-The initial version includes a stable API and provides a linear quantization algorithm, a non-linear quantization algorithm, and a structured pruning algorithm. More algorithms and better network support will be provided in later versions. The commissioning capability will also be provided in later versions. In the future, with more algorithms, the MindSpore Golden Stick will explore capabilities such as automatic model compression (AMC), hardware-aware automated quantization (HAQ), and neural architecture search (NAS).
+The current release version of MindSpore Golden Stick provides a stable API and provides a linear quantization algorithm, a nonlinear quantization algorithm and a structured pruning algorithm. More algorithms and better network support will be provided in the future version, and debugging capabilities will also be provided in subsequent versions. With the enrichment of algorithms in the future, MindSpore Golden Stick will also explore capabilities such as AMC, HAQ, NAS, etc., so stay tuned.
 
 .. toctree::
    :glob:
