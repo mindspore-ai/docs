@@ -8,14 +8,14 @@ SimQAT是一种最基础的感知量化算法，其具体原理来源于谷歌�
 
 ### 伪量化节点
 
-伪量化节点，是指感知量化训练中插入的节点，用以寻找网络数据分布，并反馈损失精度，具体作用如下：
+伪量化节点，是指感知量化训练时，往网络中中插入的一类节点，其用途是寻找网络数据分布，并反馈损失精度，具体作用如下：
 
 - 找到网络数据的分布，即找到待量化参数的最大值和最小值；
-- 模拟量化为低比特时的精度损失，把该损失作用到网络模型中，传递给损失函数，让优化器在训练过程中对该损失值进行优化。
+- 模拟量化为低比特时的精度损失，把该损失作用到网络中，传递给损失函数，让优化器在训练过程中对该损失值进行优化。
 
 ### BatchNorm折叠
 
-为了规约输出数据范围，卷积或者全连接层后通常会加入BatchNorm算子，在训练过阶段BatchNorm作为一个独立的算子，统计输出的均值和方差（如下左图），在推理阶段则将其融入权重和Bias中，称为BatchNorm折叠（如下右图）。
+为了归一化输出数据，卷积或者全连接层后通常会加入BatchNorm算子，在训练阶段BatchNorm作为一个独立的算子，统计输出的均值和方差（如下左图），在推理阶段则将其融入权重和Bias中，称为BatchNorm折叠（如下右图）。
 
 ![](../images/quantization/simqat/bnfold_in_infer.png)
 
@@ -23,7 +23,7 @@ BatchNorm折叠的公式如下：
 
 $$y_{bn}=\operatorname{BN}\left(y_{cout}\right)=BN(w \cdot x+b)=\widehat{w} \cdot x+\widehat{b}$$
 
-在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数规约实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据规约。在MindSpore Golden Stick中会进一步将权重校正和权重数据规约融合（如下右图），提升性能。
+在感知量化训练中，为精确模拟推理中的折叠操作，论文[1]使用两套卷积分别用于计算当前的BatchNorm参数，并用计算得到的参数归一化实际作用卷积的权重值（如下左图），其中CorrectionMul用于权重校正，MulFold用于权重数据归一化。在MindSpore Golden Stick中会进一步将权重校正和权重数据融合（如下右图），提升训练性能。
 
 ![](../images/quantization/simqat/bnfold_in_train.png)
 
@@ -44,20 +44,22 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 ## 感知量化训练示例
 
-感知量化训练与一般训练步骤基本一致,在构造网络阶段需要应用MindSpore Golden Stick的量化算法生成量化模型，完整流程如下：
+感知量化训练与一般训练步骤基本一致,在构造网络阶段需要应用MindSpore Golden Stick的量化算法生成量化网络，完整流程如下：
 
 1. 加载数据集，处理数据。
 2. 定义网络。
-3. 定义MindSpore Golden Stick量化算法，应用算法生成量化模型。
+3. 定义MindSpore Golden Stick量化算法，应用算法生成量化网络。
 4. 定义优化器、损失函数和callbacks。
 5. 训练网络，保存模型文件。
 6. 加载模型文件，对比量化后精度。
 
 接下来以LeNet5网络为例，分别叙述这些步骤。
 
-> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README_CN.md#应用MindSpore Golden Stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
+> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
 
 ### 加载数据集
+
+调用MindData加载数据集：
 
 ```python
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
@@ -67,6 +69,8 @@ ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
  ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
 
 ### 定义原网络
+
+实例化LeNet5网络：
 
 ```python
 from src.lenet import LeNet5
@@ -156,6 +160,8 @@ LeNet5Opt<
 
 ### 定义优化器、损失函数和训练的callbacks
 
+使用Momentum作为LeNet5网络训练的优化器；使用SoftmaxCrossEntropyWithLogits作为LeNet5网络训练的损失函数：
+
 ```python
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
@@ -166,6 +172,8 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", conf
 ```
 
 ### 训练模型，保存模型文件
+
+调用`Model`中的`train`接口开始训练模型：
 
 ```python
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})

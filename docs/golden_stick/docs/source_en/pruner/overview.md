@@ -10,13 +10,13 @@ Just like neural networks, the pruning algorithm is inspired by neurobiology. In
 
 Neural network inference can be regarded as the process of activation and weight computation. Therefore, pruning is classified into activation pruning and weight pruning. In the MindSpore Golden Stick, we only discuss weight pruning.
 
-Weight pruning is classified into structured pruning mode and unstructured pruning mode. As shown in the figure, from left to right, the pruning modes become more coarse-grained, and the results obtained through pruning become more structured.
+Weight pruning is classified into structured pruning mode and unstructured pruning mode. As shown in the figure, from left to right, there are three types of pruning method: neuron pruning, channel pruning and filter pruning. The difference between them is the granularity of their pruning: a single neuron, a single channel or the entire filter, respectively. It can be seen that the pruning granularity of these three types of pruning is getting coarser and coarser, and the corresponding weights obtained after pruning are becoming more and more structured:
 
 ![Pruning modes](../images/pruner/pruner.png)
 
-Unstructured pruning refers to pruning a weighted value at any position in a weight tensor by using a single weighted value as a granularity. This pruning mode has less impact on the accuracy of the network due to its fine granularity, but it leads to the sparseness of the weight tensor. The sparse weight tensor is not friendly to memory access and parallel computing. Therefore, it is difficult for the unstructured pruned network to obtain a high acceleration ratio.
+Usually we take neuron pruning as unstructured pruning which can prune the weight at any position in the weight with a single weight as the granularity. This pruning mode has less impact on the accuracy of the network due to its fine granularity, but it leads to the sparseness of the weight tensor. The sparse weight tensor is not friendly to memory access and parallel computing. Therefore, it is difficult for the unstructured pruned network to obtain a high acceleration ratio.
 
-Structured pruning refers to deleting some weights in a model by using a weighted channel or an entire convolution kernel as a granularity. Because an entire channel or an entire convolution kernel is directly pruned, a weight obtained through pruning is more regular and has a smaller scale. This is the meaning of structured pruning. Compared with unstructured pruning, structured pruning obtains more regular weights and is more friendly to memory access. Therefore, structured pruning is suitable for accelerated inference on devices such as the CPU and GPU.
+Channel pruning and filter pruning are generally considered to be structured pruning which can prune the weight of the model with the weighted channel or the entire convolution kernel as the granularity. Because an entire channel or an entire convolution kernel is directly pruned, a weight obtained through pruning is more regular and has a smaller scale. This is the meaning of structured pruning. Compared with unstructured pruning, structured pruning obtains more regular weights and is more friendly to memory access. Therefore, structured pruning is suitable for accelerated inference on devices such as the CPU and GPU.
 
 ## Examples
 
