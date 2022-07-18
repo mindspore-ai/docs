@@ -29,15 +29,15 @@ class mindspore.nn.Dropout(
 )
 ```
 
-For more information, see[mindspore.nn.Dropout](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout).
+For more information, see[mindspore.nn.Dropout](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout).
 
 ## Use Pattern
 
-PyTorch：**p** – Probability of an element to be zeroed. Default: 0.5.
+PyTorch：**p** - Probability of an element to be zeroed. Default: 0.5.
 
 PyTorch: The parameter P is the probability of discarding the parameter.
 
-MindSpore：**keep_prob** ([*float*](https://docs.python.org/library/functions.html#float)) – The keep rate, greater than 0 and less equal than 1. E.g. rate=0.9, dropping out 10% of input units. Default: 0.5.
+MindSpore：**keep_prob** ([*float*](https://docs.python.org/library/functions.html#float)) - The keep rate, greater than 0 and less equal than 1. E.g. rate=0.9, dropping out 10% of input units. Default: 0.5.
 
 MindSpore：The parameter keep_prob is the probability of carding the parameter.
 
