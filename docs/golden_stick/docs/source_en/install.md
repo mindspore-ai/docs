@@ -6,7 +6,7 @@
 
 The following table lists the environment required for installing, compiling and running MindSpore Golden Stick:
 
-| software | version  |
+| software | version |
 | :-----: | :-----: |
 | Ubuntu  |  18.04  |
 | Python  |  3.7-3.9 |
