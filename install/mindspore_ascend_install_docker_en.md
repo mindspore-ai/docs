@@ -66,7 +66,7 @@ The default installation path of the installation package is `/usr/local/Ascend`
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it --ipc=host \
+docker run -it -u root --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -92,7 +92,7 @@ of which,
 If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
-docker run -it --ipc=host \
+docker run -it -u root --ipc=host \
                --network host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
