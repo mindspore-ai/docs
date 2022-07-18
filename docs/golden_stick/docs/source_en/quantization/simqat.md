@@ -44,16 +44,16 @@ Table 1: Quantization aware training specifications
 
 ## Quantization Aware Training Example
 
-The procedure of quantization aware training is basically the same as that of common training. In the network construction phase, the quantization algorithm of the MindSpore Golden Stick is used to generate a quantization model. The complete process is as follows:
+The procedure of quantization aware training is basically the same as that of common training. In the network construction phase, the quantization algorithm of the MindSpore Golden Stick is used to generate a quantization network. The complete process is as follows:
 
 1. Load the dataset and process data.
 2. Define a network.
-3. Define the MindSpore Golden Stick quantization algorithm and use the algorithm to generate a quantization model.
+3. Define the MindSpore Golden Stick quantization algorithm and use the algorithm to generate a quantization network.
 4. Define the optimizer, loss function, and callbacks.
-5. Train the network and save the model file.
-6. Load the model file and compare the accuracy after quantization.
+5. Train the network and save the checkpoint file.
+6. Evaluate the network and compare the accuracy after quantization.
 
-The following uses the LeNet-5 as an example to describe these steps.
+The following uses the LeNet5 as an example to describe these steps.
 
 > For the complete code, see the [LeNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README.md#apply-algorithm-in-mindspore-golden-stick).The [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/train.py) is the complete training code, and the [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/golden_stick/quantization/simqat/eval.py) is the accuracy verification code.
 
@@ -171,7 +171,7 @@ config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
 ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", config=config_ck)
 ```
 
-### Training the Model and Saving the Model File
+### Training the network and saving the checkpoint file
 
 Call `train` method of class `Model` to start training:
 
@@ -205,15 +205,15 @@ epoch:10 step: 1875, loss is 0.00027961225
 Train epoch time: 8544.641 ms, per step time: 4.552 ms
 ```
 
-### Loading the Model and Comparing the Accuracy
+### Evaluate network and comparing the accuracy
 
-Obtain the accuracy of the common training model according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/lenet).
+Obtain the accuracy of the common training network according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/lenet).
 
 ```text
 'Accuracy':0.9842
 ```
 
-Load the model file obtained in the previous step and import the quantized model for accuracy evaluation.
+Load the checkpoint file obtained in the previous step and evaluate accuracy of the quantized network.
 
 ```python
 param_dict = load_checkpoint(config.checkpoint_file_path)
@@ -227,9 +227,9 @@ print(acc)
 'Accuracy':0.990484
 ```
 
-The accuracy of LeNet-5 does not decrease after quantization aware training.
+The accuracy of LeNet5 does not decrease after quantization aware training.
 
-> The model here is not the final deployment model. Due to the addition of pseudo quantization nodes, the ckpt size increases slightly compared to the original model.
+> One effect of quantization aware training algorithms is to compress the model size, but the model size mentioned here refers to the size of the deployed model. The network here is not the final deployment model, and since fake-quantization nodes are added to the network, the checkpoint file size of the quantized network is slightly increased compared to the original network's checkpoint file.
 
 ## Summary
 
