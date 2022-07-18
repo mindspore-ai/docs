@@ -17,7 +17,8 @@ MindSpore Golden Stick is a model compression algorithm set jointly designed and
 
 5. In the outermost layer, MindSpore Golden Stick encapsulates a set of concise user interface.
 
-> The architecture diagram is the overall picture of MindSpore Golden Stick, which includes the features that have been implemented in the current version and the capabilities planned in RoadMap. Please refer to release notes for available features in current version.
+.. note:
+ The architecture diagram is the overall picture of MindSpore Golden Stick, which includes the features that have been implemented in the current version and the capabilities planned in RoadMap. Please refer to release notes for available features in current version.
 
 Design Guidelines
 ---------------------------------------
