@@ -16,7 +16,7 @@
 
 ## MindSpore版本依赖关系
 
-MindSpore Golden Stick依赖MindSpore训练推理框架，请按照根据下表中所指示的对应关系，并参考[MindSpore安装指导](https://mindspore.cn/install)安装对应版本的MindSpore：
+MindSpore Golden Stick依赖MindSpore训练推理框架，请按照根据下表中所指示的对应关系，并参考[MindSpore安装指导](https://mindspore.cn/install)安装对应版本的MindSpore。
 
 | MindSpore Golden Stick版本 |                             分支                             | MindSpore版本 |
 | :---------------------: | :----------------------------------------------------------: | :-------: |
@@ -49,7 +49,7 @@ pip install output/mindspore_gs-0.1.0-py3-none-any.whl
 
 ## 验证安装是否成功
 
-执行以下命令，验证安装结果。导入Python模块不报错即安装成功：
+执行以下命令，验证安装结果。导入Python模块不报错即安装成功。
 
 ```python
 import mindspore_gs

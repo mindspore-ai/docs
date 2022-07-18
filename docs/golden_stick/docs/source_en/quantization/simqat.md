@@ -109,7 +109,7 @@ quanted_network = algo.apply(network)
 print(quanted_network)
 ```
 
-The quantized network structure is as follows:
+The quantized network structure is as follows. QuantizerWrapperCell is the encapsulation class of perceptual quantization training for the original Conv2d or Dense, including the original operator and pseudo-quantization nodes of input, output and weight.  Users can refer to [API](HTTP://https://www.mindspore.cn/golden_stick/docs/en/r0.1/mindspore_gs.html#mindspore_gs.SimulatedQuantizationAwareTraining) to modify the algorithm configuration, and verify that the algorithm is configured successfully by checking the QuantizeWrapperCell properties.
 
 ```commandline
 LeNet5Opt<
@@ -228,6 +228,8 @@ print(acc)
 ```
 
 The accuracy of LeNet-5 does not decrease after quantization aware training.
+
+> The model here is not the final deployment model. Due to the addition of pseudo quantization nodes, the ckpt size increases slightly compared to the original model.
 
 ## Summary
 
