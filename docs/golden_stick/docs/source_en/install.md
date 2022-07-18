@@ -46,7 +46,7 @@ Download [source code](https://gitee.com/mindspore/golden-stick), then enter the
 
 ```shell
 bash build.sh
-pip install output/mindspore_rl-{mg_version}-py3-none-any.whl
+pip install output/mindspore_gs-{mg_version}-py3-none-any.whl
 ```
 
 `build.sh` is the compiling script in `golden-stick` directory.
