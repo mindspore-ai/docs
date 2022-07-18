@@ -24,7 +24,7 @@ Second, traditional convolution operations use FP32, which takes a lot of time t
 
 As shown in the preceding figure, compared with the FP32 type, low-precision data representation types such as FP16 and INT8 occupy less space. Replacing the high-precision data representation type with the low-precision data representation type can greatly reduce the storage space and transmission time. Low-bit computing has higher performance. Compared with FP32, INT8 has a three-fold or even higher acceleration ratio. For the same computing, INT8 has obvious advantages in power consumption.
 
-Currently, there are two types of quantization solutions in the industry: quantization aware training and post-training quantization.
+Currently, there are two types of quantization solutions in the industry: **quantization aware training** and **post-training quantization**.
 
 (1) **Quantization aware training** requires training data and has better network accuracy. It is applicable to scenarios that have high requirements on the network compression rate and accuracy. The purpose is to reduce accuracy loss. The forward inference process in which the gradient is involved in network training enables the network to obtain a difference of quantization loss. The gradient update needs to be performed in a floating point. Therefore, the gradient is not involved in a backward propagation process.
 
