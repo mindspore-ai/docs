@@ -44,20 +44,19 @@ General Process of Applying the MindSpore Golden Stick
 
 During network training, the MindSpore Golden Stick does not have great impact on the original training script logic. As shown in the highlighted part in the preceding figure, only the following two steps need to be added:
 
-- **Optimize the model using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the model is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see [Applying the SimQAT Algorithm](https://mindspore.cn/golden_stick/docs/en/r0.1/quantization/simqat.html).
+- **Optimize the network using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the network is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see `Applying the SimQAT Algorithm <https://mindspore.cn/golden_stick/docs/en/r0.1/quantization/simqat.html>`_.
 
-- **Register the MindSpore Golden Stick callback API:** Register the callback algorithm of the MindSpore Golden Stick with the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and [register the object with the model](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html).
+- **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html>`_.
 
 2. Deployment
 
-- **Network conversion:** A network compressed by MindSpore Golden Stick may require additional steps to convert the model compression structure on the network from training to deployment, facilitating model export and deployment. For example, in the quantization aware scenario, a fake quantization node in a network usually needs to be eliminated, and converted into an operator attribute in the network.
+- **Network conversion:** A network compressed by MindSpore Golden Stick may require additional steps to convert the model compression structure from training mode to deployment mode, facilitating model export and deployment. For example, in the quantization aware scenario, a fake quantization node in a network usually needs to be eliminated, and converted into an operator attribute in the network. This capability is not enabled in the current version.
 
 .. note::
  - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
- - For details about the "network training or retraining" step in the process, see [MindSpore Training and Evaluation](https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html).
- - For details about the "ms.export" step in the process, see [Exporting MINDIR Model](https://www.mindspore.cn/tutorials/en/r1.8/advanced/train/save.html#export-mindir-model).
- - For details about "model optimization" and "model export" in the process, see [Converting Models for Inference](https://mindspore.cn/lite/docs/en/r1.8/use/converter_tool.html).
- - For details about the "MindSpore inference runtime" step in the process, see [MindSpore Inference Runtime](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html).
+ - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html>`_.
+ - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/r1.8/advanced/train/save.html#export-mindir-model>`_.
+ - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html>`_.
 
 Roadmap
 ---------------------------------------

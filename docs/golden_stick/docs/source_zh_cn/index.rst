@@ -23,7 +23,7 @@ MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计�
 设计思路
 ---------------------------------------
 
-MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要的设计理念是针对业界种类繁多的的模型压缩算法，提供给用户一个尽可能统一且简洁的体验，降低用户的算法应用成本。MindSpore Golden Stick通过两个举措来实现该理念：
+MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要的设计理念是针对业界种类繁多的模型压缩算法，提供给用户一个尽可能统一且简洁的体验，降低用户的算法应用成本。MindSpore Golden Stick通过两个举措来实现该理念：
 
 1. 统一的算法接口设计，降低用户应用成本
 
@@ -44,9 +44,9 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 在训练网络时应用MindSpore Golden Stick算法不会对原有的训练脚本逻辑产生很大的影响，如上图中黄色部分所示，仅需要增加额外两步：
 
-- **应用MindSpore Golden Stick算法优化模型：** 在原训练流程中，在定义原始网络之后，模型训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的`apply`接口实现的，可以参考[应用SimQAT算法](https://mindspore.cn/golden_stick/docs/zh-CN/r0.1/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95)。
+- **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的`apply`接口实现的，可以参考`应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/r0.1/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
 
-- **注册MindSpore Golden Stick回调接口：** 将MindSpore Golden Stick算法的回调算法注册到要训练的Model中。一般这个步骤是调用MindSpore Golden Stick的`callback`获取相应的callback对象，并[注册到Model](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html)中。
+- **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的`callback`接口，获取相应的callback对象，并`注册到model <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html>`_中。
 
 2. 部署阶段
 
@@ -54,15 +54,14 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 .. note::
  - 应用MindSpore Golden Stick算法的细节，可以在每个算法章节中找到详细说明和示例代码。
- - 流程中的"网络训练或重训"步骤可以参考[MindSpore训练与评估](https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html)章节。
- - 流程中的"ms.export"步骤可以参考[导出mindir格式文件](https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6)章节。
- - 流程中的"模型优化"和"模型导出"步骤可以参考[昇思推理离线工具](https://mindspore.cn/lite/docs/zh-CN/r1.8/use/converter_tool.html)章节。
- - 流程中的"昇思推理运行时"步骤可以参考[昇思推理运行时](https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html)章节。
+ - 流程中的"网络训练或重训"步骤可以参考`MindSpore训练与评估 <https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html>`_章节。
+ - 流程中的"ms.export"步骤可以参考`导出mindir格式文件 <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6>`_章节。
+ - 流程中的"昇思推理优化工具和运行时"步骤可以参考`昇思推理 <https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html>`_章节。
 
 未来规划
 ---------------------------------------
 
-MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线性量化算法，一个非线性量化算法和一个结构化剪枝算法。后续会提供更多的算法和更完善的网络支持，调测能力也会在后续版本提供。将来随着算法的丰富，MindSpore Golden Stick还会探索自动模型压缩（AMC）、硬件感知自动量化（HAQ）和网络结构搜索（NAS）等能力，敬请期待。
+MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线性量化算法，一个非线性量化算法和一个结构化剪枝算法。后续会提供更多的算法和更完善的网络支持，调测能力也会在后续版本提供。将来随着算法的丰富，MindSpore Golden Stick还会探索AMC、HAQ和NAS等能力，敬请期待。
 
 .. toctree::
    :glob:

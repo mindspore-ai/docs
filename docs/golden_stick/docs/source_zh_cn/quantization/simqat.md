@@ -8,9 +8,9 @@ SimQAT是一种最基础的感知量化算法，其具体原理来源于谷歌�
 
 ### 伪量化节点
 
-伪量化节点，是指感知量化训练时，往网络中中插入的一类节点，其用途是寻找网络数据分布，并反馈损失精度，具体作用如下：
+伪量化节点，是指感知量化训练时，往网络中插入的一类节点，其用途是寻找网络数据分布，并反馈损失精度，具体作用如下：
 
-- 找到网络数据的分布，即找到待量化参数的最大值和最小值；
+- 找到参数的分布，即找到待量化参数的最大值和最小值；
 - 模拟量化为低比特时的精度损失，把该损失作用到网络中，传递给损失函数，让优化器在训练过程中对该损失值进行优化。
 
 ### BatchNorm折叠
@@ -36,7 +36,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/models/tree/master>。 |
+| 网络支持 | LeNet、ResNet50，具体请参见<https://gitee.com/mindspore/models/tree/master>。 |
 | 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
 | 方案支持 | 支持8比特的量化方案。 |
 | 数据类型支持 | GPU平台支持FP32。 |
@@ -50,8 +50,8 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 2. 定义网络。
 3. 定义MindSpore Golden Stick量化算法，应用算法生成量化网络。
 4. 定义优化器、损失函数和callbacks。
-5. 训练网络，保存模型文件。
-6. 加载模型文件，对比量化后精度。
+5. 训练网络，保存checkpoint文件。
+6. 评估网络，对比量化后精度。
 
 接下来以LeNet5网络为例，分别叙述这些步骤。
 
@@ -171,7 +171,7 @@ config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
 ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", config=config_ck)
 ```
 
-### 训练模型，保存模型文件
+### 训练网络，保存checkpoint文件
 
 调用`Model`中的`train`接口开始训练模型：
 
@@ -205,7 +205,7 @@ epoch:10 step: 1875, loss is 0.00027961225
 Train epoch time: 8544.641 ms, per step time: 4.552 ms
 ```
 
-### 加载模型，对比精度
+### 评估网络，对比精度
 
 按照[lenet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/lenet) 步骤获得普通训练的模型精度：
 
@@ -213,7 +213,7 @@ Train epoch time: 8544.641 ms, per step time: 4.552 ms
 'Accuracy':0.9842
 ```
 
-加载上一步得到的模型文件，导入量化后模型评估精度。
+加载上一步得到的checkpoint文件，并评估量化模型的精度。
 
 ```python
 param_dict = load_checkpoint(config.checkpoint_file_path)
@@ -229,7 +229,7 @@ print(acc)
 
 LeNet5应用感知量化训练后精度未下降。
 
-> 此处模型并非最终部署模型，由于增加了伪量化节点，ckpt大小相较原始模型略有增加。
+> 感知量化算法的一个效果是压缩模型大小，但这里提到的模型大小是指部署模型的大小。此处的网络并非最终的部署模型，又由于网络中增加了伪量化节点，所以量化网络的checkpoint文件大小反而相较原始网路的略有增加。
 
 ## 总结
 
