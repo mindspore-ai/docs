@@ -44,9 +44,9 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 在训练网络时应用MindSpore Golden Stick算法不会对原有的训练脚本逻辑产生很大的影响，如上图中黄色部分所示，仅需要增加额外两步：
 
-- **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的`apply`接口实现的，可以参考`应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/r0.1/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
+- **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的`apply`接口实现的，可以参考 `应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/r0.1/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
 
-- **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的`callback`接口，获取相应的callback对象，并`注册到model <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html>`_中。
+- **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的`callback`接口，获取相应的callback对象，并 `注册到model <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/callback.html>`_中。
 
 2. 部署阶段
 
@@ -54,9 +54,9 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 .. note::
  - 应用MindSpore Golden Stick算法的细节，可以在每个算法章节中找到详细说明和示例代码。
- - 流程中的"网络训练或重训"步骤可以参考`MindSpore训练与评估 <https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html>`_章节。
- - 流程中的"ms.export"步骤可以参考`导出mindir格式文件 <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6>`_章节。
- - 流程中的"昇思推理优化工具和运行时"步骤可以参考`昇思推理 <https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html>`_章节。
+ - 流程中的"网络训练或重训"步骤可以参考 `MindSpore训练与评估 <https://mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/train_eval.html>`_章节。
+ - 流程中的"ms.export"步骤可以参考 `导出mindir格式文件 <https://www.mindspore.cn/tutorials/zh-CN/r1.8/advanced/train/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6>`_章节。
+ - 流程中的"昇思推理优化工具和运行时"步骤可以参考 `昇思推理 <https://mindspore.cn/tutorials/experts/zh-CN/r1.8/infer/inference.html>`_章节。
 
 未来规划
 ---------------------------------------
