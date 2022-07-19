@@ -29,7 +29,7 @@ class mindspore.nn.Dropout(
 )
 ```
 
-For more information, see[mindspore.nn.Dropout](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout).
+For more information, see[mindspore.nn.Dropout](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout).
 
 ## Use Pattern
 
