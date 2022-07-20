@@ -59,3 +59,13 @@ html_theme = 'sphinx_rtd_theme'
 html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 html_static_path = ['_static']
+
+src_release = os.path.join(os.getenv("DT_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("## [\s\S\n]*", data)
+result = content[0].replace('# MindSpore Dev Toolkit', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(result)
