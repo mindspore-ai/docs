@@ -474,8 +474,8 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
     - `file`: 模型文件路径。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `graph`: 输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。MindSpore Lite不支持该参数。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。MindSpore Lite不支持该参数。
 
 - 返回值
 
@@ -517,8 +517,8 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
     - `data_size`：模型数据字节数。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。MindSpore Lite不支持该参数。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。MindSpore Lite不支持该参数。
 
 - 返回值
 
@@ -526,7 +526,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
 #### SetParameters
 
-配置模型参数。
+配置模型参数。MindSpore Lite未提供此功能。
 
 ```cpp
 static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model);
@@ -543,7 +543,7 @@ static Status SetParameters(const std::map<std::string, Buffer> &parameters, Mod
 
 #### ExportModel
 
-导出训练模型，MindSpore Lite训练使用。
+导出训练模型，MindSpore Lite未提供此功能。
 
 ```cpp
 static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data);
