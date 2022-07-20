@@ -11,7 +11,7 @@ MindSpore Golden Stick is a model compression algorithm set jointly designed and
 
 2. Based on MindSpore Rewrite, MindSpore Golden Stick will provide various types of algorithms, such as SimQAT algorithm, SLB quantization algorithm, SCOP pruning algorithm, etc.;
 
-3. At the upper level of the algorithm, MindSpore Golden Stick also plans advanced technologies such as AMC (automatic model compression technology), NAS (network structure search), and HAQ (hardware-aware automatic quantization);
+3. At the upper level of the algorithm, MindSpore Golden Stick also plans advanced technologies such as AMC (AutoML for Model Compression), NAS (Neural Architecture Search), and HAQ (Hardware-aware Automated Quantization);
 
 4. In order to facilitate developers to analyze and debug algorithms, MindSpore Golden Stick provides some tools, such as visualization tool, profiler tool, summary tool, etc.;
 
@@ -27,7 +27,7 @@ In addition to providing rich model compression algorithms, an important design 
 
 1. Unified algorithm interface design to reduce user application costs:
 
-   There are many types of model compression algorithms, such as quantization-aware training algorithms, pruning algorithms, matrix decomposition algorithms, knowledge distillation algorithms, etc. In each type of compression algorithm, there are also various specific algorithms, such as LSQ and PACT, which are both quantization-aware training algorithms. Different algorithms are often applied in different ways, which increases the learning cost for users to apply algorithms. MindSpore Golden Stick sorts out and abstracts the algorithm application process, and provides a set of unified algorithm application interfaces to minimize the learning cost of algorithm application. At the same time, this also facilitates the exploration of advanced technologies such as AMC (automatic model compression technology), NAS (network structure search), and HAQ (hardware-aware automatic quantization) based on the algorithm ecology.
+   There are many types of model compression algorithms, such as quantization-aware training algorithms, pruning algorithms, matrix decomposition algorithms, knowledge distillation algorithms, etc. In each type of compression algorithm, there are also various specific algorithms, such as LSQ and PACT, which are both quantization-aware training algorithms. Different algorithms are often applied in different ways, which increases the learning cost for users to apply algorithms. MindSpore Golden Stick sorts out and abstracts the algorithm application process, and provides a set of unified algorithm application interfaces to minimize the learning cost of algorithm application. At the same time, this also facilitates the exploration of advanced technologies such as AMC, NAS, and HAQ based on the algorithm ecology.
 
 2. Provide front-end network modification capabilities to reduce algorithm development costs:
 
@@ -44,9 +44,9 @@ General Process of Applying the MindSpore Golden Stick
 
 During network training, the MindSpore Golden Stick does not have great impact on the original training script logic. As shown in the highlighted part in the preceding figure, only the following two steps need to be added:
 
-- **Optimize the network using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the network is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see `Applying the SimQAT Algorithm <https://mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html>`_.
+- **Optimize the network using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the network is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see `Applying the SimQAT Algorithm <https://mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html>`_ .
 
-- **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/callback.html>`_.
+- **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/callback.html>`_ .
 
 2. Deployment
 
@@ -54,9 +54,9 @@ During network training, the MindSpore Golden Stick does not have great impact o
 
 .. note::
  - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
- - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html>`_.
- - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model>`_.
- - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html>`_.
+ - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html>`_ .
+ - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model>`_ .
+ - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html>`_ .
 
 Roadmap
 ---------------------------------------
