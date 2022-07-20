@@ -134,10 +134,10 @@ MindSpore Documentation
                      <a href="./note/syntax_list.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Syntax Support</span>
+                              <span class="doc-head-content">Specifications</span>
                            </div>
                            <div class="doc-article-desc">
-                              Support for static graph syntax, tensor index, etc.
+                              Specifications of benchmark performance, network support, operator support and syntax support.
                            </div>
                         </div>
                      </a>
