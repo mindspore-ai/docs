@@ -99,6 +99,8 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    | Vision | VS_PATH | https://gitee.com/mindspore/vision.git | vision |
    | Hub | HB_PATH | https://gitee.com/mindspore/hub.git | hub |
    | XAI | XA_PATH | https://gitee.com/mindspore/xai.git | xai |
+   | Golden Stick | GS_PATH | https://gitee.com/mindspore/golden-stick.git | golden_stick |
+   | DevToolkit | DT_PATH | https://gitee.com/mindspore/ide-plugin.git | devtoolkit |
 
    克隆仓库以及设置环境变量的代码如下：
 
