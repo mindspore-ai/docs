@@ -141,10 +141,10 @@ MindSpore 文档
                      <a href="./note/syntax_list.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">语法支持</span>
+                              <span class="doc-head-content">规格</span>
                            </div>
                            <div class="doc-article-desc">
-                              静态图语法、Tensor索引等的支持情况。
+                              基准性能、网络支持、算子支持和语法支持等规格说明。
                            </div>
                         </div>
                      </a>
