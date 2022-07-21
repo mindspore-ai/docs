@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
 
-本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite仅支持Ascend310芯片。
+本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite支持Ascend310和310P芯片。
 
 ## 环境准备
 
