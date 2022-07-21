@@ -72,3 +72,9 @@ MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
    knowledge_search
    smart_completion
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
