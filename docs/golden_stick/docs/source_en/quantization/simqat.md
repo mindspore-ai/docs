@@ -4,7 +4,7 @@
 
 ## Background
 
-SimQAT is a basic quantization aware algorithm based on fake quantization nodes. Its principles come from Google's [A White Paper on Neural Network Quantization](https://arxiv.org/abs/2106.08295).
+SimQAT is a basic quantization aware algorithm based on fake quantization nodes. Its principles come from Google's [Quantizing deep convolutional networks for efficient inference: A whitepaper](https://arxiv.org/pdf/1806.08342.pdf).
 
 ### Fake Quantization Node
 
