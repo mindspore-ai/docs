@@ -92,3 +92,10 @@ The current release version of MindSpore Golden Stick provides a stable API and 
    :caption: API References
 
    mindspore_gs
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
