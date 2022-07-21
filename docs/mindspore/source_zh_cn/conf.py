@@ -338,6 +338,17 @@ def nn_interface_name():
 ops_interface_name()
 nn_interface_name()
 
+list_dir = "./api_python"
+tensor_path = "api_python/mindspore/mindspore.Tensor.1_8_1.rst"
+
+try:
+    for filename in os.listdir(list_dir):
+        if ".1_8_1" in filename:
+            os.remove(os.path.join(os.path.dirname(__file__),list_dir,filename))
+    os.remove(os.path.join(os.path.dirname(__file__),tensor_path))
+except Exception as e:
+    print(e)
+
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
 def setup(app):

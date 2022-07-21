@@ -256,6 +256,15 @@ if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir_en, des_sir)
 
+list_dir = "./api_python"
+
+try:
+    for filename in os.listdir(list_dir):
+        if ".1_8_1" in filename:
+            os.remove(os.path.join(os.path.dirname(__file__),list_dir,filename))
+except Exception as e:
+    print(e)
+
 # Copy images from mindspore repo.
 import imghdr
 from sphinx.util import logging
