@@ -72,3 +72,9 @@ See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs
    knowledge_search
    smart_completion
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
