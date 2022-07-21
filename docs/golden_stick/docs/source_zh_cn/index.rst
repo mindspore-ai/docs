@@ -92,3 +92,10 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
    :caption: API参考
 
    mindspore_gs
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
