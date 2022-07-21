@@ -1,5 +1,5 @@
 Dynamic shape iteration analysis
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When the training network is a dynamic shape network, the execution time of each operator (including AICPU operator and AICORE operator) during the operation of MindSpore can be statistically displayed by using the operator time-consuming (by iteration) component. It can quickly understand the time fluctuation of each operator in each iteration of training and the shape information of the operator in different iterations.
 
