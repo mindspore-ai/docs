@@ -338,9 +338,9 @@ mindspore-lite-{version}-linux-x64
 
     通常输入数据文件可以采用以下方式生成：
 
-    - 将模型训练数据集内的数据进行前处理，将前处理后的数据保存。
+    - 保存训练输入：将模型训练数据集内的数据进行前处理，将前处理后的数据保存。
 
-    - 通过随机生成的方式，生成指定范围内的随机数据。
+    - 随机生成：通过随机生成的方式，生成指定范围内的随机数据。
 
     本例采用随机生成数作为输入，用户可以通过运行以下Python脚本，或点击此处下载本例中的[input.bin文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)，并将它放到benchmark目录内。
 
