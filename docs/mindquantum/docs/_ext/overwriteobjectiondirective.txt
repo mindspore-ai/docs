@@ -55,7 +55,8 @@ def get_example(name: str):
         example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
-        example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+        # example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+        example_str = re.sub(r'\n    ', r'\n', example_str[0][0])
         example_str = example_str.strip()
         example_list = example_str.split('\n')
         return ["", "**样例：**", ""] + example_list + [""]
