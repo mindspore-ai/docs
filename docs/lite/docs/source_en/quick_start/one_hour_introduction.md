@@ -338,9 +338,9 @@ In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release
 
     Generally, the input data file can be generated in the following ways:
 
-    - Pre-process the data in the model training dataset and save the pre-processed data.
+    - Save training data: Pre-process the data in the model training dataset and save the pre-processed data.
 
-    - Randomly generate data within a specified range.
+    - Random generation: Randomly generate data within a specified range.
 
     In this example, a randomly generated number is used as the input. You can run the following Python script or click [here](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin) to download the `input.bin` file and save it to the benchmark directory.
 
