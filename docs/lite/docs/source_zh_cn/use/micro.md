@@ -177,8 +177,6 @@ mindspore-lite-{version}-linux-x64
 
 - 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
 
-- 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
-
 ## 在MCU上执行推理
 
 ### 概述
@@ -254,7 +252,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 #### 环境准备
 
-- [STM32CubeMX Windows版本](https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/0b/05/f0/25/c7/2b/42/9d/stm32cubemx_v6-1-1/files/stm32cubemx_v6-1-1.zip/jcr:content/translations/en.stm32cubemx_v6-1-1.zip) >= 6.0.1
+- [STM32CubeMX Windows版本](https://www.st.com/en/development-tools/stm32cubemx.html) >= 6.0.1
 
     - `STM32CubeMX`是`意法半导体`提供的STM32芯片图形化配置工具，该工具用于生成STM芯片的启动代码及工程。
 
@@ -390,11 +388,11 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     - 该工具为适用Cortex-M的Linux下交叉编译工具。
     - 下载x86_64-linux版本的`gcc-arm-none-eabi`，解压缩后，将目录下的bin路径加入到PATH环境变量中：`export PATH=gcc-arm-none-eabi路径/bin:$PATH`。
 
-- [STM32CubeMX-Lin](https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.html) >= 6.5.0
+- [STM32CubeMX-Lin](https://www.st.com/en/development-tools/stm32cubemx.html) >= 6.5.0
 
     - `STM32CubeMX`是`意法半导体`提供的STM32芯片图形化配置工具，该工具用于生成STM芯片的启动代码及工程。
 
-- [STM32CubePrg-Lin](https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.html) >= 6.5.0
+- [STM32CubePrg-Lin](https://www.st.com/en/development-tools/stm32cubeprog.html) >= 6.5.0
 
     - 该工具是`意法半导体`提供的烧录工具，可用于程序烧录和数据读取。
 
