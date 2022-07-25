@@ -7,14 +7,6 @@
 In this tutorial we explain the tabular data classification using 3 different explainers, including `LIMETabular`,
 `SHAPKernel`, and `SHAPGradient`.
 
-All explainers support `PYNATIVE_MODE`. All explainers except `SHAPGradient` support `GRAPH_MODE`.
-
-|  Explainer   |    PYNATIVE_MODE    |     GRAPH_MODE     |
-|:------------:|:-------------------:|:------------------:|
-| LIMETabular  |      Supported      |     Supported      |
-|  SHAPKernel  |      Supported      |     Supported      |
-| SHAPGradient |      Supported      |      <blank>       |
-
 The complete code of the tutorial below is [using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
 
 ## Import Dataset
@@ -159,8 +151,6 @@ shap_kernel = SHAPKernel(predict_fn, data, feature_names=feature_names, class_na
 from mindspore_xai.explainer import SHAPGradient
 import mindspore as ms
 
-# Gradient only works under PYNATIVE_MODE.
-ms.set_context(mode=ms.PYNATIVE_MODE)
 # initialize the explainer
 shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names=class_names)
 # explain

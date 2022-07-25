@@ -32,6 +32,7 @@ MindSpore XAI是一个基于昇思MindSpore的可解释AI工具箱。当前深�
    mindspore_xai.explainer
    mindspore_xai.benchmark
    mindspore_xai.tool
+   mindspore_xai.visual
 
 .. toctree::
    :maxdepth: 1

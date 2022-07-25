@@ -7,14 +7,6 @@
 在这个教程中，我们将使用三个不同的解释器来解释表格数据的分类结果，这三个解释器包括 `LIMETabular` ，
  `SHAPKernel` 和 `SHAPGradient` 。
 
-所有解释器都支持 `PYNATIVE_MODE` 。除了 `SHAPGradient` 以外的所有解释器都支持 `GRAPH_MODE` 。
-
-|     解释器      |  PYNATIVE_MODE  | GRAPH_MODE |
-|:------------:|:---------------:|:----------:|
-| LIMETabular  |       支持        |     支持     |
-|  SHAPKernel  |       支持        |     支持     |
-| SHAPGradient |       支持        |  <blank>   |
-
 以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
 
 ## 准备数据集
@@ -158,8 +150,6 @@ shap_kernel = SHAPKernel(predict_fn, data, feature_names=feature_names, class_na
 from mindspore_xai.explainer import SHAPGradient
 import mindspore as ms
 
-# 梯度仅在 PYNATIVE_MODE 下有效。
-ms.set_context(mode=ms.PYNATIVE_MODE)
 # 初始化解释器
 shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names=class_names)
 # 解释
