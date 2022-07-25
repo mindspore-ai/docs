@@ -26,9 +26,9 @@ This document describes how to use MindSpore Lite to perform inference and use t
 
     - Ascend software package provides two distributions, commercial edition and community edition:
 
-        1. Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC1 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100246310).
+        1. Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC2 Installation Guide].
 
-        2. Community edition has no restrictions, choose `5.1.RC1.alpha005` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+        2. Community edition has no restrictions, choose `5.1.RC2.alpha007` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
     - The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
     - Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
