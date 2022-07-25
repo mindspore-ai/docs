@@ -353,11 +353,11 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Perform Inference on Mini and Small Systems</span>
+											<span class="doc-head-content">Perform Inference on MCU or Small Systems</span>
 										</div>
 										<div class="doc-article-desc">
-										MindSpore Lite provides a code generator tool, namely codegen, which could have runtime compiling and computational graphs building done offline. 
-										Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program.
+										MindSpore Lite provides a light-weight Micro solution for deploying AI models to IOT devices.
+										In this solution, the model is generated into pure C code called by simple operators, and online model parsing and graph compilation are no longer required, which is suitable for the environment with limited memory and computing power.
 										</div>
 									</div>
 								</a>
