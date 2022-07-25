@@ -1077,8 +1077,19 @@ class StandaloneHTMLBuilder(Builder):
                 output = output.replace(' (<a class="reference internal" href="#file-include-datasets-h"><span class="std std-ref">File datasets.h</span></a>)', "")
 
             # Add links to the Python operator interface.
+            err_link_ops = [
+                "mindspore.ops.NonZero", "mindspore.ops.FakeQuantWithMinMaxVars",
+                "mindspore.ops.FakeQuantWithMinMaxVarsPerChannel", "mindspore.ops.MatrixDiagPart",
+                "mindspore.ops.Diag", "mindspore.ops.CTCLossV2",
+                "mindspore.ops.CeLU", "mindspore.ops.MatMulFusion",
+                "mindspore.ops.NLLLossGrad", "mindspore.ops.DiagPart",
+                "mindspore.ops.Complex", "mindspore.ops.BatchMatmul"
+                ]
             if "mindspore.ops." in output:
-                output = re.sub(r'(mindspore\.ops\.\w+) ', r'<a class="reference internal" href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/\1.html">\1 </a>', output, count=0)
+                res = re.findall(r'(mindspore\.ops\.\w+) ', output)
+                res = set([i for i in res if i not in err_link_ops])
+                for api in res:
+                    output = output.replace(api+' ', f'<a class="reference internal" href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/{api}.html">{api} </a>')
 
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "
