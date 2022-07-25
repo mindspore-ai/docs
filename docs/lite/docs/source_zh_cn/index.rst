@@ -363,10 +363,10 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.8/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">在轻量和小型系统上执行推理</span>
+											<span class="doc-head-content">在MCU或小型系统上执行推理</span>
 										</div>
 										<div class="doc-article-desc">
-										MindSpore Lite提供代码生成工具codegen，将运行时编译、解释计算图，移至离线编译阶段。仅保留推理所必须的信息，生成极简的推理代码。
+										MindSpore Lite为IOT场景提供了超轻量Micro AI部署解决方案，该方案将模型生成为简单算子调用的纯c代码，不再需要在线解析模型及图编译，适用内存及算力受限的环境。
 										</div>
 									</div>
 								</a>
