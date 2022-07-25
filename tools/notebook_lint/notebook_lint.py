@@ -112,6 +112,8 @@ def check_notebook(path):
             if not cell["source"]:
                 print("{}:cell_{}:empty cell need to delete".format(path, cell_num))
             else:
+                if isinstance(cell["source"], str):
+                    continue
                 for line_num, line_content in enumerate(cell["source"], 1):
                     if not line_content.endswith("\n") and line_content != cell["source"][-1]:
                         print("{}:cell_{}:{}:The end of the line in the source\
@@ -170,6 +172,8 @@ def location(path):
             if not cell["source"]:
                 continue
             k_name = "cell_{}".format(num+1)
+            if isinstance(cell["source"], str):
+                cell["source"] = cell["source"].split("\n")
             if cell["source"][-1].endswith("\n"):
                 line_num_end = line_num_start + len(cell["source"]) + 1
             else:
@@ -184,6 +188,8 @@ def convert_to_markdown(path):
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     for cell in data["cells"]:
+        if isinstance(cell["source"], str):
+            cell["source"] = cell["source"].split("\n")
         if cell["cell_type"] == "markdown":
             if content:
                 content += ["\n"]
@@ -202,6 +208,8 @@ def location_py(path):
             k_name = "cell_{}".format(num+1)
             if not cell["source"]:
                 continue
+            if isinstance(cell["source"], str):
+                cell["source"] = cell["source"].split("\n")
             if cell["source"][-1].endswith("\n"):
                 line_num_end = line_num_start + len(cell["source"]) + 1
             else:
@@ -251,6 +259,8 @@ def convert_to_py(path):
         if cell["cell_type"] == "code":
             if content:
                 content += ["\n"]
+            if isinstance(cell["source"], str):
+                cell["source"] = cell["source"].split("\n")
             for i in cell["source"]:
                 if i.strip().startswith("!") or i.strip().startswith("%"):
                     content.append("# " + i)
@@ -276,6 +286,8 @@ def print_info(check_info, location_info):
                     cell_count = int(k.split("_")[-1])
                     line = int(error_line) - int(v.split("_")[0]) + 1
                     break
+            if isinstance(cells[cell_count-1]["source"], str):
+                cells[cell_count-1]["source"] = cells[cell_count-1]["source"].split("\n")
             detail_content = cells[cell_count-1]["source"][line-1]
             if len(detail_content) > 30:
                 detail_content = detail_content[:30] + "..."
