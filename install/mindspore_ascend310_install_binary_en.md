@@ -172,10 +172,10 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.7.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.7.0
+export MS_VERSION=1.8.0
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
