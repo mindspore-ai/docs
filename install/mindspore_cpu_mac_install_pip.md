@@ -29,10 +29,10 @@
 
 ## 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.7.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.8.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=1.7.0
+export MS_VERSION=1.8.0
 ```
 
 然后根据系统架构及Python版本执行如下命令安装MindSpore。
