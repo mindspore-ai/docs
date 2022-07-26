@@ -201,8 +201,10 @@ list_dir = "./api_python"
 
 try:
     for filename in os.listdir(list_dir):
-        if ".1_8_1" in filename:
-            os.remove(os.path.join(os.path.dirname(__file__),list_dir,filename))
+        if ".1_8_0" in filename:
+            newname = filename.replace(".1_8_0",'')
+            os.remove(os.path.join(os.path.dirname(__file__),list_dir,newname))
+            os.rename(os.path.join(list_dir, filename),os.path.join(list_dir, newname))
 except Exception as e:
     print(e)
 
