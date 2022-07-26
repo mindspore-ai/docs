@@ -18,7 +18,7 @@ Except the input layer, LeNet contains seven layers: three convolutional layers,
 
 In the preceding figure, C indicates the convolutional layer layer, S indicates the sampling layer, and F indicates the fully-connected layer.
 
-The input size of an image is fixed at $32 x 32$. To achieve a good convolution effect, the number must be in the center of the image. Therefore, the input $32 x 32$ is the result after the image is filled with $28 x 28$. Unlike the three-channel input images of the CNN network, the input images of LeNet are only normalized binary images. The output of the network is the prediction probability of digits 0 to 9, which can be understood as the probability that the input image belongs to digits 0 to 9.
+The input size of an image is fixed at $32 \times 32$. To achieve a good convolution effect, the number must be in the center of the image. Therefore, the input $32 \times 32$ is the result after the image is filled with $28 \times 28$. Unlike the three-channel input images of the CNN network, the input images of LeNet are only normalized binary images. The output of the network is the prediction probability of digits 0 to 9, which can be understood as the probability that the input image belongs to digits 0 to 9.
 
 The `Cell` class of MindSpore is the base class for building all networks and the basic unit of a network. When a neural network is required, you need to inherit the `Cell` class and overwrite the `__init__` and `construct` methods.
 
