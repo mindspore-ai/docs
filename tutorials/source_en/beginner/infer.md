@@ -109,7 +109,7 @@ In the inverted residual block structure, the 1 x 1 convolution is used for dime
 
 ### Downloading the Pre-trained Model
 
-Download the [ckpt file of the MobileNetV2 pre-trained model](https://download.mindspore.cn/vision/classification/mobilenet_v2_1.0_224.ckpt) required by the case. The width coefficient of the pre-training model is $\alpha=1.0$, and the input image size is (224, 224). Save the downloaded pre-trained model to the current directory. Use `DownLoad` in MindSpore Vision to download the pre-trained model file to the current directory. The sample code is as follows:
+Download the [ckpt file of the MobileNetV2 pre-trained model](https://download.mindspore.cn/vision/classification/mobilenet_v2_1.0_224.ckpt) required by the case. The width coefficient of the pre-training model is $\alpha = 1.0$, and the input image size is (224, 224). Save the downloaded pre-trained model to the current directory. Use `DownLoad` in MindSpore Vision to download the pre-trained model file to the current directory. The sample code is as follows:
 
 ```python
 from mindvision.dataset import DownLoad
