@@ -32,9 +32,9 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend310-pip.sh
-# install MindSpore 1.7.0 and Python 3.7
+# install MindSpore 1.8.0 and Python 3.7
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
-MINDSPORE_VERSION=1.7.0 bash -i ./euleros-ascend310-pip.sh
+MINDSPORE_VERSION=1.8.0 bash -i ./euleros-ascend310-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples
 # and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
 # LOCAL_ASCEND=/home/xxx/Ascend MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend310-pip.sh
@@ -218,10 +218,10 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.7.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.7.0
+export MS_VERSION=1.8.0
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
