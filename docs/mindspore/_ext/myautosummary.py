@@ -494,13 +494,15 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
             return []
         try:
             api_doc = inspect.getdoc(get_api(name))
-            example_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
-            if not example_str:
-                example_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
-                if example_str_leak:
-                    return example_str_leak
+            platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if ['deprecated'] == platform_str:
+                return ["弃用"]
+            if not platform_str:
+                platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                if platform_str_leak:
+                    return platform_str_leak
                 return ["开发中"]
-            return example_str
+            return platform_str
         except: #pylint: disable=bare-except
             return []
 
