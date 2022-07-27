@@ -166,6 +166,10 @@ try:
                        "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
                        "    @check_bucket_batch_by_length","    # The decorator has been deleted."),
+                       ("mindspore/ops/function/nn_func.py","generate api",
+                       "__all__ = [\n    'adaptive_avg_pool2d',","__all__ = [\n    'adaptive_avg_pool2d',\n    'smooth_l1_loss',"),
+                       ("mindspore/ops/function/__init__.py","generate api",
+                       "from .nn_func import (\n    adaptive_avg_pool2d,","from .nn_func import (\n    adaptive_avg_pool2d,\n    smooth_l1_loss,"),
                        ("mindspore/train/summary/summary_record.py", "summary_record",
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n")]
@@ -175,6 +179,23 @@ try:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             if i[3] not in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
+# Repair error content defined in mindspore.
+try:
+    decorator_list = [("mindspore/ops/function/array_func.py","modify format",
+                       "    Supported Platforms:\n       ``GPU``","    Supported Platforms:\n        ``GPU``")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
                 content = content.replace(i[2], i[3])
                 f.seek(0)
                 f.truncate()
