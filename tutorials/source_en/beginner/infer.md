@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.8/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
 
-This chapter uses the `mobilenet_v2` network fine-tuning approach in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.8/index.html) to develop an AI application to classify dogs and croissants, and deploy the trained network model on the Android phone to perform inference and deployment.
+This chapter uses the `mobilenet_v2` network fine-tuning approach in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r0.1/index.html) to develop an AI application to classify dogs and croissants, and deploy the trained network model on the Android phone to perform inference and deployment.
 
 ## Data Preparation and Loading
 
@@ -14,7 +14,7 @@ The dataset is as follows:
 
 ![datset-dog](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/tutorials/source_zh_cn/beginner/images/datset_dog.png)
 
-Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.8/index.html) to download and decompress the dataset to the specified path. The sample code is as follows:
+Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r0.1/index.html) to download and decompress the dataset to the specified path. The sample code is as follows:
 
 ```python
 from mindvision.dataset import DownLoad

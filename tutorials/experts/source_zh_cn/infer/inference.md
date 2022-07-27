@@ -105,7 +105,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/r1.8/hub.html#mindspore_hub.load>。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/r1.6/hub.html#mindspore_hub.load>。
 
 ## 使用`model.predict`接口进行推理操作
 

@@ -107,7 +107,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: <https://www.mindspore.cn/hub/docs/zh-CN/r1.8/hub.html#mindspore_hub.load>.
+`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: <https://www.mindspore.cn/hub/docs/zh-CN/r1.6/hub.html#mindspore_hub.load>.
 
 ## Using the `model.predict` Interface for Inference Operations
 

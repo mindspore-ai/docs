@@ -36,7 +36,7 @@ MindSpore Operator 是遵循Kubernetes的Operator模式（基于CRD-Custom Resou
 
 当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。
 
-在[config/samples/](https://gitee.com/mindspore/ms-operator/tree/r1.8/config/samples)中有运行样例。以数据并行的Scheduler、Worker启动为例，其中数据集和网络脚本需提前准备：
+在[config/samples/](https://gitee.com/mindspore/ms-operator/tree/r1.0/config/samples)中有运行样例。以数据并行的Scheduler、Worker启动为例，其中数据集和网络脚本需提前准备：
 
 ```shell
 kubectl apply -f config/samples/ms_wide_deep_dataparallel.yaml

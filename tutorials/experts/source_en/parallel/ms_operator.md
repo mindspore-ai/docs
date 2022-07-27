@@ -36,7 +36,7 @@ There are three installation methods:
 
 The current ms-operator supports ordinary single worker training, single worker training in PS mode, and Scheduler and Worker startups for automatic parallelism (such as data parallelism and model parallelism).
 
-There are running examples in [config/samples/](https://gitee.com/mindspore/ms-operator/tree/r1.8/config/samples). Take the data-parallel Scheduler and Worker startup as an example, where the dataset and network scripts need to be prepared in advance:
+There are running examples in [config/samples/](https://gitee.com/mindspore/ms-operator/tree/r1.0/config/samples). Take the data-parallel Scheduler and Worker startup as an example, where the dataset and network scripts need to be prepared in advance:
 
 ```shell
 kubectl apply -f config/samples/ms_wide_deep_dataparallel.yaml
