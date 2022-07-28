@@ -200,7 +200,7 @@ if __name__ == '__main__':
     run_classify_top1()
 ```
 
-## Accessing SSL/TLS enabled Serving Service
+## Accessing SSL or TLS enabled Serving Service
 
 Mindspore Serving supports server and client communicating based on `SSL/TLS`.
 
