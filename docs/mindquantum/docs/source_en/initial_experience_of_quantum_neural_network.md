@@ -242,7 +242,7 @@ Simulator.get_expectation_with_grad(ham,
                                     parallel_worker=1)
 ```
 
-This function is suitable for computing the following models: $$E=\left<0\right|U^\dagger_l(\theta) H U_r(\theta)\left|0\right>$$ Where `circ_right` is `Ur`, `circ_left` is `Ul`, when not provided, the default is the same circuit as `circ_right`,
+This function is suitable for computing the following models: $E=\left<0\right|U^\dagger_l(\theta) H U_r(\theta)\left|0\right>$ Where `circ_right` is `Ur`, `circ_left` is `Ul`, when not provided, the default is the same circuit as `circ_right`,
 `encoder_params_name` specifies which parameters in the entire system belong to the parameters of the encoder. The encoder can map the classical data to the high-order Hilbert space by feature mapping,
 `ansatz_params_name` specifies which parameters in the entire system belong to the parameters of the circuit to be trained,
 `parallel_worker` specifies the number of parallels. When the classical data to be encoded is a batch, setting this parameter reasonably can improve the calculation efficiency.
@@ -389,4 +389,4 @@ To sum up, we built a simple quantum neural network. By training the parameters 
 
 So far, we have completed the first experience of quantum neural network by MindQuantum! Hurry up and experience the fun of quantum programming!
 
-To find out more about MindQuantum's API, please click: https://mindspore.cn/mindquantum/
+To find out more about MindQuantum's API, please click: <https://mindspore.cn/mindquantum/>
