@@ -166,6 +166,8 @@ try:
                        "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
                        "    @check_bucket_batch_by_length","    # The decorator has been deleted."),
+                       ("mindspore/ops/function/array_func.py","modify format",
+                       "    and there is no Tensor data copy process.","          and there is no Tensor data copy process."),
                        ("mindspore/ops/function/nn_func.py","generate api",
                        "__all__ = [\n    'adaptive_avg_pool2d',","__all__ = [\n    'adaptive_avg_pool2d',\n    'smooth_l1_loss',"),
                        ("mindspore/ops/function/__init__.py","generate api",
