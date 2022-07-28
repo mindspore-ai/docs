@@ -85,7 +85,7 @@ print(iris_dataset.target.shape)                          # Print the data dimen
 (150,)
 ```
 
-As can be seen from the above print, the dataset has a total of 150 samples, and each sample has 4 features: sepal length, sepal width, 度petal length and petal width. And the sample contains 3 different subgenera: setosa, versicolor and virginica, each sample has a corresponding classification number, 0 means the sample belongs to setosa, 1 means the sample belongs to versicolor, 2 means the sample belongs to virginica, so there is an array of 150 numbers to represent the subgenus type of the sample.
+As can be seen from the above print, the dataset has a total of 150 samples, and each sample has 4 features: sepal length, sepal width, petal length and petal width. And the sample contains 3 different subgenera: setosa, versicolor and virginica, each sample has a corresponding classification number, 0 means the sample belongs to setosa, 1 means the sample belongs to versicolor, 2 means the sample belongs to virginica, so there is an array of 150 numbers to represent the subgenus type of the sample.
 
 Since we only select the first 100 samples, execute the following command.
 

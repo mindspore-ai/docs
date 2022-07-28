@@ -9,32 +9,40 @@ Modern AI algorithm, such as deep learning, uses a large amount of data to learn
 Automatic differentiation is a derivation method between neumerical differentiation and symbolic differentiation. The key concept of AD is to divide the calculation of the computer program into a finite set with basic operations. The derivations of all the basic operations are known. After calculating the derivation of all the basic operations, AD uses chain rule to combine them and gets the final gradient.
 
 The formula of chain rule is:
+
 $$
 (f\circ g)^{'}(x)=f^{'}(g(x))g^{'}(x) \tag{1}
 $$
+
 Based on how to connect the gradient of basic components, AD can be divided into **forward mode AD** and **reverse mode AD**.
 
 - Forward Automatic Differentiation (also known as tangent linear mode AD) or forward cumulative gradient (forward mode).
 - Reverse Automatic Differentiation (also known as adjoint mode AD) or reverse cumulative gradient (reverse mode).
 
 Let's take formula (2) as an example to introduce the specific calculation method of forward and reverse differentiation:
+
 $$
 y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}-sin(x_{2}) \tag{2}
 $$
-When we use the forward automatic differentiation formula (2) at $x_{1}=2, x_{2}=5$,$,frac{partial y}{partial x_{1}}$, the direction of derivation of forward automatic differentiation is consistent with the evaluation direction of the original function, and the original function result and the differential result can be obtained at the same time.
+
+When we use the forward automatic differentiation formula (2) at $x_{1}=2, x_{2}=5$, $frac{partial y}{partial x_{1}}$, the direction of derivation of forward automatic differentiation is consistent with the evaluation direction of the original function, and the original function result and the differential result can be obtained at the same time.
 
 ![image](./images/forward_ad.png)
 
 When using reverse automatic differentiation, the direction of differentiation of the reverse automatic differentiation is opposite to the evaluation direction of the original function, and the differential result depends on the running result of the original function.
 
 ![image](./images/backward_ad.png)
+
 MindSpore first developed automatic differentiation based on the reverse pattern, and implemented forward differentiation on the basis of this method.
 
 In order to explain the differences between forward mode AD and reverse mode AD in further, we generalize the derived function to F, which has an N input and an M output:
+
 $$
 (Y_{1},Y_{2},...,Y_{M})=F(X_{1},X_{2},...,X_{N}) \tag{3}
 $$
+
 The gradient of function $F()$ is a Jacobian matrix.
+
 $$
 \left[
  \begin{matrix}
@@ -66,6 +74,7 @@ In order to get this value, AD divies the program into a series of basic operati
 $$
 (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n}) \tag{6}
 $$
+
 Since we have defined the gradient rule of $f$, we know the jacobian matrix of $f$. So we can calculate the Jacobian-vector-product (Jvp) and use the chain rule to get the gradient outoput.
 
 $$
@@ -109,6 +118,7 @@ In order to get this value, AD divies the program into a series of basic operati
 $$
 (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n}) \tag{9}
 $$
+
 Since we have defined the gradient rule of $f$, we know the jacobian matrix of $f$. So we can calculate the Vector-Jacobian-product (Vjp) and use the chain rule to get the gradient outoput.
 
 $$
@@ -141,10 +151,13 @@ Consuming that the origin function of defining model is as follows:
 $$
 f(g(x, y, z)) \tag{11}
 $$
+
 Then the gradient of $f()$ to $x$ is:
+
 $$
 \frac{df}{dx}=\frac{df}{dg}\frac{dg}{dx}\frac{dx}{dx}+\frac{df}{dg}\frac{dg}{dy}\frac{dy}{dx}+\frac{df}{dg}\frac{dg}{dz}\frac{dz}{dx}\tag{12}
 $$
+
 The formula of $\frac{df}{dy}$ and $\frac{df}{dz}$ is similar to $\frac{df}{dx}$.
 
 Based on chain rule, we define gradient function `bprop: dout->(df, dinputs)` for every functions (including operators and graph). Here, `df` means gradients with respect to free variables (variables defined outside the function) and `dinputs` is gradients to function inputs. Then we use total derivative rule to accumulate `(df, dinputs)` to correspond variables.
@@ -217,13 +230,17 @@ When `MapObject` completes the mapping of the above nodes, `MapMorphism` recursi
 ### GradOperation Example
 
 Let's build a simple network to represent the formula:
+
 $$
 f(x) = cos(sin(x)) \tag{13}
 $$
+
 And derive the input `x` of formula (13):
+
 $$
 f'(x) = -sin(sin(x)) * cos(x) \tag{14}
 $$
+
 The structure of the network in formula (13) in MindSpore is implemented as follows:
 
 ```python
