@@ -77,7 +77,7 @@ MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_s
     - `model`: 指向模型对象的指针。
     - `model_data`: 内存中已经加载的模型数据地址。
     - `data_size`: 模型数据的长度。
-    - `model_type`: 模型文件类型，具体见: [MSModelType](#MSModelType)。
+    - `model_type`: 模型文件类型，具体见: [MSModelType](#msmodeltype)。
     - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
 
 - 返回值
@@ -97,7 +97,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
 
     - `model`: 指向模型对象的指针。
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，具体见: [MSModelType](#MSModelType)。
+    - `model_type`: 模型文件类型，具体见: [MSModelType](#msmodeltype)。
     - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
 
 - 返回值
