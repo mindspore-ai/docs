@@ -92,11 +92,11 @@ from models.official.cv.lenet.src.lenet import LeNet5
 
 #### Loading the Dataset
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
+Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
 
 #### Defining the Network
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
+LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
 
 #### Defining the Training Process
 
@@ -293,7 +293,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Validate the model:**
 
-Through the [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py) in the `lenet` directory in ModelZoo, use the saved CheckPoint file, load the verification dataset, and verify it.
+Through the [eval.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/eval.py) in the `lenet` directory in ModelZoo, use the saved CheckPoint file, load the verification dataset, and verify it.
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
@@ -332,11 +332,11 @@ from models.official.cv.lenet.src.lenet import LeNet5
 
 #### Loading the Dataset
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
+Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
 
 #### Defining the Network
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
+LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
 
 #### Defining the Training Model
 

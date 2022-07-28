@@ -42,7 +42,7 @@ SCOP training consists of the knockoff and fine-tuning phases. In the knockoff p
 
 Then, ResNet-50 is used as an example to describe steps related to SCOP training in detail.
 
-> You can find the complete executable sample code here: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet/golden_stick/pruner/scop>.
+> You can find the complete executable sample code here: <https://gitee.com/mindspore/models/tree/r1.8/official/cv/resnet/golden_stick/pruner/scop>.
 
 ### Knockoff Data
 
