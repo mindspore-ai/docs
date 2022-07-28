@@ -34,7 +34,7 @@ context_c.h提供了操作Context的接口，Context对象用于保存执行中�
 | [bool MSDeviceInfoGetEnableFP16(const MSDeviceInfoHandle device_info)](#msdeviceinfogetenablefp16)                                                 |
 | [void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)](#msdeviceinfosetfrequency)                                          |
 | [int MSDeviceInfoGetFrequency(const MSDeviceInfoHandle device_info)](#msdeviceinfogetfrequency)                                                    |
-| [MSDeviceType](#MSDeviceType)                                                                                                                      |
+| [MSDeviceType](#msdevicetype)                                                                                                                      |
 
 ### MSContextCreate
 

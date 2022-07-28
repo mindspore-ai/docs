@@ -23,7 +23,7 @@
 | [MSKernelCallBack](#mskernelcallback)            | MindSpore回调函数包装器，仅MindSpore Lite支持。               |
 | [MSCallBackParam](#mscallbackparam)              | MindSpore回调函数的参数，仅MindSpore Lite支持。               |
 | [Delegate](#delegate)                            | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。     |
-| [CoreMLDelegate](#coreml_delegate)               | MindSpore Lite接入CoreML框架的代理，仅MindSpore Lite支持。    |
+| [CoreMLDelegate](#coremldelegate)               | MindSpore Lite接入CoreML框架的代理，仅MindSpore Lite支持。    |
 | [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行推理时模型文件的版本，仅MindSpore Lite支持。    |
 | [KernelIter](#kerneliter)                        | MindSpore Lite 算子列表的迭代器，仅MindSpore Lite支持。        |
 | [DelegateModel](#delegatemodel)                  | MindSpore Lite Delegate机制封装的模型，仅MindSpore Lite支持。 |
