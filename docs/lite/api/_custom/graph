@@ -2140,25 +2140,6 @@ class ExhaleRoot(object):
 
             shutil.rmtree(dirB)
 
-            dirE = './source_en/c_api/'
-            if not os.path.exists(dirE):
-                os.makedirs(dirE)
-            mycapi = []
-            for parent,dirnames,filenames in os.walk(dirA):
-                for filename in filenames:
-                    if '_c.h' in filename:
-                        mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"\n")
-            mycapi.sort()
-            with open('./source_en/c_api/capi.rst', 'w', encoding='utf-8') as p:
-                p.write("""
-MindSpore C API
-=======================
-
-.. toctree::
-   :maxdepth: 1
-   :caption: C API""")
-                p.write("\n\n"+"".join(mycapi))
-
             cppresult = []
             javaresult = []
             for parent,dirnames,filenames in os.walk(dirC):
@@ -2204,13 +2185,6 @@ MindSpore Lite API
 
    mindspore_lite
 """)
-                p.write("\n\n"+"""
-.. toctree::
-   :maxdepth: 1
-   :caption: C API
-
-   c_api/capi
-""")
 
         dira='./source_zh_cn/generate/'
         if os.path.exists(dira):
@@ -2224,25 +2198,6 @@ MindSpore Lite API
                 if os.path.isfile(source_cppapi+file_):
                     if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
                         shutil.copy(source_cppapi+file_, target_cppapi)
-
-            dire = './source_zh_cn/c_api/'
-            if not os.path.exists(dire):
-                os.makedirs(dire)
-            mycapi = []
-            for parent,dirnames,filenames in os.walk(dira):
-                for filename in filenames:
-                    if '_c.h' in filename:
-                        mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"\n")
-            mycapi.sort()
-            with open('./source_en/c_api/capi.rst', 'w', encoding='utf-8') as p:
-                p.write("""
-MindSpore C API
-=======================
-
-.. toctree::
-   :maxdepth: 1
-   :caption: C API""")
-                p.write("\n\n"+"".join(mycapi))
 
             cppresult = []
             javaresult = []
@@ -2288,13 +2243,6 @@ MindSpore Lite API
    :caption: Python API
 
    mindspore_lite
-""")
-                p.write("\n\n"+"""
-.. toctree::
-   :maxdepth: 1
-   :caption: C API
-
-   c_api/capi
 """)
 
     def generateAPIRootHeader(self):
