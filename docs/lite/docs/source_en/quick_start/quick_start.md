@@ -12,9 +12,9 @@ This tutorial demonstrates the on-device deployment process based on the image c
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device side. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, implement the classification of individual images, and display the most possible classification result on the application's image preview screen.
 
-> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/vision/tree/master/android).
+> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/vision/tree/r0.1/android).
 >
-> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to learn more about Java API.
+> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/r1.8/official/lite/image_segmentation) to learn more about Java API.
 >
 > The application development environment is Windows.
 
@@ -52,7 +52,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/vision/tree/master/android) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/vision/tree/r0.1/android) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 

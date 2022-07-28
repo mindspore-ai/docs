@@ -102,7 +102,7 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <font size=3>**Q: 请问MindSpore支持梯度截断吗？**</font>
 
-A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/r1.8/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 
@@ -148,7 +148,7 @@ A: PyNative模式是兼容迁移学习的。
 
 <br/>
 
-<font size=3>**Q: MindSpore仓库中的[ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)和昇腾官网的[ModelZoo](https://www.hiascend.com/software/modelzoo)有什么关系？**</font>
+<font size=3>**Q: MindSpore仓库中的[ModelZoo](https://gitee.com/mindspore/models/blob/r1.8/README_CN.md#)和昇腾官网的[ModelZoo](https://www.hiascend.com/software/modelzoo)有什么关系？**</font>
 
 A: MindSpore的ModelZoo主要提供MindSpore框架实现的模型，同时包括了Ascend/GPU/CPU/Mobile多种设备的支持。昇腾的ModelZoo主要提供运行于Ascend加速芯片上的模型，包括了MindSpore/PyTorch/TensorFlow/Caffe等多种框架的支持。可以参考对应的[Gitee仓库](https://gitee.com/ascend/modelzoo)
 

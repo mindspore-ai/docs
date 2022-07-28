@@ -86,7 +86,7 @@ Where
 
 `model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/r1.8/api_python/mindspore/mindspore.Model.html#mindspore.Model>.
 
-> Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
+> Inference sample code: <https://gitee.com/mindspore/models/blob/r1.8/official/cv/lenet/eval.py>.
 
 ### Using MindSpore Hub to Load Models from HUAWEI CLOUD
 

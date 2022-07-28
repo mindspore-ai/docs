@@ -22,7 +22,7 @@ In view of the time-consuming  single-card training, this tutorial will use the 
 
 ### Configuring the Distributed Environment Variables
 
-When performing distributed training on the local Ascend processor, you need to configure the networking information file of the current multi-card environment. The json file of an 8-card environment is configured as follows, and the configuration file is named rank_table_8pcs.json. rank_table can be generated using the [hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py) below the models.
+When performing distributed training on the local Ascend processor, you need to configure the networking information file of the current multi-card environment. The json file of an 8-card environment is configured as follows, and the configuration file is named rank_table_8pcs.json. rank_table can be generated using the [hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.8/utils/hccl_tools/hccl_tools.py) below the models.
 
 ```json
 {
@@ -88,7 +88,7 @@ init()
 
 ### Loading the Dataset
 
-Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py) in the `resnet` directory in the models.
+Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/resnet/src/dataset.py) in the `resnet` directory in the models.
 
 ```python
 # define train dataset
@@ -112,9 +112,9 @@ init_weight(net=net)
 
 Define the loss functions loss and optimizer required by the model.
 
-Loss uses CrossEntropySmooth, imported by [CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/CrossEntropySmooth.py) in the `resnet` directory in ModelZoo.
+Loss uses CrossEntropySmooth, imported by [CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/resnet/src/CrossEntropySmooth.py) in the `resnet` directory in ModelZoo.
 
-The build code for the learning rate lr is imported by [lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py) in the `resnet` directory in the models.
+The build code for the learning rate lr is imported by [lr_generator.py](https://gitee.com/mindspore/models/blob/r1.8/official/cv/resnet/src/lr_generator.py) in the `resnet` directory in the models.
 
 ```python
 # define loss

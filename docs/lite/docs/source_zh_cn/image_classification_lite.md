@@ -15,7 +15,7 @@
 | 花瓣       | 0.7893 |
 | 花盆       | 0.6171 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/vision/tree/master/android)。
+使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/vision/tree/r0.1/android)。
 
 ## 图像分类模型列表
 
