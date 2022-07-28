@@ -233,7 +233,7 @@ The response format is the same as the request format. The information in the `J
    | `string` | json str | String data is represented as json string | "news_car"  |
    | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
 
-## Accessing SSL/TLS enabled Serving RESTful service
+## Accessing SSL or TLS enabled Serving RESTful service
 
 MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
 
