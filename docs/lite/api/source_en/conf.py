@@ -335,17 +335,28 @@ for file_ in os.listdir("./api_cpp"):
     if file_.startswith("mindspore_") and file_ != 'mindspore_dataset.rst':
         os.remove("./api_cpp/"+file_)
 
-# Remove "MS_API" in classes.
-files_copyed = glob.glob("../include/**/*.h", recursive=True)
-for file in files_copyed:
-    with open(file, "r+", encoding="utf8") as f:
-        content = f.read()
-        if "MS_API" in content:
-            content_new = content.replace("MS_API", "")
-            f.seek(0)
-            f.truncate()
-            f.write(content_new)
+fileList = []
+for root, dirs, files in os.walk('../include/'):
+    for fileObj in files:
+        fileList.append(os.path.join(root, fileObj))
 
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.replace('enum class', 'enum')
+            file_data += line
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(file_data)
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = re.sub('^enum', 'enum class', line)
+            file_data += line
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(file_data)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
