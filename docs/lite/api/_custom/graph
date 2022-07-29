@@ -2228,6 +2228,10 @@ MindSpore Lite API
                     if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
                         shutil.copy(source_cppapi+file_, target_cppapi)
 
+            for file in os.listdir(dirA):
+                if file.startswith('enum') and file.endswith('-2.rst'):
+                    os.remove(dirA+file)
+
             dire = './source_zh_cn/c_api/'
             if not os.path.exists(dire):
                 os.makedirs(dire)
@@ -2237,7 +2241,7 @@ MindSpore Lite API
                     if '_c.h' in filename:
                         mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"\n")
             mycapi.sort()
-            with open('./source_en/c_api/capi.rst', 'w', encoding='utf-8') as p:
+            with open('./source_zh_cn/c_api/capi.rst', 'w', encoding='utf-8') as p:
                 p.write("""
 MindSpore C API
 =======================
