@@ -114,7 +114,7 @@ MindSpore Documentation
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/auto_gradiant.html" class="article-link">
+                     <a href="./design/auto_gradient.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Design</span>
