@@ -70,7 +70,7 @@ bbox = []
 category_id = []
 iscrowd = []
 for data in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    file_name.append(text.to_str(data["filename"]))
+    file_name.append(data["filename"])
     bbox.append(data["bbox"])
     category_id.append(data["category_id"])
     iscrowd.append(data["iscrowd"])

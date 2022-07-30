@@ -38,8 +38,8 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-mean = list(np.mean(image, axis=(-1, -2, -3), keepdims=True))
-std = np.std(image, axis=(-1, -2, -3), keepdims=True)
+mean = [np.mean(image, axis=(-1, -2, -3), keepdims=False)]
+std = [np.std(image, axis=(-1, -2, -3), keepdims=False)]
 adjusted_stddev = list(np.maximum(std, 1.0 / np.sqrt(image.size)))
 result = ds.vision.Normalize(mean, adjusted_stddev)(image)
 print(result.mean())
