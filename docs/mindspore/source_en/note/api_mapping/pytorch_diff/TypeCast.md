@@ -37,6 +37,7 @@ import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
 # In MindSpore, TypeCast act through map operation.
 
@@ -47,7 +48,7 @@ dataset = ds.CocoDataset(
     dataset_dir=coco_dataset_dir,
     annotation_file=coco_annotation_file,
     task='Detection')
-transforms_list = vision.Compose(
+transforms_list = transforms.Compose(
     [vision.Decode(to_pil=True),
     vision.ToTensor(),
     transforms.TypeCast(np.float32)])
