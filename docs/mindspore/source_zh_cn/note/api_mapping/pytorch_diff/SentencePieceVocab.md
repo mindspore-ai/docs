@@ -37,7 +37,7 @@ from torchtext.data.functional import load_sp_model
 # In MindSpore, return tokenizer from vocab object.
 sentence_piece_vocab_file = "/path/to/test_sentencepiece/botchan.txt"
 
-vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 5000, 0.9995,
+vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 500, 0.9995,
                                           SentencePieceModel.WORD, {})
 tokenizer = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
 text_file_dataset_dir = "/path/to/testTokenizerData/sentencepiece_tokenizer.txt"
