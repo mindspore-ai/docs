@@ -4,19 +4,29 @@ Compared with the previous version, the added, deleted and supported platforms c
 
 |API|Status|Description|Support Platform|Class
 |:----|:----|:----|:----|:----
-|[mindspore.nn.AdaSumByDeltaWeightWrapCell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.AdaSumByDeltaWeightWrapCell.html)|New|Enable the adasum in “auto_parallel/semi_auto_parallel” mode.|r1.7: Ascend/GPU|Optimizer
-|[mindspore.nn.AdaSumByGradWrapCell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.AdaSumByGradWrapCell.html)|New|Enable the adasum in “auto_parallel/semi_auto_parallel” mode.|r1.7: Ascend/GPU|Optimizer
-|mindspore.nn.ActQuant|Deleted|Quantization aware training activation function.|Ascend/GPU|Quantized Functions
-|mindspore.nn.Conv2dBnAct|Deleted|A combination of convolution, Batchnorm, and activation layer.|Ascend/GPU/CPU|Quantized Functions
-|mindspore.nn.Conv2dBnFoldQuant|Deleted|2D convolution with Batch Normalization operation folded construct.|Ascend/GPU|Quantized Functions
-|mindspore.nn.Conv2dBnFoldQuantOneConv|Deleted|2D convolution which use the convolution layer statistics once to calculate Batch Normalization operation folded construct.|Ascend/GPU|Quantized Functions
-|mindspore.nn.Conv2dBnWithoutFoldQuant|Deleted|2D convolution and batchnorm without fold with fake quantized construct.|Ascend/GPU|Quantized Functions
-|mindspore.nn.Conv2dQuant|Deleted|2D convolution with fake quantized operation layer.|Ascend/GPU|Quantized Functions
-|mindspore.nn.DenseBnAct|Deleted|A combination of Dense, Batchnorm, and the activation layer.|Ascend/GPU/CPU|Quantized Functions
-|mindspore.nn.DenseQuant|Deleted|The fully connected layer with fake quantized operation.|Ascend/GPU|Quantized Functions
-|mindspore.nn.FakeQuantWithMinMaxObserver|Deleted|Quantization aware operation which provides the fake quantization observer function on data with min and max.|Ascend/GPU|Quantized Functions
-|mindspore.nn.MulQuant|Deleted|Adds fake quantized operation after  Mul  operation.|Ascend/GPU|Quantized Functions
-|mindspore.nn.TensorAddQuant|Deleted|Adds fake quantized operation after TensorAdd operation.|Ascend/GPU|Quantized Functions
-|[mindspore.nn.Conv3d](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Conv3d.html)| Changed |3D convolution layer.|r1.6: Ascend/GPU => r1.7: Ascend/GPU/CPU|Convolutional Neural Network Layer
-|[mindspore.nn.BCEWithLogitsLoss](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)| Changed  platform-diff |Adds sigmoid activation function to input logits, and uses the given logits to compute binary cross entropy between the logits and the labels.|r1.6: Ascend/GPU => r1.7: Ascend/GPU/CPU|Loss Function
-|[mindspore.nn.Adam](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Adam.html)| Changed  platform-diff |Implements the Adaptive Moment Estimation (Adam) algorithm.|r1.6: GPU/  /CPU => r1.7: Ascend/GPU/CPU|Optimizer
+|[mindspore.nn.Dropout2d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Dropout2d.html)|New|During training, randomly zeroes some channels of the input tensor with probability p from a Bernoulli distribution(For a 4-dimensional tensor with a shape of \(NCHW\), the channel feature map refers to a 2-dimensional feature map with the shape of \(HW\)).|r1.8: Ascend/GPU/CPU|Dropout Layer
+|[mindspore.nn.Dropout3d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Dropout3d.html)|New|During training, randomly zeroes some channels of the input tensor with probability p from a Bernoulli distribution(For a 5-dimensional tensor with a shape of \(NCDHW\), the channel feature map refers to a 3-dimensional feature map with a shape of \(DHW\)).|r1.8: Ascend/GPU/CPU|Dropout Layer
+|[mindspore.nn.BiDense](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.BiDense.html)|New|The bilinear dense connected layer.|r1.8: Ascend/GPU/CPU|Linear Layer
+|[mindspore.nn.HuberLoss](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.HuberLoss.html)|New|HuberLoss calculate the error between the predicted value and the target value.|r1.8: Ascend/GPU/CPU|Loss Function
+|[mindspore.nn.Hardtanh](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Hardtanh.html)|New|Hardtanh activation function.|r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.LRN](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.LRN.html)|New|Local Response Normalization.|r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Mish](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Mish.html)|New|Computes MISH(A Self Regularized Non-Monotonic Neural Activation Function) of input tensors element-wise.|r1.8: Ascend/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.RReLU](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.RReLU.html)|New|Applies the RReLU function elementally, as described in the paper: https://arxiv.org/pdf/1505.00853.pdf|r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.SeLU](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.SeLU.html)|New|Activation function SeLU (Scaled exponential Linear Unit).|r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Softsign](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Softsign.html)|New|Softsign activation function.|r1.8: Ascend/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Tanhshrink](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Tanhshrink.html)|New|Tanhshrink activation function.|r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Threshold](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Threshold.html)|New|Thresholds each element of the input Tensor.|r1.8: Ascend/CPU/GPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Adadelta](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Adadelta.html)|New|Implements the Adadelta algorithm.|r1.8: Ascend/CPU|Optimizer
+|[mindspore.nn.AdaMax](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.AdaMax.html)|New|Implements the AdaMax algorithm, a variant of Adaptive Movement Estimation (Adam) based on the infinity norm.|r1.8: Ascend/CPU|Optimizer
+|[mindspore.nn.ConstantPad1d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.ConstantPad1d.html)|New|Using a given constant value to pads the last dimensions of input tensor.|r1.8: Ascend/GPU/CPU|Padding Layer
+|[mindspore.nn.ConstantPad2d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.ConstantPad2d.html)|New|Using a given constant value to pads the last two dimensions of input tensor.|r1.8: Ascend/GPU/CPU|Padding Layer
+|[mindspore.nn.ConstantPad3d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.ConstantPad3d.html)|New|Using a given constant value to pads the last three dimensions of input tensor.|r1.8: Ascend/GPU/CPU|Padding Layer
+|[mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.ZeroPad2d.html)|New|Pads the last two dimensions of input tensor with zero.|r1.8: Ascend/GPU/CPU|Padding Layer
+|[mindspore.nn.AdaptiveAvgPool1d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.AdaptiveAvgPool1d.html)|New|1D adaptive average pooling for temporal data.|r1.8: Ascend/GPU/CPU|Pooling Layer
+|[mindspore.nn.AdaptiveAvgPool2d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.AdaptiveAvgPool2d.html)|New|2D adaptive average pooling for temporal data.|r1.8: GPU|Pooling Layer
+|[mindspore.nn.AdaptiveMaxPool1d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.AdaptiveMaxPool1d.html)|New|1D adaptive maximum pooling for temporal data.|r1.8: Ascend/GPU/CPU|Pooling Layer
+|[mindspore.nn.AdaptiveMaxPool2d](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.AdaptiveMaxPool2d.html)|New|AdaptiveMaxPool2d operation.|r1.8: Ascend/GPU/CPU|Pooling Layer
+|[mindspore.nn.FastGelu](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.FastGelu.html)|Changed|Fast Gaussian error linear unit activation function.|r1.7: Ascend => r1.8: Ascend/GPU/CPU|Nonlinear Activation Function Layer
+|[mindspore.nn.HShrink](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.HShrink.html)|Changed|Hard Shrink activation function.|r1.7: Ascend => r1.8: Ascend/CPU/GPU|Nonlinear Activation Function Layer
+|[mindspore.nn.SoftShrink](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.SoftShrink.html)|Changed|Applies the SoftShrink function element-wise.|r1.7: Ascend => r1.8: Ascend/CPU/GPU|Nonlinear Activation Function Layer
+|[mindspore.nn.Roll](https://www.mindspore.cn/docs/en/r1.8/api_python/nn/mindspore.nn.Roll.html)|Changed|Rolls the elements of a tensor along an axis.|r1.7: Ascend => r1.8: Ascend/GPU|Tools
