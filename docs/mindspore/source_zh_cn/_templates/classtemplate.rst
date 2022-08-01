@@ -1,5 +1,3 @@
-.. role:: field-odd(strong)
-
 .. role:: hidden
     :class: hidden-section
 

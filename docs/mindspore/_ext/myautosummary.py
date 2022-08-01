@@ -320,14 +320,18 @@ class MsCnAutoSummary(Autosummary):
             spec_path = os.path.join('api_python', dir_name, display_name)
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
             if os.path.exists(file_path) and spec_path not in generated_files:
+                summary_spec_re = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
                 summary_re = self.get_summary_re(display_name)
                 content = ''
                 with open(os.path.join(doc_path, dir_name, display_name+'.rst'), 'r', encoding='utf-8') as f:
                     content = f.read()
                 if content:
                     summary_str = summary_re.findall(content)
+                    summary_str_spec = summary_spec_re.findall(content)
                     if summary_str:
                         summary_str = summary_str[0] + '。'
+                    elif summary_str_spec:
+                        summary_str = summary_str_spec[0] + '。'
                     else:
                         summary_str = ''
                     if not self.table_head:
@@ -494,13 +498,15 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
             return []
         try:
             api_doc = inspect.getdoc(get_api(name))
-            example_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
-            if not example_str:
-                example_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
-                if example_str_leak:
-                    return example_str_leak
+            platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if ['deprecated'] == platform_str:
+                return ["弃用"]
+            if not platform_str:
+                platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                if platform_str_leak:
+                    return platform_str_leak
                 return ["开发中"]
-            return example_str
+            return platform_str
         except: #pylint: disable=bare-except
             return []
 

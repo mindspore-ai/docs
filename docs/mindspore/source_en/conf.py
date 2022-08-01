@@ -200,7 +200,6 @@ except:
 
 import mindspore
 
-
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
@@ -212,6 +211,14 @@ des_sir = "./api_python"
 if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir_en, des_sir)
+
+Tensor_list_path = "./api_python/Tensor_list.rst"
+classtemplate_path = "./_templates/classtemplate.rst"
+if os.path.exists(classtemplate_path):
+    os.remove(classtemplate_path)
+shutil.copy(Tensor_list_path, classtemplate_path)
+if os.path.exists(Tensor_list_path):
+    os.remove(Tensor_list_path)
 
 # Copy images from mindspore repo.
 import imghdr
