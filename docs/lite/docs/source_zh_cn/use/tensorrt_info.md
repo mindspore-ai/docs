@@ -56,6 +56,15 @@ bash build.sh -I x86_64
 
     有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)中编译选项为`-I x86_64`时的目录结构，将`libmindspore-lite.so`（目录为`mindspore-lite-{version}-{os}-{arch}/runtime/lib`）、CUDA的`so`库所在的目录和TensorRT的`so`库所在的目录加入`${LD_LIBRARY_PATH}`。
 
+- 模型序列化
+
+    TensorRT推理支持将已构建的TensorRT模型（Engine)序列化为二进制文件保存在本地，下次使用时即可从本地反序列化加载模型，避免重新构建，降低开销。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口加载配置文件，配置文件中须指定序列化文件保存路径：
+
+    ```
+    [ms_cache]
+    serialize_path=/path/to/config
+    ```
+
 ## 算子支持
 
 TensorRT算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html)。

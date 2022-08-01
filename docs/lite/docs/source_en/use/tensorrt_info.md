@@ -60,6 +60,15 @@ For more information about compilation, see [Linux Environment Compilation](http
     For environment variable settings, you need to set the directory where the `libmindspore-lite.so`
     (under the directory `mindspore-lite-{version}-{os}-{arch}/runtime/lib`), TensorRT and CUDA `so` libraries are located, to `${LD_LIBRARY_PATH}`.
 
+- Using TensorRT engine serialization
+
+    TensorRT backend inference supports serializing the built TensorRT model (Engine) into a binary file and saves it locally. When it is used the next time, the model can be deserialized and loaded from the local, avoiding rebuilding and reducing overhead. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code, you need to specify the saving path of serialization file in the configuration file:
+
+    ```
+    [ms_cache]
+    serialize_path=/path/to/config
+    ```
+
 ## Supported Operators
 
 For supported TensorRT operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/operator_list_lite.html).
