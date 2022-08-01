@@ -319,7 +319,6 @@ shutil.rmtree("../include/runtime/include/schema")
 shutil.rmtree("../include/runtime/include/third_party")
 shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
-shutil.rmtree("../include/runtime/include/c_api")
 os.remove("../include/converter/include/api/types.h")
 
 process = os.popen('pip show mindspore|grep Location')
