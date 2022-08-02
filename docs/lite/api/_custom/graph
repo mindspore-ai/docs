@@ -2228,9 +2228,9 @@ MindSpore Lite API
                     if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
                         shutil.copy(source_cppapi+file_, target_cppapi)
 
-            for file in os.listdir(dirA):
+            for file in os.listdir(dira):
                 if file.startswith('enum') and file.endswith('-2.rst'):
-                    os.remove(dirA+file)
+                    os.remove(dira+file)
 
             dire = './source_zh_cn/c_api/'
             if not os.path.exists(dire):
