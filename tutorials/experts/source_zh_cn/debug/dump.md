@@ -490,9 +490,9 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 若配置文件中`file_format`值设置为`npy`，则数据文件介绍参考[同步Dump数据文件介绍](#同步dump数据文件介绍) 。
 
-若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/640e796d) 。
+若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/c748fd92) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/b04fcd04) 。
 
 异步Dump生成的数据文件是`bin`文件时，文件命名格式为：
 
@@ -534,7 +534,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
 
     {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/b04fcd04> 。
 
     如Dump生成的数据文件为：
 
