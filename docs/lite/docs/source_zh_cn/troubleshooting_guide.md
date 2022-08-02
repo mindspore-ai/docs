@@ -96,7 +96,7 @@
 
     ```cpp
     WARNING [mindspore/lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
-    [mindspore/lite/src/runtime/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
+    [mindspore/lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
@@ -141,14 +141,14 @@
 1. 模型输入为动态shape，日志报错信息：
 
     ```cpp
-    WARNING [mindspore/lite/src/runtime/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
-    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
+    WARNING [mindspore/lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
+    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
     ERROR [mindspore/lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
-    ERROR [mindspore/lite/src/runtime/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
-    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
+    ERROR [mindspore/lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
+    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
     ERROR [mindspore/lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，GPU推理时在图编译阶段会跳过和Shape相关的算子规格检查，默认GPU支持该算子，并在Predict阶段会再次进行算子规格检查，如果算子规格检查为不支持，则报错退出。
@@ -157,8 +157,8 @@
 2. Map buffer类错误
 
     ```cpp
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
-    ERROR [mindspore/lite/src/runtime/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
+    ERROR [mindspore/lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
     ERROR [mindspore/lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
     ERROR [mindspore/lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
     ERROR [mindspore/lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
