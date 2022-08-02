@@ -96,7 +96,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
     ```cpp
     WARNING [mindspore/lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
-    [mindspore/lite/src/runtime/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
+    [mindspore/lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
     [mindspore/lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
@@ -141,14 +141,14 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. The model input is a dynamic shape. The following error information is displayed in logs:
 
     ```cpp
-    WARNING [mindspore/lite/src/runtime/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
-    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
+    WARNING [mindspore/lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
+    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
     ERROR [mindspore/lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
-    ERROR [mindspore/lite/src/runtime/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
-    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
+    ERROR [mindspore/lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
+    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
     ERROR [mindspore/lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During GPU inference, the operator specifications check related to the shape is skipped in the graph build phase. By default, the GPU supports this operator, and the operator specifications are checked again in the prediction phase. If the operator specifications are not supported, an error is reported and the execution exits.
@@ -157,8 +157,8 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 2. Map buffer errors
 
     ```cpp
-    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
-    ERROR [mindspore/lite/src/runtime/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
+    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
+    ERROR [mindspore/lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
     ERROR [mindspore/lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
     ERROR [mindspore/lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
     ERROR [mindspore/lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
