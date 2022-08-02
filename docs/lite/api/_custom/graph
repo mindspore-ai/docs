@@ -2150,20 +2150,25 @@ class ExhaleRoot(object):
             for parent,dirnames,filenames in os.walk(dirA):
                 for filename in filenames:
                     if '_c.h' in filename:
-                        mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n")
-            mycapi.sort()
-            with open('./source_en/c_api/capi.rst', 'w', encoding='utf-8') as p:
-                p.write("""
-MindSpore C API
+                        indexname = filename.split(".h")[0].split("_")[1]+'_c'
+                        for parent,dirnames,filenames in os.walk(dirA):
+                            for filename in filenames:
+                                if indexname+'.h' in filename:
+                                    mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n")
+                        mycapi.sort()
+                        with open('./source_en/c_api/'+indexname+'.rst', 'w', encoding='utf-8') as p:
+                            p.write("mindspore::"+indexname+"""
 =======================
 
 .. toctree::
    :maxdepth: 1
    :caption: C API""")
-                p.write("\n\n"+"".join(mycapi))
+                            p.write("\n\n"+"".join(mycapi))
+                        mycapi = []
 
             cppresult = []
             javaresult = []
+            cresult = []
             for parent,dirnames,filenames in os.walk(dirC):
                 for filename in filenames:
                     if filename != "lite_cpp_example.rst":
@@ -2175,6 +2180,11 @@ MindSpore C API
                     if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
             javaresult.sort()
+
+            for parent,dirnames,filenames in os.walk(dirE):
+                for filename in filenames:
+                    cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+            cresult.sort()
 
             with open('./source_en/index.rst', "w", encoding="utf-8") as p:
                 p.write(
@@ -2211,9 +2221,8 @@ MindSpore Lite API
 .. toctree::
    :maxdepth: 1
    :caption: C API
-
-   c_api/capi
 """)
+                p.write("\n"+"".join(cresult))
 
         dira='./source_zh_cn/generate/'
         if os.path.exists(dira):
@@ -2239,20 +2248,25 @@ MindSpore Lite API
             for parent,dirnames,filenames in os.walk(dira):
                 for filename in filenames:
                     if '_c.h' in filename:
-                        mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n")
-            mycapi.sort()
-            with open('./source_zh_cn/c_api/capi.rst', 'w', encoding='utf-8') as p:
-                p.write("""
-MindSpore C API
+                        indexname = filename.split(".h")[0].split("_")[1]+'_c'
+                        for parent,dirnames,filenames in os.walk(dira):
+                            for filename in filenames:
+                                if indexname+'.h' in filename:
+                                    mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n")
+                        mycapi.sort()
+                        with open('./source_zh_cn/c_api/'+indexname+'.rst', 'w', encoding='utf-8') as p:
+                            p.write("mindspore::"+indexname+"""
 =======================
 
 .. toctree::
    :maxdepth: 1
    :caption: C API""")
-                p.write("\n\n"+"".join(mycapi))
+                            p.write("\n\n"+"".join(mycapi))
+                        mycapi = []
 
             cppresult = []
             javaresult = []
+            cresult = []
             for parent,dirnames,filenames in os.walk(dirc):
                 for filename in filenames:
                     if filename != "lite_cpp_example.rst":
@@ -2264,6 +2278,11 @@ MindSpore C API
                     if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
             javaresult.sort()
+
+            for parent,dirnames,filenames in os.walk(dire):
+                for filename in filenames:
+                    cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+            cresult.sort()
 
             with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
                 p.write(
@@ -2300,9 +2319,8 @@ MindSpore Lite API
 .. toctree::
    :maxdepth: 1
    :caption: C API
-
-   c_api/capi
 """)
+                p.write("\n"+"".join(cresult))
 
 
     def generateAPIRootHeader(self):
