@@ -235,7 +235,7 @@ class MsPlatformAutoSummary(MsAutosummary):
         """
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
-        self.default_doc = "To Be Developed"
+        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
 
 class MsCnAutoSummary(Autosummary):
     """Overwrite MsPlatformAutosummary for chinese python api."""
@@ -505,7 +505,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
                 if platform_str_leak:
                     return platform_str_leak
-                return ["开发中"]
+                return ["``Ascend`` ``GPU`` ``CPU``"]
             return platform_str
         except: #pylint: disable=bare-except
             return []
