@@ -357,6 +357,18 @@ for file_name in fileList:
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(file_data)
 
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.replace('MS_API', '')
+            line = line.replace('MS_CORE_API', '')
+            line = line.replace('MIND_API', '')
+            line = line.replace('MS_DECLARE_PARENT', '')
+            file_data += line
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(file_data)
+
 fileList1 = []
 for root1, dirs1, files1 in os.walk('../include/converter/'):
     for fileObj1 in files1:
