@@ -67,7 +67,7 @@ After the neural network model is trained, you can export the model or load the 
 
 ### API Level Structure
 
-To support network building, entire graph execution, subgraph execution, and single-operator execution, MindSpore provides users with three levels of APIs. In ascending order, these are Low-Level Python API, Medium-Level Python API, and High-Level Python API.
+To support network building, entire graph execution, subgraph execution, and single-operator execution, MindSpore provides users with three levels of APIs. In descending order, these are High-Level Python API, Medium-Level Python API, and Low-Level Python API.
 
 ![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/introduction3.png)
 

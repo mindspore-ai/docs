@@ -34,7 +34,7 @@ For more information, see [mindspore.dataset.NumpySlicesDataset](https://www.min
 
 TensorFlow: A static method that creates Dataset with the specified `tf.Tensor`.
 
-MindSpore: A dataset class that creates Dataset with the specified `list` , `tuple` , `dict` or `NumPy.ndarray`.
+MindSpore: A dataset class that creates Dataset with the specified `list` , `tuple` , `dict` or `numpy.ndarray`.
 
 ## Code Example
 
