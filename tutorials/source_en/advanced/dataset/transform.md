@@ -1,6 +1,6 @@
 # Data Processing
 
-[![下载样例代码](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/dataset/mindspore_transform.ipynb "下载Notebook")  [![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/dataset/mindspore_transform.py "查看源文件")  [![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/dataset/transform.ipynb)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/transform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Data is the basis of deep learning. Good data input plays an important role in the deep neural network training. Data processing is performed on a loaded dataset before training, so that problems such as an excessively large data volume and uneven sample distribution can be resolved, thereby obtaining data input that is more favorable to a training result.
 
@@ -8,7 +8,7 @@ Each dataset class of MindSpore provides multiple data processing operations for
 
 MindSpore supports common data processing operations, such as data `shuffle`, `batch`, `repeat`, and `concat`.
 
-> For more data processing operations, see [API](https://www.mindspore.cn/docs/en-US/master/api_python/mindspore.dataset.html).
+> For more data processing operations, see [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html).
 
 ## Data Processing Operations
 
@@ -304,7 +304,7 @@ The map operation applies a specified function to data in a specified column of 
 
 You can customize mapping functions or directly use the functions in `c_transforms` or `py_transforms` to augment image and text data.
 
-![map](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/dataset/images/op_map.png)
+![map](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/dataset/images/op_map.png)
 
 The following example builds a random dataset, defines the mapping function for doubling data, and applies it to the dataset to compare the data results before and after the mapping.
 
