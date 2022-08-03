@@ -2226,7 +2226,7 @@ MindSpore Lite API
 
         dirc='./source_zh_cn/api_cpp/'
         dird='./source_zh_cn/api_java/'
-        dire = './source_zh_cn/c_api/'
+        dire = './source_zh_cn/api_c/'
         cppresult = []
         javaresult = []
         cresult = []
@@ -2244,7 +2244,7 @@ MindSpore Lite API
 
         for parent,dirnames,filenames in os.walk(dire):
             for filename in filenames:
-                cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+                cresult.append("   api_c/"+filename.split(".")[0]+"\n")
         cresult.sort()
 
         with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
