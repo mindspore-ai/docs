@@ -34,7 +34,7 @@ class mindspore.dataset.NumpySlicesDataset(
 
 TensorFlow：一个静态方法，使用指定的 `tf.Tensor` 创建数据集。
 
-MindSpore：一个数据集类，使用指定的 `list` 、 `tuple` 、 `dict` 或 `NumPy.ndarray` 创建数据集。
+MindSpore：一个数据集类，使用指定的 `list` 、 `tuple` 、 `dict` 或 `numpy.ndarray` 创建数据集。
 
 ## 代码示例
 
