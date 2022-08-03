@@ -8,7 +8,7 @@ A tensor is a special data structure that is similar to arrays and matrices. [Te
 
 ## Creating a Tensor
 
-There are multiple methods for creating tensors. When building a tensor, you can pass the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, and `NumPy.array` types.
+There are multiple methods for creating tensors. When building a tensor, you can pass the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, and `numpy.ndarray` types.
 
 - **Generating a tensor based on data**
 
@@ -39,7 +39,7 @@ print(type(tensor_arr))
 <class 'mindspore.common.tensor.Tensor'>
 ```
 
-If the initial value is `NumPy.array`, the generated `Tensor` data type corresponds to `NumPy.array`.
+If the initial value is `numpy.ndarray`, the generated `Tensor` data type corresponds to `numpy.ndarray`.
 
 - **Generating a tensor by using init**
 
