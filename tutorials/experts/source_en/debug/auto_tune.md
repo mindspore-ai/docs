@@ -4,11 +4,11 @@
 
 ## Overview
 
-AutoTune is a tool that uses hardware resources and automatically tune the performance of TBE operators. Comparing with manually debugging the performance of operator, it takes less time and labor cost, and a model with better performance can be obtained. This document mainly introduces how to use the AutoTune to online tune. The detail guidelines about the AutoTune framework, function description, and the fault handling can be got in [AutoTune Guides](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/31d1d888/about-this-document).
+AutoTune is a tool that uses hardware resources and automatically tune the performance of TBE operators. Comparing with manually debugging the performance of operator, it takes less time and labor cost, and a model with better performance can be obtained. This document mainly introduces how to use the AutoTune to online tune. The detail guidelines about the AutoTune framework, function description, and the fault handling can be got in [AutoTune Guides](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/dfdfb9a4/introduction-to-auto-tune).
 
 ## Tuning Mode
 
-The AutoTune tool includes `RL` and `GA` tuning modes. The`RL`tuning mode mainly supports broadcast, reduce, and elewise operators. The`GA`tuning mode mainly supports cube operators. The more information about the GA, RL, and the operators supported by the two tune mode can be got in [Tune Mode](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/41bb2c07) and [Operators](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/74e08a9c/operator-list).
+The AutoTune tool includes `RL` and `GA` tuning modes. The`RL`tuning mode mainly supports broadcast, reduce, and elewise operators. The`GA`tuning mode mainly supports cube operators. The more information about the GA, RL, and the operators supported by the two tune mode can be got in [Tune Mode](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/36bc1c91/architecture) and [Operators](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/74e08a9c/operator-list).
 
 ## Environment Variables
 
@@ -27,7 +27,7 @@ export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp
 export ENABLE_TUNE_DUMP=True
 ```
 
-Try to find the detailed description of environment variables, or other optional environment variables descriptions in [Environment Variable](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/3f0a50ba/environment-variable-configuration).
+Try to find the detailed description of environment variables, or other optional environment variables descriptions in [Environment Variable](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/58a01d46/environment-variable-configuration).
 
 ## Enabling Tune
 
@@ -57,17 +57,17 @@ The AutoTune tool supports two tuning modes, `Online tune` and `Offline Tune`.
 
 2. Offline Tune
 
-  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/2fa72dd0) in `CANN` development tool guide, which is not described here.
+  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/2fa72dd0/tuning-procedure) in `CANN` development tool guide, which is not described here.
 
 ## Tuning Result
 
-After the tuning starts, a file named `tune_result_{timestamp}_pidxxx.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/b6ae7c6a) for specific analysis of this file.
+After the tuning starts, a file named `tune_result_{timestamp}_pidxxx.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/b6ae7c6a/tuning-result) for specific analysis of this file.
 
-After the tuning is complete. The custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH`(Environment variable of the knowledge base storage path) is specified, the knowledge base(generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path. Please refer to [Custom knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/b6ae7c6a) for the storage path.
+After the tuning is complete. The custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH`(Environment variable of the knowledge base storage path) is specified, the knowledge base(generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path. Please refer to [Custom knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/b6ae7c6a/tuning-result) for the storage path.
 
 ## Merging Knowledge Base
 
-After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/c1a94cfc/repository-merging).
+After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/c1a94cfc/repository-merging).
 
 ## Notice
 
@@ -77,7 +77,7 @@ Pay attention to the following points when using the AutoTune tool:
 
 2. Ensure that the available disk space in the home directory of the user who performs tuning in the operating environment is at least 20 GB.
 
-3. The AutoTune tool depends on some third-party software, For example: `TensorFlow` and `pciutils`. Get more information about the [Depends](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/480d602c/environment-setup).
+3. The AutoTune tool depends on some third-party software, For example: `TensorFlow` and `pciutils`. Get more information about the [Depends](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/c6c488e5).
 
 4. The AutoTune tool can not support all TBE operators, and can not guarantee the operator will have a performance benefit after tune (The operator has reached the best performance after multi-networks and multi-debugging manually).
 
