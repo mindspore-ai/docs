@@ -2224,103 +2224,60 @@ MindSpore Lite API
 """)
                 p.write("\n"+"".join(cresult))
 
-        dira='./source_zh_cn/generate/'
-        if os.path.exists(dira):
-            dirc='./source_zh_cn/api_cpp/'
-            dird='./source_zh_cn/api_java/'
+        dirc='./source_zh_cn/api_cpp/'
+        dird='./source_zh_cn/api_java/'
+        dire = './source_zh_cn/c_api/'
+        cppresult = []
+        javaresult = []
+        cresult = []
+        for parent,dirnames,filenames in os.walk(dirc):
+            for filename in filenames:
+                if filename != "lite_cpp_example.rst":
+                    cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
+        cppresult.sort()
 
-            source_cppapi='./source_en/api_cpp/'
-            target_cppapi='./source_zh_cn/api_cpp/'
-            for file_ in os.listdir(source_cppapi):
-                bfilename = file_.split(".")[0]
-                if os.path.isfile(source_cppapi+file_):
-                    if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
-                        shutil.copy(source_cppapi+file_, target_cppapi)
+        for parent,dirnames,filenames in os.walk(dird):
+            for filename in filenames:
+                if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
+                    javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
+        javaresult.sort()
 
-            for file in os.listdir(dira):
-                if file.startswith('enum') and file.endswith('-2.rst'):
-                    os.remove(dira+file)
+        for parent,dirnames,filenames in os.walk(dire):
+            for filename in filenames:
+                cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+        cresult.sort()
 
-            dire = './source_zh_cn/c_api/'
-            if not os.path.exists(dire):
-                os.makedirs(dire)
-            mycapi = []
-            for parent,dirnames,filenames in os.walk(dira):
-                for filename in filenames:
-                    if '_c.h' in filename:
-                        indexname = filename.split(".h")[0].split("_")[1]+'_c'
-                        for parent,dirnames,filenames in os.walk(dira):
-                            for filename in filenames:
-                                if indexname+'.h' in filename:
-                                    mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n")
-                        mycapi.sort()
-                        with open('./source_zh_cn/c_api/'+indexname+'.rst', 'w', encoding='utf-8') as p:
-                            p.write("mindspore::"+indexname+"""
-=======================
-
-.. toctree::
-   :maxdepth: 1
-   :caption: C API""")
-                            p.write("\n\n"+"".join(mycapi))
-                        mycapi = []
-
-            cppresult = []
-            javaresult = []
-            cresult = []
-            for parent,dirnames,filenames in os.walk(dirc):
-                for filename in filenames:
-                    if filename != "lite_cpp_example.rst":
-                        cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
-            cppresult.sort()
-
-            for parent,dirnames,filenames in os.walk(dird):
-                for filename in filenames:
-                    if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
-                        javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
-            javaresult.sort()
-
-            for parent,dirnames,filenames in os.walk(dire):
-                for filename in filenames:
-                    cresult.append("   c_api/"+filename.split(".")[0]+"\n")
-            cresult.sort()
-
-            with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
-                p.write(
-        """.. MindSpore documentation master file, created by
-   sphinx-quickstart on Thu Mar 24 10:00:00 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-MindSpore Lite API
+        with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
+            p.write("""MindSpore Lite API
 =======================
 
 .. toctree::
    :maxdepth: 1
    :caption: C++ API
         """)
-                p.write("\n"+"".join(cppresult))
-                p.write("   api_cpp/lite_cpp_example" + "\n")
-                p.write("""
+            p.write("\n"+"".join(cppresult))
+            p.write("   api_cpp/lite_cpp_example" + "\n")
+            p.write("""
 .. toctree::
    :maxdepth: 1
    :caption: JAVA API
 """)
-                p.write("\n"+"".join(javaresult))
-                p.write("""   api_java/graph
+            p.write("\n"+"".join(javaresult))
+            p.write("""   api_java/graph
    api_java/lite_java_example""")
-                p.write("\n\n"+"""
+            p.write("\n\n"+"""
 .. toctree::
    :maxdepth: 1
    :caption: Python API
 
    mindspore_lite
 """)
-                p.write("\n\n"+"""
+            p.write("\n\n"+"""
 .. toctree::
    :maxdepth: 1
    :caption: C API
 """)
-                p.write("\n"+"".join(cresult))
+            p.write("\n"+"".join(cresult))
 
 
     def generateAPIRootHeader(self):
