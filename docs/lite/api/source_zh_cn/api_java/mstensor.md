@@ -20,6 +20,7 @@ MSTensor定义了MindSpore中的张量。
 | [int[] getIntData()](#getintdata)        |
 | [long[] getLongData()](#getlongdata)     |
 | [void setData(byte[] data)](#setdata)     |
+| [void setData(float[] data)](#setdata)     |
 | [void setData(ByteBuffer data)](#setdata) |
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
@@ -129,6 +130,16 @@ public void setData(byte[] data)
 - 参数
 
     - `data`: byte[]类型的输入数据。
+
+```java
+public void setData(float[] data)
+```
+
+设定MSTensor的输入数据。
+
+- 参数
+
+    - `data`: float[]类型的输入数据。
 
 ```java
 public void setData(ByteBuffer data)
