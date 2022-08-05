@@ -20,6 +20,7 @@ MSTensor defined tensor in MindSpore.
 | [int[] getIntData()](#getintdata)        |
 | [long[] getLongData()](#getlongdata)     |
 | [void setData(byte[] data)](#setdata)     |
+| [void setData(float[] data)](#setdata)     |
 | [void setData(ByteBuffer data)](#setdata) |
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
@@ -129,6 +130,16 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of byte[] type.
+
+```java
+public void setData(float[] data)
+```
+
+Set the input data of MSTensor.
+
+- Parameters
+
+    - `data`: Input data of float[] type.
 
 ```java
 public void setData(ByteBuffer data)
