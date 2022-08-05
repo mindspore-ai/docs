@@ -5,7 +5,6 @@
 ## Confirming System Environment Information
 
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.4.0 or later is required.
-- See [setup.py](https://gitee.com/mindspore/mindquantum/blob/r0.7/setup.py) for the remaining dependencies.
 
 ## Installation Methods
 
@@ -13,22 +12,8 @@ You can install MindInsight either by pip or by source code.
 
 ### Install by pip
 
-Linux-x86_64 Python3.7
-
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp37-cp37m-linux_x86_64.whl
-```
-
-Windows-x64 Python3.7
-
-```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp37-cp37m-win_amd64.whl
-```
-
-Windows-x64 Python3.9
-
-```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp39-cp39-win_amd64.whl
+pip install mindquantum==0.7.0
 ```
 
 > - Refers to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages。
