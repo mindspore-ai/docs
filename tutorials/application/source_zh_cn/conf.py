@@ -83,7 +83,7 @@ html_theme = 'sphinx_rtd_theme'
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../../resource/jieba.txt'}
+html_search_options = {'dict': '../../resource/jieba.txt'}
 
 html_static_path = ['_static']
 
