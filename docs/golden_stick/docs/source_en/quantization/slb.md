@@ -119,7 +119,7 @@ For details about the ResNet-18 definition, see [resnet.py](https://gitee.com/mi
 
 ### Applying the Quantization Algorithm
 
-After a network layer to be quantized is modified based on the original network definition, a network with fake quantization nodes is generated. This network is a quantization network. The `SlbQuantAwareTraining` class under the MindSpore Golden Stick is constructed and applied to the original network to convert the original network into a quantization network. `QuantDtype` is a class that defines various quantization bits. You can customize the weight quantization bits by calling the `set_weight_quant_dtype` API of the `SlbQuantAwareTraining` class.
+A quantization network is a network with pseudo quantization nodes generated after the network layer to be quantized is modified based on the original network definition, constructs the `SlbQuantAwareTraining` class under MindSpore Golden Stick, and applies it to the original network to transform the original network into a quantization network.
 
 ```python
 from mindspore_gs import SlbQuantAwareTraining as SlbQAT
@@ -128,8 +128,21 @@ from mindspore_gs.quantization.constant import QuantDtype
 ...
 algo = SlbQAT()
 algo.set_weight_quant_dtype(QuantDtype.INT1)
+algo.set_epoch_size(100)
+algo.set_has_trained_epoch(0)
+algo.set_t_start_val(1.0)
+algo.set_t_start_time(0.2)
+algo.set_t_end_time(0.6)
+algo.set_t_factor(1.2)
 quant_net = algo.apply(net)
+print(algo)
 print(quant_net)
+```
+
+Print the quantizer. The following information is displayed, including the configuration information of each attribute, which can be used to check whether the algorithm is successfully configured.
+
+```text
+SlbQuantAwareTraining<weight_quant_dtype=INT1, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
 ```
 
 The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
@@ -202,41 +215,13 @@ Compared with the original network, conv in the quantized network is replaced wi
 
 ### Defining the Optimizer, Loss Function, and Training Callbacks
 
-For the SLB quantization algorithm, in addition to the callbacks commonly used in training, a callback class `TemperatureScheduler` that supports dynamic adjustment of the temperature factor needs to be defined.
+For the SLB quantization algorithm, in addition to the callbacks commonly used in training, some special callbacks in the SLB quantization algorithm need to be defined by calling the `callbacks` API of the `SlbQuantAwareTraining` class, such as the callback of dynamic adjustment of the temperature factor.
 
 ```python
 import mindspore as ms
 import mindspore.train.callback as callback
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-
-class TemperatureScheduler(callback.Callback):
-    def __init__(self, model, epoch_size=100, has_trained_epoch=0,
-                 t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2):
-        super().__init__()
-        self.epochs = epoch_size
-        self.has_trained_epoch = has_trained_epoch
-        self.t_start_val = t_start_val
-        self.t_start_time = t_start_time
-        self.t_end_time = t_end_time
-        self.t_factor = t_factor
-        self.model = model
-
-    def epoch_begin(self, run_context):
-        cb_params = run_context.original_args()
-        epoch = cb_params.cur_epoch_num + self.has_trained_epoch
-        # Compute temperature value
-        t = self.t_start_val
-        t_start_epoch = int(self.epochs*self.t_start_time)
-        t_end_epoch = int(self.epochs*self.t_end_time)
-        if epoch > t_start_epoch:
-            t *= self.t_factor**(min(epoch, t_end_epoch) - t_start_epoch)
-        # Assign new value to temperature parameter
-        for _, cell in self.model.train_network.cells_and_names():
-            if cell.cls_name == 'SlbFakeQuantizerPerLayer':
-                cell.set_temperature(t)
-                if epoch >= t_end_epoch:
-                    cell.set_temperature_end_flag()
 
 step_size = dataset.get_dataset_size()
 lr = get_lr(lr_init=config.lr_init,
@@ -266,10 +251,9 @@ time_cb = TimeMonitor(data_size=step_size)
 loss_cb = LossCallBack(config.has_trained_epoch)
 
 cb = [time_cb, loss_cb]
-algo_cb = algo.callback()
-cb.append(algo_cb)
-cb.append(TemperatureScheduler(model, config.epoch_size, config.has_trained_epoch, config.t_start_val,
-                                   config.t_start_time, config.t_end_time, config.t_factor))
+algo_cb_list = algo.callbacks(model)
+cb += algo_cb_list
+
 ckpt_append_info = [{"epoch_num": config.has_trained_epoch, "step_num": config.has_trained_step}]
 config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
                              keep_checkpoint_max=config.keep_checkpoint_max,

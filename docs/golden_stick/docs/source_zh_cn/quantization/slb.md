@@ -119,7 +119,7 @@ ResNet18网络定义见[resnet.py](https://gitee.com/mindspore/models/blob/maste
 
 ### 应用量化算法
 
-量化网络是指在原网络定义的基础上，修改需要量化的网络层后生成的带有伪量化节点的网络，通过构造MindSpore Golden Stick下的`SlbQuantAwareTraining`类，并将其应用到原网络上将原网络转换为量化网络。`QuantDtype`是定义了各种量化比特的类，通过调用`SlbQuantAwareTraining`类的`set_weight_quant_dtype`接口可以实现权重量化比特的自定义。
+量化网络是指在原网络定义的基础上，修改需要量化的网络层后生成的带有伪量化节点的网络，通过构造MindSpore Golden Stick下的`SlbQuantAwareTraining`类，并将其应用到原网络上将原网络转换为量化网络。
 
 ```python
 from mindspore_gs import SlbQuantAwareTraining as SlbQAT
@@ -128,11 +128,24 @@ from mindspore_gs.quantization.constant import QuantDtype
 ...
 algo = SlbQAT()
 algo.set_weight_quant_dtype(QuantDtype.INT1)
+algo.set_epoch_size(100)
+algo.set_has_trained_epoch(0)
+algo.set_t_start_val(1.0)
+algo.set_t_start_time(0.2)
+algo.set_t_end_time(0.6)
+algo.set_t_factor(1.2)
 quant_net = algo.apply(net)
+print(algo)
 print(quant_net)
 ```
 
-量化后的网络结构如下，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+打印量化器，会得到如下的信息，其中包含各个属性的配置信息，可以用来检查算法是否配置成功。
+
+```text
+SlbQuantAwareTraining<weight_quant_dtype=INT1, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
+```
+
+打印量化后的网络，会得到如下的网络结构，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html#mindspore_gs.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 ResNetOpt<
@@ -202,41 +215,13 @@ ResNetOpt<
 
 ### 定义优化器、损失函数和训练的callbacks
 
-对于SLB量化算法，除了要定义训练中常用的callbacks，还需要定义一个支持温度因子动态调整的callback类`TemperatureScheduler`。
+对于SLB量化算法，除了要定义训练中常用的callbacks，还需要通过调用`SlbQuantAwareTraining`类的`callbacks`接口来定义SLB量化算法特有的一些callbacks，其中包括用于调节温度因子的callback。
 
 ```python
 import mindspore as ms
 import mindspore.train.callback as callback
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-
-class TemperatureScheduler(callback.Callback):
-    def __init__(self, model, epoch_size=100, has_trained_epoch=0,
-                 t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2):
-        super().__init__()
-        self.epochs = epoch_size
-        self.has_trained_epoch = has_trained_epoch
-        self.t_start_val = t_start_val
-        self.t_start_time = t_start_time
-        self.t_end_time = t_end_time
-        self.t_factor = t_factor
-        self.model = model
-
-    def epoch_begin(self, run_context):
-        cb_params = run_context.original_args()
-        epoch = cb_params.cur_epoch_num + self.has_trained_epoch
-        # Compute temperature value
-        t = self.t_start_val
-        t_start_epoch = int(self.epochs*self.t_start_time)
-        t_end_epoch = int(self.epochs*self.t_end_time)
-        if epoch > t_start_epoch:
-            t *= self.t_factor**(min(epoch, t_end_epoch) - t_start_epoch)
-        # Assign new value to temperature parameter
-        for _, cell in self.model.train_network.cells_and_names():
-            if cell.cls_name == 'SlbFakeQuantizerPerLayer':
-                cell.set_temperature(t)
-                if epoch >= t_end_epoch:
-                    cell.set_temperature_end_flag()
 
 step_size = dataset.get_dataset_size()
 lr = get_lr(lr_init=config.lr_init,
@@ -266,10 +251,9 @@ time_cb = TimeMonitor(data_size=step_size)
 loss_cb = LossCallBack(config.has_trained_epoch)
 
 cb = [time_cb, loss_cb]
-algo_cb = algo.callback()
-cb.append(algo_cb)
-cb.append(TemperatureScheduler(model, config.epoch_size, config.has_trained_epoch, config.t_start_val,
-                                   config.t_start_time, config.t_end_time, config.t_factor))
+algo_cb_list = algo.callbacks(model)
+cb += algo_cb_list
+
 ckpt_append_info = [{"epoch_num": config.has_trained_epoch, "step_num": config.has_trained_step}]
 config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
                              keep_checkpoint_max=config.keep_checkpoint_max,
