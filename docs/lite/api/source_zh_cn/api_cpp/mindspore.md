@@ -2963,7 +2963,25 @@ Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `runner_config`: 一个[**RunnerConfig**](#runnerconfig)类。定义了并发推理模型的配置参数。
+    - `runner_config`: 一个[RunnerConfig](#runnerconfig)类。定义了并发推理模型的配置参数。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Init
+
+```cpp
+Status Init(const void *model_data, const size_t data_size, const std::shared_ptr<RunnerConfig> &runner_config = nullptr);
+```
+
+根据模文件数据，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_data`: 模型文件数据。
+    - `data_size`: 模型文件数据大小。
+    - `runner_config`: 一个[RunnerConfig](#runnerconfig)类。定义了并发推理模型的配置参数。
 
 - 返回值
 
