@@ -38,7 +38,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## Knowledge Preparation
 
-### MindSpore Tutorials
+### MindSpore Documentation
 
 Users can read [MindSpore Tutorials](https://www.mindspore.cn/tutorials/experts/en/master/index.html) to learn how to train, debug, optimize and infer by MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html).
 
