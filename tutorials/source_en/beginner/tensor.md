@@ -342,9 +342,20 @@ print(csr_tensor.astype(ms.float64).dtype)
 Float64
 ```
 
+The above code generates a `CSRTensor` as shown in the following equation:
+
+$$
+ \left[
+ \begin{matrix}
+   1 & 0 & 0 & 0 \\
+   0 & 2 & 0 & 0 \\
+  \end{matrix}
+  \right]
+$$
+
 ### COOTensor
 
-`COOTensor` is used to compress tensors whose non-zero elements are irregularly distributed. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`, then:
+The `COO` (Coordinate Format) sparse tensor format is used to represent a collection of nonzero elements of a tensor on a given index. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`, then:
 
 - `indices`: 2-D integer tensor. Each row indicates a non-zero element subscript. Shape: `[N, ndims]`. The index data type can only be int32.
 
@@ -403,7 +414,7 @@ $$
 
 - `dense_shape`: indicates the shape of a compressed sparse tensor.
 
-> `RowTensor` can only be used in the constructor of `Cell`. For details, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html) A code example is as follows:
+> For the detailed documentation of `RowTensor`, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html). A code example is as follows:
 
 ```python
 import mindspore as ms
@@ -432,3 +443,15 @@ non-zero values: [[1. 2.]]
 non-zero indices: [0]
 shape: (3, 2)
 ```
+
+The preceding code generates `RowTensor` as shown in the following equation:
+
+$$
+ \left[
+ \begin{matrix}
+   1 & 2 \\
+   0 & 0 \\
+   0 & 0
+  \end{matrix}
+  \right]
+$$
