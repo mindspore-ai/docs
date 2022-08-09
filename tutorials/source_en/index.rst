@@ -27,4 +27,5 @@ MindSpore Tutorial
    :caption: Advanced
 
    advanced/dataset
+   advanced/network
    advanced/train
