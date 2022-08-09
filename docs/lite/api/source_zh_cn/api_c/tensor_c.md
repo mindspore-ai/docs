@@ -15,7 +15,6 @@ tensor_c.h提供了控制张量的接口，借助该接口，用户可以创建�
 | [MSTensorHandle MSTensorCreate(const char *name, MSDataType type, const int64_t *shape, size_t shape_num, const void *data, size_t data_len)](#mstensorcreate) |
 | [void MSTensorDestroy(MSTensorHandle *tensor)](#mstensordestroy)                                                                                               |
 | [MSTensorHandle MSTensorClone(MSTensorHandle tensor)](#mstensorclone)                                                                                          |
-| [byte[] getByteData()](#getbytedata)                                                                                                                           |
 | [void MSTensorSetName(MSTensorHandle tensor, const char *name)](#mstensorsetname)                                                                              |
 | [const char *MSTensorGetName(const MSTensorHandle tensor)](#mstensorgetname)                                                                                   |
 | [void MSTensorSetDataType(MSTensorHandle tensor, MSDataType type)](#mstensorsetdatatype)                                                                       |
@@ -23,7 +22,7 @@ tensor_c.h提供了控制张量的接口，借助该接口，用户可以创建�
 | [void MSTensorSetShape(MSTensorHandle tensor, const int64_t *shape, size_t shape_num)](#mstensorsetshape)                                                      |
 | [const int64_t *MSTensorGetShape(const MSTensorHandle tensor, size_t *shape_num)](#mstensorgetshape)                                                           |
 | [void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)](#mstensorsetformat)                                                                           |
-| [MSFormat MSTensorGetFormat(const MSTensorHandle tensor)](#mstensorgetformat)                                                                                 |
+| [MSFormat MSTensorGetFormat(const MSTensorHandle tensor)](#mstensorgetformat)                                                                                  |
 | [void MSTensorSetData(MSTensorHandle tensor, void *data)](#mstensorsetdata)                                                                                    |
 | [const void *MSTensorGetData(const MSTensorHandle tensor)](#mstensorgetdata)                                                                                   |
 | [void *MSTensorGetMutableData(const MSTensorHandle tensor)](#mstensorgetmutabledata)                                                                           |
@@ -173,7 +172,7 @@ void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
-    - `format`: 张量的数据排列，具体见[MSFormat](format_c.md#msformat)。
+    - `format`: 张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/format_c.html#msformat)。
 
 - 返回值
 
@@ -305,4 +304,4 @@ typedef enum MSDataType {
 | kNumberTypeFloat32    | 43        | 表示Float32数据类型。    |
 | kNumberTypeFloat64    | 44        | 表示Float64数据类型。    |
 | kNumberTypeEnd        | 46        | 表示Number类型的结尾。   |
-| kInvalidType          | INT32_MAX | 表示无效的数据类型。       |
+| kInvalidType          | INT32_MAX | 表示无效的数据类型。     |

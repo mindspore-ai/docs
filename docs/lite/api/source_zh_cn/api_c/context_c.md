@@ -89,7 +89,7 @@ int32_t MSContextGetThreadNum(const MSContextHandle context)
 
   线程数量。
 
-### setThreadAffinity
+### MSContextSetThreadAffinityMode
 
 ```C
 void MSContextSetThreadAffinityMode(MSContextHandle context, int mode)
@@ -258,6 +258,17 @@ void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char *d
 - 参数
     - `device_info`: 指向设备类型信息的指针。
     - `device`: 供应商设备类型，例如"CPU"。
+
+### MSDeviceInfoGetProviderDevice
+
+```C
+const char *MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)
+```
+
+获取生产商设备名。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
+
+- 参数
+    - `device_info`: 指向设备类型信息的指针。
 
 - 返回值
 

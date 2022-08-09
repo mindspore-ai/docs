@@ -26,6 +26,7 @@ MindSpore Lite文档
    quick_start/quick_start_server_inference_cpp
    quick_start/quick_start_java
    quick_start/quick_start_server_inference_java
+   quick_start/quick_start_c
    quick_start/quick_start
    quick_start/image_segmentation
    quick_start/train_lenet
@@ -254,6 +255,19 @@ MindSpore Lite文档
 							
 										<div class="doc-article-desc">
 										本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_c.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">体验C语言极简推理Demo</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C语言进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。
 										</div>
 									</div>
 								</a>
