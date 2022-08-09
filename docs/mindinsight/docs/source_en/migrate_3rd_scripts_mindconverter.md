@@ -71,8 +71,8 @@ pip install tf2onnx~=1.7.1
 # Corresponding version of MindSpore is required(e.g. r1.6).
 pip install mindspore~=1.6.0
 
-# torch is required, and official LTS version 1.8.2 is recommended.
-pip install torch==1.8.2+cpu -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+# torch is required, and official stable version 1.8.1 is recommended.
+pip install torch==1.8.1 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 ```
 
 ### Install MindConverter
