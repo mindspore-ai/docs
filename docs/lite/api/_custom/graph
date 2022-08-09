@@ -2150,7 +2150,7 @@ class ExhaleRoot(object):
             for parent,dirnames,filenames in os.walk(dirA):
                 for filename in filenames:
                     if '_c.h' in filename and 'include' not in filename and 'listing' not in filename:
-                        indexname = filename.split(".h")[0].split("_", 1)
+                        indexname = filename.split(".h")[0].split("_", 1)[1]
                         for parent,dirnames,filenames in os.walk(dirA):
                             for filename in filenames:
                                 if 'include' not in filename and 'listing' not in filename:
