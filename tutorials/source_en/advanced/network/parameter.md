@@ -12,7 +12,7 @@ The following describes the data type (`dtype`), parameter (`Parameter`), parame
 
 ## dtype
 
-MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype).
+MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
 
 In the computation process of MindSpore, the int data type in Python is converted into the defined int64 type, and the float data type is converted into the defined float32 type.
 
