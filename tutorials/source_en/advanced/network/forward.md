@@ -106,7 +106,7 @@ trainable_params of result:
             self.optimizer = optimizer  # Optimizer
     ```
 
-    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/en/master/advanced/train/train_eval.html).
+    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html).
 
 3. set_train
 
