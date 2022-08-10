@@ -605,127 +605,127 @@ ${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的�
 
 轻鸿蒙应用程序开发请先参考[运行Hello OHOS](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-steps-board3516-running-0000001151888681)。将上一步生成的mnist目录拷贝到任意鸿蒙源码路径下，假设为applications/sample/，然后新建BUILD.gn文件：
 
-   ```text
-   <harmony-source-path>/applications/sample/mnist
-   ├── benchmark
-   ├── CMakeLists.txt
-   ├── BUILD.gn
-   └── src  
-   ```
+```text
+<harmony-source-path>/applications/sample/mnist
+├── benchmark
+├── CMakeLists.txt
+├── BUILD.gn
+└── src  
+```
 
 下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
 
-   ```text
-   import("//build/lite/config/component/lite_component.gni")
-   import("//build/lite/ndk/ndk.gni")
+```text
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/ndk/ndk.gni")
 
-   lite_component("mnist_benchmark") {
-       target_type = "executable"
-       sources = [
-            "benchmark/benchmark.cc",
-            "benchmark/calib_output.cc",
-            "benchmark/load_input.c",
-            "src/net.c",
-            "src/weight.c",
-            "src/session.cc",
-            "src/tensor.cc",
-       ]
-       features = []
-       include_dirs = [
-            "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime",
-            "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/include",
-            "//applications/sample/mnist/benchmark",
-            "//applications/sample/mnist/src",
-       ]
-       ldflags = [
-            "-fno-strict-aliasing",
-            "-Wall",
-            "-pedantic",
-            "-std=gnu99",
-       ]
-       libs = [
-            "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
-            "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
-       ]
-       defines = [
-           "NOT_USE_STL",
-           "ENABLE_NEON",
-           "ENABLE_ARM",
-           "ENABLE_ARM32"
-       ]
-       cflags = [
-            "-fno-strict-aliasing",
-            "-Wall",
-            "-pedantic",
-            "-std=gnu99",
-       ]
-       cflags_cc = [
-           "-fno-strict-aliasing",
-           "-Wall",
-           "-pedantic",
-           "-std=c++17",
-       ]
-   }
-   ```
+lite_component("mnist_benchmark") {
+    target_type = "executable"
+    sources = [
+        "benchmark/benchmark.cc",
+        "benchmark/calib_output.cc",
+        "benchmark/load_input.c",
+        "src/net.c",
+        "src/weight.c",
+        "src/session.cc",
+        "src/tensor.cc",
+    ]
+    features = []
+    include_dirs = [
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime",
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/include",
+        "//applications/sample/mnist/benchmark",
+        "//applications/sample/mnist/src",
+    ]
+    ldflags = [
+        "-fno-strict-aliasing",
+        "-Wall",
+        "-pedantic",
+        "-std=gnu99",
+    ]
+    libs = [
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
+    ]
+    defines = [
+        "NOT_USE_STL",
+        "ENABLE_NEON",
+        "ENABLE_ARM",
+        "ENABLE_ARM32"
+    ]
+    cflags = [
+        "-fno-strict-aliasing",
+        "-Wall",
+        "-pedantic",
+        "-std=gnu99",
+    ]
+    cflags_cc = [
+        "-fno-strict-aliasing",
+        "-Wall",
+        "-pedantic",
+        "-std=c++17",
+    ]
+}
+```
 
-  `<YOUR MINDSPORE LITE RUNTIME PATH>`是解压出来的推理runtime包路径，比如//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32。
-   修改文件build/lite/components/applications.json，添加组件mnist_benchmark的配置：
+`<YOUR MINDSPORE LITE RUNTIME PATH>`是解压出来的推理runtime包路径，比如//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32。
+修改文件build/lite/components/applications.json，添加组件mnist_benchmark的配置：
 
-   ```text
-   {
-      "component": "mnist_benchmark",
-      "description": "Communication related samples.",
-      "optional": "true",
-      "dirs": [
-        "applications/sample/mnist"
-      ],
-      "targets": [
-        "//applications/sample/mnist:mnist_benchmark"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [],
-      "adapted_kernel": [ "liteos_a" ],
-      "features": [],
-      "deps": {
-        "components": [],
-        "third_party": []
-      }
-    },
-   ```
+```text
+{
+    "component": "mnist_benchmark",
+    "description": "Communication related samples.",
+    "optional": "true",
+    "dirs": [
+    "applications/sample/mnist"
+    ],
+    "targets": [
+    "//applications/sample/mnist:mnist_benchmark"
+    ],
+    "rom": "",
+    "ram": "",
+    "output": [],
+    "adapted_kernel": [ "liteos_a" ],
+    "features": [],
+    "deps": {
+    "components": [],
+    "third_party": []
+    }
+},
+```
 
 修改文件vendor/hisilicon/hispark_taurus/config.json，新增mnist_benchmark组件的条目:
 
-   ```text
-    { "component": "mnist_benchmark", "features":[] }
-   ```
+```text
+{ "component": "mnist_benchmark", "features":[] }
+```
 
 ### 编译benchmark
 
-   ```text
-   cd <openharmony-source-path>
-   hb set(设置编译路径)
-   .（选择当前路径）
-   选择ipcamera_hispark_taurus@hisilicon并回车
-   hb build mnist_benchmark（执行编译）
-   ```
+```text
+cd <openharmony-source-path>
+hb set(设置编译路径)
+.（选择当前路径）
+选择ipcamera_hispark_taurus@hisilicon并回车
+hb build mnist_benchmark（执行编译）
+```
 
-   生成结果文件out/hispark_taurus/ipcamera_hispark_taurus/bin/mnist_benchmark。
+生成结果文件out/hispark_taurus/ipcamera_hispark_taurus/bin/mnist_benchmark。
 
 ### 执行benchmark
 
 将mnist_benchmark、权重文件（mnist/src/net.bin）以及[输入文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz)解压后拷贝到开发板上，然后执行：
 
-   ```text
-    OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
-    OHOS # =======run benchmark======
-    input 0: mnist_input.bin
+```text
+OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
+OHOS # =======run benchmark======
+input 0: mnist_input.bin
 
-    loop count: 1
-    total time: 10.11800ms, per time: 10.11800ms
+loop count: 1
+total time: 10.11800ms, per time: 10.11800ms
 
-    outputs:
-    name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1 10 ], Data:
-    0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
-    ========run success=======
-   ```
+outputs:
+name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1 10 ], Data:
+0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
+========run success=======
+```
