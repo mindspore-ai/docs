@@ -62,7 +62,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 1. 使用pip安裝MindSpore模块，API文档需要根据安装后的MindSpore模块生成，参考[安装](https://www.mindspore.cn/install)。
 
    ```bash
-   pip install mindspore-1.5.0-cp37-cp37m-linux_x86_64.whl
+   pip install mindspore-*.*.*-cp37-cp37m-linux_x86_64.whl
    ```
 
 2. 下载MindSpore Docs仓代码。
