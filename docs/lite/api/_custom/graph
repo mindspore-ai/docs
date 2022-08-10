@@ -2223,18 +2223,18 @@ MindSpore Lite API
 """)
                 p.write("\n"+"".join(cresult))
 
-        dircapi = './source_en/c_api/'
-        for file in os.listdir(dircapi):
-            with open(dircapi+file, 'r', encoding='utf-8') as f:
-                data = f.read()
-                result = data.replace('- :doc:`../generate/enum', 'Enum\n-------\n\n- :doc:`../generate/enum', 1)
-                result = result.replace('- :doc:`../generate/class', 'Class\n-------\n\n- :doc:`../generate/class', 1)
-                result = result.replace('- :doc:`../generate/function', 'Functions\n------------\n\n- :doc:`../generate/function', 1)
-                result = result.replace('- :doc:`../generate/define', 'Define\n------------\n\n- :doc:`../generate/define', 1)
-                result = result.replace('- :doc:`../generate/typedef', 'Typedef\n------------\n\n- :doc:`../generate/typedef', 1)
-                out_path = '/'.join(dircapi.split('/')[:-1])+'/{}'.format(file)
-                with open(out_path, 'w', encoding='utf-8') as p:
-                    p.write(result)
+            dircapi = './source_en/c_api/'
+            for file in os.listdir(dircapi):
+                with open(dircapi+file, 'r', encoding='utf-8') as f:
+                    data = f.read()
+                    result = data.replace('- :doc:`../generate/enum', 'Enum\n-------\n\n- :doc:`../generate/enum', 1)
+                    result = result.replace('- :doc:`../generate/class', 'Class\n-------\n\n- :doc:`../generate/class', 1)
+                    result = result.replace('- :doc:`../generate/function', 'Functions\n------------\n\n- :doc:`../generate/function', 1)
+                    result = result.replace('- :doc:`../generate/define', 'Define\n------------\n\n- :doc:`../generate/define', 1)
+                    result = result.replace('- :doc:`../generate/typedef', 'Typedef\n------------\n\n- :doc:`../generate/typedef', 1)
+                    out_path = '/'.join(dircapi.split('/')[:-1])+'/{}'.format(file)
+                    with open(out_path, 'w', encoding='utf-8') as p:
+                        p.write(result)
 
         dirc='./source_zh_cn/api_cpp/'
         dird='./source_zh_cn/api_java/'
