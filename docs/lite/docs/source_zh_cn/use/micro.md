@@ -17,7 +17,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 ### 概述
 
-通过MindSpore Lite转换工具converter_lite，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成推理代码。
+通过MindSpore Lite转换工具`converter_lite`，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成推理代码。
 此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/use/converter_tool.html)。
 
 ### 环境准备
@@ -232,11 +232,11 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
     用户也可以在生成的推理代码目录下（本例中为`mnist`目录)，运行`bash build.sh`，该脚本会自动下载对应的推理包，并解压到当前目录，同时会尝试编译当前目录代码，生成静态库。
 
-- 从源码[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/use/build.html)。
+- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/use/build.html)。
 
     用户可通过`MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64`命令，来编译得到`Cortex-M7`的发布包。
 
-对于暂未提供发布包进行下载的其他Cortex-M架构平台，用户可参加从源码编译构建的方式，修改MindSpore源码，进行手动编译，得到发布包。
+对于暂未提供发布包进行下载的其他Cortex-M架构平台，用户可参考从源码编译构建的方式，修改MindSpore源码，进行手动编译，得到发布包。
 
 ### 在Windows上的代码集成及编译部署：通过IAR进行集成开发
 
