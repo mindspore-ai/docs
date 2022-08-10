@@ -9,7 +9,8 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 | function                                                       |
 | ------------------------------------------------------------   |
 | [boolean init()](#init)                                        |
-| [boolean setWorkerNum()](#setworkernum)                          |
+| [boolean setWorkerNum()](#setworkernum)                        |
+| [boolean setConfigInfo()](#setconfiginfo)                      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               |
 
 ## init
@@ -49,6 +50,19 @@ public void setWorkerNum(int workerNum)
 - 参数
 
     - `workerNum`: 配置文件中设置模型个数。
+
+## setConfigInfo
+
+```java
+public void setConfigInfo(String section, HashMap<String, String> config)
+```
+
+并发推理中模型配置参数设置。
+
+- 参数
+
+    - `section`: 配置的章节名。
+    - `config`: 要更新的配置对。
 
 ## getRunnerConfigPtr
 
