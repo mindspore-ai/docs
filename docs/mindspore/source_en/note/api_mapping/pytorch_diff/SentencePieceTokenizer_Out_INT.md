@@ -39,10 +39,11 @@ from torchtext.data.functional import sentencepiece_numericalizer
 
 # In MindSpore, return tokenizer from vocab object.
 sentence_piece_vocab_file = "/path/to/datasets/1.txt"
+sp_model = "/path/to/sp_model"
 
 vocab = text.SentencePieceVocab.from_file(
     [sentence_piece_vocab_file],
-    5000,
+    20,
     0.9995,
     SentencePieceModel.UNIGRAM,
     {})

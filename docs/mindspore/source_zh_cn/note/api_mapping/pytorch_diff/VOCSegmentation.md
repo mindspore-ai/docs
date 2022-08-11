@@ -71,7 +71,7 @@ for item in dataset:
 # 52544
 
 # In torch, the output will be result of transform, eg. RandomCrop
-root = "/path/to/voc_dataset_directory/"
+root = "/path/to/voc_dataset_directory2/"
 
 dataset = datasets.VOCSegmentation(root, image_set='train', year='2012', transform=T.RandomCrop(300))
 print(dataset)

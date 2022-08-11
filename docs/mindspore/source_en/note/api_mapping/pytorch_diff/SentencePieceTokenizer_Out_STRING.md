@@ -39,6 +39,7 @@ from torchtext.data.functional import sentencepiece_tokenizer
 
 # In MindSpore, Tokenize scalar token or 1-D tokens to tokens by sentencepiece.
 sentence_piece_vocab_file = "/path/to/datasets/1.txt"
+sp_model = "/path/to/sp_model"
 
 vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 5000, 0.9995,
                                           SentencePieceModel.CHAR, {})
