@@ -26,10 +26,10 @@ For details about how to install third-party dependency software when confirming
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.1 as an example, execute the following commands.
 
 ```bash
-set MS_VERSION=1.8.0
+set MS_VERSION=1.8.1
 ```
 
 Then run the following commands to install MindSpore according to Python version.
