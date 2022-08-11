@@ -63,6 +63,7 @@ for item in dataset:
 # In torch, ConvertImageDtype act through Sequential operation.
 coco_dataset_dir = "/path/to/coco_dataset_directory/images"
 coco_annotation_file = "/path/to/coco_dataset_directory/annotation_file"
+root = "/path/to/coco_dataset_directory/"
 
 #Convert a PIL Image or numpy.ndarray to tensor. This transform does not support torchscript.
 dataset = datasets.CocoDetection(root, annFile, transform=T.ToTensor())
