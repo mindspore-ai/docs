@@ -69,7 +69,7 @@ for item in dataset:
 # 147025
 
 # In torch, the output will be result of transform, eg. RandomCrop
-root = "/path/to/voc_dataset_directory/"
+root = "/path/to/voc_dataset_directory2/"
 
 dataset = datasets.VOCDetection(root, image_set='train', year='2012', transform=T.ToTensor())
 dataloader = DataLoader(dataset=dataset, num_workers=8, batch_size=1, shuffle=True)
