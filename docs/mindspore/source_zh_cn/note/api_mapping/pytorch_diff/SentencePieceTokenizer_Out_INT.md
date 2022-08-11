@@ -36,14 +36,14 @@ import mindspore.dataset as ds
 from mindspore.dataset import text
 from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
 from torchtext.data.functional import sentencepiece_numericalizer
+from torchtext.data.functional import load_sp_model
 
 # In MindSpore, return tokenizer from vocab object.
 sentence_piece_vocab_file = "/path/to/datasets/1.txt"
-sp_model = "/path/to/sp_model"
 
 vocab = text.SentencePieceVocab.from_file(
     [sentence_piece_vocab_file],
-    20,
+    27,
     0.9995,
     SentencePieceModel.UNIGRAM,
     {})
@@ -58,6 +58,8 @@ for item in text_file_dataset:
 # Out:
 # [ 165   28    8   11 4746 1430    4]
 
+root = "/path/to/m_user.model"
+sp_model = load_sp_model(root)
 # In torch, return the sentencepiece model according to the input model path.
 sp_id_generator = sentencepiece_numericalizer(sp_model)
 list_a = ["sentencepiece encode as pieces", "examples to   try!"]
