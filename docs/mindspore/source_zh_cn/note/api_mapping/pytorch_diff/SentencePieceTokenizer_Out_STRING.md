@@ -36,12 +36,12 @@ import mindspore.dataset as ds
 from mindspore.dataset import text
 from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
 from torchtext.data.functional import sentencepiece_tokenizer
+from torchtext.data.functional import load_sp_model
 
 # In MindSpore, Tokenize scalar token or 1-D tokens to tokens by sentencepiece.
 sentence_piece_vocab_file = "/path/to/datasets/1.txt"
-sp_model = "/path/to/sp_model"
 
-vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 5000, 0.9995,
+vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 27, 0.9995,
                                           SentencePieceModel.CHAR, {})
 tokenizer = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
 data = 'sentencepiece encode as pieces", "examples to   try!'
@@ -50,6 +50,8 @@ print(list(tokenizer(data)))
 # Out:
 # ['▁', 's', 'e', 'n', 't', 'e', 'n', 'c', 'e', 'p', 'i', 'e', 'c', 'e', '▁', 'e', 'n', 'c', 'o', 'd', 'e', '▁', 'a', 's', '▁', 'p', 'i', 'e', 'c', 'e', 's', '"', ',', '▁', '"', 'e', 'x', 'a', 'm', 'p', 'l', 'e', 's', '▁', 't', 'o', '▁', 't', 'r', 'y', '!']
 
+root = "/path/to/m_user.model"
+sp_model = load_sp_model(root)
 # In torch, output a generator with the input of text sentence and the output of the corresponding tokens based on SentencePiece model.
 sp_tokens_generator = sentencepiece_tokenizer(sp_model)
 list_a = ["sentencepiece encode as pieces", "examples to   try!"]
