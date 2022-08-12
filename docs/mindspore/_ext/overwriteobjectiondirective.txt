@@ -241,7 +241,6 @@ class ObjectDescription(SphinxDirective):
         try:
             example = get_example(self.names[0][0])
             platforms = get_platforms(self.names[0][0])
-            logger.warning(f'{platforms}')
         except IndexError:
             example = ''
             platforms = ''
