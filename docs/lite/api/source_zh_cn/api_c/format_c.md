@@ -1,9 +1,9 @@
-# mindspore::Format
+# format_c
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_c/format_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ```C
-#include<tensor_c.h>
+#include<format_c.h>
 ```
 
 以下表格描述了MindSpore MSTensor保存的数据支持的排列格式。
