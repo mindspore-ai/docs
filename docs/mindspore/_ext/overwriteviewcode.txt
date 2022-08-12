@@ -93,16 +93,18 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
                 continue
             modname = signode.get('module')
             fullname = signode.get('fullname')
-            if fullname and modname==None:
-                if fullname.split('.')[-1].lower() == fullname.split('.')[-1] and fullname.split('.')[-2].lower() != fullname.split('.')[-2]:
-                    modname = '.'.join(fullname.split('.')[:-2])
-                    fullname = '.'.join(fullname.split('.')[-2:])
-                else:
-                    modname = '.'.join(fullname.split('.')[:-1])
-                    fullname = fullname.split('.')[-1]
-            fullname_new = fullname
-            # logger.warning(f'modename:{modname}')
-            # logger.warning(f'fullname:{fullname}')
+            try:
+                if fullname and modname==None:
+                    if fullname.split('.')[-1].lower() == fullname.split('.')[-1] and fullname.split('.')[-2].lower() != fullname.split('.')[-2]:
+                        modname = '.'.join(fullname.split('.')[:-2])
+                        fullname = '.'.join(fullname.split('.')[-2:])
+                    else:
+                        modname = '.'.join(fullname.split('.')[:-1])
+                        fullname = fullname.split('.')[-1]
+                fullname_new = fullname
+            except Exception:
+                logger.warning(f'error_modename:{modname}')
+                logger.warning(f'error_fullname:{fullname}')
             refname = modname
             if env.config.viewcode_follow_imported_members:
                 new_modname = app.emit_firstresult(
