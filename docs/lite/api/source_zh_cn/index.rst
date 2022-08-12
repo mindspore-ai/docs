@@ -36,3 +36,14 @@ MindSpore Lite API
    api_java/runner_config
    api_java/model_parallel_runner
    api_java/lite_java_example
+
+.. toctree::
+   :maxdepth: 1
+   :caption: C API
+
+   api_c/context_c
+   api_c/data_type_c
+   api_c/format_c
+   api_c/model_c
+   api_c/tensor_c
+   api_c/lite_c_example
