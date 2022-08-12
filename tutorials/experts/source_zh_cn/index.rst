@@ -40,7 +40,6 @@
    :maxdepth: 1
    :caption: 自定义算子
 
-   operation/op_ascend
    operation/op_custom
 
 .. toctree::
