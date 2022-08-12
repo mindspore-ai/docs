@@ -236,7 +236,10 @@ exhale_args = {
     "verboseBuild": True,
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
+        INPUT_FILTER = "python3 ../lite_api_filter.py"
         EXTRACT_ALL = NO
+        FILE_PATTERNS = *.h
+        EXCLUDE_PATTERNS = *schema* *third_party* */include/api/types.h
         HIDE_UNDOC_CLASSES = YES
         HIDE_UNDOC_MEMBERS = YES
         EXCLUDE_SYMBOLS = operator* GVAR*
