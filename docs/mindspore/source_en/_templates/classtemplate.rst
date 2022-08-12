@@ -10,6 +10,13 @@
     :exclude-members: infer_value, infer_shape, infer_dtype, construct
     :members:
 
+{% elif fullname=="mindspore.Tensor" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: reverse_sequence
+    :members:
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
