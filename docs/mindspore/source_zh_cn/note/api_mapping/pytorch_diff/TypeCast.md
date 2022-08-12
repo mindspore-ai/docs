@@ -33,6 +33,7 @@ MindSpore：将输入的numpy.ndarray图像转换为所需的数据类型。
 ```python
 import numpy as np
 import mindspore.dataset as ds
+import torch
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
@@ -63,15 +64,14 @@ for item in dataset:
 # In torch, ConvertImageDtype act through Sequential operation.
 coco_dataset_dir = "/path/to/coco_dataset_directory/images"
 coco_annotation_file = "/path/to/coco_dataset_directory/annotation_file"
-root = "/path/to/coco_dataset_directory/"
 
 #Convert a PIL Image or numpy.ndarray to tensor. This transform does not support torchscript.
-dataset = datasets.CocoDetection(root, annFile, transform=T.ToTensor())
+dataset = datasets.CocoDetection(coco_dataset_dir, coco_annotation_file, transform=T.ToTensor())
 dataloader = DataLoader(dataset=dataset, num_workers=8, batch_size=1, shuffle=True)
 
 for epoch in range(1):
     for i, batch in enumerate(dataloader):
-        transformers = T.Compose([transforms.ConvertImageDtype(torch.float)])
+        transformers = T.Compose([T.ConvertImageDtype(torch.float)])
         real_a = batch[0]
         real_a = transformers(real_a)
         print(real_a.shape)
