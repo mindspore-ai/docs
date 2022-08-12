@@ -2290,6 +2290,7 @@ MindSpore Lite API
    :caption: C API
 """)
             p.write("\n"+"".join(cresult))
+            p.write("\n" + "   api_c/lite_c_example")
 
 
     def generateAPIRootHeader(self):
