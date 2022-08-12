@@ -221,7 +221,7 @@ if os.path.exists(probability_dir):
 
 # 删除并获取ops下多余的接口文件名
 def ops_interface_name():
-    dir_list = ['mindspore.ops.functional.1_8_0.rst', 'mindspore.ops.1_8_0.rst']
+    dir_list = ['mindspore.ops.functional.rst', 'mindspore.ops.rst']
     interface_name_list = []
     for i in dir_list:
         target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
@@ -254,7 +254,7 @@ def ops_interface_name():
 # 删除并获取nn下多余的接口文件名
 def nn_interface_name():
     interface_name_list = []
-    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.1_8_0.rst')
+    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
     with open(target_path,'r+',encoding='utf8') as f:
         content =  f.read()
         interface_name_list = re.findall("mindspore\.nn\.(\w*)",content)
@@ -280,19 +280,13 @@ ops_interface_name()
 nn_interface_name()
 
 list_dir = "./api_python"
-tensor_path = "./api_python/mindspore"
+tensor_path = "api_python/mindspore/mindspore.Tensor.1_8_0.rst"
 
 try:
     for filename in os.listdir(list_dir):
         if ".1_8_0" in filename:
-            newname = filename.replace(".1_8_0",'')
-            os.remove(os.path.join(os.path.dirname(__file__),list_dir,newname))
-            os.rename(os.path.join(list_dir, filename),os.path.join(list_dir, newname))
-    for filename in os.listdir(tensor_path):
-        if ".1_8_0" in filename:
-            newname = filename.replace(".1_8_0",'')
-            os.remove(os.path.join(os.path.dirname(__file__),tensor_path,newname))
-            os.rename(os.path.join(tensor_path, filename),os.path.join(tensor_path, newname))
+            os.remove(os.path.join(os.path.dirname(__file__),list_dir,filename))
+    os.remove(os.path.join(os.path.dirname(__file__),tensor_path))
 except Exception as e:
     print(e)
 
