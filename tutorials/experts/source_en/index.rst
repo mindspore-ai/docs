@@ -40,7 +40,6 @@ For Experts
    :maxdepth: 1
    :caption: Custom Operator
 
-   operation/op_ascend
    operation/op_custom
 
 .. toctree::
