@@ -27,8 +27,8 @@ The root permission is required because the automatic installation script needs 
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r1.8/scripts/install/ubuntu-cpu-pip.sh
-# install MindSpore 1.8.0 and Python 3.7
-MINDSPORE_VERSION=1.8.0 bash ./ubuntu-cpu-pip.sh
+# install MindSpore 1.8.1 and Python 3.7
+MINDSPORE_VERSION=1.8.1 bash ./ubuntu-cpu-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
 # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash ./ubuntu-cpu-pip.sh
 ```
@@ -131,10 +131,10 @@ sudo apt-get install gcc-9 -y
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.1 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.8.0
+export MS_VERSION=1.8.1
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
