@@ -6,26 +6,39 @@
 mindspore::dataset
 ============================
 
+该模块提供了加载和处理各种常见数据集的API，目前支持Album、MNIST数据集。
+
+此外，该模块还提供了在加载时对数据进行采样的API。
+
+请注意，Windows平台上还不支持缓存。
+请不要在Windows平台上加载和处理数据时使用。
 
 Dataset函数
 -----------------
+
+**Dataset函数**提供各种函数来加载和处理数据集。
 
 Vision
 ^^^^^^
 
 .. list-table::
-    :widths: 15 15
+    :widths: 15 15 15
     :header-rows: 1
 
     * - API
+      - 描述
       - 重载的API（重载的Sampler）
 
     * - :doc:`Function mindspore::dataset::Album <../generate/function_mindspore_dataset_Album-1>`
+      - 读取和解析Album数据集的源数据集，
+        并返回一个 :doc:`Class AlbumDataset <.../generate/classmindspore_dataset_AlbumDataset>` 的对象。
       - :doc:`Function mindspore::dataset::Album (raw ptr Sampler) <../generate/function_mindspore_dataset_Album-2>`
 
         :doc:`Function mindspore::dataset::Album (reference Sampler) <../generate/function_mindspore_dataset_Album-3>`
 
     * - :doc:`Function mindspore::dataset::Mnist <../generate/function_mindspore_dataset_Mnist-1>`
+      - 读取和解析MNIST数据集的源数据集，
+        并返回一个 :doc:`Class MnistDataset <.../generate/classmindspore_dataset_MnistDataset>` 的对象。
       - :doc:`Function mindspore::dataset::Mnist (raw ptr Sampler) <../generate/function_mindspore_dataset_Mnist-2>`
 
         :doc:`Function mindspore::dataset::Mnist (reference Sampler) <../generate/function_mindspore_dataset_Mnist-3>`
@@ -33,12 +46,19 @@ Vision
 Dataset类
 ---------------
 
+**Dataset类**提供了数据集基类的定义。
+以及数据集的常见转换操作，如map、shuffle和batch。
+还提供了用于获取数据的Iterator的定义。
+
 - :doc:`../generate/classmindspore_dataset_Dataset`
 - :doc:`../generate/classmindspore_dataset_Iterator`
 - :doc:`../generate/classmindspore_dataset_PullIterator`
 
 Sampler类
 ---------------
+
+**Sampler类**提供了采样器的定义，
+用来从数据集中选择样本。
 
 - :doc:`../generate/classmindspore_dataset_Sampler`
 - :doc:`../generate/classmindspore_dataset_DistributedSampler`
@@ -52,10 +72,15 @@ Sampler类
 Eager类
 -------------
 
+**Eager类**提供了Execute类的定义。
+该类用于在eager模式下对输入张量进行变换（例如视觉/文本）。
+
 - :doc:`../generate/classmindspore_dataset_Execute`
 
 常量
 ---------
+
+**常量**提供了一些常用的枚举和常量变量。
 
 - :doc:`../generate/enum_mindspore_dataset_BorderType-1`
 - :doc:`../generate/enum_mindspore_dataset_ImageBatchFormat-1`
@@ -97,6 +122,8 @@ Eager类
 其他
 ------
 
+本节包含一些与数据集操作相关的预定义类、工具函数和一些类型定义。
+
 类
 ^^^^^^^
 
@@ -127,6 +154,10 @@ Eager类
 
 Lite-CV
 -------
+
+**Lite-CV**是一个特殊的库，限制了没有OpenCV实现的图像转换方法。
+需要注意的是，这个库只能在MindSpore的lite模式下通过选项 :py:obj:`-n lite_cv` 编译。
+有了这个库，与其他链接到OpenCV的库相比，lite包的大小将更小。
 
 类
 ^^^^^
