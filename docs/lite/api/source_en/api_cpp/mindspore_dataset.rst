@@ -6,9 +6,7 @@
 mindspore::dataset
 ============================
 
-This module provides APIs to load and process various common datasets such as MNIST, CIFAR-10,
-CIFAR-100, VOC, COCO, ImageNet, CelebA, CLUE, etc. It also supports datasets in standard format,
-including MindRecord, TFRecord, Manifest, etc. Users can also define their own datasets with this module.
+This module provides APIs to load and process various common datasets, currently supports Album and MNIST datasets.
 
 Besides, this module provides APIs to sample data while loading.
 
