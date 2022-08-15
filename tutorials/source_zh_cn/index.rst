@@ -28,6 +28,7 @@ MindSpore教程
    :caption: 进阶
    :hidden:
 
+   advanced/lenet_mnist
    advanced/linear_fitting
    advanced/dataset
    advanced/network
