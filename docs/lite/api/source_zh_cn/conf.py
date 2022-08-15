@@ -298,12 +298,12 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 exec(source_code, sphinx_builder_html.__dict__)
 
 #Remove "MS_API" in classes.
-files_copyed = glob.glob("../include/*.h")
-for file in files_copyed:
-    with open(file, "r+", encoding="utf8") as f:
-        content = f.read()
-        if "MS_API" in content:
-            content_new = content.replace("MS_API", "")
-            f.seek(0)
-            f.truncate()
-            f.write(content_new)
+# files_copyed = glob.glob("../include/*.h")
+# for file in files_copyed:
+#     with open(file, "r+", encoding="utf8") as f:
+#         content = f.read()
+#         if "MS_API" in content:
+#             content_new = content.replace("MS_API", "")
+#             f.seek(0)
+#             f.truncate()
+#             f.write(content_new)
