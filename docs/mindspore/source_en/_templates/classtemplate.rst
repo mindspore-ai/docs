@@ -14,7 +14,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: reverse_sequence
+    :exclude-members: reverse_sequence, fills, approximate_equal, searchsorted, unsorted_segment_min, unsorted_segment_max, unsorted_segment_prod
     :members:
 
 {% elif objname[0].istitle() %}

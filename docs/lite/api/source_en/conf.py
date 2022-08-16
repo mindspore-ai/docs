@@ -16,6 +16,7 @@ import sys
 import textwrap
 import shutil
 import glob
+import sphinx
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
@@ -285,6 +286,22 @@ for i in os.listdir(src_dir):
 lite_dir = './mindspore_lite'
 if os.path.exists(lite_dir):
     shutil.rmtree(lite_dir)
+
+# replace py_files that have too many errors.
+try:
+    decorator_list = [("mindspore_lite/context.py","mindspore/lite/python/api/context.py"),
+                      ("mindspore_lite/converter.py","mindspore/lite/python/api/converter.py"),
+                      ("mindspore_lite/model.py","mindspore/lite/python/api/model.py"),
+                      ("mindspore_lite/tensor.py","mindspore/lite/python/api/tensor.py")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+        shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+
+except:
+    pass
 
 import mindspore_lite
 
