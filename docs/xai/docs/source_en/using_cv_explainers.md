@@ -12,15 +12,15 @@ A saliency map overlay on top of the original image:
 
 There are 2 categories of explainers: gradient based and perturbation based. The gradient based explainers rely on the backpropagation method to compute the pixel importance while the perturbation based explainers exploit random perturbations on the original images.
 
-| Explainer          | Category        |
-|:------------------:|:---------------:|
-| Gradient           | gradient        |
-| GradCAM            | gradient        |
-| GuidedBackprop     | gradient        |
-| Deconvolution      | gradient        |
-| Occlusion          | perturbation    |
-| RISE               | perturbation    |
-| RISEPlus           | perturbation    |
+| Explainer          | Category        | PYNATIVE_MODE |     GRAPH_MODE     |
+|:------------------:|:---------------:|:-------------:|:------------------:|
+| Gradient           | gradient        |   Supported   |     Supported      |
+| GradCAM            | gradient        |   Supported   |      <blank>       |
+| GuidedBackprop     | gradient        |   Supported   |      <blank>       |
+| Deconvolution      | gradient        |   Supported   |      <blank>       |
+| Occlusion          | perturbation    |   Supported   |     Supported      |
+| RISE               | perturbation    |   Supported   |     Supported      |
+| RISEPlus           | perturbation    |   Supported   |      <blank>       |
 
 ## Preparations
 
@@ -75,9 +75,6 @@ import mindspore as ms
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
-# only PYNATIVE_MODE is supported
-ms.set_context(mode=ms.PYNATIVE_MODE)
-
 # 20 classes
 num_classes = 20
 
@@ -100,6 +97,9 @@ import mindspore as ms
 from mindspore_xai.explainer import GradCAM
 from mindspore_xai.visual.cv import saliency_to_image
 
+# only PYNATIVE_MODE is supported
+ms.set_context(mode=ms.PYNATIVE_MODE)
+
 # usually specify the last convolutional layer
 grad_cam = GradCAM(net, layer="layer4")
 
@@ -107,8 +107,8 @@ grad_cam = GradCAM(net, layer="layer4")
 saliency = grad_cam(boat_image, targets=3, show=False)
 
 # convert the saliency map to a PIL.Image.Image object
-boat_img = Image.open("xai_examples_data/test/boat.jpg")
-saliency_to_image(saliency, boat_img)
+orig_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, orig_img)
 ```
 
 The returned `saliency` is a 1x1x224x224 tensor for an 1xCx224x224 image tensor, which stores all pixel importances (range:[0.0, 1.0]) to the classification decision of 'boat'. Users may specify any class to be explained.
@@ -237,8 +237,8 @@ ms.load_param_into_net(ood_net, param_dict)
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
 saliency = rise_plus(boat_image, targets=3, show=False)
 
-boat_img = Image.open("xai_examples_data/test/boat.jpg")
-saliency_to_image(saliency, boat_img)
+orig_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, orig_img)
 ```
 
 The returned `saliency` is an 1x1x224x224 tensor for an 1xCx224x224 image tensor.

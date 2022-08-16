@@ -12,15 +12,15 @@
 
 解释器主要分为两大类：基于梯度的 及 基于扰动的。基于梯度的解释器依赖反向传播去计算象素的重要性，而基于扰动的解释器则是使用随机扰动原图的方法进行计算。
 
-| 解释器              | 类型             |
-|:------------------:|:----------------:|
-| Gradient           | 梯度             |
-| GradCAM            | 梯度             |
-| GuidedBackprop     | 梯度             |
-| Deconvolution      | 梯度             |
-| Occlusion          | 扰动             |
-| RISE               | 扰动             |
-| RISEPlus           | 扰动             |
+| 解释器              |        类型        | PYNATIVE_MODE  |   GRAPH_MODE   |
+|:------------------:|:-----------------:|:--------------:|:--------------:|
+| Gradient           |        梯度        |       支持       |       支持       |
+| GradCAM            |        梯度        |       支持       |    <blank>     |
+| GuidedBackprop     |        梯度        |       支持       |    <blank>     |
+| Deconvolution      |        梯度        |       支持       |    <blank>     |
+| Occlusion          |        扰动        |       支持       |       支持       |
+| RISE               |        扰动        |       支持       |       支持       |
+| RISEPlus           |        扰动        |       支持       |    <blank>     |
 
 ## 准备
 
@@ -75,9 +75,6 @@ from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIV
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
-# 只支持 PYNATIVE_MODE
-set_context(mode=PYNATIVE_MODE)
-
 # 有20个类
 num_classes = 20
 
@@ -101,6 +98,9 @@ from mindspore import Tensor
 from mindspore_xai.explainer import GradCAM
 from mindspore_xai.visual.cv import saliency_to_image
 
+# 只支持 PYNATIVE_MODE
+set_context(mode=PYNATIVE_MODE)
+
 # 通常指定最后一层的卷积层
 grad_cam = GradCAM(net, layer="layer4")
 
@@ -108,8 +108,8 @@ grad_cam = GradCAM(net, layer="layer4")
 saliency = grad_cam(boat_image, targets=3, show=False)
 
 # 将热力图转换为 PIL.Image.Image 对象
-boat_img = Image.open("xai_examples_data/test/boat.jpg")
-saliency_to_image(saliency, boat_img)
+orig_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, orig_img)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
@@ -239,8 +239,8 @@ rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
 boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 saliency = rise_plus(boat_image, targets=3, show=False)
 
-boat_img = Image.open("xai_examples_data/test/boat.jpg")
-saliency_to_image(saliency, boat_img)
+orig_img = Image.open("xai_examples_data/test/boat.jpg")
+saliency_to_image(saliency, orig_img)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
