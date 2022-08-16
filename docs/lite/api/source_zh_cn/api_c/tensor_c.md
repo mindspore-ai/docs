@@ -54,6 +54,7 @@ MSTensorHandle MSTensorCreate(const char *name, MSDataType type, const
 - 返回值
 
   指向MindSpore MSTensor(后文简称：MSTensor)的指针。
+
 #### MSTensorDestroy
 
 ```c
@@ -79,6 +80,7 @@ MSTensorHandle MSTensorClone(MSTensorHandle tensor)
 - 返回值
 
   指向新MSTensor的指针。
+
 #### MSTensorSetName
 
 ```c
@@ -283,7 +285,7 @@ typedef enum MSDataType {
 
 | 类型定义              | 值        | 描述                     |
 | --------------------- | --------- | ------------------------ |
-| kTypeUnknown          | 0         | 表示未知的数据类型       |
+| kTypeUnknown          | 0         | 表示未知的数据类型。       |
 | kObjectTypeString     | 12        | 表示String数据类型。     |
 | kObjectTypeList       | 13        | 表示List数据类型。       |
 | kObjectTypeTuple      | 14        | 表示Tuple数据类型。      |
