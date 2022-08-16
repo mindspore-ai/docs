@@ -5,13 +5,6 @@
 ## torch.nn.Dropout
 
 ```python
-class torch.nn.BatchNorm1d(
-    num_features,
-    eps=1e-05,
-    momentum=0.1,
-    affine=True,
-    track_running_stats=True
-)
 class torch.nn.Dropout(
     p=0.5,
     inplace=False
