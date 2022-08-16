@@ -10,7 +10,7 @@
 
 | 类型定义 | 值 | 描述 |
 | --- | --- | --- |
-|kTypeUnknown | 0 | 表示未知的数据类型 |
+|kTypeUnknown | 0 | 表示未知的数据类型。 |
 |kObjectTypeString| 12 | 表示String数据类型。 |
 |kObjectTypeList| 13 | 表示List数据类型。 |
 |kObjectTypeTuple| 14 | 表示Tuple数据类型。 |
@@ -30,4 +30,4 @@
 |kNumberTypeFloat32| 43 | 表示Float32数据类型。 |
 |kNumberTypeFloat64| 44 | 表示Float64数据类型。|
 |kNumberTypeEnd| 46 | 表示Number类型的结尾。 |
-|kInvalidType | INT32_MAX | 表示无效的数据类型 |
+|kInvalidType | INT32_MAX | 表示无效的数据类型。 |

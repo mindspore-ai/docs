@@ -16,7 +16,7 @@ mindspore::dataset
 Dataset函数
 -----------------
 
-**Dataset函数**提供各种函数来加载和处理数据集。
+Dataset函数提供各种函数来加载和处理数据集。
 
 Vision
 ^^^^^^
@@ -46,7 +46,7 @@ Vision
 Dataset类
 ---------------
 
-**Dataset类**提供了数据集基类的定义。
+Dataset类提供了数据集基类的定义。
 以及数据集的常见转换操作，如map、shuffle和batch。
 还提供了用于获取数据的Iterator的定义。
 
@@ -57,7 +57,7 @@ Dataset类
 Sampler类
 ---------------
 
-**Sampler类**提供了采样器的定义，
+Sampler类提供了采样器的定义，
 用来从数据集中选择样本。
 
 - :doc:`../generate/classmindspore_dataset_Sampler`
@@ -72,7 +72,7 @@ Sampler类
 Eager类
 -------------
 
-**Eager类**提供了Execute类的定义。
+Eager类提供了Execute类的定义。
 该类用于在eager模式下对输入张量进行变换（例如视觉/文本）。
 
 - :doc:`../generate/classmindspore_dataset_Execute`
@@ -80,7 +80,7 @@ Eager类
 常量
 ---------
 
-**常量**提供了一些常用的枚举和常量变量。
+常量提供了一些常用的枚举和常量变量。
 
 - :doc:`../generate/enum_mindspore_dataset_BorderType-1`
 - :doc:`../generate/enum_mindspore_dataset_ImageBatchFormat-1`
@@ -155,7 +155,7 @@ Eager类
 Lite-CV
 -------
 
-**Lite-CV**是一个特殊的库，限制了没有OpenCV实现的图像转换方法。
+Lite-CV是一个特殊的库，限制了没有OpenCV实现的图像转换方法。
 需要注意的是，这个库只能在MindSpore的lite模式下通过选项 :py:obj:`-n lite_cv` 编译。
 有了这个库，与其他链接到OpenCV的库相比，lite包的大小将更小。
 
