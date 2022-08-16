@@ -184,7 +184,7 @@ try:
                        "auto mixed precision function.\n\n"),
                        ("mindspore/ops/functional.py", "modify format",
                        "function or cell.\n            For example, as for `out = fn(*args)`, gradient function will return outputs like (gradient, out).",
-                       "function or cell.\n        For example, as for `out = fn(*args)`, gradient function will return outputs like (gradient, out)."),
+                       "function or cell.\n        For example, as for `out1, out2 = fn(*args)` , gradient function will return outputs like\n        `((out1, out2), gradient)` . When `has_aux` is set True, only `out1` contributes to the differentiation."),
                        ("mindspore/ops/functional.py", "modify format",
                        "As for gradient, three typical cases are included:\n        1. gradient with respect to inputs. In this case, `grad_position` is not None while `weights` is None.\n        2. gradient with respect to weights. In this case, `grad_position` is None while `weights` is not None.\n    ",
                        "As for gradient, three typical cases are included:\n\n    1. gradient with respect to inputs. In this case, `grad_position` is not None while `weights` is None.\n    2. gradient with respect to weights. In this case, `grad_position` is None while `weights` is not None.\n"),
