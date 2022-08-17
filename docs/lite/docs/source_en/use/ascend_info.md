@@ -136,7 +136,7 @@ Table 1 [acl_option_cfg_param] parameter configuration
 | `dynamic_batch_size`       | Optional| Specifies the [dynamic batch size](#dynamic-batch-size) parameter.| String | `"2,4"`|
 | `dynamic_image_size`       | Optional| Specifies the [dynamic image size](#dynamic-image-size) parameter.| String | `"96,96;32,32"` |
 | `fusion_switch_config_file_path` | Optional| Configure the path and name of the [fusion pattern switch](https://support.huaweicloud.com/atctool-cann504alpha2infer/atlasatc_16_0077.html) file.| String   | -      |
-| `insert_op_config_file_path` | Optional| Inserts the [AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html) operator into a model.| String  | [AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html) configuration file path|
+| `insert_op_config_file_path` | Optional| Inserts the [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html) operator into a model.| String  | [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html) configuration file path|
 
 ## Runtime
 
