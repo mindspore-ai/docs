@@ -414,7 +414,7 @@ This chapter uses the STM32F767 startup project as an example to describe how to
 
 #### Integrating Model Inference Code and Inference Package
 
-- Copy the generated inference code to the project, decompress the inference package obtained in [Downloading Inference Package of Cortex-M Architecture](#downloading-inference-package-of-cortex-m-mrchitecture), and place it in the generated inference code directory, as shown in the following figure:
+- Copy the generated inference code to the project, decompress the inference package obtained in [Downloading Inference Package of Cortex-M Architecture](#downloading-inference-package-of-cortex-m-architecture), and place it in the generated inference code directory, as shown in the following figure:
 
     ```text
     stm32f767                                       # MCU project directory
