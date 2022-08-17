@@ -49,7 +49,7 @@ A: Set in the inference code through the SetPrecisionMode interface of Ascend310
 
 <font size=3>**Q: How to configure AIPP files?**</font>
 
-A: AIPP (artistic intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels). Real-time inference is performed after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://support.huaweicloud.com/atctool-cann502alpha3infer/atlasatc_16_0015.html).
+A: AIPP (artistic intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels). Real-time inference is performed after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0017.html).
 <br/>
 
 <font size=3>**Q: How to set the log level in the inferenct process of Ascend 310 AI Processor?**</font>
