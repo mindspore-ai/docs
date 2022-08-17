@@ -52,7 +52,7 @@ A: 在推理代码中通过Ascend310DeviceInfo中的SetPrecisionMode接口进行
 
 <font size=3>**Q: AIPP文件怎么配置？**</font>
 
-A: AIPP（Artificial Intelligence Pre-Processing）AI预处理，用于在AI Core上完成图像预处理，包括改变图像尺寸、色域转换（转换图像格式）、减均值/乘系数（改变图像像素），数据处理之后再进行真正的模型推理。相关的配置介绍比较复杂，可以参考[ATC工具的AIPP使能章节](https://support.huaweicloud.com/atctool-cann502alpha3infer/atlasatc_16_0015.html)。
+A: AIPP（Artificial Intelligence Pre-Processing）AI预处理，用于在AI Core上完成图像预处理，包括改变图像尺寸、色域转换（转换图像格式）、减均值/乘系数（改变图像像素），数据处理之后再进行真正的模型推理。相关的配置介绍比较复杂，可以参考[ATC工具的AIPP使能章节](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0017.html)。
 
 <br/>
 
