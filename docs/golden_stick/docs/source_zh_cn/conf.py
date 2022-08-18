@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
 import os
 import re
 import shutil
@@ -17,7 +18,7 @@ import sys
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
-import mindspore_gs
+sys.path.append(os.path.abspath('../_ext'))
 
 # -- Project information -----------------------------------------------------
 
@@ -69,11 +70,9 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
-html_static_path = ['_static']
-
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../../../resource/jieba.txt'}
+html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -137,6 +136,48 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
+from myautosummary import MsCnAutoSummary
+
+def setup(app):
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
+    app.add_config_value('rst_files', set(), False)
+
+# Copy source files of chinese python api from golden-stick repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+
+src_dir_api = os.path.join(os.getenv("GS_PATH"), 'docs/api/api_zh_cn')
+moment_dir=os.path.dirname(__file__)
+
+for root,dirs,files in os.walk(src_dir_api):
+    for file in files:
+        if root==src_dir_api:
+            if os.path.exists(os.path.join(moment_dir,file)):
+                os.remove(os.path.join(moment_dir,file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,file))
+        if '/pruner/' in root:
+            if os.path.exists(os.path.join(moment_dir,'pruner',file)):
+                os.remove(os.path.join(moment_dir,'pruner',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'pruner',file))
+        if '/quantization/' in root:
+            if os.path.exists(os.path.join(moment_dir,'quantization',file)):
+                os.remove(os.path.join(moment_dir,'quantization',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
+
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod

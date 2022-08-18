@@ -69,8 +69,6 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
-html_static_path = ['_static']
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -133,6 +131,20 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from golden-stick repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+
+src_dir_api = os.path.join(os.getenv("GS_PATH"), 'docs/api/api_en')
+moment_dir=os.path.dirname(__file__)
+
+for root,dirs,files in os.walk(src_dir_api):
+    for file in files:
+        if os.path.exists(os.path.join(moment_dir,file)):
+            os.remove(os.path.join(moment_dir,file))
+        shutil.copy(os.path.join(src_dir_api,file),os.path.join(moment_dir,file))
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
