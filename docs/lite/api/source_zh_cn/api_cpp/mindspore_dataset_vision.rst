@@ -63,8 +63,6 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_RGBA2RGB`
 - :doc:`../generate/classmindspore_dataset_vision_Rotate`
 - :doc:`../generate/classmindspore_dataset_vision_SlicePatches`
-- :doc:`../generate/classmindspore_dataset_vision_SoftDvppDecodeRandomCropResizeJpeg`
-- :doc:`../generate/classmindspore_dataset_vision_SoftDvppDecodeResizeJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_SwapRedBlue`
 - :doc:`../generate/classmindspore_dataset_vision_UniformAugment`
 - :doc:`../generate/classmindspore_dataset_vision_VerticalFlip`

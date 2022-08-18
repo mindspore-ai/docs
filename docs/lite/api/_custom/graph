@@ -2182,7 +2182,8 @@ class ExhaleRoot(object):
 
             for parent,dirnames,filenames in os.walk(dirE):
                 for filename in filenames:
-                    cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+                    if filename != "lite_c_example":
+                        cresult.append("   c_api/"+filename.split(".")[0]+"\n")
             cresult.sort()
 
             with open('./source_en/index.rst', "w", encoding="utf-8") as p:
@@ -2222,6 +2223,7 @@ MindSpore Lite API
    :caption: C API
 """)
                 p.write("\n"+"".join(cresult))
+                p.write("\n" + "   c_api/lite_c_example")
 
             dircapi = './source_en/c_api/'
             for file in os.listdir(dircapi):
@@ -2271,8 +2273,7 @@ MindSpore Lite API
 
             for parent,dirnames,filenames in os.walk(dire):
                 for filename in filenames:
-                    if filename != "lite_c_example":
-                        cresult.append("   api_c/"+filename.split(".")[0]+"\n")
+                    cresult.append("   api_c/"+filename.split(".")[0]+"\n")
             cresult.sort()
 
             with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
@@ -2306,7 +2307,7 @@ MindSpore Lite API
    :caption: C API
 """)
                 p.write("\n"+"".join(cresult))
-                p.write("\n" + "   api_c/lite_c_example")
+
 
 
     def generateAPIRootHeader(self):
