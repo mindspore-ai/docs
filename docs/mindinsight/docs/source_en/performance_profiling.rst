@@ -10,3 +10,4 @@ Performance data like operator's execution time is recorded in files and can be 
    performance_profiling_ascend_pynative
    performance_profiling_gpu
    performance_profiling_of_cluster
+   performance_profiling_of_parallel_training
