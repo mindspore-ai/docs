@@ -10,7 +10,9 @@ def lite_class_filter(file):
         content = data.decode('utf-8')
     except UnicodeDecodeError:
         content = data.decode('GBK')
-    if "MS_API" in content or "MIND_API" in content:
+    filename = os.path.basename(file)
+    if filename in ["data_type.h", "format.h", "data_type_c.h", "format_c.h", "opencl_runtime_wrapper.h"]\
+        or "MS_API" in content or "MIND_API" in content:
         print(content.replace("MS_API", "").replace("MIND_API", "")\
             .replace("MS_CORE_API", "").replace("MS_DECLARE_PARENT", ""))
     else:
