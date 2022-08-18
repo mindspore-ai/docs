@@ -381,7 +381,7 @@ for file_name1 in fileList1:
     file_data1 = ''
     with open(file_name1, 'r', encoding='utf-8') as f:
         for line1 in f:
-            line1 = re.sub(r'enum class (.*) {', r'enum class \1(converter) {', line1)
+            line1 = re.sub(r'enum class (.*) {', r'enum class \1_converter {', line1)
             file_data1 += line1
     with open(file_name1, 'w', encoding='utf-8') as p:
         p.write(file_data1)
@@ -395,7 +395,7 @@ for file_name2 in fileList2:
     file_data2 = ''
     with open(file_name2, 'r', encoding='utf-8') as f:
         for line2 in f:
-            line2 = re.sub(r'enum class (.*) {', r'enum class \1(runtime) {', line2)
+            line2 = re.sub(r'enum class (.*) {', r'enum class \1_runtime {', line2)
             file_data2 += line2
     with open(file_name2, 'w', encoding='utf-8') as p:
         p.write(file_data2)
