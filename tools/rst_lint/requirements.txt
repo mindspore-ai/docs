@@ -1,3 +1,4 @@
 docutils
 restructuredtext_lint
 sphinx==2.4.4
+jinja2==3.0.3
