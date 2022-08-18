@@ -13,6 +13,8 @@ mindspore::dataset::vision
 
 
 - :doc:`../generate/classmindspore_dataset_vision_AdjustGamma`
+- :doc:`../generate/classmindspore_dataset_vision_AdjustSaturation`
+- :doc:`../generate/classmindspore_dataset_vision_AdjustSharpness`
 - :doc:`../generate/classmindspore_dataset_vision_Affine`
 - :doc:`../generate/classmindspore_dataset_vision_AutoContrast`
 - :doc:`../generate/classmindspore_dataset_vision_BoundingBoxAugment`
@@ -26,6 +28,7 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodeResizeCropJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodeResizeJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_Equalize`
+- :doc:`../generate/classmindspore_dataset_vision_Erase`
 - :doc:`../generate/classmindspore_dataset_vision_GaussianBlur`
 - :doc:`../generate/classmindspore_dataset_vision_HorizontalFlip`
 - :doc:`../generate/classmindspore_dataset_vision_HWC2CHW`
@@ -34,14 +37,20 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_Normalize`
 - :doc:`../generate/classmindspore_dataset_vision_NormalizePad`
 - :doc:`../generate/classmindspore_dataset_vision_Pad`
+- :doc:`../generate/classmindspore_dataset_vision_PadToSize`
+- :doc:`../generate/classmindspore_dataset_vision_Posterize`
+- :doc:`../generate/classmindspore_dataset_vision_RandomAdjustSharpness`
 - :doc:`../generate/classmindspore_dataset_vision_RandomAffine`
 - :doc:`../generate/classmindspore_dataset_vision_RandomColor`
 - :doc:`../generate/classmindspore_dataset_vision_RandomColorAdjust`
 - :doc:`../generate/classmindspore_dataset_vision_RandomCrop`
 - :doc:`../generate/classmindspore_dataset_vision_RandomCropDecodeResize`
 - :doc:`../generate/classmindspore_dataset_vision_RandomCropWithBBox`
+- :doc:`../generate/classmindspore_dataset_vision_RandomEqualize`
 - :doc:`../generate/classmindspore_dataset_vision_RandomHorizontalFlip`
 - :doc:`../generate/classmindspore_dataset_vision_RandomHorizontalFlipWithBBox`
+- :doc:`../generate/classmindspore_dataset_vision_RandomInvert`
+- :doc:`../generate/classmindspore_dataset_vision_RandomLighting`
 - :doc:`../generate/classmindspore_dataset_vision_RandomPosterize`
 - :doc:`../generate/classmindspore_dataset_vision_RandomResize`
 - :doc:`../generate/classmindspore_dataset_vision_RandomResizedCrop`
@@ -63,6 +72,9 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_RGBA2RGB`
 - :doc:`../generate/classmindspore_dataset_vision_Rotate`
 - :doc:`../generate/classmindspore_dataset_vision_SlicePatches`
+- :doc:`../generate/classmindspore_dataset_vision_Solarize`
 - :doc:`../generate/classmindspore_dataset_vision_SwapRedBlue`
+- :doc:`../generate/classmindspore_dataset_vision_ToTensor`
+- :doc:`../generate/classmindspore_dataset_vision_TrivialAugmentWide`
 - :doc:`../generate/classmindspore_dataset_vision_UniformAugment`
 - :doc:`../generate/classmindspore_dataset_vision_VerticalFlip`
