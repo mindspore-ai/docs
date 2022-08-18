@@ -15,6 +15,7 @@ mindspore::dataset::text
 - :doc:`../generate/classmindspore_dataset_text_BasicTokenizer`
 - :doc:`../generate/classmindspore_dataset_text_BertTokenizer`
 - :doc:`../generate/classmindspore_dataset_text_CaseFold`
+- :doc:`../generate/classmindspore_dataset_text_FilterWikipediaXML`
 - :doc:`../generate/classmindspore_dataset_text_JiebaTokenizer`
 - :doc:`../generate/classmindspore_dataset_text_Lookup`
 - :doc:`../generate/classmindspore_dataset_text_Ngram`
@@ -24,6 +25,7 @@ mindspore::dataset::text
 - :doc:`../generate/classmindspore_dataset_text_SentencePieceTokenizer`
 - :doc:`../generate/classmindspore_dataset_text_SlidingWindow`
 - :doc:`../generate/classmindspore_dataset_text_ToNumber`
+- :doc:`../generate/classmindspore_dataset_text_ToVectors`
 - :doc:`../generate/classmindspore_dataset_text_TruncateSequencePair`
 - :doc:`../generate/classmindspore_dataset_text_UnicodeCharTokenizer`
 - :doc:`../generate/classmindspore_dataset_text_UnicodeScriptTokenizer`
