@@ -11,8 +11,12 @@ def lite_class_filter(file):
     except UnicodeDecodeError:
         content = data.decode('GBK')
     filename = os.path.basename(file)
-    if filename in ["data_type.h", "format.h", "data_type_c.h", "format_c.h", "opencl_runtime_wrapper.h"]\
-        or "MS_API" in content or "MIND_API" in content:
+    white_files = [
+        "data_type.h", "format.h", "data_type_c.h", "format_c.h",
+        "opencl_runtime_wrapper.h", "dual_abi_helper.h"
+        ]
+    if filename in white_files\
+        or "MS_API" in content or "MIND_API" in content or "/callback/" in file:
         print(content.replace("MS_API", "").replace("MIND_API", "")\
             .replace("MS_CORE_API", "").replace("MS_DECLARE_PARENT", ""))
     else:
