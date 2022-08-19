@@ -11,8 +11,6 @@ mindspore::dataset::transforms
 类
 -------
 
-- :doc:`../generate/classmindspore_dataset_transforms_AdjustBrightness`
-- :doc:`../generate/classmindspore_dataset_transforms_AdjustHue`
 - :doc:`../generate/classmindspore_dataset_transforms_Compose`
 - :doc:`../generate/classmindspore_dataset_transforms_Concatenate`
 - :doc:`../generate/classmindspore_dataset_transforms_Duplicate`

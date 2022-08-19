@@ -12,10 +12,14 @@ mindspore::dataset::vision
 -------
 
 
+- :doc:`../generate/classmindspore_dataset_vision_AdjustBrightness`
+- :doc:`../generate/classmindspore_dataset_vision_AdjustContrast`
 - :doc:`../generate/classmindspore_dataset_vision_AdjustGamma`
+- :doc:`../generate/classmindspore_dataset_vision_AdjustHue`
 - :doc:`../generate/classmindspore_dataset_vision_AdjustSaturation`
 - :doc:`../generate/classmindspore_dataset_vision_AdjustSharpness`
 - :doc:`../generate/classmindspore_dataset_vision_Affine`
+- :doc:`../generate/classmindspore_dataset_vision_AutoAugment`
 - :doc:`../generate/classmindspore_dataset_vision_AutoContrast`
 - :doc:`../generate/classmindspore_dataset_vision_BoundingBoxAugment`
 - :doc:`../generate/classmindspore_dataset_vision_CenterCrop`
@@ -27,6 +31,7 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodePng`
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodeResizeCropJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodeResizeJpeg`
+- :doc:`../generate/classmindspore_dataset_vision_DvppDecodeVideo`
 - :doc:`../generate/classmindspore_dataset_vision_Equalize`
 - :doc:`../generate/classmindspore_dataset_vision_Erase`
 - :doc:`../generate/classmindspore_dataset_vision_GaussianBlur`
@@ -41,6 +46,7 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_Posterize`
 - :doc:`../generate/classmindspore_dataset_vision_RandomAdjustSharpness`
 - :doc:`../generate/classmindspore_dataset_vision_RandomAffine`
+- :doc:`../generate/classmindspore_dataset_vision_RandomAutoContrast`
 - :doc:`../generate/classmindspore_dataset_vision_RandomColor`
 - :doc:`../generate/classmindspore_dataset_vision_RandomColorAdjust`
 - :doc:`../generate/classmindspore_dataset_vision_RandomCrop`
@@ -78,3 +84,9 @@ mindspore::dataset::vision
 - :doc:`../generate/classmindspore_dataset_vision_TrivialAugmentWide`
 - :doc:`../generate/classmindspore_dataset_vision_UniformAugment`
 - :doc:`../generate/classmindspore_dataset_vision_VerticalFlip`
+
+函数
+-------
+
+- :doc:`../generate/function_mindspore_dataset_vision_GetImageNumChannels-1`
+- :doc:`../generate/function_mindspore_dataset_vision_GetImageSize-1`
