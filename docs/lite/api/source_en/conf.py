@@ -322,7 +322,7 @@ shutil.rmtree("../include/runtime/include/schema")
 shutil.rmtree("../include/runtime/include/third_party")
 shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
-os.remove("../include/converter/include/api/types.h")
+shutil.rmtree("../include/converter/include/api")
 
 process = os.popen('pip show mindspore|grep Location')
 output = process.read()
@@ -372,33 +372,33 @@ for file_name in fileList:
 #     with open(file_name, 'w', encoding='utf-8') as p:
 #         p.write(file_data)
 
-fileList1 = []
-for root1, dirs1, files1 in os.walk('../include/converter/'):
-    for fileObj1 in files1:
-        fileList1.append(os.path.join(root1, fileObj1))
+# fileList1 = []
+# for root1, dirs1, files1 in os.walk('../include/converter/'):
+#     for fileObj1 in files1:
+#         fileList1.append(os.path.join(root1, fileObj1))
 
-for file_name1 in fileList1:
-    file_data1 = ''
-    with open(file_name1, 'r', encoding='utf-8') as f:
-        for line1 in f:
-            line1 = re.sub(r'enum class (.*) {', r'enum class \1_converter {', line1)
-            file_data1 += line1
-    with open(file_name1, 'w', encoding='utf-8') as p:
-        p.write(file_data1)
+# for file_name1 in fileList1:
+#     file_data1 = ''
+#     with open(file_name1, 'r', encoding='utf-8') as f:
+#         for line1 in f:
+#             line1 = re.sub(r'enum class (.*) :', r'enum class \1_converter :', line1)
+#             file_data1 += line1
+#     with open(file_name1, 'w', encoding='utf-8') as p:
+#         p.write(file_data1)
 
-fileList2 = []
-for root2, dirs2, files2 in os.walk('../include/runtime/'):
-    for fileObj2 in files2:
-        fileList2.append(os.path.join(root2, fileObj2))
+# fileList2 = []
+# for root2, dirs2, files2 in os.walk('../include/runtime/'):
+#     for fileObj2 in files2:
+#         fileList2.append(os.path.join(root2, fileObj2))
 
-for file_name2 in fileList2:
-    file_data2 = ''
-    with open(file_name2, 'r', encoding='utf-8') as f:
-        for line2 in f:
-            line2 = re.sub(r'enum class (.*) {', r'enum class \1_runtime {', line2)
-            file_data2 += line2
-    with open(file_name2, 'w', encoding='utf-8') as p:
-        p.write(file_data2)
+# for file_name2 in fileList2:
+#     file_data2 = ''
+#     with open(file_name2, 'r', encoding='utf-8') as f:
+#         for line2 in f:
+#             line2 = re.sub(r'enum class (.*) :', r'enum class \1_runtime :', line2)
+#             file_data2 += line2
+#     with open(file_name2, 'w', encoding='utf-8') as p:
+#         p.write(file_data2)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
