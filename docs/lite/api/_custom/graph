@@ -2113,6 +2113,12 @@ class ExhaleRoot(object):
             #     if file.startswith('enum') and file.endswith('-2.rst'):
             #         os.remove(dirA+file)
 
+            for file in os.listdir(dirA):
+                if file.endswith('runtime-1.rst') or file.endswith('converter-1.rst'):
+                    old_name = str(file)
+                    new_name = str(file).replace('_runtime', '').replace('_converter', '')
+                    os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
+
             for i in os.listdir(dirA):
                 if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
                     new_name = i.replace("__", "_").split("_", 1)[-1]
