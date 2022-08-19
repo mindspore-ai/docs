@@ -415,7 +415,7 @@ print(result)
     [-0.]
 ```
 
-The preceding print result shows that the value of `-sin(3.1415926)` is close to `0`.
+The preceding print result shows that the value of $-sin(3.1415926)$ is close to $0$.
 
 ### Single-input Multi-output High-order Derivative
 
@@ -493,7 +493,7 @@ print(result)
     [1.]
 ```
 
-The preceding print result shows that the value of `-sin(3.1415926) - cos(3.1415926)` is close to `1`.
+The preceding print result shows that the value of $-sin(3.1415926) - cos(3.1415926)$ is close to $1$.
 
 ### Multiple-Input Multiple-Output High-Order Derivative
 
@@ -587,6 +587,6 @@ print(np.around(output[1].asnumpy(), decimals=2))
     [-1.]
 ```
 
-According to the preceding result, the value of the second derivative `-sin(3.1415926) - cos(3.1415926)` of the output to the input $x$ is close to `1`, and the value of the second derivative `sin(3.1415926) + cos(3.1415926)` of the output to the input $y$ is close to `-1`.
+According to the preceding result, the value of the second derivative $-sin(3.1415926) - cos(3.1415926)$ of the output to the input $x$ is close to $1$, and the value of the second derivative $sin(3.1415926) + cos(3.1415926)$ of the output to the input $y$ is close to $-1$.
 
 > The accuracy may vary depending on the computing platform. Therefore, the execution results of the code in this section vary slightly on different platforms.
