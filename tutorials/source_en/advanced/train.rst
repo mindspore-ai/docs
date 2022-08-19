@@ -2,6 +2,10 @@ Training and Evaluation
 =======================
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   train/save
+  train/metric
+  train/train_eval
+  train/model
+  train/callback
+  train/save

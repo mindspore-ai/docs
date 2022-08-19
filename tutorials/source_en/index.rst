@@ -26,6 +26,8 @@ MindSpore Tutorial
    :maxdepth: 1
    :caption: Advanced
 
+   advanced/linear_fitting
    advanced/dataset
    advanced/network
    advanced/train
+   advanced/pynative_graph
