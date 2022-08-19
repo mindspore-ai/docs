@@ -2113,11 +2113,11 @@ class ExhaleRoot(object):
             #     if file.startswith('enum') and file.endswith('-2.rst'):
             #         os.remove(dirA+file)
 
-            for file in os.listdir(dirA):
-                if file.endswith('runtime-1.rst') or file.endswith('converter-1.rst'):
-                    old_name = str(file)
-                    new_name = str(file).replace('_runtime', '').replace('_converter', '')
-                    os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
+            # for file in os.listdir(dirA):
+            #     if file.endswith('runtime-1.rst') or file.endswith('converter-1.rst'):
+            #         old_name = str(file)
+            #         new_name = str(file).replace('_runtime', '').replace('_converter', '')
+            #         os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
 
             for i in os.listdir(dirA):
                 if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
@@ -2143,6 +2143,7 @@ class ExhaleRoot(object):
                     mystr = "".join(mystr) + "\n"
                     result = "".join(mycontent[i]).replace("- :ref:`exhale_", "- :doc:`../generate/")
                     result = result.replace("class_class", "class").replace("struct_struct", "struct").replace("union_union", "union")
+                    #result = result.replace("_runtime", "").replace("_converter", "")
                     out_path = "/".join(dirC.split("/")[:-1])+"/{}".format(file)
                     with open(out_path, "w", encoding="utf-8") as p:
                         p.write(mystr +"\n"+result)
@@ -2257,9 +2258,9 @@ MindSpore Lite API
                     if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
                         shutil.copy(source_cppapi+file_, target_cppapi)
 
-            for file in os.listdir(dira):
-                if file.startswith('enum') and file.endswith('-2.rst'):
-                    os.remove(dira+file)
+            # for file in os.listdir(dira):
+            #     if file.startswith('enum') and file.endswith('-2.rst'):
+            #         os.remove(dira+file)
 
             dire = './source_zh_cn/api_c/'
             cppresult = []
@@ -2267,7 +2268,7 @@ MindSpore Lite API
             cresult = []
             for parent,dirnames,filenames in os.walk(dirc):
                 for filename in filenames:
-                    if filename != "lite_cpp_example.rst":
+                    if filename != "lite_cpp_example.rst" and filename != "mindspore_datatype.md" and filename != "mindspore_format.md":
                         cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
             cppresult.sort()
 
