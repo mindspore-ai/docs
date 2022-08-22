@@ -16,7 +16,6 @@ import sys
 import textwrap
 import shutil
 import glob
-import sphinx
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
@@ -207,7 +206,10 @@ exhale_args = {
     "verboseBuild": False,
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
+        INPUT_FILTER = "python3 ../lite_api_filter.py"
         EXTRACT_ALL = NO
+        FILE_PATTERNS = *.h
+        EXCLUDE_PATTERNS = *schema* *third_party*
         HIDE_UNDOC_CLASSES = YES
         HIDE_UNDOC_MEMBERS = YES
         EXCLUDE_SYMBOLS = operator* GVAR*
@@ -287,22 +289,6 @@ lite_dir = './mindspore_lite'
 if os.path.exists(lite_dir):
     shutil.rmtree(lite_dir)
 
-# replace py_files that have too many errors.
-try:
-    decorator_list = [("mindspore_lite/context.py","mindspore/lite/python/api/context.py"),
-                      ("mindspore_lite/converter.py","mindspore/lite/python/api/converter.py"),
-                      ("mindspore_lite/model.py","mindspore/lite/python/api/model.py"),
-                      ("mindspore_lite/tensor.py","mindspore/lite/python/api/tensor.py")]
-
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
-        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
-            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
-        shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
-
-except:
-    pass
-
 import mindspore_lite
 
 des_sir = "../include"
@@ -336,8 +322,7 @@ shutil.rmtree("../include/runtime/include/schema")
 shutil.rmtree("../include/runtime/include/third_party")
 shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
-shutil.rmtree("../include/runtime/include/c_api")
-os.remove("../include/converter/include/api/types.h")
+shutil.rmtree("../include/converter/include/api")
 
 process = os.popen('pip show mindspore|grep Location')
 output = process.read()
@@ -352,17 +337,68 @@ for file_ in os.listdir("./api_cpp"):
     if file_.startswith("mindspore_") and file_ != 'mindspore_dataset.rst':
         os.remove("./api_cpp/"+file_)
 
-# Remove "MS_API" in classes.
-files_copyed = glob.glob("../include/**/*.h", recursive=True)
-for file in files_copyed:
-    with open(file, "r+", encoding="utf8") as f:
-        content = f.read()
-        if "MS_API" in content:
-            content_new = content.replace("MS_API", "")
-            f.seek(0)
-            f.truncate()
-            f.write(content_new)
+fileList = []
+for root, dirs, files in os.walk('../include/'):
+    for fileObj in files:
+        fileList.append(os.path.join(root, fileObj))
 
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.replace('enum class', 'enum')
+            file_data += line
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(file_data)
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = re.sub('^enum', 'enum class', line)
+            file_data += line
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(file_data)
+
+# for file_name in fileList:
+#     file_data = ''
+#     with open(file_name, 'r', encoding='utf-8') as f:
+#         for line in f:
+#             line = line.replace('MS_API', '')
+#             line = line.replace('MS_CORE_API', '')
+#             line = line.replace('MIND_API', '')
+#             line = line.replace('MS_DECLARE_PARENT', '')
+#             file_data += line
+#     with open(file_name, 'w', encoding='utf-8') as p:
+#         p.write(file_data)
+
+# fileList1 = []
+# for root1, dirs1, files1 in os.walk('../include/converter/'):
+#     for fileObj1 in files1:
+#         fileList1.append(os.path.join(root1, fileObj1))
+
+# for file_name1 in fileList1:
+#     file_data1 = ''
+#     with open(file_name1, 'r', encoding='utf-8') as f:
+#         for line1 in f:
+#             line1 = re.sub(r'enum class (.*) :', r'enum class \1_converter :', line1)
+#             file_data1 += line1
+#     with open(file_name1, 'w', encoding='utf-8') as p:
+#         p.write(file_data1)
+
+# fileList2 = []
+# for root2, dirs2, files2 in os.walk('../include/runtime/'):
+#     for fileObj2 in files2:
+#         fileList2.append(os.path.join(root2, fileObj2))
+
+# for file_name2 in fileList2:
+#     file_data2 = ''
+#     with open(file_name2, 'r', encoding='utf-8') as f:
+#         for line2 in f:
+#             line2 = re.sub(r'enum class (.*) :', r'enum class \1_runtime :', line2)
+#             file_data2 += line2
+#     with open(file_name2, 'w', encoding='utf-8') as p:
+#         p.write(file_data2)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
