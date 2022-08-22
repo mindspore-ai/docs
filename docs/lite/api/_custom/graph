@@ -2109,6 +2109,16 @@ class ExhaleRoot(object):
             dirB='./source_en/tmp_generate/'
             dirC='./source_en/api_cpp/'
             dirD='./source_en/api_java/'
+            # for file in os.listdir(dirA):
+            #     if file.startswith('enum') and file.endswith('-2.rst'):
+            #         os.remove(dirA+file)
+
+            # for file in os.listdir(dirA):
+            #     if file.endswith('runtime-1.rst') or file.endswith('converter-1.rst'):
+            #         old_name = str(file)
+            #         new_name = str(file).replace('_runtime', '').replace('_converter', '')
+            #         os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
+
             for i in os.listdir(dirA):
                 if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
                     new_name = i.replace("__", "_").split("_", 1)[-1]
@@ -2133,14 +2143,38 @@ class ExhaleRoot(object):
                     mystr = "".join(mystr) + "\n"
                     result = "".join(mycontent[i]).replace("- :ref:`exhale_", "- :doc:`../generate/")
                     result = result.replace("class_class", "class").replace("struct_struct", "struct").replace("union_union", "union")
+                    #result = result.replace("_runtime", "").replace("_converter", "")
                     out_path = "/".join(dirC.split("/")[:-1])+"/{}".format(file)
                     with open(out_path, "w", encoding="utf-8") as p:
                         p.write(mystr +"\n"+result)
 
             shutil.rmtree(dirB)
 
+#             dirE = './source_en/c_api/'
+#             if not os.path.exists(dirE):
+#                 os.makedirs(dirE)
+#             mycapi = []
+#             for parent,dirnames,filenames in os.walk(dirA):
+#                 for filename in filenames:
+#                     if '_c.h' in filename and 'include' not in filename and 'listing' not in filename:
+#                         indexname = filename.split(".h")[0].split("_", 1)[1]
+#                         for parent,dirnames,filenames in os.walk(dirA):
+#                             for filename in filenames:
+#                                 if 'include' not in filename and 'listing' not in filename:
+#                                     if indexname+'.h' in filename:
+#                                         mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n\n")
+#                         mycapi.sort()
+#                         with open('./source_en/c_api/'+indexname+'.rst', 'w', encoding='utf-8') as p:
+#                             p.write(indexname+"""
+# =======================
+
+# """)
+#                             p.write("\n\n"+"".join(mycapi))
+#                         mycapi = []
+
             cppresult = []
             javaresult = []
+            cresult = []
             for parent,dirnames,filenames in os.walk(dirC):
                 for filename in filenames:
                     if filename != "lite_cpp_example.rst":
@@ -2152,6 +2186,12 @@ class ExhaleRoot(object):
                     if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
             javaresult.sort()
+
+            # for parent,dirnames,filenames in os.walk(dirE):
+            #     for filename in filenames:
+            #         if filename != "lite_c_example":
+            #             cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+            # cresult.sort()
 
             with open('./source_en/index.rst', "w", encoding="utf-8") as p:
                 p.write(
@@ -2184,6 +2224,26 @@ MindSpore Lite API
 
    mindspore_lite
 """)
+#                 p.write("\n\n"+"""
+# .. toctree::
+#    :maxdepth: 1
+#    :caption: C API
+# """)
+#                 p.write("\n"+"".join(cresult))
+#                 p.write("   c_api/lite_c_example")
+
+#             dircapi = './source_en/c_api/'
+#             for file in os.listdir(dircapi):
+#                 with open(dircapi+file, 'r', encoding='utf-8') as f:
+#                     data = f.read()
+#                     result = data.replace('- :doc:`../generate/enum', 'Enum\n-------\n\n- :doc:`../generate/enum', 1)
+#                     result = result.replace('- :doc:`../generate/class', 'Class\n-------\n\n- :doc:`../generate/class', 1)
+#                     result = result.replace('- :doc:`../generate/function', 'Functions\n------------\n\n- :doc:`../generate/function', 1)
+#                     result = result.replace('- :doc:`../generate/define', 'Define\n------------\n\n- :doc:`../generate/define', 1)
+#                     result = result.replace('- :doc:`../generate/typedef', 'Typedef\n------------\n\n- :doc:`../generate/typedef', 1)
+#                     out_path = '/'.join(dircapi.split('/')[:-1])+'/{}'.format(file)
+#                     with open(out_path, 'w', encoding='utf-8') as p:
+#                         p.write(result)
 
         dira='./source_zh_cn/generate/'
         if os.path.exists(dira):
@@ -2198,11 +2258,17 @@ MindSpore Lite API
                     if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
                         shutil.copy(source_cppapi+file_, target_cppapi)
 
+            # for file in os.listdir(dira):
+            #     if file.startswith('enum') and file.endswith('-2.rst'):
+            #         os.remove(dira+file)
+
+            dire = './source_zh_cn/api_c/'
             cppresult = []
             javaresult = []
+            cresult = []
             for parent,dirnames,filenames in os.walk(dirc):
                 for filename in filenames:
-                    if filename != "lite_cpp_example.rst":
+                    if filename != "lite_cpp_example.rst" and filename != "mindspore_datatype.md" and filename != "mindspore_format.md":
                         cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
             cppresult.sort()
 
@@ -2212,14 +2278,14 @@ MindSpore Lite API
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
             javaresult.sort()
 
-            with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
-                p.write(
-        """.. MindSpore documentation master file, created by
-   sphinx-quickstart on Thu Mar 24 10:00:00 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+            # for parent,dirnames,filenames in os.walk(dire):
+            #     for filename in filenames:
+            #         if filename != "lite_c_example.rst":
+            #             cresult.append("   api_c/"+filename.split(".")[0]+"\n")
+            # cresult.sort()
 
-MindSpore Lite API
+            with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
+                p.write("""MindSpore Lite API
 =======================
 
 .. toctree::
@@ -2243,6 +2309,13 @@ MindSpore Lite API
 
    mindspore_lite
 """)
+#                 p.write("\n\n"+"""
+# .. toctree::
+#    :maxdepth: 1
+#    :caption: C API
+# """)
+#                 p.write("\n"+"".join(cresult))
+#                 p.write("   api_c/lite_c_example")
 
     def generateAPIRootHeader(self):
         '''
