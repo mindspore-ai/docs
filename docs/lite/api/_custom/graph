@@ -2280,7 +2280,8 @@ MindSpore Lite API
 
             for parent,dirnames,filenames in os.walk(dire):
                 for filename in filenames:
-                    cresult.append("   api_c/"+filename.split(".")[0]+"\n")
+                    if filename != "lite_c_example.rst":
+                        cresult.append("   api_c/"+filename.split(".")[0]+"\n")
             cresult.sort()
 
             with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
@@ -2314,6 +2315,7 @@ MindSpore Lite API
    :caption: C API
 """)
                 p.write("\n"+"".join(cresult))
+                p.write("\n" + "   api_c/lite_c_example")
 
 
 
