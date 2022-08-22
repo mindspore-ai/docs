@@ -2156,11 +2156,11 @@ class ExhaleRoot(object):
             mycapi = []
             for parent,dirnames,filenames in os.walk(dirA):
                 for filename in filenames:
-                    if '_c.h' in filename and 'include' not in filename and 'listing' not in filename:
+                    if '_c.h' in filename and 'include' not in filename and 'listing' not in filename and 'typedef' not in filename:
                         indexname = filename.split(".h")[0].split("_", 1)[1]
                         for parent,dirnames,filenames in os.walk(dirA):
                             for filename in filenames:
-                                if 'include' not in filename and 'listing' not in filename:
+                                if 'include' not in filename and 'listing' not in filename and 'typedef' not in filename:
                                     if indexname+'.h' in filename:
                                         mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n\n")
                         mycapi.sort()
