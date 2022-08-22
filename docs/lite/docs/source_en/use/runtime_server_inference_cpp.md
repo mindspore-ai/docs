@@ -55,7 +55,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 > For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
 >
-> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_DeviceType-1.html) and [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_DeviceType-1.html) two different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
+> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html) and [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html) two different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
 > Multi-model concurrent inference does not support FP32-type data inference. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
 
