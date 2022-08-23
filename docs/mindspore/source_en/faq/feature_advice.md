@@ -14,12 +14,6 @@ A: MindSpore uses Protobuf to store training parameters and cannot directly read
 
 <br/>
 
-<font size=3>**Q: What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
-
-A: When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
-
-<br/>
-
 <font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
 
 A: Compare through the following four aspects:
@@ -72,7 +66,7 @@ A: An AIR cannot be exported from the Ascend 310. You need to load a trained che
 
 <font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports MINDIR and doesn't support AIR and ONNX formats. The import size limitation is the same as that of export.
+A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports the importing of MINDIR and doesn't support the importing of AIR and ONNX formats. The importing of MINDIR does not have size limitation.
 
 <br/>
 

@@ -14,12 +14,6 @@ A:  MindSpore采用Protobuf存储训练参数，无法直接读取其他框架�
 
 <br/>
 
-<font size=3>**Q: 在使用ckpt或导出模型的过程中，报Protobuf内存限制错误，如何处理？**</font>
-
-A: 当单条Protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
-
-<br/>
-
 <font size=3>**Q: PyNative模式和Graph模式的区别？**</font>
 
 A: 通过下面四个方面进行对比：
@@ -72,7 +66,7 @@ A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <font size=3>**Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
+A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入AIR、ONNX格式，只支持导入MINDIR。 MINDIR的导入不存在模型参数大小限制。
 
 <br/>
 
