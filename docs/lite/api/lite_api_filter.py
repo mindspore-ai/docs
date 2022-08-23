@@ -13,7 +13,8 @@ def lite_class_filter(file):
     filename = os.path.basename(file)
     white_files = [
         "data_type.h", "format.h", "data_type_c.h", "format_c.h",
-        "opencl_runtime_wrapper.h", "dual_abi_helper.h"
+        "opencl_runtime_wrapper.h", "dual_abi_helper.h", "lite_mat.h",
+        "image_process.h"
         ]
     if filename in white_files\
         or "MS_API" in content or "MIND_API" in content or "/callback/" in file:
