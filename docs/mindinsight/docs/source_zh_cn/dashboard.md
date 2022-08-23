@@ -172,7 +172,7 @@
 
 降精度算子分析模块支持一键查看当前模型所有算子信息以及是否为降精度算子，支持展示summary日志文件与通过`context`的`save_graphs`参数导出的`pb`文件。
 
-![data_op_precision.png](./images/data_op_precision.png)
+![dashboard_op_precision.png](./images/dashboard_op_precision.png)
 
 *图15：表格展示*
 
