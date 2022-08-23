@@ -1,6 +1,6 @@
 # Case: Linear Fitting
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/train/linear_fitting.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/linear_fitting.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides high-level, medium-level, and low-level APIs. For details, see [API Level Structure](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html#api-level-structure).
 
@@ -97,7 +97,7 @@ plt.title("Eval data")
 plt.show()
 ```
 
-![png](output_8_0.png)
+![png](./images/output_8_0.png)
 
 In the figure shown above, the green line indicates the target function, and the red point indicates the evaluation data (`train_data`).
 
@@ -188,7 +188,7 @@ plt.plot(x_target_label, y_target_label, color="green")
 plt.show()
 ```
 
-![png](output_16_0.png)
+![png](./images/output_16_0.png)
 
 ## Customized Loss Functions
 
@@ -353,7 +353,7 @@ for data in ds_train.create_dict_iterator():
     plot_model_and_datasets(train_net, train_data, loss)    # Visualize the.
 ```
 
-![png](output_28_0.png)
+![png](./images/output_28_0.png)
 
 ## Customized Evaluation Metrics
 
