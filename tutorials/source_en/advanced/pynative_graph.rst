@@ -1,5 +1,5 @@
 Dynamic and Static Graphs
-===================
+==========================
 
 .. toctree::
   :maxdepth: 1
