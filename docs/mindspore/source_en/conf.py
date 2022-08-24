@@ -219,6 +219,26 @@ try:
 except:
     pass
 
+# replace py_files that have too many errors.
+try:
+    decorator_list = [("mindspore/common/tensor.py","mindspore/python/mindspore/common/tensor.py"),
+                      ("mindspore/nn/layer/activation.py","mindspore/python/mindspore/nn/layer/activation.py"),
+                      ("mindspore/nn/layer/conv.py","mindspore/python/mindspore/nn/layer/conv.py"),
+                      ("mindspore/ops/function/math_func.py","mindspore/python/mindspore/ops/function/math_func.py"),
+                      ("mindspore/ops/function/nn_func.py","mindspore/python/mindspore/ops/function/nn_func.py"),
+                      ("mindspore/ops/operations/array_ops.py","mindspore/python/mindspore/ops/operations/array_ops.py"),
+                      ("mindspore/ops/operations/math_ops.py","mindspore/python/mindspore/ops/operations/math_ops.py"),
+                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+
+except:
+    pass
+
 import mindspore
 
 
