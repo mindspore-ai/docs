@@ -99,7 +99,7 @@ python test_custom_hybrid.py
 
 ### tbe类型的自定义算子开发
 
-tbe类型的自定义算子使用TBE（Tensor Boost Engine）算子DSL，描述算子内部计算逻辑的实现。算子DSL开发可以参考[TBE文档](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0063.html)。
+tbe类型的自定义算子使用TBE（Tensor Boost Engine）算子DSL，描述算子内部计算逻辑的实现。算子DSL开发可以参考[TBE文档](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/tbedevg/tbedevg_000003.html)。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
@@ -167,7 +167,7 @@ python test_custom_tbe.py
 
 ### aicpu类型的自定义算子开发
 
-aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于提供的特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后框架会根据开发者在算子属性中配置的动态链接库名称，找到对应动态链接库并加载算子。具体算子实现参考[CANN AICPU 自定义算子开发](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0193.html)。
+aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于提供的特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后框架会根据开发者在算子属性中配置的动态链接库名称，找到对应动态链接库并加载算子。具体算子实现参考[CANN AICPU 自定义算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/aicpudevg/aicpudevg_000026.html)。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 

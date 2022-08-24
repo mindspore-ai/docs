@@ -101,7 +101,7 @@ The execution result is as follows:
 
 ### Defining Custom Operator of tbe Type
 
-The custom operator of tbe type uses the TBE(Tensor Boost Engine) operator DSL to describe the internal calculation logic of the operator. You can refer to the [TBE document](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0063.html) for the implementation details.
+The custom operator of tbe type uses the TBE(Tensor Boost Engine) operator DSL to describe the internal calculation logic of the operator. You can refer to the [TBE document](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/tbedevg/tbedevg_000003.html) for the implementation details.
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
@@ -169,7 +169,7 @@ The execution result is as follows:
 
 ### Defining Custom Operator of aicpu Type
 
-The custom operator of the aicpu type adopts the AOT compilation method, which requires the operator developer to implement the corresponding source code file of the function based on the specific interface provided, and compiles the source code file into a dynamic link library in advance. The framework will find the corresponding dynamic link library and load the operator according to the name of the dynamic link library configured by the developer in the operator properties. Reference for specific operator implementation [CANN AICPU Custom Operator Development](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0193.html).
+The custom operator of the aicpu type adopts the AOT compilation method, which requires the operator developer to implement the corresponding source code file of the function based on the specific interface provided, and compiles the source code file into a dynamic link library in advance. The framework will find the corresponding dynamic link library and load the operator according to the name of the dynamic link library configured by the developer in the operator properties. Reference for specific operator implementation [CANN AICPU Custom Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/aicpudevg/aicpudevg_000026.html).
 
 Operator output shape and data type inference can be implemented by defining Python functions that describe the derivation logic of operator output shape and data type.
 
