@@ -23,7 +23,6 @@ Model定义了MindSpore中编译和运行的模型。
 | [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                        |
 | [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetinputbytensorname)                                                                |
 | [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetoutputbytensorname)                                                              |
-| [ModelType](#msmodeltype)                                                                                                                                                                     |
 
 ### 公有函数
 
@@ -70,7 +69,7 @@ void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_
 MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)
 ```
 
-从内存缓冲区加载并编译MindSpore模型。
+从内存缓冲区加载并编译MindSpore模型，该选项仅MindSpore Lite有效。
 
 - 参数
 
@@ -91,7 +90,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
                                      const MSContextHandle model_context)
 ```
 
-通过模型文件中加载并编译MindSpore模型。
+通过模型文件中加载并编译MindSpore模型，该选项仅MindSpore Lite有效。
 
 - 参数
 
@@ -151,7 +150,7 @@ MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, M
 MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)
 ```
 
-获取MindSpore模型的输入张量数组结构体。
+获取模型的输入张量数组结构体。
 
 - 参数
 
@@ -159,7 +158,7 @@ MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)
 
 - 返回值
 
-  张量数组结构体。
+  模型输入对应的张量数组结构体。
 
 #### MSModelGetOutputs
 
@@ -167,7 +166,7 @@ MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)
 MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)
 ```
 
-获取MindSpore模型的输出张量数组结构体。
+获取模型的输出张量数组结构体。
 
 - 参数
 
@@ -175,7 +174,7 @@ MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)
 
 - 返回值
 
-  张量数组结构体。
+  模型输出对应的张量数组结构体。
 
 #### MSModelGetInputByTensorName
 
@@ -184,16 +183,16 @@ MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model,
                                             const char *tensor_name)
 ```
 
-通过张量名获取MindSpore模型的输入张量。
+通过张量名获取模型的输入张量。
 
 - 参数
 
     - `model`: 指向模型对象的指针。
-    - `tensor_name`: 张量名。
+    - `tensor_name`: 张量名称。
 
 - 返回值
 
-  tensor_name所对应的张量指针。
+  tensor_name所对应的输入张量的张量指针，如果输出中没有该张量则返回空。
 
 #### MSModelGetOutputByTensorName
 
@@ -249,7 +248,7 @@ typedef struct MSShapeInfo {
 } MSShapeInfo;
 ```
 
-模型维度信息，最大的维度为`MS_MAX_SHAPE_NUM`。
+维度信息结构体，最大支持的维度为`MS_MAX_SHAPE_NUM`。
 
 - 成员变量
 
@@ -265,11 +264,11 @@ typedef struct MSCallBackParamC {
 } MSCallBackParamC;
 ```
 
-回调函数的参数与返回值。
+回调函数中存储的算子信息的参数。
 
 - 成员变量
-    - `node_name`: 节点名称参数。
-    - `node_type`: 节点类型参数。
+    - `node_name`: 算子名称。
+    - `node_type`: 算子类型。
 
 #### MSKernelCallBackC
 
@@ -279,24 +278,5 @@ typedef bool (*MSKernelCallBackC)(const MSTensorHandleArray inputs,
                                   const MSCallBackParamC kernel_Info);
 ```
 
-回调函数指针类型。
+回调函数指针类型。该函数指针是用于[MSModelPredict](#msmodelpredict)接口，是在算子执行前或执行后运行的回调函数。
 
-#### MSModelType
-
-```C
-#include<types_c.h>
-```
-
-模型文件类型。
-
-```C
-typedef enum MSModelType {
-  kMSModelTypeMindIR = 0,
-  kMSModelTypeInvalid = 0xFFFFFFFF
-} MSModelType;
-```
-
-| 类型定义            | 值         | 描述       |
-| ------------------- | ---------- | ---------- |
-| kMSModelTypeMindIR  | 0          | MindIR类型。 |
-| kMSModelTypeInvalid | 0xFFFFFFFF | 非法类型。   |

@@ -28,7 +28,6 @@ tensor_c.h提供了控制张量的接口，借助该接口，用户可以创建�
 | [void *MSTensorGetMutableData(const MSTensorHandle tensor)](#mstensorgetmutabledata)                                                                           |
 | [int64_t MSTensorGetElementNum(const MSTensorHandle tensor)](#mstensorgetelementnum)                                                                           |
 | [size_t MSTensorGetDataSize(const MSTensorHandle tensor)](#mstensorgetdatasize)                                                                                |
-| [DataType](#datatype)                                                                                                                                          |
 
 ### 公有函数
 
@@ -170,7 +169,7 @@ const int64_t *MSTensorGetShape(const MSTensorHandle tensor, size_t *shape_num)
 void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 ```
 
-获取MindSpore MSTensor的形状。
+获取MindSpore MSTensor的数据排列。
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
@@ -186,11 +185,11 @@ void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 MSFormat MSTensorGetFormat(const MSTensorHandle tensor)
 ```
 
-获得MSTensor的输出数据，数据类型为byte类型。
+获取张量的数据排列。
 
 - 返回值
 
-  包含所有MSTensor输出数据的byte类型数组。
+  张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/format_c.html#msformat)。
 
 #### MSTensorSetData
 
@@ -198,11 +197,11 @@ MSFormat MSTensorGetFormat(const MSTensorHandle tensor)
 void MSTensorSetData(MSTensorHandle tensor, void *data)
 ```
 
-获得MSTensor的输出数据，数据类型为float类型。
+设置张量的数据。
 
-- 返回值
-
-  包含所有MSTensor输出数据的float类型数组。
+- 参数
+    - `tensor`: 指向MSTensor的指针。
+    - `data`: 指向数据的指针。
 
 #### MSTensorGetData
 
@@ -210,11 +209,11 @@ void MSTensorSetData(MSTensorHandle tensor, void *data)
 const void *MSTensorGetData(const MSTensorHandle tensor)
 ```
 
-获得MSTensor的输出数据，数据类型为int类型。
+获取设置张量的数据。
 
 - 返回值
 
-  包含所有MSTensor输出数据的int类型数组。
+  MSTensor的数据指针。
 
 #### MSTensorGetMutableData
 
@@ -222,11 +221,14 @@ const void *MSTensorGetData(const MSTensorHandle tensor)
 void *MSTensorGetMutableData(const MSTensorHandle tensor)
 ```
 
-获得MSTensor的输出数据，数据类型为long类型。
+获取可变的MsTensor的数据。
+
+- 参数
+    - `tensor`: 指向MSTensor的指针。
 
 - 返回值
 
-  包含所有MSTensor输出数据的long类型数组。
+    MSTensor的数据指针。
 
 #### MSTensorGetElementNum
 
@@ -234,11 +236,14 @@ void *MSTensorGetMutableData(const MSTensorHandle tensor)
 int64_t MSTensorGetElementNum(const MSTensorHandle tensor)
 ```
 
-设定MSTensor的输入数据。
+获取MSTensor的元素个数。
 
 - 参数
+    - `tensor`: 指向MSTensor的指针。
 
-    - `data`: byte[]类型的输入数据。
+- 返回值
+
+    MSTensor的元素个数。
 
 #### MSTensorGetDataSize
 
@@ -247,6 +252,9 @@ size_t MSTensorGetDataSize(const MSTensorHandle tensor)
 ```
 
 获取MSTensor中的数据的字节数大小。
+
+- 参数
+    - `tensor`: 指向MSTensor的指针。
 
 - 返回值
 
@@ -306,3 +314,4 @@ typedef enum MSDataType {
 | kNumberTypeFloat64    | 44        | 表示Float64数据类型。    |
 | kNumberTypeEnd        | 46        | 表示Number类型的结尾。   |
 | kInvalidType          | INT32_MAX | 表示无效的数据类型。     |
+
