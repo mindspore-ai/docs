@@ -237,11 +237,9 @@ Index value assignment can be understood as assigning values to indexed position
     ```python
     import mindspore.numpy as np
     tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
-    tensor_y = np.arange(2 *3).reshape((2, 3)).astype(np.float32)
-    tensor_z = np.arange(2* 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
-    tensor_y[1]= np.array([66, 88, 99]).astype(np.float32)
-    tensor_z[1] = (66, np.array(88).astype(np.int64), 99)
+    tensor_y[1] = np.array([66, 88, 99]).astype(np.float32)
     ```
 
     The result is as follows:
@@ -249,7 +247,6 @@ Index value assignment can be understood as assigning values to indexed position
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
     ```
 
 - `bool` index value assignment
