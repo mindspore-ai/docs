@@ -14,17 +14,22 @@ Typical MindScience Application Scenarios
 
    The efficient and easy-to-use AI electromagnetic simulation kit provides functions such as multimodality data transformation, high-dimensional data encoding, and innovative electromagnetic AI models. It has improved the performance by 10 times in scenarios such as mobile phone tolerance tests and achieved simulation precision comparable to conventional scientific computing.
 
-2. `Molecular simulation <https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/ala.html>`_
+2. `Computational Biology <./mindsponge/why.html>`_
 
-   A high-performance and modular molecular simulation library that integrates AI and conventional molecular simulation, supporting typical molecular simulation cases such as ALA3, COVID-19, and Claisen Rearrangement.
-
+   MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling) is a toolkit for Computational Biology based on AI framework [MindSpore](https://www.mindspore.cn/)，which supports MD, folding and so on. It aims to provide efficient AI computational biology software for a wide range of scientific researchers, staff, teachers and students.
+   
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: MindSPONGE
 
-   mindsponge/intro_and_install
-   mindsponge/ala
+   mindsponge/why
+   mindsponge/intro
+   mindsponge/xponge
+   mindsponge/sponge
+   mindsponge/cybertron
+   mindsponge/MEGAProtein
+   mindsponge
 
 .. toctree::
    :glob:
@@ -35,10 +40,4 @@ Typical MindScience Application Scenarios
    mindelec/physics_driven
    mindelec/data_driven
    mindelec/visualization
-
-.. toctree::
-   :maxdepth: 1
-   :caption: API References
-
-   mindsponge
    mindelec
