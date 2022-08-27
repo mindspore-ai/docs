@@ -228,7 +228,10 @@ try:
                       ("mindspore/ops/function/nn_func.py","mindspore/python/mindspore/ops/function/nn_func.py"),
                       ("mindspore/ops/operations/array_ops.py","mindspore/python/mindspore/ops/operations/array_ops.py"),
                       ("mindspore/ops/operations/math_ops.py","mindspore/python/mindspore/ops/operations/math_ops.py"),
-                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
+                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py"),
+                      ("mindspore/dataset/core/config.py","mindspore/python/mindspore/dataset/core/config.py"),
+                      ("mindspore/ops/function/array_func.py","mindspore/python/mindspore/ops/function/array_func.py"),
+                      ("mindspore/ops/function/random_func.py","mindspore/python/mindspore/ops/function/random_func.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
