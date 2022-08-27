@@ -166,4 +166,28 @@ In `xx_validate_xxx.ir`, each input and output tensor in the computation operato
 …
 ```
 
+## Empirical principles on configuring sharding strategies
+
+Given a new model with numerous operators, from the user's perspective, a key problem is to determine which operators should be configured, with what sharding strategies. Since the goal of Sharding Propagation is to minimize Tensor Redistribution cost, instead of finding the global minima of end-to-end step time, it is crucial to configure proper sharding strategies for "key operators". There is no compulsory standard specifying which operators must be configured. However, based on our experience of training large models, there are indeed some principles guiding users to annotate shardings. Here, we list three principles, which may be useful for new users.
+
+### Configure parameter-involved operators
+
+The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need explicitly annotated sharding strategies. In the following figure, Gather and MatMul are annotated shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [Transformer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn/transformer), respectively.
+
+![sp_case1](./images/sp_case1.png "Configure parameter-involved operators")
+
+### Configure dimension-manipulation operators
+
+In deep learning frameworks, operators can be broadly classified into two categories: semantically simple dimension-preserving operators and dimension-manipulation operators. Sharding Propagation could easily propagate shardings from inputs to outputs for dimension-preserving operators. However, for dimension-manipulation operators, explicit annotations should be configured to express users’ intuition, to avoid Sharding Propagation to derive non-user-desired shardings. In the following figure, ReduceMean and MatMul operators are configured shardings.
+
+![sp_case2](./images/sp_case2.png "Configure dimension-manipulation operators")
+
+### Configure parallelism-changing-boundary operators
+
+For a model like ResNet, different parts of the model may prefer different parallelisms: front part uses data parallelism, while tail part uses model parallelism. This is achieved by annotating parallelism-changing boundary operators. In the example of following figure, the first MatMul propagates the data-parallelism sharding to the front part, while the second MatMul propagates the model-parallelism sharding to the tail part.
+
+![sp_case3](./images/sp_case3.png "Configure parallelism-changing-boundary operators")
+
+Users should not only understand the main idea of Sharding Propagation, but also have a preferred parallelism for their training models. If there is a sharding strategy inferred by Sharding Propagation that is conflict with your intuition, just add the preferred sharding to the operator. It indeed needs some trial-and-errors to acquire the satisfactory configuration.
+
 [^1]: Note: actually, AllGather+Concat is needed here to perform the transformation.
