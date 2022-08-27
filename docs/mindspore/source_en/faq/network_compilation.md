@@ -2,28 +2,28 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/network_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-<font size=3>**Q: What can I do if an error "'self.xx' should be defined in the class '__init__' function." is reported?**</font>
+<font size=3>**Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?**</font>
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [Parameter](<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "This comparator 'AnyValue' is not supported. For statement 'is', only support compare with 'None', 'False' or 'True'" is reported?**</font>
+<font size=3>**Q: What can I do if an error "For syntax like 'a is not b', b supports True, False and None" is reported?**</font>
 
 A: For the syntax `is` or `is not`, currently `MindSpore` only supports comparisons with `True`, `False` and `None`. Other types, such as strings, are not supported.
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "MindSpore does not support comparison with operators more than one now, ops size =2" is reported?**</font>
+<font size=3>**Q: What can I do if an error "Only support comparison with 1 operator, but got 2" is reported?**</font>
 
 A: For comparison statements, `MindSpore` supports at most one operator. For example, you can use `1 < x and x < 3` to take the place of `1 < x < 3`.
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "TypeError: The function construct need 1 positional argument and 0 default argument, but provided 2" is reported?**</font>
+<font size=3>**Q: What can I do if an error "TypeError: For 'Cell', the function construct requires 1 positional argument and 0 default argument, total 1, but got 2" is reported?**</font>
 
 A: When you call the instance of a network, the function `construct` will be executed. And the program will check the number of parameters required by the function `construct` and the number of parameters actually given. If they are not equal, the above exception will be thrown.
-Please check that the number of parameters passed in when the instance of the network in the script is called matches the number of parameters required by the `construct` function in the defined network.
+Please check whether the number of parameters passed in when the instance of the network in the script is called matches the number of parameters required by the `construct` function in the defined network.
 
 <br/>
 
@@ -50,7 +50,7 @@ class Net(nn.Cell):
         if a > b:    # The type of the two branches has inconsistent return values.
             return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
         else:
-            return self.cast(self.relu(x), ms.float16)    # shape:(), dype: Float32
+            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
 
 input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
 input_a = ms.Tensor(2, ms.float32)
@@ -64,19 +64,64 @@ The result is as follows:
 ```text
 TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Type Join Failed: dtype1 = Float32, dtype2 = Float16.
-For more details, please refer to the FAQ at https://www.mindspore.cn
+For more details, please refer to https://www.mindspore.cn/search?inputValue=Type%20Join%20Failed.
+
+Inner Message:
 The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue).
 The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
-The function call stack:
-In file test.py(14)/        if a > b:
 
-The function call stack (See file 'analyze_fail.dat' for more details):
+The function call stack (See file 'analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
 # 0 In file test.py(14)
         if a > b:
         ^
 ```
 
 When an error similar to "Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()" appears, it means that the `shape` are inconsistent, resulting in an exception when joining abstract. The code sample is as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import nn
+
+ms.set_context(mode=ms.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.relu = ops.ReLU()
+        self.reducesum = ops.ReduceSum()
+
+    def construct(self, x, a, b):
+        if a > b:    # The shape of the two branches has inconsistent return values.
+            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
+        else:
+            return self.reducesum(x)    # shape:(), dype: Float32
+
+input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = ms.Tensor(2, ms.float32)
+input_b = ms.Tensor(6, ms.float32)
+net = Net()
+out = net(input_x, input_a, input_b)
+```
+
+The result is as follows:
+
+```text
+ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
+Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
+For more details, please refer to https://www.mindspore.cn/search?inputValue=Type%20Join%20Failed.
+
+Inner Message:
+The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue).
+The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
+
+The function call stack (See file 'analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+# 0 In file test.py(14)
+        if a > b:
+        ^
+```
+
+When an error similar to "Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple" appears, it means that the abstract types do not match, resulting in the failure to join abstract types. The code sample is as follows:
 
 ```python
 import mindspore.ops as ops
@@ -105,17 +150,22 @@ The result is as follows:
 
 ```text
 TypeError: Type Join Failed: abstract type AbstractTensor cannot join with AbstractTuple.
-For more details, please refer to the FAQ at https://www.mindspore.cn.
-This: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x56458a351ad0, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), other: AbstractTuple{element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x564583e3fa90, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x564583cb00b0, value: Tensor(shape=[1], dtype=Float32, value=[ 2.00000000e+00])), sequence_nodes: {test_net.3:[CNode]4{[0]: ValueNode<PrimitivePy> MakeTuple, [1]: a, [2]: b}, elements_use_flags: {ptr: 0x5645cbc500c0, value: [const vector][1, 1]}}}
-The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test.py(16)
+For more details, please refer to https://www.mindspore.cn/search?inputValue=Type%20Join%20Failed.
+
+Inner Message:
+This: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55c969c44c60, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), other: AbstractTuple{element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55c96a9a3bd0, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55c96a5f06a0, value: Tensor(shape=[1], dtype=Float32, value=[ 2.00000000e+00])), sequence_nodes: {test_net.3:[CNode]4{[0]: ValueNode<PrimitivePy> MakeTuple, [1]: a, [2]: b}, elements_use_flags: {ptr: 0x55c96ae83400, value: [const vector][1, 1]}}}. Please check the node: test_net.5:a{[0]: a, [1]: test_net}
+
+The function call stack (See file 'analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+
+The function call stack:
+# 0 In file test.py(17)
     a = grad(test_net)(x, y, sens_i)
         ^
 ```
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout" is reported during compilation?**</font>
+<font size=3>**Q: What can I do if an error "The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'" is reported during compilation?**</font>
 
 A: The inputs of user-defined back propagation function `bprop` should contain all the inputs of the forward network, `out` and `dout`. The example is as follow:
 
@@ -168,15 +218,13 @@ def test_endless():
 
 ```
 
-The f(x) fails because each if branch cannot derive the correct type information.
-
 <br/>
 
 <font size=3>**Q: What can I do if an error "Exceed function call depth limit 1000" is reported during compilation?**</font>
 
-When Exceed function call depth limit 1000 is displayed, this indicates that there is an infinite recursive loop in the code, or the code is too complex. The type derivation process causes the stack depth to exceed the set maximum depth.
+A: When Exceed function call depth limit 1000 is displayed, this indicates that there is an infinite recursive loop in the code, or the code is too complex. The type derivation process causes the stack depth to exceed the set maximum depth.
 
-At this time, you can set set_context(max_call_depth = value) to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
+At this time, you can set `set_context(max_call_depth = value)` to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
 
 Otherwise, set max_call_depth can change the recursive depth of MindSpore, and it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
 
@@ -233,7 +281,7 @@ For example：
 
 A: JIT Fallback is to realize the unification of static graph mode and dynamic graph mode from the perspective of static graph. With JIT Fallback feature, the static graph mode can support as many syntaxes in the dynamic graph mode as possible, so that the static graph mode can provide a syntax experience close to that of the dynamic graph mode. The environment variable switch of JIT Fallback is `DEV_ENV_ENABLE_FALLBACK`, and JIT Fallback is enabled by default.
 
-When the errors "Should not use Python object in runtime" and "We suppose all nodes generated by JIT Fallback would not return to outside of graph" appear, it means that there is an incorrect syntax in the code. When using the JIT Fallback feature to process unsupported syntax expressions, corresponding nodes will be generated, which need to be inferred and executed at compile time. Otherwise, these nodes will throw an error when passed to the runtime. The current JIT Fallback conditionally supports some constant scenarios in Graph mode, and it also needs to conform to MindSpore's programming syntax. When you write the code, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+When the errors "Should not use Python object in runtime" and "We suppose all nodes generated by JIT Fallback would not return to outside of graph" appear, it means that there is an incorrect syntax in the code. When using the JIT Fallback feature to process unsupported syntax expressions, corresponding nodes will be generated, which need to be inferred and executed at compile time. Otherwise, these nodes will throw an error when running. The current JIT Fallback conditionally supports some constant scenarios in Graph mode, and it also needs to conform to MindSpore's programming syntax. When you write the code, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) and the document for [JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/jit_fallback.html).
 
 For example, when calling the third-party library NumPy, JIT Fallback supports the syntax of `np.add(x, y)` and `Tensor(np.add(x, y))`, but MindSpore does not support returning the NumPy type. Therefore, the program will report an error. The code sample is as follows:
 
@@ -245,73 +293,24 @@ import mindspore as ms
 ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
-    def construct(self, x, y):
-        out = np.add(x, y)
-        return out
+    def construct(self):
+        x = np.array([1, 2])
+        y = np.array([3, 4])
+        return np.add(x, y)
 
 net = Net()
-out = net(1, 1)
+out = net()
 ```
 
 The result is as follows:
 
 ```text
-RuntimeError: mindspore/ccsrc/pipeline/jit/validator.cc:139 ValidateValueNode] Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '2'
-
-We suppose all nodes generated by JIT Fallback not return to outside of graph.
-
-# In file test.py(9)
-        out = np.add(x, y)
+RuntimeError: Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[4 6]'.
+Line: In file test.py(11)
+        return np.add(x, y)
         ^
+
+We suppose all nodes generated by JIT Fallback not return to outside of graph. For more information about JIT Fallback, please refer to https://www.mindspore.cn/search?inputValue=JIT%20Fallback
 ```
 
 When there is an error related to JIT Fallback, please review the code syntax and modify it according to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) and the provided code line. If you need to turn off JIT Fallback, you can use `export DEV_ENV_ENABLE_FALLBACK=0`.
-
-<font size=3>**Q: What can I do if an error  "Operator[AddN]  input(kNumberTypeBool,kNumberTypeBool) output(kNumberTypeBool) is not support. This error means the current input type is not supported, please refer to the MindSpore doc for supported types."**</font>
-
-A: Currently, Tensor [subsequent abbreviation Tensor (bool)] with bool data type has weak support by MindSpore, and only a small number of operators support Tensor(bool) type data participation operations.  If an operator supporting the Tensor(bool) type is used in a forward graph and the forward graph syntax is correct, since the reverse graph solves the full derivative introduces `AddN`, `AddN` does not support the Tensor (bool) type, and the reverse graph run will throw the exception.
-
-The example is as follow:
-
-```python
-import mindspore as ms
-from mindspore import ops
-from mindspore import ms_function
-
-ms.set_context(save_graphs=True, save_graphs_path='graph_path')
-
-@ms_function
-def test_logic(x, y):
-    z = x and y
-    return z and x
-
-x = ms.Tensor(True, ms.bool_)
-y = ms.Tensor(True, ms.bool_)
-grad = ops.GradOperation(get_all=True)
-grad_net = grad(test_logic)
-out = grad_net(x, y)
-```
-
-The forward processing of the above code can be expressed as: the corresponding full derivative formula of `r = f(z, x), z = z(x, y)` is: `dr/dx = df/dz * dz/dx + df/dx`.  Function`f(z,x)` and `z(x,y)` are primitive `and`. Primitive `and` in the forward graph supports Tensor (bool) type, and the `AddN` introduced when reversing the full derivative of the graph does not support the Tensor(bool) type.  And the error cannot be mapped to a specific forward code line.
-
-The result is as follows:
-
-```text
-Traceback (most recent call last):
-  File "grad_fail.py", line 14, in <module>
-    out = grad_net(x, y)
-  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 307, in staging_specialize
-    out = _MindsporeFunctionExecutor(func, ms_create_time, input_signature, process_obj)(*args)
-  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 79, in wrapper
-    results = fn(*arg, **kwargs)
-  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 221, in __call__
-    phase = self.compile(args_list, arg_names, parse_method)
-  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 195, in compile
-    self.enable_tuple_broaden)
-TypeError: mindspore/ccsrc/runtime/device/cpu/kernel_select_cpu.cc:235 KernelNotSupportException] Operator[AddN]  input(kNumberTypeBool,kNumberTypeBool) output(kNumberTypeBool) is not support. This error means the current input type is not supported, please refer to the MindSpore doc for supported types.
-Trace:
-In file /usr/local/python3.7/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/add_impl.py(287)/    return F.addn((x, y))/
-```
-
-If you encounter problems like this one, please remove the use of tensor (bool). In this example, replacing Tensor (bool) with bool can solve the problem.
-
