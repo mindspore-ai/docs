@@ -77,6 +77,10 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     target=x86
 
+    # enable parallel inference or not.
+
+    support_parallel=false
+
     ```
 
     配置文件中，第一行的`[micro_param]`表明后续的变量参数属于Micro配置项`micro_param`，这些参数用于控制代码生成，各参数含义如下表1所示。
@@ -134,6 +138,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 | --------------- | -------- | ------------------------------| --------------------------| --------- |
 | enable_micro    | 是       | 模型会生成代码，否则生成.ms       | true, false                | false      |
 | target          | 是       | 生成代码针对的平台               | x86, Cortex-M, ARM32, ARM64 | x86       |
+| support_parallel | 否       | 是否生成多线程推理代码，仅在x86, ARM32, ARM64平台可设置为true | true, false     | false    |
 
 ## 推理包获取
 
