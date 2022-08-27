@@ -75,6 +75,22 @@ A: Currently, MindSpore does not provide anti-pooling APIs but you can customize
 
 <br/>
 
+<font size=3>**Q: What should I do if other operations can not be performed on Ascend environment when training a model？**</font>
+
+A: It may because the computer recourses if fulled when operators compilation. Try to use the environment variable `MS_BUILD_PROCESS_NUM` to reduce the parallel number of operator compilation. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/master/env/env_var_list.html).
+
+<br/>
+
+<font size=3>**Q: The performance of some operators can not up to standard even though tuned by the operator tuning tool, what should I do？**</font>
+
+A: In this case,
+
+1. Make sure if these operators are fusion operators, and then suing the environment variable `export MS_DEV_DISABLE_PREBUILD=True` to close the operator fusion. The operator pre-compiling may change the value of operator's attribute `fusion_type`, the attr will affect the fusion of operator. The performance of the fused operator is not necessarily better than that of small operator.
+
+2. If these operators are not fusion operators, using the environment variable `MS_COMPILER_OP_LEVEL` to generate the operator debug info, and then ask the operator developer for help. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/master/env/env_var_list.html).
+
+<br/>
+
 <font size=3>**Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:**</font>
 
 ```python
