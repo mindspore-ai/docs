@@ -75,6 +75,22 @@ A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定
 
 <br/>
 
+<font size=3>**Q: Ascend环境，训练模型的时候，遇到了无法在当前环境上进行其他操作怎么办？**</font>
+
+A: 遇到这种情况，可能是由于算子并行编译的时候把资源占满了。这时候可以尝试配置环境变量`MS_BUILD_PROCESS_NUM`，减小算子编译并行数，减小对当前环境的资源抢占。具体配置信息请参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/env/env_var_list.html)。
+
+<br/>
+
+<font size=3>**Q: Ascend环境上，一些尽管经过调优工具调试过的算子，性能依旧很差，这时候该怎么办？**</font>
+
+A: 遇到这种情况，
+
+1. 看一下这些算子是否为融合算子，如果是融合算子，可以尝试使用环境变量`export MS_DEV_DISABLE_PREBUILD=True`来关闭算子预编译。因为算子预编译可能会改变算子的fusion_type属性，而该属性会影响算子的融合，导致原本不应该融合的小算子融合成了大算子，这些融合出来的大算子性能不一定比小算子性能好。
+
+2. 其次，如果排除了上述融合算子的影响，可以尝试使用环境变量`MS_COMPILER_OP_LEVEL`来生成算子编译的debug调试信息，然后找算子开发人员根据这些调试信息进一步定位，具体配置信息可以参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/env/env_var_list.html)。
+
+<br/>
+
 <font size=3>**Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码:**</font>
 
 ```python
