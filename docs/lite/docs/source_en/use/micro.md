@@ -77,6 +77,10 @@ The following describes how to prepare the environment for using the conversion 
 
     target=x86
 
+    # enable parallel inference or not.
+
+    support_parallel=false
+
     ```
 
     In the configuration file, `[micro_param]` in the first line indicates that the subsequent variable parameters belong to the micro configuration item `micro_param`. These parameters are used to control code generation. Table 1 describes the parameters.
@@ -135,6 +139,7 @@ Table 1: micro_param parameter definition
 | --------------- | -------- | ------------------------------| --------------------------| --------- |
 | enable_micro    | Yes       | The model generates code, otherwise it generates .ms.       | true, false                | false      |
 | target          | Yes       | Platform for which code is generated               | x86, Cortex-M, ARM32, ARM64 | x86       |
+| support_parallel | No       | Generate multi-threaded inference codes or not, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
 
 ## Obtaining Inference Package
 
