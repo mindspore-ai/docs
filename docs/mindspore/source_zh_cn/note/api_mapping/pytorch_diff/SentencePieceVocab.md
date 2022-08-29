@@ -31,7 +31,7 @@ MindSpore：构造用于单词分割的词汇表，输入可以是数据集对�
 ```python
 import mindspore.dataset as ds
 from mindspore.dataset import text
-from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType, to_str
+from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
 from torchtext.data.functional import load_sp_model
 
 # In MindSpore, return tokenizer from vocab object.
@@ -45,8 +45,8 @@ text_file_dataset = ds.TextFileDataset(dataset_files=text_file_dataset_dir)
 text_file_dataset = text_file_dataset.map(operations=tokenizer)
 
 for i in text_file_dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    ret = to_str(i["text"])
-    for key, value in enumerate(ret):
+    ret = i["text"]
+    for value in ret:
         print(value)
 # Out:
 # ▁I
