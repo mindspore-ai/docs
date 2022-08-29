@@ -6,11 +6,11 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), CUDA and TensorRT is required as well. Current version only supports CUDA version 10.1 and TensorRT version 6.0.1.5.
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), CUDA and TensorRT is required as well. Current version only supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.2.5](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
-Install[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base), set the installed directory to environment viriable as `${CUDA_HOME}`. Our build script uses this environment viriable to seek CUDA.
+Install the appropriate version of CUDA and set the installed directory as environment variable `${CUDA_HOME}`. Our build script uses this environment variable to seek CUDA.
 
-Install[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), set the installed directory to environment viriable as `${TENSORRT_PATH}`. Our build script uses this environment viriable to seek TensorRT.
+Install TensorRT of the corresponding CUDA version, and set the installed directory as environment viriable `${TENSORRT_PATH}`. Our build script uses this environment viriable to seek TensorRT.
 
 ### Build
 
@@ -67,6 +67,28 @@ For more information about compilation, see [Linux Environment Compilation](http
     ```
     [ms_cache]
     serialize_path=/path/to/config
+    ```
+
+- Using TensorRT dynamic shapes
+
+    By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the builder can be configured to allow the input dimensions to be adjusted at runtime. In the profile, the maximum, minimum and optimal shape of each input can be set.
+
+    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum, maximum] range and are fastest for the optimization point. Multiple profiles should specify disjoint or overlapping ranges. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code.
+
+    If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, then the following conditions must hold:
+
+    1. `len(min)` == `len(opt)` == `len(max)` == `len(real_shape)`
+    2. 0 <= `min[i]` <= `opt[i]` <= `max[i]` for all `i`
+    3. if `real_shape[i]` != -1, then `min[i]` == `opt[i]` == `max[i]` == `real_shape[i]`
+    4. When using tensor input without dynamic dimensions, all shapes must be equal to real_shape.
+
+    For example, if the minimum dimension is [3,100,200], the maximum dimension is [3,200,300], and the optimized dimension is [3,150,250], the following configuration file needs to be configured:
+
+    ```
+    [input_ranges]
+    min_dims:3,100,200
+    opt_dims:3,150,250
+    max_dims:3,200,300
     ```
 
 ## Supported Operators
