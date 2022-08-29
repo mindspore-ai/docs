@@ -46,4 +46,5 @@ MindSpore Lite API
    api_c/format_c
    api_c/model_c
    api_c/tensor_c
+   api_c/types_c
    api_c/lite_c_example

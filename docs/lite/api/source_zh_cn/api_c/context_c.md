@@ -79,7 +79,7 @@ void MSContextSetThreadNum(MSContextHandle context, int32_t thread_num);
 int32_t MSContextGetThreadNum(const MSContextHandle context)
 ```
 
-获取当MSContext的线程数量设置，该选项仅MindSpore Lite有效。
+获取MSContext的线程数量，该选项仅MindSpore Lite有效。
 若参数context为空则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
@@ -124,7 +124,7 @@ int MSContextGetThreadAffinityMode(const MSContextHandle context)
 void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t *core_list, size_t core_num)
 ```
 
-设置运行时的CPU绑核列表，如果同时调用了两个不同的`SetThreadAffinity`函数来设置同一个的MSContext，仅`core_list`生效，而`mode`不生效。该选项仅MindSpore Lite有效。
+设置运行时的CPU绑核列表，如果同时调用了两个不同的`SetThreadAffinity`函数来设置同一个MSContext，仅`core_list`生效，而`mode`不生效。该选项仅MindSpore Lite有效。
 若参数context为空则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
@@ -203,7 +203,7 @@ MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)
 新建运行设备信息，若创建失败则会返回`nullptr`，并日志中输出信息。
 
 - 参数
-    - `device_type`: 设备类型，具体见[MSDeviceType](#msdevicetype)。
+    - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/tensor_c.html#msdevicetype)。
 
 - 返回值
 
@@ -226,11 +226,11 @@ void MSDeviceInfoDestroy(MSDeviceInfoHandle *device_info)
 void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char *provider)
 ```
 
-设置设备生产商名。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
+设置设备生产商名称。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
-    - `provider`: 生产商名。
+    - `provider`: 生产商名称。
 
 ### MSDeviceInfoGetProvider
 
@@ -238,14 +238,14 @@ void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char *provide
 const char *MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)
 ```
 
-获取生产商设备名。若参数device_info为空则输出`nullptr`，并在日志中输出空指针信息。
+获取生产商设备名称。若参数device_info为空则输出`nullptr`，并在日志中输出空指针信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
 
 - 返回值
 
-  生产商名。
+  生产商名称。
 
 ### MSDeviceInfoSetProviderDevice
 
@@ -253,7 +253,7 @@ const char *MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)
 void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char *device)
 ```
 
-设置生产商设备名。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
+设置供应商设备名称。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
@@ -322,11 +322,11 @@ void MSDeviceInfoSetEnableFP16(MSDeviceInfoHandle device_info, bool is_fp16)
 void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)
 ```
 
-设置NPU的频率，仅NPU设备可用。若参数device_info为空或者当前设备不为NPU则不会做任何操作，并在日志中输出具体信息。
+设置NPU的频率类型，仅NPU设备可用。若参数device_info为空或者当前设备不为NPU则不会做任何操作，并在日志中输出具体信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
-    - `frequency`: 设置频率类型，取值范围为0-4，默认是3。1表示低功耗，2表示平衡，3表示高性能，4表示超高性能。
+    - `frequency`: 频率类型，取值范围为0-4，默认是3。1表示低功耗，2表示平衡，3表示高性能，4表示超高性能。
 
 ### MSDeviceInfoGetFrequency
 
@@ -334,28 +334,12 @@ void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)
 int MSDeviceInfoGetFrequency(const MSDeviceInfoHandle device_info)
 ```
 
-设置NPU的频率，仅NPU设备可用。若参数device_info为空或者当前设备不为NPU则返回-1，并在日志中输出具体信息。
+获取NPU的频率类型，仅NPU设备可用。若参数device_info为空或者当前设备不为NPU则返回-1，并在日志中输出具体信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
 
-## 公有类型
+- 返回值
 
-### MSDeviceType
-
-```C
-typedef enum MSDeviceType {
-  kMSDeviceTypeCPU = 0,
-  kMSDeviceTypeGPU,
-  kMSDeviceTypeKirinNPU,
-  kMSDeviceTypeInvalid = 100,
-} MSDeviceType;
-```
-
-| 定义                  | 值  | 描述 |
-| --------------------- | --- |--- |
-| kMSDeviceTypeCPU      | 0   |设备类型是CPU|
-| kMSDeviceTypeGPU      | 1   |设备类型是GPU|
-| kMSDeviceTypeKirinNPU | 2   |设备类型是NPU|
-| kMSDeviceTypeInvalid  | 100 |设备类型非法|
+  NPU的频率类型。
 
