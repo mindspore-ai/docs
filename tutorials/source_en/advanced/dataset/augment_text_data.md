@@ -56,7 +56,7 @@ The following uses `TextFileDataset` to read data from a TXT file. For more info
     dataset = ds.TextFileDataset(DATA_FILE, shuffle=False)
 
     for data in dataset.create_dict_iterator(output_numpy=True):
-        print(text.to_str(data['text']))
+        print(data['text'])
     ```
 
     ```text
@@ -140,7 +140,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -173,7 +173,7 @@ dataset = dataset.map(operations=tokenizer_op)
 
 print("------------------------after tokenization-----------------------------")
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(i['text']))
+    print(i['text'])
 ```
 
 ```text
@@ -234,7 +234,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -254,7 +254,7 @@ dataset = dataset.map(operations=jieba_op, input_columns=["text"], num_parallel_
 
 print("------------------------after tokenization-----------------------------")
 for data in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -303,7 +303,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -326,7 +326,7 @@ dataset = dataset.map(operations=tokenizer_op)
 
 print("------------------------after tokenization-----------------------------")
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(i['text']))
+    print(i['text'])
 ```
 
 ```text
@@ -355,7 +355,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -374,7 +374,7 @@ dataset = dataset.map(operations=tokenizer_op)
 
 print("------------------------after tokenization-----------------------------")
 for data in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(data['text']).tolist())
+    print(data['text'].tolist())
 ```
 
 ```text
@@ -404,7 +404,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -424,7 +424,7 @@ dataset = dataset.map(operations=tokenizer_op)
 
 print("------------------------after tokenization-----------------------------")
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(i['text']).tolist())
+    print(i['text'].tolist())
 ```
 
 ```text
@@ -462,7 +462,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 
 print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
-    print(text.to_str(data['text']))
+    print(data['text'])
 ```
 
 ```text
@@ -506,7 +506,7 @@ dataset = dataset.map(operations=tokenizer_op)
 
 print("------------------------after tokenization-----------------------------")
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    print(text.to_str(i['text']))
+    print(i['text'])
 ```
 
 ```text
