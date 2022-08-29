@@ -13,6 +13,7 @@
 | 集群通信性能分析           | Ascend      |
 | 资源利用                   | Ascend      |
 | 策略感知                   | Ascend      |
+| 执行总览                   | Ascend      |
 
 ## 操作流程
 
@@ -278,19 +279,29 @@ done
 - 算子详情：以算子粒度展示通信性能，包括该通信算子的通信时长、等待时长、链路信息。
 - 逻辑卡链路信息：显示源卡为该卡或者目的卡为该卡的链路信息。链路信息包括通信时间、通信量、带宽（通信量除以通信时间）、链路类型。其中链路类型包含SDMA链路（server内通信链路）和RDMA链路（server间通信链路）。点击详情后，通过弹窗的方式展示。
 
-![operator_performance.png](./images/operator_performance.png)
+节点链接图展示了设备及通信链路的情况。图中每个节点代表一个设备，节点的大小编码该设备总通信时长。节点的颜色编码了该设备通信时间占通信与等待总时间的比例，即：通信时间/（通信时间+等待时间），颜色越深，表示该设备等待时间越短。等待时间短的设备可能是慢节点。节点可拖拽移动，节点间的边表示通信链路。
+
+![communication_matrix.png](./images/communication_matrix.png)
 
 *图7：算子性能信息*
 
+图7展示了在节点链接图中刷选部分设备后，呈现的邻接矩阵。邻接矩阵展示了各设备之间通信链路的情况。在每个格子中，第一行、第三行展示的是链路的通信时间、流量的统计值。邻接矩阵第二行、第四行、第五行的盒须图，反映了链路中通信时间、流量、带宽指标上所有通信算子的分布情况。图中红色框框出的离群点，表示该算子占据了该链路的绝大部分带宽。用户可通过邻接矩阵定位异常通信链路及异常通信算子。
+
+鼠标右键点击邻接矩阵任意位置可回到节点链接图。
+
+![operator_performance.png](./images/operator_performance.png)
+
+*图8：算子性能信息*
+
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-*图8:逻辑卡链路信息*
+*图9:逻辑卡链路信息*
 
 全网链路信息TAB页面展示所有逻辑卡的链路信息，提供源卡、目的卡、链路类型的选择。
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-*图9：全网链路信息*
+*图10：全网链路信息*
 
 默认不收集通信性能数据，需要通过`mindspore.Profiler`中的`profile_communication`参数像`Profiler(profile_communication=True)`一样打开通信性能数据开关。只有多卡训练才能产生通信算子性能数据，在单卡训练场景中设置该参数是无效的。
 
@@ -316,7 +327,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-*图10：集群内存概览页面*
+*图11：集群内存概览页面*
 
 > 内存使用情况分析暂不支持异构训练场景。
 
@@ -330,7 +341,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-*图11：集群FLOPs概览页面*
+*图12：集群FLOPs概览页面*
 
 ## 策略感知
 
@@ -342,7 +353,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![image-20211118132511452](./images/profiler_strategy_graph_zh.png)
 
-*图12：策略感知视图页面*
+*图13：策略感知视图页面*
 
 页面右上角会显示本次训练的并行方式，上图展示出本次训练采用的并行方式是自动并行。
 
@@ -360,7 +371,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![image-20211118133144763](./images/profiler_strategy_graph_strategy.png)
 
-*图13：算子策略矩阵*
+*图14：算子策略矩阵*
 
 算子的某项输入存在切分策略时，会在该算子下方呈现一个策略矩阵，一行表示一项输入，小格子中的数字表示算子在对应维度上的切分份数。
 
@@ -372,7 +383,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![image-20211118125032089](./images/profiler_strategy_graph_pipeline.png)
 
-*图14：流水线并行视图*
+*图15：流水线并行视图*
 
 采用了流水线并行策略时，点击页面左上角的按钮，即可展开流水线并行视图。该视图展示了流水线并行中，每个stage的Send（红色矩形）和Receive算子（绿色矩形）及不同stage之间Send、Receive算子的对应关系。视图中的算子支持点击操作，在计算图中定位。
 
@@ -382,15 +393,90 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
 ![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
 
-*图15：算子堆叠*
+*图16：算子堆叠*
 
 在计算图中，在聚合结点中如果同类型的算子数量过多，则会对其进行堆叠展示，双击可以展开查看算子。
 
 ![image-20211118125032089](./images/profiler_strategy_hideline.png)
 
-*图16：查看被隐藏边*
+*图17：查看被隐藏边*
 
 为了避免线过于零乱，部分不重要的边会被隐藏，鼠标悬浮在聚合结点周围的圆圈上面，可以看到被隐藏的边。
+
+## 执行总览
+
+用户从训练列表中选择指定的训练，点击性能调试，点击`集群`标签，可以以集群视角展示本次训练性能数据。
+执行总览包括计算图执行序分析、各设备算子执行时间线分析、各step各设备时间信息概览。
+
+![execution_overview.png](./images/execution_overview.png)
+
+*图18：集群执行总览*
+
+### 计算图执行序分析
+
+执行总览页面上方即为并行策略视图。
+
+![parallel_strategy_view.png](./images/parallel_strategy_view.png)
+
+*图19：并行策略视图*
+
+在此计算图中，算子依据执行序，从左向右布局。画布支持拖动，放缩观察。各类算子用不同颜色区分，视图最上方显示图例。
+
+左侧为命名空间选择器，勾选命名空间后，计算图中对应算子会产生颜色光晕标识。
+
+当并行训练采用流水线并行模式，该视图上会呈现所有stage的计算图，各stage计算图之间通过Send、Receive算子对应，进行横向排布。用户能够在计算图缩略图获得对流水线并行执行流程的整体感知。
+
+![timeline_minimap.png](./images/timeline_minimap.png)
+
+*图20：时间线缩略图*
+
+右侧提供特殊算子统计功能及结点属性面板。
+特殊算子包括三类：含切分策略算子、重排布算子、梯度聚合算子。
+
+### 各设备算子执行时间线分析
+
+执行总览页面中部为Marey视图。
+
+![marey_graph.png](./images/marey_graph.png)
+
+*图21：Marey视图*
+
+在Marey视图中，每个设备对应三个色块和一条时间线。三个色块展示各stage各设备FLOPs（浮点运算次数，用于衡量模型/算法复杂度），FLOPS（每秒浮点运算次数，用于衡量硬件的性能）与PeakMem（峰值内存）。对于FLOPs和FLOPS，展示当前设备值/各设备最大值，对于PeakMem，展示设备峰值占用内存/设备总内存。
+
+![marey_timeline.png](./images/marey_timeline.png)
+
+*图22：Marey时间线*
+
+如图22所示，时间线中，绿色表示计算算子，橙色表示通信算子。同在一个pipeline stage中的设备，在其上执行的算子基本相同，每个设备有一条时间轴，我们在时间轴上标注出算子执行的开始和结束时间，然后连接多边形，填充颜色。该视图可以定位如下两类问题：
+
+![marey_exception.png](./images/marey_exception.png)
+
+*图23：Marey时间线异常*
+
+如图23(a)所示，当一个算子在各设备上的执行时间都显著长于其它的算子，可能是该算子融合切分策略不合理。
+如图23(b)所示，当一个算子在某个设备上执行时间显著长于其它设备，可能是训练设备出现了慢节点。
+
+时间线支持的交互有刷选放大，双击缩小，鼠标悬浮查看算子执行时间戳信息等。
+
+视图左侧stage设备树可以根据需要进行聚合或展开。stage的时间线上展示的是同一个stage中各设备相同算子实际执行时间的并集。
+
+每条时间线上扩展出折线图，深色线表示FLOPs变化，浅色线表示内存变化。
+
+![marey_memory_flops.png](./images/marey_memory_flops.png)
+
+*图24：Marey时间线中的折线*
+
+如上图所示，内存占用量在红框内有明显峰值，可结合时间线分析设备执行情况。
+
+### 各设备时间信息概览
+
+执行总览页面底部为时间总览视图。
+
+![time_view.png](./images/time_view.png)
+
+*图25：时间总览视图*
+
+时间总览视图为双y轴图，左侧展示的训练时间，右侧展示的通信的耗时。本视图展示各个step所有设备的训练时间，每个设备的平均通信时间与等待时间，用户将鼠标悬浮在对应step上，弹出的小卡片中可以看到具体的数值。该视图作为用户的分析入口，若用户判定某个step统计数据存在异常，用户可选中对应step，Marey视图将显示对应step各设备执行时间线，用户可进行进一步分析。
 
 ## 规格
 

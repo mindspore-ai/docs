@@ -13,6 +13,7 @@ This article describes how to use MindSpore Profiler for cluster performance deb
 | Cluster Communication Performance                  | Ascend         |
 | Resource Utilization                               | Ascend         |
 | Strategy Perception                                | Ascend         |
+| Execution Analysis                                 | Ascend         |
 
 ## Operation Process
 
@@ -278,19 +279,29 @@ Logic device communication performance tab page is mainly used to show the commu
 - Operator details: Display the communication performance with operator granularity, including the communication duration, waiting duration and link information of the communication operator.
 - Logic device link information: Display the link information of the source device or the destination device. Link information includes communication time, traffic, bandwidth (traffic divided by communication time) and link type. The link types include SDMA link (intra server communication link) and RDMA link (inter server communication link). Click the details and display them by pop-up window.
 
+The node link graph shows the situation of devices and communication links. Each node in the figure represents a device, and the size of the node encodes the total communication time of the device. The color of the node encodes the proportion of the device's communication time to the total communication and waiting time, namely: communication time/(communication time + waiting time). The darker the color of the node, the shorter the waiting time of the device. Devices with short waiting time may be slow nodes. Nodes can be dragged and moved, and the edges between nodes represent communication links.
+
+![communication_matrix.png](./images/communication_matrix.png)
+
+*Figure 7: the communication adjacency matrix*
+
+Figure 7 shows the adjacency matrix presented after brushing to select some devices in the node link graph. The adjacency matrix shows the communication links between devices. In each grid, the first and third rows show the communication time and traffic statistics of the link. The box plot in the second, fourth, and fifth rows of the adjacency matrix reflect the distribution of all communication operators on the three metrics, communication time, traffic, and bandwidth in the link. The outliers in the red box in the figure indicate that the operator occupies most of the bandwidth of the link. Users can locate abnormal communication links and abnormal communication operators through the adjacency matrix.
+
+Right-click anywhere in the adjacency matrix, users can return to the node link graph.
+
 ![operator_performance.png](./images/operator_performance.png)
 
-*Figure 7: Operator performance information*
+*Figure 8: Operator performance information*
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-*Figure 8: link information of logic device*
+*Figure 9: link information of logic device*
 
 The whole network link information tab page displays the link information of all logic devices, and provides the selection of source device, destination device and link type.
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-*Figure 9: link information of the whole network*
+*Figure 10: link information of the whole network*
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
@@ -318,7 +329,7 @@ This page shows the memory usage of the model on the **device side** in the para
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-*Figure 10: The page of cluster memory analysis*
+*Figure 11: The page of cluster memory analysis*
 
 ### Cluster FLOPs Analysis
 
@@ -330,7 +341,7 @@ This page shows the FLOPs data for each device in the parallel mode. The content
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-*Figure 11: The page of cluster FLOPs analysis*
+*Figure 12: The page of cluster FLOPs analysis*
 
 ## Strategy Perception
 
@@ -342,7 +353,7 @@ Strategy Perception includes Computational Graph Exploration module, Parallel St
 
 ![image-20211118132511452](./images/profiler_strategy_graph_en.png)
 
-*Figure 12: The Page of Strategy Perception*
+*Figure 13: The Page of Strategy Perception*
 
 The upper right corner of the page will show the parallel mode of this training. The figure above shows that the parallel mode in the current training is auto parallel.
 
@@ -360,7 +371,7 @@ By clicking a certain node (operator or aggregation node), the node attributes p
 
 ![image-20211118133144763](./images/profiler_strategy_graph_stack.png)
 
-*Figure 13: Operator Strategy Matrix*
+*Figure 14: Operator Strategy Matrix*
 
 If an input node of the operator has shard methods, a strategy matrix will be presented below the operator. One row represents the shard method of a certain input node. The number in the small grid cell represents the number of slices of the input node in the corresponding dimension.
 
@@ -372,7 +383,7 @@ It is important to note that constants are not plotted in the computational grap
 
 ![image-20211122180619886](./images/profiler_strategy_graph_pipeline.png)
 
-*Figure 14: Training Pipeline*
+*Figure 15: Training Pipeline*
 
 When the pipeline parallel strategy is adopted, click the button in the upper left corner to expand the training pipeline panel. This panel shows the send operators (red rectangles) and receive operators (green rectangles) in each stage and their correspondences between different stages. The rectangles (operators) can be clicked and the corresponding operator will be focused in the computational graph.
 
@@ -382,15 +393,90 @@ With the training pipeline panel, users can evaluate the rationality of stage se
 
 ![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
 
-*Figure 15: Operator Stacking*
+*Figure 16: Operator Stacking*
 
 In the computational graph, if there are too many operators of the same type in the aggregation node, they will be stacked and displayed. Double-click to expand the operator.
 
 ![image-20211118125032089](./images/profiler_strategy_hideline.png)
 
-*Figure 16: View Hidden Edges*
+*Figure 17: View Hidden Edges*
 
 In order to prevent the lines from being too messy and some unimportant edges will be hidden, move the mouse over the circle of the aggregation node to see the hidden edges.
+
+## Execution Overview
+
+The user can select the specified training from the training list, click performance debugging, and click the `cluster` tab to display the performance data of this training from the cluster perspective.
+The execution overview tab includes the analysis of the execution sequence of the operators in the computational graph, the analysis of the execution timeline of the operators on each device, and a time overview displaying the time information of each step and each device.
+
+![execution_overview.png](./images/execution_overview.png)
+
+*Figure 18：execution overview of a cluster*
+
+### Analysis of the computational graph
+
+The parallel strategy view is displayed on the top of the page.
+
+![parallel_strategy_view.png](./images/parallel_strategy_view.png)
+
+*Figure 19：parallel strategy view*
+
+In this computational graph, the operators are laid out from left to right according to the sequence of execution. The canvas can be dragged, scaled to observe. Each type of operator is distinguished with different colors, with a legend at the top of the view.
+
+On the left is the namespace selector. After checking the namespace, the corresponding operators will be enveloped with a certain color.
+
+When pipeline parallel strategy is adopted, computational graphs of all stages are displayed. Each computational graph is arranged horizontally according to the correspondence of `Send` and `Receive` operators. Users can get an overall perception of the parallel execution process.
+
+![timeline_minimap.png](./images/timeline_minimap.png)
+
+*Figure 20：timeline minimap*
+
+The right side is the special nodes counting panel and the node attribute panel.
+There are three types of special operators: operators with strategy, operators for redistribution, and operators for gradient aggregation.
+
+### Operators execution timeline analysis on each device
+
+The Marey view is displayed in the middle of the page.
+
+![marey_graph.png](./images/marey_graph.png)
+
+*Figure 21：Marey view*
+
+In the Marey view, each device has three color blocks and a timeline. The three color blocks show each device's FLOPs(the number of floating-point operations, used to measure model/algorithm complexity), FLOPS(the number of floating-point operations per second, used to measure hardware performance) and PeakMem(peak memory). For FLOPs and FLOPS, the shades represents the ratio of the value(the value of the current device / max value of all devices). For PeakMem, the shades represents the memory utilization(peak memory / memory capacity).
+
+![marey_timeline.png](./images/marey_timeline.png)
+
+*Figure 22：Marey timeline*
+
+As show in Figure 22, green block represents computation operator and orange block represents communication operator. The operators executed on devices in the same pipeline stage are basically the same. Each device has a timeline. We mark the start and end time of operator execution on the timeline, then connect polygons and fill in colors. This view can help locate the following two types of problems:
+
+![marey_exception.png](./images/marey_exception.png)
+
+*Figure 23：Marey timeline pattern of exceptions*
+
+As shown in Figure 23(a), when the execution time of an operator on each device is significantly longer than that of other operators, it may be that the parameter `all_reduce_fusion_config` is unreasonable.
+As shown in Figure 23(b), when the execution time of an operator on one device is significantly longer than that on other devices, there may be a slow node.
+
+The marey timeline supports the following interactions: brush to zoom in, double-click to zoom out, and hover to show the corresponding operators.
+
+The stage tree on the left side can be aggregated or expanded as needed. The timeline of the stage shows the union of the execution time of the same operator on all devices in the stage.
+
+A line chart is shown on the timeline. The dark line indicates the FLOPs change, the light line indicates the memory change.
+
+![marey_memory_flops.png](./images/marey_memory_flops.png)
+
+*Figure 24：line chart on the Marey timeline*
+
+As shown in Figure 24, the memory usage has a clear peak in the red box, which can be further analyzed with the operators on the marey timeline.
+
+### Time overview of each device
+
+The time overview is displayed at the bottom of the page.
+
+![time_view.png](./images/time_view.png)
+
+*Figure 25：time overview*
+
+The time overview is a double y-axis graph, showing the training time on the left and the communication time on the right. This view displays the training time of each device in each step, the average communication time and waiting time of each device. When user hovers on one step, the specific statistics can be seen in a pop-up card. This view serves as an entry for analysis. If user determines that the training process in a certain step is abnormal, he can click the certain step and the Marey view will show the execution details on the selected step for further analysis.
 
 ## Specifications
 
