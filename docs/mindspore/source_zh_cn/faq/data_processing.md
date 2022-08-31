@@ -75,6 +75,8 @@ A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
 原理:`c_transform`底层使用的是C版本`opencv/jpeg-turbo`进行的数据处理，`py_transform`使用的是Python版本的`Pillow`进行数据处理。
 
+在MindSpore1.8开始，数据增强API进行了合并，用户无需显式感知`c_transforms`和`py_transforms`，MindSpore将根据传入数据增强API的数据类型决定使用何种后端，默认使用`c_transforms`，因其性能更佳。详细可以参考[最新API文档与import说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.vision.html)。
+
 <br/>
 
 <font size=3>**Q: 由于我一条数据包含多个图像，并且每个图像的宽高都不一致，需要对转成mindrecord格式的数据进行`map`操作。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
@@ -231,17 +233,19 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 <br/>
 
-<font size=3>**Q: py_transforms 和 c_transforms 算子能否混合使用，如果混合使用具体需要怎么使用？**</font>
+<font size=3>**Q: py_transforms 和 c_transforms 增强操作能否混合使用，如果混合使用具体需要怎么使用？**</font>
 
-A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/augment_image_data.html#注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
-对此我们需要注意c_transforms 算子的输出通常是numpy array，py_transforms算子的输出是PIL Image，具体可查看算子说明，为此通常的混合使用方法为：
+A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms增强操作混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/augment_image_data.html#注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms增强模块（缺少对应的c_transforms增强操作）的情况下，可使用py_transforms模块中的增强操作替代，此时即存在混合使用。
+对此我们需要注意c_transforms 增强模块的输出通常是numpy array，py_transforms增强模块的输出是PIL Image，具体可查看对应的模块说明，为此通常的混合使用方法为：
 
-- c_transforms 算子 + ToPIL 算子 + py_transforms 算子 + ToTensor算子
-- py_transforms 算子 + ToTensor 算子 + c_transforms 算子
+- c_transforms 增强操作 + ToPIL操作 + py_transforms 增强操作 + ToNumpy操作
+- py_transforms 增强操作 + ToNumpy操作 + c_transforms 增强操作
 
 ```python
 # example that using c_transforms and py_transforms operators together
 # in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
+import mindspore.vision.c_transforms as c_vision
+import mindspore.vision.py_transforms as py_vision
 
 decode_op = c_vision.Decode()
 
@@ -256,22 +260,53 @@ data1 = data1.map(operations=decode_op, input_columns=["image"])
 data1 = data1.map(operations=transform, input_columns=["image"])
 ```
 
+在MindSpore1.8之后，由于数据增强API的合并，写作上会更简洁，如：
+
+```python
+import mindspore.vision as vision
+
+transforms = [
+    vision.Decode(),         # c_transforms 数据增强
+    vision.ToPIL(),          # 切换下一个增强输入为PIL
+    vision.CenterCrop(375),  # py_transforms 数据增强
+]
+
+data1 = data1.map(operations=transforms, input_columns=["image"])
+```
+
 <br/>
 
 <font size=3>**Q: 当错误提示 "The data pipeline is not a tree (i.e., one node has 2 consumers)" 应该怎么检查？**</font>
 
-A: 上述错误通常是脚本书写错误导致，具体发生在下面这种场景；正常情况下数据处理pipeline中的操作是依次串联的，下面的异常场景中dataset1有两个消费节点 dataset2和dataset3，就会出现上述错误。
+A: 上述错误通常是脚本书写错误导致。正常情况下数据处理pipeline中的操作是依次串联的，如下列定义：
 
 ```python
- dataset2 = dataset1.map(***)
- dataset3 = dataset1.map(***)
+# pipeline结构：
+# dataset1 -> map -> shuffle -> batch
+dataset1 = XXDataset()
+dataset1 = dataset1.map(...)
+dataset1 = dataset1.shuffle(...)
+dataset1 = dataset1.batch(...)
+```
+
+然而在下列异常场景中，假如dataset1有两个分叉节点，即dataset2和dataset3，就会出现上述错误。
+因为dataset1节点产生了分支，其数据流向是未定义的，所以不允许出现此种情况。
+
+```python
+# pipeline结构：
+# dataset1 -> dataset2 -> map
+#          |
+#          --> dataset3 -> map
+dataset1 = XXDataset()
+dataset2 = dataset1.map(***)
+dataset3 = dataset1.map(***)
 ```
 
 正确的写法如下所示，dataset3是由dataset2进性数据增强得到的，而不是在dataset1基础上进行数据增强操作得到。
 
 ```python
- dataset2 = dataset1.map(***)
- dataset3 = dataset2.map(***)
+dataset2 = dataset1.map(***)
+dataset3 = dataset2.map(***)
 ```
 
 <br/>

@@ -375,7 +375,7 @@ During the single-node multi-device distributed training, the cache operator all
 
 ## Cache Acceleration
 
-In order to share large data sets among multiple servers and alleviate the disk space requirements of a single server, users can usually choose to use NFS (Network File System), that is, the network file system, to store data sets (for the construction and configuration of NFS storage servers, see [HUAWEI CLOUD-NFS Storage Server Setup]( https://www.huaweicloud.com/articles/14fe58d0991fb2dfd2633a1772c175fc.html)。
+In order to share large data sets among multiple servers and alleviate the disk space requirements of a single server, users can usually choose to use NFS (Network File System), such as HUAWEI CLOUD-NFS Storage Server.
 
 However, access to NFS datasets is often expensive, resulting in longer training sessions by using NFS datasets.
 
