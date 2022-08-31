@@ -34,7 +34,6 @@ context_c.h提供了操作Context的接口，Context对象用于保存执行中�
 | [bool MSDeviceInfoGetEnableFP16(const MSDeviceInfoHandle device_info)](#msdeviceinfogetenablefp16)                                                 |
 | [void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)](#msdeviceinfosetfrequency)                                          |
 | [int MSDeviceInfoGetFrequency(const MSDeviceInfoHandle device_info)](#msdeviceinfogetfrequency)                                                    |
-| [MSDeviceType](#msdevicetype)                                                                                                                      |
 
 ### MSContextCreate
 
@@ -203,7 +202,7 @@ MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)
 新建运行设备信息，若创建失败则会返回`nullptr`，并日志中输出信息。
 
 - 参数
-    - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/tensor_c.html#msdevicetype)。
+    - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/types_c.html#msdevicetype)。
 
 - 返回值
 

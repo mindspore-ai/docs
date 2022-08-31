@@ -29,9 +29,7 @@ tensor_c.h提供了控制张量的接口，借助该接口，用户可以创建�
 | [int64_t MSTensorGetElementNum(const MSTensorHandle tensor)](#mstensorgetelementnum)                                                                           |
 | [size_t MSTensorGetDataSize(const MSTensorHandle tensor)](#mstensorgetdatasize)                                                                                |
 
-### 公有函数
-
-#### MSTensorCreate
+### MSTensorCreate
 
 ```C
 MSTensorHandle MSTensorCreate(const char *name, MSDataType type, const
@@ -54,7 +52,7 @@ MSTensorHandle MSTensorCreate(const char *name, MSDataType type, const
 
   指向MindSpore MSTensor(后文简称：MSTensor)的指针。
 
-#### MSTensorDestroy
+### MSTensorDestroy
 
 ```c
 void MSTensorDestroy(MSTensorHandle *tensor)
@@ -65,7 +63,7 @@ void MSTensorDestroy(MSTensorHandle *tensor)
 - 参数
     - `tensor`: 指向MSTensor指针的指针。
 
-#### MSTensorClone
+### MSTensorClone
 
 ```c
 MSTensorHandle MSTensorClone(MSTensorHandle tensor)
@@ -80,7 +78,7 @@ MSTensorHandle MSTensorClone(MSTensorHandle tensor)
 
   指向新MSTensor的指针。
 
-#### MSTensorSetName
+### MSTensorSetName
 
 ```c
 void MSTensorSetName(MSTensorHandle tensor, const char *name)
@@ -92,7 +90,7 @@ void MSTensorSetName(MSTensorHandle tensor, const char *name)
     - `tensor`: 指向MSTensor的指针。
     - `name`: 张量名称。
 
-#### MSTensorGetName
+### MSTensorGetName
 
 ```c
 const char *MSTensorGetName(const MSTensorHandle tensor)
@@ -103,7 +101,7 @@ const char *MSTensorGetName(const MSTensorHandle tensor)
 - 参数
     - `tensor`: 指向MSTensor的指针。
 
-#### MSTensorSetDataType
+### MSTensorSetDataType
 
 ```C
 void MSTensorSetDataType(MSTensorHandle tensor, MSDataType type)
@@ -121,7 +119,7 @@ void MSTensorSetDataType(MSTensorHandle tensor, MSDataType type)
 
   一个包含MindSpore MSTensor形状数值的整型数组。
 
-#### MSTensorGetDataType
+### MSTensorGetDataType
 
 ```C
 MSDataType MSTensorGetDataType(const MSTensorHandle tensor)
@@ -134,7 +132,7 @@ MSDataType MSTensorGetDataType(const MSTensorHandle tensor)
 
   MindSpore MSTensor类的MindSpore DataType。
 
-#### MSTensorSetShape
+### MSTensorSetShape
 
 ```C
 void MSTensorSetShape(MSTensorHandle tensor, const int64_t *shape, size_t shape_num)
@@ -147,7 +145,7 @@ void MSTensorSetShape(MSTensorHandle tensor, const int64_t *shape, size_t shape_
     - `shape`: 维度信息数组。
     - `shape_num`: 维度信息数组的长度。
 
-#### MSTensorGetShape
+### MSTensorGetShape
 
 ```C
 const int64_t *MSTensorGetShape(const MSTensorHandle tensor, size_t *shape_num)
@@ -163,7 +161,7 @@ const int64_t *MSTensorGetShape(const MSTensorHandle tensor, size_t *shape_num)
 
   一个包含MindSpore MSTensor形状数值的整型数组。
 
-#### MSTensorSetFormat
+### MSTensorSetFormat
 
 ```C
 void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
@@ -179,7 +177,7 @@ void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 
   一个包含MindSpore MSTensor形状数值的整型数组。
 
-#### MSTensorGetFormat
+### MSTensorGetFormat
 
 ```C
 MSFormat MSTensorGetFormat(const MSTensorHandle tensor)
@@ -191,7 +189,7 @@ MSFormat MSTensorGetFormat(const MSTensorHandle tensor)
 
   张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/format_c.html#msformat)。
 
-#### MSTensorSetData
+### MSTensorSetData
 
 ```C
 void MSTensorSetData(MSTensorHandle tensor, void *data)
@@ -203,7 +201,7 @@ void MSTensorSetData(MSTensorHandle tensor, void *data)
     - `tensor`: 指向MSTensor的指针。
     - `data`: 指向数据的指针。
 
-#### MSTensorGetData
+### MSTensorGetData
 
 ```C
 const void *MSTensorGetData(const MSTensorHandle tensor)
@@ -215,7 +213,7 @@ const void *MSTensorGetData(const MSTensorHandle tensor)
 
   MSTensor的数据指针。
 
-#### MSTensorGetMutableData
+### MSTensorGetMutableData
 
 ```C
 void *MSTensorGetMutableData(const MSTensorHandle tensor)
@@ -230,7 +228,7 @@ void *MSTensorGetMutableData(const MSTensorHandle tensor)
 
     MSTensor的数据指针。
 
-#### MSTensorGetElementNum
+### MSTensorGetElementNum
 
 ```C
 int64_t MSTensorGetElementNum(const MSTensorHandle tensor)
@@ -245,7 +243,7 @@ int64_t MSTensorGetElementNum(const MSTensorHandle tensor)
 
     MSTensor的元素个数。
 
-#### MSTensorGetDataSize
+### MSTensorGetDataSize
 
 ```C
 size_t MSTensorGetDataSize(const MSTensorHandle tensor)
@@ -260,7 +258,7 @@ size_t MSTensorGetDataSize(const MSTensorHandle tensor)
 
   MSTensor中的数据的字节数大小。
 
-#### DataType
+### DataType
 
 ```C
 typedef enum MSDataType {
