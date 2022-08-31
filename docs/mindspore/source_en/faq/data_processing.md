@@ -75,6 +75,8 @@ A: `c_transforms` is recommended. Its performance is better because it is execut
 
 Principle: The underlying layer of `c_transform` uses `opencv/jpeg-turbo` of the C version for data processing, and `py_transform` uses `Pillow` of the Python version for data processing.
 
+Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_transforms` and `py_transforms` will be selected automatically due to input tensor type instead of importing them manually. `c_transforms` is set to default option since its performance is better. More details please refer to [Latest API doc and import note](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html).
+
 <br/>
 
 <font size=3>**Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations`  of data processing are for the image format. How can I preprocess the generated data in mindrecord format?**</font>
@@ -242,6 +244,8 @@ Note that the c_transforms operator usually outputs numpy array, and the py_tran
 ```python
 # example that using c_transforms and py_transforms operators together
 # in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
+import mindspore.vision.c_transforms as c_vision
+import mindspore.vision.py_transforms as py_vision
 
 decode_op = c_vision.Decode()
 
@@ -256,22 +260,52 @@ data1 = data1.map(operations=decode_op, input_columns=["image"])
 data1 = data1.map(operations=transform, input_columns=["image"])
 ```
 
+From MindSpore 1.8, the code above can be simpler since we unify the APIs of data augmentation.
+
+```python
+import mindspore.vision as vision
+
+transforms = [
+    vision.Decode(),         # default to use c_transforms
+    vision.ToPIL(),          # switch to PIL backend
+    vision.CenterCrop(375),  # use py_transforms
+]
+
+data1 = data1.map(operations=transforms, input_columns=["image"])
+```
+
 <br/>
 
 <font size=3>**Q: Why is the error message "The data pipeline is not a tree (i.e., one node has 2 consumers)" displayed?**</font>
 
-A: The preceding error is usually caused by incorrect script writing. In normal cases, operations in the data processing pipeline are connected in sequence. In the following exception scenario, `dataset1` has two consumption nodes `dataset2` and `dataset3`. As a result, the preceding error occurs.
+A: The preceding error is usually caused by incorrect script writing. In normal cases, operations in the data processing pipeline are connected in sequence, for example
 
 ```python
- dataset2 = dataset1.map(***)
- dataset3 = dataset1.map(***)
+# pipeline definition
+# dataset1 -> map -> shuffle -> batch
+dataset1 = XXDataset()
+dataset1 = dataset1.map(...)
+dataset1 = dataset1.shuffle(...)
+dataset1 = dataset1.batch(...)
+```
+
+However, in the following exception scenario, `dataset1` has two consumption nodes `dataset2` and `dataset3`. As a result, the direction of data flow from `dataset1` is undefined, thus the pipeline definition is invalid.
+
+```python
+# pipeline definition:
+# dataset1 -> dataset2 -> map
+#          |
+#          --> dataset3 -> map
+dataset1 = XXDataset()
+dataset2 = dataset1.map(***)
+dataset3 = dataset1.map(***)
 ```
 
  The correct format is as follows. dataset3 is obtained by performing data enhancement on dataset2 rather than dataset1.
 
 ```python
- dataset2 = dataset1.map(***)
- dataset3 = dataset2.map(***)
+dataset2 = dataset1.map(***)
+dataset3 = dataset2.map(***)
 ```
 
 <br/>
