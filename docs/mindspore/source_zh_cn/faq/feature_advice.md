@@ -48,7 +48,7 @@ A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是�
 
 <font size=3>**Q: 用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？**</font>
 
-A: Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_310_mindir.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
+A: Ascend 310需要运行专用的OM模型，先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_310_mindir.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型。
 
 <br/>
 
@@ -60,7 +60,7 @@ A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异�
 
 <font size=3>**Q: MindSpore在Ascend 310上是否可以转AIR模型？**</font>
 
-A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint后,导出AIR，然后在Ascend 310转成OM模型进行推理。Ascend 910的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
+A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint后，导出AIR，然后在Ascend 310转成OM模型进行推理。Ascend 910的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
 
 <br/>
 
@@ -96,7 +96,7 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <font size=3>**Q: 请问MindSpore支持梯度截断吗？**</font>
 
-A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A: 支持，可以参考代码[梯度截断脚本](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 
