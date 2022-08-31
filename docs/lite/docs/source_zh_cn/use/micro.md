@@ -11,7 +11,7 @@
 MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部署解决方案：离线阶段直接将模型生成轻量化代码，不再需要在线解析模型和图编译，生成的Micro推理代码非常直观易懂，运行时内存小，代码体积也更小。
 用户使用MindSpore Lite转换工具`converter_lite`非常容易生成可在x86/ARM64/ARM32/Cortex-M平台部署的推理代码。
 
-通过Micro部署一个模型进行推理，通常包含以下四步：模型推理代码生成、推理包获取、代码集成、编译部署。
+通过Micro部署一个模型进行推理，通常包含以下四步：模型推理代码生成、`Micro`库获取、代码集成、编译部署。
 
 ## 模型推理代码生成
 
@@ -140,15 +140,15 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 | target          | 是       | 生成代码针对的平台               | x86, Cortex-M, ARM32, ARM64 | x86       |
 | support_parallel | 否       | 是否生成多线程推理代码，仅在x86, ARM32, ARM64平台可设置为true | true, false     | false    |
 
-## 推理包获取
+## `Micro`库获取
 
-在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的推理包。
+在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的`Micro`库。
 
-不同平台的推理代码依赖对应平台的推理包，用户需根据使用的平台，在生成代码时，通过Micro配置项`target`指定该平台，并在获取推理包时，获得该平台的推理包。
+不同平台的推理代码依赖对应平台的`Micro`库，用户需根据使用的平台，在生成代码时，通过Micro配置项`target`指定该平台，并在获取`Micro`库时，获得该平台的`Micro`库。
 用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
 
-在[模型推理代码生成](#模型推理代码生成)章节，我们得到了x86_64架构Linux平台的模型推理代码，而该代码所依赖的推理包，就是转换工具所使用的发布包。
-发布包内，推理代码所依赖的内容如下：
+在[模型推理代码生成](#模型推理代码生成)章节，我们得到了x86_64架构Linux平台的模型推理代码，而该代码所依赖的`Micro`库，就在转换工具所使用的发布包内。
+发布包内，推理代码所依赖的库和头文件如下：
 
 ```text
 mindspore-lite-{version}-linux-x64
@@ -190,9 +190,9 @@ mindspore-lite-{version}-linux-x64
 
 - 通过converter_lite转换工具，生成适配Cortex-M架构的模型推理代码
 
-- 下载得到该Cortex-M架构对应的推理包
+- 下载得到该Cortex-M架构对应的`Micro`库
 
-- 对得到的推理代码和推理包进行集成，编译并部署验证
+- 对得到的推理代码和`Micro`库进行集成，编译并部署验证
 
     在Windows平台，我们演示了如何通过IAR进行推理代码的集成开发，在Linux平台上，我们演示了如何通过MakeFile交叉编译的方式进行代码集成开发。
 
@@ -228,14 +228,13 @@ mnist                          # 指定的生成代码根目录名称
     └── weight.h
 ```
 
-### 下载Cortex-M架构推理包
+### 下载Cortex-M架构`Micro`库
 
-STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架构的推理包：
+STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架构的`Micro`库：
 
 - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
 
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
-    用户也可以在生成的推理代码目录下（本例中为`mnist`目录)，运行`bash build.sh`，该脚本会自动下载对应的推理包，并解压到当前目录，同时会尝试编译当前目录代码，生成静态库。
 
 - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
 
@@ -251,7 +250,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 通过`STM32CubeMX`软件生成所需要的MCU启动代码及演示工程
 
-- 在`IAR`内集成模型推理代码及推理包
+- 在`IAR`内集成模型推理代码及`Micro`库
 
 - 编译并仿真运行
 
@@ -280,9 +279,9 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 在已安装`IAR`的PC机上，双击生成工程内`EWARM`目录下的`Project.eww`即可打开该IAR工程
 
-#### 集成模型推理代码及推理包
+#### 集成模型推理代码及`Micro`库
 
-- 将生成的推理代码拷贝到工程内，并将[下载Cortex-M架构推理包](#下载cortex-m架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
+- 将生成的推理代码拷贝到工程内，并将[下载Cortex-M架构`Micro`库](#下载cortex-m架构micro库)章节获得的压缩包解压后放到生成的推理代码目录内，目录如下图所示：
 
     ```text
     test_stm32f767                                   # MCU工程目录
@@ -299,7 +298,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
         │   ├── data.c
         │   ├── data.h
         │   └── ...
-        │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构推理包
+        │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构`Micro`库
         ├── src                                      # 模型推理代码目录
         └── ...
     ```
@@ -376,7 +375,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 通过`STM32CubeMX`软件生成所需要的MCU启动代码及演示工程
 
-- 修改`MakeFile`集成模型推理代码及推理包
+- 修改`MakeFile`集成模型推理代码及`Micro`库
 
 - 编译工程及烧录
 
@@ -418,7 +417,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 #### 集成模型推理代码
 
-- 将生成的推理代码拷贝到MCU工程内，并将[下载Cortex-M架构推理包](#下载cortex-m架构推理包)章节获得的推理包解压后放到生成的推理代码目录内，目录如下图所示：
+- 将生成的推理代码拷贝到MCU工程内，并将[下载Cortex-M架构`Micro`库](#下载cortex-m架构micro库)章节获得的压缩包解压后放到生成的推理代码目录内，目录如下图所示：
 
     ```text
     stm32f767                                       # MCU工程目录
@@ -434,7 +433,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     │   │   ├── data.c
     │   │   ├── data.h
     │   │   └── ...
-    │   │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构推理包
+    │   │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构`Micro`库
     │   ├── src                                      # 模型推理代码目录
     │   └── ...
     ├── Makefile

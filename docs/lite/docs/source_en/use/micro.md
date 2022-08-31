@@ -11,7 +11,7 @@ Therefore, AI applications on IoT devices have strict limits on runtime memory a
 For MCUs deploying hardware backends, MindSpore Lite provides the ultra-lightweight Micro AI deployment solution. In the offline phase, models are directly generated into lightweight code without online model parsing and graph compilation. The generated Micro inference code is easy to understand, with less memory at runtime and smaller code size.
 You can use a MindSpore Lite conversion tool `converter_lite` to easily generate inference code that can be deployed on the x86/ARM64/ARM32/Cortex-M platform.
 
-Deploying a model for inference via the Micro involves the following four steps: model inference code generation, inference package obtaining, code integration, and compilation and deployment.
+Deploying a model for inference via the Micro involves the following four steps: model inference code generation, `Micro` lib obtaining, code integration, and compilation and deployment.
 
 ## Generating Model Inference Code
 
@@ -141,14 +141,14 @@ Table 1: micro_param parameter definition
 | target          | Yes       | Platform for which code is generated               | x86, Cortex-M, ARM32, ARM64 | x86       |
 | support_parallel | No       | Generate multi-threaded inference codes or not, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
 
-## Obtaining Inference Package
+## Obtaining `Micro` Lib
 
-After generating model inference code, you need to obtain the inference package on which the generated inference code depends before performing integrated development on the code.
+After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
 
-The inference code of different platforms depends on the inference package of the corresponding platform. You need to specify the platform via the micro configuration item `target` based on the platform in use when generating code, and obtain the inference package of the platform when obtaining the inference package.
+The inference code of different platforms depends on the `Micro` lib of the corresponding platform. You need to specify the platform via the micro configuration item `target` based on the platform in use when generating code, and obtain the `Micro` lib of the platform when obtaining the inference package.
 You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of the corresponding platform from the MindSpore official website.
 
-In chapter [Generating Model Inference Code](#generating-model-inference-code), we obtain the model inference code of the Linux platform with the x86_64 architecture. The inference package on which the code depends is the release package used by the conversion tool.
+In chapter [Generating Model Inference Code](#generating-model-inference-code), we obtain the model inference code of the Linux platform with the x86_64 architecture. The `Micro` lib on which the code depends is the release package used by the conversion tool.
 In the release package, the following content depended by the inference code:
 
 ```text
@@ -191,9 +191,9 @@ This tutorial takes the deployment of the [MNIST model](https://download.mindspo
 
 - Use the converter_lite conversion tool to generate model inference code that adapts to the Cortex-M architecture
 
-- Download the inference package corresponding to the Cortex-M architecture
+- Download the `Micro` lib corresponding to the Cortex-M architecture
 
-- Integrate and compile the obtained inference code and inference package, and deploy verification
+- Integrate and compile the obtained inference code and `Micro` lib, and deploy verification
 
     On the Windows platform, we demonstrate how to develop inference code through IAR, while on the Linux platform, we demonstrate how to develop inference code through MakeFile cross-compilation.
 
@@ -229,14 +229,13 @@ mnist                          # Specified name of generated code root directory
     └── weight.h
 ```
 
-### Downloading Inference Package of Cortex-M Architecture
+### Downloading `Micro` Lib of Cortex-M Architecture
 
-The STM32F767 uses the Cortex-M7 architecture. You can obtain the inference package of the architecture in either of the following ways:
+The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of the architecture in either of the following ways:
 
 - Download [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from the MindSpore official website.
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
-    You can also run `bash build.sh` in the generated inference code directory (the `mnist` directory in this example). The script automatically downloads the corresponding inference package and decompresses it to the current directory. At the same time, the script tries to compile the code in the current directory to generate a static library.
 
 - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 
@@ -252,7 +251,7 @@ This example shows code integration and burning through IAR and demonstrates how
 
 - Generate the required MCU startup code and demonstration project by using the `STM32CubeMX` software.
 
-- Integrate model inference code and inference package within `IAR`.
+- Integrate model inference code and `Micro` lib within `IAR`.
 
 - Perform complilation and simulation run
 
@@ -281,9 +280,9 @@ This chapter uses the STM32F767 startup project as an example to describe how to
 
 - On the PC where the `IAR` is installed, double-click `Project.eww` in the `EWARM` directory of the generated project to open the IAR project.
 
-#### Integrating Model Inference Code and Inference Package
+#### Integrating Model Inference Code and `Micro` Lib
 
-- Copy the generated inference code to the project, decompress the inference package obtained in [Downloading Inference Package of Cortex-M Architecture](#downloading-inference-package-of-cortex-m-architecture), and place it in the generated inference code directory, as shown in the following figure:
+- Copy the generated inference code to the project, decompress the package obtained in [Downloading `Micro` Lib of Cortex-M Architecture](#downloading-micro-lib-of-cortex-m-architecture), and place it in the generated inference code directory, as shown in the following figure:
 
     ```text
     test_stm32f767                                   # MCU project directory
@@ -300,7 +299,7 @@ This chapter uses the STM32F767 startup project as an example to describe how to
         │   ├── data.c
         │   ├── data.h
         │   └── ...
-        │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture Inference Package
+        │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture `Micro` Lib
         ├── src                                      # Model inference code directory
         └── ...
     ```
@@ -377,7 +376,7 @@ The main steps are as follows:
 
 - Generate the required MCU startup code and demonstration project using the `STM32CubeMX` software
 
-- Modify the inference code and inference package of the `MakeFile` integrated model
+- Modify the inference code and `Micro` lib of the `MakeFile` integrated model
 
 - Compiling and burning the project
 
@@ -417,9 +416,9 @@ This chapter uses the STM32F767 startup project as an example to describe how to
 
 - On the PC where the `IAR` is installed, double-click `Project.eww` in the `EWARM` directory of the generated project to open the IAR project
 
-#### Integrating Model Inference Code and Inference Package
+#### Integrating Model Inference Code and `Micro` Lib
 
-- Copy the generated inference code to the project, decompress the inference package obtained in [Downloading Inference Package of Cortex-M Architecture](#downloading-inference-package-of-cortex-m-architecture), and place it in the generated inference code directory, as shown in the following figure:
+- Copy the generated inference code to the project, decompress the package obtained in [Downloading `Micro` Lib of Cortex-M Architecture](#downloading-micro-lib-of-cortex-m-architecture), and place it in the generated inference code directory, as shown in the following figure:
 
     ```text
     stm32f767                                       # MCU project directory
@@ -435,7 +434,7 @@ This chapter uses the STM32F767 startup project as an example to describe how to
     │   │   ├── data.c
     │   │   ├── data.h
     │   │   └── ...
-    │   │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture Inference Package
+    │   │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture `Micro` Lib
     │   ├── src                                      # Model inference code directory
     │   └── ...
     ├── Makefile
