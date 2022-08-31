@@ -95,13 +95,14 @@ for i, exps in enumerate(lime_outputs):
 ```
 
 输出:
-> LIMETabular：
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [('petal length (cm) <= 1.60', 0.8182714590301656),
-> ('sepal width (cm) > 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
-> ('sepal length (cm) <= 5.10', -0.021441399016492325)]
+
+```text
+LIMETabular：
+对于第 0 个样本的类别 setosa 的解释:
+[('petal length (cm) <= 1.60', 0.8182714590301656),
+('sepal width (cm) > 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
+('sepal length (cm) <= 5.10', -0.021441399016492325)]
+```
 
 ![lime_tabular](./images/lime_tabular.png)
 
@@ -135,11 +136,12 @@ for i, exps in enumerate(shap_kernel_outputs):
 ```
 
 输出:
-> SHAPKernel:
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [-0.00403276  0.03651359  0.59952676  0.01399141]
+
+```text
+SHAPKernel:
+对于第 0 个样本的类别 setosa 的解释:
+[-0.00403276  0.03651359  0.59952676  0.01399141]
+```
 
 ![shap_kernel](./images/shap_kernel.png)
 
@@ -173,10 +175,10 @@ for i, exps in enumerate(shap_gradient_outputs):
 
 输出:
 
-> SHAPGradient:
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [-0.0112452   0.08389313  0.47006473  0.0373782 ]
+```text
+SHAPGradient:
+对于第 0 个样本的类别 setosa 的解释:
+[-0.0112452   0.08389313  0.47006473  0.0373782 ]
+```
 
 ![shap_gradient](./images/shap_gradient.png)
