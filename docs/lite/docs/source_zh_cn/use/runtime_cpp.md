@@ -204,7 +204,7 @@ if (ascend_device_info == nullptr) {
   std::cerr << "New Ascend310DeviceInfo failed." << std::endl;
 }
 // Ascend310 set device id to be 0.
-ascend_device_info->SetDeviceId(0);
+ascend_device_info->SetDeviceID(0);
 // The ascend310 device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
 
