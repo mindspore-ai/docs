@@ -199,9 +199,9 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 <br/>
 
-<font size=3>**Q: 第一次看到有专门的数据处理框架，能介绍下么？**</font>
+<font size=3>**Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？**</font>
 
-A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
 
 <br/>
 

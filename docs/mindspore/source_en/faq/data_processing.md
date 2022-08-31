@@ -199,9 +199,9 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 <br/>
 
-<font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
+<font size=3>**Q: Can you introduce the data processing framework in MindSpore?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
+A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#introduction-to-data-processing-pipeline). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
 
 <br/>
 
