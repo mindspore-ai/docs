@@ -24,6 +24,7 @@
    network/op_overload
    network/custom_cell_reverse
    network/ms_class
+   network/constexpr
 
 .. toctree::
    :glob:
