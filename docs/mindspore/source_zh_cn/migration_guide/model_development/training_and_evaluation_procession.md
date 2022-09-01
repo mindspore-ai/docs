@@ -1,5 +1,7 @@
 # 推理及训练流程
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 通用运行环境设置
 
 我们在进行网络训练和推理前，一般需要先进行运行环境设置，这里给出一个通用的运行环境配置：
@@ -111,7 +113,7 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个推理验证的流程请参考[resnet网络迁移](../sample_code.md)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
 
 ## 训练流程
 

@@ -81,16 +81,13 @@ MindSpore 文档
    :hidden:
 
    migration_guide/overview
-   migration_guide/preparation
-   migration_guide/script_analysis
-   migration_guide/script_development
-   migration_guide/neural_network_debug
-   migration_guide/accuracy_optimization
-   migration_guide/performance_optimization
-   migration_guide/inference
+   migration_guide/enveriment_preparation
+   migration_guide/analysis_and_preparation
+   migration_guide/model_development/model_development
+   migration_guide/debug_and_tune
    migration_guide/sample_code
    migration_guide/faq
-   
+
 .. toctree::
    :glob:
    :maxdepth: 1

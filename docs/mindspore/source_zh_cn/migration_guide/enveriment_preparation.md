@@ -1,5 +1,7 @@
 # 环境准备&资料获取
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 网络迁移首先需要配置MindSpore的开发环境，本章会详细描述安装过程与相关资料获取。相关资料包括对MindSpore组件models & Hub的基本介绍，包含用途、场景与使用方法。此外还有云上训练的相关教程：使用ModelArts适配脚本，在OBS上传数据集，进行线上训练等。
 
 ## MindSpore安装
@@ -65,4 +67,8 @@ mox.file.copy_parallel(src_path, target_path)  #将OBS桶中的数据拷到实�
 
 EFS：可以理解为一块可挂载的云盘，在开发环境和训练环境中可以直接挂载到对应的物理机上，方便执行作业。
 
-[视频教程](https://www.bilibili.com/video/BV16G4y1a7A8)
+欢迎点击下面视频，一起来学习。
+
+<div style="position: relative; padding: 30% 45%;">
+<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="https://player.bilibili.com/player.html?aid=814612708&bvid=BV16G4y1a7A8&cid=805013543&page=1&high_quality=1&&danmaku=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+</div>

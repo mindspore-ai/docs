@@ -1,10 +1,12 @@
 # 网络迁移调试实例
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 本章将以经典网络 ResNet50 为例，结合代码来详细介绍网络迁移方法。
 
 ## 模型分析与准备
 
-假设已经按照[环境准备](enveriment_preparation.md)章节配置好了MindSpore的运行环境。且假设resnet50在models仓还没有实现。
+假设已经按照[环境准备](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html)章节配置好了MindSpore的运行环境。且假设resnet50在models仓还没有实现。
 
 首先需要分析算法及网络结构。
 
@@ -12,7 +14,7 @@
 
 [论文](https://arxiv.org/pdf/1512.03385.pdf)：Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-我们找到了一份[PyToch ResNet50 Cifar10的示例代码](code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
+我们找到了一份[PyToch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
 
 ### checklist
 
@@ -158,7 +160,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
 
 ### 网络模型实现
 
-参考[PyTorch resnet](code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具我发现，实现只有几个地方有差别：
+参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具我发现，实现只有几个地方有差别：
 
 ```python
 # Conv2d PyTorch
@@ -639,7 +641,7 @@ Test set: Average loss: 0.3240, Accuracy: 91%
 
 ## 训练流程
 
-PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytroch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytroch_res.zip)。
+PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytroch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytroch_res.zip)。
 
 对应的MindSpore代码：
 
@@ -787,12 +789,12 @@ Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进
 
 我们发现执行时间节省了一半。
 
-我们接着进行分析和优化。从前反向的算子执行时间来看，`Cast`和`BatchNorm`几乎占了50%，那为什么会有这么多`Cast`呢？之前[MindSpore网络编写容易出现问题的地方](model_development/model_development.md)章节有介绍说Ascend环境下Conv，Sort，TopK只能是float16的，所以在Conv计算前后会加`Cast`算子。一个最直接的方法是将网络计算都改成float16的，只会在网络的输入和loss计算前加`Cast`，`Cast`算子的消耗就可以不计了，这就涉及到MindSpore的混合精度策略。
+我们接着进行分析和优化。从前反向的算子执行时间来看，`Cast`和`BatchNorm`几乎占了50%，那为什么会有这么多`Cast`呢？之前[MindSpore网络编写容易出现问题的地方](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)章节有介绍说Ascend环境下Conv，Sort，TopK只能是float16的，所以在Conv计算前后会加`Cast`算子。一个最直接的方法是将网络计算都改成float16的，只会在网络的输入和loss计算前加`Cast`，`Cast`算子的消耗就可以不计了，这就涉及到MindSpore的混合精度策略。
 
 MindSpore有三种方法使用混合精度：
 
 1. 直接使用`Cast`，将网络的输入`cast`成`float16`，将loss的输入`cast`成`float32`；
-2. 使用`Cell`的`to_float`方法，详情参考[网络主体及loss搭建](model_development/model_and_loss.md)；
+2. 使用`Cell`的`to_float`方法，详情参考[网络主体及loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html)；
 3. 使用`Model`的`amp_level`接口进行混合精度，详情参考[自动混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)。
 
 这里我们使用第三种方法，将`Model`中的`amp_level`设置成`O3`，看一下profiler的结果：
@@ -816,4 +818,11 @@ MindSpore有三种方法使用混合精度：
 
 每个数据处理操作的队列，发现最后一个算子，`batch`算子空的时间比较多，可以考虑增加`batch`算子的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
 
-整个resnet迁移需要的代码可以在[code](./code)获取。[视频教程](https://www.bilibili.com/video/BV1sa411P737)
+整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code)获取。
+
+欢迎点击下面视频，一起来学习。
+
+<div style="position: relative; padding: 30% 45%;">
+<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="https://player.bilibili.com/player.html?aid=216889508&bvid=BV1sa411P737&cid=802191204&page=1&high_quality=1&&danmaku=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+</div>
+

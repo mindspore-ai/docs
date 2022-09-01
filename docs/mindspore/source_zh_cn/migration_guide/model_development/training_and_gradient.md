@@ -1,5 +1,7 @@
 # 训练网络与梯度求导
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 自动微分
 
 正向网络构建完成之后，MindSpore提供了[自动微分](https://mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)的接口用以计算模型的梯度结果。
