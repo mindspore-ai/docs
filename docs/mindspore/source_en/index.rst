@@ -37,6 +37,7 @@ MindSpore Documentation
    :hidden:
 
    api_python/mindspore
+   api_python/mindspore.amp
    api_python/mindspore.common.initializer
    api_python/mindspore.communication
    api_python/mindspore.dataset

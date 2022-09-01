@@ -322,7 +322,7 @@ The dynamic loss scale algorithm is as follows:
 
 ## Loss scale used in MindSpore
 
-The following two APIs in MindSpore that use the loss scaling algorithm are described separately  [FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.FixedLossScaleManager.html) and [DynamicLossScaleManager]( https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.DynamicLossScaleManager.html).
+The following two APIs in MindSpore that use the loss scaling algorithm are described separately  [FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.FixedLossScaleManager.html#mindspore.amp.FixedLossScaleManager) and [DynamicLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html#mindspore.amp.DynamicLossScaleManager).
 
 ### FixedLossScaleManager
 
