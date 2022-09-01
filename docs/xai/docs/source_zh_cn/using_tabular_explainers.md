@@ -4,8 +4,8 @@
 
 ## 简介
 
-在这个教程中，我们将使用三个不同的解释器来解释表格数据的分类结果，这三个解释器包括 `LIMETabular` ，
- `SHAPKernel` 和 `SHAPGradient` 。
+在这个教程中，我们将使用四个不同的解释器来解释表格数据的分类结果，这四个解释器包括 `LIMETabular` ，
+ `SHAPKernel` ， `SHAPGradient` 和 `PseudoLinearCoef` 。
 
 以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
 
@@ -87,13 +87,16 @@ for i, exps in enumerate(lime_outputs):
 ```
 
 输出:
-> LIMETabular：
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [('petal length (cm) <= 1.60', 0.8182714590301656),
-> ('sepal width (cm) > 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
-> ('sepal length (cm) <= 5.10', -0.021441399016492325)]
+
+```text
+LIMETabular：
+
+对于第 0 个样本的类别 setosa 的解释:
+
+[('petal length (cm) <= 1.60', 0.8182714590301656),
+('sepal width (cm) 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
+('sepal length (cm) <= 5.10', -0.021441399016492325)]
+```
 
 ![lime_tabular](./images/lime_tabular.png)
 
@@ -127,11 +130,14 @@ for i, exps in enumerate(shap_kernel_outputs):
 ```
 
 输出:
-> SHAPKernel:
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [-0.00403276  0.03651359  0.59952676  0.01399141]
+
+```text
+SHAPKernel:
+
+对于第 0 个样本的类别 setosa 的解释:
+
+[-0.00403276  0.03651359  0.59952676  0.01399141]
+```
 
 ![shap_kernel](./images/shap_kernel.png)
 
@@ -148,7 +154,6 @@ shap_kernel = SHAPKernel(predict_fn, data, feature_names=feature_names, class_na
 
 ```python
 from mindspore_xai.explainer import SHAPGradient
-import mindspore as ms
 
 # 初始化解释器
 shap_gradient = SHAPGradient(net, data, feature_names=feature_names, class_names=class_names)
@@ -163,10 +168,86 @@ for i, exps in enumerate(shap_gradient_outputs):
 
 输出:
 
-> SHAPGradient:
->
-> 对于第 0 个样本的类别 setosa 的解释:
->
-> [-0.0112452   0.08389313  0.47006473  0.0373782 ]
+```text
+SHAPGradient:
+
+对于第 0 个样本的类别 setosa 的解释:
+
+[-0.0112452   0.08389313  0.47006473  0.0373782 ]
+```
 
 ![shap_gradient](./images/shap_gradient.png)
+
+## Using PseudoLinearCoef
+
+`PseudoLinearCoef` 提供全局归因方法来测量分类器决策边界周围特征的敏感度。
+
+```python
+from mindspore_xai.explainer import PseudoLinearCoef
+
+# 初始化解释器
+plc_explainer = PseudoLinearCoef(classifier=net, num_classes=len(class_names))
+# 解释
+plc, relative_plc = plc_explainer(data)
+```
+
+![pseudo_linear_coef](./images/PLC.png)
+
+```python
+print("Pseudo Linear Coef.:")
+for target, target_name in enumerate(class_names):
+    print(f"class {target_name}")
+    print(str(plc[target]))
+
+print("\nRelative Pseudo Linear Coef.:")
+for target, target_name in enumerate(class_names):
+    for view_point, view_point_name in enumerate(class_names):
+        if target == view_point:
+            continue
+        print(f"{target_name} relative to {view_point_name}")
+        print(str(relative_plc[target, view_point]))
+```
+
+输出:
+
+```text
+Pseudo Linear Coef.:
+
+class setosa:
+
+[-0.12420721  0.15363358 -0.44856226 -0.16351467]
+
+class versicolor:
+
+[ 0.03954152 -0.20367564  0.3246966  -0.17629193]
+
+class virginica:
+
+[-0.03425665 -0.04525428  0.44189668  0.20307252]
+
+Relative Pseudo Linear Coef.:
+
+setosa relative to versicolor
+
+[-0.12564947  0.15629557 -0.44782427 -0.16126522]
+
+setosa relative to virginica
+
+[-0.11122696  0.12967573 -0.45520434 -0.18375972]
+
+versicolor relative to setosa
+
+[ 0.02240782 -0.23672473  0.3889126   0.21666989]
+
+versicolor relative to virginica
+
+[ 0.21087858  0.1268154  -0.31746316 -0.22748768]
+
+virginica relative to setosa
+
+[ 0.07109812 -0.08392082  0.5585888   0.23082316]
+
+virginica relative to versicolor
+
+[-0.15152863 -0.00229146  0.31223866  0.17223847]
+```
