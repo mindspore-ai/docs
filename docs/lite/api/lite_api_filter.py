@@ -16,8 +16,8 @@ def lite_class_filter(file):
         "opencl_runtime_wrapper.h", "dual_abi_helper.h"
         ]
     if filename in white_files\
-        or "MS_API" in content or "MIND_API" in content or "/callback/" in file:
-        print(content.replace("MS_API", "").replace("MIND_API", "")\
+        or "MS_API" in content or "MIND_API" in content or "DATASET_API" in content or "/callback/" in file:
+        print(content.replace("MS_API", "").replace("MIND_API", "").replace("DATASET_API", "")\
             .replace("MS_CORE_API", "").replace("MS_DECLARE_PARENT", ""))
     else:
         pass
