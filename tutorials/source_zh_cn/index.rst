@@ -25,7 +25,7 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 进阶
+   :caption: 进阶教程
    :hidden:
 
    advanced/lenet_mnist
