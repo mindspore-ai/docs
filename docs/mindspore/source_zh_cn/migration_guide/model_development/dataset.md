@@ -1,5 +1,7 @@
 # 数据集构建
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 本章节主要对网络迁移中数据处理相关的注意事项加以说明，基本的数据处理请参考：
 
 [数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html)

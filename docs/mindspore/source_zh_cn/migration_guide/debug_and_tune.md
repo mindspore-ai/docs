@@ -1,5 +1,7 @@
 # 调试调优
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/debug_and_tune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 功能调试
 
 在网络的迁移过程，建议优先使用PYNATIVE模式进行调试，在PYNATIVE模式下可以进行debug，日志打印也比较友好。在调试ok后转成图模式运行，图模式在执行性能上会更友好，也可以找到一些在编写网络中的问题，比如使用了三方的算子导致梯度截断。
@@ -69,13 +71,13 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
 
 由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个模型验证的流程请参考[resnet网络迁移](sample_code.md)。
+整个模型验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
 
 ### 3.推理验证
 
 确认模型结构完全一致后，最好再做一次推理验证。整个推理过程除了模型外还有数据集和metrics，当推理结果不一致时，可以采用控制变量法，逐步排除问题。
 
-整个推理验证的流程请参考[resnet网络迁移](sample_code.md)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
 
 ### 4.训练精度
 
@@ -118,7 +120,7 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
     ```
 
 - 排查优化器和loss，整个训练过程除了模型、数据集外新加的部分只有优化器和loss，训练有问题时需要重点排查，尤其是loss，出现问题的概率较大。
-- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](model_development/training_and_gradient.md#自定义训练Cell)确认是否进行梯度聚合。
+- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_gradient.html#自定义训练Cell)确认是否进行梯度聚合。
 
     ```python
     import mindspore as ms
@@ -138,7 +140,7 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
 3. 多机同步性能优化
 4. 数据处理性能优化
 
-可以参考[resnet网络迁移](sample_code.md)串通整个过程。
+可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)串通整个过程。
 
 > 有的网络很大或者有很多[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/control_flow.html)，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略，如果确认是图编译慢请尝试[算子增量编译](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/op_compilation.html)或者联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
@@ -185,7 +187,7 @@ MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/ma
 
 如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，可联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
-[动态shape场景](analysis_and_preparation.md#动态shape)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](model_development/model_and_loss.md#动态shape规避策略)。
+[动态shape场景](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#动态shape)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html#动态shape规避策略)。
 
 ### 多机同步性能优化
 

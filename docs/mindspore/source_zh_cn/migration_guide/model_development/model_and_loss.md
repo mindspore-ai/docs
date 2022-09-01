@@ -1,5 +1,7 @@
 # 网络主体及loss搭建
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 在阅读本章节之前，请先阅读MindSpore官网教程[构建网络](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/forward.html)和[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/loss.html)。
 
 ## 网络基本构成单元 Cell

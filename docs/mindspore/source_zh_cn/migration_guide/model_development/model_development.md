@@ -1,5 +1,7 @@
 # MindSpore网络搭建
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/model_development.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 本章节将会从训练和推理需要的基本模块出发，介绍MindSpore脚本编写的相关内容，包含数据集、网络模型及loss函数、优化器、训练流程、推理流程等内容。其中会包含一些在网络迁移中常用的功能技巧，比如网络编写的规范，训练、推理流程模板，动态shape的规避策略等。
 
 ## 网络训练原理
@@ -38,11 +40,11 @@
 
 了解了网络训练和推理的过程后，下面介绍以下如何在MindSpore上实现网络训练和推理的过程。
 
-- [数据集构建](dataset.md)
-- [网络主体及loss搭建](model_and_loss.md)
-- [学习率及优化器](learning_rate_and_optimizer.md)
-- [训练网络与梯度求导](training_and_gradient.md)
-- [推理及训练流程](training_and_evaluation_procession.md)
+- [数据集构建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/dataset.html)
+- [网络主体及loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html)
+- [学习率及优化器](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html)
+- [训练网络与梯度求导](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_gradient.html)
+- [推理及训练流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation_procession.html)
 
 > 做网络迁移时，我们推荐在完成网络脚本的编写后，优先做模型的推理验证。这样做有以下几点好处：
 >
@@ -56,7 +58,7 @@
 
 1. 数据处理中使用MindSpore的算子。数据处理过程一般会有多线程/多进程，此场景下数据处理使用MindSpore的数字存在限制，数据处理过程中使用的算子建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
 2. 控制流。详情请参考[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/control_flow.html)。当多层调用条件控制语句时在图模式下编译会很慢。
-3. 切片操作，当遇到对一个Tesnor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考[网络主体和loss搭建](model_and_loss.md)对动态shape规避。
+3. 切片操作，当遇到对一个Tesnor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html)对动态shape规避。
 4. 自定义混合精度和Model里的`amp_level`冲突，使用自定义的混合精度就不要设置Model里的`amp_level`。
 5. 在Ascend环境下Conv，Sort，TopK只能是float16的，注意加[loss scale](https://mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)避免溢出。
 6. 在Ascend环境下Conv，Pooling等带有stride属性的算子对stride的长度有规定，需要规避。

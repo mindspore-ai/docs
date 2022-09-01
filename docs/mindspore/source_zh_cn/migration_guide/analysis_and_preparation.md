@@ -1,5 +1,7 @@
 # 模型分析与准备
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 获取参考代码
 
 我们拿到一篇论文，需要在MindSpore上进行迁移实现时，优先需要找到在其他框架已经实现好的参考代码，原则上这个参考代码需要符合以下要求中的至少一项：
@@ -9,7 +11,7 @@
 3. 比较新的代码，有开发者对代码进行维护；
 4. 优先考虑PyTorch的参考代码。
 
-如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](model_development/model_development.md)进行开发。
+如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
 
 ## 分析算法及网络结构
 
@@ -77,8 +79,8 @@
 3. 获取一些参考数据作为MindSpore迁移过程的参考：
 
     - 获取loss下降趋势，帮助验证MindSpore上训练收敛趋势是否ok；
-    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](model_development/training_and_evaluation_procession.md)；
-    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](debug_and_tune.md)。
+    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation_procession.html)；
+    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html)。
 
 ## 分析API满足度
 
@@ -312,7 +314,7 @@ test_compare(pred, target, weight, gamma=2.0, alpha=0.25, reduction='none', avg_
 
 当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
 
-除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](use_third_party_op.md)。
+除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
 
 **注意，PyTorch实现的算子迁移到GPU和CPU上比较方便，这里展示的也大多是GPU和CPU的，Ascend的算子由于需要使用TBE进行算子开发，门槛较高，推荐使用官方实现的算子进行包装。**
 
@@ -406,7 +408,7 @@ print(y)
 
 在这个过程其实有两个地方有动态shape，一个是`cond=True`时`masked_select`结果的shape是动态，另外是控制流，由于cond不定，控制流两个分支的shape输出不同也会造成动态shape。
 
-动态shape一般可以从算法、代码层面进行分析，也可以直接打印参考代码相关Tensor进行判断。如果存在动态shape，我们在[网络主体和loss搭建](model_development/model_and_loss.md)篇章有规避策略的介绍。
+动态shape一般可以从算法、代码层面进行分析，也可以直接打印参考代码相关Tensor进行判断。如果存在动态shape，我们在[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html)篇章有规避策略的介绍。
 
 #### 稀疏
 
@@ -467,6 +469,6 @@ MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计�
 
 ## 与PyTorch典型接口区别
 
-在PyTorch往MindSpore进行网络迁移时，需要注意[与PyTorch典型接口区别](typical_api_comparision.md)。
+在PyTorch往MindSpore进行网络迁移时，需要注意[与PyTorch典型接口区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html)。
 
 [1] Lin, T. Y. , et al. "Focal Loss for Dense Object Detection." IEEE Transactions on Pattern Analysis & Machine Intelligence PP.99(2017):2999-3007.
