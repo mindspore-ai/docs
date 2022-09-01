@@ -5,7 +5,7 @@ MindSpore Reinforcement is an open-source reinforcement learning framework that 
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_zh_cn/images/rmindspore_rl_architecture.png" width="700px" alt="" >
 
 Unique Design Features
 -----------------------
@@ -25,7 +25,7 @@ Unique Design Features
 Future Roadmap
 ---------------
 
-- This initial release of MindSpore Reinforcement contains a stable API for implementing reinforcement learning algorithms and executing computation using MindSpore’s computational graphs. It does not yet include the more advanced features for the parallel and distributed execution of algorithms or the support for multi-agent scenarios with cooperating and competing agents – stay tuned for future releases of MindSpore Reinforcement that will include these features.
+- This initial release of MindSpore Reinforcement contains a stable API for implementing reinforcement learning algorithms and executing computation using MindSpore’s computational graphs. Now it supports semi-automatic distributed execution of algorithms and multi-agent, but does not support fully automatic distributed capabilities yet. These features will be included in the subsequent version of MindSpore Reinforcement. Please look forward to it.
 
 Typical MindSpore Reinforcement Application Scenarios
 ------------------------------------------------------

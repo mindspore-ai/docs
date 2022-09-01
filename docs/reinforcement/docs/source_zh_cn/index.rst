@@ -5,7 +5,7 @@ MindSpore Reinforcement是一个开源的强化学习框架，支持使用强化
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_zh_cn/reinforcement_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_zh_cn/images/rmindspore_rl_architecture.png" width="700px" alt="" >
 
 设计特点
 --------
@@ -25,7 +25,7 @@ MindSpore Reinforcement是一个开源的强化学习框架，支持使用强化
 未来路标
 ---------
 
-- MindSpore Reinforcement初始版本包含一个稳定的API，用于实现强化学习算法和使用MindSpore的计算图执行计算。初始版本暂时不包含算法的并行和分布式执行的高级功能，也不支持包含相互合作和竞争关系agent的多智能体场景。MindSpore Reinforcement的后续版本将包含这些功能，敬请期待。
+- MindSpore Reinforcement初始版本包含一个稳定的API，用于实现强化学习算法和使用MindSpore的计算图执行计算。现已支持算法并行和半自动分布式执行能力，支持多agent场景，暂不支持自动的分布式能力。MindSpore Reinforcement的后续版本将包含这些功能，敬请期待。
 
 使用MindSpore Reinforcement的典型场景
 --------------------------------------
