@@ -1,39 +1,25 @@
 # 常见问题
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+MindSpore官网提供了一份在使用MindSpore过程中的[FAQ](https://mindspore.cn/docs/zh-CN/master/faq/installation.html)，本章也整理了一下在迁移文档中提及的常见问题集解决方法。
 
-从其他框架迁移到MindSpore框架的过程中，可能会遇到各种各样的问题，下面将迁移过程中的常见问题及其解决方法汇总如下：
+- 网络脚本
 
-- 准备工作
+    [与PyTorch典型区别](./typical_api_comparision.md)
 
-    [安装MindSpore常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)
+    [API映射及缺失API处理策略](./analysis_and_preparation.md#分析API满足度)
 
-- 网络脚本分析
+    [动态shape分析](analysis_and_preparation.md#动态shape)及[规避方案](model_development/model_and_loss.md#动态shape规避策略)
 
-    [算子映射及缺失算子处理策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/script_analysis.html#查询算子映射表)
+    [稀疏特性规避方案](analysis_and_preparation.md#稀疏)
 
-    [常见语法限制及处理策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/script_analysis.html#常见限制原则)
+    [静态图常见语法限制及处理策略](./model_development/model_and_loss.md#常见限制)
 
-- 网络脚本开发
-
-    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/README_CN.md#常见问题)
+    [MindSpore网络编写注意事项](./model_development/model_development.md#MindSpore网络编写注意事项)
 
 - 网络调试
 
-    [流程调试常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/neural_network_debug.html#常见错误)
+    [功能调试](debug_and_tune.md#功能调试)
 
-    [loss值对比检查常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/neural_network_debug.html#相关问题定位)
+    [精度调试](debug_and_tune.md#精度调试)
 
-    [loss值异常常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/neural_network_debug.html#loss值异常定位)
-
-- 性能调试
-
-    [性能调试常见问题及优化方法](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#性能调优)
-
-    [Profiler工具常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/performance_optimization.html#常见问题)
-
-- 执行推理
-
-    [端侧使用类常见问题处理](https://www.mindspore.cn/lite/faq/zh-CN/master/faq.html)
-
-    [推理常见问题处理](https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html)
+    [性能调优](debug_and_tune.md#性能调优)
