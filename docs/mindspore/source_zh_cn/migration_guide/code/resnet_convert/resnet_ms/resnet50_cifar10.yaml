@@ -1,0 +1,46 @@
+# Builtin Configurations(DO NOT CHANGE THESE CONFIGURATIONS unless you know exactly what you are doing)
+enable_modelarts: False  # Whether training on modelarts.
+# Url for modelarts
+data_url: ""             # dataset path in obs.
+train_url: ""            # code path in obs.
+checkpoint_url: ""       # pretrained_checkpoint path in obs.
+# Path for local
+data_path: "/cache/dataset"          # dataset path for local, default is the path in container on modelarts.
+train_path: "/cache/train"                # runtime path for local, default is the path in container on modelarts.
+output_path: "./output"          # output path for local, default is the path in container on modelarts.
+checkpoint_path: ""            # pretrained checkpoint path for local, default is the path in container on modelarts.
+
+# ==============================================================================
+# Environment
+device_target: "None"     # if None, automatic selection device. should be in ['None', 'Ascend', 'GPU', 'CPU']
+device_num: 1
+device_id: 0
+seed: 1
+
+# Debugging
+context_mode: "graph"  # ["graph", "pynative"]
+save_graphs: False
+save_graphs_path: "./resnet_ir"
+
+# Tuning
+use_profilor: True
+boost_level: "O0"
+amp_level: "O3"
+dataset_sink_mode: True
+all_reduce_fusion_config:
+    - 85
+    - 160
+
+# Training options
+loss_scale: 1024
+weight_decay: 0.00001
+epoch_size: 90
+lr: 0.001
+batch_size: 32
+dataset_name: "cifar10"  # ["imagenet", "cifar10"]
+
+# Model Description
+model_name: "resnet50"
+image_height: 224
+image_width: 224
+class_num: 10
