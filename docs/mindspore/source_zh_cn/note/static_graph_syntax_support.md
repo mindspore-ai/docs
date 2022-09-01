@@ -6,7 +6,7 @@
 
 在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
+当前支持`@ms_function`装饰器修饰函数，Cell及其子类、`ms_class`类或者自定义普通类的成员方法。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
 `ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>

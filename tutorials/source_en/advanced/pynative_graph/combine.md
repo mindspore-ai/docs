@@ -108,9 +108,9 @@ print(out)
 
 In the preceding sample code, although the running mode is set to dynamic graph mode at the beginning, the `add_func(x, y)` function is modified using the `ms_function` modifier. Therefore, the `add_func(x, y)` function still runs in static graph mode.
 
-#### 2. Modifying the Member Functions of a Cell
+#### 2. Modifying the Member Functions of a Class
 
-When using the `ms_function` modifier, you can modify the member functions of the `Cell`. The sample code is as follows:
+When using the `ms_function` modifier, you can modify the member methods of the `Cell` subclass, `ms_class` class, or common user defined class. The sample code is as follows:
 
 ```python
 import numpy as np

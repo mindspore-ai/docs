@@ -6,7 +6,7 @@
 
 In graph mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
-Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
+Currently, the function, and class (including Cell, Cell subclass, ms_class class, and common user defined class) methods modified by the `@ms_function` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
 For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>.
