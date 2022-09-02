@@ -14,19 +14,22 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
 
    高效、易用的AI电磁仿真套件，提供了多模数据转换、高维数据编码以及创新的AI电磁仿真模型等功能，已在手机容差等场景中实现性能提升10倍、仿真精度媲美传统科学计算的技术突破。
 
-2. `分子模拟 <https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/ala.html>`_
+2.  `计算生物 <./mindsponge/why.html>`_
 
-   AI与传统分子模拟相融合的高性能、模块化的分子模拟库，支持丙氨酸三肽水溶液、新冠病毒、AI力场克莱森重排等分子模拟经典案例。
+   MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling)是基于昇思MindSpore的计算生物领域套件，支持分子动力学、蛋白质折叠等常用功能，旨在于为广大的科研人员、老师及学生提供高效易用的AI计算生物软件。
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: MindSPONGE
 
-   mindsponge/intro_and_install
-   mindsponge/ala
-   mindsponge/claisen
-   mindsponge/covid
+   mindsponge/why
+   mindsponge/intro
+   mindsponge/xponge
+   mindsponge/sponge
+   mindsponge/cybertron
+   mindsponge/MEGAProtein
+   mindsponge
 
 .. toctree::
    :glob:
@@ -37,10 +40,4 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
    mindelec/physics_driven
    mindelec/data_driven
    mindelec/visualization
- 
-.. toctree::
-   :maxdepth: 1
-   :caption: API参考
-
-   mindsponge
    mindelec
