@@ -24,6 +24,7 @@ For Experts
    network/op_overload
    network/custom_cell_reverse
    network/ms_class
+   network/dependency_control
 
 .. toctree::
    :glob:
