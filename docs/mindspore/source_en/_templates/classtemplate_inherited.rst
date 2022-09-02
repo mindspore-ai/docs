@@ -12,6 +12,15 @@
     :exclude-members: bucket_batch_by_length, build_sentencepiece_vocab, build_vocab, parse_tree, create_ir_tree, create_runtime_obj
     :members:
 
+{% elif objname in "SVHNDataset SemeionDataset KMnistDataset EMnistDataset SBDataset WIDERFaceDataset FakeImageDataset FashionMnistDataset SBUDataset QMnistDataset PhotoTourDataset Flowers102Dataset FlickrDataset Places365Dataset STL10Dataset USPSDataset LJSpeechDataset" %}
+
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :inherited-members:
+    :exclude-members: bucket_batch_by_length
+    :members:
+
 {% elif fullname=="mindspore.dataset.WaitedDSCallback" %}
 
 {{ fullname | underline }}
