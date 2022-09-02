@@ -1,10 +1,12 @@
-## Dependency Control
+# Dependency Control
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/network/dependency_control.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 If the result of a function depends on or affects an external state, we consider that the function has side effects, such as a function changing an external global variable, and the result of a function depends on the value of a global variable. If the operator changes the value of the input parameter or the output of the operator depends on the value of the global parameter, we think this is an operator with side effects.
 
-Side effects are classified as memory side effects and IO side effects based on memory properties and IO status. At present, memory side effects are mainly Assign, optimizer operators and so on, IO side effects are mainly Print operators. You can view the operator definition in detail, the memory side effect operator has side_effect_mem properties in the definition, and the IO side effect operator has side_effect_io properties in the definition.
+Side effects are classified as memory side effects and IO side effects based on memory properties and IO status. At present, memory side effects are mainly Assign, optimizer operators and so on, while IO side effects are mainly Print operators. You can view the operator definition in detail. The memory side effect operator has side_effect_mem properties in the definition, and the IO side effect operator has side_effect_io properties in the definition.
 
-Depend is used for processing dependency operations.In most cases, if the operators have IO or memory side effects, they will be executed according to the user's semantics, and there is no need to use the Depend operator to guarantee the execution order.In some cases, if the two operators A and B do not have sequential dependencies, and A must execute before B, we recommend that you use Depend to specify the order in which they are executed. Here's how to use it:
+Depend is used for processing dependency operations. In most cases, if the operators have IO or memory side effects, they will be executed according to the user's semantics, and there is no need to use the Depend operator to guarantee the execution order. In some cases, if the two operators A and B do not have sequential dependencies, and A must be executed before B, we recommend that you use Depend to specify the order in which they are executed. Here's how to use it:
 
 ```python
 a = A(x)
