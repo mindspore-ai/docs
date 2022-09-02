@@ -8,7 +8,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的[FAQ](https://mindsp
 
     [与PyTorch典型区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html)
 
-    [API映射及缺失API处理策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#分析API满足度)
+    [API映射及缺失API处理策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#分析api满足度)
 
     [动态shape分析](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#动态shape)及[规避方案](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html#动态shape规避策略)
 
@@ -16,7 +16,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的[FAQ](https://mindsp
 
     [静态图常见语法限制及处理策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html#常见限制)
 
-    [MindSpore网络编写注意事项](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html#MindSpore网络编写注意事项)
+    [MindSpore网络编写注意事项](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html#mindspore网络编写注意事项)
 
 - 网络调试
 

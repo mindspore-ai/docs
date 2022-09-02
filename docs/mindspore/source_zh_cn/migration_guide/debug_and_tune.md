@@ -120,7 +120,7 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
     ```
 
 - 排查优化器和loss，整个训练过程除了模型、数据集外新加的部分只有优化器和loss，训练有问题时需要重点排查，尤其是loss，出现问题的概率较大。
-- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_gradient.html#自定义训练Cell)确认是否进行梯度聚合。
+- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_gradient.html#自定义训练cell)确认是否进行梯度聚合。
 
     ```python
     import mindspore as ms
@@ -210,7 +210,7 @@ if rank_size > 1:
    init()
 ```
 
-更多请参考[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)以及[并行训练执行分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_parallel_training.html)。
+更多请参考[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)。
 
 ### 数据处理性能优化
 
