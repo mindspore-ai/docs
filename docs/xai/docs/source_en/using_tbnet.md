@@ -6,7 +6,7 @@
 
 TB-Net is a white box recommendation model, which constructs subgraphs in knowledge graphs based on the interaction between users and items as well as the features of items, and then calculates paths in the graphs using a bidirectional conduction algorithm. Finally, we can obtain explainable recommendation results.
 
-Paper: Shendi Wang, Haoyang Li, Xiao-Hui Li, Caleb Chen Cao, Lei Chen. Tower Bridge Net (TB-Net): Bidirectional Knowledge Graph Aware Embedding Propagation for Explainable Recommender Systems
+Paper: Shendi Wang, Haoyang Li, Caleb Chen Cao, Xiao-Hui Li, Ng Ngai Fai, Jianxin Liu, Xun Xue, Hu Song, Jinyu Li, Guangye Gu, Lei Chen. [Tower Bridge Net (TB-Net): Bidirectional Knowledge Graph Aware Embedding Propagation for Explainable Recommender Systems](https://ieeexplore.ieee.org/document/9835387)
 
 ## Preparations
 
