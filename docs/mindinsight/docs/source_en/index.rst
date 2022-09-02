@@ -105,6 +105,7 @@ Using MindConverter to Migrate Models
    accuracy_problem_preliminary_location
    accuracy_optimization
    performance_tuning_guide
+   performance_optimization
 
 .. toctree::
    :maxdepth: 1

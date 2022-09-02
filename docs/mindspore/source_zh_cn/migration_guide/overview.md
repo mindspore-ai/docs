@@ -15,7 +15,7 @@
 
 ![flowchart](images/flowchart.PNG "迁移流程")
 
-## [环境准备&资料获取](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html)
+## [环境准备与资料获取](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html)
 
 网络迁移首先需要配置MindSpore的开发环境，本章会详细描述安装过程与知识准备。知识准备包括对MindSpore组件models和Hub的基本介绍，包含用途、场景与使用方法。此外还有云上训练的相关教程：使用ModelArts适配脚本，在OBS上传数据集，然后进行线上训练等。
 
