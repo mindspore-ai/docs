@@ -25,6 +25,7 @@
    network/custom_cell_reverse
    network/ms_class
    network/constexpr
+   network/dependency_control
 
 .. toctree::
    :glob:
