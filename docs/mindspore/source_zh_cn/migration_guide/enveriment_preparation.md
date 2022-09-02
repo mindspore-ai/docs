@@ -8,7 +8,7 @@
 
 [昇思MindSpore](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/introduction.html)是一个全场景深度学习框架，目前支持在[昇腾](https://e.huawei.com/cn/products/servers/ascend)、GPU、CPU等多种device上运行。其中昇腾和GPU上安装MindSpore前需要配置好对应的运行环境。
 
-> MindSpore 昇腾支持AI训练（910）、推理卡（310&310P）及训练服务器等多种Atlas系列芯片上运行，注意MindSpore版本需要和[昇腾AI处理器配套软件包](https://www.mindspore.cn/install#%E5%AE%89%E8%A3%85%E6%98%87%E8%85%BEai%E5%A4%84%E7%90%86%E5%99%A8%E9%85%8D%E5%A5%97%E8%BD%AF%E4%BB%B6%E5%8C%85)配套使用，如MindSpore1.8.1 必须配套昇腾软件包商业版22.0.RC2版本或者CANN社区版5.1.RC2.alpha008版本，在其他版本可能会有问题，详情请参考[安装昇腾AI处理器配套软件包](https://www.mindspore.cn/install#%E5%AE%89%E8%A3%85%E6%98%87%E8%85%BEai%E5%A4%84%E7%90%86%E5%99%A8%E9%85%8D%E5%A5%97%E8%BD%AF%E4%BB%B6%E5%8C%85)。
+> MindSpore 昇腾支持AI训练（910）、推理卡（310&310P）及训练服务器等多种Atlas系列芯片上运行，注意MindSpore版本需要和昇腾AI处理器配套软件包配套使用，如MindSpore1.8.1 必须配套昇腾软件包商业版22.0.RC2版本或者CANN社区版5.1.RC2.alpha008版本，在其他版本可能会有问题，详情请参考MindSpore Ascend版本安装指南中的“安装昇腾AI处理器配套软件包”章节。
 >
 > MindSpore GPU支持在Linux环境上CUDA 10.1和CUDA 11.1使用。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
 >

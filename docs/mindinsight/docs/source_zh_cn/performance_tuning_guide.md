@@ -13,8 +13,6 @@ MindInsight从单机和集群的角度分别提供了多项指标，用于帮助
 
 [集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)
 
-用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/performance_optimization.html) 阅读本文，理解起来更加直观。
-
 ## 单卡性能调优
 
 本章节从单卡的性能调优指导入手，帮助用户快速找到单卡训练过程中的性能瓶颈点。
