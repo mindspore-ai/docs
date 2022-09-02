@@ -6,11 +6,11 @@
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配CUDA 10.1 和 TensorRT 6.0.1.5。
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) 和[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download) 以及 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.2.5](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
-安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)，并将安装后的目录设置为环境变量`${CUDA_HOME}`。构建脚本将使用这个环境变量寻找CUDA。
+安装相应版本的CUDA，并将安装后的目录设置为环境变量`${CUDA_HOME}`。构建脚本将使用这个环境变量寻找CUDA。
 
-下载[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download)，并将压缩包解压后的目录设置为环境变量`${TENSORRT_PATH}`。构建脚本将使用这个环境变量寻找TensorRT。
+下载对应版本的TensorRT压缩包，并将压缩包解压后的目录设置为环境变量`${TENSORRT_PATH}`。构建脚本将使用这个环境变量寻找TensorRT。
 
 ### 编译构建
 
@@ -63,6 +63,26 @@ bash build.sh -I x86_64
     ```
     [ms_cache]
     serialize_path=/path/to/config
+    ```
+
+- 模型动态输入
+
+    默认情况下，TensorRT根据定义模型的输入形状(批大小、图像大小等)优化模型。但是，可以通过配置profile在运行时调整输入维度，在profile中可以设置每个输入的最小、最优以及最大形状，TensorRT会根据用户设置的profile创建一个优化引擎，并选择最优最快的内核, 并且在profile中支持一个输入配置多个输入维度，但多个输入维度需指定不重叠的范围。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口加载配置文件。
+
+    如果min、opt 和 max 是最小、最优和最大维度，并且real_shape是输入张量的形状，则以下条件必须成立：
+
+    1. `len(min)` == `len(opt)` == `len(max)` == `len(real_shape)`
+    2. 0 <= `min[i]` <= `opt[i]` <= `max[i]` for all `i`
+    3. if `real_shape[i]` != -1, then `min[i]` == `opt[i]` == `max[i]` == `real_shape[i]`
+    4. 在使用没有动态维度的张量输入时，所有形状必须等于real_shape。
+
+    比如最小尺寸为[3,100,200]，最大尺寸为[3,200,300]，优化尺寸为[3,150,250]，则配置文件中需配置为：
+
+    ```
+    [input_ranges]
+    min_dims:3,100,200
+    opt_dims:3,150,250
+    max_dims:3,200,300
     ```
 
 ## 算子支持
