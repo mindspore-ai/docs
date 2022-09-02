@@ -38,7 +38,7 @@ When the data is constant, the value of the data can be achieved at compile time
 
 `String` can be constructed on the network. That is, the syntax `y = "abcd"` is supported.
 
-Use str() to change the constant value to string, str.format() can use to format the string, but not supported to input a kwarts type arguments and the argument of format function cannot be a variable.
+Use str() to change the constant value to string, str.format() can use to format the string, but not supported to input a kwargs type arguments and the argument of format function cannot be a variable.
 
 For example:
 
@@ -1035,15 +1035,361 @@ Restrictions: The same as List Comprehension.
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `len`, `isinstance`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`.
+Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`. The usage of built-in function is similar as the usage of  corresponding Python built-in function.
+
+#### int
+
+Return the integer value based on the input number or string.
+
+Calling: `int(x=0, base=10)`
+
+Input parameter:
+
+- `x` -- the object need to be converted to integer, the valid type of x includes `int`, `float`, `bool`, `str`, constant `Tensor` and third-party object (such as `numpy.ndarray`).
+
+- `base` -- the base to convert. `base` is only allowed when `x` is `str`.
+
+Return value: the converted integer.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = int(3)
+   b = int(3.6)
+   c = int('12', 16)
+   d = int('0xa', 16)
+   e = int('10', 8)
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+The result is as follows:
+
+```text
+a: 3
+b: 3
+c: 18
+d: 10
+e: 8
+```
+
+#### float
+
+Return the floating-point number based on the input number or string.
+
+Calling: `float(x=0)`
+
+Input parameter: `x` -- the object need to be converted to floating number, the valid type of x includes `int`, `float`, `bool`, `str`, constant `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: the converted floating-point number.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = float(1)
+   b = float(112)
+   c = float(-123.6)
+   d = float('123')
+   return a, b, c, d
+
+a, b, c, d = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+```
+
+The result is as follows:
+
+```text
+a: 1.0
+b: 112.0
+c: -123.6
+d: 123.0
+```
+
+#### bool
+
+Return the boolean value based on the input.
+
+Calling: `bool(x=false)`
+
+Input parameter: `x` -- the object need to be converted to boolean value, the valid type of x includes `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: if `x` is not `Tensor`, returns the converted boolean scalar. Otherwise, returns boolean `Tensor`.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = bool()
+   b = bool(0)
+   c = bool("abc")
+   d = bool([1, 2, 3, 4])
+   e = bool(Tensor([10]))
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+The result is as follows:
+
+```text
+a: False
+b: False
+c: True
+d: True
+e: [True]    # e is boolean Tensor
+```
+
+#### str
+
+Return the string value based on the input.
+
+Calling: `str(x='')`
+
+Input parameter: `x` -- the object need to be converted to string value, the valid type of x includes `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`). `list`, `tuple` and `dict` can not contain non-constant element.
+
+Return value: string converted from `x`.
+
+For example:
+
+```python
+import numpy as np
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = str()
+   b = str(0)
+   c = str([1, 2, 3, 4])
+   d = bool(Tensor([10]))
+   e = bool(np.array([1, 2, 3, 4]))
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+The result is as follows:
+
+```text
+a:                                             # a is empty string
+b: 0
+c: [1, 2, 3, 4]
+d: Tensor(shape=[1], dtype=Int64, value=[10])
+e: [1 2 3 4]                                   # e is boolean Tensor
+```
+
+#### tuple
+
+Return a tuple based on the input object.
+
+Calling: `tuple(x=())`
+
+Input parameter: `x` -- the object that need to be converted to tuple, the valid type of x includes `Tuple`, `List`, `Dictionary`, `Tensor` or third-party object (such as numpy.ndarray).
+
+Return value: tuple with elements of `x`, `x` is cut based on zero dimension.
+
+For example:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = tuple((1, 2, 3))
+   b = tuple(np.array([1, 2, 3]))
+   c = tuple({'a': 1, 'b': 2, 'c': 3})
+   d = tuple(ms.Tensor([1, 2, 3]))
+   return a, b, c ,d
+
+a, b, c ,d = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+```
+
+The result is as follows:
+
+```text
+a: (1, 2, 3)
+b: (1, 2, 3)
+c: ('a', 'b', 'c')
+d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+```
+
+#### list
+
+Return a list based on the input object.
+
+Calling: `list(x=())`
+
+Input parameter: `x` -- the object that need to be converted to list, the valid type of x includes `Tuple`, `List`, `Dictionary`, `Tensor` or third-party object (such as numpy.ndarray).
+
+Return value: list with elements of `x`, `x` is cut based on zero dimension.
+
+For example:
+
+```python
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = list((1, 2, 3))
+   b = list(np.array([1, 2, 3]))
+   c = list({'a':1, 'b':2, 'c':3})
+   d = list(ms.Tensor([1, 2, 3]))
+   return a, b, c, d
+a_t, b_t, c_t, d_t = func()
+print("a_t: ", a)
+print("b_t: ", b)
+print("c_t: ", c)
+print("d_t: ", d)
+```
+
+The result is as follows:
+
+```text
+a_t: (1, 2, 3)
+b_t: (1, 2, 3)
+c_t: ('a', 'b', 'c')
+d_t: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+```
+
+In graph mode, if the return values contain list, the list will be converted to tuple automatically. So the `a_t`, `b_t`, `c_t` and `d_t` in the above example are all tuple. However, `a`, `b`, `c` and `d` are still list.
+
+#### getattr
+
+Get the attribute of python object.
+
+Calling: `getattr(x, attr, default)`
+
+Input parameter:
+
+- `x` -- The object to get attribute, `x` can be all types that graph mode supports. `x` can not be third-party object.
+
+- `attr` -- The name of the attribute, the type of `attr` should be `str`.
+
+- `default` -- Optional input. If `x` do not have `attr`, `getattr` will return `default`. `default` can be all types that graph mode supports but can not be third-party object. If `default` is not set and `x` does not have attribute `attr`, AttributeError will be raised.
+
+Return value: Target attribute or `default`.
+
+For example:
+
+```python
+import mindspore as ms
+from mindspore import ms_function, ms_class
+
+@ms_class
+class MSClass1:
+  def __init__(self):
+    self.num0 = 0
+
+ms_obj = MSClass1()
+
+@ms_function
+def func():
+   a = getattr(ms_obj, 'num0')
+   b = getattr(ms_obj, 'num1', 2)
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: ", b)
+```
+
+The result is as follows:
+
+```text
+a: 0
+b: 2
+```
+
+The attribute of object in graph mode may be different from that in pynative mode. It is suggested to use `default` input in `getattr` or call `hasattr` before using `getattr` to avoid AttributeError.
+
+#### hasattr
+
+Judge whether an object has an attribute.
+
+Calling: `hasattr(x, attr)`
+
+Input parameter:
+
+- `x` -- The object to get attribute, `x` can be all types that graph mode supports and also can be third-party object.
+
+- `attr` -- The name of the attribute, the type of `attr` should be `str`.
+
+Return value: boolean value indicates whether `x` has `attr`.
+
+For example:
+
+```python
+import mindspore as ms
+from mindspore import ms_function, ms_class
+
+@ms_class
+class MSClass1:
+  def __init__(self):
+    self.num0 = 0
+
+ms_obj = MSClass1()
+
+@ms_function
+def func():
+   a = hasattr(ms_obj, 'num0')
+   b = hasattr(ms_obj, 'num1')
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: ", b)
+```
+
+The result is as follows:
+
+```text
+a: True
+b: False
+```
 
 #### len
 
-Returns the length of a sequence.
+Return the length of a sequence.
 
 Calling: `len(sequence)`
 
-Input parameter: `sequence` -- `Tuple`, `List`, `Dictionary`, or `Tensor`.
+Input parameter: `sequence` -- `Tuple`, `List`, `Dictionary`, `Tensor` or third-party object (such as numpy.ndarray).
 
 Return value: length of the sequence, which is of the `int` type. If the input parameter is `Tensor`, the length of dimension 0 is returned.
 
@@ -1061,17 +1407,20 @@ def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
     d = {"a": 2, "b": 3}
+    n = np.array([1, 2, 3, 4])
     x_len = len(x)
     y_len = len(y)
     d_len = len(d)
     z_len = len(z)
-    return x_len, y_len, d_len, z_len
+    n_len = len(n)
+    return x_len, y_len, d_len, z_len, n_len
 
-x_len, y_len, d_len, z_len = test()
+x_len, y_len, d_len, z_len, n_len = test()
 print('x_len:{}'.format(x_len))
 print('y_len:{}'.format(y_len))
 print('d_len:{}'.format(d_len))
 print('z_len:{}'.format(z_len))
+print('n_len:{}'.format(n_len))
 ```
 
 The result is as follows:
@@ -1081,6 +1430,7 @@ x_len:3
 y_len:3
 d_len:2
 z_len:6
+n_len:4
 ```
 
 #### isinstance
@@ -1127,6 +1477,296 @@ The result is as follows:
 x_is_tuple:True
 y_is_list:True
 z_is_tensor:True
+```
+
+#### all()
+
+Judge whether all of the elements in the input is true.
+
+Calling: `all(x)`
+
+Input parameter: - `x` -- Iterable object, the valid types include `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: boolean, indicates whether all of the elements in the input is true.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = all(['a', 'b', 'c', 'd'])  
+   b = all(['a', 'b', '', 'd'])
+   c = all([0, 1, 2, 3])
+   d = all(('a', 'b', 'c', 'd'))
+   e = all(('a', 'b', '', 'd'))  
+   f = all((0, 1, 2, 3))
+   g = all([])
+   h = all(())
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+print("h: ", h)
+```
+
+The result is as follows:
+
+```text
+a: True
+b: False
+c: False
+d: True
+e: False
+f: False
+g: True
+h: True
+```
+
+#### any()
+
+Judge whether any of the elements in the input is true.
+
+Calling: `any(x)`
+
+Input parameter: - `x` -- Iterable object, the valid types include `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: boolean, indicates whether any of the elements in the input is true.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = any(['a', 'b', 'c', 'd'])
+   b = any(['a', 'b', '', 'd'])
+   c = any([0, '', False])
+   d = any(('a', 'b', 'c', 'd'))
+   e = any(('a', 'b', '', 'd'))
+   f = any((0, '', False))
+   g = any([])
+   h = any(())
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+print("h: ", h)
+```
+
+The result is as follows:
+
+```text
+a: True
+b: True
+c: False
+d: True
+e: True
+f: False
+g: False
+h: False
+```
+
+#### round
+
+Return the rounding value of input.
+
+Calling: `round(x, digit=0)`
+
+Input parameter:
+
+- `x` -- the object to rounded, the valid types include `int`, `float`, `bool`, `Tensor` and third-party object that defines magic function `__round__()`.
+
+- `digit` -- the number of decimal places to round, the default value is 0. `digit` can be `int` object or `None`. If `x` is `Tensor`, then `round()` does not support input `digit`.
+
+Return value: the value after rounding.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = round(10)
+   b = round(10.123)
+   c = round(10.567)
+   d = round(10, 0)
+   e = round(10.72, -1)
+   f = round(17.12, -1)
+   g = round(10.17, 1)
+   h = round(10.12, 1)
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: {:.2f}".format(e))
+print("f: {:.2f}".format(f))
+print("g: {:.2f}".format(g))
+print("h: {:.2f}".format(h))
+```
+
+The result is as follows:
+
+```text
+a: 10
+b: 10
+c: 11
+d: 10
+e: 10.00
+f: 20.00
+g: 10.20
+h: 10.10
+```
+
+#### max
+
+Return the maximum of inputs.
+
+Calling: `max(*data)`
+
+Input parameter: - `*data` -- If `*data` is single input, `max` will compare all elements within `data` and `data` must be iterable object. If there are multiple inputs, then `max()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: boolean, the maximum of the inputs.
+
+For example:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = max([0, 1, 2, 3])
+   b = max((0, 1, 2, 3))
+   c = max({1: 10, 2: 20, 3: 3})
+   d = max(np.array([1, 2, 3, 4]))
+   e = max(('a', 'b', 'c'))
+   f = max((1, 2, 3), (1, 4))
+   g = max(ms.Tensor([1, 2, 3]))
+   return a, b, c, ms.Tensor(d), e, f, g
+
+a, b, c, d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+```
+
+The result is as follows:
+
+```text
+a: 3
+b: 3
+c: 3
+d: 4
+e: c
+f: (1, 4)
+g: 3
+```
+
+#### min
+
+Return the minimum of inputs.
+
+Calling: `min(*data)`
+
+Input parameter: - `*data` -- If `*data` is single input, then `min()` will compare all elements within `data` and `data` must be iterable object. If there are multiple inputs, then `min()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: boolean, the minimum of the inputs.
+
+For example:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+  a = min([0, 1, 2, 3])
+  b = min((0, 1, 2, 3))
+  c = min({1: 10, 2: 20, 3: 3})
+  d = min(np.array([1, 2, 3, 4]))
+  e = min(('a', 'b', 'c'))
+  f = min((1, 2, 3), (1, 4))
+  g = min(ms.Tensor([1, 2, 3]))
+  return a, b, c, ms.Tensor(d), e, f, g
+
+a, b, c, d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+```
+
+The result is as follows:
+
+```text
+a: 0
+b: 0
+c: 1
+d: 1
+e: a
+f: (1, 2, 3)
+g: 1
+```
+
+#### abs
+
+Return the absolute value of the input. The usage of `abs()` is the same as python built-in function `abs()`.
+
+Calling: `abs(x)`
+
+Input parameter: - `x` -- The valid types of `x` include `int`, `float`, `bool`, `complex`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+Return value: the absolute value of the input.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = abs(-45)
+   b = abs(100.12)
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: {:.2f}".format(b))
+```
+
+The result is as follows:
+
+```text
+a: 45
+b: 100.12
 ```
 
 #### partial
@@ -1385,7 +2025,7 @@ class SingleSubNet(FatherNet):
 
 #### pow
 
-Returns the power.
+Return the power.
 
 Calling: `pow(x, y)`
 

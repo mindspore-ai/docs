@@ -1034,7 +1034,353 @@ ret:(4, 16, 36, 64, 100)
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。
+当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。图模式下内置函数的使用方法与对应的Python内置函数类似。
+
+#### int
+
+功能：返回一个基于数字或字符串构造的整数对象。
+
+调用：`int(x=0, base=10)`
+
+入参：
+
+- `x` -- 需要被转换为整数的对象，支持类型为`int`、`float`、`bool`、`str`、常量`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+- `base` -- 待转换进制， 只有在`x`为`str`类型的时候， 才可以设置该输入。
+
+返回值：转换后的整数值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = int(3)
+   b = int(3.6)
+   c = int('12', 16)
+   d = int('0xa', 16)
+   e = int('10', 8)
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+输出结果：
+
+```text
+a: 3
+b: 3
+c: 18
+d: 10
+e: 8
+```
+
+#### float
+
+功能：返回一个基于数字或字符串构造的浮点数对象。
+
+调用：`float(x=0)`
+
+入参：`x` -- 需要被转换为浮点数的对象，支持类型为`int`、`float`、`bool`、`str`、常量`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：转换后的浮点数值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = float(1)
+   b = float(112)
+   c = float(-123.6)
+   d = float('123')
+   return a, b, c, d
+
+a, b, c, d = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+```
+
+输出结果：
+
+```text
+a: 1.0
+b: 112.0
+c: -123.6
+d: 123.0
+```
+
+#### bool
+
+功能：返回一个基于输入构造的布尔值的对象。
+
+调用：`bool(x=false)`
+
+入参：`x` -- 需要被转换为布尔值的对象，支持类型为`int`、`float`、`bool`、`str`、`list`、 `tuple`、 `dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：若输入 `x` 不是 `Tensor`，则返回转换后的布尔值。若输入 `x` 为 `Tensor`，则返回布尔类型的 `Tensor`。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = bool()
+   b = bool(0)
+   c = bool("abc")
+   d = bool([1, 2, 3, 4])
+   e = bool(Tensor([10]))
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+输出结果：
+
+```text
+a: False
+b: False
+c: True
+d: True
+e: [True]    # e 为布尔类型的Tensor
+```
+
+#### str
+
+功能：返回一个基于输入构造的字符串的对象。
+
+调用：`str(x='')`
+
+入参：`x` -- 需要被转换为字符串的对象，支持类型为`int`、`float`、`bool`、`str`、`list`、 `tuple`、 `dict`、常量`Tensor`以及第三方对象（例如`numpy.ndarray`）。其中，`list`、 `tuple`以及`dict`中不能含有非常量值。
+
+返回值：输入`x`转换后的字符串。
+
+代码用例如下：
+
+```python
+import numpy as np
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = str()
+   b = str(0)
+   c = str([1, 2, 3, 4])
+   d = bool(Tensor([10]))
+   e = bool(np.array([1, 2, 3, 4]))
+   return a, b, c, d, e
+
+a, b, c, d, e = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+```
+
+输出结果：
+
+```text
+a:                                             # a 为空字符串
+b: 0
+c: [1, 2, 3, 4]
+d: Tensor(shape=[1], dtype=Int64, value=[10])
+e: [1 2 3 4]                                   # e 为布尔类型的Tensor
+```
+
+#### tuple
+
+功能：返回一个基于输入构造的元组。
+
+调用：`tuple(x=())`
+
+入参：`x` -- 需要被转换为元组的对象，支持类型为`list`、 `tuple`、 `dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：按照`x`的第零纬度拆分得到的元组。
+
+代码用例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = tuple((1, 2, 3))
+   b = tuple(np.array([1, 2, 3]))
+   c = tuple({'a': 1, 'b': 2, 'c': 3})
+   d = tuple(ms.Tensor([1, 2, 3]))
+   return a, b, c ,d
+
+a, b, c ,d = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+```
+
+输出结果：
+
+```text
+a: (1, 2, 3)
+b: (1, 2, 3)
+c: ('a', 'b', 'c')
+d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+```
+
+#### list
+
+功能：返回一个基于输入构造的列表。
+
+调用：`list(x=())`
+
+入参：`x` -- 需要被转换为列表的对象，支持类型为`list`、 `tuple`、 `dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：按照`x`的第零纬度拆分得到的列表。
+
+代码用例如下：
+
+```python
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = list((1, 2, 3))
+   b = list(np.array([1, 2, 3]))
+   c = list({'a':1, 'b':2, 'c':3})
+   d = list(ms.Tensor([1, 2, 3]))
+   return a, b, c, d
+a_t, b_t, c_t, d_t = func()
+print("a_t: ", a)
+print("b_t: ", b)
+print("c_t: ", c)
+print("d_t: ", d)
+```
+
+输出结果:
+
+```text
+a_t: (1, 2, 3)
+b_t: (1, 2, 3)
+c_t: ('a', 'b', 'c')
+d_t: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+```
+
+在静态图模式下，若返回值内存在列表，则会被自动转换为元组。因此上述用例的`a_t`、`b_t`、`c_t`、`d_t`均为元组。但是`a`、`b`、`c`、`d`仍为列表。
+
+#### getattr
+
+功能：获取对象的属性。
+
+调用：`getattr(x, attr, default)`
+
+入参：
+
+- `x` -- 需要被获取属性的对象，可以为任意的图模式支持类型，不支持第三方库类型。
+
+- `attr` -- 需要获取的属性， 需要为`str`。
+
+- `default` -- 可选参数。若`x`没有`attr`, 则返回`default`, 可以为任意的图模式支持类型，不支持第三方库类型。若未输入`default`，且`x`没有属性`attr`，则会抛出AttributeError。
+
+返回值：目标属性或者`default`。
+
+代码用例如下：
+
+```python
+import mindspore as ms
+from mindspore import ms_function, ms_class
+
+@ms_class
+class MSClass1:
+  def __init__(self):
+    self.num0 = 0
+
+ms_obj = MSClass1()
+
+@ms_function
+def func():
+   a = getattr(ms_obj, 'num0')
+   b = getattr(ms_obj, 'num1', 2)
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: ", b)
+```
+
+输出结果:
+
+```text
+a: 0
+b: 2
+```
+
+在静态图模式下对象的属性可能会和动态图模式下有区别，建议使用`default`输入，或者在使用`getattr`前先使用`hasattr`进行校验。
+
+#### hasattr
+
+功能：判断对象是否具有该属性。
+
+调用：`hasattr(x, attr)`
+
+入参：
+
+- `x` -- 需要被判断是否具有某属性的对象，可以为任意的图模式支持类型，也可以为第三方库类型。
+
+- `attr` -- 属性名， 需要为`str`。
+
+返回值：布尔值， 表示是否具有该属性。
+
+代码用例如下：
+
+```python
+import mindspore as ms
+from mindspore import ms_function, ms_class
+
+@ms_class
+class MSClass1:
+  def __init__(self):
+    self.num0 = 0
+
+ms_obj = MSClass1()
+
+@ms_function
+def func():
+   a = hasattr(ms_obj, 'num0')
+   b = hasattr(ms_obj, 'num1')
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: ", b)
+```
+
+输出结果:
+
+```text
+a: True
+b: False
+```
 
 #### len
 
@@ -1042,7 +1388,7 @@ ret:(4, 16, 36, 64, 100)
 
 调用：`len(sequence)`
 
-入参：`sequence` -- `Tuple`、`List`、`Dictionary`或者`Tensor`。
+入参：`sequence` -- `Tuple`、`List`、`Dictionary`、`Tensor`以及第三方对象（例如numpy.ndarray）。
 
 返回值：序列的长度，类型为`int`。当入参是`Tensor`时，返回的是`Tensor`第0维的长度。
 
@@ -1060,17 +1406,20 @@ def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
     d = {"a": 2, "b": 3}
+    n = np.array([1, 2, 3, 4])
     x_len = len(x)
     y_len = len(y)
     d_len = len(d)
     z_len = len(z)
-    return x_len, y_len, d_len, z_len
+    n_len = len(n)
+    return x_len, y_len, d_len, z_len, n_len
 
-x_len, y_len, d_len, z_len = test()
+x_len, y_len, d_len, z_len, n_len = test()
 print('x_len:{}'.format(x_len))
 print('y_len:{}'.format(y_len))
 print('d_len:{}'.format(d_len))
 print('z_len:{}'.format(z_len))
+print('n_len:{}'.format(n_len))
 ```
 
 结果如下：
@@ -1080,6 +1429,7 @@ x_len:3
 y_len:3
 d_len:2
 z_len:6
+z_len:4
 ```
 
 #### isinstance
@@ -1126,6 +1476,296 @@ print('z_is_tensor:{}'.format(z_is_tensor))
 x_is_tuple:True
 y_is_list:True
 z_is_tensor:True
+```
+
+#### all()
+
+功能：判断输入中的元素是否均为真值。
+
+调用：`all(x)`
+
+入参：`x` -- 可迭代对象，支持类型包括`tuple`、`list`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：布尔值， 表示输入中的元素是否均为真值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = all(['a', 'b', 'c', 'd'])
+   b = all(['a', 'b', '', 'd'])
+   c = all([0, 1, 2, 3])
+   d = all(('a', 'b', 'c', 'd'))
+   e = all(('a', 'b', '', 'd'))
+   f = all((0, 1, 2, 3))
+   g = all([])
+   h = all(())
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+print("h: ", h)
+```
+
+输出结果：
+
+```text
+a: True
+b: False
+c: False
+d: True
+e: False
+f: False
+g: True
+h: True
+```
+
+#### any()
+
+功能：判断输入中的元素是存在为真值。
+
+调用：`any(x)`
+
+入参：`x` -- 可迭代对象，支持类型包括`tuple`、`list`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：布尔值，表示输入中的元素是否存在真值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = any(['a', 'b', 'c', 'd'])  
+   b = any(['a', 'b', '', 'd'])
+   c = any([0, '', False])
+   d = any(('a', 'b', 'c', 'd'))  
+   e = any(('a', 'b', '', 'd'))
+   f = any((0, '', False))
+   g = any([])
+   h = any(())
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+print("h: ", h)
+```
+
+输出结果：
+
+```text
+a: True
+b: True
+c: False
+d: True
+e: True
+f: False
+g: False
+h: False
+```
+
+#### round
+
+功能：返回输入的四舍五入。
+
+调用：`round(x, digit=0)`
+
+入参：
+
+- `x` -- 需要四舍五入的值，有效类型为 `int`、`float`、`bool`、`Tensor` 以及定义了魔术方法 `__round__()` 第三方对象。
+
+- `digit` -- 表示进行四舍五入的小数点位数，默认值为0，支持 `int` 类型以及 `None`。 若 `x` 为 `Tensor` 类型， 则不支持输入 `digit`。
+
+返回值：四舍五入后的值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = round(10)
+   b = round(10.123)
+   c = round(10.567)
+   d = round(10, 0)
+   e = round(10.72, -1)
+   f = round(17.12, -1)
+   g = round(10.17, 1)
+   h = round(10.12, 1)
+   return a, b, c, d, e, f, g, h
+
+a, b, c, d, e, f, g, h = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: {:.2f}".format(e))
+print("f: {:.2f}".format(f))
+print("g: {:.2f}".format(g))
+print("h: {:.2f}".format(h))
+```
+
+输出结果：
+
+```text
+a: 10
+b: 10
+c: 11
+d: 10
+e: 10.00
+f: 20.00
+g: 10.20
+h: 10.10
+```
+
+#### max
+
+功能：返回最大值。
+
+调用：`max(*data)`
+
+入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为克迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：最大值。
+
+代码用例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = max([0, 1, 2, 3])
+   b = max((0, 1, 2, 3))
+   c = max({1: 10, 2: 20, 3: 3})
+   d = max(np.array([1, 2, 3, 4]))
+   e = max(('a', 'b', 'c'))
+   f = max((1, 2, 3), (1, 4))
+   g = max(ms.Tensor([1, 2, 3]))
+   return a, b, c, ms.Tensor(d), e, f, g
+
+a, b, c, d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+```
+
+输出结果：
+
+```text
+a: 3
+b: 3
+c: 3
+d: 4
+e: c
+f: (1, 4)
+g: 3
+```
+
+#### min
+
+功能：返回最小值。
+
+调用：`min(*data)`
+
+入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为克迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：最小值。
+
+代码用例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+  a = min([0, 1, 2, 3])
+  b = min((0, 1, 2, 3))
+  c = min({1: 10, 2: 20, 3: 3})
+  d = min(np.array([1, 2, 3, 4]))
+  e = min(('a', 'b', 'c'))
+  f = min((1, 2, 3), (1, 4))
+  g = min(ms.Tensor([1, 2, 3]))
+  return a, b, c, ms.Tensor(d), e, f, g
+
+a, b, c, d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+```
+
+输出结果：
+
+```text
+a: 0
+b: 0
+c: 1
+d: 1
+e: a
+f: (1, 2, 3)
+g: 1
+```
+
+#### abs
+
+功能：返回绝对值，使用方法与python的`abs()`一致。
+
+调用：`abs(x)`
+
+入参： - `x` -- 有效类型为`int`、`float`、`bool`、`complex`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+返回值：绝对值。
+
+代码用例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def func():
+   a = abs(-45)
+   b = abs(100.12)
+   return a, b
+
+a, b = func()
+print("a: ", a)
+print("b: {:.2f}".format(b))
+```
+
+输出结果：
+
+```text
+a: 45
+b: 100.12
 ```
 
 #### partial
