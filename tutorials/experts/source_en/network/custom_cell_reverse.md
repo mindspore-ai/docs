@@ -1,12 +1,12 @@
-# Customizing **bprop** Function of Cell
+# Customizing Reverse Propagation Function of Cell
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/network/custom_cell_reverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-When MindSpore is used to build a neural network, the `nn.Cell` class needs to be inherited. We might have the following problem when we constructing networks:
+When MindSpore is used to build a neural network, the `nn.Cell` class needs to be inherited. We might have the following problems when we construct networks:
 
-1. There are some operators which is non-differentiable or has not been defined the back propagation function in the Cell.
+1. There are operations or operators in Cell that are not derivable or for which reverse propagation rules are not yet defined.
 
-2. We need the customized the back propagation function when we want to replace some forward calculate process of the Cell.
+2. When replacing certain forward calculation procedures of Cell, you need to customize the corresponding reverse propagation function.
 
 Then we can use the function of customizing the backward propagation function of the Cell object. The format is as follows:
 
@@ -66,11 +66,11 @@ print(out)
      [ 3.09999990e+00,  2.20000005e+00,  4.30000019e+00]]))
 ```
 
-The above example defines the `bprop` function of Cell to customize the back propagation function for `MatMul`. `dx` indicates the derivative with respect to `x`. `dy` indicates the derivative with respect to `y`. `out` indicates the result of `MatMul`, and `dout` indicates the gradient returned to `Net`.
+This example customizes the gradient calculation process for the `MatMul` operation by defining `bprop` function of Cell, where `dx` is the derivative of the input `x`, `dy` is the derivative of the input `y`, `out` is the result of the `MatMul` calculation, and `dout` is the gradient passed back to `Net`.
 
 ## Application example
 
-1. There are some operators which is non-differentiable or has not been defined the back propagation function in the Cell. For example, the operator `ReLU6` has not been defined its second order back propagation rule, which can be defined by customizing the `bprop` function of Cell. The code is as follow:
+1. There are some operators which is non-differentiable or has not been defined the back propagation function in the Cell. For example, the operator `ReLU6` has not been defined its second-order back propagation rule, which can be defined by customizing the `bprop` function of Cell. The code is as follow:
 
    ```python
    import mindspore.nn as nn
@@ -113,7 +113,7 @@ The above example defines the `bprop` function of Cell to customize the back pro
     [1. 1. 1.]]
    ```
 
-   The above code defines the first order back propagation rule by customizing the `bprop` function of `Net` and gets the second order back propagation rule by the back propagation rule of `self.relu` in the `bprop`.
+   The above code defines the first-order back propagation rule by customizing the `bprop` function of `Net` and gets the second-order back propagation rule by the back propagation rule of `self.relu` in the `bprop`.
 
 2. We need the customized the back propagation function when we want to replace some forward calculate process of the Cell. For example, there is following code in the network SNN:
 
@@ -149,11 +149,11 @@ The above example defines the `bprop` function of Cell to customize the back pro
            return v, v
    ```
 
-   The above code replaces the origin sigmoid activation function in the sub-network `IFNode` with a customized activation function, and then we should customize the new back propagation function for the new activation function.
+   The above code replaces the origin sigmoid activation function in the sub-network `IFNode` with a customized activation function relusigmoid, and then we should customize the new back propagation function for the new activation function.
 
 ## Constraints
 
 - If the number of return values of the `bprop` function is 1, the return value must be written in the tuple format, that is, `return (dx,)`.
 - In graph mode, the `bprop` function needs to be converted into a graph IR. Therefore, the static graph syntax must be complied with. For details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
-- Only the gradient of the forward propagation input can be returned. The gradient of the `Parameter` cannot be returned.
-- `Parameter` cannot be used in `bprop`.
+- Only support returning the gradient of the forward propagation input. not the gradient of the `Parameter`.
+- The use of `Parameter` is not supported in `bprop`.
