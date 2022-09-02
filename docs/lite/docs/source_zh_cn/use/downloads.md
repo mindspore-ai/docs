@@ -23,7 +23,7 @@
 | NNIE 推理runtime库、benchmark工具 | Hi3559A | Linux-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/release/linux/nnie/Hi3559A/mindspore-lite-1.8.1-linux-aarch64.tar.gz> | 25a7d30c82c1e90b6e832f2edd23ac45c8f4f75ba1fdcef633b7ee99af6856d0 |
 | Ascend 推理runtime库、benchmark工具、converter工具 | Ascend  | Linux-x86_64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/release/linux/x86_64/ascend/mindspore-lite-1.8.1-linux-x64.tar.gz> | a57de862c2e0809194a9183c09968f0f871f3b3c9be729c482b068ed672e6d32 |
 | Ascend 推理runtime库、benchmark工具、converter工具 | Ascend  |  Linux-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/release/linux/aarch64/ascend/mindspore-lite-1.8.1-linux-aarch64.tar.gz> | e91c74f75d581c2a88ad42f75dc4007eb254469588dd42cec264477f0eab425b |
-| 轻鸿蒙推理runtime库 | Hi3516D | OpenHarmony-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/release/openharmony/mindspore-lite-1.8.1-ohos-aarch32.tar.gz> | 67bd55222bf8c67e01ff413ac2226b7f9444f5a9875b82aa6faf3fcae753c1bf |
+| 轻鸿蒙推理runtime库、Micro库 | Hi3516D | OpenHarmony-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/release/openharmony/mindspore-lite-1.8.1-ohos-aarch32.tar.gz> | 67bd55222bf8c67e01ff413ac2226b7f9444f5a9875b82aa6faf3fcae753c1bf |
 | Micro库 | Cortex-M7 | None | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/MindSpore/lite/none_cortex-m/mindspore-lite-1.8.1-none-cortex-m7.tar.gz> | 5b1d1de977aac04f29c9e8e84931b0b7ec2a700e103d0940e5afc3ced5f49bd0 |
 
 Python 接口 Wheel安装包
