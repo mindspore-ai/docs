@@ -6,7 +6,7 @@
 torch.where(condition, x, y) -> Tensor
 ```
 
-更多内容详见 [torch.where](https://pytorch.org/docs/1.12/generated/torch.where.html#torch.where)。
+更多内容详见 [torch.where](https://pytorch.org/docs/1.8.1/generated/torch.where.html#torch.where)。
 
 ## mindspore.ops.select
 
@@ -14,7 +14,7 @@ torch.where(condition, x, y) -> Tensor
 mindspore.ops.select(cond, x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.select](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/ops/mindspore.ops.select.html)。
+更多内容详见 [mindspore.ops.select](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.select.html)。
 
 ## 差异对比
 
@@ -40,7 +40,7 @@ import torch
 from torch import tensor
 import numpy as np
 
-x_ = np.array([[np.arange(1,13).reshape(3, 4),np.arange(-13,-1).reshape(3, 4)]])
+x_ = np.array([[np.arange(1, 13).reshape(3, 4),np.arange(-13, -1).reshape(3, 4)]])
 y_ = np.ones((3, 4))
 condition_ = np.array([[[[True, True, False, False], [True, False, False, False], [False, False, False, False]],
                            [[True, True, False, False], [True, True, False, False], [True, True, True, False]]]])
@@ -63,7 +63,7 @@ from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
 
-x_ = np.array([[np.arange(1,13).reshape(3, 4),np.arange(-13,-1).reshape(3, 4)]])
+x_ = np.array([[np.arange(1, 13).reshape(3, 4),np.arange(-13, -1).reshape(3, 4)]])
 y_ = np.ones((3, 4))
 condition_ = np.array([[[[True, True, False, False], [True, False, False, False], [False, False, False, False]],
                            [[True, True, False, False], [True, True, False, False], [True, True, True, False]]]])
@@ -92,7 +92,7 @@ import torch
 from torch import tensor
 
 condition = tensor([True, False])
-x = tensor([2,3], dtype=torch.float32)
+x = tensor([2, 3], dtype=torch.float32)
 y = 2.0
 out = torch.where(condition, x, y).numpy()
 print(out)
@@ -109,4 +109,31 @@ y = 2.0
 output = ops.select(cond, x, y)
 print(output)
 # [2. 2.]
+```
+
+### 代码示例3
+
+说明：当输入condition为表达式时，两API实现相同的功能。
+
+```python
+# PyTorch
+import torch
+from torch import tensor
+
+x = tensor([1, 2, 3], dtype=torch.int32)
+y = tensor([2, 4, 6], dtype=torch.int32)
+out = torch.where(x + y <= 6, x, y).numpy()
+print(out)
+# [1 2 6]
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import mindspore.ops as ops
+
+x = Tensor([1, 2, 3], dtype=mindspore.int32)
+y = Tensor([2, 4, 6], dtype=mindspore.int32)
+output = ops.select(x + y <= 6, x, y)
+print(output)
+# [1 2 6]
 ```
