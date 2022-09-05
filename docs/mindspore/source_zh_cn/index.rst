@@ -12,16 +12,15 @@ MindSpore 文档
    :caption: 设计
    :hidden:
 
-   design/all_scenarios
+   design/overview
    design/auto_gradient
-   design/dynamic_graph_and_static_graph
-   design/heterogeneous_training
-   design/distributed_training_design
    design/mindir
-   design/data_engine
+   design/all_scenarios
+   design/dynamic_graph_and_static_graph
+   design/distributed_training_design
    design/graph_fusion_engine
    design/thor
-   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
+   design/data_engine
    安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary
    
@@ -121,7 +120,7 @@ MindSpore 文档
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/all_scenarios.html" class="article-link">
+                     <a href="./design/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">设计</span>
