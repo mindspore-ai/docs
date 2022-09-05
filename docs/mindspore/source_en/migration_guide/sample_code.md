@@ -810,7 +810,7 @@ profiler.analyse()
 
 For more detailed usage of Profiling, you can refer to [Profiling Performance Analysis Methods](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html).
 
-After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/docs/en/master/migration_guide/performance_optimization.html).
+After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/mindinsight/docs/en/master/performance_optimization.html).
 
 ### Common Problems and Corresponding Optimization Methods
 
