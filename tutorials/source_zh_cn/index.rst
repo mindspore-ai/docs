@@ -29,11 +29,11 @@ MindSpore教程
    :hidden:
 
    advanced/lenet_mnist
-   advanced/linear_fitting
+   advanced/model
+   advanced/modules
    advanced/dataset
-   advanced/network
-   advanced/train
-   advanced/pynative_graph
+   advanced/derivation
+   advanced/compute_graph
 
 .. raw:: html
 
