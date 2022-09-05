@@ -79,7 +79,6 @@ MindSpore Documentation
    migration_guide/script_analysis
    migration_guide/script_development
    migration_guide/neural_network_debug
-   migration_guide/performance_optimization
    migration_guide/inference
    migration_guide/sample_code
 
