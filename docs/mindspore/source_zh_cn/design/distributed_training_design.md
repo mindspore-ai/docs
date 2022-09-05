@@ -119,3 +119,7 @@
 
 6. 通信算子反向
     - [grad_comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_comm_ops.py)：这个文件定义了`AllReduce`和`AllGather`等通信算子的反向操作。
+
+## 异构并行
+
+处于不同硬件且无依赖关系的子图也能够支持并行执行，详细可参考[异构并行训练](https://www.mindspore.cn/docs/zh-CN/master/design/heterogeneous_training.html)。

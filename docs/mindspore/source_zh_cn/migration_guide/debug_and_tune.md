@@ -165,7 +165,7 @@ MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在
 
 #### on-device执行
 
-MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/on_device.html)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
+MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
 
 #### 使用自动混合精度
 

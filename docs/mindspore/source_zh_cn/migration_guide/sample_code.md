@@ -781,7 +781,7 @@ Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进
 
 下面我们来对这个过程进行分析以及问题解决方法介绍：
 
-从迭代轨迹来看，迭代间隙和前向反向执行的时间基本一半一半。MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/on_device.html)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
+从迭代轨迹来看，迭代间隙和前向反向执行的时间基本一半一半。MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
 
 下面是设置`dataset_sink_mode=True`的profiler的结果：
 
@@ -825,4 +825,3 @@ MindSpore有三种方法使用混合精度：
 <div style="position: relative; padding: 30% 45%;">
 <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="https://player.bilibili.com/player.html?aid=216889508&bvid=BV1sa411P737&cid=802191204&page=1&high_quality=1&&danmaku=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 </div>
-
