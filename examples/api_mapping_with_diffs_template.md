@@ -6,7 +6,7 @@
 torch.torch_op(torch_arg1, torch_arg2, torch_agr3, torch_agr4) -> Tensor
 ```
 
-更多内容详见 [torch.torch_op](https://pytorch.org/docs/1.8.1/generated/torch.torch_op.html#torch.torch_op)。
+更多内容详见 附上torch.torch_op官网链接。
 
 ## mindspore.ops.ms_op
 
@@ -14,7 +14,7 @@ torch.torch_op(torch_arg1, torch_arg2, torch_agr3, torch_agr4) -> Tensor
 mindspore.ops.ms_op(ms_arg1, ms_arg2,  ms_agr3) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.ms_op](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/ops/mindspore.ops.ms_op.html)。
+更多内容详见 附上mindspore.ops.ms_op官网链接。
 
 ## 差异对比
 
