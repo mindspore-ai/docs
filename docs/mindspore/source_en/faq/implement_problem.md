@@ -499,7 +499,7 @@ A: Stream represents an operation queue. Tasks on the same stream are executed i
 
 A: When "Ascend error occurred, error message:" appears, it indicates that a module of Ascend CANN is abnormal and the error log is reported.
 
-At this time, there is an error message after the error code. If you need a more detailed possible cause and solution for this exception, please refer to the "error code troubleshooting" section of the corresponding Ascend version document, such as [CANN Community 5.0.3 alpha 002 (training) Error Code troubleshooting](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html).
+At this time, there is an error message after the error code. If you need a more detailed possible cause and solution for this exception, please refer to the "error code troubleshooting" section of the corresponding Ascend version document, such as [CANN Community 6.0.RC1.alpha002 Error Code troubleshooting](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/60RC1alpha02/troublemanage/troubleshooting/troubleshooting_0006.html).
 
 <br/>
 

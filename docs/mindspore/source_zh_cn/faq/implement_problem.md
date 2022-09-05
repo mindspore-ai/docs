@@ -483,7 +483,7 @@ A: 流表示一个操作队列，同一条流上的任务按序串行执行，�
 
 A: 当出现“Ascend error occurred, error message:”时，说明昇腾CANN相关模块出现异常，上报了错误日志。
 
-此时错误码后有异常的错误信息。如果需要该异常更详细的可能原因和处理方法，请参考对应昇腾版本文档的《Error Code故障处理》部分，如[昇腾CANN社区版(5.0.3 alpha 002)(训练) Error Code故障处理](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html)。
+此时错误码后有异常的错误信息。如果需要该异常更详细的可能原因和处理方法，请参考对应昇腾版本文档的《Error Code故障处理》部分，如[昇腾CANN社区版(6.0.RC1.alpha002) Error Code故障处理](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/60RC1alpha02/troublemanage/troubleshooting/troubleshooting_0006.html)。
 
 <br/>
 
