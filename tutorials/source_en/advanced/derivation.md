@@ -1,6 +1,6 @@
-# Automatic Derivation
+# Advanced Automatic Differentiation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/network/derivation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/derivation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The `GradOperation` API provided by the `mindspore.ops` module can be used to generate a gradient of a network model. The following describes how to use the `GradOperation` API to perform first-order and second-order derivations and how to stop gradient computation.
 

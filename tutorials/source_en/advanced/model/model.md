@@ -1,6 +1,6 @@
 # Basic Usage of Models
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/train/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Generally, defining a training and evaluation network and running it directly can meet basic requirements.
 

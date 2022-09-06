@@ -1,207 +1,469 @@
-# Quickstart: Handwritten Digit Recognition
+# Quick Start: Linear Fitting
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-This section runs through the basic process of MindSpore deep learning, using the LeNet5 network model as an example to implement common tasks in deep learning.
+MindSpore provides high-level, medium-level, and low-level APIs. For details, see [API Level Structure](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html#api-level-structure).
 
-## Downloading and Processing the Dataset
+To facilitate the control of the network execution process, MindSpore provides the high-level training and inference API `mindspore.Model`. By specifying the neural network model to be trained and common training settings, MindSpore calls the `train` and `eval` methods to train and infer the network. In addition, if you want to customize a specific module, you can call the corresponding medium- and low-level APIs to define the network training process.
 
-Datasets are crucial for model training. A good dataset can effectively improve training accuracy and efficiency. The MNIST dataset used in the example consists of 28 x 28 grayscale images of 10 classes. The training dataset contains 60,000 images, and the test dataset contains 10,000 images.
+The following uses the medium- and low-level APIs provided by MindSpore to fit linear functions.
 
-![mnist](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/mnist.png)
+$$f(x) = 2x + 3  \tag {1}$$
 
-> You can download the dataset from [MNIST dataset download page](http://yann.lecun.com/exdb/mnist/), decompress it, and save it according to the following directory structure.
+Before initializing the network, you need to configure the `context` parameter to control the program execution policy. For example, configure the static graph or dynamic graph mode and configure the hardware environment for network running.
 
-The [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
+The following describes how to configure information and use medium- and low-level APIs provided by MindSpore to customize loss functions, optimizers, training processes, metrics, and evaluation processes.
 
-> The sample code in this chapter relies on `mindvision`, which can be installed by using the command `pip install mindvision`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
+## Configuration Information
 
-```python
-from mindvision.dataset import Mnist
+Before initializing the network, you need to configure the `context` parameter to control the program execution policy. For example, configure the static graph or dynamic graph mode and configure the hardware environment for network running. Before initializing the network, you need to configure the `context` parameter to control the program execution policy. The following describes the execution mode management and hardware management.
 
-# Download and process the MNIST dataset.
-download_train = Mnist(path="./mnist", split="train", batch_size=32, repeat_num=1, shuffle=True, resize=32, download=True)
+### Execution Mode
 
-download_eval = Mnist(path="./mnist", split="test", batch_size=32, resize=32, download=True)
+MindSpore supports two running modes: Graph and PyNative. By default, MindSpore uses the Graph mode, and the PyNative mode is used for debugging.
 
-dataset_train = download_train.run()
-dataset_eval = download_eval.run()
-```
+- Graph mode (static graph mode): The neural network model is built into an entire graph and then delivered to the hardware for execution. This mode uses graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
-Parameters description:
+- PyNative mode (dynamic graph mode): Operators in the neural network are delivered to the hardware one by one for execution. This mode facilitates code writing and neural network model debugging.
 
-- path: dataset path.
-- split: dataset type. The value can be train, test, or infer. The default value is train.
-- batch_size: data size set for each training batch. The default value is 32.
-- repeat_num: number of times that the dataset is traversed during training. The default value is 1.
-- shuffle: determines whether to randomly shuffle the dataset. This parameter is optional.
-- resize: size of the output image. The default value is 32 x 32.
-- download: determines whether to download the dataset. The default value is False.
+MindSpore provides a unified encoding mode for static and dynamic graphs, significantly enhancing compatibility between both types of graphs. This enables you to switch between the static and dynamic graph modes by changing only one line of code, eliminating the need to develop multiple sets of code. When switching the mode, pay attention to the [constraints](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) of the target mode.
 
-The directory structure of the downloaded dataset files is as follows:
-
-```text
-./mnist/
-├── test
-│   ├── t10k-images-idx3-ubyte
-│   └── t10k-labels-idx1-ubyte
-└── train
-    ├── train-images-idx3-ubyte
-    └── train-labels-idx1-ubyte
-```
-
-## Building the Model
-
-Except the input layer, LeNet contains seven layers: three convolutional layers, two subsampling layers, and two fully-connected layers.
-
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
-
-The MindSpore Vision Suite provides the LeNet model interface `lenet`, which defines the network model as follows:
-
-```python
-from mindvision.classification.models import lenet
-
-network = lenet(num_classes=10, pretrained=False)
-```
-
-## Defining a Loss Function and an Optimizer
-
-To train a neural network model, you need to define a loss function and an optimizer function.
-
-- The following uses the cross-entropy loss function `SoftmaxCrossEntropyWithLogits`.
-- The optimizer is `Momentum`.
-
-```python
-import mindspore.nn as nn
-
-# Define the loss function.
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-
-# Define the optimizer function.
-net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-```
-
-## Training and Saving the Model
-
-Before training, MindSpore needs to declare whether the intermediate process and result of the network model need to be saved during training. Therefore, the `ModelCheckpoint` API is used to save the network model and parameters for subsequent fine-tuning.
+Set the running mode to dynamic graph mode.
 
 ```python
 import mindspore as ms
 
-# Set the model saving parameters. The checkpoint steps are 1875.
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-
-# Apply the model saving parameters.
-ckpoint = ms.ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
-The `model.train` API provided by MindSpore can be used to easily train the network. `LossMonitor` can monitor the changes of the `loss` value during the training process.
-
-```python
-import mindspore as ms
-from mindvision.engine.callback import LossMonitor
-
-# Initialize the model parameters.
-model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
-
-# Train the network model. The model name is lenet-1_1875.ckpt.
-model.train(10, dataset_train, callbacks=[ckpoint, LossMonitor(0.01, 1875)])
-```
-
-```text
-Epoch:[  0/ 10], step:[ 1875/ 1875], loss:[0.314/0.314], time:2237.313 ms, lr:0.01000
-Epoch time: 3577.754 ms, per step time: 1.908 ms, avg loss: 0.314
-Epoch:[  1/ 10], step:[ 1875/ 1875], loss:[0.031/0.031], time:1306.982 ms, lr:0.01000
-Epoch time: 1307.792 ms, per step time: 0.697 ms, avg loss: 0.031
-Epoch:[  2/ 10], step:[ 1875/ 1875], loss:[0.007/0.007], time:1324.625 ms, lr:0.01000
-Epoch time: 1325.340 ms, per step time: 0.707 ms, avg loss: 0.007
-Epoch:[  3/ 10], step:[ 1875/ 1875], loss:[0.021/0.021], time:1396.733 ms, lr:0.01000
-Epoch time: 1397.495 ms, per step time: 0.745 ms, avg loss: 0.021
-Epoch:[  4/ 10], step:[ 1875/ 1875], loss:[0.028/0.028], time:1594.762 ms, lr:0.01000
-Epoch time: 1595.549 ms, per step time: 0.851 ms, avg loss: 0.028
-Epoch:[  5/ 10], step:[ 1875/ 1875], loss:[0.007/0.007], time:1242.175 ms, lr:0.01000
-Epoch time: 1242.928 ms, per step time: 0.663 ms, avg loss: 0.007
-Epoch:[  6/ 10], step:[ 1875/ 1875], loss:[0.033/0.033], time:1199.938 ms, lr:0.01000
-Epoch time: 1200.627 ms, per step time: 0.640 ms, avg loss: 0.033
-Epoch:[  7/ 10], step:[ 1875/ 1875], loss:[0.175/0.175], time:1228.845 ms, lr:0.01000
-Epoch time: 1229.548 ms, per step time: 0.656 ms, avg loss: 0.175
-Epoch:[  8/ 10], step:[ 1875/ 1875], loss:[0.009/0.009], time:1237.200 ms, lr:0.01000
-Epoch time: 1237.969 ms, per step time: 0.660 ms, avg loss: 0.009
-Epoch:[  9/ 10], step:[ 1875/ 1875], loss:[0.000/0.000], time:1287.693 ms, lr:0.01000
-Epoch time: 1288.413 ms, per step time: 0.687 ms, avg loss: 0.000
-```
-
-During the training, the loss value is printed and fluctuates. However, the loss value gradually decreases and the precision gradually increases. Loss values displayed each time may be different because of their randomness.
-
-Validate the generalization capability of the model based on the result obtained by running the test dataset.
-
-1. Read the test dataset using the `model.eval` API.
-2. Use the saved model parameters for inference.
-
-```python
-acc = model.eval(dataset_eval)
-
-print("{}".format(acc))
-```
-
-```text
-{'accuracy': 0.9903846153846154}
-```
-
-The model accuracy data is displayed in the output content. In the example, the accuracy reaches 95%, indicating a good model quality. As the number of network epochs increases, the model accuracy will be further improved.
-
-## Loading the Model
+Similarly, when MindSpore is in dynamic image mode, you can run the `set_context(mode=GRAPH_MODE)` command to switch to the static graph mode.
 
 ```python
 import mindspore as ms
 
-# Load the saved model used for testing.
-param_dict = ms.load_checkpoint("./lenet/lenet-1_1875.ckpt")
-# Load parameters to the network.
-ms.load_param_into_net(network, param_dict)
+ms.set_context(mode=ms.GRAPH_MODE)
+```
+
+### Hardware Management
+
+Hardware management involves the `device_target` and `device_id` parameters.
+
+- `device_target`: target device to be run. The value can be `Ascend`, `GPU`, or `CPU`. You can set this parameter based on the actual situation or use the default value.
+
+- `device_id`: ID of the target device. The value is in the range of [0,`device_num_per_host` - 1]. `device_num_per_host` indicates the total number of devices on the server. The value of `device_num_per_host` cannot exceed 4096. The default value of `device_id` is 0.
+
+> When the program is executed in non-distributed mode, you can set `device_id` to determine the ID of the device where the program is executed to avoid device usage conflicts.
+
+A code example is as follows:
+
+```Python
+import mindspore as mst
+
+ms.set_context(device_target="Ascend", device_id=6)
+```
+
+## Processing Datasets
+
+### Generating a Dataset
+
+Define the dataset generation function `get_data` to generate the training dataset and test dataset.
+
+Since linear data is fitted, the required training datasets should be randomly distributed around the objective function. Assume that the objective function to be fitted is $f(x)=2x+3$. $f(x)=2x+3+noise$ is used to generate training datasets, and `noise` is a random value that complies with standard normal distribution rules.
+
+```python
+import numpy as np
+
+def get_data(num, w=2.0, b=3.0):
+    for _ in range(num):
+        x = np.random.uniform(-10.0, 10.0)
+        noise = np.random.normal(0, 1)
+        y = x * w + b + noise
+        yield np.array([x]).astype(np.float32), np.array([y]).astype(np.float32)
+```
+
+Use get_data to generate 50 groups of evaluation data and visualize the data.
+
+```python
+import matplotlib.pyplot as plt
+
+train_data = list(get_data(50))
+x_target_label = np.array([-10, 10, 0.1])
+y_target_label = x_target_label * 2 + 3
+x_eval_label, y_eval_label = zip(*train_data)
+
+plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
+plt.plot(x_target_label, y_target_label, color="green")
+plt.title("Eval data")
+plt.show()
+```
+
+![png](./images/output_8_0.png)
+
+In the figure shown above, the green line indicates the target function, and the red point indicates the evaluation data (`train_data`).
+
+### Loading a Dataset
+
+Loads the dataset generated by the `get_data` function to the system memory and performs basic data processing operations.
+
+- `ds.GeneratorDataset`: converts the generated data into a MindSpore dataset and saves the x and y values of the generated data to arrays of `data` and `label`.
+- `batch`: combines `batch_size` pieces of data into a batch.
+- `repeat`: Multiplies the number of data sets.
+
+```python
+from mindspore import dataset as ds
+
+def create_dataset(num_data, batch_size=16, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
+    input_data = input_data.batch(batch_size, drop_remainder=True)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+```
+
+Use the dataset augmentation function to generate training data. Use the defined `create_dataset` to augment the generated 1600 pieces of data into 100 datasets with the shape of 16 x 1.
+
+```python
+data_number = 1600
+batch_number = 16
+repeat_number = 1
+
+ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
+print("The dataset size of ds_train:", ds_train.get_dataset_size())
+step_size = ds_train.get_dataset_size()
+dict_datasets = next(ds_train.create_dict_iterator())
+
+print(dict_datasets.keys())
+print("The x label value shape:", dict_datasets["data"].shape)
+print("The y label value shape:", dict_datasets["label"].shape)
 ```
 
 ```text
-[]
+    The dataset size of ds_train: 100
+    dict_keys(['data', 'label'])
+    The x label value shape: (16, 1)
+    The y label value shape: (16, 1)
 ```
 
-> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#loading-the-model).
+## Defining a Network Model
 
-## Validating the Model
+The `mindspore.nn` class is the base class for setting up all networks and the basic unit of a network. In order to customize a network, you can inherit the `nn.Cell` class and overwrite the `__init__` and `construct` methods.
 
-Use the generated model to predict the classification of a single image. The procedure is as follows:
+The `mindspore.ops` module provides the implementation of basic operators. The `nn.Cell` module further encapsulates basic operators. You can flexibly use different operators as required.
 
-> - The predicted image is randomly generated, and the execution result may be different each time.
-> - The example uses the mindspore Tensor module, please see [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html).
+The following example uses `nn.Cell` to build a simple fully-connected network for subsequent customized content. In MindSpore, use `nn.Dense` to generate a linear function model with a single data input and a single data output.
+
+$$f(x)=wx+b\tag{2}$$
+
+Use the Normal operator to randomly initialize the $w$ and $b$ parameters in formula (2).
+
+```python
+from mindspore import nn
+from mindspore.common.initializer import Normal
+
+class LinearNet(nn.Cell):
+    def __init__(self):
+        super(LinearNet, self).__init__()
+        self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
+
+    def construct(self, x):
+        fx = self.fc(x)
+        return fx
+```
+
+After initializing the network model, visualize the initialized network function and training dataset to understand the model function before fitting.
+
+```python
+import mindspore as ms
+
+net = LinearNet()  # Initialize the linear regression network.
+
+model_params = net.trainable_params()  # Obtain network parameters w and b before training.
+
+x_model_label = np.array([-10, 10, 0.1])
+y_model_label = (x_model_label * model_params[0].asnumpy()[0] + model_params[1].asnumpy()[0])
+
+plt.axis([-10, 10, -20, 25])
+plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
+plt.plot(x_model_label, y_model_label, color="blue")
+plt.plot(x_target_label, y_target_label, color="green")
+plt.show()
+```
+
+![png](./images/output_16_0.png)
+
+## Customized Loss Functions
+
+A loss function is used to measure the difference between the predicted value and the actual value. In deep learning, model training is a process of reducing a loss function value through continuous iteration. Therefore, it is very important to select a loss function in a model training process. Defining a good loss function can help the loss function value converge faster and achieve better accuracy.
+
+[mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-function) provides many common loss functions for users to select and allows users to customize loss functions as required.
+
+When customizing a loss function class, you can inherit the base class `nn.Cell` of the network or the base class `nn.LossBase` of the loss function. `nn.LossBase` is based on `nn.Cell` and provides the `get_loss` method. The `reduction` parameter is used to obtain a sum or mean loss value and output a scalar. The following describes how to define the mean absolute error (MAE) function by inheriting LossBase. The formula of the MAE algorithm is as follows:
+
+$$ loss= \frac{1}{m}\sum_{i=1}^m\lvert y_i-f(x_i) \rvert \tag{3}$$
+
+In the preceding formula, $f(x)$ indicates the predicted value, $y$ indicates the actual value of the sample, and $loss$ indicates the mean distance between the predicted value and the actual value.
+
+When using the method inherited from LossBase to define the loss function, you need to rewrite the `__init__` and `construct` methods and use the `get_loss` method to compute the loss. The sample code is as follows:
+
+```python
+from mindspore import nn, ops
+
+class MyMAELoss(nn.LossBase):
+    """Define the loss."""
+    def __init__(self):
+        super(MyMAELoss, self).__init__()
+        self.abs = ops.Abs()
+
+    def construct(self, predict, target):
+        x = self.abs(target - predict)
+        return self.get_loss(x)
+```
+
+## Customized Optimizer
+
+During model training, the optimizer is used to compute and update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
+
+[mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer) provides many common optimizers for users to select and allows users to customize optimizers as required.
+
+When customizing an optimizer, you can inherit the optimizer base class `nn.Optimizer` and rewrite the `__init__` and `construct` methods to update parameters.
+
+The following example implements the customized optimizer Momentum (SGD algorithm with momentum):
+
+$$ v_{t+1} = v_t × u+grad \tag{4}$$
+
+$$p_{t+1} = p_t - lr × v_{t+1} \tag{5}$$
+
+$grad$, $lr$, $p$, $v$, and $u$ respectively represent a gradient, a learning rate, a weight parameter, a momentum parameter, and an initial speed.
+
+```python
+import mindspore as ms
+from mindspore import nn, ops
+
+class MyMomentum(nn.Optimizer):
+    """Define the optimizer."""
+
+    def __init__(self, params, learning_rate, momentum=0.9):
+        super(MyMomentum, self).__init__(learning_rate, params)
+        self.moment = ms.Parameter(ms.Tensor(momentum, ms.float32), name="moment")
+        self.momentum = self.parameters.clone(prefix="momentum", init="zeros")
+        self.assign = ops.Assign()
+
+    def construct(self, gradients):
+        """The input of construct is gradient. Gradients are automatically transferred during training."""
+        lr = self.get_lr()
+        params = self.parameters  # Weight parameter to be updated
+        for i in range(len(params)):
+            self.assign(self.momentum[i], self.momentum[i] * self.moment + gradients[i])
+            update = params[i] - self.momentum[i] * lr  # SGD algorithm with momentum
+            self.assign(params[i], update)
+        return params
+```
+
+## Customized Training Process
+
+`mindspore.Model` provides `train` and `eval` APIs for users to use during training. However, this API does not apply to all scenarios, such as multi-data and multi-label scenarios, where users need to define the training process.
+
+The following uses linear regression as an example to describe the customized training process. First, define the loss network and connect the forward network to the loss function. Then, define the training process. Generally, the training process inherits `nn.TrainOneStepCell`. `nn.TrainOneStepCell` encapsulates the loss network and optimizer to implement the backward propagation network to update the weight parameters.
+
+### Defining a Loss Network
+
+Define the loss network `MyWithLossCell` to connect the feedforward network to the loss function.
+
+```python
+class MyWithLossCell(nn.Cell):
+    """Define the loss network."""
+
+    def __init__(self, backbone, loss_fn):
+        """Transfer the feedforward network and loss function as parameters during instantiation."""
+        super(MyWithLossCell, self).__init__(auto_prefix=False)
+        self.backbone = backbone
+        self.loss_fn = loss_fn
+
+    def construct(self, data, label):
+        """Connect the feedforward network and loss function."""
+        out = self.backbone(data)
+        return self.loss_fn(out, label)
+
+    def backbone_network(self):
+        """Backbone network to be encapsulated."""
+        return self.backbone
+```
+
+### Defining the Training Process
+
+Define the training process `MyTrainStep`. This class inherits `nn.TrainOneStepCell`. `nn.TrainOneStepCell` encapsulates the loss network and optimizer. During training, the `ops.GradOperation` operator is used to obtain the gradient, the optimizer is used to update the weight.
+
+```python
+class MyTrainStep(nn.TrainOneStepCell):
+    """Define the training process."""
+
+    def __init__(self, network, optimizer):
+        """Initialize parameters."""
+        super(MyTrainStep, self).__init__(network, optimizer)
+        self.grad = ops.GradOperation(get_by_list=True)
+
+    def construct(self, data, label):
+        """Build the training process."""
+        weights = self.weights
+        loss = self.network(data, label)
+        grads = self.grad(self.network, weights)(data, label)
+        return loss, self.optimizer(grads)
+```
+
+The following defines the drawing function `plot_model_and_datasets` to draw the test data, objective function, and network model fitting function, and view the loss value.
+
+```python
+from IPython import display
+import matplotlib.pyplot as plt
+import time
+
+def plot_model_and_datasets(net, data, loss):
+    weight = net.trainable_params()[0]
+    bias = net.trainable_params()[1]
+    x = np.arange(-10, 10, 0.1)
+    y = x * ms.Tensor(weight).asnumpy()[0][0] + ms.Tensor(bias).asnumpy()[0]
+    x1, y1 = zip(*data)
+    x_target = x
+    y_target = x_target * 2 + 3
+
+    plt.axis([-11, 11, -20, 25])
+    plt.scatter(x1, y1, color="red", s=5)        # Raw data
+    plt.plot(x, y, color="blue")                 # Predicted data
+    plt.plot(x_target, y_target, color="green")  # Fitting function
+    plt.title(f"Loss:{loss}")                    # Printed loss value
+
+    plt.show()
+    time.sleep(0.2)
+    display.clear_output(wait=True)
+```
+
+### Training
+
+Use the training data `ds_train` to train the training network `train_net` and visualize the training process.
+
+```python
+loss_func = MyMAELoss ()                         # Loss function
+opt = MyMomentum(net.trainable_params(), 0.01)  # Optimizer
+
+net_with_criterion = MyWithLossCell(net, loss_func)  # Build a loss network.
+train_net = MyTrainStep(net_with_criterion, opt)     # Build a training network.
+
+for data in ds_train.create_dict_iterator():
+    train_net(data['data'], data['label'])                  # Perform training and update the weight.
+    loss = net_with_criterion(data['data'], data['label'])  # Compute the loss value.
+    plot_model_and_datasets(train_net, train_data, loss)    # Visualize the.
+```
+
+![png](./images/output_28_0.png)
+
+## Customized Evaluation Metrics
+
+When a training task is complete, an evaluation function (Metric) is often required to evaluate the quality of a model. Common evaluation metrics include confusion matrix, accuracy, precision, and recall.
+
+The [mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#evaluation-metrics) module provides common evaluation functions. You can also define evaluation metrics as required. The customized Metric function needs to inherit the `nn.Metric` parent class and re-implement the `clear`, `update`, and `eval` methods in the parent class. The following formula shows the mean absolute error (MAE) algorithm. The following uses MAE as an example to describe the three functions and their usage.
+
+$$ MAE=\frac{1}{n}\sum_{i=1}^n\lvert y\_pred_i - y_i \rvert \tag{6}$$
+
+- `clear`: initializes related internal parameters.
+- `update`: receives network prediction output and labels, computes errors, and updates internal evaluation results. Generally, the calculation is performed after each step and the statistical value is updated.
+- `eval`: computes the final evaluation result after each epoch ends.
+
+```python
+class MyMAE(nn.Metric):
+    """Define metrics."""
+
+    def __init__(self):
+        super(MyMAE, self).__init__()
+        self.clear()
+
+    def clear(self):
+        """Initialize variables abs_error_sum and samples_num."""
+        self.abs_error_sum = 0
+        self.samples_num = 0
+
+    def update(self, *inputs):
+        """Update abs_error_sum and samples_num."""
+        y_pred = inputs[0].asnumpy()
+        y = inputs[1].asnumpy()
+
+        # Compute the absolute error between the predicted value and the actual value.
+        error_abs = np.abs(y.reshape(y_pred.shape) - y_pred)
+        self.abs_error_sum += error_abs.sum()
+        self.samples_num += y.shape[0]  # Total number of samples
+
+    def eval(self):
+        """Compute the final evaluation result.""
+        return self.abs_error_sum / self.samples_num
+```
+
+## Customized Evaluation Process
+
+The mindspore.nn module provides the evaluation network packaging function [nn.WithEvalCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithEvalCell.html#mindspore.nn.WithEvalCell). Because `nn.WithEvalCell` has only two inputs `data` and `label`, it is not applicable to the scenario with multiple data or labels. Therefore, you need to customize the evaluation network. For details about how to customize the evaluation network in the multi-label scenario, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/en/master/advanced/train/train_eval.html).
+
+The following example implements a simple customized evaluation network `MyWithEvalCell`. Enter the input `data` and `label`.
+
+```python
+class MyWithEvalCell(nn.Cell):
+    """Define the evaluation process."""
+
+    def __init__(self, network):
+        super(MyWithEvalCell, self).__init__(auto_prefix=False)
+        self.network = network
+
+    def construct(self, data, label):
+        outputs = self.network(data)
+        return outputs, label
+```
+
+Perform inference and evaluation:
+
+```python
+data_number = 160
+batch_number = 16
+repeat_number = 1
+
+# Obtain evaluation data.
+ds_eval = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
+
+eval_net = MyWithEvalCell(net)  # Define the evaluation network.
+eval_net.set_train(False)
+mae = MyMAE()
+
+# Execute the inference process.
+for data in ds_eval.create_dict_iterator():
+    output, eval_y = eval_net(data['data'], data['label'])
+    mae.update(output, eval_y)
+
+mae_result = mae.eval()
+print("MAE: ", mae_result)
+```
+
+```text
+    MAE:  0.9605088472366333
+```
+
+Output evaluation error. The effect of MAE is similar to that of the model in the training set.
+
+## Saving and Exporting a Model
+
+Save the trained model parameters to a checkpoint (CKPT) file, and export the checkpoint file as a MindIR file for cross-platform inference.
 
 ```python
 import numpy as np
 import mindspore as ms
-import matplotlib.pyplot as plt
 
-mnist = Mnist("./mnist", split="train", batch_size=6, resize=32)
-dataset_infer = mnist.run()
-ds_test = dataset_infer.create_dict_iterator()
-data = next(ds_test)
-images = data["image"].asnumpy()
-labels = data["label"].asnumpy()
+ms.save_checkpoint(net, "./linear.ckpt")          # Save model parameters in a CKPT file.
+param_dict = ms.load_checkpoint("./linear.ckpt")  # Save the model parameters to the param_dict dictionary.
 
-plt.figure()
-for i in range(1, 7):
-    plt.subplot(2, 3, i)
-    plt.imshow(images[i-1][0], interpolation="None", cmap="gray")
-plt.show()
+# View the model parameters.
+for param in param_dict:
+    print(param, ":", param_dict[param].asnumpy())
 
-# Use the model.predict function to predict the classification of the image.
-output = model.predict(ms.Tensor(data['image']))
-predicted = np.argmax(output.asnumpy(), axis=1)
-
-# Output the predicted classification and the actual classification.
-print(f'Predicted: "{predicted}", Actual: "{labels}"')
+net1 = LinearNet()
+input_np = np.random.uniform(0.0, 1.0, size=[1, 1]).astype(np.float32)
+ms.export(net1, ms.Tensor(input_np), file_name='linear', file_format='MINDIR')
 ```
 
 ```text
-Predicted: "[4 6 2 3 5 1]", Actual: "[4 6 2 3 5 1]"
+    fc.weight : [[1.894384]]
+    fc.bias : [3.0015702]
 ```
-
-The preceding information shows that the predicted values are the same as the target values.

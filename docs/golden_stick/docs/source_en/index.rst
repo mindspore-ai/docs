@@ -46,7 +46,7 @@ During network training, the MindSpore Golden Stick does not have great impact o
 
 - **Optimize the network using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the network is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see `Applying the SimQAT Algorithm <https://mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html>`_ .
 
-- **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/callback.html>`_ .
+- **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/en/master/advanced/model/callback.html>`_ .
 
 2. Deployment
 
@@ -54,9 +54,9 @@ During network training, the MindSpore Golden Stick does not have great impact o
 
 .. note::
  - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
- - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/zh-CN/master/advanced/model/train_eval.html>`_ .
- - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model>`_ .
- - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html>`_ .
+ - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/en/master/advanced/model/train_eval.html>`_ .
+ - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-mindir-model>`_ .
+ - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/en/master/infer/inference.html>`_ .
 
 Roadmap
 ---------------------------------------

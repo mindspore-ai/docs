@@ -1,6 +1,6 @@
 # Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/pynative_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/compute_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (Graph) and a dynamic graph mode (PyNative).
 

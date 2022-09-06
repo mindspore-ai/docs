@@ -1,6 +1,6 @@
 # Combination of Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/pynative_graph/combine.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/compute_graph/combine.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Currently, dynamic and static graphs are supported in the industry. Dynamic graphs are executed through explanation, with dynamic syntax affinity and flexible expression. Static graphs are executed through just in time (JIT) build, which focuses on static syntax and has many syntax constraints. The build process of the dynamic graph is different from that of the static graph. As a result, the syntax constraints are also different.
 
@@ -22,12 +22,14 @@ class Add(nn.Cell):
     """Define a class to implement the x self addition."""
     def construct(self, x):
         x = x + x
+        x = x + x
         return x
 
 class Mul(nn.Cell):
     """Define a class to implement the x self multiplication."""
     @ms_function  # Use ms_function to modify the function. This function is executed in static graph mode.
     def construct(self, x):
+        x = x * x
         x = x * x
         return x
 
@@ -59,9 +61,9 @@ print("\nx:\n", x)
      [1. 1. 1.]]
 
     x:
-     [[8. 8. 8.]
-     [8. 8. 8.]
-     [8. 8. 8.]]
+     [[1024. 1024. 1024.]
+     [1024. 1024. 1024.]
+     [1024. 1024. 1024.]]
 ```
 
 According to the preceding information, after the test operation, the final value of x is a 3\*3 matrix whose each element is 8. The following figure shows the build method of this test case according to the execution sequence.

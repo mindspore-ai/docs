@@ -1,6 +1,6 @@
 # Loss Function
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/network/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 A loss function is also called objective function and is used to measure the difference between a predicted value and an actual value.
 
