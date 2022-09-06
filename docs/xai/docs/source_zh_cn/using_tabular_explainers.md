@@ -178,7 +178,7 @@ SHAPGradient:
 
 ![shap_gradient](./images/shap_gradient.png)
 
-## Using PseudoLinearCoef
+## 使用 PseudoLinearCoef
 
 `PseudoLinearCoef` 提供全局归因方法来测量分类器决策边界周围特征的敏感度。
 
@@ -194,60 +194,60 @@ plc, relative_plc = plc_explainer(data)
 ![pseudo_linear_coef](./images/PLC.png)
 
 ```python
-print("Pseudo Linear Coef.:")
+print("伪线性系数:")
 for target, target_name in enumerate(class_names):
-    print(f"class {target_name}")
+    print(f"{target_name} 类")
     print(str(plc[target]))
 
-print("\nRelative Pseudo Linear Coef.:")
+print("\n相对伪线性系数:")
 for target, target_name in enumerate(class_names):
     for view_point, view_point_name in enumerate(class_names):
         if target == view_point:
             continue
-        print(f"{target_name} relative to {view_point_name}")
+        print(f"{target_name} 相对于 {view_point_name}")
         print(str(relative_plc[target, view_point]))
 ```
 
 输出:
 
 ```text
-Pseudo Linear Coef.:
+伪线性系数:
 
-class setosa:
+setosa 类
 
 [-0.12420721  0.15363358 -0.44856226 -0.16351467]
 
-class versicolor:
+versicolor 类
 
 [ 0.03954152 -0.20367564  0.3246966  -0.17629193]
 
-class virginica:
+virginica 类
 
 [-0.03425665 -0.04525428  0.44189668  0.20307252]
 
-Relative Pseudo Linear Coef.:
+相对伪线性系数:
 
-setosa relative to versicolor
+setosa 相对于 versicolor
 
 [-0.12564947  0.15629557 -0.44782427 -0.16126522]
 
-setosa relative to virginica
+setosa 相对于 virginica
 
 [-0.11122696  0.12967573 -0.45520434 -0.18375972]
 
-versicolor relative to setosa
+versicolor 相对于 setosa
 
 [ 0.02240782 -0.23672473  0.3889126   0.21666989]
 
-versicolor relative to virginica
+versicolor 相对于 virginica
 
 [ 0.21087858  0.1268154  -0.31746316 -0.22748768]
 
-virginica relative to setosa
+virginica 相对于 setosa
 
 [ 0.07109812 -0.08392082  0.5585888   0.23082316]
 
-virginica relative to versicolor
+virginica 相对于 versicolor
 
 [-0.15152863 -0.00229146  0.31223866  0.17223847]
 ```
