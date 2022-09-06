@@ -9,9 +9,9 @@
 当前支持`@ms_function`装饰器修饰函数，Cell及其子类、`ms_class`类或者自定义普通类的成员方法。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
+`ms_function`使用规则详见[ms_function API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function)。
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
@@ -340,94 +340,9 @@ x: ((1, 2, 3), 4, 5)
 
 #### Tensor
 
-当前不支持在网络里构造Tensor，即不支持语法`x = Tensor(args...)`。
+目前已支持在网络里构造Tensor。
 
-可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
-
-关于`@constexpr`的用法可参考：<https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>
-
-对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`里使用。
-
-如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
-
-```python
-import mindspore as ms
-from mindspore.ops import constexpr
-
-@constexpr
-def generate_tensor():
-    return ms.Tensor(np.ones((3, 4)))
-
-x = generate_tensor()
-print('x:{}'.format(x))
-```
-
-结果如下：
-
-```Text
-x:[[1. 1. 1. 1.]
- [1. 1. 1. 1.]
- [1. 1. 1. 1.]]
-```
-
-下面将介绍下`Tensor`支持的属性和接口。
-
-- 支持属性：
-
-  `shape`：获取`Tensor`的shape，返回一个`Tuple`。
-
-  `dtype`：获取`Tensor`的数据类型，返回一个`MindSpore`定义的数据类型。
-
-- 支持接口：
-
-  `all`：对`Tensor`通过`all`操作进行归约，仅支持`Bool`类型的`Tensor`。
-
-  `any`：对`Tensor`通过`any`操作进行归约，仅支持`Bool`类型的`Tensor`。
-
-  `view`：将`Tensor`reshape成输入的`shape`。
-
-  `expand_as`：将`Tensor`按照广播规则扩展成与另一个`Tensor`相同的`shape`。
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-  from mindspore import ms_function
-  import numpy as np
-
-  x = ms.Tensor(np.array([[True, False, True], [False, True, False]]))
-  y = ms.Tensor(np.ones((2, 3), np.float32))
-  z = ms.Tensor(np.ones((2, 2, 3)))
-
-  x_shape = x.shape
-  x_dtype = x.dtype
-  x_all = x.all()
-  x_any = x.any()
-  x_view = x.view((1, 6))
-  y_as_z = y.expand_as(z)
-
-  print('x_shape:{}'.format(x_shape))
-  print('x_dtype:{}'.format(x_dtype))
-  print('x_all:{}'.format(x_all))
-  print('x_any:{}'.format(x_any))
-  print('x_view:{}'.format(x_view))
-  print('y_as_z:{}'.format(y_as_z))
-  ```
-
-  结果如下:
-
-  ```text
-  x_shape:(2, 3)
-  x_dtype:Bool
-  x_all:False
-  x_any:True
-  x_view:[[ True False  True False  True False]]
-  y_as_z:[[[1. 1. 1.]
-    [1. 1. 1.]]
-
-   [[1. 1. 1.]
-    [1. 1. 1.]]]
-  ```
+Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
 #### Primitive
 
@@ -437,7 +352,7 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive>
+当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
 #### Cell
 
@@ -447,15 +362,13 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
-
-当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell>
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
 #### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter>
+`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ## 原型
 
@@ -511,7 +424,7 @@ ret:1
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值>
+`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值)。
 
 ### 调用
 
@@ -626,9 +539,9 @@ ret:[[3. 3. 3. 3.]]
 
 限制：
 
-- 当and/or的左操作数是Tensor类型时，左右操作数类型必须保持一致且Tensor成员个数只能有一个。
+- `and`、`or`的左操作数必须要能被转换成布尔值。例如：左操作数不能为存在多个元素的Tensor。当`and`、`or`的左操作数是变量Tensor时，右操作数必须也是Tensor且Tensor成员个数只能有一个。在其余情况下，右操作数无要求。
 
-- 当and/or的左操作数不是Tensor类型时，右操作数可以为支持的任意类型。
+- `and`、`or`的左右操作数存在图模式无法支持的对象（例如：第三方对象以及由图模式不原生支持的语法产生的对象）时，左右操作数需要均为常量。
 
 ### 比较运算符
 
@@ -1478,7 +1391,7 @@ y_is_list:True
 z_is_tensor:True
 ```
 
-#### all()
+#### all
 
 功能：判断输入中的元素是否均为真值。
 
@@ -1529,7 +1442,7 @@ g: True
 h: True
 ```
 
-#### any()
+#### any
 
 功能：判断输入中的元素是存在为真值。
 
