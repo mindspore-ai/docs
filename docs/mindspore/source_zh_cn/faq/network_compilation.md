@@ -170,16 +170,35 @@ The function call stack:
 A: 用户自定义的Cell的反向传播函数 `bprop`，它的输入需要包含正向网络的输入，以及 `out` 和 `dout`，代码样例如下:
 
 ```python
+from mindspore import nn, ops, Tensor
+from mindspore import dtype as mstype
+
 class BpropUserDefinedNet(nn.Cell):
         def __init__(self):
             super(BpropUserDefinedNet, self).__init__()
-            self.zeros_like = P.ZerosLike()
+            self.zeros_like = ops.ZerosLike()
 
         def construct(self, x, y):
             return x + y
 
-        def bprop(self, x, y, out, dout):
+        # def bprop(self, x, y, out, dout):    # 正确写法
+        def bprop(self, x, y, out):
             return self.zeros_like(out), self.zeros_like(out)
+
+grad_fn = ops.GradOperation(get_all=True)
+net = BpropUserDefinedNet()
+x = Tensor(2, mstype.float32)
+y = Tensor(6, mstype.float32)
+output = grad_fn(net)(x, y)
+print(output)
+```
+
+执行结果如下：
+
+```text
+TypeError: The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'.
+In file test.py(13)
+        def bprop(self, x, y, out):
 ```
 
 <br/>
