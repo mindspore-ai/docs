@@ -42,6 +42,7 @@ python_code_source = """function splitQuery(query, dict, all_dict) {
           }
       }
       if (escape(query).indexOf("%u")== -1 && query.indexOf(all_dict[i])==-1){
+        query = query.replace("(", " ").replace(")", " ")
         query = query.split('.').slice(-1)
         return query
       }
