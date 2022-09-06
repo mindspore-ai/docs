@@ -5,7 +5,7 @@
 ## 自动微分
 
 正向网络构建完成之后，MindSpore提供了[自动微分](https://mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)的接口用以计算模型的梯度结果。
-在[自动求导](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
+在[自动求导](https://mindspore.cn/tutorials/zh-CN/master/advanced/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
 
 ## 训练网络
 
@@ -13,7 +13,7 @@
 
 1. 封装`Model`，使用`model.train`或者'model.fit'方法执行网络训练，如[模型训练](https://mindspore.cn/tutorials/zh-CN/master/beginner/train.html)。
 
-2. 使用MindSpore封装好的[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html) 和 [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) 分别用于普通的训练流程和带[loss_scale](https://mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)的训练流程。如[进阶案例：线性拟合](https://mindspore.cn/tutorials/zh-CN/master/advanced/linear_fitting.html)。
+2. 使用MindSpore封装好的[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html) 和 [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) 分别用于普通的训练流程和带[loss_scale](https://mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)的训练流程。如[进阶案例：线性拟合](https://mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html)。
 
 3. 自定义训练Cell。
 

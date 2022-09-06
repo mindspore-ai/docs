@@ -46,7 +46,7 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 - **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的`apply`接口实现的，可以参考 `应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/master/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
 
-- **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的`callback`获取相应的callback对象， `注册到model <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/callback.html>`_ 中。
+- **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的`callback`获取相应的callback对象， `注册到model <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/callback.html>`_ 中。
 
 2. 部署阶段
 
@@ -54,8 +54,8 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 .. note::
  - 应用MindSpore Golden Stick算法的细节，可以在每个算法章节中找到详细说明和示例代码。
- - 流程中的"网络训练或重训"步骤可以参考 `MindSpore训练与评估 <https://mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html>`_ 章节。
- - 流程中的"ms.export"步骤可以参考 `导出mindir格式文件 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6>`_ 章节。
+ - 流程中的"网络训练或重训"步骤可以参考 `MindSpore训练与评估 <https://mindspore.cn/tutorials/zh-CN/master/advanced/model/train_eval.html>`_ 章节。
+ - 流程中的"ms.export"步骤可以参考 `导出mindir格式文件 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/save.html#%E5%AF%BC%E5%87%BAmindir%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6>`_ 章节。
  - 流程中的"昇思推理优化工具和运行时"步骤可以参考 `昇思推理 <https://mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html>`_ 章节。
 
 未来规划

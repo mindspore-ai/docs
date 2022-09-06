@@ -57,7 +57,7 @@
 在MindSpore网络实现过程中，有一些容易出现问题的地方，遇到问题请优先排查是否有以下情况：
 
 1. 数据处理中使用MindSpore的算子。数据处理过程一般会有多线程/多进程，此场景下数据处理使用MindSpore的数字存在限制，数据处理过程中使用的算子建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
-2. 控制流。详情请参考[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/control_flow.html)。当多层调用条件控制语句时在图模式下编译会很慢。
+2. 控制流。详情请参考[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/control_flow.html)。当多层调用条件控制语句时在图模式下编译会很慢。
 3. 切片操作，当遇到对一个Tesnor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_loss.html)对动态shape规避。
 4. 自定义混合精度和Model里的`amp_level`冲突，使用自定义的混合精度就不要设置Model里的`amp_level`。
 5. 在Ascend环境下Conv，Sort，TopK只能是float16的，注意加[loss scale](https://mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)避免溢出。

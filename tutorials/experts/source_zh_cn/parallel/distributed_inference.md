@@ -71,7 +71,7 @@
 
 首先，需要准备CheckPoint文件和训练策略文件。
 
-CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#保存模型)。
+CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/save.html#保存模型)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
 `set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`

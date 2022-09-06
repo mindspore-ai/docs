@@ -6,7 +6,7 @@ MindSpore provides initialization modules for parameters and network arguments. 
 
 In the following figure, a blue box indicates a specific execution operator, and a green box indicates a tensor. As the data in the neural network model, the tensor continuously flows in the network, including the data input of the network model and the input and output data of the operator. A red box indicates a parameter which is used as a attribute of the network model or operators in the model or as an intermediate parameter and temporary parameter generated in the backward graph.
 
-![parameter.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/network/images/parameter.png)
+![parameter.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/parameter.png)
 
 The following describes the data type (`dtype`), parameter (`Parameter`), parameter tuple (`ParameterTuple`), network initialization method, and network argument update.
 

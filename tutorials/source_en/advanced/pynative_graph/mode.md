@@ -215,7 +215,7 @@ print(output)
 
 > The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/master/advanced/network/derivation.html#).
 
-![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/pynative_graph/images/forward_backward.png)
+![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/compute_graph/images/forward_backward.png)
 
 It can be learned from the preceding dynamic graph mode that, in a forward propagation process, MindSpore records a computation process of Mul, and a backward MulGrad operator is obtained according to a definition of a backward bprop corresponding to Mul.
 

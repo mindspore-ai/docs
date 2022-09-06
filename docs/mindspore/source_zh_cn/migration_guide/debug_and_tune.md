@@ -142,7 +142,7 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
 
 可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)串通整个过程。
 
-> 有的网络很大或者有很多[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/control_flow.html)，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略，如果确认是图编译慢请尝试[算子增量编译](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/op_compilation.html)或者联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
+> 有的网络很大或者有很多[流程控制语句](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/control_flow.html)，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略，如果确认是图编译慢请尝试[算子增量编译](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/op_compilation.html)或者联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
 ### 算子性能优化
 
