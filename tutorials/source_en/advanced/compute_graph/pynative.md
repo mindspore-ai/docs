@@ -1,6 +1,6 @@
 # Dynamic Graph Mode Application
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/pynative_graph/pynative.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/compute_graph/pynative.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 In dynamic graph mode, MindSpore supports single-operator execution, common function execution, network execution, and independent gradient computation. The following uses sample code to describe how to use these operations and precautions.
 

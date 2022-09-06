@@ -1,6 +1,6 @@
 # Training and Evaluation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/train/train_eval.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/train_eval.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The preceding section describes the basic elements used by MindSpore to build a network, such as the basic network unit, loss function, optimizer, and evaluation function of MindSpore.
 

@@ -1,6 +1,6 @@
 # Building a Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/network/forward.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/forward.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The `Cell` class of MindSpore is the base class for setting up all networks and the basic unit of a network. When customizing a network, you need to inherit the `Cell` class. The following describes the basic network unit `Cell` and customized feedforward network.
 
