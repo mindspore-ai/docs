@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-在阅读本章节之前，请先阅读MindSpore官网教程[构建网络](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/forward.html)和[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/loss.html)。
+在阅读本章节之前，请先阅读MindSpore官网教程[构建网络](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/forward.html)和[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html)。
 
 ## 网络基本构成单元 Cell
 
@@ -142,9 +142,9 @@ net_with_loss = nn.WithLossCell(resnet, loss_fn=loss)
 
 #### 自定义初始化参数
 
-MindSpore封装的高阶API里一般会给参数一个默认的初始化，有时候这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/master/advanced/network/parameter.html#%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行参数初始化的方法。
+MindSpore封装的高阶API里一般会给参数一个默认的初始化，有时候这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/parameter.html#%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行参数初始化的方法。
 
-参数的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/parameter.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的参数进行初始化。
+参数的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/parameter.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的参数进行初始化。
 **注意本节的方法不能在`construct`里执行，在网络中修改参数的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.assign.html)**。
 
 [set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置参数数据。
@@ -248,7 +248,7 @@ for param in net.get_parameters():
 
 ### 动态图与静态图
 
-对于`Cell`，MindSpore提供`GRAPH_MODE`（静态图）和`PYNATIVE_MODE`（动态图）两种模式，详情请参考[动态图和静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph.html)。
+对于`Cell`，MindSpore提供`GRAPH_MODE`（静态图）和`PYNATIVE_MODE`（动态图）两种模式，详情请参考[动态图和静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph.html)。
 
 `PyNative`模式下模型进行**推理**的行为与一般Python代码无异。但是在训练过程中，注意**一旦将Tensor转换成numpy做其他的运算后将会截断网络的梯度，相当于PyTorch的detach**。
 
@@ -644,7 +644,7 @@ print(y)
 
 ## Loss构建
 
-Loss函数本质上也是网络构建的一部分，可以通过`Cell`进行构建，具体请参考[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/loss.html)。
+Loss函数本质上也是网络构建的一部分，可以通过`Cell`进行构建，具体请参考[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html)。
 
 需要注意的是Loss中一般会涉及特征的组合，交叉熵，规约等操作，这种操作极易溢出，不推荐Loss中使用float16。一个基本的带Loss的网络构建是这样的：
 
@@ -664,6 +664,6 @@ net_with_loss.set_train()
 net_with_loss.set_grad()
 ```
 
-这个组装过程也可以通过[Model](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/model.html)接口来封装。
+这个组装过程也可以通过[Model](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/model.html)接口来封装。
 
 需要注意的是使用`Model`对网络进行包装时不需要设置`set_train`和`set_grad`，框架在执行`model.train`时会设置；

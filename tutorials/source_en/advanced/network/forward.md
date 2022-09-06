@@ -6,7 +6,7 @@ The `Cell` class of MindSpore is the base class for setting up all networks and 
 
 The following describes the build of the feedforward network model and the basic units of the network model. Because training is not involved, there is no backward propagation or backward graph.
 
-![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/network/images/introduction3.png)
+![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/introduction3.png)
 
 ## Network Basic Unit: Cell
 
@@ -106,7 +106,7 @@ trainable_params of result:
             self.optimizer = optimizer  # Optimizer
     ```
 
-    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html).
+    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/train_eval.html).
 
 3. set_train
 

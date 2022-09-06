@@ -8,7 +8,7 @@ In deep learning, model training is a process of reducing the loss function valu
 
 The `mindspore.nn` module provides many [general loss functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-function), but these functions cannot meet all requirements. In many cases, you need to customize the required loss functions. The following describes how to customize loss functions.
 
-![lossfun.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/network/images/loss_function.png)
+![lossfun.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/loss_function.png)
 
 ## Built-in Loss Functions
 

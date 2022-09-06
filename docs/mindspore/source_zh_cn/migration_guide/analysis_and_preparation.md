@@ -421,7 +421,7 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 ## MindSpore好用功能/特性推荐
 
-### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph.html)
+### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph.html)
 
 目前主流的深度学习框架有静态图(Graph)和动态图(PyNative)两种执行模式。
 
