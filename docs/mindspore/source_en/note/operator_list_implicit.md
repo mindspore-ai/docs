@@ -1,4 +1,4 @@
-# MindSpore Implicit Type Conversion Operator List
+# MindSpore Implicit Type Conversion API List
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/operator_list_implicit.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -22,7 +22,7 @@
 - float32
 - float64
 
-### support ops
+### Supported APIs
 
 <table class="docutils">
 <tr>

@@ -49,11 +49,11 @@ def train(ds_train):
 > 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html#multiprocessing-programming).
 > 3. dataset_path is the path to the user's local training dataset.
 
-### Method two: Custom collection of network data with summary operators and SummaryCollector
+### Method two: Custom collection of network data with summary APIs and SummaryCollector
 
-In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable customized collection of other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc.
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary APIs that enable customized collection of other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc.
 
-The following summary operators are currently supported:
+The following summary APIs are currently supported:
 
 - [ScalarSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
 - [TensorSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
@@ -62,7 +62,7 @@ The following summary operators are currently supported:
 
 The recording method is shown in the following steps. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) is put on gitee.
 
-Step 1: Call the summary operator in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
+Step 1: Call the summary API in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
 
 For example, when a network is defined, image data is recorded in `construct` of the network. When the loss function is defined, the loss value is recorded in `construct` of the loss function.
 
@@ -85,18 +85,18 @@ class AlexNet(nn.Cell):
         self.image_summary = ops.ImageSummary()
 
     def construct(self, x):
-        # Record image by Summary operator
+        # Record image by Summary API
         self.image_summary("Image", x)
         x = self.conv1(x)
-        # Record tensor by Summary operator
+        # Record tensor by Summary API
         self.tensor_summary("Tensor", x)
         ...
         return x
 ```
 
-> 1. In the same Summary operator, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
-> For example, if two `ScalarSummary` operators are used to collect scalar data, two scalars cannot be given the same name.
-> 2. Summary operator only supports Graph mode and needs to be used in `construct` of `nn.Cell`. The PyNative mode is not supported yet.
+> 1. In the same Summary API, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
+> For example, if two `ScalarSummary` APIs are used to collect scalar data, two scalars cannot be given the same name.
+> 2. Summary API only supports Graph mode and needs to be used in `construct` of `nn.Cell`. The PyNative mode is not supported yet.
 
 Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
 
@@ -167,15 +167,15 @@ def train(ds_train):
 ```
 
 The above three ways support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
-the `save_graphs` option of `set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after operator fusion.
+the `save_graphs` option of `set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after API fusion.
 
-In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
+In the saved files, `ms_output_after_hwopt.pb` is the computational graph after API fusion, which can be viewed on the web page.
 
 ### Method four: Advanced usage, custom training cycle
 
-If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner.
+If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary API data in the following manner.
 
-The following code snippet demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
+The following code snippet demonstrates how to record data in a custom training cycle using the summary API and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
 
 For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
@@ -235,7 +235,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
 
-Recording gradients is possible by inheriting your original optimizer and inserting calls to summary operator. An example of code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) is put on gitee.
+Recording gradients is possible by inheriting your original optimizer and inserting calls to summary API. An example of code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) is put on gitee.
 
 ```python
 import mindspore.nn as nn
@@ -372,4 +372,4 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 
-6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary operator can not be used.
+6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary API can not be used.

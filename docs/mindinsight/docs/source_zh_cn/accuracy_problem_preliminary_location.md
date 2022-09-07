@@ -108,7 +108,7 @@
 
 例子：
 
-以ModelZoo的resnet50模型为例（cifar10数据集），其训练脚本和推理脚本复用一个数据处理函数，通过do_train参数区分训练模式和推理模式。检查代码可以发现，do_train仅影响两个随机数据处理算子，在训练模式时使用，在推理模式下不使用，其余处理逻辑相同。因此检查结果为“无问题”。
+以ModelZoo的resnet50模型为例（cifar10数据集），其训练脚本和推理脚本复用一个数据处理函数，通过do_train参数区分训练模式和推理模式。检查代码可以发现，do_train仅影响两个随机数据处理API，在训练模式时使用，在推理模式下不使用，其余处理逻辑相同。因此检查结果为“无问题”。
 
 ```python
     if do_train:
@@ -191,7 +191,7 @@
 
 ![检查epoch](images/check_epoch.png)
 
-*图2 epoch和loss的关系 图中蓝色曲线为训练集上的loss曲线 绿色曲线为验证集上的loss曲线 *
+*图2 epoch和loss的关系 图中蓝色曲线为训练集上的loss曲线 绿色曲线为验证集上的loss曲线*
 
 检查结论：
 
@@ -220,8 +220,8 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 此处我们列举一些比较重要的差异供大家检查：
 
-1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)。
-2. MindSpore的[DropOut](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
+1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) API，默认没有bias（has_bias=False），而PyTorch的Conv2d API，默认有bias。Conv2d API的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)。
+2. MindSpore的[DropOut](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) API，参数含义为保留的概率（keep_prob），而PyTorch的DropOut API，参数含义为丢弃的概率。
 3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)。
 
 较完整的API差异列表请参考 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
@@ -250,7 +250,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 备注：
 
-对于mindspore.nn名称空间下的BatchNorm系列算子，建议您保持参数`use_batch_statistics`为默认值None。当`use_batch_statistics`为默认值None时，BatchNorm算子会根据cell.set_train()所给定的模式决定每个迭代中是否更新moving mean和moving variance参数：在cell.set_train()所给定的模式为True时更新上述两个参数，在cell.set_train()所给定的模式为False时不对上述两个参数进行更新。若设置了`use_batch_statistics=True`，即使设置了cell.set_train(False)以表示当前处于非训练场景，BatchNorm算子仍然会更新moving mean和moving variance参数。
+对于mindspore.nn名称空间下的BatchNorm系列API，建议您保持参数`use_batch_statistics`为默认值None。当`use_batch_statistics`为默认值None时，BatchNormAPI会根据cell.set_train()所给定的模式决定每个迭代中是否更新moving mean和moving variance参数：在cell.set_train()所给定的模式为True时更新上述两个参数，在cell.set_train()所给定的模式为False时不对上述两个参数进行更新。若设置了`use_batch_statistics=True`，即使设置了cell.set_train(False)以表示当前处于非训练场景，BatchNormAPI仍然会更新moving mean和moving variance参数。
 
 例子：
 
@@ -345,12 +345,12 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
 
-发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合算子的输入输出数据确定溢出原因。
+发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合API的输入输出数据确定溢出原因。
 
 出现溢出问题后常见的解决措施如下：
 
 1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#损失缩放原理)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#dynamiclossscalemanager)以了解这些参数的含义。
-2. 溢出问题对精度有关键影响且无法规避的，将相应的算子调整为FP32算子（调整后可能对性能有较大影响）。
+2. 溢出问题对精度有关键影响且无法规避的，将相应的API调整为FP32 API（调整后可能对性能有较大影响）。
 
 检查结论：
 
@@ -417,11 +417,11 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 1. 确认标杆脚本中各种全局随机数种子已固定。
 2. 对比超参是否一致，并固定标杆脚本中的超参。
 3. 对比数据集和数据处理是否一致，并固定标杆脚本中的数据处理方法和数据顺序。
-4. 对比网络结构是否一致，并删除网络中带有随机性的算子。
+4. 对比网络结构是否一致，并删除网络中带有随机性的API。
 5. 对比权重初始化是否一致。建议MindSpore脚本和标杆脚本加载具有相同值的checkpoint文件。网络结构一致的情况下，一般通过简单的权重名称替换即可将一个框架的checkpoint文件转换为另一个框架的checkpoint文件。
 6. 强烈建议在标杆脚本中使能混合精度。若标杆脚本使能混合精度后出现精度问题，则需要优化算法以使算法能够正常在混合精度下收敛。
 
-在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d算子，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d算子，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
+在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d API，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d API，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
 
 执行完上述对比和固定流程后，一般会发现若干MindSpore脚本中的不一致，修复这些不一致后，往往精度问题就解决了。若不一致之处都修复了，问题仍然存在，可以使用相同的数据集和参数分别运行MindSpore脚本和标杆脚本，对比两者的loss：
 
@@ -430,7 +430,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 若第一个和第二个迭代的loss值均相同，则可以更进一步对比整条loss曲线。如果整条loss曲线基本一致，则说明标杆脚本大概率也存在精度问题，如果整条loss曲线出现了分叉，则分叉的位置是定位精度问题的关键。
 
-需要特别说明的是，由于Ascend上部分算子没有FP32实现，在同Ascend上的MindSpore对比时，标杆脚本也应使能混合精度 ，以确定开启混合精度情况下的精度上限。
+需要特别说明的是，由于Ascend上部分API没有FP32实现，在同Ascend上的MindSpore对比时，标杆脚本也应使能混合精度 ，以确定开启混合精度情况下的精度上限。
 
 ## 求助方式
 

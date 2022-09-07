@@ -108,7 +108,7 @@ Check the data processing code of the training script and that of the inference 
 
 For example:
 
-Take the ResNet50 model (CIFAR10 dataset) in ModelZoo as an example. The training script and inference script reuse the same data processing function. The do_train parameter is used to distinguish the training mode from the inference mode. Check the code. It is found that do_train affects only the two random data processing operators. It is used in training mode and is not used in inference mode. Other processing logic is the same. Therefore, the conclusion is "No problem."
+Take the ResNet50 model (CIFAR10 dataset) in ModelZoo as an example. The training script and inference script reuse the same data processing function. The do_train parameter is used to distinguish the training mode from the inference mode. Check the code. It is found that do_train affects only the two random data processing APIs. It is used in training mode and is not used in inference mode. Other processing logic is the same. Therefore, the conclusion is "No problem."
 
 ```python
     if do_train:
@@ -220,8 +220,8 @@ MindSpore APIs are different from APIs of other frameworks. If the benchmark scr
 
 Here we list some important differences for you to check:
 
-1. By default, the [Conv2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) operator of MindSpore does not have bias (has_bias = False), but the Conv2d operator of PyTorch has bias. By default, the weight of the Conv2d operator is Normal (0.0, 0.01). This initialization mode is different from that of PyTorch (Uniform) and TensorFlow (Uniform). For the comparison with PyTorch, see [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)
-2. For the [DropOut](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) operator of MindSpore, this parameter indicates the retention probability (keep_prob). For the DropOut operator of PyTorch, this parameter indicates the drop probability.
+1. By default, the [Conv2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) API of MindSpore does not have bias (has_bias = False), but the Conv2d API of PyTorch has bias. By default, the weight of the Conv2d API is Normal (0.0, 0.01). This initialization mode is different from that of PyTorch (Uniform) and TensorFlow (Uniform). For the comparison with PyTorch, see [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)
+2. For the [DropOut](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) API of MindSpore, this parameter indicates the retention probability (keep_prob). For the DropOut API of PyTorch, this parameter indicates the drop probability.
 3. The default momentum value in [BatchNorm2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d) of MindSpore is different from that of PyTorch. The default value is 0.1 in PyTorch and 0.9 in MindSpore. For the comparison with PyTorch, see [Function Differences with torch.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)
 
 For details about API differences, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
@@ -250,7 +250,7 @@ Determine whether the scenario is a training scenario and set cell.set_train() b
 
 Note:
 
-For the BatchNorm operator in the mindspore.nn namespace, you are advised to retain the default value None of the `use_batch_statistics` parameter. When `use_batch_statistics` is set to the default value None, the BatchNorm operator determines whether to update the moving mean and moving variance parameters in each training step based on the mode specified by cell.set_train(). When the mode specified by cell.set_train() is True, the preceding two parameters are updated. When the mode specified by cell.set_train() is False, the preceding two parameters are not updated. If `use_batch_statistics=True` is set, the BatchNorm operator updates the moving mean and moving variance parameters even if cell.set_train(False) is set to indicate that the current scenario is not a training scenario.
+For the BatchNorm API in the mindspore.nn namespace, you are advised to retain the default value None of the `use_batch_statistics` parameter. When `use_batch_statistics` is set to the default value None, the BatchNorm API determines whether to update the moving mean and moving variance parameters in each training step based on the mode specified by cell.set_train(). When the mode specified by cell.set_train() is True, the preceding two parameters are updated. When the mode specified by cell.set_train() is False, the preceding two parameters are not updated. If `use_batch_statistics=True` is set, the BatchNorm API updates the moving mean and moving variance parameters even if cell.set_train(False) is set to indicate that the current scenario is not a training scenario.
 
 For example:
 
@@ -345,12 +345,12 @@ When the [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/
 
 When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
 
-After the overflow problem is found, find and analyze the first overflow node. (For Ascend overflow data, find the node with the smallest timestamp based on the timestamp in the file name. For GPU overflow data, find the first node in the execution sequence.) Determine the overflow cause based on the input and output data of the operator.
+After the overflow problem is found, find and analyze the first overflow node. (For Ascend overflow data, find the node with the smallest timestamp based on the timestamp in the file name. For GPU overflow data, find the first node in the execution sequence.) Determine the overflow cause based on the input and output data of the API.
 
 The common solutions to the overflow problem are as follows:
 
 1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training.
-2. If the overflow problem has a key impact on the accuracy and cannot be avoided, change the corresponding operator to the FP32 operator (the performance may be greatly affected after the adjustment).
+2. If the overflow problem has a key impact on the accuracy and cannot be avoided, change the corresponding API to the FP32 API (the performance may be greatly affected after the adjustment).
 
 Conclusion:
 
@@ -415,11 +415,11 @@ You are advised to perform the check in simulation mode and compare the results 
 1. Ensure that the global random number seeds in the benchmark script are fixed.
 2. Check whether the hyperparameters are consistent and fix the hyperparameters in the benchmark script.
 3. Check whether the dataset and data processing are consistent, and fix the data processing method and data sequence in the benchmark script.
-4. Check whether the network structures are consistent and delete random operators from the network.
+4. Check whether the network structures are consistent and delete random APIs from the network.
 5. Check whether the weight initialization is consistent. You are advised to load the checkpoint file with the same value for the MindSpore script and benchmark script. If the network structures are the same, the checkpoint file of a framework can be converted into the checkpoint file of another framework by simply replacing the weight name.
 6. It is strongly recommended that the mixed precision be enabled in the benchmark script. If an accuracy problem occurs after the mixed precision function of the benchmark script is enabled, the algorithm needs to be optimized to ensure that the algorithm can converge at the mixed precision.
 
-During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d operator of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d operator of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
+During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d API of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d API of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
 
 After the preceding comparison and fixing processes are executed, some MindSpore scripts are inconsistent. After the inconsistency is rectified, the accuracy problem is solved. If the inconsistency is rectified but the problem persists, run the MindSpore script and benchmark script with the same dataset and parameters to compare the loss.
 
@@ -428,7 +428,7 @@ After the preceding comparison and fixing processes are executed, some MindSpore
 
 If the loss values of the first and second steps are the same, you can further compare the entire loss curve. If the entire loss curve is basically the same, there is a high probability that the benchmark script has an accuracy problem. If the entire loss curve has a bifurcation, the bifurcation location is the key to locate the accuracy problem.
 
-Note that some operators on the Ascend AI processor do not support FP32 implementation. Therefore, when comparing MindSpore on the Ascend AI processor with MindSpore on the Ascend AI processor, you need to enable the mixed precision in the benchmark script to determine the upper limit of the precision when the mixed precision is enabled.
+Note that some APIs on the Ascend AI processor do not support FP32 implementation. Therefore, when comparing MindSpore on the Ascend AI processor with MindSpore on the Ascend AI processor, you need to enable the mixed precision in the benchmark script to determine the upper limit of the precision when the mixed precision is enabled.
 
 ## Seeking Help
 

@@ -26,7 +26,7 @@ MindSpore Documentation
    :hidden:
 
    note/benchmark
-   note/network_list
+   Network List↗ <https://gitee.com/mindspore/models/blob/master/README.md#table-of-contents>
    note/operator_list
    note/syntax_list
 
@@ -137,7 +137,7 @@ MindSpore Documentation
                               <span class="doc-head-content">Specifications</span>
                            </div>
                            <div class="doc-article-desc">
-                              Specifications of benchmark performance, network support, operator support and syntax support.
+                              Specifications of benchmark performance, network support, API support and syntax support.
                            </div>
                         </div>
                      </a>

@@ -52,11 +52,11 @@ def train(ds_train):
 > 2. 使用summary功能时，需要将代码放置到`if __name__ == "__main__"`中运行。详情请[参考Python官网介绍](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#multiprocessing-programming)。
 > 3. dataset_path为用户本地的训练数据集路径。
 
-### 方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据
+### 方式二：结合Summary API和SummaryCollector，自定义收集网络中的数据
 
-MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
+MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary API，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
 
-当前支持的Summary算子:
+当前支持的Summary API:
 
 - [ScalarSummary](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
 - [TensorSummary](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorSummary.html)：记录张量数据
@@ -65,7 +65,7 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 
 记录方式如下面的步骤所示，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) 可以到gitee下载。
 
-步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary算子来采集图像或标量数据或者其他数据。
+步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary API来采集图像或标量数据或者其他数据。
 
 比如，定义网络时，在网络的 `construct` 中记录图像数据；定义损失函数时，在损失函数的 `construct`中记录损失值。
 
@@ -97,8 +97,8 @@ class AlexNet(nn.Cell):
         return x
 ```
 
-> 1. 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。比如使用两个 `ScalarSummary` 算子收集标量数据，给两个标量设置的名字不能是相同的。
-> 2. summary算子仅支持图模式，需要在`nn.Cell`的`construct`中使用。暂不支持PyNative模式。
+> 1. 同一种Summary API中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。比如使用两个 `ScalarSummary` API收集标量数据，给两个标量设置的名字不能是相同的。
+> 2. summary API仅支持图模式，需要在`nn.Cell`的`construct`中使用。暂不支持PyNative模式。
 
 步骤二：在训练脚本中，实例化 `SummaryCollector`，并将其应用到 `model.train`。
 
@@ -169,15 +169,15 @@ def train(ds_train):
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
-将训练脚本中 `set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。
+将训练脚本中 `set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括API融合后的计算图。
 
-在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
+在保存的文件中，`ms_output_after_hwopt.pb` 即为API融合后的计算图，可以使用可视化页面对其进行查看。
 
 ### 方式四：进阶用法，自定义训练循环
 
-如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary API数据。
 
-下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) 可以到gitee下载。
+下面的例子，将演示如何使用summary API以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) 可以到gitee下载。
 更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
 ```python
@@ -233,9 +233,9 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### 使用技巧：记录梯度信息
 
-除了上述使用方式外，使用summary算子时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
+除了上述使用方式外，使用summary API时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
 
-通过继承原有优化器类的方法可以插入summary算子读取梯度信息。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) 可以到gitee下载。样例代码片段如下：
+通过继承原有优化器类的方法可以插入summary API读取梯度信息。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) 可以到gitee下载。样例代码片段如下：
 
 ```python
 import mindspore.nn as nn
@@ -374,4 +374,4 @@ mindinsight stop
 
 5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
-6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary算子。
+6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary API。
