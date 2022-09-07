@@ -66,7 +66,7 @@ print(x)
 
 计算图中最终需要输出的`List`会转换为`Tuple`输出。
 
-需要注意的是MindSpore的List取值由于将其转换成了ListGetItem 算子，该算子返回的始终为原List的一个拷贝，所以有时可能会和Python的List的引用表示有差异。
+需要注意的是MindSpore的List取值由于将其转换成了ListGetItem算子，该算子返回的始终为原List的一个拷贝，所以有时可能会和Python的List的引用表示有差异。
 
 比如：
 
@@ -87,13 +87,13 @@ from mindspore import ms_function
 
 @ms_function
 def test_list():
-    x = [[1,2,3],4,5]
-    b = x[0]
+    a = [[1,2,3],4,5]
+    b = a[0]
     b[0] = 123123
-    return x
+    return a
 
-x = test_list()
-print('x:{}'.format(x))
+a = test_list()
+print('a:{}'.format(a))
 ```
 
 结果如下：
@@ -579,6 +579,9 @@ ret:[[3. 3. 3. 3.]]
 | `//`           | `Number` // `Number`、`Tensor` // `Tensor`、`Number` // `Tensor`、`Tensor` // `Number`、`Tuple` // `Tensor`、`Tensor` // `Tuple`、`List` // `Tensor`、`Tensor` // `List`。 |
 | `&`     | `Number` & `Number`、`Tensor` & `Tensor`、`Number` & `Tensor`、`Tensor` & `Number`。                                                                                                                                                                  |
 | `∣`      | `Number` &#124; `Number`、`Tensor` &#124; `Tensor`、`Number` &#124; `Tensor`、`Tensor` &#124; `Number`。                                                                                                                                                             |
+| `^`     | `Number` ^ `Number`、`Tensor` ^ `Tensor`、`Number` ^ `Tensor`、`Tensor` ^ `Number`。                                                                                                                                                                  |
+| `<<`    | `Number` << `Number`。                                                                                                                                                                                                                             |
+| `>>`    | `Number` >> `Number`。                                                                                                                                                                                                                             |
 
 限制：
 
@@ -599,6 +602,11 @@ ret:[[3. 3. 3. 3.]]
 | `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、`List` %= `Tensor`、`Tensor` %= `List`。 |
 | `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
 | `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、`List` //= `Tensor`、`Tensor` //= `List`。 |
+| `&=`     | `Number` &= `Number`、`Tensor` &= `Tensor`、`Number` &= `Tensor`、`Tensor` &= `Number`。                                                                                                                                                                              |
+| `∣=`      | `Number` &#124;= `Number`、`Tensor` &#124;= `Tensor`、`Number` &#124;= `Tensor`、`Tensor` &#124;= `Number`。                                                                                                                                                         |
+| `^=`     | `Number` ^= `Number`、`Tensor` ^= `Tensor`、`Number` ^= `Tensor`、`Tensor` ^= `Number`。                                                                                                                                                                              |
+| `<<=`    | `Number` <<= `Number`。                                                                                                                                                                                                                                         |
+| `>>=`    | `Number` >>= `Number`。                                                                                                                                                                                                                                         |
 
 限制：
 
