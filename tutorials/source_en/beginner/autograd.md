@@ -4,119 +4,64 @@
 
 Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backpropagation algorithms. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
 
-MindSpore uses `ops.GradOperation` to calculate the first-order derivative. The `ops.GradOperation` attributes are as follows:
+MindSpore uses `ops.grad` and `ops.value_and_grad` to calculate the first-order derivative. `ops.grad` only returns gradient, while `ops.value_and_grad` returns the network forward calculation result and gradient. The `ops.value_and_grad` attributes are as follows:
 
-+ `get_all`: calculate the gradient. If it is equal to False, get the gradient of the first input. If it is equal to True, get the gradient of all inputs. The default value is False.
-+ `get_by_list`: determines whether to derive the weight parameters. The default value is False.
-+ `sens_param`: determines whether to scale the output value of the network to change the final gradient. The default value is False.
++ `fn`: the function or network to be derived.
++ `grad_position`: specifies the index of the input position to be derived. If the index is int type, it means to derive for a single input; if tuple type, it means to derive for the position of the index within the tuple, where the index starts from 0; and if None, it means not to derive for the input. In this scenario, `weights` is non-None. Default: 0.
++ `weights`: the network variables that need to return the gradients in the training network. Generally the network variables can be obtained by `weights = net.trainable_params()`. Default: None.
++ `has_aux`: symbol for whether to return auxiliary arguments. If True, the number of `fn` outputs must be more than one, where only the first output of `fn` is involved in the derivation and the other output values will be returned directly. Default: False.
 
-This chapter uses `ops.GradOperation` in MindSpore to find first-order derivatives of the function $f(x)=wx+b$.
+This chapter uses `ops.value_and_grad` in MindSpore to find first-order derivatives of the network.
 
-## First-order Derivative of the Input
+## Finding Gradient of Network Weight
 
-Define the formula before deriving the input:
-
-$$f(x)=wx+b \tag {1} $$
-
-The example code below is an expression of Equation (1). Since MindSpore is functionally programmed, all expressions of computational formulas are represented as functions.
+Since functional programming is suggested to use in MindSpore's automatic differentiation, the sample will be presented as functional programming.
 
 ```python
 import numpy as np
+from mindspore import ops, Tensor
 import mindspore.nn as nn
 import mindspore as ms
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.w = ms.Parameter(np.array([6.0]), name='w')
-        self.b = ms.Parameter(np.array([1.0]), name='b')
+# Define network
+net = nn.Dense(10, 1)
 
-    def construct(self, x):
-        f = self.w * x + self.b
-        return f
+# Define loss function
+loss_fn = nn.MSELoss()
+
+# Combine forward network and loss function
+def forward(inputs, labels):
+    logits = net(inputs)
+    loss = loss_fn(logits, labels)
+    return loss, logits
 ```
 
-Define the derivative class `GradNet`. In the `__init__` function, define the `self.net` and `ops.GradOperation` networks. In the `construct` function, compute the derivative of `self.net`. The following formula (2) is generated in MindSpore:
+To find the first-order derivative of the weight parameter, you need to pass `weights` into `ops.value_and_grad`. There is no need to find derivative of the input, only to set `grad_position` to None.
 
-$$f^{'}(x)=w\tag {2}$$
-
-```python
-import mindspore as ms
-import mindspore.ops as ops
-
-class GradNet(nn.Cell):
-    def __init__(self, net):
-        super(GradNet, self).__init__()
-        self.net = net
-        self.grad_op = ops.GradOperation()
-
-    def construct(self, x):
-        gradient_function = self.grad_op(self.net)
-        return gradient_function(x)
-```
-
-Finally, the weight parameter is defined as w, and a first-order derivative is found for the input parameter x in the input formula (1). According to the running result, the input in formula (1) is 6, that is:
-
-$$f(x)=wx+b=6*x+1 \tag {3}$$
-
-Derive the above equation:
-
-$$f^{'}(x)=w=6 \tag {4}$$
+Next, derive the network weights as follows:
 
 ```python
-x = Tensor([100], dtype=ms.float32)
-output = GradNet(Net())(x)
+inputs = Tensor(np.random.randn(16, 10).astype(np.float32))
+labels = Tensor(np.random.randn(16, 1).astype(np.float32))
+weights = net.trainable_params()
 
-print(output)
+# has_aux is set to True, which means that only loss is used to derive, while logits is not.
+grad_fn = ops.value_and_grad(forward, grad_position=None, weights=weights, has_aux=True)
+(loss, logits), params_gradient = grad_fn(inputs, labels)
+
+# Print result
+print(logits.shape, len(weights), len(params_gradient))
 ```
 
 ```text
-[6.]
+(16, 1) 2 2
 ```
 
-MindSpore calculates the first-order derivative using `ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`. If `get_all` is set to `False`, the derivative of only the first input is calculated. If `get_all` is set to `True`, the derivative of all inputs is calculated.
+## Stopping Calculating Gradients
 
-## First-order Derivative of the Weight
-
-To compute weight derivatives, you need to set `get_by_list` in `ops.GradOperation` to `True`.
+ When the corresponding weight parameter declaration is defined, if some weights do not need to be derived, the attribute `requires_grad` needs to be set to `False` when defining the derivation network.
 
 ```python
-import mindspore as ms
-
-class GradNet(nn.Cell):
-    def __init__(self, net):
-        super(GradNet, self).__init__()
-        self.net = net
-        self.params = ms.ParameterTuple(net.trainable_params())
-        self.grad_op = ops.GradOperation(get_by_list=True)  # Set the first-order derivative of the weight parameters.
-
-    def construct(self, x):
-        gradient_function = self.grad_op(self.net, self.params)
-        return gradient_function(x)
-```
-
-Next, derive the function:
-
-```python
-# Perform a derivative calculation on the function.
-x = ms.Tensor([100], dtype=ms.float32)
-fx = GradNet(Net())(x)
-
-# Print the result.
-print(f"wgrad: {fx[0]}\nbgrad: {fx[1]}")
-```
-
-```text
-wgrad: [100.]
-bgrad: [1.]
-```
-
-If derivation is not required for some weights, set `requires_grad` to `False` when defining the derivation network and declaring the corresponding weight parameters.
-
-```python
-import mindspore as ms
-from mindspore import ops
-
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -127,59 +72,20 @@ class Net(nn.Cell):
         out = x * self.w + self.b
         return out
 
-class GradNet(nn.Cell):
-    def __init__(self, net):
-        super(GradNet, self).__init__()
-        self.net = net
-        self.params = ms.ParameterTuple(net.trainable_params())
-        self.grad_op = ops.GradOperation(get_by_list=True)
-
-    def construct(self, x):
-        gradient_function = self.grad_op(self.net, self.params)
-        return gradient_function(x)
-
-# Construct a derivative network.
+# Build derivation network
+net = Net()
+params = net.trainable_params()
 x = ms.Tensor([5], dtype=ms.float32)
-fw = GradNet(Net())(x)
+value, gradient = ops.value_and_grad(net, grad_position=None, weights=params)(x)
 
-print(fw)
+print(gradient)
 ```
 
 ```text
 (Tensor(shape=[1], dtype=Float32, value= [ 5.00000000e+00]),)
 ```
 
-## Gradient Value Scaling
-
-You can use the `sens_param` parameter to scale the output value of the network to change the final gradient. Set `sens_param` in `ops.GradOperation` to `True` and determine the scaling index. The dimension must be the same as the output dimension.
-
-```python
-class GradNet(nn.Cell):
-    def __init__(self, net):
-        super(GradNet, self).__init__()
-        self.net = net
-        # Derivative operation.
-        self.grad_op = ops.GradOperation(sens_param=True)
-        # Scale an index.
-        self.grad_wrt_output = Tensor([0.1], dtype=ms.float32)
-
-    def construct(self, x):
-        gradient_function = self.grad_op(self.net)
-        return gradient_function(x, self.grad_wrt_output)
-
-x = ms.Tensor([6], dtype=ms.float32)
-output = GradNet(Net())(x)
-
-print(output)
-```
-
-```text
-[0.6]
-```
-
-## Stopping Gradient Calculation
-
-You can use `ops.stop_gradient` to stop calculating gradients. The following is an example:
+Use `ops.stop_gradient` to stop calculating the gradient, for example:
 
 ```python
 from mindspore.ops import stop_gradient
@@ -192,23 +98,14 @@ class Net(nn.Cell):
 
     def construct(self, x):
         out = x * self.w + self.b
-        # Stop updating the gradient. The out does not contribute to gradient calculations.
+        # Stop updating gradient, and the out does not contribute to gradient calculation
         out = stop_gradient(out)
         return out
 
-class GradNet(nn.Cell):
-    def __init__(self, net):
-        super(GradNet, self).__init__()
-        self.net = net
-        self.params = ms.ParameterTuple(net.trainable_params())
-        self.grad_op = ops.GradOperation(get_by_list=True)
-
-    def construct(self, x):
-        gradient_function = self.grad_op(self.net, self.params)
-        return gradient_function(x)
-
+net = Net()
+params = net.trainable_params()
 x = ms.Tensor([100], dtype=ms.float32)
-output = GradNet(Net())(x)
+value, output = ops.value_and_grad(net, grad_position=None, weights=params)(x)
 
 print(f"wgrad: {output[0]}\nbgrad: {output[1]}")
 ```
