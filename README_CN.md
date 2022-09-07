@@ -20,29 +20,43 @@
 docs
 ├───activity // 活动体验记录
 |
-├───docs // 架构、网络和算子支持等技术文档以及用于生成API的相关配置文件
+├───docs // 设计、规格、FAQ等技术文档，以及用于生成API的相关配置文件
 |    |
-|    ├───federated // MindSpore Federated（API工程、相关文档和常见问题）
+|    ├───devtoolkit // MindSpore Dev Toolkit文档
 |    |
-|    ├───hub // MindSpore Hub（API工程和相关文档）
+|    ├───federated // MindSpore Federated文档
 |    |
-|    ├───lite // MindSpore Lite（API工程、相关文档和常见问题）
+|    ├───golden_stick // MindSpore Golden Stick文档
 |    |
-|    ├───mindarmour // MindArmour（API工程、相关文档和常见问题）
+|    ├───graphlearning // MindSpore Graph Learning文档
 |    |
-|    ├───mindinsight // MindInsight（相关文档和常见问题）
+|    ├───hub // MindSpore Hub文档
 |    |
-|    ├───mindquantum // MindQuantum（API工程和相关文档）
+|    ├───lite // MindSpore Lite文档
 |    |
-|    ├───mindspore // MindSpore（API工程、常见问题、迁移指南、说明）
+|    ├───mindarmour // MindArmour文档
+|    |
+|    ├───mindinsight // MindInsight文档
+|    |
+|    ├───mindquantum // MindQuantum文档
+|    |
+|    ├───mindscience // MindScience文档
+|    |
+|    ├───mindspore // MindSpore文档
 |    |
 |    ├───notebook // 体验式文档
 |    |
-|    ├───probability // MindSpore Probability（API工程和相关文档）
+|    ├───probability // MindSpore Probability文档
+|    |
+|    ├───reinforcement // MindSpore Reinforcement文档
 |    |
 |    ├───sample_code // 文档对应样例代码
 |    |
-|    └───serving // MindSpore Serving（API工程、相关文档和常见问题）
+|    ├───serving // MindSpore Serving文档
+|    |
+|    ├───vision // MindSpore Vision文档
+|    |
+|    └───xai // MindSpore XAI文档
 |
 │───install // 安装指南
 |
@@ -51,6 +65,8 @@ docs
 │───tools // 自动化工具
 |
 │───tutorials // MindSpore教程相关文档
+|
+│───CONTRIBUTING_DOC_CN.md //  贡献文档
 |
 └───README_CN.md // Docs仓说明
 ```
@@ -90,17 +106,17 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
-   | MindSpore/ MindSpore Lite | MS_PATH | https://gitee.com/mindspore/mindspore.git | mindspore |
-   | MindInsight | MI_PATH | https://gitee.com/mindspore/mindinsight.git | mindinsight |
-   | MindArmour | MA_PATH | https://gitee.com/mindspore/mindarmour.git | mindarmour |
-   | MindQuantum | MQ_PATH | https://gitee.com/mindspore/mindquantum.git | mindquantum |
-   | Reinforcement | RM_PATH | https://gitee.com/mindspore/reinforcement.git | reinforcement |
-   | Serving | SV_PATH | https://gitee.com/mindspore/serving.git | serving |
-   | Vision | VS_PATH | https://gitee.com/mindspore/vision.git | vision |
-   | Hub | HB_PATH | https://gitee.com/mindspore/hub.git | hub |
-   | XAI | XA_PATH | https://gitee.com/mindspore/xai.git | xai |
-   | Golden Stick | GS_PATH | https://gitee.com/mindspore/golden-stick.git | golden_stick |
-   | DevToolkit | DT_PATH | https://gitee.com/mindspore/ide-plugin.git | devtoolkit |
+   | MindSpore/ MindSpore Lite | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
+   | MindInsight | MI_PATH | <https://gitee.com/mindspore/mindinsight.git> | mindinsight |
+   | MindArmour | MA_PATH | <https://gitee.com/mindspore/mindarmour.git> | mindarmour |
+   | MindQuantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
+   | Reinforcement | RM_PATH | <https://gitee.com/mindspore/reinforcement.git> | reinforcement |
+   | Serving | SV_PATH | <https://gitee.com/mindspore/serving.git> | serving |
+   | Vision | VS_PATH | <https://gitee.com/mindspore/vision.git> | vision |
+   | Hub | HB_PATH | <https://gitee.com/mindspore/hub.git> | hub |
+   | XAI | XA_PATH | <https://gitee.com/mindspore/xai.git> | xai |
+   | Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
+   | DevToolkit | DT_PATH | <https://gitee.com/mindspore/ide-plugin.git> | devtoolkit |
 
    克隆仓库以及设置环境变量的代码如下：
 

@@ -148,7 +148,7 @@ A typical model project contains 4 main components. Tips for migrating each comp
 
 ### Step 0: Export the model file
 
-Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). Guidance is as follows:
+Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires APIs mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). Guidance is as follows:
 
 1. Download source codes, weights file and relevant dataset files of the model project.
 
@@ -220,8 +220,8 @@ ms.export(network, ms.Tensor(input_data)), file_name='your_network_name', file_f
 
 Notes:
 
-1. The Dropout operator will be lost after conversion because the inference mode is used to load the ONNX or TensorFlow model. Manually re-implementation is necessary.
-2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and make [contribution](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_onnx2mindspore_operator_mapper_advanced_tutorial.ipynb) to our MindInsight repository. We appreciate your support for the MindSpore community.
+1. The Dropout API will be lost after conversion because the inference mode is used to load the ONNX or TensorFlow model. Manually re-implementation is necessary.
+2. This script conversion tool relies on APIs which supported by MindConverter and MindSpore. Unsupported APIs may not be successfully mapped to MindSpore APIs. You can manually edit, or implement the mapping based on MindConverter, and make [contribution](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_onnx2mindspore_operator_mapper_advanced_tutorial.ipynb) to our MindInsight repository. We appreciate your support for the MindSpore community.
 3. MindConverter converts dynamic input shape to constant one based on `--shape` while using graph based scheme, as a result, it is required that inputs’ shape used to retrain or inference in MindSpore are the same as that used to convert using MindConverter. If the input shape has changed, please running MindConverter again with new `--shape` or fixing shape related parameters in the old script.
 4. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
 5. The security and consistency of the model file should be guaranteed by the user.
@@ -528,7 +528,7 @@ Using [Netron](https://github.com/lutzroeder/netron) load the onnx model file, c
 
 ### Export the model file of Tensorflow
 
-Exporting the PB model file from a Tensorflow model requires operators mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/master/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). For models defined by Keras, guidance is as follows:
+Exporting the PB model file from a Tensorflow model requires APIs mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/master/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). For models defined by Keras, guidance is as follows:
 
 TensorFlow 1.x
 
@@ -623,7 +623,7 @@ for data, label in data_loader:
 
 ### Migration reports and weights mapping
 
-For operators that are not successfully converted, the conversion report records the unconverted code lines and operator information, and at the same time identifies the input/output shape of the node in the code (represented as `input_shape` and `output_shape`), which is convenient for users to modify manually. An example of the `Reshape` operator is as follows:
+For APIs that are not successfully converted, the conversion report records the unconverted code lines and API information, and at the same time identifies the input/output shape of the node in the code (represented as `input_shape` and `output_shape`), which is convenient for users to modify manually. An example of the `Reshape` API is as follows:
 
 ```python
 class Classifier(nn.Cell):
@@ -637,7 +637,7 @@ class Classifier(nn.Cell):
         # skip codes ...
 ```
 
-It is convenient to replace the operators according to the `input_shape` and `output_shape` parameters. The replacement is like this:
+It is convenient to replace the APIs according to the `input_shape` and `output_shape` parameters. The replacement is like this:
 
 ```python
 from mindspore import ops
@@ -686,13 +686,13 @@ Assume the PyTorch script is located at `/path/to/model.py`, and outputs the tra
 mindconverter --in_file /path/to/model.py --output /path/to/output/dir
 ```
 
-In the conversion report, non-converted code is listed as follows. `x, y` indicates the line number and the column number of the original scripts. For non-converted operators, please refer to [MindSpore API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html). For unsupported operators, the corresponding code lines will remain in the original way.
+In the conversion report, non-converted code is listed as follows. `x, y` indicates the line number and the column number of the original scripts. For non-converted APIs, please refer to [MindSpore API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html). For unsupported APIs, the corresponding code lines will remain in the original way.
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
 ```
 
-For non-converted operators, suggestions are provided in the report. For example, MindConverter suggests that replace `torch.nn.AdaptiveAvgPool2d` with `mindspore.ops.ReduceMean` in `line 157:23`.
+For non-converted APIs, suggestions are provided in the report. For example, MindConverter suggests that replace `torch.nn.AdaptiveAvgPool2d` with `mindspore.ops.ReduceMean` in `line 157:23`.
 
 ```text
  [Start Convert]

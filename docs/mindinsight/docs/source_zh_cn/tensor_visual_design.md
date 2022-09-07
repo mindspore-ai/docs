@@ -8,7 +8,7 @@
 
 ## 总体设计
 
-Tensor可视主要是解析由MindSpore的`TensorSummary`算子记录的Tensor数据生成的Summary文件，并把结果返回给前端展示。
+Tensor可视主要是解析由MindSpore的`TensorSummary` API记录的Tensor数据生成的Summary文件，并把结果返回给前端展示。
 
 MindInsight解析时会遵循proto文件（Google Protocol Buffer，是一种高效便捷的结构化数据存储方式）来解析Tensor数据，然后把数据缓存起来，在前端查询特定数据时将其返回供前端展示。
 

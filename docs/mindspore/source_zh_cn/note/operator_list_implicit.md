@@ -1,4 +1,4 @@
-# MindSpore隐式类型转换的算子支持
+# MindSpore隐式类型转换的API支持
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/operator_list_implicit.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -22,7 +22,7 @@
 - float32
 - float64
 
-### 支持算子
+### 支持的API
 
 <table class="docutils">
 <tr>

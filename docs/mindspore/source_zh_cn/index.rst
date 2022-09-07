@@ -31,7 +31,7 @@ MindSpore 文档
    :hidden:
 
    note/benchmark
-   note/network_list
+   网络支持 <https://gitee.com/mindspore/models/blob/master/README_CN.md#目录>
    note/operator_list
    note/syntax_list
 
@@ -142,7 +142,7 @@ MindSpore 文档
                               <span class="doc-head-content">规格</span>
                            </div>
                            <div class="doc-article-desc">
-                              基准性能、网络支持、算子支持和语法支持等规格说明。
+                              基准性能、网络支持、API支持和语法支持等规格说明。
                            </div>
                         </div>
                      </a>

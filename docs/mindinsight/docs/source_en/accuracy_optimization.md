@@ -109,7 +109,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          The computational graph structure is the carrier of model computation. If the computational graph structure is incorrect, the code for implementing the algorithm is incorrect. Common problems in the computational graph structure are as follows:
 
-         1. The operator is improperly used (the used operator does not apply to the target scenario).
+         1. The API is improperly used (the used API does not apply to the target scenario).
 
          2. The weight is improperly shared (weights that should not be shared are shared).
 
@@ -195,7 +195,7 @@ The following sections describe the process.
 
     Before accuracy tuning, review the algorithm design to ensure that the algorithm design is clear. If the model is implemented by referring to a paper, review all design details and hyperparameter selection in the paper. If the model is implemented by referring to other framework scripts, ensure that there is a unique benchmark script that meets the accuracy requirements. If the algorithm is newly developed, the important design details and hyperparameter selection must be specified. The information is an important basis for checking the script.
 
-    Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindInsight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of operators and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
+    Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindInsight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of APIs and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
 
 2. Be familiar with the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) tool.
 
@@ -242,7 +242,7 @@ MindInsight helps users check hyperparameters. In most cases, `SummaryCollector`
 
 Common problems in the model structure are as follows:
 
-1. The operator is improperly used. (The used operator does not apply to the target scenario. For example, floating-point division should be used, but integer division is used.)
+1. The API is improperly used. (The used API does not apply to the target scenario. For example, floating-point division should be used, but integer division is used.)
 2. The weight is improperly shared (weights that should not be shared are shared).
 3. The weight is improperly frozen (weights that should not be frozen are frozen).
 4. The node is improperly connected. (The block that should be connected to the computational graph is not connected.)
@@ -307,7 +307,7 @@ Many accuracy problems are found during network training. The common problems or
 6. The activation value is saturated or too weak (for example, the output of Sigmoid is close to 1, and the output of ReLU is all 0s).
 7. Gradient explosion and disappearance.
 8. The number of training epochs is insufficient.
-9. The operator computation results include NaN and INF.
+9. The API computation results include NaN and INF.
 
 Some of the preceding problems or symptoms can be reflected by loss, and some are difficult to observe. MindInsight provides targeted functions to observe the preceding symptoms and automatically check problems, helping you quickly locate root causes. For example:
 
@@ -325,13 +325,13 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
 ![tensor](./images/tensor.png)
 
 *Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindInsight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
+Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
 The following describes how to use MindInsight to locate accuracy problems based on the common symptoms of the loss curve.
 
@@ -350,11 +350,11 @@ The following describes how to use MindInsight to locate accuracy problems based
     2. Observe the parameter distribution histogram on the training dashboard and check whether the parameter update is abnormal. If a parameter update exception occurs, you can use the debugger to locate the cause of the exception.
     3. Use the debugger module to check the training site.
 
-        (1) If the value of loss is NaN or +/-INF, add a global watchpoint by checking tensor overflow. Locate the operator node where NaN or +/-INF is displayed first and check whether the input data of the operator causes a computation exception (for example, division by zero). If the problem is caused by the operator input data, add a small value epsilon to avoid computation exceptions.
+        (1) If the value of loss is NaN or +/-INF, add a global watchpoint by checking tensor overflow. Locate the API node where NaN or +/-INF is displayed first and check whether the input data of the API causes a computation exception (for example, division by zero). If the problem is caused by the API input data, add a small value epsilon to avoid computation exceptions.
 
-        (2) If the value of loss is too large, add a global watchpoint by checking the large tensor. Locate the operator node with a large value and check whether the input data of the operator causes the computation exception. If the input data is abnormal, you can continue to trace the operator that generates the input data until the specific cause is located.
+        (2) If the value of loss is too large, add a global watchpoint by checking the large tensor. Locate the API node with a large value and check whether the input data of the API causes the computation exception. If the input data is abnormal, you can continue to trace the API that generates the input data until the specific cause is located.
 
-        (3) If you suspect that the parameter update or gradient is abnormal, you can set the watchpoints by using the conditions such as "Weight change above threshold", "Gradient disappearance", and "Gradient above threshold" to locate the abnormal weight or gradient. Then, check the tensor view, check suspicious forward operators, backward operators, and optimizer operators layer by layer.
+        (3) If you suspect that the parameter update or gradient is abnormal, you can set the watchpoints by using the conditions such as "Weight change above threshold", "Gradient disappearance", and "Gradient above threshold" to locate the abnormal weight or gradient. Then, check the tensor view, check suspicious forward APIs, backward APIs, and optimizer APIs layer by layer.
 
 - The loss convergence is slow.
 
@@ -599,7 +599,7 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
 
-> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
+> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) API.
 
 ### Hyperparameter Problem Handling
 

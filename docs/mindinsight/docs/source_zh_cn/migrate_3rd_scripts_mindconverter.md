@@ -147,7 +147,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
 ### 第0步：导出模型文件
 
-以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#tensorflow模型导出)），需要Pytorch算子支持相应的ONNX算子，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表，操作步骤如下：
+以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#tensorflow模型导出)），需要Pytorch API支持相应的ONNX API，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的API列表，操作步骤如下：
 
 1. 下载网络模型工程的源码、权重文件、数据集。
 
@@ -218,8 +218,8 @@ mindspore.export(network, mindspore.Tensor(input_data)), file_name='your_network
 
 注意事项：
 
-1. 由于模型转换工具以推理模式加载ONNX文件，转换后会导致网络中Dropout算子丢失，需要用户手动补齐。
-2. 模型转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库[贡献](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_onnx2mindspore_operator_mapper_advanced_tutorial.ipynb)。
+1. 由于模型转换工具以推理模式加载ONNX文件，转换后会导致网络中Dropout API丢失，需要用户手动补齐。
+2. 模型转换工具本质上为API驱动，对于MindConverter未维护的ONNX API与MindSpore API映射，将会出现相应的API无法转换的问题，对于该类API，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库[贡献](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_onnx2mindspore_operator_mapper_advanced_tutorial.ipynb)。
 3. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换，或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
 4. 脚本文件和权重文件输出于同一个目录下，转换报告和权重映射表输出于同一个目录下。
 5. 模型文件的安全性与一致性请用户自行保证。
@@ -525,7 +525,7 @@ ARM环境下使用模型迁移工具，需要源码编译安装`protobuf`/`onnx`
 
 ### TensorFlow模型导出
 
-Tensorflow模型导出PB文件，进而映射成ONNX算子，需要Tensorflow算子支持相应的ONNX算子，详情参考[Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/master/support_status.md#)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表。使用Keras构建模型的用户，可尝试如下方法进行导出：
+Tensorflow模型导出PB文件，进而映射成ONNX API，需要Tensorflow API支持相应的ONNX API，详情参考[Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/master/support_status.md#)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的API列表。使用Keras构建模型的用户，可尝试如下方法进行导出：
 
 TensorFlow 1.x版本
 
@@ -619,7 +619,7 @@ for data, label in data_loader:
 
 ### 转换报告与权重映射表
 
-对于未成功转换的算子，转换报告记录未转换的代码行与算子信息，同时在代码中标识该节点输入/输出的`shape`（分别表示为`input_shape`与`output_shape`），便于用户手动修改。以`Reshape`算子为例，将生成如下代码：
+对于未成功转换的API，转换报告记录未转换的代码行与API信息，同时在代码中标识该节点输入/输出的`shape`（分别表示为`input_shape`与`output_shape`），便于用户手动修改。以`Reshape`API为例，将生成如下代码：
 
 ```python
 class Classifier(nn.Cell):
@@ -633,7 +633,7 @@ class Classifier(nn.Cell):
         # skip codes ...
 ```
 
-通过`input_shape`、`output_shape`参数，用户可以便捷地完成算子替换，替换结果如下：
+通过`input_shape`、`output_shape`参数，用户可以便捷地完成API替换，替换结果如下：
 
 ```python
 from mindspore import ops
@@ -649,7 +649,7 @@ class Classifier(nn.Cell):
         # skip codes ...
 ```
 
-权重映射表保存算子在MindSpore中的权重信息（`converted_weight`）和在原始框架中的权重信息（`source_weight`），示例如下：
+权重映射表保存API在MindSpore中的权重信息（`converted_weight`）和在原始框架中的权重信息（`source_weight`），示例如下：
 
 ```json
 {
@@ -682,13 +682,13 @@ MindConverter支持基于AST的方案进行PyTorch脚本迁移，通过对原脚
 mindconverter --in_file /path/to/model.py --output /path/to/output/dir
 ```
 
-转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
+转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的API，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)手动对代码进行迁移。对于工具无法迁移的API，会保留原脚本中的代码。
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
 ```
 
-以下转换报告示例中，对于部分未成功转换的算子，转换报告提供修改建议：如`line 157:23`，将`torch.nn.AdaptiveAvgPool2d`替换为`mindspore.ops.ReduceMean`。
+以下转换报告示例中，对于部分未成功转换的API，转换报告提供修改建议：如`line 157:23`，将`torch.nn.AdaptiveAvgPool2d`替换为`mindspore.ops.ReduceMean`。
 
 ```text
  [Start Convert]
