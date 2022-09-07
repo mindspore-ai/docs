@@ -10,7 +10,7 @@ On the other hand, `Model` provides many high-level functions, such as data offl
 
 The following describes MindSpore models and how to use `Model` for model training, evaluation, and inference.
 
-![model](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/train/images/model.png)
+![model](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/model/images/model.png)
 
 ## Introduction to Model
 

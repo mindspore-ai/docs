@@ -49,24 +49,24 @@ The following five types of scripts and software packages are required for confi
 
 In the preceding information:
 
-- For details about the first three items, see [Creating an SD Card with a Card Reader](https://support.huaweicloud.com/intl/en-us//usermanual-A200dk_3000/atlas200dk_02_0011.html).
+- For details about the first three items, see [Creating an SD Card with a Card Reader (Software Preparation)](https://www.hiascend.com/document/detail/en/Atlas200DKDeveloperKit/109/environment/atlased_04_0012.html).
 - You are advised to obtain other software packages from [Firmware and Driver](https://ascend.huawei.com/en/#/hardware/firmware-drivers). On this page, select `Atlas 200 DK` from the product series and product model and select the required files to download.
 
 ### Preparing the SD Card
 
-A card reader is connected to the Ubuntu server through a USB port, and the SD card is prepared using the script for SD card preparation. For details, see [Procedure](https://support.huaweicloud.com/intl/en-us/usermanual-A200dk_3000/atlas200dk_02_0011.html#section2).
+A card reader is connected to the Ubuntu server through a USB port, and the SD card is prepared using the script for SD card preparation. For details, see [Procedure](https://www.hiascend.com/document/detail/en/Atlas200DKDeveloperKit/109/environment/atlased_04_0012.html#section2).
 
 ### Connecting the Atlas 200 DK to the Ubuntu Server
 
-The Atlas 200 DK can be connected to the Ubuntu server through a USB port or network cable. For details, see [Connecting the Atlas 200 DK to the Ubuntu Server](https://support.huaweicloud.com/intl/en-us/usermanual-A200dk_3000/atlas200dk_02_0013.html).
+The Atlas 200 DK can be connected to the Ubuntu server through a USB port or network cable. For details, see [Connecting the Atlas 200 DK to the Ubuntu Server](https://www.hiascend.com/document/detail/en/Atlas200DKDeveloperKit/109/environment/atlased_04_0014.html).
 
 ### Configuring the Python Environment
 
-Install Python and GCC software. For details, see [Installing Dependencies](https://support.huaweicloud.com/intl/en-us/usermanual-A200dk_3000/atlas200dk_02_0016.html#section4).
+Install Python and GCC software. For details, see [Installing Dependencies](https://www.hiascend.com/document/detail/en/Atlas200DKDeveloperKit/109/environment/atlased_04_0021.html).
 
 ### Installing the Development Kit
 
-Install the development kit software package `Ascend-Toolkit-*{version}*-arm64-linux_gcc7.3.0.run`. For details, see [Installing the Development Kit](https://support.huaweicloud.com/intl/en-us/usermanual-A200dk_3000/atlas200dk_02_0017.html).
+Install the development kit software package `Ascend-Toolkit-*{version}*-arm64-linux_gcc7.3.0.run`. For details, see [Installing the Development Kit](https://www.hiascend.com/document/detail/en/Atlas200DKDeveloperKit/109/environment/atlased_04_0022.html).
 
 ## Inference Directory Structure
 
@@ -100,7 +100,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Exporting the AIR Model
 
-Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-air-model).
+Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-air-model).
 
 > The [resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air) is a sample AIR file exported using the ResNet-50 model.
 

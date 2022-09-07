@@ -49,24 +49,24 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 其中，
 
-- 前3项可以参考[Atlas 200 DK 开发者套件使用指南](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0011.html)获取。
+- 前3项可以参考[Atlas 200 DK 开发者套件使用指南(软件包准备)](https://www.hiascend.com/document/detail/zh/Atlas200DKDeveloperKit/109/environment/atlased_04_0012.html)获取。
 - 其余软件包建议从[固件与驱动](https://ascend.huawei.com/#/hardware/firmware-drivers)中获取，在该页面中选择产品系列和产品型号为`Atlas 200 DK`，选中需要的文件，即可下载。
 
 ### 制作SD卡
 
-读卡器通过USB与Ubuntu服务器连接，通过制卡脚本制作SD卡。具体操作参见[操作步骤](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0011.html#section2)。
+读卡器通过USB与Ubuntu服务器连接，通过制卡脚本制作SD卡。具体操作参见[操作步骤](https://www.hiascend.com/document/detail/zh/Atlas200DKDeveloperKit/109/environment/atlased_04_0012.html)。
 
 ### 连接Atlas 200 DK开发板与Ubuntu服务器
 
-Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进行连接。具体操作参见[连接Atlas 200 DK开发者板与Ubuntu服务器](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0013.html)。
+Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进行连接。具体操作参见[连接Atlas 200 DK开发者板与Ubuntu服务器](https://www.hiascend.com/document/detail/zh/Atlas200DKDeveloperKit/109/environment/atlased_04_0014.html)。
 
 ### 配置Python环境
 
-安装Python以及gcc等软件，具体操作参见[安装依赖](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0016.html#section4)。
+安装Python以及gcc等软件，具体操作参见[安装依赖](https://www.hiascend.com/document/detail/zh/Atlas200DKDeveloperKit/109/environment/atlased_04_0021.html)。
 
 ### 安装开发套件包
 
-安装开发套件包`Ascend-Toolkit-*{version}*-arm64-linux_gcc7.3.0.run`，具体操作参见[安装开发套件包](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0017.html)。
+安装开发套件包`Ascend-Toolkit-*{version}*-arm64-linux_gcc7.3.0.run`，具体操作参见[安装开发套件包](https://www.hiascend.com/document/detail/zh/Atlas200DKDeveloperKit/109/environment/atlased_04_0022.html)。
 
 ## 推理目录结构介绍
 
