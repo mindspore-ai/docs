@@ -18,7 +18,7 @@
 
 .. autoclass:: {{ name }}
     :inherited-members:
-    :exclude-members: bucket_batch_by_length
+    :exclude-members: bucket_batch_by_length, parse_tree, create_ir_tree, create_runtime_obj
     :members:
 
 {% elif fullname=="mindspore.dataset.WaitedDSCallback" %}
