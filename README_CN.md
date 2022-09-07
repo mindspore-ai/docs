@@ -125,10 +125,11 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    export 环境变量 = 对应克隆仓在本地的路径
    ```
 
-2. 构建Lite的API时，还需要安装Doxygen：
+2. 构建Lite的API时，还需要安装Doxygen，且要下载最新的Lite tar包，并将本地的包路径配置到LITE_PACKAGE_PATH环境变量：
 
       ```bash
       sudo apt install doxygen
+      export LITE_PACKAGE_PATH = 本地的Lite包路径
       ```
 
 3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
