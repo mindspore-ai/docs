@@ -161,7 +161,7 @@ print("loss: ", loss_result)
 
 ### Customized Training Network
 
-[Customized Loss Functions](https://www.mindspore.cn/tutorials/en/master/advanced/network/loss.html#customized-loss-functions) describes how to use `nn.WithLossCell` to connect the feedforward network to the loss function. This section describes how to customize the training network.
+[Customized Loss Functions](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html#customized-loss-functions) describes how to use `nn.WithLossCell` to connect the feedforward network to the loss function. This section describes how to customize the training network.
 
 The following example defines the `CustomTrainOneStepCell` function to encapsulate the network and optimizer.
 

@@ -119,7 +119,7 @@ print(net(x, y))
 
 ### Control Flow in Static Graph Mode
 
-For details about control flows in static graph mode, see [Process Control Statements](https://www.mindspore.cn/tutorials/en/master/advanced/network/control_flow.html).
+For details about control flows in static graph mode, see [Process Control Statements](https://www.mindspore.cn/tutorials/en/master/advanced/modules/control_flow.html).
 
 ## Dynamic Graph
 
@@ -133,7 +133,7 @@ In dynamic graph mode, you can use complete Python APIs. In addition, when APIs 
 
 The overall execution process of the framework is as follows:
 
-![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/pynative_graph/images/framework2.png)
+![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/compute_graph/images/framework2.png)
 
 The front-end Python API is called to the framework layer and finally computed on the corresponding hardware device.
 
@@ -213,7 +213,7 @@ print(output)
      [4.5099998 2.7       3.6000001]]
 ```
 
-> The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/master/advanced/network/derivation.html#).
+> The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/master/advanced/derivation.html#).
 
 ![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/compute_graph/images/forward_backward.png)
 

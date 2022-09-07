@@ -397,7 +397,7 @@ class MyMAE(nn.Metric):
 
 ## Customized Evaluation Process
 
-The mindspore.nn module provides the evaluation network packaging function [nn.WithEvalCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithEvalCell.html#mindspore.nn.WithEvalCell). Because `nn.WithEvalCell` has only two inputs `data` and `label`, it is not applicable to the scenario with multiple data or labels. Therefore, you need to customize the evaluation network. For details about how to customize the evaluation network in the multi-label scenario, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/en/master/advanced/train/train_eval.html).
+The mindspore.nn module provides the evaluation network packaging function [nn.WithEvalCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithEvalCell.html#mindspore.nn.WithEvalCell). Because `nn.WithEvalCell` has only two inputs `data` and `label`, it is not applicable to the scenario with multiple data or labels. Therefore, you need to customize the evaluation network. For details about how to customize the evaluation network in the multi-label scenario, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/en/master/advanced/model/train_eval.html).
 
 The following example implements a simple customized evaluation network `MyWithEvalCell`. Enter the input `data` and `label`.
 

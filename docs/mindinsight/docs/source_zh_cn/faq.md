@@ -72,7 +72,7 @@ A：谷歌浏览器内核禁止将某些端口作为`HTTP`服务，你需要在�
 
 <font size=3>**Q：在Ascend机器上启动Mindinsight并开启调试器后，训练脚本连接调试器时，提示：`Exeption calling application: Field number 0 is illegal` 如何处理？**</font>
 
-A：说明安装的Protobuf版本错误，需要安装正确版本的Protobuf，安装方法请参照[安装python版本的proto](https://support.huaweicloud.com/instg-cli-cann/atlascli_03_0046.html)。
+A：说明安装的Protobuf版本错误，需要安装正确版本的Protobuf，安装方法请参照[安装python版本的proto](https://www.hiascend.com/document/detail/zh/canncommercial/51RC1/envdeployment/instg/instg_000068.html)。
 
 <br/>
 
