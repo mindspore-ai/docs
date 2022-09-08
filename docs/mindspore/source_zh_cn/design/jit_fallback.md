@@ -114,7 +114,7 @@ np_sum: [2 4 6 8 10]
 tensor_sum: (2, 4, 6, 8, 10)
 ```
 
-当前不支持使用同一个print同时打印编译时期和运行时期执行的信息。例如将np_sum和tensor_sum放在同一个print中，将会报错：
+当前不支持使用同一个print同时打印编译时期和运行时期执行的信息，例如将np_sum和tensor_sum放在同一个print中将会报错。错误的代码用例如下：
 
 ```python
 import numpy as np
@@ -140,7 +140,7 @@ net = Net()
 net(x, y)
 ```
 
-输出结果：
+报错信息如下：
 
 ```text
 ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)', the inputs should be constant, but found variable 'tensor_sum' to be nonconstant.
@@ -150,7 +150,7 @@ ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, 
 
 JIT Fallback支持在静态图模式下使用raise和assert。
 
-使用raise时，要求条件语句和抛出的异常语句符合常量场景的条件，否则可能出现不可预期的结果。
+使用raise时，要求条件语句和抛出的异常语句符合常量场景的条件，否则可能出现不可预期的结果。正确的代码用例如下：
 
 ```python
 import mindspore.nn as nn
@@ -177,7 +177,7 @@ net(-1)
 ValueError: x should be greater than 0.
 ```
 
-同理，使用assert时，也需要符合常量场景的条件。
+同理，使用assert时，也需要符合常量场景的条件。正确的代码用例如下：
 
 ```python
 import mindspore.nn as nn
@@ -197,7 +197,7 @@ net = Net()
 net()
 ```
 
-输出结果中出现： `AssertionError`。
+输出结果中正常出现： `AssertionError`。
 
 ### 调用Python内置函数
 
@@ -338,7 +338,7 @@ g: <class 'mindspore.common.tensor.Tensor'>
 ### 支持常量场景下控制流
 
 为了提高Python标准语法支持度，在常量场景下实现动静统一，通过JIT Fallback实现常量场景下控制流语句的使用。控制流语句是指if、for、while等流程控制语句。JIT Fallback特性已经支持在静态图模式下创建和使用Tensor，支持调用Numpy等第三方库创建使用常量以及支持部分Python内置函数。理论上，通过JIT Fallback支持的常量语法，在常量控制流场景中也支持。
-例如：
+代码用例如下：
 
 ```python
 import numpy as np
@@ -356,7 +356,7 @@ res = func()
 print("res: ", res)
 ```
 
-输出结果如下:
+输出结果如下：
 
 ```text
 res: 2
@@ -370,7 +370,7 @@ res: 2
 
 2. JIT Fallback对标动态图的支持能力，须在动态图语法范围内，包括但不限于数据类型等。
 
-3. 当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，例如：
+3. 当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，错误的代码用例如下：
 
    ```python
    import numpy as np
@@ -387,6 +387,12 @@ res: 2
    print("res: ", res)
    ```
 
+   报错信息如下：
+
+   ```text
+   RuntimeError: The 'setitem' operation does not support the type [External, Int64, Int64].
+   ```
+
 4. 不支持运行时(Runtime)阶段的JIT Fallback。
 
    JIT Fallback处理不支持的语法表达式时，将会生成相应的节点，需要在编译时阶段完成推导和执行，否则这些节点传递到运行时后会引发报错。示例代码如下，`np.add(x, y)`会生成相应节点，作为函数的返回值将会传递到运行时，出现报错。在此用例中，可以将计算后的NumPy数据类型转换成Tensor类型，即调用Tensor()方法，使得程序能够正常执行。
@@ -400,11 +406,12 @@ res: 2
         x = np.array([1, 2, 3, 4, 5])
         y = np.array([1, 2, 3, 4, 5])
         return np.add(x, y)
+        # return Tensor(np.add(x, y)) # 若调用Tensor()方法传递结果，则程序将能够正常执行。
 
     np_add_res = test_np_add()
     ```
 
-   输出结果如下:
+   报错信息如下：
 
     ```text
     Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[2 4 6 8 10]'
@@ -426,7 +433,7 @@ res: 2
     print("res:", res)
     ```
 
-   输出结果如下:
+   输出结果如下：
 
    ```text
    res: 3.0
@@ -451,7 +458,7 @@ res: 2
     print(out)
     ```
 
-   输出结果如下:
+   报错信息如下：
 
    ```text
    TypeError: For 'Tensor', the type of input_data should be one of '['Tensor', 'ndarray', 'str_', 'list', 'tuple', 'float', 'int', 'bool', 'complex']', but got 'None' with type 'NoneType'.
