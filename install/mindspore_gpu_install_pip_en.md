@@ -27,7 +27,7 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 
 ## Automatic Installation
 
-Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
+Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver versi1on of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
 ```bash
 nvidia-smi
@@ -47,8 +47,8 @@ The root permission is required because the automatic installation script needs 
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-# install MindSpore 1.8.1, Python 3.7 and CUDA 11.1
-MINDSPORE_VERSION=1.8.1 bash -i ./ubuntu-gpu-pip.sh
+# install MindSpore 1.9.1, Python 3.7 and CUDA 11.1
+MINDSPORE_VERSION=1.9.1 bash -i ./ubuntu-gpu-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
 # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
 ```
@@ -73,19 +73,19 @@ The following table lists the system environment and third-party dependencies re
 |software|version|description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[CUDA](#installing-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
-|[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
+|[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
+|[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
-|[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore (optional, required for serving inference)|
+|[TensorRT](#installing-tensorrt-optional)|7.2.2 or 8.4|high performance deep learning inference SDK used by MindSpore (optional, required for serving inference)|
 
 The following describes how to install the third-party dependencies.
 
 ### Installing CUDA
 
-MindSpore GPU supports CUDA 10.1 and CUDA 11.1. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+MindSpore GPU supports CUDA 10.1, CUDA 11.1 and CUDA 11.6. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 The following only shows instructions for installing by runfile on Linux systems.
 
 Before installing CUDA, you need to run the following commands to install related dependencies.
@@ -94,9 +94,19 @@ Before installing CUDA, you need to run the following commands to install relate
 sudo apt-get install linux-headers-$(uname -r) gcc-7
 ```
 
-The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
+The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
 
-Run the following command to install CUDA 11.1 (recommended).
+Run the following command to install CUDA 11.6 (recommended).
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.6.0/local_installers/cuda_11.6.0_510.39.01_linux.run
+sudo sh cuda_11.6.0_510.39.01_linux.run
+echo -e "export PATH=/usr/local/cuda-11.6/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or install CUDA 11.1 with the following command.
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
@@ -120,16 +130,16 @@ When the default path /usr/local/cuda has an installation package, the LD_LIBRAR
 
 ### Installing cuDNN
 
-After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/zh-cn/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.1, execute the following command to install cuDNN.
+After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/zh-cn/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. If CUDA 11.6 was previously installed, download cuDNN v8.5.x for CUDA 11.6. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.6, execute the following command to install cuDNN.
 
 ```bash
 tar -zxvf cudnn.tgz
-sudo cp cuda/include/cudnn.h /usr/local/cuda-11.1/include
-sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
-sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
+sudo cp cuda/include/cudnn.h /usr/local/cuda-11.6/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.6/lib64
+sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.6/lib64/libcudnn*
 ```
 
-If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.6` in the above command with the currently installed CUDA path.
 
 ### Installing Python
 
@@ -222,11 +232,11 @@ cd -
 
 ### Installing TensorRT-optional
 
-After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`, install TensorRT with the following command.
+After completing the installation of CUDA and cuDNN, download TensorRT 8.4 for CUDA 11.6 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-8x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-8.4.1.5.Ubuntu-18.04.x86_64-gnu.cuda-11.6.cudnn8.4.tar.gz`. Install TensorRT with the following command.
 
 ```bash
-tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
-cd TensorRT-7.2.2.3
+tar xzf TensorRT-8.4.1.5.Ubuntu-18.04.x86_64-gnu.cuda-11.6.cudnn8.4.tar.gz
+cd TensorRT-8.4.1.5
 echo -e "export TENSORRT_HOME=$PWD" >> ~/.bashrc
 echo -e "export LD_LIBRARY_PATH=\$TENSORRT_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
@@ -235,10 +245,10 @@ cd -
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.9.1 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.8.1
+export MS_VERSION=1.9.1
 ```
 
 Then install the latest version of MindSpore according to the CUDA version and Python version by following the following command.
@@ -256,6 +266,12 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA11.1 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA11.6 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.6/mindspore_gpu-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA11.6 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.6/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA11.6 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.6/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
@@ -265,11 +281,11 @@ When the network is connected, dependency items are automatically downloaded dur
 Before running MindSpore GPU version, please make sure that installation path of nvcc has been added to `PATH` and `LD_LIBRARY_PATH` environment variabels. If you have not done so, please follow the example below, based on CUDA11 installed in default location:
 
 ```bash
-export PATH=/usr/local/cuda-11.1/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-11.6/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
 ```
 
-If a different version of CUDA have been installed or the CUDA installation path is different, replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+If a different version of CUDA have been installed or the CUDA installation path is different, replace `/usr/local/cuda-11.6` in the above command with the currently installed CUDA path.
 
 i:
 
