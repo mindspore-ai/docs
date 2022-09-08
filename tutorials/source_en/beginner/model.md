@@ -1,10 +1,8 @@
-# Building a Neural Network
+# Building a Network
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to first describe how to build a neural network model by using `mindspore.nn`, and then describes how to build a LeNet-5 model by using `mindvision.classification.models`.
-
-> `mindvision.classification.models` is a network model interface developed based on `mindspore.nn`, providing some classic and commonly used network models for the convenience of users.
+A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to implement handwritten digit recognition task in deep learning.
 
 ## LeNet-5 Model
 
@@ -12,78 +10,75 @@ A neural network model consists of multiple data operation layers. `mindspore.nn
 
 ![LeNet-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
 
-Except the input layer, LeNet contains seven layers: three convolutional layers, two subsampling layers, and two fully-connected layers.
-
-## Defining a Model Class
-
 In the preceding figure, C indicates the convolutional layer layer, S indicates the sampling layer, and F indicates the fully-connected layer.
+
+According to the network structure of LeNet, except the input layer, LeNet contains seven layers: three convolutional layers, two subsampling layers, and two fully-connected layers.
 
 The input size of an image is fixed at $32 \times 32$. To achieve a good convolution effect, the number must be in the center of the image. Therefore, the input $32 \times 32$ is the result after the image is filled with $28 \times 28$. Unlike the three-channel input images of the CNN network, the input images of LeNet are only normalized binary images. The output of the network is the prediction probability of digits 0 to 9, which can be understood as the probability that the input image belongs to digits 0 to 9.
 
+## Defining a Model Class
+
 The `Cell` class of MindSpore is the base class for building all networks and the basic unit of a network. When a neural network is required, you need to inherit the `Cell` class and overwrite the `__init__` and `construct` methods.
 
-```python
-import mindspore.nn as nn
+The `mindspore.nn` class is the base class for building all networks and the basic unit of a network. When need to customize the network, you can inherit the `nn.Cell` class and overwrite the `__init__` and `construct` methods.
 
-class LeNet5(nn.Cell):
-    """
-    LeNet-5 network structure
-    """
-    def __init__(self, num_class=10, num_channel=1):
-        super(LeNet5, self).__init__()
-        # Convolutional layer, where the number of input channels is num_channel, the number of output channels is 6, and the convolutional kernel size is 5 x 5.
-        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
-        # Convolutional layer, where the number of input channels is 6, the number of output channels is 16, and the convolutional kernel size is 5 x 5.
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        # Fully-connected layer, where the number of inputs is 16 x 5 x 5 and the number of outputs is 120.
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        # Fully-connected layer, where the number of inputs is 120 and the number of outputs is 84.
-        self.fc2 = nn.Dense(120, 84)
-        # Fully-connected layer, where the number of inputs is 84 and the number of classes is num_class.
-        self.fc3 = nn.Dense(84, num_class)
-        # ReLU activation function
-        self.relu = nn.ReLU()
-        # Pooling layer
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        # Multidimensional arrays are flattened into one-dimensional arrays.
-        self.flatten = nn.Flatten()
+To facilitate the management and composition of more complex networks, `mindspore.nn` provides containers to manage the submodel blocks or model layers in the network, `nn.CellList` and `nn.SequentialCell`. Here, we have chosen the `nn.CellList` method.
+
+```python
+from mindspore import nn
+from mindspore.common.initializer import Normal
+
+# Customize the network
+class LeNet(nn.Cell):
+    def __init__(self, num_classes=10, num_channel=1):
+        super(LeNet, self).__init__()
+        layers = [nn.Conv2d(num_channel, 6, 5, pad_mode='valid'),
+                  nn.ReLU(),
+                  nn.MaxPool2d(kernel_size=2, stride=2),
+                  nn.Conv2d(6, 16, 5, pad_mode='valid'),
+                  nn.ReLU(),
+                  nn.MaxPool2d(kernel_size=2, stride=2),
+                  nn.Flatten(),
+                  nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02)),
+                  nn.ReLU(),
+                  nn.Dense(120, 84, weight_init=Normal(0.02)),
+                  nn.ReLU(),
+                  nn.Dense(84, num_classes, weight_init=Normal(0.02))]
+        # Network management with CellList
+        self.build_block = nn.CellList(layers)
 
     def construct(self, x):
-        # Use the defined operation to build a forward network.
-        x = self.conv1(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.conv2(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.flatten(x)
-        x = self.fc1(x)
-        x = self.relu(x)
-        x = self.fc2(x)
-        x = self.relu(x)
-        x = self.fc3(x)
+        # Execute the network with a for loop
+        for layer in self.build_block:
+            x = layer(x)
         return x
 ```
 
 Next, build the neural network model defined above and look at the structure of the network model.
 
 ```python
-model = LeNet5()
+model = LeNet()
 
 print(model)
 ```
 
 ```text
-LeNet5<
-  (conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
-  (conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
-  (fc1): Dense<input_channels=400, output_channels=120, has_bias=True>
-  (fc2): Dense<input_channels=120, output_channels=84, has_bias=True>
-  (fc3): Dense<input_channels=84, output_channels=10, has_bias=True>
-  (relu): ReLU<>
-  (max_pool2d): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
-  (flatten): Flatten<>
->
+LeNet<
+  (build_block): CellList<
+    (0): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+    (1): ReLU<>
+    (2): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
+    (3): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+    (4): ReLU<>
+    (5): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
+    (6): Flatten<>
+    (7): Dense<input_channels=400, output_channels=120, has_bias=True>
+    (8): ReLU<>
+    (9): Dense<input_channels=120, output_channels=84, has_bias=True>
+    (10): ReLU<>
+    (11): Dense<input_channels=84, output_channels=10, has_bias=True>
+    >
+  >
 ```
 
 ## Model Layers
@@ -99,7 +94,7 @@ import numpy as np
 
 import mindspore as ms
 
-# The number of channels input is 1, the number of channels of output is 6, the convolutional kernel size is 5 x 5, and the parameters are initialized using the normal operator, and the pixels are not filled.
+# The number of channels input is 1, the number of channels of output is 6, the convolutional kernel size is 5 x 5, and the parameters are initialized by using the normal operator, and the pixels are not filled.
 conv2d = nn.Conv2d(1, 6, 5, has_bias=False, weight_init='normal', pad_mode='same')
 input_x = ms.Tensor(np.ones([1, 1, 32, 32]), ms.float32)
 
@@ -115,7 +110,6 @@ print(conv2d(input_x).shape)
 Add the `nn.ReLU` layer and add a non-linear activation function to the network to help the neural network learn various complex features.
 
 ```python
-import mindspore as ms
 relu = nn.ReLU()
 
 input_x = ms.Tensor(np.array([-1, 2, -3, 2, -1]), ms.float16)
@@ -130,26 +124,20 @@ print(output)
 
 ### nn.MaxPool2d
 
-Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 array to a 6 x 7 x 7 array.
+Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 tensor to a 6 x 7 x 7 tensor.
 
-```python
-import mindspore as ms
+```text
 max_pool2d = nn.MaxPool2d(kernel_size=4, stride=4)
 input_x = ms.Tensor(np.ones([1, 6, 28, 28]), ms.float32)
 
 print(max_pool2d(input_x).shape)
 ```
 
-```text
-(1, 6, 7, 7)
-```
-
 ### nn.Flatten
 
-Initialize the `nn.Flatten` layer and convert the 1 x 16 x 5 x 5 array into 400 consecutive arrays.
+Initialize the `nn.Flatten` layer and convert the 1 x 16 x 5 x 5 4D tensor into 400 consecutive 2D tensors.
 
 ```python
-import mindspore as ms
 flatten = nn.Flatten()
 input_x = ms.Tensor(np.ones([1, 16, 5, 5]), ms.float32)
 output = flatten(input_x)
@@ -166,7 +154,6 @@ print(output.shape)
 Initialize the `nn.Dense` layer and perform linear transformation on the input matrix.
 
 ```python
-import mindspore as ms
 dense = nn.Dense(400, 120, weight_init='normal')
 input_x = ms.Tensor(np.ones([1, 400]), ms.float32)
 output = dense(input_x)
@@ -188,37 +175,12 @@ for m in model.get_parameters():
 ```
 
 ```text
-layer:backbone.conv1.weight, shape:(6, 1, 5, 5), dtype:Float32, requeires_grad:True
-layer:backbone.conv2.weight, shape:(16, 6, 5, 5), dtype:Float32, requeires_grad:True
-layer:backbone.fc1.weight, shape:(120, 400), dtype:Float32, requeires_grad:True
-layer:backbone.fc1.bias, shape:(120,), dtype:Float32, requeires_grad:True
-layer:backbone.fc2.weight, shape:(84, 120), dtype:Float32, requeires_grad:True
-layer:backbone.fc2.bias, shape:(84,), dtype:Float32, requeires_grad:True
-layer:backbone.fc3.weight, shape:(10, 84), dtype:Float32, requeires_grad:True
-layer:backbone.fc3.bias, shape:(10,), dtype:Float32, requeires_grad:True
-```
-
-## Quickly Building a LeNet-5 Model
-
-The preceding describes how to use `mindspore.nn.cell` to build a LeNet-5 model. The built network model API is available in `mindvision.classification.models`. You can also use the `lenet` API to directly build a LeNet-5 model.
-
-```python
-from mindvision.classification.models import lenet
-
-# `num_classes` indicates the number of classes, and `pretrained` determines whether to train with the trained model.
-model = lenet(num_classes=10, pretrained=False)
-
-for m in model.get_parameters():
-    print(f"layer:{m.name}, shape:{m.shape}, dtype:{m.dtype}, requeires_grad:{m.requires_grad}")
-```
-
-```text
-layer:backbone.conv1.weight, shape:(6, 1, 5, 5), dtype:Float32, requeires_grad:True
-layer:backbone.conv2.weight, shape:(16, 6, 5, 5), dtype:Float32, requeires_grad:True
-layer:backbone.fc1.weight, shape:(120, 400), dtype:Float32, requeires_grad:True
-layer:backbone.fc1.bias, shape:(120,), dtype:Float32, requeires_grad:True
-layer:backbone.fc2.weight, shape:(84, 120), dtype:Float32, requeires_grad:True
-layer:backbone.fc2.bias, shape:(84,), dtype:Float32, requeires_grad:True
-layer:backbone.fc3.weight, shape:(10, 84), dtype:Float32, requeires_grad:True
-layer:backbone.fc3.bias, shape:(10,), dtype:Float32, requeires_grad:True
+layer:build_block.0.weight, shape:(6, 1, 5, 5), dtype:Float32, requeires_grad:True
+layer:build_block.3.weight, shape:(16, 6, 5, 5), dtype:Float32, requeires_grad:True
+layer:build_block.7.weight, shape:(120, 400), dtype:Float32, requeires_grad:True
+layer:build_block.7.bias, shape:(120,), dtype:Float32, requeires_grad:True
+layer:build_block.9.weight, shape:(84, 120), dtype:Float32, requeires_grad:True
+layer:build_block.9.bias, shape:(84,), dtype:Float32, requeires_grad:True
+layer:build_block.11.weight, shape:(10, 84), dtype:Float32, requeires_grad:True
+layer:build_block.11.bias, shape:(10,), dtype:Float32, requeires_grad:True
 ```
