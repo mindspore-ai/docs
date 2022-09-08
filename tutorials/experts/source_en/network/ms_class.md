@@ -6,7 +6,7 @@
 
 In static graph mode, using ms_class to decorate a custom class, users can create and call the instance of this custom class, and obtain attributes and methods for that custom class.
 
-ms_class applied to static graph mode, expanding the scope of support for improving static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of ms_class does not affect the execution logic of the PyNative mode.
+ms_class is applied to static graph mode, expanding the scope of support for improving static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of ms_class does not affect the execution logic of the PyNative mode.
 
 This document describes how to use ms_class so that you can use ms_class functions more effectively.
 
@@ -34,7 +34,7 @@ out = net()
 print(out)
 ```
 
-ms_class support custom class nesting use, custom classes and nn. Cell nesting uses scenes. It should be noted that when a class inherits, if the parent class uses ms_class, the subclass will also have the ability to ms_class.
+ms_class supports nesting use of the custom class, nesting uses scenarios of custom classes and nn. Cell. It should be noted that when a class inherits, if the parent class uses ms_class, the subclass will also have the ability to ms_class.
 
 ```python
 import numpy as np
@@ -105,7 +105,7 @@ TypeError: Decorator ms_class can only be used for class type, but got <function
 
 ## Obtaining the Attributes and Methods of the Custom Class
 
-Support call a class's attributes by class name, and calling a class's methods by class name is not supported. For instances of a class, calling its attributes and methods is supported.
+Support calling a class's attributes by class name, not calling a class's methods by class name. For instances of a class, support calling its attributes and methods.
 
 ```python
 import mindspore.nn as nn

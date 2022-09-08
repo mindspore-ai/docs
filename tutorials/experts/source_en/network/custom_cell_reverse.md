@@ -115,7 +115,7 @@ This example customizes the gradient calculation process for the `MatMul` operat
 
    The above code defines the first-order back propagation rule by customizing the `bprop` function of `Net` and gets the second-order back propagation rule by the back propagation rule of `self.relu` in the `bprop`.
 
-2. We need the customized the back propagation function when we want to replace some forward calculate process of the Cell. For example, there is following code in the network SNN:
+2. We need the customized back propagation function when we want to replace some forward calculate process of the Cell. For example, there is following code in the network SNN:
 
    ```python
    class relusigmoid(nn.Cell):
@@ -155,5 +155,5 @@ This example customizes the gradient calculation process for the `MatMul` operat
 
 - If the number of return values of the `bprop` function is 1, the return value must be written in the tuple format, that is, `return (dx,)`.
 - In graph mode, the `bprop` function needs to be converted into a graph IR. Therefore, the static graph syntax must be complied with. For details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
-- Only support returning the gradient of the forward propagation input. not the gradient of the `Parameter`.
+- Only support returning the gradient of the forward propagation input, not the gradient of the `Parameter`.
 - The use of `Parameter` is not supported in `bprop`.
