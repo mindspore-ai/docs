@@ -186,9 +186,9 @@ SHAPGradient:
 from mindspore_xai.explainer import PseudoLinearCoef
 
 # 初始化解释器
-plc_explainer = PseudoLinearCoef(classifier=net, num_classes=len(class_names))
+plc_explainer = PseudoLinearCoef(net, len(class_names), feature_names=feature_names, class_names=class_names)
 # 解释
-plc, relative_plc = plc_explainer(data)
+plc, relative_plc = plc_explainer(data, show=True)
 ```
 
 ![pseudo_linear_coef](./images/PLC.png)

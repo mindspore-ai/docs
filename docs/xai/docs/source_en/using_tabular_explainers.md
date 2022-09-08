@@ -187,9 +187,9 @@ Explanation for sample 0 class setosa:
 from mindspore_xai.explainer import PseudoLinearCoef
 
 # initialize the explainer
-plc_explainer = PseudoLinearCoef(classifier=net, num_classes=len(class_names))
+plc_explainer = PseudoLinearCoef(net, len(class_names), feature_names=feature_names, class_names=class_names)
 # explain
-plc, relative_plc = plc_explainer(data, class_names=class_names, feature_names=feature_names)
+plc, relative_plc = plc_explainer(data, show=True)
 ```
 
 ![pseudo_linear_coef](./images/PLC.png)
@@ -214,15 +214,15 @@ output:
 ```text
 Pseudo Linear Coef.:
 
-class setosa:
+class setosa
 
 [-0.12420721  0.15363358 -0.44856226 -0.16351467]
 
-class versicolor:
+class versicolor
 
 [ 0.03954152 -0.20367564  0.3246966  -0.17629193]
 
-class virginica:
+class virginica
 
 [-0.03425665 -0.04525428  0.44189668  0.20307252]
 
