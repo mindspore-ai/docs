@@ -45,7 +45,7 @@
     </tr>
     <tr>
         <td >优化器参数</td>
-        <td >带动量SGD momentum=0.9, nesterov=True，无weight decay</td>
+        <td >带动量SGD momentum=0.9，nesterov=True，无weight decay</td>
     </tr>
     <tr>
         <td >训练参数</td>
@@ -73,7 +73,7 @@
 1. 提前识别一些问题：
 
     - 判断参考代码使用的三方库是否有版本依赖，提前识别版本适配问题；
-    - 看下数据集是否能获取的到，有的数据集是私有的或者原作者在公开数据集上加了自己的部分数据集，在复现参考实现阶段就可以发现这种问题；
+    - 判断数据集是否能获取的到，有的数据集是私有的或者原作者在公开数据集上加了自己的部分数据集，在复现参考实现阶段就可以发现这种问题；
     - 参考实现是否能复现论文精度，有的官方的参考实现也不一定能复现论文的精度，当出现这种情况时要及时发现问题，更换参考实现或者调整精度基线。
 
 3. 获取一些参考数据作为MindSpore迁移过程的参考：
@@ -89,7 +89,7 @@
 ### 查询API映射表
 
 以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
-或者[API](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html) 查找对应的API实现。
+或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html) 查找对应的API实现。
 
 其他框架API的映射可以参考API命名与功能描述。注意，针对相同功能的API，MindSpore的命名可能与其他框架不同，同名API参数与功能也可能与其他框架有区别，均以官方描述为准。
 
@@ -109,7 +109,7 @@
 
 - MaxPool和MaxPoolWithArgmax在不使用indices的情况是等价的；
 
-- Sort和在全排序的情景下TopK在是等价的。
+- Sort和在全排序场景下的TopK是等价的。
 
 #### 2. 使用已有API包装等价功能逻辑
 
@@ -280,6 +280,7 @@ class SigmoidFoaclLoss(nn.Cell):
 然后我们做个测试：
 
 ```python
+import torch
 import numpy as np
 np.random.seed(1)
 
