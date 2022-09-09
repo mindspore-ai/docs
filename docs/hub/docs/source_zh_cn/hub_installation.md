@@ -72,13 +72,13 @@ Checking /home/ma-user/.mscache/mindspore/1.6/lenet_mnist.md...Passed!
 
 A: 由于你的网络环境，例如你使用代理连接互联网，往往会由于证书配置问题导致python出现ssl verification failed的问题，此时有两种解决方法：
 
-配置好SSL证书 **（推荐）**
-在加载mindspore_hub前增加如下代码进行解决（最快）
+- 配置好SSL证书 **（推荐）**
+- 在加载mindspore_hub前增加如下代码进行解决（最快）
 
-```python
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
+   ```python
+   import ssl
+   ssl._create_default_https_context = ssl._create_unverified_context
 
-import mindspore_hub as mshub
-model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
-```
+   import mindspore_hub as mshub
+   model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
+   ```
