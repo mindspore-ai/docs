@@ -2150,7 +2150,7 @@ class ExhaleRoot(object):
 
             shutil.rmtree(dirB)
 
-            dirE = './source_en/c_api/'
+            dirE = './source_en/api_c/'
             if not os.path.exists(dirE):
                 os.makedirs(dirE)
             mycapi = []
@@ -2164,7 +2164,7 @@ class ExhaleRoot(object):
                                     if indexname+'.h' in filename:
                                         mycapi.append("- :doc:`../generate/"+filename.split(".rst")[0]+"`\n\n")
                         mycapi.sort()
-                        with open('./source_en/c_api/'+indexname+'.rst', 'w', encoding='utf-8') as p:
+                        with open('./source_en/api_c/'+indexname+'.rst', 'w', encoding='utf-8') as p:
                             p.write(indexname+"""
 =======================
 
@@ -2190,7 +2190,7 @@ class ExhaleRoot(object):
             for parent,dirnames,filenames in os.walk(dirE):
                 for filename in filenames:
                     if filename != "lite_c_example":
-                        cresult.append("   c_api/"+filename.split(".")[0]+"\n")
+                        cresult.append("   api_c/"+filename.split(".")[0]+"\n")
             cresult.sort()
 
             with open('./source_en/index.rst', "w", encoding="utf-8") as p:
@@ -2230,9 +2230,9 @@ MindSpore Lite API
    :caption: C API
 """)
                 p.write("\n"+"".join(cresult))
-                p.write("   c_api/lite_c_example")
+                p.write("   api_c/lite_c_example")
 
-            dircapi = './source_en/c_api/'
+            dircapi = './source_en/api_c/'
             for file in os.listdir(dircapi):
                 with open(dircapi+file, 'r', encoding='utf-8') as f:
                     data = f.read()
