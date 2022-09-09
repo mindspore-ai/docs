@@ -1,6 +1,6 @@
-# # Function Differences with torch.optim.AdamW
+# # Function Differences between torch.optim.AdamW and mindspore.nn.AdamWeightDecay
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AdamWeightDecay.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AdamWeightDecay.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.optim.AdamW
 
@@ -18,7 +18,7 @@ class torch.optim.AdamW(
 )
 ```
 
-For more information, see[torch.optim.AdamW](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.AdamW)。
+For more information, see [torch.optim.AdamW](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.AdamW).
 
 ## mindspore.nn.AdamWeightDecay
 
@@ -33,11 +33,11 @@ class mindspore.nn.AdamWeightDecay(
 )
 ```
 
-For more information, see[mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay)。
+For more information, see [mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay).
 
 ## Differences
 
-The code implementation and parameter update logic of `mindspore.nn.AdamWeightDecay` optimizer is different from `torch.optim.AdamW`，for more information, please refer to the docs of official website。
+The code implementation and parameter update logic of `mindspore.nn.AdamWeightDecay` optimizer is different from `torch.optim.AdamW`，for more information, please refer to the docs of official website.
 
 ## Code Example
 
