@@ -89,7 +89,7 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
     import mindspore as ms
     from mindspore import nn
     # Model
-    loss_scale_manager = ms.FixedLossScaleManager(cfg.loss_scale) # 静态loss scale
+    loss_scale_manager = ms.FixedLossScaleManager(config.loss_scale) # 静态loss scale
     # loss_scale_manager = ms.DynamicLossScaleManager()   # 动态loss scale
 
     # 1. 一般流程
@@ -100,11 +100,12 @@ MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多�
     loss.to_float(ms.float32)
     net_with_loss = nn.WithLossCell(net, loss)
     # 用Model的混合精度最好要有loss_fn，否则loss部分会使用float16计算，容易溢出
-    model = ms.Model(network=net_with_loss, optimizer=opt, loss_scale_manager=loss_scale)
+    model = ms.Model(network=net_with_loss, optimizer=opt, loss_scale_manager=loss_scale_manager)
 
     # 3. 自己包装训练流程
-    scale_sense = nn.FixedLossScaleUpdateCell(cfg.loss_scale) # 静态loss scale
-    # scale_sense = nn.DynamicLossScaleUpdateCell(loss_scale_value=cfg.loss_scale, scale_factor=2, scale_window=1000) # 动态loss scale
+    scale_sense = nn.FixedLossScaleUpdateCell(config.loss_scale) # 静态loss scale
+    # scale_sense = nn.DynamicLossScaleUpdateCell(loss_scale_value=config.loss_scale,
+    #                                             scale_factor=2, scale_window=1000) # 动态loss scale
     train_net = nn.TrainOneStepWithLossScaleCell(net_with_loss, optimizer=opt, scale_sense=scale_sense)
     model = ms.Model(network=train_net)
     ```
@@ -197,6 +198,10 @@ MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/ma
 以 [ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
 
 ```python
+import os
+import mindspore as ms
+from mindspore.communication import init
+
 device_id = int(os.getenv('DEVICE_ID', '0'))
 rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
@@ -205,7 +210,7 @@ rank_id = int(os.getenv('RANK_ID', '0'))
 ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 if rank_size > 1:
    ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
-                                     gradients_mean=True)
+                                gradients_mean=True)
    ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
    init()
 ```
