@@ -11,9 +11,16 @@ MindSpore官网教程优化器章节的内容已经很详细了，这里就MindS
 MindSpore的优化器支持一些特别的操作，比如对网络里所有的可训练的参数可以设置不同的学习率（lr ）、权重衰减（weight_decay）和梯度中心化（grad_centralization）策略，如：
 
 ```python
-import mindspore as ms
 from mindspore import nn
 from mindvision.classification.models import resnet50
+
+def params_not_in(param, param_list):
+    # 利用Parameter的id来判断一个param是否不在param_list中
+    param_id = id(param)
+    for p in param_list:
+        if id(p) == param_id:
+            return False
+    return True
 
 resnet = resnet50(pretrained=False)
 trainable_param = resnet.trainable_params()
@@ -24,20 +31,21 @@ for _, cell in resnet.cells_and_names():
         conv_weight.append(cell.weight)
     elif isinstance(cell, nn.BatchNorm2d):
         bn_weight.append(cell.gamma)
-        bn_weight.append(cell.bata)
+        bn_weight.append(cell.beta)
     elif isinstance(cell, nn.Dense):
         dense_weight.append(cell.weight)
 
 other_param = []
 # 所有分组里的参数不能重复，并且其交集是需要做参数更新的所有参数
 for param in trainable_param:
-    if (param not in conv_weight) or (param not in bn_weight) or (param not in dense_weight):
+    if params_not_in(param, conv_weight) and params_not_in(param, bn_weight) and params_not_in(param, dense_weight):
         other_param.append(param)
 
 group_param = [{'order_params': trainable_param}]
 # 每一个分组的参数列表不能是空的
 if conv_weight:
-    group_param.append({'params': conv_weight, 'weight_decay': 1e-4, 'lr': nn.cosine_decay_lr(0., 1e-3, cfg.total_step, cfg.step_per_epoch, cfg.decay_epoch)})
+    conv_weight_lr = nn.cosine_decay_lr(0., 1e-3, total_step=1000, step_per_epoch=100, decay_epoch=10)
+    group_param.append({'params': conv_weight, 'weight_decay': 1e-4, 'lr': conv_weight_lr})
 if bn_weight:
     group_param.append({'params': bn_weight, 'weight_decay': 0., 'lr': 1e-4})
 if dense_weight:
