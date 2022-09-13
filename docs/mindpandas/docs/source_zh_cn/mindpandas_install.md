@@ -11,6 +11,7 @@
 |  Ubuntu  |  18.04  |
 |  Python  | 3.7-3.9 |
 
+> - 当前MindPandas设置yr后端执行模式时，Python版本需为3.8。
 > - 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt)。
 > - 当前MindPandas仅能在Ubuntu18.04上运行。
 
