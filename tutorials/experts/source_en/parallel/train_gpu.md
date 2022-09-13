@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 In the preceding information,
 
-- `mode=ms.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+- `mode=ms.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode only supports data parallel running.)
 - `device_target="GPU"`: specifies device as GPU.
 - `init("nccl")`: enables NCCL communication and completes the distributed training initialization.
 - `get_rank()`: obtains the rank number of  the current process.
@@ -436,7 +436,7 @@ if __name__ == "__main__":
 
 Where:
 
-- `mode=ms.GRAPH_MODE`: uses the distributed training, which requires specifying the run mode as graph mode (PyNative mode does not support parallelism).
+- `mode=ms.GRAPH_MODE`: uses the distributed training, which requires specifying the run mode as graph mode. (The PyNative mode only supports data parallel running.)
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
 - By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl") can be called, otherwise the initialization of the networking will fail.
 
