@@ -955,7 +955,7 @@ ret:(4, 16, 36, 64, 100)
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。图模式下内置函数的使用方法与对应的Python内置函数类似。
+当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。图模式下内置函数的使用方法与对应的Python内置函数类似。
 
 #### int
 
@@ -1055,7 +1055,7 @@ d: 123.0
 代码用例如下：
 
 ```python
-from mindspore import ms_function
+from mindspore import ms_function, Tensor
 
 @ms_function
 def func():
@@ -1098,15 +1098,15 @@ e: [True]    # e 为布尔类型的Tensor
 
 ```python
 import numpy as np
-from mindspore import ms_function
+from mindspore import ms_function, Tensor
 
 @ms_function
 def func():
    a = str()
    b = str(0)
    c = str([1, 2, 3, 4])
-   d = bool(Tensor([10]))
-   e = bool(np.array([1, 2, 3, 4]))
+   d = str(Tensor([10]))
+   e = str(np.array([1, 2, 3, 4]))
    return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -1124,7 +1124,7 @@ a:                                             # a 为空字符串
 b: 0
 c: [1, 2, 3, 4]
 d: Tensor(shape=[1], dtype=Int64, value=[10])
-e: [1 2 3 4]                                   # e 为布尔类型的Tensor
+e: [1 2 3 4]
 ```
 
 #### tuple
@@ -1656,6 +1656,58 @@ f: (1, 2, 3)
 g: 1
 ```
 
+#### sum
+
+功能：对输入序列进行求和计算。
+
+调用：`sum(x, n=0)`
+
+入参：
+
+- `x` -- 表示可迭代对象，有效类型为`list`、`tuple`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+
+- `n` -- 表示指定相加的参数，缺省值为0。
+
+返回值：对`x`求和后与`n`相加得到的值。
+
+代码用例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function, Tensor
+
+@ms_function
+def func():
+  a = sum([0, 1, 2])
+  b = sum((0, 1, 2), 10)
+  c = sum(np.array([1, 2, 3]))
+  d = sum(Tensor([1, 2, 3]), 10)
+  e = sum(Tensor([[1, 2], [3, 4]]))
+  f = sum([1, Tensor([[1, 2], [3, 4]]), Tensor([[1, 2], [3, 4]])], Tensor([[1, 1], [1, 1]]))
+  return a, b, ms.Tensor(c), d, e, f
+
+a, b, c, d, e, f = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+```
+
+输出结果：
+
+```text
+a:  3
+b:  13
+c:  6
+d:  16
+e:  [4 6]
+f:  [[ 4  6]
+     [ 8 10]]
+```
+
 #### abs
 
 功能：返回绝对值，使用方法与python的`abs()`一致。
@@ -1918,7 +1970,9 @@ n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dty
 示例如下：
 
 ```python
-from mindspore import nn
+from mindspore import nn, context
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class FatherNet(nn.Cell):
     def __init__(self, x):
