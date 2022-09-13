@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式当前仅支持数据并行）。
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
@@ -434,7 +434,7 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式当前仅支持数据并行）。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
