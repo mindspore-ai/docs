@@ -6,10 +6,10 @@ Automatic differentiation can calculate a derivative value of a derivative funct
 
 MindSpore uses `ops.grad` and `ops.value_and_grad` to calculate the first-order derivative. `ops.grad` only returns gradient, while `ops.value_and_grad` returns the network forward calculation result and gradient. The `ops.value_and_grad` attributes are as follows:
 
-+ `fn`: the function or network to be derived.
-+ `grad_position`: specifies the index of the input position to be derived. If the index is int type, it means to derive for a single input; if tuple type, it means to derive for the position of the index within the tuple, where the index starts from 0; and if None, it means not to derive for the input. In this scenario, `weights` is non-None. Default: 0.
-+ `weights`: the network variables that need to return the gradients in the training network. Generally the network variables can be obtained by `weights = net.trainable_params()`. Default: None.
-+ `has_aux`: symbol for whether to return auxiliary arguments. If True, the number of `fn` outputs must be more than one, where only the first output of `fn` is involved in the derivation and the other output values will be returned directly. Default: False.
+- `fn`: the function or network to be derived.
+- `grad_position`: specifies the index of the input position to be derived. If the index is int type, it means to derive for a single input; if tuple type, it means to derive for the position of the index within the tuple, where the index starts from 0; and if None, it means not to derive for the input. In this scenario, `weights` is non-None. Default: 0.
+- `weights`: the network variables that need to return the gradients in the training network. Generally the network variables can be obtained by `weights = net.trainable_params()`. Default: None.
+- `has_aux`: symbol for whether to return auxiliary arguments. If True, the number of `fn` outputs must be more than one, where only the first output of `fn` is involved in the derivation and the other output values will be returned directly. Default: False.
 
 This chapter uses `ops.value_and_grad` in MindSpore to find first-order derivatives of the network.
 
