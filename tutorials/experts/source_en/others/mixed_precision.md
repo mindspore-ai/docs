@@ -10,21 +10,21 @@ Generally, when a neural network model is trained, the default data type is FP32
 
 Floating-point data types include double-precision (FP64), single-precision (FP32), and half-precision (FP16). In a training process of a neural network model, an FP32 data type is generally used by default to indicate a network model weight and other parameters. The following is a brief introduction to floating-point data types.
 
-According to IEEE 754, floating-point data types are classified into double-precision (FP64), single-precision (FP32), and half-precision (FP16). Each type is represented by three different bits. FP64 indicates a data type that uses 8 bytes (64 bits in total) for encoding and storage. FP32 indicates a data type that uses 4 bytes (32 bits in total) and FP16 indicates a data type that uses 2 bytes (16 bits in total). As shown in the following figure:
+According to [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point data types are classified into double-precision (FP64), single-precision (FP32), and half-precision (FP16). Each type is represented by three different bits. FP64 indicates a data type that uses 8 bytes (64 bits in total) for encoding and storage. FP32 indicates a data type that uses 4 bytes (32 bits in total) and FP16 indicates a data type that uses 2 bytes (16 bits in total). As shown in the following figure:
 
 ![fp16_vs_FP32](./images/fp16_vs_fp32.png)
 
 As shown in the figure, the storage space of FP16 is half that of FP32, and the storage space of FP32 is half that of FP64. It consists of three parts:
 
-- The leftmost bit indicates the sign bit.
+- The highest bit indicates the sign bit.
 - The middle bits indicate exponent bits.
-- The rightmost bits indicate fraction bits.
+- The low bits indicate fraction bits.
 
-FP16 is used as an example. The first sign bit sign indicates a positive or negative sign, the next five bits indicate an exponent, and the last 10 bits indicate a fraction. The formula is as follows:
+FP16 is used as an example. The first sign bit sign indicates a positive or negative sign, and the next five bits indicate an exponent. All 0s and all 1s have special uses, so the binary range is 00001~11110. The last 10 bits indicate a fraction. Suppose `S` denotes the decimal value of sign bit, `E` denotes the decimal value of exponent, and `fraction` denotes the decimal value of fraction. The formula is as follows:
 
 $$x=(-1)^{S}\times2^{E-15}\times(1+\frac{fraction}{1024})$$
 
-Similarly, the true value of a formatted FP32 is as follows:
+Similarly, suppose `M` is score value, the true value of a formatted FP32 is as follows:
 
 $$x=(-1)^{S}\times2^{E-127}\times(1.M)$$
 
@@ -36,11 +36,13 @@ The maximum value that can be represented by FP16 is 0 11110 1111111111, which i
 
 $$(-1)^0\times2^{30-15}\times1.1111111111 = 1.1111111111(b)\times2^15 = 1.9990234375(d)\times2^15 = 65504$$
 
+where `b` indicates binary value, and `d` indicates decimal value.
+
 The minimum value that can be represented by FP16 is 0 00001 0000000000, which is calculated as follows:
 
 $$ (-1)^{1}\times2^{1-15}=2^{-14}=6.104×10^{-5}=-65504$$
 
-Therefore, the maximum value range of FP16 is [-65504,66504], and the precision range is $2^{-24}$. If the value is beyond this range, the value is set to 0.
+Therefore, the maximum value range of FP16 is [-65504, 65504], and the precision range is $2^{-24}$. If the value is beyond this range, the value is set to 0.
 
 ## FP16 Training Issues
 
@@ -71,211 +73,6 @@ The following figure shows the typical computation process of mixed precision in
 
 This document describes the computation process by using examples of automatic and manual mixed precision.
 
-## MindSpore Mixed-precision
-
-### Automatic Mixed-Precision
-
-To use the automatic mixed-precision, you need to call the `Model` API to transfer the network to be trained and optimizer as the input. This API converts the network model operators into FP16 operators.
-
-> Due to precision problems, the `BatchNorm` operator and operators involved in loss still use FP32.
-
-The specific implementation steps for using the `Model` interface are:
-
-1. Introduce the MindSpore model API `Model`.
-
-2. Define a network: This step is the same as that for defining a common network (no new configuration is required).
-
-3. Create a dataset: For this step, refer to [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
-
-4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
-
-The following is a basic code example. First, import the required libraries and declarations, and define the LeNet-5 network model.
-
-```python
-import numpy as np
-import mindspore.nn as nn
-from mindspore.nn import Accuracy
-import mindspore as ms
-from mindspore.common.initializer import Normal
-from mindspore import dataset as ds
-
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(device_target="CPU")
-
-class LeNet5(nn.Cell):
-    """
-    Lenet network
-
-    Args:
-        num_class (int): Number of classes. Default: 10.
-        num_channel (int): Number of channels. Default: 1.
-
-    Returns:
-        Tensor, output tensor
-
-
-    """
-    def __init__(self, num_class=10, num_channel=1):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
-        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
-        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = nn.Flatten()
-
-    def construct(self, x):
-        x = self.max_pool2d(self.relu(self.conv1(x)))
-        x = self.max_pool2d(self.relu(self.conv2(x)))
-        x = self.flatten(x)
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-```
-
-Create a virtual random dataset for data input of the sample model.
-
-```python
-# create dataset
-def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
-    for _ in range(num):
-        img = np.random.randn(*img_size)
-        target = np.random.randint(0, num_classes)
-        target_ret = np.array([target]).astype(np.float32)
-        if is_onehot:
-            target_onehot = np.zeros(shape=(num_classes,))
-            target_onehot[target] = 1
-            target_ret = target_onehot.astype(np.float32)
-        yield img.astype(np.float32), target_ret
-
-def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
-    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
-    input_data = input_data.batch(batch_size, drop_remainder=True)
-    input_data = input_data.repeat(repeat_size)
-    return input_data
-```
-
-Set the `amp_level` parameter and use the `Model` API to encapsulate the network model, optimizer, and loss function.
-
-```python
-ds_train = create_dataset()
-
-# Initialize network
-network = LeNet5(10)
-
-# Define Loss and Optimizer
-net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
-net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3", loss_scale_manager=None)
-
-# Run training
-model.train(epoch=10, train_dataset=ds_train)
-```
-
-## Manual Mixed-Precision
-
-MindSpore also supports manual mixed-precision. (Manual mixed-precision is not recommended unless you want to customize special networks and features.)
-
-Assume that only one dense layer on the network uses FP16 for computation and other layers use FP32.
-
-> The mixed-precision is configured in the unit of Cell. The default type of a Cell is FP32.
-
-The following are the implementation steps of manual mixed-precision:
-
-1. Define the network: This step is similar with the Step 2 in the automatic mixed-precision.
-2. Configure the mixed-precision: Use `to_float(mstype.float16)` to set the operators involved in the Cell to FP16.
-3. Use `TrainOneStepCell` to encapsulate the network model and optimizer.
-
-The following is a basic code example. First, import the required libraries and declarations.
-
-```python
-import numpy as np
-
-import mindspore.nn as nn
-from mindspore.nn import Accuracy
-import mindspore as ms
-from mindspore.common.initializer import Normal
-from mindspore import dataset as ds
-import mindspore.ops as ops
-
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
-```
-
-The network is defined in the same way regardless of whether FP32 or FP16 is used. The difference is that after the network is defined, the dense layer is declared to use FP16 for computing when the network model is initialized, that is, `net.dense.to_float(mstype.float16)`.
-
-```python
-class LeNet5(nn.Cell):
-    """
-    Lenet network
-
-    Args:
-        num_class (int): Number of classes. Default: 10.
-        num_channel (int): Number of channels. Default: 1.
-
-    Returns:
-        Tensor, output tensor
-    """
-
-    def __init__(self, num_class=10, num_channel=1):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
-        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
-        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = nn.Flatten()
-        self.cast = ops.Cast()
-
-    def construct(self, x):
-        x = self.conv1(x)
-        x = self.cast(x, mstype.float32)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.max_pool2d(self.relu(self.conv2(x)))
-        x = self.flatten(x)
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-
-
-
-# create dataset
-def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
-    for _ in range(num):
-        img = np.random.randn(*img_size)
-        target = np.random.randint(0, num_classes)
-        target_ret = np.array([target]).astype(np.float32)
-        if is_onehot:
-            target_onehot = np.zeros(shape=(num_classes,))
-            target_onehot[target] = 1
-            target_ret = target_onehot.astype(np.float32)
-        yield img.astype(np.float32), target_ret
-
-def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
-    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
-    input_data = input_data.batch(batch_size, drop_remainder=True)
-    input_data = input_data.repeat(repeat_size)
-    return input_data
-
-
-ds_train = create_dataset()
-network = LeNet5(10)
-net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
-net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-network.conv1.to_float(mstype.float16)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
-
-model.train(epoch=2, train_dataset=ds_train)
-```
-
-> Constraint: When mixed-precision is used, the backward network can be generated only by the automatic differential function. Otherwise, MindSpore may generate exception information indicating that the data format does not match.
-
 ## Loss Scale
 
 Loss Scale is mainly used in the process of mixed-precision training.
@@ -284,7 +81,7 @@ In the process of mixed precision training, the FP16 type is used instead of the
 
 The main idea is to enlarge the loss by a certain multiple when calculating the loss. Due to the existence of the chain rule, the gradient also expands accordingly, and then the corresponding multiple is reduced when the optimizer updates the weight, thus avoiding the situation of data underflow without affecting the calculation result.
 
-Two ways to scale are available in MindSpore, namely `FixedLossScaleManager` and `DynamicLossScaleManager`, which need to be used with the Model. When building models by using the Model, the mixed-precision strategy `amp_level` and the Loss Scale approach `loss_scale_manager` can be configured.
+There are two ways of implementing Loss Scale in MindSpore, users can either use the functional programming writeup and manually call the `scale` and `unscale` methods of `StaticLossScaler` or `DynamicLossScaler` to scale the loss or gradient during training; or they can configure the loss or gradient based on the `Model` interface and configure the mixed precision `amp_level` and the Loss Scale method `loss_scale_manager` as `FixedLossScaleManager` or `DynamicLossScaleManager` when building the model by using `Model`.
 
 First, let's take a look at why mixing accuracy is needed. The advantages of using FP16 to train a neural network are:
 
@@ -320,11 +117,255 @@ The dynamic loss scale algorithm is as follows:
 3. In the later stages of training, the loss has become stable and convergent, and the amplitude of the gradient update is often small, which can allow a higher loss scaling factor to prevent data underflow again.
 4. Therefore, the dynamic loss scaling algorithm attempts to increase the loss scaling by the F multiple every N (N=2000) iterations, and then performs step 2 to check for overflow.
 
-## Loss scale used in MindSpore
+## Using Mixed Precision and Loss Scale in MindSpore
 
-The following two APIs in MindSpore that use the loss scaling algorithm are described separately  [FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.FixedLossScaleManager.html#mindspore.amp.FixedLossScaleManager) and [DynamicLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html#mindspore.amp.DynamicLossScaleManager).
+MindSpore provides two ways of using mixed precision and loss scale.
 
-### FixedLossScaleManager
+- Use functional programming: use `auto_mixed_precision` for automatic mixing accuracy, `all_finite` for overflow judgments, and `StaticLossScaler` and `DynamicLossScaler` for manual scaling of gradients and losses.
+
+- Using the training interface `Model`: configure the input `amp_level` to set the execution policy for mixed precision and the input `loss_scale_manager` to `FixedLossScaleManager` or `DynamicLossScaleManager` to implement loss scaling.
+
+## Using a Functional Programming for Mixed Precision and Loss Scale
+
+MindSpore provides a functional interface for mixed precision scenarios. Users can use `auto_mixed_precision` for automatic mixed precision, `all_finite` for overflow judgments during training, and `StaticLossScaler` and `DynamicLossScaler` to manually perform gradient and loss scaling.
+
+Common uses of LossScaler under functional.
+
+First import the relevant libraries and define a LeNet5 network:
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore.nn import Accuracy
+import mindspore as ms
+from mindspore.common.initializer import Normal
+from mindspore import dataset as ds
+
+
+class LeNet5(nn.Cell):
+    """
+    Lenet network
+
+    Args:
+        num_class (int): Number of classes. Default: 10.
+        num_channel (int): Number of channels. Default: 1.
+
+    Returns:
+        Tensor, output tensor
+    """
+
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+
+    def construct(self, x):
+        x = self.max_pool2d(self.relu(self.conv1(x)))
+        x = self.max_pool2d(self.relu(self.conv2(x)))
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+Perform auto mixed precision on the network.
+
+`auto_mixed_precision` implements the meanings of automatic mixed precision configuration as follows:
+
+- 'O0': keep FP32.
+- 'O1': cast as FP16 by whitelist.
+- 'O2': keep FP32 by blacklist and the rest cast as FP16.
+- 'O3': fully cast to FP16.
+
+> The current black and white list is Cell granularity.
+
+```python
+from mindspore import amp
+from mindspore import ops
+
+net = LeNet5(10)
+amp.auto_mixed_precision(net, 'O1')
+```
+
+Instantiate the LossScaler and manually scale up the loss value when defining the forward network.
+
+```python
+loss_fn = nn.BCELoss(reduction='mean')
+opt = nn.Adam(generator.trainable_params(), learning_rate=0.01)
+
+# Define LossScaler
+loss_scaler = amp.DynamicLossScaler(scale_value=2**10, scale_factor=2, scale_window=50)
+
+def net_forward(data, label):
+    out = net(data)
+    loss_value = loss_fn(out, label)
+    # scale up the loss value
+    scaled_loss = loss_scaler.scale(loss_value)
+    return scaled_loss, out
+```
+
+Reverse acquisition of gradients.
+
+```python
+grad_fn = ops.value_and_grad(net_forward, None, net.trainable_params())
+```
+
+Define the training step: calculate the current gradient value and recover the loss. Use `all_finite` to determine whether there is a gradient underflow problem, if there is no overflow, recover the gradient and update the network weights; if there is overflow, skip this step.
+
+```python
+@ms_function
+def train_step(x, y):
+    (loss_value, _), grads = grad_fn(x, y)
+    loss_value = loss_scaler.unscale(loss_value)
+
+    is_finite = amp.all_finite(grads)
+    if is_finite:
+        grads = loss_scaler.unscale(grads)
+        loss_value = ops.depend(loss_value, opt(grads))
+    loss_scaler.adjust(is_finite)
+    return loss_value
+```
+
+Execute training.
+
+```python
+epochs = 5
+for epoch in range(epochs):
+    for data, label in datasets:
+        loss = train_step(data, label)
+```
+
+## Mixed-precision and Loss Scale by Using the Training Interface `Model`
+
+### Mixed-Precision
+
+The `Model` interface provides the input `amp_level` to achieve automatic mixed precision, or the user can set the operator involved in the Cell to FP16 via `to_float(ms.float16)` to achieve manual mixed precision.
+
+#### Automatic Mixed-Precision
+
+To use the automatic mixed-precision, you need to call the `Model` API to transfer the network to be trained and optimizer as the input. This API converts the network model operators into FP16 operators.
+
+> Due to precision problems, the `BatchNorm` operator and operators involved in loss still use FP32.
+
+The specific implementation steps for using the `Model` interface are:
+
+1. Introduce the MindSpore model API `Model`.
+
+2. Define a network: This step is the same as that for defining a common network (no new configuration is required).
+
+3. Create a dataset: For this step, refer to [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
+
+4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
+
+The following is a basic code example. First, import the required libraries and declarations.
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore.nn import Accuracy
+import mindspore as ms
+from mindspore.common.initializer import Normal
+from mindspore import dataset as ds
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_context(device_target="CPU")
+```
+
+Create a virtual random dataset for data input of the sample model.
+
+```python
+# create dataset
+def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+    for _ in range(num):
+        img = np.random.randn(*img_size)
+        target = np.random.randint(0, num_classes)
+        target_ret = np.array([target]).astype(np.float32)
+        if is_onehot:
+            target_onehot = np.zeros(shape=(num_classes,))
+            target_onehot[target] = 1
+            target_ret = target_onehot.astype(np.float32)
+        yield img.astype(np.float32), target_ret
+
+def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
+    input_data = input_data.batch(batch_size, drop_remainder=True)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+```
+
+Taking the LeNet5 as an example, set the `amp_level` parameter and use the `Model` API to encapsulate the network model, optimizer, and loss function.
+
+```python
+ds_train = create_dataset()
+
+# Initialize network
+network = LeNet5(10)
+
+# Define Loss and Optimizer
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
+# Set amp level
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+
+# Run training
+model.train(epoch=10, train_dataset=ds_train)
+```
+
+#### Manual Mixed-Precision
+
+MindSpore also supports manual mixed-precision. (Manual mixed-precision is not recommended unless you want to customize special networks and features.)
+
+Assume that only one Conv layer on the network uses FP16 for computation and other layers use FP32.
+
+> The mixed-precision is configured in the unit of Cell. The default type of a Cell is FP32.
+
+The following are the implementation steps of manual mixed-precision:
+
+1. Define the network: This step is similar with the Step 2 in the automatic mixed-precision.
+2. Configure the mixed-precision: Use `to_float(mstype.float16)` to set the operators involved in the Cell to FP16.
+3. Use `TrainOneStepCell` to encapsulate the network model and optimizer.
+
+The following is a basic code example. First, import the required libraries and declarations.
+
+```python
+import numpy as np
+
+import mindspore.nn as nn
+from mindspore.nn import Accuracy
+import mindspore as ms
+from mindspore.common.initializer import Normal
+from mindspore import dataset as ds
+import mindspore.ops as ops
+
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+```
+
+After initializing the network model, declare that the Conv1 layer in LeNet5 is computed by using FP16, i.e. `network.conv1.to_float(mstype.float16)`.
+
+```python
+ds_train = create_dataset()
+network = LeNet5(10)
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
+network.conv1.to_float(ms.float16)
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+model.train(epoch=2, train_dataset=ds_train)
+```
+
+> When mixed-precision is used, the backward network can be generated only by the automatic differential function, not by user-defined inverse networks. Otherwise, MindSpore may generate exception information indicating that the data format does not match.
+
+### Loss scale
+
+The following two APIs in MindSpore that use the loss scaling algorithm are described separately [FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.FixedLossScaleManager.html#mindspore.amp.FixedLossScaleManager) and [DynamicLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html#mindspore.amp.DynamicLossScaleManager).
+
+#### FixedLossScaleManager
 
 `FixedLossScaleManager` does not change the size of the scale when scaling, and the value of the scale is controlled by the input parameter loss_scale, which can be specified by the user. The default value is taken if it is not specified.
 
@@ -334,122 +375,50 @@ In general, the LossScale function does not need to be used with the optimizer, 
 
 The detailed use of `FixedLossScaleManager` is as follows:
 
-1. Import the necessary libraries and declare execution using graph mode.
+Import the necessary libraries and declare execution using graph mode.
 
-   ```python
-   import numpy as np
-   import mindspore as ms
-   import mindspore.nn as nn
-   import mindspore as ms
-   from mindspore.nn import Accuracy
-   from mindspore.common.initializer import Normal
-   from mindspore import dataset as ds
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import amp
+from mindspore.nn import Accuracy
+from mindspore.common.initializer import Normal
+from mindspore import dataset as ds
 
-   ms.set_seed(0)
-   ms.set_context(mode=ms.GRAPH_MODE)
-   ```
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+```
 
-2. Define the LeNet5 network model, and any network model can use the Loss Scale mechanism.
+Define the network model by using LeNet5 as an example; define the dataset and the interfaces commonly used in the training process.
 
-   ```python
-   class LeNet5(nn.Cell):
-       """
-       Lenet network
+```python
+ds_train = create_dataset()
+# Initialize network
+network = LeNet5(10)
+# Define Loss and Optimizer
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+```
 
-       Args:
-           num_class (int): Number of classes. Default: 10.
-           num_channel (int): Number of channels. Default: 1.
+Use Loss Scale API to act in optimizers and models.
 
-       Returns:
-           Tensor, output tensor
-       """
+```python
+# Define Loss Scale, optimizer and model
+#1) Drop the parameter update if there is an overflow
+loss_scale_manager = amp.FixedLossScaleManager()
+net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
-       def __init__(self, num_class=10, num_channel=1):
-           super(LeNet5, self).__init__()
-           self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
-           self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-           self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
-           self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
-           self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
-           self.relu = nn.ReLU()
-           self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-           self.flatten = nn.Flatten()
+#2) Execute parameter update even if overflow occurs
+loss_scale = 1024.0
+loss_scale_manager = amp.FixedLossScaleManager(loss_scale, False)
+net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
+model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
-       def construct(self, x):
-           x = self.max_pool2d(self.relu(self.conv1(x)))
-           x = self.max_pool2d(self.relu(self.conv2(x)))
-           x = self.flatten(x)
-           x = self.relu(self.fc1(x))
-           x = self.relu(self.fc2(x))
-           x = self.fc3(x)
-           return x
-   ```
+# Run training
+model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()])
+```
 
-3. Define common interfaces in datasets and training processes.
-
-   ```python
-   # create dataset
-   def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
-       for _ in range(num):
-           img = np.random.randn(*img_size)
-           target = np.random.randint(0, num_classes)
-           target_ret = np.array([target]).astype(np.float32)
-           if is_onehot:
-               target_onehot = np.zeros(shape=(num_classes,))
-               target_onehot[target] = 1
-               target_ret = target_onehot.astype(np.float32)
-           yield img.astype(np.float32), target_ret
-
-   def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
-       input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
-       input_data = input_data.batch(batch_size, drop_remainder=True)
-       input_data = input_data.repeat(repeat_size)
-       return input_data
-
-   ds_train = create_dataset()
-
-   # Initialize network
-   network = LeNet5(10)
-
-   # Define Loss and Optimizer
-   net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
-   ```
-
-4. The API interface that really uses Loss Scale acts on the optimizer and model.
-
-   ```python
-   # Define Loss Scale, optimizer and model
-   #1) Drop the parameter update if there is an overflow
-   loss_scale_manager = ms.FixedLossScaleManager()
-   net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-   model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
-
-   #2) Execute parameter update even if overflow occurs
-   loss_scale = 1024.0
-   loss_scale_manager = ms.FixedLossScaleManager(loss_scale, False)
-   net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
-   model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
-
-   # Run training
-   model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()])
-   ```
-
-   The running result is as follows:
-
-   ```text
-   epoch: 1 step: 32, loss is 2.3018966
-   epoch: 2 step: 32, loss is 2.2965345
-   epoch: 3 step: 32, loss is 2.3021417
-   epoch: 4 step: 32, loss is 2.2995133
-   epoch: 5 step: 32, loss is 2.3040886
-   epoch: 6 step: 32, loss is 2.3131478
-   epoch: 7 step: 32, loss is 2.2919555
-   epoch: 8 step: 32, loss is 2.311748
-   epoch: 9 step: 32, loss is 2.304955
-   epoch: 10 step: 32, loss is 2.2682834
-   ```
-
-### LossScale and Optimizer
+#### LossScale and Optimizer
 
 As mentioned earlier, the optimizer needs to be used together when using `FixedLossScaleManager` and `drop_overflow_update` is False.
 
@@ -498,7 +467,7 @@ class CustomTrainOneStepCell(nn.TrainOneStepCell):
 - scale_grad function: Used for division between the gradient and the `loss_scale` coefficient to restore the gradient.
 - construct function: Referring to `nn. TrainOneStepCell`, defines the computational logic for `construct` and calls `scale_grad` after acquiring the gradient.
 
-After defining `TrainOneStepCell`, the training network needs to be manually built, which is as follows:
+After customizing `TrainOneStepCell`, the training network needs to be manually built, which is as follows:
 
 ```python
 import mindspore as ms
@@ -541,7 +510,7 @@ model.train(epoch=epochs, train_dataset=ds_train)
 
 When training with `Model` in this scenario, the `loss_scale_manager` and `amp_level` do not need to be configured, as the `CustomTrainOneStepCell` already includes mixed-precision calculation logic.
 
-### DynamicLossScaleManager
+#### DynamicLossScaleManager
 
 `DynamicLossScaleManager` can dynamically change the size of the scale during training, keeping the scale as large as possible without overflow.
 
