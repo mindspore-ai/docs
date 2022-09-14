@@ -238,55 +238,6 @@ c: {'one': 1, 'two': 2, 'three': 3}
 d: {'one': 1, 'two': 2, 'three': 3}
 ```
 
-#### **sum()**
-
-功能：sum(x, n=0) 对序列进行求和计算。
-
-有效输入：x 表示可迭代对象，支持list、tuple、dict(只会转换key值)、numpy.array、常量Tensor。n 表示指定相加的参数，缺省值为0。
-
-代码用例如下：
-
-```python
-import numpy as np
-import mindspore as ms
-from mindspore import ms_function
-
-@ms_function
-def func():
-   a = sum([0, 1, 2])
-   b = sum((0, 1, 2))
-   c = sum({1: 10, 2: 20, 3: 30})
-   d = sum(np.array([1, 2, 3]))
-   e = sum([0, 1, 2], 10)
-   f = sum((0, 1, 2), 10)
-   g = sum({1: 10, 2: 20, 3: 30}, 10)
-   h = sum(ms.Tensor([1, 2, 3]), 10)
-   return a, b, c, ms.Tensor(d), e, f, g, h
-
-a, b, c, d, e, f, g, h = func()
-print("a: ", a)
-print("b: ", b)
-print("c: ", c)
-print("d: ", d)
-print("e: ", e)
-print("f: ", f)
-print("g: ", g)
-print("h: ", h)
-```
-
-输出结果：
-
-```text
-a: 3
-b: 3
-c: 6
-d: 6
-e: 13
-f: 13
-g: 16
-h: 16
-```
-
 #### type()
 
 功能：输出入参的类型。

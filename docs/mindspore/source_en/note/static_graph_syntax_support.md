@@ -1122,7 +1122,7 @@ Restrictions: The same as List Comprehension.
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`. The usage of built-in function is similar as the usage of  corresponding Python built-in function.
+Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`. The usage of built-in function is similar to the usage of  corresponding Python built-in function.
 
 #### int
 
@@ -1222,7 +1222,7 @@ Return value: if `x` is not `Tensor`, returns the converted boolean scalar. Othe
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import ms_function, Tensor
 
 @ms_function
 def func():
@@ -1265,15 +1265,15 @@ For example:
 
 ```python
 import numpy as np
-from mindspore import ms_function
+from mindspore import ms_function, Tensor
 
 @ms_function
 def func():
    a = str()
    b = str(0)
    c = str([1, 2, 3, 4])
-   d = bool(Tensor([10]))
-   e = bool(np.array([1, 2, 3, 4]))
+   d = str(Tensor([10]))
+   e = str(np.array([1, 2, 3, 4]))
    return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -1291,7 +1291,7 @@ a:                                             # a is empty string
 b: 0
 c: [1, 2, 3, 4]
 d: Tensor(shape=[1], dtype=Int64, value=[10])
-e: [1 2 3 4]                                   # e is boolean Tensor
+e: [1 2 3 4]
 ```
 
 #### tuple
@@ -1823,6 +1823,58 @@ f: (1, 2, 3)
 g: 1
 ```
 
+#### sum
+
+Return the sum of input sequence.
+
+Calling: `sum(x, n=0)`
+
+Input parameter:
+
+- `x` -- iterable with numbers, the valid types include `list`, `tuple`, `Tensor` and third-party object (such as `numpy.ndarray`).
+
+- `n` -- the number that will be added to the sum of `x`, which is assumed to be 0 if not given.
+
+Return value: the value obtained by summing `x` and adding it to `n`.
+
+For example:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function, Tensor
+
+@ms_function
+def func():
+  a = sum([0, 1, 2])
+  b = sum((0, 1, 2), 10)
+  c = sum(np.array([1, 2, 3]))
+  d = sum(Tensor([1, 2, 3]), 10)
+  e = sum(Tensor([[1, 2], [3, 4]]))
+  f = sum([1, Tensor([[1, 2], [3, 4]]), Tensor([[1, 2], [3, 4]])], Tensor([[1, 1], [1, 1]]))
+  return a, b, ms.Tensor(c), d, e, f
+
+a, b, c, d, e, f = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+```
+
+The result is as follows:
+
+```text
+a:  3
+b:  13
+c:  6
+d:  16
+e:  [4 6]
+f:  [[ 4  6]
+     [ 8 10]]
+```
+
 #### abs
 
 Return the absolute value of the input. The usage of `abs()` is the same as python built-in function `abs()`.
@@ -2086,7 +2138,9 @@ Return value: method of the parent class.
 For example:
 
 ```python
-from mindspore import nn
+from mindspore import nn, context
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class FatherNet(nn.Cell):
     def __init__(self, x):
