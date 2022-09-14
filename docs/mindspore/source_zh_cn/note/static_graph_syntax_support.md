@@ -273,6 +273,8 @@ x: ((1, 2, 3), 4, 5)
 
   `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，组成`Tuple`返回。
 
+  `get`：`dict.get(key[, value])`返回指定`key`对应的`value`值，如果指定`key`不存在，返回默认值`None`或者设置的默认值`value`。
+
   示例如下：
 
   ```python
@@ -287,12 +289,14 @@ x: ((1, 2, 3), 4, 5)
       y = x.keys()
       z = x.values()
       q = x.items()
-      return y, z, q
+      v = x.get("a")
+      return y, z, q, v
 
-  y, z, q = test_dict()
+  y, z, q, v = test_dict()
   print('y:{}'.format(y))
   print('z:{}'.format(z))
   print('q:{}'.format(q))
+  print('v:{}'.format(v))
   ```
 
   结果如下：
@@ -300,12 +304,13 @@ x: ((1, 2, 3), 4, 5)
   ```text
   y:('a', 'b', 'c')
   z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  q:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
+  q:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  v:[1 2 3]
   ```
 
 - 支持索引取值和赋值
 
-  取值和赋值的索引值都仅支持`String`。赋值时，所赋的值支持`Number`、`Tuple`、`Tensor`。
+  取值和赋值的索引值都仅支持`String`。赋值时，所赋的值支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`。
 
   示例如下：
 
@@ -950,6 +955,49 @@ ret:(4, 16, 36, 64, 100)
 ```
 
 使用限制同列表生成式。
+
+### with语句
+
+在图模式下，有限制地支持with语句。with语句要求对象必须有两个魔术方法：`__enter__()`和`__exit__()`。
+
+示例如下：
+
+```python
+import mindspore.nn as nn
+from mindspore import Tensor, ms_class
+
+@ms_class
+class Sample:
+    def __init__(self):
+        super(Sample, self).__init__()
+        self.num = Tensor([2])
+
+    def __enter__(self):
+        return self.num * 2
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        return self.num * 4
+
+class TestNet(nn.Cell):
+    def construct(self):
+        res = 1
+        obj = Sample()
+        with obj as sample:
+            res += sample
+        return res, obj.num
+
+test_net = TestNet()
+out1, out2 = test_net()
+print("out1:", out1)
+print("out2:", out2)
+```
+
+结果如下：
+
+```text
+out1: [5]
+out2: [2]
+```
 
 ## 函数
 
