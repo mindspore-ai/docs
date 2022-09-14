@@ -127,6 +127,170 @@ x: ((1, 2, 3), 4, 5)
   x: (1, 2, 3, 4)
   ```
 
+  `insert`: inserts the specified element at the specified position in the `list`.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_insert():
+      x = [1, 3, 4]
+      x.insert(0, 2)
+      return x
+
+  x = test_list_insert()
+  print('x:{}'.format(x))
+  ```
+
+  The result is as follows:
+
+  ```text
+  x: (2, 1, 3, 4)
+  ```
+
+  `pop`: removes the element at the specified position in `list`, removing the last one by default.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_pop():
+      x = [1, 3, 4]
+      y = x.pop()
+      return x, y
+
+  x, y = test_list_pop()
+  print('x:{}'.format(x))
+  print('y:', y)
+  ```
+
+  The result is as follows:
+
+  ```text
+  x: (1, 3)
+  y: 4
+  ```
+
+  `clear`: clears the elements in `list`.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_clear():
+      x = [1, 3, 4]
+      x.clear()
+      return x
+
+  x = test_list_clear()
+  ```
+
+  The result is as follows:
+
+  ```text
+  x: ()
+  ```
+
+  `extend`: appends multiple elements of another sequence to the end of `list`.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_extend():
+      x = [1, 2, 3, 4]
+      y = [5, 6, 7]
+      x.extend(y)
+      return x
+
+  x = test_list_extend()
+  print('x:{}'.format(x))
+  ```
+
+  The result is as follows:
+
+  ```text
+  x: (1, 2, 3, 4, 5, 6, 7)
+  ```
+
+  `reverse`: reverses the elements of `list`.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_reverse():
+      x = [1, 2, 3, 4]
+      x.reverse()
+      return x
+
+  x = test_list_reverse()
+  print('x:{}'.format(x))
+  ```
+
+  The result is as follows:
+
+  ```text
+  x: (4, 3, 2, 1)
+  ```
+
+  `count`: counts the number of occurrences of an element in `list`. The current count method only supports constant scenarios.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list_count():
+      x = [1, 2, 3, 4]
+      num = x.count(2)
+      return num
+
+  num = test_list_count()
+  print('num:', num)
+  ```
+
+  The result is as follows:
+
+  ```text
+  num: 1
+  ```
+
+  If there is a Tensor variable in the usage scenario of count, a related exception will be thrown.
+
+  For example:
+
+  ```python
+  from mindspore import ms_function, Tensor
+
+  @ms_function()
+  def test_list_count(input_x):
+      x = [1, 2, 3, 4]
+      num = x.count(input_x)
+      return num
+
+  input_x = Tensor(2)
+  num = test_list_count()
+  print('num:', num)
+  ```
+
+  The result is as follows:
+
+  ```text
+  The list count not support variable scene now. The count data is Tensor type.
+  ```
+
 - Supported index values and value assignment
 
   Single-level and multi-level index values and value assignment are supported.
