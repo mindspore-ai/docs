@@ -261,6 +261,8 @@ If there are multiple network use cases in the script, call `reset_auto_parallel
 
 In the example below, we specify the parallel mode as automatic parallelism, and the user needs to switch to data parallel mode by simply changing `parallel_mode` to `DATA_PARALLEL`.
 
+> The pynative mode currently supports data parallelism, and the usage is consistent with the data parallelism in graph mode. You only need to change 'mode' to ' PYNATIVE_MODE '.
+
 ```python
 import mindspore as ms
 from mindspore.nn import Momentum
