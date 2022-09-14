@@ -27,7 +27,7 @@ mindspore.nn.cosine_decay_lr(
 )
 ```
 
-For more information, see[mindspore.nn.cosine_decay_lr](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.cosine_decay_lr)。
+For more information, see[mindspore.nn.cosine_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html#mindspore.nn.cosine_decay_lr)。
 
 ## Differences
 
