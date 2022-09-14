@@ -49,21 +49,21 @@ MindSpore：There is no padding parameter, the pad mode is controlled by the pad
 1. pad_mode is "valid"：
 
    $$
-        H_{out} = \left\lfloor\frac{H_{in} - ({kernel\_size[0]} - 1)}{\text{stride[0]}}\right\rfloor
+        H_{out} = \left\lceil\frac{H_{in} - ({kernel\_size[0]} - 1)}{\text{stride[0]}}\right\rceil
    $$
 
    $$
-        W_{out} = \left\lfloor\frac{W_{in} - ({kernel\_size[1]} - 1)}{\text{stride[1]}}\right\rfloor
+        W_{out} = \left\lceil\frac{W_{in} - ({kernel\_size[1]} - 1)}{\text{stride[1]}}\right\rceil
    $$
 
 2. pad_mode is "same"：
 
    $$
-        H_{out} = \left\lfloor\frac{H_{in}}{\text{stride[0]}}\right\rfloor
+        H_{out} = \left\lceil\frac{H_{in}}{\text{stride[0]}}\right\rceil
    $$
 
    $$
-        W_{out} = \left\lfloor\frac{W_{in}}{\text{stride[1]}}\right\rfloor
+        W_{out} = \left\lceil\frac{W_{in}}{\text{stride[1]}}\right\rceil
    $$
 
 ## Code Example
