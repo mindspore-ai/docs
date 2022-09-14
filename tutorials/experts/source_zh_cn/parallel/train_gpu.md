@@ -259,6 +259,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`。
 
+> PyNative模式当前支持数据并行，使用方法和图模式下的数据并行一致，只需将`mode`指定为`PYNATIVE_MODE`即可。
+
 ```python
 import mindspore as ms
 from mindspore.nn import Momentum
