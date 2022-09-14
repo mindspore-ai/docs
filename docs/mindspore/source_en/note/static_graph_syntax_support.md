@@ -438,6 +438,8 @@ The reference type of tuple is same as List, please  refer to List.
 
   `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `Tuple` and return it.
 
+  `get`: `dict.get(key[, value])` returns the `value` value corresponding to the specified `key`, if the specified `key` does not exist, the default value `None` or the set default value `value` is returned .
+
   For example:
 
   ```python
@@ -452,11 +454,14 @@ The reference type of tuple is same as List, please  refer to List.
       y = x.keys()
       z = x.values()
       q = x.items()
-      return y, z, q
+      v = x.get("a")
+      return y, z, q, v
 
-  y, z, q = test_dict()
+  y, z, q, v = test_dict()
   print('y:{}'.format(y))
   print('z:{}'.format(z))
+  print('q:{}'.format(q))
+  print('v:{}'.format(v))
   ```
 
   The result is as follows:
@@ -464,12 +469,13 @@ The reference type of tuple is same as List, please  refer to List.
   ```text
   y:('a', 'b', 'c')
   z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  q:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
+  q:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  v:[1 2 3]
   ```
 
 - Supported index values and value assignment
 
-  The index value supports only `String`. The assigned value can be `Number`, `Tuple`, or `Tensor`.
+  The index value supports only `String`. The assigned value can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`。
 
   For example:
 
@@ -1117,6 +1123,49 @@ ret:(4, 16, 36, 64, 100)
 ```
 
 Restrictions: The same as List Comprehension.
+
+### With Statement
+
+In graph mode, the with statement is supported with limitations. The with statement requires that the object must have two magic methods: `__enter__()` and `__exit__()`.
+
+For example:
+
+```python
+import mindspore.nn as nn
+from mindspore import Tensor, ms_class
+
+@ms_class
+class Sample:
+    def __init__(self):
+        super(Sample, self).__init__()
+        self.num = Tensor([2])
+
+    def __enter__(self):
+        return self.num * 2
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        return self.num * 4
+
+class TestNet(nn.Cell):
+    def construct(self):
+        res = 1
+        obj = Sample()
+        with obj as sample:
+            res += sample
+        return res, obj.num
+
+test_net = TestNet()
+out1, out2 = test_net()
+print("out1:", out1)
+print("out2:", out2)
+```
+
+The result is as follows:
+
+```text
+out1: [5]
+out2: [2]
+```
 
 ## Functions
 
