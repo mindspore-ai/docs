@@ -280,6 +280,7 @@ def print_info(check_info, location_info):
         cells = get_notebook_cells(file)
         try:
             cell_count = 1
+            line = 1
             for k, v in location_info.items():
                 if (int(error_line) - int(v.split("_")[0])) * (int(error_line) - int(v.split("_")[1])) <= 0:
                     cell_num = k
@@ -310,7 +311,7 @@ def white_code():
         'R1723', 'R1725', 'R1732', 'W0106', 'W0221', 'W0613', 'W0622', 'W0632',
         'E1129', 'E0602', 'E1136', 'E0401', 'E0611', 'E1101', 'W0511', 'W0603',
         'W0201', 'R0201', 'R0801', 'R0902', 'R0913', 'R0901', 'R0916', 'R0914',
-        'R0904', 'R0911', 'R0915', 'W0621', "W0104"
+        'R0904', 'R0911', 'R0915', 'W0621', "W0104", 'W0108'
     ]
     ignore_code = []
     for arg in sys.argv[1:]:
