@@ -18,21 +18,38 @@ import mindpandas as pd
 
 ```python
 from mindpandas import config
-config.set_concurrency_mode('multithread') # MindPandas will use multithread mode
+config.set_concurrency_mode(mode='multithread') # MindPandas will use multithread mode
 
-config.set_partition_shape((2,2)) # MindPandas will set the partition shape with (2,2)
+config.set_partition_shape(shape=(2,2)) # MindPandas will set the partition shape with (2,2)
 ```
 
+### set_concurrency_mode(mode)
+
+设置后端运行模式接口。
+
 参数含义如下：
-set_concurrency_mode：设置后端运行模式，可以设置为multithread或yr两种后端模式，默认值为multithread。无返回值。
-set_partition_shape：设置切片维度，数据类型为2的倍数组成的tuple。默认值为16 * 16。无返回值。
+
+mode (str)：可以设置为multithread或yr两种后端模式，默认值为multithread。multithread模式为多线程后端，yr模式为多进程后端。
+
 异常情况：
-ValueError: Mode {mode} is not supported.
-ValueError: Shape of each partition can only set to be tuple type.
+
+ValueError: 该模式不支持。
+
+### set_partition_shape(shape)
+
+设置并行计算时的切片维度接口。
+
+参数含义如下：
+
+shape (tuple)：切片维度，数据类型为2的倍数组成的tuple。默认值为16 * 16。
+
+异常情况：
+
+ValueError: 每个切片的维度只能是元组类型。
 
 ## to_pandas接口
 
-当前MindPandas还不支持Pandas API的所有分布式执行方法。但是我们可以通过`to_pandas`方法来适配MindPandas和原生Pandas之间数据类型的转换。
+当前MindPandas还有部分接口暂未支持。但是我们可以通过`to_pandas`方法来适配MindPandas和原生Pandas之间数据类型的转换。
 使用时，在API的执行完成后，加上to_pandas函数接口，便可以把MindPandas的DataFrame格式转换成Pandas的DataFrame格式，后续可以使用其他Pandas的API接口进行数据处理。
 
 ```python
