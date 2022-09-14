@@ -28,7 +28,7 @@ When counting missing ME operators, you need to find out the corresponding opera
 
 ### Querying Operator Mapping Table
 
-Find the network structure and the Python file that implements the training function in the code library (the name is generally train.py model.py, etc.), and find all relevant operators in the script file (including data framework classes, data preprocessing, network structure operators, etc.), and compare with [MindSpore Operator API](https://www.mindspore.cn/docs/en/master/note/operator_list_ms.html) , to find the platform support status of the operator under `mindspore.nn` or `mindspore.ops`.
+Find the network structure and the Python file that implements the training function in the code library (the name is generally train.py model.py, etc.), and find all relevant operators in the script file (including data framework classes, data preprocessing, network structure operators, etc.), and compare with MindSpore Operator API, to find the platform support status of the operator under [mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) or [mindspore.ops](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html).
 
 If the corresponding ME operator cannot be found on this webpage, you can continue to search for the operator name in [MindSpore API List](https://www.mindspore.cn/docs/en/master/index.html).
 
