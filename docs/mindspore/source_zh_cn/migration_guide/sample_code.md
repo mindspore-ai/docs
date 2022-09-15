@@ -14,7 +14,7 @@
 
 [论文](https://arxiv.org/pdf/1512.03385.pdf)：Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-我们找到了一份[PyToch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
+我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
 
 ### checklist
 
@@ -56,7 +56,7 @@ Test set: Average loss: -9.7052, Accuracy: 91%
 Finished Training
 ```
 
-可以从[resnet_pytroch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytroch_res.zip)下载到训练时日志和保存的参数文件。
+可以从[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)下载到训练时日志和保存的参数文件。
 
 ### 分析API/特性缺失
 
@@ -121,6 +121,20 @@ test_loader = torch.utils.data.DataLoader(test_set, batch_size=1, shuffle=False)
 
 如果本地没有cifar10数据集，在使用`torchvision.datasets.CIFAR10`时添加`download=True`可以自动下载。
 
+cifar10数据集目录组织参考：
+
+```text
+└─dataset_path
+    ├─cifar-10-batches-bin      # train dataset
+        ├─ data_batch_1.bin
+        ├─ data_batch_2.bin
+        ├─ data_batch_3.bin
+        ├─ data_batch_4.bin
+        ├─ data_batch_5.bin
+    └─cifar-10-verify-bin       # evaluate dataset
+        ├─ test_batch.bin
+```
+
 这个操作在MindSpore上实现如下：
 
 ```python
@@ -160,7 +174,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
 
 ### 网络模型实现
 
-参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具我发现，实现只有几个地方有差别：
+参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
 
 ```python
 # Conv2d PyTorch
@@ -641,7 +655,7 @@ Test set: Average loss: 0.3240, Accuracy: 91%
 
 ## 训练流程
 
-PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytroch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytroch_res.zip)。
+PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
 
 对应的MindSpore代码：
 
@@ -650,7 +664,6 @@ import numpy as np
 import mindspore as ms
 from mindspore import nn
 from mindspore.profiler import Profiler
-from mindspore.train.callback import LossMonitor, TimeMonitor
 from src.dataset import create_dataset
 from src.model_utils.moxing_adapter import moxing_wrapper
 from src.model_utils.config import config
@@ -715,7 +728,7 @@ if __name__ == '__main__':
 
 ## 性能优化
 
-我们在执行上面的训练时发现训练比较慢，需要进行性能优化，在进行具体的优化项前，我们先执行下profiler工具获取下性能数据。由于profiler工具只能获取Model封装的训练，需要先改造下训练流程：
+我们在执行上面的训练时发现训练比较慢，需要进行性能优化，在进行具体的优化项前，我们先执行profiler工具获取下性能数据。由于profiler工具只能获取Model封装的训练，需要先改造下训练流程：
 
 ```python
 device_num = config.device_num
