@@ -17,9 +17,6 @@
 
 本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
 
-> 以下所有示例都运行在Graph模式下的网络中，为了简洁，并未将网络的定义都写出来。
->
-
 ## 数据类型
 
 ### Python内置数据类型
@@ -297,7 +294,7 @@ x: ((1, 2, 3), 4, 5)
   索引值仅支持`int`和`slice`。
   `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。
   赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
-  当前切片赋值右值为Tensor时，需要将Tenor转换为List，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/jit_fallback.html?highlight=Fallback)实现，所以暂时不能支持变量场景。
+  当前切片赋值右值为`Tensor`时，需要将`Tensor`转换为`List`，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/jit_fallback.html?highlight=Fallback)实现，所以暂时不能支持变量场景。
 
   示例如下：
 
@@ -339,8 +336,6 @@ x: ((1, 2, 3), 4, 5)
 #### Tuple
 
 支持在网络里构造`Tuple`，即支持语法`y = (1, 2, 3)`。
-
-不支持在网络里强转`Tuple`，即不支持语法`y = tuple(x)`。
 
 关于Tuple取值的引用类型问题与List相同，请见List的相关介绍。
 
@@ -396,7 +391,9 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import nn
+  from mindspore import nn, context
+
+  context.set_context(mode=context.GRAPH_MODE)
 
   class Net(nn.Cell):
       def __init__(self):
@@ -426,8 +423,6 @@ x: ((1, 2, 3), 4, 5)
 
 支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`，当前仅支持`String`作为`key`值。
 
-计算图中最终需要输出的`Dictionary`，会取出所有的`value`组成`Tuple`输出。
-
 - 支持接口
 
   `keys`：取出`dict`里所有的`key`值，组成`Tuple`返回。
@@ -437,6 +432,14 @@ x: ((1, 2, 3), 4, 5)
   `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，组成`Tuple`返回。
 
   `get`：`dict.get(key[, value])`返回指定`key`对应的`value`值，如果指定`key`不存在，返回默认值`None`或者设置的默认值`value`。
+
+  `clear`：删除`dict`里所有的元素。
+
+  `has_key`：`dict.has_key(key)`判断`dict`里是否存在指定`key`。
+
+  `update`：`dict1.update(dict2)`把`dict2`中的元素更新到`dict1`中。
+
+  `fromkeys`：`dict.fromkeys(seq([, value]))`用于创建新的`Dictionary`，以序列`seq`中的元素做`Dictionary`的`key`，`value`为所有`key`对应的初始值。
 
   示例如下：
 
@@ -449,26 +452,36 @@ x: ((1, 2, 3), 4, 5)
 
   @ms_function()
   def test_dict():
-      y = x.keys()
-      z = x.values()
-      q = x.items()
-      v = x.get("a")
-      return y, z, q, v
+      x_keys = x.keys()
+      x_values = x.values()
+      x_items = x.items()
+      value_a = x.get("a")
+      check_key = x.has_key("a")
+      y = {"a": ms.Tensor(np.array([0, 0, 0]))}
+      x.update(y)
+      new_dict = x.fromkeys("abcd", 123)
+      return x_keys, x_values, x_items, value_a, check_key, x, new_dict
 
-  y, z, q, v = test_dict()
-  print('y:{}'.format(y))
-  print('z:{}'.format(z))
-  print('q:{}'.format(q))
-  print('v:{}'.format(v))
+  x_keys, x_values, x_items, value_a, check_key, new_x, new_dict = test_dict()
+  print('x_keys:{}'.format(x_keys))
+  print('x_values:{}'.format(x_values))
+  print('x_items:{}'.format(x_items))
+  print('value_a:{}'.format(value_a))
+  print('check_key:{}'.format(check_key))
+  print('new_x:{}'.format(new_x))
+  print('new_dict:{}'.format(new_dict))
   ```
 
   结果如下：
 
   ```text
-  y:('a', 'b', 'c')
-  z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  q:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
-  v:[1 2 3]
+  x_keys:('a', 'b', 'c')
+  x_values:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  x_items:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  value_a:[1 2 3]
+  check_key: True
+  new_x: {'a': ms.Tensor(np.array([0, 0, 0])), 'b': ms.Tensor(np.array([4, 5, 6])), 'c': ms.Tensor(np.array([7, 8, 9]))}
+  new_dict: {'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
 - 支持索引取值和赋值
@@ -555,9 +568,11 @@ Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN
 
 ```python
 import mindspore as ms
-from mindspore import ms_function, nn
+from mindspore import ms_function, nn, context
 import numpy as np
 from mindspore.ops import constexpr
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -602,8 +617,10 @@ ret:1
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn, ops, context
 import numpy as np
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -630,8 +647,6 @@ ret:[[3. 3. 3. 3.]]
 ## 运算符
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。
-
-之所以支持，是因为这些运算符会转换成同名算子进行运算，这些算子支持了隐式类型转换。
 
 规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_implicit.html#转换规则>
 
@@ -1127,7 +1142,9 @@ ret:(4, 16, 36, 64, 100)
 
 ```python
 import mindspore.nn as nn
-from mindspore import Tensor, ms_class
+from mindspore import Tensor, ms_class, context
+
+context.set_context(mode=context.GRAPH_MODE)
 
 @ms_class
 class Sample:
@@ -1773,7 +1790,7 @@ h: 10.10
 
 调用：`max(*data)`
 
-入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为克迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为可迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
 返回值：最大值。
 
@@ -1823,7 +1840,7 @@ g: 3
 
 调用：`min(*data)`
 
-入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为克迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为可迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
 返回值：最小值。
 
@@ -2345,8 +2362,10 @@ ret:(1, 3, 5)
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn, ops, context
 import numpy as np
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
@@ -2419,8 +2438,10 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
    ```python
    import mindspore as ms
-   from mindspore import nn
+   from mindspore import nn, context
    import numpy as np
+
+   context.set_context(mode=context.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
@@ -2450,7 +2471,9 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    示例如下：
 
    ```python
-   from mindspore import nn
+   from mindspore import nn, context
+
+   context.set_context(mode=context.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
