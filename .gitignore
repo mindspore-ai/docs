@@ -11,3 +11,7 @@
 *.DS_Store
 *.swp
 
+rank_0/
+dataset/
+*.ckpt
+*.mindir
