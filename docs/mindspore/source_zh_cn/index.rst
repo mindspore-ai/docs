@@ -31,7 +31,7 @@ MindSpore 文档
    :hidden:
 
    note/benchmark
-   网络支持 <https://gitee.com/mindspore/models/blob/master/README_CN.md#目录>
+   网络支持↗ <https://gitee.com/mindspore/models/blob/master/README_CN.md#目录>
    note/operator_list
    note/syntax_list
 
