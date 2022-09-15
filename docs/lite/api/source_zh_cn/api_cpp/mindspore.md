@@ -867,13 +867,13 @@ Status LoadConfig(const std::string &config_path);
 >
 > serialize_path=（序列化模型的存储路径）
 >
-> [input_ranges]
+> [gpu_context]
 >
-> min_dims=（模型最小输入维度，用于动态维度张量输入）
+> input_shape=input_name:[input_dim]（模型输入维度，用于动态维度张量输入）
 >
-> opt_dims=（模型最优输入维度，用于动态维度张量输入）
+> dynamic_dims=[min_dim~max_dim]（模型输入的动态维度范围，用于动态维度张量输入）
 >
-> max_dims=（模型最大输入维度，用于动态维度张量输入）
+> opt_dims=[opt_dim]（模型最优输入维度，用于动态维度张量输入）
 
 #### UpdateConfig
 

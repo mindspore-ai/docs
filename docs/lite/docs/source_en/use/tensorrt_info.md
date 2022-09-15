@@ -71,24 +71,33 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using TensorRT dynamic shapes
 
-    By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the builder can be configured to allow the input dimensions to be adjusted at runtime. In the profile, the maximum, minimum and optimal shape of each input can be set.
+    By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the input dimension can be adjusted at runtime by configuring the profile. In the profile, the minimum, dynamic and optimal shape of each input can be set.
 
-    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum, maximum] range and are fastest for the optimization point. Multiple profiles should specify disjoint or overlapping ranges. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code.
+    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input, but multiple input dimensions must be specified in a non-overlapping range. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code.
 
-    If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, then the following conditions must hold:
+    If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, the following conditions must hold:
 
     1. `len(min)` == `len(opt)` == `len(max)` == `len(real_shape)`
     2. 0 <= `min[i]` <= `opt[i]` <= `max[i]` for all `i`
     3. if `real_shape[i]` != -1, then `min[i]` == `opt[i]` == `max[i]` == `real_shape[i]`
     4. When using tensor input without dynamic dimensions, all shapes must be equal to real_shape.
 
-    For example, if the minimum dimension is [3,100,200], the maximum dimension is [3,200,300], and the optimized dimension is [3,150,250], the following configuration file needs to be configured:
+    For example, if the model input1's name is "input_name1", its input shape is [3,-1,-1] (-1 means that this dimension supports dynamic shape), the minimum dimension is [3,100,200], the maximum dimension is [3,200,300], and the optimized dimension is [3,150,250]. The name of model input2 is "input_name2", the input dimension is [-1,-1,1], the minimum size is [700,800,1], the maximum size is [800,900,1], and the optimized size is [750,850,1]. The following configuration file needs to be configured:
 
     ```
-    [input_ranges]
-    min_dims:3,100,200
-    opt_dims:3,150,250
-    max_dims:3,200,300
+    [gpu_context]
+    input_shape:input_name1:[3,-1,-1];input_name2:[-1,-1,1]
+    dynamic_dims:[100~200,200~300];[700~800,800~900]
+    opt_dims:[150,250];[750,850]
+    ```
+
+    It also support configuring multiple profiles at the same time. According to the above example, if we add a profile configuration for each model input, for the input1, the minimum size of the added profile is [3,201,200], the maximum size is [3,150,300], and the optimized size is [3,220,250]. Add a profile for input2, whose minimum size is [801,800,1], maximum size is [850,900,1], and optimized size is [750,850,1]. The following is an example of the profile:
+
+    ```
+    [gpu_context]
+    input_shape:input_name1:[3,-1,-1];input_name2:[-1,-1,1]
+    dynamic_dims:[100~200,200~300],[201~250,200~300];[700~800,800~900],[801~850,800~900]
+    opt_dims:[150,250],[220,250];[750,850],[810,850]
     ```
 
 ## Supported Operators
