@@ -390,3 +390,54 @@ Currently there are the following two scenarios where the message will print:
 - Running functions decorated by `@ms_function`(such as the optimizer `nn.Momentum`) at the PyNative mode.
 
 > One task may trigger multiple compilation processes.
+
+<font size=3>**Q: What does it mean when a warning "On the Ascend platform, when the return value of the control flow subgraph is parameter, the performance may be degraded. The value of the parameter can be returned to improve the performance." is reported?**</font>
+
+A: Since the Ascend platform cannot actually return a memory address, in the whole graph sinking mode, there will be some problems when there are parameters in the return value in the control flow scenario. In order to avoid problems, switch to the unified runtime mode for this scenario, and switch from the whole graph sinking mode to the unified runtime mode, the network performance may be degraded. If the return value of the control flow subgraph only uses the value of the parameter, you can obtain the  parameter value through the value interface of the parameter to avoid performance degradation caused by mode switching.
+
+For example, in the following use case, only the values of "self.param1" and "self.param2" in "InnerNet" are used in the network "Net", and the properties of parameters are not used, so the value interface can be used to avoid performance caused by mode switching deterioration.
+
+```python
+import mindspore.nn as nn
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import Tensor, Parameter
+
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.param1 = Parameter(Tensor(1), name="param1")
+        self.param2 = Parameter(Tensor(2), name="param2")
+
+    def construct(self, x):
+        if x > 0:
+            return self.param1.value(), self.param2.value()
+        return self.param2.value(), self.param1.value()
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.inner_net = InnerNet()
+        self.addn = ops.AddN()
+
+    def construct(self, x, y):
+        inner_params = self.inner_net(x)
+        out_res = self.addn(inner_params) + y
+        return out_res, inner_params[0] + inner_params[1]
+
+input_x = Tensor(3)
+input_y = Tensor(5)
+net = Net()
+out = net(input_x, input_y)
+print("out:", out)
+```
+
+The result is as follows:
+
+```text
+out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, value=3))
+```
+
+<br/>
