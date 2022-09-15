@@ -149,7 +149,6 @@ MindSpore中的许多数据处理方法为各数据集类共有，下面以 `Gen
 
 | TensorFlow  1.15 APIs                                                                          | MindSpore APIs                                                                                           | 说明 |
 | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---- |
-| [tf.linalg.inv](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/inv)       | [mindspore.ops.Inv](https://mindspore.cn/docs/zh-CN/r1.8/api_python/ops/mindspore.ops.Inv.html)    |      |
 | [tf.linalg.matmul](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/matmul) | [mindspore.nn.MatMul](https://mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.MatMul.html) |      |
 
 ## tf.math
