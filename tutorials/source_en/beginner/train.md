@@ -230,12 +230,6 @@ for epoch in range(epochs):
 ```
 
 ```text
-[EVENT] (PID29692) 2022-09-08-10:55:46.568.557 Start compiling 'after_grad' and it will take a while. Please wait...
-[EVENT] (PID29692) 2022-09-08-10:55:46.695.443 End compiling 'after_grad'.
-[EVENT] (PID29692) 2022-09-08-10:55:46.723.607 Start compiling 'Momentum.construct' and it will take a while. Please wait...
-[EVENT] (PID29692) 2022-09-08-10:55:46.764.006 End compiling 'Momentum.construct'.
-[EVENT] (PID29692) 2022-09-08-10:55:51.390.778 Start compiling 'LeNet.construct' and it will take a while. Please wait...
-[EVENT] (PID29692) 2022-09-08-10:55:51.428.831 End compiling 'LeNet.construct'.
 --------------------
 Epoch:[0/10], Train loss:2.3203, Accuracy:0.113, Time:5.26s,
 --------------------
