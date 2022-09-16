@@ -36,7 +36,7 @@ def filter_useless_api_link(content):
     for api in useless_apis:
         key_str = "@ref " + api + " "
         if key_str in content:
-            content = content.replace(key_str, api+" ")
+            content = content.replace(key_str, "`"+api+"` ")
     return content
 
 if __name__ == "__main__":
