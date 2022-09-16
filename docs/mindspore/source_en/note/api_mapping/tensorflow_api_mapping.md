@@ -123,7 +123,6 @@ Many data processing operations in MindSpore are shared by each dataset class. T
 
 | TensorFlow  1.15 APIs                                                                          | MindSpore APIs                                                                                        | Description |
 | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------- |
-| [tf.linalg.inv](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/inv)       | [mindspore.ops.Inv](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Inv.html)    |             |
 | [tf.linalg.matmul](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/matmul) | [mindspore.ops.MatMul](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MatMul.html) |             |
 
 ## tf.math
