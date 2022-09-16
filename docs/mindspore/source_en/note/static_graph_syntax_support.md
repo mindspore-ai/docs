@@ -733,7 +733,7 @@ Notes:
 
 Restrictions:
 
-- The left operand of operator `and`, `or` must be able to be converted to boolean value. For example, left operand can not be Tensor with multiple elements. If the left operand of `and`, `or` is variable `Tensor`, the right operand must also be `Tensor` with single element. Otherwise, there is no requirement for right operand.
+- The left operand of operator `and`, `or` must be able to be converted to boolean value. For example, left operand can not be Tensor with multiple elements. If the left operand of `and`, `or` is variable `Tensor`, the right operand must also be single-element `Tensor` with the same type. Otherwise, there is no requirement for right operand.
 
 - If the left or right operand of `and`, `or` is object that the graph mode does not support (such as third-party object and object created by syntax that is not native-supported in the graph mode), both operands need to be constant.
 
