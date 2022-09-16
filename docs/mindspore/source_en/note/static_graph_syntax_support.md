@@ -17,9 +17,6 @@ Due to syntax parsing restrictions, the supported data types, syntax, and relate
 
 The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
 
-> All the following examples run on the network in graph mode. For brevity, the network definition is not described.
->
-
 ## Data Types
 
 ### Built-in Python Data Types
@@ -301,7 +298,7 @@ x: ((1, 2, 3), 4, 5)
 
   The assigned value can be `Number`, `String`, `Tuple`, `List`, or `Tensor`.
 
-  When the value of the current slice is Tensor, the Tensor needs to be converted to a List, which is currently implemented through JIT Fallback. Therefore, variable scenarios cannot be supported temporarily.
+  When the value of the current slice is `Tensor`, the `Tensor` needs to be converted to a `List`, which is currently implemented through JIT Fallback. Therefore, variable scenarios cannot be supported temporarily.
 
   For example:
 
@@ -342,8 +339,6 @@ x: ((1, 2, 3), 4, 5)
 #### Tuple
 
 `Tuple` can be constructed on the network, that is, the syntax `y = (1, 2, 3)` is supported.
-
-Forcible conversion to `Tuple` is not supported on the network. That is, the syntax `y = tuple(x)` is not supported.
 
 The reference type of tuple is same as List, please  refer to List.
 
@@ -398,7 +393,9 @@ The reference type of tuple is same as List, please  refer to List.
 
   ```python
   import mindspore as ms
-  from mindspore import nn
+  from mindspore import nn, context
+
+  context.set_context(mode=context.GRAPH_MODE)
 
   class Net(nn.Cell):
       def __init__(self):
@@ -428,8 +425,6 @@ The reference type of tuple is same as List, please  refer to List.
 
 `Dictionary` can be constructed on the network. That is, the syntax `y = {"a": 1, "b": 2}` is supported. Currently, only `String` can be used as the `key` value.
 
-`Dictionary` to be output in the computational graph will extract all `value` values to form the `Tuple` output.
-
 - Supported APIs
 
   `keys`: extracts all `key` values from `dict` to form `Tuple` and return it.
@@ -440,37 +435,55 @@ The reference type of tuple is same as List, please  refer to List.
 
   `get`: `dict.get(key[, value])` returns the `value` value corresponding to the specified `key`, if the specified `key` does not exist, the default value `None` or the set default value `value` is returned .
 
+  `clear`: removes all elements in `dict`.
+
+  `has_key`: `dict.has_key(key)` determines whether the specified `key` exists in `dict`.
+
+  `update`: `dict1.update(dict2)` updates the elements in `dict2` to `dict1`.
+
+  `fromkeys`: `dict.fromkeys(seq([, value]))` is used to create a new `Dictionary`, using the elements in the sequence `seq` as the `key` of the `Dictionary`, and the `value` is initial value corresponding to all `key`.
+
   For example:
 
   ```python
   import mindspore as ms
-  import numpy as np
   from mindspore import ms_function
+  import numpy as np
 
   x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
   @ms_function()
   def test_dict():
-      y = x.keys()
-      z = x.values()
-      q = x.items()
-      v = x.get("a")
-      return y, z, q, v
+      x_keys = x.keys()
+      x_values = x.values()
+      x_items = x.items()
+      value_a = x.get("a")
+      check_key = x.has_key("a")
+      y = {"a": ms.Tensor(np.array([0, 0, 0]))}
+      x.update(y)
+      new_dict = x.fromkeys("abcd", 123)
+      return x_keys, x_values, x_items, value_a, check_key, x, new_dict
 
-  y, z, q, v = test_dict()
-  print('y:{}'.format(y))
-  print('z:{}'.format(z))
-  print('q:{}'.format(q))
-  print('v:{}'.format(v))
+  x_keys, x_values, x_items, value_a, check_key, new_x, new_dict = test_dict()
+  print('x_keys:{}'.format(x_keys))
+  print('x_values:{}'.format(x_values))
+  print('x_items:{}'.format(x_items))
+  print('value_a:{}'.format(value_a))
+  print('check_key:{}'.format(check_key))
+  print('new_x:{}'.format(new_x))
+  print('new_dict:{}'.format(new_dict))
   ```
 
   The result is as follows:
 
   ```text
-  y:('a', 'b', 'c')
-  z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  q:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
-  v:[1 2 3]
+  x_keys:('a', 'b', 'c')
+  x_values:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  x_items:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  value_a:[1 2 3]
+  check_key: True
+  new_x: {'a': ms.Tensor(np.array([0, 0, 0])), 'b': ms.Tensor(np.array([4, 5, 6])), 'c': ms.Tensor(np.array([7, 8, 9]))}
+  new_dict: {'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
 - Supported index values and value assignment
@@ -558,9 +571,11 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn
+from mindspore import nn, context
 import numpy as np
 from mindspore.ops import constexpr
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -605,8 +620,10 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn, ops, context
 import numpy as np
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -633,8 +650,6 @@ ret:[[3. 3. 3. 3.]]
 ## Operators
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`.
-
-This is because these operators are converted to operators with the same name for computation, and they support implicit type conversion.
 
 For details about the rules, click <https://www.mindspore.cn/docs/en/master/note/operator_list_implicit.html#conversion-rules>.
 
@@ -1132,7 +1147,9 @@ For example:
 
 ```python
 import mindspore.nn as nn
-from mindspore import Tensor, ms_class
+from mindspore import Tensor, ms_class, context
+
+context.set_context(mode=context.GRAPH_MODE)
 
 @ms_class
 class Sample:
@@ -2353,8 +2370,10 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn, ops, context
 import numpy as np
+
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
@@ -2427,8 +2446,10 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
    ```python
    import mindspore as ms
-   from mindspore import nn
+   from mindspore import nn, context
    import numpy as np
+
+   context.set_context(mode=context.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
@@ -2458,7 +2479,9 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    For example:
 
    ```python
-   from mindspore import nn
+   from mindspore import nn, context
+
+   context.set_context(mode=context.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
