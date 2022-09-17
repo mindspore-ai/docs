@@ -1,7 +1,7 @@
 MindPandas文档
 ==============================
 
-MindPandas是一个以分布式运行框架和多线程为底座，提供类Pandas的数据处理工具包。MindPandas的架构图如下图所示：
+MindPandas是一个以分布式运行框架和多线程为底座，提供兼容Pandas API的高性能大数据处理工具包。MindPandas的架构图如下图所示：
 
 .. raw:: html
 
@@ -41,10 +41,10 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供类Pand
 
    使用方便快捷，to_pandas接口还与现有pandas代码的兼容。实现改动小，性能优化优的效果。
 
-未来路标
+未来规划
 ---------
 
-MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个API。MindPandas后续版本将包含批计算，支持大数据集上的性能优化，对接MindSpore训练等内容，敬请期待。
+MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个API。MindPandas后续版本将支持大数据集上的性能优化，对接MindSpore训练等内容，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------
@@ -64,6 +64,7 @@ MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个
    :caption: 使用指南
 
    mindpandas_quick_start
+   mindpandas_performance
 
 .. toctree::
    :maxdepth: 1
