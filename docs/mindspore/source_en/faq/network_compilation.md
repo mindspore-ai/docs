@@ -27,6 +27,50 @@ Please check whether the number of parameters passed in when the instance of the
 
 <br/>
 
+<font size=3>**Q: What can I do if an error "Unsupported expression 'Yield'" is reported?**</font>
+
+A: MindSpore does not support the `yield` syntax in graph mode. In addition, if the unsupported syntax `net.trainable_params()` is used in graph mode, the error will also be reported, because its internal implementation uses the `list(filter(iterator))` syntax, which implicitly calls the `yield` syntax. The code sample is as follows:
+
+```python
+from mindspore import context, nn
+
+class Net(nn.Cell):
+    def construct(self):
+        return True
+
+class TestNet(nn.Cell):
+    def __init__(self):
+        super(TestNet, self).__init__()
+        self.net = Net()
+
+    def construct(self):
+        return net.trainable_params()
+
+context.set_context(mode=context.GRAPH_MODE)
+net = TestNet()
+out = net()
+```
+
+The result is as follows:
+
+```text
+RuntimeError: Unsupported expression 'Yield'.
+More details please refer to syntax support at https://www.mindspore.cn
+
+----------------------------------------------------
+- The Traceback of Net Construct Code:
+----------------------------------------------------
+The function call stack (See file 'analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+# 0 In file test.py:13
+        return net.trainable_params()
+               ^
+# 1 In file /home/workspace/mindspore/build/package/mindspore/nn/cell.py:1257
+        return list(filter(lambda x: x.requires_grad, self.get_parameters(expand=recurse)))
+                                                      ^
+```
+
+<br/>
+
 <font size=3>**Q: What can I do if an error "Type Join Failed" or "Shape Join Failed" is reported?**</font>
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be `join` to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
