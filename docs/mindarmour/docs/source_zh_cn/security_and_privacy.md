@@ -34,7 +34,7 @@
 
 ### DPModel
 
-`DPModel`继承了`mindspore.Model`，提供了差分隐私训练的入口函数。
+`DPModel`继承了`mindspore.train.Model`，提供了差分隐私训练的入口函数。
 
 详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_differential_privacy.html)。
 
@@ -42,7 +42,7 @@
 
 ### SuppressModel
 
-`SuppressModel`继承了`mindspore.Model`，提供了抑制隐私训练的入口函数。
+`SuppressModel`继承了`mindspore.train.Model`，提供了抑制隐私训练的入口函数。
 
 详细内容，请参考[抑制隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_suppress_privacy.html)。
 

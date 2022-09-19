@@ -10,13 +10,13 @@ tf.keras.Model(*args, **kwargs)
 
 更多内容详见[tf.keras.Model](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model)。
 
-## mindspore.Model
+## mindspore.train.Model
 
 ```python
-mindspore.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
+mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-更多内容详见[mindspore.Model](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
+更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model)。
 
 ## 使用方式
 

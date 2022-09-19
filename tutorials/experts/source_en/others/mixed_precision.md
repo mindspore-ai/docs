@@ -262,7 +262,7 @@ The specific implementation steps for using the `Model` interface are:
 
 3. Create a dataset: For this step, refer to [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
 
-4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
+4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
 
 The following is a basic code example. First, import the required libraries and declarations.
 

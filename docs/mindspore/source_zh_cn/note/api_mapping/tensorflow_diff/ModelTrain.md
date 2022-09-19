@@ -29,19 +29,19 @@ tf.keras.Model.fit_generator(
 
 更多内容详见[tf.keras.Model.fit_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#fit_generator)。
 
-## mindspore.Model.train
+## mindspore.train.Model.train
 
 ```python
-mindspore.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
+mindspore.train.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-更多内容详见[mindspore.Model.train](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.train)。
+更多内容详见[mindspore.train.Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html)。
 
 ## 使用方式
 
 `tf.keras.Model.fit`和`tf.keras.Model.fit_generator`分别支持数据集的不同载入方式，除基本的`epoch`、`callbacks`外；通过`verbose`设置训练过程中的输出信息格式；通过`validation*`等参数配置验证集，用于训练时的同步验证；通过`workers`、 `use_multiprocessing`配置多线程场景下的进程数；通过`shuffle`设置训练时数据集是否混洗；其他入参不做详细说明，具体请参考官网API文档。
 
-`mindspore.Model.train`除了基本的训练参数`epoch`、`train_dataset`、`callback`，还可以通过`dataset_sink_mode`，`sink_size`进行下沉配置。其他功能暂未提供。
+`mindspore.train.Model.train`除了基本的训练参数`epoch`、`train_dataset`、`callback`，还可以通过`dataset_sink_mode`，`sink_size`进行下沉配置。其他功能暂未提供。
 
 ## 代码示例
 

@@ -6,7 +6,7 @@ During deep learning training, MindSpore provides the callback mechanism to prom
 
 The callback mechanism is generally used in the network model training process `model.train`. The MindSpore `model` executes callback functions based on the sequence in the callback list. You can set different callback classes to implement functions executed during or after training.
 
-> For more information about built-in callback classes and how to use them, see [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Callback.html#mindspore.Callback).
+> For more information about built-in callback classes and how to use them, see [API](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Callback.html#mindspore.train.Callback).
 
 ## Callback Usage
 
@@ -39,7 +39,7 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": nn.Accuracy()})
 ```
 
-To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) and [LossMonitor](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.LossMonitor.html#mindspore.LossMonitor) are callback classes provided by MindSpore:
+To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) and [LossMonitor](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.LossMonitor.html#mindspore.train.LossMonitor) are callback classes provided by MindSpore:
 
 ```python
 import mindspore as ms
@@ -65,7 +65,7 @@ MindSpore provides the `callback` capability to allow users to insert customized
 
 ### ModelCheckpoint
 
-To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CheckpointConfig.html#mindspore.CheckpointConfig) API.
+To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html#mindspore.train.CheckpointConfig) API.
 
 The following uses a sample code to describe how to save the trained network model and parameters.
 

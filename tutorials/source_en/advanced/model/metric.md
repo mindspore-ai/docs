@@ -91,7 +91,7 @@ print("output(y_pred,z):", result)
 
 ## Using Metrics in Model Training
 
-[mindspore.Model](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
+[mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
 
 After network model training, metrics need to be used to evaluate the training effect of the network model. Therefore, before specific code is demonstrated, you need to prepare a dataset, load the dataset, and define a simple linear regression network model.
 

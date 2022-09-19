@@ -84,7 +84,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model>.
+`model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model>.
 
 > Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
 
@@ -117,4 +117,4 @@ model.predict(input_data)
 
 Where
 
-`model.predict` is inference interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.predict>.
+`model.predict` is inference interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict>.
