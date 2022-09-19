@@ -27,11 +27,55 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 
 <br/>
 
+<font size=3>**Q: 编译时报错“Unsupported expression 'Yield'”怎么办？**</font>
+
+A: MindSpore在静态图模式下不支持 `yield` 语法。另外，在静态图模式下，如果代码中错误使用了 `net.trainable_params()` 不支持语法，也会触发该报错，因为其内部实现使用了 `list(filter(iterator))` 语法，隐式调用了 `yield` 语法。代码样例如下：
+
+```python
+from mindspore import context, nn
+
+class Net(nn.Cell):
+    def construct(self):
+        return True
+
+class TestNet(nn.Cell):
+    def __init__(self):
+        super(TestNet, self).__init__()
+        self.net = Net()
+
+    def construct(self):
+        return net.trainable_params()
+
+context.set_context(mode=context.GRAPH_MODE)
+net = TestNet()
+out = net()
+```
+
+执行结果如下：
+
+```text
+RuntimeError: Unsupported expression 'Yield'.
+More details please refer to syntax support at https://www.mindspore.cn
+
+----------------------------------------------------
+- The Traceback of Net Construct Code:
+----------------------------------------------------
+The function call stack (See file 'analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+# 0 In file test.py:13
+        return net.trainable_params()
+               ^
+# 1 In file /home/workspace/mindspore/build/package/mindspore/nn/cell.py:1257
+        return list(filter(lambda x: x.requires_grad, self.get_parameters(expand=recurse)))
+                                                      ^
+```
+
+<br/>
+
 <font size=3>**Q: 编译时报错“Type Join Failed”或“Shape Join Failed”怎么办？**</font>
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含 `type`、`shape` 等)进行推导，常见抽象类型包括 `AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList` 等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行 `join` 合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者 `type`/`shape` 不一致，则会抛出以上异常。
 
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.dat` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。代码样例如下:
+当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.dat` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。代码样例如下：
 
 ```python
 import numpy as np
@@ -59,7 +103,7 @@ net = Net()
 out_me = net(input_x, input_a, input_b)
 ```
 
-执行结果如下:
+执行结果如下：
 
 ```text
 TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
@@ -104,7 +148,7 @@ net = Net()
 out = net(input_x, input_a, input_b)
 ```
 
-执行结果如下:
+执行结果如下：
 
 ```text
 ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
@@ -167,7 +211,7 @@ The function call stack:
 
 <font size=3>**Q: 编译时报错“The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'”怎么办？**</font>
 
-A: 用户自定义的Cell的反向传播函数 `bprop`，它的输入需要包含正向网络的输入，以及 `out` 和 `dout`，代码样例如下:
+A: 用户自定义的Cell的反向传播函数 `bprop`，它的输入需要包含正向网络的输入，以及 `out` 和 `dout`，代码样例如下：
 
 ```python
 from mindspore import nn, ops, Tensor
@@ -205,7 +249,7 @@ In file test.py(13)
 
 <font size=3>**Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？**</font>
 
-A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。代码样例如下:
+A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。代码样例如下：
 
 ```python
 import mindspore as ms
