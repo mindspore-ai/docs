@@ -86,18 +86,18 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     ```
     [gpu_context]
-    input_shape:input_name1:[3,-1,-1];input_name2:[-1,-1,1]
-    dynamic_dims:[100~200,200~300];[700~800,800~900]
-    opt_dims:[150,250];[750,850]
+    input_shape=input_name1:[3,-1,-1];input_name2:[-1,-1,1]
+    dynamic_dims=[100~200,200~300];[700~800,800~900]
+    opt_dims=[150,250];[750,850]
     ```
 
     It also support configuring multiple profiles at the same time. According to the above example, if we add a profile configuration for each model input, for the input1, the minimum size of the added profile is [3,201,200], the maximum size is [3,150,300], and the optimized size is [3,220,250]. Add a profile for input2, whose minimum size is [801,800,1], maximum size is [850,900,1], and optimized size is [750,850,1]. The following is an example of the profile:
 
     ```
     [gpu_context]
-    input_shape:input_name1:[3,-1,-1];input_name2:[-1,-1,1]
-    dynamic_dims:[100~200,200~300],[201~250,200~300];[700~800,800~900],[801~850,800~900]
-    opt_dims:[150,250],[220,250];[750,850],[810,850]
+    input_shape=input_name1:[3,-1,-1];input_name2:[-1,-1,1]
+    dynamic_dims=[100~200,200~300],[201~250,200~300];[700~800,800~900],[801~850,800~900]
+    opt_dims=[150,250],[220,250];[750,850],[810,850]
     ```
 
 ## Supported Operators
