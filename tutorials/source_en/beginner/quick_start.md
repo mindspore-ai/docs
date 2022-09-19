@@ -4,7 +4,7 @@
 
 MindSpore provides high-level, medium-level, and low-level APIs. For details, see [API Level Structure](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html#api-level-structure).
 
-To facilitate the control of the network execution process, MindSpore provides the high-level training and inference API `mindspore.Model`. By specifying the neural network model to be trained and common training settings, MindSpore calls the `train` and `eval` methods to train and infer the network. In addition, if you want to customize a specific module, you can call the corresponding medium- and low-level APIs to define the network training process.
+To facilitate the control of the network execution process, MindSpore provides the high-level training and inference API `mindspore.train.Model`. By specifying the neural network model to be trained and common training settings, MindSpore calls the `train` and `eval` methods to train and infer the network. In addition, if you want to customize a specific module, you can call the corresponding medium- and low-level APIs to define the network training process.
 
 The following uses the medium- and low-level APIs provided by MindSpore to fit linear functions.
 
@@ -260,7 +260,7 @@ class MyMomentum(nn.Optimizer):
 
 ## Customized Training Process
 
-`mindspore.Model` provides `train` and `eval` APIs for users to use during training. However, this API does not apply to all scenarios, such as multi-data and multi-label scenarios, where users need to define the training process.
+`mindspore.train.Model` provides `train` and `eval` APIs for users to use during training. However, this API does not apply to all scenarios, such as multi-data and multi-label scenarios, where users need to define the training process.
 
 The following uses linear regression as an example to describe the customized training process. First, define the loss network and connect the forward network to the loss function. Then, define the training process. Generally, the training process inherits `nn.TrainOneStepCell`. `nn.TrainOneStepCell` encapsulates the loss network and optimizer to implement the backward propagation network to update the weight parameters.
 

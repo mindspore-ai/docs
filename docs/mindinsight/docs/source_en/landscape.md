@@ -266,7 +266,7 @@ The specific use steps are divided into two steps. Taking the classification tas
                                                            device_ids=[1, 2])
    ```
 
-   - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.nn.Metrics)`.
+   - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.train.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.nn.Metrics)`.
    - `collect_landscape`: The parameter definition is consistent with the `SummaryCollector`, where user can freely modify drawing parameters.
    - `device_ids`: Specify `device_ids` for landscape drawing, which supports single machine multi-device computing.
 
@@ -355,7 +355,7 @@ By comparing the Loss Graph in Figure 10 with that in Figure 11, it can be seen 
 
 1. During landscape drawing, the drawing time is directly related to the size of model parameters, dataset `num_sample` and resolution `landscape_size`. The larger model, `num_sample` and `landscape_size`, the longer it takes. For example, for a LeNet network with a resolution of 40 * 40, a landscape takes 4 minutes. When using two devices, the time of a landscape can be reduced to 2 minutes. ResNet-50 network, under the same resolution, 4 devices are used for drawing and calculation, and one landscape takes 20 minutes.
 2. In the MindInsight startup interface, the training log file is large. Mindinsight needs more time to parse the training log file. Please wait patiently.
-3. This function currently only supports models defined through mindspore.Model.
+3. This function currently only supports models defined through mindspore.train.Model.
 4. At present, it only supports: Backend: Ascend / GPU / CPU, Mode: Static Graph Mode, and Platform: Linux.
 5. At present, this function only supports single device and multi-device modes.
 6. This function does not support data sinking mode when drawing landscape.

@@ -42,7 +42,7 @@ tf.keras.metrics.SparseCategoricalAccuracy(
 mindspore.nn.Accuracy(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Accuracy](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Accuracy.html#mindspore.nn.Accuracy)。
+更多内容详见[mindspore.nn.Accuracy](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Accuracy.html#mindspore.train.Accuracy)。
 
 ## 使用方式
 

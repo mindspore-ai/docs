@@ -24,19 +24,19 @@ tf.keras.Model.predict_generator(
 
 更多内容详见[tf.keras.Model.predict_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#predict_generator)。
 
-## mindspore.Model.eval
+## mindspore.train.Model.eval
 
 ```python
-mindspore.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
+mindspore.train.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 ```
 
-更多内容详见[mindspore.Model.eval](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
+更多内容详见[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
 
 ## 使用方式
 
 `tf.keras.Model.predict`和`tf.keras.Model.predict_generator`分别支持数据集的不同载入方式，除基本的`callbacks`等，还可通过`workers`、 `use_multiprocessing`配置多线程场景下的进程数等。
 
-`mindspore.Model.train`除了可配置基本的参数`valid_dataset`、`callbacks`，还可以配置`dataset_sink_mode`设置是否下沉。
+`mindspore.train.Model.train`除了可配置基本的参数`valid_dataset`、`callbacks`，还可以配置`dataset_sink_mode`设置是否下沉。
 
 ## 代码示例
 

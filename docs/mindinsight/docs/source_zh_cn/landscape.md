@@ -270,7 +270,7 @@
                                                            device_ids=[1, 2])
    ```
 
-   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
+   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
    - `collect_landscape`: 参数定义与`SummaryCollector`一致，这里用户可以自由修改绘图参数。
    - `device_ids`: 指定地形图绘制所需要`device_ids`，支持单机多卡计算。
 
@@ -359,7 +359,7 @@
 
 1. 在进行地形图绘制时，绘制时间与模型参数大小、数据集`num_sample`大小以及分辨率`landscape_size`大小有直接关系。模型、`num_sample`以及`landscape_size`越大，需要时间越长。例如，一个LeNet网络，40*40分辨率，一张图耗时4分钟，使用2张卡计算时，一张图的耗时可缩短为2分钟。ResNet-50网络，同样分辨率情况下，使用4张卡绘制计算，一张图耗时20分钟。
 2. 在MindInsight启动界面，训练日志文件较大，MindInsight需要更多时间解析训练日志文件，请耐心等待。
-3. 该功能目前仅支持通过mindspore.Model定义的模型。
+3. 该功能目前仅支持通过mindspore.train.Model定义的模型。
 4. 目前仅支持后端：Ascend/GPU/CPU，模式：静态图模式，平台：LINUX。
 5. 该功能目前仅支持单机单卡和单机多卡模式。
 6. 该功能在绘制地形图时目前不支持数据下沉模式。

@@ -34,7 +34,7 @@ For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspo
 
 ### DPModel
 
-`DPModel` inherits `mindspore.Model` and provides the entry function for differential privacy training.
+`DPModel` inherits `mindspore.train.Model` and provides the entry function for differential privacy training.
 
 For details, see [Protecting User Privacy with Differential Privacy Mechanism](https://www.mindspore.cn/mindarmour/docs/en/master/protect_user_privacy_with_differential_privacy.html).
 
@@ -42,7 +42,7 @@ For details, see [Protecting User Privacy with Differential Privacy Mechanism](h
 
 ### SuppressModel
 
-`SuppressModel` inherits `mindspore.Model` and provides the entry function for suppress privacy training.
+`SuppressModel` inherits `mindspore.train.Model` and provides the entry function for suppress privacy training.
 
 For details, see [Protecting User Privacy with Suppress Privacy Mechanism](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_suppress_privacy.html).
 
