@@ -9,7 +9,7 @@
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装wheel和setuptools](#安装wheel和setuptools)
         - [安装GCC](#安装gcc)
-        - [安装git gmp tclsh patch NUMA Flex](#安装git-gmp-tclsh-patch-numa-flex)
+        - [安装git tclsh patch NUMA Flex](#安装git-tclsh-patch-numa-flex)
         - [安装git-lfs](#安装git-lfs)
         - [安装CMake](#安装cmake)
         - [安装Open MPI-可选](#安装open-mpi-可选)
@@ -85,7 +85,6 @@ conda activate mindspore_py37
 |[git](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装git-gmp-tclsh-patch-numa-flex)|6.1.2|MindSpore使用的多精度算术库|
 |[Flex](#安装git-gmp-tclsh-patch-numa-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
 |[tclsh](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore sqlite编译依赖|
 |[patch](#安装git-gmp-tclsh-patch-numa-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
@@ -187,18 +186,18 @@ pip install -U setuptools
     sudo yum install gcc -y
     ```
 
-### 安装git gmp tclsh patch NUMA Flex
+### 安装git tclsh patch NUMA Flex
 
 - Ubuntu 18.04可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install git libgmp-dev tcl patch libnuma-dev flex -y
+    sudo apt-get install git tcl patch libnuma-dev flex -y
     ```
 
 - CentOS 7，EulerOS和OpenEuler可以使用以下命令安装。
 
     ```bash
-    sudo yum install git gmp-devel tcl patch numactl-devel flex -y
+    sudo yum install git tcl patch numactl-devel flex -y
     ```
 
 ### 安装git-lfs

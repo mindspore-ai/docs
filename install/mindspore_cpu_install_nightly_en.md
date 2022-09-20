@@ -5,7 +5,7 @@
 - [Installing MindSpore CPU Nightly by pip](#installing-mindspore-cpu-nightly-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
-        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing GCC](#installing-gcc)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -29,7 +29,6 @@ The following table lists the system environment and third-party dependencies re
 | Ubuntu                         | 18.04       | OS for running MindSpore                                |
 | [Python](#installing-python)   | 3.7-3.9     | Python environment that MindSpore depends               |
 | [GCC](#installing-gcc-and-gmp) | 7.3.0~9.4.0 | C++ compiler for compiling MindSpore                    |
-| [gmp](#installing-gcc-and-gmp) | 6.1.2       | Multiple precision arithmetic library used by MindSpore |
 
 The following describes how to install the third-party dependencies.
 
@@ -82,12 +81,12 @@ Run the following command to check the Python version.
 python --version
 ```
 
-### Installing GCC and gmp
+### Installing GCC
 
-Run the following commands to install GCC and gmp.
+Run the following commands to install GCC.
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.

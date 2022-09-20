@@ -7,7 +7,6 @@
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
-        - [Installing gmp](#installing-gmp)
         - [Installing CMake](#installing-cmake)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -29,7 +28,6 @@ The following table lists the system environment and third-party dependencies re
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later| Compilation tool that builds MindSpore                  |
 
 The following describes how to install the third-party dependencies.
@@ -121,20 +119,6 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### Installing gmp
-
-- On Ubuntu 18.04, run the following commands to install.
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- On CentOS 7 and EulerOS, run the following commands to install.
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### Installing CMake

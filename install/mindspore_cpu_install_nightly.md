@@ -5,7 +5,7 @@
 - [pip方式安装MindSpore CPU Nightly版本](#pip方式安装mindspore-cpu-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
-        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装GCC](#安装gcc)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -29,7 +29,6 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 | Ubuntu                | 18.04            | 运行MindSpore的操作系统       |
 | [Python](#安装python) | 3.7-3.9          | MindSpore的使用依赖Python环境 |
 | [GCC](#安装gcc和gmp)  | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器  |
-| [gmp](#安装gcc和gmp)  | 6.1.2            | MindSpore使用的多精度算术库   |
 
 下面给出第三方依赖的安装方法。
 
@@ -82,12 +81,12 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 python --version
 ```
 
-### 安装GCC和gmp
+### 安装GCC
 
-可以通过以下命令安装GCC和gmp。
+可以通过以下命令安装GCC。
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

@@ -6,7 +6,7 @@
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
         - [Installing Conda](#installing-conda)
-        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing GCC](#installing-gcc)
         - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
         - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -39,7 +39,7 @@ bash ./ubuntu-cpu-conda.sh
 This script performs the following operations:
 
 - Change the software source configuration to a HUAWEI CLOUD source.
-- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Install Conda and create a virtual environment for MindSpore.
 - Install MindSpore CPU by Conda.
 
@@ -66,7 +66,6 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu|18.04|OS for running MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
 The following describes how to install the third-party dependencies.
 
@@ -85,12 +84,12 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-### Installing GCC and gmp
+### Installing GCC
 
-Run the following commands to install GCC and gmp.
+Run the following commands to install GCC.
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.

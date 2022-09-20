@@ -6,7 +6,7 @@
     - [自动安装](#自动安装)
     - [手动安装](#手动安装)
         - [安装Python](#安装python)
-        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装GCC](#安装gcc)
         - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -36,7 +36,7 @@ MINDSPORE_VERSION=1.8.1 bash ./ubuntu-cpu-pip.sh
 该脚本会执行以下操作：
 
 - 更改软件源配置为华为云源。
-- 安装MindSpore所需的依赖，如GCC，gmp。
+- 安装MindSpore所需的依赖，如GCC。
 - 通过APT安装Python3和pip3，并设为默认。
 - 通过pip安装MindSpore CPU版本。
 
@@ -53,7 +53,6 @@ MINDSPORE_VERSION=1.8.1 bash ./ubuntu-cpu-pip.sh
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
-|[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 
 下面给出第三方依赖的安装方法。
 
@@ -106,12 +105,12 @@ MINDSPORE_VERSION=1.8.1 bash ./ubuntu-cpu-pip.sh
 python --version
 ```
 
-### 安装GCC和gmp
+### 安装GCC
 
-可以通过以下命令安装GCC和gmp。
+可以通过以下命令安装GCC。
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

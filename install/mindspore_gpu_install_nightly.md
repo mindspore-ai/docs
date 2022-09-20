@@ -7,7 +7,7 @@
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Python](#安装python)
-        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装GCC](#安装gcc)
         - [安装Open MPI-可选](#安装open-mpi-可选)
         - [安装TensorRT-可选](#安装tensorrt-可选)
     - [下载安装MindSpore](#下载安装mindspore)
@@ -35,7 +35,6 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 | [cuDNN](#安装cudnn)           | 7.6.x或8.0.x     | MindSpore GPU使用的深度神经网络加速库                        |
 | [Python](#安装python)         | 3.7-3.9          | MindSpore的使用依赖Python环境                                |
 | [GCC](#安装gcc和gmp)          | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器                                 |
-| [gmp](#安装gcc和gmp)          | 6.1.2            | MindSpore使用的多精度算术库                                  |
 | [Open MPI](#安装open-mpi-可选) | 4.0.3            | MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要） |
 | [TensorRT](#安装tensorrt-可选) | 7.2.2            | MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要） |
 
@@ -138,12 +137,12 @@ sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/l
 python --version
 ```
 
-### 安装GCC和gmp
+### 安装GCC
 
-可以通过以下命令安装GCC和gmp。
+可以通过以下命令安装GCC。
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

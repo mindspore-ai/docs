@@ -8,11 +8,11 @@
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装Conda](#安装conda)
         - [安装GCC](#安装gcc)
-        - [安装gmp](#安装gmp)
         - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
         - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
+    - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
 
@@ -44,7 +44,7 @@ bash -i ./euleros-ascend-conda.sh
 
 该脚本会执行以下操作：
 
-- 安装MindSpore所需的依赖，如GCC，gmp。
+- 安装MindSpore所需的依赖，如GCC。
 - 安装Conda并为MindSpore创建虚拟环境。
 - 通过Conda安装MindSpore Ascend 310版本。
 
@@ -76,7 +76,6 @@ conda activate mindspore_py37
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
-|[gmp](#安装gmp)|6.1.2|MindSpore使用的多精度算术库|
 
 下面给出第三方依赖的安装方法。
 
@@ -132,20 +131,6 @@ conda init bash
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### 安装gmp
-
-- Ubuntu 18.04可以使用以下命令安装。
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- CentOS 7和EulerOS可以使用以下命令安装。
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### 创建并进入Conda虚拟环境

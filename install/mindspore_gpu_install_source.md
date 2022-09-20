@@ -89,7 +89,6 @@ bash -i ./ubuntu-gpu-source.sh
 |[Autoconf](#安装gcc-git等依赖)|2.69及以上版本|编译构建MindSpore的工具|
 |[Libtool](#安装gcc-git等依赖)|2.4.6-29.fc30及以上版本|编译构建MindSpore的工具|
 |[Automake](#安装gcc-git等依赖)|1.15.1及以上版本|编译构建MindSpore的工具|
-|[gmp](#安装gcc-git等依赖)|6.1.2|MindSpore使用的多精度算术库|
 |[Flex](#安装gcc-git等依赖)|2.5.35及以上版本|MindSpore使用的词法分析器|
 |[tclsh](#安装gcc-git等依赖)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gcc-git等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
@@ -208,10 +207,10 @@ pip install -U setuptools
 
 ### 安装GCC git等依赖
 
-可以通过以下命令安装GCC，git，Autoconf，Libtool，Automake，gmp，Flex，tclsh，patch，NUMA。
+可以通过以下命令安装GCC，git，Autoconf，Libtool，Automake，Flex，tclsh，patch，NUMA。
 
 ```bash
-sudo apt-get install gcc-7 git automake autoconf libtool libgmp-dev tcl patch libnuma-dev flex -y
+sudo apt-get install gcc-7 git automake autoconf libtool tcl patch libnuma-dev flex -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

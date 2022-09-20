@@ -89,7 +89,6 @@ The following table lists the system environment and third-party dependencies re
 |[Autoconf](#installing-gcc-git-and-other-dependencies)|2.69 or later|Compilation tool that builds MindSpore|
 |[Libtool](#installing-gcc-git-and-other-dependencies)|2.4.6-29.fc30 or later|Compilation tool that builds MindSpore|
 |[Automake](#installing-gcc-git-and-other-dependencies)|1.15.1 or later|Compilation tool that builds MindSpore|
-|[gmp](#installing-gcc-git-and-other-dependencies)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Flex](#installing-gcc-git-and-other-dependencies)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-gcc-git-and-other-dependencies)|-|sqlite compilation dependencies for MindSpore|
 |[patch](#installing-gcc-git-and-other-dependencies)|2.5 or later|source code patching tool used by MindSpore|
@@ -208,10 +207,10 @@ pip install -U setuptools
 
 ### Installing GCC git and other dependencies
 
-Run the following commands to install GCC, git, Autoconf, Libtool, Automake, gmp, Flex, tclsh, patch and NUMA.
+Run the following commands to install GCC, git, Autoconf, Libtool, Automake, Flex, tclsh, patch and NUMA.
 
 ```bash
-sudo apt-get install gcc-7 git automake autoconf libtool libgmp-dev tcl patch libnuma-dev flex -y
+sudo apt-get install gcc-7 git automake autoconf libtool tcl patch libnuma-dev flex -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.

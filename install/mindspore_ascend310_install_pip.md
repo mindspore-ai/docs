@@ -8,7 +8,6 @@
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装GCC](#安装gcc)
-        - [安装gmp](#安装gmp)
         - [安装CMake](#安装cmake)
         - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
@@ -42,7 +41,7 @@ MINDSPORE_VERSION=1.8.1 bash -i ./euleros-ascend310-pip.sh
 
 该脚本会执行以下操作：
 
-- 安装MindSpore所需的依赖，如GCC，gmp。
+- 安装MindSpore所需的依赖，如GCC。
 - 通过APT安装Python3和pip3，并设为默认。
 - 通过pip安装MindSpore Ascend 310版本。
 
@@ -74,7 +73,6 @@ conda activate mindspore_py37
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
-|[gmp](#安装gmp)|6.1.2|MindSpore使用的多精度算术库|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
 
 下面给出第三方依赖的安装方法。
@@ -167,20 +165,6 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### 安装gmp
-
-- Ubuntu 18.04可以使用以下命令安装。
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- CentOS 7和EulerOS可以使用以下命令安装。
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### 安装CMake

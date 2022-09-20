@@ -7,7 +7,7 @@
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
-        - [Installing GCC git gmp tclsh patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
+        - [Installing GCC git tclsh patch and NUMA](#installing-gcc-git-tclsh-patch-and-numa)
         - [Installing CMake](#installing-cmake)
         - [Installing LLVM-optional](#installing-llvm-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
@@ -59,7 +59,6 @@ For more usage, see the script header description.
 |[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
-|[gmp](#installing-gcc-git-gmp-tclsh-patch-and-numa)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite compilation dependency|
 |[patch](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
@@ -125,12 +124,12 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### Installing GCC git gmp tclsh patch and NUMA
+### Installing GCC git tclsh patch and NUMA
 
-Run the following commands to install GCC, git, gmp, tclsh, patch and NUMA.
+Run the following commands to install GCC, git, tclsh, patch and NUMA.
 
 ```bash
-sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y
+sudo apt-get install gcc-7 git tcl patch libnuma-dev -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.
