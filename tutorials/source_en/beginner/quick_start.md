@@ -359,7 +359,7 @@ for data in ds_train.create_dict_iterator():
 
 When a training task is complete, an evaluation function (Metric) is often required to evaluate the quality of a model. Common evaluation metrics include confusion matrix, accuracy, precision, and recall.
 
-The [mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#evaluation-metrics) module provides common evaluation functions. You can also define evaluation metrics as required. The customized Metric function needs to inherit the `nn.Metric` parent class and re-implement the `clear`, `update`, and `eval` methods in the parent class. The following formula shows the mean absolute error (MAE) algorithm. The following uses MAE as an example to describe the three functions and their usage.
+The [mindspore.train](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics) module provides common evaluation functions. You can also define evaluation metrics as required. The customized Metric function needs to inherit the `train.Metric` parent class and re-implement the `clear`, `update`, and `eval` methods in the parent class. The following formula shows the mean absolute error (MAE) algorithm. The following uses MAE as an example to describe the three functions and their usage.
 
 $$ MAE=\frac{1}{n}\sum_{i=1}^n\lvert y\_pred_i - y_i \rvert \tag{6}$$
 

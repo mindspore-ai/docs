@@ -8,7 +8,7 @@ MindSpore provides evaluation functions for most common tasks, such as `nn.Accur
 
 The following describes how to customize metrics and how to use metrics in `nn.Model`.
 
-> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#evaluation-metrics).
+> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics).
 
 ## Customized Metrics
 
@@ -132,7 +132,7 @@ loss = nn.L1Loss()
 
 ### Using Built-in Evaluation Metrics
 
-When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#evaluation-metrics) of MindSpore. The following example uses `nn.Accuracy` to compute the classification accuracy.
+When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `nn.Accuracy` to compute the classification accuracy.
 
 ```python
 import mindspore.nn as nn
