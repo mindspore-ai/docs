@@ -1,5 +1,17 @@
 # notebook检测
 
+## notebook_lint.py检测原理简介
+
+`notebook_lint.py`主要以文件5个类对象组成，分别为:`ReadFile`、`CustomCheck`、`Notebook_Pylint`和`Notebook_Markdownlint`,`PrintInfo`，其功能分别如下：
+
+- `ReadFile`：传入文件路径对象，将其初始化为`json`格式对象，以`cell`为元素的list列表，以`markdown`类型的cell组成的列表，以`code`类型的cell组成的列表。
+- `CustomCheck`：自定义检测规则，对内容进行自定义的检测规则构建，构建完成后传入`check`方法中对文档内容执行检测。
+- `Notebook_Pylint`：以`pylint`作为检测工具的对象，其执行检测的方法为`check`。
+- `Notebook_Markdownlint`: 以`markdownlint`作为检测工具的对象，其执行检测的方法为`check`。
+- `PrintInfo`：传入各个检测对象的检测结果，并将检测信息过滤后打印出来。
+
+> 注意，检测结果的输出值为`list`格式，其中元素值格式为`(文件名, 报错单元, 报错单元行, 报错码, 报错信息)`
+
 ## 环境准备
 
 - 安装markdownlint
@@ -57,24 +69,20 @@
 检测结果的打印信息经过了部分调整。报错信息的组成如下：
 
 ```text
-{检测文件}：{报错的Cell}：{该报错Cell中第几行}：{报错信息}"{报错行的内容}"
+{检测文件}{报错的Cell}{该报错Cell中第几行}{报错信息}
 ```
-
-> 其中报错行的内容长度大于30时，多出的内容用`...`省略。
 
 详细报错内容举例如下：
 
 ```text
-docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_22:139:4: W0221: Parameters differ from overridden 'construct' method (arguments-differ) "    def construct(self, inputs..."
-docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_24:4:0: W0404: Reimport 'nn' (imported line 290) (reimported) "from mindspore import nn
-"
-docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_4:11:MD009 Trailing spaces "| Review  | Label  |
-"
+docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_22:139:4: W0221: Parameters differ from overridden 'construct' method (arguments-differ)
+docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_24:4:0: W0404: Reimport 'nn' (imported line 290) (reimported)
+docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_4:11:MD009 Trailing spaces
 ```
 
 以报错信息的第一行内容举例：
 
-`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_22:139:4: W0221: Parameters differ from overridden 'construct' method (arguments-differ) "    def construct(self, inputs..."`
+`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_22:139:4: W0221: Parameters differ from overridden 'construct' method (arguments-differ)
 
 - 检测文件：`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb`
 
@@ -84,13 +92,11 @@ docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_4:11:MD009
 
 - 报错信息：`4: W0221: Parameters differ from overridden 'construct' method (arguments-differ)`。即报错码为W0221对应的检测规则码。
 
-- 报错行的内容： `"    def construct(self, inputs..."`。即该报错行的具体内容。
-
 ## 检测规则
 
-### markdown的报错码
+### 自定义检测规则报错
 
-报错码以`MD`开头：
+报错码以`CC`开头：
 
 MD099: 数学公式与文档内容之间应有空行隔开。
 
@@ -150,6 +156,10 @@ $$
 
 其中f(x)表示...
 ```
+
+### markdown的报错码
+
+报错码以`MD`开头：
 
 可参考链接：<https://github.com/DavidAnson/markdownlint>
 
