@@ -69,7 +69,7 @@ device_id: 0
 
 ## 通用脚本架
 
-models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding)用来做：
+models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding)用于：
 
 1. yaml参数文件解析，参数获取
 2. ModelArts云上云下统一工具
@@ -158,7 +158,7 @@ if __name__ == '__main__':
 
 ### 分布式训练
 
-多卡分布式训练除了分布式相关的配置项和梯度聚合，其实和单卡的训练流程是一样的。需要注意的是多卡并行其实在MindSpore上是起多个python的进程，在MindSpore1.8以前，在Ascend环境上，需要手动起多个进程：
+多卡分布式训练除了分布式相关的配置项和梯度聚合外，其他部分和单卡的训练流程是一样的。需要注意的是多卡并行其实在MindSpore上是起多个python的进程执行的，在MindSpore1.8版本以前，在Ascend环境上，需要手动起多个进程：
 
 ```shell
 if [ $# != 4 ]
@@ -252,4 +252,4 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用与不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
