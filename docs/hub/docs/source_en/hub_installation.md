@@ -84,3 +84,33 @@ ssl._create_default_https_context = ssl._create_unverified_context
 import mindspore_hub as mshub
 model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
 ```
+
+<font size=3>**Q: What to do when `No module named src.*` occurs**?</font>
+
+A: When you use mindspore_hub.load to load differenet models in the same process, because the model file path needs to be inserted into sys.path. Test results show that Python only looks for src.* in the first inserted path. It's no use to delete the first inserted path. To solve the problem, you can copy all model files to the working directory. The code is as follows:
+
+```python
+# mindspore_hub_install_path/load.py
+def _copy_all_file_to_target_path(path, target_path):
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    path = os.path.realpath(path)
+    target_path = os.path.realpath(target_path)
+    for p in os.listdir(path):
+        copy_path = os.path.join(path, p)
+        target_dir = os.path.join(target_path, p)
+        _delete_if_exist(target_dir)
+        if os.path.isdir(copy_path):
+            _copy_all_file_to_target_path(copy_path, target_dir)
+        else:
+            shutil.copy(copy_path, target_dir)
+
+def _get_network_from_cache(name, path, *args, **kwargs):
+    _copy_all_file_to_target_path(path, os.getcwd())
+    config_path = os.path.join(os.getcwd(), HUB_CONFIG_FILE)
+    if not os.path.exists(config_path):
+        raise ValueError('{} not exists.'.format(config_path))
+    ......
+```
+
+**Note**: Some files of the previous model may be replaced when the next model is loaded. However，necessary model files must exist during model training. Therefore, you must finish training the previous model before the next model loads.
