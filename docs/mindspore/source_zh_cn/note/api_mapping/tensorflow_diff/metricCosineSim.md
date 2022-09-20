@@ -18,7 +18,7 @@ tf.keras.metrics.CosineSimilarity(
 mindspore.nn.CosineSimilarity(similarity="cosine", reduction="none", zero_diagonal=True)
 ```
 
-更多内容详见[mindspore.nn.CosineSimilarity](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity)。
+更多内容详见[mindspore.nn.CosineSimilarity](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity)。
 
 ## 使用方式
 
