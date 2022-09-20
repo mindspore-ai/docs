@@ -30,7 +30,7 @@
 
 - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
-样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本>
+启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本)。
 
 GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
@@ -145,23 +145,46 @@ print(operation_info)  # json
 - 异构场景下，获取的CPU性能数据字段信息（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）来源于算子耗时统计排名HOST CPU页面的（`op_occurrences(次)`, `op_total_time(us)`, `op_avg_time(us/次)`）信息，不同点在于使用算子性能接口获取的CPU算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindInsight查看详细的HOST CPU算子性能数据。
 - 对于`op_analyse()`接口，可使用device_id参数指定解析哪张卡的算子性能数据，当接口基于离线数据进行解析时，默认`device_id=0`。
 
+### 动态shape迭代分析
+
+当训练网络为动态shape网络时，可以综合迭代轨迹模块与算子耗时（按迭代）分析组件，对MindSpore运行过程中的算子性能进行分析。算子耗时（按迭代）分析组件对不同迭代中各类型算子的执行时间进行统计展示（包括GPU算子信息、内核信息、HOSTCPU算子信息），可以快速了解训练各迭代中各类型算子的耗时详情。
+
+![profiler_dynamic_detail_op_type_figure.png](./images/profiler_dynamic_detail_op_type_figure.png)
+
+*图4：算子类别耗时（按迭代）统计*
+
+图4展示了算子类别耗时统计分析的结果，包含以下内容：
+
+- 可通过筛选器筛选算子类型，查看指定类型算子的迭代耗时曲线（这里展示的耗时是不同算子类型执行的平均耗时）。
+- 可通过`operator/kernel`切换器切换查看的维度，operator维度展示的数据是GPU各类型算子信息（异构时包括CPU各类型算子的耗时），kernel维度展示的是GPU内核信息。
+
+![profiler_dynamic_detail_op_type_table.png](./images/profiler_dynamic_detail_op_type_table.png)
+
+*表1：算子耗时（按迭代）统计*
+
+表1展示了算子耗时按迭代展开的耗时详情，包含以下内容：
+
+- 展示维度：当切换器为operator维度时，信息列表展示step、算子执行侧、算子类型、算子名称、执行时间、算子shape信息；当切换器为kernel维度时，信息列表展示step、内核算子类型、所属算子名称、执行时间及其他内核相关信息。默认按算子执行时间排序。
+- 选择step：可以筛选指定的step，查看特定step内的算子耗时详情。
+- 搜索：在右侧搜索框中输入字符串，支持对算子类别进行模糊搜索。
+
 ### Timeline分析
 
 GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息(包括GPU算子和CPU算子)和CUDA activity的信息。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline分析>
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline分析)。
 
 ### 迭代轨迹分析
 
 GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同。（注意：**迭代轨迹暂不支持异构训练场景**）
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#迭代轨迹分析>
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#迭代轨迹分析)。
 
 ### 数据准备性能分析
 
 GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析>
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)。
 
 ## 资源利用
 
@@ -177,7 +200,7 @@ GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
 GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu利用率分析>
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu利用率分析)。
 
 ## 注意事项
 

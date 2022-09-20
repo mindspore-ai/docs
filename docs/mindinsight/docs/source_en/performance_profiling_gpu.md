@@ -30,7 +30,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 - At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
 
-The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script>.
+For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script).
 
 In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
@@ -147,29 +147,46 @@ Description:
 - In heterogeneous scenarios, the CPU performance data fields (`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) came from the information (`op_occurrences(times)`, `op_total_time(us)`, `op_avg_time(us/time)`) on the HOST CPU page. The difference is that the CPU operator performance data obtained by using the operator performance interface is summarized according to the type of the operator (Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindInsight to view detailed CPU kernel performance data.
 - For the `op_analyse()` interface, the device_id parameter is used to specify which card's operator performance data to parse, which defaults to `device_id=0` when the interface is parsing based on offline data.
 
+### Dynamic shape iterative analysis
+
+When the training network is a dynamic shape network, the operator performance in the operation process of MindSpore can be analyzed by combining the iterative trajectory module and the operator time consumption (by iteration) analysis component. The operator time consumption (by iteration) analysis component displays the execution time of each type of operator in different iterations, including GPU operator information, kernel information, and HOSTCPU operator information, so as to quickly understand the detailed time consumption of each type of operator in each iteration.
+
+![profiler_dynamic_detail_op_type_figure.png](./images/profiler_dynamic_detail_op_type_figure.png)
+
+*Figure 4: Operator category time consumption (by iteration) statistics*
+
+Figure 4 shows the statistical analysis results of operator category time consumption, including the following contents:
+
+- You can filter operator types through the filter to see the iteration time curve for the operator of a specified type. (The time shown here is the average time for the execution of different operator types.)
+- You can use the `operator/kernel` switcher to switch the dimensions. The operator dimension displays information about various types of GPU operators (including the time consumption of various types of CPU operators in heterogeneous cases), while the kernel dimension displays information about the GPU kernel.
+
+![profiler_dynamic_detail_op_type_table.png](./images/profiler_dynamic_detail_op_type_table.png)
+
+*Table 1: Operator time consumption (by iteration) statistics*
+
+Table 1 shows the details of operator time consumption expanded by iteration, including the following contents:
+
+- Display dimension: When the switcher is operator dimension, the information list displays step, operator execution side, operator type, operator name, execution time, and operator shape information. When the switcher is kernel dimension, the information list displays step, kernel operator type, operator name, execution time, and other kernel-related information. By default, sort by operator execution time.
+- Select Step: You can filter the specified step to see the details of operator time consumption within a specific step.
+- Search: Enter a string in the search box on the right and support fuzzy search for operator categories.
+
 ### Timeline Analysis
 
 The usage is almost the same as that in Ascend. The difference is GPU Timeline displays the operation information and CUDA activity.
 
-The usage is described as follows:
-
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis>
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
 
 ### Step Trace Analysis
 
 The usage is almost the same as that in Ascend. (**Note that step trace do not support heterogeneous training scene.**)
 
-The usage is described as follows:
-
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis>
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis)
 
 ### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
-The usage is described as follows:
-
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis>
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis)
 
 ## Resource Utilization
 
@@ -185,9 +202,7 @@ Overview of resource utilization：Including CPU utilization analysis. You can v
 
 The usage is almost the same as that in Ascend.
 
-The usage is described as follows:
-
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis>
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis)
 
 ## Notices
 
