@@ -9,7 +9,7 @@
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC](#installing-gcc)
-        - [Installing git gmp tclsh patch NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
+        - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
@@ -85,7 +85,6 @@ The following table lists the system environment and third-party dependencies re
 |[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Build tool for MindSpore|
-|[gmp](#installing-git-gmp-tclsh-patch-numa-and-flex)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
 |[patch](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
@@ -187,18 +186,18 @@ pip install -U setuptools
     sudo yum install gcc -y
     ```
 
-### Installing git gmp tclsh patch NUMA and Flex
+### Installing git tclsh patch NUMA and Flex
 
 - On Ubuntu 18.04, run the following commands to install.
 
     ```bash
-    sudo apt-get install git libgmp-dev tcl patch libnuma-dev flex -y
+    sudo apt-get install git tcl patch libnuma-dev flex -y
     ```
 
 - On CentOS 7, EulerOS and OpenEuler, run the following commands to install.
 
     ```bash
-    sudo yum install git gmp-devel tcl patch numactl-devel flex -y
+    sudo yum install git tcl patch numactl-devel flex -y
     ```
 
 ### Installing git-lfs

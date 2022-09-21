@@ -8,7 +8,7 @@
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装GCC](#安装gcc)
-        - [安装git gmp tclsh patch Flex](#安装git-gmp-tclsh-patch-flex)
+        - [安装git tclsh patch Flex](#安装git-tclsh-patch-flex)
         - [安装CMake](#安装cmake)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
@@ -76,7 +76,6 @@ conda activate mindspore_py37
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[git](#安装git-gmp-tclsh-patch-flex)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装git-gmp-tclsh-patch-flex)|6.1.2|MindSpore使用的多精度算术库|
 |[Flex](#安装git-gmp-tclsh-patch-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
 |[tclsh](#安装git-gmp-tclsh-patch-flex)|-|MindSpore sqlite编译依赖|
 |[patch](#安装git-gmp-tclsh-patch-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
@@ -167,18 +166,18 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
     sudo yum install gcc -y
     ```
 
-### 安装git gmp tclsh patch Flex
+### 安装git tclsh patch Flex
 
 - Ubuntu 18.04可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install git libgmp-dev tcl patch flex -y
+    sudo apt-get install git tcl patch flex -y
     ```
 
 - CentOS 7和EulerOS可以使用以下命令安装。
 
     ```bash
-    sudo yum install git gmp-devel tcl patch flex -y
+    sudo yum install git tcl patch flex -y
     ```
 
 ### 安装CMake

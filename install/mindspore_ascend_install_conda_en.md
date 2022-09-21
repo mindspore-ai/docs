@@ -8,7 +8,6 @@
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing Conda](#installing-conda)
         - [Installing GCC](#installing-gcc)
-        - [Installing gmp](#installing-gmp)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
         - [Installing MindSpore](#installing-mindspore)
@@ -46,7 +45,7 @@ bash -i ./euleros-ascend-conda.sh
 
 This script performs the following operations:
 
-- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Install Conda and create a virtual environment for MindSpore.
 - Install MindSpore Ascend by Conda.
 - Install Open MPI if OPENMPI is set to `on`.
@@ -79,7 +78,6 @@ The following table lists the system environment and third-party dependencies re
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
@@ -136,20 +134,6 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### Installing gmp
-
-- On Ubuntu 18.04, run the following commands to install.
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- On CentOS 7, EulerOS and OpenEuler, run the following commands to install.
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### Installing Open MPI-optional

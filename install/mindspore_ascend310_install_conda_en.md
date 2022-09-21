@@ -5,14 +5,14 @@
 - [Installing MindSpore Ascend 310 by Conda](#installing-mindspore-ascend-310-by-conda)
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
-        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
-        - [Installing Conda](#installing-conda)
-        - [Installing GCC](#installing-gcc)
-        - [Installing gmp](#installing-gmp)
-        - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
-        - [Installing MindSpore](#installing-mindspore)
+          - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
+          - [Installing Conda](#installing-conda)
+          - [Installing GCC](#installing-gcc)
+          - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
+          - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Verifying the Installation](#verifying-the-installation)
+    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
@@ -44,7 +44,7 @@ bash -i ./euleros-ascend-conda.sh
 
 This script performs the following operations:
 
-- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Install Conda and create a virtual environment for MindSpore.
 - Install MindSpore Ascend 310 by Conda.
 
@@ -76,7 +76,6 @@ The following table lists the system environment and third-party dependencies re
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
 The following describes how to install the third-party dependencies.
 
@@ -132,20 +131,6 @@ After the installation is complete, you can set up Tsinghua source acceleration 
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### Installing gmp
-
-- On Ubuntu 18.04, run the following commands to install.
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- On CentOS 7 and EulerOS, run the following commands to install.
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### Creating and Accessing the Conda Virtual Environment

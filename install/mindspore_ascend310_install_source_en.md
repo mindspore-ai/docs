@@ -8,7 +8,7 @@
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
-        - [Installing git gmp tclsh patch and Flex](#installing-git-gmp-tclsh-patch-and-flex)
+        - [Installing git tclsh patch and Flex](#installing-git-tclsh-patch-and-flex)
         - [Installing CMake](#installing-cmake)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
@@ -76,7 +76,6 @@ The following table lists the system environment and third-party dependencies re
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-and-flex)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
-|[gmp](#installing-git-gmp-tclsh-patch-and-flex)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Flex](#installing-git-gmp-tclsh-patch-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-git-gmp-tclsh-patch-and-flex)|-|MindSpore SQLite compiling dependency|
 |[patch](#installing-git-gmp-tclsh-patch-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
@@ -167,18 +166,18 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
     sudo yum install gcc -y
     ```
 
-### Installing git gmp tclsh patch and Flex
+### Installing git tclsh patch and Flex
 
 - On Ubuntu 18.04, run the following commands to install.
 
     ```bash
-    sudo apt-get install git libgmp-dev tcl patch flex -y
+    sudo apt-get install git tcl patch flex -y
     ```
 
 - On CentOS 7 and EulerOS, run the following commands to install.
 
     ```bash
-    sudo yum install git gmp-devel tcl patch flex -y
+    sudo yum install git tcl patch flex -y
     ```
 
 ### Installing CMake

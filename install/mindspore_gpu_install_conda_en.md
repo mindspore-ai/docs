@@ -8,7 +8,7 @@
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Conda](#installing-conda)
-        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing GCC](#installing-gcc)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing TensorRT-optional](#installing-tensorrt-optional)
         - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
@@ -58,7 +58,7 @@ bash -i ./ubuntu-gpu-conda.sh
 This script performs the following operations:
 
 - Change the software source configuration to a HUAWEI CLOUD source.
-- Install the dependencies required by MindSpore, such as GCC, gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Download and install CUDA and cuDNN.
 - Install Conda and create a virtual environment for MindSpore.
 - Install MindSpore GPU by Conda.
@@ -89,7 +89,6 @@ The following table lists the system environment and third-party dependencies re
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
@@ -158,12 +157,12 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-### Installing GCC and gmp
+### Installing GCC
 
-Run the following commands to install GCC and gmp.
+Run the following commands to install GCC.
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.

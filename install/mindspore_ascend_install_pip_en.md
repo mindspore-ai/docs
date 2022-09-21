@@ -8,7 +8,6 @@
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
-        - [Installing gmp](#installing-gmp)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -43,7 +42,7 @@ MINDSPORE_VERSION=1.8.1 bash -i ./euleros-ascend-pip.sh
 
 This script performs the following operations:
 
-- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Install Python3 and pip3 and set them as default.
 - Install MindSpore Ascend by pip.
 - Install Open MPI if OPENMPI is set to `on`.
@@ -76,7 +75,6 @@ The following table lists the system environment and third-party dependencies re
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
@@ -169,20 +167,6 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 
     ```bash
     sudo yum install gcc -y
-    ```
-
-### Installing gmp
-
-- On Ubuntu 18.04, run the following commands to install.
-
-    ```bash
-    sudo apt-get install libgmp-dev -y
-    ```
-
-- On CentOS 7, EulerOS and OpenEuler, run the following commands to install.
-
-    ```bash
-    sudo yum install gmp-devel -y
     ```
 
 ### Installing Open MPI-optional

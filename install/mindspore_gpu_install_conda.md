@@ -8,7 +8,7 @@
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Conda](#安装conda)
-        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装GCC](#安装gcc)
         - [安装Open MPI-可选](#安装open-mpi-可选)
         - [安装TensorRT-可选](#安装tensorrt-可选)
         - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
@@ -58,7 +58,7 @@ bash -i ./ubuntu-gpu-conda.sh
 该脚本会执行以下操作：
 
 - 更改软件源配置为华为云源。
-- 安装MindSpore所需的依赖，如GCC，gmp。
+- 安装MindSpore所需的依赖，如GCC。
 - 下载CUDA和cuDNN并安装。
 - 安装Conda并为MindSpore创建虚拟环境。
 - 通过Conda安装MindSpore GPU版本。
@@ -89,7 +89,6 @@ conda activate mindspore_py37
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x|MindSpore GPU使用的深度神经网络加速库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
-|[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 |[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 |[TensorRT](#安装tensorrt-可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
@@ -158,12 +157,12 @@ conda init bash
 
 安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-### 安装GCC和gmp
+### 安装GCC
 
-可以通过以下命令安装GCC和gmp。
+可以通过以下命令安装GCC。
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

@@ -7,7 +7,7 @@
     - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
         - [安装wheel和setuptools](#安装wheel和setuptools)
-        - [安装GCC git gmp tclsh patch和NUMA](#安装gcc-git-gmp-tclsh-patch和numa)
+        - [安装GCC git tclsh patch和NUMA](#安装gcc-git-tclsh-patch和numa)
         - [安装CMake](#安装cmake)
         - [安装LLVM-可选](#安装llvm-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
@@ -61,7 +61,6 @@ bash ./ubuntu-cpu-source.sh
 |[GCC](#安装gcc-git-gmp-tclsh-patch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装gcc-git-gmp-tclsh-patch和numa)|6.1.2|MindSpore使用的多精度算术库|
 |[tclsh](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gcc-git-gmp-tclsh-patch和numa)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gcc-git-gmp-tclsh-patch和numa)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
@@ -127,12 +126,12 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### 安装GCC git gmp tclsh patch和NUMA
+### 安装GCC git tclsh patch和NUMA
 
-可以通过以下命令安装GCC，git，gmp，tclsh，patch和NUMA。
+可以通过以下命令安装GCC，git，tclsh，patch和NUMA。
 
 ```bash
-sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y
+sudo apt-get install gcc-7 git tcl patch libnuma-dev -y
 ```
 
 如果要安装更高版本的GCC，使用以下命令安装GCC 8。

@@ -8,7 +8,7 @@
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
-        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing GCC](#installing-gcc)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing TensorRT-optional](#installing-tensorrt-optional)
     - [Installing MindSpore](#installing-mindspore)
@@ -56,7 +56,7 @@ MINDSPORE_VERSION=1.8.1 bash -i ./ubuntu-gpu-pip.sh
 This script performs the following operations:
 
 - Change the software source configuration to a HUAWEI CLOUD source.
-- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install the dependencies required by MindSpore, such as GCC.
 - Install Python3 and pip3 via APT and set them as default.
 - Download and install CUDA and cuDNN.
 - Install MindSpore GPU by pip.
@@ -77,7 +77,6 @@ The following table lists the system environment and third-party dependencies re
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
-|[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore (optional, required for serving inference)|
 
@@ -180,12 +179,12 @@ Run the following command to check the Python version.
 python --version
 ```
 
-### Installing GCC and gmp
+### Installing GCC
 
-Run the following commands to install GCC and gmp.
+Run the following commands to install GCC.
 
 ```bash
-sudo apt-get install gcc-7 libgmp-dev -y
+sudo apt-get install gcc-7 -y
 ```
 
 To install a later version of GCC, run the following command to install GCC 8.
