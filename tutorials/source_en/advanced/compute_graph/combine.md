@@ -1,12 +1,12 @@
 # Combination of Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/compute_graph/combine.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/compute_graph/combine.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 Currently, dynamic and static graphs are supported in the industry. Dynamic graphs are executed through explanation, with dynamic syntax affinity and flexible expression. Static graphs are executed through just in time (JIT) build, which focuses on static syntax and has many syntax constraints. The build process of the dynamic graph is different from that of the static graph. As a result, the syntax constraints are also different.
 
 For dynamic and static graph modes, MindSpore first unifies the API expression and uses the same APIs in the two modes. Then, it unifies the underlying differentiation mechanism of dynamic and static graphs.
 
-![dynamic](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/compute_graph/images/framework1.png)
+![dynamic](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/advanced/compute_graph/images/framework1.png)
 
 ## Implementation Principle
 
@@ -68,7 +68,7 @@ print("\nx:\n", x)
 
 According to the preceding information, after the test operation, the final value of x is a 3\*3 matrix whose each element is 8. The following figure shows the build method of this test case according to the execution sequence.
 
-![msfunction](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/compute_graph/images/ms_function.png)
+![msfunction](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/advanced/compute_graph/images/ms_function.png)
 
 Functions modified by `ms_function` are built and executed in static graph mode. If the network involves reverse derivation, the part modified by `ms_function` is also used to generate a backward graph in the form of an entire graph. The backward graph is connected to backward graphs of operators before and after the graph and then delivered for execution. The cache policy is the same as that of the static graph. When the input shape and type information of the same function object is the same, the built graph structure is cached.
 

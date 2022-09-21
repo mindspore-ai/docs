@@ -1,6 +1,6 @@
 # Basic Usage of Models
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/model/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 Generally, defining a training and evaluation network and running it directly can meet basic requirements.
 
@@ -10,11 +10,11 @@ On the other hand, `Model` provides many high-level functions, such as data offl
 
 The following describes MindSpore models and how to use `Model` for model training, evaluation, and inference.
 
-![model](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/model/images/model.png)
+![model](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/advanced/model/images/model.png)
 
 ## Introduction to Model
 
-[Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model#mindspore.train.Model) is a high-level API provided by MindSpore for model training, evaluation, and inference. The common parameters of the API are as follows:
+[Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model#mindspore.train.Model) is a high-level API provided by MindSpore for model training, evaluation, and inference. The common parameters of the API are as follows:
 
 - `network`: neural network used for training or inference.
 - `loss_fn`: used loss function.

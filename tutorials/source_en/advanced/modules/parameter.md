@@ -1,18 +1,18 @@
 # Network Arguments
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides initialization modules for parameters and network arguments. You can initialize network arguments by encapsulating operators to call character strings, Initializer subclasses, or customized tensors.
 
 In the following figure, a blue box indicates a specific execution operator, and a green box indicates a tensor. As the data in the neural network model, the tensor continuously flows in the network, including the data input of the network model and the input and output data of the operator. A red box indicates a parameter which is used as a attribute of the network model or operators in the model or as an intermediate parameter and temporary parameter generated in the backward graph.
 
-![parameter.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/parameter.png)
+![parameter.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/parameter.png)
 
 The following describes the data type (`dtype`), parameter (`Parameter`), parameter tuple (`ParameterTuple`), network initialization method, and network argument update.
 
 ## dtype
 
-MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
+MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.html#mindspore.dtype).
 
 In the computation process of MindSpore, the int data type in Python is converted into the defined int64 type, and the float data type is converted into the defined float32 type.
 
@@ -59,7 +59,7 @@ print(py_type)
 
 ## Parameter
 
-A [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) of MindSpore indicates an argument that needs to be updated during network training. For example, the most common parameters of the `nn.conv` operator during forward computation include `weight` and `bias`. During backward graph build and backward propagation computation, many intermediate parameters are generated to temporarily store first-step information and intermediate output values.
+A [Parameter](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) of MindSpore indicates an argument that needs to be updated during network training. For example, the most common parameters of the `nn.conv` operator during forward computation include `weight` and `bias`. During backward graph build and backward propagation computation, many intermediate parameters are generated to temporarily store first-step information and intermediate output values.
 
 ### Parameter Initialization
 
@@ -231,7 +231,7 @@ print("Parameter update:\n", output)
 
 ## Parameter Tuple
 
-The [ParameterTuple](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple) is used to store multiple `Parameter`s. It is inherited from the `tuple` and provides the clone function.
+The [ParameterTuple](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple) is used to store multiple `Parameter`s. It is inherited from the `tuple` and provides the clone function.
 
 The following example describes how to create a `ParameterTuple`:
 

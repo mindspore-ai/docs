@@ -1,6 +1,6 @@
 # Data Iteration
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/iterator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/iterator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 An original dataset is read to memory through a dataset loading API, and then transformed through data augmentation to obtain a dataset object. There are two common data iteration methods for the dataset object:
 
@@ -210,7 +210,7 @@ class MyEvalData:
         return len(self.__data)
 ```
 
-The following uses [mindspore.nn.Dense](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense) to create a customized network. The input of the network is an 8 x 1 matrix.
+The following uses [mindspore.nn.Dense](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense) to create a customized network. The input of the network is an 8 x 1 matrix.
 
 ```python
 import mindspore.nn as nn
@@ -297,7 +297,7 @@ eval(net, MyEvalData())
 
 The preceding information indicates that the inference result is accurate.
 
-> For details about how to use the data iterator, see the API documents of [create\_tuple\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_tuple_iterator) and [create\_dict\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_dict_iterator).
+> For details about how to use the data iterator, see the API documents of [create\_tuple\_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_tuple_iterator) and [create\_dict\_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_dict_iterator).
 
 ## Data Iteration and Training
 
