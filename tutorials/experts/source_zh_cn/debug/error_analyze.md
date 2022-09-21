@@ -1,6 +1,6 @@
 # 错误分析
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 如前文所述，错误分析是指基于获取到的网络、框架各种信息（例如：错误信息、网络代码等信息）进行错误原因分析，推断错误的可能原因。
 
@@ -20,9 +20,9 @@
 
 | 常见错误类型 | 错误说明 | 案例分析 |
 |-------------|---------|---|
-| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87) |
-| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD) |
-| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA) |
+| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87) |
+| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD) |
+| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA) |
 
 ## 网络构建与训练错误分析
 
@@ -32,11 +32,11 @@
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
-| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
-| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%AF%AD%E6%B3%95%E9%97%AE%E9%A2%98) |
-| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF) |
-| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E6%89%A7%E8%A1%8C%E9%94%99%E8%AF%AF) |
-| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3) |
+| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
+| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindrt_debug.html#%E8%AF%AD%E6%B3%95%E9%97%AE%E9%A2%98) |
+| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF) |
+| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E6%89%A7%E8%A1%8C%E9%94%99%E8%AF%AF) |
+| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3) |
 
 - 动态图模式错误分析
 
@@ -52,7 +52,7 @@
 
     - 根据报错描述内容，确认报错的对象，比如对应的算子API名称；
     - 根据Python调用栈信息，找到报错的代码行位置；
-    - 分析报错位置的代码输入数据和计算逻辑，结合[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html)中对应的报错对象的说明和规格限制，分析出现报错问题的原因。
+    - 分析报错位置的代码输入数据和计算逻辑，结合[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.html)中对应的报错对象的说明和规格限制，分析出现报错问题的原因。
 
 - 静态图模式错误分析
 
@@ -69,9 +69,9 @@
     - 如果是计算图编译报错，根据报错描述和发生报错时自动保存的`analyze_failed.dat`文件，分析计算图推导失败的原因和位置；
     - 如果是计算图执行报错，可能是资源不足导致的执行报错，也可能是算子的执行报错，需要根据报错信息进行区分。如果是算子执行报错，首先确认是哪个算子，然后使用Dump功能保存算子的输入数据，通过输入数据分析算子报错的原因；
 
-    分析计算图推导失败的原因可以参考[`analyze_failed.dat`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AEanalyze-faildat%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90%E5%9B%BE%E6%8E%A8%E5%AF%BC%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0)。
+    分析计算图推导失败的原因可以参考[`analyze_failed.dat`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindir.html#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AEanalyze-faildat%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90%E5%9B%BE%E6%8E%A8%E5%AF%BC%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0)。
 
-    使用Dump保存算子输入数据可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+    使用Dump保存算子输入数据可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html)。
 
 ## 分布式并行错误分析
 
@@ -114,7 +114,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         错误原因：
 
-        这段代码在第0维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第0维度和第1维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_parallel.html)中对算子切分的说明，
+        这段代码在第0维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第0维度和第1维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r1.9/note/operator_list_parallel.html)中对算子切分的说明，
 
         > 仅支持值为全0的mask；需要切分的维度必须全部提取；输入在strides不为1对应的维度不支持切分
 

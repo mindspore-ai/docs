@@ -1,6 +1,6 @@
 # Lightweight Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 When resource conditions permit, in order to pursue higher performance, data augmentation operators are generally executed in the data pipeline mode.
 
@@ -20,13 +20,13 @@ In the Eager mode, the execution of data augmentations will not rely on the `map
 
 MindSpore currently supports executing various data augmentation operators in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html)
+- [vision module](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.vision.html)
 - Submodule transforms, an image augmentation operator implemented based on OpenCV/Pillow.
 
-- [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html)
+- [text module](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.text.html)
 - Submodule transforms, text processing operators implemented based on Jieba, ICU4C etc.
 
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
+- [transforms module](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.transforms.html)
 - Submodule transforms, a general-purpose data augmentation operator implemented based on C++/Python/NumPy.
 
 ## Eager Mode

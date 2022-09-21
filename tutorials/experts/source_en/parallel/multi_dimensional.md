@@ -1,6 +1,6 @@
 # Multi Dimensional
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 As deep learning evolves, models get larger and larger. For example, in the field of NLP, in just a few years, the amount of parameters has developed from BERT's 100 million to GPT-3's 170 billion, and then to Pangu alpha 200 billion, and the current industry has even proposed a million billion. It can be seen that the scale of parameters has shown an exponential growth trend in recent years. On the other hand, with the development of related technologies in the fields of big data and the Internet, the datasets available for model training are also rapidly expanding, such as recommendations, natural language processing and other scenarios of the dataset that can reach terabytes.
 
@@ -16,7 +16,7 @@ Operator-level parallelism is a distributed computation of operators by splittin
 
 The users can set the sharding strategy of each operator in the forward network, and the framework models each operator and its input tensor according to the sharding strategy of the operator, so that the computational logic of the operator remains mathematically equivalent before and after the sharding.
 
-## [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html)
+## [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/pipeline_parallel.html)
 
 When there are a large number of cluster devices, if only the operator level is used in parallel, communication needs to be carried out on the communication domain of the entire cluster, which may make communication inefficient and reduce overall performance.
 
@@ -28,11 +28,11 @@ The advantages of pipeline parallel are that they can improve communication effi
 
 When training in parallel with data or operators, the parameters of the model may have the same copy on multiple devices. This allows the optimizer to have redundant calculations across multiple devices when updating this weight. In this case, the optimizer's computational volume can be spread across multiple devices through optimizer parallelism. It has the advantage of reducing static memory consumption and reducing the amount of computation in the optimizer. The disadvantage is that it increases the communication overhead.
 
-## [Host Device Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/host_device_training.html)
+## [Host Device Training](https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/host_device_training.html)
 
 When training large models, the overall size of the model that can be trained will be limited by the number of devices due to the limited memory capacity of each device (accelerator). In order to complete larger-scale model training, you can use the host and device heterogeneous training modes. It takes advantage of both the large memory on the host side and the fast calculation on the accelerator side, and is an effective way to reduce the number of devices during the training of the super-large model.
 
-## [Recompute](https://www.mindspore.cn/tutorials/experts/en/master/parallel/recompute.html)
+## [Recompute](https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/recompute.html)
 
 MindSpore automatically derives the reverse graph according to the forward graph calculation process, and the forward graph and the inverse graph together form a complete calculation graph. When calculating some reverse operators, it may be necessary to use the calculation results of some forward operators, resulting in the calculation results of these forward operators, which need to reside in memory until these reverse operators are calculated, and the memory they occupy will not be reused by other operators. The compute results of these forward operators, which reside in memory for a long time, push up the peak memory footprint of the computation, especially in large-scale network models. In order to reduce memory peaks, the recomputing technique can not save the calculation results of the forward activation layer, so that the memory can be reused, and then when calculating the reverse part, recalculate the results of the forward activation layer.
 

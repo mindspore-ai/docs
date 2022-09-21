@@ -1,6 +1,6 @@
 # Inference on the Ascend 910 AI processor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/ascend_910_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/infer/ascend_910_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ Users can create C++ applications and call MindSpore C++ interface to inference 
 
 ## Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` [model files](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/ascend910_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` [model files](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -25,7 +25,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Inference Code
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
+Inference sample code: <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -114,7 +114,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## Introducing Building Script
 
-The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
 
 Add the header file search path for the compiler:
 

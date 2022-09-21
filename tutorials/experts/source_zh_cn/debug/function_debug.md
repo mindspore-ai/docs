@@ -1,6 +1,6 @@
 # 功能调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/function_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/debug/function_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -70,7 +70,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
   3) 根据Python调用栈以及报错信息，分析发生报错的位置。在动态图模式下，代码报错位置较容易判断。在静态图模式下，需要结合报错信息中"The Traceback of Net Construct Code"部分内容，分析报错位置。
   4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考[错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/error_analyze.html)。
+具体如何基于不同场景进行错误分析请参考[错误分析](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/error_analyze.html)。
 
 #### 错误搜索
 
@@ -86,7 +86,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
   图 3
 
-  搜索地址：[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)。
+  搜索地址：[FAQ](https://www.mindspore.cn/docs/zh-CN/r1.9/faq/installation.html)。
 
 - 报错案例
 
@@ -123,7 +123,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
   动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
-  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
+  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
 
 - 二分法策略
 
@@ -135,7 +135,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 #### 问题复现
 
-问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考[固定随机性](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html)。
+问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考[固定随机性](https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/fixing_randomness.html)。
 
 #### 调试验证
 
@@ -147,7 +147,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
     2. 正常运行.py文件，在终端会出现下面类似结果，在(Pdb)位置后输入相应的pdb命令进行调试；
     3. 在pdb交互模式下输入l、p等命令可以查看相应的代码、变量，进而排查相关的问题。
 
-    具体内容请参考[PyNative调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/pynative_debug.html)。
+    具体内容请参考[PyNative调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/pynative_debug.html)。
 
 - 静态图调试
 
@@ -181,7 +181,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
           4. 查看图节点和源代码的对应关系。
 
-        具体使用方法参考：[可视化调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)。
+        具体使用方法参考：[可视化调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger.html)。
 
 ## 网络执行调试
 
@@ -192,15 +192,15 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 | 功能分类 | 主要调试功能 | 用途说明 | 详细介绍 |
 |--------|----------|  ----------------------|-----------------------|
-| 执行观测 | 训练过程可视   | 将训练过程中的标量、图像、计算图、训练优化过程以及模型超参等信息记录到文件中，通过MindInsight可视化界面供用户查看，包含：标量可视化、参数分布图可视化、计算图可视化、数据图可视化、图像可视化、张量可视化和优化过程可视化等。 |[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)           |
-|      | 训练溯源及对比 | 提供了模型溯源、数据溯源和对比看板，通过对比看板可以观察不同标量趋势图以发现问题，再使用溯源功能定位问题原因，给用户在数据增强和深度神经网络中提供高效调优的能力。  | [查看溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/lineage_and_scalars_comparison.html) |
-|      | metrics | 当训练结束后，可以使用metrics评估训练结果的好坏。提供了多种metrics评估指标，如：accuracy、loss、precision、recall、F1 | [MindSpore metrics功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#mindspore-metrics%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D) |
-|      | Print算子  | Print算子可以将用户输入的Tensor或字符串信息打印出来。 | [Print算子功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#print%E7%AE%97%E5%AD%90%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D) |
-|      | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为IR文件，用于支持与图结构、图信息相关的问题诊断。 | [查看中间文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html) |
-|      | 数据Dump   | 训练网络时，若训练结果和预期有偏差，通过Dump功能保存算子输入输出数据进行调试。  | [Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html) |
-| 执行控制 | Callback | 用户可以使用回调函数在特定时期执行特定动作或观察训练过程中网络信息，例如：保存模型参数、监控loss、动态调整参数、提前终止训练任务等。  | [回调机制 Callback](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#callback%E4%BB%8B%E7%BB%8D) |
-|      | Hook     | 在pynative模式使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。已提供了四种形式的Hook功能，分别为：HookBackward算子和在Cell对象上进行注册的register_forward_pre_hook、register_forward_hook、register_backward_hook功能。 | [Hook功能](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/pynative.html#hook功能)   |
-|      | 同步执行   | 在动态图模式下，为了提升性能，算子在device上使用了异步执行方式，因此算子执行错误可能会在程序执行最后才显示。针对这种情况，MindSpore提供了同步执行的设置来控制算子在device上是否使用异步执行。 | [动态图同步执行](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)|
+| 执行观测 | 训练过程可视   | 将训练过程中的标量、图像、计算图、训练优化过程以及模型超参等信息记录到文件中，通过MindInsight可视化界面供用户查看，包含：标量可视化、参数分布图可视化、计算图可视化、数据图可视化、图像可视化、张量可视化和优化过程可视化等。 |[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/summary_record.html)           |
+|      | 训练溯源及对比 | 提供了模型溯源、数据溯源和对比看板，通过对比看板可以观察不同标量趋势图以发现问题，再使用溯源功能定位问题原因，给用户在数据增强和深度神经网络中提供高效调优的能力。  | [查看溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/lineage_and_scalars_comparison.html) |
+|      | metrics | 当训练结束后，可以使用metrics评估训练结果的好坏。提供了多种metrics评估指标，如：accuracy、loss、precision、recall、F1 | [MindSpore metrics功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#mindspore-metrics%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D) |
+|      | Print算子  | Print算子可以将用户输入的Tensor或字符串信息打印出来。 | [Print算子功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#print%E7%AE%97%E5%AD%90%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D) |
+|      | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为IR文件，用于支持与图结构、图信息相关的问题诊断。 | [查看中间文件](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/mindir.html) |
+|      | 数据Dump   | 训练网络时，若训练结果和预期有偏差，通过Dump功能保存算子输入输出数据进行调试。  | [Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html) |
+| 执行控制 | Callback | 用户可以使用回调函数在特定时期执行特定动作或观察训练过程中网络信息，例如：保存模型参数、监控loss、动态调整参数、提前终止训练任务等。  | [回调机制 Callback](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#callback%E4%BB%8B%E7%BB%8D) |
+|      | Hook     | 在pynative模式使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。已提供了四种形式的Hook功能，分别为：HookBackward算子和在Cell对象上进行注册的register_forward_pre_hook、register_forward_hook、register_backward_hook功能。 | [Hook功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/pynative.html#hook功能)   |
+|      | 同步执行   | 在动态图模式下，为了提升性能，算子在device上使用了异步执行方式，因此算子执行错误可能会在程序执行最后才显示。针对这种情况，MindSpore提供了同步执行的设置来控制算子在device上是否使用异步执行。 | [动态图同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)|
 
 ## 框架开发调试
 
@@ -208,6 +208,6 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 
 | 功能分类 | 主要调试功能 | 用途说明 | 详细介绍 |
 |--|---|--|--|
-| 过程记录 | 日志 | 用于记录框架的执行各个阶段的信息，为了解框架执行过程或者进行问题诊断提供信息。| [日志相关的环境变量和配置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#%E6%97%A5%E5%BF%97%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E9%85%8D%E7%BD%AE) |
-| 数据记录 | RDR | Running Data Recorder(RDR)提供训练程序运行时记录框架执行状态数据的功能。框架运行异常会自动地导出预先记录的数据以辅助定位运行异常的原因，也可以在框架正常执行过程保存框架关键状态数据，例如：IR、图执行顺序、内存分配等信息。 | [Running Data Recorder](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#running-data-recorder) |
-| 专项控制 | 内存复用   | 可配置内存复用的开启与关闭，用于排查或调试怀疑与内存复用相关的问题。 | [内存复用](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#%E5%86%85%E5%AD%98%E5%A4%8D%E7%94%A8) |
+| 过程记录 | 日志 | 用于记录框架的执行各个阶段的信息，为了解框架执行过程或者进行问题诊断提供信息。| [日志相关的环境变量和配置](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#%E6%97%A5%E5%BF%97%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E9%85%8D%E7%BD%AE) |
+| 数据记录 | RDR | Running Data Recorder(RDR)提供训练程序运行时记录框架执行状态数据的功能。框架运行异常会自动地导出预先记录的数据以辅助定位运行异常的原因，也可以在框架正常执行过程保存框架关键状态数据，例如：IR、图执行顺序、内存分配等信息。 | [Running Data Recorder](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#running-data-recorder) |
+| 专项控制 | 内存复用   | 可配置内存复用的开启与关闭，用于排查或调试怀疑与内存复用相关的问题。 | [内存复用](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#%E5%86%85%E5%AD%98%E5%A4%8D%E7%94%A8) |

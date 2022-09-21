@@ -1,6 +1,6 @@
 # Inference on a GPU/CPU
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Use C++ Interface to Load a MindIR File for Inferencing
 
@@ -8,7 +8,7 @@ Users can create C++ applications to call MindSpore's C++ interface to infer the
 
 ### Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/gpu_resnet50_inference_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
 
 ```text
 └─gpu_resnet50_inference_sample
@@ -25,7 +25,7 @@ Create a directory to store the inference code project, for example, `/home/mind
 
 Inference sample code:
 
-<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> .
+<https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> .
 
 Using namespace of `mindspore`:
 
@@ -114,7 +114,7 @@ target_link_libraries(main ${MS_LIB})
 ```
 
 >For details, see
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
 
 ### Building Inference Code
 
@@ -196,6 +196,6 @@ It is recommended that export the MindIR model with fp32 precision mode before d
 
 ## Inference by Using an ONNX File
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-onnx-model).
+1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-onnx-model).
 
 2. Perform inference on a GPU by referring to the runtime or SDK document. For example, use TensorRT to perform inference on the Nvidia GPU. For details, see [TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt).

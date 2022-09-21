@@ -1,6 +1,6 @@
 # Gradient Accumulation Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -38,7 +38,7 @@ $$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
 
 Eventually accumulating the gradient in the previous step yields the sum of the gradients of the same size as using the global Batche size.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/GradientAccumulation1.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/others/images/GradientAccumulation1.png)
 
 In the actual project, there are two points to pay attention to on the tuning parameters and algorithms:
 
@@ -57,7 +57,7 @@ In standalone mode, the training process consists of three parts: forward and ba
 
 MNIST is used as an example dataset. To customize a simple model to implement gradient accumulation, perform the following steps:
 
-> Download the main training sample code: [train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py).
+> Download the main training sample code: [train.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gradient_accumulation/train.py).
 >
 
 Since you need to use the LeNet network in the models repository, please execute the following command to pull the code of the models repository:
@@ -310,7 +310,7 @@ The output is as follows. The accuracy of the validation dataset is about 96.31%
 
 In Boost mode, as long as you simply call Boost's gradient accumulation interface, you can realize the gradient accumulation function. MNIST is also used as a demonstration dataset to show how to call the Boost interface to implement the gradient accumulation function.
 
-> You can download the main tranining example code here: [train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py).
+> You can download the main tranining example code here: [train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gradient_accumulation/train_and_eval_boost.py).
 
 #### Importing Library Files
 
