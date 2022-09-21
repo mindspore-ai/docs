@@ -1,255 +1,223 @@
-# Model Training
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || **Train** || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
+
+# Model Training
 
 Model training is generally divided into four steps:
 
 1. Build a dataset.
-2. Define a neural network.
+2. Define a neural network model.
 3. Define hyperparameters, a loss function, and an optimizer.
 4. Input dataset for training and evaluation.
 
-Through the above chapters, we have learned how to build datasets and build models. This chapter will focus on how to set up superparameters and train models. This chapter introduces training LeNet network using MNIST dataset taking MNIST dataset and LeNet network as an example.
+After we have the dataset and the model, we can train and evaluate the model.
 
-Load the previous code from the chapters Data Processing and Building Networks.
+## Necessary Prerequisites
+
+First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to load the previous code.
 
 ```python
-import os
-import requests
-import mindspore.dataset as ds
-import mindspore.dataset.vision as vision
-import mindspore.nn as nn
-from mindspore.common.initializer import Normal
+from mindspore import nn
+from mindspore import ops
+from mindvision import dataset
+from mindspore.dataset import vision
 
-requests.packages.urllib3.disable_warnings()
+# Download training data from open datasets
+training_data = dataset.Mnist(
+    path="dataset",
+    split="train",
+    download=True
+)
 
+# Download test data from open datasets
+test_data = dataset.Mnist(
+    path="dataset",
+    split="test",
+    download=True
+)
 
-def download_dataset(dataset_url, path):
-    filename = dataset_url.split("/")[-1]
-    save_path = os.path.join(path, filename)
-    if os.path.exists(save_path):
-        return
-    if not os.path.exists(path):
-        os.makedirs(path)
-    res = requests.get(dataset_url, stream=True, verify=False)
-    with open(save_path, "wb") as f:
-        for chunk in res.iter_content(chunk_size=512):
-            if chunk:
-                f.write(chunk)
-    print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url),
-                                                                                       path))
+train_dataset = training_data.dataset
+test_dataset = test_data.dataset
 
+transforms = [
+    vision.Rescale(1.0 / 255.0, 0),
+    vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+    vision.HWC2CHW()
+]
 
-train_path = "datasets/MNIST_Data/train"
-test_path = "datasets/MNIST_Data/test"
+train_dataset = train_dataset.map(transforms, 'image').batch(64)
+test_dataset = test_dataset.map(transforms, 'image').batch(64)
 
-# Downloading dataset
-download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte",
-                 train_path)
-download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte",
-                 train_path)
-download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte",
-                 test_path)
-download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte",
-                 test_path)
-
-
-def create_dataset(data_path, batch_size=16, image_size=32):
-    # Loading MINIST dataset
-    dataset = ds.MnistDataset(data_path)
-
-    rescale = 1.0 / 255.0
-    shift = 0.0
-
-    # Image transform operations
-    trans = [
-        vision.Resize(size=image_size),
-        vision.Rescale(rescale, shift),
-        vision.HWC2CHW(),
-    ]
-    dataset = dataset.map(operations=trans, input_columns=["image"])
-    dataset = dataset.batch(batch_size, drop_remainder=True)
-
-    return dataset
-
-
-# Customize networks
-class LeNet(nn.Cell):
-    def __init__(self, num_classes=10, num_channel=1):
-        super(LeNet, self).__init__()
-        layers = [nn.Conv2d(num_channel, 6, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Conv2d(6, 16, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Flatten(),
-                  nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(120, 84, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(84, num_classes, weight_init=Normal(0.02))]
-        # Network management with CellList
-        self.build_block = nn.CellList(layers)
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
     def construct(self, x):
-        # for loop execution network
-        for layer in self.build_block:
-            x = layer(x)
-        return x
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
-
-# Define neural networks
-network = LeNet()
+model = Network()
 ```
 
-## Hyper-parametric
+## Hyperparameter
 
-Hyperparameters can be adjusted to control the model training and optimization process. Different hyperparameter values may affect the model training and convergence speed. Currently, deep learning models are optimized using the batch stochastic gradient descent algorithm. The principle of the stochastic gradient descent algorithm is as follows:
-$w_{t+1}=w_{t}-\eta \frac{1}{n} \sum_{x \in \mathcal{B}} \nabla l\left(x, w_{t}\right)$
+Hyperparameters can be adjusted to control the model training and optimization process. Different hyperparameter values may affect the model training and convergence speed. Currently, deep learning models are optimized by using the batch stochastic gradient descent algorithm. The principle of the stochastic gradient descent algorithm is as follows:
+
+$$w_{t+1}=w_{t}-\eta \frac{1}{n} \sum_{x \in \mathcal{B}} \nabla l\left(x, w_{t}\right)$$
 
 In the formula, $n$ is the batch size, and $η$ is a learning rate. In addition, $w_{t}$ is the weight parameter in the training batch t, and $\nabla l$ is the derivative of the loss function. In addition to the gradient itself, the two factors directly determine the weight update of the model. From the perspective of the optimization itself, the two factors are the most important parameters that affect the convergence of the model performance. Generally, the following hyperparameters are defined for training:
 
-Epoch: specifies number of times that the dataset is traversed during training.
+- **Epoch**: specifies number of times that the dataset is traversed during training.
 
-Batch size: specifies the size of each batch of data to be read. If the batch size is too small, it takes a long time and the gradient oscillation is serious, which is unfavorable to convergence. If the batch size is too large, the gradient directions of different batches do not change, and the local minimum value is easy to fall into. Therefore, you need to select a proper batch size to effectively improve the model precision and global convergence.
+- **Batch size**: specifies the size of each batch of data to be read. If the batch size is too small, it takes a long time and the gradient oscillation is serious, which is unfavorable to convergence. If the batch size is too large, the gradient directions of different batches do not change, and the local minimum value is easy to fall into. Therefore, you need to select a proper batch size to effectively improve the model precision and global convergence.
 
-Learning rate: If the learning rate is low, the convergence speed slows down. If the learning rate is high, unpredictable results such as no training convergence may occur. Gradient descent is a parameter optimization algorithm that is widely used to minimize model errors. The gradient descent estimates the parameters of the model by iterating and minimizing the loss function at each step. The learning rate is used to control the learning progress of a model during iteration.
+- **Learning rate**: If the learning rate is low, the convergence speed slows down. If the learning rate is high, unpredictable results such as no training convergence may occur. Gradient descent is a parameter optimization algorithm that is widely used to minimize model errors. The gradient descent estimates the parameters of the model by iterating and minimizing the loss function at each step. The learning rate is used to control the learning progress of a model during iteration.
 
 ```python
 epochs = 10
 batch_size = 32
-momentum = 0.9
 learning_rate = 1e-2
 ```
 
-## Defining Loss Functions
+## Training Process
 
-The **loss function** is used to evaluate the difference between **predicted value** and **target value** of a model. Here, use `SoftmaxCrossEntropyWithLogits` to calculate the cross entropy between the predicted and true values. The code example is as follows:
+Once the hyperparameters are set, we can loop the input data to train the model. A complete iterative loop of a data set is called an epoch. Each epoch of performing training consists of two steps.
+
+1. Training: iterate over the training dataset and try to converge to the best parameters.
+2. Validation/Testing: iterate over the test dataset to check if model performance improves.
+
+### Loss Function
+
+The loss function is used to evaluate the error between the model's predictions (logits) and targets (targets). When training a model, a randomly initialized neural network model starts to predict the wrong results. The loss function evaluates how different the predicted results are from the targets, and the goal of model training is to reduce the error obtained by the loss function.
+
+Common loss functions include `nn.MSELoss` (mean squared error) for regression tasks and `nn.NLLLoss` (negative log-likelihood) for classification. `nn.CrossEntropyLoss` combines `nn.LogSoftmax` and `nn.NLLLoss` to normalize logits and calculate prediction errors.
 
 ```python
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+loss_fn = nn.CrossEntropyLoss()
 ```
 
-## Defining Optimizer
+## Optimizer
 
-An **optimizer function** is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. Here, the Momentum optimizer is used. `mindspore.nn` provides many common optimizer functions, such as `Adam`, `SGD` and `RMSProp`.
+Model optimization is the process of adjusting the model parameters at each training step to reduce model error, and MindSpore offers several implementations of optimization algorithms called Optimizers. The optimizer internally defines the parameter optimization process of the model (i.e., how the gradient is updated to the model parameters), and all optimization logic is encapsulated in the optimizer object. Here, we use the SGD (Stochastic Gradient Descent) optimizer.
 
-You need to build an `Optimizer` object. This object can update parameters based on the computed gradient. To build an `Optimizer`, you need to provide an optimizable parameter, for example, all trainable parametres in the network, i.e. set the entry for the optimizer to `network.trainable_params()`.
-
-Then, you can set the `Optimizer` parameter options, such as the learning rate and weight decay. A code example is as follows:
+We obtain the trainable parameters of the model via the `model.trainable_params()` method and pass in the learning rate hyperparameter to initialize the optimizer.
 
 ```python
-net_opt = nn.Momentum(network.trainable_params(), learning_rate=learning_rate, momentum=0.9)
+optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 ```
 
-## Defining Training Process
-
-Firstly, we define the forward network `forward`, which outputs the loss values of the forward propagation network; then we define the single-step training process `train_step`, which achieves the update of the network weights by back propagation. Finally, the training process `train_epoch` is defined, and the training dataset and model are passed in to realize the training of a single epoch.
+In the training process, the gradient corresponding to the parameters can be calculated by the differentiation function, which can be passed into the optimizer to achieve parameter optimization. The form is as follows:
 
 ```python
-import mindspore as ms
-import mindspore.ops as ops
-
-
-# Forward network
-def forward(inputs, targets):
-    outputs = network(inputs)
-    loss = net_loss(outputs, targets)
-    return loss
-
-
-grad_fn = ops.value_and_grad(forward, None, net_opt.parameters)
-
-
-# Defining a single-step training process to update the network weights
-def train_step(inputs, targets):
-    loss, grads = grad_fn(inputs, targets)
-    net_opt(grads)
-    return loss
-
-
-# Defining a single-epoch training process
-def train_epoch(dataset, network):
-    # Setting the network to training mode
-    network.set_train()
-    # Training the network by using dataset
-    for data in dataset.create_dict_iterator():
-        loss = train_step(ms.Tensor(data['image'], ms.float32), ms.Tensor(data["label"], ms.int32))
-
-    return loss
+grads = grad_fn(inputs)
+optimizer(grads)
 ```
 
-## Defining Verification Process
+### Implementing Training and Evaluation
 
-Define the verification process `evaluate_epoch`, pass in the dataset to be verified and the trained network, and calculate the accuracy of the network classification.
+Next, we define the `train_loop` function for training and the `test_loop` function for testing.
+
+To use functional automatic differentiation, we need to define the forward function `forward_fn` and use `ops.value_and_grad` to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
 
 ```python
-import numpy as np
+def train_loop(model, dataset, loss_fn, optimizer):
+    # Define forward function
+    def forward_fn(data, label):
+        logits = model(data)
+        loss = loss_fn(logits, label)
+        return loss, logits
 
+    # Get gradient function
+    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
-def evaluate_epoch(dataset, network):
+    # Define function of one-step training
+    def train_step(data, label):
+        (loss, _), grads = grad_fn(data, label)
+        loss = ops.depend(loss, optimizer(grads))
+        return loss
+
     size = dataset.get_dataset_size()
-    accuracy = 0
+    model.set_train()
+    for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
+        loss = train_step(data, label)
 
-    for data in dataset.create_dict_iterator():
-        output = network(ms.Tensor(data['image'], ms.float32))
-        acc = np.equal(output.argmax(1).asnumpy(), data["label"].asnumpy())
-        accuracy += np.mean(acc)
-    accuracy /= size
-
-    return accuracy
+        if batch % 100 == 0:
+            loss, current = loss.asnumpy(), batch
+            print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
 ```
 
-## Model Training and Evaluation
-
-After defining the training process and validation process, the model can be trained and evaluated after loading the training dataset and validation dataset.
+The `test_loop` function also traverses the dataset, calls the model to calculate the loss and Accuracy and returns the final result.
 
 ```python
-import mindspore as ms
-import mindspore.ops as ops
-import time
+def test_loop(model, dataset, loss_fn):
+    num_batches = dataset.get_dataset_size()
+    model.set_train(False)
+    total, test_loss, correct = 0, 0, 0
+    for data, label in dataset.create_tuple_iterator():
+        pred = model(data)
+        total += len(data)
+        test_loss += loss_fn(pred, label).asnumpy()
+        correct += (pred.argmax(1) == label).sum().asnumpy()
+    test_loss /= num_batches
+    correct /= total
+    print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
+```
 
-# Loading training dataset
-dataset_train = create_dataset(train_path, batch_size)
-# Loading test dataset
-dataset_test = create_dataset(test_path, batch_size)
+We pass the instantiated loss function and optimizer into `train_loop` and `test_loop`, train it for 3 rounds and output loss and Accuracy to see the performance change.
 
-for epoch in range(epochs):
-    start = time.time()
-    result = train_epoch(dataset_train, network)
-    acc = evaluate_epoch(dataset_test, network)
-    end = time.time()
-    time_ = round(end - start, 2)
+```python
+loss_fn = nn.CrossEntropyLoss()
+optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 
-    print("-" * 20)
-    print(f"Epoch:[{epoch}/{epochs}], "
-          f"Train loss:{result.asnumpy():5.4f}, "
-          f"Accuracy:{acc:5.3f}, "
-          f"Time:{time_}s, ")
+epochs = 3
+for t in range(epochs):
+    print(f"Epoch {t+1}\n-------------------------------")
+    train_loop(model, train_dataset, loss_fn, optimizer)
+    test_loop(model, test_dataset, loss_fn)
+print("Done!")
 ```
 
 ```text
---------------------
-Epoch:[0/10], Train loss:2.3203, Accuracy:0.113, Time:5.26s,
---------------------
-Epoch:[1/10], Train loss:0.0699, Accuracy:0.956, Time:4.84s,
---------------------
-Epoch:[2/10], Train loss:0.0157, Accuracy:0.976, Time:4.63s,
---------------------
-Epoch:[3/10], Train loss:0.0570, Accuracy:0.974, Time:4.54s,
---------------------
-Epoch:[4/10], Train loss:0.0255, Accuracy:0.986, Time:4.64s,
---------------------
-Epoch:[5/10], Train loss:0.2859, Accuracy:0.986, Time:4.74s,
---------------------
-Epoch:[6/10], Train loss:0.0005, Accuracy:0.985, Time:4.67s,
---------------------
-Epoch:[7/10], Train loss:0.0166, Accuracy:0.989, Time:4.73s,
---------------------
-Epoch:[8/10], Train loss:0.0046, Accuracy:0.988, Time:4.61s,
---------------------
-Epoch:[9/10], Train loss:0.0003, Accuracy:0.987, Time:4.67s,
-```
+Output exceeds the size limit. Open the full output data in a text editor
 
-The loss values are printed during the training process, and the loss values fluctuate, but in general the loss values gradually decrease and the accuracy increases. The loss values of each individual are random and not necessarily the same.
+Epoch 1
+-------------------------------
+loss: 2.303159  [  0/938]
+loss: 2.288858  [100/938]
+loss: 2.265319  [200/938]
+loss: 2.181137  [300/938]
+loss: 1.851541  [400/938]
+loss: 1.529397  [500/938]
+loss: 1.004398  [600/938]
+loss: 0.843776  [700/938]
+loss: 0.507560  [800/938]
+loss: 0.539427  [900/938]
+Test:
+ Accuracy: 84.9%, Avg loss: 0.525360
+
+Epoch 2
+-------------------------------
+loss: 0.794308  [  0/938]
+loss: 0.409702  [100/938]
+loss: 0.686628  [200/938]
+loss: 0.570685  [300/938]
+loss: 0.353630  [400/938]
+loss: 0.333396  [500/938]
+loss: 0.379772  [600/938]
+loss: 0.322043  [700/938]
+loss: 0.233923  [900/938]
+Test:
+ Accuracy: 91.9%, Avg loss: 0.279896
+
+Done!
+```

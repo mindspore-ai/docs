@@ -1,116 +1,233 @@
-# Automatic Differentiation
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/autograd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backpropagation algorithms. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
 
-MindSpore uses `ops.grad` and `ops.value_and_grad` to calculate the first-order derivative. `ops.grad` only returns gradient, while `ops.value_and_grad` returns the network forward calculation result and gradient. The `ops.value_and_grad` attributes are as follows:
+# Automatic Differentiation
 
-- `fn`: the function or network to be derived.
-- `grad_position`: specifies the index of the input position to be derived. If the index is int type, it means to derive for a single input; if tuple type, it means to derive for the position of the index within the tuple, where the index starts from 0; and if None, it means not to derive for the input. In this scenario, `weights` is non-None. Default: 0.
-- `weights`: the network variables that need to return the gradients in the training network. Generally the network variables can be obtained by `weights = net.trainable_params()`. Default: None.
-- `has_aux`: symbol for whether to return auxiliary arguments. If True, the number of `fn` outputs must be more than one, where only the first output of `fn` is involved in the derivation and the other output values will be returned directly. Default: False.
+The training of the neural network mainly uses the back propagation algorithm. Model predictions (logits) and the correct labels are fed into the loss function to obtain the loss, and then the back propagation calculation is performed to obtain the gradients, which are finally updated to the model parameters. Automatic differentiation is able to calculate the value of the derivative of a derivable function at a point and is a generalization of the backpropagation algorithm. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. The function shields the user from a large number of derivative details and processes, which greatly reduces the threshold of using the framework.
 
-This chapter uses `ops.value_and_grad` in MindSpore to find first-order derivatives of the network.
-
-## Finding Gradient of Network Weight
-
-Since functional programming is suggested to use in MindSpore's automatic differentiation, the sample will be presented as functional programming.
+MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces `grad` and `value_and_grad` that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
 
 ```python
 import numpy as np
-from mindspore import ops, Tensor
-import mindspore.nn as nn
-import mindspore as ms
-
-# Define network
-net = nn.Dense(10, 1)
-
-# Define loss function
-loss_fn = nn.MSELoss()
-
-# Combine forward network and loss function
-def forward(inputs, labels):
-    logits = net(inputs)
-    loss = loss_fn(logits, labels)
-    return loss, logits
+import mindspore
+from mindspore import nn
+from mindspore import ops
+from mindspore import Tensor, Parameter
 ```
 
-To find the first-order derivative of the weight parameter, you need to pass `weights` into `ops.value_and_grad`. There is no need to find derivative of the input, only to set `grad_position` to None.
+## Functions and Computing Graphs
 
-Next, derive the network weights as follows:
+Computing graphs are a way to represent mathematical functions in a graph-theoretic language and a unified way to represent neural network models in a deep learning framework. We will construct computing functions and neural networks based on the following computing graphs.
+
+![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/comp-graph.png)
+
+In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters we need to optimize.
 
 ```python
-inputs = Tensor(np.random.randn(16, 10).astype(np.float32))
-labels = Tensor(np.random.randn(16, 1).astype(np.float32))
-weights = net.trainable_params()
+x = ops.ones(5, mindspore.float32)  # input tensor
+y = ops.zeros(3, mindspore.float32)  # expected output
+w = Tensor(np.random.randn(5, 3), mindspore.float32) # weight
+b = Tensor(np.random.randn(3,), mindspore.float32) # bias
+```
 
-# has_aux is set to True, which means that only loss is used to derive, while logits is not.
-grad_fn = ops.value_and_grad(forward, grad_position=None, weights=weights, has_aux=True)
-(loss, logits), params_gradient = grad_fn(inputs, labels)
+We construct the computing function based on the computing process described by the computing graphs.
 
-# Print result
-print(logits.shape, len(weights), len(params_gradient))
+```python
+def function(x, y, w, b):
+    z = ops.matmul(x, w) + b
+    loss = ops.binary_cross_entropy_with_logits(z, y, ops.ones_like(z), ops.ones_like(z))
+    return loss
+```
+
+Execute the computing functions to get the calculated loss value.
+
+```python
+z = function(x, y, w, b)
+z
 ```
 
 ```text
-(16, 1) 2 2
+Tensor(shape=[], dtype=Float32, value= 0.914285)
 ```
 
-## Stopping Calculating Gradients
+## Differential Functions and Gradient Computing
 
- When the corresponding weight parameter declaration is defined, if some weights do not need to be derived, the attribute `requires_grad` needs to be set to `False` when defining the derivation network.
+In order to optimize the model parameters, find the derivatives of the parameters with respect to loss: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops. grad` function to get the differential function of `function`.
+
+Two input parameters of `grad` function are used here:
+
+- `fn`: the function to be derived.
+- `grad_position`: specifies the index of the input position for the derivative.
+
+Since we derive $w$ and $b$, we configure their positions `(2, 3)` corresponding to the `function` input parameter.
+
+> Using `grad` to obtain a differential function is a functional transform, i.e. the input is a function and the output is also a function.
 
 ```python
-class Net(nn.Cell):
+grad_fn = ops.grad(function, (2, 3))
+```
+
+The gradients corresponding to $w$ and $b$ are obtained by executing the differentiation function.
+
+```python
+grads = grad_fn(x, y, w, b)
+grads
+```
+
+```text
+(Tensor(shape=[5, 3], dtype=Float32, value=
+ [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
+```
+
+## Stop Gradient
+
+Generally, the derivative of the parameter with respect to loss is found, so that the output of the output function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of the parameter with respect to all output terms. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
+
+Here we change `function` to `function_with_logits` that outputs both loss and z to obtain the differentiation function and execute it.
+
+```python
+def function_with_logits(x, y, w, b):
+    z = ops.matmul(x, w) + b
+    loss = ops.binary_cross_entropy_with_logits(z, y, ops.ones_like(z), ops.ones_like(z))
+    return loss, z
+```
+
+```python
+grad_fn = ops.grad(function_with_logits, (2, 3))
+grads = grad_fn(x, y, w, b)
+grads
+```
+
+```text
+(Tensor(shape=[5, 3], dtype=Float32, value=
+ [[ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
+  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
+  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
+  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
+  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]))
+```
+
+You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the `ops.stop_gradient` interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
+
+```python
+def function_stop_gradient(x, y, w, b):
+    z = ops.matmul(x, w) + b
+    loss = ops.binary_cross_entropy_with_logits(z, y, ops.ones_like(z), ops.ones_like(z))
+    return loss, ops.stop_gradient(z)
+```
+
+```python
+grad_fn = ops.grad(function_stop_gradient, (2, 3))
+grads = grad_fn(x, y, w, b)
+grads
+```
+
+```text
+(Tensor(shape=[5, 3], dtype=Float32, value=
+ [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
+```
+
+It can be seen that the gradient values corresponding to $w$ and $b$ are the same as the gradient values found by the initial `function`.
+
+## Auxiliary data
+
+Auxiliary data is other outputs of the function in addition to the first output items. Usually we will set loss of the function as the first output, the other output is the auxiliary data.
+
+`grad` and `value_and_grad` provide `has_aux` parameter. When it is set to `True`, it can automatically implement the function of manually adding `stop_gradient` in the previous section, satisfying the effect of returning auxiliary data without affecting the gradient calculation.
+
+The following still uses `function_with_logits`, configures `has_aux=True`, and executes it.
+
+```python
+grad_fn = ops.grad(function_with_logits, (2, 3), has_aux=True)
+```
+
+```python
+grads, (z,) = grad_fn(x, y, w, b)
+grads, z
+```
+
+```text
+((Tensor(shape=[5, 3], dtype=Float32, value=
+  [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
+  Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01])),
+ Tensor(shape=[3], dtype=Float32, value= [-1.40476596e+00, -1.64932394e+00,  2.24711204e+00]))
+```
+
+## Calculating Neural Network Gradient
+
+The previous section introduces MindSpore functional auto-differentiation based mainly on the functions corresponding to the computing graph, but neural network construction is inherited from the object-oriented programming paradigm of `nn.Cell`. Next, we construct the same neural network by `Cell` and use functional automatic differentiation to implement backpropagation.
+
+First we inherit `nn.Cell` to construct a single-layer linear transform neural network. Here we directly use $w$, $b$ from the previous section as model parameters, wrapped with `mindspore.Parameter` as internal properties, and implement the same Tensor operations within `construct`.
+
+```python
+# Define model
+class Network(nn.Cell):
     def __init__(self):
-        super(Net, self).__init__()
-        self.w = ms.Parameter(ms.Tensor(np.array([6], np.float32)), name='w')
-        self.b = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='b', requires_grad=False)
+        super().__init__()
+        self.w = Parameter(w, requires_grad=True)
+        self.b = Parameter(b, requires_grad=True)
 
     def construct(self, x):
-        out = x * self.w + self.b
-        return out
-
-# Build derivation network
-net = Net()
-params = net.trainable_params()
-x = ms.Tensor([5], dtype=ms.float32)
-value, gradient = ops.value_and_grad(net, grad_position=None, weights=params)(x)
-
-print(gradient)
+        z = ops.matmul(x, self.w) + self.b
+        return z
 ```
 
-```text
-(Tensor(shape=[1], dtype=Float32, value= [ 5.00000000e+00]),)
-```
-
-Use `ops.stop_gradient` to stop calculating the gradient, for example:
+Next we instantiate the model and the loss function.
 
 ```python
-from mindspore.ops import stop_gradient
+# Instantiate model
+model = Network()
+# Instantiate loss function
+loss_fn = nn.BCEWithLogitsLoss()
+```
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.w = ms.Parameter(ms.Tensor(np.array([6], np.float32)), name='w')
-        self.b = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='b')
+Once completed, the calls to the neural network and loss function need to be encapsulated into a forward computing function due to the need to use functional automatic differentiation.
 
-    def construct(self, x):
-        out = x * self.w + self.b
-        # Stop updating gradient, and the out does not contribute to gradient calculation
-        out = stop_gradient(out)
-        return out
+```python
+# Define forward function
+def forward_fn(x, y):
+    z = model(x)
+    loss = loss_fn(z, y)
+    return loss
+```
 
-net = Net()
-params = net.trainable_params()
-x = ms.Tensor([100], dtype=ms.float32)
-value, output = ops.value_and_grad(net, grad_position=None, weights=params)(x)
+Once completed, we use the `value_and_grad` interface to obtain the differentiation function for computing the gradient.
 
-print(f"wgrad: {output[0]}\nbgrad: {output[1]}")
+Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. To derive the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
+
+```python
+grad_fn = ops.value_and_grad(forward_fn, None, weights=model.trainable_params())
+```
+
+```python
+loss, grads = grad_fn(x, y)
+grads
 ```
 
 ```text
-wgrad: [0.]
-bgrad: [0.]
+(Tensor(shape=[5, 3], dtype=Float32, value=
+ [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
+  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
 ```
+
+Executing the differentiation function, and we can see that the gradient value is the same as the gradient value obtained from the previous `function`.

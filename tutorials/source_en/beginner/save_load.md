@@ -1,75 +1,65 @@
-# Saving and Loading the Model
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || **Save and Load** || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
+
+# Saving and Loading the Model
 
 The previous section describes how to adjust hyperparameters and train network models. During network model training, we want to save the intermediate and final results for fine-tuning and subsequent model deployment and inference. This section describes how to save and load a model.
 
-## Saving the Model
-
-We use the save_checkpoint provided by MindSpore to save the model, pass it in the network and the save path:
-
 ```python
-import mindspore as ms
-import mindspore.nn as nn
-from mindspore.common.initializer import Normal
-
-# Define the neural network
-class LeNet(nn.Cell):
-    def __init__(self, num_classes=10, num_channel=1):
-        super(LeNet, self).__init__()
-        layers = [nn.Conv2d(num_channel, 6, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Conv2d(6, 16, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Flatten(),
-                  nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(120, 84, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(84, num_classes, weight_init=Normal(0.02))]
-        # Network management with CellList
-        self.build_block = nn.CellList(layers)
-
-    def construct(self, x):
-        # Execute network with a for loop
-        for layer in self.build_block:
-            x = layer(x)
-        return x
-
-# Instantiate training network
-network = LeNet()
-
-# Save the model parameters to the specified path
-ms.save_checkpoint(network, "./MyNet.ckpt")
+import numpy as np
+import mindspore
+from mindspore import nn
+from mindspore import Tensor
+from mindvision.classification import models
 ```
 
-- The `save_checkpoint` method will save the network parameters to the specified path, where `network` is the training network and `". /MyNet.ckpt"` is the path where the network model is saved.
+## Saving and Loading the Model Weight
 
-## Loading the Model
-
-To load the model weight, you need to create an instance of the same model and then use the `load_checkpoint` and `load_param_into_net` methods to load parameters.
-
-The sample code is as follows:
+Saving model by using the `save_checkpoint` interface, and the specified saving path of passing in the network:
 
 ```python
-import mindspore as ms
+model = models.lenet()
+mindspore.save_checkpoint(model, "lenet.ckpt")
+```
 
-# Store the model parameters in the dictionary of parameter, and the model parameters saved during the training process above are loaded here
-param_dict = ms.load_checkpoint("./MyNet.ckpt")
+To load the model weights, you need to create instances of the same model and then load the parameters by using the `load_checkpoint` and `load_param_into_net` methods.
 
-# Redefine a LeNet Neural Network
-net = LeNet()
-
-# Load parameters into the network and print the names of unloaded parameters
-not_loaded_params = ms.load_param_into_net(net, param_dict)
-print(not_loaded_params)
+```python
+model = models.lenet() # we do not specify pretrained=True, i.e. do not load default weights
+param_dict = mindspore.load_checkpoint("lenet.ckpt")
+param_not_load = mindspore.load_param_into_net(model, param_dict)
+param_not_load
 ```
 
 ```text
 []
 ```
 
-- The `load_checkpoint` method loads the network parameters in the parameter file to the `param_dict` dictionary.
-- The `load_param_into_net` method loads the parameters in the `param_dict` dictionary to the network or optimizer. After the loading, parameters in the network are stored by the checkpoint.
+> `param_not_load` is an unloaded parameter list, and empty means all parameters are loaded successfully.
+
+## Saving and Loading MindIR
+
+In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
+
+```python
+model = models.lenet()
+inputs = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32))
+mindspore.export(model, inputs, file_name="lenet", file_format="MINDIR")
+```
+
+> MindIR saves both Checkpoint and model structure, so it needs to define the input Tensor to get the input shape.
+
+The existing MindIR model can be easily loaded through the `load` interface and passed into `nn.GraphCell` for inference.
+
+```python
+graph = mindspore.load("lenet.mindir")
+model = nn.GraphCell(graph)
+outputs = model(inputs)
+outputs.shape
+```
+
+```text
+(1, 10)
+```
+

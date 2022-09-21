@@ -1,186 +1,242 @@
-# Building a Network
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to implement handwritten digit recognition task in deep learning.
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
 
-## LeNet-5 Model
+# Building a Network
 
-[LeNet-5](https://ieeexplore.ieee.org/document/726791) is a typical convolutional neural network proposed by professor Yann LeCun in 1998, which achieves 99.4% accuracy on the MNIST dataset and is the first classic in the field of CNN. The model structure is shown in the following figure:
+The neural network model consists of neural network layers and Tensor operations. `mindspore.nn` provides common neural network layer implementations, and the `Cell` class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
 
-![LeNet-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
+In the following we will construct a neural network model for the Mnist dataset classification.
 
-In the preceding figure, C indicates the convolutional layer layer, S indicates the sampling layer, and F indicates the fully-connected layer.
-
-According to the network structure of LeNet, except the input layer, LeNet contains seven layers: three convolutional layers, two subsampling layers, and two fully-connected layers.
-
-The input size of an image is fixed at $32 \times 32$. To achieve a good convolution effect, the number must be in the center of the image. Therefore, the input $32 \times 32$ is the result after the image is filled with $28 \times 28$. Unlike the three-channel input images of the CNN network, the input images of LeNet are only normalized binary images. The output of the network is the prediction probability of digits 0 to 9, which can be understood as the probability that the input image belongs to digits 0 to 9.
+```python
+import mindspore
+from mindspore import nn, ops
+```
 
 ## Defining a Model Class
 
-The `Cell` class of MindSpore is the base class for building all networks and the basic unit of a network. When a neural network is required, you need to inherit the `Cell` class and overwrite the `__init__` and `construct` methods.
+When define a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
 
-The `mindspore.nn` class is the base class for building all networks and the basic unit of a network. When need to customize the network, you can inherit the `nn.Cell` class and overwrite the `__init__` and `construct` methods.
-
-To facilitate the management and composition of more complex networks, `mindspore.nn` provides containers to manage the submodel blocks or model layers in the network, `nn.CellList` and `nn.SequentialCell`. Here, we have chosen the `nn.CellList` method.
+> `construct` means neural network (computational graph) construction. For more details, see [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html).
 
 ```python
-from mindspore import nn
-from mindspore.common.initializer import Normal
-
-# Customize the network
-class LeNet(nn.Cell):
-    def __init__(self, num_classes=10, num_channel=1):
-        super(LeNet, self).__init__()
-        layers = [nn.Conv2d(num_channel, 6, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Conv2d(6, 16, 5, pad_mode='valid'),
-                  nn.ReLU(),
-                  nn.MaxPool2d(kernel_size=2, stride=2),
-                  nn.Flatten(),
-                  nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(120, 84, weight_init=Normal(0.02)),
-                  nn.ReLU(),
-                  nn.Dense(84, num_classes, weight_init=Normal(0.02))]
-        # Network management with CellList
-        self.build_block = nn.CellList(layers)
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
     def construct(self, x):
-        # Execute the network with a for loop
-        for layer in self.build_block:
-            x = layer(x)
-        return x
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 ```
 
-Next, build the neural network model defined above and look at the structure of the network model.
+After completing construction, instantiate the `Network` object and look at its structure.
 
 ```python
-model = LeNet()
-
-print(model)
+model = Network()
+model
 ```
 
 ```text
-LeNet<
-  (build_block): CellList<
-    (0): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+Network<
+  (flatten): Flatten<>
+  (dense_relu_sequential): SequentialCell<
+    (0): Dense<input_channels=784, output_channels=512, has_bias=True>
     (1): ReLU<>
-    (2): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
-    (3): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
-    (4): ReLU<>
-    (5): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
-    (6): Flatten<>
-    (7): Dense<input_channels=400, output_channels=120, has_bias=True>
-    (8): ReLU<>
-    (9): Dense<input_channels=120, output_channels=84, has_bias=True>
-    (10): ReLU<>
-    (11): Dense<input_channels=84, output_channels=10, has_bias=True>
+    (2): Dense<input_channels=512, output_channels=512, has_bias=True>
+    (3): ReLU<>
+    (4): Dense<input_channels=512, output_channels=10, has_bias=True>
     >
   >
 ```
 
+We construct an input data and call the model directly to obtain a 10-dimensional Tensor output that contains the original predicted values for each category.
+
+> The `model.construct()` method cannot be called directly.
+
+```python
+X = ops.ones((1, 28, 28), mindspore.float32)
+logits = model(X)
+logits
+```
+
+```text
+Tensor(shape=[1, 10], dtype=Float32, value=
+[[-5.08734025e-04,  3.39190010e-04,  4.62840870e-03 ... -1.20305456e-03, -5.05689112e-03,  3.99264274e-03]])
+```
+
+On this basis, we obtain the prediction probabilities by an `nn.Softmax` layer instance.
+
+```python
+pred_probab = nn.Softmax(axis=1)(logits)
+y_pred = pred_probab.argmax(1)
+print(f"Predicted class: {y_pred}")
+```
+
+```text
+Predicted class: [4]
+```
+
 ## Model Layers
 
-The following describes the key member functions of the `Cell` class used in LeNet-5, and then describes how to use the `Cell` class to access model parameters through the instantiation network. For more information about the `Cell` class, see [mindspore.nn interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html).
-
-### nn.Conv2d
-
-Add the `nn.Conv2d` layer and add a convolution function to the network to help the neural network extract features.
+In this section, we decompose each layer of the neural network model constructed in the previous section. First we construct a random data (3 images of 28x28) with shape (3, 28, 28) and pass through each neural network layer in turn to observe its effect.
 
 ```python
-import numpy as np
-
-import mindspore as ms
-
-# The number of channels input is 1, the number of channels of output is 6, the convolutional kernel size is 5 x 5, and the parameters are initialized by using the normal operator, and the pixels are not filled.
-conv2d = nn.Conv2d(1, 6, 5, has_bias=False, weight_init='normal', pad_mode='same')
-input_x = ms.Tensor(np.ones([1, 1, 32, 32]), ms.float32)
-
-print(conv2d(input_x).shape)
+input_image = ops.ones((3, 28, 28), mindspore.float32)
+input_image.shape
 ```
 
 ```text
-(1, 6, 32, 32)
-```
-
-### nn.ReLU
-
-Add the `nn.ReLU` layer and add a non-linear activation function to the network to help the neural network learn various complex features.
-
-```python
-relu = nn.ReLU()
-
-input_x = ms.Tensor(np.array([-1, 2, -3, 2, -1]), ms.float16)
-
-output = relu(input_x)
-print(output)
-```
-
-```text
-[0. 2. 0. 2. 0.]
-```
-
-### nn.MaxPool2d
-
-Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 tensor to a 6 x 7 x 7 tensor.
-
-```text
-max_pool2d = nn.MaxPool2d(kernel_size=4, stride=4)
-input_x = ms.Tensor(np.ones([1, 6, 28, 28]), ms.float32)
-
-print(max_pool2d(input_x).shape)
+(3, 28, 28)
 ```
 
 ### nn.Flatten
 
-Initialize the `nn.Flatten` layer and convert the 1 x 16 x 5 x 5 4D tensor into 400 consecutive 2D tensors.
+Initialize the `nn.Flatten` layer and convert a 28x28 2D tensor into a contiguous array of size 784.
 
 ```python
 flatten = nn.Flatten()
-input_x = ms.Tensor(np.ones([1, 16, 5, 5]), ms.float32)
-output = flatten(input_x)
-
-print(output.shape)
+flat_image = flatten(input_image)
+flat_image.shape
 ```
 
 ```text
-(1, 400)
+(3, 784)
 ```
 
 ### nn.Dense
 
-Initialize the `nn.Dense` layer and perform linear transformation on the input matrix.
+`nn.Dense` is the fully connected layer, which linearly transforms the input by using weights and deviations.
 
 ```python
-dense = nn.Dense(400, 120, weight_init='normal')
-input_x = ms.Tensor(np.ones([1, 400]), ms.float32)
-output = dense(input_x)
-
-print(output.shape)
+layer1 = nn.Dense(in_channels=28*28, out_channels=20)
+hidden1 = layer1(flat_image)
+hidden1.shape
 ```
 
 ```text
-(1, 120)
+(3, 20)
+```
+
+### nn.ReLU
+
+`nn.ReLU` layer, which adds a nonlinear activation function to the network, to help the neural network learn various complex features.
+
+```python
+print(f"Before ReLU: {hidden1}\n\n")
+hidden1 = nn.ReLU()(hidden1)
+print(f"After ReLU: {hidden1}")
+```
+
+```text
+Before ReLU: [[-0.04736331  0.2939465  -0.02713677 -0.30988005 -0.11504349 -0.11661264
+   0.18007928  0.43213072  0.12091967 -0.17465964  0.53133243  0.12605792
+   0.01825903  0.01287796  0.17238477 -0.1621131  -0.0080034  -0.24523425
+  -0.10083733  0.05171938]
+ [-0.04736331  0.2939465  -0.02713677 -0.30988005 -0.11504349 -0.11661264
+   0.18007928  0.43213072  0.12091967 -0.17465964  0.53133243  0.12605792
+   0.01825903  0.01287796  0.17238477 -0.1621131  -0.0080034  -0.24523425
+  -0.10083733  0.05171938]
+ [-0.04736331  0.2939465  -0.02713677 -0.30988005 -0.11504349 -0.11661264
+   0.18007928  0.43213072  0.12091967 -0.17465964  0.53133243  0.12605792
+   0.01825903  0.01287796  0.17238477 -0.1621131  -0.0080034  -0.24523425
+  -0.10083733  0.05171938]]
+
+
+After ReLU: [[0.         0.2939465  0.         0.         0.         0.
+  0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
+  0.01825903 0.01287796 0.17238477 0.         0.         0.
+  0.         0.05171938]
+ [0.         0.2939465  0.         0.         0.         0.
+  0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
+  0.01825903 0.01287796 0.17238477 0.         0.         0.
+  0.         0.05171938]
+ [0.         0.2939465  0.         0.         0.         0.
+  0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
+  0.01825903 0.01287796 0.17238477 0.         0.         0.
+  0.         0.05171938]]
+```
+
+### nn.SequentialCell
+
+`nn.SequentialCell` is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `SequentialCell` to construct a neural network model quickly.
+
+```python
+seq_modules = nn.SequentialCell(
+    flatten,
+    layer1,
+    nn.ReLU(),
+    nn.Dense(20, 10)
+)
+
+logits = seq_modules(input_image)
+logits.shape
+```
+
+```text
+(3, 10)
+```
+
+### nn.Softmax
+
+Finally, the value of logits returned by the last fully-connected layer of the neural network is scaled to \[0, 1\] by using `nn.Softmax`, indicating the predicted probability of each category. The dimensional values specified by `axis` sum to 1.
+
+```python
+softmax = nn.Softmax(axis=1)
+pred_probab = softmax(logits)
 ```
 
 ## Model Parameters
 
-After instantiation is performed on the convolutional layer and the fully-connected layer in the network, there are a weight parameter and an offset parameter. These parameters are continuously optimized in a training process. During training, you can use `get_parameters()` to view the name, shape, and data type of each network layer, and whether backward calculation is performed.
+The internal neural network layer of the network has weight parameters and bias parameters (e.g. `nn.Dense`), which are continuously optimized during the training process, and the parameter names and corresponding parameter details can be obtained through `model.parameters_and_names()`.
 
 ```python
-for m in model.get_parameters():
-    print(f"layer:{m.name}, shape:{m.shape}, dtype:{m.dtype}, requeires_grad:{m.requires_grad}")
+print(f"Model structure: {model}\n\n")
+
+for name, param in model.parameters_and_names():
+    print(f"Layer: {name}\nSize: {param.shape}\nValues : {param[:2]} \n")
 ```
 
 ```text
-layer:build_block.0.weight, shape:(6, 1, 5, 5), dtype:Float32, requeires_grad:True
-layer:build_block.3.weight, shape:(16, 6, 5, 5), dtype:Float32, requeires_grad:True
-layer:build_block.7.weight, shape:(120, 400), dtype:Float32, requeires_grad:True
-layer:build_block.7.bias, shape:(120,), dtype:Float32, requeires_grad:True
-layer:build_block.9.weight, shape:(84, 120), dtype:Float32, requeires_grad:True
-layer:build_block.9.bias, shape:(84,), dtype:Float32, requeires_grad:True
-layer:build_block.11.weight, shape:(10, 84), dtype:Float32, requeires_grad:True
-layer:build_block.11.bias, shape:(10,), dtype:Float32, requeires_grad:True
+Output exceeds the size limit. Open the full output data in a text editor
+
+Model structure: Network<
+  (flatten): Flatten<>
+  (dense_relu_sequential): SequentialCell<
+    (0): Dense<input_channels=784, output_channels=512, has_bias=True>
+    (1): ReLU<>
+    (2): Dense<input_channels=512, output_channels=512, has_bias=True>
+    (3): ReLU<>
+    (4): Dense<input_channels=512, output_channels=10, has_bias=True>
+    >
+  >
+
+
+Layer: dense_relu_sequential.0.weight
+Size: (512, 784)
+Values : [[-0.01491369  0.00353318 -0.00694948 ...  0.01226766 -0.00014423
+   0.00544263]
+ [ 0.00212971  0.0019974  -0.00624789 ... -0.01214037  0.00118004
+  -0.01594325]]
+
+Layer: dense_relu_sequential.0.bias
+Size: (512,)
+Values : [0. 0.]
+
+Layer: dense_relu_sequential.2.weight
+Size: (512, 512)
+
+Layer: dense_relu_sequential.4.bias
+Size: (10,)
+Values : [0. 0.]
 ```
+
+For more built-in neural network layers, see [mindspore.nn API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html).
