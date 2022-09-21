@@ -9,8 +9,10 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 | function                                                       |
 | ------------------------------------------------------------   |
 | [boolean init()](#init)                                        |
-| [boolean setWorkerNum()](#setworkernum)                        |
-| [boolean setConfigInfo()](#setconfiginfo)                      |
+| [void setWorkerNum()](#setworkernum)                           |
+| [void setConfigInfo()](#setconfiginfo)                         |
+| [void setConfigPath()](#setconfigpath)                         |
+| [void getConfigPath()](#getconfigpath)                         |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               |
 
 ## init
@@ -63,6 +65,30 @@ public void setConfigInfo(String section, HashMap<String, String> config)
 
     - `section`: 配置的章节名。
     - `config`: 要更新的配置对。
+
+## setConfigPath
+
+```java
+public void setConfigPath(String configPath)
+```
+
+并发推理中模型个数参数设置。
+
+- 参数
+
+    - `configPath`: 配置文件路径。
+
+## getConfigPath
+
+```java
+public String getConfigPath()
+```
+
+获取RunnerConfig中设置的配置文件的路径。
+
+- 返回值
+
+  配置文件路径。
 
 ## getRunnerConfigPtr
 
