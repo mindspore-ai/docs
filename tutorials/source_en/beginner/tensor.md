@@ -1,10 +1,19 @@
-# Tensor
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/tensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || **Tensor** || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
+
+# Tensor
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 
-A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This chapter describes the attributes and usage of tensors and sparse tensors.
+A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
+
+```python
+import numpy as np
+import mindspore
+from mindspore import ops
+from mindspore import Tensor, CSRTensor, COOTensor, RowTensor
+```
 
 ## Creating a Tensor
 
@@ -15,9 +24,8 @@ There are multiple methods for creating tensors. When building a tensor, you can
 You can create a tensor based on data. The data type can be set or automatically inferred by the framework.
 
 ```python
-import mindspore as ms
-
-x = ms.Tensor(0.1)
+data = [1, 0, 1, 0]
+x_data = Tensor(data)
 ```
 
 - **Generating a tensor from the NumPy array**
@@ -25,21 +33,9 @@ x = ms.Tensor(0.1)
 You can create a tensor from the NumPy array.
 
 ```python
-import numpy as np
-
-arr = np.array([1, 0, 1, 0])
-tensor_arr = ms.Tensor(arr)
-
-print(type(arr))
-print(type(tensor_arr))
+np_array = np.array(data)
+x_np = Tensor(np_array)
 ```
-
-```text
-<class 'numpy.ndarray'>
-<class 'mindspore.common.tensor.Tensor'>
-```
-
-If the initial value is `numpy.ndarray`, the generated `Tensor` data type corresponds to `numpy.ndarray`.
 
 - **Generating a tensor by using init**
 
@@ -52,14 +48,12 @@ When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` par
 - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
 
 ```python
-import mindspore as ms
 from mindspore.common.initializer import One, Normal
 
-ms.set_seed(1)
-
-tensor1 = ms.Tensor(shape=(2, 2), dtype=ms.float32, init=One())
-# Generates an array with values sampled from Normal distribution N(0.01,0.1) in order to initialize a tensor
-tensor2 = ms.Tensor(shape=(2, 2), dtype=ms.float32, init=Normal())
+# Initialize a tensor with ones
+tensor1 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
+# Initialize a tensor from normal distribution
+tensor2 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
 
 print("tensor1:\n", tensor1)
 print("tensor2:\n", tensor2)
@@ -67,11 +61,11 @@ print("tensor2:\n", tensor2)
 
 ```text
 tensor1:
-[[1. 1.]
-[1. 1.]]
+ [[1. 1.]
+ [1. 1.]]
 tensor2:
-[[-0.00128023 -0.01392901]
-[ 0.0130886  -0.00107818]]
+ [[-0.00063482 -0.00916224]
+ [ 0.01324238 -0.0171206 ]]
 ```
 
 The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
@@ -81,50 +75,28 @@ The `init` is used for delayed initialization in parallel mode. Usually, it is n
 ```python
 from mindspore import ops
 
-oneslike = ops.OnesLike()
-x = ms.Tensor(np.array([[0, 1], [2, 1]]).astype(np.int32))
-output = oneslike(x)
+x_ones = ops.ones_like(x_data)
+print(f"Ones Tensor: \n {x_ones} \n")
 
-print(output)
-print("input shape:", x.shape)
-print("output shape:", output.shape)
+x_zeros = ops.zeros_like(x_data)
+print(f"Zeros Tensor: \n {x_ones} \n")
 ```
 
 ```text
-[[1 1]
-[1 1]]
-input shape: (2, 2)
-output shape: (2, 2)
+Ones Tensor:
+ [1 1 1 1]
+
+Zeros Tensor:
+ [1 1 1 1]
 ```
-
-- **Outputting a constant tensor of a specified size**
-
-`shape` is the size tuple of a tensor, which determines the dimension of the output tensor.
-
-```python
-import mindspore as ms
-
-zeros = ops.Zeros()
-output = zeros((2, 2), ms.float32)
-print(output)
-```
-
-```text
-[[0. 0.]
-[0. 0.]]
-```
-
-During `Tensor` initialization, dtype can be specified to, for example, `mstype.int32`, `mstype.float32` or `mstype.bool_`.
 
 ## Tensor Attributes
 
 Tensor attributes include shape, data type, transposed tensor, item size, number of bytes occupied, dimension, size of elements, and stride per dimension.
 
-- shape: a tuple.
+- shape: the shape of `Tensor`, a tuple.
 
-- dtype: a data type of MindSpore.
-
-- T: a transpose of a `Tensor`.
+- dtype: the dtype of `Tensor`, a data type of MindSpore.
 
 - itemsize: the number of bytes occupied by each element in `Tensor`, which is an integer.
 
@@ -137,11 +109,10 @@ Tensor attributes include shape, data type, transposed tensor, item size, number
 - strides: the number of bytes to traverse in each dimension of `Tensor`, which is a tuple.
 
 ```python
-x = ms.Tensor(np.array([[1, 2], [3, 4]]), ms.int32)
+x = Tensor(np.array([[1, 2], [3, 4]]), mindspore.int32)
 
 print("x_shape:", x.shape)
 print("x_dtype:", x.dtype)
-print("x_transposed:\n", x.T)
 print("x_itemsize:", x.itemsize)
 print("x_nbytes:", x.nbytes)
 print("x_ndim:", x.ndim)
@@ -152,9 +123,6 @@ print("x_strides:", x.strides)
 ```text
 x_shape: (2, 2)
 x_dtype: Int32
-x_transposed:
-[[1 3]
-[2 4]]
 x_itemsize: 4
 x_nbytes: 16
 x_ndim: 2
@@ -164,10 +132,10 @@ x_strides: (8, 4)
 
 ## Tensor Indexing
 
-Tensor indexing is similar to NumPy indexing Indexing starts from 0, negative indexing means indexing in reverse order, and colons `:` and `...` are used for slicing.
+Tensor indexing is similar to NumPy indexing. Indexing starts from 0, negative indexing means indexing in reverse order, and colons `:` and `...` are used for slicing.
 
 ```python
-tensor = ms.Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+tensor = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 
 print("First row: {}".format(tensor[0]))
 print("value of bottom right corner: {}".format(tensor[1, 1]))
@@ -184,13 +152,13 @@ First column: [0. 2.]
 
 ## Tensor Operation
 
-There are many operations between tensors, including arithmetic, linear algebra, matrix processing (transposing, indexing, and slicing), and sampling. The usage of tensor computation is similar to that of NumPy. The following describes several operations.
+There are many operations between tensors, including arithmetic, linear algebra, matrix processing (transposing, indexing, and slicing), and sampling. The usage of tensor operation is similar to that of NumPy. The following describes several operations.
 
 > Common arithmetic operations include: addition (+), subtraction (-), multiplication (\*), division (/), modulo (%), and exact division (//).
 
 ```python
-x = ms.Tensor(np.array([1, 2, 3]), ms.float32)
-y = ms.Tensor(np.array([4, 5, 6]), ms.float32)
+x = Tensor(np.array([1, 2, 3]), mindspore.float32)
+y = Tensor(np.array([4, 5, 6]), mindspore.float32)
 
 output_add = x + y
 output_sub = x - y
@@ -219,10 +187,9 @@ floordiv: [4. 2. 2.]
 `Concat` connects a series of tensors in a given dimension.
 
 ```python
-data1 = ms.Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
-data2 = ms.Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
-op = ops.Concat()
-output = op((data1, data2))
+data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+data2 = Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
+output = ops.concat((data1, data2), axis=0)
 
 print(output)
 print("shape:\n", output.shape)
@@ -230,20 +197,19 @@ print("shape:\n", output.shape)
 
 ```text
 [[0. 1.]
-[2. 3.]
-[4. 5.]
-[6. 7.]]
+ [2. 3.]
+ [4. 5.]
+ [6. 7.]]
 shape:
-(4, 2)
+ (4, 2)
 ```
 
 `Stack` combines two tensors from another dimension.
 
 ```python
-data1 = ms.Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
-data2 = ms.Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
-op = ops.Stack()
-output = op([data1, data2])
+data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+data2 = Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
+output = ops.stack([data1, data2])
 
 print(output)
 print("shape:\n", output.shape)
@@ -251,11 +217,12 @@ print("shape:\n", output.shape)
 
 ```text
 [[[0. 1.]
-[2. 3.]]
-[[4. 5.]
-[6. 7.]]]
+  [2. 3.]]
+
+ [[4. 5.]
+  [6. 7.]]]
 shape:
-(2, 2, 2)
+ (2, 2, 2)
 ```
 
 ## Conversion Between Tensor and NumPy
@@ -264,45 +231,45 @@ Tensor and NumPy can be converted to each other.
 
 ### Tensor to NumPy
 
-Use `asnumpy()` to convert Tensor to NumPy.
+Use `asnumpy()` to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
-zeros = ops.Zeros()
-
-output = zeros((2, 2), ms.float32)
-print("output: {}".format(type(output)))
-
-n_output = output.asnumpy()
-print("n_output: {}".format(type(n_output)))
+t = ops.ones(5, mindspore.float32)
+print(f"t: {t}")
+n = t.asnumpy()
+print(f"n: {n}")
 ```
 
 ```text
-output: <class 'mindspore.common.tensor.Tensor'>
-n_output: <class 'numpy.ndarray'>
+t: [1. 1. 1. 1. 1.]
+n: [1. 1. 1. 1. 1.]
 ```
 
 ### NumPy to Tensor
 
-Use `asnumpy()` to convert NumPy to Tensor.
+Use `Tensor()` to convert NumPy to Tensor.
 
 ```python
-output = np.array([1, 0, 1, 0])
-print("output: {}".format(type(output)))
+n = np.ones(5)
+t = Tensor.from_numpy(n)
+```
 
-t_output = ms.Tensor(output)
-print("t_output: {}".format(type(t_output)))
+```python
+np.add(n, 1, out=n)
+print(f"t: {t}")
+print(f"n: {n}")
 ```
 
 ```text
-output: <class 'numpy.ndarray'>
-t_output: <class 'mindspore.common.tensor.Tensor'>
+t: [2. 2. 2. 2. 2.]
+n: [2. 2. 2. 2. 2.]
 ```
 
 ## Sparse Tensor
 
 A sparse tensor is a special tensor in which the value of the most significant element is zero.
 
-In some scenario s(such as recommendation systems, molecular dynamics, graph neural networks), the data is sparse. If you use common dense tensors to represent the data, you may introduce many unnecessary calculations, storage, and communication costs. In this case, it is better to use sparse tensor to represent the data.
+In some scenarios (such as recommendation systems, molecular dynamics, graph neural networks), the data is sparse. If you use common dense tensors to represent the data, you may introduce many unnecessary calculations, storage, and communication costs. In this case, it is better to use sparse tensor to represent the data.
 
 MindSpore now supports the two most commonly used `CSR` and `COO` sparse data formats.
 
@@ -310,7 +277,7 @@ The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, sh
 
 ### CSRTensor
 
-The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr`(row) and `indices` (column).
+The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr` (row) and `indices` (column).
 
 - `indptr`: 1-D integer tensor, indicating the start and end points of the non-zero elements in each row of the sparse data in `values`. The index data type can only be int32.
 
@@ -325,17 +292,15 @@ The compressed sparse row (`CSR`) is efficient in both storage and computation. 
 The following are some examples of using the CSRTensor:
 
 ```python
-import mindspore as ms
-
-indptr = ms.Tensor([0, 1, 2])
-indices = ms.Tensor([0, 1])
-values = ms.Tensor([1, 2], dtype=ms.float32)
+indptr = Tensor([0, 1, 2])
+indices = Tensor([0, 1])
+values = Tensor([1, 2], dtype=mindspore.float32)
 shape = (2, 4)
 
-# CSRTensor construction
-csr_tensor = ms.CSRTensor(indptr, indices, values, shape)
+# Make a CSRTensor
+csr_tensor = CSRTensor(indptr, indices, values, shape)
 
-print(csr_tensor.astype(ms.float64).dtype)
+print(csr_tensor.astype(mindspore.float64).dtype)
 ```
 
 ```text
@@ -348,7 +313,7 @@ $$
  \left[
  \begin{matrix}
    1 & 0 & 0 & 0 \\
-   0 & 2 & 0 & 0 \\
+   0 & 2 & 0 & 0
   \end{matrix}
   \right]
 $$
@@ -368,26 +333,23 @@ The `COO` (Coordinate Format) sparse tensor format is used to represent a collec
 The following are some examples of using COOTensor:
 
 ```python
-import mindspore as ms
-import mindspore.nn as nn
-
-indices = ms.Tensor([[0, 1], [1, 2]], dtype=ms.int32)
-values = ms.Tensor([1, 2], dtype=ms.float32)
+indices = Tensor([[0, 1], [1, 2]], dtype=mindspore.int32)
+values = Tensor([1, 2], dtype=mindspore.float32)
 shape = (3, 4)
 
-# COOTensor construction
-coo_tensor = ms.COOTensor(indices, values, shape)
+# Make a COOTensor
+coo_tensor = COOTensor(indices, values, shape)
 
 print(coo_tensor.values)
 print(coo_tensor.indices)
 print(coo_tensor.shape)
-print(coo_tensor.astype(ms.float64).dtype) # COOTensor cast to another data type
+print(coo_tensor.astype(mindspore.float64).dtype)  # COOTensor to float64
 ```
 
 ```text
 [1. 2.]
 [[0 1]
-[1 2]]
+ [1 2]]
 (3, 4)
 Float64
 ```
@@ -417,25 +379,15 @@ $$
 > For the detailed documentation of `RowTensor`, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html). A code example is as follows:
 
 ```python
-import mindspore as ms
-import mindspore.nn as nn
+indices = Tensor([0])
+values = Tensor([[1, 2]], dtype=mindspore.float32)
+dense_shape = (3, 2)
 
-class Net(nn.Cell):
-    def __init__(self, dense_shape):
-        super(Net, self).__init__()
-        self.dense_shape = dense_shape
+x = RowTensor(indices, values, dense_shape)
 
-    def construct(self, indices, values):
-        x = ms.RowTensor(indices, values, self.dense_shape)
-        return x.values, x.indices, x.dense_shape
-
-indices = ms.Tensor([0])
-values = ms.Tensor([[1, 2]], dtype=ms.float32)
-out = Net((3, 2))(indices, values)
-
-print("non-zero values:", out[0])
-print("non-zero indices:", out[1])
-print("shape:", out[2])
+print("non-zero values:", x.values)
+print("non-zero indices:", x.indices)
+print("shape:", x.dense_shape)
 ```
 
 ```text
