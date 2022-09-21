@@ -13,20 +13,20 @@ MindSpore Serving supports:
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/serving/docs/source_en/images/serving_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/serving/docs/source_en/images/serving_en.png" width="700px" alt="" >
 
 Typical Application Scenarios
 -------------------------------
 
-1. `Quick Start <https://www.mindspore.cn/serving/docs/en/master/serving_example.html>`_
+1. `Quick Start <https://www.mindspore.cn/serving/docs/en/r1.9/serving_example.html>`_
 
    Use the Add network as an example to demonstrate how to deploy an inference service with MindSpore Serving.
 
-2. `Access Services with gRPC APIs <https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html>`_
+2. `Access Services with gRPC APIs <https://www.mindspore.cn/serving/docs/en/r1.9/serving_grpc.html>`_
 
    Easily access services with high performance.
 
-3. `Using the RESTful APIs to Access Services <https://www.mindspore.cn/serving/docs/en/master/serving_restful.html>`_
+3. `Using the RESTful APIs to Access Services <https://www.mindspore.cn/serving/docs/en/r1.9/serving_restful.html>`_
 
    Access services based on HTTP.
 

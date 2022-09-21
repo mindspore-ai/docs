@@ -16,7 +16,7 @@ MindSpore Documentation
    design/distributed_training_design
    design/mindir
    design/thor
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.9/training_visual_design.html>
    design/glossary
 
 .. toctree::
@@ -57,7 +57,7 @@ MindSpore Documentation
    api_python/mindspore.scipy
    api_python/mindspore.train
    api_python/mindspore.boost
-   C++ API↗ <https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/en/r1.9/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

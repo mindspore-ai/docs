@@ -1,6 +1,6 @@
 # Function Differences with tf.image.random_flip_left_right
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_flip_left_right.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_flip_left_right.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## tf.image.random_flip_left_right
 
@@ -21,7 +21,7 @@ class mindspore.dataset.vision.RandomHorizontalFlip(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip).
+For more information, see [mindspore.dataset.vision.RandomHorizontalFlip](https://mindspore.cn/docs/en/r1.9/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip).
 
 ## Differences
 

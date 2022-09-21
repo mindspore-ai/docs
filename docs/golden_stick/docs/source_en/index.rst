@@ -5,7 +5,7 @@ MindSpore Golden Stick is a model compression algorithm set jointly designed and
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_en/images/golden-stick-arch.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/golden_stick/docs/source_en/images/golden-stick-arch.png" width="700px" alt="" >
 
 1. The underlying MindSpore Rewrite module provides the ability to modify the front-end network. Based on the interface provided by this module, algorithm developers can add, delete, query and modify the nodes and topology relationships of the MindSpore front-end network according to specific rules;
 
@@ -38,7 +38,7 @@ General Process of Applying the MindSpore Golden Stick
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_en/images/workflow.png" width="800px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/golden_stick/docs/source_en/images/workflow.png" width="800px" alt="" >
 
 1. Training
 
@@ -46,7 +46,7 @@ General Process of Applying the MindSpore Golden Stick
 
    - **Optimize the network using the MindSpore Golden Stick:** In the original training process, after the original network is defined and before the network is trained, use the MindSpore Golden Stick to optimize the network structure. Generally, this step is implemented by calling the `apply` API of MindSpore Golden Stick. For details, see `Applying the SimQAT Algorithm <https://mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html>`_ .
 
-   - **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/en/master/advanced/model/callback.html>`_ .
+   - **Register the MindSpore Golden Stick callback:** Register the callback of the MindSpore Golden Stick into the model to be trained. Generally, in this step, the `callback` function of MindSpore Golden Stick is called to obtain the corresponding callback object and `register the object into the model <https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/callback.html>`_ .
 
 2. Deployment
 
@@ -54,9 +54,9 @@ General Process of Applying the MindSpore Golden Stick
 
 .. note::
     - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
-    - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/en/master/advanced/model/train_eval.html>`_ .
-    - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-mindir-model>`_ .
-    - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/en/master/infer/inference.html>`_ .
+    - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/en/r1.9/advanced/model/train_eval.html>`_ .
+    - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model>`_ .
+    - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/en/r1.9/infer/inference.html>`_ .
 
 Roadmap
 ---------------------------------------

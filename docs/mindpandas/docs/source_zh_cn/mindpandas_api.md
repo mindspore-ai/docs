@@ -1,6 +1,6 @@
 # mindpandas API参考
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas_api.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindpandas/docs/source_zh_cn/mindpandas_api.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 MindPandas 工具包提供了一系列类Pandas接口。用户可以使用类Pandas语法在数据集上进行数据处理。
 

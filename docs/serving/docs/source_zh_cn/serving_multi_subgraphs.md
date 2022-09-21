@@ -1,6 +1,6 @@
 # 实现多子图和有状态模型的服务部署
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_multi_subgraphs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/serving/docs/source_zh_cn/serving_multi_subgraphs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -10,15 +10,15 @@ MindSpore支持一个模型导出生成多张子图，拥有多个子图的模�
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/serving_install.html)。
 
 ### 下载样例
 
-请先[下载样例](https://gitee.com/mindspore/serving/tree/master/example/matmul_multi_subgraphs/)。
+请先[下载样例](https://gitee.com/mindspore/serving/tree/r1.9/example/matmul_multi_subgraphs/)。
 
 ### 导出多图模型
 
-在`export_model`目录下，使用[export_matmul.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/export_model/export_matmul.py)，构造一个包含Matmul和ReduceSum的网络，基于两个不同的输入导出MindSpore推理部署模型。
+在`export_model`目录下，使用[export_matmul.py](https://gitee.com/mindspore/serving/blob/r1.9/example/matmul_multi_subgraphs/export_model/export_matmul.py)，构造一个包含Matmul和ReduceSum的网络，基于两个不同的输入导出MindSpore推理部署模型。
 
 ```python
 import os
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 ```
 
 使用MindSpore定义神经网络需要继承`mindspore.nn.Cell`。`Cell`是所有神经网络的基类。神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。使用`mindspore`模块的`export`即可导出模型文件。
-更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html)。
+更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/quick_start.html)。
 
 执行`export_matmul.py`脚本，生成`matmul_0.mindir`和`matmul_1.mindir`文件，输入shape分别为[128,96]和[8,96]。
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 #### 配置服务
 
-启动推理服务，可以参考[matmul_multi_subgraphs](https://gitee.com/mindspore/serving/tree/master/example/matmul_multi_subgraphs)，需要如下文件列表：
+启动推理服务，可以参考[matmul_multi_subgraphs](https://gitee.com/mindspore/serving/tree/r1.9/example/matmul_multi_subgraphs)，需要如下文件列表：
 
 ```text
 matmul_multi_subgraphs
@@ -103,7 +103,7 @@ matmul_multi_subgraphs
 - `serving_server.py`为启动服务脚本文件。
 - `matmul`为模型文件夹，文件夹名即为模型名。
 - `matmul_0.mindir`和`matmul_1.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
-- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/matmul/servable_config.py)为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_model.html)，其定义了Servable的方法`predict`。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/r1.9/example/matmul_multi_subgraphs/matmul/servable_config.py)为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/serving_model.html)，其定义了Servable的方法`predict`。
 
 模型配置文件内容如下：
 
@@ -132,7 +132,7 @@ def predict(x, y):
 
 #### 启动Serving服务器
 
-使用[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/serving_server.py)启动Serving服务器。
+使用[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.9/example/matmul_multi_subgraphs/serving_server.py)启动Serving服务器。
 
 ```python
 import os
@@ -161,7 +161,7 @@ if __name__ == "__main__":
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的网络地址。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/serving_client.py)，调用matmul Servable的`predict`方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的网络地址。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.9/example/matmul_multi_subgraphs/serving_client.py)，调用matmul Servable的`predict`方法，执行推理。
 
 ```python
 import numpy as np

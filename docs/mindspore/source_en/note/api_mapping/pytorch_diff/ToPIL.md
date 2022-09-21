@@ -1,6 +1,6 @@
 # Function differences with torchvision.transforms.ToPILImage
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToPIL.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToPIL.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.transforms.ToPILImage
 
@@ -18,7 +18,7 @@ For more information, see [torchvision.transforms.ToPILImage](https://pytorch.or
 class mindspore.dataset.vision.ToPIL
 ```
 
-For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
+For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/r1.9/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
 
 ## Differences
 

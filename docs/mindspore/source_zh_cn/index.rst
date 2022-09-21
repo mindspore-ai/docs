@@ -21,7 +21,7 @@ MindSpore 文档
    design/graph_fusion_engine
    design/thor
    design/data_engine
-   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
+   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/design.html>
    design/glossary
    
 .. toctree::
@@ -62,7 +62,7 @@ MindSpore 文档
    api_python/mindspore.scipy
    api_python/mindspore.train
    api_python/mindspore.boost
-   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

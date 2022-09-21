@@ -1,6 +1,6 @@
 # tensor_c
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_c/tensor_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/api/source_zh_cn/api_c/tensor_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ```C
 #include<tensor_c.h>
@@ -171,7 +171,7 @@ void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
-    - `format`: 张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/format_c.html#msformat)。
+    - `format`: 张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_c/format_c.html#msformat)。
 
 - 返回值
 
@@ -187,7 +187,7 @@ MSFormat MSTensorGetFormat(const MSTensorHandle tensor)
 
 - 返回值
 
-  张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/format_c.html#msformat)。
+  张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_c/format_c.html#msformat)。
 
 ### MSTensorSetData
 

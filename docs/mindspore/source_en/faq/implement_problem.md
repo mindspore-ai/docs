@@ -1,6 +1,6 @@
 # Implement Problem
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
 
-A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
+A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#learningrateschedule-class).
 
 <br/>
 
@@ -117,7 +117,7 @@ class EarlyStop(Callback):
 
 <font size=3>**Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
@@ -271,7 +271,7 @@ print(network.layers)
 
 <font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
 
-A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
+A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/r1.9/advanced/dataset.html).
 
 <br/>
 
@@ -348,7 +348,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: How do I use MindSpore to fit quadratic functions such as $f(x)=ax^2+bx+c$?**</font>
 
-A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/linear_regression.py).
+A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/linear_regression.py).
 
 Modify the following items to fit $f(x) = ax^2 + bx + c$:
 

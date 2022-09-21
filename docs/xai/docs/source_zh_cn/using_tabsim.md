@@ -1,16 +1,16 @@
 # 使用 TabSim 数据模拟器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tabsim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/xai/docs/source_zh_cn/using_tabsim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 简介
 
 有些时候，工程师只能获取少量的数据，这些数据的数量不足以支持建模或者算法开发。TabSim 可以统计表格数据的特征分布，并根据这些信息生成大量的模拟数据。
 
-以下教程的完整代码：[using_tabsim.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabsim.py)。
+以下教程的完整代码：[using_tabsim.py](https://gitee.com/mindspore/xai/blob/r1.9/examples/using_tabsim.py)。
 
 ## 安装
 
-TabSim 是 XAI 的一部份，用户在安装好 [MindSpore](https://mindspore.cn/install) 及 [XAI](https://www.mindspore.cn/xai/docs/zh-CN/master/installation.html) 后即可使用。
+TabSim 是 XAI 的一部份，用户在安装好 [MindSpore](https://mindspore.cn/install) 及 [XAI](https://www.mindspore.cn/xai/docs/zh-CN/r1.9/installation.html) 后即可使用。
 
 ## 用户使用流程
 

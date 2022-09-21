@@ -27,15 +27,15 @@ MindSpore Hub is a pre-trained model application tool of the MindSpore ecosystem
 Typical Application Scenarios
 --------------------------------------------
 
-1. `Inference Validation <https://www.mindspore.cn/hub/docs/en/master/loading_model_from_hub.html#for-inference-validation>`_
+1. `Inference Validation <https://www.mindspore.cn/hub/docs/en/r1.9/loading_model_from_hub.html#for-inference-validation>`_
 
    With only one line of code, use mindspore_hub.load to load the pre-trained model.
 
-2. `Transfer Learning <https://www.mindspore.cn/hub/docs/en/master/loading_model_from_hub.html#for-transfer-training>`_
+2. `Transfer Learning <https://www.mindspore.cn/hub/docs/en/r1.9/loading_model_from_hub.html#for-transfer-training>`_
 
    After loading models using mindspore_hub.load, add an extra argument to load the feature extraction of the neural network. This makes it easier to add new layers for transfer learning.
 
-3. `Model Releasing <https://www.mindspore.cn/hub/docs/en/master/publish_model.html>`_
+3. `Model Releasing <https://www.mindspore.cn/hub/docs/en/r1.9/publish_model.html>`_
 
    Release the trained model to MindSpore Hub according to the specified procedure for download and use.
 
