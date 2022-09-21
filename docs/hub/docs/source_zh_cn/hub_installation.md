@@ -82,3 +82,32 @@ A: 由于你的网络环境，例如你使用代理连接互联网，往往会�
    import mindspore_hub as mshub
    model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
    ```
+
+<font size=3>**Q: 遇到`No module named src.*`怎么办？**</font>
+A: 同一进程中使用load接口加载不同的模型，由于每次加载模型需要将模型文件目录插入到环境变量中，经测试发现：Python只会去最开始插入的目录下查找src.*，尽管你将最开始插入的目录删除，Python还是会去这个目录下查找。解决办法：不添加环境变量，将模型目录下的所有文件都复制到当前工作目录下。代码如下：
+
+```python
+# mindspore_hub_install_path/load.py
+def _copy_all_file_to_target_path(path, target_path):
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    path = os.path.realpath(path)
+    target_path = os.path.realpath(target_path)
+    for p in os.listdir(path):
+        copy_path = os.path.join(path, p)
+        target_dir = os.path.join(target_path, p)
+        _delete_if_exist(target_dir)
+        if os.path.isdir(copy_path):
+            _copy_all_file_to_target_path(copy_path, target_dir)
+        else:
+            shutil.copy(copy_path, target_dir)
+
+def _get_network_from_cache(name, path, *args, **kwargs):
+    _copy_all_file_to_target_path(path, os.getcwd())
+    config_path = os.path.join(os.getcwd(), HUB_CONFIG_FILE)
+    if not os.path.exists(config_path):
+        raise ValueError('{} not exists.'.format(config_path))
+    ......
+```
+
+**注意**： 在load后一个模型时可能会将前一个模型的一些文件替换掉，但是模型训练需保证必要模型文件存在，你必须在加载新模型之前完成对前一个模型的训练。
