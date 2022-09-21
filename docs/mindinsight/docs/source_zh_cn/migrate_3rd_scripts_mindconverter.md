@@ -101,7 +101,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindinsight.git
+git clone https://gitee.com/mindspore/mindinsight.git -b r1.9
 ```
 
 编译安装MindConverter，可选择以下任意一种安装方式：
@@ -147,7 +147,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
 ### 第0步：导出模型文件
 
-以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/migrate_3rd_scripts_mindconverter.html#tensorflow模型导出)），需要Pytorch API支持相应的ONNX API，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的API列表，操作步骤如下：
+以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/migrate_3rd_scripts_mindconverter.html#tensorflow模型导出)），需要Pytorch API支持相应的ONNX API，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/r1.9/docs/Operators.md#)的API列表，操作步骤如下：
 
 1. 下载网络模型工程的源码、权重文件、数据集。
 

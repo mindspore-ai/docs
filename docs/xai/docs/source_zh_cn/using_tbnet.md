@@ -18,7 +18,7 @@ TB-Net是一个基于知识图谱的可解释推荐系统，它将用户和商�
 wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/tbnet_data.tar.gz
 tar -xf tbnet_data.tar.gz
 
-git clone https://gitee.com/mindspore/xai.git
+git clone https://gitee.com/mindspore/xai.git -b r1.9
 mv data xai/models/whitebox/tbnet
 ```
 
