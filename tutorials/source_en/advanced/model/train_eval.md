@@ -1,6 +1,6 @@
 # Training and Evaluation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/train_eval.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/model/train_eval.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 The preceding section describes the basic elements used by MindSpore to build a network, such as the basic network unit, loss function, optimizer, and evaluation function of MindSpore.
 
@@ -161,7 +161,7 @@ print("loss: ", loss_result)
 
 ### Customized Training Network
 
-[Customized Loss Functions](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html#customized-loss-functions) describes how to use `nn.WithLossCell` to connect the feedforward network to the loss function. This section describes how to customize the training network.
+[Customized Loss Functions](https://www.mindspore.cn/tutorials/en/r1.9/advanced/modules/loss.html#customized-loss-functions) describes how to use `nn.WithLossCell` to connect the feedforward network to the loss function. This section describes how to customize the training network.
 
 The following example defines the `CustomTrainOneStepCell` function to encapsulate the network and optimizer.
 

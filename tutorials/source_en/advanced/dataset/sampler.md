@@ -1,18 +1,18 @@
 # Data Sampling
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/sampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/sampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 To meet training requirements and solve problems such as too large datasets or uneven distribution of sample categories, MindSpore provides multiple samplers for different purposes to help users sample datasets. Users only need to import the sampler object when loading the dataset to implement data sampling.
 
 MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSampler`, and `SubsetRandomSampler`. In addition, users can customize samplers as required.
 
-> For details about how to use the sampler, see [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html).
+> For details about how to use the sampler, see [API](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.html).
 
 ## Samplers
 
 The following uses the CIFAR-10 dataset as an example to describe how to use several common MindSpore samplers.
 
-![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
+![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
 
 You need to download the dataset used in the example through the APIs provided by the [MindSpore Vision suite](https://mindspore.cn/vision/docs/en/master/index.html) and decompress the dataset to the specified location.
 

@@ -1,14 +1,14 @@
 # Optimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 During model training, the optimizer is used to compute gradients and update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
 
 The most basic optimizer is the stochastic gradient descent (SGD) algorithm. Many optimizers are improved based on the SGD to achieve the target function to converge to the global optimal point more quickly and effectively. The `nn` module in MindSpore provides common optimizers, such as `nn.SGD`, `nn.Adam`, and `nn.Momentum`. The following describes how to configure the optimizer provided by MindSpore and how to customize the optimizer.
 
-![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/learning_rate.png)
+![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/learning_rate.png)
 
-> For details about the optimizer provided by MindSpore, see [Optimizer API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer).
+> For details about the optimizer provided by MindSpore, see [Optimizer API](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#optimizer).
 
 ## Configuring the Optimizer
 
@@ -91,7 +91,7 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
 
 - Dynamic LR function
 
-    Currently, the [Dynamic LR function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) can compute the learning rate (`nn.cosine_decay_lr`) based on the cosine decay function, the learning rate (`nn.exponential_decay_lr`) based on the exponential decay function, the learning rate (`nn.inverse_decay_lr`) based on the counterclockwise decay function, and the learning rate (`nn.natural_exp_decay_lr`) based on the natural exponential decay function, the piecewise constant learning rate (`nn.piecewise_constant_lr`), the learning rate (`nn.polynomial_decay_lr`) based on the polynomial decay function, and the warm-up learning rate (`nn.warmup_lr`).
+    Currently, the [Dynamic LR function](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#dynamic-lr-function) can compute the learning rate (`nn.cosine_decay_lr`) based on the cosine decay function, the learning rate (`nn.exponential_decay_lr`) based on the exponential decay function, the learning rate (`nn.inverse_decay_lr`) based on the counterclockwise decay function, and the learning rate (`nn.natural_exp_decay_lr`) based on the natural exponential decay function, the piecewise constant learning rate (`nn.piecewise_constant_lr`), the learning rate (`nn.polynomial_decay_lr`) based on the polynomial decay function, and the warm-up learning rate (`nn.warmup_lr`).
 
     The following uses `nn.piecewise_constant_lr` as an example:
 
@@ -116,7 +116,7 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
 
 - LearningRateSchedule Class
 
-    Currently, the [LearningRateSchedule class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class) can compute the learning rate (`nn.CosineDecayLR`) based on the cosine decay function, the learning rate (`nn.ExponentialDecayLR`) based on the exponential decay function, the learning rate (`nn.InverseDecayLR`) based on the counterclockwise decay function, the learning rate (`nn.NaturalExpDecayLR`) based on the natural exponential decay function, the learning rate (`nn.PolynomialDecayLR`) based on the polynomial decay function, and warm-up learning rate (`nn.WarmUpLR`).
+    Currently, the [LearningRateSchedule class](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#learningrateschedule-class) can compute the learning rate (`nn.CosineDecayLR`) based on the cosine decay function, the learning rate (`nn.ExponentialDecayLR`) based on the exponential decay function, the learning rate (`nn.InverseDecayLR`) based on the counterclockwise decay function, the learning rate (`nn.NaturalExpDecayLR`) based on the natural exponential decay function, the learning rate (`nn.PolynomialDecayLR`) based on the polynomial decay function, and warm-up learning rate (`nn.WarmUpLR`).
 
     In the following example, the learning rate `nn.ExponentialDecayLR` is computed based on the exponential decay function.
 
@@ -222,13 +222,13 @@ group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': fix_lr},
 optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=0.0)
 ```
 
-> Except a few optimizers (such as AdaFactor and FTRL), MindSpore supports grouping of learning rates. For details, see [Optimizer API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer).
+> Except a few optimizers (such as AdaFactor and FTRL), MindSpore supports grouping of learning rates. For details, see [Optimizer API](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#optimizer).
 
 ## Customized Optimizer
 
 In addition to the optimizers provided by MindSpore, you can customize optimizers.
 
-When customizing an optimizer, you need to inherit the optimizer base class [nn.Optimizer](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer) and rewrite the `__init__` and `construct` methods to set the parameter update policy.
+When customizing an optimizer, you need to inherit the optimizer base class [nn.Optimizer](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer) and rewrite the `__init__` and `construct` methods to set the parameter update policy.
 
 The following example implements the customized optimizer Momentum (SGD algorithm with momentum):
 

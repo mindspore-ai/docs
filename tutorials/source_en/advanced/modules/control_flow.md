@@ -1,12 +1,12 @@
 # Process Control Statements
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/control_flow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/control_flow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (`GRAPH_MODE`) and a dynamic graph mode (`PYNATIVE_MODE`).
 
 In `PYNATIVE_MODE`, MindSpore fully supports process control statements of the native Python syntax. In `GRAPH_MODE`, MindSpore performance is optimized during build. Therefore, there are some special constraints on using process control statements when during network definition. Other constraints are the same as those in the native Python syntax.
 
-When switching the running mode from dynamic graph to static graph, pay attention to the [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#static-graph-syntax-support). The following describes how to use process control statements when defining a network in `GRAPH_MODE`.
+When switching the running mode from dynamic graph to static graph, pay attention to the [static graph syntax support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html#static-graph-syntax-support). The following describes how to use process control statements when defining a network in `GRAPH_MODE`.
 
 ## Constant and Variable Conditions
 

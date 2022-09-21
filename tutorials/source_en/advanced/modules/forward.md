@@ -1,12 +1,12 @@
 # Building a Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/forward.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/forward.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 The `Cell` class of MindSpore is the base class for setting up all networks and the basic unit of a network. When customizing a network, you need to inherit the `Cell` class. The following describes the basic network unit `Cell` and customized feedforward network.
 
 The following describes the build of the feedforward network model and the basic units of the network model. Because training is not involved, there is no backward propagation or backward graph.
 
-![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/introduction3.png)
+![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/introduction3.png)
 
 ## Network Basic Unit: Cell
 
@@ -106,7 +106,7 @@ trainable_params of result:
             self.optimizer = optimizer  # Optimizer
     ```
 
-    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/train_eval.html).
+    For details about the `CustomTrainOneStepCell` code, see [Customized Training and Evaluation Networks](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/train_eval.html).
 
 3. set_train
 
@@ -191,7 +191,7 @@ In addition, to better build and manage complex networks, `mindspore.nn` provide
 
 ### ops-based Network Build
 
-The [mindspore.ops](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) module provides the implementation of basic operators, such as neural network operators, array operators, and mathematical operators.
+The [mindspore.ops](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.ops.html) module provides the implementation of basic operators, such as neural network operators, array operators, and mathematical operators.
 
 You can use operators in `mindspore.ops` to build a simple algorithm $f(x)=x^2+w$. The following is an example:
 
@@ -223,7 +223,7 @@ print(output)
 
 ### nn-based Network Build
 
-Although various operators provided by the `mindspore.ops` module can basically meet network build requirements, [mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#) further encapsulates the `mindspore.ops` operator to provide more convenient and easy-to-use APIs in complex deep networks.
+Although various operators provided by the `mindspore.ops` module can basically meet network build requirements, [mindspore.nn](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#) further encapsulates the `mindspore.ops` operator to provide more convenient and easy-to-use APIs in complex deep networks.
 
 The `mindspore.nn` module mainly includes a convolutional layer (such as `nn.Conv2d`), a pooling layer (such as `nn.MaxPool2d`), and a non-linear activation function (such as `nn.ReLU`), a loss functions (such as `nn.LossBase`) and an optimizer (such as `nn.Momentum`) that are commonly used in a neural network to facilitate user operations.
 

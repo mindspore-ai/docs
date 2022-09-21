@@ -1,18 +1,18 @@
 # Text Data Loading and Augmentation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/augment_text_data.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/augment_text_data.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 As available text data increases, it is urgent to preprocess the text data to obtain clean data required for network training. Text dataset preprocessing usually includes text dataset loading and data augmentation.
 
 Text data can be loaded in the following ways:
 
-1. Use Dataset interfaces such as [ClueDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CLUEDataset.html#mindspore.dataset.CLUEDataset) and [TextFileDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset) to read text.
-2. Convert the dataset into a standard format (for example, MindRecord) and read the dataset through the corresponding API (for example, [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset)).
-3. Use the GeneratorDataset interface to receive customized dataset loading functions and load data. For details, see [Custom Dataset Loading](https://www.mindspore.cn/tutorials/en/master/advanced/dataset/custom.html).
+1. Use Dataset interfaces such as [ClueDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.CLUEDataset.html#mindspore.dataset.CLUEDataset) and [TextFileDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset) to read text.
+2. Convert the dataset into a standard format (for example, MindRecord) and read the dataset through the corresponding API (for example, [MindDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset)).
+3. Use the GeneratorDataset interface to receive customized dataset loading functions and load data. For details, see [Custom Dataset Loading](https://www.mindspore.cn/tutorials/en/r1.9/advanced/dataset/custom.html).
 
 ## Loading Text Data
 
-The following uses `TextFileDataset` to read data from a TXT file. For more information about loading text datasets, see [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html).
+The following uses `TextFileDataset` to read data from a TXT file. For more information about loading text datasets, see [API](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.html).
 
 1. Prepare text data. The content is as follows:
 
@@ -72,13 +72,13 @@ For text data augmentation, common operations include tokenization and vocabular
 - Tokenization: Tokenize a long sentence into multiple words.
 - Vocabulary search: Search for IDs of tokenized words, and form the IDs into a word vector, and pass the word vector to a network for training.
 
-The following describes the tokenization and vocabulary search functions used in data augmentation. For details about how to use text processing APIs, see [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html).
+The following describes the tokenization and vocabulary search functions used in data augmentation. For details about how to use text processing APIs, see [API](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.text.html).
 
 ### Building and Using a Vocabulary (Vocab)
 
 A vocab provides the mapping between words and IDs. You can enter a word in the vocab to find its ID or enter an ID to obtain a word.
 
-MindSpore provides multiple methods for building a vocab. You can use the corresponding APIs to obtain original data from dictionaries ([from\_dict](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dict)), files ([from\_file](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_file)), lists ([from\_list](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_list)), and Dataset objects ([from\_dataset](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dataset)) to build a vocab.
+MindSpore provides multiple methods for building a vocab. You can use the corresponding APIs to obtain original data from dictionaries ([from\_dict](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dict)), files ([from\_file](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_file)), lists ([from\_list](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_list)), and Dataset objects ([from\_dataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dataset)) to build a vocab.
 
 For example, to use from\_dict to build a vocab, you need to input a dict containing multiple pairs of words and IDs.
 
@@ -89,7 +89,7 @@ from mindspore.dataset import text
 vocab = text.Vocab.from_dict({"home": 3, "behind": 2, "the": 4, "world": 5, "<unk>": 6})
 ```
 
-The vocab provides the [tokens\_to\_ids](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.tokens_to_ids) and [ids\_to\_tokens](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.ids_to_tokens) methods for querying words and IDs as follows:
+The vocab provides the [tokens\_to\_ids](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.tokens_to_ids) and [ids\_to\_tokens](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.ids_to_tokens) methods for querying words and IDs as follows:
 
 ```python
 # Search for IDs by word.
@@ -119,7 +119,7 @@ Tokenization is a process of dividing continuous character sequences into word s
 
 MindSpore provides multiple tokenizers for different purposes, such as BasicTokenizer, BertTokenizer, and JiebaTokenizer, to help users process texts efficiently. Users can build their own dictionaries, use appropriate tokenizers to divide sentences into different tokens, and search for indexes of tokens from the dictionaries. In addition, users can customize tokenizers as required.
 
-> The following describes how to use several common tokenizers. For more information about tokenizers, see [API](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html).
+> The following describes how to use several common tokenizers. For more information about tokenizers, see [API](https://mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.text.html).
 
 #### BertTokenizer
 

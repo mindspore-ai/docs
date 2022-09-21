@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/master/beginner/infer.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r1.9/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/r1.9/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.9/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.9/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/r1.9/beginner/infer.html)
 
 # Quick Start: Linear Fitting
 
@@ -16,7 +16,7 @@ from mindspore.dataset import vision
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In addition, MindSpore provides domain-specific development libraries, such as [Text](https://gitee.com/mindspore/text/), [Vision](https://gitee.com/mindspore/vision/), etc. The development libraries provide encapsulation for a large number of datasets and can be downloaded quickly. In this tutorial, we use Vision's dataset as an example.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r1.9/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html). In addition, MindSpore provides domain-specific development libraries, such as [Text](https://gitee.com/mindspore/text/), [Vision](https://gitee.com/mindspore/vision/), etc. The development libraries provide encapsulation for a large number of datasets and can be downloaded quickly. In this tutorial, we use Vision's dataset as an example.
 
 `mindvision.dataset` module includes various CV datasets, such as Mnist, Cifar, ImageNet, etc. In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
@@ -99,11 +99,11 @@ Shape of image [N, C, H, W]: (64, 1, 28, 28) Float32
 Shape of label: (64,) Int32
 ```
 
-For more detailed information, see [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html).
+For more detailed information, see [Dataset](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html).
 
 ## Building Network
 
-`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)) (i.e. the construction process of the [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html)).
+`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r1.9/beginner/tensor.html)) (i.e. the construction process of the [computational graph](https://www.mindspore.cn/tutorials/en/r1.9/advanced/compute_graph.html)).
 
 ```python
 # Define model
@@ -141,7 +141,7 @@ Network<
   >
 ```
 
-For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html).
+For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/model.html).
 
 ## Training Model
 
@@ -267,7 +267,7 @@ Test:
 Done!
 ```
 
-For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html).
+For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r1.9/beginner/train.html).
 
 ## Saving a Model
 
@@ -320,4 +320,4 @@ for data, label in test_dataset:
 Predicted: "[3 5 4 5 6 1 6 4 0 6]", Actual: "[3 5 9 3 6 1 6 4 0 6]"
 ```
 
-For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html).
+For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html).
