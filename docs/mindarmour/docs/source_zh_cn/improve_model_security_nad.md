@@ -1,6 +1,6 @@
 # 使用NAD算法提升模型安全性
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/improve_model_security_nad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindarmour/docs/source_zh_cn/improve_model_security_nad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -15,7 +15,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
 
 > 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
+> <https://gitee.com/mindspore/mindarmour/blob/r1.9/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## 建立被攻击模型
 

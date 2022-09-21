@@ -1,6 +1,6 @@
 # Comparing the function differences between torch.optim.lr_scheduler.CosineAnnealingLR and torch.optim.lr_scheduler.cosine_decay_lr
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CosineDecayLr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CosineDecayLr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.optim.lr_scheduler.CosineAnnealingLR
 
@@ -27,7 +27,7 @@ mindspore.nn.cosine_decay_lr(
 )
 ```
 
-For more information, see[mindspore.nn.cosine_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html#mindspore.nn.cosine_decay_lr)。
+For more information, see[mindspore.nn.cosine_decay_lr](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.cosine_decay_lr.html#mindspore.nn.cosine_decay_lr)。
 
 ## Differences
 

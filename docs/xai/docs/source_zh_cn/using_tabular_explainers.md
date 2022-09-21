@@ -1,13 +1,13 @@
 # 使用表格类解释器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/xai/docs/source_zh_cn/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 简介
 
 在这个教程中，我们将使用四个不同的解释器来解释表格数据的分类结果，这四个解释器包括 `LIMETabular` ，
  `SHAPKernel` ， `SHAPGradient` 和 `PseudoLinearCoef` 。
 
-以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
+以下教程的完整代码：[using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/r1.9/examples/using_tabular_explainers.py).
 
 ## 准备数据集
 

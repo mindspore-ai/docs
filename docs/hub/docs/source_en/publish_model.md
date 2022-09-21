@@ -1,6 +1,6 @@
 # Publishing Models using MindSpore Hub
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -27,7 +27,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ├── mindspore_hub_conf.py
    ```
 
-3. Create a `{model_name}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/1.6` using this [template](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#). Here `1.6` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
+3. Create a `{model_name}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/1.6` using this [template](https://gitee.com/mindspore/hub/blob/r1.9/mshub_res/assets/mindspore/1.6/googlenet_cifar10.md#). Here `1.6` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
 
    ```text
    hub
@@ -51,10 +51,10 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ```
 
    The MindSpore Hub supports multiple model file formats including:
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#saving-the-models)
-   - [MindIR](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-mindir-model)
-   - [AIR](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-air-model)
-   - [ONNX](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-onnx-model)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#saving-the-models)
+   - [MindIR](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model)
+   - [AIR](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-air-model)
+   - [ONNX](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-onnx-model)
 
    For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`.
 
@@ -69,6 +69,6 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md
    ```
 
-5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#) for more information about creating a PR.
+5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/r1.9/CONTRIBUTING.md#) for more information about creating a PR.
 
-Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#) for more information about model submission.
+Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/r1.9/mshub_res/README.md#) for more information about model submission.

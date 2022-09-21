@@ -5,7 +5,7 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_framework.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindpandas/docs/source_zh_cn/images/mindpandas_framework.png" width="700px" alt="" >
 
 1. 底层的分布式运行框架或多进程后端提供分布式计算的能力，原始数据进行切分后，会调用此模块计算并返回给调用层。
 
@@ -24,13 +24,13 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
    .. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multicore.png" width="700px" alt="" >
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multicore.png" width="700px" alt="" >
 
    额外的利用会导致性能的提升，如果拓展到整个集群，MindPandas使用时如下图所示：
 
    .. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multimachine.png" width="700px" alt="" >
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multimachine.png" width="700px" alt="" >
 
 2. MindPandas与现有原生Pandas的API在接口使用上保持一致，设置MindPandas的后端运行模式即可运行脚本，在使用上只需将pandas的导入替换为：
 

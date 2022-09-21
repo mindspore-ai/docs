@@ -1,6 +1,6 @@
 # ReplayBuffer 使用说明
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/reinforcement/docs/source_zh_cn/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## ReplayBuffer 简介
 

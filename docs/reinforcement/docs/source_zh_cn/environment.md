@@ -1,6 +1,6 @@
 # 强化学习环境接入
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/environment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/reinforcement/docs/source_zh_cn/environment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@ print('type: {}, shape: {}, dtype: {}'.format(type(state), state.dtype, state.sh
 - `in_types`和`in_shapes`指定输入的数据类型和维度。`env.reset`没有入参，因此填写空的列表。
 - `out_types`，`out_shapes`指定返回值的数据类型和维度。从之前的执行结果可以看到，`env.reset()`返回值是一个numpy数组，数据类型和维度分别是`np.float64`和`(4,)`，因此填写`[ms.float64,]`和`[(4,),]`。
 - `PyFunc`返回值是个tuple(Tensor)。
-- 更加详细的使用说明[参考](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/operations/other_ops.py)。
+- 更加详细的使用说明[参考](https://gitee.com/mindspore/mindspore/blob/r1.9/mindspore/python/mindspore/ops/operations/other_ops.py)。
 
 ## 环境和算法解耦
 

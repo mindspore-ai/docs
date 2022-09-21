@@ -1,6 +1,6 @@
 # 量化算法概述
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/golden_stick/docs/source_zh_cn/quantization/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 本文是在介绍具体的量化算法之前，介绍一些量化算法的基本概念，帮助用户理解。如果已经对量化算法有较深的理解，可以直接跳转到[示例](#示例)小节。
 

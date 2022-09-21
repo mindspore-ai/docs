@@ -1,6 +1,6 @@
 # 在MCU或小型系统上执行推理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -18,7 +18,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 ### 概述
 
 通过MindSpore Lite转换工具`converter_lite`，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成推理代码。
-此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/converter_tool.html)。
 
 ### 环境准备
 
@@ -32,11 +32,11 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     可以通过两种方式获取转换工具：
 
-    - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+    - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/downloads.html)。
 
         用户需下载操作系统为Linux-x86_64，硬件平台为CPU的发布包。
 
-    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
+    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/build.html)。
 
 3. 解压下载的包
 
@@ -103,7 +103,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     CONVERTER RESULT SUCCESS:0
     ```
 
-    用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
+    用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/converter_tool.html#参数说明)。
 
     在转换工具执行成功后，生成的代码被保存在用户指定的`outputFile`路径下，在本例中，为当前转换目录下的mnist文件夹，内容如下：
 
@@ -131,7 +131,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
         └── weight.h
     ```
 
-    用户可通过参考benchmark例程中对推理代码的接口调用，来对代码进行集成以实现自身的应用，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+    用户可通过参考benchmark例程中对推理代码的接口调用，来对代码进行集成以实现自身的应用，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.9/index.html)。
 
 表1：micro_param参数定义
 | 参数            | 是否必选 | 参数说明                         | 取值范围                   | 默认值    |
@@ -145,7 +145,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的`Micro`库。
 
 不同平台的推理代码依赖对应平台的`Micro`库，用户需根据使用的平台，在生成代码时，通过Micro配置项`target`指定该平台，并在获取`Micro`库时，获得该平台的`Micro`库。
-用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/downloads.html)。
 
 在[模型推理代码生成](#模型推理代码生成)章节，我们得到了x86_64架构Linux平台的模型推理代码，而该代码所依赖的`Micro`库，就在转换工具所使用的发布包内。
 发布包内，推理代码所依赖的库和头文件如下：
@@ -176,9 +176,9 @@ mindspore-lite-{version}-linux-x64
 
 - 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在mcu上执行推理)
 
-- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.9/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.9/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
 
@@ -232,11 +232,11 @@ mnist                          # 指定的生成代码根目录名称
 
 STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架构的`Micro`库：
 
-- MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+- MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/downloads.html)。
 
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
 
-- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
+- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/build.html)。
 
     用户可通过`MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64`命令，来编译得到`Cortex-M7`的发布包。
 
@@ -617,7 +617,7 @@ ${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的�
 └── src  
 ```
 
-下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
+下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
 
 ```text
 import("//build/lite/config/component/lite_component.gni")

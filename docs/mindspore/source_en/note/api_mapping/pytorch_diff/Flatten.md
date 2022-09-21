@@ -1,6 +1,6 @@
 # Function Differences with torch.flatten
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Flatten.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Flatten.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.flatten
 
@@ -20,7 +20,7 @@ For more information, see [torch.flatten](https://pytorch.org/docs/1.5.0/torch.h
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
 
-For more information, see [mindspore.ops.Flatten](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten).
+For more information, see [mindspore.ops.Flatten](https://mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten).
 
 ## Differences
 

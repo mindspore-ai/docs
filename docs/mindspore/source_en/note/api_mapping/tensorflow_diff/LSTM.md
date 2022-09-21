@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.layers.LSTM
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/LSTM.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/LSTM.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.layers.LSTM
 
@@ -24,7 +24,7 @@ For more information, see [tf.keras.layers.LSTM](https://www.tensorflow.org/vers
 class mindspore.nn.LSTM(*args, **kwargs)
 ```
 
-For more information, see [mindspore.nn.LSTM](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LSTM.html).
+For more information, see [mindspore.nn.LSTM](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.LSTM.html).
 
 ## Differences
 

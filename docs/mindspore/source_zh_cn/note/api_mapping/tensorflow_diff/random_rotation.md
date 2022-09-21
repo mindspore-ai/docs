@@ -1,6 +1,6 @@
 # 比较与tf.keras.preprocessing.image.random_rotation的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/random_rotation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/random_rotation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.preprocessing.image.random_rotation
 
@@ -31,7 +31,7 @@ class mindspore.dataset.vision.RandomRotation(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation)。
+更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation)。
 
 ## 使用方式
 

@@ -74,7 +74,7 @@ Common scenarios of CPU utilization:
    ``mindspore.dataset.config.get_monitor_sampling_interval()``. For
    details：
 
-   `dataset API <https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>`_ .
+   `dataset API <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>`_ .
 
 Memory Analysis
 ~~~~~~~~~~~~~~~
