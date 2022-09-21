@@ -11,9 +11,8 @@
 |  Ubuntu  |  18.04  |
 |  Python  | 3.7-3.9 |
 
-> - 当前MindPandas设置yr后端执行模式时，Python版本需为3.8。
+> - 当MindPandas设置yr后端执行模式时，Python版本需为3.8，且仅能在Ubuntu18.04上运行。
 > - 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt)。
-> - 当前MindPandas仅能在Ubuntu18.04上运行。
 
 ## pip安装
 
@@ -33,7 +32,7 @@ pip install mindpandas -i https://pypi.tuna.tsinghua.edu.cn/simple
 git clone https://gitee.com/mindspore/mindpandas.git
 cd mindpandas/build
 bash build.sh
-pip install output/mindpandas-0.1.0-cp37-cp37m-linux_x86_64.whl
+pip install ../output/mindpandas-0.1.0-cp38-cp38m-linux_x86_64.whl
 ```
 
 其中，`build.sh`为`mindpandas`目录下的编译脚本文件。
