@@ -1,6 +1,6 @@
 # 固定随机性以复现脚本运行结果
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 固定随机性的目的是复现脚本运行结果，辅助定位问题。固定随机性后，相同条件下的两次训练所产生的loss曲线应基本一致，您可以多次执行调试，方便地查找loss曲线异常的原因而无需担心上次调试的问题现象在本次运行时不再出现。
 
@@ -14,7 +14,7 @@
 
 1. 在要执行的脚本的开始处插入代码，固定全局随机数种子。
 
-   需要固定的随机数种子包括MindSpore全局随机数种子[mindspore.set_seed(1)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html#mindspore.set_seed)；numpy等三方库的全局随机数种子`numpy.random.seed(1)`；Python随机数种子`random.seed(1)`等。样例代码如下：
+   需要固定的随机数种子包括MindSpore全局随机数种子[mindspore.set_seed(1)](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.set_seed.html#mindspore.set_seed)；numpy等三方库的全局随机数种子`numpy.random.seed(1)`；Python随机数种子`random.seed(1)`等。样例代码如下：
 
     ```python
     import random
@@ -38,7 +38,7 @@
 
 4. 固定数据处理方法和数据顺序。
 
-   （1）删除或替换所有随机数据处理算子（例如 删除[RandomHorizontalFlip](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip)、将[RandomCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop)替换为[Crop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)等）。随机算子指所有名称中带有Random的数据处理算子。
+   （1）删除或替换所有随机数据处理算子（例如 删除[RandomHorizontalFlip](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip)、将[RandomCrop](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop)替换为[Crop](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)等）。随机算子指所有名称中带有Random的数据处理算子。
 
    （2）设置`shuffle=False`以关闭shuffle功能。不要使用数据集的sampler。
 
@@ -56,7 +56,7 @@
 
 5. 固定网络。
 
-   删除网络中带有随机性的算子，例如DropOut算子和名称中带有Random的算子。若有的随机算子确实不能删除，则应该设置固定的随机数种子（随机数种子建议选择0以外的数字）。DropOut算子随机性在部分场景下难以固定，建议始终删除。目前已知的随机算子包括：[Random Operators](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html#随机生成算子)；所有DropOut算子，例如[Dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Dropout.html#mindspore.ops.Dropout)，[Dropout2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Dropout2D.html#mindspore.ops.Dropout2D)，[Dropout3D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Dropout3D.html#mindspore.ops.Dropout3D)，[DropoutDoMask](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.DropoutDoMask.html#mindspore.ops.DropoutDoMask)，[DropoutGenMask](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.DropoutGenMask.html#mindspore.ops.DropoutGenMask)等。
+   删除网络中带有随机性的算子，例如DropOut算子和名称中带有Random的算子。若有的随机算子确实不能删除，则应该设置固定的随机数种子（随机数种子建议选择0以外的数字）。DropOut算子随机性在部分场景下难以固定，建议始终删除。目前已知的随机算子包括：[Random Operators](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.ops.html#随机生成算子)；所有DropOut算子，例如[Dropout](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Dropout.html#mindspore.ops.Dropout)，[Dropout2D](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Dropout2D.html#mindspore.ops.Dropout2D)，[Dropout3D](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Dropout3D.html#mindspore.ops.Dropout3D)，[DropoutDoMask](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DropoutDoMask.html#mindspore.ops.DropoutDoMask)，[DropoutGenMask](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DropoutGenMask.html#mindspore.ops.DropoutGenMask)等。
 
    此外，Ascend后端上有一部分特殊算子，这些算子在计算时带有微小的随机性，该随机性不会引起计算结果的错误，只是会导致计算结果在输入相同的两次计算之间产生微小的差异。针对含有这些特殊算子的网络，误差累积导致的脚本两次运行之间loss值的差异会明显增大，本文提供的loss值是否一致的判断标准不适用。Ascend后端上特殊算子的列表请见本文最后。
 
@@ -72,30 +72,30 @@
 
    若不能同时满足以上两个条件，应检查上述固定随机性的步骤是否都做到位了。如果固定随机性的操作均做到了，但是两次运行脚本，前两个迭代的loss值还是不一致，请[新建issue向MindSpore求助](https://gitee.com/mindspore/mindspore/issues/new)。
 
-我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
+我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
 
 ## 备注
 
 1. 本文档主要适用于Ascend后端上`GRAPH_MODE`的训练脚本。
 2. Ascend后端上的特殊算子列表如下，这些算子在计算时带有微小的随机性：
 
-    - [DynamicGRUV2](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.DynamicGRUV2.html#mindspore.ops.DynamicGRUV2)
-    - [DynamicRNN](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.DynamicRNN.html#mindspore.ops.DynamicRNN)
-    - [LayerNorm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LayerNorm.html#mindspore.ops.LayerNorm)
-    - [NLLLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NLLLoss.html#mindspore.ops.NLLLoss)
-    - BNTrainingReduce：当您在网络中使用[BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchNorm.html#mindspore.ops.BatchNorm)类算子时，正向计算中会使用BNTrainingReduce算子。
-    - BNTrainingReduceGrad：当您在网络中使用[BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchNorm.html#mindspore.ops.BatchNorm)类算子时，反向计算中会使用BNTrainingReduceGrad算子。
-    - Conv2DBackFilter：当您在网络中使用[Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conv2D.html#mindspore.ops.Conv2D)算子时，反向计算会使用Conv2DBackFilter算子。
-    - Conv3DBackFilter：当您在网络中使用[Conv3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conv3D.html#mindspore.ops.Conv3D)算子时，反向计算会使用Conv3DBackFilter算子。
-    - HcomAllreduce：当您在网络中使用[AllReduce](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)算子时，正向计算中可能会使用HcomAllreduce算子。
-    - MaxPool3dGrad：当您在网络中使用[MaxPool3D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D)算子时，反向计算中会使用MaxPool3dGrad算子。
-    - ReduceAllD：当您在网络中使用[ReduceAll](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceAll.html#mindspore.ops.ReduceAll)算子时，正向计算中可能会使用ReduceAllD算子。
-    - ReduceAnyD：当您在网络中使用[ReduceAny](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceAny.html#mindspore.ops.ReduceAny)算子时，正向计算中可能会使用ReduceAnyD算子。
-    - ReduceMaxD：当您在网络中使用[ReduceMax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMax.html#mindspore.ops.ReduceMax)算子时，正向计算中可能会使用ReduceMaxD算子。
-    - ReduceMeanD：当您在网络中使用[ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)算子时，正向计算中可能会使用ReduceMeanD算子。
-    - ReduceMinD：当您在网络中使用[ReduceMin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMin.html#mindspore.ops.ReduceMin)算子时，正向计算中可能会使用ReduceMinD算子。
-    - ReduceProdD：当您在网络中使用[ReduceProd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceProd.html#mindspore.ops.ReduceProd)算子时，正向计算中可能会使用ReduceProdD算子。
-    - ReduceSum、ReduceSumD：当您在网络中使用[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html#mindspore.ops.ReduceSum)算子时，正向计算中可能会使用ReduceSum或ReduceSumD算子。
-    - RoiAlignGrad：当您在网络中使用[ROIAlign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html#mindspore.ops.ROIAlign)算子时，反向计算中会使用StridedSliceGrad算子。
-    - SquareSum：当您在网络中使用[SquareSumAll](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SquareSumAll.html#mindspore.ops.SquareSumAll)算子时，正向计算中会使用SquareSum算子。
-    - StridedSliceGrad：当您在网络中使用[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html#mindspore.ops.StridedSlice)算子时，反向计算中会使用StridedSliceGrad算子。
+    - [DynamicGRUV2](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DynamicGRUV2.html#mindspore.ops.DynamicGRUV2)
+    - [DynamicRNN](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DynamicRNN.html#mindspore.ops.DynamicRNN)
+    - [LayerNorm](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.LayerNorm.html#mindspore.ops.LayerNorm)
+    - [NLLLoss](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.NLLLoss.html#mindspore.ops.NLLLoss)
+    - BNTrainingReduce：当您在网络中使用[BatchNorm](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.BatchNorm.html#mindspore.ops.BatchNorm)类算子时，正向计算中会使用BNTrainingReduce算子。
+    - BNTrainingReduceGrad：当您在网络中使用[BatchNorm](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.BatchNorm.html#mindspore.ops.BatchNorm)类算子时，反向计算中会使用BNTrainingReduceGrad算子。
+    - Conv2DBackFilter：当您在网络中使用[Conv2d](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Conv2D.html#mindspore.ops.Conv2D)算子时，反向计算会使用Conv2DBackFilter算子。
+    - Conv3DBackFilter：当您在网络中使用[Conv3d](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Conv3D.html#mindspore.ops.Conv3D)算子时，反向计算会使用Conv3DBackFilter算子。
+    - HcomAllreduce：当您在网络中使用[AllReduce](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)算子时，正向计算中可能会使用HcomAllreduce算子。
+    - MaxPool3dGrad：当您在网络中使用[MaxPool3D](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D)算子时，反向计算中会使用MaxPool3dGrad算子。
+    - ReduceAllD：当您在网络中使用[ReduceAll](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceAll.html#mindspore.ops.ReduceAll)算子时，正向计算中可能会使用ReduceAllD算子。
+    - ReduceAnyD：当您在网络中使用[ReduceAny](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceAny.html#mindspore.ops.ReduceAny)算子时，正向计算中可能会使用ReduceAnyD算子。
+    - ReduceMaxD：当您在网络中使用[ReduceMax](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceMax.html#mindspore.ops.ReduceMax)算子时，正向计算中可能会使用ReduceMaxD算子。
+    - ReduceMeanD：当您在网络中使用[ReduceMean](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)算子时，正向计算中可能会使用ReduceMeanD算子。
+    - ReduceMinD：当您在网络中使用[ReduceMin](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceMin.html#mindspore.ops.ReduceMin)算子时，正向计算中可能会使用ReduceMinD算子。
+    - ReduceProdD：当您在网络中使用[ReduceProd](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceProd.html#mindspore.ops.ReduceProd)算子时，正向计算中可能会使用ReduceProdD算子。
+    - ReduceSum、ReduceSumD：当您在网络中使用[ReduceSum](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceSum.html#mindspore.ops.ReduceSum)算子时，正向计算中可能会使用ReduceSum或ReduceSumD算子。
+    - RoiAlignGrad：当您在网络中使用[ROIAlign](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ROIAlign.html#mindspore.ops.ROIAlign)算子时，反向计算中会使用StridedSliceGrad算子。
+    - SquareSum：当您在网络中使用[SquareSumAll](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.SquareSumAll.html#mindspore.ops.SquareSumAll)算子时，正向计算中会使用SquareSum算子。
+    - StridedSliceGrad：当您在网络中使用[StridedSlice](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.StridedSlice.html#mindspore.ops.StridedSlice)算子时，反向计算中会使用StridedSliceGrad算子。

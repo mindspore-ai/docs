@@ -1,7 +1,7 @@
 
 # 多维度混合并行
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/parallel/multi_dimensional.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 随着深度学习的发展，模型规模越来越大。如NLP领域，短短几年时间，参数量就从BERT的亿级，发展到GPT-3的1700亿，再到盘古alpha 2000亿，以及当前业界甚至提出百万亿级。由此可以看出，近年来参数规模呈指数增长趋势。另一方面，随着大数据、互联网等领域相关技术的发展，可供模型训练的数据集也极速扩增，例如推荐、自然语言处理等场景的数据集可达数TB。
 
@@ -11,13 +11,13 @@
 
 MindSpore提供以下高级特性来支撑大模型分布式训练，用户可以根据自己的需要进行灵活组合。
 
-## [算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html)
+## [算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/operator_parallel.html)
 
 算子级并行是以算子为单位，对其输入张量切分到多个设备，从而将算子进行分布式计算。一方面，可以将数据样本及模型参数同时切分到多个设备上，以完成大模型的训练。另一方面，可以充分利用集群资源进行并行计算，以提高整体速度。
 
 用户可以设置正向网络中每个算子的切分策略，框架根据算子的切分策略对每个算子及其输入张量进行切分建模，使得该算子的计算逻辑在切分前后保持数学等价。
 
-## [流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)
+## [流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/pipeline_parallel.html)
 
 当集群设备数很多时，如果仅采用算子级并行的方式，则需要在整个集群的通信域上进行通信，这可能使得通信效率低，从而降低整体性能。
 
@@ -25,15 +25,15 @@ MindSpore提供以下高级特性来支撑大模型分布式训练，用户可�
 
 流水线并行的优点在于：能提升通信效率、能方便的处理按层堆叠的神经网络结构。缺点在于：同一时刻内，有些节点可能处于空闲状态。
 
-## [优化器并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/optimizer_parallel.html)
+## [优化器并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/optimizer_parallel.html)
 
 在数据并行或算子级并行训练时，模型的参数可能在多个设备上存在同一份副本。这使得优化器在更新该权重之时，在多个设备间存在冗余计算。在此情况下，可以通过优化器并行将优化器的计算量分散到多个设备上。它的优点在于：能减少静态内存消耗、减少优化器内的计算量。缺点在于：增加了通信开销。
 
-## [Host&Device异构](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/host_device_training.html)
+## [Host&Device异构](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/host_device_training.html)
 
 在大模型训练时，因每个设备（加速器）的内存容量有限，从而总体所能训练的模型规模将受设备数的限制。为了能完成更大规模的模型训练，可以使用主机端（Host）和加速器（Device）异构的训练模式。它同时发挥了主机端内存大和加速器端计算快的优势，是超大模型训练过程中减少设备数的有效方式。
 
-## [重计算](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/recompute.html)
+## [重计算](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/recompute.html)
 
 MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。为了降低内存峰值，重计算技术可以不保存正向激活层的计算结果，让该内存可以被复用，然后在计算反向部分时，重新计算出正向激活层的结果。
 

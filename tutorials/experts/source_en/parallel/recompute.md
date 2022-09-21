@@ -1,6 +1,6 @@
 # Recomputation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/recompute.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/parallel/recompute.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ In order to reduce memory peaks, the recompute technique can not save the comput
 
 The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/recompute_image_0_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/parallel/images/recompute_image_0_zh.png)
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
@@ -24,7 +24,7 @@ For user convenience, MindSpore currently provides not only a recompute interfac
 
 Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the layerer for each layer, and then the output operator of the layerer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/recompute_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/parallel/images/recompute_image_1_zh.png)
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 
@@ -34,13 +34,13 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
 
-2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
+2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/train_ascend.html#downloading-the-dataset>.
 
 ## Configuring for Recomputation
 
 We can call two kinds of interface to configure the recomputation. Take `src/resnet.py` for example:
 
-1. The [recompute api](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. It can set an operator to be recomputed. After setting, the operator will be recomputed in the backward pass.
+1. The [recompute api](https://www.mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. It can set an operator to be recomputed. After setting, the operator will be recomputed in the backward pass.
 
     ```python
     class ResNet(nn.Cell):
@@ -61,7 +61,7 @@ We can call two kinds of interface to configure the recomputation. Take `src/res
             ...
     ```
 
-2. Call the [recompute api](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. It can set the whole `Cell` to be recomputed. After setting, except the output of the `Cell`, all the operators in this cell and its sub `Cell` will be recomputed in the backward pass.
+2. Call the [recompute api](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. It can set the whole `Cell` to be recomputed. After setting, except the output of the `Cell`, all the operators in this cell and its sub `Cell` will be recomputed in the backward pass.
 
    ```python
    class ResNet(nn.Cell):

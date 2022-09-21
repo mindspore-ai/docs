@@ -1,6 +1,6 @@
 # 优化器并行
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -47,7 +47,7 @@ MindSpore实现的优化器参数切分还具有与算子级并行混合使用�
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel>。
+><https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_optimizer_parallel>。
 
 目录结构如下：
 
@@ -180,7 +180,7 @@ The parameter layer3.output_mapping.bias's fusion id is 2
 
 ### 运行代码
 
-上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
+上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_gpu.html#配置分布式环境)。
 
 Ascend分布式相关的环境变量有:
 
@@ -192,7 +192,7 @@ GPU分布式相关的环境变量：
 
 - HOST_FILE: 描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
 
-用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
+用户可以通过[此处](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
 
 ```bash
 #!/bin/bash

@@ -1,8 +1,8 @@
 Environment Variables
 =====================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png 
-   :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/env/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png 
+   :target: https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/env/env_var_list.rst
 
 MindSpore environment variables are as follows:
 
@@ -27,7 +27,7 @@ Operators Compile
      - 
    * - MS_COMPILER_CACHE_ENABLE
      - Specifies whether to save or load the cache of the graph compiled by front-end. 
-       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
+       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
 
        Note: This environment variable has lower precedence than the context `enable_compile_cache`.
      - Integer
@@ -69,7 +69,7 @@ Operators Compile
        false: enable prebuild
      - 
 
-For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/master/debug/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
+For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/r1.9/debug/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/r1.9/faq/operators_compile.html>`_.
 
 Parallel Training
 -----------------
@@ -104,7 +104,7 @@ Parallel Training
      - File path, which can be a relative path or an absolute path.
      - This variable is used together with RANK_SIZE.
 
-For more information, see `Distributed Parallel Training Example <https://mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script>`_.
+For more information, see `Distributed Parallel Training Example <https://mindspore.cn/tutorials/experts/en/r1.9/parallel/train_ascend.html#running-the-script>`_.
 
 Running Data Recorder
 ---------------------
@@ -142,7 +142,7 @@ Running Data Recorder
      - This variable is used together with `MS_RDR_ENABLE=1`. The final directory for recording data is `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`. 
        `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
-For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#running-data-recorder>`_.
+For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/custom_debug.html#running-data-recorder>`_.
 
 Log
 ---
@@ -225,7 +225,7 @@ Log
        SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
      - 
 
-For more information, see `Log-related Environment Variables and Configurations <https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#log-related-environment-variables-and-configurations>`_.
+For more information, see `Log-related Environment Variables and Configurations <https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/custom_debug.html#log-related-environment-variables-and-configurations>`_.
 
 Dump Function
 -------------
@@ -240,20 +240,20 @@ Dump Function
      - Value Range
      - Description
    * - MINDSPORE_DUMP_CONFIG
-     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump>`_ depends on.
+     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/dump.html#synchronous-dump>`_
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r1.9/use/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump>`_ is enabled, 
+     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/dump.html#synchronous-dump>`_ is enabled, 
        if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump is regarded as path. 
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
      - File path, only absolute path is supported.
      - This variable is used together with MINDSPORE_DUMP_CONFIG.
 
-For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_.
+For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/dump.html>`_.
 
 Data Processing
 ---------------
@@ -290,7 +290,7 @@ Data Processing
        false: disables pipeline tree optimization.
      - 
 
-For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/master/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/master/dataset/optimize.html>`_.
+For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/r1.9/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/r1.9/dataset/optimize.html>`_.
 
 Debugger
 --------
@@ -329,7 +329,7 @@ Debugger
      - Port number ranges from 1 to 65536.
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
 
-For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`_.
+For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/r1.9/debugger.html>`_.
 
 Other
 -----
