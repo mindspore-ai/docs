@@ -2951,6 +2951,30 @@ std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const;
 
   `map`类型的配置信息。
 
+#### SetConfigPath
+
+```cpp
+void SetConfigPath(const std::string &config_path);
+```
+
+设置RunnerConfig中的配置文件路径。
+
+- 参数
+
+    - `config_path`: 配置文件路径。
+
+#### GetConfigPath
+
+```cpp
+std::string GetConfigPath() const;
+```
+
+获取RunnerConfig中的配置文件的路径。
+
+- 返回值
+
+  RunnerConfig类中的配置文件路径。
+
 ## ModelParallelRunner
 
 \#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_parallel_runner.h)&gt;
