@@ -18,7 +18,7 @@ First of all, we have to download the data package and put it underneath the `mo
 wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/tbnet_data.tar.gz
 tar -xf tbnet_data.tar.gz
 
-git clone https://gitee.com/mindspore/xai.git
+git clone https://gitee.com/mindspore/xai.git -b r1.9
 mv data xai/models/whitebox/tbnet
 ```
 

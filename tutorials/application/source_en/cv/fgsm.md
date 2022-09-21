@@ -1,6 +1,6 @@
 # Model Adversarial Attack
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/fgsm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/application/source_en/cv/fgsm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 With continuous development and evolution of data, computing power, and theories in recent years, deep learning has been widely applied in many fields involving images, texts, voice, and autonomous driving. Meanwhile, people are getting more and more concerned about the security issues of various models in use, because AI models are vulnerable to intentional or unintentional attacks and generate incorrect results.
 
@@ -12,7 +12,7 @@ Szegedy first proposed the concept of adversarial examples in 2013.
 
 Small perturbations that cannot be perceived by humans are added to original examples, which deteriorates the performance of deep models. Such examples are adversarial examples. For example, after a noise is added to the image that should be predicted as panda, the model predicts the image as gibbon. The example is an adversarial example.
 
-![fgsm-panda-image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/panda.png)
+![fgsm-panda-image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/application/source_zh_cn/cv/images/panda.png)
 
 > The image comes from [Explaining and Harnessing Adversarial Examples](https://arxiv.org/abs/1412.6572).
 
@@ -34,7 +34,7 @@ Attacks on models can be classified from the following aspects:
 
 The Fast Gradient Sign Method (FGSM) attack used in this case is a white-box attack method, which can be either a targeted or untargeted attack.
 
-> For more model security functions, see [MindArmour](https://www.mindspore.cn/mindarmour/docs/en/master/index.html). Currently, MindArmour supports multiple adversarial example generation methods, such as FGSM, LLC, and Substitute Attack, and provides adversarial example robustness, fuzz testing, and privacy protection and evaluation modules to enhance model security.
+> For more model security functions, see [MindArmour](https://www.mindspore.cn/mindarmour/docs/en/r1.9/index.html). Currently, MindArmour supports multiple adversarial example generation methods, such as FGSM, LLC, and Substitute Attack, and provides adversarial example robustness, fuzz testing, and privacy protection and evaluation modules to enhance model security.
 
 ### FGSM Attack
 
