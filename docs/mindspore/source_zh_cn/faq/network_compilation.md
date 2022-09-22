@@ -32,7 +32,7 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 A: MindSpore在静态图模式下不支持 `yield` 语法。另外，在静态图模式下，如果代码中错误使用了 `net.trainable_params()` 不支持语法，也会触发该报错，因为其内部实现使用了 `list(filter(iterator))` 语法，隐式调用了 `yield` 语法。代码样例如下：
 
 ```python
-from mindspore import context, nn
+from mindspore import set_context, nn
 
 class Net(nn.Cell):
     def construct(self):
@@ -46,7 +46,7 @@ class TestNet(nn.Cell):
     def construct(self):
         return net.trainable_params()
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 net = TestNet()
 out = net()
 ```

@@ -6,19 +6,19 @@
 
 ## context配置问题
 
-执行网络训练时，需要指定后端设备，使用方式是：`context.set_context(device_target=device)`。MindSpore支持CPU，GPU和昇腾后端Ascend。如果在GPU设备上，错误指定后端设备为Ascend，即`context.set_context(device_target="Ascend")`， 会得到如下报错信息：
+执行网络训练时，需要指定后端设备，使用方式是：`set_context(device_target=device)`。MindSpore支持CPU，GPU和昇腾后端Ascend。如果在GPU设备上，错误指定后端设备为Ascend，即`set_context(device_target="Ascend")`， 会得到如下报错信息：
 
 ```python
-ValueError: For 'context.set_context', package type mindspore-gpu support 'device_target' type gpu or cpu, but got Ascend.
+ValueError: For 'set_context', package type mindspore-gpu support 'device_target' type gpu or cpu, but got Ascend.
 ```
 
 脚本设置的运行后端要求与实际的硬件设备相匹配。
 
 参考实例链接：
 
-[MindSpore 配置问题 - 'context.set_context'配置报错](https://bbs.huaweicloud.com/forum/thread-183514-1-1.html)。
+[MindSpore 配置问题 - 'set_context'配置报错](https://bbs.huaweicloud.com/forum/thread-183514-1-1.html)。
 
-关于context配置的详细使用说明请参考['context.set_context'](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
+关于context配置的详细使用说明请参考['set_context'](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 
 ## 语法问题
 
@@ -70,7 +70,7 @@ ValueError: For 'context.set_context', package type mindspore-gpu support 'devic
     RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
     ```
 
-    超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`context.set_context(max_call_depth=value)`调大函数调用栈的阈值。
+    超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`set_context(max_call_depth=value)`调大函数调用栈的阈值。
 
     参考实例链接：
 

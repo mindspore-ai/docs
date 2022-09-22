@@ -15,18 +15,19 @@ PyNative模式，也称为动态图模式。该模式的正向执行过程是按
 ```python
 import pdb
 import numpy as np
-from mindspore import Tensor, nn, context
-from mindspore.common import Parameter, ParameterTuple
+import mindspore as ms
+from mindspore import Tensor, nn, set_context
+from mindspore import Parameter, ParameterTuple
 from mindspore.ops import GradOperation
-import mindspore.ops as P
-context.set_context(mode=context.PYNATIVE_MODE)
+from mindspore import ops
+set_context(mode=ms.PYNATIVE_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.w1 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w1", requires_grad=True)
         self.w2 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w2", requires_grad=True)
         self.relu = nn.ReLU()
-        self.pow = P.Pow()
+        self.pow = ops.Pow()
 
     def construct(self, x, y):
         x = self.relu(x * self.w1) * self.w2

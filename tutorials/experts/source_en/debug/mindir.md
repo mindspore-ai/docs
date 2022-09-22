@@ -415,7 +415,7 @@ In the function definition, only two parameters are needed, so there will be a d
 ```python
   1 import numpy as np
   2 import mindspore
-  3 from mindspore import nn, ops, context, Tensor, Parameter
+  3 from mindspore import nn, ops, set_context, Tensor, Parameter
   4 from mindspore.common.initializer import initializer
   5
   6 class Net(nn.Cell):

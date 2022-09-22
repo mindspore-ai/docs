@@ -110,7 +110,7 @@ A sample code to optimize compiling performance by enabling compiling cache is a
 
 ```python
 import time
-import mindspore.context as context
+from mindspore import set_context
 from mindspore import Tensor, dtype
 from mindspore import ms_function
 
@@ -121,7 +121,7 @@ def func(input_x, input_y):
         output = input_x + input_x * input_y + output
     return output
 
-context.set_context(enable_compile_cache=False)
+set_context(enable_compile_cache=False)
 x = Tensor([1], dtype.float32)
 y = Tensor([2], dtype.float32)
 start_time = time.time()
@@ -146,7 +146,7 @@ When the compiling cache is turned off, the time consumption of the first time a
 
 ```python
 import time
-import mindspore.context as context
+from mindspore import set_context
 from mindspore import Tensor, dtype
 from mindspore import ms_function
 
@@ -157,7 +157,7 @@ def func(input_x, input_y):
         output = input_x + input_x * input_y + output
     return output
 
-context.set_context(enable_compile_cache=True, compile_cache_path="my_compile_cache")
+set_context(enable_compile_cache=True, compile_cache_path="my_compile_cache")
 x = Tensor([1], dtype.float32)
 y = Tensor([2], dtype.float32)
 start_time = time.time()

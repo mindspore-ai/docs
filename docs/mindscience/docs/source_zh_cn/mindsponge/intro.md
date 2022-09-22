@@ -76,7 +76,7 @@ violation计算公式如下:
 
 ```bash
 import mindspore as ms
-from mindspore import context
+from mindspore import set_context
 from mindspore import Tensor
 from mindsponge.common.utils import get_pdb_info
 from mindsponge.metrics.structure_violations import get_structural_violations
@@ -115,7 +115,8 @@ transformed_quat = rot_to_quat(rot)
 
 ```bash
 import numpy as np
-from mindspore import context
+import mindspore as ms
+from mindspore import set_context
 from mindsponge import Sponge
 from mindsponge import Molecule
 from mindsponge import ForceFieldBase
@@ -125,7 +126,7 @@ from mindsponge.callback import WriteH5MD, RunInfo
 from mindsponge.function import VelocityGenerator
 from mindsponge.control import LeapFrog
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 system = Molecule(
     atoms=['O', 'H', 'H'],

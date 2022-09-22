@@ -418,7 +418,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 ```python
   1 import numpy as np
   2 import mindspore
-  3 from mindspore import nn, ops, context, Tensor, Parameter
+  3 from mindspore import nn, ops, set_context, Tensor, Parameter
   4 from mindspore.common.initializer import initializer
   5
   6 class Net(nn.Cell):
