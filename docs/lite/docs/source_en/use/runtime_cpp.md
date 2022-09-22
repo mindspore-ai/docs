@@ -214,8 +214,7 @@ auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
 }
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
+
 device_list.push_back(cpu_device_info);
 ```
 
