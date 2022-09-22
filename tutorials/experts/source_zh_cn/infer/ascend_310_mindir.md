@@ -10,7 +10,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 3. 加载保存的MindIR模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample> 。
+> 完整可运行的样例代码：[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample) 。
 
 ## 开发环境准备
 
@@ -47,7 +47,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 #### 使用CPU算子数据预处理
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc) 。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -230,7 +230,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 > 注意：目前只支持CV类的模型
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc> 。
+推理代码样例：[main_hide_preprocess.cc](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc) 。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -296,7 +296,7 @@ ms::MSTensor::DestroyTensorPtr(t1);
 
 ## 构建脚本介绍
 
-构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
+构建脚本用于构建用户程序，样例来自于：[CMakeLists.txt](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt) 。
 
 为编译器添加头文件搜索路径：
 
@@ -365,9 +365,15 @@ make
 
 ## 执行推理并查看结果
 
-登录Ascend 310环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`。
-创建`test_data`目录放置图片，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`。
-就可以开始执行推理了:
+登录Ascend 310环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如:
+
+`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`。
+
+创建`test_data`目录放置图片，例如:
+
+`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`。
+
+开始执行推理:
 
 如果使用的MindIR，在导出时是不带数据预处理的，可以执行该主函数：
 

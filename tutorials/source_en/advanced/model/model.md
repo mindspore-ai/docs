@@ -167,7 +167,9 @@ Next, let's look at how to correctly use `Model` when customizing network encaps
 
 ### Customized Loss Network
 
-If there are multiple data records or labels, you can use a customized loss network to link the feedforward network and the customized loss function as the `network` of `Model`. The default value of `loss_fn` is `None`. In this case, `Model` does not pass through `nn.WithLossCell`, `nn.TrainOneStepCell` is directly used to form a training network with the `optimizer`.
+If there are multiple data records or labels, you can use a customized loss network to link the feedforward network and the customized loss function as the `network` of `Model`. The default value of `loss_fn` is `None`.
+
+In this case, `Model` does not pass through `nn.WithLossCell`, `nn.TrainOneStepCell` is directly used to form a training network with the `optimizer`.
 
 ```python
 import numpy as np

@@ -23,7 +23,7 @@
 
 ### 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> 。
+推理代码样例：[gpu_resnet50_inference_sample](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc)。
 
 引用`mindspore`名字空间：
 
@@ -111,8 +111,7 @@ add_executable(main src/main.cc)
 target_link_libraries(main ${MS_LIB})
 ```
 
->详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
+>详细样例请参考：[CMakeLists.txt](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt)
 
 ### 编译推理代码
 

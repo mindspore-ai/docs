@@ -6,7 +6,7 @@
 
 在MindSpore发布的鹏程·盘古模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
 
-> 完整代码可以参考：https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha
+> 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha)
 
 在训练入口脚本train.py中，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文关注的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
 
@@ -14,7 +14,11 @@
 
 在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindspore.nn.transformer.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
 
-如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略`gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`切分索引batch维度，或者模型并行策略`gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
+如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略切分索引batch维度，或者模型并行策略对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
+
+- 数据并行策略 `gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`
+
+- 模型并行策略 `gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`
 
 > 脚本和文章中使用config.data_parallel和config.model_parallel指代数据并行切分维度大小和模型并行切分维度大小。
 
@@ -95,7 +99,15 @@ Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实
 
 - 三个Dense矩阵乘法
 
-  此处负责将shape为`[batch*sequence_length, hidden_size]`的输入tensor投影到三个向量，作为Attention计算的Query、Key、Value三个向量。这里对输入的batch维度及权重的output_channel维度进行混合并行切分`matmul.shard(((parallel_config.data_parallel, 1), (parallel_config.model_parallel, 1)))`。输出矩阵行、列均切，再加上切分的偏置项`bias_add.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel,)))`。
+  此处负责将shape为`[batch*sequence_length, hidden_size]`的输入tensor投影到三个向量，作为Attention计算的Query、Key、Value三个向量。
+
+  对输入的batch维度及权重的output_channel维度进行混合并行切分：
+
+  `matmul.shard(((parallel_config.data_parallel, 1), (parallel_config.model_parallel, 1)))`。
+
+  输出矩阵行、列均切，再加上切分的偏置项：
+
+  `bias_add.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel,)))`。
 
   ```python
   self.dense1 = nn.Dense(hidden_size,

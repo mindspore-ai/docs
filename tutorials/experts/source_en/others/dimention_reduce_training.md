@@ -12,13 +12,9 @@ In view of the time-consuming  single-card training, this tutorial will use the 
 
 ## Preparation
 
->Download the complete sample code from:
+>Download the complete sample code from: [dimension_reduce_training](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/dimension_reduce_training).
 >
-><https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/dimension_reduce_training>
->
->The models library links referenced in the code:
->
-><https://gitee.com/mindspore/models>
+>The models library links referenced in the code: [models](https://gitee.com/mindspore/models).
 
 ### Configuring the Distributed Environment Variables
 
@@ -68,9 +64,7 @@ Used dataset: [ImageNet 2012](http://www.image-net.org/)
 
 ## First Stage: Regular Training
 
-> The main training sample code for the first phase:
->
-> <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_stage_1.py>.
+> The main training sample code for the first phase: [train_stage_1.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_stage_1.py).
 
 ### Runtime Mode and Backend Device Settings
 
@@ -181,7 +175,7 @@ if get_rank_id() == 0:
 
 After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
-1. Call the run script [run_stage_1.sh] (https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/run_stage_1.sh) to view the run results. Running the script requires a given dataset path, and the model is saved under device0_stage_1/checkpoint_stage_1 by default.
+1. Call the run script [run_stage_1.sh](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/run_stage_1.sh) to view the run results. Running the script requires a given dataset path, and the model is saved under device0_stage_1/checkpoint_stage_1 by default.
 
    ```bash
    bash run_stage_1.sh ./imagenet
@@ -212,9 +206,7 @@ After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
 Based on the weight file obtained in the first stage, in the Boost mode, we can realize the function of dimension reduction training by simply calling the dimension reduction training interface of mindspore.boost.
 
-> The main training sample code for the second phase:
->
-> <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py>.
+> The main training sample code for the second phase: [train_boost_stage_2.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py).
 
 The code for the second and first stages is essentially the same, and only the inconsistencies are described below.
 

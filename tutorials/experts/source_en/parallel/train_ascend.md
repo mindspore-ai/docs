@@ -5,9 +5,7 @@
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code:
->
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_training>
+> Download address of the complete sample code: [distributed_training](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_training)
 
 The directory structure is as follow:
 
@@ -41,7 +39,7 @@ Besides, we describe the usages of hybrid parallel and semi-auto parallel modes 
 
 This sample uses the `CIFAR-10` dataset, which consists of color images of 32 x 32 pixels in 10 classes, with 6000 images per class. There are 50,000 images in the training set and 10,000 images in the test set.
 
-> `CIFAR-10` dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>. If the download is unsuccessful, try copying the link address and download it.
+> Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). If the download is unsuccessful, try copying the link address and download it.
 
 Download the dataset and decompress it to a local path. The folder generated after the decompression is `cifar-10-batches-bin`.
 
