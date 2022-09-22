@@ -345,5 +345,4 @@ The running result can be seen that the augmentation effect of each image in the
 
 ## References
 
-[1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501).
-
+[1] Ekin D. Cubuk, Barret Zoph, Dandelion Mane, Vijay Vasudevan, Quoc V. Le [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501).

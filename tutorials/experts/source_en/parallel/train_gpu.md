@@ -6,9 +6,7 @@
 
 This tutorial describes how to train a ResNet-50 network by using a CIFAR-10 dataset on a GPU processor hardware platform through MindSpore and data parallelism and automatic parallelism mode.
 
-> You can download the complete sample code here:
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> You can download the complete sample code here: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
 
 The directory structure is as follows:
 
@@ -40,9 +38,9 @@ In order to ensure the normal progress of the distributed training, we need to c
 
 - `OpenMPI-4.0.3`: multi-process communication library used by MindSpore.
 
-  Download the OpenMPI-4.0.3 source code package `openmpi-4.0.3.tar.gz` from <https://www.open-mpi.org/software/ompi/v4.0/>.
+  Download the OpenMPI-4.0.3 source code package [openmpi-4.0.3.tar.gz](https://www.open-mpi.org/software/ompi/v4.0/).
 
-  For details about how to install OpenMPI, see the official tutorial: <https://www.open-mpi.org/faq/?category=building#easy-build>.
+  For details about how to install OpenMPI, see the official tutorial: [easy-build](https://www.open-mpi.org/faq/?category=building#easy-build).
 
 - Password-free login between hosts (required for multi-host training). If multiple hosts are involved in the training, you need to configure password-free login between them. The procedure is as follows:
   1. Ensure that the same user is used to log in to each host. (The root user is not recommended.)
@@ -118,7 +116,7 @@ The output log can be found in `log/1/rank.0` after the program is executed. If 
 
 This example uses the `CIFAR-10` dataset, which consists of 10 classes of 32*32 color pictures, each containing 6,000 pictures, for a total of 60,000 pictures. The training set has a total of 50,000 pictures, and the test set has a total of 10,000 pictures.
 
-> `CIFAR-10` dataset download link: <http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>. If the download is unsuccessful, please try copying the link address and download it.
+> Download [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz). If the download is unsuccessful, please try copying the link address and download it.
 
 The Linux machine can use the following command to download to the current path of the terminal and extract the dataset, and the folder of the extracted data is `cifar-10-batches-bin`.
 
@@ -299,9 +297,7 @@ On GPU hardware platform, MindSpore uses `mpirun`of OpenMPI for distributed trai
 
 The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
-> Obtain the running script of the example from:
->
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh>
+> Obtain the running script of the example from [run_gpu.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh).
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 
@@ -418,9 +414,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 On GPU hardware platform, the following shows how to run a distributed training script by using 8 cards as an example:
 
-> You can find the running directory of the sample here:
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> You can find the running directory of the sample [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training).
 
 Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
 
@@ -442,7 +436,11 @@ Where:
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
 - By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl") can be called, otherwise the initialization of the networking will fail.
 
-To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
+To use a secure encrypted tunnel, set the configuration as following:
+
+`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`.
+
+For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
 
 The script content `run_gpu_cluster.sh` is as follows, before starting the Worker and Scheduler, you need to add the relevant environment variable settings:
 
@@ -626,7 +624,7 @@ In the graph mode, the `MindData` is used for data sinking mode training, and th
 
 In the above scenario, if there are nodes hanging up during the training process, it is guaranteed that under the same environment variables (`MS_ENABLE_RECOVERY` and `MS_RECOVERY_PATH`). The training can continue after re-pulling the script corresponding to the corresponding process, and does not affect the precision convergence.
 
-1)  Start Disaster Tolerance:
+1) Start Disaster Tolerance:
 
 Enable disaster tolerance with environment variables:
 
@@ -646,9 +644,7 @@ ckpoint_cb = ms.ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str
 
 Each Worker turns on save checkpoint and uses a different path (as in the example above, the directory setting uses the rank id to ensure that the paths are not the same) to prevent checkpoint save conflicts of the same name. checkpoint is used for abnormal process recovery and normal process rollback. Training rollback means that each worker in the cluster is restored to the state corresponding to the latest checkpoint, and the data side also falls back to the corresponding step, and then continues training. The interval between saving checkpoints is configurable, which determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps that are reverted to the last save checkpoint, but the frequent saving of checkpoints may also affect the training efficiency, and the larger the interval, the opposite effect. keep_checkpoint_max set to at least 2 (to prevent checkpoint save failure).
 
-> The running directory of the sample:
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> The running directory of the sample: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training).
 
 The scripts involved are `run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`. The script content `run_gpu_cluster_recovery.sh` is as follows:
 
@@ -730,6 +726,3 @@ The exception exit of the Worker process is handled in a similar way (Note: the 
 MindSpore Operator is a plugin for MindSpore to conduct distributed training on Kubernetes. The CRD (Custom Resource Definition) defines three roles of Scheduler, PS, and Worker, and users only need to configure the yaml file to easily implement distributed training.
 
 The current ms-operator supports ordinary single Worker training, single Worker training in PS mode, and Scheduler and Worker startups for automatic parallelism (such as data parallelism and model parallelism). For detailed procedures, see [ms-operator](https://gitee.com/mindspore/ms-operator).
-
-
-

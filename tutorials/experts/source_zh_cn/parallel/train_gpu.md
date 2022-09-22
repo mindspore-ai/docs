@@ -5,9 +5,7 @@
 ## 概述
 
 本篇教程我们主要讲解，如何在GPU处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式，使用CIFAR-10数据集训练ResNet-50网络。
-> 你可以在这里下载完整的样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
 
 目录结构如下：
 
@@ -39,9 +37,9 @@
 
 - `OpenMPI-4.0.3`：MindSpore采用的多进程通信库。
 
-  OpenMPI-4.0.3源码下载地址：<https://www.open-mpi.org/software/ompi/v4.0/>，选择`openmpi-4.0.3.tar.gz`下载。
+  下载OpenMPI-4.0.3源码[openmpi-4.0.3.tar.gz](https://www.open-mpi.org/software/ompi/v4.0/)。
 
-  参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
+  参考[OpenMPI官网教程](https://www.open-mpi.org/faq/?category=building#easy-build)安装。
 
 - 主机间免密登陆（涉及多机训练时需要）。若训练涉及多机，则需要配置多机间免密登陆，可参考以下步骤进行配置：
     1. 每台主机确定同一个用户作为登陆用户（不推荐root）；
@@ -117,7 +115,7 @@ mpirun -n DEVICE_NUM python nccl_allgather.py
 
 本样例采用`CIFAR-10`数据集，由10类32*32的彩色图片组成，每类包含6000张图片，共60000张。其中训练集共50000张图片，测试集共10000张图片。
 
-> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>，如果点击下载不成功，请尝试复制链接地址后下载。
+> 下载[CIFAR-10数据集](http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)，如果点击下载不成功，请尝试复制链接地址后下载。
 
 Linux机器可采用以下命令下载到终端当前路径并解压数据集，解压后的数据所在文件夹为`cifar-10-batches-bin`。
 
@@ -297,9 +295,7 @@ def test_train_cifar(epoch_size=10):
 
 下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
-> 你可以在这里找到样例的运行脚本：
->
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh>。
+> 样例的运行脚本：[run_gpu.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh)。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 
@@ -416,9 +412,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 在GPU硬件平台上，下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
-> 你可以在这里找到样例的运行目录：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
 
 相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
@@ -440,7 +434,11 @@ if __name__ == "__main__":
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
-若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
+若想使用安全加密通道，请配置：
+
+`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
+
+详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -639,9 +637,7 @@ ckpoint_cb = ms.ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str
 
 每个Worker都开启保存checkpoint，并用不同的路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。保存checkpoint的间隔是可配置的，这个间隔决定了容灾恢复的粒度，间隔越小，恢复到上次保存checkpoint所回退的step数就越小，但保存checkpoint频繁也可能会影响训练效率，间隔越大则效果相反。keep_checkpoint_max至少设置为2(防止checkpoint保存失败)。
 
-> 样例的运行目录：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
 
 涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`。脚本内容`run_gpu_cluster_recovery.sh`如下：
 

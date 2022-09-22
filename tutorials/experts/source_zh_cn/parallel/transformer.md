@@ -8,9 +8,7 @@
 
 - `Transformer`提供了简单的并行配置，即可实现算子级别并行和流水线并行。
 
-> 你可以在这里下载完整的样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer>
+> 下载完整的样例代码：[distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
 
 目录结构如下：
 
@@ -38,7 +36,11 @@
 
 ## 并行配置定义
 
-针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。`TransformerOpParallelConfig`的导入路径为`mindspore.nn.transformer`，它可以配置的属性如下所示：
+针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。
+
+`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。
+
+`TransformerOpParallelConfig`的导入路径为`mindspore.nn.transformer`，它可以配置的属性如下所示：
 
 - `data_parallel (int)`: 设置数据并行数，默认值为1。
 - `model_parallel (int)`: 设置模型并行数，默认值为1。
@@ -64,7 +66,9 @@ parallel_config = TransformerOpParallelConfig(data_parallel=1, model_parallel=8)
 
 ### Embedding层
 
-Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组成。我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下
+Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组成。
+
+我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下:
 
 - `data_parallel`: 设置数据并行数，默认值为1。
 - `model_parallel`: 设置模型并行数，默认值为1。
@@ -174,8 +178,9 @@ class Net(nn.Cell):
 
 ### 定义损失函数
 
-MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。
-通过这两个属性可以配置损失函数的并行配置。
+MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。
+
+`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。通过这两个属性可以配置损失函数的并行配置。
 
 ```python
 from mindspore.nn.transformer import CrossEntropyLoss, TransformerOpParallelConfig

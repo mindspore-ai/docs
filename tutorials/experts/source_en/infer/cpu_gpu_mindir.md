@@ -23,9 +23,7 @@ Create a directory to store the inference code project, for example, `/home/mind
 
 ### Inference Code
 
-Inference sample code:
-
-<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> .
+Inference sample code: [gpu_resnet50_inference_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc).
 
 Using namespace of `mindspore`:
 
@@ -113,8 +111,7 @@ add_executable(main src/main.cc)
 target_link_libraries(main ${MS_LIB})
 ```
 
->For details, see
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
+>For details, see [CMakeLists.txt](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt)
 
 ### Building Inference Code
 
