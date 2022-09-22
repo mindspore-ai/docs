@@ -46,7 +46,7 @@ Then, ResNet-50 is used as an example to describe steps related to SCOP training
 
 ### Knockoff Data
 
-Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network.
+Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r0.2/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network.
 
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
@@ -95,7 +95,7 @@ step_5: loss=4.715785
 
 ### Fine-tuning
 
-Determine the redundant convolution kernels in the knockoff phase. Use PrunerFtCompressAlgo to replace nodes (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py)) and delete redundant convolution kernels. Perform the complete training and save the model.
+Determine the redundant convolution kernels in the knockoff phase. Use PrunerFtCompressAlgo to replace nodes (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r0.2/mindspore_gs/pruner/scop/scop_pruner.py)) and delete redundant convolution kernels. Perform the complete training and save the model.
 
 ```python
 from mindspore_gs import Kf_Conv2d
