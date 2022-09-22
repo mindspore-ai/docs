@@ -21,20 +21,20 @@ def init_env(cfg):
         if cfg.device_target not in ["Ascend", "GPU", "CPU"]:
             raise ValueError(f"Invalid device_target: {cfg.device_target}, "
                              f"should be in ['None', 'Ascend', 'GPU', 'CPU']")
-        ms.context.set_context(device_target=cfg.device_target)
-    cfg.device_target = ms.context.get_context("device_target")
+        ms.set_context(device_target=cfg.device_target)
+    cfg.device_target = ms.get_context("device_target")
     if cfg.device_target == "CPU":
         cfg.device_id = 0
         cfg.device_num = 1
     if cfg.context_mode not in ["graph", "pynative"]:
         raise ValueError(f"Invalid context_mode: {cfg.context_mode}, "
                          f"should be in ['graph', 'pynative']")
-    context_mode = ms.context.GRAPH_MODE if cfg.context_mode == "graph" else ms.context.PYNATIVE_MODE
+    context_mode = ms.GRAPH_MODE if cfg.context_mode == "graph" else ms.PYNATIVE_MODE
     if not os.path.isabs(cfg.save_graphs_path):
         cfg.save_graphs_path = os.path.join(cfg.output_path, cfg.save_graphs_path)
-    ms.context.set_context(mode=context_mode, save_graphs=cfg.save_graphs, save_graphs_path=cfg.save_graphs_path)
+    ms.set_context(mode=context_mode, save_graphs=cfg.save_graphs, save_graphs_path=cfg.save_graphs_path)
     if not isinstance(cfg.device_id, int):
-        ms.context.set_context(device_id=cfg.device_id)
+        ms.set_context(device_id=cfg.device_id)
     cfg.need_boost = hasattr(cfg, "boost_level") and cfg.boost_level in ["O1", "O2"]
     set_graph_kernel_context(cfg.device_target, cfg.model_name)
     if cfg.device_num > 1:

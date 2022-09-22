@@ -163,7 +163,7 @@ epoch: 1 step: 11, loss is 1.572392225265503
 ### Loading the Saved Model for Evaluation
 
 ```python
-from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
+from mindspore import Tensor, set_context, load_checkpoint, load_param_into_net, export
 
 if __name__ == "__main__":
     ...
@@ -200,7 +200,7 @@ The quantization model deployed on the device-side hardware platform is in the g
 3. Export the pruned model.
 
 ```python
-from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
+from mindspore import Tensor, set_context, load_checkpoint, load_param_into_net, export
 
 if __name__ == "__main__":
     ...

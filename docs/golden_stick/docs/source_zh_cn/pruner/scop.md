@@ -163,7 +163,7 @@ epoch: 1 step: 11, loss is 1.572392225265503
 ### 加载保存的模型，进行评估
 
 ```python
-from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
+from mindspore import Tensor, set_context, load_checkpoint, load_param_into_net, export
 
 if __name__ == "__main__":
     ...
@@ -200,7 +200,7 @@ result:{'top_1_accuracy': 0.9273838141025641} prune_rate=0.45 ckpt=~/resnet50_ci
 3. 导出剪枝模型。
 
 ```python
-from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
+from mindspore import Tensor, set_context, load_checkpoint, load_param_into_net, export
 
 if __name__ == "__main__":
     ...

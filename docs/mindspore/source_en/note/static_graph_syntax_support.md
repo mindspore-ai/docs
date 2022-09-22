@@ -393,9 +393,9 @@ The reference type of tuple is same as List, please  refer to List.
 
   ```python
   import mindspore as ms
-  from mindspore import nn, context
+  from mindspore import nn, set_context
 
-  context.set_context(mode=context.GRAPH_MODE)
+  set_context(mode=ms.GRAPH_MODE)
 
   class Net(nn.Cell):
       def __init__(self):
@@ -571,11 +571,11 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn, context
+from mindspore import nn, set_context
 import numpy as np
 from mindspore.ops import constexpr
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -620,10 +620,10 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, context
+from mindspore import nn, ops, set_context
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -1146,10 +1146,11 @@ In graph mode, the with statement is supported with limitations. The with statem
 For example:
 
 ```python
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor, ms_class, context
+from mindspore import Tensor, ms_class, set_context
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 @ms_class
 class Sample:
@@ -2204,9 +2205,10 @@ Return value: method of the parent class.
 For example:
 
 ```python
-from mindspore import nn, context
+import mindspore as ms
+from mindspore import nn, set_context
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class FatherNet(nn.Cell):
     def __init__(self, x):
@@ -2370,10 +2372,10 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, context
+from mindspore import nn, ops, set_context
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
@@ -2446,10 +2448,10 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
    ```python
    import mindspore as ms
-   from mindspore import nn, context
+   from mindspore import nn, set_context
    import numpy as np
 
-   context.set_context(mode=context.GRAPH_MODE)
+   set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
@@ -2479,9 +2481,10 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    For example:
 
    ```python
-   from mindspore import nn, context
+   import mindspore as ms
+   from mindspore import nn, set_context
 
-   context.set_context(mode=context.GRAPH_MODE)
+   set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):

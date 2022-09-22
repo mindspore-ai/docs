@@ -116,14 +116,14 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 - 静转动调试策略
 
-    动态图模式是更好的调试执行模式。 设置动态图模式方式：```context.set_context(mode=context.PYNATIVE_MODE)```。
+    动态图模式是更好的调试执行模式。 设置动态图模式方式：```set_context(mode=mindspore.PYNATIVE_MODE)```。
     动态图模式下程序按照代码的编写顺序逐行执行，避免静态图模式下的前后端编译优化，保证了用户代码与执行逻辑统一。其次，动态图逐行代码执行，避免图模式下整图下沉的黑盒执行，更方便打印执行结果，跟踪执行过程。
 
 - 异步转同步调试策略
 
   动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
-  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
+  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
 
 - 二分法策略
 
