@@ -216,12 +216,19 @@ if os.path.exists(des_sir):
 shutil.copytree(src_dir_en, des_sir)
 
 Tensor_list_path = "./api_python/Tensor_list.rst"
+dataset_list_path = "./api_python/dataset_list.rst"
 classtemplate_path = "./_templates/classtemplate.rst"
+classtemplate_dataset_path = "./_templates/classtemplate_dataset.rst"
 if os.path.exists(classtemplate_path):
     os.remove(classtemplate_path)
+if os.path.exists(classtemplate_dataset_path):
+    os.remove(classtemplate_dataset_path)
 shutil.copy(Tensor_list_path, classtemplate_path)
+shutil.copy(dataset_list_path, classtemplate_dataset_path)
 if os.path.exists(Tensor_list_path):
     os.remove(Tensor_list_path)
+if os.path.exists(dataset_list_path):
+    os.remove(dataset_list_path)
 
 # Copy images from mindspore repo.
 import imghdr
