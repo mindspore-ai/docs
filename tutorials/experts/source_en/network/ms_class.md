@@ -87,7 +87,9 @@ net(x)
 
 The error information is as follows:
 
+```text
 TypeError: ms_class is used for user-defined classes and cannot be used for nn.Cell: Net<>.
+```
 
 ```python
 from mindspore import ms_class
@@ -101,7 +103,9 @@ func(1, 2)
 
 The error information is as follows:
 
+```text
 TypeError: Decorator ms_class can only be used for class type, but got <function func at 0x7fee33c005f0>.
+```
 
 ## Obtaining the Attributes and Methods of the Custom Class
 
