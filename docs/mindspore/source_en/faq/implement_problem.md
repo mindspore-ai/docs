@@ -608,3 +608,15 @@ Therefore, it will be stuck for several minutes during the first use, and the su
 Subsequent versions will be pre-compiled and optimized.
 
 <br/>
+
+<font size=3>**Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator？**</font>
+
+A: The reason for this error is that the user did not configure the operator parameters correctly, so that the memory space applied by the operator exceeded the system memory limit, and the system failed to allocate memory. The following uses mindspore.ops.UniformCandidateSampler as an example for description.
+
+- UniformCandidateSampler samples a set of classes by using uniform distribution. According to the parameter `num_sampled` set by the user，the shape of output tensor would be `(num_sampled,)`.
+
+- When the user sets `num_sampled=int64.max`，the memory space requested by the output tensor exceeds the system memory limit, causing `bad_alloc`.
+
+Therefore, the user needs to set the operator parameters appropriately to avoid such errors.
+
+<br/>

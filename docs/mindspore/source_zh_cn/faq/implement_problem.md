@@ -593,3 +593,15 @@ A: 由于NVCC编译CUDA算子时为了兼容更多GPU架构，先编译成ptx文
 后续版本会进行预编译优化。
 
 <br/>
+
+<font size=3>**Q: 算子执行过程中出现报错: `MemoryError: std::bad_alloc` 如何解决？**</font>
+
+A: 此问题的原因为：用户未正确配置算子参数，导致算子申请的内存空间超过了系统内存限制，进而系统分配内存失败。下面以算子 mindspore.ops.UniformCandidateSampler 为例进行说明：
+
+- UniformCandidateSampler使用均匀分布对一组类别进行采样，根据用户设定的参数`num_sampled`，其输出Tensor的shape为`(num_sampled,)`。
+
+- 当用户设定的`num_sampled=int64.max`时，其输出Tensor申请的内存空间超过了系统内存限制，并导致`bad_alloc`。
+
+因此，用户需要适当设置算子参数，以避免此类报错。
+
+<br/>
