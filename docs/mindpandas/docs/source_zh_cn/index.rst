@@ -74,7 +74,12 @@ MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个
 
 .. toctree::
    :maxdepth: 1
+   :caption: 参考文档
+
+   faq
+
+.. toctree::
+   :maxdepth: 1
    :caption: RELEASE NOTES
 
    RELEASE
-
