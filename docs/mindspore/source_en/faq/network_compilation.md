@@ -32,7 +32,8 @@ Please check whether the number of parameters passed in when the instance of the
 A: MindSpore does not support the `yield` syntax in graph mode. In addition, if the unsupported syntax `net.trainable_params()` is used in graph mode, the error will also be reported, because its internal implementation uses the `list(filter(iterator))` syntax, which implicitly calls the `yield` syntax. The code sample is as follows:
 
 ```python
-from mindspore import context, nn
+import mindspore as ms
+from mindspore import set_context, nn
 
 class Net(nn.Cell):
     def construct(self):
@@ -46,7 +47,7 @@ class TestNet(nn.Cell):
     def construct(self):
         return net.trainable_params()
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 net = TestNet()
 out = net()
 ```

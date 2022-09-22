@@ -17,7 +17,7 @@
 
 import os
 import functools
-from mindspore import context
+from mindspore import set_context
 from .config import config
 
 _global_sync_count = 0
@@ -117,7 +117,7 @@ def moxing_wrapper(pre_process=None, post_process=None):
                     sync_data(config.train_url, config.output_path)
                     print("Workspace downloaded: ", os.listdir(config.output_path))
 
-                context.set_context(save_graphs_path=os.path.join(config.output_path, str(get_rank_id())))
+                set_context(save_graphs_path=os.path.join(config.output_path, str(get_rank_id())))
                 config.device_num = get_device_num()
                 config.device_id = get_device_id()
                 if not os.path.exists(config.output_path):
