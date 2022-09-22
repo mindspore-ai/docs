@@ -391,9 +391,9 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import nn, context
+  from mindspore import nn, set_context
 
-  context.set_context(mode=context.GRAPH_MODE)
+  set_context(mode=ms.GRAPH_MODE)
 
   class Net(nn.Cell):
       def __init__(self):
@@ -568,11 +568,11 @@ Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN
 
 ```python
 import mindspore as ms
-from mindspore import ms_function, nn, context
+from mindspore import ms_function, nn, set_context
 import numpy as np
 from mindspore.ops import constexpr
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -617,10 +617,10 @@ ret:1
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, context
+from mindspore import nn, ops, set_context
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -1141,10 +1141,11 @@ ret:(4, 16, 36, 64, 100)
 示例如下：
 
 ```python
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor, ms_class, context
+from mindspore import Tensor, ms_class, set_context
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 @ms_class
 class Sample:
@@ -2198,9 +2199,10 @@ n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dty
 示例如下：
 
 ```python
-from mindspore import nn, context
+import mindspore as ms
+from mindspore import nn, set_context
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class FatherNet(nn.Cell):
     def __init__(self, x):
@@ -2362,10 +2364,10 @@ ret:(1, 3, 5)
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, context
+from mindspore import nn, ops, set_context
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
@@ -2438,10 +2440,10 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
    ```python
    import mindspore as ms
-   from mindspore import nn, context
+   from mindspore import nn, set_context
    import numpy as np
 
-   context.set_context(mode=context.GRAPH_MODE)
+   set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
@@ -2471,9 +2473,9 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    示例如下：
 
    ```python
-   from mindspore import nn, context
+   from mindspore import nn, set_context
 
-   context.set_context(mode=context.GRAPH_MODE)
+   set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
        def __init__(self):
