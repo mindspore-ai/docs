@@ -73,12 +73,12 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the input dimension can be adjusted at runtime by configuring the profile. In the profile, the minimum, dynamic and optimal shape of each input can be set.
 
-    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input, but multiple input dimensions must be specified in a non-overlapping range. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r1.9/generate/classmindspore_Model.html) interface to load the configuration file in the code.
+    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r1.9/generate/classmindspore_Model.html) interface to load the configuration file in the code.
 
     If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, the following conditions must hold:
 
     1. `len(min)` == `len(opt)` == `len(max)` == `len(real_shape)`
-    2. 0 <= `min[i]` <= `opt[i]` <= `max[i]` for all `i`
+    2. 0 < `min[i]` <= `opt[i]` <= `max[i]` for all `i`
     3. if `real_shape[i]` != -1, then `min[i]` == `opt[i]` == `max[i]` == `real_shape[i]`
     4. When using tensor input without dynamic dimensions, all shapes must be equal to real_shape.
 
@@ -91,7 +91,7 @@ For more information about compilation, see [Linux Environment Compilation](http
     opt_dims=[150,250];[750,850]
     ```
 
-    It also support configuring multiple profiles at the same time. According to the above example, if we add a profile configuration for each model input, for the input1, the minimum size of the added profile is [3,201,200], the maximum size is [3,150,300], and the optimized size is [3,220,250]. Add a profile for input2, whose minimum size is [801,800,1], maximum size is [850,900,1], and optimized size is [750,850,1]. The following is an example of the profile:
+    It also support configuring multiple profiles at the same time. According to the above example, if we add a profile configuration for each model input, for the input1, the minimum size of the added profile is [3,201,200], the maximum size is [3,150,300], and the optimized size is [3,220,250]. Add a profile for input2, whose minimum size is [801,800,1], maximum size is [850,900,1], and optimized size is [810,850,1]. The following is an example of the profile:
 
     ```
     [gpu_context]

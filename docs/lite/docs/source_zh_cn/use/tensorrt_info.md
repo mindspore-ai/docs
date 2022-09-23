@@ -67,12 +67,12 @@ bash build.sh -I x86_64
 
 - 模型动态输入
 
-    默认情况下，TensorRT根据定义模型的输入形状(批大小、图像大小等)优化模型。但是，可以通过配置profile在运行时调整输入维度，在profile中可以设置每个动态输入的最小、动态以及最优形状，TensorRT会根据用户设置的profile创建一个优化引擎，并选择最优最快的内核, 并且在profile中支持一个输入配置多个输入维度，但多个输入维度需指定不重叠的范围。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_cpp/mindspore.html#loadconfig)接口加载配置文件。
+    默认情况下，TensorRT根据定义模型的输入形状(批大小、图像大小等)优化模型。但是，可以通过配置profile在运行时调整输入维度，在profile中可以设置每个动态输入的最小、动态以及最优形状，TensorRT会根据用户设置的profile创建一个优化引擎，并选择最优最快的内核, 并且在profile中支持一个输入配置多个输入维度。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_cpp/mindspore.html#loadconfig)接口加载配置文件。
 
     如果min、opt 和 max 是最小、最优和最大维度，并且real_shape是输入张量的形状，则以下条件必须成立：
 
     1. `len(min)` == `len(opt)` == `len(max)` == `len(real_shape)`
-    2. 0 <= `min[i]` <= `opt[i]` <= `max[i]` for all `i`
+    2. 0 < `min[i]` <= `opt[i]` <= `max[i]` for all `i`
     3. if `real_shape[i]` != -1, then `min[i]` == `opt[i]` == `max[i]` == `real_shape[i]`
     4. 在使用没有动态维度的张量输入时，所有形状必须等于real_shape。
 
@@ -85,7 +85,7 @@ bash build.sh -I x86_64
     opt_dims=[150,250];[750,850]
     ```
 
-    同时可支持多profile的配置，若配置多个profile，其输入维度范围不可重叠，根据上述的例子，增加一个profile的配置。增加输入1的profile的最小尺寸为[3,201,200]，最大尺寸为[3,150,300]，优化尺寸为[3,220,250]；增加输入2的profile，其最小尺寸为[801,800,1]，最大尺寸为[850,900,1]，优化尺寸为[750,850,1]，配置文件样例如下：
+    同时可支持多profile的配置，若配置多个profile，根据上述的例子，增加一个profile的配置。增加输入1的profile的最小尺寸为[3,201,200]，最大尺寸为[3,150,300]，优化尺寸为[3,220,250]；增加输入2的profile，其最小尺寸为[801,800,1]，最大尺寸为[850,900,1]，优化尺寸为[810,850,1]，配置文件样例如下：
 
     ```
     [gpu_context]
