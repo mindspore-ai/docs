@@ -102,3 +102,4 @@ print(df2)
 | mindpandas.DataFrame.tail               | [pandas.DataFrame.tail](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.tail.html#pandas.DataFrame.tail)                                  | CPU                 |                                  |
 | mindpandas.DataFrame.transpose          | [pandas.DataFrame.transpose](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.transpose.html#pandas.DataFrame.transpose)                   | CPU                 |                                  |
 | mindpandas.DataFrame.values             | [pandas.DataFrame.values](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.values.html#pandas.DataFrame.values)                            | CPU                 |                                  |
+| mindpandas.DataFrame.to_pandas          |                             | CPU                 |                                  |

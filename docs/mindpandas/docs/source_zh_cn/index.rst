@@ -20,13 +20,13 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
 1. MindPandas可以使用机器上的所有内核
 
-   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU内核，MindPandas可以使用机器上的所有内核，或者整个集群的所有内核，使用会类似如下：
+   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU内核，MindPandas可以使用机器上的所有内核，或者整个集群的所有内核，使用如下所示：
 
    .. raw:: html
 
        <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multicore.png" width="700px" alt="" >
 
-   额外的利用会提升性能，如果拓展到整个集群，MindPandas使用时如下图所示：
+   MindPandas可以拓展到整个集群，利用整个集群的内存以及CPU资源，使用如下所示：
 
    .. raw:: html
 
@@ -39,12 +39,12 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
        # import pandas as pd
        import mindpandas as pd
 
-   使用方便快捷，to_pandas接口还与现有pandas代码的兼容。实现改动小，性能优化优的效果。
+   使用方便快捷，to_pandas接口还与现有Pandas代码的兼容。实现改动小，性能优的效果。
 
 未来规划
 ---------
 
-MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个API。MindPandas后续版本将支持大数据集上的性能优化，对接MindSpore训练等内容，敬请期待。
+MindPandas初始版本包含以DataFrame、Series、Groupby和Other类共100个API。MindPandas后续版本将增加对更多API的支持，同时适配MindSpore训练等，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------
