@@ -14,14 +14,22 @@ MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每
 |  | Ascend | Ascend 910 | `MindIR` |
 |  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
-|  | Ascend | Ascend 310P/310, CPU | `MindIR`, `MindIR_Lite` |
+|  | Ascend | Ascend 310P/310, CPU | `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
 当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/310P/310和Nvidia GPU环境。其中Ascend 310P/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
 
+由于MindSpore Serving与MindSpore有依赖关系，请按照根据下表中所指示的对应关系，在[MindSpore下载页面](https://www.mindspore.cn/versions)下载并安装对应的whl包。
+
+| MindSpore Serving 版本       |                        分支                          | MindSpore 版本 |
+| -----------------------------   | ---------------------------------------------------    | ---------------   |
+|              1.9.0              | [r1.9](https://gitee.com/mindspore/serving/tree/r1.9/) |       1.9.0       |
+|              1.8.0              | [r1.8](https://gitee.com/mindspore/serving/tree/r1.8/) |   1.8.0, 1.8.1    |
+|              1.7.0              | [r1.7](https://gitee.com/mindspore/serving/tree/r1.7/) |       1.7.0       |
+
 MindSpore的安装和配置可以参考[安装MindSpore](https://gitee.com/mindspore/mindspore#安装)，并根据需要完成[环境变量配置](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_pip.md#配置环境变量)。
 
-当以[MindSpore Lite](https://www.mindspore.cn/lite)作为推理后端时，MindSpore Serving当前支持Ascend 310P/310、Nvidia GPU和CPU。当前支持`MindIR`和`MindIR_Lite`模型格式，MindSpore的`MindIR`或其他框架的模型文件需要通过Lite转换工具转换成`MindIR_Lite`模型格式。模型转换时，`Ascend310`设备和`Ascend310P`转换出的模型不一致，需要在对应的`Ascend310`或者`Ascend310P`设备上运行；Nvidia GPU和CPU环境转换成的`MindIR_Lite`模型仅能在Nvidia GPU和CPU使用。
+当以[MindSpore Lite](https://www.mindspore.cn/lite)作为推理后端时，MindSpore Serving当前支持Ascend 310P/310、Nvidia GPU和CPU。当前仅支持`MindIR_Lite`模型格式，MindSpore的`MindIR`或其他框架的模型文件需要通过Lite转换工具转换成`MindIR_Lite`模型格式。模型转换时，`Ascend310`设备和`Ascend310P`转换出的模型不一致，需要在对应的`Ascend310`或者`Ascend310P`设备上运行；Nvidia GPU和CPU环境转换成的`MindIR_Lite`模型仅能在Nvidia GPU和CPU使用。
 
 | 推理后端       | 转换工具运行平台 | `MindIR_Lite`模型运行设备    |
 | -------------- | ---------------- | --------------- |
