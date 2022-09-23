@@ -153,39 +153,3 @@ mpd.set_adaptive_concurrency(False)
 > - 自适应并发模式功能无法更改在启动该功能前初始化或读入的DataFrame/Series的并发模式。
 > - 基于大量实验和测试数据，自适应并发模式将多线程模式与(2,2)分区形状和射线模式与(16,16)分区形状耦合，并且不为每种模式采用一定范围的分区形状。
 > - 除read_csv之外的其他I/O操作，例如read_feather，目前不支持自适应并发模式功能。
-
-## MindPandas性能介绍
-
-样例：使用replace API 将DataFrame中的0替换为1
-
-```Python
-import mindpandas as mpd
-import pandas as pd
-import numpy as np
-import time
-
-ms_pd.set_adaptive_concurrency(False)
-ms_pd.set_partition_shape((16, 2))
-
-#############################################
-### For the purpose of timing comparisons ###
-#############################################
-frame_data = np.random.randint(0, 100, size=(2**10, 2**8))
-mdf = mpd.DataFrame(frame_data)
-start = time.time()
-max_data = mdf.replace(0,1)
-end = time.time()
-mtime = end - start
-
-df = pd.DataFrame(frame_data)
-start = time.time()
-max_data = df.replace(0,1)
-end = time.time()
-ptime = end - start
-
-print(ptime/mtime)
-#############################################
-
-```
-
-MindPandas相较于原生Pandas的API快10倍，花费更少时间创建DataFrame，原生Pandas花费近1分钟的时间。

@@ -9,11 +9,11 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
 1. 底层的分布式运行框架或多进程后端提供分布式计算的能力，原始数据进行切分后，会调用此模块计算并返回给调用层。
 
-2. 在Execution模块上层，将算子分为multiprocess operator、multithread operator、serial operator，具体的map、reduce、fold等运算在此提供。
+2. 在Execution模块上层，将算子分为multiprocess operator、multithread operator，具体的map、reduce、fold等运算在此提供。
 
 3. 在更上层的EagerFrame，作为MindPandas后端的通用数据格式，可依据数据的维度包装为最外层的DataFrame类或者Series类。
 
-4. 为了在最外层API和EagerFrame之间进行数据处理和调用，QueryCompiler层选择对应的运算逻辑。最外层的API接口和Pandas接口参数一致。
+4. QueryCompiler层选择对应的运算逻辑，以在最外层API和EagerFrame之间进行数据处理和调用。最外层的API接口和Pandas接口参数一致。
 
 设计特点
 ---------
@@ -26,7 +26,7 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
        <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multicore.png" width="700px" alt="" >
 
-   额外的利用会导致性能的提升，如果拓展到整个集群，MindPandas使用时如下图所示：
+   额外的利用会提升性能，如果拓展到整个集群，MindPandas使用时如下图所示：
 
    .. raw:: html
 
@@ -64,13 +64,17 @@ MindPandas初始版本包含以DataFrame、Series、Groupby和其他类共100个
    :caption: 使用指南
 
    mindpandas_quick_start
-   mindpandas_performance
+   mindpandas_configuration
 
 .. toctree::
    :maxdepth: 1
    :caption: API参考
 
-   mindpandas_api
+   mindpandas_DataFrame_api
+   mindpandas_Series_api
+   mindpandas_Groupby_api
+   mindpandas_Other_api
+
 
 .. toctree::
    :maxdepth: 1
