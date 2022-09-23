@@ -26,7 +26,7 @@ from exhale import graph as exh_graph
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore Lite'
-copyright = '2021, MindSpore Lite'
+copyright = '2022, MindSpore Lite'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
