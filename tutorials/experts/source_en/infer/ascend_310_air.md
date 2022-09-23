@@ -18,7 +18,7 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 5. Load the saved OM model, perform inference, and view the result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/acl_resnet50_sample>.
+> You can obtain the complete executable sample code [acl_resnet50_sample](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/acl_resnet50_sample).
 
 ## Preparing the Development Environment
 

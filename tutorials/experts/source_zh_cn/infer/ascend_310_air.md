@@ -18,7 +18,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 5. 加载保存的OM模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/acl_resnet50_sample> 。
+> 完整可运行的样例代码：[acl_resnet50_sample](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/acl_resnet50_sample) 。
 
 ## 开发环境准备
 

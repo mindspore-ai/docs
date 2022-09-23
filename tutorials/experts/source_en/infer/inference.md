@@ -84,9 +84,9 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model>.
+`model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.train.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
-> Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
+> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py).
 
 ### Using MindSpore Hub to Load Models from HUAWEI CLOUD
 
@@ -107,7 +107,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: <https://www.mindspore.cn/hub/docs/zh-CN/r1.9/hub.html#mindspore_hub.load>.
+`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/r1.9/hub.html#mindspore_hub.load).
 
 ## Using the `model.predict` Interface for Inference Operations
 
@@ -117,4 +117,4 @@ model.predict(input_data)
 
 Where
 
-`model.predict` is inference interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict>.
+`model.predict` is inference interface, and corresponding interface description is as follows: [mindspore.train.Model.predict](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict).

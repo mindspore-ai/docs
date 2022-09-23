@@ -12,13 +12,9 @@
 
 ## 准备环节
 
-> 你可以在这下载完整的样例代码：
+> 下载完整的样例代码 [dimension_reduce_training](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/dimension_reduce_training)。
 >
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/dimension_reduce_training>
->
-> 代码中引用到的models库链接：
->
-> <https://gitee.com/mindspore/models>
+> 代码中引用到的 [models](https://gitee.com/mindspore/models)库。
 
 ### 配置分布式环境变量
 
@@ -65,9 +61,7 @@
 
 ## 第一阶段：常规训练
 
-> 第一阶段主要的训练样例代码：
->
-> <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_stage_1.py>
+> 第一阶段主要的训练样例代码请参考 [train_stage_1.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_stage_1.py)。
 
 ### 运行模式和后端设备设置
 
@@ -209,9 +203,7 @@ if get_rank_id() == 0:
 
 基于第一阶段得到的权重文件，在Boost模式下，我们只要简单调用mindspore.boost的降维训练接口，即可实现降维训练的功能。
 
-> 第二阶段主要的训练样例代码：
->
-> <https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py>
+> 第二阶段主要的训练样例代码请参考 [train_boost_stage_2.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py)。
 
 第二阶段和第一阶段的代码基本相同，下面仅说明不一致的地方。
 
@@ -314,4 +306,3 @@ model.train(2, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=Tr
    ```
 
 一般ResNet-50训练80个epoch也只达到70.18%，使用降维训练，我们可以在72个epoch达到74.31%。
-

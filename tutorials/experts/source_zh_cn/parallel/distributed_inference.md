@@ -11,19 +11,17 @@
 
 ### 样例代码说明
 
-> 分布式推理样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_inference>
+> 分布式推理样例代码：[distributed_inference](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_inference)
 
 ### 操作流程
 
 1. 执行训练，生成CheckPoint文件和模型参数切分策略文件。
 
-    > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html>。
+    > - 分布式训练教程和样例代码可参考[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html)。
     > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
     > - `set_auto_parallel_context`接口的`parallel_mode`参数需设定为`auto_parallel`或者`semi_auto_parallel`，并行模式为自动并行或者半自动并行。
     > - 此外还需指定`strategy_ckpt_save_file`参数，即生成的策略文件的地址。
-    > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`。流水线并行训练的教程参考链接：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/pipeline_parallel.html>。
+    > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`。参考[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/pipeline_parallel.html)训练教程。
 
 2. 设置context，根据推理数据推导出推理策略。
 
@@ -74,16 +72,19 @@
 CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#保存模型)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
+
 `set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
 
 这样在训练后，就会在设置的目录下产生名为`train_strategy.ckpt`的训练策略文件。
 
 由于导出MindIR文件前，一般需要加载CheckPoint文件，而加载分布式训练的CheckPoint文件，需要结合训练策略和推理策略，所以还需生成推理策略文件。
 产生推理策略的代码如下：
+
 `predict_strategy = model.infer_predict_layout(predict_data)`
 
 然后，使用加载分布式CheckPoint的方法，把之前训练好的参数，加载到网络中。
 代码如下：
+
 `load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)`
 
 最后，就可以导出在分布式推理场景下的MindIR文件。
@@ -108,6 +109,4 @@ export(net, Tensor(input), file_name='net', file_format='MINDIR')
 
 多卡训练、单卡推理的情况，导出MindIR的用法与单机相同。
 
-> 分布式场景导出MindIR文件样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_export>
+> 分布式场景导出MindIR文件样例代码：[distributed_export](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_export)

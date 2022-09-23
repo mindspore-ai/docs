@@ -71,7 +71,9 @@ print("output(y_pred, y):", result)
     output(y_pred, y): 0.1499999612569809
 ```
 
-Note that if the network has multiple outputs in `update`, but only two outputs are used for evaluation, you can use the `set_indexes` method to rearrange the input of `update` to compute evaluation metrics. To use the `set_indexes` method, you need to use the modifier `nn.rearrange_inputs` to modify the `update` method. Otherwise, the input configured using `set_indexes` does not take effect.
+Note that if the network has multiple outputs in `update`, but only two outputs are used for evaluation, you can use the `set_indexes` method to rearrange the input of `update` to compute evaluation metrics.
+
+To use the `set_indexes` method, you need to use the modifier `nn.rearrange_inputs` to modify the `update` method. Otherwise, the input configured using `set_indexes` does not take effect.
 
 ```python
 # The network has three outputs: y_pred, y, and z.

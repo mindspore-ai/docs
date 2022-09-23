@@ -5,9 +5,7 @@
 ## 概述
 
 本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
-> 你可以在这里下载完整的样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_training>
+> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_training)
 
 目录结构如下：
 
@@ -41,7 +39,7 @@
 
 本样例采用`CIFAR-10`数据集，由10类32*32的彩色图片组成，每类包含6000张图片。其中训练集共50000张图片，测试集共10000张图片。
 
-> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>，如果点击下载不成功，请尝试复制链接地址后下载。
+> 点击下载[CIFAR-10数据集](http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)，如果点击下载不成功，请尝试复制链接地址后下载。
 
 将数据集下载并解压到本地路径下，解压后的文件夹为`cifar-10-batches-bin`。
 
