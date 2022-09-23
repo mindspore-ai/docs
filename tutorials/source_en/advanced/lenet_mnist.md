@@ -165,7 +165,7 @@ ms.load_param_into_net(network, param_dict)
 []
 ```
 
-> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Saving and Loading the Model Weight](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html#saving-and-loading-the-model-weight).
 
 ## Validating the Model
 
