@@ -16,9 +16,7 @@
 
 另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化) 下使用。本文档将以[分布式并行训练Transformer模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html) 为例介绍该方案，关于transformer的详细了解，请参考该教程。
 
->你可以在这里下载完整的样例代码：
->
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer>
+>下载完整的样例代码：[distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
 
 目录结构如下：
 

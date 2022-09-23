@@ -12,7 +12,7 @@ Ascend 310 is a highly efficient and integrated AI processor oriented to edge sc
 
 3. Load the saved MindIR model, perform inference, and view the result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend310_resnet50_preprocess_sample>.
+> You can obtain the complete executable sample code [ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend310_resnet50_preprocess_sample).
 
 ## Preparing the Development Environment
 
@@ -49,7 +49,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 #### Data-preprocessing by CPU operators
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
+Inference sample code: [ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc).
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -234,7 +234,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 > Note: Only supports CV models currently.
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc> .
+Inference sample code: [main_hide_preprocess.cc](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc).
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -300,7 +300,7 @@ ms::MSTensor::DestroyTensorPtr(t1);
 
 ## Introducing Building Script
 
-The building script is used to building applications and the sample is from: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications and the sample is from: [CMakeLists.txt](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt).
 
 Add head files to gcc search path to the compiler:
 
@@ -369,8 +369,14 @@ After building, the executable file is generated in `ascend310_resnet50_preproce
 
 ## Performing Inference and Viewing the Result
 
-Log in to the Ascend 310 server, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`.
-Create the `test_data` directory to store images, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`.
+Log in to the Ascend 310 server, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`.
+
+For example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`.
+
+Create the `test_data` directory to store images.
+
+For example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`.
+
 Then, perform the inference.
 
 If your MindIR file does not contain preprocess information, you can execute the following command:

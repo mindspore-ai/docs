@@ -25,7 +25,7 @@
 
 ## 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：[ascend910_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/main.cc)。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -114,7 +114,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## 构建脚本介绍
 
-构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
+构建脚本用于构建用户程序，样例来自于 [CMakeLists.txt](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt) 。
 
 为编译器添加头文件搜索路径：
 

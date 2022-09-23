@@ -83,9 +83,9 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval>。
+`model.eval`为模型验证接口，对应接口说明[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
 
-> 推理样例代码：<https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>。
+> 推理样例代码[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py)。
 
 ### 使用MindSpore Hub从华为云加载模型
 
@@ -105,7 +105,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/master/hub.html#mindspore_hub.load>。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明[mindspore_hub.load](https://www.mindspore.cn/hub/docs/zh-CN/master/hub.html#mindspore_hub.load)。
 
 ## 使用`model.predict`接口进行推理操作
 
@@ -114,4 +114,4 @@ model.predict(input_data)
 ```
 
 其中，  
-`model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict>。
+`model.predict`为推理接口，对应接口说明[mindspore.train.Model.predict](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict)。

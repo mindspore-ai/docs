@@ -25,7 +25,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Inference Code
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
+Inference sample code: [ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc).
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -114,7 +114,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## Introducing Building Script
 
-The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications: [CMakeLists.txt](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt).
 
 Add the header file search path for the compiler:
 

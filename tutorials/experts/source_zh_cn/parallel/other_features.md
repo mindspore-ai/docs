@@ -30,7 +30,7 @@ MindSpore Operator 是MindSpore在Kubernetes上进行分布式训练的插件。
 
 ## 特性相关接口说明
 
-| 特性类别 | 特性接口 | 说明 | 作用 |
+| 特性类别 &emsp; | 特性接口 | 说明 | 作用 |
 | -------- | :------- | ---- | ---- |
 | 自动并行 | set_auto_parallel_context(search_mode=mode) | 用于指定策略搜索算法，其值为字符串类型，可选值为：<br />1，"sharding_propagation"：表示使用切分策略传播算法进行策略搜索；<br />2，"dynamic_programming"：表示使用动态规划算法进行策略搜索；<br />3，"recursive_programming"：表示使用双递归算法进行策略搜索； | 自动并行可以让用户不配置或者少量配置算子的切分策略，而由框架搜索出切分策略。 |
 |  | set_algo_parameters(fully_use_devices=bool_value) | 用于设置搜索策略时是否需要将算子切分到所有设备上。其值为bool类型，默认为True。 | 如果将算子切分到所有设备上，则能缩小搜索空间，提高搜索速度，但搜索出来的策略并非全局最优。 |
