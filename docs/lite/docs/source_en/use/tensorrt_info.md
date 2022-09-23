@@ -73,7 +73,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the input dimension can be adjusted at runtime by configuring the profile. In the profile, the minimum, dynamic and optimal shape of each input can be set.
 
-    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input, but multiple input dimensions must be specified in a non-overlapping range. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code.
+    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file in the code.
 
     If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, the following conditions must hold:
 
