@@ -2,18 +2,24 @@
 set -e
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run_fusion_example.sh DATA_PATH RANK_SIZE"
+echo "bash run_shard_function_example.sh RANK_SIZE RANK_TABLE_FILE"
 echo "For example: bash run_fusion_example.sh 8"
 echo "It is better to use the absolute path."
 echo "This example is expected to run on the Ascend environment."
 echo "=============================================================================================================="
-RANK_SIZE=$1
 
-EXEC_PATH=$(pwd)
+if [$# != 2]
+then
+    echo "Usage: bash run_shasrd_function_example.sh RANK_SIZE RANK_TABLE_FILE"
+exit 1
+fi
+
+RANK_SIZE=$1
+RANK_TABLE_FILE=$2
 
 test_dist_8pcs()
 {
-    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
+    export RANK_TABLE_FILE=${RANK_TABLE_FILE}
     export RANK_SIZE=8
 }
 
@@ -29,7 +35,7 @@ do
     export RANK_ID=$i
     echo "start training for device $i"
     env > env$i.log
-    pytest -s -v ./shard_function_example.py > train.log$i 2>&1 &
+    python ./shard_function_example.py > train.log$i 2>&1 &
     cd ../
 done
 echo "The program launch succeed, the log is under device0/train.log0."

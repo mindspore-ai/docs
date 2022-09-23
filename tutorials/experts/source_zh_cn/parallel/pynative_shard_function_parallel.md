@@ -4,7 +4,7 @@
 
 ## 概述
 
-动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性。借鉴Jax的pmap的设计理念，即在动态图模式下，指定某一个部分以图模式执行，并进行各种并行操作，我们设计了shard函数，支持在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作。
+动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性。借鉴Jax的pmap的设计理念，我们设计了shard函数，支持在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作。
 
 ## 基本原理
 
@@ -43,13 +43,15 @@ Shard function沿用此模式，不同的是可以在图模式编译执行的环
 ### 接口介绍
 
 ```python
-def shard(fn, in_strategy, out_strategy, device="Ascend", level=0):
+def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascend", level=0):
     return shard_fn(fn, in_strategy, out_strategy, device, level)
 ```
 
 `in_strategy(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，表示对应`Tensor`按照数据并行进行切分。
 
-`out_strategy(tuple)`: 指定输出`Tensor`的切分策略，用法和`in_strategy`相同。在深度学习模型中，输出策略会被覆盖为数据并行，即高维按卡数均匀切分。
+`out_strategy(None, tuple)`: 指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
+
+`parameter_plan(None, dict)`: 指定各参数的切分策略，传入字典时，键是str类型的参数名，值是1维整数tuple表示相应的切分策略， 如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
 
 `device(string)`: 指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
 
@@ -57,13 +59,24 @@ def shard(fn, in_strategy, out_strategy, device="Ascend", level=0):
 
 ### 执行模式
 
-如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为
+如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为：
 
 ```python
 import mindspore as ms
 ms.set_context(mode=ms.PYNATIVE_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
-                                  search_mode="sharding_propagation", device_num=8)
+                             search_mode="sharding_propagation", device_num=8)
+```
+
+> 当前函数式算子切分仅支持在并行模式为"auto_parallel"且策略搜索算法为"sharding_propagation"下使用。
+
+### 指定输出排布
+
+当前支持指定输出排布为数据并行和重复计算，通过`full_batch`属性控制，具体设置方法如下：
+
+```python
+ms.set_auto_parallel_context(full_batch=False)  # 数据并行，默认为该设置
+ms.set_auto_parallel_context(full_batch=True)   # 重复计算
 ```
 
 ### 使用方法
@@ -75,9 +88,9 @@ import mindspore.nn as nn
 class BasicBlock(nn.Cell):
     def __init__(self):
         super(BasicBlock, self).__init__()
-        self.dense1 = nn.Dense(10, 10)
+        self.dense1 = nn.Dense(32, 32)
         self.gelu = nn.GELU()
-        self.dense2 = nn.Dense(10, 10)
+        self.dense2 = nn.Dense(32, 32)
     def construct(self, x):
         # two dimensional input x
         x = self.dense1(x)
@@ -99,16 +112,17 @@ class Net(nn.Cell):
         return x
 ```
 
-- 使用类方法`shard`
+- 通过Cell成员方法`shard`进行自调用
 
     ```python
     class Net1(Net):
         def __init__(self):
             super(Net1, self).__init__()
             # slice input along the second axis and make output as data-parallel layout
-            self.block1.shard(in_strategy=((1, 8),), out_strategy=(None,))
+            self.block1.shard(in_strategy=((1, 8),),
+                              parameter_plan={'self.block1.dense2.weight': (8, 1)})
         def construct(self, x):
-            # block1 is executed as GRAPH. The inputs/outputs layouts follow the user definition and the slice strategy for inner ops are obtained by auto search
+            # block1 is executed as GRAPH.
             x = self.block1(x)
             # block2 and block3 are executed as PyNative mode.
             x = self.block2(x)
@@ -122,7 +136,8 @@ class Net(nn.Cell):
     import mindspore.ops as ops
     class NetError(Net):
         def __init__(self):
-            self.block1 = ops.shard(self.block1, in_strategy=((8, 1),), out_strategy=(None,))
+            self.block1 = ops.shard(self.block1, in_strategy=((8, 1),),
+                                    parameter_plan={'self.block1.dense2.weight': (8, 1)})
         def construct(self, x):
             x = self.block1(x)
             x = self.block2(x)
@@ -139,35 +154,35 @@ class Net(nn.Cell):
     正确使用方式如下
 
     ```python
-
     class Net2(Net):
         def __init__(self):
             # set the return function of shard a different name with the Cell instance
-            self.block1_graph = ops.shard(self.block1, in_strategy=((8, 1),), out_strategy=(None,))
-            self.block2.shard(in_strategy=((1, 8),), out_strategy=((1, 8),))
+            self.block1_graph = ops.shard(self.block1, in_strategy=((8, 1),),
+                                          parameter_plan={'self.block1.dense2.weight': (8, 1)})
+            self.block2.shard(in_strategy=((1, 8),))
         def construct(self, x):
             # block1 is executed as GRAPH with input sliced along the first dimension
             x = self.block1_graph(x)
-            # block2 is executed as GRAPH as well. But the output won't follow the specified layout, it will be over-written by data-parallel layout instead.
+            # block2 is executed as GRAPH as well.
             x = self.block2(x)
             # block3 is executed as PyNative mode.
             x = self.block3(x)
             return x
     ```
 
-### 使用限制
-
-目前由于动态图模式和静态图模式HCCL通信接口不同，对于切分存在限制，即`shard`内部的模型并行产生的通信只能发生在`world group`内部，所以指定的切分策略目前只能支持切一个维度。
-
-使用时，需设置`Ascend`后端，执行模式需设置为`PYNATIVE_MODE`，并行配置为`AUTO_PARALLEL`，`search_mode`为`sharding_propagation`。
-
-在训练神经网络时，`out_strategy`会被覆盖为数据并行，来适配动态图部分的数据并行。
-
-由于目前的算法实现，不支持在`__init__`中声明不会被使用的参数，定义网络时请注意。
-
-会在后续迭代中解决这些问题。
+    > 注意，参数的初始化依赖于Cell的参数管理，当传入shard的fn类型为function时，其定义不应该含有参数（如Conv2D、Dense等运算 ）。
 
 ### 运行代码
+
+当前MindSpore可以通过分进程启动和mpirun两种方式拉起分布式并行任务。
+
+#### 通过多进程启动
+
+在Ascend上执行，且不存在子Group通信时，可以通过多进程的方式启动分布式并行。
+
+> 当某个对象存在维度未切满或对至少切分了两个维度时，模型并行会产生子Group通信。
+>
+> 即通过该方式启动时，`shard`内部的模型并行产生的通信只能发生在`world group`内部，所以指定的切分策略目前只能支持切一个维度。
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)。
 
@@ -182,26 +197,36 @@ Ascend分布式相关的环境变量有:
 set -e
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run_fusion_example.sh"
+echo "bash run_shard_function_example.sh RANK_SIZE RANK_TABLE_FILE"
+echo "For example: bash run_fusion_example.sh 8"
 echo "It is better to use the absolute path."
 echo "This example is expected to run on the Ascend environment."
 echo "=============================================================================================================="
-RANK_SIZE=8
-EXEC_PATH=$(pwd)
-export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
-export RANK_SIZE=8
+if [$# != 2]
+then
+    echo "Usage: bash run_shard_function_example.sh RANK_SIZE RANK_TABLE_FILE"
+exit 1
+fi
+RANK_SIZE=$1
+RANK_TABLE_FILE=$2
+test_dist_8pcs()
+{
+    export RANK_TABLE_FILE=${RANK_TABLE_FILE}
+    export RANK_SIZE=8
+}
+test_dist_${RANK_SIZE}pcs
 
 for((i=0;i<${RANK_SIZE};i++))
 do
     rm -rf device$i
     mkdir device$i
-    cp ./shard_funtion_example.py ./device$i
+    cp ./shard_function_example.py ./device$i
     cd ./device$i
     export DEVICE_ID=$i
     export RANK_ID=$i
     echo "start training for device $i"
     env > env$i.log
-    pytest -s -v ./shard_function_example.py > train.log$i 2>&1 &
+    python ./shard_function_example.py > train.log$i 2>&1 &
     cd ../
 done
 echo "The program launch succeed, the log is under device0/train.log0."
@@ -210,7 +235,7 @@ echo "The program launch succeed, the log is under device0/train.log0."
 在当前目录下配置完RANK_TABLE_FILE之后，下述的命令要求用户拥有8张Ascend 910设备。运行命令如下：
 
 ```bash
-bash run_fusion_example.sh
+bash run_shard_function_example.sh 8 rank_table_8pcs.json
 ```
 
 执行过程中，框架会自动为`shard`的输入函数进行算子级别的模型并行，每个算子的并行策略由框架搜索得到，整个过程用户无感知。可以按如下操作存图
@@ -220,3 +245,26 @@ ms.set_context(save_graphs=True)
 ```
 
 在`step_parallel_end.ir`中可以看到具体每一个算子的并行策略。
+
+#### 通过mpirun启动
+
+在Ascend和GPU上，可以通过mpirun的方式启动分布式并行，**该启动方式支持创建子Group通信**。运行命令如下：
+
+```bash
+mpirun -n ${DEVICE_NUM} --allow-run-as-root python ${PYTHON_SCRIPT_PATH}
+```
+
+以示例代码为例，启动8卡，对应的命令为：
+
+```bash
+mpirun -n 8 --allow-run-as-root python shard_function_example.py
+```
+
+> 注意，在Ascend上通过mpirun启动且子Group数量较多时，可能会碰到创建通信域失败的错误，具体报错信息如："Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2"。可以减少`context`里的`max_device_memory`来给hccl预留足够的内存创建通信域。
+
+## 使用限制
+
+- 执行模式需设置为`PYNATIVE_MODE`，并行配置为`AUTO_PARALLEL`，`search_mode`为`sharding_propagation`。
+- 支持嵌套`vmap`使用，使用时必须`shard`在外，`vmap`在内。
+- 不支持`shard`嵌套使用。
+

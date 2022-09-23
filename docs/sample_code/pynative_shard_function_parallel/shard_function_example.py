@@ -13,9 +13,9 @@ class BasicBlock(nn.Cell):
     """A base layer with two dense layer"""
     def __init__(self):
         super(BasicBlock, self).__init__()
-        self.dense1 = nn.Dense(10, 10)
+        self.dense1 = nn.Dense(32, 32)
         self.gelu = nn.GELU()
-        self.dense2 = nn.Dense(10, 10)
+        self.dense2 = nn.Dense(32, 32)
     def construct(self, x):
         # two dimensional input x
         x = self.dense1(x)
@@ -42,10 +42,11 @@ class Net1(Net):
     def __init__(self):
         super(Net1, self).__init__()
         # slice input along the second axis and make output as data-parallel layout
-        self.block1.shard(in_strategy=((1, 8),), out_strategy=(None,))
+        self.block1.shard(in_strategy=((1, 8),),
+                          parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
     def construct(self, x):
-        # block1 is executed as GRAPH. The inputs/outputs layouts follow the user definition and the slice strategy for inner ops are obtained by auto search
+        # block1 is executed as GRAPH.
         x = self.block1(x)
         # block2 and block3 are executed as PyNative mode.
         x = self.block2(x)
@@ -54,5 +55,6 @@ class Net1(Net):
 
 net = Net1()
 model = ms.Model(net)
-input_data = ms.Tensor(np.random.normal(size=(16, 10)), ms.float32)
+input_data = ms.Tensor(np.random.normal(size=(16, 32)), ms.float32)
 output = model.train_network(input_data)
+print("=========Finish=========")
