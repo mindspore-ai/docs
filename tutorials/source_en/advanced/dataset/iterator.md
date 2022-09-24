@@ -297,7 +297,7 @@ eval(net, MyEvalData())
 
 The preceding information indicates that the inference result is accurate.
 
-> For details about how to use the data iterator, see the API documents of [create\_tuple\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_tuple_iterator) and [create\_dict\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset.create_dict_iterator).
+> For details about how to use the data iterator, see the API documents of [create\_tuple\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html#mindspore.dataset.Dataset.create_tuple_iterator) and [create\_dict\_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html#mindspore.dataset.Dataset.create_dict_iterator).
 
 ## Data Iteration and Training
 
