@@ -4,7 +4,7 @@
 
 MindPandas 工具包提供了一系列类Pandas接口。用户可以使用类Pandas语法在数据集上进行数据处理。
 
-MindPandas API可以分为四大类：mindpandas.DataFrame类API，mindpandas.Series类API，mindpandas.groupby类API，以及其他类API。
+MindPandas API可以分为四大类：mindpandas.DataFrame类API，mindpandas.Series类API，mindpandas.Groupby类API，以及Other类API。
 
 在API示例中，模块导入方法如下:
 
@@ -165,6 +165,7 @@ print(df2)
 | mindpandas.DataFrame.tail               | [pandas.DataFrame.tail](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.tail.html#pandas.DataFrame.tail)                                  | CPU                 |                                  |
 | mindpandas.DataFrame.transpose          | [pandas.DataFrame.transpose](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.transpose.html#pandas.DataFrame.transpose)                   | CPU                 |                                  |
 | mindpandas.DataFrame.values             | [pandas.DataFrame.values](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.values.html#pandas.DataFrame.values)                            | CPU                 |                                  |
+| mindpandas.DataFrame.to_pandas          |                             | CPU                 |                                  |
 
 ## Series 类操作
 
