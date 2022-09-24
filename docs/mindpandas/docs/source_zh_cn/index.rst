@@ -41,6 +41,81 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
    使用方便快捷，to_pandas接口还与现有Pandas代码的兼容。实现改动小，性能优的效果。
 
+MindPandas性能介绍
+------------------
+
+MindPandas通过将原始数据分片，在分片的基础上进行分布式并行计算，以此大幅度减少计算时间。
+
+以read_csv为例，使用8核CPU读取900MB大小的csv文件，结果如下所示：
+
+测试场景：
+
+- CPU：i7-8565u (4核8线程)
+- 内存：16GB
+- 数据大小：900MB csv文件
+
+======== ====== ==========
+API      pandas mindpandas
+======== ====== ==========
+read_csv 11.53s 5.62s
+======== ====== ==========
+
+.. code-block:: python
+
+   import pandas as pd
+   import mindpandas as mpd
+
+   # pandas
+   df = pd.read_csv("data.csv")
+
+   # MindPandas
+   mdf = mpd.read_csv("data.csv")
+
+其他常用API如fillna，使用MindPandas均可获得数倍至数十倍不等的加速效果。
+
+测试场景：
+
+-  CPU：i7-8565u (4核8线程)
+-  内存：16GB
+-  数据大小：800MB (2,000,000行 \* 48列)
+
+====== ====== ==========
+API    pandas MindPandas
+====== ====== ==========
+fillna 0.77s  0.13s
+====== ====== ==========
+
+.. code:: python
+
+   import pandas as pd
+   import mindpandas as mpd
+
+   df = df.fillna(1)
+
+   # 可根据实际情况设置合适分片数
+   mpd.set_partition_shape((4, 2))
+   df = df.fillna(1)
+
+常见的统计类API如max、min、sum、all、any等，在MindPandas中也通过并行化的方式大幅度提高了性能。
+
+测试场景：
+
+-  CPU：i7-8565u (4核8线程)
+-  内存：16GB
+-  数据大小：2GB (10,000,000行 \* 48列)
+
+   .. raw:: html
+
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/performance_compare.png" width="700px" alt="" >
+
+随着数据大小的增加，MindPandas的分布式并行处理所带来的优势会更明显，如下图所示在不同数据量下的性能对比：
+
+   .. raw:: html
+
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
+
+注：mindpandas设为多进程模式，使用32核CPU
+
 未来规划
 ---------
 
