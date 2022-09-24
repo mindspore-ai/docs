@@ -7,13 +7,15 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_framework.png" width="700px" alt="" >
 
-1. 底层的分布式运行框架或多进程后端提供分布式计算的能力，原始数据进行切分后，会调用此模块计算并返回给调用层。
+1. 上层API提供了与pandas兼容的API，存量脚本可修改少量代码即可切换。
 
-2. 在Execution模块上层，将算子分为multiprocess operator、multithread operator，具体的map、reduce、fold等运算在此提供。
+2. QueryCompiler将API转换成分布式的基础范式组合（map/reduce/injective_map等），多数API都可通过通用的计算范式组合来表达。
 
-3. 在更上层的EagerFrame，作为MindPandas后端的通用数据格式，可依据数据的维度包装为最外层的DataFrame类或者Series类。
+3. 通用计算范式包含map/reduce/injective_map等，其保证了后端逻辑的稳定性，当有新的算子实现时，都可尝试转换成通用计算范式的组合。
 
-4. QueryCompiler层选择对应的运算逻辑，以在最外层API和EagerFrame之间进行数据处理和调用。最外层的API接口和Pandas接口参数一致。
+4. Factory定义了真正的算子执行逻辑，当前底层算子主要复用pandas逻辑。
+
+5. Executor层提供了多进程和多线程两种执行方式，在计算密集型作业时，多进程会提供更高的执行效率；同时多进程支持多机的分布式执行。
 
 设计特点
 ---------

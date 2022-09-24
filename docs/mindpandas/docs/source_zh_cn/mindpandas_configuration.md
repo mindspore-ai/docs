@@ -118,38 +118,51 @@ yrctl stop
 
 ### 自适应并发模式
 
-针对DataFrame文件存储大小，MindPandas提供了一种自动切换并发模式的自适应功能，即MindPandas通过检测录入csv文件大小，自主更换其并发模式。该功能目前仅适用于read_csv接口。
+MindPandas提供了一种自动切换并发模式的自适应功能，即MindPandas通过检测录入csv文件的大小或者输入DataFrame/Series在CPU内存的占用情况，自主更换其并发模式以提升脚本的运算性能。
 
 #### 启动自适应并发模式
 
-MindPandas的自适应并发模式功能默认为关闭状态，用户可以通过MindPandas下的config.set_adaptive_concurrency接口轻松启动自适应并发模式功能。
+MindPandas通过config的```get_adaptive_concurrency```和```set_adaptive_concurrency```对自适应并发模式功能的使用进行获取和设置。
 
-```Python
+MindPandas的自适应并发模式功能默认设置为关闭状态，即
+
+```python
 import mindpandas as mpd
-mpd.set_adaptive_concurrency(True)
+print(mpd.config.get_adaptive_concurrency)
+##The print result is False
 ```
 
-一旦将自适应并发模式设置为True，就会抛出对mpd.set_concurrency_mode的调用。用户不应调用mpd.set_concurrency_mode或mpd.set_partition_shape。这是因为自适应并发模式会自动为每个DataFrame选择并发运算符和分区形状(Partition Shape)，而不是尊重用户的设置。此外，mpd.set_adaptive_concurrency(True)应在脚本开头调用，以确保每个DataFrame的并发操作都已按照阈值大小进行设置。
+如用户想要启动自适应并发模式功能，可以通过set_adaptive_concurrency接口轻松打开该功能，如下：
 
-#### 关闭自适应并发模式
-
-```Python
-mpd.config.set_adaptive_concurrency(False)
+```python
+import mindpandas as mpd
+mpd.config.set_adaptive_concurrency(True)
 ```
 
-#### 关闭自适应并发
+#### 工作原理
 
-```Python
-mpd.set_adaptive_concurrency(False)
-```
+当自适应并发模式功能被启动，MindPandas后端通过检测csv文件大小来自动切换并发模式，即自主选择使用多线程模式并发模式或者多进程并发模式，其切换标准如下：
 
-不建议在设置为True后将自适应并发模式设置为False。默认情况下，自适应并发模式设置为False，设置为True后才会生效。
+- 针对.csv格式文件，小于18MB的csv文件采用多线程并发模式，其他文件采用多进程并发模式。
 
-#### 自适应并发的使用限制
+- 针对以pandas.DataFrame初始化的mpd.DataFrame，CPU内存使用小于1GB的将采用多线程并发模式，其他则采用多进程并发模式。
 
-自适应并发有以下限制：
+- 针对以numpy.array初始化的mpd.DataFrame，CPU内存使用小于1GB的将采用多线程并发模式，其他则采用多进程并发模式。
 
-> - 自适应并发模式功能目前不支持从merge、concat或join等操作所创建的DataFrame。
-> - 自适应并发模式功能无法更改在启动该功能前初始化或读入的DataFrame/Series的并发模式。
-> - 基于大量实验和测试数据，自适应并发模式将多线程模式与(2,2)分区形状和射线模式与(16,16)分区形状耦合，并且不为每种模式采用一定范围的分区形状。
-> - 除read_csv之外的其他I/O操作，例如read_feather，目前不支持自适应并发模式功能。
+#### 注意事项
+
+- 自适应并发模式被启动后，并行模式和分区形状均由MindPandas后端自主调整，所以用户无法再使用set_concurrency_mode对并发模式进行修改。
+
+- set_adaptive_concurrency(True)应在脚本开头调用，以确保每个DataFrame的并发操作都已按照阈值大小进行设置。
+
+- 在设置set_adaptive_concurrency(True)后，除非end2end脚本已完整运行结束，不建议用户将自适应并发模式切换回False。
+
+#### 使用限制
+
+- 自适应并发模式功能目前不支持来自merge、concat或join等操作所创建的DataFrame。
+
+- 自适应并发模式功能无法更改在启动该功能前初始化或读入的DataFrame/Series的并发模式。
+
+- 自适应并发模式功能目前使用特定的分片形状，即多线程模式采用(2, 2)的分片，多进程模式采用(16, 16)的分片。
+
+- 除read_csv之外的其他I/O操作，例如read_feather，目前不支持自适应并发模式功能。

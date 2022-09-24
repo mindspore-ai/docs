@@ -39,3 +39,4 @@ Series是具有轴标签的一维数据结构，是常用的MindPandas数据结�
 | mindpandas.Series.to_frame        | [pandas.Series.to_frame](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.to_frame.html#pandas.Series.to_frame) | CPU                 |                                  |
 | mindpandas.Series.to_numpy        | [pandas.Series.to_numpy](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.to_numpy.html#pandas.Series.to_numpy) | CPU                 |                                  |
 | mindpandas.Series.to_list         | [pandas.Series.to_list](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.to_list.html#pandas.Series.to_list)    | CPU                 |                                  |
+| mindpandas.Series.to_pandas         |     | CPU                 |                                  |
