@@ -30,7 +30,7 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
    .. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multimachine.png" width="700px" alt="" >
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/cluster.png" width="700px" alt="" >
 
 2. MindPandas与现有原生Pandas的API在接口使用上保持一致，设置MindPandas的后端运行模式即可运行脚本，在使用上只需将pandas的导入替换为：
 

@@ -1,8 +1,44 @@
-# MindPandas后端执行模式配置及性能介绍
+# MindPandas执行模式介绍及配置说明
 
 <a href=“https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas_performance.md” target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文会介绍下MindPandas的分布式并行模式的使用，以及MindPandas的性能优势。
+
+## MindData执行原理
+
+MindData通过分布式并行化执行的方式实现性能的显著提升。其原理是首先对原始数据进行分片，再将API转化为通用计算范式（map、reduce、injective_map等），之后由后端并行化执行。当前MindPandas后端有两种执行模式，分别是多线程和多进程，其中多进程模式支持单机多进程与多机多进程。
+
+### 数据分片
+
+将原始数据分片是并行化执行的基础，如下图所示，将`pandas.DataFrame`转换为`minddata.DataFrame`过程，根据预设的`partition_shape`将原始数据分割为指定数量的`partition`，`partition`将作为后续并行化执行的基本单位。
+
+![partition.png](images/partition.png)
+
+### 多线程模式
+
+多线程模式基于python多线程实现，将每个分片以及对应的计算任务作为一个线程提交到python线程池，由线程池管理并发执行。
+
+![multithread.png](images/multithread.png)
+
+虽然python的多线程存在GIL限制，导致多线程无法有效利用多核，但较小的数据量或IO密集型的任务，使用多线程后端仍能带来显著的性能提升。
+
+### 多进程模式
+
+多进程模式支持单机和多机，且多进程模式不受python的GIL限制，可以做到真正的并行计算。多进程模式与多线程模式整体原理类似，不同的是在对原始数据进行切片后，会将分片存入分布式计算引擎的共享内存中，`minddata.DataFrame`中存放的则是分片所对应的`object reference`。
+
+当需要进行计算时，会将计算函数也存入分布式计算引擎的共享内存中， 之后将计算函数对应的`object reference`与分片对应的`object reference`作为一个任务提交到分布式计算引擎，所有任务会由分布式计算引擎统一调度，以多进程的形式异步并行执行。
+
+#### 单机多进程
+
+![multiprocess1.png](images/multiprocess1.png)
+
+多进程模式可以充分利用多核，从而实现数倍到数十倍不等的性能提升。因此多进程模式能够非常高效的处理海量数据，不过由于进程创建、调度等开销，在处理小数据量时可能效果会受影响。
+
+#### 多机多进程
+
+![multiprocess2.png](images/multiprocess2.png)
+
+多机多进程模式可以将多台服务器组成集群，充分利用多台服务器的资源完成计算任务，从而突破单机的资源限制。
 
 ## MindPandas的多模式后端配置
 
