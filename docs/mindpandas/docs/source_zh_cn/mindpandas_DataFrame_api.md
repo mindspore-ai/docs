@@ -1,6 +1,10 @@
-# DataFrame 类操作
+# MindPandas.DataFrame
 
-对于二维或者多维度的数据，MindPandas会读取到DataFrame类并进行处理，通过字典构建DataFrame示例：
+DataFrame是一个具有行、列索引的二维表数据结构，是MindPandas主要的数据结构之一。
+
+## DataFrame构造
+
+通过字典构建DataFrame示例：
 
 ```python
 import mindpandas as pd
@@ -18,7 +22,7 @@ print(df)
 1     2     4
 ```
 
-生成指定dtype：
+指定数据类型：
 
 ```python
 df = pd.DataFrame(data=d, dtype=np.int8)
@@ -33,7 +37,7 @@ col2    int8
 dtype: object
 ```
 
-从numpy ndarray构造DataFrame：
+通过numpy ndarray构造DataFrame：
 
 ```python
 df2 = pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
@@ -49,6 +53,8 @@ print(df2)
 1  4  5  6
 2  7  8  9
 ```
+
+## DataFrame API
 
 | MindPandas DataFrame API | Pandas API                                                                                                                                                     | 支持平台 | 说明 |
 |--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------|
@@ -102,4 +108,3 @@ print(df2)
 | mindpandas.DataFrame.tail               | [pandas.DataFrame.tail](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.tail.html#pandas.DataFrame.tail)                                  | CPU                 |                                  |
 | mindpandas.DataFrame.transpose          | [pandas.DataFrame.transpose](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.transpose.html#pandas.DataFrame.transpose)                   | CPU                 |                                  |
 | mindpandas.DataFrame.values             | [pandas.DataFrame.values](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.values.html#pandas.DataFrame.values)                            | CPU                 |                                  |
-| mindpandas.DataFrame.to_pandas          |                             | CPU                 |                                  |
