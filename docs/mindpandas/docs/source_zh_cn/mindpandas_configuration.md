@@ -2,54 +2,63 @@
 
 <a href=“https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas_performance.md” target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-本文会介绍下MindPandas的分布式并行模式的使用，以及MindPandas的性能优势。
+本文主要介绍MindPandas分布式并行模式的原理和使用方法。
 
-## MindData执行原理
+## MindPandas实现原理
 
-MindData通过分布式并行化执行的方式实现性能的显著提升。其原理是首先对原始数据进行分片，再将API转化为通用计算范式（map、reduce、injective_map等），之后由后端并行化执行。当前MindPandas后端有两种执行模式，分别是多线程和多进程，其中多进程模式支持单机多进程与多机多进程。
+MindPandas通过并行化的计算实现了对Pandas数据处理的加速。原理是首先对原始数据进行分片，再将API转化为通用计算范式（map、reduce、injective_map等），之后由后端并行化计算。当前MindPandas后端有两种执行模式，分别是多线程模式和多进程模式。
 
-### 数据分片
+### 数据分片原理
 
-将原始数据分片是并行化执行的基础，如下图所示，将`pandas.DataFrame`转换为`minddata.DataFrame`过程，根据预设的`partition_shape`将原始数据分割为指定数量的`partition`，`partition`将作为后续并行化执行的基本单位。
+将原始数据进行分片是并行计算的基础。下图展示了将`pandas.DataFrame`转换为`mindpandas.DataFrame`的过程，根据预设的`partition_shape`将原始数据分割为指定数量的`partition`，`partition`将作为后续并行计算的基本单位。
 
 ![partition.png](images/partition.png)
 
-### 多线程模式
+### 多线程模式原理
 
-多线程模式基于python多线程实现，将每个分片以及对应的计算任务作为一个线程提交到python线程池，由线程池管理并发执行。
+多线程模式基于Python多线程实现。每个数据分片和其对应的计算函数在一个线程中执行。
 
 ![multithread.png](images/multithread.png)
 
-虽然python的多线程存在GIL限制，导致多线程无法有效利用多核，但较小的数据量或IO密集型的任务，使用多线程后端仍能带来显著的性能提升。
+虽然Python的多线程存在全局解释器锁（GIL）限制，导致多线程无法有效利用多核。但数据量较小或处理IO密集型任务时，多线程后端仍能带来显著的性能提升。
 
-### 多进程模式
+### 多进程模式原理
 
-多进程模式支持单机和多机，且多进程模式不受python的GIL限制，可以做到真正的并行计算。多进程模式与多线程模式整体原理类似，不同的是在对原始数据进行切片后，会将分片存入分布式计算引擎的共享内存中，`minddata.DataFrame`中存放的则是分片所对应的`object reference`。
+多进程模式不受Python的全局解释器锁（GIL）限制，可以做到真正的并行计算。多进程模式与多线程模式原理类似，不同的是在对原始数据进行切片后，会将分片存入分布式计算引擎的共享内存中，`mindpandas.DataFrame`中存放的则是分片所对应的`object reference`。
 
 当需要进行计算时，会将计算函数也存入分布式计算引擎的共享内存中， 之后将计算函数对应的`object reference`与分片对应的`object reference`作为一个任务提交到分布式计算引擎，所有任务会由分布式计算引擎统一调度，以多进程的形式异步并行执行。
 
-#### 单机多进程
+#### 单机多进程原理
 
 ![multiprocess1.png](images/multiprocess1.png)
 
-多进程模式可以充分利用多核，从而实现数倍到数十倍不等的性能提升。因此多进程模式能够非常高效的处理海量数据，不过由于进程创建、调度等开销，在处理小数据量时可能效果会受影响。
+多进程模式可以充分利用多核，从而实现数倍到数十倍不等的性能提升。因此多进程模式能够高效地应对数据量较大的场景。但由于进程创建、调度等开销，在处理的数据量较小时性能可能会受到影响。
 
-#### 多机多进程
+#### 多机多进程原理
 
 ![multiprocess2.png](images/multiprocess2.png)
 
-多机多进程模式可以将多台服务器组成集群，充分利用多台服务器的资源完成计算任务，从而突破单机的资源限制。
+多机多进程模式下，计算在多台服务器组成的集群上执行，可以充分利用多机的资源完成计算任务，突破单机的资源限制。
 
-## MindPandas的多模式后端配置
+## MindPandas执行模式配置
 
-MindPandas的性能优势体现在使用了分布式后端执行模式，运行脚本之前需要进行配置，有如下三个场景。
+### 数据分片配置
 
-### 单机多线程模式使用
+MindPandas支持用户根据实际使用情况配置分片的shape，用户可以使用`set_partition_shape`自定义分片的行数与列数。
 
-在MindPandas中我们默认使用多线程模式。多线程模式通过Python多线程实现，并且对较大的DataFrame自动进行了切片存储。用户只需通过导入MindPandas而无需重新编写脚本便可实现原脚本的多线程加速。
-Python脚本中处理如下：
+```python
+import mindpandas as pd
+pd.set_partition_shape((16, 2))
 
-```Python
+df = pd.read_csv('data.csv')
+df_mean = df.mean()
+```
+
+### 多线程模式配置
+
+MindPandas的多线程模式使用方法如下所示：
+
+```python
 import mindpandas as pd
 pd.set_concurrency_mode('multithread') # MindPandas will use multithread as backend
 
@@ -57,148 +66,144 @@ df = pd.read_csv('data.csv')
 df_mean = df.mean()
 ```
 
-### 单机多进程模式使用
+### 多进程模式配置
 
-MindPandas内置的分布式执行引擎，是一个分布式对象框架，它使用了和传统分布式计算系统不一样的架构。
+安装MindPandas时，内置的分布式计算引擎也已经同步安装完成，可以在控制台使用指令`yrctl`访问。
 
-安装MindPandas时，内置的分布式执行引擎也已经同步安装完成，可以在控制台输入yrctl访问。
+> 注意：多进程模式下请确保您启动的集群仅由您个人使用，与他人共同使用一个集群可能导致潜在的安全风险。
 
 ```shell
-yrctl
+$ yrctl
+Usage: yrctl [OPTIONS] COMMAND [ARGS]...
+
+  The distributed executor of MindPandas.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  start    used to start the fleeting cluster
+  stop     used to stop the fleeting cluster
 ```
 
-要使用分布式执行引擎，我们需要先在主节点通过命令行启动服务，其中address为主节点的IP地址，如下所示：
+#### 单机多进程模式配置
+
+要使用分布式计算引擎，我们需要通过命令行启动服务部署单机集群。部署集群的命令示例如下：
+
+```shell
+yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <mem>
+```
+
+`yrctl start`命令常用参数有：
+
+- `--master`：标志位，设置当前节点为master节点，集群中有且仅能有一个master节点，部署单机集群时必须设置此标志。
+- `--address`：master节点的IP地址，本地运行时可以填写127.0.0.1，必填。
+- `--cpu`：该节点上使用的CPU核数，每个CPU的权重为1000（例：若希望使用两个核，此参数值应设置为2000）。可选，默认使用所有可用核。
+- `--datamem`：共享内存的大小，单位是MB。可选，默认使用当前空闲内存的25%。
+- `--mem`：MindPandas使用的总内存（包含共享内存），单位是MB。可选，默认使用当前空闲内存的75%。
+
+如需查看`yrctl start`的参数使用说明，可以通过`yrctl start --help`查看。  
+在启动集群前，请检查下列事项：
+
+- 本机没有为master节点的IP地址配置http代理。如果有，请取消代理或将master节点的IP地址加入`$no_proxy`环境变量中。
+- 本机没有其他的redis服务占用6379端口，否则会引起端口冲突。如有redis或其他端口冲突问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/faq.html)解决。
+
+若集群部署成功，控制台回显的末尾应显示：
+
+```text
+Succeeded to start!
+```
+
+集群部署完成后，在Python脚本中需要设置使用多进程后端运行。方法是调用`set_concurrency_mode`接口，设置`mode`为`"multiprocess"`，`address`参数填写master节点的IP地址。
+
+> 注意：我们建议在`import mindpandas`之后马上调用`set_concurrency_mode`进行并行模式的设置。在脚本运行过程中切换并行模式将可能导致程序出错。
+
+```python
+import mindpandas as pd
+pd.set_concurrency_mode(mode="multiprocess", address="127.0.0.1")
+```
+
+要停止分布式计算引擎，请使用`yrctl stop`命令：
+
+```shell
+$ yrctl stop --help
+Usage: yrctl stop [OPTIONS]
+
+  used to stop the fleeting cluster
+
+Options:
+  --help    Show this message and exit.
+```
+
+成功停止分布式计算引擎后，回显中末尾应显示：
+
+```text
+Succeeded to stop!
+```
+
+#### 多机多进程模式使用
+
+MindPandas的多进程后端支持在多机上搭建集群，并进行分布式计算。集群由一个master节点和多个worker节点组成，集群中的每台机器上都需要单独启动服务。启动方式与单机多进程模式相同，但必须先启动master节点，然后再启动其他worker节点。
+
+启动master节点：
 
 ```shell
 yrctl start --master --address <address>
 ```
 
-yrctl start 命令参数如下：
+其中`address`为master节点的IP地址。
 
---master 主节点标注，非必选项。
-
---address 主节点的IP地址，为必选项。
-
---password Etcd密码，必选项，不大于64个字符。
-
---cpu 数据系统使用的cpu单位，单位s是1/1000核，非必选项，默认系统资源的30%。
-
---mem 数据系统使用的内存，单位是MB，非必选项，默认系统内存的1/3。
-
---datamem 数据系统使用的内存，单位是MB，非必选项，默认系统内存的1/6。
-
-回显如下：
+启动worker节点：
 
 ```shell
-Succeeded to deploy the function func!
-Succeeded to start!
+yrctl start --address=<address>
 ```
 
-如需查看yrctl start的更多的参数使用说明，可以使用--help参数。
+其中`address`为master节点的IP地址，若启动过程中遇到部署失败的问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/faq.html)。
 
-在数据处理脚本中，设置使用yr后端，如当前主机地址是192.168.1.1，安装数据系统服务地址也是本机，Python脚本如下设置。
+集群部署完毕后，在Python脚本中，如下列代码所示设置使用`"multiprocess"`后端，`address`为集群中master节点的IP地址。
 
-```Python
+```python
 import mindpandas as pd
-pd.set_concurrency_mode("yr", server_address="192.168.1.1", ds_address="192.168.1.1")
+pd.set_concurrency_mode("multiprocess", address="<master_ip>")
 ```
 
-脚本执行完后，停止分布式执行引擎，使用如下命令：
-
-```shell
-yrctl stop --master
-```
-
-若当前节点为主节点，则需要设置此参数。
-
-### 多机多进程模式使用
-
-通常在实践中，我们有大量的数据需要处理，需要超越单台机器的能力。尽管MindPandas在本地模式已经可以正常工作并表现良好，但是我们还可以选择集群环境让计算变得更快。用户无需考虑存在多少工作人员或如何分配和分区他们的数据，MindPandas会无缝且透明地为您处理所有的这些问题。
-
-集群由运行在不同机器上的多个节点组成，每个集群有一个“头节点”和多个“工作节点”，所有节点必须在同一个本地网络上，通过在每台机器上启动一个主进程来创建一个集群，命令如下：
-
-启动master结点
-
-```shell
-yrctl start --master --address=<address> --password=<password>
-```
-
-其中address为主节点的IP地址。
-
-启动工作节点
-
-```shell
-yrctl start --address=<address> --password=<password>
-```
-
-其中address为主节点的IP地址，在集群上运行分布式程序，需要在与其中一个节点相同的机器上执行程序。
-
-在数据处理脚本中，设置使用yr后端，如当前主机地址是192.168.1.1，安装数据系统服务地址也是本机，python脚本如下设置。
-
-```Python
-import mindpandas as pd
-pd.set_concurrency_mode("yr", server_address="192.168.1.1", ds_address="192.168.1.1")
-```
-
-运行结束后删除集群使用如下命令，其中在主节点机器执行：
-
-```shell
-yrctl stop --master
-```
-
-在从节点机器执行：
+停止集群的命令如下，需要在master节点和每个worker节点上分别执行：
 
 ```shell
 yrctl stop
 ```
 
-### 自适应并发模式
+### 自适应并发功能
 
-MindPandas提供了一种自动切换并发模式的自适应功能，即MindPandas通过检测录入csv文件的大小或者输入DataFrame/Series在CPU内存的占用情况，自主更换其并发模式以提升脚本的运算性能。
+由于在数据量较小时，单进程计算的性能已经足够优秀。多进程计算的并行收益常常小于使用多进程的额外开销，所以MindPandas加入了自适应并发功能，此功能开启时，MindPandas会根据数据大小自适应切换并发模式以提升性能。
 
-#### 启动自适应并发模式
+#### 开启自适应并发功能
 
-MindPandas通过config的```get_adaptive_concurrency```和```set_adaptive_concurrency```对自适应并发模式功能的使用进行获取和设置。
-
-MindPandas的自适应并发模式功能默认设置为关闭状态，即
+自适应并发功能默认设置为关闭，可以在Python脚本中通过`set_adaptive_concurrency`接口开启该功能：
 
 ```python
-import mindpandas as mpd
-print(mpd.config.get_adaptive_concurrency)
-##The print result is False
+import mindpandas as pd
+pd.set_adaptive_concurrency(True)
 ```
 
-如用户想要启动自适应并发模式功能，可以通过set_adaptive_concurrency接口轻松打开该功能，如下：
+#### 触发条件
 
-```python
-import mindpandas as mpd
-mpd.config.set_adaptive_concurrency(True)
-```
+自适应并发功能开启后，自动切换并行模式的条件如下：
 
-#### 工作原理
-
-当自适应并发模式功能被启动，MindPandas后端通过检测csv文件大小来自动切换并发模式，即自主选择使用多线程模式并发模式或者多进程并发模式，其切换标准如下：
-
-- 针对.csv格式文件，小于18MB的csv文件采用多线程并发模式，其他文件采用多进程并发模式。
-
-- 针对以pandas.DataFrame初始化的mpd.DataFrame，CPU内存使用小于1GB的将采用多线程并发模式，其他则采用多进程并发模式。
-
-- 针对以numpy.array初始化的mpd.DataFrame，CPU内存使用小于1GB的将采用多线程并发模式，其他则采用多进程并发模式。
+- 读取小于18MB的csv文件时会采用多线程模式，其它情况使用多进程模式。
+- 使用`pandas.DataFrame`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其它情况使用多进程模式。
+- 使用`numpy.ndarray`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其它情况使用多进程模式。
 
 #### 注意事项
 
-- 自适应并发模式被启动后，并行模式和分区形状均由MindPandas后端自主调整，所以用户无法再使用set_concurrency_mode对并发模式进行修改。
-
-- set_adaptive_concurrency(True)应在脚本开头调用，以确保每个DataFrame的并发操作都已按照阈值大小进行设置。
-
-- 在设置set_adaptive_concurrency(True)后，除非end2end脚本已完整运行结束，不建议用户将自适应并发模式切换回False。
+- 自适应并发功能被启动后，并行模式和分片的shape均由MindPandas自主调整，用户无法再使用`set_concurrency_mode`对并发模式进行修改。
+- `set_adaptive_concurrency(True)`应在Python脚本开头调用。
+- 在设置`set_adaptive_concurrency(True)`后，除非Python脚本已运行完成，不建议用户将自适应并发功能切换回`False`。
 
 #### 使用限制
 
-- 自适应并发模式功能目前不支持来自merge、concat或join等操作所创建的DataFrame。
-
-- 自适应并发模式功能无法更改在启动该功能前初始化或读入的DataFrame/Series的并发模式。
-
-- 自适应并发模式功能目前使用特定的分片形状，即多线程模式采用(2, 2)的分片，多进程模式采用(16, 16)的分片。
-
-- 除read_csv之外的其他I/O操作，例如read_feather，目前不支持自适应并发模式功能。
+- 自适应并发功能目前不支持来自`merge`、`concat`或`join`等操作所创建的DataFrame。
+- 自适应并发功能开启前初始化或读入的DataFrame/Series的并发模式无法被更改。
+- 自适应并发功能目前使用特定的分片形状，即多线程模式采用(2, 2)的分片，多进程模式采用(16, 16)的分片。
+- 除`read_csv`之外的其他I/O操作，例如`read_feather`，目前不支持自适应并发功能。
