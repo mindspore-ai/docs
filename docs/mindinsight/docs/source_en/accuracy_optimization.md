@@ -599,7 +599,7 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
 
-> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) API.
+> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API.
 
 ### Hyperparameter Problem Handling
 

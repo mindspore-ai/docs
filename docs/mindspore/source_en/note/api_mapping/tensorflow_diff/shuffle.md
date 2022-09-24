@@ -22,7 +22,7 @@ mindspore.dataset.GeneratorDataset.shuffle(
 )
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset.shuffle](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle).
+For more information, see [mindspore.dataset.GeneratorDataset.shuffle](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle).
 
 ## Differences
 
