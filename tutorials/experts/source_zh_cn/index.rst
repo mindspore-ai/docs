@@ -43,6 +43,8 @@
    :caption: 自定义算子
 
    operation/op_custom
+   operation/ms_kernel
+   operation/op_custom_adv
 
 .. toctree::
    :glob:
