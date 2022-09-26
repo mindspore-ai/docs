@@ -277,7 +277,7 @@ The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, sh
 
 ### CSRTensor
 
-The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr` (row) and `indices` (column).
+The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr` (row) and `indices` (column). The meaning of each parameter is as follows:
 
 - `indptr`: 1-D integer tensor, indicating the start and end points of the non-zero elements in each row of the sparse data in `values`. The index data type can only be int32.
 
@@ -320,7 +320,7 @@ $$
 
 ### COOTensor
 
-The `COO` (Coordinate Format) sparse tensor format is used to represent a collection of nonzero elements of a tensor on a given index. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`, then:
+The `COO` (Coordinate Format) sparse tensor format is used to represent a collection of nonzero elements of a tensor on a given index. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`. The meaning of each parameter is as follows:
 
 - `indices`: 2-D integer tensor. Each row indicates a non-zero element subscript. Shape: `[N, ndims]`. The index data type can only be int32.
 
@@ -368,7 +368,7 @@ $$
 
 ### RowTensor
 
-`RowTensor` is used to compress tensors that are sparse in the dimension 0. If the dimension of `RowTensor` is `[L0, D1, D2, ..., DN ]` and the number of non-zero elements in the dimension 0 is `D0`, then `L0 >> D0`.
+`RowTensor` is used to compress tensors that are sparse in the dimension 0. If the dimension of `RowTensor` is `[L0, D1, D2, ..., DN ]` and the number of non-zero elements in the dimension 0 is `D0`, then `L0 >> D0`. The meaning of each parameter is as follows:
 
 - `indices`: 1-D integer tensor, indicating the position of non-zero elements in the dimension 0 of the sparse tensor. The shape is `[D0]`.
 
