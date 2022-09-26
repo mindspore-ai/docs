@@ -128,7 +128,7 @@ hidden1.shape
 
 ### nn.ReLU
 
-`nn.ReLU` layer, which adds a nonlinear activation function to the network, to help the neural network learn various complex features.
+`nn.ReLU` layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
 
 ```python
 print(f"Before ReLU: {hidden1}\n\n")
@@ -154,15 +154,15 @@ Before ReLU: [[-0.04736331  0.2939465  -0.02713677 -0.30988005 -0.11504349 -0.11
 After ReLU: [[0.         0.2939465  0.         0.         0.         0.
   0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
   0.01825903 0.01287796 0.17238477 0.         0.         0.
-  0.         0.05171938]
+  1.         0.05171938]
  [0.         0.2939465  0.         0.         0.         0.
   0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
   0.01825903 0.01287796 0.17238477 0.         0.         0.
-  0.         0.05171938]
+  1.         0.05171938]
  [0.         0.2939465  0.         0.         0.         0.
   0.18007928 0.43213072 0.12091967 0.         0.53133243 0.12605792
   0.01825903 0.01287796 0.17238477 0.         0.         0.
-  0.         0.05171938]]
+  1.         0.05171938]]
 ```
 
 ### nn.SequentialCell

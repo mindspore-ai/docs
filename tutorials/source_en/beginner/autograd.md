@@ -27,8 +27,8 @@ In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are t
 ```python
 x = ops.ones(5, mindspore.float32)  # input tensor
 y = ops.zeros(3, mindspore.float32)  # expected output
-w = Tensor(np.random.randn(5, 3), mindspore.float32) # weight
-b = Tensor(np.random.randn(3,), mindspore.float32) # bias
+w = Parameter(Tensor(np.random.randn(5, 3), mindspore.float32), name='w') # weight
+b = Parameter(Tensor(np.random.randn(3,), mindspore.float32), name='b') # bias
 ```
 
 We construct the computing function based on the computing process described by the computing graphs.
@@ -44,7 +44,7 @@ Execute the computing functions to get the calculated loss value.
 
 ```python
 z = function(x, y, w, b)
-z
+print(z)
 ```
 
 ```text
@@ -72,7 +72,7 @@ The gradients corresponding to $w$ and $b$ are obtained by executing the differe
 
 ```python
 grads = grad_fn(x, y, w, b)
-grads
+print(grads)
 ```
 
 ```text
@@ -87,7 +87,7 @@ grads
 
 ## Stop Gradient
 
-Generally, the derivative of the parameter with respect to loss is found, so that the output of the output function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of the parameter with respect to all output terms. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
+Generally, the derivative of the parameter with respect to loss is found, so that the output of function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of the parameter with respect to all output terms. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
 
 Here we change `function` to `function_with_logits` that outputs both loss and z to obtain the differentiation function and execute it.
 
@@ -101,7 +101,7 @@ def function_with_logits(x, y, w, b):
 ```python
 grad_fn = ops.grad(function_with_logits, (2, 3))
 grads = grad_fn(x, y, w, b)
-grads
+print(grads)
 ```
 
 ```text
@@ -126,7 +126,7 @@ def function_stop_gradient(x, y, w, b):
 ```python
 grad_fn = ops.grad(function_stop_gradient, (2, 3))
 grads = grad_fn(x, y, w, b)
-grads
+print(grads)
 ```
 
 ```text
@@ -155,7 +155,7 @@ grad_fn = ops.grad(function_with_logits, (2, 3), has_aux=True)
 
 ```python
 grads, (z,) = grad_fn(x, y, w, b)
-grads, z
+print(grads, z)
 ```
 
 ```text
@@ -180,8 +180,8 @@ First we inherit `nn.Cell` to construct a single-layer linear transform neural n
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.w = Parameter(w, requires_grad=True)
-        self.b = Parameter(b, requires_grad=True)
+        self.w = w
+        self.b = b
 
     def construct(self, x):
         z = ops.matmul(x, self.w) + self.b
@@ -209,7 +209,7 @@ def forward_fn(x, y):
 
 Once completed, we use the `value_and_grad` interface to obtain the differentiation function for computing the gradient.
 
-Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. To derive the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
+Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. When derive the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
 
 ```python
 grad_fn = ops.value_and_grad(forward_fn, None, weights=model.trainable_params())
@@ -217,7 +217,7 @@ grad_fn = ops.value_and_grad(forward_fn, None, weights=model.trainable_params())
 
 ```python
 loss, grads = grad_fn(x, y)
-grads
+print(grads)
 ```
 
 ```text

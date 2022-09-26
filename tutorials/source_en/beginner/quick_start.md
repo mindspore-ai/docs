@@ -16,7 +16,7 @@ from mindspore.dataset import vision
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In addition, MindSpore provides domain-specific development libraries, such as [Text](https://gitee.com/mindspore/text/), [Vision](https://gitee.com/mindspore/vision/), etc. The development libraries provide encapsulation for a large number of datasets and can be downloaded quickly. In this tutorial, we use Vision's dataset as an example.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In addition, MindSpore provides domain-specific development libraries, such as [Text](https://gitee.com/mindspore/text/), [Vision](https://gitee.com/mindspore/vision/), etc. The development libraries provide encapsulation for a large number of datasets and can be downloaded quickly. In this tutorial, we use Vision to demonstrate the dataset operation.
 
 `mindvision.dataset` module includes various CV datasets, such as Mnist, Cifar, ImageNet, etc. In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
