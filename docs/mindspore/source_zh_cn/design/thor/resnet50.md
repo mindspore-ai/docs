@@ -459,7 +459,7 @@ if __name__ == "__main__":
         loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define model
-    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)
