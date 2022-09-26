@@ -38,7 +38,7 @@ The blue box on the left is the main MindSpore framework, which mainly provides 
 
 Below the blue box is the MindSpore Data module, which can be used for data preprocessing, including data sampling, data iteration, data format conversion, and other data operations. Many debugging and tuning problems may occur during training. Therefore, the MindSpore Insight module visualizes debugging and tuning data such as the loss curve, operator execution status, and weight parameter variables, facilitating debugging and optimization during training.
 
-The simplest way to ensure AI security is from the perspective of attack and defense. For example, attackers inject malicious data in the training phase to affect the inference capability of AI models. Therefore, MindSpore launches the MindSpore Armour module to provide an AI security mechanism for MindSpore.
+The simplest scenario to ensure AI security is from the perspective of attack and defense. For example, attackers inject malicious data in the training phase to affect the inference capability of AI models. Therefore, MindSpore launches the MindSpore Armour module to provide an AI security mechanism for MindSpore.
 
 The content above the blue box is closer to algorithm development users, including the AI algorithm model library ModelZoo, development toolkit MindSpore DevKit for different fields, and advanced extension library MindSpore Extend. MindSciences, a scientific computing kit in MindSpore Extend, is worth mentioning. MindSpore is the first to combine scientific computing with deep learning, combine numerical computing with deep learning, and support electromagnetic simulation and drug molecular simulation through deep learning.
 
@@ -48,7 +48,7 @@ After the neural network model is trained, you can export the model or load the 
 
 - Supporting full-scenario collaboration
 
-    MindSpore is an industry-wide best practice. It provides unified model training, inference, and export APIs for data scientists and algorithm engineers. It supports flexible deployment in different scenarios such as the device, edge, and cloud, and promotes the prosperity of domains such as deep learning and scientific computing.
+    MindSpore is derived from industry-wide best practices. It provides unified model training, inference, and export APIs for data scientists and algorithm engineers. It supports flexible deployment in different scenarios such as the device, edge, and cloud, and promotes the prosperity of domains such as deep learning and scientific computing.
 
 - Provideing the Python programming paradigm to simplify AI programming
 

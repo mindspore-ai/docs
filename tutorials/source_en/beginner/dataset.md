@@ -22,7 +22,7 @@ We use the **Mnist** dataset as a sample to introduce the loading method by usin
 
 ### Loading a Dataset by Using Vision
 
-The [Vision](https://gitee.com/mindspore/vision/) development library provides dataset encapsulation based on the customized dataset `mindspore.dataset.GeneratorDataset`. We use its interface for loading with the following parameters to be configured.
+The [Vision](https://gitee.com/mindspore/vision/) development library provides function encapsulation based on the customized dataset `mindspore.dataset.GeneratorDataset`. We use its interface for loading with the following parameters to be configured.
 
 - `path`: the path to save the dataset.
 - `split`: the dataset category, `train` or `test`.
@@ -40,7 +40,7 @@ training_data = dataset.Mnist(
 Get the dataset from the automatically downloaded and loaded `training_data`, you can see that its data type is `GeneratorDataset`.
 
 ```python
-type(training_data.dataset)
+print(type(training_data.dataset))
 ```
 
 ```text
@@ -70,7 +70,7 @@ After the compressed file is deleted and loaded directly, you can see that its d
 
 ```python
 train_dataset = MnistDataset(train_path, shuffle=False)
-type(train_dataset)
+print(type(train_dataset))
 ```
 
 ```text
@@ -124,7 +124,7 @@ The `map` is the key operation of data preprocessing, which can add data transfo
 
 ```python
 image, label = next(train_dataset.create_tuple_iterator())
-image.shape, image.dtype
+print(image.shape, image.dtype)
 ```
 
 ```text
@@ -139,7 +139,7 @@ Comparing the data before and after map, you can see the data type change.
 
 ```python
 image, label = next(train_dataset.create_tuple_iterator())
-image.shape, image.dtype
+print(image.shape, image.dtype)
 ```
 
 ```text
@@ -158,7 +158,7 @@ The batched data is increased by one dimension, and the size is `batch_size`.
 
 ```python
 image, label = next(train_dataset.create_tuple_iterator())
-image.shape, image.dtype
+print(image.shape, image.dtype)
 ```
 
 ```text
