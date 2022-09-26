@@ -55,7 +55,6 @@ MindSpore Documentation
    api_python/mindspore.ops.functional
    api_python/mindspore.rewrite
    api_python/mindspore.scipy
-   api_python/mindspore.train
    api_python/mindspore.boost
    C++ API↗ <https://www.mindspore.cn/lite/api/en/r1.9/api_cpp/mindspore.html>
 
