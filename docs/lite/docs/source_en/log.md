@@ -4,7 +4,7 @@
 
 ## Log-related Environment Variables
 
-Only server inference version support environment variables below, except `GLOG_v`.  
+Only server inference version and windows version support environment variables below, except `GLOG_v`.  
 
 - `GLOG_v`
 
