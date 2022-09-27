@@ -154,7 +154,8 @@ MindSpore AKG基于**Polyhedral技术**来实现**基于多层Buffer结构的DMA
   用户和开发者可以通过运行MindSpore AKG的测试用例了解融合算子或复杂算子的优化流程，以卷积算子的相关代码为例：
 
   四维卷积（不含Pad操作）的计算公式如下，其中$N = 32, H = W = 28, Co = 128, Ci = 64, Hk = Hw = 5$。
-    $$Output(n, h, w, o)=\sum_{c=1}^{Ci}
+
+  $$Output(n, h, w, o)=\sum_{c=1}^{Ci}
       \sum_{rh=1}^{Hk}
           \sum_{rw=1}^{Wk}
               (Image(n, h+rh, w+rw, c)*Filter(o, rh, rw, c))$$

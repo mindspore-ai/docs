@@ -26,7 +26,7 @@ $$C=\\begin{bmatrix} 1\&1\&0\&0\\ 1\&1\&1\&1\\ 0\&1\&1\&1\\ 0\&1\&1\&1\\ \\end{b
 
     Common graph datasets include Cora, Citeseer, and PubMed. The following uses Cora as an example.
 
-    > The original dataset can be downloaded from [UCSC](https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz). Here, the [preprocessed version \[1] provided by kimiyoung](https://github.com/kimiyoung/planetoid) is used.
+    > The original dataset can be downloaded from [UCSC](https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz). Here, the [preprocessed version](https://github.com/kimiyoung/planetoid)[1] provided by kimiyoung is used.
 
     The main part of the Cora dataset (`cora.content`) contains 2708 samples, each of which describes information about one scientific paper. These papers are classified into seven categories. Each piece of sample data consists of three parts: a paper number, a word vector of the paper (a 1433-bit binary), and a category of the paper. The reference dataset part (`cora.cites`) contains 5429 lines, and each line contains two paper numbers, indicating that the second paper references the first paper.
 

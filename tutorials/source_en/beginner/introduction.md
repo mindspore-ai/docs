@@ -24,7 +24,7 @@ The following figure shows the overall MindSpore architecture:
 - **Compiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
 - **Runtime**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
 - **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/r1.9/index.html)).
-- **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection. ([Learn more] (<https://mindspore.cn/mindarmour/docs/en/r1.9/index.html>))
+- **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection ([More Information](https://mindspore.cn/mindarmour/docs/en/r1.9/index.html)).
 
 ### Execution Process
 

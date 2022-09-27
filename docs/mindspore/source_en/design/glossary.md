@@ -40,7 +40,7 @@
 |  Loss  |  Difference between the predicted value and the actual value, which is a standard for determining the model quality of deep learning.  |
 |  Loss scale  |  Gradient amplification to prevent gradient underflow.  |
 |  LSTM  |  Long short-term memory, an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence.  |
-|  Manifest  |  A data format file. Huawei ModelArt adopts this format. For details, see <https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html>.  |
+|  Manifest  |  A data format file. Huawei ModelArt adopts this format. For details, see [Specification of Manifest](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html).  |
 |  ME  |  Mind Expression, MindSpore frontend, which is used to compile tasks from user source code to computational graphs, control execution during training, maintain contexts (in non-sink mode), and dynamically generate graphs (in PyNative mode).  |
 |  MindArmour  |  The security module of MindSpore, which improves the confidentiality, integrity and usability of the model through technical means such as differential privacy and adversarial attack and defense. MindArmour prevents attackers from maliciously modifying the model or cracking the internal components of the model to steal the parameters of the model.  |
 |  MindData  |  MindSpore data framework, which provides data loading, enhancement, dataset management, and visualization.  |

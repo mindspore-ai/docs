@@ -9,8 +9,8 @@ Common optimization algorithms are classified into the first-order and the secon
 Based on the existing natural gradient algorithm, MindSpore development team uses optimized acceleration methods such as approximation and sharding for the FIM, greatly reducing the computation complexity of the inverse matrix and developing the available second-order optimizer THOR. With eight Ascend 910 AI processors, THOR can complete the training of ResNet-50 v1.5 network and ImageNet dataset within 72 minutes, which is nearly twice the speed of SGD+Momentum.
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
-> Download address of the complete code example:
-<https://gitee.com/mindspore/models/tree/master/official/cv/resnet>
+
+> Download address of the complete code example: [Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)
 
 Directory Structure of Code Examples
 

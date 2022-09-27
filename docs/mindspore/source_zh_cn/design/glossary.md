@@ -40,7 +40,7 @@
 |  Loss  |  损失，预测值与实际值的偏差，深度学习用于判断模型好坏的一个标准。  |
 |  Loss scale  |  为了防止梯度下溢而进行的梯度放大。  |
 |  LSTM  |  Long short-term memory，长短期记忆，对应的网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。  |
-|  Manifest  |  一种数据格式文件，华为ModelArts采用了该格式，详细说明请参见<https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html>。  |
+|  Manifest  |  一种数据格式文件，华为ModelArts采用了该格式，详见[导入Manifest文件的规范说明](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html)。  |
 |  ME  |  Mind Expression，MindSpore前端，主要完成从用户源码到计算图的编译任务、训练中控制执行及上下文维护（非下沉模式配置下）、动态图（PyNative模式）等。  |
 |  MindArmour  |  MindSpore安全模块，通过差分隐私、对抗性攻防等技术手段，提升模型的保密性、完整性和可用性，阻止攻击者对模型进行恶意修改或是破解模型的内部构件，窃取模型的参数。  |
 |  MindData  |  MindSpore数据框架，提供数据加载、增强、数据集管理以及可视化。  |

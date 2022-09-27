@@ -773,7 +773,7 @@ You may encounter some interruptions in the training during the process, you can
 
 ### Full Example
 
-For full example, you can refer to the link: <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/migration_sample>
+For full example, refer to [migration sample](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/migration_sample).
 
 ## Precision Tuning
 

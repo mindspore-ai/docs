@@ -214,11 +214,11 @@ A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同�
 A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Windows+GPU的支持还在开发中。
 如果希望在GPU+Windows的环境上运行，可以尝试使用WSL+docker的方式，操作思路:
 
-1. 以WSL方式安装起Ubuntu18.04，参考<https://docs.microsoft.com/en-us/windows/wsl/install-win10>。
-2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考<https://docs.nvidia.com/cuda/wsl-user-guide/index.html>。
+1. 以WSL方式安装起Ubuntu18.04，参考[Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)。
+2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考[CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)。
 
    > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
-3. 参考<https://gitee.com/mindspore/mindspore#docker镜像>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
+3. 参考[Docker镜像](https://gitee.com/mindspore/mindspore/blob/r1.9/README_CN.md#docker%E9%95%9C%E5%83%8F)，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
 
     ```docker
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
