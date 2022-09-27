@@ -377,5 +377,13 @@ for file_name in fileList:
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(file_data)
 
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.read()
+        data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(data)
+
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
