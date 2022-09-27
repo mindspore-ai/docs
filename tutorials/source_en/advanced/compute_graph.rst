@@ -6,4 +6,3 @@ Computation Graphs
   
   compute_graph/mode
   compute_graph/combine
-  compute_graph/pynative
