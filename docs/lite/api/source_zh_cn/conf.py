@@ -297,6 +297,19 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 
 exec(source_code, sphinx_builder_html.__dict__)
 
+fileList = []
+for root, dirs, files in os.walk('../include/'):
+    for fileObj in files:
+        fileList.append(os.path.join(root, fileObj))
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.read()
+        data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(data)
+
 # Remove "MS_API" in classes.
 # files_copyed = glob.glob("../include/*.h")
 # for file in files_copyed:
