@@ -117,29 +117,20 @@ FL-Server在收到quant_data、min_val和max_val后，使用反量化公式(quan
 
 ## 算法开启脚本
 
-上传和下载压缩方法目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，在server启动脚本中使用`set_fl_context()`设置`upload_compress_type='DIFF_SPARSE_QUANT'`和`download_compress_type='QUANT'`。上述两个超参数即可分别控制上传和下载压缩方法的开启和关闭。云侧完整启动脚本可参考ALBERT中云侧部署的[run_hybrid_train_server.py脚本](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/albert/run_hybrid_train_server.py)，这里给出启动该算法的相关参数配置。确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，传入算法参数，调用方式如下：
+上传和下载压缩方法目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，在server启动脚本中，在对应的yaml中设置`upload_compress_type='DIFF_SPARSE_QUANT'`和`download_compress_type='QUANT'`。上述两个超参数即可分别控制上传和下载压缩方法的开启和关闭。云侧[完整启动脚本](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/)，这里给出启动该算法的相关参数配置。确定参数配置后，用户需要在执行训练前配置对应参数，具体如下：
 
-```python
-# 打开上传压缩开关
-parser.add_argument("--upload_compress_type", type=str, default="DIFF_SPARSE_QUANT")
-# 上传压缩方法中稀疏率超参数
-parser.add_argument("--upload_sparse_rate", type=float, default=0.4)
-# 打开下载压缩开关
-parser.add_argument("--download_compress_type", type=str, default="QUANT")
-args, _ = parser.parse_known_args()
-ctx = {
-    "upload_compress_type": args.upload_compress_type,
-    "upload_sparse_rate": args.upload_sparse_rate,
-    "download_compress_type": args.download_compress_type,
-}
-set_fl_context(**fl_ctx)
+```yaml
+compression:
+  upload_compress_type: NO_COMPRESS
+  upload_sparse_rate: 0.4
+  download_compress_type: NO_COMPRESS
 ```
 
-| 超参名称&参考值                           | 超参描述                                                     |
-| ----------------------------------------- | ------------------------------------------------------------ |
-| "upload_compress_type":   "NO_COMPRESS"   | 上传压缩类型，string类型，包括："NO_COMPRESS",   "DIFF_SPARSE_QUANT" |
-| "upload_sparse_rate": 0.5                 | 稀疏率，即权重保留率，float类型，定义域在(0, 1]内            |
-| "download_compress_type":   "NO_COMPRESS" | 下载压缩类型，string类型，包括："NO_COMPRESS", "QUANT"       |
+| 超参名称&参考值        | 超参描述                                                     |
+| ---------------------- | ------------------------------------------------------------ |
+| upload_compress_type   | 上传压缩类型，string类型，包括："NO_COMPRESS",   "DIFF_SPARSE_QUANT" |
+| upload_sparse_rate     | 稀疏率，即权重保留率，float类型，定义域在(0, 1]内            |
+| download_compress_type | 下载压缩类型，string类型，包括："NO_COMPRESS", "QUANT"       |
 
 ## ALBERT实验结果
 

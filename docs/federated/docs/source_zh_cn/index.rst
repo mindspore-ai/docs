@@ -8,11 +8,11 @@ MindSpore Federated 文档
 
 MindSpore Federated是一款开源联邦学习框架，支持面向千万级无状态终端设备的商用化部署，可在用户数据不出本地的前提下，使能全场景智能应用。
 
-联邦学习是一种加密的分布式机器学习技术，其支持机器学习的各参与方在不直接共享本地数据的前提下，共建AI模型。MindSpore Federated目前优先专注于参与方数量规模较大的横向联邦学习应用场景。
+联邦学习是一种加密的分布式机器学习技术，用于解决数据孤岛问题，在多方或者多资源计算节点间进行高效率，安全且可靠的机器学习。支持机器学习的各参与方在不直接共享本地数据的前提下，共建AI模型，包括但不限于广告推荐、分类、检测等主流深度学习模型，主要应用在金融，医疗，推荐等领域。MindSpore Federated目前优先专注于参与方数量规模较大的横向联邦学习应用场景。
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/federated_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/mindspore_federated_networking.png" width="700px" alt="" >
 
 使用MindSpore Federated框架的优势
 ----------------------------------
