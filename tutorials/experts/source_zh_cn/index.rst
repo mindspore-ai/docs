@@ -19,8 +19,9 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 网络构建
+   :caption: 图编译
 
+   network/control_flow
    network/op_overload
    network/custom_cell_reverse
    network/ms_class
