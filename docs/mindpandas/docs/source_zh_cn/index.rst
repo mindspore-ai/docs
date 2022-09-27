@@ -1,28 +1,32 @@
 MindPandas文档
 ==============================
 
-MindPandas是一个以分布式运行框架和多线程为底座，提供兼容Pandas API的高性能大数据处理工具包。MindPandas的架构图如下图所示：
+数据处理及分析是AI训练流程中重要的一环，其中表格数据类型是常见的数据表示形式。当前业界常用的数据分析框架Pandas提供了易用、丰富的接口，但由于其单线程的执行方式，在处理较大数据量时性能较差，同时因为其不支持分布式，导致无法处理超出单机内存的大数据量；另外，由于业界常用的数据分析框架与昇思MindSpore等AI框架是互相独立的，数据需要经过落盘、格式转换等步骤才能被训练，极大影响了使用效率。
+
+MindPandas是一款兼容Pandas接口，同时提供分布式处理能力的数据分析框架，致力于提供支持大数据量、高性能的表格类型数据处理能力，同时又能与训练流程无缝结合，使得昇思MindSpore支持完整AI模型训练全流程的能力。
+
+MindPandas的架构图如下图所示：
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_framework.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_architecture.png" width="700px" alt="" >
 
-1. 上层API提供了与pandas兼容的API，存量脚本可修改少量代码即可切换。
+1. 最上层提供了与Pandas兼容的API，基于现有Pandas脚本，修改少量代码，即可切换到MindPandas进行分布式执行。
 
-2. QueryCompiler将API转换成分布式的基础范式组合（map/reduce/injective_map等），多数API都可通过通用的计算范式组合来表达。
+2. Distributed Query Compiler将API转换成为分布式的基础范式组合(map/reduce/injective_map等)，保证了后端逻辑的稳定性，当有新的算子实现时，可尝试转换为已有的通用计算范式组合。
 
-3. 通用计算范式包含map/reduce/injective_map等，其保证了后端逻辑的稳定性，当有新的算子实现时，都可尝试转换成通用计算范式的组合。
+3. Parallel Execution层提供了两种执行模式：多线程模式和多进程模式，用户可根据自己的实际场景进行选择。
 
-4. Factory定义了真正的算子执行逻辑，当前底层算子主要复用pandas逻辑。
+4. MindPandas将原始数据进行切分，形成多个内部的Partition切片，随后每个Partition在不同的线程或进程同时执行相应的算子逻辑，从而实现数据的并行处理。
 
-5. Executor层提供了多进程和多线程两种执行方式，在计算密集型作业时，多进程会提供更高的执行效率；同时多进程支持多机的分布式执行。
+5. 最底层提供了插件化的算子执行逻辑，当前主要支持Pandas算子，后续会以插件的形式支持更多类型的算子逻辑。
 
 设计特点
 ---------
 
-1. MindPandas可以使用机器上的所有内核
+1. MindPandas可以使用机器上的所有CPU核
 
-   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU内核，MindPandas可以使用机器上的所有内核，或者整个集群的所有内核，使用如下所示：
+   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU核，MindPandas可以使用机器上的所有CPU核，或者整个集群的所有CPU核，使用如下所示：
 
    .. raw:: html
 
@@ -34,7 +38,7 @@ MindPandas是一个以分布式运行框架和多线程为底座，提供兼容P
 
        <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/cluster.png" width="700px" alt="" >
 
-2. MindPandas与现有原生Pandas的API在接口使用上保持一致，设置MindPandas的后端运行模式即可运行脚本，在使用上只需将pandas的导入替换为：
+2. MindPandas与现有原生Pandas的API在接口使用上保持一致，设置MindPandas的后端运行模式即可运行脚本，在使用上只需将Pandas的导入替换为：
 
    .. code-block:: python
 
@@ -82,7 +86,7 @@ read_csv 11.53s 5.62s
 -  数据大小：800MB (2,000,000行 \* 48列)
 
 ====== ====== ==========
-API    pandas MindPandas
+API    pandas mindpandas
 ====== ====== ==========
 fillna 0.77s  0.13s
 ====== ====== ==========
@@ -121,7 +125,7 @@ fillna 0.77s  0.13s
 未来规划
 ---------
 
-MindPandas初始版本包含以DataFrame、Series、Groupby和Other类共100个API。MindPandas后续版本将增加对更多API的支持，同时适配MindSpore训练等，敬请期待。
+MindPandas初始版本包含DataFrame、Series、Groupby和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------
