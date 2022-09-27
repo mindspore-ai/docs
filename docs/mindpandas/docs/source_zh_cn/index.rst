@@ -147,11 +147,11 @@ MindPandas初始版本包含以DataFrame、Series、Groupby和Other类共100个A
    :maxdepth: 1
    :caption: API参考
 
-   mindpandas_DataFrame_api
-   mindpandas_Series_api
-   mindpandas_Groupby_api
-   mindpandas_Other_api
-
+   mindpandas.config
+   mindpandas.DataFrame
+   mindpandas.Series
+   mindpandas.Groupby
+   mindpandas.Others
 
 .. toctree::
    :maxdepth: 1
