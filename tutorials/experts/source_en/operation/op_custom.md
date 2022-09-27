@@ -565,7 +565,7 @@ Matters need attention:
 4. Julia file should include `module`, `module` include `function`, both ends with `end`.
 5. The input and output order of the Julia function needs to be consistent with the input and output order of the operator.
 6. The final output of the Julia function, i.e. assignment of kernel output, needs to use `.=`, otherwise the result cannot be written to memory.
-7. Julia code supports Julia's common syntax, and referring to the <https://docs.julialang.org/en/v1/>, users need to ensure that the syntax is correct and the function can be executed correctly.
+7. Julia code supports [Julia](https://docs.julialang.org/en/v1/)'s common syntax, users need to ensure that the syntax is correct and the function can be executed correctly.
 8. Users who want to use Julia's third-party software packages in Julia files need to download the corresponding software to ensure that they can call it correctly, which can be called through `import pkg; pkg.add ("somepkg")` to install.
 9. `julia array` is `column major` arranged in memory, while `numpy array` is `row major`. If Julia and numpy are compared, non-elemwise calculations need to consider memory arrangement. In the Julia function, the conversion of `numpy array` and `julia array` can be performed by following the following code example:An example of MatMul:
 

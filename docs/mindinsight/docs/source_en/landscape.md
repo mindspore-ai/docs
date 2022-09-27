@@ -8,7 +8,7 @@ Neural network training is essentially an optimization process of high-dimension
 
 ![gradi_descent.png](./images/gradient_descent.png)
 
-Figure1: Gradient Descent Method（Picture Source<https://www.pianshen.com/article/81321136968/>）
+Figure1: Gradient Descent Method（[Picture Source](https://www.pianshen.com/article/81321136968/)）
 
 ## Practice Guidance
 

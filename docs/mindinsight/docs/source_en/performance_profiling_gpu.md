@@ -14,9 +14,7 @@ This article describes how to use MindSpore Profiler for performance debugging o
 
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
 >
-> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description:
->
-> <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
+> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to [NVIDIA Development Tools Solutions](https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti).
 
 ## Preparing the Training Script
 

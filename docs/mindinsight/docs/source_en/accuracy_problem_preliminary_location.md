@@ -224,7 +224,7 @@ Here we list some important differences for you to check:
 2. For the [DropOut](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) API of MindSpore, this parameter indicates the retention probability (keep_prob). For the DropOut API of PyTorch, this parameter indicates the drop probability.
 3. The default momentum value in [BatchNorm2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d) of MindSpore is different from that of PyTorch. The default value is 0.1 in PyTorch and 0.9 in MindSpore. For the comparison with PyTorch, see [Function Differences with torch.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)
 
-For details about API differences, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
+For details about API differences, see [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
 
 For example:
 
@@ -286,7 +286,7 @@ Check whether the freezing status of the weight is consistent with the design ba
 
 Method 1: Set requires_grad in [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) to False.
 
-Method 2: Use [stop_gradient](<https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html># %E5%81%9C %E6%AD %A2%E8%AE %A1%E7%AE %97%E6%A2%AF %E5%BA %A6) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
+Method 2: Use [Stop Gradient](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html#stop-gradient) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
 
 Conclusion:
 
@@ -419,7 +419,7 @@ You are advised to perform the check in simulation mode and compare the results 
 5. Check whether the weight initialization is consistent. You are advised to load the checkpoint file with the same value for the MindSpore script and benchmark script. If the network structures are the same, the checkpoint file of a framework can be converted into the checkpoint file of another framework by simply replacing the weight name.
 6. It is strongly recommended that the mixed precision be enabled in the benchmark script. If an accuracy problem occurs after the mixed precision function of the benchmark script is enabled, the algorithm needs to be optimized to ensure that the algorithm can converge at the mixed precision.
 
-During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d API of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d API of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
+During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d API of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d API of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
 
 After the preceding comparison and fixing processes are executed, some MindSpore scripts are inconsistent. After the inconsistency is rectified, the accuracy problem is solved. If the inconsistency is rectified but the problem persists, run the MindSpore script and benchmark script with the same dataset and parameters to compare the loss.
 
@@ -440,8 +440,8 @@ If you encounter an accuracy problem and want to seek help from MindSpore, provi
 2. If you use the symptom comparison-based locating method, you are advised to take screenshots of the symptom (including the MindSpore script and benchmark script) and fix the random MindSpore script and benchmark script, add the minimum dataset and running environment (for example, MindSpore version, GPU or Ascend) required for reproducing the problem to the attachment.
 3. You are advised to add the executable script, minimum dataset, and running environment description (for example, MindSpore version, GPU or Ascend) that can reproduce the problem to the attachment.
 
-Link: <https://gitee.com/mindspore/mindspore/issues/new>
+Link to [create issues](https://gitee.com/mindspore/mindspore/issues/new).
 
 ## References
 
-Smith, L. N. (2017). Cyclical learning rates for training neural networks. Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464–472. <https://doi.org/10.1109/WACV.2017.58>
+Smith, L. N. (2017). [Cyclical learning rates for training neural networks](https://doi.org/10.1109/WACV.2017.58). Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464–472.

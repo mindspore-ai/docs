@@ -68,9 +68,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 样例代码说明
 
-> 你可以在这里下载完整的样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel>。
+> 下载完整的样例代码：[operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel)。
 
 目录结构如下：
 
