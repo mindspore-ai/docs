@@ -19,8 +19,9 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: network
+   :caption: Graph Compilation
 
+   network/control_flow
    network/op_overload
    network/custom_cell_reverse
    network/ms_class
