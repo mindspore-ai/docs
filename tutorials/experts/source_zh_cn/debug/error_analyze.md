@@ -10,7 +10,7 @@
 
 数据处理过程出现报错时，报错信息如图1所示，在报错信息中包含C++侧报错信息。通常数据处理的C++侧算子与Python侧同名，可以通过报错信息，确定Python代码中哪个数据处理算子报错，找到报错代码位置。
 
-![](images/minddata_errmsg.png)
+![minddata-errmsg](images/minddata_errmsg.png)
 
 图 1
 
@@ -20,9 +20,9 @@
 
 | 常见错误类型 | 错误说明 | 案例分析 |
 |-------------|---------|---|
-| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87) |
-| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD) |
-| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA) |
+| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据准备) |
+| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据加载) |
+| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据增强) |
 
 ## 网络构建与训练错误分析
 
@@ -33,10 +33,10 @@
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
 | context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
-| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%AF%AD%E6%B3%95%E9%97%AE%E9%A2%98) |
-| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF) |
-| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E7%AE%97%E5%AD%90%E6%89%A7%E8%A1%8C%E9%94%99%E8%AF%AF) |
-| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3) |
+| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#语法问题) |
+| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#算子编译错误) |
+| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#算子执行错误) |
+| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#资源不足) |
 
 - 动态图模式错误分析
 
@@ -44,7 +44,7 @@
 
     通常情况下，报错信息中可能包含有`WARNING`日志，进行错误分析时优先分析Traceback后面的报错内容。
 
-    ![](images/pynative_errmsg.png)
+    ![pynative-errmsg](images/pynative_errmsg.png)
 
     图 2
 
@@ -58,7 +58,7 @@
 
     静态图模式下，MindSpore首先将网络结构编译成计算图，然后再执行图中涉及的计算操作。因此，静态图模式下的报错问题包括计算图编译报错问题和计算图执行报错问题。计算图编译报错的报错信息如图3所示，发生报错时自动保存`analyze_failed.dat`文件，帮助分析报错代码的位置。
 
-    ![](images/graph_errmsg.png)
+    ![graph-errmsg](images/graph_errmsg.png)
 
     图 3
 
@@ -69,7 +69,7 @@
     - 如果是计算图编译报错，根据报错描述和发生报错时自动保存的`analyze_failed.dat`文件，分析计算图推导失败的原因和位置；
     - 如果是计算图执行报错，可能是资源不足导致的执行报错，也可能是算子的执行报错，需要根据报错信息进行区分。如果是算子执行报错，首先确认是哪个算子，然后使用Dump功能保存算子的输入数据，通过输入数据分析算子报错的原因；
 
-    分析计算图推导失败的原因可以参考[`analyze_failed.dat`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AEanalyze-faildat%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90%E5%9B%BE%E6%8E%A8%E5%AF%BC%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0)。
+    分析计算图推导失败的原因可以参考[`analyze_failed.dat`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#如何根据analyze-faildat文件分析图推导失败的原因)。
 
     使用Dump保存算子输入数据可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 
@@ -86,7 +86,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
 - 策略配置错误
 
-    当用户通过 `context.set_autoparallel_context(parallel_mode="semi_auto_parallel")`使能自动并行之后，大概率会遇到一些策略检查的报错。这些策略检查来自于特定算子的切分限制。以下举三个例子来说明如何针对这三种错误进行分析。
+    当用户通过 `mindspore.set_auto_parallel_context(parallel_mode="semi_auto_parallel")`使能自动并行之后，大概率会遇到一些策略检查的报错。这些策略检查来自于特定算子的切分限制。以下举三个例子来说明如何针对这三种错误进行分析。
 
     - 算子本身的逻辑导致的策略检查报错
 
@@ -103,13 +103,13 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
         stridedslice = ops.StridedSlice((0, 0),(1, 4), (1, 1))
 
         class MyStridedSlice(nn.Cell):
-        def __init__(self):
-            super(MyStridedSlice, self).__init__()
-            self.slice = stridedslice.shard(((2,1),))
+            def __init__(self):
+                super(MyStridedSlice, self).__init__()
+                self.slice = stridedslice.shard(((2,1),))
 
-        def construct(self, x):
-            # x is a two-dimensional tensor
-            return self.slice(x)
+            def construct(self, x):
+                # x is a two-dimensional tensor
+                return self.slice(x)
         ```
 
         错误原因：
@@ -124,13 +124,13 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         ```python
         class MyStridedSlice(nn.Cell):
-        def __init__(self):
-            super(MyStridedSlice, self).__init__()
-            self.slice = stridedslice.shard(((1,1),))
+            def __init__(self):
+                super(MyStridedSlice, self).__init__()
+                self.slice = stridedslice.shard(((1,1),))
 
-        def construct(self, x):
-            # x is a two-dimensional tensor
-            return self.slice(x)
+            def construct(self, x):
+                # x is a two-dimensional tensor
+                return self.slice(x)
         ```
 
     - 常数策略配置错误
@@ -143,14 +143,14 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         可能的错误代码：
 
-        ```
+        ```python
         class MySub(nn.Cell):
-        def __init__(self):
-            super(MySub, self).__init__()
-            self.sub = ops.Sub().shard(((1,1), (1,)))
-        def construct(self, x):
-            # x is a two-dimensional tensor
-            return self.sub(x, 1)
+            def __init__(self):
+                super(MySub, self).__init__()
+                self.sub = ops.Sub().shard(((1,1), (1,)))
+            def construct(self, x):
+                # x is a two-dimensional tensor
+                return self.sub(x, 1)
         ```
 
         有很多算子的输入可以是常量，比如加减乘除的运算、concat/gather等算子的axis，对于此类输入有常量scalar的运算，配置算子策略时需注意，不要为这些常量配置策略。如果按照如上方式为减法运算配置策略，对于常量1配置了策略（1，）则会报错。
@@ -176,24 +176,24 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         ```python
         class MySub(nn.Cell):
-        def __init__(self):
-            super(MySub, self).__init__()
-            self.sub = ops.Sub()
-        def construct(self, x):
-            # x is a two-dimensional tensor
-            return self.sub(x, 1)
+            def __init__(self):
+                super(MySub, self).__init__()
+                self.sub = ops.Sub()
+            def construct(self, x):
+                # x is a two-dimensional tensor
+                return self.sub(x, 1)
         ```
 
         这段代码在8卡环境下以半自动并行模式运行，因为没有对示例中Sub算子配置策略，Sub算子的默认策略为数据并行。假设输入的x是大小为[2, 4]的矩阵。那么在开始编译之后，就会报错说最后导致输入的维度不够切分而报错。因此这种情况下，我们需要修改策略如下（切分度要小于输入Tensor的维度）。
 
         ```python
         class MySub(nn.Cell):
-        def __init__(self):
-            super(MySub, self).__init__()
-            self.sub = ops.Sub().shard(((2, 1), ()))
-        def construct(self, x):
-            # x is a two-dimensional tensor
-            return self.sub(x, 1)
+            def __init__(self):
+                super(MySub, self).__init__()
+                self.sub = ops.Sub().shard(((2, 1), ()))
+            def construct(self, x):
+                # x is a two-dimensional tensor
+                return self.sub(x, 1)
         ```
 
         其中，切分策略(2, 1)表示对第一个输入Tensor的第0维切分2份，第1维切分成1份即不切分。由于`ops.Sub`第二个输入是一个标量无法切分，所以设置切分策略维空()。
