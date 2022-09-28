@@ -29,7 +29,6 @@ MindSpore教程
    :caption: 进阶教程
    :hidden:
 
-   advanced/lenet_mnist
    advanced/model
    advanced/modules
    advanced/dataset

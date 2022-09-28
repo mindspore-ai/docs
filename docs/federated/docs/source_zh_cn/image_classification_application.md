@@ -20,8 +20,6 @@
 
 1. 定义网络和训练过程
 
-    具体网络和训练过程的定义可参考[进阶案例：手写数字识别](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/lenet_mnist.html#创建模型)。
-
     我们提供了网络定义文件[model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)和训练过程定义文件[run_export_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py)供大家参考。
 
 2. 将模型导出为MindIR格式文件。
