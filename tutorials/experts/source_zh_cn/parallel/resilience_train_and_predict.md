@@ -32,11 +32,9 @@
 
 需要注意，加载分布式的Checkpoint，要求对网络进行编译后才可以加载。
 
-> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html#准备环节)
+> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html#准备环节)。
 >
->您可以在这里下载完整的样例代码：
->
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training>
+>下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training)。
 
 ## 对分布式Checkpoint文件进行转换
 
@@ -50,7 +48,7 @@
 定义网络，进行分布式的初始化，获取设备数与卡号，对于非流水线并行的情况下，每张卡的切分策略文件内容均是一致的，因此只对0卡调用`set_auto_parallel_context(strategy_ckpt_save_file="../src_strategy.ckpt")`保存策略文件即可。
 添加保存Checkpoint的回调函数，首先定义Checkpoint存储相关的配置对象`CheckpointConfig`，注意`integrated_save`配置为`False`，意味着不对分布式训练的权重做聚合保存，以适应大模型下的内存开销。
 而后定义保存Checkpoint的回调函数`ModelCheckpoint`。最后，调用`model.train`执行训练。
-关于分布式训练的基本使用方法，请参考[分布式训练Ascend](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)
+关于分布式训练的基本使用方法，请参考[分布式训练Ascend](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
 或者[分布式训练GPU](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html) 。
 
 ```python

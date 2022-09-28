@@ -213,4 +213,4 @@ op.add_prim_attr("primitive_target", "CPU")
 
 > 1. To compile so with cppextension, you need to meet the compiler version required by the tool and check if gcc/clang/nvcc exists.
 > 2. Using cppextension to compile so will generate a build folder in the script path, which stores so. The script will copy so outside build, but cppextension will skip the compilation if it finds that there is already so in the build, so remember to clear newly-compiled so under build.
-> 3. The above tests are based on PyTorch 1.9.1, cuda 11.1, python 3.7. Download link is: <https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl>. The cuda version supported by PyTorch Aten should be the same as the local cuda version, and whether other versions is supported should be explored by the user.
+> 3. The above tests are based on [PyTorch 1.9.1，cuda11.1，python3.7](https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl). The cuda version supported by PyTorch Aten should be the same as the local cuda version, and whether other versions is supported should be explored by the user.

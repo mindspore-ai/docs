@@ -8,4 +8,3 @@ A: The `scipy 1.4` series versions may be used in the environment. Run the `pip 
 <https://gitee.com/mindspore/mindspore/blob/{version}/requirements.txt>
 
 > Replace version with the specific version branch of MindSpore.
-

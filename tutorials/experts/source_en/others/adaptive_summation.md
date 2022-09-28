@@ -29,13 +29,9 @@ It should be noted that after experimental verification, in small distributed tr
 
 ## Preparation
 
->Download the complete sample code from:
+>Download [Adasum Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum).
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum>.
->
->The models library links referenced in the code:
->
-><https://gitee.com/mindspore/models>
+>The models library links referenced in the code: [models](https://gitee.com/mindspore/models).
 
 The directory structure is as follows:
 
@@ -232,4 +228,3 @@ epoch: 10 step: 312 loss is  3.3762435
 ...
 
 ```
-
