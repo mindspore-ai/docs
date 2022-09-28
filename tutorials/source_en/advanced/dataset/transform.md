@@ -302,7 +302,7 @@ According to the preceding result, rows of dataset 1 and dataset 2 are concatena
 
 The map operation applies a specified function to data in a specified column of a dataset to implement data mapping.
 
-You can customize mapping functions or directly use the functions in `c_transforms` or `py_transforms` to augment image and text data.
+You can customize mapping functions or directly use the functions in `mindspore.dataset.vision` or `mindspore.dataset.text` to augment image and text data.
 
 ![map](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/dataset/images/op_map.png)
 
