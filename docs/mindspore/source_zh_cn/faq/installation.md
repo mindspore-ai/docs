@@ -96,11 +96,11 @@ A: MindSpore依赖三方库`pillow`进行部分的数据处理操作，而`pillo
 
 <br/>
 
-<font size=3>**Q: ARM版macOS在python3.8.5环境中编译的mindspore包安装后执行报错 `ImportError: dlopen ... no suitable image found.  Did find:
+<font size=3>**Q: ARM版macOS在Python3.8环境中编译的mindspore包安装后执行报错 `ImportError: dlopen ... no suitable image found.  Did find:
 ..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture`怎么办？**</font>
 
-A: ARM版macOS上的Python3.8.5包含的psutil无法正确识别当前系统的架构，会自编译为适配x86架构的二进制，因此出现冲突问题。执行conda的 `conda install psutil` 或pip的 `pip uninstall psutil; pip install --no-binary :all: psutil` 可以正确的psutil
-具体原因可以参照该[stackoverflow帖子](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp)
+A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架构，会自编译为适配x86架构的二进制，因此出现冲突问题。如果在Conda环境则执行`conda uninstall psutil; conda install psutil`，如果在非Conda环境中则执行`pip uninstall psutil; pip install --no-binary :all: psutil`以正确安装psutil。
+具体原因可以参照该[stackoverflow帖子](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp)。
 
 <br/>
 
