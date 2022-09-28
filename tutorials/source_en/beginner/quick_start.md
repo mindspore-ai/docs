@@ -296,7 +296,7 @@ model = Network()
 # Load checkpoint and load parameter to model
 param_dict = mindspore.load_checkpoint("model.ckpt")
 param_not_load = mindspore.load_param_into_net(model, param_dict)
-param_not_load
+print(param_not_load)
 ```
 
 ```text

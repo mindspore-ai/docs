@@ -147,8 +147,6 @@ if __name__ == "__main__":
 
 本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/test_cross_silo_femnist.py)。
 
-若想具体了解MindSpore中网络定义流程可参考[进阶案例：手写数字识别](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/lenet_mnist.html#创建模型)。
-
 ## 定义训练过程
 
 本任务使用的训练过程可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/test_cross_silo_femnist.py)。
