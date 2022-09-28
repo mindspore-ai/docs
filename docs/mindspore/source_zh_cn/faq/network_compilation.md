@@ -27,6 +27,18 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 
 <br/>
 
+<font size=3>**Q: 编译时报错“TypeError: Do not support to convert <class xxx> object into graph node.”怎么办？**</font>
+
+A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类或其对象时，需要用 `ms_class` 修饰该类，否则会出现该错误。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“TypeError: Do not support to get attribute from xxx object xxx ”怎么办？**</font>
+
+A: 在 `getattr(data, attr)` 语法中， `data` 不能是第三方对象（例如： `numpy.ndarray` ），可以使用 `data.attr` 方式来替代。
+
+<br/>
+
 <font size=3>**Q: 编译时报错“Unsupported expression 'Yield'”怎么办？**</font>
 
 A: MindSpore在静态图模式下不支持 `yield` 语法。另外，在静态图模式下，如果代码中错误使用了 `net.trainable_params()` 不支持语法，也会触发该报错，因为其内部实现使用了 `list(filter(iterator))` 语法，隐式调用了 `yield` 语法。代码样例如下：

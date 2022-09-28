@@ -27,6 +27,18 @@ Please check whether the number of parameters passed in when the instance of the
 
 <br/>
 
+<font size=3>**Q: What can I do if an error "TypeError: Do not support to convert <class xxx> object into graph node." is reported?**</font>
+
+A: This error message indicates the object that can not be parsed is used in network compilation. For example, when using customized class or its object in graph mode, the class needs to be decorated with `ms_class`. Otherwise, this error will be raised.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error  “TypeError: Do not support to get attribute from xxx object xxx "  is reported?**</font>
+
+A: In `getattr(data, attr)` syntax, `data` can not be a third-party object (e.g., `numpy.ndarray`). You can use `data.attr` instead.
+
+<br/>
+
 <font size=3>**Q: What can I do if an error "Unsupported expression 'Yield'" is reported?**</font>
 
 A: MindSpore does not support the `yield` syntax in graph mode. In addition, if the unsupported syntax `net.trainable_params()` is used in graph mode, the error will also be reported, because its internal implementation uses the `list(filter(iterator))` syntax, which implicitly calls the `yield` syntax. The code sample is as follows:
