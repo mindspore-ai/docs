@@ -46,7 +46,7 @@ test_dataset = test_data.dataset
 Print the names of the data columns contained in the dataset for dataset pre-processing.
 
 ```python
-train_dataset.column_names
+print(train_dataset.column_names)
 ```
 
 ```text
@@ -201,7 +201,7 @@ def test(model, dataset, loss_fn):
         pred = model(data)
         total += len(data)
         test_loss += loss_fn(pred, label).asnumpy()
-        correct += (pred.argmax(1) == label).sum().asnumpy()
+        correct += (pred.argmax(1) == label).asnumpy().sum()
     test_loss /= num_batches
     correct /= total
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
