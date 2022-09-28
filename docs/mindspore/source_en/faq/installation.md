@@ -215,13 +215,13 @@ A: At present, the support of MindSpore is the combination configuration of GPU 
 
 If you want to run on a GPU+Windows environment, you can try to use WSL+docker, the operation idea:
 
-1. For installing Ubuntu18.04 in WSL mode, refer to <https://docs.microsoft.com/en-us/windows/wsl/install-win10>.
+1. For installing Ubuntu18.04 in WSL mode, refer to [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to <https://docs.nvidia.com/cuda/wsl-user-guide/index.html>.
+2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to [WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html).
 
 >Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
 
-3. Referring to <https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>, take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
+3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/r1.9/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
 
 ```docker
 docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash

@@ -563,7 +563,7 @@ python test_custom_julia.py
 4. Julia代码文件需包含`module`, `module`内包含`function`，且`module`/`function`都以`end`结束。
 5. Julia函数的输入输出顺序需与算子的输入输出顺序一致。
 6. Julia函数的最终输出，即kernel output的赋值需要使用`.=`，否则结果无法写入内存。
-7. Julia代码支持Julia的常用语法，参考<https://docs.julialang.org/en/v1/>，用户需自行保证语法正确，函数可正确执行。
+7. Julia代码支持[Julia](https://docs.julialang.org/en/v1/)的常用语法，用户需自行保证语法正确，函数可正确执行。
 8. 用户想在Julia文件内使用Julia的第三方软件包，需自行下载对应软件以确保能正确调用，可以通过 `import pkg; pkg.add("somepkg")`进行安装。
 9. `julia array`在内存上是`column major`排列的，而`numpy array`是`row major`排列的，如果Julia和numpy做比较，非elemwise计算需考虑内存排布。在Julia函数中，可以通过如下代码示例进行`numpy array`和`julia array`的相互转换:
 

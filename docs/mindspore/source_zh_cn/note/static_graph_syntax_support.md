@@ -648,7 +648,7 @@ ret:[[3. 3. 3. 3.]]
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。
 
-规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.9/note/operator_list_implicit.html#转换规则>
+规则可参考：[隐式类型转换规则](https://www.mindspore.cn/docs/zh-CN/r1.9/note/operator_list_implicit.html#转换规则)。
 
 ### 单目算术运算符
 

@@ -33,13 +33,9 @@ $$
 
 ## 准备环节
 
-> 你可以在这里下载完整的样例代码：
+> 下载完整的样例代码：[Adasum Sample Code](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/adasum)。
 >
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/adasum>
->
-> 代码中引用到的models库链接：
->
-> <https://gitee.com/mindspore/models>
+> 代码中引用到的[models](https://gitee.com/mindspore/models)库链接。
 
 目录结构如下：
 

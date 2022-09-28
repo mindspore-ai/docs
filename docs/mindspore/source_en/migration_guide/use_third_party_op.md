@@ -17,7 +17,7 @@ Here is an example of how to use `Aten` library of PyTorch Aten.
 
 When migrating a network using the PyTorch Aten operator encounters a shortage of built-in operators, we can use the `aot` development method of the `Custom` operator to call PyTorch Aten's operator for fast verification.
 
-PyTorch provides a way to support the introduction of PyTorch's header files to write `cpp/cuda` code by using its associated data structures and compile it into `so`. See:<https://pytorch.org/docs/stable/_modules/torch/utils/cpp_extension.html#CppExtension>.
+PyTorch provides a way to support the introduction of PyTorch's header files to write `cpp/cuda` code by using its associated data structures and compile it into `so`. See [CppExtension](https://pytorch.org/docs/stable/_modules/torch/utils/cpp_extension.html#CppExtension).
 
 Using a combination of the two methods, the customized operator can call the PyTorch Aten operator as follows:
 
@@ -215,4 +215,4 @@ op.add_prim_attr("primitive_target", "CPU")
 
 > 1. Compile so with cppextension requires a compiler version that meets the tool's needs, and check for the presence of gcc/clang/nvcc.
 > 2. Compile so with cppextension will generate a build folder in the script path, which stores so. The script will copy so to outside of build, but cppextension will skip compilation if it finds that there is already so in build, so if it is a newly compiled so, remember to empty the so under the build.
-> 3. The following tests is based on PyTorch 1.9.1，cuda11.1，python3.7. The download link:<https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl>. The cuda version supported by PyTorch Aten needs to be consistent with the local cuda version, and whether other versions are supported needs to be explored by the user.
+> 3. The following tests is based on [PyTorch 1.9.1，cuda11.1，python3.7](https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl). The cuda version supported by PyTorch Aten needs to be consistent with the local cuda version, and whether other versions are supported needs to be explored by the user.

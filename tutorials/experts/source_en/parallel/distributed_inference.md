@@ -12,9 +12,7 @@ This tutorial would focus on the process that the model slices are saved on each
 
 ### Sample Code Description
 
->Distributed inference sample code:
->
-><https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_inference>
+>Download [Distributed inference](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/distributed_inference) sample code.
 
 ## Process of Distributed Inference
 
