@@ -27,7 +27,6 @@ MindSpore Tutorial
    :maxdepth: 1
    :caption: Advanced
 
-   advanced/lenet_mnist
    advanced/model
    advanced/modules
    advanced/dataset
