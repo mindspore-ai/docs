@@ -16,7 +16,7 @@
 
 PyTorch提供了一种方式可以支持引入PyTorch的头文件，从而使用其相关的数据结构编写`cpp/cuda`代码，并编译成`so`。参考：<https://pytorch.org/docs/stable/_modules/torch/utils/cpp_extension.html#CppExtension>。
 
-将两种方式结合使用，自定义算子可以调用PyTorch Aten算子，使用方式如下:
+将两种方式结合使用，自定义算子可以调用PyTorch Aten算子，使用方式如下：
 
 ### 1. 下载工程文件
 
@@ -119,7 +119,7 @@ extern "C" int LeakyRelu(
 
 想查看支持调用PyTorch Aten的哪些函数，`CPU`版本参考PyTorch安装路径下的：`python*/site-packages/torch/include/ATen/CPUFunctions_inl.h` ，相应的`GPU`版本参考`python*/site-packages/torch/include/ATen/CUDAFunctions_inl.h`。
 
-以上用例中使用了ms_ext.h提供的api，这里稍作介绍:
+以上用例中使用了ms_ext.h提供的api，这里稍作介绍：
 
 ```cpp
 // 将 MindSpore kernel 的 inputs/outputs 转换为 PyTorch Aten 的 Tensor

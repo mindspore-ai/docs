@@ -1,37 +1,34 @@
-# Call Third-Party Operators by Customized Operators
+# Using Third-party Operator Libraries Based on Customized Interfaces
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/use_third_party_op.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/use_third_party_op.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png_en"></a>
 
 ## Overview
 
-When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of customized operators for use.
+When lacking of the built-in operators during developing a network, you can use the primitive in [Custom](https://www.mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) to easily and quickly define and use different types of customized operators.
 
-You can choose different customized operator developing methods base on needs.
-See: [custom_operator_custom](https://www.mindspore.cn/tutorials/experts/en/r1.9/operation/op_custom.html).
+Developers can choose different customized operator development methods according to their needs. For details, please refer to the [Usage Guide](https://www.mindspore.cn/tutorials/experts/en/r1.9/operation/op_custom.html) of Custom operator.
 
-There is a defining method called `aot` which has a special use. The `aot` mode can call the corresponding `cpp`/`cuda` function by loading the precompiled `so`. Therefore, when a third-party library provides the `cpp`/`cuda` function `API`, you can try to call its function interface in `so`.
+One of the development methods for customized operators, the `aot` method, has its own special use. The `aot` can call the corresponding `cpp`/`cuda` functions by loading a pre-compiled `so`. Therefore. When a third-party library provides `API`, a `cpp`/`cuda` function, you can try to call its function interface in `so`, which is described below by taking `Aten` library in PyTorch as an example.
 
-Here is an example of how to use `Aten` library of PyTorch Aten.
+## PyTorch Aten Operator Matching
 
-## Using PyTorch Aten operators for Docking
+When lacking of built-in operators during migrating a network that uses the PyTorch Aten operator, we can use the `aot` development of the `Custom` operator to call the PyTorch Aten operator for fast verification.
 
-When migrating a network using the PyTorch Aten operator encounters a shortage of built-in operators, we can use the `aot` development method of the `Custom` operator to call PyTorch Aten's operator for fast verification.
+PyTorch provides a way to support the introduction of PyTorch header files, so that `cpp/cuda` code can be written by using related data structures and compiled into `so`. Reference: <https://pytorch.org/docs/stable/_modules/torch/utils/cpp_extension.html#CppExtension>.
 
-PyTorch provides a way to support the introduction of PyTorch's header files to write `cpp/cuda` code by using its associated data structures and compile it into `so`. See [CppExtension](https://pytorch.org/docs/stable/_modules/torch/utils/cpp_extension.html#CppExtension).
+Using a combination of the two approaches, the customized operator can call the PyTorch Aten operator, which is used as follows:
 
-Using a combination of the two methods, the customized operator can call the PyTorch Aten operator as follows:
+### 1. Downloading Project Files
 
-### 1. Downloading the Project files
+The project files can be downloaded [here](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/migration_guide/test_custom_pytorch.tar).
 
-User can download the project files from [here](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/migration_guide/test_custom_pytorch.tar).
-
-Use the following command to extract files and find the folder `test_custom_pytorch`:
+Use the following command to extract the zip package and get the folder `test_custom_pytorch`.
 
 ```bash
 tar xvf test_custom_pytorch.tar
 ```
 
-The folder include the following files:
+The folder contains the following files:
 
 ```text
 test_custom_pytorch
@@ -49,22 +46,22 @@ test_custom_pytorch
 └── test_gpu_op.py                   # a test file to run Aten GPU operator on GPU device
 ```
 
-Using the PyTorch Aten operator focuses mainly on env.sh, setup.py, leaky_relu.cpp/cu, test_*, .py.
+Using PyTorch Aten arithmetic focuses on env.sh, setup.py, leaky_relu.cpp/cu, and test_*.py.
 
-Among them, env.sh is used to set environment variables, setup.py is used to compile so, leaky_relu.cpp/cu is used to reference the source code that calls the PyTorch Aten operator, and test_*.py is used to refer to the call Custom operator.
+Among them, env.sh is used to set environment variables, setup.py is used to compile so, leaky_relu.cpp/cu is a reference for used to write the source code for calling PyTorch Aten operator in reference, and test_*.py is used to call Custom operator in reference.
 
-### 2. Writing and calling the Source Code File of PyTorch Aten Operators
+### 2. Writing Source Code File that Calls PyTorch Aten Operator
 
-Refer to leaky_relu.cpp/cu to write a source code file that calls the PyTorch Aten operator.
+Refer to leaky_relu.cpp/cu to write the source code file that calls the PyTorch Aten operator.
 
-The customized operator of `aot` type adopts the `AOT` compilation method, which requires network developers to hand-write the source code file of the operator implementation based on a specific interface, and compile the source code file into a dynamic link library in advance, and then the framework will automatically call the function defined in the dynamic link library. In terms of the development language of the operator implementation, the `GPU` platform supports `CUDA`, and the `CPU` platform supports `C` and `C++`. The interface specification of the operator implemented by the operators in the source code file is as follows:
+Since customized operators of type `aot` are compiled by using `AOT`, the developer is required to write the source code files corresponding to the operator implementation functions based on a specific interface and compile the source code files into a dynamic link library in advance, and the framework will automatically call the functions in the dynamic link library for execution during the web runtime. As for the development language of the operator implementation, `CUDA` is supported for `GPU` platform, and `C` and `C++` are supported for `CPU` platform. The interface specification of the operator implementation functions in the source code file is as follows.
 
 ```cpp
 extern "C" int func_name(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
 
 ```
 
-If the `cpu` operator is called, taking `leaky_relu.cpp` as an example, the file provides the function `LeakyRelu` required by `AOT`, which calls `torch::leaky_relu_out`  function of PyTorch Aten:
+If `cpu` operator is called, taking `leaky_relu.cpp` as an example, the file provides `LeakyRelu` required by `AOT`, which calls `torch::leaky_relu_out` of PyTorch Aten:
 
 ```cpp
 #include <string.h>
@@ -83,7 +80,7 @@ extern "C" int LeakyRelu(
     auto at_input = tensors[0];
     auto at_output = tensors[1];
     torch::leaky_relu_out(at_output, at_input);
-    // If you are using a version without output, the code is as follows:
+    // If you use the version without output, the code is as follows:
     // torch::Tensor output = torch::leaky_relu(at_input);
     // at_output.copy_(output);
   return 0;
@@ -91,11 +88,11 @@ extern "C" int LeakyRelu(
 
 ```
 
-If the `gpu` operator is called, take `leaky_relu.cu` as an example:
+If `gpu` operator is called, taking `leaky_relu.cu` as an example:
 
 ```cpp
 #include <string.h>
-#include <torch/extension.h>
+#include <torch/extension.h> // Header file reference section
 #include "ms_ext.h"
 
 extern "C" int LeakyRelu(
@@ -116,50 +113,51 @@ extern "C" int LeakyRelu(
 }
 ```
 
-PyTorch Aten provides operator functions versions with output and operator functions versions without output. Operator functions with output have the '_out' suffix, and PyTorch Aten provides 300+ `apis` of common operators.
+Among them, PyTorch Aten provides a version of the operator function with output and a version of the operator function without output. The operator function with output has the `_out` suffix, and PyTorch Aten provides `api` for 300+ commonly-used operators.
 
-When `torch::*_out` is called, `output` copy is not needed. When the versions without `_out`suffix is called, API `torch.Tensor.copy_` is needed to called to result copy.
+When calling `torch::*_out`, `output` copy is not required. When calling the version without the `_out` suffix, calling the API `torch.Tensor.copy_` to make a copy of the result is required.
 
-To see which functions are supported for calling PyTorch Aten, the `CPU` version refers to the PyTorch installation path: `python*/site-packages/torch/include/ATen/CPUFunctions_inl.h` , and for the corresponding `GPU` version, refers to`python*/site-packages/torch/include/ATen/CUDAFunctions_inl.h`。
+To see which functions of PyTorch Aten are supported, refer to the PyTorch installation path: `python*/psite-packages/torch/include/ATen/CPUFunctions_inl.h` for the `CPU` version and `python*/ site-packages/torch/include/ATen/CUDAFunctions_inl.h` for the `GPU` version.
 
-The apis provided by ms_ext.h are used in the above use case, which are briefly described here:
+The above use case uses the api provided by ms_ext.h, which is described here:
 
 ```cpp
-// Convert MindSpore kernel's inputs/outputs to PyTorch Aten's Tensor
+// Transform inputs/outputs of MindSpore kernel as Tensor of PyTorch Aten
 std::vector<at::Tensor> get_torch_tensors(int nparam, void** params, int* ndims, int64_t** shapes, const char** dtypes, c10::Device device) ;
 ```
 
-### 3. Using the compilation script `setup.py` to generate so
+### 3. Using the Compile Script `setup.py` to Generate so
 
-setup.py uses the `cppextension` provided by PyTorch Aten to compile the above `c++/cuda` source code into an `so` file.
+setup.py compiles the above `c++/cuda` source code into a `so` file by using the `cppextension` provided by PyTorch Aten.
 
-Before execution, you need to make sure that PyTorch is installed.
+You need to make sure PyTorch is installed before executing it.
 
 ```bash
 pip install torch
 ```
 
-Then add PyTorch's `lib` into `LD_LIBRARY_PATH`。
+Add `lib` of PyTorch to `LD_LIBRARY_PATH`.
 
 ```bash
 export LD_LIBRARY_PATH=$(python3 -c 'import torch, os; print(os.path.dirname(torch.__file__))')/lib:$LD_LIBRARY_PATH
 ```
 
-Run:
+Execute:
 
 ```bash
 cpu: python setup.py leaky_relu.cpp leaky_relu_cpu.so
 gpu: python setup.py leaky_relu.cu leaky_relu_gpu.so
 ```
 
-Then the so files that we need may be obtained.
+Get so file we need.
 
-### 4. Using the Customized Operator
+### 4. Using Customized Operators
 
-Taking CPU as an example, use the Custom operator to call the above PyTorch Aten operator, see the code test_cpu_op.py:
+Taking the CPU as an example, the above PyTorch Aten operator is called by using the Custom operator. The code can be found in test_cpu_op.py:
 
 ```python
 import numpy as np
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
@@ -183,36 +181,36 @@ if __name__ == "__main__":
     print(output)
 ```
 
-Run:
+Execute:
 
 ```bash
 python test_cpu_op.py
 ```
 
-Result:
+The result is:
 
 ```text
 [[ 0.    -0.001]
  [-0.002  1.   ]]
 ```
 
-Attention:
+Note:
 
-When using a PyTorch Aten `GPU` operator，set `device_target`to `"GPU"`.
+If you are using the PyTorch Aten `GPU` operator, `device_target` needs to be set to `"GPU"`.
 
 ```python
-ms.set_context(device_target="GPU")
+set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_gpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 ```
 
-When using a PyTorch Aten `CPU` operator and `device_target` is `"GPU"`, the settings that need to be added are as follows:
+If the PyTorch Aten `CPU` operator is used and the `device_target` is set to `"GPU"`, you need to add the following settings:
 
 ```python
-ms.set_context(device_target="GPU")
+set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 op.add_prim_attr("primitive_target", "CPU")
 ```
 
-> 1. Compile so with cppextension requires a compiler version that meets the tool's needs, and check for the presence of gcc/clang/nvcc.
-> 2. Compile so with cppextension will generate a build folder in the script path, which stores so. The script will copy so to outside of build, but cppextension will skip compilation if it finds that there is already so in build, so if it is a newly compiled so, remember to empty the so under the build.
-> 3. The following tests is based on [PyTorch 1.9.1，cuda11.1，python3.7](https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl). The cuda version supported by PyTorch Aten needs to be consistent with the local cuda version, and whether other versions are supported needs to be explored by the user.
+> 1. To compile so with cppextension, you need to meet the compiler version required by the tool and check if gcc/clang/nvcc exists.
+> 2. Using cppextension to compile so will generate a build folder in the script path, which stores so. The script will copy so outside build, but cppextension will skip the compilation if it finds that there is already so in the build, so remember to clear newly-compiled so under build.
+> 3. The above tests are based on PyTorch 1.9.1, cuda 11.1, python 3.7. Download link is: <https://download.pytorch.org/whl/cu111/torch-1.9.1%2Bcu111-cp37-cp37m-linux_x86_64.whl>. The cuda version supported by PyTorch Aten should be the same as the local cuda version, and whether other versions is supported should be explored by the user.
