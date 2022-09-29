@@ -145,7 +145,7 @@ The following is an example of implementing AutoAugment on an ImageNet dataset.
 
 The data augmentation policy for the ImageNet dataset contains 25 sub-strategies, each of which contains two transformations. A combination of sub-strategies is randomly selected for each image in a batch, and each transformation in the sub-strategy is determined by predetermined probability.
 
-Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module in MindSpore to implement AutoAugment, and the standard data augmentation method in ImageNet classification training is divided into the following steps:
+Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vision` module in MindSpore to implement AutoAugment, and the standard data augmentation method in ImageNet classification training is divided into the following steps:
 
 - `RandomCropDecodeResize`: Decoding after random cropping.
 - `RandomHorizontalFlip`: Flipping randomly horizontally.
@@ -156,7 +156,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
     ```python
     import mindspore.dataset.vision as vision
-    import mindspore.dataset.transforms as c_transforms
+    import mindspore.dataset.transforms as transforms
 
     # define Auto Augmentation operators
     PARAMETER_MAX = 10
@@ -173,7 +173,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(vision.RandomAffine(degrees=0, shear=(-v, -v)))
         transforms_list.append(vision.RandomAffine(degrees=0, shear=(v, v)))
-        return c_transforms.RandomChoice(transforms_list)
+        return transforms.RandomChoice(transforms_list)
 
     def shear_y(level):
         transforms_list = []
@@ -181,7 +181,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(vision.RandomAffine(degrees=0, shear=(0, 0, -v, -v)))
         transforms_list.append(vision.RandomAffine(degrees=0, shear=(0, 0, v, v)))
-        return c_transforms.RandomChoice(transforms_list)
+        return transforms.RandomChoice(transforms_list)
 
     def translate_x(level):
         transforms_list = []
@@ -189,7 +189,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(vision.RandomAffine(degrees=0, translate=(-v, -v)))
         transforms_list.append(vision.RandomAffine(degrees=0, translate=(v, v)))
-        return c_transforms.RandomChoice(transforms_list)
+        return transforms.RandomChoice(transforms_list)
 
     def translate_y(level):
         transforms_list = []
@@ -197,7 +197,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(vision.RandomAffine(degrees=0, translate=(0, 0, -v, -v)))
         transforms_list.append(vision.RandomAffine(degrees=0, translate=(0, 0, v, v)))
-        return c_transforms.RandomChoice(transforms_list)
+        return transforms.RandomChoice(transforms_list)
 
     def color_impl(level):
         v = float_parameter(level, 1.8) + 0.1
@@ -209,7 +209,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(vision.RandomRotation(degrees=(-v, -v)))
         transforms_list.append(vision.RandomRotation(degrees=(v, v)))
-        return c_transforms.RandomChoice(transforms_list)
+        return transforms.RandomChoice(transforms_list)
 
     def solarize_impl(level):
         level = int_parameter(level, 256)
@@ -295,7 +295,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
         else:
             trans = [vision.Resize(256),
                      vision.CenterCrop(image_size)]
-        type_cast_op = c_transforms.TypeCast(ms.int32)
+        type_cast_op = transforms.TypeCast(ms.int32)
 
         # map images and labes
         dataset = dataset.map(operations=trans, input_columns="image")
