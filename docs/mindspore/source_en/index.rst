@@ -74,12 +74,10 @@ MindSpore Documentation
    :hidden:
 
    migration_guide/overview
-   migration_guide/preparation
-   migration_guide/script_analysis
-   migration_guide/script_development
-   migration_guide/neural_network_debug
-   migration_guide/inference
-   migration_guide/sample_code
+   migration_guide/enveriment_preparation
+   migration_guide/model_development/model_development
+   migration_guide/faq
+   migration_guide/use_third_party_op
 
 .. toctree::
    :glob:

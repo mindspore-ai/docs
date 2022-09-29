@@ -29,7 +29,7 @@ To load the model weights, you need to create instances of the same model and th
 model = models.lenet() # we do not specify pretrained=True, i.e. do not load default weights
 param_dict = mindspore.load_checkpoint("lenet.ckpt")
 param_not_load = mindspore.load_param_into_net(model, param_dict)
-param_not_load
+print(param_not_load)
 ```
 
 ```text
@@ -52,11 +52,14 @@ mindspore.export(model, inputs, file_name="lenet", file_format="MINDIR")
 
 The existing MindIR model can be easily loaded through the `load` interface and passed into `nn.GraphCell` for inference.
 
+> `nn.GraphCell` only supports graph mode.
+
 ```python
+mindspore.set_context(mode=mindspore.GRAPH_MODE)
 graph = mindspore.load("lenet.mindir")
 model = nn.GraphCell(graph)
 outputs = model(inputs)
-outputs.shape
+print(outputs.shape)
 ```
 
 ```text
