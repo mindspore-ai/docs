@@ -57,7 +57,7 @@ MindSpore 文档
    api_python/mindspore.nn.transformer
    api_python/mindspore.numpy
    api_python/mindspore.ops
-   api_python/mindspore.ops.functional
+   api_python/mindspore.ops.function
    api_python/mindspore.rewrite
    api_python/mindspore.scipy
    api_python/mindspore.boost

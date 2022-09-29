@@ -221,7 +221,7 @@ if os.path.exists(probability_dir):
 
 # 删除并获取ops下多余的接口文件名
 def ops_interface_name():
-    dir_list = ['mindspore.ops.functional.rst', 'mindspore.ops.rst']
+    dir_list = ['mindspore.ops.function.rst', 'mindspore.ops.rst']
     interface_name_list = []
     for i in dir_list:
         target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
