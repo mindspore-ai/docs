@@ -56,8 +56,6 @@ ModelArts is a one-stop development platform for AI developers provided by HUAWE
 
 The storage methods supported by the development environment are OBS and EFS, as shown in the following figure.
 
-![ModelArts](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/modelart.png "Development Environment Storage Method")
-
 OBS: also called S3 bucket. The code, data, and pre-trained models stored on the OBS need to be transferred to the corresponding physical machine first in the development environment and training environment before the job is executed. [Upload local files to OBS](https://bbs.huaweicloud.com/blogs/212453).
 
 [MoXing](https://bbs.huaweicloud.com/blogs/101129): MoXing is a network model development API provided by Huawei Cloud Deep Learning Service, the use of which needs to focus on the data copy interface.

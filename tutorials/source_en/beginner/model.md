@@ -42,7 +42,7 @@ After completing construction, instantiate the `Network` object and look at its 
 
 ```python
 model = Network()
-model
+print(model)
 ```
 
 ```text
@@ -65,7 +65,7 @@ We construct an input data and call the model directly to obtain a 10-dimensiona
 ```python
 X = ops.ones((1, 28, 28), mindspore.float32)
 logits = model(X)
-logits
+print(logits)
 ```
 
 ```text
@@ -91,7 +91,7 @@ In this section, we decompose each layer of the neural network model constructed
 
 ```python
 input_image = ops.ones((3, 28, 28), mindspore.float32)
-input_image.shape
+print(input_image.shape)
 ```
 
 ```text
@@ -105,7 +105,7 @@ Initialize the `nn.Flatten` layer and convert a 28x28 2D tensor into a contiguou
 ```python
 flatten = nn.Flatten()
 flat_image = flatten(input_image)
-flat_image.shape
+print(flat_image.shape)
 ```
 
 ```text
@@ -119,7 +119,7 @@ flat_image.shape
 ```python
 layer1 = nn.Dense(in_channels=28*28, out_channels=20)
 hidden1 = layer1(flat_image)
-hidden1.shape
+print(hidden1.shape)
 ```
 
 ```text
@@ -178,7 +178,7 @@ seq_modules = nn.SequentialCell(
 )
 
 logits = seq_modules(input_image)
-logits.shape
+print(logits.shape)
 ```
 
 ```text

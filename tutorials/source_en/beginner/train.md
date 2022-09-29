@@ -167,7 +167,7 @@ def test_loop(model, dataset, loss_fn):
         pred = model(data)
         total += len(data)
         test_loss += loss_fn(pred, label).asnumpy()
-        correct += (pred.argmax(1) == label).sum().asnumpy()
+        correct += (pred.argmax(1) == label).asnumpy().sum()
     test_loss /= num_batches
     correct /= total
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")

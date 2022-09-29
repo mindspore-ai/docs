@@ -35,7 +35,7 @@ train_dataset = training_data.dataset
 
 ```python
 image, label = next(train_dataset.create_tuple_iterator())
-image.shape
+print(image.shape)
 ```
 
 ```text
@@ -55,7 +55,7 @@ composed = transforms.Compose(
 ```python
 train_dataset = train_dataset.map(composed, 'image')
 image, label = next(train_dataset.create_tuple_iterator())
-image.shape
+print(image.shape)
 ```
 
 ```text
@@ -82,7 +82,7 @@ Here we first use numpy to generate a random image with pixel values in \[0, 255
 ```python
 random_np = np.random.randint(0, 255, (48, 48), np.uint8)
 random_image = Image.fromarray(random_np)
-random_np
+print(random_np)
 ```
 
 ```text
@@ -100,7 +100,7 @@ To present a more visual comparison of the data before and after Transform, we u
 ```python
 rescale = vision.Rescale(1.0 / 255.0, 0)
 rescaled_image = rescale(random_image)
-rescaled_image
+print(rescaled_image)
 ```
 
 ```text
@@ -134,7 +134,7 @@ Each channel of the image will be adjusted according to `mean` and `std`, and th
 ```python
 normalize = vision.Normalize(mean=(0.1307,), std=(0.3081,))
 normalized_image = normalize(rescaled_image)
-normalized_image
+print(normalized_image)
 ```
 
 ```text
@@ -163,7 +163,7 @@ Here we first process the `normalized_image` in the previous section to HWC form
 hwc_image = np.expand_dims(normalized_image, -1)
 hwc2cwh = vision.HWC2CHW()
 chw_image = hwc2cwh(hwc_image)
-hwc_image.shape, chw_image.shape
+print(hwc_image.shape, chw_image.shape)
 ```
 
 ```text
@@ -196,7 +196,7 @@ Tokenize is a basic method to process text data. MindSpore provides many differe
 
 ```python
 test_dataset = test_dataset.map(text.BasicTokenizer())
-next(test_dataset.create_tuple_iterator())
+print(next(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
@@ -214,7 +214,7 @@ vocab = text.Vocab.from_dataset(test_dataset)
 After obtaining the vocabulary, we can use the `vocab` method to view the vocabulary.
 
 ```python
-vocab.vocab()
+print(vocab.vocab())
 ```
 
 ```text
@@ -237,7 +237,7 @@ After generating the vocabulary, you can perform the vocabulary mapping transfor
 
 ```python
 test_dataset = test_dataset.map(text.Lookup(vocab))
-next(test_dataset.create_tuple_iterator())
+print(next(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
@@ -253,7 +253,7 @@ Lambda functions are anonymous functions that do not require a name and consist 
 ```python
 test_dataset = GeneratorDataset([1, 2, 3], 'data', shuffle=False)
 test_dataset = test_dataset.map(lambda x: x * 2)
-list(test_dataset.create_tuple_iterator())
+print(list(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
@@ -274,7 +274,7 @@ test_dataset = test_dataset.map(lambda x: func(x))
 ```
 
 ```python
-list(test_dataset.create_tuple_iterator())
+print(list(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
