@@ -1,1 +1,0 @@
-# Quick Start: MindPandas Processes CSV Data
