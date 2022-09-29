@@ -14,15 +14,10 @@
 
 This document describes how to quickly install MindSpore by pip in a Windows system with a CPU environment.
 
-For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Installing MindSpore Using Source Code Build on Windows (CPU)](https://www.mindspore.cn/news/newschildren?id=364) provided by the community. Thanks to the community member [lvmingfu](https://gitee.com/lvmingfu) for sharing.
-
 ## System Environment Information Confirmation
 
 - Ensure that Windows 10 is installed with the x86 architecture 64-bit operating system.
-- Ensure that you have Python versions between 3.7 to 3.9 installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
-- After installing Python, add Python and pip to the environment variable.
-    - Add Python: Control Panel -> System -> Advanced System Settings -> Environment Variables. Double click the Path in the environment variable and add the path of `python.exe`.
-    - Add pip: The `Scripts` folder in the same directory `python.exe` is the pip file that comes with Python, and add it to the system environment variable.
+- Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 
 ## Installing MindSpore
 
