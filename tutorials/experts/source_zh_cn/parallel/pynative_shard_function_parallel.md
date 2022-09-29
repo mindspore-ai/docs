@@ -47,7 +47,7 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
     return shard_fn(fn, in_strategy, out_strategy, device, level)
 ```
 
-`in_strategy(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，表示对应`Tensor`按照数据并行进行切分。
+`in_strategy(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，对应的切分策略将自动推导生成。
 
 `out_strategy(None, tuple)`: 指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
 
@@ -57,13 +57,17 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 `level(int)`: 指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0，目前尚未使能，后续会开放。
 
-### 执行模式
+### 导入相关包并设定执行模式
 
-如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为：
+如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为PyNative：
 
 ```python
 import mindspore as ms
+from mindspore.communication import init
+
+
 ms.set_context(mode=ms.PYNATIVE_MODE)
+init()
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
                              search_mode="sharding_propagation", device_num=8)
 ```
@@ -72,14 +76,19 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
 
 ### 指定输出排布
 
-当前支持指定输出排布为数据并行和重复计算，通过`full_batch`属性控制，具体设置方法如下：
+当前支持指定输出排布为数据并行和重复计算，可通过auto_parallel_context里的`dataset_strategy`或`full_batch`属性控制，具体设置方法如下：
 
 ```python
-ms.set_auto_parallel_context(full_batch=False)  # 数据并行，默认为该设置
-ms.set_auto_parallel_context(full_batch=True)   # 重复计算
+# 通过dataset_strategy设置，推荐此方式
+ms.set_auto_parallel_context(dataset_strategy="data_parallel")  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
+ms.set_auto_parallel_context(dataset_strategy="full_batch")  # 数据集不切分，且shard的输出张量也不切分；(默认配置)
+
+# 通过full_batch设置，该属性即将弃用
+ms.set_auto_parallel_context(full_batch=False)  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
+ms.set_auto_parallel_context(full_batch=True)   # 数据集不切分，且shard的输出张量也不切分；(默认配置)
 ```
 
-### 使用方法
+### Cell使用函数式切分
 
 shard function目前有两种使用方法，以下面的网络为例介绍shard function的使用方法。
 
@@ -170,7 +179,35 @@ class Net(nn.Cell):
             return x
     ```
 
-    > 注意，参数的初始化依赖于Cell的参数管理，当传入shard的fn类型为function时，其定义不应该含有参数（如Conv2D、Dense等运算 ）。
+### function使用函数式切分
+
+- function可以使用ops.shard进行函数式切分，以matmul+bias_add+relu函数为例，使用方法如下：
+
+```python
+import numpy as np
+
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import Tensor
+
+ms.set_auto_parallel_context(dataset_strategy="full_batch") # 此处例子为数据集不切分且shard的输出张量不切分
+
+def dense_relu(x, weight, bias):
+    x = ops.matmul(x, weight)
+    x = ops.bias_add(x, bias)
+    x = ops.relu(x)
+    return x
+
+x = Tensor(np.random.uniform(0, 1, (32, 128)), ms.float32)
+weight = Tensor(np.random.uniform(0, 1, (128, 10)), ms.float32)
+bias = Tensor(np.random.uniform(0, 1, (10,)), ms.float32)
+
+# 通过in_strategy指定x的切分策略为(4, 2)、weight和bias切分策略设为None，表示自动推导生成。
+result = ops.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
+print('result.shape:', result.shape)
+```
+
+> 注意，参数的初始化依赖于Cell的参数管理，当传入shard的fn类型为function时，其定义不应该含有参数（如Conv2D、Dense等运算）。
 
 ### 运行代码
 
