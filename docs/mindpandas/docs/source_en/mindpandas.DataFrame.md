@@ -1,12 +1,12 @@
 # mindpandas.DataFrame
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-DataFrame是一个具有行、列索引的二维表数据结构，是MindPandas主要的数据结构之一。
+The DataFrame is a two-dimensional table data structure with row and column indexes, and is one of the main data structures of MindPandas.
 
-## DataFrame构造
+## DataFrame Construction
 
-通过字典构建DataFrame示例：
+Constructing DataFrame from a dictionary:
 
 ```python
 import mindpandas as pd
@@ -16,7 +16,7 @@ df = pd.DataFrame(data=d)
 print(df)
 ```
 
-运行结果如下：
+The result is as follows:
 
 ```text
    col1  col2
@@ -24,14 +24,14 @@ print(df)
 1     2     4
 ```
 
-指定数据类型：
+To enforce a single dtype:
 
 ```python
 df = pd.DataFrame(data=d, dtype=np.int8)
 print(df.dtypes)
 ```
 
-运行结果如下：
+The result is as follows:
 
 ```text
 col1    int8
@@ -39,7 +39,7 @@ col2    int8
 dtype: object
 ```
 
-通过numpy ndarray构造DataFrame：
+Constructing DataFrame from numpy ndarray:
 
 ```python
 df2 = pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
@@ -47,7 +47,7 @@ df2 = pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
 print(df2)
 ```
 
-运行结果如下：
+The result is as follows:
 
 ```text
    a  b  c
@@ -58,7 +58,7 @@ print(df2)
 
 ## DataFrame API
 
-| MindPandas DataFrame API | Pandas API                                                                                                                                                     | 支持平台 | 说明 |
+| MindPandas DataFrame API | Pandas API                                                                                                                                                     | Supported Platform | Description |
 |--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------|
 | mindpandas.DataFrame.add                | [pandas.DataFrame.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.add.html#pandas.DataFrame.add)                                     | CPU                 |                                  |
 | mindpandas.DataFrame.all                | [pandas.DataFrame.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.all.html#pandas.DataFrame.all)                                     | CPU                 |                                  |
