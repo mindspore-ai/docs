@@ -29,7 +29,7 @@ Please check whether the number of parameters passed in when the instance of the
 
 <font size=3>**Q: What can I do if an error "TypeError: Do not support to convert <class xxx> object into graph node." is reported?**</font>
 
-A: This error message indicates the object that can not be parsed is used in network compilation. For example, when using customized class or its object in graph mode, the class needs to be decorated with `ms_class`. Otherwise, this error will be raised.
+A: This error message indicates the object that can not be parsed is used in network compilation. For example, when using the object of the customized class in graph mode, the class needs to be decorated with `ms_class`. Otherwise, this error will be raised.
 
 <br/>
 
