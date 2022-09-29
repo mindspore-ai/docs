@@ -71,6 +71,7 @@
    :caption: 分布式并行
 
    parallel/introduction
+   parallel/parallel_training_quickstart
    parallel/communicate_ops
    parallel/distributed_case
    parallel/distributed_inference
