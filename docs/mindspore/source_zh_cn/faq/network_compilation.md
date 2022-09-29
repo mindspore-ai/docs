@@ -29,7 +29,7 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 
 <font size=3>**Q: 编译时报错“TypeError: Do not support to convert <class xxx> object into graph node.”怎么办？**</font>
 
-A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类或其对象时，需要用 `ms_class` 修饰该类，否则会出现该错误。
+A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类的对象时，需要用 `ms_class` 修饰该类，否则会出现该错误。
 
 <br/>
 
