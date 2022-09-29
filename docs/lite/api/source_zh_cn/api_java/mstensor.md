@@ -13,6 +13,7 @@ MSTensor定义了MindSpore中的张量。
 | function                                   |
 | ------------------------------------------ |
 | [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)             |
+| [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             |
 | [int[] getShape()](#getshape)             |
 | [int getDataType()](#getdatatype)        |
 | [byte[] getByteData()](#getbytedata)     |
@@ -21,6 +22,8 @@ MSTensor定义了MindSpore中的张量。
 | [long[] getLongData()](#getlongdata)     |
 | [void setData(byte[] data)](#setdata)     |
 | [void setData(float[] data)](#setdata)     |
+| [void setData(int[] data)](#setdata)     |
+| [void setData(long[] data)](#setdata)     |
 | [void setData(ByteBuffer data)](#setdata) |
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
@@ -42,6 +45,21 @@ public static MSTensor createTensor(String tensorName, int dataType, int[] tenso
     - `dataType`: 张量数据类型。
     - `tensorShape`: 张量形状。
     - `buffer`: 张量数据。
+
+- 返回值
+
+  MindSpore MSTensor。
+
+```java
+public static MSTensor createTensor(String tensorName, Object obj)
+```
+
+生成MindSpore MSTensor。
+
+- 参数
+
+    - `tensorName`: 张量名称。
+    - `obj`: java的Array对象或者一个标量值，支持的数据类型：float、double、int、long、boolean。
 
 - 返回值
 
@@ -140,6 +158,26 @@ public void setData(float[] data)
 - 参数
 
     - `data`: float[]类型的输入数据。
+
+```java
+public void setData(int[] data)
+```
+
+设定MSTensor的输入数据。
+
+- 参数
+
+    - `data`: int[]类型的输入数据。
+
+```java
+public void setData(long[] data)
+```
+
+设定MSTensor的输入数据。
+
+- 参数
+
+    - `data`: long[]类型的输入数据。
 
 ```java
 public void setData(ByteBuffer data)
