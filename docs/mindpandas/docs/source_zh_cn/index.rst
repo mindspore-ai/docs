@@ -110,15 +110,15 @@ fillna 0.77s  0.13s
 -  内存：16GB
 -  数据大小：2GB (10,000,000行 \* 48列)
 
-   .. raw:: html
+.. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/performance_compare.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/performance_compare.png" width="700px" alt="" >
 
 随着数据大小的增加，MindPandas的分布式并行处理所带来的优势会更明显，如下图所示在不同数据量下的性能对比：
 
-   .. raw:: html
+.. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
 
 注：mindpandas设为多进程模式，使用32核CPU
 
