@@ -131,7 +131,120 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
         └── weight.h
     ```
 
-    用户可通过参考benchmark例程中对推理代码的接口调用，来对代码进行集成以实现自身的应用，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+    生成代码中的`src`目录即为模型推理代码所在目录，`benchmark`只是对`src`目录代码进行集成调用的一个例程。
+    关于集成调用的更多详细说明，请参照[代码集成及编译部署](#代码集成及编译部署)章节。
+
+### 模型输入shape配置(可选)
+
+通常在生成代码时，通过配置模型输入shape为实际推理时的输入shape，可以减少部署过程中出错的概率。
+当模型含有`Shape`算子或者原模型输入shape非固定值时，必须配置模型的输入shape值，以支持相关shape优化和代码生成。
+通过转换工具的`--inputShape=`命令可以配置生成代码的输入shape，具体参数含义，请参考[转换工具使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+
+### 生成多线程并行推理代码(可选)
+
+在通常的Linux-x86/Android环境下，拥有多核CPU，使能Micro多线程推理能够发挥设备性能，加快模型推理速度。
+
+#### 配置文件
+
+通过在配置文件中设置support_parallel为true，将生成支持多线程推理的代码，关于配置文件各选项含义请参考表1。
+一个 `x86` 的多线程代码生成配置文件的示例如下：
+
+```text
+[micro_param]
+
+# enable code-generation for MCU HW
+
+enable_micro=true
+
+# specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+
+target=x86
+
+# enable parallel inference or not.
+
+support_parallel=true
+
+```
+
+#### 涉及的调用接口
+
+通过集成代码，并调用下述接口，用户可以配置模型的多线程推理，具体接口参数请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+
+| 功能             | 函数原型                                                                |
+| ---------------- | ----------------------------------------------------------------------- |
+| 设置推理时线程数 | void MSContextSetThreadNum(MSContextHandle context, int32_t thread_num) |
+| 设置线程绑核模式 | void MSContextSetThreadAffinityMode(MSContextHandle context, int mode)  |
+| 获取推理时线程数 | int32_t MSContextGetThreadNum(const MSContextHandle context);           |
+| 获取线程绑核模式 | int MSContextGetThreadAffinityMode(const MSContextHandle context)       |
+
+#### 集成说明
+
+生成多线程代码后，用户需链接`pthread`标准库，以及Micro库内的`libwrapper.a`静态库。具体可参考生成代码中的`CMakeLists.txt`文件。
+
+#### 限制说明
+
+目前该功能仅在 `target` 配置为x86/ARM32/ARM64时使能，最大可设置推理线程数为4线程。
+
+### 生成Int8量化推理代码(可选)
+
+在Cortex-M等MCU场景下，受限于设备的内存大小及算力，通常需要使用Int8量化算子来进行部署推理以减少运行时内存大小并加速运算。
+
+如果用户已经有一个Int8全量化模型，可参考[执行converter_lite生成推理代码](#执行converter-lite生成推理代码)章节尝试直接生成Int8量化推理代码而不需要阅读本章内容。
+在通常的情况下，用户只有一个训练好的Float32模型，此时若要生成Int8量化推理代码，则需配合转换工具的后量化功能进行代码生成，具体步骤可参考下文。
+
+#### 配置文件
+
+通过在配置文件中配置量化控制参数可以实现Int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[训练后量化文档](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
+
+一个 `Cortex-M` 平台的Int8量化推理代码生成配置文件的示例如下：
+
+```text
+[micro_param]
+# enable code-generation for MCU HW
+enable_micro=true
+
+# specify HW target, support x86,Cortex-M, ARM32, ARM64 only.
+target=Cortex-M
+
+# code generation for Inference or Train
+codegen_mode=Inference
+
+# enable parallel inference or not
+support_parallel=false
+
+[common_quant_param]
+# Supports WEIGHT_QUANT or FULL_QUANT
+quant_type=FULL_QUANT
+
+# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization support the number of bits [1,8]
+bit_num=8
+
+[data_preprocess_param]
+
+calibrate_path=inputs:/home/input_dir
+
+calibrate_size=100
+
+input_type=BIN
+
+[full_quant_param]
+
+activation_quant_method=MAX_MIN
+
+bias_correction=true
+
+target_device=DSP
+
+```
+
+##### 限制说明
+
+- 目前仅支持全量化的推理代码生成。
+
+- 配置文件中全量化参数`full_quant_param`的target_device通常需设置为DSP，以支持更多的算子进行后量化。
+
+- 目前Micro已支持34个Int8量化算子，如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用Float32推理。
 
 表1：micro_param参数定义
 | 参数            | 是否必选 | 参数说明                         | 取值范围                   | 默认值    |
@@ -172,7 +285,28 @@ mindspore-lite-{version}-linux-x64
 
 ## 代码集成及编译部署
 
-不同的平台在代码集成和编译部署上会有不同的差异
+在生成代码的`benchmark`目录中，包含了对推理代码的接口调用示例，用户可参考benchmark例程，来对`src`推理代码进行集成开发以实现自身的应用。
+
+### 推理代码的调用接口
+
+以下是推理代码的一般调用接口，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+
+| 功能                  | 函数原型                                                                                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 创建 Model            | MSModelHandle MSModelCreate()                                                                                                                                               |
+| 销毁 Model            | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
+| 计算 Model 运行时所需的缓存大小    | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
+| 设置 Model 运行时的缓存           | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
+| 编译 Model           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
+| 推理                  | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| 获取所有输入 Tensor   | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
+| 获取所有输出 Tensor   | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
+| 通过名字取输入 Tensor | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
+| 通过名字取输出 Tensor | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHand                                                                                                               |9
+
+### 不同的平台的集成差异
+
+不同的平台在代码集成和编译部署上会有不同的差异。
 
 - 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在mcu上执行推理)
 
