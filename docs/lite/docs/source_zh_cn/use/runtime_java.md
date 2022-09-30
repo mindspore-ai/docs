@@ -14,7 +14,7 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
 5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_java/model.html#predict)进行模型推理。
 6. 获得输出：图执行结束之后，可以通过`输出Tensor`得到推理结果。
-7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_java/model.html#model)
+7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_java/model.html#model)。
 
 ![img](../images/lite_runtime.png)
 
