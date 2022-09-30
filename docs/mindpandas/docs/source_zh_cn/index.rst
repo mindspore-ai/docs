@@ -1,4 +1,4 @@
-MindPandas文档
+MindPandas 文档
 ==============================
 
 数据处理及分析是AI训练流程中重要的一环，其中表格数据类型是常见的数据表示形式。当前业界常用的数据分析框架Pandas提供了易用、丰富的接口，但由于其单线程的执行方式，在处理较大数据量时性能较差，同时因为其不支持分布式，导致无法处理超出单机内存的大数据量；另外，由于业界常用的数据分析框架与昇思MindSpore等AI框架是互相独立的，数据需要经过落盘、格式转换等步骤才能被训练，极大影响了使用效率。
@@ -120,7 +120,7 @@ fillna 0.77s  0.13s
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
 
-注：mindpandas设为多进程模式，使用32核CPU
+注：MindPandas设为多进程模式，使用32核CPU
 
 未来规划
 ---------
