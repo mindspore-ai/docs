@@ -6,8 +6,8 @@ The GroupBy class groups the DataFrame or Series that need to be grouped by valu
 
 ## GroupBy API
 
-| MindPandas GroupBy API     | Pandas API                                                                                                                                                                | Supported Platform | Description |
-|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------- | -------------------------------- |
+| MindPandas GroupBy API     | Pandas API                                                                                                                                                                | Supported Platform |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------- |
 | mindpandas.GroupBy.all     | [pandas.core.groupby.GroupBy.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.core.groupby.GroupBy.all.html#pandas.core.groupby.GroupBy.all)             | CPU                 |                                  |
 | mindpandas.GroupBy.any     | [pandas.core.groupby.GroupBy.any](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.core.groupby.GroupBy.any.html#pandas.core.groupby.GroupBy.any)             | CPU                 |                                  |
 | mindpandas.GroupBy.count   | [pandas.core.groupby.GroupBy.count](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.core.groupby.GroupBy.count.html#pandas.core.groupby.GroupBy.count)       | CPU                 |                                  |

@@ -21,7 +21,7 @@
 
 请从[MindPandas下载页面](https://www.mindspore.cn/versions)下载whl包，使用`pip`指令安装。
 
-> 在联网状态下，安装whl包时会自动下载MindPandas安装包的依赖项（依赖项详情参见requirement.txt），其余情况需自行安装。
+> 在联网状态下，安装whl包时会自动下载MindPandas安装包的依赖项（依赖项详情参见requirements.txt），其余情况需自行安装。
 
 ### 源码安装
 

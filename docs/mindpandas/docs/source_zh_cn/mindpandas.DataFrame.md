@@ -58,8 +58,8 @@ print(df2)
 
 ## DataFrame API
 
-| MindPandas DataFrame API | Pandas API                                                                                                                                                     | 支持平台 | 说明 |
-|--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------|
+| MindPandas DataFrame API | Pandas API                                                                                                                                                     | 支持平台 |
+|--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.DataFrame.add                | [pandas.DataFrame.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.add.html#pandas.DataFrame.add)                                     | CPU                 |                                  |
 | mindpandas.DataFrame.all                | [pandas.DataFrame.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.all.html#pandas.DataFrame.all)                                     | CPU                 |                                  |
 | mindpandas.DataFrame.any                | [pandas.DataFrame.any](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.any.html#pandas.DataFrame.any)                                     | CPU                 |                                  |
