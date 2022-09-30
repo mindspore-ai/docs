@@ -12,4 +12,4 @@ mkdir device
 cp ./net.py ./device
 cd ./device
 echo "start training"
-mpirun --allow-run-as-root -n 8 python ./matmul.py > train.log 2>&1 &
+mpirun --allow-run-as-root -n 8 python ./net.py > train.log 2>&1 &
