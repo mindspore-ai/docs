@@ -19,7 +19,8 @@ The following figure shows the overall MindSpore architecture:
 - **ModelZoo**: provides available deep learning algorithm networks, and more developers are welcome to contribute new networks. ([ModelZoo](https://gitee.com/mindspore/models))
 - **Extend**: The MindSpore expansion package supports new domain scenarios, such as GNN, deep probabilistic programming, and reinforcement learning. More developers are expected to contribute and build the library.
 - **Science**: MindScience is a scientific computing kit for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre-and post-processing tools that accelerate application development of the scientific computing ([More Information](https://mindspore.cn/mindscience/docs/en/master/index.html)).
-- **Expression**: Python-based frontend expression and programming interfaces. In the future, Huawei plans to continue to provide interconnection with third-party front-end systems, such as C/C++ and Huawei-developed programming language front-end (currently in the pre-research phase), to introduce more third-party ecosystems.
+- **Expression**: Python-based front-end expression and programming interface that supports two fusions (function/OOP programming paradigm fusion and AI+ numerical computation expression fusion) and two unifications (dynamic expression unification and single-computer distributed expression unification).
+- **Third-party front-end**: support for third-party multilingual front-end expression, the future plans to successively provide C/C++, Huawei self-developed programming language front-end - Cangjie (currently still in the pre-research stage) and other third-party front-end docking work, and the introduction of more third-party ecology.
 - **Data**: provides functions such as efficient data processing, common dataset loading and programming interfaces, and allows users to flexibly define processing registration and pipeline parallel optimization.
 - **Compiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
 - **Runtime**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
@@ -73,13 +74,13 @@ After the neural network model is trained, you can export the model or load the 
 
 ### API Level Structure
 
-To support network building, entire graph execution, subgraph execution, and single-operator execution, MindSpore provides users with three levels of APIs. In descending order, these are High-Level Python API, Medium-Level Python API, and Low-Level Python API.
+MindSpore provides users with three different levels of APIs to support AI application (algorithm/model) development, from high to low: High-Level Python API, Medium-Level Python API and Low-Level Python API. The High-Level API provides better encapsulation, the Low-Level API provides better flexibility, and the Mid-Level API combines flexibility and encapsulation to meet the needs of developers in different fields and levels.
 
 ![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/introduction3.png)
 
 - High-Level Python API
 
-    High-level APIs are at the first layer. Based on the medium-level API, these advanced APIs include training and inference management, mixed precision training, and debugging and optimization, enabling users to control the execution process of the entire network and implement training, inference, and optimization of the neural network. For example, by utilizing the Model API, users can specify the neural network model to be trained as well as related training settings, train the neural network model, and debug the neural network performance through the Profiler API.
+    High-level APIs are at the first layer. Based on the medium-level API, these advanced APIs include training and inference management, mixed precision training, and debugging and optimization, enabling users to control the execution process of the entire network and implement training, inference, and optimization of the neural network. For example, by utilizing the Model API, users can specify the neural network model to be trained as well as related training settings, train the neural network model.
 
 - Medium-Level Python API
 
