@@ -60,26 +60,26 @@ load_checkpoint(config.pre_trained, net=net)
 algo_kf = PrunerKfCompressAlgo({})
 net = algo_kf.apply(net) # Get konckoff stage network
 
+lr = get_lr(lr_init=config.lr_init,
+            lr_end=0.0,
+            lr_max=config.lr_max_kf,
+            warmup_epochs=config.warmup_epochs,
+            total_epochs=config.epoch_kf,
+            steps_per_epoch=step_size,
+            lr_decay_mode='cosine')
 optimizer = nn.Momentum(filter(lambda p: p.requires_grad, net.get_parameters()),
                         learning_rate=lr,
                         momentum=0.9,
                         loss_scale=1024
                         )
 loss_fn = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-net_with_loss = NetWithLossCell(net, loss_fn)
-net_train_step = nn.TrainOneStepCell(net_with_loss, optimizer)
-for epoch in range(0, config.epochs):
-    for i, (data, target) in enumerate(train_data.create_tuple_iterator()):
-        kf = deepcopy(data)
-        idx = ops.Randperm(max_length=kf.shape[0])(Tensor([kf.shape[0]], dtype=mstype.int32)) # Random generate Knockoff data
-        kf_input = kf[idx, :].view(kf.shape)
-        input_list = []
-        num_pgpu = data.shape[0] // config.ngpu
-        for igpu in range(config.ngpu):
-            input_list.append(ops.Concat(axis=0)([data[igpu * num_pgpu:(igpu + 1) * num_pgpu], kf_input[igpu * num_pgpu:(igpu + 1) * num_pgpu]]))
-        input = ops.Concat(axis=0)(input_list)
-        loss = net_train_step(input, target)
-        print('step_{0}: loss={1}'.format(i, loss))
+time_cb = TimeMonitor(data_size=step_size)
+loss_cb = LossMonitor()
+algo_cb_list = algo_kf.callbacks()
+cb = [loss_cb, time_cb]
+cb += algo_cb_list
+model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
+model.train(config.epoch_kf, dataset, callbacks=cb, dataset_sink_mode=False)
 ```
 
 The result is as follows:
@@ -98,18 +98,10 @@ step_5: loss=4.715785
 Determine the redundant convolution kernels in the knockoff phase. Use PrunerFtCompressAlgo to replace nodes (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py)) and delete redundant convolution kernels. Perform the complete training and save the model.
 
 ```python
-from mindspore_gs import Kf_Conv2d
+from mindspore_gs import PrunerFtCompressAlgo
 ...
-for _, (nam, module) in enumerate(net.cells_and_names()): # Get name and content of each Cell on the network from net.cells_and_names()
-    if isinstance(module, Kf_Conv2d):
-        module.score = module.bn.gamma.data.abs() * ops.Squeeze()(module.kfscale.data - (1 - module.kfscale.data))
-for _, (nam, module) in enumerate(net.cells_and_names()): # Confirm redundant convolution kernel
-    if isinstance(module, Kf_Conv2d):
-        _, index = ops.Sort()(module.score)
-        num_pruned_channel = int(module.prune_rate * module.score.shape[0])
-        module.out_index = index[num_pruned_channel:]
 
-algo_ft = PrunerFtCompressAlgo({})
+algo_ft = PrunerFtCompressAlgo(prune_rate=config.prune_rate)
 net = algo_ft.apply(net) # Get Finetune stage network
 lr_ft_new = ms.Tensor(get_lr(lr_init=config.lr_init,
                              lr_end=config.lr_ft_end,
