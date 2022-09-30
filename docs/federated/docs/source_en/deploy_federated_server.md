@@ -41,8 +41,6 @@ The MindSpore federated learning cloud cluster supports deployment on x86 CPU an
 
 To facilitate deployment, the `Scheduler` and `Server` processes of MindSpore federated learning can reuse the training script. You can select different startup modes by referring to [Configuring Parameters](#configuring-parameters).
 
-This tutorial uses LeNet as an example. For details about the network structure, loss function, and optimizer definition, see [LeNet sample code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py).
-
 ## Configuring Parameters
 
 The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docs/en/master/federated_server.html#mindspore.set_fl_context).

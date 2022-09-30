@@ -41,8 +41,6 @@ MindSpore联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台上部�
 
 为便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程可以复用训练脚本，仅通过[参数配置](#参数配置)选择以不同的角色启动。
 
-本教程选择LeNet网络作为示例，具体的网络结构、损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py)。
-
 ## 参数配置
 
 MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，并通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.set_fl_context)。
