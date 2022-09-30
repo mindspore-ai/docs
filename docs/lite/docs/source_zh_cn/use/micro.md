@@ -275,9 +275,9 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 在`Project Manager`界面，配置工程名及生成的工程路径，在`Toolchain / IDE`选项选择`EWARM`，以指定生成IAR工程。
 
-- 点击上方的`GENERATE CODE`生成代码
+- 点击上方的`GENERATE CODE`生成代码。
 
-- 在已安装`IAR`的PC机上，双击生成工程内`EWARM`目录下的`Project.eww`即可打开该IAR工程
+- 在已安装`IAR`的PC机上，双击生成工程内`EWARM`目录下的`Project.eww`即可打开该IAR工程。
 
 #### 集成模型推理代码及`Micro`库
 
@@ -597,7 +597,7 @@ ${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的�
 
 ### 编译模型
 
-使用converter_lite编译[lenet模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz)，生成对应轻鸿蒙平台的推理代码，命令如下:
+使用converter_lite编译[lenet模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz)，生成对应轻鸿蒙平台的推理代码，命令如下：
 
 ```shell
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
