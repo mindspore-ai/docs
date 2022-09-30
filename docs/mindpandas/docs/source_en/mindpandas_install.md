@@ -19,9 +19,9 @@ The following table lists the environment required for installing, compiling and
 
 ### Installing from pip command
 
-If you use the pip command, please download the whl package from [MindPandas](https://www.mindspore.cn/versions/en) page and install it.
+If you use the pip, please download the whl package from [MindPandas](https://www.mindspore.cn/versions/en) page and install it.
 
-> Installing whl package will download MindPandas dependencies automatically (detail of dependencies is shown in requirement.txt) in the networked state, and other dependencies should install manually.
+> Installing whl package will download MindPandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
 
 ### Installing from source code
 
@@ -41,7 +41,7 @@ pip install output/mindpandas-0.1.0-cp38-cp38-linux_x86_64.whl
 
 ## Verification
 
-Execute the following command in shell. If no error `No module named 'mindpandas'` is reported, the installation is successful.
+Execute the following command in shell. If no `No module named 'mindpandas'` error is reported, the installation is successful.
 
 ```shell
 python -c "import mindpandas"
