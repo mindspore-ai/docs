@@ -43,9 +43,9 @@ Table 1: SLB quantization training specifications
 | --- | --- |
 | Hardware| GPU |
 | Networks| ResNet-18. For details, see <https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick>.|
-| Solutions| Supports 1-, 2-, and 4-bit weight quantization solutions.|
+| Solutions| Supports 1-, 2-, and 4-bit weight quantization solutions, and supports 8-bit activation quantization solutions.|
 | Data types| The GPU platform supports FP32.|
-| Running modes| Graph mode and PyNative mode|
+| Running modes| Graph mode and PyNative mode.|
 
 ## SLB Quantization Training Example
 
@@ -58,7 +58,7 @@ The procedure of SLB quantization training is the same as that of common trainin
 5. Train the network and save the model file.
 6. Load the model file and compare the accuracy after quantization.
 
-The following uses the LeNet-18 as an example to describe these steps.
+The following uses the ResNet18 as an example to describe these steps.
 
 > For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick). [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
 
@@ -128,6 +128,9 @@ from mindspore_gs.quantization.constant import QuantDtype
 ...
 algo = SlbQAT()
 algo.set_weight_quant_dtype(QuantDtype.INT1)
+algo.set_act_quant_dtype(QuantDtype.INT8)
+algo.set_enable_act_quant(True)
+algo.set_enable_bn_calibration(True)
 algo.set_epoch_size(100)
 algo.set_has_trained_epoch(0)
 algo.set_t_start_val(1.0)
@@ -142,7 +145,7 @@ print(quant_net)
 Print the quantizer. The following information is displayed, including the configuration information of each attribute, which can be used to check whether the algorithm is successfully configured.
 
 ```text
-SlbQuantAwareTraining<weight_quant_dtype=INT1, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
+SlbQuantAwareTraining<weight_quant_dtype=INT1, act_quant_dtype=INT8, enable_act_quant=True, enable_bn_calibration=True, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
 ```
 
 The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/mindspore_gs.quantization.SlbQuantAwareTraining.html#mindspore_gs.quantization.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
@@ -168,12 +171,16 @@ ResNetOpt<
           in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
           (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
+        (_input_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
+        (_output_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
           in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
           (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
+        (_input_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
+        (_output_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
         >
       >
     (cell_list_1): ResidualBlockBaseOpt_1<
@@ -188,12 +195,16 @@ ResNetOpt<
           in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
           (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
+        (_input_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
+        (_output_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
         >
       (Conv2dSlbQuant_1): QuantizeWrapperCell<
         (_handler): Conv2dSlbQuant<
           in_channels=64, out_channels=64, kernel_size=(3, 3), weight_bit_num=1, stride=(1, 1), pad_mode=pad, padding=1, dilation=(1, 1), group=1, has_bias=False
           (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
           >
+        (_input_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
+        (_output_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
         >
       >
     >
@@ -207,6 +218,8 @@ ResNetOpt<
       in_channels=3, out_channels=64, kernel_size=(7, 7), weight_bit_num=1, stride=(2, 2), pad_mode=pad, padding=3, dilation=(1, 1), group=1, has_bias=False
       (fake_quant_weight): SlbFakeQuantizerPerLayer<bit_num=1>
       >
+    (_input_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
+    (_output_quantizer): SlbActQuantizer<bit_num=8, symmetric=False, narrow_range=False, ema=False(0.999), per_channel=False, quant_delay=900>
     >
   >
 ```
@@ -244,6 +257,7 @@ loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False
 metrics = {"acc"}
 model = ms.Model(quant_net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
                  amp_level="O0", boost_level=config.boost_mode, keep_batchnorm_fp32=False,
+                 eval_network=None,
                  boost_config_dict={"grad_freeze": {"total_steps": config.epoch_size * step_size}})
 
 # define callbacks
@@ -251,7 +265,7 @@ time_cb = TimeMonitor(data_size=step_size)
 loss_cb = LossCallBack(config.has_trained_epoch)
 
 cb = [time_cb, loss_cb]
-algo_cb_list = algo.callbacks(model)
+algo_cb_list = algo.callbacks(model, dataset)
 cb += algo_cb_list
 
 ckpt_append_info = [{"epoch_num": config.has_trained_epoch, "step_num": config.has_trained_step}]
@@ -312,17 +326,20 @@ print(acc)
 ```
 
 ```text
-'top_1_accuracy': 0.9485176282051282, 'top_5_accuracy': 0.9965945512820513.
+'top_1_accuracy': 0.9466145833333334, 'top_5_accuracy': 0.9964050320512820.
 ```
 
-In graph mode, apply SLB quantization to ResNet-18 and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, and W1 indicates that the weight is 1 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. SLB quantization greatly reduces model parameters, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits. The final quantization model, that is, the final deployment model, is obtained by selecting the preset quantization weights according to the weight probability matrix.
+In graph mode, apply SLB quantization to ResNet-18, enable BatchNorm calibration and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, W1 indicates that the weight is 1 bit, and A8 indicates that the activation is 8 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. After the weight was quantified, the accuracy loss of 8bit activation was less than 0.4%. SLB quantization greatly reduces model parameters and computations, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits. The final quantization model, that is, the final deployment model, is obtained by selecting the preset quantization weights according to the weight probability matrix.
 
 | Quantization Type| Top 1 Accuracy| Top 5 Accuracy|
 | --- | --- | --- |
 | W32 | 0.9544 | 0.9970 |
-| W4 | 0.9534 | 0.9970 |
-| W2 | 0.9503 | 0.9967 |
-| W1 | 0.9485 | 0.9966 |
+| W4 | 0.9537 | 0.9970 |
+| W2 | 0.9509 | 0.9967 |
+| W1 | 0.9491 | 0.9966 |
+| W4A8 | 0.9502 | 0.9968 |
+| W2A8 | 0.9473 | 0.9965 |
+| W1A8 | 0.9466 | 0.9964 |
 
 ## References
 
