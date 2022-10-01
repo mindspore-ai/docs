@@ -11,7 +11,6 @@
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC git and other dependencies](#installing-gcc-git-and-other-dependencies)
         - [Installing CMake](#installing-cmake)
-        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing LLVM-optional](#installing-llvm-optional)
         - [Installing TensorRT-optional](#installing-tensorrt-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
@@ -93,7 +92,6 @@ The following table lists the system environment and third-party dependencies re
 |[tclsh](#installing-gcc-git-and-other-dependencies)|-|sqlite compilation dependencies for MindSpore|
 |[patch](#installing-gcc-git-and-other-dependencies)|2.5 or later|source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-and-other-dependencies)|2.0.11 or later|non-uniform memory access library used by MindSpore|
-|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 |[LLVM](#installing-llvm-optional)|12.0.1|compiler framework used by MindSpore (optional, required for graph kernel fusion and sparse computing)|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
@@ -236,23 +234,6 @@ Run the following commands to install [CMake](https://cmake.org/).
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
 sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
 sudo apt-get install cmake -y
-```
-
-### Installing Open MPI-optional
-
-Run the following commands to install [Open MPI](https://www.open-mpi.org/).
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
 ```
 
 ### Installing LLVM-optional
