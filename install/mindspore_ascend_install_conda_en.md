@@ -78,7 +78,6 @@ The following table lists the system environment and third-party dependencies re
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
 
@@ -135,23 +134,6 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
     ```bash
     sudo yum install gcc -y
     ```
-
-### Installing Open MPI-optional
-
-Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
-```
 
 ### Creating and Accessing the Conda Virtual Environment
 

@@ -8,7 +8,6 @@
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
-        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
@@ -75,7 +74,6 @@ The following table lists the system environment and third-party dependencies re
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
 
@@ -168,23 +166,6 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
     ```bash
     sudo yum install gcc -y
     ```
-
-### Installing Open MPI-optional
-
-Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
-```
 
 ### Installing MindSpore
 
