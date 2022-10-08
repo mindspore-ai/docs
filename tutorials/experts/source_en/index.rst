@@ -44,6 +44,8 @@ For Experts
    :caption: Custom Operator
 
    operation/op_custom
+   operation/ms_kernel
+   operation/op_custom_adv
 
 .. toctree::
    :glob:
