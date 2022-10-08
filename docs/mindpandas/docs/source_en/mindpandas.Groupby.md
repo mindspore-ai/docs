@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.GroupBy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-The GroupBy class groups the DataFrame or Series that need to be grouped by value and returns a DataFrameGroupBy or SeriesGroupBy class.
+The GroupBy class groups the DataFrame or Series that needs to be grouped by value and returns a DataFrameGroupBy or SeriesGroupBy class.
 
 ## GroupBy API
 
