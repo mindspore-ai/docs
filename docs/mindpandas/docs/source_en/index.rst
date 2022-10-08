@@ -52,13 +52,13 @@ MindPandas Performance
 
 MindPandas dramatically reduces computation time by slicing the raw data and performing distributed parallel computation base on slicing.
 
-Using read_CSV as an example, an 8-core CPU is used to read a 900MB CSV file. The result is as follows:
+Using read_csv as an example, an 8-core CPU is used to read a 900MB csv file. The result is as follows:
 
 Test scenarios:
 
-- CPU: I7-8565U (4 cores, 8 threads)
+- CPU: i7-8565u (4 cores, 8 threads)
 - memory: 16GB
-- data size: 900MB CSV file
+- data size: 900MB csv file
 
 ======== ====== ==========
 API      pandas mindpandas
@@ -77,11 +77,11 @@ read_csv 11.53s 5.62s
    # MindPandas
    mdf = mpd.read_csv("data.csv")
 
-Other commonly used APIs, such as FillNA, use MindPandas to obtain speedups ranging from several to tens of times.
+Other commonly used APIs, such as fillna, use MindPandas to obtain speedups ranging from several to tens of times.
 
 Test scenarios:
 
-- CPU: I7-8565U (4 cores, 8 threads)
+- CPU: i7-8565u (4 cores, 8 threads)
 - memory: 16GB
 - data size: 800MB (2,000,000 rows \* 48 columns)
 
@@ -106,7 +106,7 @@ Common statistical class APIs are also substantially improved in MindPandas by p
 
 Test scenarios:
 
-- CPU: I7-8565U (4 cores, 8 threads)
+- CPU: i7-8565u (4 cores, 8 threads)
 - memory: 16GB
 - Data size: 2GB (10,000,000 rows \* 48 columns)
 
@@ -125,7 +125,7 @@ Note: MindPandas is set to multiprocess mode and uses a 32-core CPU.
 Future Goals
 ----------------
 
-The initial version of MindPandas contains 100+ APIs，such as DataFrame, Series, Groupby and Other classes, and will add support for more APIs and efficient data flow.
+The initial version of MindPandas contains 100+ APIs, which can be divided into four classes, DataFrame, Series, GroupBy and Other. MindPandas will support more APIs and provide efficient data flow.
 
 Typical scenarios using MindPandas
 ---------------------------------------
