@@ -6,8 +6,8 @@ Series是具有轴标签的一维数据结构，是常用的MindPandas数据结�
 
 ## Series API
 
-| MindPandas Series API | Pandas API                                                                                                                         | 支持平台 | 说明 |
-| --------------- |-----------------------------------------------------------------------------------------------------------------------------------------|---------------------| -------------------------------- |
+| MindPandas Series API | Pandas API                                                                                                                         | 支持平台 |
+| --------------- |-----------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.Series.add             | [pandas.Series.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.add.html#pandas.Series.add)                | CPU                 |                                  |
 | mindpandas.Series.all             | [pandas.Series.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.all.html#pandas.Series.all)                | CPU                 |                                  |
 | mindpandas.Series.any             | [pandas.Series.any](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.any.html#pandas.Series.any)                | CPU                 |                                  |
