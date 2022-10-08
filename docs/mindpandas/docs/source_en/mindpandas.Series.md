@@ -6,8 +6,8 @@ Series is a one-dimensional data structure with axis labels, and is a commonly-u
 
 ## Series API
 
-| MindPandas Series API | Pandas API                                                                                                                         | Supported Platform | Description |
-| --------------- |-----------------------------------------------------------------------------------------------------------------------------------------|---------------------| -------------------------------- |
+| MindPandas Series API | Pandas API                                                                                                                         | Supported Platform |
+| --------------- |-----------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.Series.add             | [pandas.Series.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.add.html#pandas.Series.add)                | CPU                 |                                  |
 | mindpandas.Series.all             | [pandas.Series.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.all.html#pandas.Series.all)                | CPU                 |                                  |
 | mindpandas.Series.any             | [pandas.Series.any](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.any.html#pandas.Series.any)                | CPU                 |                                  |
