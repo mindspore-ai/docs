@@ -33,34 +33,34 @@ cd mindscience/MindSPONGE
 
 - 安装依赖
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+  ```bash
+  pip install -r requirements.txt
+  ```
 
 - 昇腾后端
 
-    ```bash
-    bash build.sh -e ascend
-    ```
+  ```bash
+  bash build.sh -e ascend
+  ```
 
 - GPU后端
 
-    若使用Cybetron，开启编译选项 `c`。
+  若使用Cybetron，开启编译选项 `c`。
 
-    若使用传统分子动力学sponge，开启编译选项 `t`。
+  若使用传统分子动力学sponge，开启编译选项 `t`。
 
-    ```bash
-    export CUDA_PATH={your_cuda_path}
-    bash build.sh -e gpu -j32 -t on -c on
-    ```
+  ```bash
+  export CUDA_PATH={your_cuda_path}
+  bash build.sh -e gpu -j32 -t on -c on
+  ```
 
 - 安装编译所得whl包
 
-    ```bash
-    cd output/
-    pip install mindscience_sponge*.whl
-    pip install mindscience_cybertron*.whl
-    ```
+  ```bash
+  cd output/
+  pip install mindscience_sponge*.whl
+  pip install mindscience_cybertron*.whl
+  ```
 
 ## 案例初体验
 
@@ -168,8 +168,30 @@ md.run(1000, callbacks=[run_info, cb_h5md])
 
 ## SIG小组介绍
 
+### CO-CHAIR
+
+- 深圳湾实验室[杨奕](https://gitee.com/helloyesterday)
+- 北京昌平实验室[张骏](https://gitee.com/jz_90)
+- 北京昌平实验室[刘思睿](https://gitee.com/sirui63)
+
+### SIG
+
 MindSpore SPONGE SIG(Special Interesting Group)是由一群有兴趣，有使命，旨在AI×生物计算领域做出一番成就的人组成的团队。
 
 MindSpore SPONGE SIG小组为广大科研人员，老师和学生提供高效易用的AI计算生物软件的同时，为在这个领域有着强大的能力或者浓厚的兴趣的人们提供了一个能够共同交流合作的平台。
 
-在SIG小组中，我们还会发布众智任务和开源实习任务，欢迎大家来认领。
+SIG小组目前有着六位核心专家老师，加入SIG小组之后可以由老师带领团队进行科技调研以及代码仓功能的开发，当然也十分欢迎组员们使用MindSPONGE来进行自己的课题的调研。
+
+在SIG小组中，我们会举办各种活动，包括暑期学校、公开课宣讲、科技分享会等大型活动，也有组内分享、知乎博文编写等多种小型活动，积极参与组内活动，能够获得非常多与老师们沟通交流的机会。
+
+在8月15日结束的暑期学校活动中，我们邀请到了13位专家老师进行一场为期五天的授课，授课主题主要包括MindSpore基础，分子动力学以及AI × Science进阶课程三大主题，详见[AI+科学计算|MindSpore SPONGE暑期学校第二季](https://www.bilibili.com/video/BV1pB4y167yS?spm_id_from=333.999.0.0&vd_source=94e532d8ff646603295d235e65ef1453)。
+
+在SIG小组中，我们还会发布众智任务和[开源实习任务](https://gitee.com/mindspore/community/issues/I561LI?from=project-issue)，欢迎大家来认领。
+
+### 核心贡献者
+
+- [高毅勤课题组](https://www.chem.pku.edu.cn/gaoyq/):  [杨奕](https://gitee.com/helloyesterday)，[张骏](https://gitee.com/jz_90)，[刘思睿](https://gitee.com/sirui63)，[夏义杰](https://gitee.com/xiayijie)，[陈迪青](https://gitee.com/dechin)，[黄渝鹏](https://gitee.com/gao_hyp_xyj_admin)。
+
+## 贡献指南
+
+- 如何贡献您的代码，请点击此处查看：[贡献指南](https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md)

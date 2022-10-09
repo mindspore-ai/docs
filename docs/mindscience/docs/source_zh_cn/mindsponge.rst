@@ -34,31 +34,6 @@ mindsponge.cell
     mindsponge.cell.InvariantPointAttention
     mindsponge.cell.Transition
 
-mindsponge.colvar
-----------------------
-
-.. msplatformautosummary::
-    :toctree: mindsponge
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindsponge.colvar.Colvar
-    mindsponge.colvar.Distance
-    mindsponge.colvar.Angle
-    mindsponge.colvar.Torsion
-    mindsponge.colvar.Atom
-    mindsponge.colvar.Position
-    mindsponge.colvar.AtomDistances
-    mindsponge.colvar.AtomAngles
-    mindsponge.colvar.AtomTorsions
-    mindsponge.colvar.BondedColvar
-    mindsponge.colvar.BondedDistances
-    mindsponge.colvar.BondedTorsions
-    mindsponge.colvar.BondedAngles
-    mindsponge.colvar.IndexColvar
-    mindsponge.colvar.IndexVectors
-    mindsponge.colvar.IndexDistances
-
 mindsponge.common
 ----------------------
 
@@ -106,9 +81,6 @@ mindsponge.core
     mindsponge.core.RunOneStepCell
     mindsponge.core.AnalyseCell
     mindsponge.core.EnergySummation
-    mindsponge.core.wrapper.EnergyWrapper
-    mindsponge.core.wrapper.get_energy_wrapper
-    mindsponge.core.wrapper.EnergySummation
 
 mindsponge.data
 ----------------------
@@ -118,11 +90,6 @@ mindsponge.data
     :nosignatures:
     :template: classtemplate.rst
 
-    mindsponge.data.elements
-    mindsponge.data.element_dict
-    mindsponge.data.element_name
-    mindsponge.data.element_set
-    mindsponge.data.atomic_mass
     mindsponge.data.str_to_tensor
     mindsponge.data.tensor_to_str
     mindsponge.data.get_class_parameters
@@ -154,15 +121,9 @@ mindsponge.function
     :nosignatures:
     :template: classtemplate.rst
 
-    mindsponge.function.PI
     mindsponge.function.inv
-    mindsponge.function.keepdim_sum
-    mindsponge.function.keepdim_mean
-    mindsponge.function.keepdim_prod
     mindsponge.function.keep_norm_last_dim
     mindsponge.function.norm_last_dim
-    mindsponge.function.reduce_any
-    mindsponge.function.reduce_all
     mindsponge.function.concat_last_dim
     mindsponge.function.concat_penulti
     mindsponge.function.pbc_box_reshape
@@ -211,23 +172,9 @@ mindsponge.function
     mindsponge.function.length_convert
     mindsponge.function.energy_convert
     mindsponge.function.Units
-    mindsponge.function.global_units
     mindsponge.function.set_global_length_unit
     mindsponge.function.set_global_energy_unit
     mindsponge.function.set_global_units
-    
-mindsponge.metrics
-----------------------
-
-.. msplatformautosummary::
-    :toctree: mindsponge
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindsponge.metrics.CV
-    mindsponge.metrics.BalancedMSE
-    mindsponge.metrics.BinaryFocal
-    mindsponge.metrics.MultiClassFocal
 
 mindsponge.optimizer
 ----------------------
@@ -289,9 +236,3 @@ mindsponge.system
     mindsponge.system.Protein
     mindsponge.system.Residue
     mindsponge.system.AminoAcid
-    mindsponge.system.modeling.rotate_by_axis
-    mindsponge.system.modeling.add_h
-    mindsponge.system.modeling.AddHydrogen
-    mindsponge.system.modeling.ReadPdbByMindsponge
-    mindsponge.system.modeling.gen_pdb
-    mindsponge.system.modeling.read_pdb

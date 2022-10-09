@@ -34,31 +34,6 @@ mindsponge.cell
     mindsponge.cell.InvariantPointAttention
     mindsponge.cell.Transition
 
-mindsponge.colvar
-----------------------
-
-.. msplatformautosummary::
-    :toctree: mindsponge
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindsponge.colvar.Colvar
-    mindsponge.colvar.Distance
-    mindsponge.colvar.Angle
-    mindsponge.colvar.Torsion
-    mindsponge.colvar.Atom
-    mindsponge.colvar.Position
-    mindsponge.colvar.AtomDistances
-    mindsponge.colvar.AtomAngles
-    mindsponge.colvar.AtomTorsions
-    mindsponge.colvar.BondedColvar
-    mindsponge.colvar.BondedDistances
-    mindsponge.colvar.BondedTorsions
-    mindsponge.colvar.BondedAngles
-    mindsponge.colvar.IndexColvar
-    mindsponge.colvar.IndexVectors
-    mindsponge.colvar.IndexDistances
-
 mindsponge.common
 ----------------------
 
@@ -106,9 +81,6 @@ mindsponge.core
     mindsponge.core.RunOneStepCell
     mindsponge.core.AnalyseCell
     mindsponge.core.EnergySummation
-    mindsponge.core.wrapper.EnergyWrapper
-    mindsponge.core.wrapper.get_energy_wrapper
-    mindsponge.core.wrapper.EnergySummation
 
 mindsponge.data
 ----------------------
@@ -215,19 +187,6 @@ mindsponge.function
     mindsponge.function.set_global_length_unit
     mindsponge.function.set_global_energy_unit
     mindsponge.function.set_global_units
-    
-mindsponge.metrics
-----------------------
-
-.. msplatformautosummary::
-    :toctree: mindsponge
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindsponge.metrics.CV
-    mindsponge.metrics.BalancedMSE
-    mindsponge.metrics.BinaryFocal
-    mindsponge.metrics.MultiClassFocal
 
 mindsponge.optimizer
 ----------------------
@@ -289,9 +248,3 @@ mindsponge.system
     mindsponge.system.Protein
     mindsponge.system.Residue
     mindsponge.system.AminoAcid
-    mindsponge.system.modeling.rotate_by_axis
-    mindsponge.system.modeling.add_h
-    mindsponge.system.modeling.AddHydrogen
-    mindsponge.system.modeling.ReadPdbByMindsponge
-    mindsponge.system.modeling.gen_pdb
-    mindsponge.system.modeling.read_pdb
