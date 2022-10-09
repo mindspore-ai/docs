@@ -15,7 +15,7 @@ The following table lists the environment required for installing, compiling and
 - Make sure libxml2-utils is installed in your environment.
 - Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/r0.1/requirements.txt) for other third party dependencies.
 
-## Version dependency
+## Version Dependency
 
 ### Installing from pip command
 

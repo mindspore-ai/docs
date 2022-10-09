@@ -120,12 +120,12 @@ fillna 0.77s  0.13s
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
 
-注：mindpandas设为多进程模式，使用32核CPU
+注：MindPandas设为多进程模式，使用32核CPU
 
 未来规划
 ---------
 
-MindPandas初始版本包含DataFrame、Series、Groupby和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
+MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------
