@@ -18,7 +18,6 @@ import numpy as np
 import mindspore as ms
 from mindspore import Tensor, nn, set_context
 from mindspore import Parameter, ParameterTuple
-from mindspore.ops import GradOperation
 from mindspore import ops
 set_context(mode=ms.PYNATIVE_MODE)
 class Net(nn.Cell):
@@ -41,7 +40,7 @@ y = Tensor(np.random.randn(5, 6).astype(np.float32))
 net = Net()
 ret = net(x, y)
 weights = ParameterTuple(filter(lambda x : x.requires_grad, net.get_parameters()))
-grads = GradOperation(get_by_list=True)(net, weights)(x, y)
+grads = ms.grad(net, grad_position=None, weights=weights)(x, y)
 print("grads: ", grads)
 
 ```

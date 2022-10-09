@@ -44,10 +44,9 @@ class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
         self.net = net
-        self.grad_op = ops.GradOperation(get_all=True)
 
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net, grad_position=(0, 1))
         return gradient_function(x, y)
 
 

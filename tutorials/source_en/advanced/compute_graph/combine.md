@@ -134,9 +134,9 @@ class Add(nn.Cell):
 x = ms.Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
 y = ms.Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
 
-grad_ops = ops.GradOperation(get_all=True)  # Define the derivation operation.
 net = Add()
-grad_out = grad_ops(net)(x, y)
+grad_ops = ms.grad(net, grad_position=(0, 1))    # Define the derivation operation.
+grad_out = grad_ops(x, y)
 
 print("Infer result:\n", net(x, y))
 

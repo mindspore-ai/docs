@@ -226,6 +226,7 @@ The function call stack:
 A: 用户自定义的Cell的反向传播函数 `bprop`，它的输入需要包含正向网络的输入，以及 `out` 和 `dout`，代码样例如下：
 
 ```python
+import mindspore as ms
 from mindspore import nn, ops, Tensor
 from mindspore import dtype as mstype
 
@@ -241,11 +242,11 @@ class BpropUserDefinedNet(nn.Cell):
         def bprop(self, x, y, out):
             return self.zeros_like(out), self.zeros_like(out)
 
-grad_fn = ops.GradOperation(get_all=True)
 net = BpropUserDefinedNet()
 x = Tensor(2, mstype.float32)
 y = Tensor(6, mstype.float32)
-output = grad_fn(net)(x, y)
+grad_fn = ms.grad(net, grad_position=(0, 1))
+output = grad_fn(x, y)
 print(output)
 ```
 

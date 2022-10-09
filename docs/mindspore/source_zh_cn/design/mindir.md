@@ -108,7 +108,7 @@ def hof(x):
 
 ![image](./images/ir/hof.png)
 
-在实际网络训练脚本中，自动求导泛函`GradOperation`和优化器中常用到的`Partial`和`HyperMap`都是典型的高阶函数。高阶语义极大地提升了MindSpore表达的灵活性和简洁性。
+在实际网络训练脚本中，自动求导泛函`grad`和优化器中常用到的`Partial`和`HyperMap`都是典型的高阶函数。高阶语义极大地提升了MindSpore表达的灵活性和简洁性。
 
 ### 控制流
 

@@ -1,6 +1,6 @@
-# 比较与tf.gradients的功能差异
+# Function Differences with tf.gradients
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.gradients
 
@@ -18,30 +18,31 @@ tf.gradients(
 )
 ```
 
-更多内容详见[tf.gradients](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients)。
+For more information, see [tf.gradients](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients).
 
-## mindspore.ops.GradOperation
+## mindspore.grad
 
 ```python
-class mindspore.ops.GradOperation(
-  get_all=False,
-  get_by_list=False,
-  sens_param=False
+mindspore.grad(
+  fn,
+  grad_position=0,
+  weights=None,
+  hax_aux=False
 )
 ```
 
-更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html)。
+For more information, see [mindspore.grad](https://mindspore.cn/docs/en/master/api_python/mindspore.grad.html).
 
-## 使用方式
+## Differences
 
-TensorFlow：计算`ys`关于`xs`的梯度，返回一个与`xs`长度相同的列表。
+TensorFlow: Compute the gradient of `ys` with respect to `xs`, and return a list of the same length as `xs`.
 
-MindSpore：计算梯度，其中`get_all`为False时，只会对第一个输入求导，为True时，会对所有输入求导；`get_by_list`为False时，不会对权重求导，为True时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度。
+MindSpore: Compute the first derivative. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. if `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True,  only the first output of `fn` participates in the computation, in this case, the `fn` should has at least two outputs.
 
-## 代码示例
+## Code Example
 
 ```python
-# In MindSpore：
+# In MindSpore:
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
@@ -61,9 +62,8 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net)
         return gradient_function(x, y)
 
 x = ms.Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=ms.float32)

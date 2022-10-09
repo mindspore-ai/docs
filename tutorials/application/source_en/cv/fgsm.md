@@ -190,12 +190,11 @@ class GradWrapWithLoss(nn.Cell):
 
     def __init__(self, network):
         super(GradWrapWithLoss, self).__init__()
-        self._grad_all = ops.composite.GradOperation(get_all=True, sens_param=False)
         self._network = network
 
     def construct(self, inputs, labels):
-        gout = self._grad_all(self._network)(inputs, labels)
-        return gout[0]
+        gout = ms.grad(self._network)(inputs, labels)
+        return gout
 ```
 
 Then, implement the FGSM attack according to formula (2):

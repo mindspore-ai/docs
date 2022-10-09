@@ -1,6 +1,6 @@
 # Function Differences with torch.autograd.backward and torch.autograd.grad
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.autograd.backward
 
@@ -32,23 +32,24 @@ torch.autograd.grad(
 
 For more information, see [torch.autograd.grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.grad).
 
-## mindspore.ops.GradOperation
+## mindspore.grad
 
 ```python
-class mindspore.ops.GradOperation(
-  get_all=False,
-  get_by_list=False,
-  sens_param=False
+mindspore.grad(
+  fn,
+  grad_position=0,
+  weights=None,
+  has_aux=False
 )
 ```
 
-For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
+For more information, see [mindspore.grad](https://mindspore.cn/docs/en/master/api_python/mindspore.grad.html).
 
 ## Differences
 
 PyTorch: Use `torch.autograd.backward` to compute the sum of gradients of given Tensors with respect to graph leaves. When calculating the gradient of the Tensor with backpropagation, only the gradient of graph leaves with `requires_grad=True` will be calculated. Use `torch.autograd.grad` to compute and return the sum of gradients of outputs with respect to the inputs. If `only_inputs` is True, the function will only return a list of gradients with respect to the specified inputs.
 
-MindSpore: Compute the first derivative. When `get_all` is set to False, the first input derivative is computed. When `get_all` is set to True, all input derivatives are computed. When `get_by_list` is set to False, weight derivatives are not computed. When `get_by_list` is set to True, the weight derivative is computed. `sens_param` scales the output value of the network to change the final gradient.
+MindSpore: Compute the first derivative. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. if `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True,  only the first output of `fn` participates in the computation, in this case, the `fn` should has at least two outputs.
 
 ## Code Example
 
@@ -73,9 +74,8 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net)
         return gradient_function(x, y)
 
 x = ms.Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=ms.float32)

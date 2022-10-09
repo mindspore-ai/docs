@@ -88,7 +88,7 @@ MindSpore provides users with three different levels of APIs to support AI appli
 
 - Low-Level Python API
 
-    Low-level APIs are at the third layer, including tensor definition, basic operators, and automatic differential modules, enabling users to easily define tensors and perform derivative computation. For example, users can customize tensors by using the Tensor API, and use the GradOperation operator in the ops.composite module to calculate the derivative of the function at a specified position.
+    Low-level APIs are at the third layer, including tensor definition, basic operators, and automatic differential modules, enabling users to easily define tensors and perform derivative computation. For example, users can customize tensors by using the Tensor API, and use the grad API to calculate the derivative of the function at a specified position.
 
 ## Introduction to Huawei Ascend AI Full-Stack Solution
 

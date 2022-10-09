@@ -1,6 +1,6 @@
-# Function Differences with tf.gradients
+# 比较与tf.gradients的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.gradients
 
@@ -18,30 +18,31 @@ tf.gradients(
 )
 ```
 
-For more information, see [tf.gradients](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients).
+更多内容详见[tf.gradients](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients)。
 
-## mindspore.ops.GradOperation
+## mindspore.grad
 
 ```python
-class mindspore.ops.GradOperation(
-  get_all=False,
-  get_by_list=False,
-  sens_param=False
+mindspore.grad(
+  fn,
+  grad_position=0,
+  weights=None,
+  hax_aux=False
 )
 ```
 
-For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html).
+更多内容详见[mindspore.grad](https://mindspore.cn/docs/zh_CN/master/api_python/mindspore.grad.html)。
 
-## Differences
+## 使用方式
 
-TensorFlow: Compute the gradient of `ys` with respect to `xs`, and return a list of the same length as `xs`.
+TensorFlow：计算`ys`关于`xs`的梯度，返回一个与`xs`长度相同的列表。
 
-MindSpore: Compute the first derivative. When `get_all` is set to False, the first input derivative is computed. When `get_all` is set to True, all input derivatives are computed. When `get_by_list` is set to False, weight derivatives are not computed. When `get_by_list` is set to True, the weight derivative is computed. `sens_param` scales the output value of the network to change the final gradient.
+MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`, 将会计算网络的变量的参数。当`has_aux`设置为True时， 只有`fn`的第一个输出参与梯度计算， 此时`fn`至少具备两个输出。
 
-## Code Example
+## 代码示例
 
 ```python
-# In MindSpore:
+# In MindSpore：
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
@@ -61,9 +62,8 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net)
         return gradient_function(x, y)
 
 x = ms.Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=ms.float32)

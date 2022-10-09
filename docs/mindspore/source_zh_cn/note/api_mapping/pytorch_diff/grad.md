@@ -1,6 +1,6 @@
 # 比较与torch.autograd.backward和torch.autograd.grad的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.autograd.backward
 
@@ -32,23 +32,24 @@ torch.autograd.grad(
 
 更多内容详见[torch.autograd.grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.grad)。
 
-## mindspore.ops.GradOperation
+## mindspore.grad
 
 ```python
-class mindspore.ops.GradOperation(
-  get_all=False,
-  get_by_list=False,
-  sens_param=False
+mindspore.grad(
+  fn,
+  grad_position=0,
+  weights=None,
+  has_aux=False
 )
 ```
 
-更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation)。
+更多内容详见[mindspore.grad](https://mindspore.cn/docs/zh_CN/master/api_python/mindspore.grad.html)。
 
 ## 使用方式
 
 PyTorch：使用`torch.autograd.backward`计算给定Tensor关于叶子节点的梯度总和，反向传播计算Tensor的梯度时，只计算`requires_grad=True`的叶子节点的梯度。使用`torch.autograd.grad`计算并返回输出关于输入的梯度总和，如果`only_inputs`为True，仅返回与指定输入相关的梯度列表。
 
-MindSpore：计算梯度，其中`get_all`为False时，只会对第一个输入求导，为True时，会对所有输入求导；`get_by_list`为False时，不会对权重求导，为True时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度。
+MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`, 将会计算网络的变量的参数。当`has_aux`设置为True时， 只有`fn`的第一个输出参与梯度计算， 此时`fn`至少具备两个输出。
 
 ## 代码示例
 
@@ -73,9 +74,8 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net)
         return gradient_function(x, y)
 
 x = ms.Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=ms.float32)
