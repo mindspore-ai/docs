@@ -16,6 +16,7 @@
 
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import nn
 from mindspore.profiler import Profiler
 from mindspore.train.callback import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
@@ -72,8 +73,8 @@ def train_net():
     optimizer = nn.Adam(resnet.trainable_params(), config.lr, weight_decay=config.weight_decay)
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    model = ms.Model(resnet, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale,
-                     amp_level=config.amp_level)
+    model = Model(resnet, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale,
+                  amp_level=config.amp_level)
     if config.use_profilor:
         model.train(3, train_dataset, callbacks=[LossMonitor(), TimeMonitor()],
                     dataset_sink_mode=config.dataset_sink_mode)

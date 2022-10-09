@@ -261,6 +261,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.nn import Momentum
 from mindspore.communication import init
 from resnet import resnet50
@@ -278,7 +279,7 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt)
+    model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -418,6 +419,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 ```python
 import mindspore as ms
+from mindspore.train import CheckpointConfig, ModelCheckpoint
 from mindspore.communication import init
 
 if __name__ == "__main__":
@@ -631,8 +633,8 @@ export MS_RECOVERY_PATH=“/xxx/xxx”      #配置持久化路径文件夹，Wo
 2）配置checkpoint保存间隔，样例如下：
 
 ```python
-ckptconfig = ms.CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
-ckpoint_cb = ms.ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
+ckptconfig = CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
+ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
 ```
 
 每个Worker都开启保存checkpoint，并用不同的路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。保存checkpoint的间隔是可配置的，这个间隔决定了容灾恢复的粒度，间隔越小，恢复到上次保存checkpoint所回退的step数就越小，但保存checkpoint频繁也可能会影响训练效率，间隔越大则效果相反。keep_checkpoint_max至少设置为2(防止checkpoint保存失败)。

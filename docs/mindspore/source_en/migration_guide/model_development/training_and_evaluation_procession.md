@@ -82,6 +82,7 @@ A generic inference process is as follows:
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import nn
 from src.model import Net
 from src.dataset import create_dataset
@@ -99,7 +100,7 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 # Load the trained parameters
 ms.load_checkpoint(config.checkpoint_path, net)
 # Encapsulation into Model
-model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 # Model inference
 res = model.eval(dataset)
 print("result:", res, "ckpt=", config.checkpoint_path)
@@ -121,6 +122,7 @@ A general training process is as follows:
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import nn
 from mindspore import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
 from src.model import Net
@@ -142,7 +144,7 @@ def train_net():
     # Optimizer implementation, task-related
     optimizer = nn.Adam(net.trainable_params(), config.lr, weight_decay=config.weight_decay)
     # Encapsulation into Model
-    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
     # checkpoint saving
     config_ck = CheckpointConfig(save_checkpoint_steps=dataset.get_dataset_size(),
                                          keep_checkpoint_max=5)

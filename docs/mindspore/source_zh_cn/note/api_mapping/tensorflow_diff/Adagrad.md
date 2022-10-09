@@ -44,6 +44,7 @@ MindSpore：支持所有的参数使用相同的学习率以及不同的参数�
 import tensorflow as tf
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
@@ -63,7 +64,7 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 # The final parameters order in which the optimizer will be followed is the value of 'order_params'.
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-model = ms.Model(net, loss_fn=loss, optimizer=optim)
+model = Model(net, loss_fn=loss, optimizer=optim)
 
 # The following implements Adagrad with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))

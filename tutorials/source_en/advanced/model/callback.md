@@ -27,6 +27,7 @@ import mindspore.nn as nn
 import mindspore as ms
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
+from mindspore.train import Accuracy, Model
 
 download_train = Mnist(path="./mnist", split="train", download=True)
 dataset_train = download_train.run()
@@ -36,17 +37,17 @@ net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
 
 # Define a network model.
-model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": nn.Accuracy()})
+model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": Accuracy()})
 ```
 
 To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) and [LossMonitor](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.LossMonitor.html#mindspore.train.LossMonitor) are callback classes provided by MindSpore:
 
 ```python
-import mindspore as ms
+from mindspore.train import ModelCheckpoint, LossMonitor
 
 # Define callback classes.
-ckpt_cb = ms.ModelCheckpoint()
-loss_cb = ms.LossMonitor(1875)
+ckpt_cb = ModelCheckpoint()
+loss_cb = LossMonitor(1875)
 
 model.train(5, dataset_train, callbacks=[ckpt_cb, loss_cb])
 ```
@@ -70,12 +71,12 @@ To save the trained network model and parameters for re-inference or re-training
 The following uses a sample code to describe how to save the trained network model and parameters.
 
 ```python
-import mindspore as ms
+from mindspore.train import ModelCheckpoint, CheckpointConfig
 
 # Set the configuration information of the saved model.
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
 # Instantiate the saved model callback API and define the storage path and prefix.
-ckpoint = ms.ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
+ckpoint = ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
 
 # Start training and load the saved model and parameter callback function.
 model.train(1, dataset_train, callbacks=[ckpoint])
@@ -228,7 +229,7 @@ In addition, you can modify and add values in the dictionary. Define an `init_ti
 import time
 import mindspore as ms
 
-class StopTimeMonitor(ms.Callback):
+class StopTimeMonitor(ms.train.Callback):
 
     def __init__(self, run_time):
         """Define the initialization process."""
@@ -280,7 +281,7 @@ The sample code is as follows:
 import mindspore as ms
 
 # Define the callback API for saving the CKPT file.
-class SaveCkptMonitor(ms.Callback):
+class SaveCkptMonitor(ms.train.Callback):
     """Define the initialization process."""
 
     def __init__(self, loss):

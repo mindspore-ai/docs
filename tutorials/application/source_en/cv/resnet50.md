@@ -311,7 +311,7 @@ def resnet50(num_classes: int = 1000, pretrained: bool = False):
 In this part, [a ResNet-50 pre-trained model](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt) is used for fine-tuning. Call `resnet50` to build a ResNet-50 model and set `pretrained` to **True**. The ResNet-50 pre-trained model is automatically downloaded and the parameters of the pre-trained model are loaded to the network. Define an optimizer and a loss function, train the network by using the `model.train` API, and transfer the `mindvision.engine.callback.ValAccMonitor` API in MindSpore Vision to the callback function. The loss value and evaluation accuracy of the training are printed, and the CKPT file (**best.ckpt**) with the highest evaluation accuracy is saved to the current directory.
 
 ```python
-from mindspore.train import Model
+from mindspore.train import Model, Accuracy
 from mindvision.engine.callback import ValAccMonitor
 
 # Define the ResNet-50 network.
@@ -330,7 +330,7 @@ lr = nn.cosine_decay_lr(min_lr=0.00001, max_lr=0.001, total_step=step_size * num
 opt = nn.Momentum(params=network.trainable_params(), learning_rate=lr, momentum=0.9)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 # Instantiate the model.
-model = Model(network, loss, opt, metrics={"Accuracy": nn.Accuracy()})
+model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 # Perform model training.
 model.train(num_epochs, ds_train, callbacks=[ValAccMonitor(model, ds_val, num_epochs)])
 ```
@@ -366,6 +366,7 @@ Define the `visualize_model` function, use the model with the highest validation
 ```python
 import matplotlib.pyplot as plt
 import mindspore as ms
+from mindspore.train import Model
 
 
 def visualize_model(best_ckpt_path, val_ds):
@@ -374,7 +375,7 @@ def visualize_model(best_ckpt_path, val_ds):
     # Load model parameters.
     param_dict = ms.load_checkpoint(best_ckpt_path)
     ms.load_param_into_net(net, param_dict)
-    model = ms.Model(net)
+    model = Model(net)
     # Load the validation dataset.
     data = next(val_ds.create_dict_iterator())
     images = data["image"].asnumpy()

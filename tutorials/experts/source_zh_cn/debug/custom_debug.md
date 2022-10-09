@@ -22,9 +22,10 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 
 ```python
 import mindspore as ms
+from mindspore import ModelCheckpoint, LossMonitor
 
-ckpt_cb = ms.ModelCheckpoint()
-loss_cb = ms.LossMonitor()
+ckpt_cb = ModelCheckpoint()
+loss_cb = LossMonitor()
 summary_cb = ms.SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
@@ -71,7 +72,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
     ```python
     import mindspore as ms
 
-    class StopAtTime(ms.Callback):
+    class StopAtTime(ms.train.Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
@@ -100,7 +101,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
     ```python
     import mindspore as ms
 
-    class SaveCallback(ms.Callback):
+    class SaveCallback(ms.train.Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
             self.model = eval_model
@@ -134,15 +135,16 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 ```python
 import mindspore as ms
 import mindspore.nn as nn
+from mindspore.train import Accuracy, F1, Model, Loss, Precision, Recall
 
 metrics = {
-    'accuracy': nn.Accuracy(),
-    'loss': nn.Loss(),
-    'precision': nn.Precision(),
-    'recall': nn.Recall(),
-    'f1_score': nn.F1()
+    'accuracy': Accuracy(),
+    'loss': Loss(),
+    'precision': Precision(),
+    'recall': Recall(),
+    'f1_score': F1()
 }
-model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
 result = model.eval(ds_eval)
 ```
 
@@ -166,7 +168,7 @@ result = model.eval(ds_eval)
 
 ```python
 import mindspore as ms
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 import numpy as np
 
 x = ms.Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))

@@ -44,13 +44,15 @@ export GROUP_INFO_FILE=./group_info.pb
 
 ```python
 import mindspore as ms
+from mindspore.train import CheckpointConfig, ModelCheckpoint
 from mindspore.nn import PipelineCell
+
 def train():
     # model create
     # checkpoint save
-    ckpt_config = ms.CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
+    ckpt_config = CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
                                       integrated_save=False)
-    ckpoint_cb = ms.ModelCheckpoint(prefix="test", config=ckpt_config)
+    ckpoint_cb = ModelCheckpoint(prefix="test", config=ckpt_config)
     callback = [ckpoint_cb]
     model.train(4, dataset, callbacks=callback, dataset_sink_mode=True)
 ```

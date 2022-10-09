@@ -133,6 +133,7 @@ import mindspore as ms
 
 from mindvision.classification.models import mobilenet_v2
 from mindvision.engine.loss import CrossEntropySmooth
+from mindspore.train import Accuracy, Model
 
 # Create a model, in which the number of target classifications is 2 and the input image size is (224,224).
 network = mobilenet_v2(num_classes=2, resize=224)
@@ -164,10 +165,10 @@ network_opt = nn.Momentum(params=network.trainable_params(), learning_rate=0.01,
 network_loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, classes_num=2)
 
 # Define evaluation metrics.
-metrics = {"Accuracy": nn.Accuracy()}
+metrics = {"Accuracy": Accuracy()}
 
 # Initialize the model.
-model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metrics)
+model = Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metrics)
 ```
 
 ```text
@@ -190,13 +191,14 @@ Train and evaluate the network, and use the `mindvision.engine.callback.ValAccMo
 ```python
 from mindvision.engine.callback import ValAccMonitor
 import mindspore as ms
+from mindspore.train import TimeMonitor
 
 num_epochs = 10
 
 # Train and verify the model. After the training is completed, save the CKPT file with the highest evaluation accuracy, `best.ckpt`, in the current directory.
 model.train(num_epochs,
             dataset_train,
-            callbacks=[ValAccMonitor(model, dataset_val, num_epochs), ms.TimeMonitor()])
+            callbacks=[ValAccMonitor(model, dataset_val, num_epochs), TimeMonitor()])
 ```
 
 ```text
@@ -244,6 +246,7 @@ import numpy as np
 from PIL import Image
 
 import mindspore as ms
+from mindspore.train import Model
 
 def visualize_model(path):
     image = Image.open(path).convert("RGB")
@@ -267,7 +270,7 @@ def visualize_model(path):
     net = mobilenet_v2(num_classes=2, resize=224)
     param_dict = ms.load_checkpoint("./best.ckpt")
     ms.load_param_into_net(net, param_dict)
-    model = ms.Model(net)
+    model = Model(net)
 
     # Use the model for prediction.
     pre = model.predict(Tensor(image))

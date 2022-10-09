@@ -70,6 +70,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 ```python
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.communication import init
 from mindspore import ops, nn
 
@@ -91,7 +92,7 @@ init()
 # 设置并行模式为数据并行，其他方式一致
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
-model = ms.Model(net)
+model = Model(net)
 model.train(*args, **kwargs)
 ```
 
@@ -103,7 +104,7 @@ model.train(*args, **kwargs)
 
   ```python
   # 训练方式一：通过Model接口调用，仅支持这种方式
-  model = ms.Model(net, *args, **kwargs)
+  model = Model(net, *args, **kwargs)
   model.train(*args, **kwargs)
 
   # 训练方式二：自定义循环，这种方式不支持
@@ -120,6 +121,7 @@ model.train(*args, **kwargs)
     ```python
     import numpy as np
     import mindspore as ms
+    from mindspore.train import Model
     from mindspore.communication import init
     from mindspore import ops, nn
 
@@ -148,7 +150,7 @@ model.train(*args, **kwargs)
     init()
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
-    model = ms.Model(net)
+    model = Model(net)
     model.train(*args, **kwargs)
     ```
 
@@ -223,6 +225,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search
 ```python
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.communication import init
 from mindspore import ops, nn
 
@@ -256,7 +259,7 @@ class HybridParallelNet(nn.Cell):
 init()
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
-model = ms.Model(net)
+model = Model(net)
 model.train(*args, **kwargs)
 ```
 

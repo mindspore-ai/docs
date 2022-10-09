@@ -12,13 +12,13 @@ tf.keras.metrics.Recall(
 
 更多内容详见[tf.keras.metrics.Recall](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/Recall)。
 
-## mindspore.nn.Recall
+## mindspore.train.Recall
 
 ```python
-mindspore.nn.Recall(eval_type="classification")
+mindspore.train.Recall(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Recall](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall)。
+更多内容详见[mindspore.train.Recall](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall)。
 
 ## 使用方式
 
@@ -62,11 +62,11 @@ print(m.result().numpy())
 
 
 import numpy as np
-from mindspore import nn
+from mindspore.train import Recall
 
 x = ms.Tensor(np.array([[0.2, 0.5, 0.1], [0.3, 0.1, 0.1], [0.9, 0.6, 0.1], [0.9, 0.6, 0.97], [0.2, 0.6, 0.8]]))
 y = ms.Tensor(np.array([[0, 1, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1]]))
-metric = nn.Recall('classification')
+metric = Recall('classification')
 metric.update(x, y)
 print(metric.eval(average=True), metric.eval())
 

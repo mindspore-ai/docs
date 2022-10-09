@@ -142,6 +142,7 @@ In `Model`, the feedforward network and loss function are associated through [nn
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
 from mindvision.engine.callback import LossMonitor
@@ -175,7 +176,7 @@ loss = MAELoss()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Use the model API to associate the network, loss function, and optimizer.
-model = ms.Model(net, loss, opt)
+model = Model(net, loss, opt)
 model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
 ```
 
@@ -300,7 +301,7 @@ In the multi-label scenario, if you want to use a `Model` for model training, yo
     opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
     # Define a Model. In the multi-label scenario, the loss function does not need to be specified for the Model.
-    model = ms.Model(network=loss_net, optimizer=opt)
+    model = Model(network=loss_net, optimizer=opt)
 
     model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
     ```

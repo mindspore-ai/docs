@@ -12,13 +12,13 @@ tf.keras.metrics.Precision(
 
 更多内容详见[tf.keras.metrics.Precision](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/Precision)。
 
-## mindspore.nn.Precision
+## mindspore.train.Precision
 
 ```python
-mindspore.nn.Precision(eval_type="classification")
+mindspore.train.Precision(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Precision](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision)。
+更多内容详见[mindspore.train.Precision](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision)。
 
 ## 使用方式
 
@@ -62,11 +62,11 @@ print(m.result().numpy())
 
 
 import numpy as np
-from mindspore import nn
+from mindspore.train import Precision
 
 x = ms.Tensor(np.array([[0.2, 0.5, 0.1], [0.3, 0.1, 0.1], [0.9, 0.6, 0.1], [0.9, 0.6, 0.97], [0.2, 0.6, 0.8]]))
 y = ms.Tensor(np.array([[0, 1, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1]]))
-metric = nn.Precision('classification')
+metric = Precision('classification')
 metric.update(x, y)
 print(metric.eval(average=True), metric.eval())
 

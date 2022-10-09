@@ -282,17 +282,18 @@ MindSpore提供了callback机制，可以在训练过程中执行自定义逻辑
 ```python
 ...
 import mindspore as ms
+from mindspore.train import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 ...
 if __name__ == "__main__":
     ...
     # define callbacks
-    time_cb = ms.TimeMonitor(data_size=step_size)
-    loss_cb = ms.LossMonitor()
+    time_cb = TimeMonitor(data_size=step_size)
+    loss_cb = LossMonitor()
     cb = [time_cb, loss_cb]
     if config.save_checkpoint:
-        config_ck = ms.CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
+        config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
                                      keep_checkpoint_max=config.keep_checkpoint_max)
-        ckpt_cb = ms.ModelCheckpoint(prefix="resnet", directory=ckpt_save_dir, config=config_ck)
+        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=ckpt_save_dir, config=config_ck)
         cb += [ckpt_cb]
     ...
 ```
@@ -305,12 +306,13 @@ MindSpore提供Model类向ModelThor类的一键转换接口。
 ```python
 ...
 import mindspore as ms
+from mindspore.train import Model
 ...
 
 if __name__ == "__main__":
     ...
     loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
+    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
                   amp_level="O2", keep_batchnorm_fp32=False, eval_network=dist_eval_network)
     if cfg.optimizer == "Thor":
         model = ms.ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
@@ -436,6 +438,7 @@ epoch: 36 step: 5004, loss is 1.645802
 ```python
 ...
 import mindspore as ms
+from mindspore.train import Model
 ...
 
 if __name__ == "__main__":
@@ -458,7 +461,7 @@ if __name__ == "__main__":
         loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define model
-    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)
