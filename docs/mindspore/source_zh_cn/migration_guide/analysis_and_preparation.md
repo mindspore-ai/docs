@@ -11,6 +11,8 @@
 3. 比较新的代码，有开发者对代码进行维护；
 4. 优先考虑PyTorch的参考代码。
 
+如果参考项目中结果无法复现或者缺乏版本信息，可查看项目issue获取信息；
+
 如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
 
 ## 分析算法及网络结构
@@ -90,6 +92,9 @@
 
 以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
 或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html) 查找对应的API实现。
+
+一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad)中查看其一阶Grad是否存在对应的bprop函数定义。
+如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
 
 其他框架API的映射可以参考API命名与功能描述。注意，针对相同功能的API，MindSpore的命名可能与其他框架不同，同名API参数与功能也可能与其他框架有区别，均以官方描述为准。
 
