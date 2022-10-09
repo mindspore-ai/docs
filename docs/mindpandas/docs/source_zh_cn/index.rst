@@ -125,7 +125,7 @@ fillna 0.77s  0.13s
 未来规划
 ---------
 
-MindPandas初始版本包含DataFrame、Series、Groupby和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
+MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------
