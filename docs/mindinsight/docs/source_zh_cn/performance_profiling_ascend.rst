@@ -1,4 +1,4 @@
-性能调试（Ascend-Graph）
+性能调试（Ascend）
 ========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
@@ -28,6 +28,8 @@
 .. include:: profiling/profiling_timeline.txt
 
 .. include:: profiling/profiling_dynamic_shape.txt
+
+.. include:: profiling/profiling_msprof.txt
 
 .. include:: profiling/profiling_resoure.txt
 

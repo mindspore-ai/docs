@@ -1,0 +1,14 @@
+Msprof工具辅助分析
+~~~~~~~~~~~~~~~~~~
+
+用户可以通过profiler收集aicore详细数据，然后通过Msprof工具进行解析查看。
+
+样例代码如下：
+
+.. code:: python
+
+    profiler = Profiler(output_path='./data', aicore_metrics=1, l2_cache=True)
+
+aicore_metrics设置AI Core指标类型，l2_cache设置是否收集l2缓存数据，参数说明请参考API文档。
+
+Msprof工具使用及性能数据说明请参见 ``CANN 开发工具指南`` 文档的 `Profiling工具使用指南（训练） <https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/2c2140b0>`_ 章节。
