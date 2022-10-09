@@ -8,7 +8,6 @@
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装Conda](#安装conda)
         - [安装GCC](#安装gcc)
-        - [安装Open MPI-可选](#安装open-mpi-可选)
         - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
         - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
@@ -78,7 +77,6 @@ conda activate mindspore_py37
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
-|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -135,23 +133,6 @@ conda init bash
     ```bash
     sudo yum install gcc -y
     ```
-
-### 安装Open MPI-可选
-
-可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
-```
 
 ### 创建并进入Conda虚拟环境
 

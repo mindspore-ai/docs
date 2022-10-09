@@ -12,7 +12,6 @@
         - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
-        - [Installing Open MPI-optional](#installing-open-mpi-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
@@ -89,7 +88,6 @@ The following table lists the system environment and third-party dependencies re
 |[tclsh](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
 |[patch](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
-|[Open MPI](#installing-open-mpi-optional)|4.0.3|High performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
 
@@ -272,23 +270,6 @@ pip install -U setuptools
     echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
     source ~/.bashrc
     ```
-
-### Installing Open MPI-optional
-
-Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
-```
 
 ## Downloading the Source Code from the Code Repository
 
