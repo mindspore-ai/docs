@@ -47,6 +47,7 @@ import numpy as np
 import torch
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
@@ -62,7 +63,7 @@ optim = nn.AdamWeightDecay(group_params, learning_rate=0.1, weight_decay=0.0)
 
 
 loss = nn.SoftmaxCrossEntropyWithLogits()
-model = ms.Model(net, loss_fn=loss, optimizer=optim)
+model = Model(net, loss_fn=loss, optimizer=optim)
 
 # The following implements AdamWeightDecay with torch.
 input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))

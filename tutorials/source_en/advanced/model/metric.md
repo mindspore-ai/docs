@@ -4,7 +4,7 @@
 
 When a training task is complete, an evaluation function (Metric) is often required to evaluate the quality of a model. Different training tasks usually require different metric functions. For example, for a binary classification problem, common evaluation metrics include precision, recall, and the like. For a multiclass classification task, macro and micro may be used for evaluation.
 
-MindSpore provides evaluation functions for most common tasks, such as `nn.Accuracy`, `nn.Precision`, `nn.MAE`, and `nn.MSE`. The evaluation functions provided by MindSpore cannot meet the requirements of all tasks. In most cases, you need to customize metrics for a specific task to evaluate the trained model.
+MindSpore provides evaluation functions for most common tasks, such as `train.Accuracy`, `nn.Precision`, `nn.MAE`, and `nn.MSE`. The evaluation functions provided by MindSpore cannot meet the requirements of all tasks. In most cases, you need to customize metrics for a specific task to evaluate the trained model.
 
 The following describes how to customize metrics and how to use metrics in `nn.Model`.
 
@@ -134,11 +134,12 @@ loss = nn.L1Loss()
 
 ### Using Built-in Evaluation Metrics
 
-When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `nn.Accuracy` to compute the classification accuracy.
+When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `train.Accuracy` to compute the classification accuracy.
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model, MAE
 from mindvision.engine.callback import LossMonitor
 
 ds_train = create_dataset(num_data=160)
@@ -146,7 +147,7 @@ net = LinearNet()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Define a model and use the built-in Accuracy function.
-model = ms.Model(net, loss, opt, metrics={"MAE": nn.MAE()})
+model = Model(net, loss, opt, metrics={"MAE": MAE()})
 model.train(epoch=1, train_dataset=ds_train, callbacks=LossMonitor(0.005))
 
 # Evaluate the model.
@@ -182,7 +183,7 @@ net1 = LinearNet()
 opt = nn.Momentum(net1.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Define a model and transfer the customized  metrics function MAE to the model.
-model1 = ms.Model(net1, loss, opt, metrics={"MAE": MyMAE()})
+model1 = Model(net1, loss, opt, metrics={"MAE": MyMAE()})
 model1.train(epoch=1, train_dataset=ds_train, callbacks=LossMonitor(0.005))
 
 # Evaluate the model.

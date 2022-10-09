@@ -302,6 +302,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.nn import Momentum
 from resnet import resnet50
 
@@ -318,7 +319,7 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt)
+    model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -589,6 +590,7 @@ OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参
 
 ```python
 import mindspore as ms
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
@@ -600,9 +602,9 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    ckpt_config = ms.CheckpointConfig()
-    ckpt_callback = ms.ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt)
+    ckpt_config = CheckpointConfig()
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+    model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```
 
@@ -625,6 +627,7 @@ ms.load_param_into_net(net, param_dict)
 
 ```python
 import mindspore as ms
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
@@ -635,7 +638,7 @@ dataset = create_custom_dataset()
 resnet = ResNet50()
 opt = Momentum()
 loss = SoftmaxCrossEntropyWithLogits()
-model = ms.Model(resnet, loss, opt)
+model = Model(resnet, loss, opt)
 # infer train strategy
 layout_dict = model.infer_train_layout(dataset, True, 100)
 # load into `model.train_network` net
@@ -673,8 +676,8 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradie
 ...
 net = SemiAutoParallelNet()
 ...
-ckpt_config = ms.CheckpointConfig()
-ckpt_callback = ms.ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+ckpt_config = CheckpointConfig()
+ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
 ```
 
 加载模型时，可以使用如下代码来实现：

@@ -208,6 +208,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, g
 ```python
 import argparse
 import mindspore as ms
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, TimeMonitor
 from mindspore.nn.transformer import TransformerOpParallelConfig
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
@@ -301,16 +302,16 @@ def main():
         opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
 
     if not args_opt.train:
-        model = ms.Model(net)
+        model = Model(net)
     else:
-        model = ms.Model(net, optimizer=opt)
+        model = Model(net, optimizer=opt)
 
     callback_size = 1
-    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
+    ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
                                       integrated_save=False)
-    ckpoint_cb = ms.ModelCheckpoint(prefix="test",
+    ckpoint_cb = ModelCheckpoint(prefix="test",
                                     config=ckpt_config)
-    callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+    callback = [TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
     model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 
 if __name__ == "__main__":

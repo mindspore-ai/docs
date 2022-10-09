@@ -13,13 +13,13 @@ tf.keras.metrics.AUC(
 
 更多内容详见[tf.keras.metrics.AUC](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/AUC)。
 
-## mindspore.nn.auc
+## mindspore.train.auc
 
 ```python
-mindspore.nn.auc(x, y, reorder=False)
+mindspore.train.auc(x, y, reorder=False)
 ```
 
-更多内容详见[mindspore.nn.auc](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.auc.html#mindspore.train.auc)。
+更多内容详见[mindspore.train.auc](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.auc.html#mindspore.train.auc)。
 
 ## 使用方式
 
@@ -30,13 +30,13 @@ MindSpore：调用`mindspore.nn.auc`接口前需先使用`mindspore.nn.ROC`得�
 ## 代码示例
 
 ```python
-from mindspore import nn
+from mindspore.train import ROC, auc
 import numpy as np
 
 x = ms.Tensor(np.array([[0.28, 0.55, 0.15, 0.05], [0.10, 0.20, 0.05, 0.05], [0.20, 0.05, 0.15, 0.05],
                     [0.05, 0.05, 0.05, 0.75], [0.05, 0.05, 0.05, 0.75]]))
 y = ms.Tensor(np.array([0, 1, 2, 3, 2]))
-metric = nn.ROC(class_num=4)
+metric = ROC(class_num=4)
 metric.update(x, y)
 fpr, tpr, thresholds = metric.eval()
 print(fpr)
@@ -47,7 +47,7 @@ print(tpr)
 # out: [array([0., 0., 1., 1., 1.]), array([0., 0., 1.]), array([0., 0., 1.]), array([0., 0., 1.])]
 
 # calculate auc for class 0
-output = nn.auc(fpr[0], tpr[0])
+output = auc(fpr[0], tpr[0])
 print(output)
 # out: 0.6666666666666667
 

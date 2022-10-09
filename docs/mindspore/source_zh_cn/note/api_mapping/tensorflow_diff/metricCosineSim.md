@@ -12,13 +12,13 @@ tf.keras.metrics.CosineSimilarity(
 
 更多内容详见[tf.keras.metrics.CosineSimilarity](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/CosineSimilarity)。
 
-## mindspore.nn.CosineSimilarity
+## mindspore.train.CosineSimilarity
 
 ```python
-mindspore.nn.CosineSimilarity(similarity="cosine", reduction="none", zero_diagonal=True)
+mindspore.train.CosineSimilarity(similarity="cosine", reduction="none", zero_diagonal=True)
 ```
 
-更多内容详见[mindspore.nn.CosineSimilarity](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity)。
+更多内容详见[mindspore.train.CosineSimilarity](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity)。
 
 ## 使用方式
 
@@ -39,11 +39,11 @@ print(m.result().numpy())
 # output: 0.8807048
 
 
-from mindspore import nn
+from mindspore.train import CosineSimilarity
 import numpy as np
 
 input_data = np.array([[1, 3, 4], [2, 4, 2], [0, 1, 0]])
-metric = nn.CosineSimilarity()
+metric = CosineSimilarity()
 metric.update(input_data)
 print(metric.eval())
 

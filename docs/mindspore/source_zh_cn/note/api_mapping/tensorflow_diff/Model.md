@@ -68,6 +68,7 @@ MindSpore：
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import nn
 from mindspore.common.initializer import Normal
 
@@ -83,5 +84,5 @@ net = LinearNet()
 crit = nn.MSELoss()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-model = ms.Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
+model = Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
 ```

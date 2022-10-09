@@ -22,9 +22,10 @@ Usage: Transfer the `Callback` object in the `model.train` method. It can be a `
 
 ```python
 import mindspore as ms
+from mindspore.train import ModelCheckpoint,LossMonitor
 
-ckpt_cb = ms.ModelCheckpoint()
-loss_cb = ms.LossMonitor()
+ckpt_cb = ModelCheckpoint()
+loss_cb = LossMonitor()
 summary_cb = ms.SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
@@ -99,7 +100,7 @@ Here are two examples to further explain the usage of custom `Callback`.
     ```python
     import mindspore as ms
 
-    class StopAtTime(ms.Callback):
+    class StopAtTime(ms.train.Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
@@ -128,7 +129,7 @@ In addition, you can modify and add values in the dictionary. In the preceding e
     ```python
     import mindspore as ms
 
-    class SaveCallback(ms.Callback):
+    class SaveCallback(ms.train.Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
             self.model = eval_model
@@ -162,15 +163,16 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 ```python
 import mindspore as ms
 import mindspore.nn as nn
+from mindspore.train import Accuracy, F1, Model, Loss, Precision, Recall
 
 metrics = {
-    'accuracy': nn.Accuracy(),
-    'loss': nn.Loss(),
-    'precision': nn.Precision(),
-    'recall': nn.Recall(),
-    'f1_score': nn.F1()
+    'accuracy': Accuracy(),
+    'loss': Loss(),
+    'precision': Precision(),
+    'recall': Recall(),
+    'f1_score': F1()
 }
-model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
 result = model.eval(ds_eval)
 ```
 
@@ -194,7 +196,7 @@ You can understand how `Accuracy` runs by using the following code:
 
 ```python
 import mindspore as ms
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 import numpy as np
 
 x = ms.Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))

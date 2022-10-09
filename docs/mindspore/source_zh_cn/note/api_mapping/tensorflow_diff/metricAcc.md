@@ -36,21 +36,21 @@ tf.keras.metrics.SparseCategoricalAccuracy(
 
 更多内容详见[tf.keras.metrics.SparseCategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/SparseCategoricalAccuracy)。
 
-## mindspore.nn.Accuracy
+## mindspore.train.Accuracy
 
 ```python
-mindspore.nn.Accuracy(eval_type="classification")
+mindspore.train.Accuracy(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Accuracy](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Accuracy.html#mindspore.train.Accuracy)。
+更多内容详见[mindspore.train.Accuracy](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Accuracy.html#mindspore.train.Accuracy)。
 
 ## 使用方式
 
-Accuracy通常用于二分类和多分类场景下准确率的计算。MindSpore提供相关功能的接口为`mindspore.nn.Accuracy`；TensorFlow提供了较多选择，整体功能及计算逻辑相同，但接口对输入数据的格式要求略有不同。
+Accuracy通常用于二分类和多分类场景下准确率的计算。MindSpore提供相关功能的接口为`mindspore.train.Accuracy`；TensorFlow提供了较多选择，整体功能及计算逻辑相同，但接口对输入数据的格式要求略有不同。
 
 在两框架中，评估函数接口分别使用`update`方法和`update_state`方法对当前batch样本的准确率进行计算和更新，需要传入y_pred和y_true，假设当前batch数据为N，类别为C，接口大致区别如下：
 
-MindSpore：`mindspore.nn.Accuracy`支持常规单标签场景和多标签场景，通过接口入参`eval_type`设置'classification'和'multilabel'区分。mindspore的`update`方法中，y_pred默认为[0,1]范围内的概率值， shape为(N,C) ；y_true需要依据场景区分：单标签时，y的shape可以为 (N,C) 和(N,)，多标签时，需要shape为 (N,C)，详情请参考官网API注释。
+MindSpore：`mindspore.train.Accuracy`支持常规单标签场景和多标签场景，通过接口入参`eval_type`设置'classification'和'multilabel'区分。mindspore的`update`方法中，y_pred默认为[0,1]范围内的概率值， shape为(N,C) ；y_true需要依据场景区分：单标签时，y的shape可以为 (N,C) 和(N,)，多标签时，需要shape为 (N,C)，详情请参考官网API注释。
 
 TensorFlow1.15版本提供了众多计算Accuracy的接口，且此版本的这些接口都不支持多标签场景。下述接口都可以通过`sample_weight`配置样本权重，大致区别如下：
 
@@ -118,11 +118,11 @@ print(acc.result().numpy())
 
 **MindSpore**：
 
-mindspore.nn.Accuracy：
+mindspore.train.Accuracy：
 
 ```python
 import numpy as np
-from mindspore import nn
+from mindspore.train import Accuracy
 import mindspore as ms
 
 # classification
@@ -130,7 +130,7 @@ y_pred = ms.Tensor(np.array([[0.2, 0.5, 0.4], [0.3, 0.1, 0.4], [0.9, 0.6, 0.4]])
 y_true1 = ms.Tensor(np.array([1, 2, 1]), ms.float32) # y_true1: index of category
 y_true2 = ms.Tensor(np.array([[0, 1, 0], [0, 0, 1], [0, 1, 0]]), ms.float32) # y_true2: one hot encoding
 
-acc = nn.Accuracy('classification')
+acc = Accuracy('classification')
 acc.update(y_pred, y_true1)
 print(acc.eval())
 # 0.6666666666666666
@@ -144,7 +144,7 @@ print(acc.eval())
 y_pred = ms.Tensor(np.array([[0, 1, 0], [1, 0, 1], [0, 1, 1]]), ms.float32)
 y_true = ms.Tensor(np.array([[0, 1, 1], [1, 0, 1], [0, 1, 0]]), ms.float32)
 
-acc = nn.Accuracy('multilabel')
+acc = Accuracy('multilabel')
 acc.update(y_pred, y_true)
 print(acc.eval())
 # 0.3333333333333333

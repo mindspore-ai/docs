@@ -136,7 +136,7 @@ First import the relevant libraries and define a LeNet5 network:
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
@@ -269,7 +269,7 @@ The following is a basic code example. First, import the required libraries and 
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy, Model
 import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
@@ -312,7 +312,7 @@ network = LeNet5(10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
 # Set amp level
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)
@@ -338,7 +338,7 @@ The following is a basic code example. First, import the required libraries and 
 import numpy as np
 
 import mindspore.nn as nn
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy, Model
 import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
@@ -355,7 +355,7 @@ network = LeNet5(10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
 network.conv1.to_float(ms.float16)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 model.train(epoch=2, train_dataset=ds_train)
 ```
 
@@ -382,7 +382,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
 from mindspore import amp
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy, Model
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 
@@ -406,13 +406,13 @@ Use Loss Scale API to act in optimizers and models.
 #1) Drop the parameter update if there is an overflow
 loss_scale_manager = amp.FixedLossScaleManager()
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
 #2) Execute parameter update even if overflow occurs
 loss_scale = 1024.0
 loss_scale_manager = amp.FixedLossScaleManager(loss_scale, False)
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()])
@@ -472,6 +472,7 @@ After customizing `TrainOneStepCell`, the training network needs to be manually 
 ```python
 import mindspore as ms
 from mindspore import nn
+from mindspore.train import Model
 
 network = LeNet5(10)
 
@@ -501,7 +502,7 @@ for epoch in range(epochs):
         result = net_with_train(d["data"], d["label"])
 
 #2) Define Model and run
-model = ms.Model(net_with_train)
+model = Model(net_with_train)
 
 ds_train = create_dataset()
 
@@ -526,7 +527,7 @@ scale_factor = 4
 scale_window = 3000
 loss_scale_manager = ms.DynamicLossScaleManager(scale_factor, scale_window)
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 ```
 
 > The pictures are cited from [automatic-mixed-precision](https://developer.nvidia.com/automatic-mixed-precision).

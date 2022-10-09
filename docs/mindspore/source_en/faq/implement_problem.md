@@ -35,8 +35,8 @@ A: No. You need to convert the parameters trained by other frameworks into the M
 <font size=3>**Q: Why an error message is displayed when MindSpore is used to set `model.train`?**</font>
 
 ```python
-model.train(1, dataset, callbacks=ms.LossMonitor(1), dataset_sink_mode=True)
-model.train(1, dataset, callbacks=ms.LossMonitor(1), dataset_sink_mode=False)
+model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=False)
 ```
 
 A: If the offloading mode has been set, it cannot be set to non-offloading mode, which is a restriction on the running mechanism.
@@ -56,7 +56,7 @@ The optimizer is not required in the `eval` phase. However, if the `model.eval` 
 
 ```python
 # Define a model.
-model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+model = ms.train.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 # Evaluate the model.
 res = model.eval(dataset)
 ```
@@ -130,7 +130,7 @@ net = Net()
 loss_fn = MyLoss()
 loss_with_net = MyWithLossCell(net, loss_fn)
 train_net = MyTrainOneStepCell(loss_with_net, optim)
-model = ms.Model(net=train_net, loss_fn=None, optimizer=None)
+model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 ```
 
 <br/>
@@ -295,6 +295,7 @@ A: The following is based on the official MindSpore linear fitting case.
 # The fitting function is: f(x)=2*sin(x)+3.
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model, LossMonitor
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
 from mindspore import nn
@@ -336,10 +337,10 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = ms.Model(net, net_loss, opt)
+    model = Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
-    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
@@ -399,10 +400,10 @@ if __name__ == "__main__":
     net_loss = nn.loss.MSELoss()
     #  RMSProp optimalizer with better effect is selected for quadratic function fitting, Currently, Ascend and GPU computing platforms are supported.
     opt = nn.RMSProp(net.trainable_params(), learning_rate=0.1)
-    model = ms.Model(net, net_loss, opt)
+    model = ms.train.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
-    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.train.LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```

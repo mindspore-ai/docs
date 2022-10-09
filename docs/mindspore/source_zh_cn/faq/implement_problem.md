@@ -282,6 +282,7 @@ from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
 from mindspore import nn
 import mindspore as ms
+from mindspore.train import Model, LossMonitor
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
@@ -319,11 +320,11 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = ms.Model(net, net_loss, opt)
+    model = Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
 
-    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```

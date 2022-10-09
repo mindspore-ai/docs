@@ -48,6 +48,7 @@ MindSpore：
 # The following implements Ftrl with MindSpore.
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model
 
 class Net(nn.Cell):
     def __init__(self):
@@ -64,7 +65,7 @@ net = Net()
 
 optim = nn.FTRL(params=net.trainable_params())
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-model = ms.Model(net, loss_fn=loss, optimizer=optim, metrics={"accuracy"})
+model = Model(net, loss_fn=loss, optimizer=optim, metrics={"accuracy"})
 ```
 
 TensorFlow：

@@ -128,6 +128,7 @@ import mindspore as ms
 from mindspore import nn
 from mindspore.nn import Momentum
 from resnet import resnet50
+from mindspore.train import Model
 
 
 def test_train_cifar(epoch_size=10):
@@ -143,7 +144,7 @@ def test_train_cifar(epoch_size=10):
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
     opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = ms.Model(net_pipeline, optimizer=opt)
+    model = Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 

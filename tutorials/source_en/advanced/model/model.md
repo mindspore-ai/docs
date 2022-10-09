@@ -39,6 +39,7 @@ import numpy as np
 import mindspore.dataset as ds
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.common.initializer import Normal
 
 def get_data(num, w=2.0, b=3.0):
@@ -70,7 +71,7 @@ crit = nn.MSELoss()
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Use a model to build a training network.
-model = ms.Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
+model = Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
 ```
 
 ### Model Training
@@ -177,6 +178,7 @@ import mindspore.dataset as ds
 import mindspore.ops as ops
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.nn import LossBase
 from mindvision.engine.callback import LossMonitor
 
@@ -234,7 +236,7 @@ loss_net = CustomWithLossCell(net, loss)
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Use the model to connect the network and optimizer. In this case, the model does not pass through nn.WithLossCell.
-model = ms.Model(network=loss_net, optimizer=opt)
+model = Model(network=loss_net, optimizer=opt)
 # Use the train API for model training.
 model.train(epoch=1, train_dataset=multi_train_dataset, callbacks=[LossMonitor(0.005)])
 ```
@@ -262,6 +264,7 @@ The following example describes how to customize a training network `CustomTrain
 ```python
 import mindspore.ops as ops
 import mindspore as ms
+from mindspore.train import Model
 from mindvision.engine.callback import LossMonitor
 
 class CustomTrainOneStepCell(nn.Cell):
@@ -287,7 +290,7 @@ multi_train_ds = create_multilabel_dataset(num_data=160)
 # Manually build a training network.
 train_net = CustomTrainOneStepCell(loss_net, opt)
 # Build a training network.
-model = ms.Model(train_net)
+model = Model(train_net)
 # Perform model training.
 model.train(epoch=1, train_dataset=multi_train_ds, callbacks=[LossMonitor(0.01)])
 ```
@@ -315,7 +318,7 @@ The following example shows how to customize an evaluation network `CustomWithEv
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-
+from mindspore.train import Model, MAE
 
 class CustomWithEvalCell(nn.Cell):
     """Customize multi-label evaluation network."""
@@ -335,13 +338,13 @@ multi_eval_dataset = create_multilabel_dataset(num_data=80)
 eval_net = CustomWithEvalCell(net)
 
 # Evaluation function
-mae1 = nn.MAE()
-mae2 = nn.MAE()
+mae1 = MAE()
+mae2 = MAE()
 mae1.set_indexes([0, 1])
 mae2.set_indexes([0, 2])
 
 # Use a model to build an evaluation network.
-model = ms.Model(network=loss_net, optimizer=opt, eval_network=eval_net,
+model = Model(network=loss_net, optimizer=opt, eval_network=eval_net,
                  metrics={"mae1": mae1, "mae2": mae2})
 result = model.eval(multi_eval_dataset)
 print(result)

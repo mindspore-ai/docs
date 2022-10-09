@@ -263,6 +263,7 @@ In the example below, we specify the parallel mode as automatic parallelism, and
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 from mindspore.nn import Momentum
 from mindspore.communication import init
 from resnet import resnet50
@@ -280,7 +281,7 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt)
+    model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
@@ -636,10 +637,10 @@ export MS_RECOVERY_PATH=“/xxx/xxx”      # Configure the persistence path fol
 2) Configure the checkpoint save interval, for example:
 
 ```python
-import mindspore as ms
+from mindspore.train import ModelCheckpoint, CheckpointConfig
 
-ckptconfig = ms.CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
-ckpoint_cb = ms.ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
+ckptconfig = CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
+ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
 ```
 
 Each Worker turns on save checkpoint and uses a different path (as in the example above, the directory setting uses the rank id to ensure that the paths are not the same) to prevent checkpoint save conflicts of the same name. checkpoint is used for abnormal process recovery and normal process rollback. Training rollback means that each worker in the cluster is restored to the state corresponding to the latest checkpoint, and the data side also falls back to the corresponding step, and then continues training. The interval between saving checkpoints is configurable, which determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps that are reverted to the last save checkpoint, but the frequent saving of checkpoints may also affect the training efficiency, and the larger the interval, the opposite effect. keep_checkpoint_max set to at least 2 (to prevent checkpoint save failure).

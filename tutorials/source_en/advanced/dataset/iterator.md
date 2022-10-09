@@ -306,6 +306,7 @@ After a dataset object is created, you can transfer the dataset object to the `M
 ```python
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import ms_function
 from mindspore import nn
 import mindspore.dataset as ds
@@ -333,7 +334,7 @@ class Net(nn.Cell):
 dataset = create_dataset()
 
 network = Net()
-model = ms.Model(network)
+model = Model(network)
 
 # The dataset is transferred to the model, and the train API performs data iteration processing.
 model.train(epoch=1, train_dataset=dataset)

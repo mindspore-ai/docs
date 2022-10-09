@@ -53,6 +53,7 @@
 
 ```python
 import mindspore as ms
+from mindspore.train import Model, ModelCheckpoint, CheckpointConfig, TimeMonitor, LossMonitor
 import mindspore.communication as D
 D.init()
 device_num = D.get_group_size()
@@ -62,13 +63,13 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../src_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
-ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
+model = Model(net, optimizer=opt)
+ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
                                   integrated_save=False)
-ckpoint_cb = ms.ModelCheckpoint(prefix="src_checkpoint",
+ckpoint_cb = ModelCheckpoint(prefix="src_checkpoint",
                                 directory = "../src_checkpoints/rank_{}".format(rank_id),
                                 config=ckpt_config)
-callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
 model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
 
@@ -98,6 +99,7 @@ src_strategy.ckpt
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 import mindspore.communication as D
 D.init()
 device_num = D.get_group_size()
@@ -107,7 +109,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../dst_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
+model = Model(net, optimizer=opt)
 model.build(1, dataset)
 ```
 
@@ -119,6 +121,7 @@ model.build(1, dataset)
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 import mindspore.communication as D
 D.init()
 device_num = D.get_group_size()
@@ -128,7 +131,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../dst_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
+model = Model(net, optimizer=opt)
 model.infer_predict_layout(Tensor(np.ones(shape=data_shape)))
 ```
 
@@ -213,6 +216,7 @@ dst_checkpoints/
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 import mindspore.communication as D
 D.init()
 device_num = D.get_group_size()
@@ -222,7 +226,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../dst_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
+model = Model(net, optimizer=opt)
 param_dict = ms.load_checkpoint(ckpt_file)
 model.build(train_dataset=dataset, epoch=2)
 ms.load_param_into_net(net, param_dict)
@@ -235,6 +239,7 @@ model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 
 ```python
 import mindspore as ms
+from mindspore.train import Model
 import mindspore.communication as D
 D.init()
 device_num = D.get_group_size()
@@ -244,7 +249,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../dst_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
+model = Model(net, optimizer=opt)
 param_dict = ms.load_checkpoint(ckpt_file)
 model.infer_predict_layout(predict_data)
 ms.load_param_into_net(net, param_dict)

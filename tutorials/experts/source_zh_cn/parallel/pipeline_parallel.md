@@ -124,6 +124,7 @@ class ResNet(nn.Cell):
 
 ```python
 import mindspore as ms
+from mindspore.train import Model, LossMonitor
 from mindspore import nn
 from mindspore.nn import Momentum
 from resnet import resnet50
@@ -132,7 +133,7 @@ from resnet import resnet50
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
     ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -142,7 +143,7 @@ def test_train_cifar(epoch_size=10):
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
     opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = ms.Model(net_pipeline, optimizer=opt)
+    model = Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 

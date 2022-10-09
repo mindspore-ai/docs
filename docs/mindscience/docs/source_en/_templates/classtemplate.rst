@@ -12,6 +12,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
+    :exclude-members: construct
     :members:
 
 {% else %}
