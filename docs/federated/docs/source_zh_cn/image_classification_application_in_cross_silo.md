@@ -2,15 +2,15 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore云云联邦框架上，使用网络LeNet实现一个图片分类应用。
+根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore Federated云云联邦框架上，使用网络LeNet实现一个图片分类应用。
 
-启动云云联邦的图像分类应用的完整脚本可参考[这里](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/cross_silo_femnist)。
+启动云云联邦的图像分类应用的完整脚本可参考[这里](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist)。
 
 ## 下载数据集
 
 本示例采用[leaf数据集](https://github.com/TalwalkarLab/leaf)中的联邦学习数据集`FEMNIST`， 该数据集包含62个不同类别的手写数字和字母（数字0~9、26个小写字母、26个大写字母），图像大小为`28 x 28`像素，数据集包含3500个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
 
-可参考文档[端云联邦学习图像分类数据集处理](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process.md#)中步骤1~7获取图片形式的3500个用户数据集`3500_client_img`。
+可参考文档[端云联邦学习图像分类数据集处理](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classfication_dataset_process.html)中步骤1~7获取图片形式的3500个用户数据集`3500_client_img`。
 
 由于原始3500个用户数据集中每个用户数据量比较少，在云云联邦任务中会收敛太快，无法明显体现云云联邦框架的收敛效果，下面提供一个参考脚本，将指定数量的用户数据集合并为一个用户，以增加参与云云联邦任务的单个用户数据量，更好地模拟云云联邦框架实验。
 
@@ -145,25 +145,21 @@ if __name__ == "__main__":
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/test_cross_silo_femnist.py)。
+本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist/test_cross_silo_femnist.py)。
 
-## 定义训练过程
-
-本任务使用的训练过程可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/test_cross_silo_femnist.py)。
-
-脚本中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。
+若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#创建模型)。
 
 ## 启动云云联邦任务
 
-### 安装MindSpore
+### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)。
+包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)， [Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 
 ### 启动任务
 
-参考[示例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/cross_silo_femnist)，启动集群。参考示例目录结构如下：
+参考[示例](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist)，启动集群。参考示例目录结构如下：
 
 ```text
 cross_silo_femnist/
@@ -177,52 +173,35 @@ cross_silo_femnist/
 
 1. 启动Scheduler
 
-   `run_cross_silo_femnist_sched.py`是为用户启动`Scheduler`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`6667`，联邦学习HTTP服务端口为`6668`，`Server`数量为`4`个，集群`Scheduler`管理端口为`11202`，`--config_file_path`用于设置配置文件路径，`--dataset_path`用于设置数据集绝对路径：
+   `run_cross_silo_femnist_sched.py`是为用户启动`Scheduler`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`5554`。
 
    ```sh
-   python run_cross_silo_femnist_sched.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+   python run_cross_silo_femnist_sched.py --scheduler_manage_address=127.0.0.1:5554
    ```
 
    打印如下代表启动成功：
 
    ```sh
-   [INFO] PS(631,2b316a813700,python):2021-08-31-19:49:42.784.715 [mindspore/ccsrc/ps/core/communicator/http_request_handler.cc:92] Run] Start http server!
-   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.904 [mindspore/ccsrc/ps/core/scheduler_node.cc:97] Initialize] [Scheduler start]: 2. The node role is:SCHEDULER, the node id is:e4b3c983-6d0c-470b-b487-1a247af97575 create a tcp server.
-   [INFO] PS(631,2b316a411700,python):2021-08-31-19:49:42.796.929 [mindspore/ccsrc/ps/core/scheduler_node.cc:129] operator()] The scheduler node start a tcp server!
-   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.935 [mindspore/ccsrc/ps/core/scheduler_node.cc:410] StartUpdateClusterStateTimer] [Scheduler start]: 3. The scheduler start a heartbeat timer!
-   [INFO] PS(631,2b316a411700,python):2021-08-31-19:49:42.796.979 [mindspore/ccsrc/ps/core/communicator/tcp_server.cc:192] Start] Start tcp server!
+   [INFO] FEDERATED(35566,7f4275895740,python):2022-10-09-15:23:22.450.205 [mindspore_federated/fl_arch/ccsrc/scheduler/scheduler.cc:35] Run] Scheduler started successfully.
+   [INFO] FEDERATED(35566,7f41f259d700,python):2022-10-09-15:23:22.450.357 [mindspore_federated/fl_arch/ccsrc/common/communicator/http_request_handler.cc:90] Run] Start http server!
    ```
 
 2. 启动Server
 
-   `run_cross_silo_femnist_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的`worker`数量为`7`个：
+   `run_cross_silo_femnist_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其http起始端口为`5555`，`server`数量为`4`个。
 
    ```sh
-    python run_cross_silo_femnist_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --start_fl_job_threshold=7 --update_model_ratio=1 --fl_iteration_num=20 --start_fl_job_time_window=30000 --update_model_time_window=30000 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+    python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.113.216.40:5555
    ```
 
-   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_cross_silo_femnist_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/run_cross_silo_femnist_server.py)。
-
-   > 若只想在单机部署`Scheduler`以及`Server`，只需将`scheduler_ip`配置项修改为`127.0.0.1`即可。
-
-   若想让`Server`分布式部署在不同物理节点，可以使用`local_server_num`参数，代表在**本节点**需要执行的`Server`进程数量：
-
-   ```sh
-   # 在节点1启动3个Server进程
-    python run_cross_silo_femnist_server.py --scheduler_ip={ip_address_node_1} --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --start_fl_job_threshold=7 --update_model_ratio=1 --fl_iteration_num=20 --start_fl_job_time_window=30000 --update_model_time_window=30000 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img --local_server_num=3
-   ```
-
-   ```sh
-   # 在节点2启动1个Server进程
-    python run_cross_silo_femnist_server.py --scheduler_ip={ip_address_node_2} --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --start_fl_job_threshold=7 --update_model_ratio=1 --fl_iteration_num=20 --start_fl_job_time_window=30000 --update_model_time_window=30000 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img --local_server_num=1
-   ```
+   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`5555`、`5556`、`5557和`5558`。
 
 3. 启动Worker
 
-   `run_cross_silo_femnist_worker.py`是为用户启动若干`worker`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`7`个：
+   `run_cross_silo_femnist_worker.py`是为用户启动若干`worker`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，其http起始端口为`5555`，`worker`数量为`4`个：
 
    ```sh
-   python run_cross_silo_femnist_worker.py --scheduler_ip=10.113.216.40 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --fl_iteration_num=20 --client_epoch_num=1 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+   python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
    ```
 
 当执行以上三个指令之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "test acc" *`查看`worker_0`日志，可看到如下类似打印：
@@ -233,7 +212,7 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-以上脚本中参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.set_fl_context)。
+以上脚本中参数配置说明请参考[yaml配置说明](https://gitee.com/mindspore/federated/blob/master/docs/federated_server_yaml.md)。
 
 ### 日志查看
 
@@ -276,7 +255,7 @@ cross_silo_femnist
 若想中途退出，则可用以下指令：
 
 ```sh
-python finish_cross_silo_femnist.py --scheduler_port=6667
+python finish_cross_silo_femnist.py --redis_port=2345
 ```
 
 或者等待训练任务结束之后集群会自动退出，不需要手动关闭。
