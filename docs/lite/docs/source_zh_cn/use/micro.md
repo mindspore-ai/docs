@@ -867,3 +867,53 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
 ========run success=======
 ```
+
+## 自定义算子
+
+使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
+
+使用转换工具生成NNIE的自定义算子具体步骤请参考[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html)。
+
+模型生成代码方式与非自定义算子模型保持一致：
+
+```shell
+
+./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
+
+```
+
+其中config配置文件设置target = ARM32。
+
+### 用户实现自定义算子
+
+上一步会在用户指定路径下生成源码目录，其有一个名为`src/registered_kernel.h`的头文件指定了custom算子的函数声明：
+
+``` C++
+
+int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
+
+```
+
+用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)“NNIE 推理runtime库、benchmark工具”组件中。用户需要修改生成代码的CMakeLists.txt，添加链接的库名称和路径。例如：
+
+``` shell
+
+link_directories(<YOUR_PATH>/mindspore-lite-1.8.1-linux-aarch32/providers/Hi3516D)
+
+link_directories(<HI3516D_SDK_PATH>)
+
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe securec -lm -pthread)
+
+```
+
+在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
+
+``` shell
+
+mkdir buid && cd build
+
+cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
+
+make
+
+```

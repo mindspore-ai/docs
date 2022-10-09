@@ -873,3 +873,52 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
 ========run success=======
 ```
+
+## Custom Kernel
+
+Please refer to [Custom Kernel](https://www.mindspore.cn/lite/docs/en/master/use/register.html) to understand the basic concepts before using.
+Micro currently only supports the registration and implementation of custom operators of custom type, and does not support the registration and custom implementation of built-in operators (such as conv2d and fc).
+We use Hi3516D board as an example to show you how to use kernel register in Micro.
+
+Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html) for the specific steps of using the conversion tool to generate custom operators for NNIE.
+
+The manner that the model generates code is consistent with that of the non-custom operator model.
+
+```shell
+./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
+```
+
+where target sets to be ARM32.
+
+### Implementing custom kernel by users
+
+The previous step generates the source code directory under the specified path with a header file called `src/registered_kernel.h` that specifies the function declarations for the custom operator.
+
+``` C++
+int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
+```
+
+Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
+
+``` shell
+
+link_directories(<YOUR_PATH>/mindspore-lite-1.8.1-linux-aarch32/providers/Hi3516D)
+
+link_directories(<HI3516D_SDK_PATH>)
+
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe securec -lm -pthread)
+
+```
+
+In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
+Finally, we compile the source code:
+
+``` shell
+
+mkdir buid && cd build
+
+cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
+
+make
+
+```
