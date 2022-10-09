@@ -1,5 +1,7 @@
 # 物理驱动
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/sponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 在MindSPONGE软件包中内置了两种分子动力学模拟软件，第一种是基于C++/CUDA完成的传统分子动力学模拟软件，第二种是基于传统分子动力学，使用MindSpore所完成的可微分子动力学模拟软件。
 
 ## 传统分子动力学
@@ -10,7 +12,7 @@
 
 ### 安装
 
-请参考[MindSPONGE安装教程](intro.md)。
+请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)。
 
 传统分子动力学安装可使用源码编译安装。
 
@@ -36,10 +38,13 @@ pip install mindscience_sponge*.whl
 
 传统分子动力学的基本流程为：
 
-- 终端中最先输出各个模块用到的初始化信息
-- 程序正式开始运行模拟
-- 按一定模拟迭代步数输出能量，温度等系统信息
-- 运行完毕，输出运行耗时和估计计算速度
+1. 终端中最先输出各个模块用到的初始化信息。
+
+2. 程序正式开始运行模拟。
+
+3. 按一定模拟迭代步数输出能量，温度等系统信息。
+
+4. 运行完毕，输出运行耗时和估计计算速度。
 
 传统分子动力学中自带tip4p水模型，通过输入最简命令，可直接运行。
 
@@ -119,11 +124,11 @@ bond_in_file = tip4p_2880_system/Ih_bond.txt
 
 ### 安装
 
-可微分子动力学的安装流程与MindSPONGE的安装流程一致，请参考[MindSPONGE安装教程](intro.md)。
+可微分子动力学的安装流程与MindSPONGE的安装流程一致，请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)。
 
 ### 基本使用
 
-可微分子动力学的基本使用方法可参考[案例初体验](intro.md)以及后续的API介绍文档[MindSPONGE APIs](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge.html#)
+可微分子动力学的基本使用方法可参考[案例初体验](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E6%A1%88%E4%BE%8B%E5%88%9D%E4%BD%93%E9%AA%8C)以及后续的API介绍文档[MindSPONGE APIs](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge.html#)。
 
 ### 案例
 

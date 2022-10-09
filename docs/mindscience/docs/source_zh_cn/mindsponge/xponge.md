@@ -1,5 +1,7 @@
 # 分子体系建模
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/xponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 MindSPONGE软件中包含一个轻量化且易于定制的分子体系建模工具，用于执行分子模拟的前处理和后处理。
 
 ## 分子体系建模工具能做什么
@@ -12,7 +14,7 @@ MindSPONGE软件中包含一个轻量化且易于定制的分子体系建模工�
 
 ## 安装
 
-请参考[MindSPONGE安装教程](intro.md)。
+请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)。
 
 | 依赖名称   | 使用说明                                        | 安装方式                 |
 | :-------   | :--------------------------------------------- | :---------------------- |

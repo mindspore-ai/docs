@@ -1,5 +1,7 @@
 # 物理+数据驱动
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/cybertron.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 MindSPONGE软件包中包含基于MindSpore的深度分子模型通用架构Cybertron，可以支持基于图神经网络(GNN)的深度分子模型。
 
 Cybertron中内置三种GNN分子模型： SchNet[1]、 PhysNet[2]以及MolCT[3]。
@@ -8,21 +10,21 @@ Cybertron中内置三种GNN分子模型： SchNet[1]、 PhysNet[2]以及MolCT[3]
 
 - SchNet模型架构
 
-![SchNet](./images/SchNet.png)
+  ![SchNet](./images/SchNet.PNG)
 
 - PhysNet模型架构
 
-![PhysNet](./images/PhysNet.png)
+  ![PhysNet](./images/PhysNet.PNG)
 
 - MolCT模型架构
 
-![MolCT](./images/MolCT.png)
+  ![MolCT](./images/MolCT.PNG)
 
 三种GNN分子模型均可从Cybertron中直接调用。
 
 ## 安装
 
-请参考[MindSPONGE安装教程](intro.md)，确保前置依赖已安装完成。
+请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)，确保前置依赖已安装完成。
 
 Cybertron安装可使用源码编译安装。
 
@@ -53,17 +55,17 @@ Cybertron网络由模型和Readout函数两部分组成，网络的初始化可�
 
 - 直接使用字符串调用
 
-```bash
-net = Cybertron(model='schnet', readout='graph'. dim_output=1, num_atoms=num_atom)
-```
+  ```bash
+  net = Cybertron(model='schnet', readout='graph'. dim_output=1, num_atoms=num_atom)
+  ```
 
 - 单独定义模型和参数后再传入Cybertron
 
-```bash
-mod = MolCT(cutoff=1. n_interaction=3, dim_feature=128, activation='swish')
-readout = AtomwiseReadout(model=mod, dim_output=1)
-net=Cybertron(model=mod, readout=readout, dim_output=1, num_atoms=num_atom)
-```
+  ```bash
+  mod = MolCT(cutoff=1. n_interaction=3, dim_feature=128, activation='swish')
+  readout = AtomwiseReadout(model=mod, dim_output=1)
+  net=Cybertron(model=mod, readout=readout, dim_output=1, num_atoms=num_atom)
+  ```
 
 ## 教程
 

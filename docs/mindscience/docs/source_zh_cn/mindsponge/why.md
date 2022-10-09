@@ -1,5 +1,7 @@
 # 为什么需要下一代分子模拟软件
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/why.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 分子动力学模拟
 
 分子动力学MD(molecular dynamics)模拟是一种根据分子力场(force field)所描述的势能(potential energy)函数模拟分子的微观运动，从而计算分子体系的物理和化学性质的科学计算工具。目前，MD模拟在化学、生物、物理、制药、材料、环境等领域有着广泛的应用。
