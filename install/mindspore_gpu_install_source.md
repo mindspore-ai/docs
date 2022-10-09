@@ -11,7 +11,6 @@
         - [安装wheel和setuptools](#安装wheel和setuptools)
         - [安装GCC git等依赖](#安装gcc-git等依赖)
         - [安装CMake](#安装cmake)
-        - [安装Open MPI-可选](#安装open-mpi-可选)
         - [安装LLVM-可选](#安装llvm-可选)
         - [安装TensorRT-可选](#安装tensorrt-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
@@ -93,7 +92,6 @@ bash -i ./ubuntu-gpu-source.sh
 |[tclsh](#安装gcc-git等依赖)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gcc-git等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gcc-git等依赖)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
-|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 |[LLVM](#安装llvm-可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
 |[TensorRT](#安装tensorrt-可选)|7.2.2或8.4|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
@@ -246,23 +244,6 @@ sudo apt-get install gcc-9 -y
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
 sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
 sudo apt-get install cmake -y
-```
-
-### 安装Open MPI-可选
-
-可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
 ```
 
 ### 安装LLVM-可选

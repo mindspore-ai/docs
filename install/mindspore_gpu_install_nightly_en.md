@@ -8,7 +8,6 @@
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)
-        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing TensorRT-optional](#installing-tensorrt-optional)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -35,7 +34,6 @@ The following table lists the system environment and third-party dependencies re
 | [cuDNN](#installing-cudnn)                | 7.6.x or 8.0.x or 8.5.x | deep neural network acceleration library used by MindSpore GPU |
 | [Python](#installing-python)              | 3.7-3.9        | Python environment that MindSpore depends on                 |
 | [GCC](#installing-gcc-and-gmp)            | 7.3.0~9.4.0    | C++ compiler for compiling MindSpore                         |
-| [Open MPI](#installing-open-mpi-optional) | 4.0.3          | high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training) |
 | [TensorRT](#installing-tensorrt-optional) | 7.2.2 or 8.4   | high performance deep learning inference SDK used by MindSpore (optional, required for serving inference) |
 
 The following describes how to install the third-party dependencies.
@@ -168,23 +166,6 @@ sudo apt-get install software-properties-common -y
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update
 sudo apt-get install gcc-9 -y
-```
-
-### Installing Open MPI-optional
-
-You may compile and install Open MPI by the following command.
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
 ```
 
 ### Installing TensorRT-optional
