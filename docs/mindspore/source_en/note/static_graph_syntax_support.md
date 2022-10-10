@@ -655,11 +655,11 @@ For details about the rules, click [conversion-rules](https://www.mindspore.cn/d
 
 ### Unary Arithmetic Operators
 
-| Unary Arithmetic Operator | Supported Type                 |
-| :------------------------ | :----------------------------- |
-| `+`                       | `Number`, `Tensor`             |
-| `-`                       | `Number`, `Tensor`             |
-| `~`                       | `Tensor` with `Bool` data type |
+| Unary Arithmetic Operator | Supported Type                               |
+| :------------------------ | :------------------------------------------- |
+| `+`                       | `Number`, `Tensor`                           |
+| `-`                       | `Number`, `Tensor`, `COOTensor`, `CSRTensor` |
+| `~`                       | `Tensor` with `Bool` data type               |
 
 notes:
 
@@ -669,10 +669,10 @@ notes:
 
 | Binary Arithmetic Operator | Supported Type|
 | :----------- |:--------|
-| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `Tuple` + `Tuple`.|
-| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, `List` -`Tensor`, `Tensor` -`List`.|
-| `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, `Number` \* `Tensor`, `Tensor` \* `Number`, `List` \* `Number`, `Number` \* `List`, `Tuple` \* `Number`, `Number` \* `Tuple`, `Tuple` \* `Tensor`, `Tensor` \* `Tuple`,  `List` \*`Tensor`, `Tensor` \* `List`.|
-| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`,  `List` / `Tensor`, `Tensor` / `List`.|
+| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `Tuple` + `Tuple`, `COOTensor` + `Tensor`, `Tensor` + `COOTensor`, `COOTensor` + `COOTensor`, `CSRTensor` + `CSRTensor`.|
+| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, `List` -`Tensor`, `Tensor` -`List`, `COOTensor` - `Tensor`, `Tensor` - `COOTensor`, `COOTensor` - `COOTensor`, `CSRTensor` - `CSRTensor`.|
+| `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, `Number` \* `Tensor`, `Tensor` \* `Number`, `List` \* `Number`, `Number` \* `List`, `Tuple` \* `Number`, `Number` \* `Tuple`, `Tuple` \* `Tensor`, `Tensor` \* `Tuple`,  `List` \*`Tensor`, `Tensor` \* `List`, `COOTensor` \* `Tensor`, `Tensor` \* `COOTensor`, `CSRTensor` \* `Tensor`, `Tensor` \* `CSRTensor`.|
+| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`,  `List` / `Tensor`, `Tensor` / `List`, `COOTensor` / `Tensor`, `CSRTensor` / `Tensor`.|
 | `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, `Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
 | `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, `Number` \*\* `Tensor`, `Tensor` \*\* `Number`, `Tuple` \*\* `Tensor`, `Tensor` \*\* `Tuple`,  `List` \*\* `Tensor`, `Tensor` \*\* `List`.|
 | `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, `Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
@@ -1650,11 +1650,11 @@ from mindspore import ms_function
 
 @ms_function
 def func():
-   a = all(['a', 'b', 'c', 'd'])  
+   a = all(['a', 'b', 'c', 'd'])
    b = all(['a', 'b', '', 'd'])
    c = all([0, 1, 2, 3])
    d = all(('a', 'b', 'c', 'd'))
-   e = all(('a', 'b', '', 'd'))  
+   e = all(('a', 'b', '', 'd'))
    f = all((0, 1, 2, 3))
    g = all([])
    h = all(())
