@@ -186,7 +186,7 @@ texts = [
 ]
 ```
 
-```text
+```python
 test_dataset = GeneratorDataset(texts, 'text')
 ```
 
