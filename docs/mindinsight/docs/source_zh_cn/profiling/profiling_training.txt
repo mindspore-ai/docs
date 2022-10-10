@@ -1,125 +1,147 @@
 准备训练脚本
 ------------
 
-为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore
-Profiler相关接口。
+收集神经网络性能数据有两种方式，可以使用以下任意一种方式使能Profiler。
 
-- 在训练开始前，需要初始化MindSpore ``Profiler``\ 对象。
+- 方式一：环境变量使能
+
+  在运行网络脚本前，配置Profiler相关配置项。
+
+  .. code-block:: shell
+     export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
+
+  - `start`（bool，必选）：设置为"true"，表示使能Profiler；设置成"false"，表示关闭性能数据收集，默认值："false"。
+
+  - `output_path`（str, 可选）：表示输出数据的路径（绝对路径）。默认值："./data"。
+
+  - `memory`（bool，可选）：表示是否收集Tensor内存数据。当值为"true"时，收集这些数据。默认值："false"。
+
+  - `hccl`（bool, 可选）：表示是否在多设备训练中收集通信性能数据。当值为"true"时，收集这些数据。在单台设备训练中，该参数的设置无效。默认值："false"。
+
+  - `aicore_metrics`（int, 可选）：设置AI Core指标类型，默认值：0。
+
+  - `l2_cache`（bool, 可选）：设置是否收集l2缓存数据，默认值："false"。
+
+- 方式二：修改训练脚本
+
+  在训练脚本中添加MindSpore Profiler相关接口。
+
+  - 在训练开始前，初始化MindSpore ``Profiler``\ 对象。
 
   .. note::
-     Profiler支持的参数可以参考：
-     `Profiler API <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
+    Profiler支持的参数可以参考：
+    `Profiler API <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
 
-- 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
+  - 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
 
-Profiler可以通过start_profile参数控制是否基于step（epoch）开启、关闭收集性能数据。对于图模式的数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
+  Profiler可以通过start_profile参数控制是否基于step（epoch）开启、关闭收集性能数据。对于图模式的数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
 
-正常场景样例代码如下：
-
-.. code:: python
-
-   import numpy as np
-   from mindspore import nn
-   import mindspore as ms
-   import mindspore.dataset as ds
-
-   class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
-           self.fc = nn.Dense(2, 2)
-
-       def construct(self, x):
-           return self.fc(x)
-
-
-   def generator():
-       for i in range(2):
-           yield (np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32))
-
-
-   def train(net):
-       optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
-       loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
-       data = ds.GeneratorDataset(generator, ["data", "label"])
-       model = ms.Model(net, loss, optimizer)
-       model.train(1, data)
-
-
-   if __name__ == '__main__':
-       ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
-
-       # Init Profiler
-       # Note that the Profiler should be initialized before model.train
-       profiler = ms.Profiler(output_path = './profiler_data')
-
-       # Train Model
-       net = Net()
-       train(net)
-       
-       # Profiler end
-       profiler.analyse()
-
-图模式：
-
-- 对于非数据下沉，需要基于step开启
+  正常场景样例代码如下：
 
   .. code:: python
 
-      import mindspore as ms
-      class StopAtStep(ms.Callback):
-          def __init__(self, start_step, stop_step):
-              super(StopAtStep, self).__init__()
-              self.start_step = start_step
-              self.stop_step = stop_step
-              self.profiler = ms.Profiler(start_profile=False)
-          def step_begin(self, run_context):
-              cb_params = run_context.original_args()
-              step_num = cb_params.cur_step_num
-              if step_num == self.start_step:
-                  self.profiler.start()
-          def step_end(self, run_context):
-              cb_params = run_context.original_args()
-              step_num = cb_params.cur_step_num
-              if step_num == self.stop_step:
-                  self.profiler.stop()
-          def end(self, run_context):
-              self.profiler.analyse()
+     import numpy as np
+     from mindspore import nn
+     import mindspore as ms
+     import mindspore.dataset as ds
 
-- 对于数据下沉，需要基于epoch开启
+     class Net(nn.Cell):
+         def __init__(self):
+             super(Net, self).__init__()
+             self.fc = nn.Dense(2, 2)
+
+         def construct(self, x):
+             return self.fc(x)
+
+
+     def generator():
+         for i in range(2):
+             yield (np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32))
+
+
+     def train(net):
+         optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
+         loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+         data = ds.GeneratorDataset(generator, ["data", "label"])
+         model = ms.Model(net, loss, optimizer)
+         model.train(1, data)
+
+
+     if __name__ == '__main__':
+         ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+         # Init Profiler
+         # Note that the Profiler should be initialized before model.train
+         profiler = ms.Profiler(output_path = './profiler_data')
+
+         # Train Model
+         net = Net()
+         train(net)
+
+         # Profiler end
+         profiler.analyse()
+
+  图模式：
+
+  - 对于非数据下沉，需要基于step开启
+
+    .. code:: python
+
+        import mindspore as ms
+        class StopAtStep(ms.Callback):
+            def __init__(self, start_step, stop_step):
+                super(StopAtStep, self).__init__()
+                self.start_step = start_step
+                self.stop_step = stop_step
+                self.profiler = ms.Profiler(start_profile=False)
+            def step_begin(self, run_context):
+                cb_params = run_context.original_args()
+                step_num = cb_params.cur_step_num
+                if step_num == self.start_step:
+                    self.profiler.start()
+            def step_end(self, run_context):
+                cb_params = run_context.original_args()
+                step_num = cb_params.cur_step_num
+                if step_num == self.stop_step:
+                    self.profiler.stop()
+            def end(self, run_context):
+                self.profiler.analyse()
+
+  - 对于数据下沉，需要基于epoch开启
+
+    .. code:: python
+
+        class StopAtEpoch(ms.Callback):
+            def __init__(self, start_epoch, stop_epoch):
+                super(StopAtEpoch, self).__init__()
+                self.start_epoch = start_epoch
+                self.stop_epoch = stop_epoch
+                self.profiler = ms.Profiler(start_profile=False)
+            def epoch_begin(self, run_context):
+                cb_params = run_context.original_args()
+                epoch_num = cb_params.cur_epoch_num
+                if epoch_num == self.start_epoch:
+                    self.profiler.start()
+            def epoch_end(self, run_context):
+                cb_params = run_context.original_args()
+                epoch_num = cb_params.cur_epoch_num
+                if epoch_num == self.stop_epoch:
+                    self.profiler.stop()
+            def end(self, run_context):
+                self.profiler.analyse()
+
+  自定义训练：
 
   .. code:: python
 
-      class StopAtEpoch(ms.Callback):
-          def __init__(self, start_epoch, stop_epoch):
-              super(StopAtEpoch, self).__init__()
-              self.start_epoch = start_epoch
-              self.stop_epoch = stop_epoch
-              self.profiler = ms.Profiler(start_profile=False)
-          def epoch_begin(self, run_context):
-              cb_params = run_context.original_args()
-              epoch_num = cb_params.cur_epoch_num
-              if epoch_num == self.start_epoch:
-                  self.profiler.start()
-          def epoch_end(self, run_context):
-              cb_params = run_context.original_args()
-              epoch_num = cb_params.cur_epoch_num
-              if epoch_num == self.stop_epoch:
-                  self.profiler.stop()
-          def end(self, run_context):
-              self.profiler.analyse()
+     profiler = ms.Profiler(start_profile=False)
+     data_loader = ds.create_dict_iterator()
 
-自定义训练：
+     for i, data in enumerate(data_loader):
+         train()
+         if i==100:
+             profiler.start()
+         if i==200:
+             profiler.stop()
 
-.. code:: python
-
-   profiler = ms.Profiler(start_profile=False)
-   data_loader = ds.create_dict_iterator()
-
-   for i, data in enumerate(data_loader):
-       train()
-       if i==100:
-           profiler.start()
-       if i==200:
-           profiler.stop()
-
-   profiler.analyse()
+     profiler.analyse()
