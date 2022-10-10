@@ -72,9 +72,11 @@ cd mindscience/MindSPONGE
 
 violation计算公式如下:
 
+$$
 \begin{align}
 \mathcal L_{viol} = \mathcal L_{bondlength }+\mathcal L_{bondangle }+\mathcal L_{clash } .
 \end{align}
+$$
 
 ```bash
 import mindspore as ms

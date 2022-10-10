@@ -1,9 +1,6 @@
 MindSPONGE APIs
 =======================
 
-.. warning::
-    These are experimental prototypes that are subject to change and/or deletion.
-
 mindsponge.callback
 ----------------------
 
