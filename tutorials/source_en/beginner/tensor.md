@@ -376,7 +376,9 @@ $$
 
 - `dense_shape`: indicates the shape of a compressed sparse tensor.
 
-> For the detailed documentation of `RowTensor`, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html). A code example is as follows:
+> For the detailed documentation of `RowTensor`, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html).
+
+A code example is as follows:
 
 ```python
 indices = Tensor([0])
