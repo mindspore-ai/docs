@@ -1,4 +1,4 @@
-Performance Profiling (Ascend-Graph)
+Performance Profiling (Ascend)
 =====================================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
@@ -20,6 +20,7 @@ debugging on Ascend AI processors.
 .. include:: profiling/profiling_data_preparation.txt
 .. include:: profiling/profiling_timeline.txt
 .. include:: profiling/profiling_dynamic_shape.txt
+.. include:: profiling/profiling_msprof.txt
 .. include:: profiling/profiling_resoure.txt
 .. include:: profiling/profiling_specifications.txt
 .. include:: profiling/profiling_notices.txt

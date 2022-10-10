@@ -1,4 +1,4 @@
-# Performance Profiling (GPU-Graph)
+# Performance Profiling (GPU)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -204,9 +204,9 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
 
 ## Notices
 
-- Currently the performance debugging is not supported in PyNative mode.
 - Currently the training and inference process does not support performance debugging, and only the performance debugging for the individual training or inference is supported.
 - GPU does not support memory performance data collection.
 - To use performance debugging in GPU scenarios, you must use the root permission.
-- GPU performance debugging does not support dynamic Shape scenarios, multi-subgraph scenarios, and control flow scenarios.
 - Performance debugging in GPU scenarios depends on CUDA environment variables. Please `export LD_LIBRARY_PATH=${CUDA_HOME}/extras/CUPTI/lib64:$LD_LIBRARY_PATH` before using Profiler. The CUDA_HOME needs to be replaced with the local CUDA path.
+- Step trace analysis only supports single-graph scenarios in Graph mode, and does not support scenarios such as pynative, heterogeneous, and multi-subgraphs.
+- Enable profiling based on step, enable profiling based on epoch, step trace analysis and cluster analysis are only supported in Graph mode.

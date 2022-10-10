@@ -4,4 +4,5 @@ Notices
 - Currently the training and inference process does not support
   performance debugging, only individual training or inference is
   supported.
-- Ascend performance debugging does not support multi-subgraph scenarios and control flow scenarios.
+- Step trace analysis only supports single-graph scenarios in Graph mode, and does not support scenarios such as pynative, heterogeneous, and multi-subgraphs.
+- Enable profiling based on step, enable profiling based on epoch, step trace analysis and cluster analysis are only supported in Graph mode.

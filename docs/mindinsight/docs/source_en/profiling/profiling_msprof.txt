@@ -1,0 +1,14 @@
+Msprof tool to assist analysis
+--------------------------------
+
+Users can collect detailed data of AI Core through profiler, and then analyze and view them through Msprof tool.
+
+The sample code is as follows:
+
+.. code:: python
+
+    profiler = Profiler(output_path='./data', aicore_metrics=1, l2_cache=True)
+
+aicore_metrics is used to set the AI Core metric type, and l2_cache is used to set whether to collect l2 cache data. For parameter details, please refer to the API documentation.
+
+For the description of Msprof tool usage and performance data, please refer to the ``Profiling Instructions (Training)`` chapter of the `CANN Development Tools Guide <https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/2c2140b0>`_ document.
