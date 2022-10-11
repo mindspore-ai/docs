@@ -51,10 +51,10 @@
    ```
 
    其中，MindSpore Hub支持的模型文件格式有：
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#保存模型)
-   - [MINDIR](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#导出mindir格式文件)
-   - [AIR](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#导出air格式文件)
-   - [ONNX](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#导出onnx格式文件)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/save_load.html#保存与加载)
+   - [MINDIR](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/save_load.html)
+   - [AIR](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.export.html#mindspore.export)
+   - [ONNX](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.export.html#mindspore.export)
 
    对于每个预训练模型，执行以下命令，用来获得`.md`文件`asset-sha256`处所需的哈希值，其中`googlenet.ckpt`是从步骤1的存储位置处下载并保存到`tools`文件夹的预训练模型，运行后输出的哈希值为`b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`。
 

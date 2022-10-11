@@ -123,7 +123,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
   动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
-  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)。
+  MindSpore提供切换同步执行的方法，通过设置```set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``` 切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考[PyNative同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/mode.html)。
 
 - 二分法策略
 
@@ -200,7 +200,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |      | 数据Dump   | 训练网络时，若训练结果和预期有偏差，通过Dump功能保存算子输入输出数据进行调试。  | [Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html) |
 | 执行控制 | Callback | 用户可以使用回调函数在特定时期执行特定动作或观察训练过程中网络信息，例如：保存模型参数、监控loss、动态调整参数、提前终止训练任务等。  | [回调机制 Callback](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#callback%E4%BB%8B%E7%BB%8D) |
 |      | Hook     | 在pynative模式使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。已提供了四种形式的Hook功能，分别为：HookBackward算子和在Cell对象上进行注册的register_forward_pre_hook、register_forward_hook、register_backward_hook功能。 | [Hook功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/pynative.html#hook功能)   |
-|      | 同步执行   | 在动态图模式下，为了提升性能，算子在device上使用了异步执行方式，因此算子执行错误可能会在程序执行最后才显示。针对这种情况，MindSpore提供了同步执行的设置来控制算子在device上是否使用异步执行。 | [动态图同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/pynative.html#%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C)|
+|      | 同步执行   | 在动态图模式下，为了提升性能，算子在device上使用了异步执行方式，因此算子执行错误可能会在程序执行最后才显示。针对这种情况，MindSpore提供了同步执行的设置来控制算子在device上是否使用异步执行。 | [动态图同步执行](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/mode.html#动态图)|
 
 ## 框架开发调试
 

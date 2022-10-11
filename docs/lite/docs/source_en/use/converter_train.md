@@ -6,7 +6,7 @@
 
 Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
-- In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
+- In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
 - In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework. The converted `.ms` models can be used for both training and inference.
 
 ## Linux Environment

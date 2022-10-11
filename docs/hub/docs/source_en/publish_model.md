@@ -51,10 +51,10 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ```
 
    The MindSpore Hub supports multiple model file formats including:
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#saving-the-models)
-   - [MindIR](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model)
-   - [AIR](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-air-model)
-   - [ONNX](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-onnx-model)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html#saving-and-loading-the-model)
+   - [MindIR](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html)
+   - [AIR](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.export.html)
+   - [ONNX](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.export.html)
 
    For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `b2f7fe14782a3ab88ad3534ed5f419b4bbc3b477706258bd6ed8f90f529775e7`.
 
