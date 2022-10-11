@@ -69,7 +69,7 @@
 
 首先，需要准备CheckPoint文件和训练策略文件。
 
-CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/model/save.html#保存模型)。
+CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/save_load.html#保存与加载)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
 

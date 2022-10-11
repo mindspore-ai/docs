@@ -31,15 +31,12 @@
 | [mindspore.ops.Ceil](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Ceil.html) | 无                                                           |
 | [mindspore.ops.Concat](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Concat.html) | 输入（input_x）在轴（axis）所对应的维度不能切分，切分后，在数学逻辑上和单机不等价 |
 | [mindspore.ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Conv2D.html) | 1. 数据格式只支持‘NCHW’；<br />2. 如果涉及相邻节点数据交换，只支持Ascend；<br />3. 当group的值不为1时，不支持切分C-in/C-out；<br />4. weight的后两维不支持切分；<br />5. 输出的H/W维的shape必须能被输入的H/W维的切分策略整除；<br />6. valid模式下：如果切分H/W：<br />     1) 当kernel_size <= stride时（其中kernel_size=dilation *(kernel_size - 1) + 1，下同），输入切片大小需能被stride整除；<br />     2) 不支持kernel_size > stride；<br />7. same/pad模式下：如果切分H/W：<br />     1) （包含pad的输入总长度 - kernel_size）需能被stride整除；<br />     2)（ 输出总长度*stride - 输入总长度）需能被切分策略整除：<br />     3）相邻卡间发送接收的数据长度需大于等于0且小于等于切片大小； |
-| [mindspore.ops.Conv2DBackpropInput](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Conv2DBackpropInput.html) | 1. 数据格式只支持‘NCHW’；<br />2. 如果涉及相邻节点数据交换，只支持Ascend；<br />3. 当group的值不为1时，不支持切分C-in/C-out；<br />4. weight的后两维不支持切分；<br />5. 输出的H/W维的shape必须能被输入的H/W维的切分策略整除；<br />6. valid模式下：不支持切分H/W维；<br />7. same/pad模式下：相邻卡间发送接收的数据长度需大于等于0且小于等于切片大小。 |
 | [mindspore.ops.Cos](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Cos.html) | 无                                                           |
 | [mindspore.ops.Cosh](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Cosh.html) | 无                                                           |
 | [mindspore.ops.CropAndResize](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.CropAndResize.html) | 1. 不支持对输入（x）的H/W维和输入（boxes）的第2维进行切分；<br /> 2. 输入（boxes）和输入（box_index）第1维的切分策略必须一致 |
 | [mindspore.ops.Div](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Div.html) | 无                                                           |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DivNoNan.html) | 无                                                           |
 | [mindspore.ops.Dropout](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Dropout.html) | 无                                                           |
-| [mindspore.ops.DropoutDoMask](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DropoutDoMask.html) | 需和`DropoutGenMask`联合使用                                 |
-| [mindspore.ops.DropoutGenMask](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.DropoutGenMask.html) | 需和`DropoutDoMask`联合使用，不支持配置切分策略              |
 | [mindspore.ops.Elu](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Elu.html) | 无                                                           |
 | [mindspore.ops.EmbeddingLookup](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.EmbeddingLookup.html) | 同Gather                                                     |
 | [mindspore.ops.Equal](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Equal.html) | 无                                                           |
@@ -89,7 +86,6 @@
 | [mindspore.ops.ReduceMean](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReduceMean.html) | 无                                                           |
 | [mindspore.ops.ReLU](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReLU.html) | 无                                                           |
 | [mindspore.ops.ReLU6](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReLU6.html) | 无                                                           |
-| [mindspore.ops.ReLUV2](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ReLUV2.html) | 无                                                           |
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape API后接有多个API，不允许对这些API配置不同的切分策略 |
 | [mindspore.ops.ResizeBilinear](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ResizeBilinear.html) | 在GPU平台下，不支持H/W维切分；在Ascend平台下，不支持H维切分，且W维的输出shape要能被切分数整除。 |
 | [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ResizeNearestNeighbor.html) | 在`align_corners=True`时只支持切分第一维和第二维             |

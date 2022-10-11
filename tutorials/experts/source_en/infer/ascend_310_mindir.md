@@ -20,7 +20,7 @@ Refer to [Installation Guide](https://www.mindspore.cn/install/en) to install As
 
 ## Exporting the MindIR Model
 
-Train the target network on the CPU/GPU/Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model).
+Train the target network on the CPU/GPU/Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html#saving-and-loading-mindir).
 
 > The [resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) is a sample MindIR file exported using the ResNet-50 model, whose BatchSize is 1. We also provide a ResNet-50 MindIR with data preprocess [resnet50_imagenet_preprocess.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet_preprocess.mindir).
 

@@ -194,7 +194,7 @@ mindconverter --model_file /path/to/model.onnx
 
 If you need to specify the model input shape, input node names and output node names. [Netron](https://github.com/lutzroeder/netron) is recommended to get the above information.
 
-Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/en/r1.9/advanced/model/save.html#export-mindir-model) file.
+Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html#saving-and-loading-the-model) file.
 
 ```python
 import mindspore as ms
