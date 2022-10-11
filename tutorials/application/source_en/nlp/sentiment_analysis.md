@@ -175,6 +175,10 @@ imdb_train, imdb_test = load_imdb(imdb_path)
 imdb_train
 ```
 
+```text
+<mindspore.dataset.engine.datasets_user_defined.GeneratorDataset at 0x7fa6cd168ed0>
+```
+
 ### Loading Pre-trained Word Vectors
 
 A pre-trained word vector is a numerical representation of an input word. The `nn.Embedding` layer uses the table lookup mode to input the index in the vocabulary corresponding to the word to obtain the corresponding expression vector.
@@ -353,13 +357,10 @@ Herein, `nn.LSTM` hides a cycle of the entire recurrent neural network on a sequ
 
 After the sentence feature is obtained through LSTM encoding, the sentence feature is sent to a fully-connected layer, that is, `nn.Dense`. The feature dimension is converted into dimension 1 required for binary classification. The output after passing through the Dense layer is the model prediction result.
 
-> The `sigmoid` operation is performed after the Dense layer to normalize the predicted value to the `[0,1]` range. The normalized value is used together with `BCELoss`(BinaryCrossEntropyLoss) to calculate the binary cross entropy loss.
-
 ```python
 import math
 import mindspore as ms
 import mindspore.nn as nn
-import mindspore.numpy as mnp
 import mindspore.ops as ops
 from mindspore.common.initializer import Uniform, HeUniform
 
@@ -379,29 +380,18 @@ class RNN(nn.Cell):
         bias_init = Uniform(1 / math.sqrt(hidden_dim * 2))
         self.fc = nn.Dense(hidden_dim * 2, output_dim, weight_init=weight_init, bias_init=bias_init)
         self.dropout = nn.Dropout(1 - dropout)
-        self.sigmoid = ops.Sigmoid()
 
     def construct(self, inputs):
         embedded = self.dropout(self.embedding(inputs))
         _, (hidden, _) = self.rnn(embedded)
-        hidden = self.dropout(mnp.concatenate((hidden[-2, :, :], hidden[-1, :, :]), axis=1))
+        hidden = self.dropout(ops.concat((hidden[-2, :, :], hidden[-1, :, :]), axis=1))
         output = self.fc(hidden)
-        return self.sigmoid(output)
+        return output
 ```
 
 ### Loss Function and Optimizer
 
-After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer, and encapsulate them by using `nn.TrainOneStepCell`. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCELoss` (binary cross entropy loss function) is selected. Herein, `nn.BCEWithLogitsLoss` may also be selected, and includes a `sigmoid` operation, that is:
-
-```text
-BCEWithLogitsLoss = Sigmoid + BCELoss
-```
-
-If `BECLoss` is used, the `reduction` parameter must be set to the average value. It is then associated with the instantiated network object by using `nn.WithLossCell`.
-
-After selecting a proper loss function and the `Adam` optimizer, pass them to `TrainOneStepCell`.
-
-> MindSpore is designed to calculate and optimize the entire graph. Therefore, the loss function and optimizer are considered as a part of the computational graph. Therefore, `TrainOneStepCell` is built as the Wrapper.
+After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer, and encapsulate them by using `nn.TrainOneStepCell`. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCEWithLogitsLoss` (binary cross entropy loss function) is selected.
 
 ```python
 hidden_size = 256
@@ -413,10 +403,8 @@ lr = 0.001
 pad_idx = vocab.tokens_to_ids('<pad>')
 
 net = RNN(embeddings, hidden_size, output_size, num_layers, bidirectional, dropout, pad_idx)
-loss = nn.BCELoss(reduction='mean')
-net_with_loss = nn.WithLossCell(net, loss)
+loss = nn.BCEWithLogitsLoss(reduction='mean')
 optimizer = nn.Adam(net.trainable_params(), learning_rate=lr)
-train_one_step = nn.TrainOneStepCell(net_with_loss, optimizer)
 ```
 
 ### Training Logic
@@ -430,7 +418,19 @@ After the model is built, design the training logic. Generally, the training log
 Based on this logic, use the `tqdm` library to design an epoch training function for visualization of the training process and loss.
 
 ```python
-def train_one_epoch(model, train_dataset, epoch=0):
+def train_one_epoch(model, loss_fn, optimizer, train_dataset, epoch=0):
+    def forward_fn(data, label):
+        logits = model(data)
+        loss = loss_fn(logits, label)
+        return loss
+
+    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+
+    def train_step(data, label):
+        loss, grads = grad_fn(data, label)
+        loss = ops.depend(loss, optimizer(grads))
+        return loss
+
     model.set_train()
     total = train_dataset.get_dataset_size()
     loss_total = 0
@@ -438,7 +438,7 @@ def train_one_epoch(model, train_dataset, epoch=0):
     with tqdm(total=total) as t:
         t.set_description('Epoch %i' % epoch)
         for i in train_dataset.create_tuple_iterator():
-            loss = model(*i)
+            loss = train_step(*i)
             loss_total += loss.asnumpy()
             step_total += 1
             t.set_postfix(loss=loss_total/step_total)
@@ -456,7 +456,7 @@ def binary_accuracy(preds, y):
     """
 
     # Round off the predicted value.
-    rounded_preds = np.around(preds)
+    rounded_preds = np.around(ops.sigmoid(preds).asnumpy())
     correct = (rounded_preds == y).astype(np.float32)
     acc = correct.sum() / len(correct)
     return acc
@@ -502,13 +502,6 @@ def evaluate(model, test_dataset, criterion, epoch=0):
 
 The model building, training, and evaluation logic design are complete. The following describes how to train a model. In this example, the number of training epochs is set to 5. In addition, maintain the `best_valid_loss` variable for saving the optimal model. Based on the loss value of each epoch of evaluation, select the epoch with the minimum loss value and save the model.
 
-By default, MindSpore uses the static graph mode (Define and Run) for training. In the first step, computational graph is built, which is time-consuming but improves the overall training efficiency. To perform single-step debugging or use the dynamic graph mode, you can use the following code:
-
-```python
-import mindspore as ms
-ms.set_context(mode=ms.PYNATIVE_MODE)
-```
-
 ```python
 import mindspore as ms
 
@@ -517,7 +510,7 @@ best_valid_loss = float('inf')
 ckpt_file_name = os.path.join(cache_dir, 'sentiment-analysis.ckpt')
 
 for epoch in range(num_epochs):
-    train_one_epoch(train_one_step, imdb_train, epoch)
+    train_one_epoch(net, loss, optimizer, imdb_train, epoch)
     valid_loss = evaluate(net, imdb_valid, loss, epoch)
 
     if valid_loss < best_valid_loss:
@@ -526,16 +519,16 @@ for epoch in range(num_epochs):
 ```
 
 ```text
-    Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:48<00:00,  5.59it/s, loss=0.681]
-    Epoch 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:42<00:00,  2.72it/s, acc=0.581, loss=0.674]
-    Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:44<00:00,  6.15it/s, loss=0.661]
-    Epoch 1: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:41<00:00,  2.81it/s, acc=0.759, loss=0.519]
-    Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:44<00:00,  6.15it/s, loss=0.487]
-    Epoch 2: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:41<00:00,  2.82it/s, acc=0.836, loss=0.383]
-    Epoch 3: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:44<00:00,  6.15it/s, loss=0.35]
-    Epoch 3: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:41<00:00,  2.83it/s, acc=0.868, loss=0.305]
-    Epoch 4: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:44<00:00,  6.18it/s, loss=0.298]
-    Epoch 4: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:41<00:00,  2.82it/s, acc=0.916, loss=0.219]
+    Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:30<00:00,  9.00it/s, loss=0.674]
+    Epoch 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:12<00:00,  9.43it/s, acc=0.511, loss=0.692]
+    Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:24<00:00, 11.04it/s, loss=0.683]
+    Epoch 1: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:11<00:00, 10.06it/s, acc=0.674, loss=0.614]
+    Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:24<00:00, 11.06it/s, loss=0.623]
+    Epoch 2: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:11<00:00, 10.12it/s, acc=0.799, loss=0.458]
+    Epoch 3: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:24<00:00, 10.95it/s, loss=0.408]
+    Epoch 3: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:11<00:00, 10.19it/s, acc=0.875, loss=0.306]
+    Epoch 4: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 273/273 [00:24<00:00, 11.03it/s, loss=0.305]
+    Epoch 4: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:11<00:00,  9.93it/s, acc=0.899, loss=0.251]
 ```
 
 You can see that the loss decreases gradually in each epoch and the accuracy of the verification set increases gradually.
@@ -565,9 +558,9 @@ evaluate(net, imdb_test, loss)
 ```
 
 ```text
-    Epoch 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 391/391 [00:31<00:00, 12.36it/s, acc=0.873, loss=0.322]
+    Epoch 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 391/391 [00:25<00:00, 15.10it/s, acc=0.857, loss=0.357]
 
-    0.32153618827347863
+    0.356888720432244
 ```
 
 ## Custom Input Test
@@ -595,7 +588,7 @@ def predict_sentiment(model, vocab, sentence):
     tensor = ms.Tensor(indexed, ms.int32)
     tensor = tensor.expand_dims(0)
     prediction = model(tensor)
-    return score_map[int(np.round(prediction.asnumpy()))]
+    return score_map[int(np.round(ops.sigmoid(prediction).asnumpy()))]
 ```
 
 Finally, predict the examples in the preceding section. It shows that the model can classify the sentiments of the statements.

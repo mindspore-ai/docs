@@ -138,8 +138,7 @@ def compute_normalizer(emissions, mask, trans, start_trans, end_trans):
 
         # Perform the log_sum_exp operation on score_i to calculate the score of the next token.
         # shape: (batch_size, num_tags)
-        next_score_max = next_score.max()
-        next_score = mnp.log(mnp.sum(mnp.exp(next_score - next_score_max), axis=1)) + next_score_max
+        next_score = ops.logsumexp(next_score, axis=1)
 
         # The score changes only when mask == 1.
         # shape: (batch_size, num_tags)
@@ -150,7 +149,7 @@ def compute_normalizer(emissions, mask, trans, start_trans, end_trans):
     score += end_trans
     # Calculate log_sum_exp based on the scores of all possible paths.
     # shape: (batch_size,)
-    return mnp.log(mnp.sum(mnp.exp(score), axis=1))
+    return ops.logsumexp(score, axis=1)
 ```
 
 ### Viterbi Algorithm
@@ -226,6 +225,7 @@ Based on the preceding code, `nn.Cell` is used for encapsulation. The complete C
 ```python
 import mindspore as ms
 import mindspore.nn as nn
+import mindspore.ops as ops
 import mindspore.numpy as mnp
 from mindspore.common.initializer import initializer, Uniform
 
@@ -369,7 +369,12 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01, weight_decay=1e
 ```
 
 ```python
-train_one_step = nn.TrainOneStepCell(model, optimizer)
+grad_fn = ops.value_and_grad(model, None, optimizer.parameters)
+
+def train_step(data, seq_length, label):
+    loss, grads = grad_fn(data, seq_length, label)
+    loss = ops.depend(loss, optimizer(grads))
+    return loss
 ```
 
 Pack the generated data into a batch, pad the sequence with insufficient length based on the maximum sequence length, and return tensors consisting of the input sequence, output label, and sequence length.
@@ -406,8 +411,8 @@ After the model is precompiled, 500 steps are trained.
 
 > Training process visualization depends on the `tqdm` library, which can be installed by running the `pip install tqdm` command.
 
-```python
-train_one_step.compile(data, seq_length, label)
+```text
+    100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:23<00:00, 21.13it/s, loss=0.3487625]
 ```
 
 ```python
@@ -416,7 +421,7 @@ from tqdm import tqdm
 steps = 500
 with tqdm(total=steps) as t:
     for i in range(steps):
-        loss = train_one_step(data, seq_length, label)
+        loss = train_step(data, seq_length, label)
         t.set_postfix(loss=loss)
         t.update(1)
 ```
@@ -430,8 +435,8 @@ score
 
 ```text
     Tensor(shape=[2, 3], dtype=Float32, value=
-    [[ 2.28206425e+01,  2.73965702e+01,  2.17514019e+01],
-     [ 2.22613220e+01,  2.26435127e+01,  2.83346519e+01]])
+    [[ 3.15928860e+01,  3.63119812e+01,  3.17248516e+01],
+     [ 2.81416149e+01,  2.61749763e+01,  3.24760780e+01]])
 ```
 
 Perform post-processing on the predicted score.
