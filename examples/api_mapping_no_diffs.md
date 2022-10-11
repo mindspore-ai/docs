@@ -48,6 +48,7 @@ print(out)
 
 # MindSpore
 import numpy as np
+import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
