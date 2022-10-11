@@ -208,7 +208,7 @@ If the PyTorch Aten `CPU` operator is used and the `device_target` is set to `"G
 ```python
 set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
-op.add_prim_attr("primitive_target", "CPU")
+op.set_device("CPU")
 ```
 
 > 1. To compile so with cppextension, you need to meet the compiler version required by the tool and check if gcc/clang/nvcc exists.

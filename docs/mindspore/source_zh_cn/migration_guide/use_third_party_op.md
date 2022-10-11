@@ -208,7 +208,7 @@ op = ops.Custom("./leaky_relu_gpu.so:LeakyRelu", out_shape=lambda x : x, out_dty
 ```python
 set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
-op.add_prim_attr("primitive_target", "CPU")
+op.set_device("CPU")
 ```
 
 > 1. 使用cppextension编译so需满足该工具需要的编译器版本，检查gcc/clang/nvcc是否存在。
