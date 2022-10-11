@@ -37,6 +37,7 @@
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
+   others/thor
 
 .. toctree::
    :glob:
