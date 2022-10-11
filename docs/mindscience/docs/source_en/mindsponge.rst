@@ -1,9 +1,6 @@
 MindSPONGE APIs
 =======================
 
-.. warning::
-    These are experimental prototypes that are subject to change and/or deletion.
-
 mindsponge.callback
 ----------------------
 
@@ -90,11 +87,6 @@ mindsponge.data
     :nosignatures:
     :template: classtemplate.rst
 
-    mindsponge.data.elements
-    mindsponge.data.element_dict
-    mindsponge.data.element_name
-    mindsponge.data.element_set
-    mindsponge.data.atomic_mass
     mindsponge.data.str_to_tensor
     mindsponge.data.tensor_to_str
     mindsponge.data.get_class_parameters
@@ -103,7 +95,6 @@ mindsponge.data
     mindsponge.data.set_class_parameters
     mindsponge.data.set_hyper_parameter
     mindsponge.data.set_class_into_hyper_param
-    mindsponge.data.load_checkpoint
     mindsponge.data.load_hyperparam
     mindsponge.data.load_hyper_param_into_class
     mindsponge.data.get_template
@@ -126,17 +117,8 @@ mindsponge.function
     :nosignatures:
     :template: classtemplate.rst
 
-    mindsponge.function.PI
-    mindsponge.function.inv
-    mindsponge.function.keepdim_sum
-    mindsponge.function.keepdim_mean
-    mindsponge.function.keepdim_prod
     mindsponge.function.keep_norm_last_dim
     mindsponge.function.norm_last_dim
-    mindsponge.function.reduce_any
-    mindsponge.function.reduce_all
-    mindsponge.function.concat_last_dim
-    mindsponge.function.concat_penulti
     mindsponge.function.pbc_box_reshape
     mindsponge.function.periodic_image
     mindsponge.function.displace_in_box
@@ -165,13 +147,6 @@ mindsponge.function
     mindsponge.function.VelocityGenerator
     mindsponge.function.GetDistanceShift
     mindsponge.function.GetShiftGrad
-    mindsponge.function.AVOGADRO_NUMBER
-    mindsponge.function.BOLTZMANN_CONSTANT
-    mindsponge.function.GAS_CONSTANT
-    mindsponge.function.ELEMENTARY_CHARGE
-    mindsponge.function.VACCUM_PERMITTIVITY
-    mindsponge.function.COULOMB_CONSTANT
-    mindsponge.function.STANDARD_ATMOSPHERE
     mindsponge.function.Length
     mindsponge.function.Energy
     mindsponge.function.get_length_ref
@@ -183,7 +158,6 @@ mindsponge.function
     mindsponge.function.length_convert
     mindsponge.function.energy_convert
     mindsponge.function.Units
-    mindsponge.function.global_units
     mindsponge.function.set_global_length_unit
     mindsponge.function.set_global_energy_unit
     mindsponge.function.set_global_units
