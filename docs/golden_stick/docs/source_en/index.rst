@@ -54,8 +54,7 @@ General Process of Applying the MindSpore Golden Stick
 
 .. note::
     - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
-    - For details about the "network training or retraining" step in the process, see `MindSpore Training and Evaluation <https://mindspore.cn/tutorials/en/master/advanced/model/train_eval.html>`_ .
-    - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-mindir-model>`_ .
+    - For details about the "ms.export" step in the process, see `Exporting MINDIR Model <https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#saving-and-loading-mindir>`_ .
     - For details about the "MindSpore infer" step in the process, see `MindSpore Inference Runtime <https://mindspore.cn/tutorials/experts/en/master/infer/inference.html>`_ .
 
 Roadmap

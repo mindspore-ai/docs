@@ -100,7 +100,7 @@ Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进�
 
 ## 导出AIR模型文件
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/model/save.html#导出air格式文件)。
+在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export)。
 
 > 这里提供使用ResNet-50模型导出的示例AIR文件[resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air)。
 

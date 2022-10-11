@@ -46,7 +46,7 @@ A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mind
 
 <font size=3>**Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/en/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A: 可以使用mindspore.Tensor.var接口计算Tensor的方差，你可以参考[mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore/mindspore.Tensor.html?highlight=var#mindspore.Tensor.var)来实现。
 
 <br/>
 
@@ -115,4 +115,4 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
-用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph/pynative.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph/mode.html)选择合适、统一的模式和写法来完成训练。
