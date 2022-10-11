@@ -54,7 +54,7 @@ During MindSpore network implementation, there are some problem-prone areas. Whe
 
 1. The MindSpore operator is used in data processing. Multi-threaded/multi-process is usually in the data processing process, so there is a limitation of using MindSpore operators in this scenario. It is recommended to use a three-party implementation instead of the operator use in the data processing process, such as numpy, opencv, pandas, PIL.
 2. Control flow. For details, refer to [Flow Control Statements](https://www.mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html). Compilation in graph mode can be slow when multiple layers of conditional control statements are called.
-3. Slicing operation. When it comes to slicing a Tesnor, note that whether subscript of the slice is a variable. When it is a variable, there will be restrictions. Please refer to network body and loss building for dynamic shape mitigation.
+3. Slicing operation. When it comes to slicing a Tensor, note that whether subscript of the slice is a variable. When it is a variable, there will be restrictions. Please refer to network body and loss building for dynamic shape mitigation.
 4. Customized mixed precision conflicts with `amp_level` in Model, so don't set `amp_level` in Model if you use customized mixed precision.
 5. In Ascend environment, Conv, Sort and TopK can only be float16, and add [loss scale](https://mindspore.cn/tutorials/experts/en/r1.9/others/mixed_precision.html) to avoid overflow.
 6. In the Ascend environment, operators with the stride property such as Conv and Pooling have rules about the length of the stride, which needs to be mitigated.

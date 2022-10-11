@@ -454,7 +454,7 @@ MindSpore Lite framework allows the user to set two callback functions that will
 - Name and type of the running node
 
 While the node name and type will be the same before and after running the node, the output tensors will differ between the two callbacks invocations.
-For some operators, also the input tesnors will vary.
+For some operators, also the input tensors will vary.
 
 ```cpp
 /// \brief  CallBackParam defines input arguments for callback function.
