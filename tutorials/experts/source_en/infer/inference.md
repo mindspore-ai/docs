@@ -43,7 +43,7 @@ Inference can be classified into the following two modes based on the applicatio
 
 2. Cross-platform inference
 
-    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html).
+    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html).
 
 ## Introduction to MindIR
 

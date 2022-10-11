@@ -193,6 +193,6 @@ It is recommended that export the MindIR model with fp32 precision mode before d
 
 ## Inference by Using an ONNX File
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorials/en/master/advanced/model/save.html#export-onnx-model).
+1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.export.html#mindspore.export).
 
 2. Perform inference on a GPU by referring to the runtime or SDK document. For example, use TensorRT to perform inference on the Nvidia GPU. For details, see [TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt).
