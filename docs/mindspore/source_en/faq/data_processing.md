@@ -371,7 +371,7 @@ A: The main reason is that the parameter `num_parallel_workers` is configured to
 
 A: When the `GeneratorDataset` is used to load Numpy array returned by Pyfunc, MindSpore performs conversion from the Numpy array to the MindSpore Tensor. If the memory pointed to by the Numpy array has been freed, a memory copy error may occur. An example is as shown below:
 
-- Perform an in place conversion among Numpy array, MindSpore Tensor and Numpy array in `__getitem__` function. Tensor `tensor` and Numpy array `ndarray_1` share the same memory and Tensor `tesnor` will go out of scope when the function exits, and the memory which is pointed to by Numpy array will be freed.
+- Perform an in place conversion among Numpy array, MindSpore Tensor and Numpy array in `__getitem__` function. Tensor `tensor` and Numpy array `ndarray_1` share the same memory and Tensor `tensor` will go out of scope when the function exits, and the memory which is pointed to by Numpy array will be freed.
 
     ```python
 
