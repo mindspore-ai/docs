@@ -119,7 +119,7 @@ print(net(x, y))
 
 ### Control Flow in Static Graph Mode
 
-For details about control flows in static graph mode, see [Process Control Statements](https://www.mindspore.cn/tutorials/en/r1.9/advanced/modules/control_flow.html).
+For details about control flows in static graph mode, see [Process Control Statements](https://mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html).
 
 ## Dynamic Graph
 
