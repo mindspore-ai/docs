@@ -19,9 +19,7 @@ MindSpore 文档
    design/dynamic_graph_and_static_graph
    design/distributed_training_design
    design/graph_fusion_engine
-   design/thor
    design/data_engine
-   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary
    
 .. toctree::
