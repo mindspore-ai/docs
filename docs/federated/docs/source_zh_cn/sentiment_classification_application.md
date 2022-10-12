@@ -49,7 +49,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/albert/src/model.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/federated/tree/master/tests/st/network/albert.py)。
 
 ### 生成端侧模型文件
 
@@ -185,14 +185,22 @@ if __name__ == '__main__':
 
 ![新建工程](./images/create_android_project.png)
 
-### 编译MindSpore Lite AAR包
+### 相关包获取
 
-1. 参考[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)完成部署。
+1. 获取MindSpore Lite AAR包
 
-2. 获取生成的Android AAR包。
+   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
 
    ```text
    mindspore-lite-full-{version}.aar
+   ```
+
+2. 获取Mindspore Federated 端侧jar包。
+
+   参考[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+
+   ```text
+   mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
    ```
 
 3. 将AAR包放置安卓工程的app/libs/目录下。
@@ -203,6 +211,7 @@ if __name__ == '__main__':
 app
 │   ├── libs # Android库项目的二进制归档文件
 |   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite针对Android版本的归档文件
+    |   └── mindspore-lite-java-flclient.jar #  MindSpore Federated针对Android版本的归档文件
 ├── src/main
 │   ├── assets # 资源目录
 |   |   └── model # 模型目录
@@ -477,7 +486,7 @@ app
             multiDexEnabled true
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             ndk {
-                // 不同的手机型号，对应ndk不相同，本人使用的mate20手机是'armeabi-v7a'
+                // 不同的手机型号，对应ndk不相同，本文使用的mate20手机是'armeabi-v7a'
                 abiFilters 'armeabi-v7a'
             }
         }
@@ -497,7 +506,7 @@ app
     }
     dependencies {
         //指定扫描libs目录下的AAR包
-        implementation fileTree(dir:'libs',include:['*.aar'])
+        implementation fileTree(dir:'libs',include:['*.aar', '*.jar'])
         implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation 'com.google.android.material:material:1.1.0'
         implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
