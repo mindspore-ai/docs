@@ -86,7 +86,7 @@ print("============== {} ==============".format(acc))
 
 `model.eval`为模型验证接口，对应接口说明[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
 
-> 推理样例代码[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py)。
+> 推理样例代码[eval.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/lenet/eval.py)。
 
 ### 使用MindSpore Hub从华为云加载模型
 

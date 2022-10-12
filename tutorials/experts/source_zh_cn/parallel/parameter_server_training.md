@@ -24,7 +24,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 ### 训练脚本准备
 
-参考<https://gitee.com/mindspore/models/tree/master/official/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。
+参考<https://gitee.com/mindspore/models/tree/r1.9/official/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。
 
 ### 参数设置
 
@@ -45,7 +45,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
     - 被设置为通过Parameter Server更新的单个权重大小不得超过INT_MAX(2^31 - 1)字节。
     - 接口`set_param_ps`可接收一个`bool`型参数：`init_in_server`，表示该训练参数是否在Server端初始化，`init_in_server`默认值为`False`，表示在Worker上初始化该训练参数；当前仅支持`EmbeddingLookup`算子的训练参数`embedding_table`在Server端初始化，以解决超大shape的`embedding_table`在Worker上初始化导致内存不足的问题，该算子的`target`属性需要设置为'CPU'。在Server端初始化的训练参数将不再同步到Worker上，如果涉及到多Server训练并保存CheckPoint，则训练结束后每个Server均会保存一个CheckPoint。
 
-4. 在[LeNet原训练脚本](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)基础上，设置该模型所有权重由Parameter Server训练：
+4. 在[LeNet原训练脚本](https://gitee.com/mindspore/models/blob/r1.9/official/cv/lenet/train.py)基础上，设置该模型所有权重由Parameter Server训练：
 
     ```python
     set_ps_context(enable_ps=True)

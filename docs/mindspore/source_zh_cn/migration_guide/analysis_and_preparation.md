@@ -464,7 +464,7 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。
 
-### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html)
+### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/index.html)
 
 MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集。包含基本的量化和剪枝方法。
 
