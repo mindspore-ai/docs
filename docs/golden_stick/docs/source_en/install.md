@@ -20,7 +20,7 @@ The MindSpore Golden Stick depends on the MindSpore training and inference frame
 
 | MindSpore Golden Stick Version |                            Branch                            | MindSpore version |
 | :-----------------------------: | :----------------------------------------------------------: | :-------: |
-|          0.1.0          | [r0.1](https://gitee.com/mindspore/golden-stick/tree/r0.1/) |   1.8.0   |
+|          0.2.0          | [r0.2](https://gitee.com/mindspore/golden-stick/tree/r0.2/) |   1.9.0   |
 
 After MindSpore is installed, you can use pip or source code build for MindSpore Golden Stick installation.
 

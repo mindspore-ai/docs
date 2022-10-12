@@ -20,4 +20,4 @@
 
 ## 示例
 
-当前版本中，MindSpore Golden Stick提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/pruner/scop.html)了解如何应用MindSpore Golden Stick中的剪枝算法。
+当前版本中，MindSpore Golden Stick提供了一个结构化权重剪枝算法，可以参考[SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/pruner/scop.html)了解如何应用MindSpore Golden Stick中的剪枝算法。

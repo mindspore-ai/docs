@@ -42,7 +42,7 @@ Table 1: SLB quantization training specifications
 | Specifications| Description|
 | --- | --- |
 | Hardware| GPU |
-| Networks| ResNet-18. For details, see <https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick>.|
+| Networks| ResNet-18. For details, see <https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick>.|
 | Solutions| Supports 1-, 2-, and 4-bit weight quantization solutions.|
 | Data types| The GPU platform supports FP32.|
 | Running modes| Graph mode and PyNative mode|
@@ -60,7 +60,7 @@ The procedure of SLB quantization training is the same as that of common trainin
 
 The following uses the LeNet-18 as an example to describe these steps.
 
-> For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick). [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
+> For details about the complete code, see [ResNet model repository](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/README.md#apply-algorithm-in-mindspore-golden-stick). [train.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/golden_stick/quantization/slb/train.py) is the complete training code, and [eval.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/golden_stick/quantization/slb/eval.py) is the accuracy verification code.
 
 ### Loading a Dataset
 
@@ -71,7 +71,7 @@ dataset = create_dataset(dataset_path=config.data_path, do_train=True,
                          distribute=config.run_distribute)
 ```
 
-In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py), and `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml).
+In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/dataset.py), and `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml).
 
 ### Defining the Original Network
 
@@ -115,7 +115,7 @@ ResNet<
   >
 ```
 
-For details about the ResNet-18 definition, see [resnet.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py).
+For details about the ResNet-18 definition, see [resnet.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/resnet.py).
 
 ### Applying the Quantization Algorithm
 
@@ -145,7 +145,7 @@ Print the quantizer. The following information is displayed, including the confi
 SlbQuantAwareTraining<weight_quant_dtype=INT1, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
 ```
 
-The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/mindspore_gs.quantization.SlbQuantAwareTraining.html#mindspore_gs.quantization.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
+The quantized network structure is as follows, QuantizeWrapperCell is the encapsulation class of SLB quantization to the original Conv2d, including the pseudo-quantization node of the original operator and weight. Users can modify the algorithm configuration by referring to [API](https://www.mindspore.cn/golden_stick/docs/en/r0.2/quantization/mindspore_gs.quantization.SlbQuantAwareTraining.html#mindspore_gs.quantization.SlbQuantAwareTraining) and confirm whether the algorithm is configured successfully by checking the attributes of the QuantizeWrapperCell.
 
 ```text
 ResNetOpt<
@@ -262,7 +262,7 @@ ckpt_cb = ModelCheckpoint(prefix="resnet", directory="./ckpt", config=config_ck)
 cb += [ckpt_cb]
 ```
 
-In the code, `get_lr` is referenced from [lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py), and `init_group_params` and `init_loss_scale` are referenced from [train.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/golden_stick/quantization/slb/train.py).
+In the code, `get_lr` is referenced from [lr_generator.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/lr_generator.py), and `init_group_params` and `init_loss_scale` are referenced from [train.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/golden_stick/quantization/slb/train.py).
 
 ### Training the Model and Saving the Model File
 
@@ -293,7 +293,7 @@ Train epoch time: 94106.722 ms, per step time: 60.248 ms
 
 ### Loading the Model and Comparing the Accuracy
 
-Obtain the accuracy of the common training model according to the steps in the [ResNet model repository](https://gitee.com/mindspore/models/tree/master/official/cv/resnet).
+Obtain the accuracy of the common training model according to the steps in the [ResNet model repository](https://gitee.com/mindspore/models/tree/r1.9/official/cv/resnet).
 
 ```text
 'top_1_accuracy': 0.9544270833333334, 'top_5_accuracy': 0.9969951923076923

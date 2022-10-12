@@ -220,7 +220,7 @@ For CUDA 11.1:
 conda install mindspore-gpu cudatoolkit=11.1 -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.9/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.9/requirements.txt).
+When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.9/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r1.9/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.9/requirements.txt).
 
 ## Installation Verification
 
