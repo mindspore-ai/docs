@@ -80,12 +80,12 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL,
 
 ```python
 # 通过dataset_strategy设置，推荐此方式
-ms.set_auto_parallel_context(dataset_strategy="data_parallel")  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
 ms.set_auto_parallel_context(dataset_strategy="full_batch")  # 数据集不切分，且shard的输出张量也不切分；(默认配置)
+ms.set_auto_parallel_context(dataset_strategy="data_parallel")  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
 
 # 通过full_batch设置，该属性即将弃用
-ms.set_auto_parallel_context(full_batch=False)  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
 ms.set_auto_parallel_context(full_batch=True)   # 数据集不切分，且shard的输出张量也不切分；(默认配置)
+ms.set_auto_parallel_context(full_batch=False)  # 数据集按数据并行的方式切分，且shard的输出张量也按数据并行方式切分
 ```
 
 ### Cell使用函数式切分
@@ -100,6 +100,7 @@ class BasicBlock(nn.Cell):
         self.dense1 = nn.Dense(32, 32)
         self.gelu = nn.GELU()
         self.dense2 = nn.Dense(32, 32)
+
     def construct(self, x):
         # two dimensional input x
         x = self.dense1(x)
@@ -113,6 +114,7 @@ class Net(nn.Cell):
         self.block1 = BasicBlock()
         self.block2 = BasicBlock()
         self.block3 = BasicBlock()
+
     def construct(self, x):
         # All three blocks are executed as PyNative mode.
         x = self.block1(x)
@@ -130,6 +132,7 @@ class Net(nn.Cell):
             # slice input along the second axis and make output as data-parallel layout
             self.block1.shard(in_strategy=((1, 8),),
                               parameter_plan={'self.block1.dense2.weight': (8, 1)})
+
         def construct(self, x):
             # block1 is executed as GRAPH.
             x = self.block1(x)
@@ -139,14 +142,14 @@ class Net(nn.Cell):
             return x
     ```
 
-- 使用函数式接口`ops.shard`，由于`shard`函数的返回值为函数，使用函数式接口的时候，不能将已经实例过的类赋值为`shard`的返回值，因为MindSpore不支持将类实例赋值为其它类型
+- 使用函数式接口`mindspore.shard`，由于`shard`函数的返回值为函数，使用函数式接口的时候，不能将已经实例过的类赋值为`shard`的返回值，因为MindSpore不支持将类实例赋值为其它类型
 
     ```python
-    import mindspore.ops as ops
     class NetError(Net):
         def __init__(self):
-            self.block1 = ops.shard(self.block1, in_strategy=((8, 1),),
+            self.block1 = ms.shard(self.block1, in_strategy=((8, 1),),
                                     parameter_plan={'self.block1.dense2.weight': (8, 1)})
+
         def construct(self, x):
             x = self.block1(x)
             x = self.block2(x)
@@ -166,9 +169,10 @@ class Net(nn.Cell):
     class Net2(Net):
         def __init__(self):
             # set the return function of shard a different name with the Cell instance
-            self.block1_graph = ops.shard(self.block1, in_strategy=((8, 1),),
+            self.block1_graph = ms.shard(self.block1, in_strategy=((8, 1),),
                                           parameter_plan={'self.block1.dense2.weight': (8, 1)})
             self.block2.shard(in_strategy=((1, 8),))
+
         def construct(self, x):
             # block1 is executed as GRAPH with input sliced along the first dimension
             x = self.block1_graph(x)
@@ -203,7 +207,7 @@ weight = Tensor(np.random.uniform(0, 1, (128, 10)), ms.float32)
 bias = Tensor(np.random.uniform(0, 1, (10,)), ms.float32)
 
 # 通过in_strategy指定x的切分策略为(4, 2)、weight和bias切分策略设为None，表示自动推导生成。
-result = ops.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
+result = ms.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
 print('result.shape:', result.shape)
 ```
 
