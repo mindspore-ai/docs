@@ -1,6 +1,6 @@
 # Learning Rate and Optimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/mindspore_learning_rate_and_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/learning_rate_and_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Before reading this chapter, please read the official MindSpore tutorial [Optimizer](https://www.mindspore.cn/tutorials/en/master/advanced/modules/optim.html).
 

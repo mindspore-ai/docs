@@ -41,6 +41,6 @@ This chapter will introduce some methods of debugging and tuning from three aspe
 
 This chapter contains a complete network migration sample. From the analysis and replication of the benchmark network, it details the steps of script development and precision debugging and tuning, and finally lists the common problems and corresponding optimization methods during the migration process, framework performance issues.
 
-## [FAQs](https://www.mindspore.cn/docs/en/master/migration_guide/faq.html)
+## FAQs
 
 This chapter lists the frequently-asked questions and corresponding solutions.
