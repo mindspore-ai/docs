@@ -147,7 +147,7 @@ MEGA-Protein主要由三部分组成：
 
 推理结果保存在 `./result/` 目录下，每条序列的结果存储在独立文件夹中，以序列名称命名，文件夹中共有两个文件，pdb文件即为蛋白质结构预测结果，其中倒数第二列为氨基酸残基的预测置信度；timings文件保存了推理不同阶段时间信息以及推理结果整体的置信度。
 
-```log
+```text
 {"pre_process_time": 0.61, "model_time": 87.5, "pos_process_time": 0.02, "all_time ": 88.12, "confidence ": 93.5}
 ```
 
