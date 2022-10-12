@@ -112,13 +112,13 @@ Test scenarios:
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/performance_compare.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/performance_compare.png" width="700px" alt="" >
 
 With the increase of data size, MindPandas provides more advantages for distributed parallel processing. The following figure shows the performance comparison for different data volumes:
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/mindpandas_fillna.png" width="700px" alt="" >
 
 Note: MindPandas is set to multiprocess mode and uses a 32-core CPU.
 

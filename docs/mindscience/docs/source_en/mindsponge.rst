@@ -5,7 +5,7 @@ mindsponge.callback
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: callback
     :nosignatures:
     :template: classtemplate.rst
 
@@ -16,7 +16,7 @@ mindsponge.cell
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: cell
     :nosignatures:
     :template: classtemplate.rst
 
@@ -35,7 +35,7 @@ mindsponge.common
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: common
     :nosignatures:
     :template: classtemplate.rst
 
@@ -48,7 +48,7 @@ mindsponge.control
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: control
     :nosignatures:
     :template: classtemplate.rst
 
@@ -69,7 +69,7 @@ mindsponge.core
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: core
     :nosignatures:
     :template: classtemplate.rst
 
@@ -83,7 +83,7 @@ mindsponge.data
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: data
     :nosignatures:
     :template: classtemplate.rst
 
@@ -113,7 +113,7 @@ mindsponge.function
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: function
     :nosignatures:
     :template: classtemplate.rst
 
@@ -166,7 +166,7 @@ mindsponge.optimizer
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: optimizer
     :nosignatures:
     :template: classtemplate.rst
 
@@ -178,7 +178,7 @@ mindsponge.partition
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: partition
     :nosignatures:
     :template: classtemplate.rst
 
@@ -191,7 +191,7 @@ mindsponge.potential
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: potential
     :nosignatures:
     :template: classtemplate.rst
 
@@ -214,7 +214,7 @@ mindsponge.system
 ----------------------
 
 .. msplatformautosummary::
-    :toctree: mindsponge
+    :toctree: system
     :nosignatures:
     :template: classtemplate.rst
 
