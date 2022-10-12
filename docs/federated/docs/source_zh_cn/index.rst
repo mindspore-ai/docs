@@ -109,4 +109,5 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
    :maxdepth: 1
    :caption: 参考文档
 
+   image_classfication_dataset_process
    faq
