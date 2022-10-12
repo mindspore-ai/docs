@@ -10,172 +10,171 @@
 
 我们提供了可供用户直接使用的[联邦学习图像分类数据集FEMNIST](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/federated/3500_clients_bin.zip)，以及`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)。用户也可以根据实际需求，参考以下教程自行生成数据集和模型。
 
-### 数据处理
-
-本示例采用`leaf`数据集中的联邦学习数据集`FEMNIST`， 数据集的具体获取方式可参考文档[端云联邦学习图像分类数据集处理](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process.md#)。
-
-用户也可自行定义数据集，注意，数据集必须为`.bin`格式文件，且文件中数据维度必须与网络的输入维度保持一致。
-
 ### 生成端侧模型文件
 
 1. 定义网络和训练过程
 
-    我们提供了网络定义文件[model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)和训练过程定义文件[run_export_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py)供大家参考。
+   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#创建模型)。
 
 2. 将模型导出为MindIR格式文件。
 
-    运行脚本`run_export_lenet.py`获取MindIR格式模型文件，其中代码片段如下：
+   代码片段如下：
 
-    ```python
-    import mindspore as ms
-    ...
+   ```python
+   import argparse
+   import numpy as np
+   import mindspore as ms
+   import mindspore.nn as nn
 
-    parser = argparse.ArgumentParser(description="export mindir for lenet")
-    parser.add_argument("--device_target", type=str, default="CPU")
-    parser.add_argument("--mindir_path", type=str, default="lenet_train.mindir")  # MindIR格式文件路径
-    ...
+   def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+       """weight initial for conv layer"""
+       weight = weight_variable()
+       return nn.Conv2d(
+           in_channels,
+           out_channels,
+           kernel_size=kernel_size,
+           stride=stride,
+           padding=padding,
+           weight_init=weight,
+           has_bias=False,
+           pad_mode="valid",
+       )
 
-    for _ in range(epoch):
-            data = Tensor(np.random.rand(32, 3, 32, 32).astype(np.float32))
-            label = Tensor(np.random.randint(0, 61, (32)).astype(np.int32))
-            loss = train_network(data, label).asnumpy()
-            losses.append(loss)
-            ms.export(train_network, data, label, file_name= mindir_path, file_format='MINDIR')  # 在训练过程中添加export语句获取MindIR格式模型文件
-        print(losses)
-    ```
+   def fc_with_initialize(input_channels, out_channels):
+       """weight initial for fc layer"""
+       weight = weight_variable()
+       bias = weight_variable()
+       return nn.Dense(input_channels, out_channels, weight, bias)
 
-    具体运行指令如下：
+   def weight_variable():
+       """weight initial"""
+       return ms.common.initializer.TruncatedNormal(0.02)
 
-    ```sh
-    python run_export_lenet.py --mindir_path="ms/lenet/lenet_train.mindir"
-    ```
+   class LeNet5(nn.Cell):
+       def __init__(self, num_class=10, channel=3):
+           super(LeNet5, self).__init__()
+           self.num_class = num_class
+           self.conv1 = conv(channel, 6, 5)
+           self.conv2 = conv(6, 16, 5)
+           self.fc1 = fc_with_initialize(16 * 5 * 5, 120)
+           self.fc2 = fc_with_initialize(120, 84)
+           self.fc3 = fc_with_initialize(84, self.num_class)
+           self.relu = nn.ReLU()
+           self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+           self.flatten = nn.Flatten()
 
-    参数`--mindir_path`用于设置生成的MindIR格式文件路径。
+       def construct(self, x):
+           x = self.conv1(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           x = self.conv2(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           x = self.flatten(x)
+           x = self.fc1(x)
+           x = self.relu(x)
+           x = self.fc2(x)
+           x = self.relu(x)
+           x = self.fc3(x)
+           return x
+
+   parser = argparse.ArgumentParser(description="export mindir for lenet")
+   parser.add_argument("--device_target", type=str, default="CPU")
+   parser.add_argument("--mindir_path", type=str,
+                       default="lenet_train.mindir")  # the mindir file path of the model to be export
+
+   args, _ = parser.parse_known_args()
+   device_target = args.device_target
+   mindir_path = args.mindir_path
+
+   ms.set_context(mode=ms.GRAPH_MODE, device_target=device_target)
+
+   if __name__ == "__main__":
+       np.random.seed(0)
+       network = LeNet5(62)
+       criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=False, reduction="mean")
+       net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
+       net_with_criterion = nn.WithLossCell(network, criterion)
+       train_network = nn.TrainOneStepCell(net_with_criterion, net_opt)
+       train_network.set_train()
+
+       data = ms.Tensor(np.random.rand(32, 3, 32, 32).astype(np.float32))
+       label = ms.Tensor(np.random.randint(0, 1, (32, 62)).astype(np.float32))
+       ms.export(train_network, data, label, file_name=mindir_path,
+                 file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
+   ```
+
+   参数`--mindir_path`用于设置生成的MindIR格式文件路径。
 
 3. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-    模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html )。
+   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html )。
 
-    模型转换示例如下：
+   模型转换示例如下：
 
-    假设待转换的模型文件为`lenet_train.mindir`，执行如下转换命令：
+   假设待转换的模型文件为`lenet_train.mindir`，执行如下转换命令：
 
-    ```sh
-    ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_train.mindir --outputFile=lenet_train
-    ```
+   ```sh
+   ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_train.mindir --outputFile=lenet_train
+   ```
 
-    转换成功输出如下：
+   转换成功输出如下：
 
-    ```sh
-    CONVERTER RESULT SUCCESS:0
-    ```
+   ```sh
+   CONVERTER RESULT SUCCESS:0
+   ```
 
-    这表明MindSpore模型成功转换为MindSpore端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：
+   这表明MindSpore模型成功转换为MindSpore端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：
 
-    ```sh
-    CONVERT RESULT FAILED:
-    ```
+   ```sh
+   CONVERT RESULT FAILED:
+   ```
 
-    将生成的`.ms`格式的模型文件放在某个路径上，在调用联邦学习接口时可设置`FLParameter.trainModelPath`为该模型文件的路径。
+   生成的`.ms`格式的模型文件为后续客户端所需的模型文件。
 
 ## 模拟启动多客户端参与联邦学习
 
 1. 为客户端准备好模型文件。
 
-    由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中代码逻辑，i需要设置为`0, 1, 2, 3, 4, 5 .....`等数字。每个客户端各使用一份.ms文件。
-
-    可参考下面脚本，对原始.ms文件进行拷贝和命名：
-
-    ```python
-    import shutil
-    import os
-
-    def copy_file(raw_path,new_path,copy_num):
-        # Copy the specified number of files from the raw path to the new path
-        for i in range(copy_num):
-            file_name = "lenet_train" + str(i) + ".ms"
-            new_file_path = os.path.join(new_path, file_name)
-            shutil.copy(raw_path ,new_file_path)
-            print('====== copying ',i, ' file ======')
-        print("the number of copy .ms files: ", len(os.listdir(new_path)))
-
-    if __name__ == "__main__":
-        raw_path = "lenet_train.ms"
-        new_path = "ms/lenet"
-        num = 8
-        copy_file(raw_path, new_path, num)
-    ```
-
-    其中`raw_path`设置原始.ms文件路径，`new_path`设置拷贝的.ms文件需要放置的路径，`num`设置拷贝的份数，一般需要模拟启动客户端的数量。
-
-    比如以上脚本中设置，在路径`ms/lenet`中生成了供8个客户端使用的.ms文件，其目录结构如下：
-
-    ```sh
-    ms/lenet
-    ├── lenet_train0.ms  # 客户端0使用的.ms文件
-    ├── lenet_train1.ms  # 客户端1使用的.ms文件
-    ├── lenet_train2.ms  # 客户端2使用的.ms文件
-    │
-    │          ......
-    │
-    └── lenet_train7.ms  # 客户端4使用的.ms文件
-    ```
+   本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
+   具体见[启动脚本](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
 
 2. 启动云侧服务
 
-    用户可先参考[云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
+   用户可先参考[云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
 
 3. 启动客户端。
 
-    启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
+   启动客户端之前请先参照[端侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
 
-    我们框架提供了三个类型的联邦学习接口供用户调用，具体的接口介绍可参考[API文件](https://www.mindspore.cn/federated/docs/zh-CN/master/java_api_syncfljob.html)：
+   使用提供的[run_client_x86.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/run_client_x86.py)脚本进行端侧联邦学习的启动，通过相关参数的设置，来启动不同的联邦学习接口。
+   待云侧服务启动成功之后，使用提供run_client_x86.py的脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
 
-    - `SyncFLJob.flJobRun()`
+   以LeNet网络为例，`run_client_x86.py`脚本中部分入参含义如下，用户可根据实际情况进行设置：
 
-        用于启动客户端参与到联邦学习训练任务中，并获取最终训练好的聚合模型。
-
-    - `SyncFLJob.modelInfer()`
-
-        用于获取给定数据集的推理结果。
-
-    - `SyncFLJob.getModel()`
-
-        用于获取云侧最新的模型。
-
-    待云侧服务启动成功之后，可编写一个Python脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
-
-    我们提供了参考脚本[run_client_x86.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/run_client_x86.py)，可通过相关参数的设置，来启动不同的联邦学习接口。
-
-    以LeNet网络为例，`run_client_x86.py`脚本中部分入参含义如下，用户可根据实际情况进行设置：
-
-    - `--jarPath`
+    - `--fl_jar_path`
 
         设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
         注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--jarPath`设置为`"libs/jarX86/mindspore-lite-java-flclient.jar"`，则需确保`jarX86`文件夹下仅包含一个jar包`mindspore-lite-java-flclient.jar`。
 
-    - `--case_jarPath`
+    - `--case_jar_path`
 
         设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
         注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--case_jarPath`设置为`"case_jar/quick_start_flclient.jar"`，则需确保`case_jar`文件夹下仅包含一个jar包`quick_start_flclient.jar`。
 
-    - `--train_dataset`
+    - `--train_data_dir`
 
         训练数据集root路径，LeNet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`data/femnist/3500_clients_bin/`。
 
-    - `--flName`
+    - `--fl_name`
 
-        联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/fl_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
+        联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
 
-    - `--train_model_path`
+    - `--train_model_dir`
 
         设置联邦学习使用的训练模型路径，为上面教程中拷贝的多份.ms文件所存放的目录，比如`ms/lenet`，必须为绝对路径。
-
-    - `--train_ms_name`
-
-        设置多客户端训练模型文件名称相同部分，模型文件名需为格式`{train_ms_name}1.ms`，`{train_ms_name}2.ms`， `{train_ms_name}3.ms`  等。
 
     - `--domain_name`
 
@@ -199,24 +198,54 @@
 
     若想进一步了解`run_client_x86.py`脚本中其他参数含义，可参考脚本中注释部分。
 
-    联邦学习接口基本启动指令示例如下：
+   联邦学习接口基本启动指令示例如下：
 
-    ```sh
-    python run_client_x86.py --jarPath="libs/jarX86/mindspore-lite-java-flclient.jar" --case_jarPath="case_jar/quick_start_flclient.jar" --train_dataset="data/femnist/3500_clients_bin/" --test_dataset="null" --vocal_file="null" --ids_file="null" --flName="com.mindspore.flclient.demo.lenet.LenetClient" --train_model_path="ms/lenet/" --infer_model_path="ms/lenet/" --train_ms_name="lenet_train"  --infer_ms_name="lenet_train" --domain_name="http://127.0.0.1:6666" --cert_path="certs/https_signature_certificate/client/CARoot.pem" --use_elb="true" --server_num=4 --client_num=8 --thread_num=1 --server_mode="FEDERATED_LEARNING" --batch_size=32 --task="train"
-    ```
+   ```sh
+   rm -rf client_*\
+   && rm -rf ms/* \
+   && python3 run_client_x86.py \
+   --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
+   --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
+   --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
+   --eval_data_dir="null" \
+   --infer_data_dir="null" \
+   --vocab_path="null" \
+   --ids_path="null" \
+   --path_regex="," \
+   --fl_name="com.mindspore.flclient.demo.lenet.LenetClient" \
+   --origin_train_model_path="federated/tests/st/simulate_x86/ms_files/lenet/lenet_train.ms" \
+   --origin_infer_model_path="null" \
+   --train_model_dir="ms" \
+   --infer_model_dir="ms" \
+   --ssl_protocol="TLSv1.2" \
+   --deploy_env="x86" \
+   --domain_name="http://10.113.216.40:8010" \
+   --cert_path="CARoot.pem" --use_elb="false" \
+   --server_num=1 \
+   --task="train" \
+   --thread_num=1 \
+   --cpu_bind_mode="NOT_BINDING_CORE" \
+   --train_weight_name="null" \
+   --infer_weight_name="null" \
+   --name_regex="::" \
+   --server_mode="FEDERATED_LEARNING" \
+   --batch_size=32 \
+   --input_shape="null" \
+   --client_num=8
+   ```
 
-    注意，启动指令中涉及路径的必须给出绝对路径。
+   注意，启动指令中涉及路径的必须给出绝对路径。
 
-    以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
+   以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
 
-    ```text
+   ```text
     ./
     ├── client_0
     │   └── client.log  # 客户端0的日志文件
     │           ......
     └── client_7
         └── client.log  # 客户端4的日志文件
-    ```
+   ```
 
     针对不同的接口和场景，只需根据参数含义，修改特定参数值即可，比如：
 
@@ -261,21 +290,7 @@
 
 4. 关闭客户端进程。
 
-    可参考[finish.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/finish.py)脚本，具体如下：
-
-    ```python
-    import argparse
-    import subprocess
-    parser = argparse.ArgumentParser(description="Finish client process")
-    # The parameter `--kill_tag` is used to search for the keyword to kill the client process.
-    parser.add_argument("--kill_tag", type=str, default="mindspore-lite-java-flclient")
-    args, _ = parser.parse_known_args()
-    kill_tag = args.kill_tag
-    cmd = "pid=`ps -ef|grep " + kill_tag
-    cmd += " |grep -v \"grep\" | grep -v \"finish\" |awk '{print $2}'` && "
-    cmd += "for id in $pid; do kill -9 $id && echo \"killed $id\"; done"
-    subprocess.call(['bash', '-c', cmd])
-    ```
+    可参考[finish.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/finish.py)脚本，具体如下：
 
     关闭客户端指令如下：
 
