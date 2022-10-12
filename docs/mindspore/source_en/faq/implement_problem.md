@@ -620,3 +620,37 @@ A: The reason for this error is that the user did not configure the operator par
 Therefore, the user needs to set the operator parameters appropriately to avoid such errors.
 
 <br/>
+
+<font size=3>**Q: How do I understand the "Ascend Error Message" in the error message?**</font>
+
+A: The "Ascend Error Message" is a fault message thrown after there is an error during CANN execution when CANN (Ascend Heterogeneous Computing Architecture) interface is called by MindSpore, which contains information such as error code and error description. For example:
+
+```python
+Traceback (most recent call last):
+ File "train.py", line 292, in <module>
+ train_net()
+ File  "/home/resnet_csj2/scripts/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+ run_func(*args, **kwargs)
+ File "train.py", line 227, in train_net
+ set_parameter()
+ File "train.py", line 114, in set_parameter
+ init()
+ File "/home/miniconda3/envs/ms/lib/python3.7/site-packages/mindspore/communication/management.py", line 149, in init
+ init_hccl()
+ RuntimeError: Ascend kernel runtime initialization failed.
+
+ \----------------------------------------------------
+ \- Ascend Error Message:
+ \----------------------------------------------------
+ EJ0001: Failed to initialize the HCCP process. Reason: Maybe the last training process is running. //EJ0001 is the error code, followed by the description and cause of the error. The cause of the error in this example is that the distributed training of the same 8 nodes was started several times, causing process conflicts
+ Solution: Wait for 10s after killing the last training process and try again. //The print message here gives the solution to the problem, and this example suggests that the user clean up the process
+ TraceBack (most recent call last): //The information printed here is the stack information used by the developer for positioning, and generally the user do not need to pay attention
+```
+
+```text
+tsd client wait response fail, device response code[1]. unknown device  error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
+```
+
+In addition, CANN may throw some Inner Errors, for example, the error code is "EI9999: Inner Error". If you cannot search the case description in MindSpore official website or forum, you can ask for help in the community by raising an issue.
+
+<br/>

@@ -605,3 +605,37 @@ A: 此问题的原因为：用户未正确配置算子参数，导致算子申�
 因此，用户需要适当设置算子参数，以避免此类报错。
 
 <br/>
+
+<font size=3>**Q: 如何理解报错提示中的"Ascend Error Message"？**</font>
+
+ A: "Ascend Error Message"是MindSpore调用CANN(昇腾异构计算架构)接口时，CANN执行出错后抛出的故障信息，其中包含错误码和错误描述等信息，如下例子：
+
+```python
+Traceback (most recent call last):
+ File "train.py", line 292, in <module>
+ train_net()
+ File  "/home/resnet_csj2/scripts/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+ run_func(*args, **kwargs)
+ File "train.py", line 227, in train_net
+ set_parameter()
+ File "train.py", line 114, in set_parameter
+ init()
+ File "/home/miniconda3/envs/ms/lib/python3.7/site-packages/mindspore/communication/management.py", line 149, in init
+ init_hccl()
+ RuntimeError: Ascend kernel runtime initialization failed.
+
+ \----------------------------------------------------
+ \- Ascend Error Message:
+ \----------------------------------------------------
+ EJ0001: Failed to initialize the HCCP process. Reason: Maybe the last training process is running. //EJ0001为错误码，之后是错误的描述与原因，本例子的错误原因是多次启动了相同8节点的分布式训练，造成进程冲突
+ Solution: Wait for 10s after killing the last training process and try again. //此处打印信息给出了问题的解决方案，此例子建议用户清理进程
+ TraceBack (most recent call last): //此处打印的信息是开发用于定位的堆栈信息，一般情况下用户不需关注
+```
+
+```text
+ tsd client wait response fail, device response code[1]. unknown device  error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
+```
+
+另外在一些情况下，CANN会抛出一些内部错误(Inner Error)，例如：错误码为 "EI9999: Inner Error" 此种情况如果在MindSpore官网或者论坛无法搜索到案例说明，可在社区提单求助。
+
+<br/>
