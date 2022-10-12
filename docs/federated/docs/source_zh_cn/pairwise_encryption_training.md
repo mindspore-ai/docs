@@ -41,13 +41,13 @@ $$
 
 ### 端云联邦场景
 
-开启安全聚合训练的方式很简单，只需要在启动云侧服务时，通过`set_fl_context()`设置`encrypt_type='PW_ENCRYPT'`即可。
+开启安全聚合训练的方式很简单，只需要在启动云侧服务时，通过yaml文件设置`encrypt_type`字段为`PW_ENCRYPT`即可。
 
 此外，由于端云联邦场景下，参与训练的Worker大多是手机等不稳定的边缘计算节点，所以要考虑计算节点的掉线和密钥恢复问题。与之相关的参数有`share_secrets_ratio`、`reconstruct_secrets_threshold`和`cipher_time_window`。
 
 `share_client_ratio`指代公钥分发轮次、秘密分享轮次、秘钥恢复轮次的客户端阈值衰减比例，取值需要小于等于1。
 
-`reconstruct_secrets_threshold`指代恢复秘密需要的碎片数量，取值需要小于参与updateModel的客户端数量(start_fl_job_threshold*update_model_ratio，这两个参数的解释详见[该文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/context.py)中的set_fl_context函数)。
+`reconstruct_secrets_threshold`指代恢复秘密需要的碎片数量，取值需要小于参与updateModel的客户端数量(start_fl_job_threshold*update_model_ratio)。
 
 通常为了保证系统安全，当不考虑Server和Client合谋的情况下，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的一半；当考虑Server和Client合谋，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的2/3。
 
@@ -55,7 +55,7 @@ $$
 
 ### 云云联邦场景
 
-在云云联邦场景下，在云侧启动脚本和端侧启动脚本中通过`set_fl_context()`设置`encrypt_type='STABLE_PW_ENCRYPT'`即可。
+在云云联邦场景下，在云侧启动脚本通过yaml文件设置`encrypt_type`字段为`PW_ENCRYPT`即可。
 
 此外，与端云联邦不同的是，在云云联邦场景中，每个Worker都是稳定的服务器，所以不需要考虑掉线问题，因此只需要设置`cipher_time_window`这一超参。
 
