@@ -172,7 +172,7 @@ dst_strategy.ckpt
     示例中，对整个Checkpoint目录进行转换的脚本执行命令为：
 
     ```bash
-    python transform_checkpoint_dir.py --src_strategy_file=./src_strategy.ckpt --dst_strategy.ckpt --src_checkpoints_dir=./src_checkpoints --dst_checkpoints_dir=./dst_checkpoints
+    python transform_checkpoint_dir.py --src_strategy_file=./src_strategy.ckpt --dst_strategy_file=./dst_strategy.ckpt --src_checkpoints_dir=./src_checkpoints --dst_checkpoints_dir=./dst_checkpoints
     ```
 
 2. 调用`transform_checkpoint_by_rank`接口对"transform_rank"进行参数合并。
@@ -207,7 +207,7 @@ dst_checkpoints/
 
 对目标策略的网络进行编译，调用`load_checkpoint`接口，从转换后的Checkpoint文件中加载模型参数数据。
 
-### 编译目标网络
+### 编译与执行目标网络
 
 使用`model.build`(训练时)或者`model.infer_predict_layout`(推理时)接口对网络进行编译，此时权重Shape在编译流程进行了切分；调用`load_checkpoint`接口，从Checkpoint文件中加载各卡的模型参数数据。
 
@@ -254,6 +254,99 @@ model.predict(2, predict_data)
 ```
 
 - `predict_data`：用于推理的Tensor数据。
+
+示例中，加载转换后的Checkpoint进行二阶段微调训练的脚本执行命令为：
+
+```bash
+bash run_train_4p.sh ../output/wmt14.en_fr.txt
+```
+
+执行完成后，可以看到loss从6.45开始下降：
+
+```text
+epoch: 1 step: 73, loss is 6.45995
+epoch: 1 step: 73, loss is 6.13733
+```
+
+### 流水线并行维度转换
+
+[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
+因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前一个章节[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 没有差异。
+
+首先，执行8卡的流水线并行训练，其中pipeline并行维度为2，算子级模型并行维度为4，数据并行维度为1。
+
+```python
+import mindspore as ms
+import mindspore.communication as D
+D.init()
+device_num = D.get_group_size()
+rank_id = D.get_rank()
+net = Net()
+net = PipelineCell(net, 4) # micro_batch=4
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
+ms.set_auto_parallel_context(strategy_ckpt_save_file="../src_pipeline_strategys/src_strategy{}.ckpt")
+opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
+model = ms.Model(net, optimizer=opt)
+ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
+                                  integrated_save=False)
+ckpoint_cb = ms.ModelCheckpoint(prefix="src_checkpoint",
+                                directory = "../src_checkpoints/rank_{}".format(rank_id),
+                                config=ckpt_config)
+callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
+```
+
+其中，
+
+- `dataset`：MindData对象，需要提前构造好以给入`model.train`。
+
+示例里面执行8卡训练脚本执行命令为：
+
+```bash
+bash run_train_8p_pipeline.sh ../output/wmt14.en_fr.txt
+```
+
+执行后，将会生成源Checkpoint文件目录以及源切分策略文件:
+
+```text
+src_checkpoints_pipeline/
+src_pipeline_strategys/
+```
+
+参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的“对目标网络执行编译”模块，同样编译目标网络以得到目标网络的切分策略文件。
+
+示例中执行4卡目标网络编译的脚本执行命令为：
+
+```bash
+bash run_compile_4p.sh ../output/wmt14.en_fr.txt
+```
+
+执行后，将会生成目标切分策略文件:
+
+```text
+dst_strategy.ckpt
+```
+
+下一步展开包含pipeline并行维度的分布式Checkpoint维度转换，首先使用接口`merge_pipeline_strategys`对pipline训练得到的切分策略文件进行合并，而后使用接口`transform_checkpoints`或者`transform_checkpoint_by_rank`进行分布式Checkpoint转换。
+
+示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的介绍。
+
+```python
+import mindspore as ms
+ms.merge_pipeline_strategys(src_pipeline_strategys_dir, src_strategy_file)
+ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir,
+                            "transformed", src_strategy_file, dst_strategy_file)
+```
+
+> src_checkpoints_dir内的子目录要求按照"rank_x/checkpoint_x.ckpt"格式进行存储。
+
+示例中，对整个Checkpoint目录进行转换的脚本执行命令为：
+
+```bash
+python transform_checkpoint_dir_pipeline.py --src_strategy_dir=./src_pipeline_strategys --dst_strategy_file=dst_strategy.ckpt --src_checkpoints_dir=./src_checkpoints --dst_checkpoints_dir=./dst_checkpoints
+```
+
+转换完成后，参照[执行目标网络章节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6) ，加载转换得到的分布式Checkpoint，执行没有pipeline维度的分布式网络。
 
 示例中，加载转换后的Checkpoint进行二阶段微调训练的脚本执行命令为：
 
