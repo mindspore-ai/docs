@@ -1,12 +1,10 @@
 # 比较与tf.keras.optimizers.SGD的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SGD.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-
 ## tf.keras.optimizers.SGD
 
-```python
+```text
 class tf.keras.optimizers.SGD(
-    learning_rate=0.001,
+    learning_rate=0.01,
     momentum=0.0,
     nesterov=False,
     name='SGD',
@@ -14,11 +12,11 @@ class tf.keras.optimizers.SGD(
 )
 ```
 
-更多内容详见[tf.keras.optimizers.SGD](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD)。
+更多内容详见 [tf.keras.optimizers.SGD](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/SGD)。
 
 ## mindspore.nn.SGD
 
-```python
+```text
 class mindspore.nn.SGD(
     params,
     learning_rate=0.1,
@@ -27,50 +25,85 @@ class mindspore.nn.SGD(
     weight_decay=0.0,
     nesterov=False,
     loss_scale=1.0
-)(grads)
+)
 ```
 
-更多内容详见[mindspore.nn.SGD](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html)。
+更多内容详见 [mindspore.nn.SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html)。
 
-## 使用方式
+## 差异对比
 
-TensorFlow：对所有参数使用相同的学习率，没法设定不同参数组使用不同学习率。
+TensorFlow：实现的是梯度下降（带动量）优化器的功能。
 
-MindSpore：支持所有的参数使用相同的学习率以及不同的参数组使用不同的值的方式。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。除了`learning_rate`设置的默认值不同外，MindSpore提供了参数分组`params`  、动量的抑制因子`dampening`  、权重衰减`weight_decay`、混合精度`loss_scale`等入参配置，TensorFlow无这些参数。而TensorFlow中的kwargs参数可以设置为`clipvalue`，`clipnorm`，梯度截断Clip可以将梯度约束在某一个区间之内，MindSpore无此功能。
 
-## 代码示例
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | learning_rate | learning_rate |功能一致，参数默认值不同 |
+| | 参数2 | momentum | momentum |- |
+| | 参数3 | nesterov | nesterov |- |
+| | 参数4 | name | - |不涉及 |
+| | 参数5 | **kwargs | - | 关键字参数。允许的参数是`clipvalue`, `clipnorm`, 。如果设置了clipvalue(float)  ，则每个权重的梯度被裁剪为不高于该值。如果设置了 clipnorm(float)，则每个权重的梯度被单独裁剪，使其范数不高于该值，MindSpore无此参数 |
+| | 参数6 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，TensorFlow没有此入参配置 |
+| | 参数7 | - | dampening |动量的抑制因子，TensorFlow无此参数 |
+| | 参数8 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
+| | 参数9 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
+
+### 代码示例
+
+> 两API实现功能一致，用法相同。
 
 ```python
-# The following implements SGD with MindSpore.
+# TensorFlow
 import tensorflow as tf
+
+opt = tf.keras.optimizers.SGD(learning_rate=0.1, momentum=0.9)
+var = tf.Variable(1.0)
+val0 = var.value()
+loss = lambda: (var ** 2)/2.0
+step_count1 = opt.minimize(loss, [var]).numpy()
+val1 = var.value()
+print([val1.numpy()])
+# [0.9]
+step_count2 = opt.minimize(loss, [var]).numpy()
+val2 = var.value()
+print([val2.numpy()])
+# [0.71999997]
+
+# MindSpore
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore.train import Model
+import numpy as np
+from mindspore.dataset import NumpySlicesDataset
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.w = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='w')
+
+    def construct(self, x):
+        f = self.w * x
+        return f
+
+class MyLoss(nn.LossBase):
+    def __init__(self, reduction='none'):
+        super(MyLoss, self).__init__()
+
+    def construct(self, y, y_pred):
+        return (y - y_pred) ** 2 / 2.0
 
 net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.SGD(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.SGD(group_params, learning_rate=0.1, weight_decay=0.0)
-# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
-# centralization of True.
-# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
-# centralization of False.
-# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements SGD with TensorFlow.
-image = tf.keras.layers.Input(shape=(28, 28, 1))
-model = tf.keras.models.Model(image, net)
-optim = tf.keras.optimizers.SGD()
-loss = tf.keras.losses.BinaryCrossentropy()
-model.compile(optimizer=optim, loss=loss, metrics=['accuracy'])
+loss = MyLoss()
+optim = nn.SGD(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
+t = {"x": [1.0], "y": [0.0]}
+data = NumpySlicesDataset(t)
+y0 = net(1.0)
+model.train(1, data)
+y1 = net(1.0)
+print(y1)
+# [0.9]
+model.train(1, data)
+y2 = net(1.0)
+print(y2)
+# [0.71999997]
 ```

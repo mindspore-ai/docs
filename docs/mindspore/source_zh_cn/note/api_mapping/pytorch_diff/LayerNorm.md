@@ -1,0 +1,72 @@
+# 比较与torch.nn.LayerNorm的功能差异
+
+## torch.nn.LayerNorm
+
+```python
+class torch.nn.LayerNorm(
+    normalized_shape,
+    eps=1e-05,
+    elementwise_affine=True
+)(x) -> Tensor
+```
+
+更多内容详见 [torch.nn.LayerNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.LayerNorm.html)。
+
+## mindspore.nn.LayerNorm
+
+```python
+class mindspore.nn.LayerNorm(
+    normalized_shape,
+    begin_norm_axis=-1,
+    begin_params_axis=-1,
+    gamma_init='ones',
+    beta_init='zeros',
+    epsilon=1e-7
+)(x) -> Tensor
+```
+
+更多内容详见 [mindspore.nn.LayerNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LayerNorm.html)。
+
+## 差异对比
+
+PyTorch：在mini-batch输入上应用层归一化（Layer Normalization），其中，参数`elementwise_affine`用于控制是否采用可学习参数。
+
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，但Mindspore中不存在参数`elementwise_affine`，同时增加了参数`begin_norm_axis`控制归一化开始计算的轴，参数`begin_params_axis`控制第一个参数(beta, gamma)的维度，以及参数`gamma_init`和`beta_init`用来控制`γ`参数和`β`参数的初始化方法。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | normalized_shape | normalized_shape |功能一致， 参数名相同 |
+| | 参数2 | eps | epsilon | 功能一致， 参数名不同，默认值不同 |
+| | 参数3 | elementwise_affine | - | PyTorch中此参数用于控制是否采用可学习参数，Mindspore中无此参数|
+| | 参数4 | x | x | 功能一致，参数相同|
+| | 参数5 | - | begin_norm_axis | PyTorch中无此参数，MindSpore中的此参数控制归一化开始计算的轴|
+| | 参数6 | - | begin_params_axis | PyTorch中无此参数，MindSpore中的此参数控制第一个参数(beta, gamma)的维度|
+| | 参数7 | - | gamma_init | PyTorch中无此参数，MindSpore中的此参数控制`γ`参数的初始化方法|
+| | 参数8 | - | beta_init | PyTorch中无此参数，MindSpore中的此参数控制`β`参数的初始化方法|
+
+### 代码示例
+
+> PyTorch的此API中参数`elementwise_affine`为True时，MindSpore和PyTorch实现功能基本一致。
+
+```python
+# PyTorch
+import torch
+import torch.nn as nn
+input = torch.ones([20, 5, 10, 10])
+m = nn.LayerNorm(input.size()[1:])
+output = m(input).shape
+print(output)
+# torch.Size([20, 5, 10, 10])
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import mindspore.numpy as np
+import mindspore.nn as nn
+x = Tensor(np.ones([20, 5, 10, 10]), mindspore.float32)
+shape1 = x.shape[1:]
+m = nn.LayerNorm(shape1,  begin_norm_axis=1, begin_params_axis=1)
+output = m(x).shape
+print(output)
+# (20, 5, 10, 10)
+```

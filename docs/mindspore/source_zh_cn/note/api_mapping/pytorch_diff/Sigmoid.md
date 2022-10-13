@@ -1,0 +1,53 @@
+# 比较与torch.nn.Sigmoid的功能差异
+
+## torch.nn.Sigmoid
+
+```text
+class torch.nn.Sigmoid()(input) -> Tensor
+```
+
+更多内容详见 [torch.nn.Sigmoid](https://pytorch.org/docs/1.8.1/generated/torch.nn.Sigmoid.html)。
+
+## mindspore.nn.Sigmoid
+
+```text
+class mindspore.nn.Sigmoid()(x) -> Tensor
+```
+
+更多内容详见 [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Sigmoid.html)。
+
+## 差异对比
+
+PyTorch：Sigmoid激活函数，将输入映射到0-1之间。
+
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅实例化后的参数名不同。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| :-: | :-: | :-: | :-: |:-:|
+|参数 | 参数1 | input | x |功能一致， 类实例化前均无此参数，实例化后调用时仅参数名不同 |
+
+### 代码示例
+
+> 当两个输入参数的都为Tensor类型且shape值不同时，实现功能一致， 用法相同。
+
+```python
+# PyTorch
+import torch
+from torch import tensor
+
+input = tensor([-1, -2, 0, 2, 1], dtype=torch.float32)
+sigmoid = torch.nn.Sigmoid()
+output = sigmoid(input).numpy()
+print(output)
+# [0.26894143 0.11920292 0.5        0.880797   0.7310586 ]
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+
+x = Tensor([-1, -2, 0, 2, 1], mindspore.float32)
+sigmoid = mindspore.nn.Sigmoid()
+output = sigmoid(x)
+print(output)
+# [0.26894143 0.11920292 0.5        0.8807971  0.7310586 ]
+```

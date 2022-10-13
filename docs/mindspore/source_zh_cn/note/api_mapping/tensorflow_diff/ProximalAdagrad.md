@@ -1,107 +1,136 @@
-# 比较与tf.train.ProximalAdagradOptimizer的功能差异
+# 比较与tf.compat.v1.train.ProximalAdagradOptimizer的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ProximalAdagrad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+## tf.compat.v1.train.ProximalAdagradOptimizer
 
-## tf.train.ProximalAdagradOptimizer
-
-```python
-tf.train.ProximalAdagradOptimizer(
-    learning_rate, initial_accumulator_value=0.1, l1_regularization_strength=0.0,
-    l2_regularization_strength=0.0, use_locking=False, name='ProximalAdagrad'
+```text
+tf.compat.v1.train.ProximalAdagradOptimizer(
+    learning_rate,
+    initial_accumulator_value=0.1,
+    l1_regularization_strength=0.0,
+    l2_regularization_strength=0.0,
+    use_locking=False,
+    name='ProximalAdagrad'
 )
 ```
 
-更多内容详见[tf.train.ProximalAdagradOptimizer](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/ProximalAdagradOptimizer)。
+更多内容详见 [tf.compat.v1.train.ProximalAdagradOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer)。
 
 ## mindspore.nn.ProximalAdagrad
 
-```python
-mindspore.nn.ProximalAdagrad(
-    params, accum=0.1, learning_rate=0.001, l1=0.0, l2=0.0,
-    use_locking=False, loss_scale=1.0, weight_decay=0.0)
+```text
+class mindspore.nn.ProximalAdagrad(
+    params,
+    accum=0.1,
+    learning_rate=0.001,
+    l1=0.0,
+    l2=0.0,
+    use_locking=False,
+    loss_scale=1.0,
+    weight_decay=0.0
+)
 ```
 
-更多内容详见[mindspore.nn.ProximalAdagrad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ProximalAdagrad.html#mindspore.nn.ProximalAdagrad)。
+更多内容详见 [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ProximalAdagrad.html)。
 
-## 使用方式
+## 差异对比
 
-一般使用场景：
+TensorFlow：实现的是 Proximal Adagrad 算法的优化器功能。
 
-- MindSpore：一般情况下，在实例化一个优化器子类之后，将其作为`mindspore.model`高阶API的入参参与训练，用法请参考代码示例；或使用`mindspore.nn.TrainOneStepCell`，通过传入优化器和一个`mindspore.nn.WithLossCell`的实例。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，用法稍有不同。MindSpore支持参数分组`params`、梯度缩放系数`loss_scale`、权重衰减`weight_decay`等参数配置来增加相应的功能，TensorFlow无此参数功能。
 
-- TensorFlow：一般情况下，在实例化一个优化器子类之后，将其作为`tf.keras.models.Model`高阶API的入参参与训练；或调用`minimize()`（包含`compute_gradients()`和`apply_gradients()`）方法单步执行。
+| 分类 | 子类 |         TensorFlow         |   MindSpore   | 差异 |
+| :-- | :-- | :-- | :-- |:--|
+|参数 | 参数1 | learning_rate | learning_rate |功能一致，TensorFlow无默认值 |
+| | 参数2 | initial_accumulator_value | accum |功能一致，参数名不同 |
+| | 参数3 | l1_regularization_strength | l1 |功能一致，参数名不同 |
+| | 参数4 | l2_regularization_strength | l2 |功能一致，参数名不同 |
+| | 参数5 | use_locking | use_locking |- |
+| | 参数6 | name | - |不涉及 |
+| | 参数7 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，TensorFlow没有此入参配置 |
+| | 参数8 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
+| | 参数9 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
 
-其他功能差异：
+### 代码示例
 
-- 参数分组：MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，`mindspore.nn.ProximalAdagrad`支持参数分组；TensorFlow没有此入参配置。
-
-- 动态学习率：MindSpore支持动态学习率，分别在`nn.dynamic_lr`和`nn.learning_rate_schedule`模块中有不同的实现方法，`mindspore.nn.ProximalAdagrad`支持动态学习率；TensorFlow也支持此功能，学习率设置封装在`tf.train`模块中，`tf.train.ProximalAdagradOptimizer`支持动态学习率。
-
-- 权重衰减和混合精度：MindSpore的`mindspore.nn.Optimizer`基类支持通过配置入参`weight_decay`和`loss_scale`来进行权重衰减及混合精度设置；TensorFlow的优化器没有相关入参配置，但提供了`tf.keras.regularizers`和`tf.keras.mixed_precision`模块提供相似的功能，配合优化器使用。
-
-## 代码示例
-
-MindSpore：
-
-```python
-# The following implements  ProximalAdagrad with MindSpore.
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv = nn.Conv2d(3, 64, 3)
-        self.bn = nn.BatchNorm2d(64)
-
-    def construct(self, x):
-        x = self.conv(x)
-        x = self.bn(x)
-        return x
-
-net = Net()
-
-# 1) All parameters use the same learning rate and weight decay
-optim = nn.ProximalAdagrad(params=net.trainable_params())
-
-# 2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-
-optim = nn.ProximalAdagrad(group_params, learning_rate=0.1, weight_decay=0.0)
-loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-model = Model(net, loss_fn=loss, optimizer=optim, metrics={"accuracy"})
-```
-
-TensorFlow：
-
-> 以下训练输出结果具有随机性。
+> 实现功能一致，用法相同。
 
 ```python
-# The following implements ProximalAdagrad with tensorflow.
+# TensorFlow
 import tensorflow as tf
-from tensorflow.keras import layers
-tf.enable_eager_execution()
+import numpy as np
 
-# build model and instantiate ProximalAdagrad optimizer
-model = tf.keras.Sequential()
-model.add(layers.Dense(1, kernel_initializer='uniform', input_shape=(3,)))
-model.add(layers.Activation('relu'))
+tf.compat.v1.disable_v2_behavior()
+tf.compat.v1.disable_eager_execution()
 
-inputs = tf.constant([[1., 2., 3.], [3., 4., 5.]], dtype=tf.float32)
-outputs = tf.constant([[0.5], [0.6]], dtype=tf.float32)
+param_np = np.ones(7).astype(np.float32)
+indices = np.array([1, 2, 3, 4, 5, 6]).astype(np.int32)
+label = np.zeros((2, 3)).astype(np.float32)
+label_shape = (2, 3)
+axis = 0
+epoch = 3
+param_tf = tf.Variable(param_np)
+indices_tf = tf.Variable(indices)
+label = tf.Variable(label)
+net = tf.raw_ops.GatherV2(params=param_tf, indices=indices_tf, axis=axis, batch_dims=0, name=None)
+net = tf.reshape(net, label_shape)
+criterion = tf.compat.v1.losses.softmax_cross_entropy(onehot_labels=label, logits=net,
+                                                      reduction=tf.compat.v1.losses.Reduction.MEAN)
+opt = tf.compat.v1.train.ProximalAdagradOptimizer(learning_rate=0.001).minimize(criterion)
+init = tf.compat.v1.global_variables_initializer()
+with tf.compat.v1.Session() as ss:
+    ss.run(init)
+    for i in range(epoch):
+        loss = criterion.eval()
+        ss.run(opt)
+    output = net.eval()
+    net = ss.run(net)
+out_tf = output.astype(np.float32)
+print(out_tf)
+# [[0.9987219 0.9987219 0.9987219]
+#  [0.9987219 0.9987219 0.9987219]]
 
-optim = tf.train.ProximalAdagradOptimizer(learning_rate=0.01)
-loss = tf.keras.losses.MeanSquaredError()
+# MindSpore
+import numpy as np
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore.ops import operations as op
+from mindspore import Parameter
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+from mindspore.nn import TrainOneStepCell, WithLossCell
+from mindspore.nn import Cell
 
-model.compile(optimizer=optim, loss=loss)
-model.fit(inputs, outputs)
 
-# out: Train on 2 samples
-# 2/2 [==============================] - 0s 16ms/sample - loss: 0.0596
+class NetWithGatherV2(Cell):
+    def __init__(self, param_np, label, axis=0):
+        super(NetWithGatherV2, self).__init__()
+        self.param = Parameter(Tensor(param_np), name="w1")
+        self.gatherv2 = op.GatherV2()
+        self.reshape = op.Reshape()
+        self.axis = axis
+        self.label = label
+
+    def construct(self, indices):
+        x = self.gatherv2(self.param, indices, self.axis)
+        return self.reshape(x, self.label)
+
+
+param_np = np.ones(7).astype(np.float32)
+indices = np.array([1, 2, 3, 4, 5, 6]).astype(np.int32)
+label = np.zeros((2, 3)).astype(np.float32)
+label_shape = (2, 3)
+epoch = 3
+inputs = Tensor(indices)
+label = Tensor(label)
+net = NetWithGatherV2(param_np, label_shape, axis=0)
+criterion = SoftmaxCrossEntropyWithLogits(reduction='mean')
+optimizer = nn.ProximalAdagrad(params=net.trainable_params())
+net_with_criterion = WithLossCell(net, criterion)
+train_network = TrainOneStepCell(net_with_criterion, optimizer)
+train_network.set_train()
+for i in range(epoch):
+    train_network(inputs, label)
+out_ms = net(inputs).asnumpy()
+print(out_ms)
+# [[0.9987219 0.9987219 0.9987219]
+#  [0.9987219 0.9987219 0.9987219]]
 ```
