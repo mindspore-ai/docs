@@ -100,7 +100,7 @@ fillna 0.77s  0.13s
 
    # 可根据实际情况设置合适分片数
    mpd.set_partition_shape((4, 2))
-   df = df.fillna(1)
+   mdf = mdf.fillna(1)
 
 常见的统计类API如max、min、sum、all、any等，在MindPandas中也通过并行化的方式大幅度提高了性能。
 
