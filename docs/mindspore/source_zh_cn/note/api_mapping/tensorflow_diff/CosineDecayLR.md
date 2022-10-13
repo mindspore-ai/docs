@@ -1,11 +1,9 @@
-# 比较与tf.train.linear_cosine_decay的功能差异
+# 比较与tf.compat.v1.train.linear_cosine_decay的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/CosineDecayLR.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+## tf.compat.v1.train.linear_cosine_decay
 
-## tf.train.linear_cosine_decay
-
-```python
-class tf.train.linear_cosine_decay(
+```text
+tf.compat.v1.train.linear_cosine_decay(
     learning_rate,
     global_step,
     decay_steps,
@@ -13,68 +11,84 @@ class tf.train.linear_cosine_decay(
     alpha=0.0,
     beta=0.001,
     name=None
-)
+) -> Number
 ```
 
-更多内容详见[tf.train.linear_cosine_decay](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay)。
+更多内容详见 [tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay)。
 
 ## mindspore.nn.CosineDecayLR
 
-```python
+```text
 class mindspore.nn.CosineDecayLR(
     min_lr,
     max_lr,
     decay_steps
-)(global_step)
+)(global_step) -> Number
 ```
 
-更多内容详见[mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
+更多内容详见 [mindspore.nn.CosineDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
 
-## 使用方式
+## 差异对比
 
-TensorFlow：计算公式如下：
+TensorFlow：基于余弦衰减函数计算学习率。
 
-`global_step = min(global_step, decay_steps)`
+MindSpore：与PyTorch实现同样的功能，依据的计算公式不同。
 
-`linear_decay = (decay_steps - global_step) / decay_steps`
+| 分类 | 子类 |TensorFlow | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | learning_rate | - |初始学习速率，MindSpore无此参数。 |
+| | 参数2 | global_step | global_step |- |
+| | 参数3 | decay_steps | decay_steps |- |
+| | 参数4 | num_periods | - |余弦部分衰减的周期数，MindSpore无此参数。 |
+| | 参数5 | alpha | - |计算公式中的α参数，MindSpore无此参数。 |
+| | 参数6 | beta | - |计算公式中的β参数，MindSpore无此参数。 |
+| | 参数7 | name | - | 不涉及 |
+| | 参数8 | - | min_lr |学习率的最小值 |
+| | 参数9 | - | max_lr |学习率的最大值 |
 
-`cosine_decay = 0.5 * (1 + cos(pi * 2 * num_periods * global_step / decay_steps))`
+### 代码示例1
 
-`decayed = (alpha + linear_decay) * cosine_decay + beta`
+> 两API实现功能相同，计算逻辑不同。
 
-`decayed_learning_rate = learning_rate * decayed`
+TensorFlow中的计算公式为：
 
-MindSpore：计算逻辑和Tensorflow不一样，计算公式如下：
-`current_step = min(global_step, decay_step)`
+```text
+global_step = min(global_step, decay_steps)
+linear_decay = (decay_steps - global_step) / decay_steps)
+cosine_decay = 0.5 * (1 + cos(pi*2*num_periods*global_step/decay_steps))
+decayed = (alpha + linear_decay) * cosine_decay + beta
+decayed_learning_rate = learning_rate * decayed
+```
 
-`decayed_learning_rate = min_lr + 0.5 * (max_lr - min_lr) *(1 + cos(pi * current_step / decay_steps))`
+在MindSpore中，对于当前step，计算学习率的公式为：
 
-## 代码示例
+```text
+decayed_learning_rate = min_lr + 0.5 ∗ (max_lr − min_lr) ∗ (1 + cos(current_step*π/decay_steps))
+```
 
 ```python
-# The following implements CosineDecayLR with MindSpore.
-import numpy as np
+# TensorFlow
 import tensorflow as tf
-import mindspore as ms
-import mindspore.nn as nn
+
+tf.compat.v1.disable_eager_execution()
+learning_rate = 0.01
+global_steps = 2
+decay_steps = 4
+output = tf.compat.v1.train.linear_cosine_decay(learning_rate, global_steps, decay_steps)
+ss = tf.compat.v1.Session()
+print(ss.run(output))
+#0.0025099998
+
+# MindSpore
+import mindspore
+from mindspore import Tensor,nn
 
 min_lr = 0.01
 max_lr = 0.1
 decay_steps = 4
-global_steps = ms.Tensor(2, ms.int32)
-cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
-result = cosine_decay_lr(global_steps)
-print(result)
-# Out：
-# 0.055
-
-
-# The following implements linear_cosine_decay with TensorFlow.
-learging_rate = 0.01
-global_steps = 2
-output = tf.train.linear_cosine_decay(learging_rate, global_steps, decay_steps)
-ss = tf.Session()
-ss.run(output)
-# out
-# 0.0025099998
+global_steps = Tensor(2,mindspore.int32)
+cosine_decay_lr = nn.CosineDecayLR(min_lr,max_lr,decay_steps)
+output = cosine_decay_lr(global_steps)
+print(output)
+#0.055
 ```
