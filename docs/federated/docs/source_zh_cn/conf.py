@@ -119,14 +119,17 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python/federated')
+src_dir = os.path.join(os.getenv("MF_PATH"), 'docs/api/api_python')
+present_path = os.path.dirname(__file__)
 
 for i in os.listdir(src_dir):
-    if os.path.exists('./'+i):
-        os.remove('./'+i) 
-    shutil.copy(os.path.join(src_dir,i),'./'+i)
+    if '.md' in i:
+        continue
+    if os.path.exists(os.path.join(present_path,i)):
+        os.remove(os.path.join(present_path,i))
+    shutil.copy(os.path.join(src_dir,i), os.path.join(present_path,i))
 
-import mindspore
+import mindspore_federated
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
