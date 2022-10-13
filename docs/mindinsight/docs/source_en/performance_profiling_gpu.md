@@ -8,56 +8,69 @@ This article describes how to use MindSpore Profiler for performance debugging o
 
 ## Operation Process
 
-- Prepare a training script, add profiler APIs in the training script and run the training script.
+- Prepare a training script, add Profiler APIs in the training script and run the training script.
 - Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - Find the training in the list, click the performance profiling link and view the data on the web page.
 
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
 >
-> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to [NVIDIA Development Tools Solutions](https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti).
+> If common users need to use the Profiler performance statistics capability in the training script, configure the permission by referring to [NVIDIA Development Tools Solutions](https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti).
 
 ## Preparing the Training Script
 
-To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.
+There are two ways to collect neural network performance data. You can enable Profiler in either of the following ways.
 
-- The MindSpore `Profiler` object needs to be initialized after `set_context` is set.
+- Method 1: Enable environment variables
 
-    > In multi-card training scene, `Profiler` object needs to be initialized after `set_auto_parallel_context`.
-    >
-    > Only the output_path in parameters is working in GPU now.
+  Before running the network script, configure Profiler configuration items.
 
-- At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
+  For example: `export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
 
-For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script).
+    - `start`: If this parameter is set to "true", Profiler is enabled. If the value is set to "false", the performance data collection is disabled. Default value: "false".
+    - `output_path`(str, optional): This parameter must be set to the absolute path. If this parameter is not set to the absolute path, the data directory is created in the current path to store performance data by default.
+    - `sync_enable`(bool, optional): Whether to enable the operator asynchronous execution mode. Default value: "true".
 
-In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
+- Method 2: Modify the training script
 
-The following is the example：
+  Add the MindSpore Profiler interface to the training script.
+  - The MindSpore `Profiler` object needs to be initialized after `set_context` is set.
 
-```python
-import mindspore as ms
+      > In GPU multi-card scenarios, the `Profiler` object needs to be initialized after `set_auto_parallel_context`.
+      >
+      > Now only the output_path in parameters is working in GPU when initializing the Profiler object.
 
-class StopAtStep(ms.Callback):
-    def __init__(self, start_step, stop_step):
-        super(StopAtStep, self).__init__()
-        self.start_step = start_step
-        self.stop_step = stop_step
-        self.profiler = Profiler(start_profile=False)
-    def step_begin(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if step_num == self.start_step:
-            self.profiler.start()
-    def step_end(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if step_num == self.stop_step:
-            self.profiler.stop()
-    def end(self, run_context):
-        self.profiler.analyse()
-```
+  - At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
 
-The code above is just an example. Users should implement callback by themselves.
+  For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script).
+
+  In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
+
+  The following is the example：
+
+  ```python
+  import mindspore as ms
+
+  class StopAtStep(ms.Callback):
+      def __init__(self, start_step, stop_step):
+          super(StopAtStep, self).__init__()
+          self.start_step = start_step
+          self.stop_step = stop_step
+          self.profiler = Profiler(start_profile=False)
+      def step_begin(self, run_context):
+          cb_params = run_context.original_args()
+          step_num = cb_params.cur_step_num
+          if step_num == self.start_step:
+              self.profiler.start()
+      def step_end(self, run_context):
+          cb_params = run_context.original_args()
+          step_num = cb_params.cur_step_num
+          if step_num == self.stop_step:
+              self.profiler.stop()
+      def end(self, run_context):
+          self.profiler.analyse()
+  ```
+
+  The code above is just an example. Users should implement callback by themselves.
 
 ## Launching MindInsight
 

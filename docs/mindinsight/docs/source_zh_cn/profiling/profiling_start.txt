@@ -1,4 +1,5 @@
 启动MindInsight
 ---------------
 
-启动命令请参考`MindInsight相关命令 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html>`_ 。
+启动命令请参考：
+`MindInsight相关命令 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html>`_ 。
