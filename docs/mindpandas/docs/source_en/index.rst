@@ -100,7 +100,7 @@ fillna 0.77s  0.13s
 
    # The number of slices can be set according to the actual situation.
    mpd.set_partition_shape((4, 2))
-   df = df.fillna(1)
+   mdf = mdf.fillna(1)
 
 Common statistical class APIs are also substantially improved in MindPandas by parallelizing performance, such as max, min, sum, all, and any.
 
@@ -145,6 +145,7 @@ Typical scenarios using MindPandas
    :caption: Guide
 
    mindpandas_quick_start
+   mindpandas_configuration
 
 .. toctree::
    :maxdepth: 1
@@ -155,6 +156,12 @@ Typical scenarios using MindPandas
    mindpandas.Series
    mindpandas.Groupby
    mindpandas.Others
+
+.. toctree::
+   :maxdepth: 1
+   :caption: REFERENCES
+
+   faq
 
 .. toctree::
    :maxdepth: 1
