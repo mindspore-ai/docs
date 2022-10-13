@@ -96,7 +96,7 @@ fillna 0.77s  0.13s
    import pandas as pd
    import mindpandas as mpd
 
-   df = df.fillna(1)
+   mdf = mdf.fillna(1)
 
    # 可根据实际情况设置合适分片数
    mpd.set_partition_shape((4, 2))
