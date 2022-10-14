@@ -51,7 +51,7 @@ public void setWorkerNum(int workerNum)
 
 - 参数
 
-    - `workerNum`: 配置文件中设置模型个数。
+    - `workerNum`: 模型个数。
 
 ## setConfigInfo
 
@@ -72,7 +72,7 @@ public void setConfigInfo(String section, HashMap<String, String> config)
 public void setConfigPath(String configPath)
 ```
 
-并发推理中模型个数参数设置。
+并发推理中模型配置文件路径参数设置。
 
 - 参数
 
