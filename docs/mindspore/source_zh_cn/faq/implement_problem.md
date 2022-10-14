@@ -458,7 +458,7 @@ A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`�
 
 <font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/resnet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
 
-A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: HCCL dependent tsd is not open。
+A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: Ascend kernel runtime initialization failed。
 
 <br/>
 
