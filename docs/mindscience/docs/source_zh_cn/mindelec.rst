@@ -4,7 +4,7 @@ MindElec
 mindelec.architecture
 ---------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -20,7 +20,7 @@ mindelec.architecture
 mindelec.common
 ---------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -32,7 +32,7 @@ mindelec.common
 mindelec.data
 -------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -53,7 +53,7 @@ mindelec.data
 mindelec.geometry
 -----------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -78,7 +78,7 @@ mindelec.geometry
 mindelec.loss
 -------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -91,7 +91,7 @@ mindelec.loss
 mindelec.operators
 ------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -102,7 +102,7 @@ mindelec.operators
 mindelec.solver
 ---------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst
@@ -115,7 +115,7 @@ mindelec.solver
 mindelec.vision
 ----------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: mindelec
     :nosignatures:
     :template: classtemplate.rst

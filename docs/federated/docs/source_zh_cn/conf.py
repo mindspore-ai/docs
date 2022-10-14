@@ -115,7 +115,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Copy source files of chinese python api from mindspore repository.
+# Copy source files of chinese python api from federated repository.
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
