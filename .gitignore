@@ -16,3 +16,4 @@ dataset/
 *.ckpt
 *.mindir
 *.meta
+MNIST_Data/
