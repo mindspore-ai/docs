@@ -13,6 +13,7 @@ MSTensor defined tensor in MindSpore.
 | function                                   |
 | ------------------------------------------ |
 | [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)  |
+| [MSTensor createTensor(String tensorName, Object obj)](#createtensor)  |
 | [int[] getShape()](#getshape)             |
 | [int getDataType()](#getdatatype)        |
 | [byte[] getByteData()](#getbytedata)     |
@@ -21,6 +22,8 @@ MSTensor defined tensor in MindSpore.
 | [long[] getLongData()](#getlongdata)     |
 | [void setData(byte[] data)](#setdata)     |
 | [void setData(float[] data)](#setdata)     |
+| [void setData(int[] data)](#setdata)     |
+| [void setData(long[] data)](#setdata)     |
 | [void setData(ByteBuffer data)](#setdata) |
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
@@ -42,6 +45,21 @@ Create MindSpore MSTensor.
     - `dataType`: tensor data type.
     - `tensorShape`: tensor shape.
     - `buffer`: tensor data buffer.
+
+- Returns
+
+  MindSpore MSTensor.
+
+```java
+public static MSTensor createTensor(String tensorName, Object obj)
+```
+
+Create MindSpore MSTensor.
+
+- Parameters
+
+    - `tensorName`: tensor name.
+    - `obj`: Array object of java or a scalar，support dtype：float, double, int, long, boolean.
 
 - Returns
 
@@ -140,6 +158,26 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of float[] type.
+
+```java
+public void setData(int[] data)
+```
+
+Set the input data of MSTensor.
+
+- Parameters
+
+    - `data`: Input data of int[] type.
+
+```java
+public void setData(long[] data)
+```
+
+Set the input data of MSTensor.
+
+- Parameters
+
+    - `data`: Input data of long[] type.
 
 ```java
 public void setData(ByteBuffer data)
