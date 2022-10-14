@@ -4,7 +4,7 @@ MindSPONGE APIs
 mindsponge.callback
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: callback
     :nosignatures:
     :template: classtemplate.rst
@@ -15,7 +15,7 @@ mindsponge.callback
 mindsponge.cell
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: cell
     :nosignatures:
     :template: classtemplate.rst
@@ -34,7 +34,7 @@ mindsponge.cell
 mindsponge.common
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: common
     :nosignatures:
     :template: classtemplate.rst
@@ -47,7 +47,7 @@ mindsponge.common
 mindsponge.control
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: control
     :nosignatures:
     :template: classtemplate.rst
@@ -68,7 +68,7 @@ mindsponge.control
 mindsponge.core
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: core
     :nosignatures:
     :template: classtemplate.rst
@@ -82,7 +82,7 @@ mindsponge.core
 mindsponge.data
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: data
     :nosignatures:
     :template: classtemplate.rst
@@ -112,7 +112,7 @@ mindsponge.data
 mindsponge.function
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: function
     :nosignatures:
     :template: classtemplate.rst
@@ -165,7 +165,7 @@ mindsponge.function
 mindsponge.optimizer
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: optimizer
     :nosignatures:
     :template: classtemplate.rst
@@ -177,7 +177,7 @@ mindsponge.optimizer
 mindsponge.partition
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: partition
     :nosignatures:
     :template: classtemplate.rst
@@ -190,7 +190,7 @@ mindsponge.partition
 mindsponge.potential
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: potential
     :nosignatures:
     :template: classtemplate.rst
@@ -213,7 +213,7 @@ mindsponge.potential
 mindsponge.system
 ----------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: system
     :nosignatures:
     :template: classtemplate.rst
