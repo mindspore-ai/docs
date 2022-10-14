@@ -45,7 +45,7 @@ def _clear_grad_sum(grad_sum, zero):
 
 
 class TrainForwardBackward(Cell):           # pylint: disable=missing-docstring
-    def __init__(self, network, optimizer, grad_sum, sens=1.0):
+    def __init__(self, network, optimizer, grad_sum):
         super(TrainForwardBackward, self).__init__(auto_prefix=False)
         self.network = network
         self.network.set_grad()
@@ -53,15 +53,10 @@ class TrainForwardBackward(Cell):           # pylint: disable=missing-docstring
         self.weights = ms.ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
-        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
-        self.sens = sens
         self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
-        weights = self.weights
-        loss = self.network(*inputs)
-        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
-        grads = self.grad(self.network, weights)(*inputs, sens)
+        loss, grads = ms.value_and_grad(self.network, grad_position=None, weights=self.weights)
         return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
 
@@ -104,8 +99,7 @@ class GradientAccumulation:         # pylint: disable=missing-docstring
         """Build forward and backward network"""
         network = self._network
         network = nn.WithLossCell(network, self._loss_fn)
-        loss_scale = 1.0
-        network = TrainForwardBackward(network, self._optimizer, self._grad_sum, loss_scale).set_train()
+        network = TrainForwardBackward(network, self._optimizer, self._grad_sum).set_train()
         return network
 
     def _build_train_optim(self):

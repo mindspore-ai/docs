@@ -110,7 +110,7 @@ def hof(x):
 The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/images/ir/hof.dot).
 ![image](./images/ir/hof.png)
 
-In the actual network training scripts, the automatic derivation generic function `GradOperation` and `Partial` and `HyperMap` that are commonly used in the optimizer are typical high-order functions. Higher-order semantics greatly improve the flexibility and simplicity of MindSpore representations.
+In the actual network training scripts, the automatic derivation generic function `grad` and `Partial` and `HyperMap` that are commonly used in the optimizer are typical high-order functions. Higher-order semantics greatly improve the flexibility and simplicity of MindSpore representations.
 
 ### Control Flows
 

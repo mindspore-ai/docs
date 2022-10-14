@@ -227,6 +227,7 @@ The function call stack:
 A: The inputs of user-defined back propagation function `bprop` should contain all the inputs of the forward network, `out` and `dout`. The example is as follow:
 
 ```python
+import mindspore as ms
 from mindspore import nn, ops, Tensor
 from mindspore import dtype as mstype
 
@@ -242,11 +243,11 @@ class BpropUserDefinedNet(nn.Cell):
         def bprop(self, x, y, out):
             return self.zeros_like(out), self.zeros_like(out)
 
-grad_fn = ops.GradOperation(get_all=True)
 net = BpropUserDefinedNet()
 x = Tensor(2, mstype.float32)
 y = Tensor(6, mstype.float32)
-output = grad_fn(net)(x, y)
+grad_fn = ms.grad(net, grad_position=(0, 1))
+output = grad_fn(x, y)
 print(output)
 ```
 

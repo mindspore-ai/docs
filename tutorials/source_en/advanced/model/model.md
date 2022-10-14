@@ -268,21 +268,17 @@ from mindspore.train import Model
 from mindvision.engine.callback import LossMonitor
 
 class CustomTrainOneStepCell(nn.Cell):
-    """Customize a training network.""
+    """Customize a training network."""
 
     def __init__(self, network, optimizer, sens=1.0):
         """There are three input parameters: training network, optimizer, and backward propagation scaling ratio."""
         super(CustomTrainOneStepCell, self).__init__(auto_prefix=False)
-        self.network = network                    #Define the feedforward network.
-        self.network.set_grad()                   # Build a backward network.
         self.optimizer = optimizer                #Define the optimizer.
-        self.weights = self.optimizer.parameters  # Parameters to be updated.
-        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)  #Obtain the gradient by backward propagation.
+        self.value_and_grad = ms.value_and_grad(network, grad_position=None, weights=network.trainable_params())
 
     def construct(self, *inputs):
-        loss = self.network(*inputs)                    # Execute the feedforward network and compute the loss function value of the current input.
-        grads = self.grad(self.network, self.weights)(*inputs, loss)  # Perform backward propagation and compute the gradient.
-        loss = ops.depend(loss, self.optimizer(grads))  # Use the optimizer to update gradients.
+        loss, grads = self.value_and_grad(*inputs) # Perform backward propagation and compute the gradient.
+        self.optimizer(grads)                      # Use the optimizer to update gradients.
         return loss
 
 multi_train_ds = create_multilabel_dataset(num_data=160)

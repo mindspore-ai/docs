@@ -195,10 +195,9 @@ class GradNetWrtX(nn.Cell):
         super(GradNetWrtX, self).__init__()
 
         self.net = net
-        self.grad_op = ops.GradOperation()
 
     def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
+        gradient_function = ms.grad(self.net)
         return gradient_function(x, y)
 
 x = ms.Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=ms.float32)

@@ -2390,11 +2390,10 @@ class Net(nn.Cell):
 class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
-        self.grad_all = ops.GradOperation(get_all=True)
         self.forward_net = net
 
     def construct(self, x, y, z):
-        return self.grad_all(self.forward_net)(x, y, z)
+        return ms.grad(self.forward_net, grad_position=(0, 1, 2))(x, y, z)
 
 flag = "ok"
 input_x = ms.Tensor(np.ones((2, 3)).astype(np.float32))

@@ -140,11 +140,11 @@ $$
 \tag{10}
 $$
 
-## GradOperation
+## `grad`
 
-GradOperation uses reverse mode AD, which calcultes gradients from network outputs.
+`grad` uses reverse mode AD, which calcultes gradients from network outputs.
 
-### GradOperation Design
+### `grad` Design
 
 Consuming that the origin function of defining model is as follows:
 
@@ -176,9 +176,9 @@ F(v): {
 }
 ```
 
-### GradOperation Implementation
+### `grad` Implementation
 
-In GradOperation process, the function that needs to calculate gradient will be taken out and used as the input of automatic differentiation module.
+In `grad` process, the function that needs to calculate gradient will be taken out and used as the input of automatic differentiation module.
 
 AD module will map input function to gradient `fprop`.
 
@@ -227,7 +227,7 @@ def get_bprop_sin(self):
 
 When `MapObject` completes the mapping of the above nodes, `MapMorphism` recursively implements the state injection of `CNode` from the output node of the original function, establishes a backpropagation link between nodes, and realizes gradient accumulation.
 
-### GradOperation Example
+### `grad` Example
 
 Let's build a simple network to represent the formula:
 
@@ -268,9 +268,9 @@ After the network is reversely differential, the resulting differential network 
 
 ## Jacobian-Vector-Product Implementation
 
-Besides GradOperation, Mindspore has developed forward mode automatic differentiation method Jvp (Jacobian-Vector-Product).
+Besides `grad`, Mindspore has developed forward mode automatic differentiation method `jvp` (Jacobian-Vector-Product).
 
-Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. Mindspore forward mode AD is developed based on reversed mode GradOperation function.  
+Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. Mindspore forward mode AD is developed based on reversed mode Grad function.
 
 ![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
 

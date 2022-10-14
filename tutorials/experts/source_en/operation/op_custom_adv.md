@@ -68,8 +68,7 @@ class Net(Cell):
 
 if __name__ == "__main__":
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
-    sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
-    dx = ops.GradOperation(sens_param=True)(Net())(ms.Tensor(x), ms.Tensor(sens))
+    dx = ms.grad(Net())(ms.Tensor(x))
     print(dx)
 ```
 
