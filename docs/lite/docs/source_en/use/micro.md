@@ -134,6 +134,14 @@ The following describes how to prepare the environment for using the conversion 
     The `src` directory in the generated code is the directory where the model inference code is located. The `benchmark` is just a routine for calling the `src` directory code integratedly.
     For more details on integrated calls, please refer to the section on [Code Integration and Compilation Deployment](#code-integration-and-compilation-deployment).
 
+Table 1: micro_param Parameter Definition
+
+| Parameter            | Mandatory or not | Parameter Description                         | Range                   | Default value    |
+| --------------- | -------- | ------------------------------| --------------------------| --------- |
+| enable_micro    | Yes       | The model generates code, otherwise it generates .ms.       | true, false                | false      |
+| target          | Yes       | Platform for which code is generated               | x86, Cortex-M, ARM32, ARM64 | x86       |
+| support_parallel | No       | Generate multi-threaded inference codes or not, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
+
 ### (Optional) Model Input Shape Configuration
 
 Usually, when generating code, you can reduce the probability of errors in the deployment process by configuring the model input shape as the input shape for actual inference.
@@ -172,6 +180,8 @@ For the meaning of each option in the configuration file, refer to Table 1.
 
 By integrating the code and calling the following interfaces, the user can configure the multi-threaded inference of the model.
 For specific interface parameters, refer to [API Document](https://www.mindspore.cn/lite/api/en/master/index.html).
+
+Table 2: API Interface for Multi-threaded Configuration
 
 | Function            | Function definition                                                                |
 | ---------------- | ----------------------------------------------------------------------- |
@@ -250,14 +260,6 @@ target_device=DSP
 
 - At present, Micro has supported 34 Int8 quantization operators. If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses Float32 inference.
 
-Table 1: micro_param parameter definition
-
-| parameter            | Mandatory or not | Parameter Description                         | Range                   | Default value    |
-| --------------- | -------- | ------------------------------| --------------------------| --------- |
-| enable_micro    | Yes       | The model generates code, otherwise it generates .ms.       | true, false                | false      |
-| target          | Yes       | Platform for which code is generated               | x86, Cortex-M, ARM32, ARM64 | x86       |
-| support_parallel | No       | Generate multi-threaded inference codes or not, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
-
 ## Obtaining `Micro` Lib
 
 After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
@@ -296,6 +298,8 @@ Users can refer to the benchmark routine to integrate and develop the `src` infe
 ### Calling Interface of Inference Code
 
 The following is the general calling interface of the inference code. For a detailed description of the interface, please refer to the [API documentation](https://www.mindspore.cn/lite/api/en/master/index.html).
+
+Table 3: Inference Common API Interface
 
 | Function                  | Function definition                                                                                                                                                                    |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
