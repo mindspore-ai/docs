@@ -4,7 +4,7 @@
 
 ## 隐私保护背景
 
-联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案（[云侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html#云侧部署)启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式），是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
+联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案，启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式），是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
 
 这种联邦学习方案并不是毫无隐私泄漏的，使用上述`not_encrypt`方案进行训练，服务端Server收到客户端Client上传的本地训练模型，仍可通过一些攻击方法[1]重构用户训练数据，从而泄露用户隐私，所以`not_encrypt`方案需要进一步增加用户隐私保护机制。
 
@@ -50,7 +50,7 @@ SignDS[2]是Sign Dimension Select的缩写，处理对象是客户端Client的`u
 |   3    |   0   |   0    | **1**  |   0    |   0   | **1** | **1** |   0   |
 |  avg   |  1/3  |  -1/3  |   0    |  -1/3  |  1/3  |  1/3  |  1/3  |  1/3  |
 
-1.7版本中，优化后的SignDS方案已实现端侧client只上传算法输出的int类型维度序号列表和一个布尔类型的随机Sign值到云侧，相比普通场景中上传数万float级别的完整模型权重或梯度，通讯开销显著降低。从实际重构攻击的角度来看，云侧仅获得维度序号和代表梯度更新方向的一个Sign值，攻击更加难以实现。云侧接收到端侧传来的维度序号和Sign值，要模拟重构出用户原始权重，即利用`sign_global_lr`和Sign值，后者代表更新的方向，前者代表步长，这也是该方案精度损失的地方。云侧只能重构模拟出每个client**部分**梯度更新，数量等于序号数目，且因为维度选择都是随机的，所以参与聚合的client用户数量越多，激活的模型权重也会越多。如果重构出的`update`大多聚焦在某个位置，则说明该位置真实权重更新较大，反之说明原始该位置update更新较小。云侧通过重构`update`再加上本轮初始模型权重，便可聚合更新此轮最终模型。
+优化后的SignDS方案已实现端侧client只上传算法输出的int类型维度序号列表和一个布尔类型的随机Sign值到云侧，相比普通场景中上传数万float级别的完整模型权重或梯度，通讯开销显著降低。从实际重构攻击的角度来看，云侧仅获得维度序号和代表梯度更新方向的一个Sign值，攻击更加难以实现。云侧接收到端侧传来的维度序号和Sign值，要模拟重构出用户原始权重，即利用`sign_global_lr`和Sign值，后者代表更新的方向，前者代表步长，这也是该方案精度损失的地方。云侧只能重构模拟出每个client**部分**梯度更新，数量等于序号数目，且因为维度选择都是随机的，所以参与聚合的client用户数量越多，激活的模型权重也会越多。如果重构出的`update`大多聚焦在某个位置，则说明该位置真实权重更新较大，反之说明原始该位置update更新较小。云侧通过重构`update`再加上本轮初始模型权重，便可聚合更新此轮最终模型。
 
 ## 隐私保护证明
 
@@ -66,70 +66,25 @@ $$
 
 ## 准备工作
 
-若要使用该算法，首先需要成功完成任一端云联邦场景的训练聚合过程，[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)和[实现一个情感分类应用(Android)](https://www.mindspore.cn/federated/docs/zh-CN/master/sentiment_classification_application.html)都详细介绍了数据集、网络模型等准备工作，以及模拟启动多客户端参与联邦学习的流程。
+若要使用该算法，首先需要成功完成任一端云联邦场景的训练聚合过程，[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)详细介绍了数据集、网络模型等准备工作，以及模拟启动多客户端参与联邦学习的流程。
 
 ## 算法开启脚本
 
-本地差分隐私SignDS训练目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，使用`set_fl_context()`设置`encrypt_type='SIGNDS'`，云侧完整启动脚本可参考云侧部署的[run_mobile_server.py脚本](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)，这里给出启动该算法的相关参数配置。以LeNet任务为例，在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，传入算法参数，调用方式如下：
+本地差分隐私SignDS训练目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，在yaml文件中更改下列参数配置，云侧完整启动脚本可参考云侧部署，这里给出启动该算法的相关参数配置。以LeNet任务为例，yaml相关配置如下：
 
 ```python
-...
-# 打开开关
-parser.add_argument("--encrypt_type", type=str, default="SIGNDS")
-# SIGNDS方案的参数设计
-parser.add_argument("--sign_k", type=float, default=0.01)
-parser.add_argument("--sign_eps", type=float, default=100)
-parser.add_argument("--sign_thr_ratio", type=float, default=0.6)
-parser.add_argument("--sign_global_lr", type=float, default=5)
-parser.add_argument("--sign_dim_out", type=int, default=0)
-...
-sign_k = args.sign_k
-sign_eps = args.sign_eps
-sign_thr_ratio = args.sign_thr_ratio
-sign_global_lr = args.sign_global_lr
-sign_dim_out = args.sign_dim_out
-ctx = {
-    ...
-    "sign_k": sign_k,
-    "sign_eps": sign_eps,
-    "sign_thr_ratio": sign_thr_ratio,
-    "sign_global_lr": sign_global_lr,
-    "sign_dim_out": sign_dim_out
-}
-set_fl_context(**fl_ctx)
-...
+encrypt:
+  encrypt_type: SIGNDS
+  ...
+  signds:
+    sign_k: 0.01
+    sign_eps: 100
+    sign_thr_ratio: 0.6
+    sign_global_lr: 0.1
+    sign_dim_out: 0
 ```
 
-以下是部分关键参数传入Server启动脚本的示例：
-
-```python
-...
-# 打开开关
-parser.add_argument("--encrypt_type", type=str, default="SIGNDS")
-# SIGNDS方案的参数设计
-parser.add_argument("--sign_k", type=float, default=0.01)
-parser.add_argument("--sign_eps", type=float, default=100)
-parser.add_argument("--sign_thr_ratio", type=float, default=0.6)
-parser.add_argument("--sign_global_lr", type=float, default=5)
-parser.add_argument("--sign_dim_out", type=int, default=0)
-if __name__ == "__main__":
-    ...
-    sign_k = args.sign_k
-    sign_eps = args.sign_eps
-    sign_thr_ratio = args.sign_thr_ratio
-    sign_global_lr = args.sign_global_lr
-    sign_dim_out = args.sign_dim_out
-    ...
-    for i in range(local_server_num):
-        ...
-        cmd_server += " --sign_k=" + str(sign_k)
-        cmd_server += " --sign_eps=" + str(sign_eps)
-        cmd_server += " --sign_thr_ratio=" + str(sign_thr_ratio)
-        cmd_server += " --sign_global_lr=" + str(sign_global_lr)
-        cmd_server += " --sign_dim_out=" + str(sign_dim_out)
-        ...
-```
-
+具体样例可参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)
 云侧代码实现给出了各个参数的定义域，若不在定义域内的，Server会报错提示定义域。以下参数改动的前提是保持其余4个参数不变：
 
 - `sign_k`：(0,0.25]，k*inputDim>50. default=0.01，`inputDim`是模型或update的拉平长度，若不满足，端侧警告。排序update，占比前k（%）的组成`topk`集合。减少k，则意味着要从更重要的维度中以较大概率挑选，输出的维度会减少，但维度更重要，无法确定收敛性的变化，用户需观察模型update稀疏度来确定该值，当比较稀疏时（update有很多0），则应取小一点。
