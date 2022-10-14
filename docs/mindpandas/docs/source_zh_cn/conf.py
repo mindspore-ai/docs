@@ -16,6 +16,7 @@ import sys
 import IPython
 import re
 from sphinx.ext import autodoc as sphinx_autodoc
+sys.path.append(os.path.abspath('../_ext'))
 
 
 # -- Project information -----------------------------------------------------
@@ -82,6 +83,14 @@ html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
 
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
@@ -115,6 +124,32 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindpandas repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MP_PATH"), 'docs/api/api_python')
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir):
+    if '.' in i:
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
+
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include(present_path)
 
 import mindpandas
 

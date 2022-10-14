@@ -151,6 +151,7 @@ Typical scenarios using MindPandas
    :maxdepth: 1
    :caption: API References
 
+   mindpandas.channel
    mindpandas.config
    mindpandas.DataFrame
    mindpandas.Series

@@ -151,6 +151,7 @@ MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，
    :maxdepth: 1
    :caption: API参考
 
+   mindpandas.channel
    mindpandas.config
    mindpandas.DataFrame
    mindpandas.Series
