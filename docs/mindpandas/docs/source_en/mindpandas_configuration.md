@@ -4,7 +4,7 @@
 
 This article mainly introduces the principle and usage of MindPandas distributed parallel mode.
 
-## MindPandas implementation principle
+## MindPandas Implementation Principle
 
 MindPandas accelerates Pandas data processing through parallelized computing. The principle is to first slice the original data into a bunch of partitions, then convert the API into a general computing paradigm (map, reduce, injective_map, etc.), and then parallelize the calculation by the backend. The current MindPandas backend has two execution modes, which are multi-threaded mode and multi-process mode.
 
@@ -14,7 +14,7 @@ Slicing raw data is the basis of parallel computing. The following figure shows 
 
 ![partition.png](images/partition.png)
 
-### The principle of multi-thread mode
+### The Principle of Multi-thread Mode
 
 Multi-thread mode is implemented based on Python multi-thread. Each data partition and its corresponding computation function are executed in one thread.
 
@@ -22,27 +22,27 @@ Multi-thread mode is implemented based on Python multi-thread. Each data partiti
 
 Although Python's multi-thread has a global interpreter lock (GIL) limitation, multi-thread cannot effectively utilize multi-core. However, when the amount of data is small or when dealing with IO-intensive tasks, the multi-threaded backend can still bring significant performance gains.
 
-### Principle of multi-process mode
+### Principle of Multi-process Mode
 
 The multi-process mode is not limited by Python's global interpreter lock (GIL) and can achieve real parallel computing. The principle of multi-process mode is similar to that of multi-thread mode. The difference is that after slicing the original data, the partitions are stored in the shared memory of the distributed compute engine, and the `mindpandas.DataFrame` stores the corresponding `object reference` of the partitions.
 
 When computing is required, the computing function is also stored in the shared memory of the distributed compute engine, and then the `object reference` corresponding to the computing function and the `object reference` corresponding to the partition is submitted to the distributed compute engine as a task. All tasks will be uniformly scheduled by the distributed compute engine and executed asynchronous parallelism and in the form of multi-process.
 
-#### Single machine multi-process principle
+#### Single Machine Multi-process Principle
 
 ![multiprocess1.png](images/multiprocess1.png)
 
 The multi-process mode can make full use of multi-core, thereby achieving performance improvements ranging from several times to dozens of times. Therefore, the multi-process mode can efficiently deal with scenarios with a large amount of data. However, due to overhead such as process creation and scheduling, performance may be affected when the amount of data processed is small.
 
-#### Multi-machine multi-process principle
+#### Multi-machine Multi-process Principle
 
 ![multiprocess2.png](images/multiprocess2.png)
 
 In the multi-machine multi-process mode, computing is performed on a cluster composed of multiple servers, which can make full use of the resources of multiple machines to complete computing tasks and break through the resource limitations of single machine.
 
-## MindPandas execution mode configuration
+## MindPandas Execution Mode Configuration
 
-### Data partition configuration
+### Data Partition Configuration
 
 MindPandas supports users to configure the shape of the partition according to the actual usage. Users can use `set_partition_shape` to customize the number of rows and columns of the partition.
 
@@ -54,7 +54,7 @@ df = pd.read_csv('data.csv')
 df_mean = df.mean()
 ```
 
-### multi-threaded mode configuration
+### Multi-threaded Mode Configuration
 
 MindPandas uses the multi-threaded mode as follows:
 
@@ -66,7 +66,7 @@ df = pd.read_csv('data.csv')
 df_mean = df.mean()
 ```
 
-### Multi-process mode configuration
+### Multi-process Mode Configuration
 
 When MindPandas is installed, the built-in distributed compute engine has also been installed synchronously, which can be accessed using the command `yrctl` in the console.
 
@@ -86,7 +86,7 @@ Commands:
   stop     used to stop the fleeting cluster
 ```
 
-#### Single-machine multi-process mode configuration
+#### Single-machine Multi-process Mode Configuration
 
 To use the distributed compute engine, we need to start the service through the command line to deploy a single-machine cluster. An example command to deploy a cluster is as follows:
 
@@ -141,7 +141,7 @@ After successfully stopping the distributed compute engine, the end of the echo 
 Succeeded to stop!
 ```
 
-#### Multi-machine multi-process mode use
+#### Multi-machine Multi-process Mode Use
 
 MindPandas' multi-process backend supports building clusters on multiple machines and performs distributed computing. The cluster consists of a master node and multiple worker nodes, and services need to be started separately on each machine in the cluster. The startup method is the same as the single-machine multi-process mode, but the master node must be started first, and then other worker nodes must be started.
 
@@ -174,11 +174,11 @@ The command to stop the cluster is as follows, which needs to be executed on the
 yrctl stop
 ```
 
-### Adaptive concurrency function
+### Adaptive Concurrency Function
 
 Because the performance of single-process computing is good enough when the amount of data is small. The parallel benefits of multi-process computing are often smaller than the extra overhead of using multi-processes, so MindPandas has added an adaptive concurrency function. When this function is enabled, MindPandas will adaptively switch the concurrency mode according to the data size to improve performance.
 
-#### Enabling adaptive concurrency
+#### Enabling Adaptive Concurrency
 
 The adaptive concurrency feature is set to off by default, and it can be turned on through the `set_adaptive_concurrency` interface in a Python script:
 
@@ -187,7 +187,7 @@ import mindpandas as pd
 pd.set_adaptive_concurrency(True)
 ```
 
-#### Triggering conditions
+#### Triggering Conditions
 
 After the adaptive concurrency function is enabled, the conditions for automatically switching the parallel mode are as follows:
 
@@ -201,7 +201,7 @@ After the adaptive concurrency function is enabled, the conditions for automatic
 - `set_adaptive_concurrency(True)` should be called at the beginning of the Python script.
 - After setting `set_adaptive_concurrency(True)`, users are not advised to switch adaptive concurrency back to `False` unless the Python script has finished running.
 
-#### usage restrictions
+#### Usage Restrictions
 
 - The adaptive concurrency feature currently does not support DataFrames created from operations such as `merge`, `concat` or `join`.
 - The concurrency mode of the initialized or read DataFrame/Series before the adaptive concurrency function is enabled cannot be changed.
