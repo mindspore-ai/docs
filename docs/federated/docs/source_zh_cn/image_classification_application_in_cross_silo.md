@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
 本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist/test_cross_silo_femnist.py)。
 
-若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#创建模型)。
+若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
 
 ## 启动云云联邦任务
 

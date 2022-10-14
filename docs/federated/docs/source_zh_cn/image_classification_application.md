@@ -14,7 +14,7 @@
 
 1. 定义网络和训练过程
 
-   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#创建模型)。
+   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
 
 2. 将模型导出为MindIR格式文件。
 

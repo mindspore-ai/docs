@@ -44,7 +44,7 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
 使用MindSpore Federated的工作流程
 ----------------------------------
 
-1. `识别场景、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#数据处理>`_
+1. `识别场景、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#准备工作>`_
 
    识别出可使用联邦学习的业务场景，在客户端为联邦任务积累本地数据。
 
