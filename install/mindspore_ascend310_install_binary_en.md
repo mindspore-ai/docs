@@ -217,7 +217,14 @@ export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+
+# Set path to extracted MindSpore accordingly
+export LD_LIBRARY_PATH={mindspore_path}:${LD_LIBRARY_PATH}
 ```
+
+Where:
+
+- `{mindspore_path}` specifies the absolute path to which MindSpore binary package is extracted.
 
 ## Verifying the Installation
 
