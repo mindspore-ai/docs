@@ -161,7 +161,7 @@ sudo apt-get install cmake -y
     bash build.sh -r mindspore-lite-java-flclient.jar #-r 后需要给出最新x86架构包绝对路径(步骤2生成，federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar)
     ```
 
-运行以上指令后生成jar包路径为：federated/example/quick_start_flclient/target/quick_start_flclient.jar
+运行以上指令后生成jar包路径为：federated/example/quick_start_flclient/target/quick_start_flclient.jar。
 
 ### 构建依赖环境
 
@@ -186,7 +186,7 @@ sudo apt-get install cmake -y
         │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架依赖的动态库
         │   ├── libmindspore-lite-train-jni.so # MindSpore Lite训练框架依赖的jni动态库
         │   ├── libmindspore-lite.a  # MindSpore Lite推理框架依赖的静态库
-        │   ├── libmindspore-lite.so  # MindSpore Lite推理依赖的动态库
+        │   ├── libmindspore-lite.so  # MindSpore Lite推理框架依赖的动态库
         │   ├── mindspore-lite-java.jar    # MindSpore Lite训练框架jar包
         │   └── mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
         └── third_party

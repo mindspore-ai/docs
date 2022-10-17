@@ -2,197 +2,218 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-The following describes how to deploy the Federated-Client in the Android aarch and Linux x86_64 environments:
+This document describes how to compile and deploy Federated-Client.
 
-## Android aarch
+## Linux Compilation Guidance
 
-### Building a Package
+### System Environment and Third-party Dependencies
 
-1. Configure the build environment.
+This section describes how to complete the device-side compilation of MindSpore federated learning. Currently, the federated learning device-side only provides compilation guidance on Linux, and other systems are not supported. The following table lists the system environment and third-party dependencies required for compilation.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
+| Software Name                 | Version  |  Functions |
+|-----------------------| ------------ | ------------ |
+| Ubuntu                | 18.04.02LTS   | Compiling and running MindSpore operating system  |
+| [GCC](#installing-gcc)         | Between 7.3.0 to 9.4.0  | C++ compiler for compiling MindSpore |
+| [git](#installing-git)         | -  | Source code management tools used by MindSpore |
+| [CMake](#installing-cmake)     | 3.18.3 and above  | Compiling and building MindSpore tools |
+| [Gradle](#installing-gradle)   | 6.6.1  | JVM-based building tools  |
+| [Maven](#installing-maven)     | 3.3.1 and above  | Tools for managing and building Java projects  |
+| [OpenJDK](#installing-openjdk) | Between 1.8 to 1.15  | Tools for managing and building Java projects  |
 
-2. Build the x86-related architecture package in the mindspore home directory.
+#### Installing GCC
 
-    ```sh
-    bash build.sh -I x86_64 -j32
-    ```
+Install GCC with the following command.
 
-   And the x86 architecture package will be generated in the path `mindspore/output/`after compiling ( please backup it to avoid auto-deletion while next compile):
+```bash
+sudo apt-get install gcc-7 git -y
+```
 
-    ```sh
-    mindspore-lite-{version}-linux-x64.tar.gz
-    ```
+To install a higher version of GCC, use the following command to install GCC 8.
 
-3. Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
+```bash
+sudo apt-get install gcc-8 -y
+```
 
-    ```sh
-    export MSLITE_ENABLE_FL=on
-    bash build.sh -A on -j32
-    ```
+Or install GCC 9.
 
-   The Android AAR package will be generated in the path `mindspore/output/` after compiling ( please backup it to avoid auto-deletion while next compile):
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
+```
 
-    ```sh
-    mindspore-lite-full-{version}.aar
-    ```
+#### Installing git
 
-4. Since the device-side framework and the model are decoupled, we provide Android AAR package  `mindspore-lite-full-{version}.aar` that does not contain model-related scripts, so users need to generate the model script corresponding to the jar package. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`) after customizing the model script. The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+Install git with the following command.
 
-    After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
+```bash
+sudo apt-get install git -y
+```
 
-    ```sh
-    cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   # After -r, give the absolute path of the latest x86 architecture package that generate at step 2
-    ```
+#### Installing Cmake
 
-    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`.
+Install [CMake](https://cmake.org/) with the following command.
 
-### Running Dependencies
+```bash
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+sudo apt-get install cmake -y
+```
 
-- [Android Studio](https://developer.android.google.cn/studio) >= 4.0
-- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 29
+#### Installing Gradle
 
-### Building a Dependency Environment
+Install [Gradle](https://gradle.org/releases/) with the following command.
 
-Renaming `mindspore-lite-full-{version}.aar` to `mindspore-lite-full-{version}.zip`. After the `mindspore-lite-full-{version}.zip` file is decompressed, the following directory structure is obtained:
+```bash
+# Download the corresponding zip package and unzip it.
+# Configure environment variables:
+  export GRADLE_HOME=GRADLE path
+  export GRADLE_USER_HOME=GRADLE path
+# Add the bin directory to the PATH:
+  export PATH=${GRADLE_HOME}/bin:$PATH
+```
+
+#### Installing Maven
+
+Install [Maven](https://archive.apache.org/dist/maven/maven-3/) with the following command.
+
+```bash
+# Download the corresponding zip package and unzip it.
+# Configure environment variables:
+  export MAVEN_HOME=MAVEN path
+# Add the bin directory to the PATH:
+  export PATH=${MAVEN_HOME}/bin:$PATH
+```
+
+#### Installing OpenJDK
+
+Install [OpenJDK](https://jdk.java.net/archive/) with the following command.
+
+```bash
+# Download the corresponding zip package and unzip it.
+# Configure environment variables:
+  export JAVA_HOME=JDK path
+# Add the bin directory to the PATH:
+  export PATH=${JAVA_HOME}/bin:$PATH
+```
+
+### Verifying Installation
+
+Verify that the installation in [System environment and third-party dependencies](#system-environment-and-third-party-dependencies) is successful.
 
 ```text
-mindspore-lite-full-{version}
-├── jni
-│   ├── arm64-v8a
-│   │   ├── libjpeg.so   # Dynamic library file for image processing
-│   │   ├── libminddata-lite.so  # Dynamic library file for image processing
-│   │   ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite inference framework depends
-│   │   ├── libmindspore-lite-jni.so  # JNI dynamic library on which the MindSpore Lite inference framework depends
-│   │   ├── libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
-│   │   ├── libmindspore-lite-train-jni.so  # JNI dynamic library on which the MindSpore Lite training framework depends
-│   │   └── libturbojpeg.so  # Dynamic library file for image processing
-│   └── armeabi-v7a
- │       ├── libjpeg.so   # Dynamic library file for image processing
-│       ├── libminddata-lite.so  # Dynamic library file for image processing
-│       ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite inference framework depends
-│       ├── libmindspore-lite-jni.so  # JNI dynamic library on which the MindSpore Lite inference framework depends
-│       ├── libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
-│       ├── libmindspore-lite-train-jni.so  # JNI dynamic library on which the MindSpore Lite training framework depends
-│       └── libturbojpeg.so  # Dynamic library file for image processing
-├── libs
-│   ├── mindspore-lite-java-common.jar  # MindSpore Lite training framework JAR package
-│   └── mindspore-lite-java-flclient.jar  # Federated learning framework JAR package
-└── classes.jar  # MindSpore Lite training framework JAR package
+Open a command window and enter: gcc --version
+The following output identifies a successful installation:
+  gcc version version number
+
+Open a command window and enter：git --version
+The following output identifies a successful installation:
+  git version version number
+
+Open a command window and enter：cmake --version
+The following output identifies a successful installation:
+  cmake version version number
+
+Open a command window and enter：gradle --version
+The following output identifies a successful installation:
+  Gradle version number
+
+Open a command window and enter：mvn --version
+The following output identifies a successful installation:
+  Apache Maven version number
+
+Open a command window and enter：java --version
+The following output identifies a successful installation:
+  openjdk version version number
+
 ```
 
-Note 1: since the federated learning jar package in the Android environment does not contain the dependent third-party open source software packages, in the Android environment, before using the AAR package, the user needs to add related dependency statements in the dependencies{} field to load the three open source software that Federated Learning depends on, and the dependencies{} field is in the app/build.gradle file under the Android project, as shown below:
+### Compilation Options
 
-```text
-dependencies {
+The `cli_build.sh` script in the federated learning device_client directory is used for compilation on the federated learning device-side.
 
-// Add third-party open source software that federated learning relies on
-implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
-implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '2.0.0'
-implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
-}
-```
+#### Instructions for Using cli_build.sh Parameters
 
-For specific implementation, please refer to the example of `app/build.gradle` provided in the `Android project configuration dependencies` section in the document [sentiment classification application](https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html).
+| Parameters | Parameter Description                 | Value Range | Default Values       |
+| ---- | ------------------------ | -------- | ------------ |
+| -p   | the download path of dependency external packages | string   | third |
+| -c   | whether to reuse dependency packages previously downloaded | on and off  | on           |
 
-Note 2: since the third-party open source software `bcprov-jdk15on` that Federated Learning relies on contains multi-version class files, in order to prevent errors in compiling high-version class files with lower version jdk, the following setting statement can be added to the `gradle.properties` file of the Android project:
+### Compilation Examples
 
-```java
-android.jetifier.blacklist=bcprov
-```
+1. First, you need to download the source code from the gitee code repository before you can compile it.
 
-After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package and the jar package corresponding to the model script `quick_start_flclient.jar` to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
-
-## Linux x86_64
-
-### Building a Package
-
-1. Configure the build environment.
-
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
-
-2. Build the x86-related architecture package in the mindspore home directory
-
-    ```sh
-    bash build.sh -I x86_64 -j32
+    ```bash
+    git clone https://gitee.com/mindspore/federated.git ./
     ```
 
-   And the x86 architecture package will be generated in the path `mindspore/output/` after compiling ( please backup it to avoid auto-deletion while next compile):
+2. Go to the mindspore_federated/device_client directory and execute the following command:
 
-    ```sh
-    mindspore-lite-{version}-linux-x64.tar.gz
+    ```bash
+    bash cli_build.sh
     ```
 
-3. Since the device-side framework and the model are decoupled, we provide x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` that does not contain model-related scripts, so users need to generate the model script corresponding to the jar package. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`) after customizing the model script. The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+3. Since the end-side framework and the model are decoupled, the x86 architecture package we provide, mindspore-lite-{version}-linux-x64.tar.gz, does not contain model-related scripts, so the user needs to generate the jar package corresponding to the model scripts. The jar package corresponding to the model scripts we provide can be obtained in the following way:
 
-    After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
-
-    ```sh
-    cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz" # After -r, give the absolute path of the latest x86 architecture package that generate at step 2
+    ```bash
+    cd federated/example/quick_start_flclient
+    bash build.sh -r mindspore-lite-java-flclient.jar # After -r, you need to give the absolute path to the latest x86 architecture package (generated in Step 2, federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar)
     ```
 
-    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`.
+After running the above command, the path of generated jar package is federated/example/quick_start_flclient/target/quick_start_flclient.jar.
 
-### Running Dependencies
+### Building Dependency Environment
 
-- [Python](https://www.python.org/downloads/) >= 3.7.0
-- [OpenJDK](https://openjdk.java.net/install/) 1.8 to 1.15
+1. After extracting the file `federated/mindspore_federated/device_client/third/mindspore-lite-{version}-linux-x64.tar.gz`, the obtained directory structure is as follows:
 
-### Building a Dependency Environment
+    ```sh
+    mindspore-lite-{version}-linux-x64
+    ├── tools
+    │   ├── benchmark_train # Tool for training model performance and accuracy tuning
+    │   ├── converter       # Model converter
+    │   └── cropper         # Library cropper
+    │       ├── cropper                 # Executable files of library cropper
+    │       └── cropper_mapping_cpu.cfg # Configuration files required for cropping the cpu library
+    └── runtime
+        ├── include  # Header files of training framework
+        │   └── registry # Custom operator registration header files
+        ├── lib      # Training framework library
+        │   ├── libminddata-lite.a          # Static library files for image processing
+        │   ├── libminddata-lite.so        # Dynamic library files for image processing
+        │   ├── libmindspore-lite-jni.so   # jni dynamic library relied by MindSpore Lite inference framework
+        │   ├── libmindspore-lite-train.a  # Static library relied by MindSpore Lite training framework
+        │   ├── libmindspore-lite-train.so # Dynamic library relied by MindSpore Lite training framework
+        │   ├── libmindspore-lite-train-jni.so # jni dynamic library relied by MindSpore Lite training framework
+        │   ├── libmindspore-lite.a  # Static library relied by MindSpore Lite inference framework
+        │   ├── libmindspore-lite.so  # Dynamic library relied by MindSpore Lite inference framework
+        │   ├── mindspore-lite-java.jar    # MindSpore Lite training framework jar package
+        │   └── mindspore-lite-java-flclient.jar  # Federated learning framework jar package
+        └── third_party
+            └── libjpeg-turbo
+                └── lib
+                    ├── libjpeg.so.62   # Dynamic library files for image processing
+                    └── libturbojpeg.so.0  # Dynamic library files for image processing
+    ```
 
-After the `mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz` file is decompressed, the following directory structure is obtained:
+2. The names of the relevant x86 packages required for federated learning are as follows:
 
-```sh
-mindspore-lite-{version}-linux-x64
-├── tools
-│   ├── benchmark_train # Tool for commissioning the performance and accuracy of the training model
-│   ├── converter       # Model conversion tool
-│   └── cropper         # Library cropping tool
-│       ├── cropper                 # Executable file of the library cropping tool
-│       └── cropper_mapping_cpu.cfg # Configuration file required for cropping the CPU library
-└── runtime
-    ├── include  # Header file of the training framework
-    │   └── registry # Header file for custom operator registration
-    ├── lib      # Training framework library
-    │   ├── libminddata-lite.a          # Static library file for image processing
-    │   ├── libminddata-lite.so        # Dynamic library file for image processing
-    │   ├── libmindspore-lite-jni.so   # JNI dynamic library on which the MindSpore Lite inference framework depends
-    │   ├── libmindspore-lite-train.a  # Static library on which the MindSpore Lite training framework depends
-    │   ├── libmindspore-lite-train.so # Dynamic library on which the MindSpore Lite training framework depends
-    │   ├── libmindspore-lite-train-jni.so # JNI dynamic library on which the MindSpore Lite training framework depends
-    │   ├── libmindspore-lite.a  # Static library on which the MindSpore Lite inference framework depends
-    │   ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite inference framework depends
-    │   ├── mindspore-lite-java.jar    # MindSpore Lite training framework JAR package
-    │   └── mindspore-lite-java-flclient.jar  # Federated learning framework JAR package
-    └── third_party
-        └── libjpeg-turbo
-            └── lib
-                ├── libjpeg.so.62   # Dynamic library file for image processing
-                └── libturbojpeg.so.0  # Dynamic library file for image processing
-```
+    ```sh
+    libminddata-lite.so  # Dynamic library files for image processing
+    libmindspore-lite.so  # Dynamic libraries relied by MindSpore Lite inference framework
+    libmindspore-lite-jni.so  # jni dynamic library relied by MindSpore Lite inference framework
+    libmindspore-lite-train.so  # Dynamic library relied by MindSpore Lite training framework
+    libmindspore-lite-train-jni.so # jni dynamic library relied by MindSpore Lite training framework
+    libjpeg.so.62   # Dynamic library files for image processing
+    libturbojpeg.so.0  # Dynamic library files for image processing
+    ```
 
-The x86 packages required for federated learning are as follows:
+3. Put the so files (7 in total) relied by federated learning in paths `mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib` in a folder, e.g. `/resource/x86libs/`. Then set the environment variables in x86 (absolute paths need to be provided below):
 
-```sh
-libjpeg.so.62   # Dynamic library file for image processing
-libminddata-lite.so  # Dynamic library file for image processing
-libmindspore-lite.so  # Dynamic library on which the MindSpore Lite inference framework depends
-libmindspore-lite-jni.so  # JNI dynamic library on which the MindSpore Lite inference framework depends
-libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
-libmindspore-lite-train-jni.so # JNI dynamic library on which the MindSpore Lite training framework depends
-libturbojpeg.so.0  # Dynamic library file for image processing
-mindspore-lite-java-flclient.jar  # Federated learning framework JAR package
-quick_start_flclient.jar  # The jar package corresponding to the model script
-```
+    ```sh
+    export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
+    ```
 
-Find the seven  .so files on which federated learning depends in the directories `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`. Then, place these .so files in a folder, for example, `/resource/x86libs/`.
+4. After setting up the dependency environment, you can simulate starting multiple clients in the x86 environment for federated learning by referring to the application practice tutorial [Implementing an end-cloud federation for image classification application (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
 
-Set environment variables in the x86 system (an absolute path must be provided):
 
-```sh
-export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
-```
-
-After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
