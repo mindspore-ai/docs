@@ -92,7 +92,7 @@ import mindspore as ms
 ms.set_context(mode=ms.GRAPH_MODE)
 ```
 
-Methods that are annotated with `@ms_function` will be compiled into the MindSpore computational graph for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
+Methods that are annotated with `@jit` will be compiled into the MindSpore computational graph for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
 
 ### Defining the DQNTrainer class
 
@@ -113,7 +113,7 @@ class DQNTrainer(Trainer):
         trainable_variables = {"policy_net": self.msrl.learner.policy_network}
         return trainable_variables
 
-    @ms_function
+    @jit
     def init_training(self):
         """Initialize training"""
         state = self.msrl.collect_environment.reset()
@@ -131,7 +131,7 @@ class DQNTrainer(Trainer):
             i += 1
         return done
 
-    @ms_function
+    @jit
     def evaluate(self):
         """Policy evaluate"""
         total_reward = self.zero_value
@@ -155,7 +155,7 @@ User will call the `train` method in base class. It trains the models for the sp
 In each iteration of the training loop, the `train_one_episode` method is invoked to train an episode:
 
 ```python
-@ms_function
+@jit
 def train_one_episode(self):
     """Train one episode"""
     if not self.inited:
@@ -181,7 +181,7 @@ def train_one_episode(self):
     return loss, total_reward, steps
 ```
 
-The `@ms_function` annotation states that this method will be compiled into a MindSpore computational graph for acceleration. To support this, all scalar values must be defined as tensor types, e.g. `self.zero_value = Tensor(0, mindspore.float32)`.
+The `@jit` annotation states that this method will be compiled into a MindSpore computational graph for acceleration. To support this, all scalar values must be defined as tensor types, e.g. `self.zero_value = Tensor(0, mindspore.float32)`.
 
 The `train_one_episode` method first calls the `reset` method of environment, `self.msrl.collect_environment.reset()` function to reset the environment. It then collects the experience from the environment with the `msrl.agent_act` function handler and inserts the experience data in the replay buffer using the `self.msrl.replay_buffer_insert` function. Afterwards, it invokes the `self.msrl.agent_learn`  function to train the target model. The input of `self.msrl.agent_learn` is a set of sampled results returned by  `self.msrl.replay_buffer_sample`.
 

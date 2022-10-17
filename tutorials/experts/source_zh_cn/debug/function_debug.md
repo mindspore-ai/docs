@@ -53,7 +53,7 @@ MindSpore报错信息采用Python Traceback处理，包括Python堆栈信息、�
 
 - 与网络开发者相关的报错信息
 
-    如图中③所示，包含`The Traceback of Net Construct Code`和与网络开发者相关的其他报错信息。其中，`The Traceback of Net Construct Code`是C++后端编译报错位置映射到Python前端的代码调用栈，倒序打印，对应神经网络中`construct`函数或者`@ms_function`装饰器修饰的函数。
+    如图中③所示，包含`The Traceback of Net Construct Code`和与网络开发者相关的其他报错信息。其中，`The Traceback of Net Construct Code`是C++后端编译报错位置映射到Python前端的代码调用栈，倒序打印，对应神经网络中`construct`函数或者`@jit`装饰器修饰的函数。
 
 - 与框架开发者相关的报错信息
 

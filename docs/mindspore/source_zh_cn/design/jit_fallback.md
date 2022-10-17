@@ -212,9 +212,9 @@ MindSpore在静态图模式下已经支持了一些Python内置函数，包括�
 代码用例如下：
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = dict()                                          # 创建空字典
    b = dict(a='a', b='b', t='t')                       # 传入关键字
@@ -249,9 +249,9 @@ d: {'one': 1, 'two': 2, 'three': 3}
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = type(1)
    b = type(1.0)
@@ -294,9 +294,9 @@ g: <class 'mindspore.common.tensor.Tensor'>
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    x = np.array(1)
    if x <= 1:
@@ -326,9 +326,9 @@ res: 2
    ```python
    import numpy as np
    import mindspore as ms
-   from mindspore import ms_function
+   from mindspore import jit
 
-   @ms_function
+   @jit
    def func():
        x = np.array([1, 2, 3])
        x[0] += 1
@@ -350,9 +350,9 @@ res: 2
 
     ```python
     import numpy as np
-    from mindspore import ms_function
+    from mindspore import jit
 
-    @ms_function
+    @jit
     def test_np_add():
         x = np.array([1, 2, 3, 4, 5])
         y = np.array([1, 2, 3, 4, 5])
@@ -372,9 +372,9 @@ res: 2
 
     ```python
     import numpy as np
-    from mindspore import ms_function
+    from mindspore import jit
 
-    @ms_function
+    @jit
     def test_np_add_constant():
         x = 1.0
         y = 2.0
@@ -397,9 +397,9 @@ res: 2
     ```python
     import mindspore as ms
     import mindspore.numpy as mnp
-    from mindspore import ms_function
+    from mindspore import jit
 
-    @ms_function
+    @jit
     def test_mnp_average():
         x = mnp.array(([[1., 2.], [3., 4.]]))
         x_average = mnp.average(x)

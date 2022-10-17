@@ -8,11 +8,11 @@
 
 ## 基本原理
 
-MindSpore的动态图模式下，可以通过ms_function的装饰符，指定某一段以图模式编译执行，在前向执行的同时，会将执行的算子、子图记录下来，前向执行完毕后，会对得到的整图进行自动微分得到反向图，具体流程如下图所示：
+MindSpore的动态图模式下，可以通过`@jit`的装饰符，指定某一段以图模式编译执行，在前向执行的同时，会将执行的算子、子图记录下来，前向执行完毕后，会对得到的整图进行自动微分得到反向图，具体流程如下图所示：
 
-![structure image](images/pynative_ms_funtion.png)
+![structure image](images/pynative_jit.png)
 
-*图1：ms_function执行示意图*
+*图1：@jit装饰器的执行示意图*
 
 Shard function沿用此模式，不同的是可以在图模式编译执行的环节进行算子级别的模型并行。
 

@@ -29,7 +29,7 @@ Please check whether the number of parameters passed in when the instance of the
 
 <font size=3>**Q: What can I do if an error "TypeError: Do not support to convert <class xxx> object into graph node." is reported?**</font>
 
-A: This error message indicates the object that can not be parsed is used in network compilation. For example, when using the object of the customized class in graph mode, the class needs to be decorated with `ms_class`. Otherwise, this error will be raised.
+A: This error message indicates the object that can not be parsed is used in network compilation. For example, when using the object of the customized class in graph mode, the class needs to be decorated with `jit_class`. Otherwise, this error will be raised.
 
 <br/>
 
@@ -183,7 +183,7 @@ When an error similar to "Type Join Failed: abstract type AbstractTensor can not
 ```python
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor([1.0])
 y = ms.Tensor([2.0])
@@ -193,7 +193,7 @@ sens = 1.0
 def test_net(a, b):
     return a, b
 
-@ms_function
+@jit
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i is a scalar shape: (1), dtype:Float64, value:1.0
     # sens_i = (sens_i, sens_i)
@@ -270,11 +270,11 @@ The example is as follow:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 ZERO = ms.Tensor([0], ms.int32)
 ONE = ms.Tensor([1], ms.int32)
-@ms_function
+@jit
 def f(x):
     y = ZERO
     if x < 0:
@@ -401,7 +401,7 @@ A: When accelerated execution is required, MindSpore will convert Python source 
 Currently there are the following two scenarios where the message will print:
 
 - Running networks at the Graph Mode.
-- Running functions decorated by `@ms_function`(such as the optimizer `nn.Momentum`) at the PyNative mode.
+- Running functions decorated by `@jit`(such as the optimizer `nn.Momentum`) at the PyNative mode.
 
 > One task may trigger multiple compilation processes.
 

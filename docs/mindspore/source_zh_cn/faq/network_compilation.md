@@ -29,7 +29,7 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 
 <font size=3>**Q: 编译时报错“TypeError: Do not support to convert <class xxx> object into graph node.”怎么办？**</font>
 
-A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类的对象时，需要用 `ms_class` 修饰该类，否则会出现该错误。
+A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类的对象时，需要用 `jit_class` 修饰该类，否则会出现该错误。
 
 <br/>
 
@@ -182,7 +182,7 @@ The function call stack (See file 'analyze_fail.dat' for more details. Get instr
 ```python
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor([1.0])
 y = ms.Tensor([2.0])
@@ -192,7 +192,7 @@ sens = 1.0
 def test_net(a, b):
     return a, b
 
-@ms_function()
+@jit()
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i 是一个标量shape: (1), dtype:Float64, value:1.0
     # sens_i = (sens_i, sens_i)
@@ -266,11 +266,11 @@ A: 当出现There isn't any branch that can be evaluated 时，说明代码中�
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 ZERO = ms.Tensor([0], ms.int32)
 ONE = ms.Tensor([1], ms.int32)
-@ms_function
+@jit
 def f(x):
     y = ZERO
     if x < 0:
@@ -394,7 +394,7 @@ A: 当需要加速执行时，MindSpore会将Python源码转换成一种基于�
 当前主要有以下两种场景会有该打印：
 
 - 静态图模式下运行网络。
-- 动态图下执行被`@ms_function`装饰的函数（例如优化器`nn.Momentum`）。
+- 动态图下执行被`@jit`装饰的函数（例如优化器`nn.Momentum`）。
 
 > 一次任务中有可能会触发多次编译流程。
 

@@ -10,13 +10,13 @@ For dynamic and static graph modes, MindSpore first unifies the API expression a
 
 ## Implementation Principle
 
-MindSpore allows you to use the `ms_function` modifier to modify objects that need to be executed using static graphs, achieving combination of dynamic and static graphs. The following uses a simple combination example to describe the implementation principle. The sample code is as follows:
+MindSpore allows you to use the `jit` modifier to modify objects that need to be executed using static graphs, achieving combination of dynamic and static graphs. The following uses a simple combination example to describe the implementation principle. The sample code is as follows:
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 class Add(nn.Cell):
     """Define a class to implement the x self addition."""
@@ -27,7 +27,7 @@ class Add(nn.Cell):
 
 class Mul(nn.Cell):
     """Define a class to implement the x self multiplication."""
-    @ms_function  # Use ms_function to modify the function. This function is executed in static graph mode.
+    @jit  # Use jit to modify the function. This function is executed in static graph mode.
     def construct(self, x):
         x = x * x
         x = x * x
@@ -68,32 +68,32 @@ print("\nx:\n", x)
 
 According to the preceding information, after the test operation, the final value of x is a 3\*3 matrix whose each element is 8. The following figure shows the build method of this test case according to the execution sequence.
 
-![msfunction](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/compute_graph/images/ms_function.png)
+![msfunction](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/compute_graph/images/jit.png)
 
-Functions modified by `ms_function` are built and executed in static graph mode. If the network involves reverse derivation, the part modified by `ms_function` is also used to generate a backward graph in the form of an entire graph. The backward graph is connected to backward graphs of operators before and after the graph and then delivered for execution. The cache policy is the same as that of the static graph. When the input shape and type information of the same function object is the same, the built graph structure is cached.
+Functions modified by `jit` are built and executed in static graph mode. If the network involves reverse derivation, the part modified by `jit` is also used to generate a backward graph in the form of an entire graph. The backward graph is connected to backward graphs of operators before and after the graph and then delivered for execution. The cache policy is the same as that of the static graph. When the input shape and type information of the same function object is the same, the built graph structure is cached.
 
-## `ms_function` Modifier
+## `jit` Modifier
 
-To improve the execution speed of forward computing tasks in dynamic graph mode, MindSpore provides the `ms_function` modifier. You can modify Python functions or member functions of Python classes to build them into computational graphs. Technologies such as graph optimization are used to improve the running speed.
+To improve the execution speed of forward computing tasks in dynamic graph mode, MindSpore provides the `jit` modifier. You can modify Python functions or member functions of Python classes to build them into computational graphs. Technologies such as graph optimization are used to improve the running speed.
 
 ### Usage
 
-MindSpore supports  static build in dynamic graphs. You can use the `ms_function` modifier to modify the function objects that need to be executed using static graphs to implement mixed execution of dynamic and static graphs.
+MindSpore supports  static build in dynamic graphs. You can use the `jit` modifier to modify the function objects that need to be executed using static graphs to implement mixed execution of dynamic and static graphs.
 
 #### 1. Modifying Independent Function
 
-When using the `ms_function` modifier, you can modify an independently defined function so that it can run in static graph mode. The following is an example:
+When using the `jit` modifier, you can modify an independently defined function so that it can run in static graph mode. The following is an example:
 
 ```python
 import numpy as np
 import mindspore.ops as ops
-from mindspore import ms_function
+from mindspore import jit
 
 # Set the running mode to dynamic graph mode.
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
 # Use the modifier to specify the execution in static graph mode.
-@ms_function
+@jit
 def add_func(x, y):
     return ops.add(x, y)
 
@@ -108,25 +108,25 @@ print(out)
     [5. 7. 9.]
 ```
 
-In the preceding sample code, although the running mode is set to dynamic graph mode at the beginning, the `add_func(x, y)` function is modified using the `ms_function` modifier. Therefore, the `add_func(x, y)` function still runs in static graph mode.
+In the preceding sample code, although the running mode is set to dynamic graph mode at the beginning, the `add_func(x, y)` function is modified using the `jit` modifier. Therefore, the `add_func(x, y)` function still runs in static graph mode.
 
 #### 2. Modifying the Member Functions of a Class
 
-When using the `ms_function` modifier, you can modify the member methods of the `Cell` subclass, `ms_class` class, or common user defined class. The sample code is as follows:
+When using the `jit` modifier, you can modify the member methods of classes. The sample code is as follows:
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 # Set the running mode to dynamic graph mode.
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
 class Add(nn.Cell):
 
-    @ms_function # Use the modifier to specify the execution in static graph mode.
+    @jit # Use the modifier to specify the execution in static graph mode.
     def construct(self, x, y):
         out = x + y
         return out
@@ -159,30 +159,30 @@ According to the preceding information, the sum of x and y is \[5, 7, 9\]. The d
 
 ### Precautions
 
-When using `ms_function` to modify functions to improve execution efficiency, pay attention to the following points:
+When using `jit` to modify functions to improve execution efficiency, pay attention to the following points:
 
-1. Functions modified by `ms_function` must be within the syntax scope supported by static graph build, including but not limited to data types.
+1. Functions modified by `jit` must be within the syntax scope supported by static graph build, including but not limited to data types.
 
-2. The control flow syntax supported by a function modified by `ms_function` is the same as that supported by the static graph. An acceleration effect is achieved only for a control flow structure with a fixed loop count or a branch condition.
+2. The control flow syntax supported by a function modified by `jit` is the same as that supported by the static graph. An acceleration effect is achieved only for a control flow structure with a fixed loop count or a branch condition.
 
-3. When the `ms_function` function is used in PyNative mode, the parts that are not modified by `ms_function` support breakpoint debugging, and the parts modified by `ms_function` do not support breakpoint debugging because they are built in static graph mode.
+3. When the `@jit` decorated function is used in PyNative mode, the parts that are not modified by `jit` support breakpoint debugging, and the parts modified by `jit` do not support breakpoint debugging because they are built in static graph mode.
 
-4. Functions modified by `ms_function` are built and executed in static graph mode. Therefore, `ms_function` does not support the Hook operator in the modified functions or the customized Bprop function.
+4. Functions modified by `jit` are built and executed in static graph mode. Therefore, `jit` decorator does not support the Hook operator in the modified functions or the customized Bprop function.
 
-5. Functions modified by `ms_function` are affected by side effects of static graph functions. Side effects of a function refer to the additional effects on the main function in addition to the return value of the function, for example, modifying global variables (variables other than the function) and modifying function parameters.
+5. Functions modified by `jit` are affected by side effects of static graph functions. Side effects of a function refer to the additional effects on the main function in addition to the return value of the function, for example, modifying global variables (variables other than the function) and modifying function parameters.
 
     Scenario 1:
 
     ```python
     import numpy as np
     import mindspore as ms
-    from mindspore import ms_function
+    from mindspore import jit
 
     # pylint: disable=W0612
 
     value = 5
 
-    @ms_function
+    @jit
     def func(x, y):
         out = x + y
         value = 1
@@ -199,7 +199,7 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
         5
     ```
 
-    In this scenario, `value` is a global variable and is modified in the `func` function. In this case, if `ms_function` is used to modify the `func` function, the global variable `value` is not changed. The reason is that statements irrelevant to return values are optimized during static graph build.
+    In this scenario, `value` is a global variable and is modified in the `func` function. In this case, if `jit` decorator is used to modify the `func` function, the global variable `value` is not changed. The reason is that statements irrelevant to return values are optimized during static graph build.
 
     Scenario 2:
 
@@ -207,14 +207,14 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
     import numpy as np
     import mindspore.nn as nn
     import mindspore as ms
-    from mindspore import ms_function
+    from mindspore import jit
 
     class Func(nn.Cell):
         def __init__(self):
             super(Func, self).__init__()
             self.value = 5
 
-        @ms_function
+        @jit
         def construct(self, x):
             out = self.value + x
             return out
@@ -232,9 +232,9 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
         out2: [6. 7. 8.]
     ```
 
-    According to the preceding information, after the member variable `value` of the `func` class is changed to 1, the `construct` operation of the member function is not affected. In this scenario, `ms_function` is used to modify the `construct` member function of the `func` object. When `construct` is executed, it is built and executed in static graph mode. The static graph caches the build result. Therefore, when `func` is called for the second time, the modification of `value` does not take effect.
+    According to the preceding information, after the member variable `value` of the `func` class is changed to 1, the `construct` operation of the member function is not affected. In this scenario, `jit` is used to modify the `construct` member function of the `func` object. When `construct` is executed, it is built and executed in static graph mode. The static graph caches the build result. Therefore, when `func` is called for the second time, the modification of `value` does not take effect.
 
-6. If a function with the `ms_function` modifier contains operators (such as `MatMul` and `Add`) that do not require parameter training, these operators can be directly called in the modified function. If the modified function contains operators (such as `Conv2D` and `BatchNorm` operators) that require parameter training, these operators must be instantiated outside the modified function. The following uses sample code to describe the two scenarios.
+6. If a function with the `jit` modifier contains operators (such as `MatMul` and `Add`) that do not require parameter training, these operators can be directly called in the modified function. If the modified function contains operators (such as `Conv2D` and `BatchNorm` operators) that require parameter training, these operators must be instantiated outside the modified function. The following uses sample code to describe the two scenarios.
 
     Scenario 1: Directly call an operator (`mindspore.ops.Add` in the example) that does not require parameter training in the modified function. The sample code is as follows:
 
@@ -242,13 +242,13 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
     import numpy as np
     import mindspore as ms
     import mindspore.ops as ops
-    from mindspore import ms_function
+    from mindspore import jit
 
     ms.set_context(mode=ms.PYNATIVE_MODE)
 
     add = ops.Add()
 
-    @ms_function
+    @jit
     def add_fn(x, y):
         res = add(x, y)
         return res
@@ -272,7 +272,7 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
     import numpy as np
     import mindspore.nn as nn
     import mindspore as ms
-    from mindspore import ms_function
+    from mindspore import jit
 
     ms.set_context(mode=ms.PYNATIVE_MODE)
 
@@ -280,7 +280,7 @@ When using `ms_function` to modify functions to improve execution efficiency, pa
     conv_obj = nn.Conv2d(in_channels=3, out_channels=4, kernel_size=3, stride=2, padding=0)
     conv_obj.init_parameters_data()
 
-    @ms_function
+    @jit
     def conv_fn(x):
         res = conv_obj(x)
         return res

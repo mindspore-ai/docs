@@ -153,7 +153,7 @@ class Maxwell2DMur(Problem):
                 ops.exp(- ((x - self.src_x0)**2 + (y - self.src_y0)**2) / (2 * (self.src_sigma**2)))
         return self.mul(source, gauss)
 
-    @ms_function
+    @jit
     def governing_equation(self, *output, **kwargs):
         """maxwell equation of TE mode wave"""
         # net output and sampling input
@@ -189,7 +189,7 @@ class Maxwell2DMur(Problem):
         pde_r = ops.Concat(1)((pde_res1, pde_res2, pde_res3))
         return pde_r
 
-    @ms_function
+    @jit
     def boundary_condition(self, *output, **kwargs):
         """2nd-order mur boundary condition"""
         # get net output and inputs
@@ -226,7 +226,7 @@ class Maxwell2DMur(Problem):
         bc_r = self.mul(bc_r_all, bc_attr)
         return bc_r
 
-    @ms_function
+    @jit
     def initial_condition(self, *output, **kwargs):
         """initial condition: u = 0"""
         net_out = output[0]

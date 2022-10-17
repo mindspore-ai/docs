@@ -16,7 +16,7 @@ A sample code that uses HyperMap to optimize compiling performance instead of a 
 import time
 from mindspore.ops import MultitypeFuncGraph, HyperMap
 from mindspore import ops
-from mindspore import ms_function
+from mindspore import jit
 
 add = MultitypeFuncGraph('add')
 @add.register("Number", "Number")
@@ -26,7 +26,7 @@ def add_scalar(x, y):
 add_map = HyperMap(add)
 list1 = [i for i in range(200)]
 list2 = [i for i in range(200)]
-@ms_function
+@jit
 def hyper_map_net():
     output = add_map(list1, list2)
     return output
@@ -36,7 +36,7 @@ output = hyper_map_net()
 end_time = time.time()
 print("hyper map cost time:", end_time - start_time)
 
-@ms_function
+@jit
 def for_loop_net():
     out = []
     for i in range(200):
@@ -64,9 +64,9 @@ A sample code that uses the `Select` operator instead of if statement to optimiz
 
 ```python
 import time
-from mindspore import ms_function, Tensor, ops
+from mindspore import jit, Tensor, ops
 
-@ms_function
+@jit
 def if_net(x, y):
     out = 0
     for _ in range(100):
@@ -82,7 +82,7 @@ out = if_net(Tensor([0]), Tensor([1]))
 end_time = time.time()
 print("if net cost time:", end_time - start_time)
 
-@ms_function
+@jit
 def select_net(x, y):
     out = x
     for _ in range(100):
@@ -112,9 +112,9 @@ A sample code to optimize compiling performance by enabling compiling cache is a
 import time
 from mindspore import set_context
 from mindspore import Tensor, dtype
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func(input_x, input_y):
     output = input_x
     for _ in range(200):
@@ -148,9 +148,9 @@ When the compiling cache is turned off, the time consumption of the first time a
 import time
 from mindspore import set_context
 from mindspore import Tensor, dtype
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func(input_x, input_y):
     output = input_x
     for _ in range(200):
@@ -190,12 +190,12 @@ A sample code that uses vmap instead of a for loop to process batch data to opti
 import numpy as np
 import time
 from mindspore import ops
-from mindspore import ms_function, Tensor
+from mindspore import jit, Tensor
 
 def hswish_func(x):
     return ops.HSwish()(x)
 
-@ms_function
+@jit
 def manually_batched(xs):
     output = []
     for i in range(xs.shape[0]):

@@ -430,11 +430,11 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 - 动态图模式下，程序按照代码的编写顺序逐行执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发到设备进行计算操作，方便用户编写和调试神经网络模型。
 
-### [调用自定义类](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/ms_class.html)
+### [调用自定义类](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/jit_class.html)
 
-在静态图模式下，通过使用ms_class修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
+在静态图模式下，通过使用`jit_class`修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
 
-ms_class应用于静态图模式，扩充完善静态图编译语法的支持范围。在动态图模式即PyNative模式下，ms_class的使用不影响PyNative模式的执行逻辑。
+`jit_class`应用于静态图模式，扩充完善静态图编译语法的支持范围。在动态图模式即PyNative模式下，`jit_class`的使用不影响PyNative模式的执行逻辑。
 
 ### [自动微分](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)
 
