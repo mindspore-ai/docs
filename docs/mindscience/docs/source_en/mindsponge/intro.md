@@ -1,6 +1,6 @@
 # MindSPONGE Introduction
 
-MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling) is a toolkit for Computational Biology based on AI framework [MindSpore](https://www.mindspore.cn/)，which supports MD, folding and so on. It aims to provide efficient AI computational biology software for a wide range of scientific researchers, staff, teachers and students.
+MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling) is a toolkit for Computational Biology based on AI framework [MindSpore](https://www.mindspore.cn/en)，which supports MD, folding and so on. It aims to provide efficient AI computational biology software for a wide range of scientific researchers, staff, teachers and students.
 
 ![MindSPONGE Architecture](images/archi.png)
 
@@ -22,7 +22,7 @@ MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling)
 - Python>=3.7
 - MindSpore>=1.8
 
-MindSpore installation tutorial please refer to [MindSpore](https://www.mindspore.cn/install)
+Please refer to [MindSpore installation tutorial](https://www.mindspore.cn/install/en).
 
 ### source code install
 
@@ -70,9 +70,11 @@ Although the structure predicted by structure prediciton model(e.g. AlphaFold2, 
 
 The formula for violation computation as below:
 
+$$
 \begin{align}
 \mathcal L_{viol} = \mathcal L_{bondlength }+\mathcal L_{bondangle }+\mathcal L_{clash } .
 \end{align}
+$$
 
 ```bash
 import mindspore as ms
@@ -188,4 +190,4 @@ In the SIG group, we will also release the public intelligence task and [open so
 
 ### Core Contributor 🧑‍🤝‍🧑
 
-- [Yi Qin Gao Research Group](https://www.chem.pku.edu.cn/gaoyq/):  [Yi Isaac Yang](https://gitee.com/helloyesterday)，[Jun Zhang](https://gitee.com/jz_90)，[Sirui Liu](https://gitee.com/sirui63)，[Yijie Xia](https://gitee.com/xiayijie)，[Diqing Chen](https://gitee.com/dechin)，[Yu-Peng Huang](https://gitee.com/gao_hyp_xyj_admin)
+- [Yi Qin Gao Research Group](https://www.chem.pku.edu.cn/gaoyq/): [Yi Isaac Yang](https://gitee.com/helloyesterday), [Jun Zhang](https://gitee.com/jz_90), [Sirui Liu](https://gitee.com/sirui63), [Yijie Xia](https://gitee.com/xiayijie), [Diqing Chen](https://gitee.com/dechin), [Yu-Peng Huang](https://gitee.com/gao_hyp_xyj_admin).

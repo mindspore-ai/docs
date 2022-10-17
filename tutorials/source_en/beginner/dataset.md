@@ -12,58 +12,30 @@ In addition, MindSpore's domain development library also provides a large number
 import numpy as np
 from mindspore.dataset import vision
 from mindspore.dataset import MnistDataset, GeneratorDataset
-from mindvision import dataset
 import matplotlib.pyplot as plt
 ```
 
 ## Loading a Dataset
 
-We use the **Mnist** dataset as a sample to introduce the loading method by using [Vision](https://gitee.com/mindspore/vision/) development library and the `mindspore.dataset` respectively.
-
-### Loading a Dataset by Using Vision
-
-The [Vision](https://gitee.com/mindspore/vision/) development library provides function encapsulation based on the customized dataset `mindspore.dataset.GeneratorDataset`. We use its interface for loading with the following parameters to be configured.
-
-- `path`: the path to save the dataset.
-- `split`: the dataset category, `train` or `test`.
-- `download`: whether to download automatically.
-
-```python
-# Download training data from open datasets
-training_data = dataset.Mnist(
-    path="dataset",
-    split="train",
-    download=True
-)
-```
-
-Get the dataset from the automatically downloaded and loaded `training_data`, you can see that its data type is `GeneratorDataset`.
-
-```python
-print(type(training_data.dataset))
-```
-
-```text
-mindspore.dataset.engine.datasets_user_defined.GeneratorDataset
-```
-
-### Dataset Loading by Using mindspore.dataset
+We use the **Mnist** dataset as a sample to introduce the loading method by using `mindspore.dataset` .
 
 `mindspore.dataset` provides a large number of dataset loading interfaces. Here we still take Mnist as an example and load it directly by using the downloaded dataset file. The interface provided by `mindspore.dataset` **only supports decompressed datafiles**, so let's remove the compressed file first.
 
 ```python
-import os
+# Download data from open datasets
+from download import download
 
-train_path = "dataset/train"
-
-os.system(f'rm -f {train_path}/*.gz')
-os.system(f'ls {train_path}')
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
 ```
 
 ```text
-train-images-idx3-ubyte
-train-labels-idx1-ubyte
-0
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:02<00:00, 3.96MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
 ```
 
 After the compressed file is deleted and loaded directly, you can see that its data type is MnistDataset.
@@ -74,12 +46,12 @@ print(type(train_dataset))
 ```
 
 ```text
-mindspore.dataset.engine.datasets_vision.MnistDataset
+<class 'mindspore.dataset.engine.datasets_vision.MnistDataset'>
 ```
 
 ## Iterating a Dataset
 
-After the dataset is loaded, the data is generally acquired in an iterative manner and then fed into the neural network for training. You can use the `create_dict_iterator` interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
+After the dataset is loaded, the data is generally acquired in an iterative manner and then fed into the neural network for training. You can use the `create_tuple_iterator` or `create_dict_iterator` interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
 
 ```python
 def visualize(dataset):
@@ -128,7 +100,7 @@ print(image.shape, image.dtype)
 ```
 
 ```text
-((28, 28, 1), mindspore.uint8)
+(28, 28, 1) Uint8
 ```
 
 ```python
@@ -143,7 +115,7 @@ print(image.shape, image.dtype)
 ```
 
 ```text
-((28, 28, 1), mindspore.float32)
+(28, 28, 1) Float32
 ```
 
 ### batch
@@ -162,7 +134,7 @@ print(image.shape, image.dtype)
 ```
 
 ```text
-((32, 28, 28, 1), mindspore.float32)
+(32, 28, 28, 1) Float32
 ```
 
 ## Customizing Dataset

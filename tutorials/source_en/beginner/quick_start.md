@@ -10,67 +10,68 @@ This section quickly implements a simple deep learning model through MindSpore A
 import mindspore
 from mindspore import nn
 from mindspore import ops
-from mindvision import dataset
-from mindspore.dataset import vision
+from mindspore.dataset import vision, transforms
+from mindspore.dataset import MnistDataset
 ```
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In addition, MindSpore provides domain-specific development libraries, such as [Text](https://gitee.com/mindspore/text/), [Vision](https://gitee.com/mindspore/vision/), etc. The development libraries provide encapsulation for a large number of datasets and can be downloaded quickly. In this tutorial, we use Vision to demonstrate the dataset operation.
-
-`mindvision.dataset` module includes various CV datasets, such as Mnist, Cifar, ImageNet, etc. In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
 ```python
-# Download training data from open datasets
-training_data = dataset.Mnist(
-    path="dataset",
-    split="train",
-    download=True
-)
+# Download data from open datasets\n",
+from download import download
 
-# Download test data from open datasets
-test_data = dataset.Mnist(
-    path="dataset",
-    split="test",
-    download=True
-)
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
+```
+
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:01<00:00, 6.73MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
 ```
 
 After the data is downloaded, the dataset object is obtained.
 
 ```python
-train_dataset = training_data.dataset
-test_dataset = test_data.dataset
+train_dataset = MnistDataset('MNIST_Data/train')
+test_dataset = MnistDataset('MNIST_Data/test')
 ```
 
 Print the names of the data columns contained in the dataset for dataset pre-processing.
 
 ```python
-print(train_dataset.column_names)
+print(train_dataset.get_col_names())
 ```
 
 ```text
 ['image', 'label']
 ```
 
-Here we set the batch size to 64 and define the data transformations to be done on image, including `Rescale`, `Normalize`, and `HWC2CHW`.
+Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use `map` to transform the image data and the label, and then pack the processed dataset into a batch of size 64.
 
 ```python
-batch_size = 64
+def datapipe(dataset, batch_size):
+    image_transforms = [
+        vision.Rescale(1.0 / 255.0, 0),
+        vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        vision.HWC2CHW()
 
-transforms = [
-    vision.Rescale(1.0 / 255.0, 0),
-    vision.Normalize(mean=(0.1307,), std=(0.3081,)),
-    vision.HWC2CHW()
-]
+    label_transform = transforms.TypeCast(mindspore.int32)
+
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
 ```
 
-Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use `map` to transform the image data in the `'image'` column, and then pack the processed dataset into a batch of size 64.
-
-```python
-# Map vision transforms and batch dataset
-train_dataset = train_dataset.map(transforms, 'image').batch(batch_size)
-test_dataset = test_dataset.map(transforms, 'image').batch(batch_size)
+```text
+train_dataset = datapipe(train_dataset, 64)
+test_dataset = datapipe(test_dataset, 64)
 ```
 
 Use `create_tuple_iterator` or `create_dict_iterator` to iterate over the dataset.
@@ -221,48 +222,48 @@ print("Done!")
 ```text
 Epoch 1
 -------------------------------
-loss: 2.302365  [  0/938]
-loss: 2.288243  [100/938]
-loss: 2.264786  [200/938]
-loss: 2.189968  [300/938]
-loss: 1.986960  [400/938]
-loss: 1.381596  [500/938]
-loss: 1.018606  [600/938]
-loss: 0.883643  [700/938]
-loss: 0.873870  [800/938]
-loss: 0.536063  [900/938]
+loss: 2.302088  [  0/938]
+loss: 2.290692  [100/938]
+loss: 2.266338  [200/938]
+loss: 2.205240  [300/938]
+loss: 1.907198  [400/938]
+loss: 1.455603  [500/938]
+loss: 0.861103  [600/938]
+loss: 0.767219  [700/938]
+loss: 0.422253  [800/938]
+loss: 0.513922  [900/938]
 Test:
- Accuracy: 85.0%, Avg loss: 0.525184
+ Accuracy: 83.8%, Avg loss: 0.529534
 
 Epoch 2
 -------------------------------
-loss: 0.492243  [  0/938]
-loss: 0.495629  [100/938]
-loss: 0.387343  [200/938]
-loss: 0.581129  [300/938]
-loss: 0.387734  [400/938]
-loss: 0.446312  [500/938]
-loss: 0.340325  [600/938]
-loss: 0.300699  [700/938]
-loss: 0.312408  [800/938]
-loss: 0.152036  [900/938]
+loss: 0.580867  [  0/938]
+loss: 0.479347  [100/938]
+loss: 0.677991  [200/938]
+loss: 0.550141  [300/938]
+loss: 0.226565  [400/938]
+loss: 0.314738  [500/938]
+loss: 0.298739  [600/938]
+loss: 0.459540  [700/938]
+loss: 0.332978  [800/938]
+loss: 0.406709  [900/938]
 Test:
- Accuracy: 89.9%, Avg loss: 0.343906
+ Accuracy: 90.2%, Avg loss: 0.334828
 
 Epoch 3
 -------------------------------
-loss: 0.287898  [  0/938]
-loss: 0.241483  [100/938]
-loss: 0.361069  [200/938]
-loss: 0.493174  [300/938]
-loss: 0.440934  [400/938]
-loss: 0.234498  [500/938]
-loss: 0.234642  [600/938]
-loss: 0.229699  [700/938]
-loss: 0.221106  [800/938]
-loss: 0.474382  [900/938]
+loss: 0.461890  [  0/938]
+loss: 0.242303  [100/938]
+loss: 0.281414  [200/938]
+loss: 0.207835  [300/938]
+loss: 0.206000  [400/938]
+loss: 0.409646  [500/938]
+loss: 0.193608  [600/938]
+loss: 0.217575  [700/938]
+loss: 0.212817  [800/938]
+loss: 0.202862  [900/938]
 Test:
- Accuracy: 91.9%, Avg loss: 0.281938
+ Accuracy: 91.9%, Avg loss: 0.280962
 
 Done!
 ```
@@ -317,7 +318,7 @@ for data, label in test_dataset:
 ```
 
 ```text
-Predicted: "[3 5 4 5 6 1 6 4 0 6]", Actual: "[3 5 9 3 6 1 6 4 0 6]"
+Predicted: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])", Actual: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])"
 ```
 
 For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html).

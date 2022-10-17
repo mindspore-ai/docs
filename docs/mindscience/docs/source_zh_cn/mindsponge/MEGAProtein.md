@@ -57,9 +57,9 @@ MEGA-Protein主要由三部分组成：
     首先安装模板搜索工具[**HHsearch**](https://github.com/soedinglab/hh-suite)
     与[**kalign**](https://msa.sbc.su.se/downloads/kalign/current.tar.gz)，然后下载模板检索所需数据库：
 
-    - [pdb70](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/pdb70_from_mmcif_200401.tar.gz)：压缩包19G，解压后56G
+    - [pdb70](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/pdb70_from_mmcif_200401.tar.gz)：压缩包19G，解压后56G。
     - [mmcif database](https://ftp.rcsb.org/pub/pdb/data/structures/divided/mmCIF/)： 零散压缩文件～50G，解压后～200G，需使用脚本下载，下载后需解压所有mmcif文件放在同一个文件夹内。
-    - [obsolete_pdbs](http://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat)：140K
+    - [obsolete_pdbs](http://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat)：140K。
 
     *数据库下载网站均为国外网站，下载速度可能较慢*。
 
@@ -68,14 +68,14 @@ MEGA-Protein主要由三部分组成：
     根据数据库安装情况配置 `config/data.yaml`中数据库搜索的相关配置 `database_search`，相关参数含义如下：
 
     ```bash
-    # configuration for template search
+    # 模板检索配置
     hhsearch_binary_path   HHsearch可执行文件路径
     kalign_binary_path     kalign可执行文件路径
     pdb70_database_path    pdb70文件夹路径
     mmcif_dir              mmcif文件夹路径
     obsolete_pdbs_path     PDB IDs的映射文件路径
     max_template_date      模板搜索截止时间，该时间点之后的模板会被过滤掉，默认值"2100-01-01"
-    # configuration for Multiple Sequence Alignment
+    # 多序列比对MSA配置
     mmseqs_binary          MMseqs2可执行文件路径
     uniref30_path          uniref30文件夹路径
     database_envdb_dir     colabfold_envdb_202108文件夹路径

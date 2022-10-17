@@ -73,9 +73,9 @@ Please refer to the [Cybertron Tutorial](https://gitee.com/mindspore/mindscience
 
 Data set required by Cybertron tutorials：
 
-download [dataset_qm9.npz](http://gofile.me/6Utp7/tJ5hoDIAo)
+- download [dataset_qm9.npz](http://gofile.me/6Utp7/tJ5hoDIAo)
 
-download [ethanol_dft.npz](http://gofile.me/6Utp7/hbQBofAFM)
+- download [ethanol_dft.npz](http://gofile.me/6Utp7/hbQBofAFM)
 
 To obtain the checkpoint of the last case, run the following instructions at the terminal.
 
@@ -85,8 +85,8 @@ wget https://download.mindspore.cn/mindscience/mindsponge/ckpts/Cybertron/checkp
 
 ## Reference
 
-[1] Kristof T. Schütt, et al. [SchNet: A continuous-filter convolutional neural network for modeling quantum interactions](https://arxiv.org/abs/1706.08566)
+[1] Kristof T. Schütt, et al. [SchNet: A continuous-filter convolutional neural network for modeling quantum interactions](https://arxiv.org/abs/1706.08566).
 
-[2] Oliver T. Unke, et al. [PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments and Partial Charges](https://arxiv.org/abs/1902.08408)
+[2] Oliver T. Unke, et al. [PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments and Partial Charges](https://arxiv.org/abs/1902.08408).
 
-[3] Jun Zhang, et al. [Molecular CT: Unifying Geometry and Representation Learning for Molecules at Different Scales](https://arxiv.org/abs/2012.11816)
+[3] Jun Zhang, et al. [Molecular CT: Unifying Geometry and Representation Learning for Molecules at Different Scales](https://arxiv.org/abs/2012.11816).

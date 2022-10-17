@@ -37,8 +37,8 @@ Protein Structure Prediction Tool MEGA-Fold Depends on Multiple Sequence Alignme
 
     Then download the database required by MSA:
 
-    - [uniref30_2103](http://wwwuser.gwdg.de/~compbiol/colabfold/uniref30_2103.tar.gz) : Compressed package 68G, 375G after decompression
-    - [colabfold_envdb_202108](http://wwwuser.gwdg.de/~compbiol/colabfold/colabfold_envdb_202108.tar.gz) : 110G compressed package, 949G after decompression
+    - [uniref30_2103](http://wwwuser.gwdg.de/~compbiol/colabfold/uniref30_2103.tar.gz) : Compressed package 68G, 375G after decompression.
+    - [colabfold_envdb_202108](http://wwwuser.gwdg.de/~compbiol/colabfold/colabfold_envdb_202108.tar.gz) : 110G compressed package, 949G after decompression.
 
     After downloading, decompress and use MMseqs2 to process the database. For data processing, refer to [colabfold](http://colabfold.mmseqs.com) , the main commands are as follows:
 
@@ -56,11 +56,11 @@ Protein Structure Prediction Tool MEGA-Fold Depends on Multiple Sequence Alignme
 
     Install the template search tool first [**HHsearch**](https://github.com/soedinglab/hh-suite) and [**kalign**](https://msa.sbc.su.se/downloads/kalign/current.tar.gz) , and then download the template to retrieve the required database:
 
-    - [pdb70](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/pdb70_from_mmcif_200401.tar.gz) : Compressed package 19G, decompressed 56G
+    - [pdb70](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/pdb70_from_mmcif_200401.tar.gz) : Compressed package 19G, decompressed 56G.
     - [mmcif database](https://ftp.rcsb.org/pub/pdb/data/structures/divided/mmCIF/) : Fragmented compressed file:50G, decompressed file:200G, and downloaded by script. After downloading, decompress all mmcif files and put them in the same folder.
-    - [obsolete_pdbs](http://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat) ：140K
+    - [obsolete_pdbs](http://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat) ：140K.
 
-    *The database download websites are all foreign websites, and the download speed may be slow*。
+    *The database download websites are all foreign websites, and the download speed may be slow.*
 
     - Configuration database retrieval config
 
