@@ -4,13 +4,11 @@
 
 The following uses LeNet as an example to describe how to use MindSpore to deploy a federated learning cluster.
 
-> You can download the complete demo from [here](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
-
 The following figure shows the physical architecture of the MindSpore Federated Learning (FL) Server cluster:
 
 ![mindspore-federated-networking](./images/mindspore_federated_networking.png)
 
-As shown in the preceding figure, in the federated learning cloud cluster, there are two MindSpore process roles: `Federated Learning Scheduler` and `Federated Learning Server`:
+As shown in the preceding figure, in the federated learning cloud cluster, there are three MindSpore process roles: `Federated Learning Scheduler`, `Federated Learning Server` and `Federated Learning Worker`:
 
 - Federated Learning Scheduler
 
@@ -25,7 +23,11 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
     `Server` executes federated learning tasks, receives and parses data from devices, and provides capabilities such as secure aggregation, time-limited communication, and model storage. In a federated learning task, users can configure multiple `Servers` which communicate with each other through the TCP proprietary protocol and open HTTP ports for device-side connection.
 
-    > In the MindSpore federated learning framework, `Server` also supports auto scaling and disaster recovery, and can dynamically schedule hardware resources without interrupting training tasks.
+    In the MindSpore federated learning framework, `Server` also supports auto scaling and disaster recovery, and can dynamically schedule hardware resources without interrupting training tasks.
+
+- Federated Learning Worker
+
+    `Worker` is an accessory module for executing the federated learning task, which is used for supervised retraining of the model in the Server, and then the trained model is distributed to the Server. In a federated learning task, there can be more than one (user configurable) of `Worker`, and the communication between `Worker` and `Server` is performed via TCP protocol.
 
 `Scheduler` and `Server` must be deployed on a server or container with a single NIC and in the same network segment. MindSpore automatically obtains the first available IP address as the `Server` IP address.
 
@@ -33,165 +35,175 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
 ## Preparations
 
+> Recommend to create a virtual environment for the following operations with [Anaconda](https://www.anaconda.com/).
+
 ### Installing MindSpore
 
 The MindSpore federated learning cloud cluster supports deployment on x86 CPU and GPU CUDA hardware platforms. Run commands provided by the [MindSpore Installation Guide](https://www.mindspore.cn/install) to install the latest MindSpore.
 
-## Defining a Model
+### Installing MindSpore Federated
 
-To facilitate deployment, the `Scheduler` and `Server` processes of MindSpore federated learning can reuse the training script. You can select different startup modes by referring to [Configuring Parameters](#configuring-parameters).
+Compile and install with [source code](https://gitee.com/mindspore/federated).
 
-## Configuring Parameters
-
-The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docs/en/master/federated_server.html#mindspore.set_fl_context).
-
-After parameter configuration and before training, call the `set_fl_context` API as follows:
-
-```python
-import mindspore as ms
-...
-
-enable_fl = True
-server_mode = "FEDERATED_LEARNING"
-ms_role = "MS_SERVER"
-server_num = 4
-scheduler_ip = "192.168.216.124"
-scheduler_port = 6667
-fl_server_port = 6668
-fl_name = "LeNet"
-scheduler_manage_port = 11202
-config_file_path = "./config.json"
-
-fl_ctx = {
-    "enable_fl": enable_fl,
-    "server_mode": server_mode,
-    "ms_role": ms_role,
-    "server_num": server_num,
-    "scheduler_ip": scheduler_ip,
-    "scheduler_port": scheduler_port,
-    "fl_server_port": fl_server_port,
-    "fl_name": fl_name,
-    "scheduler_manage_port": scheduler_manage_port,
-    "config_file_path": config_file_path
-}
-ms.set_fl_context(**fl_ctx)
-...
-
-model.train()
+```shell
+git clone https://gitee.com/mindspore/federated.git -b master
+cd federated
+bash build.sh
 ```
 
-In this example, the training task mode is set to `federated learning` (`FEDERATED_LEARNING`), and the training process role is `Server`. In this task, `4` `Servers` need to be started to complete the cluster networking. The IP address of the cluster `Scheduler` is `192.168.216.124`, the cluster `Scheduler` port number is `6667`, the `HTTP service port number` of federated learning is `6668` (connected by the device), the task name is `LeNet`, and the cluster `Scheduler` management port number is `11202`.
+For `bash build.sh`, compilation can be accelerated by the `-jn` option, e.g. `-j16`. The third-party dependencies can be downloaded from gitee instead of github by the `-S on` option.
 
-> Some parameters are used by either `Scheduler` (for example, scheduler_manage_port) or `Server` (for example, fl_server_port). To facilitate deployment, transfer these parameters together to MindSpore. MindSpore reads different parameters based on process roles.
-> You are advised to import the parameter configuration through the Python `argparse` module:
+After compilation, find the whl installation package of Federated in the `build/package/` directory to install:
 
-```python
-import argparse
-
-parser = argparse.ArgumentParser()
-parser.add_argument("--server_mode", type=str, default="FEDERATED_LEARNING")
-parser.add_argument("--ms_role", type=str, default="MS_SERVER")
-parser.add_argument("--server_num", type=int, default=4)
-parser.add_argument("--scheduler_ip", type=str, default="192.168.216.124")
-parser.add_argument("--scheduler_port", type=int, default=6667)
-parser.add_argument("--fl_server_port", type=int, default=6668)
-parser.add_argument("--fl_name", type=str, default="LeNet")
-parser.add_argument("--scheduler_manage_port", type=int, default=11202)
-parser.add_argument("--config_file_path", type=str, default="")
-
-args, t = parser.parse_known_args()
-server_mode = args.server_mode
-ms_role = args.ms_role
-server_num = args.server_num
-scheduler_ip = args.scheduler_ip
-scheduler_port = args.scheduler_port
-fl_server_port = args.fl_server_port
-fl_name = args.fl_name
-scheduler_manage_port = args.scheduler_manage_port
-config_file_path = args.config_file_path
+```bash
+pip install mindspore_federated-{version}-{python_version}-linux_{arch}.whl
 ```
 
-> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
->
-> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+### Verifying Installation
+
+Execute the following command to verify the installation result. The installation is successful if no error is reported when importing Python modules.
+
+```python
+from mindspore_federated import FLServerJob
+```
+
+### Installing and Starting Redis Server
+
+Federated Learning relies on [Redis Server](https://gitee.com/link?target=https%3A%2F%2Fredis.io%2F) as the cached data middleware by default. To run the Federated Learning service, a Redis server needs to be installed and run.
+
+Install Redis server:
+
+```bash
+sudo apt-get install redis
+```
+
+Run the Redis server and the number of configuration side is 23456:
+
+```bash
+redis-server --port 23456 --save ""
+```
 
 ## Starting a Cluster
 
-Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile). An example directory structure is as follows:
+1. [examples](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/).
 
-```text
-mobile/
-├── config.json
-├── finish_mobile.py
-├── run_mobile_sched.py
-├── run_mobile_server.py
-├── src
-│   └── model.py
-└── test_mobile_lenet.py
-```
-
-Descriptions of the documents:
-
-- config.json: The config file, which is used to configure security, disaster recovery, etc.
-- finish_mobile.py: This script is used to stop the cluster.
-- run_mobile_sched.py: Launch scheduler.
-- run_mobile_server.py: Launch server.
-- model.py: The model.
-- test_mobile_lenet.py: Training script.
-
-1. Start the `Scheduler`.
-
-    `run_mobile_sched.py` is a Python script provided for you to start `Scheduler` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Scheduler` of the federated learning task. The TCP port number is `6667`, the HTTP service port number starts with `6668`, the number of `Server` is `4`, and the management port number of the cluster `Scheduler` is `11202`:
-
-    ```sh
-    python run_mobile_sched.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json
+    ```bash
+    cd tests/st/cross_device_lenet_femnist
     ```
 
-2. Start the `Servers`.
+2. Modify the yaml configuration file according to the actual running: `default_yaml_config.yaml`. [sample configuration of Lenet](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/yamls/lenet.yaml) is as follows:
 
-    `run_mobile_server.py` is a Python script provided for you to start multiple `Servers` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Servers` of the federated learning task. The TCP port number is `6667`, the HTTP service port number starts with `6668`, the number of `Server` is `4`, and the number of devices required for the federated learning task is `8`.
+    ```yaml
+    fl_name: Lenet
+    fl_iteration_num: 25
+    server_mode: FEDERATED_LEARNING
+    enable_ssl: False
 
-    ```sh
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --config_file_path=$PWD/config.json
+    distributed_cache:
+    type: redis
+    address: 127.0.0.1:23456 # ip:port of redis actual machine
+    plugin_lib_path: ""
+
+    round:
+    start_fl_job_threshold: 2
+    start_fl_job_time_window: 30000
+    update_model_ratio: 1.0
+    update_model_time_window: 30000
+    global_iteration_time_window: 60000
+
+    summary:
+    metrics_file: "metrics.json"
+    failure_event_file: "event.txt"
+    continuous_failure_times: 10
+    data_rate_dir: ".."
+    participation_time_level: "5,15"
+
+    encrypt:
+    encrypt_type: NOT_ENCRYPT
+    pw_encrypt:
+        share_secrets_ratio: 1.0
+        cipher_time_window: 3000
+        reconstruct_secrets_threshold: 1
+    dp_encrypt:
+        dp_eps: 50.0
+        dp_delta: 0.01
+        dp_norm_clip: 1.0
+    signds:
+        sign_k: 0.01
+        sign_eps: 100
+        sign_thr_ratio: 0.6
+        sign_global_lr: 0.1
+        sign_dim_out: 0
+
+    compression:
+    upload_compress_type: NO_COMPRESS
+    upload_sparse_rate: 0.4
+    download_compress_type: NO_COMPRESS
+
+    ssl:
+    # when ssl_config is set
+    # for tcp/http server
+    server_cert_path: "server.p12"
+    # for tcp client
+    client_cert_path: "client.p12"
+    # common
+    ca_cert_path: "ca.crt"
+    crl_path: ""
+    cipher_list: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305"
+    cert_expire_warning_time_in_day: 90
+
+    client_verify:
+    pki_verify: false
+    root_first_ca_path: ""
+    root_second_ca_path: ""
+    equip_crl_path: ""
+    replay_attack_time_diff: 600000
+
+    client:
+    http_url_prefix: ""
+    client_epoch_num: 20
+    client_batch_size: 32
+    client_learning_rate: 0.01
+    connection_num: 10000
+
     ```
 
-    The preceding command is equivalent to starting four `Server` processes, of which the federated learning service port numbers are `6668`, `6669`, `6670`, and `6671`. For details, see [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+3. Prepare the model file and start it in the following way: weight-based start. You need to provide the corresponding model weights.
 
-    > If you only want to deploy `Scheduler` and `Server` in a standalone system, change the `scheduler_ip` to `127.0.0.1`.
+    Obtain lenet model weight:
 
-    To distribute the `Servers` on different physical nodes, you can use the `local_server_num` parameter to specify the number of `Server` processes to be executed on **the current node**.
-
-    ```sh
-    #Start three `Server` processes on node 1.
-    python run_mobile_server.py --scheduler_ip={ip_address_node_1} --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3 --config_file_path=$PWD/config.json
+    ```bash
+    wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/ms-dependencies/Lenet.ckpt
     ```
 
-    ```sh
-    #Start one `Server` process on node 2.
-    python run_mobile_server.py --scheduler_ip={ip_address_node_2} --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=$PWD/config.json
+4. Run Scheduler, and the management side address is `127.0.0.1:11202` by default.
+
+    ```python
+    python run_sched.py \
+    --yaml_config="yamls/lenet.yaml" \
+    --scheduler_manage_address="10.113.216.40:18019"
     ```
 
-    The log is displayed as follows:
+5. Run Server, and start one Server and the HTTP server address is `127.0.0.1:6666` by default.
 
-    ```sh
-    Server started successfully.
+    ```python
+    python run_server.py \
+    --yaml_config="yamls/lenet.yaml" \
+    --tcp_server_ip="10.113.216.40" \
+    --checkpoint_dir="fl_ckpt" \
+    --local_server_num=1 \
+    --http_server_address="10.113.216.40:8019"
     ```
 
-    If the preceding information is displayed, it indicates that the startup is successful.
+6. Stop federated learning. The current version of the federated learning cluster is a resident process, and the `finish_cloud.py` script can be executed to terminate the federated learning service. The example of executing the command is as follows, where `redis_port` is passed with the same parameters as when starting redis, representing stopping the cluster corresponding to this `Scheduler`.
 
-    > In the preceding commands for distributed deployment, all values of `server_num` are set to 4. This is because this parameter indicates the number of global `Servers` in the cluster and should not change with the number of physical nodes. `Servers` on different nodes do not need to be aware of their own IP addresses. The cluster consistency and node discovery are scheduled by `Scheduler`.
-
-3. Stop federated learning.
-
-    Currently, `finish_mobile.py` is used to stop the federated learning server. Run the following command to stop the federated learning cluster. The value of the `scheduler_port` parameter is the same as that passed when the server is started.
-
-    ```sh
-    python finish_mobile.py --scheduler_port=6667
+    ```python
+    python finish_cloud.py --redis_port=23456
     ```
 
-    The result is as follows:
+    If console prints the following contents:
 
-    ```sh
+    ```text
     killed $PID1
     killed $PID2
     killed $PID3
@@ -202,131 +214,98 @@ Descriptions of the documents:
     killed $PID8
     ```
 
-    The services are stopped successfully.
+    it indicates the termination service is successful.
 
 ## Auto Scaling
 
-The MindSpore federated learning framework supports auto scaling of `Server` and provides the `RESTful` service through the `Scheduler` management port. In this way, you can dynamically schedule hardware resources without interrupting training tasks. Currently, MindSpore supports only horizontal scaling (scale-out or scale-in) and does not support vertical scaling (scale-up or scale-down). In the auto scaling scenario, the number of `Server` processes either increases or decreases according to user settings.
+MindSpore federal learning framework supports `Server` auto scaling and provides `RESTful` services externally through the `Scheduler` management port, enabling users to dynamically schedule hardware resources without interrupting training tasks.
 
-The following describes how to control cluster scale-in and scale-out using the native RESTful APIs.
+The following example describes how to control scale-out and scale-in of cluster through APIs.
 
-1. Scale-out
+### Scale-out
 
-    After the cluster is started, enter the machine where the scheduler node is deployed and send a scale-out request to `Scheduler`. Use the `curl` instruction to construct a `RESTful` scale-out request, indicating that two `Server` nodes need to be added to the cluster.
+After the cluster starts, enter the machine where the scheduler node is deployed and make a request to the `Scheduler` to query the status and node information. A `RESTful` request can be constructed with the `curl` command.
 
-    ```sh
-    curl -i -X POST \
-    -H "Content-Type:application/json" \
-    -d \
-    '{
-    "worker_num":0,
-    "server_num":2
-    }' \
-    'http://127.0.0.1:11202/scaleout'
-    ```
+```sh
+curl -k 'http://10.113.216.40:18015/state'
+```
 
-    Start `2` new `Server` processes and the `node_id` of the expanded `Server` cannot be the same as the `node_id` of the existing `Server`, add up the values of `server_num` to ensure that the global networking information is correct. After the scale-out, the value of `server_num` should be `6`.
-
-    ```sh
-    python run_mobile_server.py --node_id=scale_node --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
-    ```
-
-    This command is used to start two `Server` nodes. The port numbers of the federated learning services are `6672` and `6673`, and the total number of `Servers` is `6`.
-
-2. Scale-in
-
-    After the cluster is started, enter the machine where the scheduler node is deployed and send a scale-in request to `Scheduler`. Obtain the node information to perform the scale-in operation on specific nodes.
-
-    ```sh
-    curl -i -X GET \
-    'http://127.0.0.1:11202/nodes'
-    ```
-
-    The `scheduler` will return the query results in the `json` format:
-
-    ```json
-    {
-        "message": "Get nodes info successful.",
-        "nodeIds": [
-            {
-                "alive": "true",
-                "nodeId": "3",
-                "rankId": "3",
-                "role": "SERVER"
-            },
-            {
-                "alive": "true",
-                "nodeId": "0",
-                "rankId": "0",
-                "role": "SERVER"
-            },
-            {
-                "alive": "true",
-                "nodeId": "2",
-                "rankId": "2",
-                "role": "SERVER"
-            },
-            {
-                "alive": "true",
-                "nodeId": "1",
-                "rankId": "1",
-                "role": "SERVER"
-            },
-            {
-                "alive": "true",
-                "nodeId": "20",
-                "rankId": "0",
-                "role": "SCHEDULER"
-            }
-        ]
-    }
-    ```
-
-    Select `Rank3` and `Rank2` for scale-in.
-
-    ```sh
-    curl -i -X POST \
-    -H "Content-Type:application/json" \
-    -d \
-    '{
-    "node_ids": ["2", "3"]
-    }' \
-    'http://127.0.0.1:11202/scalein'
-    ```
-
-> - After the cluster scale-out or scale-in is successful, the training task is automatically restored. No manual intervention is required.
->
-> - You can use a cluster management tool (such as Kubernetes) to create or release `Server` resources.
->
-> - After scale-in, the process scaled in will not exit. You need to use the cluster management tool (such as Kubernetes) or command `kill -15 $PID` to control the process to exit. Please note that you need to query the cluster status from the 'scheduler' node and wait for the cluster status to be set to `CLUSTER_READY`, the reduced node can be recycled.
-
-## Disaster Recovery
-
-After a node in the MindSpore federated learning cluster goes offline, you can keep the cluster online without exiting the training task. After the node is restarted, you can resume the training task. Currently, MindSpore supports disaster recovery for `Server` nodes (except Server 0).
-
-To enable disaster recovery, the fields below should be added to the config.json set by config_file_path:
+`Scheduler` will return query results in `json` format.
 
 ```json
 {
-    "recovery": {
-        "storage_type": 1,
-        "storge_file_path": "config.json"
-    }
+  "message":"Get cluster state successful.",
+  "cluster_state":"CLUSTER_READY",
+  "code":0,
+  "nodes":[
+    {"node_id","{ip}:{port}::{timestamp}::{random}",
+     "tcp_address":"{ip}:{port}",
+     "role":"SERVER"}
+  ]
 }
 ```
 
-- recovery: If this field is set, the disaster recovery feature is enabled.
-- storage_type: Persistent storage type. Only `1` is supported currently which represents file storage.
-- storage_file_path: The recovery file path.
-
-The node restart command is similar to the scale-out command. After the node is manually brought offline, run the following command:
+You need to pull up 3 new `Server` processes and accumulate the `local_server_num` parameter to the number of scale-out, so as to ensure the correctness of the global networking information, i.e. after scale-out, the number of `local_server_num` should be 4. An example of executing the command is as follows:
 
 ```sh
-python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=$PWD/config.json
+python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:18015"
 ```
 
-This command indicates that the `Server` is restarted. The federated learning service port number is `6673`.
+This command indicates starting four `Server` nodes and the total number of `Server` is 4.
 
-> MindSpore does not support disaster recovery after the auto scaling command is successfully delivered and before the scaling service is complete.
->
-> After recovery, the restarted node's `MS_NODE_ID` variable should be the same as the one which exited in exception to ensure the networking recovery.
+### Scale-in
+
+Simulate the scale-in directly via kill -9 pid, construct a `RESTful` request with the `curl` command, and query the status, which finds that there is one node_id missing from the cluster to achieve the purpose of scale-in.
+
+```sh
+curl -k \
+'http://10.113.216.40:18015/state'
+```
+
+`Scheduler` returns the query results in `json` format.
+
+```json
+{
+  "message":"Get cluster state successful.",
+  "cluster_state":"CLUSTER_READY",
+  "code":0,
+  "nodes":[
+    {"node_id","{ip}:{port}::{timestamp}::{random}",
+     "tcp_address":"{ip}:{port}",
+     "role":"SERVER"},
+    {"node_id","worker_fl_{timestamp}::{random}",
+     "tcp_address":"",
+     "role":"WORKER"}，
+    {"node_id","worker_fl_{timestamp}::{random}",
+     "tcp_address":"",
+     "role":"WORKER"}
+  ]
+}
+```
+
+> - After scale-out/scale-in of the cluster is successful, the training tasks are automatically resumed without additional intervention.
+
+## Security
+
+MindSpore Federal Learning Framework supports SSL security authentication of `Server`. To enable security authentication, you need to add `enable_ssl=True` to the startup command, and the config.json configuration file specified by config_file_path needs to add the following fields:
+
+```json
+{
+    "server_cert_path": "server.p12",
+    "crl_path": "",
+    "client_cert_path": "client.p12",
+    "ca_cert_path": "ca.crt",
+    "cert_expire_warning_time_in_day": 90,
+    "cipher_list": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK",
+    "connection_num":10000
+}
+```
+
+- server_cert_path: The path to the p12 file containing the ciphertext of the certificate and key on the server-side.
+- crl_path: Files of revocation list.
+- client_cert_path: The path to the p12 file containing the ciphertext of the certificate and key on the client-side.
+- ca_cert_path: Root certificate.
+- cipher_list: Cipher suite.
+- cert_expire_warning_time_in_day: Alarm time of certificate expiration.
+
+The key in the p12 file is stored in cipher text. You need to pass in the password when starting. Please refer to the `client_password` and `server_password` fields in the Python API `mindspore.set_fl_context` for the specific parameters.

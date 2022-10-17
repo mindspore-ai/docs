@@ -43,7 +43,7 @@ mindspore.grad(
 )
 ```
 
-For more information, see [mindspore.grad](https://mindspore.cn/docs/en/master/api_python/mindspore.grad.html).
+For more information, see [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html).
 
 ## Differences
 

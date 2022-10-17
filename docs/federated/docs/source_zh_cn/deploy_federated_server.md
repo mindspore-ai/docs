@@ -87,134 +87,134 @@ redis-server --port 23456 --save ""
 
 1. [样例路径](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/)。
 
-```bash
-cd tests/st/cross_device_lenet_femnist
-```
+    ```bash
+    cd tests/st/cross_device_lenet_femnist
+    ```
 
 2. 据实际运行需要修改yaml配置文件：`default_yaml_config.yaml`，如下为[Lenet的相关配置样例](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/yamls/lenet.yaml)。
 
-```yaml
-fl_name: Lenet
-fl_iteration_num: 25
-server_mode: FEDERATED_LEARNING
-enable_ssl: False
+    ```yaml
+    fl_name: Lenet
+    fl_iteration_num: 25
+    server_mode: FEDERATED_LEARNING
+    enable_ssl: False
 
-distributed_cache:
-  type: redis
-  address: 127.0.0.1:23456 # ip:port of redis actual machine
-  plugin_lib_path: ""
+    distributed_cache:
+    type: redis
+    address: 127.0.0.1:23456 # ip:port of redis actual machine
+    plugin_lib_path: ""
 
-round:
-  start_fl_job_threshold: 2
-  start_fl_job_time_window: 30000
-  update_model_ratio: 1.0
-  update_model_time_window: 30000
-  global_iteration_time_window: 60000
+    round:
+    start_fl_job_threshold: 2
+    start_fl_job_time_window: 30000
+    update_model_ratio: 1.0
+    update_model_time_window: 30000
+    global_iteration_time_window: 60000
 
-summary:
-  metrics_file: "metrics.json"
-  failure_event_file: "event.txt"
-  continuous_failure_times: 10
-  data_rate_dir: ".."
-  participation_time_level: "5,15"
+    summary:
+    metrics_file: "metrics.json"
+    failure_event_file: "event.txt"
+    continuous_failure_times: 10
+    data_rate_dir: ".."
+    participation_time_level: "5,15"
 
-encrypt:
-  encrypt_type: NOT_ENCRYPT
-  pw_encrypt:
-    share_secrets_ratio: 1.0
-    cipher_time_window: 3000
-    reconstruct_secrets_threshold: 1
-  dp_encrypt:
-    dp_eps: 50.0
-    dp_delta: 0.01
-    dp_norm_clip: 1.0
-  signds:
-    sign_k: 0.01
-    sign_eps: 100
-    sign_thr_ratio: 0.6
-    sign_global_lr: 0.1
-    sign_dim_out: 0
+    encrypt:
+    encrypt_type: NOT_ENCRYPT
+    pw_encrypt:
+        share_secrets_ratio: 1.0
+        cipher_time_window: 3000
+        reconstruct_secrets_threshold: 1
+    dp_encrypt:
+        dp_eps: 50.0
+        dp_delta: 0.01
+        dp_norm_clip: 1.0
+    signds:
+        sign_k: 0.01
+        sign_eps: 100
+        sign_thr_ratio: 0.6
+        sign_global_lr: 0.1
+        sign_dim_out: 0
 
-compression:
-  upload_compress_type: NO_COMPRESS
-  upload_sparse_rate: 0.4
-  download_compress_type: NO_COMPRESS
+    compression:
+    upload_compress_type: NO_COMPRESS
+    upload_sparse_rate: 0.4
+    download_compress_type: NO_COMPRESS
 
-ssl:
-  # when ssl_config is set
-  # for tcp/http server
-  server_cert_path: "server.p12"
-  # for tcp client
-  client_cert_path: "client.p12"
-  # common
-  ca_cert_path: "ca.crt"
-  crl_path: ""
-  cipher_list: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305"
-  cert_expire_warning_time_in_day: 90
+    ssl:
+    # when ssl_config is set
+    # for tcp/http server
+    server_cert_path: "server.p12"
+    # for tcp client
+    client_cert_path: "client.p12"
+    # common
+    ca_cert_path: "ca.crt"
+    crl_path: ""
+    cipher_list: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305"
+    cert_expire_warning_time_in_day: 90
 
-client_verify:
-  pki_verify: false
-  root_first_ca_path: ""
-  root_second_ca_path: ""
-  equip_crl_path: ""
-  replay_attack_time_diff: 600000
+    client_verify:
+    pki_verify: false
+    root_first_ca_path: ""
+    root_second_ca_path: ""
+    equip_crl_path: ""
+    replay_attack_time_diff: 600000
 
-client:
-  http_url_prefix: ""
-  client_epoch_num: 20
-  client_batch_size: 32
-  client_learning_rate: 0.01
-  connection_num: 10000
+    client:
+    http_url_prefix: ""
+    client_epoch_num: 20
+    client_batch_size: 32
+    client_learning_rate: 0.01
+    connection_num: 10000
 
-```
+    ```
 
 3. 准备模型文件，启动方式为：基于权重启动，需要提供相应的模型权重。
 
-获取lenet模型权重：
+    获取lenet模型权重：
 
-```bash
-wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/ms-dependencies/Lenet.ckpt
-```
+    ```bash
+    wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/ms-dependencies/Lenet.ckpt
+    ```
 
 4. 运行Scheduler，管理面地址默认为`127.0.0.1:11202`。
 
-```python
-python run_sched.py \
---yaml_config="yamls/lenet.yaml" \
---scheduler_manage_address="10.113.216.40:18019"
-```
+    ```python
+    python run_sched.py \
+    --yaml_config="yamls/lenet.yaml" \
+    --scheduler_manage_address="10.113.216.40:18019"
+    ```
 
 5. 运行Server，默认启动1个Server，HTTP服务器地址默认为`127.0.0.1:6666`。
 
-```python
-python run_server.py \
---yaml_config="yamls/lenet.yaml" \
---tcp_server_ip="10.113.216.40" \
---checkpoint_dir="fl_ckpt" \
---local_server_num=1 \
---http_server_address="10.113.216.40:8019"
-```
+    ```python
+    python run_server.py \
+    --yaml_config="yamls/lenet.yaml" \
+    --tcp_server_ip="10.113.216.40" \
+    --checkpoint_dir="fl_ckpt" \
+    --local_server_num=1 \
+    --http_server_address="10.113.216.40:8019"
+    ```
 
-6. 停止联邦学习 当前版本联邦学习集群为常驻进程，可执行`finish_cloud.py`脚本，以终止联邦学习服务。执行指令的示例如下，其中`redis_port`传参，需与启动redis时的传参保持一致，代表停止此`Scheduler`对应的集群。
+6. 停止联邦学习。当前版本联邦学习集群为常驻进程，可执行`finish_cloud.py`脚本，以终止联邦学习服务。执行指令的示例如下，其中`redis_port`传参，需与启动redis时的传参保持一致，代表停止此`Scheduler`对应的集群。
 
-```python
-python finish_cloud.py --redis_port=23456
-```
+    ```python
+    python finish_cloud.py --redis_port=23456
+    ```
 
-若console打印如下内容：
+    若console打印如下内容：
 
-```text
-killed $PID1
-killed $PID2
-killed $PID3
-killed $PID4
-killed $PID5
-killed $PID6
-killed $PID7
-killed $PID8
-```
+    ```text
+    killed $PID1
+    killed $PID2
+    killed $PID3
+    killed $PID4
+    killed $PID5
+    killed $PID6
+    killed $PID7
+    killed $PID8
+    ```
 
-则表明停止服务成功。
+    则表明停止服务成功。
 
 ## 弹性伸缩
 
@@ -230,7 +230,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 curl -k 'http://10.113.216.40:18015/state'
 ```
 
-Scheduler`将返回`json`格式的查询结果。
+`Scheduler`将返回`json`格式的查询结果。
 
 ```json
 {
@@ -262,7 +262,7 @@ curl -k \
 'http://10.113.216.40:18015/state'
 ```
 
-Scheduler`将返回`json`格式的查询结果。
+`Scheduler`将返回`json`格式的查询结果。
 
 ```json
 {
