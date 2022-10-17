@@ -1,8 +1,19 @@
-`下载Notebook <https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.ipynb>`__ `下载样例代码 <https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.py>`__ `查看源文件 <https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/model/model.ipynb>`__
-
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png
+    :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png
+    :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model
 ===============
+
+.. toctree::
+  :maxdepth: 1
+  :hidden:
+
+  model/callback
+  model/metric
 
 通常情况下，定义训练和评估网络并直接运行，已经可以满足基本需求。
 
@@ -191,10 +202,3 @@ Model基本介绍
 
 
 可以在打印信息中看出模型精度数据，示例中精度数据达到95%以上，模型质量良好。随着网络迭代次数增加，模型精度会进一步提高。
-
-.. toctree::
-  :maxdepth: 1
-  :hidden:
-  
-  model/callback
-  model/metric
