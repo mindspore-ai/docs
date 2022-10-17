@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/communication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-在端云联邦学习训练过程中，通信量会影响端侧用户体验（用户流量、通信时延、FL-Client 参与数量），并受云侧性能约束（内存、带宽、CPU 占用率）限制。为了提高用户体验和减少性能瓶颈，MindSpore联邦学习框架在端云联邦场景中，提供上传和下载的通信量压缩功能。
+在横向的端云联邦学习训练过程中，通信量会影响端侧用户体验（用户流量、通信时延、FL-Client 参与数量），并受云侧性能约束（内存、带宽、CPU 占用率）限制。为了提高用户体验和减少性能瓶颈，MindSpore联邦学习框架在端云联邦场景中，提供上传和下载的通信量压缩功能。
 
 ## 压缩方法
 

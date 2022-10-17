@@ -77,12 +77,18 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
 
 .. toctree::
    :maxdepth: 1
-   :caption: 应用实践
+   :caption: 横向应用实践
 
    image_classification_application
    sentiment_classification_application
    image_classification_application_in_cross_silo
    object_detection_application_in_cross_silo
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 纵向应用实践
+
+   data_join
 
 .. toctree::
    :maxdepth: 1
