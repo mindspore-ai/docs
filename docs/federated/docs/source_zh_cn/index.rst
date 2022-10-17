@@ -103,8 +103,10 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
    :maxdepth: 1
    :caption: API参考
 
-   federated_server
-   federated_client
+   Horizontal_FL_Server
+   Horizontal_FL_Client
+   Vertival_FL_Server
+   Data_Join
 
 .. toctree::
    :maxdepth: 1

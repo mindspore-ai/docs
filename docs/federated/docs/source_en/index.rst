@@ -93,8 +93,10 @@ Common Application Scenarios
    :maxdepth: 1
    :caption: API References
 
-   federated_server
-   federated_client
+   Horizontal_FL_Server
+   Horizontal_FL_Client
+   Vertival_FL_Server
+   Data_Join
 
 .. toctree::
    :maxdepth: 1

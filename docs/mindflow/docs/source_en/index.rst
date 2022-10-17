@@ -36,6 +36,8 @@ MindSpore AI Fluid Simulation Suite
    :maxdepth: 1
    :caption: API Reference
 
+   mindflow.cell
+
 .. toctree::
    :glob:
    :maxdepth: 1

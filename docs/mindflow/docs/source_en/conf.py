@@ -128,6 +128,7 @@ sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
 
+import mindflow
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

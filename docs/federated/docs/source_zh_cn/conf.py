@@ -120,14 +120,16 @@ from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
 src_dir = os.path.join(os.getenv("MF_PATH"), 'docs/api/api_python')
-present_path = os.path.dirname(__file__)
 
 for i in os.listdir(src_dir):
-    if '.md' in i:
-        continue
-    if os.path.exists(os.path.join(present_path,i)):
-        os.remove(os.path.join(present_path,i))
-    shutil.copy(os.path.join(src_dir,i), os.path.join(present_path,i))
+    if '.' in i:
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
 import mindspore_federated
 
