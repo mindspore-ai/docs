@@ -1,4 +1,4 @@
-# 安全聚合训练
+# 横向联邦-安全聚合训练
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/pairwise_encryption_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
