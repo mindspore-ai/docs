@@ -91,6 +91,12 @@ Common Application Scenarios
 
 .. toctree::
    :maxdepth: 1
+   :caption: Communication Compression
+
+   communication_compression
+
+.. toctree::
+   :maxdepth: 1
    :caption: API References
 
    federated_server
