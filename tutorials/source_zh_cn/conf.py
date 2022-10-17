@@ -98,6 +98,10 @@ sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
 
+# handle some files.
+del_file_path = './advanced/model/model.ipynb'
+if os.path.exists(del_file_path):
+    os.remove(del_file_path)
 
 sys.path.append(os.path.abspath('../../resource/search'))
 import search_code

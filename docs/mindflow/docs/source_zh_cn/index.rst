@@ -36,6 +36,8 @@ MindSpore AI 流体仿真套件
    :maxdepth: 1
    :caption: API参考
 
+   mindflow.cell
+
 .. toctree::
    :glob:
    :maxdepth: 1
