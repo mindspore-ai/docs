@@ -4,6 +4,8 @@
 .. toctree::
   :maxdepth: 1
   
-  modules/parameter
+  modules/cell
+  modules/layer
+  modules/initializer
   modules/loss
-  modules/optim
+  modules/optimizer

@@ -12,7 +12,6 @@
    :caption: 数据处理
 
    dataset/augment
-   dataset/eager
    dataset/cache
    dataset/optimize
 
@@ -23,7 +22,6 @@
 
    network/control_flow
    network/op_overload
-   network/custom_cell_reverse
    network/ms_class
    network/constexpr
    network/dependency_control
@@ -33,7 +31,6 @@
    :maxdepth: 1
    :caption: 模型训练优化
 
-   others/mixed_precision
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
