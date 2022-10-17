@@ -217,7 +217,14 @@ export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+
+# Set path to extracted MindSpore accordingly
+export LD_LIBRARY_PATH={mindspore_path}:${LD_LIBRARY_PATH}
 ```
+
+其中：
+
+- `{mindspore_path}`表示MindSpore二进制包所在位置的绝对路径。
 
 ## 验证是否成功安装
 
