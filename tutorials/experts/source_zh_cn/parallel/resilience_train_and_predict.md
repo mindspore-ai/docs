@@ -268,7 +268,7 @@ epoch: 1 step: 73, loss is 6.45995
 epoch: 1 step: 73, loss is 6.13733
 ```
 
-### 流水线并行维度转换
+## 流水线并行维度转换
 
 [流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
 因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前一个章节[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 没有差异。
