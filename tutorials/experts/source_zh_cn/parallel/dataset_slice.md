@@ -76,8 +76,8 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
     # slice image
     slice_patchs_img_op = vision.SlicePatchs(slice_h_num, slice_w_num)
     img_cols = ['img' + str(x) for x in range(slice_h_num * slice_w_num)]
-    data_set = data_set.map(operations=slice_patchs_img_op, input_columns="image", output_columns=img_cols,
-                            column_order=[img_cols[rank_id % (slice_h_num * slice_w_num)], "label"])
+    data_set = data_set.map(operations=slice_patchs_img_op, input_columns="image", output_columns=img_cols)
+    data_set = data_set.project([img_cols[rank_id % (slice_h_num * slice_w_num)], "label"])
     # change hwc to chw
     data_set = data_set.map(operations=changeswap_op, input_columns=img_cols[rank_id % (slice_h_num * slice_w_num)])
     # apply batch operations

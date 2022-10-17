@@ -126,7 +126,8 @@ def create_dataset_imagenet(dataset_path):
     ]
 
     # Data mapping
-    data_set = data_set.map(input_columns="image", num_parallel_workers=4, operations=transform_img, column_order=[\"image\", \"latent_code\"])
+    data_set = data_set.map(operations=transform_img, input_columns="image", output_columns=["image", "latent_code"], num_parallel_workers=4)
+    data_set = data_set.project(["image", "latent_code"])
 
     # Batch operation
     data_set = data_set.batch(batch_size)
