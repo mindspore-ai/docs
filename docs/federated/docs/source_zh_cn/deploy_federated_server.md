@@ -100,35 +100,35 @@ redis-server --port 23456 --save ""
     enable_ssl: False
 
     distributed_cache:
-    type: redis
-    address: 127.0.0.1:23456 # ip:port of redis actual machine
-    plugin_lib_path: ""
+      type: redis
+      address: 127.0.0.1:23456 # ip:port of redis actual machine
+      plugin_lib_path: ""
 
     round:
-    start_fl_job_threshold: 2
-    start_fl_job_time_window: 30000
-    update_model_ratio: 1.0
-    update_model_time_window: 30000
-    global_iteration_time_window: 60000
+      start_fl_job_threshold: 2
+      start_fl_job_time_window: 30000
+      update_model_ratio: 1.0
+      update_model_time_window: 30000
+      global_iteration_time_window: 60000
 
     summary:
-    metrics_file: "metrics.json"
-    failure_event_file: "event.txt"
-    continuous_failure_times: 10
-    data_rate_dir: ".."
-    participation_time_level: "5,15"
+      metrics_file: "metrics.json"
+      failure_event_file: "event.txt"
+      continuous_failure_times: 10
+      data_rate_dir: ".."
+      participation_time_level: "5,15"
 
     encrypt:
-    encrypt_type: NOT_ENCRYPT
-    pw_encrypt:
+      encrypt_type: NOT_ENCRYPT
+      pw_encrypt:
         share_secrets_ratio: 1.0
         cipher_time_window: 3000
         reconstruct_secrets_threshold: 1
-    dp_encrypt:
+      dp_encrypt:
         dp_eps: 50.0
         dp_delta: 0.01
         dp_norm_clip: 1.0
-    signds:
+      signds:
         sign_k: 0.01
         sign_eps: 100
         sign_thr_ratio: 0.6
@@ -136,35 +136,35 @@ redis-server --port 23456 --save ""
         sign_dim_out: 0
 
     compression:
-    upload_compress_type: NO_COMPRESS
-    upload_sparse_rate: 0.4
-    download_compress_type: NO_COMPRESS
+      upload_compress_type: NO_COMPRESS
+      upload_sparse_rate: 0.4
+      download_compress_type: NO_COMPRESS
 
     ssl:
-    # when ssl_config is set
-    # for tcp/http server
-    server_cert_path: "server.p12"
-    # for tcp client
-    client_cert_path: "client.p12"
-    # common
-    ca_cert_path: "ca.crt"
-    crl_path: ""
-    cipher_list: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305"
-    cert_expire_warning_time_in_day: 90
+      # when ssl_config is set
+      # for tcp/http server
+      server_cert_path: "server.p12"
+      # for tcp client
+      client_cert_path: "client.p12"
+      # common
+      ca_cert_path: "ca.crt"
+      crl_path: ""
+      cipher_list: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305"
+      cert_expire_warning_time_in_day: 90
 
     client_verify:
-    pki_verify: false
-    root_first_ca_path: ""
-    root_second_ca_path: ""
-    equip_crl_path: ""
-    replay_attack_time_diff: 600000
+      pki_verify: false
+      root_first_ca_path: ""
+      root_second_ca_path: ""
+      equip_crl_path: ""
+      replay_attack_time_diff: 600000
 
     client:
-    http_url_prefix: ""
-    client_epoch_num: 20
-    client_batch_size: 32
-    client_learning_rate: 0.01
-    connection_num: 10000
+      http_url_prefix: ""
+      client_epoch_num: 20
+      client_batch_size: 32
+      client_learning_rate: 0.01
+      connection_num: 10000
 
     ```
 

@@ -11,7 +11,18 @@ import numpy as np
 import mindspore
 from mindspore import nn
 from mindspore import Tensor
-from mindvision.classification import models
+```
+
+```python
+def network():
+    model = nn.SequentialCell(
+                nn.Flatten(),
+                nn.Dense(28*28, 512),
+                nn.ReLU(),
+                nn.Dense(512, 512),
+                nn.ReLU(),
+                nn.Dense(512, 10))
+    return model
 ```
 
 ## Saving and Loading the Model Weight
@@ -19,17 +30,17 @@ from mindvision.classification import models
 Saving model by using the `save_checkpoint` interface, and the specified saving path of passing in the network:
 
 ```python
-model = models.lenet()
-mindspore.save_checkpoint(model, "lenet.ckpt")
+model = network()
+mindspore.save_checkpoint(model, "model.ckpt")
 ```
 
 To load the model weights, you need to create instances of the same model and then load the parameters by using the `load_checkpoint` and `load_param_into_net` methods.
 
 ```python
-model = models.lenet() # we do not specify pretrained=True, i.e. do not load default weights
-param_dict = mindspore.load_checkpoint("lenet.ckpt")
+model = network()
+param_dict = mindspore.load_checkpoint("model.ckpt")
 param_not_load = mindspore.load_param_into_net(model, param_dict)
-print(param_not_load)
+param_not_load
 ```
 
 ```text
@@ -43,9 +54,9 @@ print(param_not_load)
 In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/mindir.html) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
 
 ```python
-model = models.lenet()
-inputs = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32))
-mindspore.export(model, inputs, file_name="lenet", file_format="MINDIR")
+model = network()
+inputs = Tensor(np.ones([1, 1, 28, 28]).astype(np.float32))
+mindspore.export(model, inputs, file_name="model", file_format="MINDIR")
 ```
 
 > MindIR saves both Checkpoint and model structure, so it needs to define the input Tensor to get the input shape.
@@ -56,13 +67,13 @@ The existing MindIR model can be easily loaded through the `load` interface and 
 
 ```python
 mindspore.set_context(mode=mindspore.GRAPH_MODE)
-graph = mindspore.load("lenet.mindir")
+
+graph = mindspore.load("model.mindir")
 model = nn.GraphCell(graph)
 outputs = model(inputs)
-print(outputs.shape)
+outputs.shape
 ```
 
 ```text
 (1, 10)
 ```
-

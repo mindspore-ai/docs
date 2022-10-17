@@ -18,36 +18,35 @@ After we have the dataset and the model, we can train and evaluate the model.
 First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to load the previous code.
 
 ```python
+import mindspore
 from mindspore import nn
 from mindspore import ops
-from mindvision import dataset
-from mindspore.dataset import vision
+from mindspore.dataset import vision, transforms
+from mindspore.dataset import MnistDataset
 
-# Download training data from open datasets
-training_data = dataset.Mnist(
-    path="dataset",
-    split="train",
-    download=True
-)
+# Download data from open datasets
+from download import download
 
-# Download test data from open datasets
-test_data = dataset.Mnist(
-    path="dataset",
-    split="test",
-    download=True
-)
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip\"
+path = download(url, "./", kind="zip", replace=True)
 
-train_dataset = training_data.dataset
-test_dataset = test_data.dataset
+def datapipe(path, batch_size):
+    image_transforms = [
+        vision.Rescale(1.0 / 255.0, 0),
+        vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        vision.HWC2CHW()
+    ]
+    label_transform = transforms.TypeCast(mindspore.int32)
 
-transforms = [
-    vision.Rescale(1.0 / 255.0, 0),
-    vision.Normalize(mean=(0.1307,), std=(0.3081,)),
-    vision.HWC2CHW()
-]
+    dataset = MnistDataset(path)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
 
-train_dataset = train_dataset.map(transforms, 'image').batch(64)
-test_dataset = test_dataset.map(transforms, 'image').batch(64)
+train_dataset = datapipe('MNIST_Data/train', 64)
+test_dataset = datapipe('MNIST_Data/test', 64)
 
 class Network(nn.Cell):
     def __init__(self):
@@ -67,6 +66,14 @@ class Network(nn.Cell):
         return logits
 
 model = Network()
+```
+
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:05<00:00, 2.07MB/s]
+Extracting zip file...
+"Successfully downloaded / unzipped to ./
 ```
 
 ## Hyperparameter
@@ -188,36 +195,50 @@ print("Done!")
 ```
 
 ```text
-Output exceeds the size limit. Open the full output data in a text editor
-
 Epoch 1
 -------------------------------
-loss: 2.303159  [  0/938]
-loss: 2.288858  [100/938]
-loss: 2.265319  [200/938]
-loss: 2.181137  [300/938]
-loss: 1.851541  [400/938]
-loss: 1.529397  [500/938]
-loss: 1.004398  [600/938]
-loss: 0.843776  [700/938]
-loss: 0.507560  [800/938]
-loss: 0.539427  [900/938]
+loss: 2.302806  [  0/938]
+loss: 2.285086  [100/938]
+loss: 2.264712  [200/938]
+loss: 2.174010  [300/938]
+loss: 1.931853  [400/938]
+loss: 1.340721  [500/938]
+loss: 0.953515  [600/938]
+loss: 0.756860  [700/938]
+loss: 0.756263  [800/938]
+loss: 0.463846  [900/938]
 Test:
- Accuracy: 84.9%, Avg loss: 0.525360
+ Accuracy: 84.7%, Avg loss: 0.527155
 
 Epoch 2
 -------------------------------
-loss: 0.794308  [  0/938]
-loss: 0.409702  [100/938]
-loss: 0.686628  [200/938]
-loss: 0.570685  [300/938]
-loss: 0.353630  [400/938]
-loss: 0.333396  [500/938]
-loss: 0.379772  [600/938]
-loss: 0.322043  [700/938]
-loss: 0.233923  [900/938]
+loss: 0.479126  [  0/938]
+loss: 0.437443  [100/938]
+loss: 0.685504  [200/938]
+loss: 0.395121  [300/938]
+loss: 0.550566  [400/938]
+loss: 0.459457  [500/938]
+loss: 0.293049  [600/938]
+loss: 0.422102  [700/938]
+loss: 0.333153  [800/938]
+loss: 0.412182  [900/938]
 Test:
- Accuracy: 91.9%, Avg loss: 0.279896
+ Accuracy: 90.5%, Avg loss: 0.335083
+
+ Epoch 3
+-------------------------------
+loss: 0.207366  [  0/938]
+loss: 0.343559  [100/938]
+loss: 0.391145  [200/938]
+loss: 0.317566  [300/938]
+loss: 0.200746  [400/938]
+loss: 0.445798  [500/938]
+loss: 0.603720  [600/938]
+loss: 0.170811  [700/938]
+loss: 0.411954  [800/938]
+loss: 0.315902  [900/938]
+Test:
+ Accuracy: Accuracy: 91.9%, Avg loss: 0.279034
 
 Done!
 ```

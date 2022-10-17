@@ -73,9 +73,9 @@ Cybertron网络由模型和Readout函数两部分组成，网络的初始化可�
 
 Cybertron tutorials所需数据集：
 
-下载[dataset_qm9.npz](http://gofile.me/6Utp7/tJ5hoDIAo)
+- 下载[dataset_qm9.npz](http://gofile.me/6Utp7/tJ5hoDIAo)
 
-下载[ethanol_dft.npz](http://gofile.me/6Utp7/hbQBofAFM)
+- 下载[ethanol_dft.npz](http://gofile.me/6Utp7/hbQBofAFM)
 
 如需获取最后一个案例的checkpoint，可在终端运行如下指令。
 
@@ -85,8 +85,8 @@ wget https://download.mindspore.cn/mindscience/mindsponge/ckpts/Cybertron/checkp
 
 ## 参考文献
 
-[1] Kristof T. Schütt, et al. [SchNet: A continuous-filter convolutional neural network for modeling quantum interactions](https://arxiv.org/abs/1706.08566)
+[1] Kristof T. Schütt, et al. [SchNet: A continuous-filter convolutional neural network for modeling quantum interactions](https://arxiv.org/abs/1706.08566).
 
-[2] Oliver T. Unke, et al. [PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments and Partial Charges](https://arxiv.org/abs/1902.08408)
+[2] Oliver T. Unke, et al. [PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments and Partial Charges](https://arxiv.org/abs/1902.08408).
 
-[3] Jun Zhang, et al. [Molecular CT: Unifying Geometry and Representation Learning for Molecules at Different Scales](https://arxiv.org/abs/2012.11816)
+[3] Jun Zhang, et al. [Molecular CT: Unifying Geometry and Representation Learning for Molecules at Different Scales](https://arxiv.org/abs/2012.11816).

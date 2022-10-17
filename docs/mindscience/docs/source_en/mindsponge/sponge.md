@@ -128,7 +128,7 @@ The installation process of micromolecular dynamics is consistent with that of M
 
 ### Basic usage
 
-The basic application methods of micromolecular dynamics can be referred to[Initial experience of the case](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge/intro.html#%E6%A1%88%E4%BE%8B%E5%88%9D%E4%BD%93%E9%AA%8C)And subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindsponge.html#) .
+The basic application methods of micromolecular dynamics can be referred to [Initial experience of the case](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html#examples) and subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge.html#).
 
 ### Case
 
