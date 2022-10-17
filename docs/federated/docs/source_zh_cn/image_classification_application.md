@@ -12,7 +12,7 @@
 
 ### 生成端侧模型文件
 
-1. 定义网络和训练过程
+1. 定义网络和训练过程。
 
    具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
 
@@ -139,7 +139,7 @@
    本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
    具体见[启动脚本](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
 
-2. 启动云侧服务
+2. 启动云侧服务。
 
    用户可先参考[云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
 
@@ -194,58 +194,58 @@
 
     - `--client_num`
 
-        设置client数量， 与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
+        设置client数量，与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
     若想进一步了解`run_client_x86.py`脚本中其他参数含义，可参考脚本中注释部分。
 
-   联邦学习接口基本启动指令示例如下：
+    联邦学习接口基本启动指令示例如下：
 
-   ```sh
-   rm -rf client_*\
-   && rm -rf ms/* \
-   && python3 run_client_x86.py \
-   --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
-   --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
-   --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
-   --eval_data_dir="null" \
-   --infer_data_dir="null" \
-   --vocab_path="null" \
-   --ids_path="null" \
-   --path_regex="," \
-   --fl_name="com.mindspore.flclient.demo.lenet.LenetClient" \
-   --origin_train_model_path="federated/tests/st/simulate_x86/ms_files/lenet/lenet_train.ms" \
-   --origin_infer_model_path="null" \
-   --train_model_dir="ms" \
-   --infer_model_dir="ms" \
-   --ssl_protocol="TLSv1.2" \
-   --deploy_env="x86" \
-   --domain_name="http://10.113.216.40:8010" \
-   --cert_path="CARoot.pem" --use_elb="false" \
-   --server_num=1 \
-   --task="train" \
-   --thread_num=1 \
-   --cpu_bind_mode="NOT_BINDING_CORE" \
-   --train_weight_name="null" \
-   --infer_weight_name="null" \
-   --name_regex="::" \
-   --server_mode="FEDERATED_LEARNING" \
-   --batch_size=32 \
-   --input_shape="null" \
-   --client_num=8
-   ```
+    ```sh
+    rm -rf client_*\
+    && rm -rf ms/* \
+    && python3 run_client_x86.py \
+    --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
+    --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
+    --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
+    --eval_data_dir="null" \
+    --infer_data_dir="null" \
+    --vocab_path="null" \
+    --ids_path="null" \
+    --path_regex="," \
+    --fl_name="com.mindspore.flclient.demo.lenet.LenetClient" \
+    --origin_train_model_path="federated/tests/st/simulate_x86/ms_files/lenet/lenet_train.ms" \
+    --origin_infer_model_path="null" \
+    --train_model_dir="ms" \
+    --infer_model_dir="ms" \
+    --ssl_protocol="TLSv1.2" \
+    --deploy_env="x86" \
+    --domain_name="http://10.113.216.40:8010" \
+    --cert_path="CARoot.pem" --use_elb="false" \
+    --server_num=1 \
+    --task="train" \
+    --thread_num=1 \
+    --cpu_bind_mode="NOT_BINDING_CORE" \
+    --train_weight_name="null" \
+    --infer_weight_name="null" \
+    --name_regex="::" \
+    --server_mode="FEDERATED_LEARNING" \
+    --batch_size=32 \
+    --input_shape="null" \
+    --client_num=8
+    ```
 
-   注意，启动指令中涉及路径的必须给出绝对路径。
+    注意，启动指令中涉及路径的必须给出绝对路径。
 
-   以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
+    以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
 
-   ```text
-    ./
-    ├── client_0
-    │   └── client.log  # 客户端0的日志文件
-    │           ......
-    └── client_7
-        └── client.log  # 客户端4的日志文件
-   ```
+    ```text
+        ./
+        ├── client_0
+        │   └── client.log  # 客户端0的日志文件
+        │           ......
+        └── client_7
+            └── client.log  # 客户端4的日志文件
+    ```
 
     针对不同的接口和场景，只需根据参数含义，修改特定参数值即可，比如：
 
