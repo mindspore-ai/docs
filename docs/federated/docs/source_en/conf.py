@@ -116,7 +116,7 @@ src_dir_en = os.path.join(os.getenv("MF_PATH"), 'docs/api/api_python_en')
 present_path = os.path.dirname(__file__)
 
 for i in os.listdir(src_dir_en):
-    if '.' in i:
+    if os.path.isfile(os.path.join(src_dir_en,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
         shutil.copy(os.path.join(src_dir_en,i),'./'+i)

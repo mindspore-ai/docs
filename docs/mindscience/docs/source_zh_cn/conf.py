@@ -149,7 +149,7 @@ src_dir_msg = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/docs/api/api_pytho
 present_path = os.path.dirname(__file__)
 
 for i in os.listdir(src_dir_mec):
-    if '.' in i:
+    if os.path.isfile(os.path.join(src_dir_mec,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
         shutil.copy(os.path.join(src_dir_mec,i),'./mindelec/'+i)
@@ -159,7 +159,7 @@ for i in os.listdir(src_dir_mec):
         shutil.copytree(os.path.join(src_dir_mec,i),'./mindelec/'+i)
 
 for i in os.listdir(src_dir_msg):
-    if '.' in i:
+    if os.path.isfile(os.path.join(src_dir_msg,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
         shutil.copy(os.path.join(src_dir_msg,i),'./'+i)
