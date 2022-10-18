@@ -194,7 +194,7 @@ cross_silo_femnist/
     python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.113.216.40:5555
    ```
 
-   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`5555`、`5556`、`5557和`5558`。
+   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`5555`、`5556`、`5557`和`5558`。
 
 3. 启动Worker
 
@@ -268,7 +268,7 @@ python finish_cross_silo_femnist.py --redis_port=2345
 
 - 客户端本地训练epoch数：20
 
-- 云云联邦学习总迭代数: 20
+- 云云联邦学习总迭代数：20
 
 - 实验结果（每个迭代聚合后模型在客户端的测试集上精度）
 

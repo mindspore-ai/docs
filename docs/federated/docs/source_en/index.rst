@@ -77,10 +77,15 @@ Common Application Scenarios
 
 .. toctree::
    :maxdepth: 1
-   :caption: Application
+   :caption: Horizontal Application
 
    image_classification_application
    sentiment_classification_application
+   image_classification_application_in_cross_silo
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Vertical Application
 
 .. toctree::
    :maxdepth: 1
