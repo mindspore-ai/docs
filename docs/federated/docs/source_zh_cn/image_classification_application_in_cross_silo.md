@@ -8,7 +8,7 @@
 
 ## 下载数据集
 
-本示例采用[leaf数据集](https://github.com/TalwalkarLab/leaf)中的联邦学习数据集`FEMNIST`， 该数据集包含62个不同类别的手写数字和字母（数字0~9、26个小写字母、26个大写字母），图像大小为`28 x 28`像素，数据集包含3500个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
+本示例采用[leaf数据集](https://github.com/TalwalkarLab/leaf)中的联邦学习数据集`FEMNIST`，该数据集包含62个不同类别的手写数字和字母（数字0~9、26个小写字母、26个大写字母），图像大小为`28 x 28`像素，数据集包含3500个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
 
 可参考文档[端云联邦学习图像分类数据集处理](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classfication_dataset_process.html)中步骤1~7获取图片形式的3500个用户数据集`3500_client_img`。
 
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
 ### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)， [Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
+包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 

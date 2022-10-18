@@ -114,7 +114,7 @@ The inference process cannot be encapsulated into a Model for operation sometime
 
 In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) and loaded into the network for inference verification.
 
-Please refer to resnet network migration for the whole process of inference verification.
+Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html) for the whole process of inference verification.
 
 ## Training Process
 

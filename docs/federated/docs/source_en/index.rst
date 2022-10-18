@@ -108,4 +108,5 @@ Common Application Scenarios
    :maxdepth: 1
    :caption: References
 
+   image_classfication_dataset_process
    faq
