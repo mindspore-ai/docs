@@ -33,7 +33,6 @@ class TrainOneStepCell(nn.Cell):
         self.network.set_grad()   # Required for PYNATIVE mode. If True, the inverse network requiring the computation of gradients will be generated when the forward network is executed.
         self.optimizer = optimizer   # Optimizer for parameter updates
         self.weights = self.optimizer.parameters    # Get the parameters of the optimizer
-        self.grad = ops.GradOperation(get_by_list=True)   # Get the gradient of all inputs and parameters
 
         # Related logic of parallel computation
         self.reducer_flag = False
@@ -46,8 +45,7 @@ class TrainOneStepCell(nn.Cell):
             self.grad_reducer = nn.DistributedGradReducer(self.weights, self.mean, self.degree)
 
     def construct(self, *inputs):
-        loss = self.network(*inputs)    # Run the forward network and obtain the loss
-        grads = self.grad(self.network, self.weights)(*inputs) # Get the gradient of all Parameter free variables
+        loss, grads = ms.value_and_grad(self.network, grad_position=None, weights=self.weights)(*inputs)   # obtain the loss and get the gradient of all Parameter free variables
         # grads = grad_op(grads)    # Some computing logic for the gradient can be added here, such as gradient clipping
         grads = self.grad_reducer(grads)  # Gradient aggregation
         self.optimizer(grads)    # Optimizer updates parameters
