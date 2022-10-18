@@ -22,7 +22,7 @@ size, the performance can be debugged according to the CPU utilization
 (if the user utilization is too low, increase the number of threads; if
 the system utilization is too high, decrease the number of threads). CPU
 utilization includes CPU utilization of the whole machine, process and
-Data pipeline operator.
+Data pipeline operation.
 
 .. figure:: ./images/device_cpu_utilization.png
    :alt: device_utilization.png
@@ -33,7 +33,7 @@ CPU utilization of the whole machine: Show the overall CPU usage of the
 device in the training process, including user utilization, system
 utilization, idle utilization, IO utilization, current number of active
 processes, and context switching times. If the user utilization is low,
-you can try to increase the number of operator threads to increase the
+you can try to increase the number of operation threads to increase the
 CPU utilization; if the system utilization is high, and the number of
 context switching and CPU waiting for processing is large, it indicates
 that the number of threads needs to be reduced accordingly.
@@ -53,8 +53,8 @@ determine whether other processes affect the training process.
 *Figure:Operator utilization*
 
 Operator utilization: Show the CPU utilization of Data pipeline single
-operator. We can adjust the number of threads of the corresponding
-operator according to the actual situation. If the number of threads is
+operation. We can adjust the number of threads of the corresponding
+operation according to the actual situation. If the number of threads is
 small and takes up a lot of CPU, you can consider whether you need to
 optimize the code.
 
@@ -64,7 +64,7 @@ Common scenarios of CPU utilization:
   judge that the performance of MindData has a bottleneck. They can
   adjust the number of threads by combining the utilization rate of the
   whole machine and the utilization rate of the operator.
-- Developers can check the utilization of operators. If an operator
+- Developers can check the utilization of operators. If an operation
   consumes CPU utilization, they can confirm whether the code needs to
   be optimized.
 

@@ -9,7 +9,7 @@ MindSpore训练数据处理引擎核心是将训练样本（数据集）高效�
 - 高效数据处理Pipeline，让数据在Pipeline内流动，实现高效处理能力；
 - 提供常用数据集、特定格式数据集（MindRecord）、自定义数据集等多样数据加载能力，满足用户多种多样的数据集加载需求；
 - 针对多种数据集，提供统一的采样能力，实现一份数据灵活输出；
-- 提供大量C层数据处理算子、Python层数据处理算子，支持用户自定义数据处理算子，方便用户开箱即用；
+- 提供大量C++层数据处理操作、Python层数据处理操作，支持用户自定义数据处理操作，方便用户开箱即用；
 - 提供MindSpore数据集格式（MindRecord），方便用户将自有数据集转换后，再通过`MindDataset`实现统一高效地加载；
 - 提供了自动数据增强模式，能够基于特定策略自动对图像进行数据增强处理；
 - 提供单节点数据缓存能力，解决重复加载、处理数据的问题，降低数据处理开销，提升端到端训练效率。
@@ -32,8 +32,8 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
     - Adaptor：用于将上层语言（如Python）构建的数据图，转换为下层可执行的C++数据图（Execution Tree）；
     - Optimizer：数据图优化器，实现算子融合、自动参数优化等操作；
     - Runtime：运行优化后Execution tree的执行引擎；
-    - 数据集算子（Dataset Operators）：Execution tree中的某个节点，对应数据处理流水线中的一步具体操作，例如从图像文件夹加载数据的`ImageFolderDataset`和`MindDataset`算子，以及数据处理中的`map`、`shuffle`、`repeat`、`concat`和`split`等算子；
-    - 数据增强算子（Data Augmentation Operators）：也可称为Tensor算子，用于对Tensor执行特定变换，例如`Decode`、`Resize`、`Crop`、`Pad`等算子，它们通常被Dataset Operators中的`map`算子所调用。
+    - 数据集操作（Dataset Operations）：Execution tree中的某个节点，对应数据处理流水线中的一步具体操作，例如从图像文件夹加载数据的`ImageFolderDataset`和`MindDataset`操作，以及数据处理中的`map`、`shuffle`、`repeat`、`concat`和`split`等操作；
+    - 数据增强操作（Data Augmentation Operations）：也可称为Tensor操作，用于对Tensor执行特定变换，例如`Decode`、`Resize`、`Crop`、`Pad`等操作，它们通常被Dataset Operations中的`map`操作所调用。
 
 数据增强后的结果，通过队列和正反向计算系统相连。
 
@@ -49,17 +49,17 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     ![image](./images/data/multi_process.png)
 
-    不同于TensorFlow和PyTorch，MindSpore采用多段并行流水线（Multi-stage Parallel Pipeline）的方式来构建数据处理Pipeline，可以更加细粒度地规划计算资源的使用。如上图所示，每个数据集算子都包含一个输出Connector，即由一组阻塞队列和计数器组成的保序缓冲队列。每个数据集算子都会从上游算子的Connector中取缓存数据进行处理，然后将这块缓存再推送到自身的输出Connector中，由此往后。这种机制的优势包括：
+    不同于TensorFlow和PyTorch，MindSpore采用多段并行流水线（Multi-stage Parallel Pipeline）的方式来构建数据处理Pipeline，可以更加细粒度地规划计算资源的使用。如上图所示，每个数据集操作都包含一个输出Connector，即由一组阻塞队列和计数器组成的保序缓冲队列。每个数据集操作都会从上游操作的Connector中取缓存数据进行处理，然后将这块缓存再推送到自身的输出Connector中，由此往后。这种机制的优势包括：
 
     - 数据集加载、`map`、`batch`等操作以任务调度机制来驱动，每个操作的任务互相独立，上下文之间通过Connector来实现联通；
-    - 每个操作均可以实现细粒度的多线程或多进程并行加速。数据框架为用户提供调整算子线程数和控制多进程处理的接口，可以灵活控制各个节点的处理速度，进而实现整个数据处理Pipeline性能最优；
+    - 每个操作均可以实现细粒度的多线程或多进程并行加速。数据框架为用户提供调整操作线程数和控制多进程处理的接口，可以灵活控制各个节点的处理速度，进而实现整个数据处理Pipeline性能最优；
     - 支持用户对Connector大小进行设置，在一定程度上可以有效的控制内存的使用率，能够适应不同网络对数据处理性能的要求。
 
     在这种数据处理机制下，对输出数据进行保序处理是保证训练精度的关键。保序是指数据处理流水线运行时，输出数据的顺序和数据处理前的顺序一致。MindSpore采用轮询算法来保证多线程处理时数据的有序性。
 
     ![image](./images/data/connector.png)
 
-    上图是一个数据处理Pipeline，保序操作发生在下游`map`算子（4并发）的取出操作中，通过单线程轮询的方式取出上游队列中的数据。Connector内部有两个计数器，`expect_consumer_`记录了已经有多少个`consumer`从`queues_`中取出了数据，`pop_from_`记录了哪个内部阻塞队列将要进行下一次取出操作。`expect_consumer_`对`consumer`取余，而`pop_from_`对`producer`取余。`expect_consumer_`再次为0时，说明所有的`local_queues_`已经处理完上一批任务，可以继续进行下一批任务的分配和处理，进而实现了上游至下游`map`操作的多并发保序处理。
+    上图是一个数据处理Pipeline，保序操作发生在下游`map`操作（4并发）的取出操作中，通过单线程轮询的方式取出上游队列中的数据。Connector内部有两个计数器，`expect_consumer_`记录了已经有多少个`consumer`从`queues_`中取出了数据，`pop_from_`记录了哪个内部阻塞队列将要进行下一次取出操作。`expect_consumer_`对`consumer`取余，而`pop_from_`对`producer`取余。`expect_consumer_`再次为0时，说明所有的`local_queues_`已经处理完上一批任务，可以继续进行下一批任务的分配和处理，进而实现了上游至下游`map`操作的多并发保序处理。
 
 - 数据处理与网络计算流水线
 
@@ -83,7 +83,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
 ### 灵活的定制能力
 
-用户对数据处理的需求往往多种多样，对于未固化在框架中的处理逻辑，也需要能够通过开放的定制化能力予以支持。由此，MindSpore提供了灵活的数据集加载方法、丰富的数据处理算子，以及自动数据增强、动态Shape、数据处理Callback等机制，供开发人员在各种场景中使用。
+用户对数据处理的需求往往多种多样，对于未固化在框架中的处理逻辑，也需要能够通过开放的定制化能力予以支持。由此，MindSpore提供了灵活的数据集加载方法、丰富的数据处理操作，以及自动数据增强、动态Shape、数据处理Callback等机制，供开发人员在各种场景中使用。
 
 - 灵活的数据集加载方法
 
@@ -93,15 +93,15 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
     - 对于暂不支持直接加载的数据集，可以先转换为MindSpore数据格式，即MindRecord，再通过`MindDataset`接口进行加载。MindRecord可以将不同的数据集格式归一化，有聚合存储、高效读取、快速编解码、灵活控制分区大小等多种优势。
     - 用户也可以通过Python编写自定义数据集读取类，再使用`GeneratorDataset` 接口进行数据集加载。该方式可以快速集成现有代码，但由于是Python IO Reader，需要额外关注数据加载性能。
 
-- 通过Python层自定义和C层插件的方式支持更多算子
+- 通过Python层自定义和C++层插件的方式支持更多操作
 
-    ![image](./images/data/operator.png)
+    ![image](images/data/operation.png)
 
-    MindSpore内置了丰富的数据处理算子，根据实现的不同又可分为C层和Python层算子。C层算子往往具有更好的性能，而Python层算子则更方便集成第三方库，实现更为容易。对于框架暂不支持的算子，用户可以开发C层实现代码，编译后以插件的形式注册到MindSpore的数据处理Pipeline中；或者直接在Python层自定义数据处理逻辑，然后通过`map`算子进行调用。
+    MindSpore内置了丰富的数据处理操作，根据实现的不同又可分为C++层和Python层操作。C++层操作往往具有更好的性能，而Python层操作则更方便集成第三方库，实现更为容易。对于框架暂不支持的操作，用户可以开发C++层实现代码，编译后以插件的形式注册到MindSpore的数据处理Pipeline中；或者直接在Python层自定义数据处理逻辑，然后通过`map`操作进行调用。
 
 - 支持自动数据增强策略
 
-    MindSpore提供了基于特定策略自动对图像进行增强处理的机制，包括基于概率的自动数据增强和基于反馈的自动数据增强，可以实现算子的自动选择和执行，达到提升训练精度的目的。
+    MindSpore提供了基于特定策略自动对图像进行增强处理的机制，包括基于概率的自动数据增强和基于反馈的自动数据增强，可以实现操作的自动选择和执行，达到提升训练精度的目的。
 
     针对ImageNet数据集，利用AutoAugment方法最终搜索出的自动数据增强策略包含 25 个子策略组合，每个子策略包含2种变换，实际训练中针对每幅图像随机挑选1个子策略组合，然后以一定的概率来决定是否执行子策略中的每种变换。其流程如下图所示。
 
@@ -152,7 +152,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
     ![image](./images/data/auto_shape.png)
 
     - 用户通过自定义函数（User Defined Function, UDF）控制生成数据的Shape，例如在第n个Step时生成Shape为(x, y, z, ...)的数据；
-    - 通过`batch`算子的`per_batch_map`参数传入该自定义函数，便可得到不同Shape训练数据。
+    - 通过`batch`操作的`per_batch_map`参数传入该自定义函数，便可得到不同Shape训练数据。
 
 - Callback机制让数据处理更加灵活
 
@@ -182,6 +182,6 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     ![image](./images/data/data_process.png)
 
-    MindSpore基于Pipeline调整架构，支持数据处理单算子独立使用（Eager 模式），支持各种场景推理，提供给AI开发人员更大的灵活性；同时，将Pipeline轻量化，实现基于Pull Base的轻量化流水线，减少资源占用并且处理速度快。
+    MindSpore基于Pipeline调整架构，支持数据处理单操作独立使用（Eager 模式），支持各种场景推理，提供给AI开发人员更大的灵活性；同时，将Pipeline轻量化，实现基于Pull Base的轻量化流水线，减少资源占用并且处理速度快。
 
 通过上述两种方法，MindSpore保证了统一的数据处理架构支撑多种不同的应用场景。

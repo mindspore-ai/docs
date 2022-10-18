@@ -7,7 +7,7 @@
 MindSpore提供了一种自动数据调优的工具——Dataset AutoTune，用于在训练过程中根据环境资源的情况自动调整数据处理管道的并行度，
 最大化利用系统资源加速数据处理管道的处理速度。
 
-在整个训练的过程中，Dataset AutoTune模块会持续检测当前训练性能瓶颈处于数据侧还是网络侧。如果检测到瓶颈在数据侧，则将进一步对数据处理管道中的各个算子（如GeneratorDataset、map、batch此类数据算子）进行参数调整，目前可调整的参数包括算子的工作线程数（num_parallel_workers），算子的内部队列深度（prefetch_size）。
+在整个训练的过程中，Dataset AutoTune模块会持续检测当前训练性能瓶颈处于数据侧还是网络侧。如果检测到瓶颈在数据侧，则将进一步对数据处理管道中的各个操作（如GeneratorDataset、map、batch此类数据处理操作）进行参数调整，目前可调整的参数包括操作的工作线程数（num_parallel_workers），和内部队列深度（prefetch_size）。
 
 ![autotune](./images/autotune.png)
 
@@ -173,7 +173,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
   ```
 
   原因主要是数据处理管道生成数据的速度较慢，网络侧很快就会读取完生成的数据，基于此情况，
-  自动数据加速模块调整可MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)算子内部队列深度（"prefetch_size"）。
+  自动数据加速模块调整可MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)操作内部队列深度（"prefetch_size"）。
 
   ```text
   [WARNING] [auto_tune.cc:297 Analyse] Op (MapOp(ID:3)) is slow, input connector utilization=0.975806, output connector utilization=0.298387, diff= 0.677419 > 0.35 threshold.
@@ -193,8 +193,8 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
   epoch time: 17116.234 ms, per step time: 9.129 ms
   ```
 
-  而在训练的最后，自动数据加速模块将输出一个建议性信息，推荐用户调整对应算子的工作线程数算子内部队列深度。
-  对于工作线程数配置，推荐在脚本中指定算子的num_parallel_workers参数，或通过mindspore.dataset.config.set_num_parallel_workers设置全局线程数；对于算子内部队列深度配置，推荐从LOG中选取最大的prefetch_size，并使用mindspore.dataset.config.set_prefetch_size进行设置。
+  而在训练的最后，自动数据加速模块将输出一个建议性信息，推荐用户调整对应操作的工作线程数和内部队列深度。
+  对于工作线程数配置，推荐在脚本中指定操作的num_parallel_workers参数，或通过mindspore.dataset.config.set_num_parallel_workers设置全局线程数；对于操作内部队列深度配置，推荐从LOG中选取最大的prefetch_size，并使用mindspore.dataset.config.set_prefetch_size进行设置。
 
   ```text
   [INFO] [auto_tune.cc:66 PrintTreeConfiguration] CifarOp(ID:5) num_parallel_workers: 2 prefetch_size: 2
@@ -253,7 +253,7 @@ new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，
 以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
-另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html):
+另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html):
 
 - [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
 - [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)

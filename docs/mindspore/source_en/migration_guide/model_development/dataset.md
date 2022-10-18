@@ -129,7 +129,7 @@ The above introduction may be tedious, but in short, `map` is to do the operatio
 
 MindSpore also provides some common random augmentation methods: [Auto augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html). When using data augmentation specifically, it is best to read [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) in the recommended order.
 
-At the end of data augmentation, you can use the batch operator to merge `batch_size` pieces of consecutive data in the dataset into a single batch data. For details, please refer to [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch). Note that the parameter `drop_remainder` needs to be set to True during training and False during inference.
+At the end of data augmentation, you can use the batch operation to merge `batch_size` pieces of consecutive data in the dataset into a single batch data. For details, please refer to [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch). Note that the parameter `drop_remainder` needs to be set to True during training and False during inference.
 
 ```python
 import mindspore.dataset as ds
@@ -150,7 +150,7 @@ print(dataset.get_dataset_size())
 32
 ```
 
-The batch operator can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py#L177).
+The batch operation can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py#L177).
 
 ## Data Iteration
 

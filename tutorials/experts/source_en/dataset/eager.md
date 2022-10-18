@@ -2,36 +2,36 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-When resource conditions permit, in order to pursue higher performance, data augmentation operators are generally executed in the data pipeline mode.
+When resource conditions permit, in order to pursue higher performance, data augmentation operations are generally executed in the data pipeline mode.
 
-The biggest character of execution based on data pipelinemode users have to define the `map` operator. As shown in the figure below, the `Resize`, `Crop`, `HWC2CHW` operators are scheduled by the `map` operator, which is responsible for starting and executing the given data augmentation operators, and mapping and transforming the data of the data pipeline.
+The biggest character of execution based on data pipelinemode users have to define the `map` operation. As shown in the figure below, the `Resize`, `Crop`, `HWC2CHW` operations are scheduled by the `map` operation, which is responsible for starting and executing the given data augmentation operations, and mapping and transforming the data of the data pipeline.
 
 ![pipelinemode1](./images/pipeline_mode_en.jpeg)
 
-Although constructing a data pipeline can process input data in batches, the API design of the data pipeline requires the user to start from constructing the input source, and gradually defines the individual processing operators in the data pipeline. Only when defining the `map` will it involve data augmentation operators that are highly related to the user input data.
+Although constructing a data pipeline can process input data in batches, the API design of the data pipeline requires the user to start from constructing the input source, and gradually defines the individual processing operations in the data pipeline. Only when defining the `map` will it involve data augmentation operations that are highly related to the user input data.
 
 Undoubtedly, users only want to focus on the code that is most relevant to them, but other codes with less relevance add unnecessary burdens to the user throughout the code scene.
 
 Therefore, MindSpore provides a lightweight data processing way, called Eager mode.
 
-In the Eager mode, the execution of data augmentations will not rely on the `map` operator. Instead, the data augmentation operator is executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended to be used in lightweight scenarios such as small data augmentation experiments and model inference.
+In the Eager mode, the execution of data augmentations will not rely on the `map` operation. Instead, the data augmentation operation is executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended to be used in lightweight scenarios such as small data augmentation experiments and model inference.
 
 ![eagermode1](./images/eager_mode_en.jpeg)
 
-MindSpore currently supports executing various data augmentation operators in the Eager mode, as shown below. For more details, please refer to the API documentation.
+MindSpore currently supports executing various data augmentation operations in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
 - [vision module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html)
-- Submodule transforms, an image augmentation operator implemented based on OpenCV/Pillow.
+- Submodule transforms, image augmentation operations implemented based on OpenCV/Pillow.
 
 - [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html)
-- Submodule transforms, text processing operators implemented based on Jieba, ICU4C etc.
+- Submodule transforms, text processing operations implemented based on Jieba, ICU4C etc.
 
 - [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
-- Submodule transforms, a general-purpose data augmentation operator implemented based on C++/Python/NumPy.
+- Submodule transforms, general-purpose data augmentation operations implemented based on C++/Python/NumPy.
 
 ## Eager Mode
 
-The following is a brief introduction to the use of the Eager mode for data augmentation operators of each module. With the Eager mode, you only need to treat the data augmentation operator itself as an executable function.
+The following is a brief introduction to the use of the Eager mode for data augmentation operations of each module. With the Eager mode, you only need to treat the data augmentation operation itself as an executable function.
 
 ### Data Preparation
 
@@ -62,11 +62,11 @@ download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-w
 
 ### vision
 
-This example will use operators from the `mindspore.dataset.vision` module to transform a given image.
+This example will use operations from the `mindspore.dataset.vision` module to transform a given image.
 
 You only need to focus on what data augmentations have to use, not any code for the data pipeline.
 
-The Eager mode of the vision operator supports `numpy.array` or `PIL.Image` type data as input parameters.
+The Eager mode of the vision operation supports `numpy.array` or `PIL.Image` type data as input parameters.
 
 ```python
 import numpy as np
@@ -117,9 +117,9 @@ The following shows the processed image.
 
 ### text
 
-This example will transform the given text by using the `tranforms` operator in the `text` module.
+This example will transform the given text by using the `tranforms` operation in the `text` module.
 
-Eager mode of the text operator supports `numpy.array` type data as input parameters.
+Eager mode of the text operation supports `numpy.array` type data as input parameters.
 
 ```python
 import mindspore.dataset.text.transforms as text
@@ -144,9 +144,9 @@ ToNumber result: [123456], type: <class 'numpy.int32'>
 
 ### transforms
 
-This example will transform the given data by using the `c_tranforms`  operator in the `transforms` module.
+This example will transform the given data by using the C++ implemented operation in the `transforms` module.
 
-Eager mode of transforms operator supports `numpy.array` type data as input parameters.
+Eager mode of transforms operation supports `numpy.array` type data as input parameters.
 
 ```python
 import numpy as np

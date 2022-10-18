@@ -41,7 +41,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 #### 非数据下沉模式
 
-步骤1：跳转到`数据准备详情`页的`迭代间隙`标签页，观察主机队列Size（当前队列中缓存数据的个数）曲线的变化情况。若该队列Size在大部分情况下都是0，说明数据处理流程是性能瓶颈点，请参考步骤2继续定位数据处理哪个算子存在问题；否则说明从dataset模块的迭代器获取数据后将数据发送到Device的流程为性能瓶颈点，用户可按照如下两步继续确认：
+步骤1：跳转到`数据准备详情`页的`迭代间隙`标签页，观察主机队列Size（当前队列中缓存数据的个数）曲线的变化情况。若该队列Size在大部分情况下都是0，说明数据处理流程是性能瓶颈点，请参考步骤2继续定位数据处理哪个操作存在问题；否则说明从dataset模块的迭代器获取数据后将数据发送到Device的流程为性能瓶颈点，用户可按照如下两步继续确认：
 
 - 确认脚本中从dataset模块的迭代器获取到数据后有没有自定义的逻辑比较耗时，如对数据进行清洗、转换等（由于该逻辑在用户的脚本中自定义，MindInsight无法获取该阶段的耗时，需要用户自行打点确认），如果有，需要用户针对该自定义逻辑进行优化。示例代码代码如下：
 
@@ -58,7 +58,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 - 若用户脚本中不存在耗时的自定义逻辑，说明框架将数据从Host侧发送到Device侧耗时较长，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 进行反馈。
 
-步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 页面尝试提高数据处理算子的性能。
+步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个操作存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的操作后，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 页面尝试提高数据处理操作的性能。
 
 #### 数据下沉模式
 
@@ -67,9 +67,9 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 - 若数据队列Size一直都不是0，说明数据已经提前发送到了Device侧并缓存到了数据队列里，此时数据不是瓶颈。按日常的调优经验，数据不是瓶颈但迭代间隙长，大概率是GetNext算子耗时有问题，用户可以到算子耗时页面，查看AICPU标签页中的GetNext算子耗时，若确认是GetNext算子耗时长，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 - 若数据队列Size存在0的情况，请参考步骤2继续定位。
 
-步骤2：查看主机队列Size曲线的变化情况。若该队列Size都不是0，说明训练数据从Host发往Device的流程为性能瓶颈点，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈；否则说明数据处理流程是性能瓶颈点，请参照步骤3继续定位数据处理哪个算子存在性能问题。
+步骤2：查看主机队列Size曲线的变化情况。若该队列Size都不是0，说明训练数据从Host发往Device的流程为性能瓶颈点，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈；否则说明数据处理流程是性能瓶颈点，请参照步骤3继续定位数据处理哪个操作存在性能问题。
 
-步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 页面尝试提高数据处理算子的性能。
+步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个操作存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的操作后，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 页面尝试提高数据处理操作的性能。
 
 ### 前反向耗时长
 

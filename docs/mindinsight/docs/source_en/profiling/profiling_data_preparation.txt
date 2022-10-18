@@ -39,35 +39,35 @@ queue graphs:
 *Figure:Data Process Pipeline Analysis*
 
 Figure above displays the page of data process pipeline analysis. The data
-queues are used to exchange data between the data processing operators.
+queues are used to exchange data between the data processing operations.
 The data size of the queues reflect the data consume speed of the
-operators, and can be used to infer the bottleneck operator. The queue
+operations, and can be used to infer the bottleneck operation. The queue
 usage percentage stands for the average value of data size in queue
 divide data queue maximum size, the higher the usage percentage, the
 more data that is accumulated in the queue. The graph at the bottom of
-the page shows the data processing pipeline operators with the data
+the page shows the data processing pipeline operations with the data
 queues, the user can click one queue to see how the data size changes
-according to the time, and the operators connected to the queue. The
+according to the time, and the operations connected to the queue. The
 data process pipeline can be analysed as follows:
 
-- When the input queue usage percentage of one operator is high, and
-  the output queue usage percentage is low, the operator may be the
+- When the input queue usage percentage of one operation is high, and
+  the output queue usage percentage is low, the operation may be the
   bottleneck.
-- For the leftmost operator, if the usage percentage of all the queues
-  on the right are low, the operator may be the bottleneck.
-- For the rightmost operator, if the usage percentage of all the queues
-  on the left are high, the operator may be the bottleneck.
+- For the leftmost operation, if the usage percentage of all the queues
+  on the right are low, the operation may be the bottleneck.
+- For the rightmost operation, if the usage percentage of all the queues
+  on the left are high, the operation may be the bottleneck.
 
-To optimize the performance of data processing operators, there are some
+To optimize the performance of data processing operations, there are some
 suggestions:
 
-- If the Dataset Operator is the bottleneck, try to increase the
+- If the Dataset Loading Operation is the bottleneck, try to increase the
   ``num_parallel_workers``.
-- If a GeneratorOp type operator is the bottleneck, try to increase the
-  ``num_parallel_workers`` and replace the operator to
+- If the GeneratorOp Operation is the bottleneck, try to increase the
+  ``num_parallel_workers`` or try to replace it with
   ``MindRecordDataset``.
-- If a MapOp type operator is the bottleneck, try to increase the
-  ``num_parallel_workers``. If it is a python operator, try to optimize
+- If the MapOp Operation is the bottleneck, try to increase the
+  ``num_parallel_workers``. If it maps a Python operation, try to optimize
   the training script.
-- If a BatchOp type operator is the bottleneck, try to adjust the size
+- If the BatchOp Operation is the bottleneck, try to adjust the size
   of ``prefetch_size``.

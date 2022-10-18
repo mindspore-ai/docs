@@ -830,7 +830,7 @@ MindSpore有三种方法使用混合精度：
 
 ![resnet_profiler12](images/resnet_profiler12.png)
 
-每个数据处理操作的队列，发现最后一个算子，`batch`算子空的时间比较多，可以考虑增加`batch`算子的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+每个数据处理操作的队列，发现最后一个操作，`batch`操作空的时间比较多，可以考虑增加`batch`操作的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
 
 整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code)获取。
 

@@ -47,7 +47,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ### Infer model with defining preprocess manually: main.cc
 
-#### Data-preprocessing by CPU operators
+#### Data-preprocessing by CPU operations
 
 Inference sample code: [ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc).
 
@@ -92,10 +92,10 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-Image preprocess (CPU operators):
+Image preprocess (CPU operations):
 
 ```c++
-// Create the CPU operator provided by MindData to get the function object
+// Create the CPU operation provided by MindData to get the function object
 
 // Decode the input to RGB format
 std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
@@ -136,9 +136,9 @@ Print the result:
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-#### Data pre-processing by Ascend 310 operators
+#### Data pre-processing by Ascend 310 operations
 
-Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compared with CPU operators. Several transforms applied on JPEG format image are supported.
+Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compared with CPU operations. Several transforms applied on JPEG format image are supported.
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -164,10 +164,10 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-Image preprocess (Ascend 310 operators):
+Image preprocess (Ascend 310 operations):
 
 ```c++
-// Create the CPU operator provided by MindData to get the function object
+// Create the CPU operation provided by MindData to get the function object
 
 // Decode the input to YUV420 format
 std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
@@ -180,7 +180,7 @@ std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
 std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
 ```
 
-Image preprocess (Ascend 310 operators, 130% performance increasing compared to CPU operators).
+Image preprocess (Ascend 310 operations, 130% performance increasing compared to CPU operations).
 
 Explicitly specify the computing hardware as Ascend 310.
 
@@ -192,7 +192,7 @@ ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevi
 ret = preprocessor(image, &image);
 ```
 
-Load MindIR file: Ascend 310 operators must bind with Aipp module, insert Aipp module for model graph compiling.
+Load MindIR file: Ascend 310 operations must bind with Aipp module, insert Aipp module for model graph compiling.
 
  ```c++
 // Load MindIR model

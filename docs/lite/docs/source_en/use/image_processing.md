@@ -34,9 +34,9 @@ LiteMat lite_mat_bgr;
 InitFromPixel(pixel_ptr, LPixelType::RGBA2GRAY, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
 ```
 
-## Optional image preprocessing operator
+## Optional image preprocessing operation
 
-The image processing operators here can be used in any combination according to the actual situation.
+The image processing operations here can be used in any combination according to the actual situation.
 
 ### Resize image
 

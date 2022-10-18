@@ -114,7 +114,7 @@ data['data3'] = image_bytes3
 
 data_list.append(data)
 
-#3 Use MindDataset to load, then use the decode operator we provide to decode, and then perform subsequent processing.
+#3 Use MindDataset to load, then use the decode operation we provide to decode, and then perform subsequent processing.
 
 data_set = ds.MindDataset("mindrecord_file_name")
 data_set = data_set.map(input_columns=["data1"], operations=vision.Decode(), num_parallel_workers=2)
@@ -233,23 +233,23 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 <br/>
 
-<font size=3>**Q: Can the py_transforms and c_transforms operators be used together? If yes, how should I use them?**</font>
+<font size=3>**Q: Can the py_transforms and c_transforms operations be used together? If yes, how should I use them?**</font>
 
-A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operators together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operators, that is, corresponding certain c_transforms operators are not available, the py_transforms operators can be used instead. In this case, the two operators are used together.
-Note that the c_transforms operator usually outputs numpy array, and the py_transforms operator outputs PIL Image. For details, check the operator description. The common method to use them together is as follows:
+A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operations together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operations, that is, corresponding certain c_transforms operations are not available, the py_transforms operations can be used instead. In this case, the two operations are used together.
+Note that the c_transforms operation usually outputs numpy array, and the py_transforms operation outputs PIL Image. For details, check the operation description. The common method to use them together is as follows:
 
-- c_transforms operator + ToPIL operator + py_transforms operator + ToTensor operator
-- py_transforms operator + ToTensor operator + c_transforms operator
+- c_transforms operation + ToPIL operation + py_transforms operation + ToTensor operation
+- py_transforms operation + ToTensor operation + c_transforms operation
 
 ```python
-# example that using c_transforms and py_transforms operators together
+# example that using c_transforms and py_transforms operations together
 # in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
 import mindspore.vision.c_transforms as c_vision
 import mindspore.vision.py_transforms as py_vision
 
 decode_op = c_vision.Decode()
 
-# If input type is not PIL, then add ToPIL operator.
+# If input type is not PIL, then add ToPIL operation.
 transforms = [
     py_vision.ToPIL(),
     py_vision.CenterCrop(375),
@@ -310,15 +310,15 @@ dataset3 = dataset2.map(***)
 
 <br/>
 
-<font size=3>**Q: What is the operator corresponding to dataloader in MindSpore?**</font>
+<font size=3>**Q: What is the API corresponding to DataLoader in MindSpore?**</font>
 
-A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
+A: If the DataLoader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the DataLoader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
 
 <br/>
 
 <font size=3>**Q: How do I debug a user-defined dataset when an error occurs?**</font>
 
-A: Generally, a user-defined dataset is imported to GeneratorDataset. If the user-defined dataset is incorrectly pointed to, you can use some methods for debugging (for example, adding printing information and printing the shape and dtype of the return value). The intermediate processing result of a user-defined dataset is numpy array. You are not advised to use this operator together with the MindSpore network computing operator. In addition, for the user-defined dataset, such as MyDataset shown below, after initialization, you can directly perform the following inritations (to simplify debugging and analyze problems in the original dataset, you do not need to import GeneratorDataset). The debugging complies with common Python syntax rules.
+A: Generally, a user-defined dataset is imported to GeneratorDataset. If the user-defined dataset is incorrectly pointed to, you can use some methods for debugging (for example, adding printing information and printing the shape and dtype of the return value). The intermediate processing result of a user-defined dataset is numpy array. You are not advised to use it together with the MindSpore network computing operator. In addition, for the user-defined dataset, such as MyDataset shown below, after initialization, you can directly perform the following inritations (to simplify debugging and analyze problems in the original dataset, you do not need to import GeneratorDataset). The debugging complies with common Python syntax rules.
 
 ```python
 Dataset = MyDataset()
@@ -328,10 +328,10 @@ for item in Dataset:
 
 <br/>
 
-<font size=3>**Q: Can the data processing operator and network computing operator be used together?**</font>
+<font size=3>**Q: Can the data processing operation and network computing operator be used together?**</font>
 
-A: Generally, if the data processing operator and network computing operator are used together, the performance deteriorates. If the corresponding data processing operator is unavailable and the user-defined py_transforms operator is inappropriate, you can try to use the data processing operator and network computing operator together. Note that because the input required by the operators is different,  the input of the data processing operator is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
-To use the two operators together, ensure that the output format of the previous operator is the same as the input format of the next operator. Data processing operators refer to operators starting with mindspore.dataset in the API document on the official website, for example, mindspore.dataset.vision.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops directories.
+A: Generally, if the data processing operation and network computing operator are used together, the performance deteriorates. If the corresponding data processing operation is unavailable and the user-defined py_transforms operation is inappropriate, you can try to use the data processing operation and network computing operator together. Note that because the inputs required are different, the input of the data processing operation is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
+To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in mindspore.dataset module on the official website, for example, mindspore.dataset.vision.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
 
 <br/>
 
@@ -386,7 +386,7 @@ A: The user-defined Dataset is passed into GeneratorDataset, and after reading t
 - Perform Decode operation directly after reading the image
 
     ```python
-    # According to the above case, the __getitem__ function can be modified as follows to directly return the data after Decode. After that, there is no need to add Decode operation through the map operator.
+    # According to the above case, the __getitem__ function can be modified as follows to directly return the data after Decode. After that, there is no need to add Decode operation through the map operation.
     def __getitem__(self, index):
         # use Image.Open to open file, and convert to RGC
         img_rgb = Image.Open(self.data[index]).convert("RGB")
