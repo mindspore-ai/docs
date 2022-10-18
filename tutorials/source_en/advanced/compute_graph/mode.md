@@ -10,7 +10,7 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 ## Introduction to Dynamic and Static Graphs
 
-MindSpore provides a unified encoding mode for static and dynamic graphs, significantly enhancing compatibility between both types of graphs. This enables you to switch between the static and dynamic graph modes by changing only one line of code, eliminating the need to develop multiple sets of code. By default, MindSpore uses the static graph mode, and the dynamic graph mode is used for debugging.
+MindSpore provides a unified encoding mode for static and dynamic graphs, significantly enhancing compatibility between both types of graphs. This enables you to switch between the static and dynamic graph modes by changing only one line of code, eliminating the need to develop multiple sets of code. The dynamic graph mode is the default mode of MindSpore and is mainly used for debugging, and the static graph mode has more efficient execution performance and is mainly used for deployment.
 
 > When switching the running mode from dynamic graph to static graph, pay attention to the [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
