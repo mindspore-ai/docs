@@ -305,8 +305,8 @@ Table 3: Inference Common API Interface
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create a model object   | MSModelHandle MSModelCreate()                                                                                                                                               |
 | Destroy the model object   | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
-| Calculate the workspace size required for model inference  | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
-| Set workspace for the model object    | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
+| Calculate the workspace size required for model inference, valid only on cortex-M architecture  | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
+| Set workspace for the model object, valid only on cortex-M architecture   | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
 | Compile model      | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
 | Inference model        | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
 | Obtain all input tensor handles of the model | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
