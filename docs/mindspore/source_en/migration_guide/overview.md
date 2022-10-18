@@ -19,7 +19,7 @@ In this process, we have a relatively complete description of each link. We hope
 
 Network migration starts with configuring the MindSpore development environment, and this chapter describes the installation process and knowledge preparation in detail. The knowledge preparation includes a basic introduction to the MindSpore components models and hub, including the purpose, scenarios and usage. There are also tutorials on training on the cloud: using ModelArts to adapt scripts, uploading datasets in OBS, and training online.
 
-## Model analysis and preparation
+## [Model analysis and preparation](https://www.mindspore.cn/docs/en/r1.9/migration_guide/analysis_and_preparation.html)
 
 Before doing formal development, some analysis preparation work needs to be done on the network/algorithm to be migrated, including:
 
@@ -27,20 +27,20 @@ Before doing formal development, some analysis preparation work needs to be done
 - Reproducing the results of the paper, obtaining the base model (ckpt), benchmark accuracy and performance
 - Analyzing the APIs and functions used in the network.
 
-When migrating networks from PyTorch to MindSpore, users need to be aware of differences from typical PyTorch interfaces.
+When migrating networks from PyTorch to MindSpore, users need to be aware of [differences from typical PyTorch interfaces](https://www.mindspore.cn/docs/en/r1.9/migration_guide/typical_api_comparision.html).
 
 ## [MindSpore model implementation](https://www.mindspore.cn/docs/en/r1.9/migration_guide/model_development/model_development.html)
 
 After the preliminary analysis preparation, you can develop the new network by using MindSpore. This chapter will introduce the knowledge of MindSpore network construction and the process of training and inference, starting from the basic modules during inference and training, and using one or two examples to illustrate how to build the network in special scenarios.
 
-## Debugging and Tuning
+## [Debugging and Tuning](https://www.mindspore.cn/docs/en/r1.9/migration_guide/debug_and_tune.html)
 
 This chapter will introduce some methods of debugging and tuning from three aspects: function, precision and performance.
 
-## Example of Network Migration Debugging
+## [Example of Network Migration Debugging](https://www.mindspore.cn/docs/en/r1.9/migration_guide/sample_code.html)
 
 This chapter contains a complete network migration sample. From the analysis and replication of the benchmark network, it details the steps of script development and precision debugging and tuning, and finally lists the common problems and corresponding optimization methods during the migration process, framework performance issues.
 
-## FAQs
+## [FAQs](https://www.mindspore.cn/docs/en/r1.9/migration_guide/faq.html)
 
 This chapter lists the frequently-asked questions and corresponding solutions.
