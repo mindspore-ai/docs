@@ -50,18 +50,29 @@ void MSModelDestroy(MSModelHandle *model)
 
     - `model`:指向模型对象指针的指针。
 
+#### MSModelCalcWorkspaceSize
+
+```C
+size_t MSModelCalcWorkspaceSize(MSModelHandle model)
+```
+
+计算模型工作时所需内存空间大小，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+    - `model`: 指向模型对象的指针。
+
 #### MSModelSetWorkspace
 
 ```C
 void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)
 ```
 
-设置模型的工作空间，该选项仅对IoT有效。(该接口暂未实现)
+设置模型的工作时的内存空间，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
 
 - 参数
     - `model`: 指向模型对象的指针。
-    - `workspace`: 指向工作空间的指针。
-    - `workspace_size`: 工作空间大小。
+    - `workspace`: 指向工作时内存空间的指针。
+    - `workspace_size`: 内存空间大小。
 
 #### MSModelBuild
 

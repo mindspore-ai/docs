@@ -300,8 +300,8 @@ mindspore-lite-{version}-linux-x64
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 创建 Model            | MSModelHandle MSModelCreate()                                                                                                                                               |
 | 销毁 Model            | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
-| 计算 Model 运行时所需的缓存大小    | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
-| 设置 Model 运行时的缓存           | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
+| 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台)    | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
+| 设置 Model 运行时的缓存（仅支持Cortex-M平台)           | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
 | 编译 Model           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
 | 推理                  | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
 | 获取所有输入 Tensor   | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
