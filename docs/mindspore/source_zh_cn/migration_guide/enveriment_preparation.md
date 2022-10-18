@@ -58,7 +58,7 @@ ModelArts是华为云提供的面向AI开发者的一站式开发平台，集成
 
 OBS：也叫做S3桶，在开发环境和训练环境中需要将存储在OBS上的代码、数据、预训练模型先传到对应的物理机上，之后才能执行作业。[本地上传文件到OBS](https://bbs.huaweicloud.com/blogs/212453)。
 
-[MoXing](https://bbs.huaweicloud.com/blogs/101129): MoXing是华为云深度学习服务提供的网络模型开发API，使用上需要重点关注数据拷贝的接口：
+[MoXing](https://bbs.huaweicloud.com/blogs/101129)：MoXing是华为云深度学习服务提供的网络模型开发API，使用上需要重点关注数据拷贝的接口：
 
 ```python
 import moxing as mox
