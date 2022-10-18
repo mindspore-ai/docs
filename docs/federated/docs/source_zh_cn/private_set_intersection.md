@@ -29,13 +29,13 @@ ECDH-PSI 的核心思想是：一条数据先经过 Alice 加密再经过 Bob �
 可从 [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/master/tests/st/psi/run_psi.py) 获取PSI双方启动脚本，开启两个进程分别模拟两方，下面给出本机与本机通讯的启动命令：
 
 ```python
-python run_psi.py --comm_role="server" --peer_comm_role="client" --server_address="127.0.0.1:8004" --peer_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100
+python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100
 
-python run_psi.py --comm_role="client" --peer_comm_role="server" --server_address="127.0.0.1:8005" --peer_server_address="127.0.0.1:8004" --input_begin=50 --input_end=150
+python run_psi.py --comm_role="client" --http_server_address="127.0.0.1:8005" --remote_server_address="127.0.0.1:8004" --input_begin=50 --input_end=150
 ```
 
 - `input_begin`与`input_end`搭配使用，生成用于求交的数据集；
-- `peer_input_begin`与`peer_input_end`表示对方的数据起止范围，使`need_check`为`True`，可通过 Python set1.intersection(set2) 求交函数得到真实结果，用于校验 PSI 的正确性；
+- `peer_input_begin`与`peer_input_end`表示对方的数据起止范围，使`--need_check`为`True`，可通过 Python set1.intersection(set2) 求交函数得到真实结果，用于校验 PSI 的正确性；
 - `--bucket_size`（可选）表示串行进行多桶求交的 for 循环次数；
 - `--thread_num`（可选）表示计算所使用的并行线程数；
 - 如需运行明文通讯求交，命令中加入参数`--plain_intersection=True`即可。
@@ -45,7 +45,7 @@ python run_psi.py --comm_role="client" --peer_comm_role="server" --server_addres
 运行脚本前，可通过设置环境变量`export GLOG_v=1`来显示`INFO`级别的日志，也可以观察协议内部各个阶段的运行情况。脚本运行结束后，会打印输出交集结果，因交集数据量可能过大，这里限制输出前20个交集结果。
 
 ```bash
-PSI result:['50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69'] (display limit:20)
+PSI result: ['50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69'] (display limit: 20)
 ```
 
 ## 深度体验
@@ -83,15 +83,15 @@ def generate_input_data(input_begin_, input_end_, read_file_, file_name_):
 在调用本接口前，需要初始化纵向联邦通讯实例，操作如下：
 
 ```python
-http_server_config = ServerConfig(server_name=comm_role, server_address=server_address)
-remote_server_config = ServerConfig(server_name=peer_comm_role, server_address=peer_server_address)
+http_server_config = ServerConfig(server_name=comm_role, server_address=http_server_address)
+remote_server_config = ServerConfig(server_name=peer_comm_role, server_address=remote_server_address)
 vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
                                                       remote_server_config=remote_server_config)
 vertical_communicator.launch()
 ```
 
 - `server_name`根据该进程属于`server`还是`client`来确定，`comm_role`赋值为对应的"server"或"client"即可，`peer_comm_role_`表示对方的角色。
-- `server_address`的格式为"ip:port"，赋值为该进程的`ip`与`port`信息，如"127.0.0.1:8001"，`peer_server_address`赋值为对方的相关信息。
+- `server_address`的格式为"IP:port"，`http_server_address`赋值为该进程的`IP`与`port`信息，如"127.0.0.1:8004"，`remote_server_address`赋值为对方的`IP`和`port`信息。
 
 ### 开始求交
 
