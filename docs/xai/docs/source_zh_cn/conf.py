@@ -125,17 +125,17 @@ from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
 
-src_dir_api = os.path.join(os.getenv("XA_PATH"), 'docs/api/api_python')
+src_dir = os.path.join(os.getenv("XA_PATH"), 'docs/api/api_python')
 
-for i in os.listdir(src_dir_api):
-    if '.' in i:
+for i in os.listdir(src_dir):
+    if os.path.isfile(os.path.join(src_dir,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir_api,i),'./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
     else:
         if os.path.exists('./'+i):
             shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir_api,i),'./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
 import mindspore_xai
 

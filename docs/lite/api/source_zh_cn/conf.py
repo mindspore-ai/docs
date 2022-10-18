@@ -159,7 +159,7 @@ logger = logging.getLogger(__name__)
 src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python')
 
 for i in os.listdir(src_dir):
-    if '.' in i:
+    if os.path.isfile(os.path.join(src_dir,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
         shutil.copy(os.path.join(src_dir,i),'./'+i)

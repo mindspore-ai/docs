@@ -1,4 +1,4 @@
-Data_Join
+Data Join
 =====================
 
 .. toctree::
