@@ -228,3 +228,18 @@ if __name__ == "__main__":
     dataset = load_mindrecord(input_dir="vfl/output/leader/", shuffle=True, seed=0)
 ```
 
+### 数据通信
+
+用户可以使用已经封装好的通信接口实现数据通信，其中联邦学习的通信器启动方式如下，可以调用其send()与receive()方法发送与接收数据。该通信器目前已经封装在FLDataWorker类中，用户只需要使用FLDataWorker即可：
+
+```python
+from mindspore_federated import VerticalFederatedCommunicator, ServerConfig
+
+
+if __name__ == "__main__":
+    http_server_config = ServerConfig(server_name='serverB', server_address='10.113.216.44:6667')
+    remote_server_config = ServerConfig(server_name='serverA', server_address='10.113.216.44:6666')
+    vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
+                                                               remote_server_config=remote_server_config)
+    vertical_communicator.launch()
+```
