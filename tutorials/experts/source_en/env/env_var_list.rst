@@ -387,3 +387,12 @@ Other
      - String
      - File path, which can be a relative path or an absolute path.
      - 
+   * - MS_KERNEL_LAUNCH_SKIP
+     - Specifies the kernel or subgraph to skip during execution.
+     - String
+     - ALL or all: skip the execution of all kernels and subgraphs
+
+       kernel name (such as ReLU) : skip the execution of all ReLU kernels
+
+       subgraph name (such as kernel_graph_1) : skip the execution of subgraph kernel_graph_1, used for subgraph sink mode
+     - 
