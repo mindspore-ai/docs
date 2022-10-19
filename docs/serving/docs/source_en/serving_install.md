@@ -23,6 +23,7 @@ Due to the dependency between MindSpore Serving and MindSpore, please follow the
 
 | MindSpore Serving Version       |                        Branch                          | MindSpore Version |
 | -----------------------------   | ---------------------------------------------------    | ---------------   |
+|              2.0.0              | [r2.0](https://gitee.com/mindspore/serving/tree/r2.0/) |       2.0.0       |
 |              1.9.0              | [r1.9](https://gitee.com/mindspore/serving/tree/r1.9/) |       1.9.0       |
 |              1.8.0              | [r1.8](https://gitee.com/mindspore/serving/tree/r1.8/) |   1.8.0, 1.8.1    |
 |              1.7.0              | [r1.7](https://gitee.com/mindspore/serving/tree/r1.7/) |       1.7.0       |
