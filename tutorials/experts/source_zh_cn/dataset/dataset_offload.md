@@ -77,8 +77,7 @@ dataset = dataset.map(operations=image_ops, input_columns="image", offload=True)
 dataset = dataset.map(operations=type_cast_op, input_columns="label")
 dataset = dataset.map(operations=copy_column,
                       input_columns=["image", "label"],
-                      output_columns=["image1", "image2", "label"],
-                      column_order=["image1", "image2", "label"])
+                      output_columns=["image1", "image2", "label"])
 dataset = dataset.map(operations=image_ops, input_columns=["image1"], offload=True)
 dataset = dataset.map(operations=image_ops, input_columns=["image2"], offload=True)
 ```

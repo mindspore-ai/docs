@@ -114,7 +114,7 @@ print(dataset.get_dataset_size())
 MindSpore dataset object uses the map interface for data augmentation. See [map Interface](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map)
 
 ```text
-map(operations, input_columns=None, output_columns=None, column_order=None, num_parallel_workers=None, python_multiprocessing=False, cache=None, callbacks=None, max_rowsize=16, offload=None)
+map(operations, input_columns=None, output_columns=None, column_order=None, num_parallel_workers=None, **kwargs)
 ```
 
 Given a set of data augmentation lists, data augmentations are applied to the dataset objects in order.
