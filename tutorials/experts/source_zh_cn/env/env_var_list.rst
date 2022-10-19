@@ -381,3 +381,12 @@ Dump功能
      - String
      - 目录路径，支持相对路径与绝对路径
      - 
+   * - MS_KERNEL_LAUNCH_SKIP
+     - 指定执行过程中需要跳过的算子或者子图
+     - String
+     - ALL或者all：跳过所有算子和子图的执行
+
+       算子名字（如ReLU）：跳过所有ReLU算子的执行
+
+       子图名字（如kernel_graph_1）：跳过子图kernel_graph_1的执行，用于子图下沉模式
+     - 
