@@ -9,6 +9,17 @@
     The versions of MindArmour and MindSpore must be consistent.
 - All other dependencies are included in [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py).
 
+## Version dependency
+
+Due the dependency between MindArmour and MindSpore, please follow the table below and install the corresponding MindSpore verision from [MindSpore download page](https://www.mindspore.cn/versions/en).
+
+| MindArmour Version | Branch                                                    | MindSpore Version |
+| ------------------ | --------------------------------------------------------- | ----------------- |
+| 2.0.0              | [r2.0](https://gitee.com/mindspore/mindarmour/tree/r2.0/) | >=1.7.0           |
+| 1.9.0              | [r1.9](https://gitee.com/mindspore/mindarmour/tree/r1.9/) | >=1.7.0           |
+| 1.8.0              | [r1.8](https://gitee.com/mindspore/mindarmour/tree/r1.8/) | >=1.7.0           |
+| 1.7.0              | [r1.7](https://gitee.com/mindspore/mindarmour/tree/r1.7/) | 1.7.0             |
+
 ## Installation
 
 You can install MindArmour either by pip or by source code.
