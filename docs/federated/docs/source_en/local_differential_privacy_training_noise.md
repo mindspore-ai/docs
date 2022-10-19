@@ -1,4 +1,4 @@
-# Horizontal FL-Local differential privacy perturbation training
+# Horizontal FL-Local Differential Privacy Perturbation Training
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -6,12 +6,11 @@ During federated learning, user data is used only for local device training and 
 However, in the conventional federated learning framework, models are migrated to the cloud in plaintext. There is still a risk of indirect disclosure of user privacy.
 After obtaining the plaintext model uploaded by a user, the attacker can restore the user's personal training data through attacks such as reconstruction and model inversion. As a result, user privacy is disclosed.
 
-As a federated learning framework, MindSpore Federated provides secure aggregation algorithms based on local differential privacy (LDP).
-Noise addition is performed on local models before they are migrated to the cloud. On the premise of ensuring the model availability, the problem of privacy leakage in horizontal federated learning is solved.
+As a federated learning framework, MindSpore Federated provides secure aggregation algorithms based on local differential privacy (LDP). Noise addition is performed on local models before they are migrated to the cloud. On the premise of ensuring the model availability, the problem of privacy leakage in horizontal federated learning is solved.
 
 ## Principles
 
-Differential privacy is a mechanism for protecting user data privacy. **Differential privacy** is defined as follows:
+Differential privacy is a mechanism for protecting user data privacy. Differential privacy is defined as follows:
 
 $$
 Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D') \in S]+\delta​
@@ -33,14 +32,11 @@ The MindSpore Federated client uploads the noise-added model $W_p$ to the cloud 
 
 ## Usage
 
-Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to perform the following operation during the cloud service startup.
-Use `set_fl_context()` to set `encrypt_type='DP_ENCRYPT'`.
+Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to set the `encrypt_type` field to `DP_ENCRYPT` via [yaml](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/federated_server_yaml.md#) when starting the cloud-side service.
 
-In addition, to control the effect of privacy protection, three parameters are provided: `dp_eps`, `dp_delta`, and `dp_norm_clip`.
-They are also set through `set_fl_context()`. The valid value range of `dp_eps` and `dp_norm_clip` is greater than 0.
+In addition, to control the effect of privacy protection, three parameters are provided: `dp_eps`, `dp_delta`, and `dp_norm_clip`. They are also set through the yaml file.
 
-The value of `dp_delta` ranges between 0 and 1. Generally, the smaller the values of `dp_eps` and `dp_delta`, the better the privacy protection effect.
-However, the impact on model convergence is greater. It is recommended that `dp_delta` be set to the reciprocal of the number of clients and the value of `dp_eps` be greater than 50.
+The valid value range of `dp_eps` and `dp_norm_clip` is greater than 0. The legal range of `dp_delta` is 0<`dp_delta`<1. In general, the smaller `dp_eps` and `dp_delta` are, the better the privacy protection will be, but the greater the impact on the convergence of the model. It is recommended that `dp_delta` be taken as the inverse of the number of clients and `dp_eps` be greater than 50.
 
 `dp_norm_clip` is the adjustment coefficient of the model weight before noise is added to the model weight by the LDP mechanism. It affects the convergence of the model. The recommended value ranges from 0.5 to 2.
 

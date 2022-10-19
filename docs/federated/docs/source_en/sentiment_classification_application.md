@@ -2,7 +2,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-In privacy compliance scenarios, the federated learning modeling mode based on device-cloud synergy can make full use of the advantages of device data and prevent sensitive user data from being directly reported to the cloud. When exploring the application scenarios of federated learning, we notice the input method scenario. Users attach great importance to their text privacy and intelligent functions on the input method. Therefore, federated learning is naturally applicable to the input method scenario. MindSpore Federated applies the federated language model to the emoji prediction function of the input method. The federated language model recommends emojis suitable for the current context based on the chat text data. During federated learning modeling, each emoji is defined as a sentiment label category, and each chat phrase corresponds to an emoji. MindSpore Federated defines the emoji prediction task as a federated sentiment classification task.
+Through the federated learning modeling approach of cross-device collaboration, the advantages of device-side data can be fully utilized to avoid uploading sensitive user data directly to the cloud side. Since users attach great importance to the privacy of the text they input when using input methods, and the intelligent functions of input methods are important to improve user experience. Therefore, federated learning is naturally applicable to the input method application scenarios.
+
+MindSpore Federated has applied the Federated Language Model to the emoji image prediction feature of the input method. The Federated Language Model recommends emoji images that are appropriate for the current context based on chat text data. When modeling with federated learning, each emoji image is defined as a sentiment label category, and each chat phrase corresponds to an emoji image. MindSpore Federated defines the emoji image prediction task as a federated sentiment classification task.
 
 ## Preparations
 
@@ -40,7 +42,7 @@ The directory structures of the [dictionary](https://mindspore-website.obs.cn-no
 ```text
 mobile/models/
 ├── vocab.txt  # Dictionary
-└── vocab_map_ids.txt  # mapping file of Dictionary ID
+└── vocab_map_ids.txt  # Mapping file of Dictionary ID
 ```
 
 ## Defining the Network
@@ -49,32 +51,113 @@ The ALBERT language model[1] is used in federated learning. The ALBERT model on 
 
 For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
 
-### Generating a Device Model File
+### Generating a Device-Side Model File
 
 #### Exporting a Model as a MindIR File
 
 The sample code is as follows:
 
 ```python
+import argparse
+import os
+import random
+from time import time
 import numpy as np
 import mindspore as ms
+from mindspore.nn import AdamWeightDecay
 from src.config import train_cfg, client_net_cfg
-from src.cell_wrapper import NetworkTrainCell
+from src.utils import restore_params
+from src.model import AlbertModelCLS
+from src.cell_wrapper import NetworkWithCLSLoss, NetworkTrainCell
 
-# Build a model.
-client_network_train_cell = NetworkTrainCell(client_net_cfg)
 
-# Build input data.
-input_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-attention_mask = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-token_type_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-label_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.num_labels), dtype=np.int32))
+def parse_args():
+    """
+    parse args
+    """
+    parser = argparse.ArgumentParser(description='export task')
+    parser.add_argument('--device_target', type=str, default='GPU', choices=['Ascend', 'GPU'])
+    parser.add_argument('--device_id', type=str, default='0')
+    parser.add_argument('--init_model_path', type=str, default='none')
+    parser.add_argument('--output_dir', type=str, default='./models/mindir/')
+    parser.add_argument('--seed', type=int, default=0)
+    return parser.parse_args()
 
-# Export the model.
-ms.export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids, file_name='albert_train.mindir', file_format='MINDIR')
+
+def supervise_export(args_opt):
+    ms.set_seed(args_opt.seed), random.seed(args_opt.seed)
+    start = time()
+    # Parameter configuration
+    os.environ['CUDA_VISIBLE_DEVICES'] = args_opt.device_id
+    init_model_path = args_opt.init_model_path
+    output_dir = args_opt.output_dir
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    print('Parameters setting is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # MindSpore configuration
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args_opt.device_target)
+    print('Context setting is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # Build mode
+    albert_model_cls = AlbertModelCLS(client_net_cfg)
+    network_with_cls_loss = NetworkWithCLSLoss(albert_model_cls)
+    network_with_cls_loss.set_train(True)
+    print('Model construction is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # Build optimizer
+    client_params = [_ for _ in network_with_cls_loss.trainable_params()]
+    client_decay_params = list(
+        filter(train_cfg.optimizer_cfg.AdamWeightDecay.decay_filter, client_params)
+    )
+    client_other_params = list(
+        filter(lambda x: not train_cfg.optimizer_cfg.AdamWeightDecay.decay_filter(x), client_params)
+    )
+    client_group_params = [
+        {'params': client_decay_params, 'weight_decay': train_cfg.optimizer_cfg.AdamWeightDecay.weight_decay},
+        {'params': client_other_params, 'weight_decay': 0.0},
+        {'order_params': client_params}
+    ]
+    client_optimizer = AdamWeightDecay(client_group_params,
+                                       learning_rate=train_cfg.client_cfg.learning_rate,
+                                       eps=train_cfg.optimizer_cfg.AdamWeightDecay.eps)
+    client_network_train_cell = NetworkTrainCell(network_with_cls_loss, optimizer=client_optimizer)
+    print('Optimizer construction is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # Construct data
+    input_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    attention_mask = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    token_type_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    label_ids = ms.Tensor(np.zeros((train_cfg.batch_size,), np.int32))
+    print('Client data loading is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # Read checkpoint
+    if init_model_path != 'none':
+        init_param_dict = ms.load_checkpoint(init_model_path)
+        restore_params(client_network_train_cell, init_param_dict)
+    print('Checkpoint loading is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # Export
+    ms.export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids,
+           file_name=os.path.join(output_dir, 'albert_supervise'), file_format='MINDIR')
+    print('Supervise model export process is done! Time cost: {}'.format(time() - start))
+
+
+if __name__ == '__main__':
+    total_time_start = time()
+    args = parse_args()
+    supervise_export(args)
+    print('All is done! Time cost: {}'.format(time() - total_time_start))
+
 ```
 
-#### Converting the MindIR File into an MS File that Can Be Used by the Federated Learning Framework on the Device
+#### Converting the MindIR File into an MS File that Can be Used by the Federated Learning Framework on the Device
 
 For details about how to generate a model file on the device, see [Implementing an Image Classification Application](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
 
@@ -102,17 +185,25 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 ![New project](./images/create_android_project.png)
 
-### Building the MindSpore Lite AAR Package
+### Obtaining a Related Package
 
-- For details, see [Federated Learning Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+1. Obtain MindSpore Lite AAR package
 
-- Name of the generated Android AAR package:
+    For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
 
-  ```sh
-  mindspore-lite-full-{version}.aar
-  ```
+    ```text
+   mindspore-lite-full-{version}.aar
+   ```
 
-- Place the AAR package in the app/libs/ directory of the Android project.
+2. Obtain Mindspore Federated device-side jar package
+
+    For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html).
+
+   ```text
+   mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
+   ```
+
+3. Place the AAR package in the app/libs/ directory of the Android project.
 
 ### Android Instance Program Structure
 
@@ -150,12 +241,10 @@ app
 
     ```java
     import android.content.Context;
-
     import java.io.File;
     import java.io.FileOutputStream;
     import java.io.InputStream;
     import java.util.logging.Logger;
-
     public class AssetCopyer {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         public static void copyAllAssets(Context context,String destination) {
@@ -206,7 +295,7 @@ app
     }
     ```
 
-2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
+2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [federated Learning APIs](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
 
     ```java
     import android.annotation.SuppressLint;
@@ -311,18 +400,26 @@ app
     }
     ```
 
+    The above eval_no_label.txt refers to a file where no label exists, with one statement per line. The format reference is as follows, which the user is free to set:
+
+    ```text
+    愿以吾辈之青春 护卫这盛世之中华🇨🇳
+    girls help girls
+    太美了，祝祖国繁荣昌盛！
+    中国人民站起来了
+    难道就我一个人觉得这个是plus版本？
+    被安利到啦！明天起来就看！早点睡觉莲莲
+    ```
+
 3. MainActivity.java: This code file is used to start federated learning training and inference tasks.
 
     ```java
     import android.os.Build;
     import android.os.Bundle;
-
     import androidx.annotation.RequiresApi;
     import androidx.appcompat.app.AppCompatActivity;
-
     import com.huawei.flAndroid.job.FlJob;
     import com.huawei.flAndroid.utils.AssetCopyer;
-
     @RequiresApi(api = Build.VERSION_CODES.P)
     public class MainActivity extends AppCompatActivity {
         private String parentPath;
@@ -336,7 +433,6 @@ app
             // Create a thread and start the federated learning training and inference tasks.
             new Thread(() -> {
                 FlJob flJob = new FlJob(parentPath);
-
                 flJob.syncJobTrain();
                 flJob.syncJobPredict();
             }).start();
@@ -441,14 +537,23 @@ app
    I/SyncFLJob: labels = [2, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4]
    ```
 
-## Experiment Result
+## Results
 
-The total number of federated learning iterations is 5, the number of epochs for local training on the client is 10, and the value of batchSize is 16.
+The total number of federated learning iterations is 10, the number of client-side local training epochs is 1, and the batchSize is set to 16.
 
-|        | Top 1 Accuracy| Top 5 Accuracy|
-| ------ | -------- | -------- |
-| ALBERT | 24%      | 70%      |
+```text
+<FLClient> total acc:0.44488978
+<FLClient> total acc:0.583166333
+<FLClient> total acc:0.609218437
+<FLClient> total acc:0.645290581
+<FLClient> total acc:0.667334669
+<FLClient> total acc:0.685370741
+<FLClient> total acc:0.70741483
+<FLClient> total acc:0.711422846
+<FLClient> total acc:0.719438878
+<FLClient> total acc:0.733466934
+```
 
 ## References
 
-[1] Lan Z ,  Chen M ,  Goodman S , et al. ALBERT: A Lite BERT for Self-supervised Learning of Language Representations[J].  2019.
+[1] Lan Z, Chen M , Goodman S, et al. ALBERT: A Lite BERT for Self-supervised Learning of Language Representations[J].  2019.
