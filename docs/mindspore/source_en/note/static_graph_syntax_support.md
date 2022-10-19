@@ -1426,10 +1426,10 @@ def func():
    d = list(ms.Tensor([1, 2, 3]))
    return a, b, c, d
 a_t, b_t, c_t, d_t = func()
-print("a_t: ", a)
-print("b_t: ", b)
-print("c_t: ", c)
-print("d_t: ", d)
+print("a_t: ", a_t)
+print("b_t: ", b_t)
+print("c_t: ", c_t)
+print("d_t: ", d_t)
 ```
 
 The result is as follows:
