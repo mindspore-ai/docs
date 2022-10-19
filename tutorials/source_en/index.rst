@@ -32,3 +32,4 @@ MindSpore Tutorial
    advanced/dataset
    advanced/derivation
    advanced/compute_graph
+   advanced/mixed_precision
