@@ -37,6 +37,12 @@ MindSpore提供以下高级特性来支撑大模型分布式训练，用户可�
 
 MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。为了降低内存峰值，重计算技术可以不保存正向激活层的计算结果，让该内存可以被复用，然后在计算反向部分时，重新计算出正向激活层的结果。
 
+## [分布式图切分](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_graph_partition.html)
+
+MindSpore支持用户对一张计算图进行自定义切分。MindSpore能够根据用户传参，将计算图中任意算子切分到任意进程，充分利用了不同进程所在节点设备上的计算资源，从而执行分布式训练等任务。分布式切图后，计算任务的执行结果和单机单卡副本的执行结果保持一致。
+
+在MindSpore中， [参数服务器](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练模式使用了MindSpore分布式图切分能力：在此模式下，MindSpore设置优化器在Server进程执行，网络的其余部分在Worker执行，两类节点间通过host侧通信算子进行数据交互。
+
 ## 特性相关接口说明
 
 | 特性类别 &emsp; | 特性接口 | 说明 | 作用 |
@@ -52,3 +58,4 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 |  | set_auto_parallel_context(parallel_optimizer_config=config) | 只有开启优化器并行后，此配置才生效。其中config是个dict，支持两个键值：<br />gradient_accumulation_shard(bool)：如果为True，则累积梯度变量将在数据并行度上进行分片，默认为False。<br />parallel_optimizer_threshold(int)：该值表示优化器切分阈值，单位为KB（默认64KB）。当参数大小不超过该值时，将不会被切分。 | gradient_accumulation_shard为True时，将节省一份参数大小的静态内存，但增加了通信开销。<br />优化器切分阈值，能使得shape较小的参数不进行优化器切分，以节省通信资源。 |
 | 重计算 | recompute(mode=True)<br />在Primitive类中 | 用于指定该算子是否需要重计算，其值为bool类型，默认为True，表示开启算子重计算。 | 开启算子重计算后，能减少动态内存的峰值，但增加整体计算量。 |
 |  | recompute(**kwargs)<br />在Cell类中 | 调用此接口后，将会对此Cell中的算子进行重计算。<br />其中输入参数有两个bool类型选项：<br />mp_comm_recompute：是否开启模型并行通信算子重计算，默认为True。<br />parallel_optimizer_comm_recompute：是否开启优化器并行通信算子重计算，默认为False。 | 开启Cell重计算，且能配置模型并行的通信算子、优化器并行的通信算子是否进行重计算。当通信算子重计算时，将消耗通信资源，但能降低动态内存的峰值。 |
+| 分布式图切分 | place(role, rank_id)<br />在Primitive类中<br />place(role, rank_id)<br />在Cell类中 | 设置Primitive对应算子或者Cell中所有算子在某进程上执行，只有调用`mindspore.communication.init`接口后才会生效 | 开放了通用的分布式图切分接口，用户能够根据自定义算法，对计算图进行切分，从而执行分布式训练等任务。 |
