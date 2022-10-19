@@ -82,6 +82,7 @@ Common Application Scenarios
    image_classification_application
    sentiment_classification_application
    image_classification_application_in_cross_silo
+   object_detection_application_in_cross_silo
 
 .. toctree::
    :maxdepth: 1
@@ -92,6 +93,7 @@ Common Application Scenarios
    :caption: Security and Privacy
 
    local_differential_privacy_training_noise
+   local_differential_privacy_training_signds
    pairwise_encryption_training
 
 .. toctree::
