@@ -1,14 +1,14 @@
-# 横向云侧部署
+# 横向联邦云侧部署
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-本文档以LeNet网络为例，讲解如何使用MindSpore部署联邦学习集群。
+本文档以LeNet网络为例，讲解如何使用MindSpore Federated部署横向联邦学习集群。
 
 MindSpore Federated Learning (FL) Server集群物理架构如图所示：
 
 ![](./images/mindspore_federated_networking.png)
 
-如上图所示，在联邦学习云侧集群中，有三种角色的MindSpore进程：`Federated Learning Scheduler`、`Federated Learning Server`和`Federated Learning Worker`:
+如上图所示，在横向联邦学习云侧集群中，有三种角色的MindSpore进程：`Federated Learning Scheduler`、`Federated Learning Server`和`Federated Learning Worker`:
 
 - Federated Learning Scheduler
 
@@ -39,7 +39,7 @@ MindSpore Federated Learning (FL) Server集群物理架构如图所示：
 
 ### 安装MindSpore
 
-MindSpore联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台上部署。可参考[MindSpore安装指南](https://www.mindspore.cn/install)安装MindSpore最新版本。
+MindSpore横向联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台上部署。可参考[MindSpore安装指南](https://www.mindspore.cn/install)安装MindSpore最新版本。
 
 ### 安装MindSpore Federated
 
