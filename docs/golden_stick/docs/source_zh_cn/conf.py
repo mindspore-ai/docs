@@ -169,11 +169,11 @@ for root,dirs,files in os.walk(src_dir_api):
             if os.path.exists(os.path.join(moment_dir,file)):
                 os.remove(os.path.join(moment_dir,file))
             shutil.copy(os.path.join(root,file),os.path.join(moment_dir,file))
-        if '/pruner/' in root:
+        if '/pruner' in root:
             if os.path.exists(os.path.join(moment_dir,'pruner',file)):
                 os.remove(os.path.join(moment_dir,'pruner',file))
             shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'pruner',file))
-        if '/quantization/' in root:
+        if '/quantization' in root:
             if os.path.exists(os.path.join(moment_dir,'quantization',file)):
                 os.remove(os.path.join(moment_dir,'quantization',file))
             shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
