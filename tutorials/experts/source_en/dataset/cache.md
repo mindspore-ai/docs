@@ -2,23 +2,23 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/cache.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-If you need to repeatedly access remote datasets or load datasets from disks, you can use the single-node cache operator to cache datasets in the local memory to accelerate dataset loading.
+If you need to repeatedly access remote datasets or load datasets from disks, you can use the single-node cache to cache datasets in the local memory to accelerate dataset loading.
 
-The cache operator depends on the cache server started on the current node. Functioning as a daemon process and independent of the training script, the cache server is mainly used to manage cached data, including storing, querying, and loading data, and writing cached data when the cache is not hit.
+The cache operation depends on the cache server started on the current node. Functioning as a daemon process and independent of the training script, the cache server is mainly used to manage cached data, including storing, querying, and loading data, and writing cached data when the cache is not hit.
 
-If the memory space is insufficient to cache all datasets, you can configure a cache operator to cache the remaining data to disks.
+If the memory space is insufficient to cache all datasets, you can configure a cache operation to cache the remaining data to disks.
 
 Currently, the cache service supports only single-node cache. That is, the client and server are deployed on the same machine. This service can be used in the following scenarios:
 
 - Cache the loaded original dataset.
 
-    You can use the cache in the dataset loading operator. The loaded data is stored in the cache server. If the same data is required subsequently, the data can be directly load from the cache server, avoiding repeated loading from the disk.
+    You can use the cache in the dataset loading operation. The loaded data is stored in the cache server. If the same data is required subsequently, the data can be directly load from the cache server, avoiding repeated loading from the disk.
 
     ![cache on leaf pipeline](./images/cache_dataset.png)
 
 - Cache the data processed by argumentation.
 
-    You can also use the cache in the `map` operator. The data processed by argumentation (such as image cropping or resizing) is directly cached, avoiding repeated data argumentation operations and reducing unnecessary computations.
+    You can also use the cache in the `map` operation. The data processed by argumentation (such as image cropping or resizing) is directly cached, avoiding repeated data argumentation operations and reducing unnecessary computations.
 
     ![cache on map pipeline](./images/cache_processed_data.png)
 
@@ -119,7 +119,7 @@ If a dataset that does not support random access (such as `TFRecordDataset`) is 
 
 Currently, the cache service can be used to cache both original datasets and datasets processed by argumentation. The following example shows two usage methods.
 
-Note that both examples need to create a cache instance according to the method in step 3, and pass in the created `test_cache` as `cache` parameters in the dataset load or map operator.
+Note that both examples need to create a cache instance according to the method in step 3, and pass in the created `test_cache` as `cache` parameters in the dataset load or map operation.
 
 CIFAR-10 dataset is used in the following two examples.
 
@@ -236,7 +236,7 @@ If you choose not to shut down the server, the cache sessions on the server will
 
 ## Cache Sharing
 
-During the single-node multi-device distributed training, the cache operator allows multiple same training scripts to share the same cache and read and write data from the cache.
+During the single-node multi-device distributed training, the cache operation allows multiple same training scripts to share the same cache and read and write data from the cache.
 
 1. Start the cache server.
 
@@ -385,7 +385,7 @@ Once cached, post-sequence epochs can read data directly from memory, avoiding t
 
 It should be noted that in the data processing process of the training process, and the dataset usually needs to be augmentated with randomness after loading, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
 
-Therefore, we can choose to add a cache directly after the data set reads the operator. This section takes this approach, using the MobileNetV2 network as a sample for an example.
+Therefore, we can choose to add a cache directly after the data set reads the operation. This section takes this approach, using the MobileNetV2 network as a sample for an example.
 
 For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2).
 

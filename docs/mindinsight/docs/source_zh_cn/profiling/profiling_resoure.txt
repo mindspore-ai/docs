@@ -15,14 +15,14 @@ CPU利用率分析
 
 CPU利用率分析，主要起到辅助性能调试的作用。根据Queue
 size确定了性能瓶颈后，可以根据CPU利用率辅助对性能进行调试（用户利用率过低，增加线程数；系统利用率过大，减小线程数）。
-CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子CPU利用率。
+CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline操作CPU利用率。
 
 .. figure:: ./images/device_cpu_utilization.png
    :alt: device_cpu_utilization.png
 
 *图：整机CPU利用率*
 
-整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率、空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
+整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率、空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大操作线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
 
 .. figure:: ./images/process_cpu_utilizaton.png
    :alt: process_cpu_utilization.png
@@ -37,13 +37,13 @@ CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子C
 *图：算子利用率*
 
 算子利用率：展示Data
-pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
+pipeline单个操作占用的CPU利用率。可以根据实际情况，调整对应操作的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
 
 CPU利用率常用场景:
 
 - 网络调试人员根据Queue
   size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
-- 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
+- 开发人员可以查看算子利用率，如果某一个操作比较耗CPU利用率，可以考虑优化该操作。
 
 .. note::
    默认采样间隔为1000ms，用户可以通过\ ``mindspore.dataset.config.get_monitor_sampling_interval()``\ 来改变采样间隔。详情参考：

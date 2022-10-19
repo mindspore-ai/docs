@@ -331,9 +331,9 @@
 
 ## 数据增强
 
-数据增强阶段是对读取的数据进行数据处理，MindSpore目前支持如数据清洗shuffle、数据分批batch、数据重复repeat、数据拼接concat等常用数据处理操作。该阶段可能存在的问题有：数据类型问题、算子参数类型问题、消费节点冲突问题、数据分批问题以及内存资源问题等。
+数据增强阶段是对读取的数据进行数据处理，MindSpore目前支持如数据清洗shuffle、数据分批batch、数据重复repeat、数据拼接concat等常用数据处理操作。该阶段可能存在的问题有：数据类型问题、接口参数类型问题、消费节点冲突问题、数据分批问题以及内存资源问题等。
 
-- 自定义数据增强算子调用第三方库API时数据类型错误
+- 自定义数据增强操作调用第三方库API时数据类型错误
 
     错误日志：
 
@@ -349,7 +349,7 @@
 
     [MindSpore 数据增强 - TypeError: Invalid with type](https://bbs.huaweicloud.com/forum/thread-184123-1-1.html)
 
-- 自定义数据增强算子参数类型错误
+- 自定义数据增强操作参数类型错误
 
     错误日志：
 
@@ -403,7 +403,7 @@
 
     [MindSpore 数据增强 - Unexpected error. Inconsistent batch](https://bbs.huaweicloud.com/forum/thread-190394-1-1.html)
 
-- 数据增强算子占用内存高
+- 数据增强操作占用内存高
 
     错误描述：
 

@@ -45,7 +45,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ### 需要手动定义预处理的模型推理方式：main.cc
 
-#### 使用CPU算子数据预处理
+#### 使用CPU操作数据预处理
 
 推理代码样例：[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc) 。
 
@@ -90,10 +90,10 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-图片预处理（使用CPU算子）:
+图片预处理（使用CPU操作）:
 
 ```c++
-// Create the CPU operator provided by MindData to get the function object
+// Create the CPU operation provided by MindData to get the function object
 
 // Decode the input to RGB format
 std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
@@ -134,7 +134,7 @@ ret = resnet50.Predict(inputs, &outputs);
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-#### 使用Ascend 310算子数据预处理
+#### 使用Ascend 310操作数据预处理
 
 Dvpp模块为Ascend 310芯片内置硬件解码器，相较于CPU拥有对图形处理更强劲的性能。支持JPEG图片的解码缩放等基础操作。
 
@@ -162,10 +162,10 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-图片预处理（使用Ascend 310算子）:
+图片预处理（使用Ascend 310操作）:
 
 ```c++
-// Create the Dvpp operator provided by MindData to get the function object
+// Create the Dvpp operation provided by MindData to get the function object
 
 // Decode the input to YUV420 format
 std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
@@ -178,7 +178,7 @@ std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
 std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
 ```
 
-图片预处理（使用Ascend 310算子， 性能为CPU算子的2.3倍），需显式指定计算硬件为Ascend 310。
+图片预处理（使用Ascend 310操作， 性能为CPU操作的2.3倍），需显式指定计算硬件为Ascend 310。
 
 ```c++
 // Define a MindData preprocessor, set deviceType = kAscend310， device id = 0
@@ -188,7 +188,7 @@ ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevi
 ret = preprocessor(image, &image);
 ```
 
-加载模型文件: 若使用Ascend 310算子，则需要为模型插入Aipp算子。
+加载模型文件: 若使用Ascend 310操作，则需要为模型插入Aipp操作。
 
 ```c++
 // Load MindIR model

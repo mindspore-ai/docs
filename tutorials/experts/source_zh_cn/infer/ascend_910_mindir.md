@@ -71,7 +71,7 @@ auto image = ReadFile(image_file);
 图片预处理:
 
 ```c++
-// Create the CPU operator provided by MindData to get the function object
+// Create the CPU operation provided by MindData to get the function object
 
 // Decode the input to RGB format
 std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());

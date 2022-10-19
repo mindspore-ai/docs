@@ -44,9 +44,9 @@ Dataset lineage visualization is used to display data processing and augmentatio
 
 ![data_label.png](./images/data_label.png)
 
-*Figure 5: Data processing and augmentation operator selection area*
+*Figure 5: Data processing and augmentation operation selection area*
 
-Figure 5 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
+Figure 5 shows the data processing and augmentation operation selection area, which lists names of data processing and augmentation operations that can be viewed. You can select required tags to view related parameters.
 
 ![data_chart.png](./images/data_chart.png)
 

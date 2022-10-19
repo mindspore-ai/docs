@@ -152,7 +152,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 - `Normalize`: Normalization.
 - `HWC2CHW`: Changing picture channel.
 
-1. Define the mapping of the MindSpore operator to the AutoAugment operator:
+1. Define the mapping of the MindSpore operation to the AutoAugment operation:
 
     ```python
     import mindspore.dataset.vision as vision

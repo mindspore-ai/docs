@@ -114,7 +114,7 @@ data['data3'] = image_bytes3
 
 data_list.append(data)
 
-#3 Use MindDataset to load, then use the decode operator we provide to decode, and then perform subsequent processing.
+#3 Use MindDataset to load, then use the decode operation we provide to decode, and then perform subsequent processing.
 
 data_set = ds.MindDataset("mindrecord_file_name")
 data_set = data_set.map(input_columns=["data1"], operations=vision.Decode(), num_parallel_workers=2)
@@ -242,14 +242,14 @@ A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms增�
 - py_transforms 增强操作 + ToNumpy操作 + c_transforms 增强操作
 
 ```python
-# example that using c_transforms and py_transforms operators together
+# example that using c_transforms and py_transforms operations together
 # in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
 import mindspore.vision.c_transforms as c_vision
 import mindspore.vision.py_transforms as py_vision
 
 decode_op = c_vision.Decode()
 
-# If input type is not PIL, then add ToPIL operator.
+# If input type is not PIL, then add ToPIL operation.
 transforms = [
     py_vision.ToPIL(),
     py_vision.CenterCrop(375),
@@ -311,9 +311,9 @@ dataset3 = dataset2.map(***)
 
 <br/>
 
-<font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
+<font size=3>**Q: MindSpore中和DataLoader对应的接口是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/custom.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/custom.html)，差异对比也可查看[API映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
@@ -329,10 +329,10 @@ for item in Dataset:
 
 <br/>
 
-<font size=3>**Q: 数据处理算子与网络计算算子能否混合使用？**</font>
+<font size=3>**Q: 数据处理操作与网络计算算子能否混合使用？**</font>
 
-A：通常数据处理算子与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理算子且自定义py_transforms算子不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理算子通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
-将二者混合使用需要使上一个算子的输出格式和下一个算子所需的输入格式一致。数据处理算子指的是官网API文档中mindspore.dataset开头的算子，如 mindspore.dataset.vision.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等目录下的算子。
+A：通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
+将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中mindspore.dataset模块下的接口，如 mindspore.dataset.vision.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
 
 <br/>
 
@@ -387,7 +387,7 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 - 读取图像后直接进行Decode操作
 
     ```python
-    # 依据上面的用例，对__getitem__函数可进行如下修改, 直接返回Decode之后的数据，此后可以不需要通过map算子接Decode操作
+    # 依据上面的用例，对__getitem__函数可进行如下修改, 直接返回Decode之后的数据，此后可以不需要通过map执行Decode操作
     def __getitem__(self, index):
         # use Image.Open to open file, and convert to RGC
         img_rgb = Image.Open(self.data[index]).convert("RGB")

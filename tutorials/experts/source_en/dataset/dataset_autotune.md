@@ -7,7 +7,7 @@
 MindSpore provides a tool named Dataset AutoTune for optimizing dataset.
 The Dataset AutoTune can automatically tune Dataset pipelines to improve performance.
 
-This feature can automatically detect a bottleneck operator in the dataset pipeline and respond by automatically adjusting tunable parameters for dataset ops, like increasing the number of parallel workers or updating the prefetch size of dataset ops.
+This feature can automatically detect a bottleneck operation in the dataset pipeline and respond by automatically adjusting tunable parameters for dataset ops, like increasing the number of parallel workers or updating the prefetch size of dataset ops.
 
 ![autotune](images/autotune.png)
 

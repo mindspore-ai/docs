@@ -34,9 +34,9 @@ LiteMat lite_mat_bgr;
 InitFromPixel(pixel_ptr, LPixelType::RGBA2GRAY, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
 ```
 
-## 可选的图像预处理算子
+## 可选的图像预处理操作
 
-此处的图像处理算子，用户可以根据实际情况任意搭配使用。
+此处的图像处理操作，用户可以根据实际情况任意搭配使用。
 
 ### 对图像进行缩放操作
 
