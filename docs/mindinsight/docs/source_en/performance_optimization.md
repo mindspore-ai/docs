@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 

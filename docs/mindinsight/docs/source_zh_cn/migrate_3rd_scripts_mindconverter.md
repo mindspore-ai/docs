@@ -284,7 +284,7 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 损失函数（loss_fn）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html)。
 
-优化器（optimizer）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[优化器](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/optim.html)。
+优化器（optimizer）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[优化器](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html)。
 
 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[网络构建](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules.html)。
 

@@ -341,7 +341,7 @@ When you run a script on the Ascend backend or use the mixed precision function,
 #### mp.01 Overflow occurs during training
 
 Check method:
-When the [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
+When the [mixed precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
 
 When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
 
@@ -349,7 +349,7 @@ After the overflow problem is found, find and analyze the first overflow node. (
 
 The common solutions to the overflow problem are as follows:
 
-1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training.
+1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training.
 2. If the overflow problem has a key impact on the accuracy and cannot be avoided, change the corresponding API to the FP32 API (the performance may be greatly affected after the adjustment).
 
 Conclusion:
@@ -360,7 +360,7 @@ Enter here.
 
 Check method:
 
-When [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) is used. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
+When [mixed precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) is used. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
 
 Conclusion:
 
@@ -370,7 +370,7 @@ Enter here.
 
 Check method:
 
-Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
+Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
 
 Conclusion:
 
@@ -380,7 +380,7 @@ Enter here.
 
 Check method:
 
-Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
+Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
 
 Conclusion:
 

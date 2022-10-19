@@ -440,7 +440,7 @@ In static graph mode, you can use `ms_class` to modify a custom class. You can c
 
 Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backward propagation algorithms. The main problem solved by automatic differential is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
 
-### [Mixed Precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html)
+### [Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)
 
 Generally, when a neural network model is trained, the default data type is FP32. In recent years, to accelerate training time, reduce memory occupied during network training, and store a trained model with same precision, more and more mixed-precision training methods are proposed in the industry. The mixed-precision training herein means that both single precision (FP32) and half precision (FP16) are used in a training process.
 

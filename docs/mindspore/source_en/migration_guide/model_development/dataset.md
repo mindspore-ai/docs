@@ -8,7 +8,7 @@ This chapter focuses on considerations related to data processing in network mig
 
 [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html)
 
-[Lightweight Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/eager.html)
+[Lightweight Data Processing](https://mindspore.cn/tutorials/en/master/advanced/dataset/eager.html)
 
 [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html)
 

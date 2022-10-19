@@ -1,6 +1,6 @@
 # Network Entity and Loss Construction
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_los.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html) on the MindSpore official website first.
 
@@ -158,7 +158,7 @@ The customized `to_float` conflicts with the `amp_level` in the model. If the cu
 
 Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/master/advanced/modules/parameter.html#initializing-network-arguments) describes a method of initializing parameters by using API attributes. This section describes a method of initializing parameters by using Cell.
 
-For details about the parameters, see [Network Parameters](https://www.mindspore.cn/tutorials/en/master/advanced/modules/parameter.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
+For details about the parameters, see [Network Parameters](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
 
 > Note that the method described in this section cannot be performed in `construct`. To change the value of a parameter on the network, use [assign](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.assign.html).
 
@@ -385,7 +385,7 @@ print("dx", grad)
      [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://www.mindspore.cn/tutorials/experts/en/master/network/custom_cell_reverse.html).
+Now, let's see how to [customize backward network construction](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell的反向).
 
 ```python
 import numpy as np

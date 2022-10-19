@@ -91,7 +91,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 *图6：通过算子耗时详情页面寻找可优化算子*
 
-对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html )页面。
+对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html )页面。
 
 优化参考代码如下：
 
