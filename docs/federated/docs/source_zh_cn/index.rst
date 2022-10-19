@@ -79,6 +79,7 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
    :maxdepth: 1
    :caption: 横向应用实践
 
+   image_classfication_dataset_process
    image_classification_application
    sentiment_classification_application
    image_classification_application_in_cross_silo
@@ -118,5 +119,4 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
    :maxdepth: 1
    :caption: 参考文档
 
-   image_classfication_dataset_process
    faq

@@ -134,187 +134,187 @@
 
 ## 模拟启动多客户端参与联邦学习
 
-1. 为客户端准备好模型文件。
+### 为客户端准备好模型文件。
 
-   本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
-   具体见[启动脚本](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
+本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
+具体见[启动脚本](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
 
-2. 启动云侧服务。
+### 启动云侧服务
 
-   用户可先参考[云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
+用户可先参考[横向云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
 
-3. 启动客户端。
+### 启动客户端
 
-   启动客户端之前请先参照[端侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
+启动客户端之前请先参照[横向端侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
 
-   使用提供的[run_client_x86.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/run_client_x86.py)脚本进行端侧联邦学习的启动，通过相关参数的设置，来启动不同的联邦学习接口。
-   待云侧服务启动成功之后，使用提供run_client_x86.py的脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
+使用提供的[run_client_x86.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)脚本进行端侧联邦学习的启动，通过相关参数的设置，来启动不同的联邦学习接口。
+待云侧服务启动成功之后，使用提供run_client_x86.py的脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
 
-   以LeNet网络为例，`run_client_x86.py`脚本中部分入参含义如下，用户可根据实际情况进行设置：
+以LeNet网络为例，`run_client_x86.py`脚本中部分入参含义如下，用户可根据实际情况进行设置：
 
-    - `--fl_jar_path`
+- `--fl_jar_path`
 
-        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+    设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
-        注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--jarPath`设置为`"libs/jarX86/mindspore-lite-java-flclient.jar"`，则需确保`jarX86`文件夹下仅包含一个jar包`mindspore-lite-java-flclient.jar`。
+    注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--jarPath`设置为`"libs/jarX86/mindspore-lite-java-flclient.jar"`，则需确保`jarX86`文件夹下仅包含一个jar包`mindspore-lite-java-flclient.jar`。
 
-    - `--case_jar_path`
+- `--case_jar_path`
 
-        设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+    设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
-        注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--case_jarPath`设置为`"case_jar/quick_start_flclient.jar"`，则需确保`case_jar`文件夹下仅包含一个jar包`quick_start_flclient.jar`。
+    注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--case_jarPath`设置为`"case_jar/quick_start_flclient.jar"`，则需确保`case_jar`文件夹下仅包含一个jar包`quick_start_flclient.jar`。
 
-    - `--train_data_dir`
+- `--train_data_dir`
 
-        训练数据集root路径，LeNet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`data/femnist/3500_clients_bin/`。
+    训练数据集root路径，LeNet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`data/femnist/3500_clients_bin/`。
 
-    - `--fl_name`
+- `--fl_name`
 
-        联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)，对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
+    联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
 
-    - `--train_model_dir`
+- `--train_model_dir`
 
-        设置联邦学习使用的训练模型路径，为上面教程中拷贝的多份.ms文件所存放的目录，比如`ms/lenet`，必须为绝对路径。
+    设置联邦学习使用的训练模型路径，为上面教程中拷贝的多份.ms文件所存放的目录，比如`ms/lenet`，必须为绝对路径。
 
-    - `--domain_name`
+- `--domain_name`
 
-        用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.1:6666 或者http://127.0.0.1:6666 ，其中`127.0.0.1`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
+    用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.1:6666 或者http://127.0.0.1:6666 ，其中`127.0.0.1`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
 
-        注意1，当该参数设置为`http://......`时代表使用HTTP通信，可能会存在通信安全风险，请知悉。
+    注意1，当该参数设置为`http://......`时代表使用HTTP通信，可能会存在通信安全风险，请知悉。
 
-        注意2，当该参数设置为`https://......`代表使用HTTPS通信。此时必须进行SSL证书认证，需要通过参数`--cert_path`设置证书路径。
+    注意2，当该参数设置为`https://......`代表使用HTTPS通信。此时必须进行SSL证书认证，需要通过参数`--cert_path`设置证书路径。
 
-    - `--task`
+- `--task`
 
-        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`client_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
+    用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`client_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
 
-    - `--batch_size`
+- `--batch_size`
 
-        设置联邦学习训练和推理时使用的单步训练样本数，即batch size。需与模型的输入数据的batch size保持一致。
+    设置联邦学习训练和推理时使用的单步训练样本数，即batch size。需与模型的输入数据的batch size保持一致。
 
-    - `--client_num`
+- `--client_num`
 
-        设置client数量，与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
+    设置client数量，与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
-    若想进一步了解`run_client_x86.py`脚本中其他参数含义，可参考脚本中注释部分。
+若想进一步了解`run_client_x86.py`脚本中其他参数含义，可参考脚本中注释部分。
 
-    联邦学习接口基本启动指令示例如下：
+联邦学习接口基本启动指令示例如下：
 
-    ```sh
-    rm -rf client_*\
-    && rm -rf ms/* \
-    && python3 run_client_x86.py \
-    --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
-    --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
-    --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
-    --eval_data_dir="null" \
-    --infer_data_dir="null" \
-    --vocab_path="null" \
-    --ids_path="null" \
-    --path_regex="," \
-    --fl_name="com.mindspore.flclient.demo.lenet.LenetClient" \
-    --origin_train_model_path="federated/tests/st/simulate_x86/ms_files/lenet/lenet_train.ms" \
-    --origin_infer_model_path="null" \
-    --train_model_dir="ms" \
-    --infer_model_dir="ms" \
-    --ssl_protocol="TLSv1.2" \
-    --deploy_env="x86" \
-    --domain_name="http://10.113.216.40:8010" \
-    --cert_path="CARoot.pem" --use_elb="false" \
-    --server_num=1 \
-    --task="train" \
-    --thread_num=1 \
-    --cpu_bind_mode="NOT_BINDING_CORE" \
-    --train_weight_name="null" \
-    --infer_weight_name="null" \
-    --name_regex="::" \
-    --server_mode="FEDERATED_LEARNING" \
-    --batch_size=32 \
-    --input_shape="null" \
-    --client_num=8
-    ```
+```sh
+ rm -rf client_*\
+ && rm -rf ms/* \
+ && python3 run_client_x86.py \
+ --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
+ --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
+ --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
+ --eval_data_dir="null" \
+ --infer_data_dir="null" \
+ --vocab_path="null" \
+ --ids_path="null" \
+ --path_regex="," \
+ --fl_name="com.mindspore.flclient.demo.lenet.LenetClient" \
+ --origin_train_model_path="federated/tests/st/simulate_x86/ms_files/lenet/lenet_train.ms" \
+ --origin_infer_model_path="null" \
+ --train_model_dir="ms" \
+ --infer_model_dir="ms" \
+ --ssl_protocol="TLSv1.2" \
+ --deploy_env="x86" \
+ --domain_name="http://10.113.216.40:8010" \
+ --cert_path="CARoot.pem" --use_elb="false" \
+ --server_num=1 \
+ --task="train" \
+ --thread_num=1 \
+ --cpu_bind_mode="NOT_BINDING_CORE" \
+ --train_weight_name="null" \
+ --infer_weight_name="null" \
+ --name_regex="::" \
+ --server_mode="FEDERATED_LEARNING" \
+ --batch_size=32 \
+ --input_shape="null" \
+ --client_num=8
+```
 
-    注意，启动指令中涉及路径的必须给出绝对路径。
+注意，启动指令中涉及路径的必须给出绝对路径。
 
-    以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
+以上指令代表启动8个客户端参与联邦学习训练任务，若启动成功，会在当前文件夹生成8个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
 
-    ```text
-        ./
-        ├── client_0
-        │   └── client.log  # 客户端0的日志文件
-        │           ......
-        └── client_7
-            └── client.log  # 客户端4的日志文件
-    ```
+```text
+     ./
+     ├── client_0
+     │   └── client.log  # 客户端0的日志文件
+     │           ......
+     └── client_7
+         └── client.log  # 客户端4的日志文件
+```
 
-    针对不同的接口和场景，只需根据参数含义，修改特定参数值即可，比如：
+针对不同的接口和场景，只需根据参数含义，修改特定参数值即可，比如：
 
-    - 启动联邦学习训练任务SyncFLJob.flJobRun()
+- 启动联邦学习训练任务SyncFLJob.flJobRun()
 
-        当`基本启动指令`中 `--task`设置为`train`时代表启动该任务。
+    当`基本启动指令`中 `--task`设置为`train`时代表启动该任务。
 
-        可通过指令`grep -r "average loss:" client_0/client.log`查看`client_0`在训练过程中每个epoch的平均loss，会有类似如下打印：
-
-        ```sh
-        INFO: <FLClient> ----------epoch:0,average loss:4.1258564 ----------
-        ......
-        ```
-
-        也可通过指令`grep -r "evaluate acc:" client_0/client.log`查看`client_0`在每个联邦学习迭代中聚合后模型的验证精度，会有类似如下打印：
-
-        ```sh
-        INFO: <FLClient> [evaluate] evaluate acc: 0.125
-        ......
-        ```
-
-    - 启动推理任务SyncFLJob.modelInference()
-
-        当`基本启动指令`中 `--task`设置为`inference`时代表启动该任务。
-
-        可通过指令`grep -r "the predicted labels:" client_0/client.log`查看`client_0`的推理结果：
-
-        ```sh
-        INFO: <FLClient> [model inference] the predicted labels: [0, 0, 0, 1, 1, 1, 2, 2, 2]
-        ......
-        ```
-
-    - 启动获取云侧最新模型任务SyncFLJob.getModel()
-
-        当`基本启动指令`中 `--task`设置为`getModel`时代表启动该任务。
-
-        在日志文件中若有如下内容代表获取云侧最新模型成功：
-
-        ```sh
-        INFO: <FLClient> [getModel] get response from server ok!
-        ```
-
-4. 关闭客户端进程。
-
-    可参考[finish.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/finish.py)脚本，具体如下：
-
-    关闭客户端指令如下：
+    可通过指令`grep -r "average loss:" client_0/client.log`查看`client_0`在训练过程中每个epoch的平均loss，会有类似如下打印：
 
     ```sh
-    python finish.py --kill_tag=mindspore-lite-java-flclient
+    INFO: <FLClient> ----------epoch:0,average loss:4.1258564 ----------
+    ......
     ```
 
-    其中参数`--kill_tag`用于搜索该关键字对客户端进程进行kill，只需要设置`--jarPath`中的特殊关键字即可。默认为`mindspore-lite-java-flclient`，即联邦学习jar包名。
-    用户可通过指令`ps -ef |grep "mindspore-lite-java-flclient"`查看进程是否还存在。
+    也可通过指令`grep -r "evaluate acc:" client_0/client.log`查看`client_0`在每个联邦学习迭代中聚合后模型的验证精度，会有类似如下打印：
 
-5. 50个客户端参与联邦学习训练任务实验结果。
+    ```sh
+    INFO: <FLClient> [evaluate] evaluate acc: 0.125
+    ......
+    ```
 
-    目前`3500_clients_bin`文件夹中包含3500个客户端的数据，本脚本最多可模拟3500个客户端参与联邦学习。
+- 启动推理任务SyncFLJob.modelInference()
 
-    下图给出了50个客户端(设置`server_num`为16)进行联邦学习的测试集精度：
+    当`基本启动指令`中 `--task`设置为`inference`时代表启动该任务。
 
-    ![lenet_50_clients_acc](images/lenet_50_clients_acc.png)
+    可通过指令`grep -r "the predicted labels:" client_0/client.log`查看`client_0`的推理结果：
 
-    其中联邦学习总迭代数为100，客户端本地训练epoch数为20，batchSize设置为32。
+    ```sh
+    INFO: <FLClient> [model inference] the predicted labels: [0, 0, 0, 1, 1, 1, 2, 2, 2]
+    ......
+    ```
 
-    图中测试精度指对于每个联邦学习迭代，各客户端测试集在云侧聚合后的模型上的精度。
+- 启动获取云侧最新模型任务SyncFLJob.getModel()
 
-    AVG：对于每个联邦学习迭代，50个客户端测试集精度的平均值。
+    当`基本启动指令`中 `--task`设置为`getModel`时代表启动该任务。
 
-    TOP5：对于每个联邦学习迭代，测试集精度最高的5个客户端的精度平均值。
+    在日志文件中若有如下内容代表获取云侧最新模型成功：
 
-    LOW5：对于每个联邦学习迭代，测试集精度最低的5个客户端的精度平均值。
+    ```sh
+    INFO: <FLClient> [getModel] get response from server ok!
+    ```
+
+### 关闭客户端进程
+
+可参考[finish.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/finish.py)脚本，具体如下：
+
+关闭客户端指令如下：
+
+```sh
+python finish.py --kill_tag=mindspore-lite-java-flclient
+```
+
+其中参数`--kill_tag`用于搜索该关键字对客户端进程进行kill，只需要设置`--jarPath`中的特殊关键字即可。默认为`mindspore-lite-java-flclient`，即联邦学习jar包名。
+用户可通过指令`ps -ef |grep "mindspore-lite-java-flclient"`查看进程是否还存在。
+
+50个客户端参与联邦学习训练任务实验结果。
+
+目前`3500_clients_bin`文件夹中包含3500个客户端的数据，本脚本最多可模拟3500个客户端参与联邦学习。
+
+下图给出了50个客户端(设置`server_num`为16)进行联邦学习的测试集精度：
+
+![lenet_50_clients_acc](images/lenet_50_clients_acc.png)
+
+其中联邦学习总迭代数为100，客户端本地训练epoch数为20，batchSize设置为32。
+
+图中测试精度指对于每个联邦学习迭代，各客户端测试集在云侧聚合后的模型上的精度。
+
+AVG：对于每个联邦学习迭代，50个客户端测试集精度的平均值。
+
+TOP5：对于每个联邦学习迭代，测试集精度最高的5个客户端的精度平均值。
+
+LOW5：对于每个联邦学习迭代，测试集精度最低的5个客户端的精度平均值。

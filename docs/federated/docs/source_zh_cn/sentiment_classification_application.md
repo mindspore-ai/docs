@@ -1,4 +1,4 @@
-# 实现一个情感分类应用(Android)
+# 实现一个端云情感分类应用(Android)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -163,7 +163,8 @@ if __name__ == '__main__':
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本，参考[云端部署方式](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)。
+首先在服务端启动脚本，参考[横向云端部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)。
+对应云侧配置和模型权重文件参考[albert example](https://gitee.com/mindspore/federated/tree/master/example/cross_device_albert)
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -197,7 +198,7 @@ if __name__ == '__main__':
 
 2. 获取Mindspore Federated 端侧jar包。
 
-   参考[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+   参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
    ```text
    mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
