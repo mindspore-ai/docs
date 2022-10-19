@@ -16,12 +16,14 @@ MindSpore AI Fluid Simulation Suite
    :caption: Physics-driven AI Fluid Simulation
 
    physics_driven/burgers
+   physics_driven/cylinder_flow
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Data-driven AI Fluid Simulation
 
+   data_driven/dfyf
    data_driven/fno1d
    data_driven/fno2d
 
