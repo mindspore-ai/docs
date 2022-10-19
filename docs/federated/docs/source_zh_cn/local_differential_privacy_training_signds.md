@@ -4,7 +4,7 @@
 
 ## 隐私保护背景
 
-联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案，启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式），是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
+联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案，启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式，是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
 
 这种联邦学习方案并不是毫无隐私泄漏的，使用上述`not_encrypt`方案进行训练，服务端Server收到客户端Client上传的本地训练模型，仍可通过一些攻击方法[1]重构用户训练数据，从而泄露用户隐私，所以`not_encrypt`方案需要进一步增加用户隐私保护机制。
 
@@ -31,7 +31,7 @@ SignDS[2]是Sign Dimension Select的缩写，处理对象是客户端Client的`u
 
 如果服务端Server指定总共选择的维度数量`h`，客户端Client会直接使用该值，否则各客户端Client会本地计算出最优的输出维度`h`。
 
-随后SignDS算法会输出应从`topk`集合和`non-topk`集合中选择的维度数量（记为$v$），如下表中示例，两个集合总共挑选维度h=3，
+随后SignDS算法会输出应从`topk`集合和`non-topk`集合中选择的维度数量（记为$v$），如下表中示例，两个集合总共挑选维度h=3。
 
 客户端Client按照SignDS算法输出的维度数量，均匀随机挑选维度，将维度序号和sign值发送至服务端Server即可，维度序号如果按照先从`topk`挑选，再从`non-topk`挑选的顺序输出，则需要对维度序号列表`index`进行洗牌打乱操作，下表为该算法各客户端Client最终传输至服务端Server的信息：
 
@@ -56,7 +56,7 @@ SignDS[2]是Sign Dimension Select的缩写，处理对象是客户端Client的`u
 
 差分隐私噪声方案通过加噪的方式，让攻击者无法确定原始信息，从而实现隐私保护；而差分隐私SignDS方案只激活部分维度，且用sign值代替原始值，很大程度上保护了用户隐私。进一步的，利用差分隐私指数机制让攻击者无法确认激活的维度是否是重要（来自`topk`集合），且无法确认输出维度中来自`topk`的维度数量是否超过给定阈值。
 
-对于每个客户端Client的任意两个update $\Delta$ 和 $\Delta'$  ，其`topk`维度集合分别是  $S_{topk}$ ， ${S'}_{topk}$ ，该算法任意可能的输出维度集合是 ${J}\in {\mathcal{J}} $ ，记 $\nu=|{S}_{topk}\cap {J}|$ ,  $\nu'=|{S'}_{topk}\cap {J}|$  是 ${J}$ 和`topk` 集合交集的数量，算法使得以下不等式成立：
+对于每个客户端Client的任意两个update $\Delta$ 和 $\Delta'$  ，其`topk`维度集合分别是 $S_{topk}$ ， ${S'}_{topk}$ ，该算法任意可能的输出维度集合是 ${J}\in {\mathcal{J}}$ ，记 $\nu=|{S}_{topk}\cap {J}|$ ， $\nu'=|{S'}_{topk}\cap {J}|$ 是 ${J}$ 和`topk` 集合交集的数量，算法使得以下不等式成立：
 
 $$
 \frac{{Pr}[{J}|\Delta]}{{Pr}[{J}|\Delta']}=\frac{{Pr}[{J}|{S}_{topk}]}{{Pr}[{J}|{S'}_{topk}]}=\frac{\frac{{exp}(\frac{\epsilon}{\phi_u}\cdot u({S}_{topk},{J}))}{\sum_{{J'}\in {\mathcal{J}}}{exp}(\frac{\epsilon}{\phi_u}\cdot u({S}_{topk}, {J'}))}}{\frac{{exp}(\frac{\epsilon}{\phi_u}\cdot u({S'}_{topk}, {J}))}{\sum_{ {J'}\in {\mathcal{J}}}{exp}(\frac{\epsilon}{\phi_u}\cdot u( {S'}_{topk},{J'}))}}=\frac{\frac{{exp}(\epsilon\cdot \unicode{x1D7D9}(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau} + \sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot {exp}(\epsilon)}}{\frac{ {exp}(\epsilon\cdot \unicode{x1D7D9}(\nu' \geq\nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau}+\sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot {exp}(\epsilon)}}\\= \frac{{exp}(\epsilon\cdot \unicode{x1D7D9} (\nu \geq \nu_{th}))}{ {exp}(\epsilon\cdot \unicode{x1D7D9} (\nu' \geq \nu_{th}))} \leq \frac{{exp}(\epsilon\cdot 1)}{{exp}(\epsilon\cdot 0)} = {exp}(\epsilon),
