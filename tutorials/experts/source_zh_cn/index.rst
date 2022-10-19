@@ -48,6 +48,13 @@
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 自动向量化
+
+   vmap/vmap
+   
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 模型推理
 
    infer/inference
