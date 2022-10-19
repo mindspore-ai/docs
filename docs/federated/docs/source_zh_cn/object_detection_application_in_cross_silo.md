@@ -92,7 +92,7 @@ cross_silo_faster_rcnn
 
    - 参数`pre_trained`
 
-     用于设置预训练模型路径（.ckpt 格式）
+     用于设置预训练模型路径（.ckpt 格式）。
 
      本教程中实验的预训练模型是在ImageNet2012上训练的ResNet-50检查点。你可以使用ModelZoo中 [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/resnet) 脚本来训练，然后使用src/convert_checkpoint.py把训练好的resnet50的权重文件转换为可加载的权重文件。
 
@@ -138,25 +138,25 @@ cross_silo_faster_rcnn
    [INFO] FEDERATED(3944,2b28c5ada700,python):2022-10-10-17:11:08.155.056 [mindspore_federated/fl_arch/ccsrc/common/communicator/http_request_handler.cc:90] Run] Start http server!
    ```
 
-5. 启动Worker
+6. 启动Worker
 
-   `run_cross_silo_femnist_worker.py`是用于启动若干`worker`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`2`个：
+    `run_cross_silo_femnist_worker.py`是用于启动若干`worker`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`2`个：
 
-   ```sh
-   python run_cross_silo_fasterrcnn_worker.py --worker_num=2 --dataset_path datasets/coco_split/split_100 --http_server_address=10.113.216.40:6668
-   ```
+    ```sh
+    python run_cross_silo_fasterrcnn_worker.py --worker_num=2 --dataset_path datasets/coco_split/split_100 --http_server_address=10.113.216.40:6668
+    ```
 
    具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn/run_cross_silo_femnist_worker.py)。
 
-   如上指令，`--worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
+    如上指令，`--worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
 
-当执行以上三个指令之后，等待一段时间之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\epoch:" *`查看`worker_0`日志，可看到类似如下内容的日志信息：
+    当执行以上三个指令之后，等待一段时间之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\epoch:" *`查看`worker_0`日志，可看到类似如下内容的日志信息：
 
-```sh
-epoch: 1 step: 1 total_loss: 0.6060338
-```
+    ```sh
+    epoch: 1 step: 1 total_loss: 0.6060338
+    ```
 
-则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
+    则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
 以上脚本中参数配置说明请参考[yaml配置说明](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/federated_server_yaml.md#)。
 
@@ -220,7 +220,7 @@ python finish_cloud.py --redis_port=2345
 
 - 客户端本地训练epoch数：1
 
-- 云云联邦学习总迭代数: 30
+- 云云联邦学习总迭代数：30
 
 - 实验结果（记录客户端本地训练过程中的loss值）：
 

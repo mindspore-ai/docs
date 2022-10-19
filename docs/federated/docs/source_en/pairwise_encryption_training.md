@@ -43,13 +43,13 @@ If you are interested in the specific steps of the algorithm, refer to the paper
 
 ### Cross device scenario
 
-Enabling pairwise encryption training is simple. You only need to set `encrypt_type='PW_ENCRYPT'` in `set_fl_context()`.
+Enabling pairwise encryption training is simple. Just set the `encrypt_type` field to `PW_ENCRYPT` through yaml file when starting the cloud-side service.
 
 In addition, most of the workers participating in the training are unstable edge computing nodes such as mobile phones, so the problems of dropping the line and secret key reconstruction should be considered. Related parameters are `share_secrets_ratio`, `reconstruct_secrets_threshold`, and `cipher_time_window`.
 
 `share_client_ratio` indicates the client threshold decrease ratio of public key broadcast round, secret sharing round and secret reconstruction round. The value must be less than or equal to 1.
 
-`reconstruct_secrets_threshold` indicates the number of secret shares required to reconstruct a secret. The value must be less than the number of clients that participate in updateModel, which is start_fl_job_threshold*update_model_ratio (those two parameters can refer to 'set_fl_context' in [this file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/context.py)).
+`reconstruct_secrets_threshold` indicates the number of secret shares required to reconstruct a secret. The value must be less than the number of clients that participate in updateModel (start_fl_job_threshold*update_model_ratio).
 
 To ensure system security, the value of `reconstruct_secrets_threshold` must be greater than half of the number of federated learning clients when the server and client are not colluded.
 When the server and client are colluded, the value of `reconstruct_secrets_threshold` must be greater than two thirds of the number of federated learning clients.
@@ -58,7 +58,7 @@ When the server and client are colluded, the value of `reconstruct_secrets_thres
 
 ### Cross silo scenario
 
-In cross silo scenario, you only need to set `encrypt_type='STABLE_PW_ENCRYPT'` in `set_fl_context()` for both server startup script and client startup script.
+In cross silo scenario, you only need to set the `encrypt_type` field to `PW_ENCRYPT` through yaml file in the cloud-side startup script.
 
 Different from cross silo scenario, all of the workers are stable computing nodes in cross silo scenario. You only need to set the parameter `cipher_time_window`.
 

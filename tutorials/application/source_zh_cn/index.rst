@@ -12,6 +12,7 @@
    :caption: 计算机视觉
 
    cv/resnet50
+   cv/transfer_learning
    cv/fgsm
    cv/dcgan
    cv/vit
