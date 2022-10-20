@@ -30,7 +30,7 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
     ```bash
     git https://gitee.com/mindspore/federated.git
-    cd federated/examples/splitnn_pangu_alpha/
+    cd federated/example/splitnn_pangu_alpha/
     python -m pip install -r requirements.txt
     ```
 
@@ -243,7 +243,7 @@ grad_scalers:
 1. 进入示例程序目录：
 
     ```bash
-    cd federated/examples/splitnn_pangu_alpha/
+    cd federated/example/splitnn_pangu_alpha/
     ```
 
 2. 以wiki数据集为例，拷贝数据集至示例程序目录：
@@ -269,7 +269,7 @@ grad_scalers:
 5. 执行训练脚本：
 
     ```bash
-    bash ./run_pangu_train_local.sh
+    ./run_pangu_train_local.sh
     ```
 
 6. 查看训练日志`splitnn_pangu_local.txt`中记录的训练loss信息。
@@ -297,7 +297,7 @@ grad_scalers:
 1. 类似单进程样例，进入示例程序目录，安装依赖的Python软件包：
 
     ```bash
-    cd federated/examples/splitnn_pangu_alpha/
+    cd federated/example/splitnn_pangu_alpha/
     python -m pip install -r requirements.txt
     ```
 
@@ -305,12 +305,12 @@ grad_scalers:
 
    ```bash
     cp -r {dataset_dir}/wiki ./
-    ```
+   ```
 
 3. 在服务器1启动参与方A的训练脚本：
 
     ```bash
-    ./run_pangu_train_leader.sh {ip_address_server1} {ip_address_server2} ./wiki/train ./wiki/train false
+    ./run_pangu_train_leader.sh {ip_address_server1} {ip_address_server2} ./wiki/train ./wiki/train
     ```
 
 训练脚本的第1个参数是本地服务器（服务器1）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数是训练数据集文件路径，第4个参数是评估数据集文件路径，第5个参数标识是否加载已有的checkpoint文件。
@@ -318,9 +318,9 @@ grad_scalers:
 4. 在服务器2启动参与方B的训练脚本：
 
     ```bash
-    ./run_pangu_train_follower.sh {ip_address_server2} {ip_address_server1} false
+    ./run_pangu_train_follower.sh {ip_address_server2} {ip_address_server1}
     ```
 
 训练脚本的第1个参数是本地服务器（服务器2）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数标识是否加载已有的checkpoint文件。
 
-5. 查看服务器1的训练日志`log_splitnn_pangu_leader.log`中记录的训练loss信息。若其loss信息与盘古α集中式训练loss值趋势一致，可验证训练过程的正确性。
+5. 查看服务器1的训练日志`leader_processs.log`中记录的训练loss信息。若其loss信息与盘古α集中式训练loss值趋势一致，可验证训练过程的正确性。
