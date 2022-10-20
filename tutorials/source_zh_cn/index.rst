@@ -27,6 +27,7 @@ MindSpore教程
    :glob:
    :maxdepth: 1
    :caption: 进阶教程
+   :titlesonly:
    :hidden:
 
    advanced/model
