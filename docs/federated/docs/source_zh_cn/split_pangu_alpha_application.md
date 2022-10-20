@@ -1,5 +1,7 @@
 # 纵向联邦学习模型训练 - 盘古α大模型跨域训练
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/split_pangu_alpha_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 随着硬件算力的进步和网络数据规模的持续膨胀，预训练大模型已日趋成为自然语言处理、图文多模态等领域的重要研究方向。以2021年发布中文NLP预训练大模型的盘古α为例，其模型参数量达2000亿，训练过程依赖海量数据和先进计算中心，限制了其应用落地和技术演进。一种可行的解决方案是基于纵向联邦学习或拆分学习（Split Learning）技术，整合多参与方的算力和数据资源，在确保安全隐私的前提下，实现预训练大模型的的跨域协同训练。
