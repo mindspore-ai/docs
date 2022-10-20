@@ -794,7 +794,7 @@ And a queue status of each data processing operation:
 
 Now, let's analyze the process and solve the problem.
 
-From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://mindspore.cn/docs/zh-CN/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 When `dataset_sink_mode=True` is set, the result of setting the profiler is as follows:
 
@@ -808,7 +808,7 @@ MindSpore has three methods to use mixed precision:
 
 1. Use `Cast` to convert the network input `cast` into `float16` and the loss input `cast` into `float32`.
 2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html).
-3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#automatic-mixed-precision).
+3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html#automatic-mixed-precision).
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 

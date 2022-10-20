@@ -5,7 +5,7 @@
 ## Function Debugging
 
 During network migration, you are advised to use the PyNative mode for debugging. In PyNative mode, you can perform debugging, and log printing is user-friendly. After the debugging is complete, the graph mode is used. The graph mode is more user-friendly in execution performance. You can also find some problems in network compilation. For example, gradient truncation caused by third-party operators.
-For details, see [Function Debugging](https://www.mindspore.cn/tutorials/experts/en/master/debug/function_debug.html).
+For details, see [Function Debugging](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/function_debug.html).
 
 ## Accuracy Debugging
 
@@ -234,13 +234,13 @@ Generally, MindSpore in static graph mode is much faster than that in PyNative m
 
 #### On-device Execution
 
-MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 #### Using Automatic Mixed Precision
 
 The mixed precision training method accelerates the deep neural network training process by mixing the single-precision floating-point data format and the half-precision floating-point data format without compromising the network accuracy. Mixed precision training can accelerate the computing process, reduce memory usage and retrieval, and enable a larger model or batch size to be trained on specific hardware.
 
-For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html).
+For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html).
 
 #### Enabling Graph Kernel Fusion
 
@@ -248,7 +248,7 @@ Graph kernel fusion is a unique network performance optimization technology of M
 
 Graph kernel fusion applies to scenarios that have high requirements on network execution time. Basic operators are combined to implement customized combination operators and these basic operators are automatically fused to improve the performance of the customized combination operators.
 
-For details, see [Graph Kernel Fusion Tutorial](https://www.mindspore.cn/docs/en/master/design/graph_fusion_engine.html).
+For details, see [Graph Kernel Fusion Tutorial](https://mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html).
 
 #### Others
 

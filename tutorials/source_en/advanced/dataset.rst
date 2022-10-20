@@ -9,6 +9,7 @@ Advanced Data Processing
   dataset/iterator
   dataset/record
   dataset/custom
+  dataset/eager
   dataset/augment_common_data
   dataset/augment_image_data
   dataset/augment_text_data

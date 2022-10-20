@@ -106,22 +106,21 @@
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ScatterUpdate.html">mindspore.ops.ScatterUpdate</a></td>
 </tr>
 <tr>
-  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyAdagrad.html">mindspore.ops.SparseApplyAdagrad</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyAdagradV2.html">mindspore.ops.SparseApplyAdagradV2</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyFtrl.html">mindspore.ops.SparseApplyFtrl</a></td>
+  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyFtrlV2.html">mindspore.ops.SparseApplyFtrlV2</a></td>
 </tr>
 <tr>
-  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyFtrlV2.html">mindspore.ops.SparseApplyFtrlV2</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseApplyProximalAdagrad.html">mindspore.ops.SparseApplyProximalAdagrad</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SquaredDifference.html">mindspore.ops.SquaredDifference</a></td>
+  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Sub.html">mindspore.ops.Sub</a></td>
 </tr>
 <tr>
-  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Sub.html">mindspore.ops.Sub</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TruncateDiv.html">mindspore.ops.TruncateDiv</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TruncateMod.html">mindspore.ops.TruncateMod</a></td>
+  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Xdivy.html">mindspore.ops.Xdivy</a></td>
 </tr>
 <tr>
-  <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Xdivy.html">mindspore.ops.Xdivy</a></td>
   <td><a href="https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Xlogy.html">mindspore.ops.Xlogy</a></td>
 </tr>
 </table>

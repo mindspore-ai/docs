@@ -145,7 +145,7 @@ if __name__ == "__main__":
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist/test_cross_silo_femnist.py)。
+本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_femnist/test_cross_silo_femnist.py)。
 
 若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
 

@@ -12,7 +12,7 @@
 
 由于原始COCO数据集为json文件格式，云云联邦学习框架提供的目标检测脚本暂时只支持MindRecord格式输入数据，可根据以下步骤将json文件转换为MindRecord格式文件。
 
-- 首先在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
+- 首先在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
 
     - 参数`mindrecord_dir`
 
@@ -30,7 +30,7 @@
         instance_set: "./datasets/coco_split/split_100/train_0.json"
         ```
 
-- 运行脚本[generate_mindrecord.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn/generate_mindrecord.py)即可生成`train_0.json`对应的MindRecord文件，保存在路径`mindrecord_dir`中。
+- 运行脚本[generate_mindrecord.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/generate_mindrecord.py)即可生成`train_0.json`对应的MindRecord文件，保存在路径`mindrecord_dir`中。
 
 ## 启动云云联邦任务
 
@@ -88,7 +88,7 @@ cross_silo_faster_rcnn
    model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=False)   # 设置dataset_sink_mode=False代表记录每个step的loss值
    ```
 
-2. 在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
+2. 在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
 
    - 参数`pre_trained`
 
@@ -110,7 +110,7 @@ cross_silo_faster_rcnn
    python run_sched.py --yaml_config="default.yaml" --scheduler_manage_address="10.113.216.40:18019"
    ```
 
-   具体实现详见[run_sched.py](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/run_sched.py)。
+   具体实现详见[run_sched.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/run_sched.py)。
 
    打印如下代表启动成功：
 
@@ -127,7 +127,7 @@ cross_silo_faster_rcnn
    python run_server.py --yaml_config="default.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:6668"
    ```
 
-   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_server.py](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/run_server.py)。
+   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_server.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/run_server.py)。
 
    打印如下代表启动成功：
 
@@ -146,7 +146,7 @@ cross_silo_faster_rcnn
     python run_cross_silo_fasterrcnn_worker.py --worker_num=2 --dataset_path datasets/coco_split/split_100 --http_server_address=10.113.216.40:6668
     ```
 
-   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn/run_cross_silo_femnist_worker.py)。
+   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py)。
 
     如上指令，`--worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
 
@@ -158,7 +158,7 @@ cross_silo_faster_rcnn
 
     则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-以上脚本中参数配置说明请参考[yaml配置说明](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/federated_server_yaml.md#)。
+以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
 
 ### 日志查看
 
@@ -208,7 +208,7 @@ cross_silo_faster_rcnn
 python finish_cloud.py --redis_port=2345
 ```
 
-具体实现详见[finish_cloud.py](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/finish_cloud.py)。
+具体实现详见[finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/finish_cloud.py)。
 
 或者等待训练任务结束之后集群会自动退出，不需要手动关闭。
 
