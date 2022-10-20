@@ -128,6 +128,8 @@ MindSpore Federated是一款开源联邦学习框架，提供样本联合的横�
    local_differential_privacy_training_signds
    pairwise_encryption_training
    private_set_intersection
+   secure_vertical_federated_learning_with_TEE
+   secure_vertical_federated_learning_with_DP
 
 .. toctree::
    :maxdepth: 1
