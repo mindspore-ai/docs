@@ -108,7 +108,7 @@ Common Application Scenarios
 
    Horizontal_FL_Server
    Horizontal_FL_Client
-   Vertival_FL_Server
+   Vertical_FL_Server
    Data_Join
 
 .. toctree::

@@ -139,7 +139,7 @@ MindSpore Federated是一款开源联邦学习框架，提供样本联合的横�
 
    Horizontal_FL_Server
    Horizontal_FL_Client
-   Vertival_FL_Server
+   Vertical_FL_Server
    Data_Join
 
 .. toctree::
