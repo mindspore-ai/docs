@@ -422,7 +422,7 @@ The molecule Hamiltonian uses `get_qubit_hamiltonian` to read the previous compu
 hamiltonian_QubitOp = get_qubit_hamiltonian(molecule_of)
 ```
 
-The unitary coupled-cluster operator $ \hat{T} - \hat{T}^{\dagger} $ can be built using `uccsd_singlet_generator`. Provide the total number of quantum bits (total number of spin orbits) and the total number of electrons, and set `anti_hermitian=True`.
+The unitary coupled-cluster operator $\hat{T} - \hat{T}^{\dagger}$ can be built using `uccsd_singlet_generator`. Provide the total number of quantum bits (total number of spin orbits) and the total number of electrons, and set `anti_hermitian=True`.
 
 ```python
 ucc_fermion_ops = uccsd_singlet_generator(
@@ -435,7 +435,7 @@ The `ucc_fermion_ops` built in the previous step is parameterized. Use the Jorda
 ucc_qubit_ops = Transform(ucc_fermion_ops).jordan_wigner()
 ```
 
-Next, we need to obtain the quantum circuit corresponding to the unitary operator $ \exp{(\hat{T} - \hat{T}^{\dagger})} $. `TimeEvolution` can generate the circuit corresponding to $ \exp{(-i\hat{H}t)} $, where $\hat{H} $is a Hermitian operator, and $t$ is a real number. Note that when `TimeEvolution` is used, `ucc_qubit_ops` already contains the complex number factor $i$. Therefore, you need to divide `ucc_qubit_ops` by $i$ or extract the imaginary part of `ucc_qubit_ops`.
+Next, we need to obtain the quantum circuit corresponding to the unitary operator $\exp{(\hat{T} - \hat{T}^{\dagger})}$. `TimeEvolution` can generate the circuit corresponding to $\exp{(-i\hat{H}t)}$, where $\hat{H}$ is a Hermitian operator, and $t$ is a real number. Note that when `TimeEvolution` is used, `ucc_qubit_ops` already contains the complex number factor $i$. Therefore, you need to divide `ucc_qubit_ops` by $i$ or extract the imaginary part of `ucc_qubit_ops`.
 
 ```python
 ansatz_circuit = TimeEvolution(ucc_qubit_ops.imag, 1.0).circuit
