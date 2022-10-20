@@ -11,7 +11,7 @@
 分布式任务需要在一个集群中执行，MindSpore为了在分布式图切分场景中拥有更好的可扩展性和可靠性，复用了MindSpore内置的`动态组网`模块，此模块在[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练)和[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)章节也有使用。
 
 对于`分布式图切分`来说，每一个进程都代表一个计算节点(称之为`Worker`)，通过上述的`动态组网`模块，启动的调度节点(称之为`Scheduler`)可以让发现各个计算节点，进而组成一个计算集群。
-在`动态组网`后，MindSpore会根据用户启动配置，为每个进程分配`role`和`rank`，即每个进程的`角色`和`id`，两者组成了每个进程的唯一`标签`，并且是Python层API`place`的入参。有了这层对应关系，用户可以通过调用`place`接口，对任意算子设置进程标签，MindSpore图编译模块处理后，将计算图切分成多个子图分发到不同进程上执行。`place`具体用法可参考[Primitive.place](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)以及[Cell.place](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)接口文档。
+在`动态组网`后，MindSpore会根据用户启动配置，为每个进程分配`role`和`rank`，即每个进程的`角色`和`id`，两者组成了每个进程的唯一`标签`，并且是Python层API`place`的入参。有了这层对应关系，用户可以通过调用`place`接口，对任意算子设置进程标签，MindSpore图编译模块处理后，将计算图切分成多个子图分发到不同进程上执行。`place`具体用法可参考[Primitive.place](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place)以及[Cell.place](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place)接口文档。
 举例来说，经过分布式图切分后的计算拓扑图可能如下：
 
 ![image](images/distributed_graph_partition.png)
