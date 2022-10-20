@@ -37,3 +37,9 @@ mindspore_rl.policy
 
 .. automodule:: mindspore_rl.policy
     :members:
+
+mindspore_rl.utils
+-------------------
+
+.. automodule:: mindspore_rl.utils
+    :members:

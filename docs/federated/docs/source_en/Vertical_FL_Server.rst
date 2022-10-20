@@ -1,4 +1,4 @@
-Vertival FL-Server
+Vertical FL-Server
 =====================
 
 .. toctree::
