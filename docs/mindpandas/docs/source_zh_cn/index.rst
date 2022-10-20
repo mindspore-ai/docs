@@ -146,6 +146,7 @@ MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，
 
    mindpandas_quick_start
    mindpandas_configuration
+   mindpandas_channel
 
 .. toctree::
    :maxdepth: 1
