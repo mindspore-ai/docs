@@ -88,6 +88,8 @@ Common Application Scenarios
    :maxdepth: 1
    :caption: Vertical Application
 
+   data_join
+
 .. toctree::
    :maxdepth: 1
    :caption: Security and Privacy

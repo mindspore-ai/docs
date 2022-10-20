@@ -33,7 +33,6 @@ For Experts
    :maxdepth: 1
    :caption: Model Training Optimization
 
-   others/mixed_precision
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training

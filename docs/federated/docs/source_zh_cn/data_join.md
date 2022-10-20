@@ -16,13 +16,13 @@ MindSpore Federated纵向联邦学习数据导出流程框架如图1所示：
 
 图 1 纵向联邦学习数据接入流程框架图
 
-在数据导出流程中，Leader Worker和 Follower Worker为纵向联邦学习的两个参与方。Leader Worker常驻并保持对Follower的监听，Follower Worker可以在任意时刻进入数据接入流程中。
+在数据导出流程中，Leader Worker和 Follower Worker为纵向联邦学习的两个参与方。Leader Worker常驻并保持对Follower Worker的监听，Follower Worker可以在任意时刻进入数据接入流程中。
 
 在Leader Worker收到 Follower Worker的注册请求后，会对注册内容进行校验。若注册成功，则给Follower Worker发送任务相关的超参（PSI 相关超参、分桶规则、ID字段名称等）。
 
 然后Leader Worker 和 Follower Worker 分别读取各自的原始数据，再从各自的原始数据中提取出 ID 列表并实现分桶。
 
-Leader Worker和 Follower Worker的每个桶都启动隐私求交方法获得两方的ID交集。
+Leader Worker 和 Follower Worker 的每个桶都启动隐私求交方法获得两方的ID交集。
 
 最后，两方根据ID交集提取原始数据中相应的数据并导出成MindRecord格式的文件。
 
@@ -34,7 +34,7 @@ Leader Worker和 Follower Worker的每个桶都启动隐私求交方法获得两
 
 ### 数据准备样例
 
-若要使用数据接入方法，首先需要准备好需要原始数据。用户可以使用[随机数据生成脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py)生成出各参与方的伪造数据作为样例。
+若要使用数据接入方法，首先需要准备好原始数据。用户可以使用[随机数据生成脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py)生成出各参与方的伪造数据作为样例。
 
 ```python
 python generate_random_data.py \
