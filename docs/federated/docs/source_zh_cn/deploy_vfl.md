@@ -65,4 +65,6 @@ from mindspore_federated import FLServerJob
 
 ## 运行样例
 
+FLDataWorker的运行样例可参考[纵向联邦学习数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join.html) 。
 
+VFLTrainer的运行样例可参考[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html) 。
