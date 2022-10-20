@@ -36,12 +36,12 @@ Leader Worker和 Follower Worker的每个桶都启动隐私求交方法获得两
 
 若要使用数据接入方法，首先需要准备好需要原始数据。用户可以使用[随机数据生成脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py)生成出各参与方的伪造数据作为样例。
 
-```python
+```shell
 python generate_random_data.py \
     --seed=0 \
-    --total_output_path=vfl/datasets/total_data.csv \
-    --leader_output_path=vfl/datasets/leader_data_*.csv \
-    --follower_output_path=vfl/datasets/follower_data_*.csv \
+    --total_output_path=vfl/input/total_data.csv \
+    --leader_output_path=vfl/input/leader_data_*.csv \
+    --follower_output_path=vfl/input/follower_data_*.csv \
     --leader_file_num=4 \
     --follower_file_num=2 \
     --leader_data_num=300 \
@@ -85,24 +85,34 @@ leader_data_3.csv
 
 启动Leader：
 
-```python
+```shell
 python run_data_join.py \
-    --role=leader \
-    --worker_config_path=vfl/leader.yaml \
-    --schema_path=vfl/leader_schema.yaml \
-    --server_address="127.0.0.1:9027" \
-    --peer_server_address="127.0.0.1:9028"
+    --role="leader" \
+    --main_table_files="vfl/input/leader/" \
+    --output_dir="vfl/output/leader/" \
+    --data_schema_path="vfl/leader_schema.yaml" \
+    --http_server_address="127.0.0.1:1086" \
+    --remote_server_address="127.0.0.1:1087" \
+    --primary_key="oaid" \
+    --bucket_num=5 \
+    --store_type="csv" \
+    --shard_num=1 \
+    --join_type="psi" \
+    --thread_num=0
 ```
 
 启动Follower：
 
-```python
+```shell
 python run_data_join.py \
-    --role=follower \
-    --worker_config_path=vfl/follower.yaml \
-    --schema_path=vfl/follower_schema.yaml \
-    --server_address="127.0.0.1:9028" \
-    --peer_server_address="127.0.0.1:9027"
+    --role="follower" \
+    --main_table_files="vfl/input/follower/" \
+    --output_dir="vfl/output/follower/" \
+    --data_schema_path="vfl/follower_schema.yaml" \
+    --http_server_address="127.0.0.1:1087" \
+    --remote_server_address="127.0.0.1:1086" \
+    --store_type="csv" \
+    --thread_num=0
 ```
 
 用户可根据实际情况进行超参设置：
@@ -110,17 +120,11 @@ python run_data_join.py \
 | 超参名称            | 超参描述                                                |
 | ------------------- | ------------------------------------------------------- |
 | role                | worker的角色类型，str类型，包括："leader"、"follower"。 |
-| worker_config_path  | 求交时所需要配置的超参文件存放的路径，str类型。         |
-| schema_path         | 导出时所需要配置的超参文件存放的路径，str类型。         |
-| server_address      | 本机IP和端口地址，str类型。                             |
-| peer_server_address | 对端IP和端口地址，str类型。                             |
-
-在上述样例中，worker_config_path可以参考[leader.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader.yaml)和[follower.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower.yaml)中的相应文件配置。配置含义如下：
-
-| 超参名称                          | 超参描述                                                     |
-| --------------------------------- | ------------------------------------------------------------ |
 | main_table_files                  | 原始数据路径，可以配置单个或多个文件路径、数据目录路径，list或str类型。 |
 | output_dir                        | 导出的MindRecord相关文件的目录路径，str类型。                |
+| data_schema_path         | 导出时所需要配置的超参文件存放的路径，str类型。         |
+| http_server_address      | 本机IP和端口地址，str类型。                             |
+| remote_server_address | 对端IP和端口地址，str类型。                                |
 | primary_key（Follower不需要配置） | 数据ID的名称，str类型。                                      |
 | bucket_num（Follower不需要配置）  | 求交和导出时，分桶的数目，int类型。                          |
 | store_type                        | 原始数据存储类型，str类型。                                  |
@@ -128,7 +132,7 @@ python run_data_join.py \
 | join_type（Follower不需要配置）   | 求交算法，str类型。                                          |
 | thread_num                        | 使用PSI求交算法时，计算所需线程数，int类型。                 |
 
-在上述样例中，schema_path可以参考[leader_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader_schema.yaml)和[follower_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower_schema.yaml)中的相应文件配置。用户需要在该文件中提供要导出的数据的列名和类型。
+在上述样例中，data_schema_path对应的文件可以参考[leader_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader_schema.yaml)和[follower_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower_schema.yaml)中的相应文件配置。用户需要在该文件中提供要导出的数据的列名和类型。
 
 运行数据导出后生成多个MindRecord相关文件：
 
@@ -149,7 +153,7 @@ mindrecord_4.db
 
 用户可以使用[读取数据脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/load_joined_data.py)实现求交后的数据读取：
 
-```python
+```shell
 python load_joined_data.py \
     --seed=0 \
     --input_dir=vfl/output/leader/ \
@@ -196,7 +200,7 @@ Follower数据导出运行结果：
 
 ## 深度体验
 
-下列代码的详细的API文档可以参考[数据接入文档](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/data_join.rst)。
+下列代码的详细的API文档可以参考[数据接入文档](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join/data_join.html)。
 
 ### 数据导出
 
@@ -208,10 +212,17 @@ from mindspore_federated.data_join import FLDataWorker
 
 if __name__ == '__main__':
     worker = FLDataWorker(role="leader",
-                          worker_config_path="vfl/leader.yaml",
+                          main_table_files="vfl/input/leader/",
+                          output_dir="vfl/output/leader/",
                           data_schema_path="vfl/leader_schema.yaml",
-                          server_address="127.0.0.1:6969",
-                          peer_server_address="127.0.0.1:9696"
+                          http_server_address="127.0.0.1:1086",
+                          remote_server_address="127.0.0.1:1087",
+                          primary_key="oaid",
+                          bucket_num=5,
+                          store_type="csv",
+                          shard_num=1,
+                          join_type="psi",
+                          thread_num=0,
                           )
     worker.export()
 ```
@@ -228,18 +239,3 @@ if __name__ == "__main__":
     dataset = load_mindrecord(input_dir="vfl/output/leader/", shuffle=True, seed=0)
 ```
 
-### 数据通信
-
-用户可以使用已经封装好的通信接口实现数据通信，其中联邦学习的通信器启动方式如下，可以调用其send()与receive()方法发送与接收数据。该通信器目前已经封装在FLDataWorker类中，用户只需要使用FLDataWorker即可：
-
-```python
-from mindspore_federated import VerticalFederatedCommunicator, ServerConfig
-
-
-if __name__ == "__main__":
-    http_server_config = ServerConfig(server_name='serverB', server_address='10.113.216.44:6667')
-    remote_server_config = ServerConfig(server_name='serverA', server_address='10.113.216.44:6666')
-    vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
-                                                               remote_server_config=remote_server_config)
-    vertical_communicator.launch()
-```

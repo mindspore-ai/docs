@@ -117,6 +117,7 @@ MindSpore Federated是一款开源联邦学习框架，提供样本联合的横�
    :caption: 纵向应用实践
 
    data_join
+   split_wnd_application
 
 .. toctree::
    :maxdepth: 1
