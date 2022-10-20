@@ -71,7 +71,7 @@ A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspo
 
 <font size=3>**Q: MindSpore如何进行参数（如dropout值）修改？**</font>
 
-A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(mode_false)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
+A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(False)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
 
 <br/>
 
@@ -137,25 +137,7 @@ model = Model(net=train_net, loss_fn=None, optimizer=None)
 
 <font size=3>**Q: MindSpore如何实现早停功能？**</font>
 
-A: 可以自定义`callback`方法实现早停功能。
-例子: 当loss降到一定数值后，停止训练。
-
-```python
-class EarlyStop(Callback):
-    def __init__(self, control_loss=1):
-        super(EarlyStop, self).__init__()
-        self._control_loss = control_loss
-
-    def step_end(self, run_context):
-        cb_params = run_context.original_args()
-        loss = cb_params.net_outputs
-        if loss.asnumpy() < self._control_loss:
-            # Stop training
-            run_context._stop_requested = True
-
-stop_cb = EarlyStop(control_loss=1)
-model.train(epoch_size, ds_train, callbacks=[stop_cb])
-```
+A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.EarlyStopping.html)。
 
 <br/>
 
@@ -256,12 +238,6 @@ print(network.layers)
 <font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
 A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)
-
-<br/>
-
-<font size=3>**Q: 模型转移时如何把PyTorch的权重加载到MindSpore中？**</font>
-
-A: 首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网络结构和PyTorch保持一致，转完之后可直接加载进网络，这边参数只用到`BN`和`Conv2D`，若有其他层`ms`和PyTorch名称不一致，需要同样的修改名称。
 
 <br/>
 
