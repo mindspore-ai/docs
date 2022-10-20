@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/communication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-During the device-side federated learning training process, the traffic volume affects the user experience of the device-side (user traffic, communication latency, number of FL-Client participants) and is limited by the cloud-side performance constraints (memory, bandwidth, CPU usage). To improve user experience and reduce performance bottlenecks, MindSpore federated learning framework provides traffic compression for upload and download in device-cloud federated scenarios.
+During the horizontal device-side federated learning training process, the traffic volume affects the user experience of the device-side (user traffic, communication latency, number of FL-Client participants) and is limited by the cloud-side performance constraints (memory, bandwidth, CPU usage). To improve user experience and reduce performance bottlenecks, MindSpore federated learning framework provides traffic compression for upload and download in device-cloud federated scenarios.
 
 ## Compression Method
 
