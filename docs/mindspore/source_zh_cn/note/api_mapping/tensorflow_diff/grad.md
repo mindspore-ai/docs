@@ -31,7 +31,7 @@ mindspore.grad(
 )
 ```
 
-更多内容详见[mindspore.grad](https://mindspore.cn/docs/zh_CN/master/api_python/mindspore.grad.html)。
+更多内容详见[mindspore.grad](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html)。
 
 ## 使用方式
 
