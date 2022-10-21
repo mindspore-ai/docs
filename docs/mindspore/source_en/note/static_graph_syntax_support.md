@@ -50,7 +50,7 @@ def test_str_format():
     x = "{} is zero".format(0)
     return x
 
-x = test_str_format
+x = test_str_format()
 print(x)
 ```
 
