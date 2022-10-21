@@ -140,22 +140,7 @@ python --version
 Run the following commands to install GCC.
 
 ```bash
-sudo apt-get install gcc-7 -y
-```
-
-To install a later version of GCC, run the following command to install GCC 8.
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-Or install GCC 9 (Note that GCC 9 is not compatible with CUDA 10.1).
-
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
+sudo apt-get install gcc -y
 ```
 
 ### Installing TensorRT-optional

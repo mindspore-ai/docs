@@ -89,22 +89,7 @@ conda init bash
 可以通过以下命令安装GCC。
 
 ```bash
-sudo apt-get install gcc-7 -y
-```
-
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-或者安装GCC 9。
-
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
+sudo apt-get install gcc -y
 ```
 
 ### 创建并进入Conda虚拟环境

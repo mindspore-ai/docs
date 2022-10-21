@@ -208,22 +208,7 @@ pip install -U setuptools
 可以通过以下命令安装GCC，git，Autoconf，Libtool，Automake，Flex，tclsh，patch，NUMA。
 
 ```bash
-sudo apt-get install gcc-7 git automake autoconf libtool tcl patch libnuma-dev flex -y
-```
-
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-或者安装GCC 9（注意，GCC 9不兼容CUDA 10.1）。
-
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
+sudo apt-get install gcc git automake autoconf libtool tcl patch libnuma-dev flex -y
 ```
 
 ### 安装CMake
