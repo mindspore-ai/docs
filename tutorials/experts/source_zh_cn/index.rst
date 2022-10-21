@@ -68,6 +68,7 @@
    :glob:
    :maxdepth: 1
    :caption: 调试调优
+   :titlesonly:
 
    debug/function_debug
    debug/performance_optimization
@@ -77,6 +78,7 @@
    :glob:
    :maxdepth: 1
    :caption: 分布式并行
+   :titlesonly:
 
    parallel/introduction
    parallel/parallel_training_quickstart
