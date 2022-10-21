@@ -98,6 +98,7 @@ Common Application Scenarios
    local_differential_privacy_training_noise
    local_differential_privacy_training_signds
    pairwise_encryption_training
+   secure_vertical_federated_learning_with_DP
 
 .. toctree::
    :maxdepth: 1
