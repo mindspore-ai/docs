@@ -12,7 +12,6 @@ For Experts
    :caption: Data Processing
 
    dataset/augment
-   dataset/eager
    dataset/cache
    dataset/optimize
 

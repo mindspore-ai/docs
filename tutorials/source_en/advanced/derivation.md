@@ -4,7 +4,7 @@
 
 The `grad` and `value_and_grad` provided by the `mindspore.ops` module generate the gradients of the network model. `grad` computes the network gradient, and `value_and_grad` computes both the forward output and the gradient of the network. This article focuses on how to use the main functions of the `grad`, including first-order and second-order derivations, derivation of the input or network weights separately, returning auxiliary variables, and stopping calculating the gradient.
 
-> For more information about the derivative interface, please refer to the [API documentation](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.grad.html).
+> For more information about the derivative interface, please refer to the [API documentation](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html).
 
 ## First-order Derivation
 

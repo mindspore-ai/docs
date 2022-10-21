@@ -6,7 +6,7 @@ This chapter will introduce the related contents of MindSpore scripting, includi
 
 ## Network Training Principle
 
-![train_procession.png](images/train_procession.png)
+![train_procession.png](./images/train_procession.png)
 
 The basic principle of network training is shown in the figure above.
 
@@ -24,7 +24,7 @@ The training process of the whole network consists of 5 modules:
 
 ## Principles of Network Inference
 
-![evaluation_procession.png](images/evaluation_procession.png)
+![evaluation_procession.png](./images/evaluation_procession.png)
 
 The basic principles of network inference are shown in the figure above.
 

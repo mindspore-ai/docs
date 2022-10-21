@@ -137,7 +137,7 @@ model = Model(net=train_net, loss_fn=None, optimizer=None)
 
 <font size=3>**Q: MindSpore如何实现早停功能？**</font>
 
-A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.EarlyStopping.html)。
+A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.EarlyStopping.html)。
 
 <br/>
 

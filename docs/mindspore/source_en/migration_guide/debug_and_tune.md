@@ -211,7 +211,7 @@ The performance tuning directions are as follows:
 
 For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html).
 
-> Some networks are large or there are many [process control statements](https://mindspore.cn/tutorials/en/master/advanced/modules/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/master/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
+> Some networks are large or there are many [process control statements](https://mindspore.cn/tutorials/experts/en/master/network/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/master/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
 
 ### Operator Performance Tuning
 
@@ -230,7 +230,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
 #### Using the Static Graph Mode
 
-Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html).
+Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html).
 
 #### On-device Execution
 
