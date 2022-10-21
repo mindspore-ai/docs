@@ -71,7 +71,7 @@ A: To change the value according to `epoch`, use [Dynamic LR Function](https://w
 
 <font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
 
-A: When building a network, use `if self.training: x = dropput(x)`. When inferring, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
+A: When building a network, use `if self.training: x = dropput(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
 
 <br/>
 
@@ -100,18 +100,7 @@ def count_params(net):
 
 <font size=3>**Q: How do I monitor the `loss` during training and save the training parameters when the `loss` is the lowest?**</font>
 
-A: You can customize a `callback`.For details, see the writing method of `ModelCheckpoint`. In addition, the logic for determining `loss` is added.
-
-```python
-class EarlyStop(Callback):
-    def __init__(self):
-        self.loss = None
-    def step_end(self, run_context):
-        loss =  ****(get current loss)
-        if (self.loss == None or loss < self.loss):
-            self.loss = loss
-            # do save ckpt
-```
+A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.EarlyStopping.html)。
 
 <br/>
 
@@ -272,12 +261,6 @@ print(network.layers)
 <font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
 
 A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
-
-<br/>
-
-<font size=3>**Q: How do I load the PyTorch weight to MindSpore during model transfer?**</font>
-
-A: First, enter the `PTH` file of PyTorch. Taking `ResNet-18` as an example, the network structure of MindSpore is the same as that of PyTorch. After transferring, the file can be directly loaded to the network. Only `BN` and `Conv2D` are used during loading. If the network names of `ms` and PyTorch at other layers are different, change the names to the same.
 
 <br/>
 
