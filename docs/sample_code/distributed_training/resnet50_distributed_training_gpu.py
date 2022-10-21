@@ -97,7 +97,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
         softmax_result_log = self.log(softmax_result + self.eps)
         loss = self.sum_cross_entropy((self.mul(softmax_result_log, label)), -1)
-        loss = self.mul2(ops.scalar_to_array(-1.0), loss)
+        loss = self.mul2(ops.scalar_to_tensor(-1.0), loss)
         loss = self.mean(loss, -1)
 
         return loss
