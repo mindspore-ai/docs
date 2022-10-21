@@ -1,26 +1,26 @@
 # Calling the Custom Class
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/network/ms_class.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/network/jit_class.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-In static graph mode, using ms_class to decorate a custom class, users can create and call the instance of this custom class, and obtain attributes and methods for that custom class.
+In static graph mode, using `jit_class` to decorate a custom class, users can create and call the instance of this custom class, and obtain attributes and methods for that custom class.
 
-ms_class is applied to static graph mode, expanding the scope of support for improving static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of ms_class does not affect the execution logic of the PyNative mode.
+`jit_class` is applied to static graph mode, expanding the scope of support for improving static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of `jit_class` does not affect the execution logic of the PyNative mode.
 
-This document describes how to use ms_class so that you can use ms_class functions more effectively.
+This document describes how to use `jit_class` decorator so that you can use `jit_class` decorator more effectively.
 
-## ms_class Decorates Custom Class
+## jit_class Decorates Custom Class
 
-After decorating a custom class with @ms_class, you can create and call the instance of the custom class and obtain the attributes and methods.
+After decorating a custom class with `@jit_class`, you can create and call the instance of the custom class and obtain the attributes and methods.
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     value = ms.Tensor(np.array([1, 2, 3]))
 
@@ -34,20 +34,20 @@ out = net()
 print(out)
 ```
 
-ms_class supports nesting use of the custom class, nesting uses scenarios of custom classes and nn. Cell. It should be noted that when a class inherits, if the parent class uses ms_class, the subclass will also have the ability to ms_class.
+`jit_class` supports nesting use of the custom class, nesting uses scenarios of custom classes and nn. Cell. It should be noted that when a class inherits, if the parent class is decorated with `jit_class`, the subclass will also have the ability to `jit_class`.
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class Inner:
     def __init__(self):
         self.value = ms.Tensor(np.array([1, 2, 3]))
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self):
         self.inner = Inner()
@@ -67,14 +67,14 @@ out = net()
 print(out)
 ```
 
-ms_class only support decorating custom classes, not nn. Cell and nonclass types. If you execute the following use case, an error will appear.
+`jit_class` only support decorating custom classes, not nn. Cell and nonclass types. If you execute the following use case, an error will appear.
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class Net(nn.Cell):
     def construct(self, x):
         return x
@@ -88,13 +88,13 @@ net(x)
 The error information is as follows:
 
 ```text
-TypeError: ms_class is used for user-defined classes and cannot be used for nn.Cell: Net<>.
+TypeError: Decorator jit_class is used for user-defined classes and cannot be used for nn.Cell: Net<>.
 ```
 
 ```python
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 def func(x, y):
     return x + y
 
@@ -104,7 +104,7 @@ func(1, 2)
 The error information is as follows:
 
 ```text
-TypeError: Decorator ms_class can only be used for class type, but got <function func at 0x7fee33c005f0>.
+TypeError: Decorator jit_class can only be used for class type, but got <function func at 0x7fee33c005f0>.
 ```
 
 ## Obtaining the Attributes and Methods of the Custom Class
@@ -114,9 +114,9 @@ Support calling a class's attributes by class name, not calling a class's method
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val
@@ -146,9 +146,9 @@ Calling private attributes and magic methods is not supported, and the method fu
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self):
         self.value = ms.Tensor(np.array([1, 2, 3]))
@@ -173,15 +173,15 @@ RuntimeError: `__str__` is a private variable or magic method, which is not supp
 
 ## Creating Instance of the Custom Class
 
-In the static graph mode, when you create the instance of the custom class in a configuration/ms_function, the parameter requirement is a constant.
+In the static graph mode, when you create the instance of the custom class, the parameter requirement is a constant.
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val + 3
@@ -203,9 +203,9 @@ For other scenarios, when creating an instance of a custom class, there is a res
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val + 3
@@ -233,9 +233,9 @@ When you call an instance of a custom class, the `__call__` function method of t
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number
@@ -263,9 +263,9 @@ If the class does not define the `__call__` function, an error message will be r
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import ms_class
+from mindspore import jit_class
 
-@ms_class
+@jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number

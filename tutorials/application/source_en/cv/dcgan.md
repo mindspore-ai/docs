@@ -175,7 +175,7 @@ The code implementation of the generator is as follows:
 
 ```python
 from mindspore import nn, ops
-from mindspore import ms_function
+from mindspore import jit
 from mindspore.common.initializer import Normal
 
 weight_init = Normal(mean=0, sigma=0.02)
@@ -312,7 +312,7 @@ grad_generator_fn = ops.value_and_grad(generator_forward, None,
 grad_discriminator_fn = ops.value_and_grad(discriminator_forward, None,
                                            optimizer_D.parameters)
 
-@ms_function
+@jit
 def train_step(imgs):
     valid = ops.ones((imgs.shape[0], 1), mindspore.float32)
     fake = ops.zeros((imgs.shape[0], 1), mindspore.float32)

@@ -22,7 +22,7 @@
 
    network/control_flow
    network/op_overload
-   network/ms_class
+   network/jit_class
    network/constexpr
    network/dependency_control
 

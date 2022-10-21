@@ -93,7 +93,7 @@ import mindspore as ms
 ms.set_context(mode=ms.GRAPH_MODE)
 ```
 
-`@ms_function`注释的函数和方法将会编译到MindSpore计算图用于自动并行和加速。在本教程中，我们使用此功能来实现一个高效的`DQNTrainer`类。
+`@jit`修饰的函数和方法将会编译到MindSpore计算图用于自动并行和加速。在本教程中，我们使用此功能来实现一个高效的`DQNTrainer`类。
 
 ### 定义DQNTrainer类
 
@@ -114,7 +114,7 @@ class DQNTrainer(Trainer):
         trainable_variables = {"policy_net": self.msrl.learner.policy_network}
         return trainable_variables
 
-    @ms_function
+    @jit
     def init_training(self):
         """Initialize training"""
         state = self.msrl.collect_environment.reset()
@@ -132,7 +132,7 @@ class DQNTrainer(Trainer):
             i += 1
         return done
 
-    @ms_function
+    @jit
     def evaluate(self):
         """Policy evaluate"""
         total_reward = self.zero_value
@@ -156,7 +156,7 @@ class DQNTrainer(Trainer):
 在训练循环的每次迭代中，调用`train_one_episode`方法来训练一个episode：
 
 ```python
-@ms_function
+@jit
 def train_one_episode(self):
     """Train one episode"""
     if not self.inited:
@@ -182,7 +182,7 @@ def train_one_episode(self):
     return loss, total_reward, steps
 ```
 
-`@ms_function`注解表示此方法将被编译为MindSpore计算图用于加速。所有标量值都必须定义为张量类型，例如`self.zero_value = Tensor(0, mindspore.float32)`。
+`@jit`注解表示此方法将被编译为MindSpore计算图用于加速。所有标量值都必须定义为张量类型，例如`self.zero_value = Tensor(0, mindspore.float32)`。
 
 `train_one_episode`方法首先调用环境的`reset`方法，`self.msrl.collect_environment.reset()`函数来重置环境。然后，它使用`self.msrl.agent_act`函数处理程序从环境中收集经验，并通过`self.msrl.replay_buffer_insert`把经验存入到回放缓存中。在收集完经验后，使用`msrl.agent_learn`函数训练目标模型。`self.msrl.agent_learn`的输入是`self.msrl.replay_buffer_sample`返回的采样结果。
 

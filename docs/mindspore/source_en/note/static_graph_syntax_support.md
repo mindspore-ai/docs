@@ -6,10 +6,10 @@
 
 In graph mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
-Currently, the function, and class (including Cell, Cell subclass, ms_class class, and common user defined class) methods modified by the `@ms_function` decorator can be built.
+Currently, the function, and class (including Cell, Cell subclass, `@jit_class` decorated class, and common user defined class) methods modified by the `@jit` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-For details about how to use `ms_function`, click [ms_function API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function).
+For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
 For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
 
@@ -40,9 +40,9 @@ Use str() to change the constant value to string, str.format() can use to format
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test_str_format():
     x = "{} is zero".format(0)
     return x
@@ -80,9 +80,9 @@ Python：
 MindSpore:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def test_list():
     a = [[1,2,3],4,5]
     b = a[0]
@@ -106,9 +106,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list():
       x = [1, 2, 3]
       x.append(4)
@@ -129,9 +129,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_insert():
       x = [1, 3, 4]
       x.insert(0, 2)
@@ -152,9 +152,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_pop():
       x = [1, 3, 4]
       y = x.pop()
@@ -177,9 +177,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_clear():
       x = [1, 3, 4]
       x.clear()
@@ -199,9 +199,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_extend():
       x = [1, 2, 3, 4]
       y = [5, 6, 7]
@@ -223,9 +223,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_reverse():
       x = [1, 2, 3, 4]
       x.reverse()
@@ -246,9 +246,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function
+  from mindspore import jit
 
-  @ms_function()
+  @jit()
   def test_list_count():
       x = [1, 2, 3, 4]
       num = x.count(2)
@@ -269,9 +269,9 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  from mindspore import ms_function, Tensor
+  from mindspore import jit, Tensor
 
-  @ms_function()
+  @jit()
   def test_list_count(input_x):
       x = [1, 2, 3, 4]
       num = x.count(input_x)
@@ -304,11 +304,11 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import numpy as np
-  from mindspore import ms_function
+  from mindspore import jit
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
-  @ms_function()
+  @jit()
   def test_index():
       x = [[1, 2], 2, 3, 4]
       m = x[0][1]
@@ -360,11 +360,11 @@ The reference type of tuple is same as List, please  refer to List.
 
   ```python
   import numpy as np
-  from mindspore import ms_function
+  from mindspore import jit
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
-  @ms_function()
+  @jit()
   def test_index():
       x = (1, (2, 3, 4), 3, 4, t)
       y = x[1][1]
@@ -447,12 +447,12 @@ The reference type of tuple is same as List, please  refer to List.
 
   ```python
   import mindspore as ms
-  from mindspore import ms_function
+  from mindspore import jit
   import numpy as np
 
   x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-  @ms_function()
+  @jit()
   def test_dict():
       x_keys = x.keys()
       x_values = x.values()
@@ -495,11 +495,11 @@ The reference type of tuple is same as List, please  refer to List.
   ```python
   import mindspore as ms
   import numpy as np
-  from mindspore import ms_function
+  from mindspore import jit
 
   x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-  @ms_function()
+  @jit()
   def test_dict():
       y = x["b"]
       x["a"] = (2, 3, 4)
@@ -785,14 +785,14 @@ Example 1:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
-@ms_function()
+@jit()
 def test_cond(x, y):
     if (x > y).any():
         return m
@@ -818,14 +818,14 @@ Example 2:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
-@ms_function()
+@jit()
 def test_cond(x, y):
     out = 'init'
     if (x > y).any():
@@ -850,13 +850,13 @@ Example 3:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 
-@ms_function()
+@jit()
 def test_cond(x, y):
     out = 'init'
     if (x > y).any():
@@ -899,11 +899,11 @@ Example:
 
 ```python
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 z = ms.Tensor(np.ones((2, 3)))
 
-@ms_function()
+@jit()
 def test_cond():
     x = (1, 2, 3)
     for i in x:
@@ -946,12 +946,12 @@ Restrictions:
 Example 1:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
 m = 1
 n = 2
 
-@ms_function()
+@jit()
 def test_cond(x, y):
     while x < y:
         x += 1
@@ -973,7 +973,7 @@ ret:1
 Example 2:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
 m = 1
 n = 2
@@ -981,7 +981,7 @@ n = 2
 def ops1(a, b):
     return a + b
 
-@ms_function()
+@jit()
 def test_cond(x, y):
     out = m
     while x < y:
@@ -1014,12 +1014,12 @@ Usage:
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
 def number_add(x, y):
     return x + y
 
-@ms_function()
+@jit()
 def test(x, y):
     return number_add(x, y)
 
@@ -1048,9 +1048,9 @@ Usage: `lambda x, y: x + y`
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test(x, y):
     number_add = lambda x, y: x + y
     return number_add(x, y)
@@ -1078,9 +1078,9 @@ Usage: refer to Python official syntax description.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test(x, y):
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
@@ -1120,9 +1120,9 @@ Usage: Referencing List Comprehension.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test(x, y):
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
@@ -1148,11 +1148,11 @@ For example:
 ```python
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor, ms_class, set_context
+from mindspore import Tensor, jit_class, set_context
 
 set_context(mode=ms.GRAPH_MODE)
 
-@ms_class
+@jit_class
 class Sample:
     def __init__(self):
         super(Sample, self).__init__()
@@ -1208,9 +1208,9 @@ Return value: the converted integer.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = int(3)
    b = int(3.6)
@@ -1250,9 +1250,9 @@ Return value: the converted floating-point number.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = float(1)
    b = float(112)
@@ -1289,9 +1289,9 @@ Return value: if `x` is not `Tensor`, returns the converted boolean scalar. Othe
 For example:
 
 ```python
-from mindspore import ms_function, Tensor
+from mindspore import jit, Tensor
 
-@ms_function
+@jit
 def func():
    a = bool()
    b = bool(0)
@@ -1332,9 +1332,9 @@ For example:
 
 ```python
 import numpy as np
-from mindspore import ms_function, Tensor
+from mindspore import jit, Tensor
 
-@ms_function
+@jit
 def func():
    a = str()
    b = str(0)
@@ -1376,9 +1376,9 @@ For example:
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = tuple((1, 2, 3))
    b = tuple(np.array([1, 2, 3]))
@@ -1416,9 +1416,9 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = list((1, 2, 3))
    b = list(np.array([1, 2, 3]))
@@ -1463,16 +1463,16 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function, ms_class
+from mindspore import jit, jit_class
 
-@ms_class
+@jit_class
 class MSClass1:
   def __init__(self):
     self.num0 = 0
 
 ms_obj = MSClass1()
 
-@ms_function
+@jit
 def func():
    a = getattr(ms_obj, 'num0')
    b = getattr(ms_obj, 'num1', 2)
@@ -1510,16 +1510,16 @@ For example:
 
 ```python
 import mindspore as ms
-from mindspore import ms_function, ms_class
+from mindspore import jit, jit_class
 
-@ms_class
+@jit_class
 class MSClass1:
   def __init__(self):
     self.num0 = 0
 
 ms_obj = MSClass1()
 
-@ms_function
+@jit
 def func():
    a = hasattr(ms_obj, 'num0')
    b = hasattr(ms_obj, 'num1')
@@ -1552,11 +1552,11 @@ For example:
 ```python
 import mindspore as ms
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
-@ms_function()
+@jit()
 def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -1606,11 +1606,11 @@ For example:
 ```python
 import mindspore as ms
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
-@ms_function()
+@jit()
 def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -1646,9 +1646,9 @@ Return value: boolean, indicates whether all of the elements in the input is tru
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = all(['a', 'b', 'c', 'd'])
    b = all(['a', 'b', '', 'd'])
@@ -1697,9 +1697,9 @@ Return value: boolean, indicates whether any of the elements in the input is tru
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = any(['a', 'b', 'c', 'd'])
    b = any(['a', 'b', '', 'd'])
@@ -1752,9 +1752,9 @@ Return value: the value after rounding.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = round(10)
    b = round(10.123)
@@ -1805,9 +1805,9 @@ For example:
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = max([0, 1, 2, 3])
    b = max((0, 1, 2, 3))
@@ -1855,9 +1855,9 @@ For example:
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
   a = min([0, 1, 2, 3])
   b = min((0, 1, 2, 3))
@@ -1909,9 +1909,9 @@ For example:
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import ms_function, Tensor
+from mindspore import jit, Tensor
 
-@ms_function
+@jit
 def func():
   a = sum([0, 1, 2])
   b = sum((0, 1, 2), 10)
@@ -1955,9 +1955,9 @@ Return value: the absolute value of the input.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function
+@jit
 def func():
    a = abs(-45)
    b = abs(100.12)
@@ -1993,12 +1993,12 @@ For example:
 
 ```python
 from mindspore import ops
-from mindspore import ms_function
+from mindspore import jit
 
 def add(x, y):
     return x + y
 
-@ms_function()
+@jit()
 def test():
     add_ = ops.partial(add, x=2)
     m = add_(y=3)
@@ -2035,12 +2035,12 @@ Return value: A `Tuple`
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
 def add(x, y):
     return x + y
 
-@ms_function()
+@jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -2071,9 +2071,9 @@ Return value: A `Tuple`
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -2115,9 +2115,9 @@ Return value: A `Tuple`
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
-@ms_function()
+@jit()
 def test():
     x = range(0, 6, 2)
     y = range(0, 5)
@@ -2161,11 +2161,11 @@ For example:
 ```python
 import mindspore as ms
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 y = ms.Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
 
-@ms_function()
+@jit()
 def test():
     x = (100, 200, 300, 400)
     m = enumerate(x, 3)
@@ -2251,12 +2251,12 @@ For example:
 ```python
 import mindspore as ms
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor(np.array([1, 2, 3]))
 y = ms.Tensor(np.array([1, 2, 3]))
 
-@ms_function()
+@jit()
 def test(x, y):
     return pow(x, y)
 
@@ -2287,12 +2287,12 @@ For example:
 ```python
 import mindspore as ms
 import numpy as np
-from mindspore import ms_function
+from mindspore import jit
 
 x = ms.Tensor(np.array([1, 2, 3]), ms.int32)
 y = ms.Tensor(3, ms.int32)
 
-@ms_function()
+@jit()
 def test(x, y):
     print(x)
     print(y)
@@ -2324,14 +2324,14 @@ Return value: A `Tuple`.
 For example:
 
 ```python
-from mindspore import ms_function
+from mindspore import jit
 
 def is_odd(x):
     if x % 2:
         return True
     return False
 
-@ms_function()
+@jit()
 def test():
     elements = (1, 2, 3, 4, 5)
     ret = filter(is_odd, elements)
@@ -2423,7 +2423,7 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html) decorator.
+- Common Python function with the [@jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html) decorator.
 
 - Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
 
@@ -2433,10 +2433,10 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 | :----------------------------------- | :----------------------------------------------------------- |
 | `Cell` instance                      | [mindspore/nn/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html). |
 | Member function of a `Cell` instance | Member functions of other classes in the construct function of Cell can be called. |
-| `Primitive` operator                 | Class decorated with [@ms_class](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_class.html). |
+| `jit_class` instance                 | Class decorated with [@jit_class](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit_class.html). |
 | `Composite` operator                 | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) |
-| `constexpr` generation operator      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) |
-| `constexpr`生成算子                  | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.constexpr.html). |
+| `Composite` operator                 | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) |
+| `constexpr` generation operator      | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.constexpr.html). |
 | Function                             | User-defined Python functions and system functions listed in the preceding content. |
 
 ### Network Constraints
