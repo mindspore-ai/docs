@@ -8,7 +8,7 @@ MindSpore Vertical Federated Learning (VFL) 物理架构如图所示：
 
 ![](./images/deploy_VFL.png)
 
-如上图所示，在纵向联邦的交互中有两个参与方：Leader node和Follower node，每一个参与方都有两种角色的进程：`FLDataWorker`和`VFLTrainer`:
+如上图所示，在纵向联邦的交互中有两个参与方：Leader node和Follower node，每一个参与方都有两种角色的进程：`FLDataWorker`和`VFLTrainer`：
 
 - FLDataWorker
 
@@ -65,6 +65,6 @@ from mindspore_federated import FLServerJob
 
 ## 运行样例
 
-FLDataWorker的运行样例可参考[纵向联邦学习数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join.html) 。
+FLDataWorker的运行样例可参考[纵向联邦学习数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join.html)。
 
-VFLTrainer的运行样例可参考[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html) 。
+VFLTrainer的运行样例可参考[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html)。

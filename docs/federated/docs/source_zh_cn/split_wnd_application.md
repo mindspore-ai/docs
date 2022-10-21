@@ -8,7 +8,7 @@ MindSpore Federated提供基于拆分学习（Split Learning）的纵向联邦�
 
 纵向FL模型训练场景：包括前向传播和后向传播/参数更新两个阶段。
 
-前向传播：经数据求交模块处理参数方数据，配准特征信息和标签信息后，Follower参与方将本地特征信息输入前级网络模型，将前级网络模型输出的特征张量，经隐私安全模块加密/加扰后，由通信模块传输传输给Leader参与方。Leader参与方将收到的特征张量输入后级网络模型，以后级网络模型输出的预测值和本地标签信息为损失函数输入，计算损失值。
+前向传播：经数据求交模块处理参数方数据，配准特征信息和标签信息后，Follower参与方将本地特征信息输入前级网络模型，将前级网络模型输出的特征张量，经隐私安全模块加密/加扰后，由通信模块传输给Leader参与方。Leader参与方将收到的特征张量输入后级网络模型，以后级网络模型输出的预测值和本地标签信息为损失函数输入，计算损失值。
 
 ![](./images/vfl_forward.png)
 
@@ -24,11 +24,11 @@ MindSpore Federated提供基于拆分学习（Split Learning）的纵向联邦�
 
 本样例以Wide&Deep网络和Criteo数据集为例，提供了面向推荐任务的联邦学习训练样例。如上图所示，本案例中，纵向联邦学习系统由Leader参与方和Follower参与方组成。其中，Leader参与方持有20×2维特征信息和标签信息，Follower参与方持有19×2维特征信息。Leader参与方和Follower参与方分别部署1组Wide&Deep网络，并通过交换embedding向量和梯度向量，在不泄露原始特征和标签信息的前提下，实现对网络模型的协同训练。
 
-Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide&Deep - Wide&Deep概述](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README_CN.md#widedeep%E6%A6%82%E8%BF%B0) 及其[研究论文](https://arxiv.org/pdf/1606.07792.pdf) 。
+Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide&Deep - Wide&Deep概述](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README_CN.md#widedeep%E6%A6%82%E8%BF%B0) 及其[研究论文](https://arxiv.org/pdf/1606.07792.pdf)。
 
 ## 数据集准备
 
-本样例基于Criteo数据集进行训练和测试，在运行样例前，需参考[MindSpore ModelZoo - Wide&Deep - 快速入门](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README_CN.md#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8) ，对Criteo数据集进行预处理。
+本样例基于Criteo数据集进行训练和测试，在运行样例前，需参考[MindSpore ModelZoo - Wide&Deep - 快速入门](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README_CN.md#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8)，对Criteo数据集进行预处理。
 
 1. 克隆MindSpore ModelZoo代码。
 
@@ -125,7 +125,7 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
 
 ### 构造数据集
 
-当前采用模拟流程，即两方读取数据源一样，但训练时，两方只使用部分的特征或标签数据，如[网络和数据](#网络和数据) 所示。后续将采用[数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join/data_join.html) 方法两方各自导入数据。
+当前采用模拟流程，即两方读取数据源一样，但训练时，两方只使用部分的特征或标签数据，如[网络和数据](#网络和数据)所示。后续将采用[数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join/data_join.html)方法两方各自导入数据。
 
 ```python
 from run_vfl_train_local import construct_local_dataset
@@ -161,7 +161,7 @@ follower_train_net = FollowerLossNet(follower_base_net, config)
 
 ### 纵向联邦通信底座
 
-在训练前首先要启动通信底座，使Leader和Follower参与方组网。详细的API文档可以参考[纵向联邦通信器](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_communicator.rst) 。
+在训练前首先要启动通信底座，使Leader和Follower参与方组网。详细的API文档可以参考[纵向联邦通信器](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_communicator.rst)。
 
 两方都需要导入纵向联邦通信器：
 
@@ -191,7 +191,7 @@ vertical_communicator.launch()
 
 ### 构建纵向联邦网络
 
-用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst) 。
+用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。
 
 两方都需要导入纵向联邦训练接口：
 
@@ -219,7 +219,7 @@ follower_fl_model = FLModel(yaml_data=follower_yaml_data,
 
 ### 纵向训练
 
-纵向训练的流程可以参考[概述](#概述) 。
+纵向训练的流程可以参考[概述](#概述)。
 
 Leader参与方训练流程：
 

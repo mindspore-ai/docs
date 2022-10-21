@@ -89,6 +89,7 @@ Common Application Scenarios
    :caption: Vertical Application
 
    data_join
+   split_wnd_application
 
 .. toctree::
    :maxdepth: 1
