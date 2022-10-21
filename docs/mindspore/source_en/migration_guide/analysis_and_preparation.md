@@ -11,6 +11,8 @@ When you obtain a paper to implement migration on MindSpore, you need to find th
 3. The code is new and maintained by developers.
 4. The PyTorch reference code is preferred.
 
+If the results are not reproducible in the reference project or the version information is missing, check the project issue for information.
+
 If a new paper has no reference implementation, you can refer to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html).
 
 ## Analyzing Algorithm and Network Structure
@@ -90,6 +92,10 @@ The API missing analysis here refers to APIs in the network execution diagram, i
 
 Take the PyTorch code migration as an example. After obtaining the reference code implementation, you can filter keywords such as `torch`, `nn`, and `ops` to obtain the used APIs. If the method of another repository is invoked, you need to manually analyze the API. Then, check the [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
 Alternatively, the [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) searches for the corresponding API implementation.
+
+Generally the training process of a network contains forward calculation, backward gradient calculation and parameter update. In some special scenarios, another gradient calculation is needed for the gradient, such as [Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf), and this kind of scenario uses the second order gradient calculation. For scenarios where second-order gradient calculations are used in the network requires additional analysis of the second-order support of the APIs, the derivative links of the network need to be analyzed by code walk-through, and all APIs within the second-order derivative links need to support second order. The second-order support case can be viewed in [MindSpore gradient section source code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad) to see if its first-order Grad has a corresponding of the bprop function definition.
+
+For example, if the network second-order derivative links contain StridedSlice slicing operation, you can look up [array_ops gradient definition file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py) in the [reverse registration code of StridedSliceGrad](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867). If it exists, the current version of MindSpore StridedSlice slicing operation supports second-order gradient calculation.
 
 For details about the mapping of other framework APIs, see the [API naming and function description](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html). For APIs with the same function, the names of MindSpore may be different from those of other frameworks. The parameters and functions of APIs with the same name may also be different from those of other frameworks. For details, see the official description.
 
