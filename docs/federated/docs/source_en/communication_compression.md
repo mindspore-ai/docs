@@ -10,7 +10,11 @@ During the horizontal device-side federated learning training process, the traff
 
 The upload compression method can be divided into three main parts: weight difference codec, sparse codec and quantization codec. The flowcharts on FL-Client and FL-Server are given below.
 
+![Upload compression client execution order](./images/upload_compression_client_en.png)
+
 Fig.1 Flowchart of the upload compression method on FL-Client
+
+![Upload compression server execution order](./images/upload_compress_server_en.png)
 
 Fig.2 Flowchart of the upload compression method on FL-Server
 
@@ -18,9 +22,13 @@ Fig.2 Flowchart of the upload compression method on FL-Server
 
 The weight difference is the vector difference of the weight matrix before and after the device-side training. Compared with the original weights, the distribution of the weight difference is more in line with the Gaussian distribution and therefore more suitable to be compressed. FL-Client performs the encoding operation on the weight difference, while FL-Server performs the decoding operation. Note that in order to reduce the weight difference to weights before FL-Server aggregates the weights, FL-Client does not multiply the weights by the amount of data when uploading the weights. When FL-Server decodes, it needs to multiply the weights by the amount of data.
 
-Fig.3 Flow chart of weight difference coding on FL-Client
+![Weight difference encoding](./images/weight_diff_encode_en.png)
 
-Fig.4 Flow chart of weight difference coding on FL-Server
+Fig.3 Flow chart of weight difference encoding on FL-Client
+
+![Weight difference decoding](./images/weight_diff_decode_en.png)
+
+Fig.4 Flow chart of weight difference decoding on FL-Server
 
 ### Sparse Codec
 
@@ -91,7 +99,11 @@ After receiving quant_data, min_val and max_val, FL-Server uses the inverse quan
 
 The download compression method is mainly a quantization codec operation, and the flow charts on FL-Server and FL-Client are given below.
 
+![Download compression server execution order](./images/download_compress_server_en.png)
+
 Fig.5 Flowchart of the download compression method on FL-Server
+
+![Download compression client execution order](./images/download_compress_client_en.png)
 
 Fig.6 Flowchart of the download compression method on FL-Client
 

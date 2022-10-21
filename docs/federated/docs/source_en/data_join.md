@@ -12,7 +12,7 @@ Data access can be divided into two parts: data export and data read.
 
 The MindSpore Federated vertical federated learning data export process framework is shown in Figure 1:
 
-![](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/images/data_join_en.png)
+![](./images/data_join_en.png)
 
 Fig. 1 Vertical Federated Learning Data Export Process Framework Diagram
 
@@ -36,12 +36,12 @@ Vertical federated requires that both participants have the same value and order
 
 To use the data access method, the original data needs to be prepared first. The user can use [random data generation script](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py) to generate forged data for each participant as a sample.
 
-```python
+```shell
 python generate_random_data.py \
     --seed=0 \
-    --total_output_path=vfl/datasets/total_data.csv \
-    --leader_output_path=vfl/datasets/leader_data_*.csv \
-    --follower_output_path=vfl/datasets/follower_data_*.csv \
+    --total_output_path=vfl/input/total_data.csv \
+    --leader_output_path=vfl/input/leader_data_*.csv \
+    --follower_output_path=vfl/input/follower_data_*.csv \
     --leader_file_num=4 \
     --follower_file_num=2 \
     --leader_data_num=300 \
@@ -85,24 +85,34 @@ Users can use [script of finding data intersections](https://gitee.com/mindspore
 
 Start Leader:
 
-```python
+```shell
 python run_data_join.py \
-    --role=leader \
-    --worker_config_path=vfl/leader.yaml \
-    --schema_path=vfl/leader_schema.yaml \
-    --server_address="127.0.0.1:9027" \
-    --peer_server_address="127.0.0.1:9028"
+    --role="leader" \
+    --main_table_files="vfl/input/leader/" \
+    --output_dir="vfl/output/leader/" \
+    --data_schema_path="vfl/leader_schema.yaml" \
+    --http_server_address="127.0.0.1:1086" \
+    --remote_server_address="127.0.0.1:1087" \
+    --primary_key="oaid" \
+    --bucket_num=5 \
+    --store_type="csv" \
+    --shard_num=1 \
+    --join_type="psi" \
+    --thread_num=0
 ```
 
 Start Follower:
 
-```python
+```shell
 python run_data_join.py \
-    --role=follower \
-    --worker_config_path=vfl/follower.yaml \
-    --schema_path=vfl/follower_schema.yaml \
-    --server_address="127.0.0.1:9028" \
-    --peer_server_address="127.0.0.1:9027"
+    --role="follower" \
+    --main_table_files="vfl/input/follower/" \
+    --output_dir="vfl/output/follower/" \
+    --data_schema_path="vfl/follower_schema.yaml" \
+    --http_server_address="127.0.0.1:1087" \
+    --remote_server_address="127.0.0.1:1086" \
+    --store_type="csv" \
+    --thread_num=0
 ```
 
 The user can set the hyperparameter according to the actual situation.
@@ -110,17 +120,11 @@ The user can set the hyperparameter according to the actual situation.
 | Hyperparameter names            | Hyperparameter description                                                |
 | ------------------- | ------------------------------------------------------- |
 | role                | Role types of the worker. str type. Including: "leader", "follower". |
-| worker_config_path  | The path of the hyperparameter file to be configured for intersection. str type.         |
-| schema_path         | The path of the hyperparameter file to be configured for export. str type.         |
-| server_address      | Local IP and port address. str type.                             |
-| peer_server_address | Peer end IP and port address. str type.                             |
-
-In the above sample, worker_config_path can be referred to the corresponding file configurations of [leader.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader.yaml) and [follower.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower.yaml). The configuration meaning is as follows.
-
-| Hyperparameter names            | Hyperparameter description                                                |
-| --------------------------------- | ------------------------------------------------------------ |
 | main_table_files                  | The path of raw data, configure either single or multiple file paths, data directory paths, list or str types |
 | output_dir                        | The directory path of the exported MindRecord related files, str type.                |
+| data_schema_path         | The path of the super reference file to be configured during export, str type.         |
+| http_server_address      | Local IP and port address, str type.                             |
+| remote_server_address | Peer IP and port address, str type.                                |
 | primary_key (Follower does not need to be configured) | The name of data ID, str type.                                      |
 | bucket_num (Follower does not need to be configured)  | Find the number of sub-buckets when intersecting and exporting, int type.                          |
 | store_type                        | Raw data storage type, str type.                                  |
@@ -128,7 +132,7 @@ In the above sample, worker_config_path can be referred to the corresponding fil
 | join_type (Follower does not need to be configured)   | Algorithm of intersection finding, str type.                                          |
 | thread_num                        | Calculate the number of threads required when using the PSI intersection algorithm, int type.                 |
 
-In the above sample, the schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader_schema. yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
+In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader_schema. yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
 
 After running the data export, generate multiple MindRecord related files.
 
@@ -149,7 +153,7 @@ mindrecord_4.db
 
 The user can use the [script of reading data](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/load_joined_data.py) to implement data reading after intersection.
 
-```python
+```shell
 python load_joined_data.py \
     --seed=0 \
     --input_dir=vfl/output/leader/ \
@@ -208,10 +212,17 @@ from mindspore_federated.data_join import FLDataWorker
 
 if __name__ == '__main__':
     worker = FLDataWorker(role="leader",
-                          worker_config_path="vfl/leader.yaml",
+                          main_table_files="vfl/input/leader/",
+                          output_dir="vfl/output/leader/",
                           data_schema_path="vfl/leader_schema.yaml",
-                          server_address="127.0.0.1:6969",
-                          peer_server_address="127.0.0.1:9696"
+                          http_server_address="127.0.0.1:1086",
+                          remote_server_address="127.0.0.1:1087",
+                          primary_key="oaid",
+                          bucket_num=5,
+                          store_type="csv",
+                          shard_num=1,
+                          join_type="psi",
+                          thread_num=0,
                           )
     worker.export()
 ```
@@ -226,20 +237,4 @@ from mindspore_federated.data_join import load_mindrecord
 
 if __name__ == "__main__":
     dataset = load_mindrecord(input_dir="vfl/output/leader/", shuffle=True, seed=0)
-```
-
-### Data Communication
-
-Users can use the encapsulated communication interface to achieve data communication, where the Federated Learning communicator is started as follows, and can call its send() and receive() methods to send and receive data. The communicator is encapsulated in the FLDataWorker class, and the user only needs to use FLDataWorker.
-
-```python
-from mindspore_federated import VerticalFederatedCommunicator, ServerConfig
-
-
-if __name__ == "__main__":
-    http_server_config = ServerConfig(server_name='serverB', server_address='10.113.216.44:6667')
-    remote_server_config = ServerConfig(server_name='serverA', server_address='10.113.216.44:6666')
-    vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
-                                                               remote_server_config=remote_server_config)
-    vertical_communicator.launch()
 ```
