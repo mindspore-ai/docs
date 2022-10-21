@@ -4,15 +4,15 @@
 
 When a training task is complete, an evaluation function (Metric) is often required to evaluate the quality of a model. Different training tasks usually require different metric functions. For example, for a binary classification problem, common evaluation metrics include precision, recall, and the like. For a multiclass classification task, macro and micro may be used for evaluation.
 
-MindSpore provides evaluation functions for most common tasks, such as `train.Accuracy`, `nn.Precision`, `nn.MAE`, and `nn.MSE`. The evaluation functions provided by MindSpore cannot meet the requirements of all tasks. In most cases, you need to customize metrics for a specific task to evaluate the trained model.
+MindSpore provides evaluation functions for most common tasks, such as `Accuracy`、`Precision`、`MAE` and `MSE`. The evaluation functions provided by MindSpore cannot meet the requirements of all tasks. In most cases, you need to customize metrics for a specific task to evaluate the trained model.
 
-The following describes how to customize metrics and how to use metrics in `nn.Model`.
+The following describes how to customize metrics and how to use metrics in `mindspore.train.Model`.
 
 > For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics).
 
 ## Customized Metrics
 
-The customized metric function needs to inherit the `nn.Metric` parent class and re-implement the `clear`, `update`, and `eval` methods in the parent class.
+The customized metric function needs to inherit the `mindspore.train.Metric` parent class and re-implement the `clear`, `update`, and `eval` methods in the parent class.
 
 - `clear`: initializes related internal parameters.
 - `update`: receives network prediction output and labels, computes errors, and updates internal evaluation results after each step.
@@ -39,7 +39,6 @@ class MyMAE(nn.Metric):
         self._abs_error_sum = 0  # Save error sum.
         self._samples_num = 0    # Accumulated data volume.
 
-    @nn.rearrange_inputs
     def update(self, *inputs):
         """Update _abs_error_sum and _samples_num."""
         y_pred = inputs[0].asnumpy()
@@ -64,31 +63,11 @@ error = MyMAE()
 error.clear()
 error.update(y_pred, y)
 result = error.eval()
-print("output(y_pred, y):", result)
+print(result)
 ```
 
 ```text
-    output(y_pred, y): 0.1499999612569809
-```
-
-Note that if the network has multiple outputs in `update`, but only two outputs are used for evaluation, you can use the `set_indexes` method to rearrange the input of `update` to compute evaluation metrics.
-
-To use the `set_indexes` method, you need to use the modifier `nn.rearrange_inputs` to modify the `update` method. Otherwise, the input configured using `set_indexes` does not take effect.
-
-```python
-# The network has three outputs: y_pred, y, and z.
-z = ms.Tensor(np.array([[0.1, 0.25, 0.7, 0.8], [0.1, 0.25, 0.7, 0.8]]), ms.float32)
-
-# Use y_pred and z for evaluation.
-error = MyMAE().set_indexes([0, 2])
-error.clear()
-error.update(y_pred, y, z)
-result = error.eval()
-print("output(y_pred,z):", result)
-```
-
-```text
-    output(y_pred,z): 0.24999992549419403
+    0.1499999612569809
 ```
 
 ## Using Metrics in Model Training
@@ -104,7 +83,6 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
 from mindspore import dataset as ds
-from mindspore.common.initializer import Normal
 
 def get_data(num, w=2.0, b=3.0):
     """Generate data and corresponding labels."""
@@ -119,17 +97,6 @@ def create_dataset(num_data, batch_size=16):
     dataset = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
     dataset = dataset.batch(batch_size)
     return dataset
-
-class LinearNet(nn.Cell):
-    """Define the linear regression network.""
-    def __init__(self):
-        super(LinearNet, self).__init__()
-        self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
-
-    def construct(self, x):
-        return self.fc(x)
-
-loss = nn.L1Loss()
 ```
 
 ### Using Built-in Evaluation Metrics
@@ -139,36 +106,43 @@ When the built-in metrics of MindSpore are transferred to `Model` as parameters,
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore.train import Model, MAE
-from mindvision.engine.callback import LossMonitor
+from mindspore.train import Model, MAE, LossMonitor
 
-ds_train = create_dataset(num_data=160)
-net = LinearNet()
-opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
+net = nn.Dense(1, 1)
+loss_fn = nn.L1Loss()
+optimizer = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Define a model and use the built-in Accuracy function.
-model = Model(net, loss, opt, metrics={"MAE": MAE()})
-model.train(epoch=1, train_dataset=ds_train, callbacks=LossMonitor(0.005))
+model = Model(net, loss_fn, optimizer, metrics={"MAE": MAE()})
 
-# Evaluate the model.
-ds_eval = create_dataset(num_data=160)
-output = model.eval(ds_eval)
-print(output)
+train_dataset = create_dataset(num_data=160)
+eval_dataset = create_dataset(num_data=160)
+train_dataset_size = train_dataset.get_dataset_size()
+
+model.fit(10, train_dataset, eval_dataset, callbacks=LossMonitor(train_dataset_size))
 ```
 
 ```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[10.206/10.206], time:148.661 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[8.827/9.516], time:0.671 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[13.232/10.755], time:0.681 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[10.893/10.789], time:0.704 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[8.339/10.299], time:0.668 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[8.881/10.063], time:0.826 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[6.288/9.524], time:0.923 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[8.166/9.354], time:0.932 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[7.538/9.152], time:0.932 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[5.517/8.789], time:0.980 ms, lr:0.00500
-    Epoch time: 167.900 ms, per step time: 16.790 ms, avg loss: 8.789
-    {'MAE': 5.931522464752197}
+    epoch: 1 step: 10, loss is 5.908090114593506
+    Eval result: epoch 1, metrics: {'MAE': 5.1329233884811405}
+    epoch: 2 step: 10, loss is 3.9280264377593994
+    Eval result: epoch 2, metrics: {'MAE': 3.0886757612228393}
+    epoch: 3 step: 10, loss is 2.9104671478271484
+    Eval result: epoch 3, metrics: {'MAE': 2.461756193637848}
+    epoch: 4 step: 10, loss is 1.8725224733352661
+    Eval result: epoch 4, metrics: {'MAE': 2.11311993598938}
+    epoch: 5 step: 10, loss is 2.1637942790985107
+    Eval result: epoch 5, metrics: {'MAE': 1.6749439239501953}
+    epoch: 6 step: 10, loss is 1.3848766088485718
+    Eval result: epoch 6, metrics: {'MAE': 1.317658966779709}
+    epoch: 7 step: 10, loss is 1.052016258239746
+    Eval result: epoch 7, metrics: {'MAE': 1.043285644054413}
+    epoch: 8 step: 10, loss is 1.1781564950942993
+    Eval result: epoch 8, metrics: {'MAE': 0.8706761479377747}
+    epoch: 9 step: 10, loss is 0.8200418949127197
+    Eval result: epoch 9, metrics: {'MAE': 0.7817940771579742}
+    epoch: 10 step: 10, loss is 0.7065591812133789
+    Eval result: epoch 10, metrics: {'MAE': 0.7885207533836365}
 ```
 
 ### Using Customized Evaluation Metrics
@@ -178,31 +152,34 @@ In the following example, the customized evaluation metric `MAE()` is transferre
 The validation result is of the dictionary type. The `key` of the validation result is the same as that of `metrics`. The `value` of the `metrics`result is the mean absolute error between the predicted value and the actual value.
 
 ```python
-ds_train = create_dataset(num_data=160)
-net1 = LinearNet()
-opt = nn.Momentum(net1.trainable_params(), learning_rate=0.005, momentum=0.9)
+train_dataset = create_dataset(num_data=160)
+eval_dataset = create_dataset(num_data=160)
+
+model = Model(net, loss_fn, optimizer, metrics={"MAE": MyMAE()})
 
 # Define a model and transfer the customized  metrics function MAE to the model.
-model1 = Model(net1, loss, opt, metrics={"MAE": MyMAE()})
-model1.train(epoch=1, train_dataset=ds_train, callbacks=LossMonitor(0.005))
-
-# Evaluate the model.
-ds_eval = create_dataset(num_data=160)
-output = model1.eval(ds_eval)
-print(output)
+model.fit(10, train_dataset, eval_dataset, callbacks=LossMonitor(train_dataset_size))
 ```
 
 ```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[9.931/9.931], time:157.518 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[10.705/10.318], time:0.751 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[11.313/10.650], time:0.722 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[9.445/10.349], time:0.738 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[5.492/9.377], time:0.737 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[8.060/9.158], time:0.839 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[7.866/8.973], time:0.900 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[7.264/8.760], time:0.863 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[8.975/8.784], time:0.885 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[7.630/8.668], time:0.958 ms, lr:0.00500
-    Epoch time: 177.346 ms, per step time: 17.735 ms, avg loss: 8.668
-    {'MAE': 5.533915233612061}
+    epoch: 1 step: 10, loss is 0.7992362380027771
+    Eval result: epoch 1, metrics: {'MAE': 0.8640150725841522}
+    epoch: 2 step: 10, loss is 0.8377518653869629
+    Eval result: epoch 2, metrics: {'MAE': 0.9286439001560212}
+    epoch: 3 step: 10, loss is 0.894376277923584
+    Eval result: epoch 3, metrics: {'MAE': 0.8669328391551971}
+    epoch: 4 step: 10, loss is 0.8098692893981934
+    Eval result: epoch 4, metrics: {'MAE': 0.9018074989318847}
+    epoch: 5 step: 10, loss is 0.8556416630744934
+    Eval result: epoch 5, metrics: {'MAE': 0.8721640467643738}
+    epoch: 6 step: 10, loss is 0.8508825302124023
+    Eval result: epoch 6, metrics: {'MAE': 0.8601282179355622}
+    epoch: 7 step: 10, loss is 0.7443522810935974
+    Eval result: epoch 7, metrics: {'MAE': 0.9004024684429168}
+    epoch: 8 step: 10, loss is 0.7394096851348877
+    Eval result: epoch 8, metrics: {'MAE': 0.9380556881427765}
+    epoch: 9 step: 10, loss is 0.7989674210548401
+    Eval result: epoch 9, metrics: {'MAE': 0.8629323005676269}
+    epoch: 10 step: 10, loss is 0.6581473350524902
+    Eval result: epoch 10, metrics: {'MAE': 0.9144346475601196}
 ```
