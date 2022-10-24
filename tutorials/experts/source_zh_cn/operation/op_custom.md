@@ -88,7 +88,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - Hybrid类型是Custom的默认类型。
-- Hybrid类型自定义算子的输入必须是一个带有[`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_kernel.html)的函数。
+- Hybrid类型自定义算子的输入必须是一个带有[`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html)的函数。
 - Hybrid类型自定义算子定义时可以使用自带的自动shape/dtype推导函数，也可以手动输入shape/dtype推导函数。
 
 执行用例：

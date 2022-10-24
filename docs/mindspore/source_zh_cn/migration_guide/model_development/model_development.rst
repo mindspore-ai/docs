@@ -9,7 +9,7 @@ MindSpore网络搭建
 网络训练原理
 ------------
 
-.. figure:: images/train_procession.png
+.. figure:: ./images/train_procession.png
    :alt: train_procession.png
 
 网络训练的基本原理如上图所示：
@@ -29,7 +29,7 @@ MindSpore网络搭建
 网络推理原理
 ------------
 
-.. figure:: images/evaluation_procession.png
+.. figure:: ./images/evaluation_procession.png
    :alt: evaluation_procession.png
 
 网络推理的基本原理如上图所示：

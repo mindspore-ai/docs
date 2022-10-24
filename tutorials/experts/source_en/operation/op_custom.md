@@ -88,7 +88,7 @@ if __name__ == "__main__":
 In this case,
 
 - The Hybrid type is the default type for Custom.
-- The input of custom operators with Hybrid type must be a function with [`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_kernel.html).
+- The input of custom operators with Hybrid type must be a function with [`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html).
 - When defining a custom operator for the Hybrid type, you can use the built-in automatic shape/dtype derivation function, or you can manually enter the shape/dtype deduction function.
 
 Execute case:
