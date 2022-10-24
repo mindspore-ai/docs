@@ -2,7 +2,7 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/expert/source_zh_cn/debug/function_debug.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/function_debug.rst
 
 .. toctree::
   :maxdepth: 1
