@@ -90,6 +90,7 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
    :maxdepth: 1
    :caption: API参考
 
+   mindspore_gs
    mindspore_gs.quantization
    mindspore_gs.pruner
 
