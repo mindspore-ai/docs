@@ -32,7 +32,7 @@ The MindSpore Federated client uploads the noise-added model $W_p$ to the cloud 
 
 ## Usage
 
-Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to set the `encrypt_type` field to `DP_ENCRYPT` via [yaml](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/federated_server_yaml.md#) when starting the cloud-side service.
+Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to set the `encrypt_type` field to `DP_ENCRYPT` via [yaml](https://www.mindspore.cn/federated/docs/en/master/horizontal/federated_server_yaml.html#) when starting the cloud-side service.
 
 In addition, to control the effect of privacy protection, three parameters are provided: `dp_eps`, `dp_delta`, and `dp_norm_clip`. They are also set through the yaml file.
 

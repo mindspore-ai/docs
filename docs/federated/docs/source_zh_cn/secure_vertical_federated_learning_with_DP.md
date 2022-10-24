@@ -109,7 +109,7 @@ INFO:root:epoch 0 step 2500/2582 wide_loss: 0.545622 deep_loss: 0.546315
 
 MindSpore Federated纵向联邦学习框架采用`FLModel`（参见[纵向联邦学习模型训练接口](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
 
-我们在`FLModel`类中集成了label dp功能。使用者在正常完成整个纵向联邦学习的训练过程建模后（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/split_learning_pangu_alpha_application.md)），只需在标签方的yaml文件中，在`privacy`模块下加入`label_dp`子模块（若没有`privacy`模块则需使用者输入添加），并在`label_dp`模块内设定`eps`参数（差分隐私参数$\epsilon$，使用者可以根据实际需求设置此参数的值），即可让模型享受label dp保护：
+我们在`FLModel`类中集成了label dp功能。使用者在正常完成整个纵向联邦学习的训练过程建模后（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)），只需在标签方的yaml文件中，在`privacy`模块下加入`label_dp`子模块（若没有`privacy`模块则需使用者输入添加），并在`label_dp`模块内设定`eps`参数（差分隐私参数$\epsilon$，使用者可以根据实际需求设置此参数的值），即可让模型享受label dp保护：
 
 ```yaml
 privacy:
