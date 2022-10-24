@@ -26,7 +26,6 @@ The `mindspore.dataset.transforms` module supports a set of common Transforms. H
 
 ```python
 # Download data from open datasets
-from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
       "notebook/datasets/MNIST_Data.zip"
