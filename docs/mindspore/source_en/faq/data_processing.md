@@ -32,6 +32,8 @@ A: You can refer to the following steps to reduce CPU consumption (mainly due to
 
   2. If there is a `numpy` operation in the data processing, use `export OPENBLAS_NUM_THREADS=1` to set the number of `OPENBLAS` threads.
 
+  3. If there is a `numba` operation in the data processing, use `numba.set_num_threads(1)` to set the number of threads for `numba`.
+
 <br/>
 
 <font size=3>**Q:  Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False`  when the task is run?**</font>

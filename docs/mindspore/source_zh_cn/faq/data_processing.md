@@ -32,6 +32,8 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
   2. 如果数据处理阶段有`numpy`操作，那么通过`export OPENBLAS_NUM_THREADS=1`设置`OPENBLAS`线程数。
 
+  3. 如果数据处理阶段有`numba`操作，那么通过`numba.set_num_threads(1)`设置并行度来减少线程竞争。
+
 <br/>
 
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
