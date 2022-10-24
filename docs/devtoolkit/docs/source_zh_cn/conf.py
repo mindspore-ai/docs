@@ -51,6 +51,8 @@ pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
 
+language = 'zh_CN'
+
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
