@@ -54,7 +54,7 @@ MindIR中CNode对应于ANF的复合表达式，表示一次函数调用。
 def func(x, y):
     return x / y
 
-@jit
+@ms.jit
 def test_f(x, y):
     a = x - 1
     b = a + y
@@ -94,7 +94,7 @@ MindIR较传统计算图的一个重要特性是不仅可以表达算子之间�
 例如下面一个简单的示例中，函数`f`作为参数传入了函数`g`，因此函数`g`是一个接收函数输入的高阶函数，函数`f`真正的调用点是在函数`g`内部。
 
 ```python
-@jit
+@ms.jit
 def hof(x):
     def f(x):
         return x + 3
@@ -117,7 +117,7 @@ def hof(x):
 下面以一个简单的斐波那契用例来演示说明。
 
 ```python
-@jit
+@ms.jit
 def fibonacci(n):
     if(n < 1):
         return 0
@@ -140,13 +140,13 @@ def fibonacci(n):
 一个典型的闭包用例如下：
 
 ```python
-@jit
+@ms.jit
 def func_outer(a, b):
     def func_inner(c):
         return a + b + c
     return func_inner
 
-@jit
+@ms.jit
 def ms_closure():
     closure = func_outer(1, 2)
     out1 = closure(1)

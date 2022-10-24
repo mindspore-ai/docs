@@ -40,9 +40,9 @@
 例如：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test_str_format():
     x = "{} is zero".format(0)
     return x
@@ -80,9 +80,9 @@ print(x)
 MindSpore:
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def test_list():
     a = [[1,2,3],4,5]
     b = a[0]
@@ -106,9 +106,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list():
       x = [1, 2, 3]
       x.append(4)
@@ -129,9 +129,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_insert():
       x = [1, 3, 4]
       x.insert(0, 2)
@@ -152,9 +152,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_pop():
       x = [1, 3, 4]
       y = x.pop()
@@ -177,9 +177,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_clear():
       x = [1, 3, 4]
       x.clear()
@@ -200,9 +200,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_extend():
       x = [1, 2, 3, 4]
       y = [5, 6, 7]
@@ -224,9 +224,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_reverse():
       x = [1, 2, 3, 4]
       x.reverse()
@@ -247,9 +247,9 @@ x: ((1, 2, 3), 4, 5)
   示例如下：
 
   ```python
-  from mindspore import jit
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_count():
       x = [1, 2, 3, 4]
       num = x.count(2)
@@ -268,15 +268,15 @@ x: ((1, 2, 3), 4, 5)
   如果count的使用场景中存在Tensor变量，将会抛出相关异常。
 
   ```python
-  from mindspore import jit, Tensor
+  import mindspore as ms
 
-  @jit()
+  @ms.jit()
   def test_list_count(input_x):
       x = [1, 2, 3, 4]
       num = x.count(input_x)
       return num
 
-  input_x = Tensor(2)
+  input_x = ms.Tensor(2)
   num = test_list_count()
   print('num:', num)
   ```
@@ -300,12 +300,11 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import jit
   import numpy as np
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
-  @jit()
+  @ms.jit()
   def test_index():
       x = [[1, 2], 2, 3, 4]
       m = x[0][1]
@@ -357,12 +356,11 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import jit
   import numpy as np
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
-  @jit()
+  @ms.jit()
   def test_index():
       x = (1, (2, 3, 4), 3, 4, t)
       y = x[1][1]
@@ -445,12 +443,11 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import jit
   import numpy as np
 
   x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-  @jit()
+  @ms.jit()
   def test_dict():
       x_keys = x.keys()
       x_values = x.values()
@@ -492,12 +489,11 @@ x: ((1, 2, 3), 4, 5)
 
   ```python
   import mindspore as ms
-  from mindspore import jit
   import numpy as np
 
   x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-  @jit()
+  @ms.jit()
   def test_dict():
       y = x["b"]
       x["a"] = (2, 3, 4)
@@ -568,7 +564,7 @@ Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN
 
 ```python
 import mindspore as ms
-from mindspore import jit, nn, set_context
+from mindspore import nn, set_context
 import numpy as np
 from mindspore.ops import constexpr
 
@@ -782,14 +778,13 @@ ret:[[3. 3. 3. 3.]]
 
 ```python
 import mindspore as ms
-from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
-@jit()
+@ms.jit()
 def test_cond(x, y):
     if (x > y).any():
         return m
@@ -812,14 +807,13 @@ ret:xx
 
 ```python
 import mindspore as ms
-from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 n = 'yy'
 
-@jit()
+@ms.jit()
 def test_cond(x, y):
     out = 'init'
     if (x > y).any():
@@ -844,13 +838,12 @@ ret:xx
 
 ```python
 import mindspore as ms
-from mindspore import jit
 
 x = ms.Tensor([1, 2], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
 m = 'xx'
 
-@jit()
+@ms.jit()
 def test_cond(x, y):
     out = 'init'
     if (x > y).any():
@@ -893,12 +886,11 @@ ret:xx
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 z = ms.Tensor(np.ones((2, 3)))
 
-@jit()
+@ms.jit()
 def test_cond():
     x = (1, 2, 3)
     for i in x:
@@ -941,12 +933,12 @@ ret:[[7. 7. 7.]
 示例1：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
 m = 1
 n = 2
 
-@jit()
+@ms.jit()
 def test_cond(x, y):
     while x < y:
         x += 1
@@ -968,7 +960,7 @@ ret:1
 示例2：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
 m = 1
 n = 2
@@ -976,7 +968,7 @@ n = 2
 def ops1(a, b):
     return a + b
 
-@jit()
+@ms.jit()
 def test_cond(x, y):
     out = m
     while x < y:
@@ -1009,12 +1001,12 @@ ret:15
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
 def number_add(x, y):
     return x + y
 
-@jit()
+@ms.jit()
 def test(x, y):
     return number_add(x, y)
 
@@ -1043,9 +1035,9 @@ ret: 6
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test(x, y):
     number_add = lambda x, y: x + y
     return number_add(x, y)
@@ -1073,9 +1065,9 @@ ret: 6
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test(x, y):
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
@@ -1115,9 +1107,9 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test(x, y):
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
@@ -1143,15 +1135,15 @@ ret:(4, 16, 36, 64, 100)
 ```python
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor, jit_class, set_context
+from mindspore import set_context
 
 set_context(mode=ms.GRAPH_MODE)
 
-@jit_class
+@ms.jit_class
 class Sample:
     def __init__(self):
         super(Sample, self).__init__()
-        self.num = Tensor([2])
+        self.num = ms.Tensor([2])
 
     def __enter__(self):
         return self.num * 2
@@ -1203,9 +1195,9 @@ out2: [2]
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = int(3)
    b = int(3.6)
@@ -1245,9 +1237,9 @@ e: 8
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = float(1)
    b = float(112)
@@ -1284,15 +1276,15 @@ d: 123.0
 代码用例如下：
 
 ```python
-from mindspore import jit, Tensor
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = bool()
    b = bool(0)
    c = bool("abc")
    d = bool([1, 2, 3, 4])
-   e = bool(Tensor([10]))
+   e = bool(ms.Tensor([10]))
    return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -1327,9 +1319,9 @@ e: [True]    # e 为布尔类型的Tensor
 
 ```python
 import numpy as np
-from mindspore import jit, Tensor
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = str()
    b = str(0)
@@ -1371,9 +1363,8 @@ e: [1 2 3 4]
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import jit
 
-@jit
+@ms.jit
 def func():
    a = tuple((1, 2, 3))
    b = tuple(np.array([1, 2, 3]))
@@ -1411,9 +1402,8 @@ d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value
 
 ```python
 import mindspore as ms
-from mindspore import jit
 
-@jit
+@ms.jit
 def func():
    a = list((1, 2, 3))
    b = list(np.array([1, 2, 3]))
@@ -1458,16 +1448,15 @@ d_t: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, val
 
 ```python
 import mindspore as ms
-from mindspore import jit, jit_class
 
-@jit_class
+@ms.jit_class
 class MSClass1:
   def __init__(self):
     self.num0 = 0
 
 ms_obj = MSClass1()
 
-@jit
+@ms.jit
 def func():
    a = getattr(ms_obj, 'num0')
    b = getattr(ms_obj, 'num1', 2)
@@ -1505,16 +1494,15 @@ b: 2
 
 ```python
 import mindspore as ms
-from mindspore import jit, jit_class
 
-@jit_class
+@ms.jit_class
 class MSClass1:
   def __init__(self):
     self.num0 = 0
 
 ms_obj = MSClass1()
 
-@jit
+@ms.jit
 def func():
    a = hasattr(ms_obj, 'num0')
    b = hasattr(ms_obj, 'num1')
@@ -1546,12 +1534,11 @@ b: False
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
-@jit()
+@ms.jit()
 def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -1600,12 +1587,11 @@ z_len:4
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
-@jit()
+@ms.jit()
 def test():
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -1641,9 +1627,9 @@ z_is_tensor:True
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = all(['a', 'b', 'c', 'd'])
    b = all(['a', 'b', '', 'd'])
@@ -1692,9 +1678,9 @@ h: True
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = any(['a', 'b', 'c', 'd'])
    b = any(['a', 'b', '', 'd'])
@@ -1747,9 +1733,9 @@ h: False
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = round(10)
    b = round(10.123)
@@ -1800,9 +1786,8 @@ h: 10.10
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import jit
 
-@jit
+@ms.jit
 def func():
    a = max([0, 1, 2, 3])
    b = max((0, 1, 2, 3))
@@ -1850,9 +1835,8 @@ g: 3
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import jit
 
-@jit
+@ms.jit
 def func():
   a = min([0, 1, 2, 3])
   b = min((0, 1, 2, 3))
@@ -1904,16 +1888,15 @@ g: 1
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore import jit, Tensor
 
-@jit
+@ms.jit
 def func():
   a = sum([0, 1, 2])
   b = sum((0, 1, 2), 10)
   c = sum(np.array([1, 2, 3]))
-  d = sum(Tensor([1, 2, 3]), 10)
-  e = sum(Tensor([[1, 2], [3, 4]]))
-  f = sum([1, Tensor([[1, 2], [3, 4]]), Tensor([[1, 2], [3, 4]])], Tensor([[1, 1], [1, 1]]))
+  d = sum(ms.Tensor([1, 2, 3]), 10)
+  e = sum(ms.Tensor([[1, 2], [3, 4]]))
+  f = sum([1, ms.Tensor([[1, 2], [3, 4]]), ms.Tensor([[1, 2], [3, 4]])], ms.Tensor([[1, 1], [1, 1]]))
   return a, b, ms.Tensor(c), d, e, f
 
 a, b, c, d, e, f = func()
@@ -1950,9 +1933,9 @@ f:  [[ 4  6]
 代码用例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit
+@ms.jit
 def func():
    a = abs(-45)
    b = abs(100.12)
@@ -1987,12 +1970,13 @@ b: 100.12
 示例如下：
 
 ```python
-from mindspore import jit, ops
+import mindspore as ms
+from mindspore import ops
 
 def add(x, y):
     return x + y
 
-@jit()
+@ms.jit()
 def test():
     add_ = ops.partial(add, x=2)
     m = add_(y=3)
@@ -2029,12 +2013,12 @@ n:7
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
 def add(x, y):
     return x + y
 
-@jit()
+@ms.jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -2065,9 +2049,9 @@ ret: (5, 7, 9)
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -2109,9 +2093,9 @@ ret:((1, 4), (2, 5), (3, 6))
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
-@jit()
+@ms.jit()
 def test():
     x = range(0, 6, 2)
     y = range(0, 5)
@@ -2154,12 +2138,11 @@ z:(0, 1, 2)
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 y = ms.Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
 
-@jit()
+@ms.jit()
 def test():
     x = (100, 200, 300, 400)
     m = enumerate(x, 3)
@@ -2244,13 +2227,12 @@ class SingleSubNet(FatherNet):
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 x = ms.Tensor(np.array([1, 2, 3]))
 y = ms.Tensor(np.array([1, 2, 3]))
 
-@jit()
+@ms.jit()
 def test(x, y):
     return pow(x, y)
 
@@ -2280,13 +2262,12 @@ ret:[ 1  4 27]
 
 ```python
 import mindspore as ms
-from mindspore import jit
 import numpy as np
 
 x = ms.Tensor(np.array([1, 2, 3]), ms.int32)
 y = ms.Tensor(3, ms.int32)
 
-@jit()
+@ms.jit()
 def test(x, y):
     print(x)
     print(y)
@@ -2319,14 +2300,14 @@ Tensor(shape=[3], dtype=Int32, value= [1 2 3])
 示例如下：
 
 ```python
-from mindspore import jit
+import mindspore as ms
 
 def is_odd(x):
     if x % 2:
         return True
     return False
 
-@jit()
+@ms.jit()
 def test():
     elements = (1, 2, 3, 4, 5)
     ret = filter(is_odd, elements)

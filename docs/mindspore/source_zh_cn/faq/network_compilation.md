@@ -182,7 +182,6 @@ The function call stack (See file 'analyze_fail.dat' for more details. Get instr
 ```python
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore import jit
 
 x = ms.Tensor([1.0])
 y = ms.Tensor([2.0])
@@ -192,7 +191,7 @@ sens = 1.0
 def test_net(a, b):
     return a, b
 
-@jit()
+@ms.jit()
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i 是一个标量shape: (1), dtype:Float64, value:1.0
     # sens_i = (sens_i, sens_i)
@@ -266,11 +265,10 @@ A: 当出现There isn't any branch that can be evaluated 时，说明代码中�
 
 ```python
 import mindspore as ms
-from mindspore import jit
 
 ZERO = ms.Tensor([0], ms.int32)
 ONE = ms.Tensor([1], ms.int32)
-@jit
+@ms.jit
 def f(x):
     y = ZERO
     if x < 0:

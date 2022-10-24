@@ -16,7 +16,6 @@ MindSpore allows you to use the `jit` modifier to modify objects that need to be
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit
 
 class Add(nn.Cell):
     """Define a class to implement the x self addition."""
@@ -27,7 +26,7 @@ class Add(nn.Cell):
 
 class Mul(nn.Cell):
     """Define a class to implement the x self multiplication."""
-    @jit  # Use jit to modify the function. This function is executed in static graph mode.
+    @ms.jit  # Use jit to modify the function. This function is executed in static graph mode.
     def construct(self, x):
         x = x * x
         x = x * x
@@ -87,13 +86,13 @@ When using the `jit` modifier, you can modify an independently defined function 
 ```python
 import numpy as np
 import mindspore.ops as ops
-from mindspore import jit
+import mindspore as ms
 
 # Set the running mode to dynamic graph mode.
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
 # Use the modifier to specify the execution in static graph mode.
-@jit
+@ms.jit
 def add_func(x, y):
     return ops.add(x, y)
 
@@ -119,14 +118,13 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore import jit
 
 # Set the running mode to dynamic graph mode.
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
 class Add(nn.Cell):
 
-    @jit # Use the modifier to specify the execution in static graph mode.
+    @ms.jit # Use the modifier to specify the execution in static graph mode.
     def construct(self, x, y):
         out = x + y
         return out
@@ -176,13 +174,12 @@ When using `jit` to modify functions to improve execution efficiency, pay attent
     ```python
     import numpy as np
     import mindspore as ms
-    from mindspore import jit
 
     # pylint: disable=W0612
 
     value = 5
 
-    @jit
+    @ms.jit
     def func(x, y):
         out = x + y
         value = 1
@@ -207,14 +204,13 @@ When using `jit` to modify functions to improve execution efficiency, pay attent
     import numpy as np
     import mindspore.nn as nn
     import mindspore as ms
-    from mindspore import jit
 
     class Func(nn.Cell):
         def __init__(self):
             super(Func, self).__init__()
             self.value = 5
 
-        @jit
+        @ms.jit
         def construct(self, x):
             out = self.value + x
             return out
@@ -242,13 +238,12 @@ When using `jit` to modify functions to improve execution efficiency, pay attent
     import numpy as np
     import mindspore as ms
     import mindspore.ops as ops
-    from mindspore import jit
 
     ms.set_context(mode=ms.PYNATIVE_MODE)
 
     add = ops.Add()
 
-    @jit
+    @ms.jit
     def add_fn(x, y):
         res = add(x, y)
         return res
@@ -272,7 +267,6 @@ When using `jit` to modify functions to improve execution efficiency, pay attent
     import numpy as np
     import mindspore.nn as nn
     import mindspore as ms
-    from mindspore import jit
 
     ms.set_context(mode=ms.PYNATIVE_MODE)
 
@@ -280,7 +274,7 @@ When using `jit` to modify functions to improve execution efficiency, pay attent
     conv_obj = nn.Conv2d(in_channels=3, out_channels=4, kernel_size=3, stride=2, padding=0)
     conv_obj.init_parameters_data()
 
-    @jit
+    @ms.jit
     def conv_fn(x):
         res = conv_obj(x)
         return res

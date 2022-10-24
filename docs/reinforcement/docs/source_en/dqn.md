@@ -113,7 +113,7 @@ class DQNTrainer(Trainer):
         trainable_variables = {"policy_net": self.msrl.learner.policy_network}
         return trainable_variables
 
-    @jit
+    @ms.jit
     def init_training(self):
         """Initialize training"""
         state = self.msrl.collect_environment.reset()
@@ -131,7 +131,7 @@ class DQNTrainer(Trainer):
             i += 1
         return done
 
-    @jit
+    @ms.jit
     def evaluate(self):
         """Policy evaluate"""
         total_reward = self.zero_value
@@ -155,7 +155,7 @@ User will call the `train` method in base class. It trains the models for the sp
 In each iteration of the training loop, the `train_one_episode` method is invoked to train an episode:
 
 ```python
-@jit
+@ms.jit
 def train_one_episode(self):
     """Train one episode"""
     if not self.inited:

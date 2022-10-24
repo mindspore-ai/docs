@@ -18,9 +18,8 @@ After decorating a custom class with `@jit_class`, you can create and call the i
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     value = ms.Tensor(np.array([1, 2, 3]))
 
@@ -40,14 +39,13 @@ print(out)
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class Inner:
     def __init__(self):
         self.value = ms.Tensor(np.array([1, 2, 3]))
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self):
         self.inner = Inner()
@@ -72,9 +70,8 @@ print(out)
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class Net(nn.Cell):
     def construct(self, x):
         return x
@@ -92,9 +89,9 @@ TypeError: Decorator jit_class is used for user-defined classes and cannot be us
 ```
 
 ```python
-from mindspore import jit_class
+import mindspore as ms
 
-@jit_class
+@ms.jit_class
 def func(x, y):
     return x + y
 
@@ -114,9 +111,8 @@ Support calling a class's attributes by class name, not calling a class's method
 ```python
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val
@@ -146,9 +142,8 @@ Calling private attributes and magic methods is not supported, and the method fu
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self):
         self.value = ms.Tensor(np.array([1, 2, 3]))
@@ -179,9 +174,8 @@ In the static graph mode, when you create the instance of the custom class, the 
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val + 3
@@ -203,9 +197,8 @@ For other scenarios, when creating an instance of a custom class, there is a res
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val + 3
@@ -233,9 +226,8 @@ When you call an instance of a custom class, the `__call__` function method of t
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number
@@ -263,9 +255,8 @@ If the class does not define the `__call__` function, an error message will be r
 import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore import jit_class
 
-@jit_class
+@ms.jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number

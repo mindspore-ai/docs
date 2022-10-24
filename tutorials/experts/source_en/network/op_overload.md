@@ -14,9 +14,9 @@ A sample code that uses HyperMap to optimize compiling performance instead of a 
 
 ```python
 import time
+import mindspore as ms
 from mindspore.ops import MultitypeFuncGraph, HyperMap
 from mindspore import ops
-from mindspore import jit
 
 add = MultitypeFuncGraph('add')
 @add.register("Number", "Number")
@@ -26,7 +26,7 @@ def add_scalar(x, y):
 add_map = HyperMap(add)
 list1 = [i for i in range(200)]
 list2 = [i for i in range(200)]
-@jit
+@ms.jit
 def hyper_map_net():
     output = add_map(list1, list2)
     return output
@@ -36,7 +36,7 @@ output = hyper_map_net()
 end_time = time.time()
 print("hyper map cost time:", end_time - start_time)
 
-@jit
+@ms.jit
 def for_loop_net():
     out = []
     for i in range(200):
@@ -64,9 +64,10 @@ A sample code that uses the `Select` operator instead of if statement to optimiz
 
 ```python
 import time
-from mindspore import jit, Tensor, ops
+import mindspore as ms
+from mindspore import ops
 
-@jit
+@ms.jit
 def if_net(x, y):
     out = 0
     for _ in range(100):
@@ -78,11 +79,11 @@ def if_net(x, y):
     return out
 
 start_time = time.time()
-out = if_net(Tensor([0]), Tensor([1]))
+out = if_net(ms.Tensor([0]), ms.Tensor([1]))
 end_time = time.time()
 print("if net cost time:", end_time - start_time)
 
-@jit
+@ms.jit
 def select_net(x, y):
     out = x
     for _ in range(100):
@@ -92,7 +93,7 @@ def select_net(x, y):
     return out
 
 start_time = time.time()
-out = select_net(Tensor([0]), Tensor([1]))
+out = select_net(ms.Tensor([0]), ms.Tensor([1]))
 end_time = time.time()
 print("select net cost time:", end_time - start_time)
 ```
@@ -111,10 +112,10 @@ A sample code to optimize compiling performance by enabling compiling cache is a
 ```python
 import time
 from mindspore import set_context
-from mindspore import Tensor, dtype
-from mindspore import jit
+from mindspore import dtype
+import mindspore as ms
 
-@jit
+@ms.jit
 def func(input_x, input_y):
     output = input_x
     for _ in range(200):
@@ -122,8 +123,8 @@ def func(input_x, input_y):
     return output
 
 set_context(enable_compile_cache=False)
-x = Tensor([1], dtype.float32)
-y = Tensor([2], dtype.float32)
+x = ms.Tensor([1], dtype.float32)
+y = ms.Tensor([2], dtype.float32)
 start_time = time.time()
 out = func(x, y)
 end_time = time.time()
@@ -147,10 +148,10 @@ When the compiling cache is turned off, the time consumption of the first time a
 ```python
 import time
 from mindspore import set_context
-from mindspore import Tensor, dtype
-from mindspore import jit
+from mindspore import dtype
+import mindspore as ms
 
-@jit
+@ms.jit
 def func(input_x, input_y):
     output = input_x
     for _ in range(200):
@@ -158,8 +159,8 @@ def func(input_x, input_y):
     return output
 
 set_context(enable_compile_cache=True, compile_cache_path="my_compile_cache")
-x = Tensor([1], dtype.float32)
-y = Tensor([2], dtype.float32)
+x = ms.Tensor([1], dtype.float32)
+y = ms.Tensor([2], dtype.float32)
 start_time = time.time()
 out = func(x, y)
 end_time = time.time()
@@ -190,12 +191,12 @@ A sample code that uses vmap instead of a for loop to process batch data to opti
 import numpy as np
 import time
 from mindspore import ops
-from mindspore import jit, Tensor
+import mindspore as ms
 
 def hswish_func(x):
     return ops.HSwish()(x)
 
-@jit
+@ms.jit
 def manually_batched(xs):
     output = []
     for i in range(xs.shape[0]):
@@ -205,7 +206,7 @@ def manually_batched(xs):
 shape = (100, 2)
 prop = 100
 x_np = (np.random.randn(*shape) * prop).astype(np.float32)
-x = Tensor(x_np)
+x = ms.Tensor(x_np)
 x = ops.sub(x, 0)
 
 start_time = time.time()
