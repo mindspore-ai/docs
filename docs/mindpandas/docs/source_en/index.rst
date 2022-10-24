@@ -146,6 +146,7 @@ Typical scenarios using MindPandas
 
    mindpandas_quick_start
    mindpandas_configuration
+   mindpandas_channel
 
 .. toctree::
    :maxdepth: 1

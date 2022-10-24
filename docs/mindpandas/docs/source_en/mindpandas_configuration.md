@@ -1,6 +1,6 @@
 # MindPandas Execution Mode Introduction and Configuration Instructions
 
-<a href=“https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_configuration.md” target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_configuration.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This article mainly introduces the principle and usage of MindPandas distributed parallel mode.
 

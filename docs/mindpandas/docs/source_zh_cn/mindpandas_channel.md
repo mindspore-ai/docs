@@ -1,5 +1,7 @@
 # 高效数据流转
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas_channel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 在传统的机器学习场景中，数据处理与模型训练过程相对独立。如下图所示，数据处理过程后需要对数据进行持久化的存储，使用数据时再从磁盘中读取数据。当处理的数据量较大时，读写磁盘将会耗费大量的时间。在对数据使用时效性较高的场景中，会带来较高的时延。
 
 ![data_io.png](images/mindpandas_io.png)
