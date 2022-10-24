@@ -24,7 +24,7 @@
 
 ## 快速体验
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单线程案例为例，给出一个的配置TEE保护的范例脚本。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单线程案例为例，给出一个配置TEE保护的范例脚本。
 
 ### 前置需要&环境配置
 
@@ -255,7 +255,7 @@ def construct(self, local_data_batch, remote_data_batch):
 
 #### 构建网络
 
-与通常的vFL训练相同，用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst) 。不同点则在于：构建leader方网络时，需要加上`grad_network`：
+与通常的vFL训练相同，用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。不同点则在于：构建leader方网络时，需要加上`grad_network`：
 
 ```python
 from mindspore_federated import FLModel, FLYamlData
