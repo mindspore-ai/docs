@@ -11,10 +11,12 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import sys
 import IPython
 import re
 from sphinx.ext import autodoc as sphinx_autodoc
+sys.path.append(os.path.abspath('../_ext'))
 
 # -- Project information -----------------------------------------------------
 
@@ -113,6 +115,28 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindpandas repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir_en = os.path.join(os.getenv("MP_PATH"), 'docs/api/api_python_en')
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir_en):
+    if os.path.isfile(os.path.join(src_dir_en,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir_en,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir_en,i),'./'+i)
+
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include(present_path)
 
 import mindpandas
 
