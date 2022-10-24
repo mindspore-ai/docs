@@ -6,38 +6,34 @@ Flow past cylinder problem is a two-dimensional low velocity steady flow around 
 
 Since it is difficult to obtain the generalized theoretical solution of the Navier-Stokes equation,the numerical method is used to solve the governing equation in the flow past cylinder scenario to predict the flow field, which is also a classical problem in computational fluid mechanics. Traditional solutions often require fine discretization of the fluid to capture the phenomena that need to be modeled. Therefore, traditional finite element method (FEM) and finite difference method (FDM) are often costly.
 
-Physics-informed Neural Networks (PINNS) provides a new method for quickly solving complex fluid problems by using loss functions that approximate governing equations coupled with simple network configurations. In this case, the data-driven characteristic of neural network is used along with `PINNS` to solve the flow past cylinder problem.
+Physics-informed Neural Networks (PINNs) provides a new method for quickly solving complex fluid problems by using loss functions that approximate governing equations coupled with simple network configurations. In this case, the data-driven characteristic of neural network is used along with `PINNs` to solve the flow past cylinder problem.
 
 ## Navier-Stokes equation
 
-Navier-Stokes equation is a classical equation in the field of computational fluid mechanics. It is a set of partial differential equations describing the conservation of momentum of viscous incompressible fluids. It takes the form of:
+The Navier-Stokes equation, referred to as `N-S` equation, is a classical partial differential equation in the field of fluid mechanics. In the case of viscous incompressibility, the dimensionless `N-S` equation has the following form:
 
 $$
-\frac{\partial V} {\partial t} + (V \cdot \nabla)V = f - \frac{1} {\rho} \nabla p + \frac{\mu} {\rho} \nabla^2V
-$$
-
-Ignoring the external force term, the equation form with Reynolds number `Re` is as follows:
-
-$$
-\rho(\frac{\partial V} {\partial t} + (V \cdot \nabla)V) + \nabla p - \frac{1} {Re} \nabla^2V = 0
-$$
-
-The component form is as follows:
-
-$$
-\rho(\frac{\partial u} {\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}) + (\frac{\partial p}{\partial x} + \frac{\partial p}{\partial y}) - \frac{1} {Re} (\frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}) = 0
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
 $$
 
 $$
-\rho(\frac{\partial v} {\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}) + (\frac{\partial p}{\partial x} + \frac{\partial p}{\partial y}) - \frac{1} {Re} (\frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2}) = 0
+\frac{\partial u} {\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y} = - \frac{\partial p}{\partial x} + \frac{1} {Re} (\frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2})
 $$
+
+$$
+\frac{\partial v} {\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y} = - \frac{\partial p}{\partial y} + \frac{1} {Re} (\frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2})
+$$
+
+where `Re` stands for Reynolds number.
 
 ## Problem Description
 
-In this case, the PINNS method is used to learn the mapping from the initial state to the in next step of the time domain to solve the `N-S` equation.
+In this case, the PINNs method is used to learn the mapping from the location and time to flow field quantities to solve the `N-S` equation.
+
 $$
-u_0 \mapsto u_{t=1}
+(x, y, t) \mapsto (u, v, p)
 $$
+
 MindFlow solves the problem as follows:
 
 1. Random sampling is performed on the solution domain and initial-boundary value conditions to create a training data set.
@@ -50,7 +46,7 @@ MindFlow solves the problem as follows:
 
 ### Configuration file
 
-The following figure shows the overall configuration file, which defines key parameters such as Reynolds number `Re`, problem domain boundary, neural network structure, learning rate, learning rate attenuation coefficient, training epoch, and batch size. You can also configure the file access path and case name here.
+The overall configuration file is shown below, which defines key parameters such as Reynolds number `Re`, problem domain boundary, neural network structure, learning rate, learning rate damping coefficient, training epoch, batch size, etc. File access path, case naming and other elements can also be configured here.
 
 ```python
 {
@@ -113,12 +109,11 @@ from src import MultiStepLR,
 
 ### Create a dataset
 
-In this case, the initial condition and boundary condition data for the existing standard flow past cylinder with Reynolds number 100 are sampled. Firstly, the problem domain and time dimension of the plane rectangle are constructed for the training data set, and then the known initial conditions and boundary conditions are sampled. For the verification set, the points in the existing flow field are taken directly.
+In this case, the initial condition and boundary condition data of the existing flow around a cylinder with Reynolds number 100 are sampled. For the training dataset, the problem domain and time dimension of planar rectangle are constructed. Then the known initial conditions and boundary conditions are sampled. The validation set is constructed based on the existing points in the flow field.
 
 ```python
 def create_evaluation_dataset(test_data_path):
     """load labeled data for evaluation"""
-    # check data
     print("get dataset path: {}".format(test_data_path))
     paths = [test_data_path + '/eval_points.npy', test_data_path + '/eval_label.npy']
     inputs = np.load(paths[0])
@@ -155,7 +150,7 @@ def create_training_dataset(config):
     return dataset
 ```
 
-The sampling configuration is as follows: The maximum number of frames sampled from the problem domain to and time domain is adopted, and the sampling is evenly distributed.
+The sampling configuration information is as follows. Samples are uniformly distributed.
 
 ```python
 domain_sampling_config = edict({
@@ -174,7 +169,7 @@ domain_sampling_config = edict({
 
 ### Modeling based on Navier-Stokes equation
 
-`Problem` contains the governing equations, boundary conditions, initial conditions, etc. for solving the problem. The governing equations are in the component form of velocity equation. The initial conditions and boundary conditions are obtained from the known data, and different boundary conditions can be obtained according to different data sets.
+`Problem` contains the governing equations, boundary conditions and initial conditions for solving the problem. The governing equation directly uses the incompressible `N-S` equation. The initial conditions and boundary conditions are obtained from the known data. Users can set different boundary conditions according to different data sets.
 
 ```python
 # define problem
@@ -238,10 +233,13 @@ class NavierStokes2D(Problem):
 
 ### Building a Neural Network
 
-The depth of the neural network, the number of neurons, and whether residual structures are included can be configured in the `config` file. In this example, a fully-connected network with a depth of 10, 128 neurons at each layer, and residual structures are used. The residual structure can effectively keep gradients from disappearing at each layer, making deeper network structures possible.
+The depth of the neural network, the number of neurons, and whether residual structures are included in the `config` file. In this example, a fully-connected network with depth of 10, 128 neurons at each layer. Residual structures are also used. The residual structure can effectively keep gradients from disappearing at each layer, which makes deeper network structures possible.
 
 ```python
 class FlowNetwork(nn.Cell):
+    """
+    Full-connect networks with residual layer available
+    """
 
     def __init__(self, input_dim, output_dim, coord_min, coord_max,
                  num_layers=10, neurons=64, activation="tanh", residual=False):
@@ -279,10 +277,34 @@ class FlowNetwork(nn.Cell):
 
 ### Learning Rate
 
-The learning rate increases with epoch decreasing at different critical points, one order of magnitude per stage.
+The learning rate increases with epoch decreasing at different critical points.
 
 ```python
 class MultiStepLR(_LRScheduler):
+    """
+    Multi-step learning rate scheduler
+
+    Decays the learning rate by gamma once the number of epoch reaches one of the milestones.
+
+    Args:
+        lr (float): Initial learning rate which is the lower boundary in the cycle.
+        milestones (list): List of epoch indices. Must be increasing.
+        gamma (float): Multiplicative factor of learning rate decay.
+        steps_per_epoch (int): The number of steps per epoch to train for.
+        max_epoch (int): The number of epochs to train for.
+
+    Outputs:
+        numpy.ndarray, shape=(1, steps_per_epoch*max_epoch)
+
+    Example:
+        >>> # Assuming optimizer uses lr = 0.05 for all groups
+        >>> # lr = 0.05     if epoch < 30
+        >>> # lr = 0.005    if 30 <= epoch < 80
+        >>> # lr = 0.0005   if epoch >= 80
+        >>> scheduler = MultiStepLR(lr=0.1, milestones=[30,80], gamma=0.1, steps_per_epoch=5000, max_epoch=90)
+        >>> lr = scheduler.get_lr()
+    """
+
     def __init__(self, lr, milestones, gamma, steps_per_epoch, max_epoch):
         self.milestones = Counter(milestones)
         self.gamma = gamma
@@ -305,50 +327,50 @@ class MultiStepLR(_LRScheduler):
 Define `Constraints` as loss.
 
 ```python
-    # define problem
-    train_prob = {}
-    for dataset in cylinder_dataset.all_datasets:
-        train_prob[dataset.name] = NavierStokes2D(model=model,
-                                                  domain_points=dataset.name + "_points",
-                                                  ic_points=dataset.name + "_points",
-                                                  bc_points=dataset.name + "_points",
-                                                  ic_label=dataset.name + "_label",
-                                                  bc_label=dataset.name + "_label",
-                                                  Re=config["Reynolds_number"])
-    print("check problem: ", train_prob)
-    train_constraints = Constraints(cylinder_dataset, train_prob)
+# define problem
+train_prob = {}
+for dataset in cylinder_dataset.all_datasets:
+    train_prob[dataset.name] = NavierStokes2D(model=model,
+                                              domain_points=dataset.name + "_points",
+                                              ic_points=dataset.name + "_points",
+                                              bc_points=dataset.name + "_points",
+                                              ic_label=dataset.name + "_label",
+                                              bc_label=dataset.name + "_label",
+                                              Re=config["Reynolds_number"])
+print("check problem: ", train_prob)
+train_constraints = Constraints(cylinder_dataset, train_prob)
 ```
 
 ### Model Training
 
-The `Solver` class is an interface for model training and inference. Define the solver object `solver` by entering the optimizer, network model, loss function, loss scaling policy, etc.
+The `Solver` class is the model training interface. The PINNs solver object can be defined by input optimizer, network model, loss function, loss scaling strategy, etc.
 
 ```python
-    # define solver
-    solver = Solver(model,
-                    optimizer=optim,
-                    train_constraints=train_constraints,
-                    test_constraints=None,
-                    metrics={'l2': L2(), 'distance': nn.MAE()},
-                    loss_fn='smooth_l1_loss',
-                    loss_scale_manager=DynamicLossScaleManager(init_loss_scale=2 ** 10, scale_window=2000),
-                    mtl_weighted_cell=mtl,
-                    )
+# define solver
+solver = Solver(model,
+                optimizer=optim,
+                train_constraints=train_constraints,
+                test_constraints=None,
+                metrics={'l2': L2(), 'distance': nn.MAE()},
+                loss_fn='smooth_l1_loss',
+                loss_scale_manager=DynamicLossScaleManager(init_loss_scale=2 ** 10, scale_window=2000),
+                mtl_weighted_cell=mtl,
+                )
 
-    loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
-    callbacks = [loss_time_callback]
-    if config.get("train_with_eval", False):
-        inputs, label = create_evaluation_dataset(config["test_data_path"])
-        predict_callback = PredictCallback(model, inputs, label, config=config, visual_fn=visualization)
-        callbacks += [predict_callback]
-    if config["save_ckpt"]:
-        config_ck = CheckpointConfig(save_checkpoint_steps=10,
-                                     keep_checkpoint_max=2)
-        ckpoint_cb = ModelCheckpoint(prefix='ckpt_flow_past_cylinder_Re100',
-                                     directory=config["save_ckpt_path"], config=config_ck)
-        callbacks += [ckpoint_cb]
+loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
+callbacks = [loss_time_callback]
+if config.get("train_with_eval", False):
+    inputs, label = create_evaluation_dataset(config["test_data_path"])
+    predict_callback = PredictCallback(model, inputs, label, config=config, visual_fn=visualization)
+    callbacks += [predict_callback]
+if config["save_ckpt"]:
+    config_ck = CheckpointConfig(save_checkpoint_steps=10,
+                                 keep_checkpoint_max=2)
+    ckpoint_cb = ModelCheckpoint(prefix='ckpt_flow_past_cylinder_Re100',
+                                 directory=config["save_ckpt_path"], config=config_ck)
+    callbacks += [ckpoint_cb]
 
-    solver.train(config["train_epoch"], train_dataset, callbacks=callbacks, dataset_sink_mode=True)
+solver.train(config["train_epoch"], train_dataset, callbacks=callbacks, dataset_sink_mode=True)
 ```
 
 ## Network training result
