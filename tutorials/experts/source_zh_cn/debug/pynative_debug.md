@@ -48,33 +48,33 @@ print("grads: ", grads)
 
 1. 用户通过在脚本中导入“pdb”，即可使用pdb的断点调试功能，如下：
 
-```python
-import pdb
-```
+    ```python
+    import pdb
+    ```
 
 2. 在需要进行断点的位置，设置如下指令，即可让网络脚本运行到该指令时停住：
 
-**演示代码** ：
+    **演示代码** ：
 
-```python
-x = self.relu(x * self.w1) * self.w2
-pdb.set_trace()
-out = self.pow(x - y, 2)
-return out
-```
+    ```python
+    x = self.relu(x * self.w1) * self.w2
+    pdb.set_trace()
+    out = self.pow(x - y, 2)
+    return out
+    ```
 
-如图1所示，脚本暂定在指令 `out = self.pow(x-y, 2)`处，并等待输入pdb指令。
+    如图1所示，脚本暂定在指令 `out = self.pow(x-y, 2)`处，并等待输入pdb指令。
 
-![pynative_debug.png](./images/pynative_debug.png)
+    ![pynative_debug.png](./images/pynative_debug.png)
 
-图 1
+    图 1
 
 3. 当网络脚本在断点处停住时，用户可以使用Python pdb常用的调试指令来对网络脚本进行调试，比如：打印变量的取值，查看程序调用栈，单步调试执行等。
 
-* 打印变量的取值可以通过p指令实现，如图1中①所示；
-* 查看程序调用栈可以通过bt指令实现，如图1中②所示；
-* 查看断点所处网络脚本的上下文，可以通过l指令来实现，如图1中③所示；
-* 单步调试网络脚本，可以通过n指令来实现，如图1中④所示。
+    * 打印变量的取值可以通过p指令实现，如图1中①所示；
+    * 查看程序调用栈可以通过bt指令实现，如图1中②所示；
+    * 查看断点所处网络脚本的上下文，可以通过l指令来实现，如图1中③所示；
+    * 单步调试网络脚本，可以通过n指令来实现，如图1中④所示。
 
 ## pdb 常用命令
 
