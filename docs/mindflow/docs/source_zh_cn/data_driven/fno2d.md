@@ -339,7 +339,7 @@ solver.train(epoch=optimizer_params["train_epochs"],
 
 ## 网络训练结果
 
-运行结果如下：
+运行结果如下，训练50个迭代轮次后，网络损失函数值降至1.475，在测试集上的相对均方根误差为0.110。
 
 ```python
 ......
