@@ -57,7 +57,7 @@ The following uses a program code segment as an example to help you understand M
 def func(x, y):
     return x / y
 
-@jit
+@ms.jit
 def test_f(x, y):
     a = x - 1
     b = a + y
@@ -97,7 +97,7 @@ In a MindIR, a function is defined by a subgraph. However, the function itself c
 In the following simple example, the `f` function is transferred as a parameter into the `g` function. Therefore, the `g` function is a higher-order function that receives function input, and the actual call site of the `f` function is inside the `g` function.
 
 ```python
-@jit
+@ms.jit
 def hof(x):
     def f(x):
         return x + 3
@@ -119,7 +119,7 @@ In a MindIR, control flows are expressed in the form of high-order function sele
 The following uses a simple Fibonacci instance as an example.
 
 ```python
-@jit
+@ms.jit
 def fibonacci(n):
     if(n < 1):
         return 0
@@ -141,13 +141,13 @@ Closure is a programming language feature that refers to the combination of code
 A typical closure instance is as follows:
 
 ```python
-@jit
+@ms.jit
 def func_outer(a, b):
     def func_inner(c):
         return a + b + c
     return func_inner
 
-@jit
+@ms.jit
 def ms_closure():
     closure = func_outer(1, 2)
     out1 = closure(1)
