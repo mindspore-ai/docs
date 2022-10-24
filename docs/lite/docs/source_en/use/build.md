@@ -175,7 +175,7 @@ Finally, the following files will be generated in the `output/` directory:
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-    │   │   ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │   │   ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `MSLITE_ENABLE_MODEL_OBF` option.
     │   │   └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
     │   └── third_party
     │       └── libjpeg-turbo
@@ -201,7 +201,7 @@ Finally, the following files will be generated in the `output/` directory:
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
     │   │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-    │   │   └── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │   │   └── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `MSLITE_ENABLE_MODEL_OBF` option.
     │   └── third_party
     │       ├── hiai_ddk
     │       └── libjpeg-turbo

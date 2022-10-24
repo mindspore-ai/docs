@@ -52,7 +52,7 @@ mindspore-lite-{version}-linux-x64
 │   │   ├── libmindspore-lite.so       # Dynamic library of the MindSpore Lite inference framework
 │   │   ├── libmindspore-lite-train.a  # Static library of the MindSpore Lite training framework
 │   │   ├── libmindspore-lite-train.so # Dynamic library of the MindSpore Lite training framework
-│   │   ├── libmsdeobfuscator-lite.so  # To load the dynamic library file for obfuscating models, you need to enable the `ENABLE_MODEL_OBF` option.
+│   │   ├── libmsdeobfuscator-lite.so  # To load the dynamic library file for obfuscating models, you need to enable the `MSLITE_ENABLE_MODEL_OBF` option.
 │   │   └── mindspore-lite-java.jar    # MindSpore Lite inference framework JAR package
 │   └── third_party
 │       └── libjpeg-turbo

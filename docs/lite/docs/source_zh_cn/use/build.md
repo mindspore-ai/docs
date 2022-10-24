@@ -175,7 +175,7 @@ git clone https://gitee.com/mindspore/mindspore.git
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
     │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
     │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-    │   │   ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
+    │   │   ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`MSLITE_ENABLE_MODEL_OBF`选项。
     │   │   └── mindspore-lite-java.jar    # MindSpore Lite推理框架jar包
     │   └── third_party
     │       └── libjpeg-turbo
@@ -201,7 +201,7 @@ git clone https://gitee.com/mindspore/mindspore.git
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
     │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
     │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-    │   │   └── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
+    │   │   └── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`MSLITE_ENABLE_MODEL_OBF`选项。
     │   └── third_party
     │       ├── hiai_ddk
     │       └── libjpeg-turbo
