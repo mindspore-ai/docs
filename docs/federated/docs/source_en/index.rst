@@ -90,6 +90,7 @@ Common Application Scenarios
 
    data_join
    split_wnd_application
+   split_pangu_alpha_application
 
 .. toctree::
    :maxdepth: 1
