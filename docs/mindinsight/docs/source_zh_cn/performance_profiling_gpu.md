@@ -210,3 +210,4 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 - GPU场景下使用性能调试依赖CUDA环境变量，在使用Profiler前请执行`export LD_LIBRARY_PATH=${CUDA_HOME}/extras/CUPTI/lib64:$LD_LIBRARY_PATH`，其中CUDA_HOME需要替换为本地CUDA路径。
 - 迭代轨迹目前仅支持Graph模式单图场景，暂不支持PyNative、异构、多子图等场景。
 - 基于step开启、基于epoch开启、迭代轨迹分析和集群分析仅支持Graph模式。
+- CPU网络使用性能调试，仅支持算子性能分析、时间线。

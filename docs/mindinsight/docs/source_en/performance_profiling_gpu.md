@@ -210,3 +210,4 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
 - Performance debugging in GPU scenarios depends on CUDA environment variables. Please `export LD_LIBRARY_PATH=${CUDA_HOME}/extras/CUPTI/lib64:$LD_LIBRARY_PATH` before using Profiler. The CUDA_HOME needs to be replaced with the local CUDA path.
 - Step trace analysis only supports single-graph scenarios in Graph mode, and does not support scenarios such as pynative, heterogeneous, and multi-subgraphs.
 - Enable profiling based on step, enable profiling based on epoch, step trace analysis and cluster analysis are only supported in Graph mode.
+- CPU network usage performance debugging, only supports operator performance analysis and timeline.
