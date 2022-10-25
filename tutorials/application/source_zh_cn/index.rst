@@ -11,7 +11,6 @@
    :maxdepth: 1
    :caption: 计算机视觉
 
-   cv/resnet50
    cv/fgsm
    cv/dcgan
    cv/vit
