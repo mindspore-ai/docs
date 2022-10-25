@@ -1,4 +1,4 @@
-# 在MCU或小型系统上执行推理
+# 在MCU或小型系统上执行推理或训练
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -8,10 +8,10 @@
 
 相较于移动设备，IoT设备上通常使用MicroControllerUnits(MCUs)，不仅设备系统ROM资源非常有限，而且硬件资源内存和算力都非常弱小。
 因此IOT设备上的AI应用对AI模型推理的运行时内存和功耗都有严格限制。
-MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部署解决方案：离线阶段直接将模型生成轻量化代码，不再需要在线解析模型和图编译，生成的Micro推理代码非常直观易懂，运行时内存小，代码体积也更小。
-用户使用MindSpore Lite转换工具`converter_lite`非常容易生成可在x86/ARM64/ARM32/Cortex-M平台部署的推理代码。
+MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部署解决方案：离线阶段直接将模型生成轻量化代码，不再需要在线解析模型和图编译，生成的Micro代码非常直观易懂，运行时内存小，代码体积也更小。
+用户使用MindSpore Lite转换工具`converter_lite`非常容易生成可在x86/ARM64/ARM32/Cortex-M平台部署的推理或训练代码。
 
-通过Micro部署一个模型进行推理，通常包含以下四步：模型推理代码生成、`Micro`库获取、代码集成、编译部署。
+通过Micro部署一个模型进行推理或训练，通常包含以下四步：模型代码生成、`Micro`库获取、代码集成、编译部署。
 
 ## 模型推理代码生成
 
@@ -256,6 +256,86 @@ target_device=DSP
 
 - 目前Micro已支持34个Int8量化算子，如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用Float32推理。
 
+## 模型训练代码生成
+
+### 概述
+
+通过MindSpore Lite转换工具`converter_lite`，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成训练代码。
+此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)。
+
+### 环境准备
+
+环境准备小节参考[上文](#环境准备)，此处不再赘述。
+
+### 执行converter_lite生成推理代码
+
+1. 进入转换目录
+
+    ```bash
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+    ```
+
+2. 设置Micro配置项
+
+    在当前目录下新建`micro.cfg`文件，文件内容如下：
+
+    ```text
+    [micro_param]
+
+    # enable code-generation for MCU HW
+
+    enable_micro=true
+
+    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+
+    target=x86
+
+    # code generation for Inference or Train. Cortex-M is unsupported when codegen_mode is Train.
+
+    codegen_mode=Train
+
+    ```
+
+3. 执行converter_lite，生成代码
+
+    ```bash
+    ./converter_lite --fmk=MINDIR --trainModel=True --modelFile=my_model.mindir --outputFile=my_model --configFile=micro.cfg
+    ```
+
+    运行成功后的结果显示为：
+
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
+
+    在转换工具执行成功后，生成的代码被保存在用户指定的`outputFile`路径下，在本例中，为当前转换目录下的my_model文件夹，内容如下：
+
+    ```text
+    my_model                       # 指定的生成代码根目录名称
+    ├── benchmark                  # 对模型训练代码进行集成调用的benchmark例程
+    │   ├── benchmark.c
+    │   ├── calib_output.c
+    │   ├── calib_output.h
+    │   ├── load_input.c
+    │   └── load_input.h
+    ├── CMakeLists.txt             # benchmark例程的cmake工程文件
+    └── src                        # 模型推理代码目录
+        ├── CMakeLists.txt
+        ├── net.bin                # 二进制形式的模型权重
+        ├── net.c
+        ├── net.cmake
+        ├── net.h
+        ├── model.c
+        ├── context.c
+        ├── context.h
+        ├── tensor.c
+        ├── tensor.h
+        ├── weight.c
+        └── weight.h
+    ```
+
+    训练执行流程涉及的API请参考[训练接口介绍](#训练代码的调用接口)
+
 ## `Micro`库获取
 
 在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的`Micro`库。
@@ -303,11 +383,23 @@ mindspore-lite-{version}-linux-x64
 | 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台)    | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
 | 设置 Model 运行时的缓存（仅支持Cortex-M平台)           | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
 | 编译 Model           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
-| 推理                  | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| 推理 Model                 | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
 | 获取所有输入 Tensor   | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
 | 获取所有输出 Tensor   | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
 | 通过名字取输入 Tensor | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
-| 通过名字取输出 Tensor | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHand                                                                                                               |9
+| 通过名字取输出 Tensor | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                                                              |9
+
+### 训练代码的调用接口
+
+以下是训练代码的一般调用接口。
+
+表4：训练通用API接口(此处只列举训练相关接口)
+
+| 功能                  | 函数原型                                                                                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 单步执行 Model         | MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| 设置执行模式 Model      | MSStatus MSModelSetTrainMode(MSModelHandle model, bool train) |
+| 权重导出 Model         | MSStatus MSModelExportWeight(MSModelHandle model,const char *export_path) |
 
 ### 不同的平台的集成差异
 
