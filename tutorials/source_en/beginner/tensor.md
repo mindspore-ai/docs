@@ -279,9 +279,9 @@ The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, sh
 
 The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr` (row) and `indices` (column). The meaning of each parameter is as follows:
 
-- `indptr`: 1-D integer tensor, indicating the start and end points of the non-zero elements in each row of the sparse data in `values`. The index data type can only be int32.
+- `indptr`: 1-D integer tensor, indicating the start and end points of the non-zero elements in each row of the sparse data in `values`. The index data type can be int16, int32, or int64.
 
-- `indices`: 1-D integer tensor, indicating the position of the sparse tensor non-zero elements in the column and has the same length as `values`. The index data type can only be int32.
+- `indices`: 1-D integer tensor, indicating the position of the sparse tensor non-zero elements in the column and has the same length as `values`. The index data type can be int16, int32, or int64.
 
 - `values`: 1-D tensor, indicating that the value of the non-zero element corresponding to the `CSRTensor` and has the same length as `indices`.
 
@@ -322,7 +322,7 @@ $$
 
 The `COO` (Coordinate Format) sparse tensor format is used to represent a collection of nonzero elements of a tensor on a given index. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`. The meaning of each parameter is as follows:
 
-- `indices`: 2-D integer tensor. Each row indicates a non-zero element subscript. Shape: `[N, ndims]`. The index data type can only be int32.
+- `indices`: 2-D integer tensor. Each row indicates a non-zero element subscript. Shape: `[N, ndims]`. The index data type can be int16, int32, or int64.
 
 - `values`: 1-D tensor of any type, indicating the value of the non-zero element. Shape: `[N]`.
 
