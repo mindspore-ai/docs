@@ -8,13 +8,13 @@ MindSpore Recommender依赖MindSpore训练框架，安装完[MindSpore](https://
 
 使用pip命令安装，请从[MindSpore Recommender下载页面](https://www.mindspore.cn/versions)下载并安装whl包。
 
- ```shell
+```shell
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Recommender/any/mindspore_rec-{mr_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Recommender安装包的依赖项（依赖项详情参见requirement.txt），其余情况需自行安装。
-> - `{ms_version}`表示与MindSpore Recommender匹配的MindSpore版本号。
-> - `{mr_version}`表示MindSpore Recommender版本号，例如下载0.2.0版本MindSpore Recommender时，`{mr_version}`应写为0.2.0。
+- 在联网状态下，安装whl包时会自动下载MindSpore Recommender安装包的依赖项（依赖项详情参见requirement.txt），其余情况需自行安装。
+- `{ms_version}`表示与MindSpore Recommender匹配的MindSpore版本号。
+- `{mr_version}`表示MindSpore Recommender版本号，例如下载0.2.0版本MindSpore Recommender时，`{mr_version}`应写为0.2.0。
 
 ## 源码编译安装
 

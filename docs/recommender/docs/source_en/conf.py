@@ -10,7 +10,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-from genericpath import exists
 import os
 import sys
 import IPython
@@ -18,6 +17,7 @@ import re
 sys.path.append(os.path.abspath('../_ext'))
 from sphinx.ext import autodoc as sphinx_autodoc
 
+import mindspore_rec
 
 # -- Project information -----------------------------------------------------
 
@@ -63,38 +63,18 @@ pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
 
-# Reconstruction of sphinx auto generated document translation.
-language = 'zh_CN'
-import sphinx
-import shutil
-po_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
-po_src = os.path.join(os.path.dirname(__file__),'../../../../resource/locale/sphinx.mo')
-if os.path.exists(po_target):
-    os.remove(po_target)
-shutil.copy(po_src, po_target)
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_search_language = 'zh'
-
-html_search_options = {'dict': '../../../resource/jieba.txt'}
+html_search_language = 'en'
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
-
-from sphinx import directives
-with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
-    exec(f.read(), directives.__dict__)
-
-from sphinx.ext import viewcode
-with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
-    exec(f.read(), viewcode.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -127,25 +107,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Copy source files of chinese python api from mindpandas repository.
-from sphinx.util import logging
-logger = logging.getLogger(__name__)
-
-src_dir = os.path.join(os.getenv("RD_PATH"), 'docs/api/api_python')
-present_path = os.path.dirname(__file__)
-
-for i in os.listdir(src_dir):
-    if os.path.isfile(os.path.join(src_dir,i)):
-        if os.path.exists('./'+i):
-            os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir,i),'./'+i)
-    else:
-        if os.path.exists('./'+i):
-            shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir,i),'./'+i)
-
-import mindspore_rec
-
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
@@ -160,7 +121,7 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
 try:
-    src_release = os.path.join(os.getenv("RD_PATH"), 'RELEASE_CN.md')
+    src_release = os.path.join(os.getenv("RD_PATH"), 'RELEASE.md')
     des_release = "./RELEASE.md"
     with open(src_release, "r", encoding="utf-8") as f:
         data = f.read()
