@@ -26,7 +26,7 @@ This document describes how to use MindSpore Lite to perform inference and use t
 
     - Ascend software package provides two distributions, commercial edition and community edition:
 
-        1. Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC2 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100258747).
+        1. Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC3 Installation Guide].
 
         2. Community edition has no restrictions, choose `5.1.RC2.alpha007` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
