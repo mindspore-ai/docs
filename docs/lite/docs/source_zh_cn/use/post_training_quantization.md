@@ -27,6 +27,7 @@ MindSpore Lite训练后量化分为两类：
 | `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | [0, 65535]                            |
 | `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。              | String   | -      | -                                     |
 | `debug_info_save_path`     | 可选 | 设置量化Debug信息文件保存的文件夹路径。                      | String   | -      | -                                     |
+| `enable_encode`     | 可选 |  权重量化压缩编码使能开关。      | Boolean   | True      | True, False                                     |
 
 > 目前`min_quant_weight_size`、`min_quant_weight_channel`仅对权重量化有效。
 >
@@ -49,6 +50,8 @@ min_quant_weight_channel=16
 skip_quant_node=node_name1,node_name2,node_name3
 # Set the folder path where the quantization debug information file is saved.
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
+# Enable tensor compression for weight quantization. If parameter bit_num not equal to 8 or 16, it can not be set to false.
+enable_encode = true
 ```
 
 ### 混合比特权重量化参数
