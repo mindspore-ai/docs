@@ -38,9 +38,9 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 22.0.RC2安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100258747)。
+- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 22.0.RC3安装指引文档]。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`5.1.RC2.alpha008`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`6.0.RC1.alpha003`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
 - 在完成安装基础驱动与配套软件包的基础上，确认安装CANN软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
 

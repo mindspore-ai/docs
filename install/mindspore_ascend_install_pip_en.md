@@ -31,9 +31,9 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r1.9/scripts/install/euleros-ascend-pip.sh
-# install MindSpore 1.8.1 and Python 3.7
+# install MindSpore 1.9.0 and Python 3.7
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
-MINDSPORE_VERSION=1.8.1 bash -i ./euleros-ascend-pip.sh
+MINDSPORE_VERSION=1.9.0 bash -i ./euleros-ascend-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples
 # and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
 # LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-pip.sh
@@ -117,9 +117,9 @@ python -m pip install -U pip
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC2 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100258747).
+- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC3 Installation Guide].
 
-- Community edition has no restrictions, choose `5.1.RC2.alpha008` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, choose `6.0.RC1.alpha003` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -169,10 +169,10 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.8.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.9.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.8.1
+export MS_VERSION=1.9.0
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
