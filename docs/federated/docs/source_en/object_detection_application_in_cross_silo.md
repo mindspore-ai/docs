@@ -12,7 +12,7 @@ This tutorial deploy the cross-silo federated target detection task based on the
 
 Since the original COCO dataset is in json file format, the target detection script provided by cross-silo federated learning framework only supports input data in MindRecord format. You can convert the json file to MindRecord format file according to the following steps.
 
-- Configure the following parameters in the configuration file[default_config.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_silo_faster_rcnn/default_config.yaml):
+- Configure the following parameters in the configuration file[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_silo_faster_rcnn/default_config.yaml):
 
     - `mindrecord_dir`
 
