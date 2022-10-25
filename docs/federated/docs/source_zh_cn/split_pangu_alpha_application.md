@@ -10,7 +10,7 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 ![实现盘古α大模型跨域训练](./images/splitnn_pangu_alpha.png)
 
-如上图所示，该案例中， 盘古α模型被依次切分为Embedding、Backbone、Head等3个子网络。其中，前级子网络Embedding和末级子网络Head部署在的参与方A网络域内，包含多级Transformer模块的Backbone子网络部署在参与方B网络域内。Embedding子网络和Head子网络读取参与方A所持有的数据，主导执行盘古α模型的训练和推理任务。
+如上图所示，该案例中，盘古α模型被依次切分为Embedding、Backbone、Head等3个子网络。其中，前级子网络Embedding和末级子网络Head部署在的参与方A网络域内，包含多级Transformer模块的Backbone子网络部署在参与方B网络域内。Embedding子网络和Head子网络读取参与方A所持有的数据，主导执行盘古α模型的训练和推理任务。
 
 * 前向推理阶段，参与方A采用Embedding子网络处理原始数据后，将输出的Embedding Feature特征张量和Attention Mask特征张量传输给参与方B，作为参与方B Backbone子网络的输入。然后，参与方A读取Backbone子网络输出的Hide State特征张量，作为参与方A Head子网络的输入，最终由Head子网络输出预测结果或损失值。
 
@@ -40,11 +40,11 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 ## 定义纵向联邦学习训练过程
 
-MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦学习模型训练接口](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html) ）和yaml文件（参见 [纵向联邦学习yaml详细配置项](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html) ），建模纵向联邦学习的训练过程。
+MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦学习模型训练接口](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
 
 ### 定义网络模型
 
-1. 采用MindSpore提供的功能组件，以nn.Cell（参见 [mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell) ）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+1. 采用MindSpore提供的功能组件，以nn.Cell（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell)）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
    ```python
    class EmbeddingLossNet(nn.Cell):
@@ -99,19 +99,19 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
            destination: remote
    ```
 
-其中，`name`字段为训练网络名称，将用于命名训练过程中保存的checkpoints文件。`inputs`字段为训练网络输入张量列表，`outputs`字段为训练网络输入张量列表。
+    其中，`name`字段为训练网络名称，将用于命名训练过程中保存的checkpoints文件。`inputs`字段为训练网络输入张量列表，`outputs`字段为训练网络输出张量列表。
 
-`inputs`和`outputs`字段下的`name`字段，为输入/输出张量名称。输入/输出张量的名称和顺序，需要与训练网络对应Python代码中`construct`方法的输入/输出严格对应。
+    `inputs`和`outputs`字段下的`name`字段，为输入/输出张量名称。输入/输出张量的名称和顺序，需要与训练网络对应Python代码中`construct`方法的输入/输出严格对应。
 
-`inputs`字段下的`source`字段标识输入张量的数据来源，`local`代表输入张量来源于本地数据加载，`remote`代表输入张量来源于其它参与方网络传输。
+    `inputs`字段下的`source`字段标识输入张量的数据来源，`local`代表输入张量来源于本地数据加载，`remote`代表输入张量来源于其它参与方网络传输。
 
-`outputs`字段下的`destination`字段标识输出张量的数据去向，`local`代表输出张量仅用于本地，`remote`代表输出张量将通过网络传输给其它参与方。
+    `outputs`字段下的`destination`字段标识输出张量的数据去向，`local`代表输出张量仅用于本地，`remote`代表输出张量将通过网络传输给其它参与方。
 
 3. 可选的，采用类似方法建模本参与方待参与纵向联邦学习的评估网络。
 
 ### 定义优化器
 
-1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/pangu_optim.py)如下:
+1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/pangu_optim.py)如下：
 
     ```python
     class PanguAlphaAdam(TrainOneStepWithLossScaleCell):
@@ -119,7 +119,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
         Customized Adam optimizer for training of pangu_alpha in the splitnn demo system.
         """
         def __init__(self, net, optim_inst, scale_update_cell, config, yaml_data) -> None:
-            # 定义自定义优化器相关算子
+            # 自定义优化器相关算子
             ...
 
         def __call__(self, *inputs, sens=None):
@@ -127,7 +127,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
             ...
     ```
 
-开发者可自定义优化器类的`__init__`方法的输入输出，但优化器类的`__call__`方法的输入需仅包含`inputs`和`sens`。其中，`inputs`为`list`类型，对应训练网络的输入张量列表，其元素为`mindspore.Tensor`类型。`sens`为`dict`类型，保存用于计算训练网络参数梯度值的加权系数，其key为`str`类型的梯度加权系数标识符；value为`dict`类型，其key为`str`类型，是训练网络输出张量名称，value为`mindspore.Tensor`类型，是该输出张量对应的训练网络参数梯度值的加权系数。
+    开发者可自定义优化器类的`__init__`方法的输入输出，但优化器类的`__call__`方法的输入需仅包含`inputs`和`sens`。其中，`inputs`为`list`类型，对应训练网络的输入张量列表，其元素为`mindspore.Tensor`类型。`sens`为`dict`类型，保存用于计算训练网络参数梯度值的加权系数，其key为`str`类型的梯度加权系数标识符；value为`dict`类型，其key为`str`类型，是训练网络输出张量名称，value为`mindspore.Tensor`类型，是该输出张量对应的训练网络参数梯度值的加权系数。
 
 2. 在yaml配置文件中，描述优化器对应的梯度计算、参数更新等信息。[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
 
@@ -158,13 +158,13 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
           loss_scale: 1024.0
     ```
 
-其中，`type`字段为优化器类型，此处为开发者自定义优化器。
+    其中，`type`字段为优化器类型，此处为开发者自定义优化器。
 
-`grads`字段为优化器关联的`GradOperation`列表，优化器将使用列表中`GradOperation`算子计算输出的梯度值，更新训练网络参数。`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation) ）的标识符。
+    `grads`字段为优化器关联的`GradOperation`列表，优化器将使用列表中`GradOperation`算子计算输出的梯度值，更新训练网络参数。`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)）的标识符。
 
-`params`字段为优化器即将更新的训练网络参数名称列表，其元素分别为一个训练网络参数名称。本示例中，自定义优化器将更新名称中包含`word_embedding`字符串和`position_embedding`字符串的网络参数。
+    `params`字段为优化器即将更新的训练网络参数名称列表，其元素分别为一个训练网络参数名称。本示例中，自定义优化器将更新名称中包含`word_embedding`字符串和`position_embedding`字符串的网络参数。
 
-`hyper_parameters`字段为优化器的超参数列表。
+    `hyper_parameters`字段为优化器的超参数列表。
 
 ### 定义梯度加权系数计算
 
@@ -185,7 +185,7 @@ grad_scalers:
         sens: 1024.0
 ```
 
-其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation) ），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其它参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
+其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其它参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
 
 ### 执行训练
 
@@ -207,7 +207,7 @@ grad_scalers:
                                  optimizers=embedding_optim)
     ```
 
-其中，`FLYamlData`类主要完成yaml配置文件的解析和校验，`FLModel`类主要提供纵向联邦学习训练、推理等流程的控制接口。
+    其中，`FLYamlData`类主要完成yaml配置文件的解析和校验，`FLModel`类主要提供纵向联邦学习训练、推理等流程的控制接口。
 
 2. 调用`FLModel`类的接口方法，执行纵向联邦学习训练。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
@@ -226,7 +226,7 @@ grad_scalers:
                 embedding_fl_model.save_ckpt()
     ```
 
-其中，`forward_one_step`方法和`backward_one_step`方法分别执行一个数据batch的前向推理和反向传播操作。`load_ckpt`方法和`save_ckpt`方法分别执行checkpoints文件的加载和保存操作。
+    其中，`forward_one_step`方法和`backward_one_step`方法分别执行一个数据batch的前向推理和反向传播操作。`load_ckpt`方法和`save_ckpt`方法分别执行checkpoints文件的加载和保存操作。
 
 ## 运行样例
 
@@ -288,9 +288,9 @@ grad_scalers:
     ...
     ```
 
-对应的可视化结果如下图所示，其中横轴为训练步数，纵轴为loss值，红色曲线为盘古α训练loss值，蓝色曲线为本示例中基于拆分学习的盘古α训练loss值。二者loss值下降的趋势基本一致，考虑到网络参数值初始化具有随机性，可验证训练过程的正确性。
+    对应的可视化结果如下图所示，其中横轴为训练步数，纵轴为loss值，红色曲线为盘古α训练loss值，蓝色曲线为本示例中基于拆分学习的盘古α训练loss值。二者loss值下降的趋势基本一致，考虑到网络参数值初始化具有随机性，可验证训练过程的正确性。
 
-![盘古α大模型跨域训练结果](./images/splitnn_pangu_alpha_result.png)
+    ![盘古α大模型跨域训练结果](./images/splitnn_pangu_alpha_result.png)
 
 ### 运行多进程样例
 
@@ -313,7 +313,7 @@ grad_scalers:
     ./run_pangu_train_leader.sh {ip_address_server1} {ip_address_server2} ./wiki/train ./wiki/train
     ```
 
-训练脚本的第1个参数是本地服务器（服务器1）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数是训练数据集文件路径，第4个参数是评估数据集文件路径，第5个参数标识是否加载已有的checkpoint文件。
+    训练脚本的第1个参数是本地服务器（服务器1）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数是训练数据集文件路径，第4个参数是评估数据集文件路径，第5个参数标识是否加载已有的checkpoint文件。
 
 4. 在服务器2启动参与方B的训练脚本：
 
@@ -321,6 +321,6 @@ grad_scalers:
     ./run_pangu_train_follower.sh {ip_address_server2} {ip_address_server1}
     ```
 
-训练脚本的第1个参数是本地服务器（服务器2）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数标识是否加载已有的checkpoint文件。
+    训练脚本的第1个参数是本地服务器（服务器2）的IP地址和端口号，第2个参数是对端服务器（服务器2）的IP地址和端口号，第3个参数标识是否加载已有的checkpoint文件。
 
 5. 查看服务器1的训练日志`leader_processs.log`中记录的训练loss信息。若其loss信息与盘古α集中式训练loss值趋势一致，可验证训练过程的正确性。
