@@ -50,6 +50,7 @@ Model基本介绍
 
 ``Model``\ 提供了以下接口用于模型训练、评估和推理：
 
+-  ``fit``\ ：边训练边评估模型。
 -  ``train``\ ：用于在训练集上进行模型训练。
 -  ``eval``\ ：用于在验证集上进行模型评估。
 -  ``predict``\ ：用于对输入的一组数据进行推理，输出预测结果。
@@ -88,11 +89,6 @@ Model基本介绍
     
     train_dataset = datapipe('MNIST_Data/train', 64)
     test_dataset = datapipe('MNIST_Data/test', 64)
-
-
-.. parsed-literal::
-
-    Replace is False and data exists, so doing nothing. Use replace=True to re-download the data.
 
 
 创建模型
@@ -147,7 +143,7 @@ Model基本介绍
     ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
     loss_callback = LossMonitor(steps_per_epoch)
 
-通过MindSpore提供的\ ``model.train``\ 接口可以方便地进行网络的训练，\ ``LossMonitor``\ 可以监控训练过程中\ ``loss``\ 值的变化。
+通过MindSpore提供的\ ``model.fit``\ 接口可以方便地进行网络的训练与评估，\ ``LossMonitor``\ 可以监控训练过程中\ ``loss``\ 值的变化。
 
 .. code:: python
 
