@@ -44,7 +44,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
 
 ### 定义网络模型
 
-1. 采用MindSpore提供的功能组件，以nn.Cell（参见 [mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell) ）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+1. 采用MindSpore提供的功能组件，以nn.Cell（参见 [mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell) ）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
    ```python
    class EmbeddingLossNet(nn.Cell):
@@ -76,7 +76,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
            return embedding_table, word_table, position_id, attention_mask
    ```
 
-2. 在yaml配置文件中，描述训练网络对应的名称、输入、输出等信息。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
+2. 在yaml配置文件中，描述训练网络对应的名称、输入、输出等信息。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
 
    ```yaml
    train_net:
@@ -111,7 +111,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
 
 ### 定义优化器
 
-1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/src/pangu_optim.py)如下:
+1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/pangu_optim.py)如下:
 
     ```python
     class PanguAlphaAdam(TrainOneStepWithLossScaleCell):
@@ -129,7 +129,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见 [纵向联邦�
 
 开发者可自定义优化器类的`__init__`方法的输入输出，但优化器类的`__call__`方法的输入需仅包含`inputs`和`sens`。其中，`inputs`为`list`类型，对应训练网络的输入张量列表，其元素为`mindspore.Tensor`类型。`sens`为`dict`类型，保存用于计算训练网络参数梯度值的加权系数，其key为`str`类型的梯度加权系数标识符；value为`dict`类型，其key为`str`类型，是训练网络输出张量名称，value为`mindspore.Tensor`类型，是该输出张量对应的训练网络参数梯度值的加权系数。
 
-2. 在yaml配置文件中，描述优化器对应的梯度计算、参数更新等信息。[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
+2. 在yaml配置文件中，描述优化器对应的梯度计算、参数更新等信息。[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
 
     ```yaml
     opts:
@@ -189,7 +189,7 @@ grad_scalers:
 
 ### 执行训练
 
-1. 完成上述Python编程开发和yaml配置文件编写后，采用MindSpore Federated提供的`FLModel`类和`FLYamlData`类，构建纵向联邦学习流程。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+1. 完成上述Python编程开发和yaml配置文件编写后，采用MindSpore Federated提供的`FLModel`类和`FLYamlData`类，构建纵向联邦学习流程。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
     ```python
     embedding_yaml = FLYamlData('./embedding.yaml')
@@ -209,7 +209,7 @@ grad_scalers:
 
 其中，`FLYamlData`类主要完成yaml配置文件的解析和校验，`FLModel`类主要提供纵向联邦学习训练、推理等流程的控制接口。
 
-2. 调用`FLModel`类的接口方法，执行纵向联邦学习训练。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/tree/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+2. 调用`FLModel`类的接口方法，执行纵向联邦学习训练。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
     ```python
     embedding_fl_model.load_ckpt()

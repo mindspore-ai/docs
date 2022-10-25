@@ -145,7 +145,7 @@ We choose the relatively simple LeNet network, which has seven layers without th
 
 > More information about LeNet network is not described herein. For more details, please refer to <http://yann.lecun.com/exdb/lenet/>.
 
-The network used for this task can be found in the script [test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist/test_cross_silo_femnist.py).
+The network used for this task can be found in the script [test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_femnist/test_cross_silo_femnist.py).
 
 For a specific understanding of the network definition process in MindSpore, please refer to [quick start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#building-network).
 

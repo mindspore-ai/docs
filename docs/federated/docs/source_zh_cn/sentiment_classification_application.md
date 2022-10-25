@@ -49,7 +49,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/federated/tree/master/tests/st/network/albert.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/federated/blob/master/tests/st/network/albert.py)。
 
 ### 生成端侧模型文件
 

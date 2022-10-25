@@ -138,7 +138,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 This example uses lenet on the device-side to simulate the actual network used, where[device-side model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms) in `.ms` format of lenet. As the real scenario where a client contains only one model file in .ms format, in the simulation scenario, multiple copies of the .ms file need to be copied and named according to the `lenet_train{i}.ms` format, where i represents the client number, since the .ms file has been automatically copied for each client in `run_client_x86.py`.
 
-See the copy_ms function in [startup script](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py) for details.
+See the copy_ms function in [startup script](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py) for details.
 
 ### Start the cloud side service
 
@@ -291,7 +291,7 @@ For different interfaces and scenarios, you only need to modify specific paramet
 
 ### Stop the client process
 
-For details, see the [finish.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/simulate_x86/finish.py) script. The details are as follows:
+For details, see the [finish.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/finish.py) script. The details are as follows:
 
 The command of stopping the client process:
 

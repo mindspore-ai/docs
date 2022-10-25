@@ -132,7 +132,7 @@ The user can set the hyperparameter according to the actual situation.
 | join_type (Follower does not need to be configured)   | Algorithm of intersection finding, str type.                                          |
 | thread_num                        | Calculate the number of threads required when using the PSI intersection algorithm, int type.                 |
 
-In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/leader_schema. yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/tree/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
+In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/leader_schema.yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
 
 After running the data export, generate multiple MindRecord related files.
 
