@@ -34,6 +34,10 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
 
    通过加密对模型文件进行保护的功能，使用对称加密算法对参数文件或推理模型进行加密，使用时直接加载密文模型完成推理或增量训练。
 
+7. `模型动态混淆 <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/dynamic_obfuscation_protection.html>`_
+
+   使用控制流混淆算法对AI模型的结构进行改造混淆，使得混淆后的模型即使被窃取，也不会泄露真实的结构和权重。加载混淆模式时只要传入正确的密码或者自定义函数，就能正常使用模型进行推理，且推理结果精度无损。
+
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -50,6 +54,7 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    test_model_security_fuzzing
    evaluation_of_CNNCTC
    model_encrypt_protection
+   dynamic_obfuscation_protection
 
 .. toctree::
    :glob:
