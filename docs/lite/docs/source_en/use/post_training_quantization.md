@@ -27,6 +27,11 @@ common quantization parameters are the basic settings for post training quantiza
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
 | `debug_info_save_path`     | Optional | Set the folder path where the quantized debug information file is saved. | String   | -      | -                                     |
+| `enable_encode`     | Optional |  The enable switch of compression code for weight quantization. | Boolean   | True     |  True, False                                    |
+
+> `min_quant_weight_size` and `min_quant_weight_channel` are only valid for weight quantization.
+>
+> Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
 
 The common quantization parameter configuration is as follows:
 
@@ -45,11 +50,9 @@ min_quant_weight_channel=16
 skip_quant_node=node_name1,node_name2,node_name3
 # Set the folder path where the quantization debug information file is saved.
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
+# Enable tensor compression for weight quantization. If parameter bit_num not equal to 8 or 16, it can not be set to false.
+enable_encode = true
 ```
-
-> `min_quant_weight_size` and `min_quant_weight_channel` are only valid for weight quantization.
->
-> Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
 
 ### Mixed Bit Weight Quantization Parameter
 
