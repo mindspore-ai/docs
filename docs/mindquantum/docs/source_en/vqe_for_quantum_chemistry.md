@@ -36,8 +36,6 @@ In this tutorial, the following environments need to be installed:
 Import the modules on which this tutorial depends.
 
 ```python
-import numpy as np
-import mindquantum as mq
 from openfermion.chem import MolecularData
 from openfermionpyscf import run_pyscf
 from mindquantum.core.gates import X
@@ -46,7 +44,6 @@ from mindquantum.core.operators import Hamiltonian
 from mindquantum.simulator import Simulator
 from mindquantum.algorithm.nisq import generate_uccsd
 import mindspore as ms
-from mindspore.common.initializer import initializer
 
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 ```
@@ -99,6 +96,7 @@ Where $| \psi_{1} \psi_{2} \psi_{3} \dots \rangle$ represents the Nth-order dete
 The spin-orbit wave function $\psi_{i}$ may be further expanded with a set of basis functions in known forms:
 
 $$\psi_{i} = \phi_{i} \eta_{i}$$
+
 $$\phi_{i} = \sum_{\mu}{C_{\mu i} \chi_{\mu}}$$
 
 $\{\chi_{\mu}\}$ is referred to as a basis function, and may be a Gaussian function or the like.
@@ -113,7 +111,7 @@ $$
 You can obtain the configuration interaction (CI) method:
 
 $$
-| \Psi_{CI} \rangle = C_{0} | \Psi_{HF} \rangle + \sum^{a\rightarrow\infty} _{i\in occ\\\\a\not\in occ}{C^{a} _{i} | \Psi^{a} _{i} \rangle } + \sum^{ab\rightarrow\infty} _{ij\in occ\\\\ab\not\in occ}{C^{ab} _{ij} | \Psi^{ab} _{ij} \rangle }
+| \Psi_{CI} \rangle = C_{0} | \Psi_{HF} \rangle + \sum^{a\rightarrow\infty} _{i\in occ, a\not\in occ}{C^{a} _{i} | \Psi^{a} _{i} \rangle } + \sum^{ab\rightarrow\infty} _{ij\in occ, ab\not\in occ}{C^{ab} _{ij} | \Psi^{ab} _{ij} \rangle }
 $$
 
 $| \Psi^{a}_{i} \rangle + \dots$ in the preceding formula represents a single excitation wave function of the electron from the orbit $i$ to the orbit $a$, and so on. A CI that considers only single excitation and double excitation is called a configuration interaction with singles and doubles (CISD). The CI that takes into account all the ground-state HF wave functions to N excitation wave functions is called full configuration interaction (FCI). The FCI wave function is the exact solution of the time-independent Schrödinger equation under the given basis function.
@@ -123,16 +121,16 @@ $| \Psi^{a}_{i} \rangle + \dots$ in the preceding formula represents a single ex
 Under the second quantization expression, the Hamiltonian of the system has the following form:
 
 $$
-\hat{H} = \sum_{p, q}{h^{p} _ {q} E^{p} _ {q}} + \sum_{p, q, r, s}{\frac{1}{2} g^{pq} _ {rs} E^{pq} _ {rs} }
+\hat{H} = \sum_{p, q}{h^p_q E^p_q} + \sum_{p, q, r, s}{\frac{1}{2} g^{pq} _ {rs} E^{pq}_{rs}}
 $$
 
 $E^{p} _{q}$ and $E^{pq}_ {rs}$ are as follows:
 
 $$
-E^{p} _ {q} = a^{\dagger} _ {p} a_{q}
-$$
-$$
-E^{pq} _ {rs} = a^{\dagger} _ {p} a^{\dagger} _ {q} a_{r} a_{s}
+\begin{align*}
+E^{pq} _{rs} &= a^{\dagger} _{p} a^{\dagger} _{q} a _ {r} a _ {s}\\
+E^p_q &= a^{\dagger}_pa_q
+\end{align*}
 $$
 
 $a^{\dagger} _{p}$ and $a_ {q}$ are creation operator and annihilation operator, respectively.
@@ -140,7 +138,7 @@ $a^{\dagger} _{p}$ and $a_ {q}$ are creation operator and annihilation operator,
 The excited-state wave function can be expressed conveniently by using a second quantization expression method:
 
 $$
-| \Psi^{abc\dots} _ {ijk\dots} \rangle = a^{\dagger} _ {a} a^{\dagger} _ {b} a^{\dagger} _ {c} \dots a_{i} a_{j} a_{k} \dots | \Psi \rangle
+| \Psi^{abc\dots} _ {ijk\dots} \rangle = a^{\dagger} _ {a} a^{\dagger} _ {b} a^{\dagger} _ {c} \dots a _ {i} a_{j} a_{k} \dots | \Psi \rangle
 $$
 
 An improvement to the CI method is the coupled-cluster theory (CC). Exponential operators are introduced to CC:
@@ -152,7 +150,7 @@ $$
 The coupled-cluster operator $\hat{T}$ is the sum of excitation operators.
 
 $$
-\hat{T} = \sum_{p\not\in occ\\\\q\in occ}{\theta^{p} _ {q} E^{p} _ {q}} + \sum_{pq\not\in occ\\\\rs\in occ}{\theta^{pq} _ {rs} E^{pq} _ {rs}} + \dots
+\hat{T} = \sum_{p\not\in occ, q\in occ}{\theta^{p} _ {q} E^{p} _ {q}} + \sum_{pq\not\in occ, rs\in occ}{\theta^{pq} _ {rs} E^{pq} _ {rs}} + \dots
 $$
 
 $\theta$ is similar to $C$ in the CI method, and is the parameter to be solved. It is easy to know from the Taylor's expansion of the exponent that even if the coupled-cluster operator $\hat{T}$ includes only a low-order excitation term, the $\exp{(\hat{T})}$ may also implicitly include a high-order excitation term. This also makes a convergence speed of the CC method to the FCI wave function much faster than that of the CI. For truncation to K excitation, for example, K=2, the accuracy of the CCSD exceeds that of the CISD.
@@ -280,12 +278,12 @@ print("Number of parameters: %d" % (len(ansatz_parameter_names)))
 ```
 
 ```bash
-==============================Circuit Summary==============================
-|Total number of gates  : 12612.                                          |
-|Parameter gates        : 640.                                            |
-|with 44 parameters are : p40, p9, p8, p3, p32, p28, p15, p4, p18, p22... |
-|Number qubit of circuit: 12                                              |
-===========================================================================
+============================Circuit Summary============================
+|Total number of gates  : 15172.                                      |
+|Parameter gates        : 640.                                        |
+|with 44 parameters are : p0, p8, p1, p9, p2, p10, p3, p11, p4, p12...|
+|Number qubit of circuit: 12                                          |
+=======================================================================
 Number of parameters: 44
 ```
 
@@ -308,10 +306,8 @@ The procedure for solving the molecular ground state by using the VQE is as foll
 In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindQuantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of variational quantum circuits in simulation. The following uses MindQuantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
 
 ```python
-from mindquantum.simulator import Simulator
 sim = Simulator('projectq', total_circuit.n_qubits)
-molecule_pqc = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp),
-                                             total_circuit)
+molecule_pqc = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp), total_circuit)
 ```
 
 You can obtain the energy $E(\theta)=\langle \Psi_{UCC}(\theta) | \hat{H} | \Psi_{UCC}(\theta) \rangle$ corresponding to the variational parameter and the derivative of each variational parameter by transferring a specific value of the parameter to `molecule_pqc`.
@@ -320,21 +316,13 @@ Next, steps 5 to 7 in VQE optimization need to be performed, that is, parameteri
 
 ```python
 from mindquantum.framework import MQAnsatzOnlyLayer
-class PQCNet(ms.nn.Cell):
-    def __init__(self, pqc):
-        super(PQCNet, self).__init__()
-        self.pqc = pqc
-        self.net = MQAnsatzOnlyLayer(self.pqc, weight='Zeros')
 
-    def construct(self):
-        return self.net()
-
-molecule_pqcnet = PQCNet(molecule_pqc)
+molecule_pqcnet = MQAnsatzOnlyLayer(molecule_pqc, 'Zeros')
 ```
 
-Here, we manually build a basic `PQCNet` as a model example. This model can be used similar to a conventional machine learning model, for example, optimizing weights and calculating derivatives. A better choice is to use `MQAnsatzOnlyLayer` encapsulated in MindQuantum, which will be demonstrated later.
+Here, we manually build a basic `MQAnsatzOnlyLayer` as a model example. This model can be used similar to a conventional machine learning model, for example, optimizing weights and calculating derivatives.
 
-The built `PQCNet` uses the `"Zeros"` keyword to initialize all variational parameters to 0. The computing result of CCSD or second order Møller-Plesset perturbation theory (MP2) can also be used as the initial value of the variational parameters of unitary coupled-clusters. In this case, $E(\vec{0})=\langle \Psi_{UCC}(\vec{0}) | \hat{H} | \Psi_{UCC}(\vec{0}) \rangle = E_{HF}$.
+The built `MQAnsatzOnlyLayer` uses the `"Zeros"` keyword to initialize all variational parameters to 0. The computing result of CCSD or second order Møller-Plesset perturbation theory (MP2) can also be used as the initial value of the variational parameters of unitary coupled-clusters. In this case, $E(\vec{0})=\langle \Psi_{UCC}(\vec{0}) | \hat{H} | \Psi_{UCC}(\vec{0}) \rangle = E_{HF}$.
 
 ```python
 initial_energy = molecule_pqcnet()
@@ -345,7 +333,7 @@ print("Initial energy: %20.16f" % (initial_energy.asnumpy()))
 Initial energy:  -7.8633575439453125
 ```
 
-Finally, the Adam optimizer of MindSpore is used for optimization. The learning rate is set to $1\times 10^{-2}$, and the optimization termination standard is set to $\left.|\epsilon|\right.= \left.|E^{k+1} - E^{k}|\right. \le 1\times 10^{-8}$.
+Finally, the Adam optimizer of MindSpore is used for optimization. The learning rate is set to $1\times 10^{-2}$, and the optimization termination standard is set to $\left.|\epsilon|\right. = \left.|E^{k+1} - E^{k}|\right. \le 1\times 10^{-8}$.
 
 ```python
 optimizer = ms.nn.Adagrad(molecule_pqcnet.trainable_params(), learning_rate=4e-2)
@@ -365,7 +353,7 @@ while abs(energy_diff) > eps:
 
 print("Optimization completed at step %3d" % (iter_idx - 1))
 print("Optimized energy: %20.16f" % (energy_i))
-print("Optimized amplitudes: \n", molecule_pqcnet.net.weight.asnumpy())
+print("Optimized amplitudes: \n", molecule_pqcnet.weight.asnumpy())
 ```
 
 ```bash
@@ -375,28 +363,27 @@ Step  10 energy  -7.8821778297424316
 Step  15 energy  -7.8822836875915527
 Step  20 energy  -7.8823199272155762
 Step  25 energy  -7.8823370933532715
-Step  30 energy  -7.8823437690734863
-Step  35 energy  -7.8618836402893066
-Step  40 energy  -7.8671770095825195
-Step  45 energy  -7.8751692771911621
-Step  50 energy  -7.8822755813598633
-Step  55 energy  -7.8812966346740723
-Step  60 energy  -7.8823189735412598
-Step  65 energy  -7.8823523521423340
-Optimization completed at step  67
-Optimized energy:  -7.8823528289794922
+Step  30 energy  -7.8815641403198242
+Step  35 energy  -7.8786268234252930
+Step  40 energy  -7.8778734207153320
+Step  45 energy  -7.8808088302612305
+Step  50 energy  -7.8819031715393066
+Step  55 energy  -7.8821558952331543
+Step  60 energy  -7.8823504447937012
+Optimization completed at step  63
+Optimized energy:  -7.8823523521423340
 Optimized amplitudes:
-    [ 2.3980068e-04  1.8912849e-03  3.5044324e-02  1.6005965e-02
-    -1.9985158e-07  9.0940151e-04  1.6222824e-05  1.4160988e-02
-    -1.1072063e-07  9.0867787e-04  1.3825165e-05  1.4166672e-02
-    -5.4699212e-04  4.2679289e-04  2.8641545e-03  5.3817011e-02
-    2.3320253e-04  1.7034533e-07  6.6684343e-08 -2.7686235e-07
-    7.2332718e-08  1.2834757e-05 -1.0439425e-04  7.1826143e-08
-    3.6483241e-06  6.1677817e-08  3.1003920e-06  7.9770159e-04
-    -5.4951470e-02  3.0904056e-03 -4.4321241e-05  8.5840838e-07
-    -1.9589644e-08 -4.9430941e-08  8.6163556e-07 -2.5008637e-07
-    2.1493735e-08 -4.6331229e-06  3.0904033e-03  9.5311613e-08
-    -4.8755901e-08  2.0483398e-08 -3.9453280e-06  3.7235476e-04]
+ [ 2.40339446e-04  1.89154677e-03  3.49554531e-02  1.59917790e-02
+  2.33248898e-07  9.09393420e-04 -1.79268172e-05  1.41595434e-02
+  6.28582342e-08  9.08669957e-04 -1.49387897e-05  1.41652254e-02
+ -5.46666037e-04  4.26779327e-04  2.86067789e-03  5.38198128e-02
+  2.32545775e-04 -2.78862785e-07 -7.10907813e-08 -7.98562283e-08
+  7.00364581e-07 -9.21200325e-08 -6.73263187e-08  1.26236855e-05
+ -1.04519488e-04  7.97090179e-04 -4.01437364e-06 -3.34858555e-06
+ -5.49289174e-02  3.09006264e-03  7.01365061e-05 -1.36400865e-06
+ -1.35536197e-06  4.63907739e-08  5.32547162e-08 -2.34681625e-08
+  3.92657455e-07  5.11744884e-06  3.09006032e-03 -2.05122589e-07
+  5.91138871e-08 -2.44064164e-08  4.26194856e-06  3.72134935e-04]
 ```
 
 It can be seen that the computing result of unitary coupled-cluster is very close to that of FCI, and has good accuracy.
@@ -450,12 +437,12 @@ total_circuit.summary()
 ```
 
 ```bash
-======================================Circuit Summary======================================
-|Total number of gates  : 12612.                                                          |
-|Parameter gates        : 640.                                                            |
-|with 44 parameters are : d1_3, d2_26, d2_6, d2_1, d2_2, d2_14, d1_1, s_1, d2_16, d2_11...|
-|Number qubit of circuit: 12                                                              |
-===========================================================================================
+==================================Circuit Summary==================================
+|Total number of gates  : 15172.                                                  |
+|Parameter gates        : 640.                                                    |
+|with 44 parameters are : s_0, d1_0, s_1, d1_1, s_2, d1_2, s_3, d1_3, s_4, d1_4...|
+|Number qubit of circuit: 12                                                      |
+===================================================================================
 ```
 
 Next, you need to provide a reasonable initial value for the variational parameter. The `PQCNet` built in the preceding text uses 0 as the initial guess by default, which is feasible in most cases. However, using CCSD's computational data as a starting point for UCC may be better. Use the `uccsd_singlet_get_packed_amplitudes` function to extract CCSD parameters from `molecule_of`.
@@ -469,9 +456,10 @@ init_amplitudes_ccsd = [init_amplitudes_ccsd[param_i] for param_i in ansatz_para
 `MQAnsatzOnlyLayer` can be used to easily obtain a machine learning model based on a variational quantum circuit by using a parameter and a quantum circuit:
 
 ```python
-sim = Simulator('projectq', total_circuit.n_qubits)
-grad_ops = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp.real),
-                                         total_circuit)
+grad_ops = Simulator('projectq', total_circuit.n_qubits).get_expectation_with_grad(
+    Hamiltonian(hamiltonian_QubitOp.real),
+    total_circuit)
+
 molecule_pqcnet = MQAnsatzOnlyLayer(grad_ops)
 ```
 
@@ -513,32 +501,32 @@ print("Optimized amplitudes: \n", molecule_pqcnet.weight.asnumpy())
 ```bash
 eps:  1e-08
 Step   0 energy  -7.8173098564147949
-Step   5 energy  -7.8740763664245605
+Step   5 energy  -7.8740758895874023
 Step  10 energy  -7.8818783760070801
 Step  15 energy  -7.8821649551391602
 Step  20 energy  -7.8822622299194336
-Step  25 energy  -7.8823084831237793
-Step  30 energy  -7.8823180198669434
-Step  35 energy  -7.8737111091613770
-Step  40 energy  -7.8724455833435059
-Step  45 energy  -7.8801403045654297
-Step  50 energy  -7.8821926116943359
-Step  55 energy  -7.8818311691284180
-Step  60 energy  -7.8823456764221191
-Optimization completed at step  64
+Step  25 energy  -7.8823080062866211
+Step  30 energy  -7.8822288513183594
+Step  35 energy  -7.8758554458618164
+Step  40 energy  -7.8761253356933594
+Step  45 energy  -7.8807921409606934
+Step  50 energy  -7.8818383216857910
+Step  55 energy  -7.8821811676025391
+Step  60 energy  -7.8823504447937012
+Optimization completed at step  63
 Optimized energy:  -7.8823523521423340
 Optimized amplitudes:
-    [-2.4216002e-04  1.8924323e-03 -3.4653045e-02  1.5943546e-02
-    3.6362690e-07  9.0936717e-04 -1.7181528e-05  1.4154296e-02
-    -4.4650793e-08  9.0864423e-04 -2.6399141e-06  1.4159971e-02
-    5.4558384e-04  4.2672374e-04 -2.8494308e-03  5.3833455e-02
-    2.3033506e-04  1.2578158e-06  3.3855862e-08  7.3955505e-08
-    -5.2005623e-07  2.9746575e-08  1.2325607e-08  1.1919828e-05
-    -1.0492613e-04  7.9503102e-04  3.8478893e-06  5.9738107e-07
-    -5.4855812e-02  3.0889052e-03  7.9252044e-05 -1.5384763e-06
-    -1.5373821e-06 -3.0784176e-07 -3.5303248e-08  1.7360321e-08
-    4.4359115e-07 -4.9067144e-06  3.0889027e-03  1.3888703e-07
-    -1.6715177e-08  6.3234533e-09 -7.5149819e-07  3.7140178e-04]
+ [-2.42472161e-04  1.89258391e-03 -3.46013680e-02  1.59353409e-02
+ -8.40432079e-08  9.09362687e-04  2.01798011e-05  1.41534032e-02
+ -2.81526667e-07  9.08639806e-04  2.00776722e-05  1.41590768e-02
+  5.45396935e-04  4.26715094e-04 -2.84755090e-03  5.38354851e-02
+  2.29954778e-04  9.55212727e-07 -1.24844689e-07 -9.20767249e-08
+ -4.53033465e-07 -7.44455733e-08 -8.83169875e-08  1.17984437e-05
+ -1.04996754e-04  7.94677646e-04 -4.50417019e-06 -4.49753043e-06
+ -5.48430867e-02  3.08870710e-03 -6.50319926e-05  1.26427835e-06
+  1.25660222e-06 -2.82077963e-07  7.96948143e-08 -3.28978906e-08
+ -3.63568660e-07  5.76087541e-06  3.08870478e-03  8.82309266e-08
+  5.73797401e-08 -2.53652850e-08  5.72846511e-06  3.71275470e-04]
 ```
 
 ## Summary
