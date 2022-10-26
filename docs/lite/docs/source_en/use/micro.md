@@ -1,4 +1,4 @@
-# Performing Inference on MCU or Small Systems
+# Performing Inference or Training on MCU or Small Systems
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -8,10 +8,10 @@ This tutorial describes an ultra-lightweight AI deployment solution for IoT edge
 
 Compared with mobile devices, MCUs are usually used on IoT devices. The ROM resources of the device are limited, and the memory and computing power of the hardware resources are weak.
 Therefore, AI applications on IoT devices have strict limits on runtime memory and power consumption of AI model inference.
-For MCUs deploying hardware backends, MindSpore Lite provides the ultra-lightweight Micro AI deployment solution. In the offline phase, models are directly generated into lightweight code without online model parsing and graph compilation. The generated Micro inference code is easy to understand, with less memory at runtime and smaller code size.
-You can use a MindSpore Lite conversion tool `converter_lite` to easily generate inference code that can be deployed on the x86/ARM64/ARM32/Cortex-M platform.
+For MCUs deploying hardware backends, MindSpore Lite provides the ultra-lightweight Micro AI deployment solution. In the offline phase, models are directly generated into lightweight code without online model parsing and graph compilation. The generated Micro code is easy to understand, with less memory at runtime and smaller code size.
+You can use a MindSpore Lite conversion tool `converter_lite` to easily generate inference or training code that can be deployed on the x86/ARM64/ARM32/Cortex-M platform.
 
-Deploying a model for inference via the Micro involves the following four steps: model inference code generation, `Micro` lib obtaining, code integration, and compilation and deployment.
+Deploying a model for inference or training via the Micro involves the following four steps: model code generation, `Micro` lib obtaining, code integration, and compilation and deployment.
 
 ## Generating Model Inference Code
 
@@ -260,6 +260,86 @@ target_device=DSP
 
 - At present, Micro has supported 34 Int8 quantization operators. If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses Float32 inference.
 
+## Generating Model Training Code
+
+### Overview
+
+The training code can be generated for the input model by using the MindSpore Lite conversion tool `converter_lite` and configuring the Micro configuration item in the parameter configuration file of the conversion tool.
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Training](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html).
+
+### Preparing Environment
+
+For preparing environment section, refer to the [above](#preparing-environment), which will not be repeated here.
+
+### Generating Training Code by Running converter_lite
+
+1. Go to the conversion directory
+
+    ```bash
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+    ```
+
+2. Set the Micro configuration item
+
+    Create the micro.cfg file in the current directory. The file content is as follows:
+
+    ```text
+    [micro_param]
+
+    # enable code-generation for MCU HW
+
+    enable_micro=true
+
+    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+
+    target=x86
+
+    # code generation for Inference or Train. Cortex-M is unsupported when codegen_mode is Train.
+
+    codegen_mode=Train
+
+    ```
+
+3. Execute converter_lite and generate code
+
+    ```bash
+    ./converter_lite --fmk=MINDIR --trainModel=True --modelFile=my_model.mindir --outputFile=my_model --configFile=micro.cfg
+    ```
+
+    The following information is displayed when the code is run successfully:
+
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
+
+    After the conversion tool is successfully executed, the generated code is saved in the specified `outputFile` directory. In this example, the my_model folder is in the current conversion directory. The content is as follows:
+
+    ```text
+    my_model                       # Specified name of generated code root directory
+    ├── benchmark                  # Benchmark routines for integrated calls to model train code
+    │   ├── benchmark.c
+    │   ├── calib_output.c
+    │   ├── calib_output.h
+    │   ├── load_input.c
+    │   └── load_input.h
+    ├── CMakeLists.txt             # cmake project file of the benchmark routine
+    └── src                        # Model inference code directory
+        ├── CMakeLists.txt
+        ├── net.bin                # Model weights in binary form
+        ├── net.c
+        ├── net.cmake
+        ├── net.h
+        ├── model.c
+        ├── context.c
+        ├── context.h
+        ├── tensor.c
+        ├── tensor.h
+        ├── weight.c
+        └── weight.h
+    ```
+
+    For the API involved in the training process, please refer to the [Introduction to training interface](#calling-interface-of-training-code)
+
 ## Obtaining `Micro` Lib
 
 After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
@@ -312,7 +392,19 @@ Table 3: Inference Common API Interface
 | Obtain all input tensor handles of the model | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
 | Obtain all output tensor handles of the model | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
 | Obtain the input tensor handle of the model by name | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
-| Obtain the output tensor handle of the model by name | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHand                                                                                                               |9
+| Obtain the output tensor handle of the model by name | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)  |
+
+### Calling Interface of Training Code
+
+The following is the general calling interface of the Training code.
+
+Table 4: Training Common API Interface (only training-related interfaces are listed here)
+
+| Function                  | Function definition                                                                                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Run model by step        | MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| Set the model running mode      | MSStatus MSModelSetTrainMode(MSModelHandle model, bool train) |
+| Export the weights of model to file      | MSStatus MSModelExportWeight(MSModelHandle model, const char *export_path) |
 
 ### Integration Differences of Different Platforms
 
