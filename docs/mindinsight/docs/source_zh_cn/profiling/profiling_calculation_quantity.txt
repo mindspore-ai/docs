@@ -6,7 +6,7 @@
 
 - FLOPs：浮点运算次数，单位为M（10^6次）。
 - FLOPS：每秒浮点运算次数，单位为G/秒（10^9次/秒）。
-- FLOPS利用率：通过FLOPS除以AICORE设备峰值FLOPS得到。
+- FLOPS利用率：通过FLOPS除以AICORE设备峰值FLOPS得到（FLOPS利用率的计算依赖了step的划分，如果step划分不准确，此值将不准确）。
 
 .. figure:: ./images/flops-single-card.png
    :alt: flops_statistics.png

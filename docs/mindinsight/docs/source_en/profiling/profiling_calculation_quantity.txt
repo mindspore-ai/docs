@@ -16,8 +16,9 @@ quantity has three indicators:
   million）.
 - FLOPS: the number of floating point operations per second (the unit
   is billion).
-- FLOPS utilization: obtained by dividing the FLOPS by the peak FLOPS
-  of the AICORE device.
+- FLOPS utilization: obtained by dividing the FLOPS by the peak FLOPS of the
+  AICORE device (The calculation of FLOPS utilization depends on the step division.
+  If the step division is not accurate, this value will be inaccurate).
 
 .. figure:: ./images/flops-single-card.png
    :alt: flops_statistics.png
