@@ -71,6 +71,7 @@ MindSpore Documentation
    :glob:
    :maxdepth: 1
    :caption: Migration Guide
+   :titlesonly:
    :hidden:
 
    migration_guide/overview
