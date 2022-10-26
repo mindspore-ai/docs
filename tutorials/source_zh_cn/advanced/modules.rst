@@ -106,7 +106,7 @@ Time)时，需通过编译器进行语法解析，此时存在语法限制，具
 
 除基础的网络结构构造外，我们分别对神经网络层(Layer)、损失函数(Loss)和优化器(Optimizer)，神经网络层需要的参数(Parameter)及其初始化方法(Initializer)的构造等场景进行详细介绍。
 
--  `层与参数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html>`__
+-  `Cell与参数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html>`__
 -  `参数初始化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html>`__
 -  `损失函数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html>`__
 -  `优化器 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html>`__
