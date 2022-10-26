@@ -385,7 +385,7 @@ print("dx", grad)
      [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell的反向).
+Now, let's see how to [customize backward network construction](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向).
 
 ```python
 import numpy as np

@@ -208,7 +208,7 @@ If you want to exit in the middle, the following command is available:
 python finish_cloud.py --redis_port=2345
 ```
 
-For the detailed implementation, see [finish_cloud.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/finish_cloud.py).
+For the detailed implementation, see [finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/finish_cloud.py).
 
 Or when the training task is finished, the cluster exits automatically, no need to close it manually.
 

@@ -48,7 +48,7 @@ The training process of the whole network consists of 5 modules:
    details and procedures and greatly reduces the threshold of
    framework. When you need to customize the gradient, MindSpore also
    provides
-   `interface <https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell的反向>`__
+   `interface <https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向>`__
    to freely implement the gradient calculation.
 
 -  Optimizer: used to calculate and update network parameters during

@@ -61,21 +61,6 @@ MindInsight包括以下内容：
 
    在浏览器中打开MindInsight访问地址，点击“调试器”页签，等待训练连接后，设置监测点，分析计算图、张量、监测点命中等数据，识别精度问题根因。
 
-使用MindConverter迁移模型
---------------------------
-
-1. 导出ONNX模型
-
-   在原始脚本中导出ONNX模型，参见TensorFlow或PyTorch提供的相关说明。
-
-2. `迁移模型 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#命令行参数说明>`_
-
-   执行mindconverter命令以迁移模型，迁移后查看迁移报告并修复报告中指出的错误。
-
-3. 补充脚本
-
-   基于MindConverter生成的骨干模型定义，补齐数据处理、loss函数、训练循环等脚本代码，组成完整脚本。
-
 .. toctree::
    :glob:
    :maxdepth: 1
