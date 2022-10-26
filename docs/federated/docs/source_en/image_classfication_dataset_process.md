@@ -4,8 +4,6 @@
 
 This tutorial uses the federated learning dataset `FEMNIST` in the `leaf` dataset, which contains 62 different categories of handwritten digits and letters (digits 0 to 9, 26 lowercase letters, and 26 uppercase letters) with an image size of `28 x 28` pixels. The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805,263, the average data volume per user is 226.83, and the variance of the data volume for all users is 88.94.
 
-## Device-Cloud Federated Learning Image Classification Dataset Process
-
 Refer to [leaf dataset instruction](https://github.com/TalwalkarLab/leaf) to download the dataset.
 
 1. Environmental requirements before downloading the dataset.
