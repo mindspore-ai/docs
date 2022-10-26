@@ -99,9 +99,10 @@ import anchor_mod
 import nbsphinx_mod
 
 # handle some files.
-del_file_path = './advanced/model/model.ipynb'
-if os.path.exists(del_file_path):
-    os.remove(del_file_path)
+del_file_path_list = ['./advanced/model/model.ipynb','./advanced/modules/cell.ipynb']
+for i in del_file_path_list:
+    if os.path.exists(i):
+        os.remove(i)
 
 sys.path.append(os.path.abspath('../../resource/search'))
 import search_code
