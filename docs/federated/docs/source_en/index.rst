@@ -74,6 +74,7 @@ Common Application Scenarios
    federated_install
    deploy_federated_server
    deploy_federated_client
+   deploy_vfl
 
 .. toctree::
    :maxdepth: 1
