@@ -11,10 +11,13 @@ Burgers' equation is a nonlinear partial differential equation that simulates th
 ## Problem Description
 
 The form of Burgers' equation is as follows:
+
 $$
 u_t + uu_x = \epsilon u_{xx}, \quad x \in[-1,1], t \in[0, T],
 $$
-where $\epsilon=0.01/\pi$, the left of the equal sign is the convection term, and the right is the dissipation term. In this case, the Dirichlet boundary condition and the initial condition of the sine function are used. The format is as follows:
+
+where $\epsilon=0.01/\pi$ , the left of the equal sign is the convection term, and the right is the dissipation term. In this case, the Dirichlet boundary condition and the initial condition of the sine function are used. The format is as follows:
+
 $$
 u(t, -1) = u(t, 1) = 0.
 $$
