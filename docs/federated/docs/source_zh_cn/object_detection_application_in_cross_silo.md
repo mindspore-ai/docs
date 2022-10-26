@@ -36,7 +36,7 @@
 
 ### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)， [Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/index.html)。
+包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/index.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 
@@ -158,7 +158,7 @@ cross_silo_faster_rcnn
 
     则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
+    以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
 
 ### 日志查看
 

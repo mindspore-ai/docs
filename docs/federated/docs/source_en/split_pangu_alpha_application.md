@@ -168,7 +168,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
 According to the chain rule of gradient calculation, the subnetwork located at the backstream of the global network needs to calculate the gradient value of its output tensor relative to the input tensor, i.e., the gradient weighting coefficient or sensitivity, to be passed to the sub-network located at the upstream of the global network for its training parameter update.
 
-MindSpore Federated uses the `GradOperation` operator to complete the above gradient weighting coefficient or sensitivity calculation process. The developer needs to describe the `GradOperation` operator used to calculate the gradient weighting coefficients in the yaml configuration file. Taking Head of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/Head.yaml) is as follows:
+MindSpore Federated uses the `GradOperation` operator to complete the above gradient weighting coefficient or sensitivity calculation process. The developer needs to describe the `GradOperation` operator used to calculate the gradient weighting coefficients in the yaml configuration file. Taking Head of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/head.yaml) is as follows:
 
 ```yaml
 grad_scalers:

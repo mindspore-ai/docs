@@ -134,21 +134,21 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 ## Simulating Multi-client Participation in Federated Learning
 
-### Prepare a model file for the client
+### Preparing a Model File for the Client
 
 This example uses lenet on the device-side to simulate the actual network used, where[device-side model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms) in `.ms` format of lenet. As the real scenario where a client contains only one model file in .ms format, in the simulation scenario, multiple copies of the .ms file need to be copied and named according to the `lenet_train{i}.ms` format, where i represents the client number, since the .ms file has been automatically copied for each client in `run_client_x86.py`.
 
 See the copy_ms function in [startup script](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py) for details.
 
-### Start the cloud side service
+### Starting the Cloud Side Service
 
 Users can first refer to [cloud-side deployment tutorial](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html) to deploy the cloud-side environment and start the cloud-side service.
 
-### Start the client
+### Starting the Client
 
 Before starting the client, please refer to the section [Device-side deployment tutotial](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) for deployment of device environment.
 
-We provide a reference script [run_client_x86.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/run_client_x86.py), users can set relevant parameters to start different federated learning interfaces.
+We provide a reference script [run_client_x86.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py), users can set relevant parameters to start different federated learning interfaces.
 After the cloud-side service is successfully started, the script providing run_client_x86.py is used to call the federated learning framework jar package `mindspore-lite-java-flclient.jar` and the corresponding jar package `quick_start_flclient.jar` of the model script, obtaining in [Compiling package Flow in device-side deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) to simulate starting multiple clients to participate in the federated learning task.
 
 Taking the LeNet network as an example, some of the input parameters in the `run_client_x86.py` script have the following meanings, and users can set them according to the actual situation:
@@ -171,7 +171,7 @@ Taking the LeNet network as an example, some of the input parameters in the `run
 
 - `--flName`
 
-    Specifies the package path of model script used by federated learning. We provide two types of model scripts for your reference ([Supervised sentiment classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [Lenet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). For supervised sentiment classification tasks, this parameter can be set to the package path of the provided script file [AlBertClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java), like as `com.mindspore.flclient.demo.albert.AlbertClient`. For Lenet image classification tasks, this parameter can be set to the package path of the provided script file [LenetClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java), like as `com.mindspore.flclient.demo.lenet.LenetClient`. At the same time, users can refer to these two types of model scripts, define the model script by themselves, and then set the parameter to the package path of the customized model file ModelClient.java (which needs to inherit from the class [Client.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/fl_client/src/main/java/com/mindspore/flclient/model/Client.java)).
+    Specifies the package path of model script used by federated learning. We provide two types of model scripts for your reference ([Supervised sentiment classification task](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [Lenet image classification task](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). For supervised sentiment classification tasks, this parameter can be set to the package path of the provided script file [AlBertClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java), like as `com.mindspore.flclient.demo.albert.AlbertClient`. For Lenet image classification tasks, this parameter can be set to the package path of the provided script file [LenetClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java), like as `com.mindspore.flclient.demo.lenet.LenetClient`. At the same time, users can refer to these two types of model scripts, define the model script by themselves, and then set the parameter to the package path of the customized model file ModelClient.java (which needs to inherit from the class [Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)).
 
 - `--train_model_path`
 
