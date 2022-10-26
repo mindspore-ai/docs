@@ -11,6 +11,7 @@ This tutorial describes how to solve the Navier-Stokes equation using Fourier ne
 ## Navier-Stokes equation
 
 Navier-Stokes equation is a classical equation in computational fluid dynamics. It is a set of partial differential equations describing the conservation of fluid momentum, called N-S equation for short. Its vorticity form in two-dimensional incompressible flows is as follows:
+
 $$
 \partial_t w(x, t)+u(x, t) \cdot \nabla w(x, t)=\nu \Delta w(x, t)+f(x), \quad x \in(0,1)^2, t \in(0, T]
 $$
@@ -28,6 +29,7 @@ where $u$ is the velocity field, $w=\nabla \times u$ is the vorticity, $w_0(x)$ 
 ## Description
 
 We aim to solve two-dimensional incompressible Navier-Stokes equation by learning the operator mapping the initial condition to the solution at time one:
+
 $$
 w_0 \mapsto w(\cdot, 1)
 $$
@@ -84,6 +86,7 @@ from src.loss import RelativeRMSELoss
 In this case, training data sets and test data sets are generated according to Zongyi Li's data set in Fourier Neural Operator for Parametric Partial Differential Equations(https://arxiv.org/pdf/2010.08895.pdf) . The settings are as follows:
 
 The initial condition $w_0(x)$ is generated according to periodic boundary conditions:
+
 $$
 w_0 \sim \mu, \mu=\mathcal{N}\left(0,7^{3 / 2}(-\Delta+49 I)^{-2.5}\right)
 $$
@@ -335,7 +338,7 @@ solver.train(epoch=optimizer_params["train_epochs"],
 
 ## Training Result
 
-The model training result is as follows:
+The model training result is as follows. After 50 training epochs, the value of loss function drops to 1.475, and the relative root mean square error on the test set is 0.110.
 
 ```python
 ......
