@@ -200,7 +200,7 @@ Follower data export results:
 
 ## An Example for Deep Experience
 
-For detailed API documentation for the following code, see [Data Access Documentation](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/data_join.rst).
+For detailed API documentation for the following code, see [Data Access Documentation](https://www.mindspore.cn/federated/docs/en/master/data_join/data_join.html).
 
 ### Data Export
 
