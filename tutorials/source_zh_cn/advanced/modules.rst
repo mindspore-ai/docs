@@ -22,7 +22,7 @@
 
 神经网络模型由各种层(Layer)构成，MindSpore提供构造神经网络层的基础单元Cell，基于Cell进行神经网络封装。下面使用Cell构造经典模型AlexNet。
 
-.. figure:: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
+.. figure:: https://gitee.com/mindspore/docs/raw/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
    alextnet
@@ -75,9 +75,9 @@
             x = self.classifier(x)
             return x
 
-   在定义模型的过程中，\ ``construct``\ 方法内可使用Python语法进行模型结构的任意构造，如条件、循环等控制流语句。但在进行即时编译(Just
-   In
-   Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html>`__\ 。
+在定义模型的过程中，\ ``construct``\ 方法内可使用Python语法进行模型结构的任意构造，如条件、循环等控制流语句。但在进行即时编译(Just
+In
+Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html>`__\ 。
 
 完成模型构造后，我们构造一个单样本数据，将其送入实例化的AlexNet中，即可求得正向结果。
 
