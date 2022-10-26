@@ -8,9 +8,9 @@
 
 1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub).
 
-   For example, if you aim to perform image classification on CIFAR-10 dataset using GoogleNet, please search on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) with the keyword `GoogleNet`. Then all related models will be returned.  Once you enter into the related model page, you can get the website `url`.
+   For example, if you aim to perform image classification on CIFAR-10 dataset using GoogleNet, please search on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) with the keyword `GoogleNet`. Then all related models will be returned. Once you enter into the related model page, you can find the `Usage`. **Notices**: if the model page doesn't have `Usage`, it means that the current model does not support loading with MindSpore Hub temporarily.
 
-2. Complete the task of loading model using `url` , as shown in the example below:
+2. Complete the task of loading model according to the `Usage` , as shown in the example below:
 
    ```python
 
@@ -42,9 +42,9 @@ When loading a model with `mindspore_hub.load` API, we can add an extra argument
 
 We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/mobilenetv2) as an example to illustrate how to load a model trained on the ImageNet dataset and then perform transfer learning (re-training) on a specific sub-task dataset. The main steps are listed below:
 
-1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`.
+1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and find the corresponding `Usage`.
 
-2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer.
+2. Load the model from MindSpore Hub using the `Usage`. Note that the parameter `include_top` is provided by the model developer.
 
    ```python
    import os
