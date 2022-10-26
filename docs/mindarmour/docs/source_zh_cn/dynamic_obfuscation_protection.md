@@ -18,7 +18,7 @@ MindSpore框架提供通过动态混淆对MindIR模型进行保护的功能，�
 `export()` 是MindSpore提供的模型导出接口，该接口可以将 `nn.Cell` 类的网络导出成多种格式的模型文件：
 
 ```python
-mindspore.export(net, *inputs, file_name, file_format="AIR", **kwargs)
+mindspore.export(net, *inputs, file_name, file_format="MINDIR", **kwargs)
 ```
 
 如果要使用这个接口导出混淆后的模型，需要设置动态混淆的字典参数 `obf_config` ，然后作为kwargs传入。动态混淆提供了两种模式来保护模型，分别是password模式和customized function模式。
@@ -87,7 +87,7 @@ mindspore.export(net, *inputs, file_name, file_format="AIR", **kwargs)
     ```
 
     如上所示，参数 `obf_ratio` 表示混淆比例，代表混淆模型中的混淆节点占全部模型节点数量的比例，取值可以是浮点数或者字符串。如果是浮点数，其取值范围是(0, 1]，如果是字符串，合法取值是 `'small'` 、 `'medium'` 或 `'large'` 。
-    `obf_password` 是混淆密码，合法值是大于0、小于int64_max（9223372036854775807）的整数。
+    `obf_password` 是混淆密码，合法值是大于0、小于等于int64_max（9223372036854775807）的整数。
 
 3. 导出混淆模型：
 
