@@ -4,7 +4,7 @@
 
 ## Overview
 
-Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, the method of distributed inference is same with the above description. It is noted that each device should load one same checkpoint file.
+Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, each card has a complete weight and infers its own input data, in this case, the inference method is the same as that of [single card inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html). It is noted that each device should load one same checkpoint file.
 
 This tutorial would focus on the process that the model slices are saved on each device in the distributed training process, and the model is reloaded according to the predication strategy in the inference stage. In view of the problem that there are too many parameters in the super large scale neural network model, the model can not be fully loaded into a single device for inference, so multiple devices can be used for distributed inference.
 
