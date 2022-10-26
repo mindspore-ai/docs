@@ -101,6 +101,7 @@ MindSpore Federated是一款开源联邦学习框架，提供样本联合的横�
    federated_install
    deploy_federated_server
    deploy_federated_client
+   deploy_vfl
 
 .. toctree::
    :maxdepth: 1
