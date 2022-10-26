@@ -149,9 +149,25 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-import mindsponge
+# Copy source files of chinese python api from mindscience repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
 
-import mindelec
+src_dir_msg = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/docs/api/api_python')
+
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir_msg):
+    if os.path.isfile(os.path.join(src_dir_msg,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir_msg,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir_msg,i),'./'+i)
+
+import mindsponge
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
