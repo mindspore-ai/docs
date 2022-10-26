@@ -22,7 +22,7 @@
 
 神经网络模型由各种层(Layer)构成，MindSpore提供构造神经网络层的基础单元Cell，基于Cell进行神经网络封装。下面使用Cell构造经典模型AlexNet。
 
-.. figure:: https://gitee.com/mindspore/docs/raw/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
    alextnet
