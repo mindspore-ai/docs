@@ -39,7 +39,7 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": nn.Accuracy()})
 ```
 
-To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) and [LossMonitor](https://mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.LossMonitor.html#mindspore.train.LossMonitor) are callback classes provided by MindSpore:
+To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) and [LossMonitor](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.LossMonitor.html#mindspore.LossMonitor) are callback classes provided by MindSpore:
 
 ```python
 import mindspore as ms
