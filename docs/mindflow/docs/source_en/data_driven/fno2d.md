@@ -28,10 +28,10 @@ where $u$ is the velocity field, $w=\nabla \times u$ is the vorticity, $w_0(x)$ 
 
 ## Description
 
-We aim to solve two-dimensional incompressible Navier-Stokes equation by learning the operator mapping the initial condition to the solution at time one:
+We aim to solve two-dimensional incompressible N-S equation by learning the operator mapping from each time step to the next time step:
 
 $$
-w_0 \mapsto w(\cdot, 1)
+w_t \mapsto w(\cdot, t+1)
 $$
 
 The process for MindFlow to solve the problem is as follows:
@@ -212,16 +212,12 @@ This case uses the relative rmse as the loss function:
 
 ```python
 class RelativeRMSELoss(nn.LossBase):
-    def __init__(self, raw_resolution=64, input_resolution=64, reduction="sum"):
+    def __init__(self, reduction="sum"):
         super(RelativeRMSELoss, self).__init__(reduction=reduction)
-        mask = np.zeros((1, input_resolution, input_resolution, 1), dtype=np.float32)
-        mask[:, :raw_resolution, :raw_resolution, :] = np.ones((1, raw_resolution, raw_resolution, 1), dtype=np.float32)
-        self.mask = Tensor(mask, dtype=mindspore.float32)
 
     def construct(self, prediction, label):
         prediction = P.Cast()(prediction, mindspore.float32)
         batch_size = prediction.shape[0]
-        prediction = prediction * self.mask.repeat(batch_size, axis=0)
         diff_norms = F.square(prediction.reshape(batch_size, -1) - label.reshape(batch_size, -1)).sum(axis=1)
         label_norms = F.square(label.reshape(batch_size, -1)).sum(axis=1)
         rel_error = ops.div(F.sqrt(diff_norms), F.sqrt(label_norms))
@@ -269,7 +265,10 @@ class PredictCallback(Callback):
             for i in range(self.length):
                 for j in range(self.T - 1, self.T + 9):
                     label = self.label[i:i + 1, j]
-                    test_batch = Tensor(self.inputs[i:i + 1, j], dtype=mstype.float32)
+                    if j == self.T - 1:
+                        test_batch = Tensor(self.inputs[i:i + 1, j], dtype=mstype.float32)
+                    else:
+                        test_batch = Tensor(prediction)
                     prediction = self.model(test_batch)
                     prediction = prediction.asnumpy()
                     rel_rmse_error_step = self._calculate_error(label, prediction)
@@ -322,7 +321,7 @@ optimizer = nn.Adam(model.trainable_params(), learning_rate=Tensor(lr))
 
 # prepare loss function
 loss_scale = DynamicLossScaleManager()
-loss_fn = RelativeRMSELoss(input_resolution=model_params["input_resolution"])
+loss_fn = RelativeRMSELoss()
 
 # define solver
 solver = Solver(model,
