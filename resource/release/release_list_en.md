@@ -78,7 +78,7 @@
 | |MindSpore Reinforcement | [0.5.0](https://www.mindspore.cn/reinforcement/docs/en/r0.5/reinforcement.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/reinforcement/docs/en/r0.3/reinforcement.html) &nbsp;&nbsp; [0.2.1](https://www.mindspore.cn/reinforcement/docs/en/r0.2/reinforcement.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/reinforcement/api/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/reinforcement/docs/en/master/reinforcement.html) |
 | |MindSpore Graph Learning | [0.1.0](https://www.mindspore.cn/graphlearning/docs/en/r0.1/mindspore_gl.dataset.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/graphlearning/docs/en/master/mindspore_gl.dataset.html) |
 | |MindSpore Vision | [0.1.0](https://www.mindspore.cn/vision/docs/en/r0.1/classification.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/vision/docs/en/master/classification.html) |
-| |MindSpore Golden Stick | [0.2.0](http://www.mindspore.cn/golden_stick/docs/en/r0.2/mindspore_gs.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/en/r0.1/mindspore_gs.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/en/master/mindspore_gs.html)|
+| |MindSpore Golden Stick | [0.2.0](http://www.mindspore.cn/golden_stick/docs/en/r0.2/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/en/r0.1/mindspore_gs.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/en/master/mindspore_gs.html)|
 | |MindPandas | [0.1.0](https://www.mindspore.cn/mindpandas/docs/en/r0.1/mindpandas.config.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindpandas/docs/en/master/mindpandas.channel.html) |
 
 ## Ascend Supporting Software Package
