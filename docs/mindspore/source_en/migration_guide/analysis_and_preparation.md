@@ -464,7 +464,7 @@ Scalars, images, computational graphs, training optimization processes, and mode
 
 The MindSpore debugger is a debugging tool provided for graph mode training. It can be used to view and analyze the intermediate results of graph nodes.
 
-### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.9/index.html)
+### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r0.2/index.html)
 
 MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah's team and Huawei MindSpore team. It contains basic quantization and pruning methods.
 
