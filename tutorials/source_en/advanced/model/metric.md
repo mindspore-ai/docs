@@ -8,7 +8,7 @@ MindSpore provides evaluation functions for most common tasks, such as `nn.Accur
 
 The following describes how to customize metrics and how to use metrics in `nn.Model`.
 
-> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.train.html#evaluation-metrics).
+> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#evaluation-metrics).
 
 ## Customized Metrics
 
@@ -93,7 +93,7 @@ print("output(y_pred,z):", result)
 
 ## Using Metrics in Model Training
 
-[mindspore.train.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
+[mindspore.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
 
 After network model training, metrics need to be used to evaluate the training effect of the network model. Therefore, before specific code is demonstrated, you need to prepare a dataset, load the dataset, and define a simple linear regression network model.
 
@@ -134,7 +134,7 @@ loss = nn.L1Loss()
 
 ### Using Built-in Evaluation Metrics
 
-When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `nn.Accuracy` to compute the classification accuracy.
+When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#evaluation-metrics) of MindSpore. The following example uses `nn.Accuracy` to compute the classification accuracy.
 
 ```python
 import mindspore.nn as nn

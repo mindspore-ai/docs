@@ -136,7 +136,7 @@ print(output)
 
 ## Loss Function and Model Training
 
-After the loss function `MAELoss` is customized, you can use the `train` API in the [Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model) API of MindSpore to train a model. When building a model, you need to transfer the feedforward network, loss function, and optimizer. The `Model` associates them internally to generate a network model that can be used for training.
+After the loss function `MAELoss` is customized, you can use the `train` API in the [Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model) API of MindSpore to train a model. When building a model, you need to transfer the feedforward network, loss function, and optimizer. The `Model` associates them internally to generate a network model that can be used for training.
 
 In `Model`, the feedforward network and loss function are associated through [nn.WithLossCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.WithLossCell.html#mindspore.nn.WithLossCell). `nn.WithLossCell` supports two inputs: `data` and `label`.
 
