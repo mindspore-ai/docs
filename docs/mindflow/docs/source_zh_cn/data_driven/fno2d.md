@@ -1,4 +1,4 @@
-# 基于Fourier Neural Operator的Navier-Stokes方程求解
+# 基于Fourier Neural Operator的Navier-Stokes equation求解
 
 ## 概述
 
@@ -6,7 +6,7 @@
 
 近年来，随着神经网络的迅猛发展，为科学计算提供了新的范式。经典的神经网络是在有限维度的空间进行映射，只能学习与特定离散化相关的解。与经典神经网络不同，傅里叶神经算子（Fourier Neural Operator，FNO）是一种能够学习无限维函数空间映射的新型深度学习架构。该架构可直接学习从任意函数参数到解的映射，用于解决一类偏微分方程的求解问题，具有更强的泛化能力。更多信息可参考[原文](https://arxiv.org/abs/2010.08895)。
 
-本案例教程介绍利用傅里叶神经算子的Navier-Stokes方程求解方法。
+本案例教程介绍利用傅里叶神经算子的纳维-斯托克斯方程（Navier-Stokes equation）求解方法。
 
 ## 纳维-斯托克斯方程（Navier-Stokes equation）
 
@@ -28,10 +28,10 @@ $$
 
 ## 问题描述
 
-本案例利用Fourier Neural Operator学习初始涡度到下一时刻涡度的映射，实现二维不可压缩Navier-Stokes方程的求解：
+本案例利用Fourier Neural Operator学习某一个时刻对应涡度到下一时刻涡度的映射，实现二维不可压缩N-S方程的求解：
 
 $$
-w_0 \mapsto w(\cdot, 1)
+w_t \mapsto w(\cdot, t+1)
 $$
 
 MindFlow求解该问题的具体流程如下：
@@ -270,7 +270,10 @@ class PredictCallback(Callback):
             for i in range(self.length):
                 for j in range(self.T - 1, self.T + 9):
                     label = self.label[i:i + 1, j]
-                    test_batch = Tensor(self.inputs[i:i + 1, j], dtype=mstype.float32)
+                    if j == self.T - 1:
+                        test_batch = Tensor(self.inputs[i:i + 1, j], dtype=mstype.float32)
+                    else:
+                        test_batch = Tensor(prediction)
                     prediction = self.model(test_batch)
                     prediction = prediction.asnumpy()
                     rel_rmse_error_step = self._calculate_error(label, prediction)
@@ -323,7 +326,7 @@ optimizer = nn.Adam(model.trainable_params(), learning_rate=Tensor(lr))
 
 # prepare loss function
 loss_scale = DynamicLossScaleManager()
-loss_fn = RelativeRMSELoss(input_resolution=model_params["input_resolution"])
+loss_fn = RelativeRMSELoss()
 
 # define solver
 solver = Solver(model,
