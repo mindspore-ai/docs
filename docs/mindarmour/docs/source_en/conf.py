@@ -15,8 +15,7 @@ import sys
 import IPython
 import re
 from sphinx.ext import autodoc as sphinx_autodoc
-
-import mindarmour
+import sphinx
 
 # -- Project information -----------------------------------------------------
 
@@ -112,6 +111,31 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Repair error content defined in mindspore.
+try:
+    decorator_list = [("mindarmour/privacy/diff_privacy/monitor/monitor.py","modify format",
+                       "        protect_user_privacy_with_differential_privacy.html#%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81","    protect_user_privacy_with_differential_privacy.html"),
+                      ("mindarmour/privacy/diff_privacy/monitor/monitor.py","modify url",
+                       "Tutorial <https://mindspore.cn/mindarmour/docs/zh-CN/r1.9/","Tutorial <https://mindspore.cn/mindarmour/docs/en/r1.9/"),
+                      ("mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py","modify url",
+                       "Tutorial <https://mindspore.cn/mindarmour/docs/zh-CN/r1.9/","Tutorial <https://mindspore.cn/mindarmour/docs/en/r1.9/"),
+                      ("mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py","modify url",
+                       "        protect_user_privacy_with_differential_privacy.html#%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81","    protect_user_privacy_with_differential_privacy.html")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
+import mindarmour
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
