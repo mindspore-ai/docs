@@ -1,6 +1,6 @@
 # Data-driven model MEGA-Protein
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/MEGAProtein.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/mindsponge/MEGAProtein.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The process of obtaining protein spatial structure using computer efficiently is called protein structure prediction. Until 2020, Google DeepMind team proposed [AlphaFold2](https://www.nature.com/articles/s41586-021-03819-2) [1,2]. Compared with traditional tools, the prediction accuracy of this model has been greatly improved, and the error between the obtained structure and the real structure is close to the experimental method. However, there are still some problems such as too long data preprocessing, inaccurate prediction accuracy in the absence of MSA, and lacking of general tools for evaluating structural quality. To solve these problems, Gao Yiqin's team and MindSpore scientific computing team have carried out a series of innovative research and developed a more accurate and efficient protein structure prediction tool **MEGA-Protein**.
 

@@ -1,6 +1,6 @@
 # Molecular System Modeling
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/xponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/mindsponge/xponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 MindSPONGE software includes a lightweight and easy to customize molecular system modeling tool, which is used to perform pre-processing and post-processing of molecular simulation.
 
@@ -14,7 +14,7 @@ Molecular system modeling tools are applicable to all operating systems (Windows
 
 ## Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html) .
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html) .
 
 | Dependent Name   | instructions                                        | Installation method                 |
 | :-------   | :--------------------------------------------- | :---------------------- |

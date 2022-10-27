@@ -1,6 +1,6 @@
 # 增量训练求解麦克斯韦方程族
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindelec/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/mindelec/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -13,7 +13,7 @@
 
 ## 问题描述
 
-本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindscience/docs/zh-CN/master/mindelec/time_domain_maxwell.html)。
+本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindelec/docs/zh-CN/master/mindelec/time_domain_maxwell.html)。
 
 ## 基于物理信息的自解码器
 
