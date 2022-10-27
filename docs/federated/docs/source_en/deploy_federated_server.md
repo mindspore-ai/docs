@@ -1,14 +1,14 @@
-# Cloud-based Deployment
+# Horizontal Federated Cloud-based Deployment
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-The following uses LeNet as an example to describe how to use MindSpore to deploy a federated learning cluster.
+The following uses LeNet as an example to describe how to use MindSpore Federated to deploy a horizontal federated learning cluster.
 
 The following figure shows the physical architecture of the MindSpore Federated Learning (FL) Server cluster:
 
 ![mindspore-federated-networking](./images/mindspore_federated_networking.png)
 
-As shown in the preceding figure, in the federated learning cloud cluster, there are three MindSpore process roles: `Federated Learning Scheduler`, `Federated Learning Server` and `Federated Learning Worker`:
+As shown in the preceding figure, in the horizontal federated learning cloud cluster, there are three MindSpore process roles: `Federated Learning Scheduler`, `Federated Learning Server` and `Federated Learning Worker`:
 
 - Federated Learning Scheduler
 
@@ -39,7 +39,7 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
 ### Installing MindSpore
 
-The MindSpore federated learning cloud cluster supports deployment on x86 CPU and GPU CUDA hardware platforms. Run commands provided by the [MindSpore Installation Guide](https://www.mindspore.cn/install) to install the latest MindSpore.
+The MindSpore horizontal federated learning cloud cluster supports deployment on x86 CPU and GPU CUDA hardware platforms. Run commands provided by the [MindSpore Installation Guide](https://www.mindspore.cn/install) to install the latest MindSpore.
 
 ### Installing MindSpore Federated
 

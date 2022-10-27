@@ -8,7 +8,7 @@ MindSpore Federated Learning (FL) Server集群物理架构如图所示：
 
 ![](./images/mindspore_federated_networking.png)
 
-如上图所示，在横向联邦学习云侧集群中，有三种角色的MindSpore进程：`Federated Learning Scheduler`、`Federated Learning Server`和`Federated Learning Worker`:
+如上图所示，在横向联邦学习云侧集群中，有三种角色的MindSpore进程：`Federated Learning Scheduler`、`Federated Learning Server`和`Federated Learning Worker`：
 
 - Federated Learning Scheduler
 
