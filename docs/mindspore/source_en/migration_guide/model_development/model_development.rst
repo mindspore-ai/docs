@@ -48,7 +48,7 @@ The training process of the whole network consists of 5 modules:
    details and procedures and greatly reduces the threshold of
    framework. When you need to customize the gradient, MindSpore also
    provides
-   `interface <https://mindspore.cn/tutorials/zh-CN/r1.9/advanced/modules/layer.html#自定义cell的反向>`__
+   `interface <https://www.mindspore.cn/tutorials/experts/en/r1.9/network/custom_cell_reverse.html>`__
    to freely implement the gradient calculation.
 
 -  Optimizer: used to calculate and update network parameters during
@@ -87,7 +87,7 @@ The training process of the whole network consists of 3 modules:
    well. Commonly used evaluation metrics include Confusion Matrix,
    Accuracy, Precision, and Recall. The mindspore.nn module provides the
    common `evaluation
-   functions <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.train.html#evaluation-metrics>`__,
+   functions <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#evaluation-metrics>`__,
    and users can also define their own evaluation metrics as needed.
    Customized Metrics functions need to inherit nn.Metric parent class
    and reimplement the clear method, update method and eval method of
@@ -148,7 +148,7 @@ for the following situations:
    precision.
 5. In Ascend environment, Conv, Sort and TopK can only be float16, and
    add `loss
-   scale <https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/mixed_precision.html>`__
+   scale <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/others/mixed_precision.html>`__
    to avoid overflow.
 6. In the Ascend environment, operators with the stride property such as
    Conv and Pooling have rules about the length of the stride, which

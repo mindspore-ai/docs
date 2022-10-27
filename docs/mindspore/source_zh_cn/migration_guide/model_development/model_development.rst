@@ -22,7 +22,7 @@ MindSpore网络搭建
 
 -  loss；损失函数。用于衡量预测值与真实值差异的程度。深度学习中，模型训练就是通过不停地迭代来缩小损失函数值的过程，定义一个好的损失函数可以帮助损失函数值更快收敛，达到更好的精度，MindSpore提供了很多\ `常见的loss函数 <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.nn.html#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0>`__\ ，当然可以自己定义实现自己的loss函数。
 
--  自动梯度求导；一般将network和loss一起包装成正向网络一起给到自动梯度求导模块进行梯度计算。MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。需要自定义梯度时，MindSpore也提供了\ `接口 <https://mindspore.cn/tutorials/zh-CN/r1.9/advanced/modules/layer.html#自定义cell的反向>`__\ 去自由实现梯度计算。
+-  自动梯度求导；一般将network和loss一起包装成正向网络一起给到自动梯度求导模块进行梯度计算。MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。需要自定义梯度时，MindSpore也提供了\ `接口 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/network/custom_cell_reverse.html>`__\ 去自由实现梯度计算。
 
 -  优化器；优化器在模型训练过程中，用于计算和更新网络参数。MindSpore提供了许多\ `通用的优化器 <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.nn.html#%E4%BC%98%E5%8C%96%E5%99%A8>`__\ 供用户选择，同时也支持用户根据需要自定义优化器。
 
@@ -43,7 +43,7 @@ MindSpore网络搭建
 
 -  metrics；当训练任务结束，常常需要评价指标（Metrics）评估函数来评估模型的好坏。常用的评价指标有混淆矩阵、准确率
    Accuracy、精确率 Precision、召回率
-   Recall等。mindspore.nn模块提供了常见的\ `评估函数 <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.train.html#评价指标>`__
+   Recall等。mindspore.nn模块提供了常见的\ `评估函数 <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.nn.html#评价指标>`__
    ，用户也可以根据需要自行定义评估指标。自定义Metrics函数需要继承nn.Metric父类，并重新实现父类中的clear方法、update方法和eval方法。
 
 网络搭建
@@ -78,7 +78,7 @@ MindSpore网络编写注意事项
 3. 切片操作，当遇到对一个Tensor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考\ `网络主体和loss搭建 <https://www.mindspore.cn/docs/zh-CN/r1.9/migration_guide/model_development/model_and_loss.html>`__\ 对动态shape规避。
 4. 自定义混合精度和Model里的\ ``amp_level``\ 冲突，使用自定义的混合精度就不要设置Model里的\ ``amp_level``\ 。
 5. 在Ascend环境下Conv，Sort，TopK只能是float16的，注意加\ `loss
-   scale <https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/mixed_precision.html>`__\ 避免溢出。
+   scale <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/others/mixed_precision.html>`__\ 避免溢出。
 6. 在Ascend环境下Conv，Pooling等带有stride属性的算子对stride的长度有规定，需要规避。
 7. 在分布式环境下必须加seed，用以保证多卡的初始化的参数一致。
 8. 网络中使用Cell的list或者Parameter的list的情况，请在\ ``init``\ 里对list进行转换，转换成\ `CellList <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.CellList.html>`__\ ，\ `SequentialCell <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.SequentialCell.html>`__\ ，\ `ParameterTuple <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.ParameterTuple.html>`__\ 。

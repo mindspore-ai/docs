@@ -18,7 +18,7 @@ tf.keras.metrics.Precision(
 mindspore.nn.Precision(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Precision](https://mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision)。
+更多内容详见[mindspore.nn.Precision](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Precision.html#mindspore.nn.Precision)。
 
 ## 使用方式
 

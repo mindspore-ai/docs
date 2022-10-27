@@ -19,7 +19,7 @@ tf.keras.metrics.AUC(
 mindspore.nn.auc(x, y, reorder=False)
 ```
 
-更多内容详见[mindspore.nn.auc](https://mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.auc.html#mindspore.train.auc)。
+更多内容详见[mindspore.nn.auc](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.auc.html#mindspore.nn.auc)。
 
 ## 使用方式
 
