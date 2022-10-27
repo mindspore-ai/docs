@@ -74,6 +74,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: 迁移指南
+   :titlesonly:
    :hidden:
 
    migration_guide/overview
