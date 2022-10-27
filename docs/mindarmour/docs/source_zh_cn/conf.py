@@ -161,7 +161,7 @@ src_release = os.path.join(os.getenv("MA_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
-content = re.findall("## [\s\S\n]*", data)
+content = re.findall("(## [\s\S\n]*?)\n## ", data)
 result = content[0].replace('# MindArmour', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
