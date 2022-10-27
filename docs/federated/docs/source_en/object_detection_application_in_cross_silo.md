@@ -127,7 +127,7 @@ cross_silo_faster_rcnn
     python run_server.py --yaml_config="default.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:6668"
     ```
 
-    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_server.py](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/run_server.py).
+    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/run_server.py).
 
     The following print represents a successful starting:
 
