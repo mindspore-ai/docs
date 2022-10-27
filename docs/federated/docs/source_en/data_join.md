@@ -40,6 +40,7 @@ To use the data access method, the original data needs to be prepared first. The
 python generate_random_data.py \
     --seed=0 \
     --total_output_path=vfl/input/total_data.csv \
+    --intersection_output_path=vfl/input/intersection_data.csv \
     --leader_output_path=vfl/input/leader_data_*.csv \
     --follower_output_path=vfl/input/follower_data_*.csv \
     --leader_file_num=4 \
@@ -57,6 +58,7 @@ The user can set the hyperparameter according to the actual situation:
 | -------------------- | ------------------------------------------------------------ |
 | seed                 | Random seed, int type.                                          |
 | total_output_path    | The output path of all data, str type.                                |
+| intersection_output_path    | The output path of intersection data, str type.                                |
 | leader_output_path   | The export path of the leader data. If the configuration includes the `*`, the `*` will be replaced by the serial number of 0, 1, 2 ...... in order when exporting multiple files. str type. |
 | follower_output_path | The export path of the follower data. If the configuration includes the `*`, the `*` will be replaced by the serial number of 0, 1, 2 ...... in order when exporting multiple files. str type. |
 | leader_file_num      | The number of output files for leader data. int type.                        |
@@ -127,9 +129,9 @@ The user can set the hyperparameter according to the actual situation.
 | remote_server_address | Peer IP and port address, str type.                                |
 | primary_key (Follower does not need to be configured) | The name of data ID, str type.                                      |
 | bucket_num (Follower does not need to be configured)  | Find the number of sub-buckets when intersecting and exporting, int type.                          |
-| store_type                        | Raw data storage type, str type.                                  |
+| store_type                        | Raw data storage type, str type. Including: "csv".                                  |
 | shard_num (Follower does not need to be configured)   | The number of files exported from a single bucket, int type.                              |
-| join_type (Follower does not need to be configured)   | Algorithm of intersection finding, str type.                                          |
+| join_type (Follower does not need to be configured)   | Algorithm of intersection finding, str type. Including: "psi".                                          |
 | thread_num                        | Calculate the number of threads required when using the PSI intersection algorithm, int type.                 |
 
 In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/leader_schema.yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
@@ -204,7 +206,7 @@ For detailed API documentation for the following code, see [Data Access Document
 
 ### Data Export
 
-The user can implement data export by using the encapsulated interface in the following way:
+The user can implement data join and MindRecord related files export by using the encapsulated interface in the following way:
 
 ```python
 from mindspore_federated.data_join import FLDataWorker
@@ -229,7 +231,7 @@ if __name__ == '__main__':
 
 ### Data Reading
 
-The user can implement data reading by using the encapsulated interface in the following way:
+The user can implement data in exported MindRecord related files reading by using the encapsulated interface in the following way:
 
 ```python
 from mindspore_federated.data_join import load_mindrecord
