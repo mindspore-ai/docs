@@ -111,7 +111,7 @@ print(dataset.get_dataset_size())
 
 ### Data Processing and Augmentation
 
-MindSpore dataset object uses the map interface for data augmentation. See [map Interface](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map)
+MindSpore dataset object uses the map interface for data augmentation. See [map Interface](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)
 
 ```text
 map(operations, input_columns=None, output_columns=None, column_order=None, num_parallel_workers=None, python_multiprocessing=False, cache=None, callbacks=None, max_rowsize=16, offload=None)
@@ -156,7 +156,7 @@ The batch operator can also use some augmentation operations within batch. For d
 
 MindSpore data objects are obtained iteratively in the following ways.
 
-### [create_dict_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html#mindspore.dataset.Dataset.create_dict_iterator)
+### [create_dict_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_dict_iterator)
 
 Creates an iterator based on the dataset object, and the output data is of dictionary type.
 
@@ -180,7 +180,7 @@ label (10,)
 ====================
 ```
 
-### [create_tuple_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html#mindspore.dataset.Dataset.create_tuple_iterator)
+### [create_tuple_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_tuple_iterator)
 
 Create an iterator based on the dataset object, and output data is a list of `numpy.ndarray` data.
 
