@@ -84,7 +84,7 @@ rank_list = ms.restore_group_info_list("./ckpt_dir0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
-分布式的故障恢复，需要事先获取切分的信息，因而，需要先调用[model.build](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) 进行编译， 继而再执行训练。
+分布式的故障恢复，需要事先获取切分的信息，因而，需要先调用[model.build](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model.build) 进行编译， 继而再执行训练。
 
 ```python
 import os

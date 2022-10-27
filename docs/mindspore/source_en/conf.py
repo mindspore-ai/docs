@@ -201,6 +201,24 @@ try:
 except:
     pass
 
+# Repair error content defined in mindspore.
+try:
+    decorator_list = [("mindspore/ops/function/math_func.py","modify url",
+                       "https://www.mindspore.cn/docs/api/en/r1.9/api_python/mindspore.html#mindspore.dtype","https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.html#mindspore.dtype")
+                       ]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
 import mindspore
 
 sys.path.append(os.path.abspath('../../../resource/search'))

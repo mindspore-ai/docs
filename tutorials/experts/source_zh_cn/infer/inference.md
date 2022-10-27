@@ -84,7 +84,7 @@ print("============== {} ==============".format(acc))
 
 其中  
 
-`model.eval`为模型验证接口，对应接口说明[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
+`model.eval`为模型验证接口，对应接口说明[mindspore.Model.eval](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
 
 > 推理样例代码[eval.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/lenet/eval.py)。
 
@@ -115,4 +115,4 @@ model.predict(input_data)
 ```
 
 其中，  
-`model.predict`为推理接口，对应接口说明[mindspore.train.Model.predict](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model.predict)。
+`model.predict`为推理接口，对应接口说明[mindspore.Model.predict](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model.predict)。
