@@ -6,32 +6,34 @@
 MindSpore Federated Documents
 ================================
 
-MindSpore Federated is an open-source federated learning framework that supports the commercial deployment of tens of millions of stateless devices. It enables all-scenario intelligent applications when user data is stored locally.
+MindSpore Federated is a cryptographically distributed machine learning technique for solving data silos and performing efficient, secure and reliable machine learning across multiple parties or multiple resource computing nodes. Support the various participants of machine learning to build AI models together without directly sharing local data, including but not limited to mainstream deep learning models such as ad recommendation, classification, and detection, mainly applied in finance, medical, recommendation and other fields.
 
-The federated learning is an encrypted distributed machine learning technology that allows users participating in federated learning to build AI models without sharing local data. MindSpore Federated currently focuses on the large-scale participants in the horizontal federated learning scenarios.
+MindSpore Federated is an open source federation learning framework that provides a horizontal federated model with sample federation and a vertical federation model with feature federation. Support commercial deployment for millions of stateless terminal devices, as well as cloud federated between data centers across trusted zones, enabling full-scene intelligent applications without taking user data out of the local context.
+
+Advantages of the MindSpore Federated Horizontal Framework
+-----------------------------------------------------------
+
+Horizontal Federated Architecture:
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_en/images/federated_en.png" width="700px" alt="" >
-
-Advantages of the MindSpore Federated
----------------------------------------
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_en/images/HFL_en.png" width="700px" alt="" >
 
 1. Privacy Protection
-
-   The MindSpore Federated framework data is stored locally for training. The data itself is not exchanged. Instead, the updated model parameters are exchanged in encryption mode.
 
    It supports accuracy-lossless security aggregation solution based on secure multi-party computation (MPC) to prevent model theft.
 
    It supports performance-lossless encryption based on local differential privacy to prevent private data leakage from models.
 
+    It supports a gradient protection scheme based on Symbolic Dimensional Selection (SignDS), which prevents model privacy data leakage while reducing communication overhead by 99%.
+
 2. Distributed Federated Aggregation
 
-   The loosely coupled cluster processing mode on the cloud supports the deployment of tens of millions of heterogeneous devices, implements high-performance and high-availability distributed federated aggregation computing, and can cope with network instability and sudden load changes.
+   The loosely coupled cluster processing mode on the cloud and distributed gradient quadratic aggregation paradigms support the deployment of tens of millions of heterogeneous devices, implements high-performance and high-availability federated aggregation computing, and can cope with network instability and sudden load changes.
 
 3. Federated Learning Efficiency Improvement
 
-   The synchronous and asynchronous federation modes and multiple model compression algorithms are supported to improve the federated learning efficiency and saving bandwidth resources.
+   The adaptive frequency modulation strategy and gradient compression algorithm are supported to improve the federated learning efficiency and saving bandwidth resources.
 
    Multiple federated aggregation policies are supported to improve the smoothness of federated learning convergence and optimize both global and local accuracies.
 
@@ -41,6 +43,31 @@ Advantages of the MindSpore Federated
 
    The network models, aggregation algorithms, and security algorithms are programmable, and the security level can be customized.
 
+   It supports the effectiveness evaluation of federated training models and provides monitoring capabilities for federated tasks.
+
+Advantages of the MindSpore Federated Vertical Framework
+-----------------------------------------------------------
+
+Vertical Federated Architecture:
+
+.. raw:: html
+
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_en/images/VFL_en.png" width="700px" alt="" >
+
+1. Privacy Protection
+
+    Support high-performance Privacy Set Intersection Protocol (PSI), which prevents federated participants from obtaining ID information outside the intersection and can cope with data imbalance scenarios.
+
+    Support encryption scheme of Label based on differential privacy to prevent leakage of user label data.
+
+    Support privacy protection scheme combined software with hardware, which can reduce the number of communication rounds and communication volume compared with homomorphic encryption method.
+
+2. Federated training
+
+    Support multiple types of split learning network structures.
+
+    Cross-domain training for large models with pipelined parallel optimization.
+
 MindSpore Federated Working Process
 ------------------------------------
 
@@ -48,13 +75,13 @@ MindSpore Federated Working Process
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
-2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-side-model-file>`_
+2. `Model Selection and Framework Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-side-model-file>`_
 
-   Select or develop a model prototype and use a tool to generate a device model that is easy to deploy.
+   Select or develop a model prototype and use a tool to generate a federated learning model that is easy to deploy.
 
 3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
 
-   Deploy the Federated-Client to the device application, and set the federated configuration task and deployment script on the cloud.
+   Deploy the corresponding components to the business application and set up federated configuration tasks and deployment scripts on the server.
 
 Common Application Scenarios
 ----------------------------

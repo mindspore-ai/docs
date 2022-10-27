@@ -6,6 +6,8 @@ This document explains how to use and deploy the vertical federated learning fra
 
 The MindSpore Vertical Federated Learning (VFL) physical architecture is shown in the figure:
 
+![](./images/deploy_VFL_en.png)
+
 As shown above, there are two participants in the vertical federated interaction: the Leader node and the Follower node, each of which has processes in two roles: `FLDataWorker` and `VFLTrainer`:
 
 - FLDataWorker
@@ -63,6 +65,6 @@ from mindspore_federated import FLServerJob
 
 ## Running the Example
 
-A running sample of FLDataWorker can be found in [Vertical federated learning data access](https://www.mindspore.cn/federated/docs/en/master/data_join.html) .
+A running sample of FLDataWorker can be found in [Vertical federated learning data access](https://www.mindspore.cn/federated/docs/en/master/data_join.html).
 
-A running sample of VFLTrainer can be found in [Vertical federated learning model training - Wide&Deep Recommended Application](https://www.mindspore.cn/federated/docs/en/master/split_wnd_application.html) .
+A running sample of VFLTrainer can be found in [Vertical federated learning model training - Wide&Deep Recommended Application](https://www.mindspore.cn/federated/docs/en/master/split_wnd_application.html).
