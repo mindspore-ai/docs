@@ -40,6 +40,7 @@ Leader Worker 和 Follower Worker 的每个桶都启动隐私求交方法获得�
 python generate_random_data.py \
     --seed=0 \
     --total_output_path=vfl/input/total_data.csv \
+    --intersection_output_path=vfl/input/intersection_data.csv \
     --leader_output_path=vfl/input/leader_data_*.csv \
     --follower_output_path=vfl/input/follower_data_*.csv \
     --leader_file_num=4 \
@@ -57,6 +58,7 @@ python generate_random_data.py \
 | -------------------- | ------------------------------------------------------------ |
 | seed                 | 随机种子，int类型。                                          |
 | total_output_path    | 所有数据的输出路径，str类型。                                |
+| intersection_output_path    | 交集数据的输出路径，str类型。                                |
 | leader_output_path   | leader方数据的输出路径。若配置的内容包括`*`号，则会在导出多个文件时将`*`号依次替换为0、1、2……的序号。str类型。 |
 | follower_output_path | follower方数据的输出路径。若配置的内容包括`*`号，则会在导出多个文件时将`*`号依次替换为0、1、2……的序号。str类型。 |
 | leader_file_num      | leader方数据的输出文件数目，int类型。                        |
@@ -127,9 +129,9 @@ python run_data_join.py \
 | remote_server_address | 对端IP和端口地址，str类型。                                |
 | primary_key（Follower不需要配置） | 数据ID的名称，str类型。                                      |
 | bucket_num（Follower不需要配置）  | 求交和导出时，分桶的数目，int类型。                          |
-| store_type                        | 原始数据存储类型，str类型。                                  |
+| store_type                        | 原始数据存储类型，str类型。包括："csv"。                                  |
 | shard_num（Follower不需要配置）   | 单个桶导出的文件数量，int类型。                              |
-| join_type（Follower不需要配置）   | 求交算法，str类型。                                          |
+| join_type（Follower不需要配置）   | 求交算法，str类型。包括："psi"。                                          |
 | thread_num                        | 使用PSI求交算法时，计算所需线程数，int类型。                 |
 
 在上述样例中，data_schema_path对应的文件可以参考[leader_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/leader_schema.yaml)和[follower_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/follower_schema.yaml)中的相应文件配置。用户需要在该文件中提供要导出的数据的列名和类型。
@@ -204,7 +206,7 @@ Follower数据导出运行结果：
 
 ### 数据导出
 
-用户可以使用已经封装好的接口实现数据导出，方法如下：
+用户可以使用已经封装好的接口实现数据求交以及导出MindRecord相关文件，方法如下：
 
 ```python
 from mindspore_federated.data_join import FLDataWorker
@@ -229,7 +231,7 @@ if __name__ == '__main__':
 
 ### 数据读取
 
-用户可以使用已经封装好的接口实现数据读取，方法如下：
+用户可以使用已经封装好的接口实现导出的MindRecord相关文件的数据读取，方法如下：
 
 ```python
 from mindspore_federated.data_join import load_mindrecord
