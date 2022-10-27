@@ -18,7 +18,7 @@ tf.keras.metrics.Recall(
 mindspore.nn.Recall(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Recall](https://mindspore.cn/docs/zh-CN/r1.9/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall)。
+更多内容详见[mindspore.nn.Recall](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Recall.html#mindspore.nn.Recall)。
 
 ## 使用方式
 

@@ -1,6 +1,6 @@
 # Network Entity and Loss Construction
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/model_and_los.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/r1.9/advanced/modules/loss.html) on the MindSpore official website first.
 
@@ -129,7 +129,7 @@ The overall error is about 0.01%, which basically meets the expectation. **Durin
 
 #### Manual Mixed-precision
 
-MindSpore provides an auto mixed precision method. For details, see the amp_level attribute in [Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
+MindSpore provides an auto mixed precision method. For details, see the amp_level attribute in [Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model).
 
 However, sometimes the hybrid precision policy is expected to be more flexible during network development. MindSpore also provides the [to_float](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float) method to manually add hybrid precision.
 

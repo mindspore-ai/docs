@@ -5,7 +5,6 @@
 ## Function Debugging
 
 During network migration, you are advised to use the PyNative mode for debugging. In PyNative mode, you can perform debugging, and log printing is user-friendly. After the debugging is complete, the graph mode is used. The graph mode is more user-friendly in execution performance. You can also find some problems in network compilation. For example, gradient truncation caused by third-party operators.
-For details, see [Function Debugging](https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/function_debug.html).
 
 ## Accuracy Debugging
 
@@ -211,7 +210,7 @@ The performance tuning directions are as follows:
 
 For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.9/migration_guide/sample_code.html).
 
-> Some networks are large or there are many [process control statements](https://mindspore.cn/tutorials/en/r1.9/advanced/modules/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/r1.9/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
+> Some networks are large or there are many [process control statements](https://www.mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/r1.9/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
 
 ### Operator Performance Tuning
 
@@ -230,11 +229,11 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
 #### Using the Static Graph Mode
 
-Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/r1.9/design/dynamic_graph_and_static_graph.html).
+Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode.
 
 #### On-device Execution
 
-MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/r1.9/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 #### Using Automatic Mixed Precision
 
@@ -247,8 +246,6 @@ For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/e
 Graph kernel fusion is a unique network performance optimization technology of MindSpore. It can automatically analyze and optimize the logic of existing network computational graphs, simplify and replace computational graphs, split and fuse operators, and build operators in a special way based on the target hardware capability to improve the computing resource utilization of devices and optimize the overall network performance. Compared with traditional optimization technologies, the graph kernel fusion technology has unique advantages, such as joint optimization of multiple operators across boundaries, cross-layer collaboration with operator compilation, and real-time compilation of operators based on Polyhedral. In addition, the entire optimization process of graph kernel fusion can be automatically completed after users enable the corresponding configuration. Network developers do not need to perform extra perception, so that users can focus on network algorithm implementation.
 
 Graph kernel fusion applies to scenarios that have high requirements on network execution time. Basic operators are combined to implement customized combination operators and these basic operators are automatically fused to improve the performance of the customized combination operators.
-
-For details, see [Graph Kernel Fusion Tutorial](https://www.mindspore.cn/docs/en/r1.9/design/graph_fusion_engine.html).
 
 #### Others
 

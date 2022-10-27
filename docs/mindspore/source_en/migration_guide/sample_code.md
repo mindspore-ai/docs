@@ -794,7 +794,7 @@ And a queue status of each data processing operation:
 
 Now, let's analyze the process and solve the problem.
 
-From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/r1.9/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+From the step trace, the step interval and forward and backward execution time are almost even. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 When `dataset_sink_mode=True` is set, the result of setting the profiler is as follows:
 

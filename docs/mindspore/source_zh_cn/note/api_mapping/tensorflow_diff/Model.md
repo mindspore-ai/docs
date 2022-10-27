@@ -16,7 +16,7 @@ tf.keras.Model(*args, **kwargs)
 mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/train/mindspore.train.Model.html#mindspore.train.Model)。
+更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
 
 ## 使用方式
 
