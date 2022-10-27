@@ -1,6 +1,6 @@
 # Incremental Training for Solving a Family of Maxwell's Equation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -13,7 +13,7 @@ This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based o
 
 ## Problem Description
 
-This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindscience/docs/en/master/mindelec/time_domain_maxwell.html).
+This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindelec/docs/en/master/mindelec/time_domain_maxwell.html).
 
 ## Physics-Informed Auto-Decoder
 

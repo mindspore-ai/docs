@@ -15,9 +15,8 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
    MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling)是基于昇思MindSpore的计算生物领域套件，支持分子动力学、蛋白质折叠等常用功能，旨在于为广大的科研人员、老师及学生提供高效易用的AI计算生物软件。
 
 .. toctree::
-   :glob:
    :maxdepth: 1
-   :caption: MindSPONGE
+   :caption: 使用指南
 
    mindsponge/why
    mindsponge/intro
@@ -25,4 +24,19 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
    mindsponge/sponge
    mindsponge/cybertron
    mindsponge/MEGAProtein
-   mindsponge
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindsponge.callback
+   mindsponge.cell
+   mindsponge.common
+   mindsponge.control
+   mindsponge.core
+   mindsponge.data
+   mindsponge.function
+   mindsponge.optimizer
+   mindsponge.partition
+   mindsponge.potential
+   mindsponge.system

@@ -1,6 +1,6 @@
 # Hybrid approaches that involve both the physics and data assimilation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/cybertron.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/mindsponge/cybertron.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 MindSPONGE software package includes MindSpot based depth molecular model general architecture Cybertron, which can support graph neural network (GNN) based depth molecular model.
 
@@ -24,7 +24,7 @@ The three GNN molecular models can be directly called from Cybertron.
 
 ## Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html)，Ensure that the pre dependency installation is complete.
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html)，Ensure that the pre dependency installation is complete.
 
 Cybertron installation can be compiled and installed using source code.
 

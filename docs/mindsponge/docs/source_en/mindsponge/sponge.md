@@ -1,6 +1,6 @@
 # Physics-driven
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/sponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/mindsponge/sponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Two kinds of molecular dynamics simulation software are built in MindSPONGE software package. The first is a traditional molecular dynamics simulation software based on C++/CUDA, and the second is a micro molecular dynamics simulation software based on traditional molecular dynamics and completed by MindSpot.
 
@@ -12,7 +12,7 @@ Traditional molecular dynamics is a molecular dynamics simulation program based 
 
 ### Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html).
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html).
 
 Traditional molecular dynamics installation can be compiled and installed using source code.
 
@@ -124,11 +124,11 @@ The structure of micromolecular dynamics is shown in the figure below:
 
 ### Install
 
-The installation process of micromolecular dynamics is consistent with that of MindSPONGE. Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html) .
+The installation process of micromolecular dynamics is consistent with that of MindSPONGE. Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html) .
 
 ### Basic usage
 
-The basic application methods of micromolecular dynamics can be referred to [Initial experience of the case](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge/intro.html#examples) and subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindscience/docs/en/master/mindsponge.html#).
+The basic application methods of micromolecular dynamics can be referred to [Initial experience of the case](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html#examples) and subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/mindsponge.html).
 
 ### Case
 

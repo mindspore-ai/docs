@@ -1,26 +1,68 @@
-MindElec Documents
-=======================
+Introduction to MindElec
+=========================
 
-MindScience is scientific computing kits for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre- and post-processing tools, accelerating the development of scientific computing applications. Currently, the MindElec kit for the electronic information industry and the MindSPONGE kit for the life science industry have been launched, improving the electromagnetic simulation performance by 10 times and the simulation efficiency of biopharmaceutical compounds by 50%.
+Electromagnetic simulation refers to simulating the propagation characteristics of electromagnetic waves in objects or space through computation. It is widely used in scenarios such as mobile phone tolerance simulation, antenna optimization, and chip design. Conventional numerical methods, such as finite difference and finite element, require mesh segmentation and iterative computation. The simulation process is complex and the computation time is long, which cannot meet the product design requirements. With the universal approximation theorem and efficient inference capability, the AI method can improve the simulation efficiency.
+
+MindElec is an AI electromagnetic simulation toolkit developed based on MindSpore. It consists of the electromagnetic model library, data build and conversion, simulation computation, and result visualization. End-to-end AI electromagnetic simulation is supported. Currently, Huawei has achieved phase achievements in the tolerance scenario of Huawei mobile phones. Compared with the commercial simulation software, the S parameter error of AI electromagnetic simulation is about 2%, and the end-to-end simulation speed is improved by more than 10 times.
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindscience/docs/source_en/mindelec/images/mindscience_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_en/mindelec/images/MindElec-architecture.jpg" width="600px" alt="" >
+
+
+Data Building and Conversion
+------------------------------
+
+Supports geometric construction in constructive solid geometry (CSG) mode, such as the intersection set, union set, and difference set of rectangles and circles, and also supports efficient tensor conversion of CST and STP data (data formats supported by commercial software such as CST). In the future, we will support smart grid division for traditional scientific computing.
+
+Simulation
+--------------
+
+Electromagnetic Model Library
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Provides the physical-driven and data-driven AI electromagnetic models. Physical-driven model refers to network training that does not require additional label data. Only equations and initial boundary conditions are required. Data-driven model refers to training that requires data generated through simulation or experiments. Compared with the data-driven model, the physical-driven model has the advantage of avoiding problems such as cost and mesh independence caused by data generation. The disadvantage of the physical-driven model is that the expression form of the equation needs to be specified and technical challenges such as point source singularity, multi-task loss function, and generalization need to be overcome.
+
+Optimization strategy
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Provides a series of optimization strategies to improve physical-driven and data-driven model accuracy and reduce training costs. Data compression can effectively reduce the storage and computation workload of the neural network. Multi-scale filtering and dynamic adaptive weighting can improve the model accuracy and overcome the problems such as point source singularity. Few-shot learning will be completed subsequently to reduce the training data volume and training cost.
+
+Result Visualization
+-----------------------
+
+The simulation results, such as the S parameters or electromagnetic fields, can be saved in the CSV or VTK files. MindInsight can display the loss function changes during the training process and display the results on the web page in the form of images. ParaView is the third-party open-source software and can dynamically display advanced functions such as slicing and flipping.
 
 Typical MindElec Application Scenarios
 ------------------------------------------
 
-1. `Electromagnetic simulation <https://www.mindspore.cn/mindscience/docs/en/master/mindelec/point_cloud.html>`_
+1. `Electromagnetic simulation <https://www.mindspore.cn/mindelec/docs/en/master/mindelec/point_cloud.html>`_
 
    The efficient and easy-to-use AI electromagnetic simulation kit provides functions such as multimodality data transformation, high-dimensional data encoding, and innovative electromagnetic AI models. It has improved the performance by 10 times in scenarios such as mobile phone tolerance tests and achieved simulation precision comparable to conventional scientific computing.
 
 .. toctree::
-   :glob:
    :maxdepth: 1
-   :caption: MindElec
+   :caption: Installation
 
    mindelec/intro_and_install
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Application
+
    mindelec/physics_driven
    mindelec/data_driven
    mindelec/visualization
-   mindelec
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindelec.architecture
+   mindelec.common
+   mindelec.data
+   mindelec.geometry
+   mindelec.loss
+   mindelec.operators
+   mindelec.solver
+   mindelec.vision

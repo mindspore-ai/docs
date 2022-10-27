@@ -9,3 +9,8 @@ MindScience is scientific computing kits for various industries based on the con
 
 Typical MindScience Application Scenarios
 ------------------------------------------
+
+1. `Computational Biology <https://www.mindspore.cn/mindsponge/docs/en/master/index.html>`_
+
+
+2. `Electromagnetic simulation <https://www.mindspore.cn/mindelec/docs/en/master/index.html>`_
