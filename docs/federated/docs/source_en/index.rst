@@ -48,7 +48,7 @@ MindSpore Federated Working Process
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
-2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#implementing-an-image-classification-application-of-cross-device-federated-learning-(x86)>`_
+2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-side-model-file>`_
 
    Select or develop a model prototype and use a tool to generate a device model that is easy to deploy.
 
