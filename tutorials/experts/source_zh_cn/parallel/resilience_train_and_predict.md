@@ -110,7 +110,7 @@ if rank_id == 0:
     ms.set_auto_parallel_context(strategy_ckpt_save_file="../dst_strategy.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 model = Model(net, optimizer=opt)
-model.build(1, dataset)
+model.build(train_dataset=dataset, epoch=1)
 ```
 
 其中，
