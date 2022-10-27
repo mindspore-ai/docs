@@ -4,7 +4,7 @@
 
 Computational fluid dynamics is one of the most important techniques in the field of fluid mechanics in the 21st century. The flow analysis, prediction and control can be realized by solving the governing equations of fluid mechanics by numerical method. Traditional finite element method (FEM) and finite difference method (FDM) are inefficient because of the complex simulation process (physical modeling, meshing, numerical discretization, iterative solution, etc.) and high computing costs. Therefore, it is necessary to improve the efficiency of fluid simulation with AI.
 
-In recent years, while the development of classical theories and numerical methods with computer performance tends to be smooth, machine learning methods combine a large amount of data with neural networks realize the flow field fast simulation. These methods can obtain the accuracy close to the traditional methods, which provides a new idea for flow field solution.
+In recent years, while the development of classical theories and numerical methods with computer performance tends to be smooth, machine learning methods combine a large amount of data with neural networks realize the flow field's fast simulation. These methods can obtain the accuracy close to the traditional methods, which provides a new idea for flow field solution.
 
 Burgers' equation is a nonlinear partial differential equation that simulates the propagation and reflection of shock waves. It is widely used in the fields of fluid mechanics, nonlinear acoustics, gas dynamics et al. It is named after Johannes Martins Hamburg (1895-1981). In this case, MindFlow fluid simulation suite is used to solve the Burgers' equation in one-dimensional viscous state based on the physical-driven PINNs (Physics Informed Neural Networks) method.
 
@@ -19,7 +19,7 @@ $$
 where $\epsilon=0.01/\pi$ , the left of the equal sign is the convection term, and the right is the dissipation term. In this case, the Dirichlet boundary condition and the initial condition of the sine function are used. The format is as follows:
 
 $$
-u(t, -1) = u(t, 1) = 0.
+u(t, -1) = u(t, 1) = 0,
 $$
 
 $$
@@ -47,6 +47,7 @@ from mindflow.data import Dataset
 from mindflow.geometry import FixedPoint, Interval, TimeDomain, GeometryWithTime
 from mindflow.geometry import create_config_from_edict
 from .sampling_config import src_sampling_config, bc_sampling_config
+
 
 def create_random_dataset(config):
     """create training dataset by online sampling"""
@@ -99,6 +100,7 @@ from mindspore import dtype as mstype
 from mindflow.solver import Problem
 from mindflow.operators import Grad, SecondOrderGrad
 
+
 class Burgers1D(Problem):
     """The 1D Burger's equations with constant boundary condition."""
 
@@ -134,14 +136,14 @@ class Burgers1D(Problem):
         return u
 
     def initial_condition(self, *output, **kwargs):
-        """initial condition: u = sin(x)"""
+        """initial condition: u = - sin(x)"""
         u = output[0]
         data = kwargs[self.ic_name]
         x = self.reshape(data[:, 0], (-1, 1))
         return u + ops.sin(self.pi * x)
 ```
 
-Solve the problem and define 'constraint' as the loss function.
+Solve the problem and define `constraint` as the loss function.
 
 ```python
 train_prob = {}

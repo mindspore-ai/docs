@@ -1,5 +1,5 @@
 
-# 基于PINNS的圆柱绕流
+# 基于PINNs的圆柱绕流
 
 ## 概述
 
@@ -7,33 +7,34 @@
 
 由于控制方程纳维-斯托克斯方程（Navier-Stokes equation）难以得到泛化的理论解，使用数值方法对圆柱绕流场景下控制方程进行求解，从而预测流场的流动，成为计算流体力学中的样板问题。传统求解方法通常需要对流体进行精细离散化，以捕获需要建模的现象。因此，传统有限元法（finite element method，FEM）和有限差分法（finite difference method，FDM）往往成本比较大。
 
-物理启发的神经网络方法（Physics-informed Neural Networks），以下简称`PINNS`，通过使用逼近控制方程的损失函数以及简单的网络构型，为快速求解复杂流体问题提供了新的方法。本案例利用神经网络数据驱动特性，结合`PINNS`求解圆柱绕流问题。
+物理启发的神经网络方法（Physics-informed Neural Networks），以下简称`PINNs`，通过使用逼近控制方程的损失函数以及简单的网络构型，为快速求解复杂流体问题提供了新的方法。本案例利用神经网络数据驱动特性，结合`PINNs`求解圆柱绕流问题。
 
 ## 纳维-斯托克斯方程（Navier-Stokes equation）
 
-纳维-斯托克斯方程（Navier-Stokes equation）是计算流体力学领域的经典方程，是一组描述粘性不可压缩流体动量守恒的偏微分方程，简称`N-S`方程。它的形式如下：
+纳维-斯托克斯方程（Navier-Stokes equation），简称`N-S`方程，是流体力学领域的经典偏微分方程，在粘性不可压缩情况下，无量纲`N-S`方程的形式如下：
+
 $$
-\frac{\partial V} {\partial t} + (V \cdot \nabla)V = f - \frac{1} {\rho} \nabla p + \frac{\mu} {\rho} \nabla^2V
-$$
-忽略外力项，在圆柱绕流中包含雷诺数 `Re`形式如下：
-$$
-\rho(\frac{\partial V} {\partial t} + (V \cdot \nabla )V) + \nabla p - \frac{1} {Re} \nabla^2V = 0
-$$
-其分量形式如下：
-$$
-\rho(\frac{\partial u} {\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}) + (\frac{\partial p}{\partial x} + \frac{\partial p}{\partial y}) - \frac{1} {Re} (\frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}) = 0
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
 $$
 
 $$
-\rho(\frac{\partial v} {\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}) + (\frac{\partial p}{\partial x} + \frac{\partial p}{\partial y}) - \frac{1} {Re} (\frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2}) = 0
+\frac{\partial u} {\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y} = - \frac{\partial p}{\partial x} + \frac{1} {Re} (\frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2})
 $$
+
+$$
+\frac{\partial v} {\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y} = - \frac{\partial p}{\partial y} + \frac{1} {Re} (\frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2})
+$$
+
+其中，`Re`表示雷诺数。
 
 ## 问题描述
 
-本案例利用PINNS方法学习初始u到下一时刻u的映射，实现`N-S`方程的求解：
+本案例利用PINNs方法学习位置和时间到相应流场物理量的映射，实现`N-S`方程的求解：
+
 $$
-u_0 \mapsto u_{t=1}
+(x, y, t) \mapsto (u, v, p)
 $$
+
 MindFlow求解该问题的具体流程如下：
 
 1. 对求解域以及初边值条件进行随机采样，创建训练数据集。
@@ -46,7 +47,7 @@ MindFlow求解该问题的具体流程如下：
 
 ### 配置文件
 
-总体配置文件如下所示，其中能够定义雷诺数`Re`，问题域边界，神经网络结构，学习率，学习率衰减系数，训练epoch，batch size等关键参数。文件存取路径，案例命名等要素也可以在这里配置。
+总体配置文件如下所示，定义雷诺数`Re`，问题域边界，神经网络结构，学习率，学习率衰减系数，训练epoch，batch size等关键参数。文件存取路径，案例命名等要素也可以在这里配置。
 
 ```python
 {
@@ -110,12 +111,11 @@ from src import MultiStepLR, PredictCallback, visualization
 
 ### 创建数据集
 
-本案例对已有的雷诺数为100的标准圆柱绕流进行初始条件和边界条件数据的采样。首先对于训练数据集，构建平面矩形的问题域以及时间维度，再对已知的初始条件，边界条件采样；对于验证集，直接取已有的流场中的点。
+本案例对已有的雷诺数为100的标准圆柱绕流进行初始条件和边界条件数据的采样。对于训练数据集，构建平面矩形的问题域以及时间维度，再对已知的初始条件，边界条件采样；基于已有的流场中的点构造验证集。
 
 ```python
 def create_evaluation_dataset(test_data_path):
     """load labeled data for evaluation"""
-    # check data
     print("get dataset path: {}".format(test_data_path))
     paths = [test_data_path + '/eval_points.npy', test_data_path + '/eval_label.npy']
     inputs = np.load(paths[0])
@@ -153,10 +153,10 @@ def create_training_dataset(config):
 
 ```
 
-采样配置信息如下，从domain域到时间域都做了最大采样帧数，采样符合均匀分布。
+采样配置信息如下，根据均匀分布采样。
 
 ```python
-domain_sampling_config = edict({
+domain_sampling_config = edict({  
     'domain': edict({                   # 内部点空间采样配置
         'random_sampling': True,        # 是否随机采样
         'size': 65536,                  # 采样样本数目
@@ -170,9 +170,9 @@ domain_sampling_config = edict({
 })
 ```
 
-### 根据纳维-斯托克斯方程（Navier-Stokes equation）建模
+### 纳维-斯托克斯方程（Navier-Stokes equation）建模
 
-`Problem`包含求解问题的控制方程、边界条件、初始条件等。其中控制方程使用速度方程分量形式，初始条件和边界条件从已知数据中获得，根据不同的数据集可以有不同的边界条件。
+`Problem`包含求解问题的控制方程、边界条件、初始条件等。其中控制方程直接使用不可压`N-S`方程，初始条件和边界条件从已知数据中获得，用户可以根据不同的数据集设置不同的边界条件。
 
 ```python
 # define problem
@@ -331,50 +331,50 @@ class MultiStepLR(_LRScheduler):
 定义`Constraints`作为损失。
 
 ```python
-    # define problem
-    train_prob = {}
-    for dataset in cylinder_dataset.all_datasets:
-        train_prob[dataset.name] = NavierStokes2D(model=model,
-                                                  domain_points=dataset.name + "_points",
-                                                  ic_points=dataset.name + "_points",
-                                                  bc_points=dataset.name + "_points",
-                                                  ic_label=dataset.name + "_label",
-                                                  bc_label=dataset.name + "_label",
-                                                  Re = config["Reynolds_number"])
-    print("check problem: ", train_prob)
-    train_constraints = Constraints(cylinder_dataset, train_prob)
+# define problem
+train_prob = {}
+for dataset in cylinder_dataset.all_datasets:
+    train_prob[dataset.name] = NavierStokes2D(model=model,
+                                              domain_points=dataset.name + "_points",
+                                              ic_points=dataset.name + "_points",
+                                              bc_points=dataset.name + "_points",
+                                              ic_label=dataset.name + "_label",
+                                              bc_label=dataset.name + "_label",
+                                              Re = config["Reynolds_number"])
+print("check problem: ", train_prob)
+train_constraints = Constraints(cylinder_dataset, train_prob)
 ```
 
 ### 模型训练
 
-`Solver`类是模型训练和推理的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义求解器对象`solver`。
+`Solver`类是模型训练的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义PINNs求解对象。
 
 ```python
-    # define solver
-    solver = Solver(model,
-                    optimizer=optim,
-                    train_constraints=train_constraints,
-                    test_constraints=None,
-                    metrics={'l2': L2(), 'distance': nn.MAE()},
-                    loss_fn='smooth_l1_loss',
-                    loss_scale_manager=DynamicLossScaleManager(init_loss_scale=2 ** 10, scale_window=2000),
-                    mtl_weighted_cell=mtl,
-                    )
+# define solver
+solver = Solver(model,
+                optimizer=optim,
+                train_constraints=train_constraints,
+                test_constraints=None,
+                metrics={'l2': L2(), 'distance': nn.MAE()},
+                loss_fn='smooth_l1_loss',
+                loss_scale_manager=DynamicLossScaleManager(init_loss_scale=2 ** 10, scale_window=2000),
+                mtl_weighted_cell=mtl,
+                )
 
-    loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
-    callbacks = [loss_time_callback]
-    if config.get("train_with_eval", False):
-        inputs, label = create_evaluation_dataset(config["test_data_path"])
-        predict_callback = PredictCallback(model, inputs, label, config=config, visual_fn=visualization)
-        callbacks += [predict_callback]
-    if config["save_ckpt"]:
-        config_ck = CheckpointConfig(save_checkpoint_steps=10,
-                                     keep_checkpoint_max=2)
-        ckpoint_cb = ModelCheckpoint(prefix='ckpt_flow_past_cylinder_Re100',
-                                     directory=config["save_ckpt_path"], config=config_ck)
-        callbacks += [ckpoint_cb]
+loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
+callbacks = [loss_time_callback]
+if config.get("train_with_eval", False):
+    inputs, label = create_evaluation_dataset(config["test_data_path"])
+    predict_callback = PredictCallback(model, inputs, label, config=config, visual_fn=visualization)
+    callbacks += [predict_callback]
+if config["save_ckpt"]:
+    config_ck = CheckpointConfig(save_checkpoint_steps=10,
+                                 keep_checkpoint_max=2)
+    ckpoint_cb = ModelCheckpoint(prefix='ckpt_flow_past_cylinder_Re100',
+                                 directory=config["save_ckpt_path"], config=config_ck)
+    callbacks += [ckpoint_cb]
 
-    solver.train(config["train_epoch"], train_dataset, callbacks=callbacks, dataset_sink_mode=True)
+solver.train(config["train_epoch"], train_dataset, callbacks=callbacks, dataset_sink_mode=True)
 ```
 
 ## 网络训练结果
@@ -410,7 +410,7 @@ End-to-End total time: 10051.670986890793 s
 
 ### 分析
 
-训练过程中的error如图所示，随着epoch增长，error相应下降。
+训练过程中的error如图所示，随着epoch增长，error逐渐下降。
 
 5000 epochs 对应的loss：
 

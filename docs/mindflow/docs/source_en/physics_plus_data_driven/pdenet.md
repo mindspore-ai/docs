@@ -36,6 +36,45 @@ $$
 
 The PDE-Net consists of multiple $\delta T$ Blocks in series to implement prediction of long sequence information. Each $\delta T$ Block includes several moment matrixes of trainable parameters. The matrixes can be converted to convolution kernels according to a mapping relationship. Thereby the derivatives of the physical field can be obtained. After linearly combining the derivative and its corresponding physical quantity, the information of the next time step can be deduced by using the forward Euler method.
 
+![](images/pdenet-1.jpg)
+
+![](images/pdenet-2.jpg)
+
+## Script Description
+
+You can set training parameters and sampling parameters in `config.py`.
+
+```python
+train_config = ed({
+    "name": "pde_net",                          # Case Description
+    "log_path": "./logs/result/",               # log file location
+    "summary_dir": "./summary_dir/summary",     # summary file location
+    "eval_interval": 10,                        # Evaluation period
+    "lr_scheduler_gamma": 0.5,                  # learning rate scheduler coefficient
+    "lr": 0.001,                                # Initial learning rate
+    "save_epoch_interval": 50,                  # ckpt save period
+    "mesh_size": 50,                            # Mesh size
+    "solver_mesh_scale": 5,                     # Sampling ratio of the solver data
+    "enable_noise": True,                       # Whether to add noise to the sample
+    "start_noise_level": 0.015,                 # Input noise/signal ratio
+    "end_noise_level": 0.015,                   # Output noise/signal ratio
+    "variant_coe_magnitude": 1.0,               # Differential Equation Coefficient Scaling Ratio
+    "init_freq": 4,                             # Frequency in the initial condition
+    "batch_size": 16,                           # batch size
+    "mindrecord": "src/data.mindrecord",        # Mindrecord save location
+    "epochs": 500,                              # number of epochs
+    "multi_step": 20,                           # number of steps
+    "learning_rate_reduce_times": 4,            # learning rate adjustment times
+    "dt": 0.015,                                # time step predicted by a single step
+    "kernel_size": 5,                           # size of the convolution kernel
+    "max_order": 4,                             # maximum differential order corresponding to the convolution kernel
+    "channels": 1,                              # number of data channels
+    "perodic_padding": True,                    # whether to use periodic boundary conditions
+    "if_frozen": False,                         # whether to freeze parameters in the moment
+    "enable_moment": True,                      # whether to use the moment to control convolution
+})
+```
+
 ## Solution Process
 
 The PDE-Net solution to the inverse problem of partial differential equations consists of the following five steps:
@@ -64,6 +103,8 @@ import mindspore.dataset as ds
 
 
 class DataPrepare():
+    """Obtain dataset for train or test from mindrecord."""
+
     def __init__(self, config, data_file):
         self.mesh_size = config["mesh_size"]
         self.batch_size = config["batch_size"]
@@ -208,13 +249,19 @@ predict total time: 0.5544295310974121 s
 ### Model Evaluation and Visualization
 
 After the model training is complete, run the visualization.py file to test and visualize the model training result. The following figure shows the comparison between the prediction result and label.
+
 ![](images/result.jpg)
+
 The coefficient regression results of the partial differential equation are as follows:
+
 ![](images/coe_trained_step-1.png)
+
 The data labels for the coefficients of the partial differential equation are as follows:
+
 ![](images/coe_label_benchmark.png)
 
 ### Long-Term Prediction
 
 Further, the trained PDE-Net can be used for longer predictions. Perform multiple sets of tests and plot 25% and 75% of the error as banded curves, as shown in the figure:
+
 ![](images/extrapolation.jpg)

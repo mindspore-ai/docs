@@ -19,7 +19,7 @@ $$
 其中 $\epsilon=0.01/\pi$ ，等号左边为对流项，右边为耗散项，本案例使用迪利克雷边界条件和正弦函数的初始条件，形式如下：
 
 $$
-u(t, -1) = u(t, 1) = 0.
+u(t, -1) = u(t, 1) = 0,
 $$
 
 $$
@@ -32,11 +32,11 @@ $$
 
 MindFlow求解该问题的具体流程如下：
 
-1. 创建训练数据集
-2. 构建神经网络
-3. 问题建模
-4. 模型训练
-5. 模型推理及可视化
+1. 创建训练数据集。
+2. 构建神经网络。
+3. 问题建模。
+4. 模型训练。
+5. 模型推理及可视化。
 
 ## 创建数据集
 
@@ -47,6 +47,7 @@ from mindflow.data import Dataset
 from mindflow.geometry import FixedPoint, Interval, TimeDomain, GeometryWithTime
 from mindflow.geometry import create_config_from_edict
 from .sampling_config import src_sampling_config, bc_sampling_config
+
 
 def create_random_dataset(config):
     """create training dataset by online sampling"""
@@ -95,9 +96,10 @@ model = FCSequential(in_channel=2, out_channel=1, layers=6, neurons=20, residual
 from math import pi as PI
 from mindspore import ops
 from mindspore import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindflow.solver import Problem
 from mindflow.operators import Grad, SecondOrderGrad
+
 
 class Burgers1D(Problem):
     """The 1D Burger's equations with constant boundary condition."""
@@ -116,6 +118,7 @@ class Burgers1D(Problem):
         self.pi = Tensor(PI, mstype.float32)
 
     def governing_equation(self, *output, **kwargs):
+        """Burgers equation"""
         u = output[0]
         data = kwargs[self.domain_name]
 
@@ -128,10 +131,12 @@ class Burgers1D(Problem):
         return pde_r
 
     def boundary_condition(self, *output, **kwargs):
+        """constant boundary condition"""
         u = output[0]
         return u
 
     def initial_condition(self, *output, **kwargs):
+        """initial condition: u = - sin(x)"""
         u = output[0]
         data = kwargs[self.ic_name]
         x = self.reshape(data[:, 0], (-1, 1))

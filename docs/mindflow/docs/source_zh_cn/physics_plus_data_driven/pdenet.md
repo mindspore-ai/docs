@@ -36,6 +36,45 @@ $$
 
 PDE-Net由多个$\delta T$ Block串联构成，以实现长序列信息的预测，在每一个$\delta T$ Block中，包含可训练参数的moment矩阵，该矩阵可根据映射关系转化为对应导数的卷积核，从而获取物理场的导数。将导数及其对应物理量经线性组合后，采用前向欧拉法，即可推导下一个时间步的信息。
 
+![](images/pdenet-1.jpg)
+
+![](images/pdenet-2.jpg)
+
+## 脚本说明
+
+在`config.py`里面可以设置训练的参数和采样参数。
+
+```python
+train_config = ed({
+    "name": "pde_net",                          # 案例描述
+    "log_path": "./logs/result/",               # log文件位置
+    "summary_dir": "./summary_dir/summary",     # summary文件位置
+    "eval_interval": 10,                        # 验证周期
+    "lr_scheduler_gamma": 0.5,                  # 学习率调整系数
+    "lr": 0.001,                                # 初始学习率
+    "save_epoch_interval": 50,                  # ckpt保存周期
+    "mesh_size": 50,                            # 网格大小
+    "solver_mesh_scale": 5,                     # 求解器数据采样比
+    "enable_noise": True,                       # 在样本中是否增加噪声
+    "start_noise_level": 0.015,                 # 输入端噪声/信号比
+    "end_noise_level": 0.015,                   # 输出端噪声/信号比
+    "variant_coe_magnitude": 1.0,               # 微分方程系数缩放比
+    "init_freq": 4,                             # 初始条件中的频率
+    "batch_size": 16,                           # 单次训练样本数目
+    "mindrecord": "src/data.mindrecord",        # mindrecord保存位置
+    "epochs": 500,                              # 单个step训练周期数
+    "multi_step": 20,                           # step数目
+    "learning_rate_reduce_times": 4,            # 学习率调整次数
+    "dt": 0.015,                                # 单个step预测的时间步长
+    "kernel_size": 5,                           # 卷积核大小
+    "max_order": 4,                             # 卷积核对应的最大微分阶数
+    "channels": 1,                              # 数据深度
+    "perodic_padding": True,                    # 是否采用周期性边界条件
+    "if_frozen": False,                         # 是否冻结moment中的参数
+    "enable_moment": True,                      # 是否采用moment控制卷积
+})
+```
+
 ## 求解流程
 
 PDE-Net求解偏微分方程反问题分为以下5个步骤：
@@ -61,6 +100,7 @@ data.process()
 
 ```python
 import mindspore.dataset as ds
+
 
 class DataPrepare():
     """Obtain dataset for train or test from mindrecord."""
@@ -209,14 +249,20 @@ predict total time: 0.5544295310974121 s
 ### 模型测试和可视化
 
 模型训练结束后即可运行visualization.py文件对模型训练的结果进行测试和可视化，流场预测结果和label对比如下：
+
 ![](images/result.jpg)
+
 偏微分方程的系数回归结果如下：
+
 ![](images/coe_trained_step-1.png)
+
 偏微分方程系数的数据标签如下：
+
 ![](images/coe_label_benchmark.png)
 
 ### 长时间预测
 
 更进一步，可以将训练好的PDE-Net用于更长时间的预测，
 进行多组测试，将误差的25%和75%绘制为带状曲线，如图所示：
+
 ![](images/extrapolation.jpg)
