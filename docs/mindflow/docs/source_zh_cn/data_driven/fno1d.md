@@ -1,12 +1,12 @@
-# 基于Fourier Neural Operator的Burgers方程求解
+# 基于Fourier Neural Operator的Burgers' equation求解
 
 ## 概述
 
-计算流体力学是21世纪流体力学领域的重要技术之一，其通过使用数值方法在计算机中对流体力学的控制方程进行求解，从而实现流动的分析、预测和控制。传统的有限元法（finite element method，FEM）和有限差分法（finite difference method，FDM）常囿于复杂的仿真流程（物理建模，网格划分，数值离散，迭代求解等）和较高的计算成本，往往效率低下。因此，借助AI提升流体仿真效率是十分必要的。
+计算流体力学是21世纪流体力学领域的重要技术之一，其通过使用数值方法在计算机中对流体力学的控制方程进行求解，从而实现流动的分析、预测和控制。传统的有限元法（finite element method，FEM）和有限差分法（finite difference method，FDM）常用于复杂的仿真流程（物理建模，网格划分，数值离散，迭代求解等）和较高的计算成本，往往效率低下。因此，借助AI提升流体仿真效率是十分必要的。
 
 近年来，随着神经网络的迅猛发展，为科学计算提供了新的范式。经典的神经网络是在有限维度的空间进行映射，只能学习与特定离散化相关的解。与经典神经网络不同，傅里叶神经算子（Fourier Neural Operator，FNO）是一种能够学习无限维函数空间映射的新型深度学习架构。该架构可直接学习从任意函数参数到解的映射，用于解决一类偏微分方程的求解问题，具有更强的泛化能力。更多信息可参考[原文](https://arxiv.org/abs/2010.08895)。
 
-本案例教程介绍利用傅里叶神经算子的1-d Burgers' equation求解方法。
+本案例教程介绍利用傅里叶神经算子的1-d Burgers'方程求解方法。
 
 ## 伯格斯方程（Burgers' equation）
 
@@ -24,7 +24,7 @@ $$
 
 ## 问题描述
 
-本案例利用Fourier Neural Operator学习初始状态到下一时刻状态的映射，实现一维Burgers' Equation方程的求解：
+本案例利用Fourier Neural Operator学习初始状态到下一时刻状态的映射，实现一维Burgers'方程的求解：
 
 $$
 u_0 \mapsto u(\cdot, 1)
@@ -275,7 +275,7 @@ pred_cb = PredictCallback(model=model,
 
 ### 模型训练与推理
 
-Solver类是模型训练和推理的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成1维Burgers' equation方程求解。代码中optimizer_params、model_params对应各项参数均在配置文件中修改。
+Solver类是模型训练和推理的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成1维Burgers'方程求解。代码中optimizer_params、model_params对应各项参数均在配置文件中修改。
 
 ```python
 # optimizer
