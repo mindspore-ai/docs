@@ -126,7 +126,7 @@ Then the complete quantum circuit is Encoder plus Ansatz.
 
 ```python
 # pylint: disable=W0104
-circuit = encoder + ansatz                   # The complete quantum circuit consists of Encoder and Ansatz
+circuit = encoder.as_encoder() + ansatz.as_ansatz()                   # The complete quantum circuit consists of Encoder and Ansatz
 circuit
 ```
 
@@ -192,14 +192,12 @@ Then, we obtain the operator for the evolution of the variational quantum circui
 # Import Simulator module
 from mindquantum.simulator import Simulator
 
-# Generate a simulator based on the projectq backend, and set the number of bits of the simulator to the number of bits of the quantum circuit.
-sim = Simulator('projectq', circuit.n_qubits)
+# Generate a simulator based on the mqvector backend, and set the number of bits of the simulator to the number of bits of the quantum circuit.
+sim = Simulator('mqvector', circuit.n_qubits)
 
 # Obtain the evolution of the quantum circuit based on the current quantum state of the simulator and the expectation and gradient solution operators
 grad_ops = sim.get_expectation_with_grad(ham,
-                                         circuit,
-                                         encoder_params_name=encoder_names,
-                                         ansatz_params_name=ansatz_names)
+                                         circuit)
 
 # An array of three parameters alpha0, alpha1, alpha2 in Encoder,
 # Convert its data type to float32 and store it in encoder_data.
@@ -237,14 +235,10 @@ Note:
 Simulator.get_expectation_with_grad(ham,
                                     circ_right,
                                     circ_left,
-                                    encoder_params_name,
-                                    ansatz_params_name,
                                     parallel_worker=1)
 ```
 
 This function is suitable for computing the following models: $E=\left<0\right|U^\dagger_l(\theta) H U_r(\theta)\left|0\right>$ Where `circ_right` is `Ur`, `circ_left` is `Ul`, when not provided, the default is the same circuit as `circ_right`,
-`encoder_params_name` specifies which parameters in the entire system belong to the parameters of the encoder. The encoder can map the classical data to the high-order Hilbert space by feature mapping,
-`ansatz_params_name` specifies which parameters in the entire system belong to the parameters of the circuit to be trained,
 `parallel_worker` specifies the number of parallels. When the classical data to be encoded is a batch, setting this parameter reasonably can improve the calculation efficiency.
 
 (2) MindSpore is a full-scene deep learning framework, aiming to achieve three goals of easy development, efficient execution, and full-scene coverage, provides tensor-differentiable programmability that supports heterogeneous acceleration, supports cloud, server, edge and end multiple hardware platforms.
@@ -265,7 +259,7 @@ QuantumNet
 
 ```text
 MQLayer<
-  (evolution): MQOps<1 qubit projectq VQA Operator>
+  (evolution): MQOps<1 qubit mqvector VQA Operator>
   >
 ```
 
@@ -278,6 +272,8 @@ Note:
 (2) We can also build the quantum machine learning layer by the following code, but in MindQuantum, the following code has been packaged, so that we can directly use the MQLayer module to build the quantum machine learning layer. For more complex quantum-classical hybrid neural networks, the following construction will demonstrate its advantages.
 
 ```python
+from mindspore import nn
+
 class MQLayer(nn.Cell):
     def __init__(self, expectation_with_grad, weight='normal'):
         super(MQLayer, self).__init__()

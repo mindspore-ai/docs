@@ -86,7 +86,6 @@ def build_hc(g,para):
 Build the time-dependent quantum circuit for $X^{\otimes n}$:
 
 ```python
-
 def build_hb(g, para):
     hc = Circuit()
     for i in g.nodes:
@@ -135,7 +134,7 @@ import mindspore as ms
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 
 total_circuit = init_state_circ + ansatz
-sim = Simulator('projectq', total_circuit.n_qubits)
+sim = Simulator('mqvector', total_circuit.n_qubits)
 grad_ops = sim.get_expectation_with_grad(ham, total_circuit)
 net = MQAnsatzOnlyLayer(grad_ops)
 opti = nn.Adam(net.trainable_params(), learning_rate=0.05)

@@ -46,14 +46,3 @@ python -c 'import mindquantum'
 
 通过Docker也可以在Mac系统或者Windows系统中使用Mindquantum。具体参考[Docker安装指南](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker.md#).
 
-## 注意事项
-
-运行代码前请设置量子模拟器运行时并行内核数，例如设置并行内核数为4，可运行如下代码：
-
-```bash
-export OMP_NUM_THREADS=4
-```
-
-对于大型服务器，请根据模型规模合理设置并行内核数以达到最优效果。
-
-

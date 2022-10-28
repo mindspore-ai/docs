@@ -8,13 +8,6 @@ Word embedding plays a key role in natural language processing. It embeds a high
 
 ## Environment Preparation
 
-Set the thread number of cpu in use.
-
-```python
-import os
-os.environ['OMP_NUM_THREADS']=1
-```
-
 Import relevant dependencies of the tutorial.
 
 ```python
@@ -269,15 +262,13 @@ def QEmbedding(num_embedding, embedding_dim, window, layers, n_threads):
         encoder = GenerateEncoderCircuit(n_qubits, 'Encoder_' + str(w))
         ansatz = GenerateAnsatzCircuit(n_qubits, layers, 'Ansatz_' + str(w))
         encoder.no_grad()
-        circ += encoder
-        circ += ansatz
+        circ += encoder.as_encoder()
+        circ += ansatz.as_ansatz()
         encoder_params_name.extend(encoder.params_name)
         ansatz_params_name.extend(ansatz.params_name)
-    sim = Simulator('projectq', circ.n_qubits)
+    sim = Simulator('mqvector', circ.n_qubits)
     grad_ops = sim.get_expectation_with_grad(hams,
                                              circ,
-                                             encoder_params_name=encoder_params_name,
-                                             ansatz_params_name=ansatz_params_name,
                                              parallel_worker=n_threads)
     net = MQLayer(grad_ops)
     return net
@@ -350,7 +341,7 @@ class LossMonitorWithCollection(ms.LossMonitor):
 
 ```
 
-Next, embed a long setence by using the quantum `CBOW`. Please execute this command `export OMP_NUM_THREADS=4` in the terminal in advance. This command sets the thread of the quantum simulators to 4. When the number of qubits to be simulated is large, more threads can be set to improve the simulation efficiency.
+Next, embed a long setence by using the quantum `CBOW`. This command sets the thread of the quantum simulators to 4. When the number of qubits to be simulated is large, more threads can be set to improve the simulation efficiency.
 
 ```python
 import mindspore as ms

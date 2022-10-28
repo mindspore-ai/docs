@@ -43,19 +43,6 @@ If the sklearn library is not installed, it can be installed by running the foll
 pip install scikit-learn
 ```
 
-Then, we set the number of threads required for this tutorial.
-
-```python
-import os                                                 # import os library
-os.environ['OMP_NUM_THREADS'] = '2'                       # Set the number of threads of the quantum circuit simulator to 2 by os.environ
-```
-
-Note:
-
-(1) os is a standard library that contains many functions for manipulating files and directories;
-
-(2) The os.environ() module can obtain and modify environment variables; in general, we need to set the number of threads at the beginning;
-
 ## Importing the iris dataset
 
 With the above preparation, now we can import the iris dataset.
@@ -287,7 +274,7 @@ Then the complete quantum circuit is Encoder plus Ansatz.
 
 ```python
 # pylint: disable=W0104
-circuit = encoder + ansatz                   # The complete quantum circuit consists of Encoder and Ansatz
+circuit = encoder.as_encoder() + ansatz.as_ansatz()                   # The complete quantum circuit consists of Encoder and Ansatz
 circuit.summary()
 circuit
 ```
@@ -319,7 +306,8 @@ We perform Pauli Z operator measurements on the 2nd and 3rd qubits respectively,
 from mindquantum.core.operators import QubitOperator                     # Import the QubitOperator module for constructing the Pauli operator
 from mindquantum.core.operators import Hamiltonian                       # Import the Hamiltonian module for building the Hamiltonian
 
-bitOperator(f'Z{i}')) for i in [2, 3]]   # Perform the Pauli Z operator measurement on the 2nd and 3rd qubits respectively, and set the coefficients to 1 to construct the corresponding Hamiltonian
+hams = [Hamiltonian(QubitOperator(f'Z{i}')) for i in [2, 3]]   # Perform the Pauli Z operator measurement on the 2nd and 3rd qubits respectively, and set the coefficients to 1 to construct the corresponding Hamiltonian
+hams
 ```
 
 ```text
@@ -338,13 +326,9 @@ from mindquantum.simulator import Simulator
 
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 ms.set_seed(1)                                                                                 # Set the seed for generating random numbers
-sim = Simulator('projectq', circuit.n_qubits)
+sim = Simulator('mqvector', circuit.n_qubits)
 grad_ops = sim.get_expectation_with_grad(hams,
                                          circuit,
-                                         None,
-                                         None,
-                                         encoder.params_name,
-                                         ansatz.params_name,
                                          parallel_worker=5)
 QuantumNet = MQLayer(grad_ops)          # Building a quantum neural network
 QuantumNet
@@ -352,7 +336,7 @@ QuantumNet
 
 ```text
 MQLayer<
-  (evolution): MQOps<4 qubits projectq VQA Operator>
+  (evolution): MQOps<4 qubits mqvector VQA Operator>
   >
 ```
 
