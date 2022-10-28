@@ -1,6 +1,6 @@
 # 物理驱动
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge/sponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/sponge.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 在MindSPONGE软件包中内置了两种分子动力学模拟软件，第一种是基于C++/CUDA完成的传统分子动力学模拟软件，第二种是基于传统分子动力学，使用MindSpore所完成的可微分子动力学模拟软件。
 

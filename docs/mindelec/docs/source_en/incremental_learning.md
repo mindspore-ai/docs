@@ -1,41 +1,41 @@
-# 增量训练求解麦克斯韦方程族
+# Incremental Training for Solving a Family of Maxwell's Equation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/mindelec/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-## 概述
+## Overview
 
-原始的PINNs（Physics-Informed Neural Networks, PINNs)方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。
+The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Partial Differential Equations (PDEs). When the parameters of PDEs (dielectric constants) change, the PINNs method needs to retrain a new neural network and it increases the total solving time.
 
-本教程重点介绍基于MindElec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
+This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindElec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
-> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
+> This current sample is for Ascend 910 AI processor. You can find the complete executable code at
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
 
-## 问题描述
+## Problem Description
 
-本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindelec/docs/zh-CN/master/mindelec/time_domain_maxwell.html)。
+This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindelec/docs/en/master/mindelec/time_domain_maxwell.html).
 
-## 基于物理信息的自解码器
+## Physics-Informed Auto-Decoder
 
-通常情况下，待求解方程中的可变参数$\lambda$ 的分布构成高维空间。为了降低模型复杂度以及训练成本，我们提出了基于物理信息的自解码器来求解同一类的方程族。该方法首先将高维可变参数空间映射到由低维向量表征的低维流形上，然后将流形的特征参数与方程的输入融合作为点源问题求解网络的输入一起参与到PINNs的训练中，由此可以得到预训练模型。针对新给定的可变参数问题，对预训练模型进行微调即可以得到新方程的解。
+In general, the distribution of variable parameter $\lambda$ forms a high-dimensional space. To reduce the model complexity and training costs, we first map the high-dimensional variable parameter space onto a low-dimensional manifold represented by a low-dimensional vector (Z). Then the characteristic parameter (Z) of the manifold and the input (X) of the equation are fused into the training of PINNs as the inputs of the point source problem solving network. The pre-trained model can be obtained. For the newly given variable parameter problem, the solution of the new equation can be obtained by fine-tuning the pre-trained model.
 
-MindElec基于物理信息的自解码器求解该问题的具体流程如下：
+The process for MindElec to solve the problem based on Physics-Informed Auto-Decoder is as follows:
 
-- 基于隐向量和神经网络的结合对一系列方程组进行预训练。与求解单个问题不同，预训练步骤中，神经网络的输入为采样点（X）与隐向量（Z）的融合，具体如下图所示：
+- Pre-train a series of equations based on the combination of latent vector and neural network. Different from solving a single PDE, the input of the neural network is the fusion of the sampling point (X) and the implicit vector (Z) in the pre-training step, as shown in the following figure.
 
     ![TE_for_Maxwell](./images/piad/pretrain_model.png)
 
-- 针对新的方程组，对隐向量和神经网络进行增量训练，快速求解新问题。这里我们提供了两种增量训练模式：
-    - finetune_latent_with_model: 该方式同时更新隐向量和网络结构，只需要加载预训练的模型进行增量训练即可。
-    - finetune_latent_only: 如下图所示，该方式固定网络结构，在增量训练中只更新隐向量。
+- For the new equations, incrementally train latent vector and neural network to solve the new problems quickly. We provide two incremental training modes:
+    - $\textit{finetune_latent_with_model}$: this mode updates the latent vector and network structure simultaneously and only needs to load the pre-trained model for incremental training.
+    - $\textit{finetune_latent_only}$: as shown in the following figure, this mode freezes the network structure and updates the latent vector only.
 
     ![TE_for_Maxwell](./images/piad/finetune_latent.png)
 
-### 导入依赖
+### Importing dependency
 
-导入本教程依赖的模块与接口：
+Import the modules on which this tutorial depends.
 
-``` python
+```python
 from mindelec.data import Dataset
 from mindelec.geometry import Disk, Rectangle, TimeDomain, GeometryWithTime
 from mindelec.loss import Constraints
@@ -50,9 +50,9 @@ from src import PredictCallback
 from src import visual_result
 ```
 
-### 创建数据集
+### Creating a Dataset
 
-与点源麦克斯韦方程的方式一致，我们在矩形计算域进行5次均匀采样，即由控制方程所约束的矩形域和源区附近的内部点采样；由初始条件所约束的矩形域和源区附近的内部点采样；以及由边界条件所控制的矩形域边界采样。空间采样与时间采样数据组合构成了训练样本。
+Consistent with the point source Maxwell's problem, five uniform samplings need to be implemented inside the rectangular computational domain: samplings on the rectangular domain constrained by the control equation and on internal points near the source region; samplings on the rectangular domain constrained by the initial condition and on internal points near the source region; boundary sampling on rectangular domain controlled by boundary conditions. The integration of spatial and temporal sampling data constitutes a training sample.
 
 ```python
 # src region
@@ -77,24 +77,24 @@ boundary.set_sampling_config(create_config_from_edict(bc_sampling_config))
 
 # final sampling fields
 geom_dict = {src_region : ["domain", "IC"],
-                no_src_region : ["domain", "IC"],
-                boundary : ["BC"]}
+                 no_src_region : ["domain", "IC"],
+                 boundary : ["BC"]}
 ```
 
-MindElec提供了将不同的采样数据合并为统一训练数据集的Dataset接口。
+The MindElec Dataset API combines different sampled data into a unified training dataset.
 
 ```python
 # create dataset for train
 elec_train_dataset = create_random_dataset(config)
 train_dataset = elec_train_dataset.create_dataset(batch_size=config["batch_size"],
-                                                shuffle=True,
-                                                prebatched_data=True,
-                                                drop_remainder=True)
+                                                  shuffle=True,
+                                                  prebatched_data=True,
+                                                  drop_remainder=True)
 ```
 
-### 定义控制方程及初边值条件
+### Defining the Control Equation and Initial & Boundary Condition
 
-继承MindElec提供的Problem类，我们定义该偏微分方程（partial differential equation，PDE）问题的核心代码如下。与求解单个点源问题不同，这里还传入了不同的参数`eps_candidates`， `mu_candidates`代表相对介电常数和相对磁导率。本案例中我们的预训练的参数选择为$(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$。
+Inherit the Problem class provided by MindElec, the core code of the PDE problem is defined as follows. Different from solving one specific PDE problem, we transfer parameters `eps_candidates` and `mu_candidates` to represent the relative dielectric constant and relative magnetic permeability of the medium. In this tutorial, the pre-trained model selects the following parameter settings: $(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$.
 
 ```python
 class Maxwell2DMur(Problem):
@@ -214,13 +214,13 @@ class Maxwell2DMur(Problem):
         dhz_dx, dhz_dy, dhz_dt = self.split(dhz_dxyt)
 
         bc_r1 = dhz_dx / self.s_x - dhz_dt / (self.light_speed * self.s_x) + \
-                self.s_ex * self.light_speed * self.epsilon_x / (2 * self.s_hz * self.s_x) * dex_dy  # 左边界
+                self.s_ex * self.light_speed * self.epsilon_x / (2 * self.s_hz * self.s_x) * dex_dy  # left boundary
         bc_r2 = dhz_dx / self.s_x + dhz_dt / (self.light_speed * self.s_x) - \
-                self.s_ex * self.light_speed * self.epsilon_x / (2 * self.s_hz * self.s_x) * dex_dy  # 右边界
+                self.s_ex * self.light_speed * self.epsilon_x / (2 * self.s_hz * self.s_x) * dex_dy  # right boundary
         bc_r3 = dhz_dy / self.s_y - dhz_dt / (self.light_speed * self.s_y) - \
-                self.s_ey * self.light_speed * self.epsilon_y / (2 * self.s_hz * self.s_y) * dey_dx  # 下边界
+                self.s_ey * self.light_speed * self.epsilon_y / (2 * self.s_hz * self.s_y) * dey_dx  # bottom boundary
         bc_r4 = dhz_dy / self.s_y + dhz_dt / (self.light_speed * self.s_y) + \
-                self.s_ey * self.light_speed * self.epsilon_y / (2 * self.s_hz * self.s_y) * dey_dx  # 上边界
+                self.s_ey * self.light_speed * self.epsilon_y / (2 * self.s_hz * self.s_y) * dey_dx  # top boundary
 
         bc_r_all = self.concat((bc_r1, bc_r2, bc_r3, bc_r4))
         bc_r = self.mul(bc_r_all, bc_attr)
@@ -233,7 +233,7 @@ class Maxwell2DMur(Problem):
         return net_out
 ```
 
-对问题约束条件的定义如下：
+The problem constraints are defined as follows:
 
 ```python
 # define constraints
@@ -246,9 +246,9 @@ for dataset in elec_train_dataset.all_datasets:
 train_constraints = Constraints(elec_train_dataset, train_prob)
 ```
 
-### 构建神经网络
+### Building a Neural Network
 
-在基于物理信息的自解码器中，神经网络的输入为采样点（X）与隐向量（Z）的融合，神经网络的主体结构采用多通道残差网络并结合Sin激活函数。
+In the Physics-Informed Auto-Decoder, the input of the neural network is the fusion of sampling points (X) and latent vector (Z) in the pre-training step, and the main structure of the neural network is multi-channel residual network combined with the Sin activation function.
 
 ```python
 # initialize latent vector
@@ -258,24 +258,24 @@ latent_init = np.random.randn(num_scenarios, latent_size) / np.sqrt(latent_size)
 latent_vector = Parameter(Tensor(latent_init, ms_type.float32), requires_grad=True)
 
 network = MultiScaleFCCell(config["input_size"],
-                        config["output_size"],
-                        layers=config["layers"],
-                        neurons=config["neurons"],
-                        residual=config["residual"],
-                        weight_init=HeUniform(negative_slope=math.sqrt(5)),
-                        act="sin",
-                        num_scales=config["num_scales"],
-                        amp_factor=config["amp_factor"],
-                        scale_factor=config["scale_factor"],
-                        input_scale=config["input_scale"],
-                        input_center=config["input_center"],
-                        latent_vector=latent_vector
-                        )
+                           config["output_size"],
+                           layers=config["layers"],
+                           neurons=config["neurons"],
+                           residual=config["residual"],
+                           weight_init=HeUniform(negative_slope=math.sqrt(5)),
+                           act="sin",
+                           num_scales=config["num_scales"],
+                           amp_factor=config["amp_factor"],
+                           scale_factor=config["scale_factor"],
+                           input_scale=config["input_scale"],
+                           input_center=config["input_center"],
+                           latent_vector=latent_vector
+                           )
 ```
 
-### 自适应加权损失函数加速收敛
+### Adaptive Weighted Loss Function for Accelerating Convergence
 
-在本案例中，由于源区附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindElec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应地调节每项损失函数的权重，可以显著地提升训练速度和精度。该算法的实现具体如下：
+In this case, because the encrypted sampling near the source region is performed as an independent subdataset for network training, the composition of the loss function includes the following five items: a control equation and an initial condition of the source region, a control equation and an initial condition of the source-free region, and a boundary condition. Experiments show that the five items in the loss function differ greatly in magnitude, so the simple summation of the loss functions will lead to the failure of network training, and the manual adjustment of the weight information of each loss function is very cumbersome. MindElec develops a weighting algorithm based on uncertainty estimation of multi-task learning. By introducing trainable parameters and adaptively adjusting the weight of each loss function, MindElec can significantly improve the training speed and accuracy. The algorithm is implemented as follows:
 
 ```python
 class MTLWeightedLossCell(nn.Cell):
@@ -300,9 +300,9 @@ class MTLWeightedLossCell(nn.Cell):
 mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 ```
 
-### 模型测试
+### Model Evaluation
 
-MindElec可以通过自定义的callback函数，利用边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
+MindElec can use the user-defined callback function to implement training and inference at the same time. You can directly load the test dataset and set corresponding callback functions to implement inference and analyze the result.
 
 ```python
 callbacks = [LossAndTimeMonitor(epoch_steps)]
@@ -312,9 +312,9 @@ if config.get("train_with_eval", False):
     callbacks += [eval_callback]
 ```
 
-### 模型预训练
+### Model Pre-training
 
-MindElec提供的Solver类是模型训练和推理的接口。输入优化器和网络模型以及PDE的约束（train_constraints），以及可选参数如自适应加权算法模块，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成求解麦克斯韦方程。
+The Solver class provided by MindElec is an API for model training and inference. You can enter the optimizer, network model, PDE constraints (train_constraints), and optional parameters such as the adaptive weighting algorithm module to define the solver object. In this tutorial, the MindSpore + Ascend mixed precision mode is used to train the network to solve the Maxwell's equations.
 
 ```python
 # mixed precision
@@ -324,7 +324,7 @@ model.input_scale.to_float(mstype.float32)
 # optimizer
 params = model.trainable_params() + mtl.trainable_params()
 lr_scheduler = MultiStepLR(config["lr"], config["milestones"], config["lr_gamma"],
-                        epoch_steps, config["train_epoch"])
+                           epoch_steps, config["train_epoch"])
 optimizer = nn.Adam(params, learning_rate=Tensor(lr_scheduler.get_lr()))
 
 # problem solver
@@ -343,9 +343,9 @@ solver = Solver(network,
 solver.train(config["train_epoch"], train_dataset, callbacks=callbacks, dataset_sink_mode=True)
 ```
 
-### 模型增量训练
+### Model Fine-tuning
 
-针对于新的问题参数，以$（\epsilon_r, \mu_r）=（2,2）$为例，我们需要加载预训练的网络权重和初始化一个新的隐向量（Z）。
+Given the new PDE parameter, for example, $(\epsilon_r, \mu_r)=(2,2)$, we need to load the pre-trained network weights and initialize a new latent vector (Z).
 
 ```python
 # load pretrained ckpt
@@ -379,6 +379,6 @@ lr = lr_scheduler.get_lr()
 optim = nn.Adam(params, learning_rate=Tensor(lr))
 ```
 
-在本教程中，我们采用finetune_latent_with_model的增量训练模式，即同时更新隐向量和网络结构。电磁场的瞬时分布与参考标签数据的对比结果如下图所示。相较于PINNs直接求解单个问题，在达到同等精度（相对误差6%）的情况下，增量训练的方法得到了10倍以上的加速。
+In this tutorial, we select the $\textit{finetune_latent_with_model}$ mode, namely, updating the latent vector and network weights simultaneously. The instantaneous electromagnetic fields compared with the reference labels are depicted in the following figure. Compared with solving a single PDE with the PINNs method, the PIAD method achieves a 10x speed-up at the same accuracy (6% relative error).
 
 ![TE_for_Maxwell](./images/piad/piad_result.png)
