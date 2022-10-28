@@ -247,4 +247,4 @@ The histograms of the training loss transformations in each step of worker_1 and
 
 The polygrams of the average loss (the sum of the losses of all the steps in an epoch divided by the number of steps) in each step of worker_1 and worker_2 during the 30 iterations training are as follows, [3] and [4]:
 
-![cross-silo_fastrcnn-2workers-loss.png](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/cross-silo_fastrcnn-2workers-loss.png)
+![cross-silo_fastrcnn-2workers-loss.png](https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_zh_cn/images/cross-silo_fastrcnn-2workers-loss.png)
