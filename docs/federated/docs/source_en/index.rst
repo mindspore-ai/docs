@@ -25,7 +25,7 @@ Horizontal Federated Architecture:
 
    It supports performance-lossless encryption based on local differential privacy to prevent private data leakage from models.
 
-    It supports a gradient protection scheme based on Symbolic Dimensional Selection (SignDS), which prevents model privacy data leakage while reducing communication overhead by 99%.
+   It supports a gradient protection scheme based on Symbolic Dimensional Selection (SignDS), which prevents model privacy data leakage while reducing communication overhead by 99%.
 
 2. Distributed Federated Aggregation
 
@@ -56,17 +56,17 @@ Vertical Federated Architecture:
 
 1. Privacy Protection
 
-    Support high-performance Privacy Set Intersection Protocol (PSI), which prevents federated participants from obtaining ID information outside the intersection and can cope with data imbalance scenarios.
+   Support high-performance Privacy Set Intersection Protocol (PSI), which prevents federated participants from obtaining ID information outside the intersection and can cope with data imbalance scenarios.
 
-    Support encryption scheme of Label based on differential privacy to prevent leakage of user label data.
+   Support encryption scheme of Label based on differential privacy to prevent leakage of user label data.
 
-    Support privacy protection scheme combined software with hardware, which can reduce the number of communication rounds and communication volume compared with homomorphic encryption method.
+   Support privacy protection scheme combined software with hardware, which can reduce the number of communication rounds and communication volume compared with homomorphic encryption method.
 
 2. Federated training
 
-    Support multiple types of split learning network structures.
+   Support multiple types of split learning network structures.
 
-    Cross-domain training for large models with pipelined parallel optimization.
+   Cross-domain training for large models with pipelined parallel optimization.
 
 MindSpore Federated Working Process
 ------------------------------------
@@ -107,6 +107,7 @@ Common Application Scenarios
    :maxdepth: 1
    :caption: Horizontal Application
 
+   image_classfication_dataset_process
    image_classification_application
    sentiment_classification_application
    image_classification_application_in_cross_silo
@@ -150,5 +151,4 @@ Common Application Scenarios
    :maxdepth: 1
    :caption: References
 
-   image_classfication_dataset_process
    faq

@@ -141,7 +141,7 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
 
 We choose the relatively simple LeNet network, which has seven layers without the input layer: two convolutional layers, two downsampling layers (pooling layers), and three fully connected layers. Each layer contains a different number of training parameters, as shown in the following figure:
 
-![LeNet5](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
+![LeNet5](https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
 
 > More information about LeNet network is not described herein. For more details, please refer to <http://yann.lecun.com/exdb/lenet/>.
 
