@@ -19,6 +19,9 @@ MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular modelling)
 |               | CentOS-aarch64  | ✔️ |
 | GPU CUDA 10.1 | Ubuntu-x86      | ✔️ |
 
+- CUDA版本支持10.1及以上。
+- Ubuntu系统版本支持16.04及以上。
+
 ### 前置依赖
 
 - Python>=3.7
@@ -60,8 +63,8 @@ cd mindscience/MindSPONGE
 
   ```bash
   cd output/
-  pip install mindscience_sponge*.whl
-  pip install mindscience_cybertron*.whl
+  pip install mindsponge*.whl
+  pip install cybertron*.whl
   ```
 
 ## 案例初体验
