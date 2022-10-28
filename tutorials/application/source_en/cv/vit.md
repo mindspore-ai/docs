@@ -429,8 +429,6 @@ class ViT(nn.Cell):
         return x
 ```
 
-The overall flow chart is shown below:
-
 ## Model Training and Inference
 
 ### Model Training
