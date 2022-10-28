@@ -290,7 +290,7 @@ Taking `run_pangu_train_local.sh` as an example, run the sample program as follo
 
     The corresponding visualization results are shown below, where the horizontal axis is the number of training steps, the vertical axis is the loss value, the red curve is the Pangu α training loss value, and the blue curve is the Pangu α training loss value based on splitting learning in this example. The trend of decreasing loss values is basically the same, and the correctness of the training process can be verified considering that the initialization of the network parameter values has randomness.
 
-    ![盘古α大模型跨域训练结果](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/splitnn_pangu_alpha_result.png)
+    ![Cross-domain training results of the Pangu alpha large model](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/splitnn_pangu_alpha_result.png)
 
 ### Running a Multi-Process Example
 

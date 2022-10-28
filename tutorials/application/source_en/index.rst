@@ -14,6 +14,7 @@ Application
    cv/resnet50
    cv/fgsm
    cv/dcgan
+   cv/vit
    
 .. toctree::
    :glob:
