@@ -511,6 +511,19 @@ model.train(epoch_size,
             dataset_sink_mode=False)
 ```
 
+```text
+epoch: 1 step: 125, loss is 6.486334800720215
+epoch: 2 step: 125, loss is 6.982427597045898
+epoch: 3 step: 125, loss is 7.116015434265137
+epoch: 4 step: 125, loss is 6.9209675788879395
+epoch: 5 step: 125, loss is 7.068521499633789
+epoch: 6 step: 125, loss is 6.8899030685424805
+epoch: 7 step: 125, loss is 6.973553657531738
+epoch: 8 step: 125, loss is 6.621445655822754
+epoch: 9 step: 125, loss is 6.701656341552734
+epoch: 10 step: 125, loss is 6.880570411682129
+```
+
 ### Model Validation
 
 The model validation process mainly applies interfaces such as ImageFolderDataset, CrossEntropySmooth and Model.
@@ -560,6 +573,10 @@ model = ms.Model(network, network_loss, metrics=eval_metrics)
 # evaluate model
 result = model.eval(dataset_val)
 print(result)
+```
+
+```text
+{'Top_1_Accuracy': 0.75, 'Top_5_Accuracy': 0.928}
 ```
 
 From the results, we can see that the Top_1_Accuracy and Top_5_Accuracy of the model reach a high level due to our loading of pre-trained model parameters, and this accuracy can be used as the standard in the actual project. If the pre-trained model parameters are not used, more epochs are needed for training.
@@ -745,6 +762,10 @@ for i, image in enumerate(dataset_infer.create_dict_iterator(output_numpy=True))
     show_result(img="./dataset/infer/n01440764/ILSVRC2012_test_00000279.JPEG",
                 result=output,
                 out_file="./dataset/infer/ILSVRC2012_test_00000279.JPEG")
+```
+
+```text
+{236: 'Doberman'}
 ```
 
 After the inference process is completed, the inference result of the picture can be found under the inference folder, and it can be seen that the prediction result is Doberman, which is the same as the expected result and verifies the accuracy of the model.
