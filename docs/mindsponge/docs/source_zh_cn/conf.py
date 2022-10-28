@@ -74,13 +74,8 @@ autosummary_generate = True
 
 # Reconstruction of sphinx auto generated document translation.
 language = 'zh_CN'
-import sphinx
-import shutil
-po_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
-po_src = os.path.join(os.path.dirname(__file__),'../../../../resource/locale/sphinx.mo')
-if os.path.exists(po_target):
-    os.remove(po_target)
-shutil.copy(po_src, po_target)
+locale_dirs = ['../../../../resource/locale/']
+gettext_compact = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
