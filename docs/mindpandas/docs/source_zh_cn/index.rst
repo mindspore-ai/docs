@@ -21,6 +21,8 @@ MindPandas的架构图如下图所示：
 
 5. 最底层提供了插件化的算子执行逻辑，当前主要支持Pandas算子，后续会以插件的形式支持更多类型的算子逻辑。
 
+6. MindPandas提供了基于共享内存的数据管道，数据无需落盘即可从MindPandas数据处理进程传输至MindSpore训练进程，解决了数据分析框架与训练框架割裂的问题。
+
 设计特点
 ---------
 
@@ -125,7 +127,7 @@ fillna 0.77s  0.13s
 未来规划
 ---------
 
-MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，以及数据的高效流转等功能，敬请期待。
+MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，敬请期待。
 
 使用MindPandas的典型场景
 ---------------------------------------

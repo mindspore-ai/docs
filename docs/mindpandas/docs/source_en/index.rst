@@ -21,6 +21,8 @@ The architecture diagram of MindPandas is shown below:
 
 5. Plug-in operator execution logic is provided at the lowest level. Currently, it mainly supports Pandas operators, and more types of operator logic will be supported in the form of plug-ins later.
 
+6. MindPandas provides a data pipeline based on shared memory. Data can be transferred from the MindPandas data processing process to the MindSpore training process without being stored on disks. This resolves the problem that the data analysis framework is separated from the training framework.
+
 Design Features
 ------------------
 
@@ -125,7 +127,7 @@ Note: MindPandas is set to multiprocess mode and uses a 32-core CPU.
 Future Goals
 ----------------
 
-The initial version of MindPandas contains 100+ APIs，which can be divided into four classes, DataFrame, Series, GroupBy and Other. MindPandas will support more APIs and provide efficient data flow.
+The initial version of MindPandas contains 100+ APIs，which can be divided into four classes, DataFrame, Series, GroupBy and Other. MindPandas will support more APIs.
 
 Typical scenarios using MindPandas
 ---------------------------------------
