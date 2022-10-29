@@ -40,7 +40,7 @@ To load the model weights, you need to create instances of the same model and th
 model = network()
 param_dict = mindspore.load_checkpoint("model.ckpt")
 param_not_load = mindspore.load_param_into_net(model, param_dict)
-param_not_load
+print(param_not_load)
 ```
 
 ```text
@@ -71,7 +71,7 @@ mindspore.set_context(mode=mindspore.GRAPH_MODE)
 graph = mindspore.load("model.mindir")
 model = nn.GraphCell(graph)
 outputs = model(inputs)
-outputs.shape
+print(outputs.shape)
 ```
 
 ```text

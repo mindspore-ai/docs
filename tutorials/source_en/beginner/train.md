@@ -238,7 +238,7 @@ loss: 0.170811  [700/938]
 loss: 0.411954  [800/938]
 loss: 0.315902  [900/938]
 Test:
- Accuracy: Accuracy: 91.9%, Avg loss: 0.279034
+ Accuracy: 91.9%, Avg loss: 0.279034
 
 Done!
 ```

@@ -18,6 +18,8 @@ from mindspore.dataset import MnistDataset
 
 MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
+> The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
+
 ```python
 # Download data from open datasets\n",
 from download import download
