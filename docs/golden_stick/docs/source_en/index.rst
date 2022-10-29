@@ -50,7 +50,7 @@ General Process of Applying the MindSpore Golden Stick
 
 2. Deployment
 
-   - **Network conversion:** A network compressed by MindSpore Golden Stick may require additional steps to convert the model compression structure from training mode to deployment mode, facilitating model export and deployment. For example, in the quantization aware scenario, a fake quantization node in a network usually needs to be eliminated, and converted into an operator attribute in the network. This capability is not enabled in the current version.
+   - **Network conversion:** A network compressed by MindSpore Golden Stick may require additional steps to convert the model compression structure from training mode to deployment mode, facilitating model export and deployment. For example, in the quantization aware scenario, a fake quantization node in a network usually needs to be eliminated, and converted into an operator attribute in the network.
 
 .. note::
     - For details about how to apply the MindSpore Golden Stick, see the detailed description and sample code in each algorithm section.
@@ -85,6 +85,14 @@ The current release version of MindSpore Golden Stick provides a stable API and 
 
    pruner/overview
    pruner/scop
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Model Deployment
+
+   deployment/overview
+   deployment/convert
 
 .. toctree::
    :maxdepth: 1

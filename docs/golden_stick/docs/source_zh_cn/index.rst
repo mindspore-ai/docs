@@ -50,7 +50,7 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 2. 部署阶段
 
-   - **网络转换：** 经过MindSpore Golden Stick压缩的网络可能需要额外的步骤，将网络中模型压缩相关的结构从训练形态转化为部署形态，方便进一步进行模型导出和模型部署。比如在对于感知量化场景，常常需要将网络中的伪量化节点消除，转换为网络中的算子属性。当前版本未开放该能力。
+   - **网络转换：** 经过MindSpore Golden Stick压缩的网络可能需要额外的步骤，将网络中模型压缩相关的结构从训练形态转化为部署形态，方便进一步进行模型导出和模型部署。比如在对于感知量化场景，常常需要将网络中的伪量化节点消除，转换为网络中的算子属性。
 
 .. note::
     - 应用MindSpore Golden Stick算法的细节，可以在每个算法章节中找到详细说明和示例代码。
@@ -85,6 +85,14 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
 
    pruner/overview
    pruner/scop
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型部署
+
+   deployment/overview
+   deployment/convert
 
 .. toctree::
    :maxdepth: 1
