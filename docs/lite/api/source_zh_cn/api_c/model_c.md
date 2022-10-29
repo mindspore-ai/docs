@@ -13,20 +13,16 @@ Model定义了MindSpore中编译和运行的模型。
 | function                                                                                                                                                                                      |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [MSModelHandle MSModelCreate()](#msmodelcreate)                                                                                                                                               |
-| [void MSModelDestroy(MSModelHandle *model)](#msmodeldestroy)                                                                                                                                  |
-| [size_t MSModelCalcWorkspaceSize(MSModelHandle model)](#msmodelcalcworkspacesize)                                                                                                             |
-| [void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
-| [MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
-| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
-| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
-| [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
-| [MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelrunstep)                                                                |
-| [MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)](#msmodelsettrainmode)                                                                                                   |
-| [MSStatus MSModelExportWeight(const MSModelHandle model, const char *export_path)](#msmodelexportweight)                                                                                      |
+| [void MSModelDestroy(MSModelHandle* model)](#msmodeldestroy)                                                                                                                                  |
+| [void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
+| [MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
+| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
+| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
+| [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray* outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
 | [MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)](#msmodelgetinputs)                                                                                                          |
 | [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                        |
-| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetinputbytensorname)                                                                |
-| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetoutputbytensorname)                                                              |
+| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetinputbytensorname)                                                                |
+| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetoutputbytensorname)                                                              |
 
 ### 公有函数
 
@@ -45,7 +41,7 @@ MSModelHandle MSModelCreate()
 #### MSModelDestroy
 
 ```C
-void MSModelDestroy(MSModelHandle *model)
+void MSModelDestroy(MSModelHandle* model)
 ```
 
 销毁一个模型对象，该选项仅MindSpore Lite有效。
@@ -60,7 +56,7 @@ void MSModelDestroy(MSModelHandle *model)
 size_t MSModelCalcWorkspaceSize(MSModelHandle model)
 ```
 
-计算模型工作时所需内存空间大小，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+计算模型工作时所需内存空间大小，该选项仅对IoT有效。(该接口未实现)
 
 - 参数
     - `model`: 指向模型对象的指针。
@@ -68,20 +64,20 @@ size_t MSModelCalcWorkspaceSize(MSModelHandle model)
 #### MSModelSetWorkspace
 
 ```C
-void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)
+void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)
 ```
 
-设置模型的工作时的内存空间，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+设置模型的工作空间，该选项仅对IoT有效。(该接口暂未实现)
 
 - 参数
     - `model`: 指向模型对象的指针。
-    - `workspace`: 指向工作时内存空间的指针。
-    - `workspace_size`: 内存空间大小。
+    - `workspace`: 指向工作空间的指针。
+    - `workspace_size`: 工作空间大小。
 
 #### MSModelBuild
 
 ```C
-MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)
+MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)
 ```
 
 从内存缓冲区加载并编译MindSpore模型，该选项仅MindSpore Lite有效。
@@ -92,7 +88,7 @@ MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_s
     - `model_data`: 内存中已经加载的模型数据地址。
     - `data_size`: 模型数据的长度。
     - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/master/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/master/api_c/context_c.html)。
 
 - 返回值
 
@@ -101,7 +97,7 @@ MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_s
 #### MSModelBuildFromFile
 
 ```C
-MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSModelType model_type,
+MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,
                                      const MSContextHandle model_context)
 ```
 
@@ -112,7 +108,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
     - `model`: 指向模型对象的指针。
     - `model_path`: 模型文件路径。
     - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/master/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/master/api_c/context_c.html)。
 
 - 返回值
 
@@ -121,7 +117,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
 #### MSModelResize
 
 ```C
-MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos,
+MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,
                               size_t shape_info_num)
 ```
 
@@ -141,7 +137,7 @@ MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MS
 #### MSModelPredict
 
 ```C
-MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs,
+MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray* outputs,
                                const MSKernelCallBackC before, const MSKernelCallBackC after)
 ```
 
@@ -197,7 +193,7 @@ MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
 #### MSModelSetTrainMode
 
 ```C
-MSStatus MSModelExportWeight(const MSModelHandle model, const char *export_path)
+MSStatus MSModelExportWeight(const MSModelHandle model, const char* export_path)
 ```
 
 将模型权重导出到二进制文件，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
@@ -247,7 +243,7 @@ MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)
 
 ```C
 MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model,
-                                            const char *tensor_name)
+                                            const char* tensor_name)
 ```
 
 通过张量名获取模型的输入张量。
@@ -265,7 +261,7 @@ MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model,
 
 ```C
 MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model,
-                                            const char *tensor_name)
+                                            const char* tensor_name)
 ```
 
 通过张量名获取MindSpore模型的输出张量。
@@ -284,7 +280,7 @@ MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model,
 #### MSModelHandle
 
 ```C
-typedef void *MSModelHandle;
+typedef void* MSModelHandle;
 ```
 
 模型对象指针。
@@ -294,7 +290,7 @@ typedef void *MSModelHandle;
 ```C
 typedef struct MSTensorHandleArray {
   size_t handle_num;
-  MSTensorHandle *handle_list;
+  MSTensorHandle* handle_list;
 } MSTensorHandleArray;
 ```
 
@@ -326,8 +322,8 @@ typedef struct MSShapeInfo {
 
 ```C
 typedef struct MSCallBackParamC {
-  char *node_name;
-  char *node_type;
+  char* node_name;
+  char* node_type;
 } MSCallBackParamC;
 ```
 
