@@ -7,7 +7,7 @@ MindElec is an AI electromagnetic simulation toolkit developed based on MindSpor
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_en/mindelec/images/MindElec-architecture.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_en/images/MindElec-architecture.jpg" width="600px" alt="" >
 
 
 Data Building and Conversion
@@ -36,7 +36,7 @@ The simulation results, such as the S parameters or electromagnetic fields, can 
 Typical MindElec Application Scenarios
 ------------------------------------------
 
-1. `Electromagnetic simulation <https://www.mindspore.cn/mindelec/docs/en/master/mindelec/point_cloud.html>`_
+1. `Electromagnetic simulation <https://www.mindspore.cn/mindelec/docs/en/master/point_cloud.html>`_
 
    The efficient and easy-to-use AI electromagnetic simulation kit provides functions such as multimodality data transformation, high-dimensional data encoding, and innovative electromagnetic AI models. It has improved the performance by 10 times in scenarios such as mobile phone tolerance tests and achieved simulation precision comparable to conventional scientific computing.
 
