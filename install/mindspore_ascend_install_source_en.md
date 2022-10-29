@@ -134,7 +134,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
+Install the .whl packages provided in Ascend AI processor software package. If the .whl packages have been installed before, you should uninstall the .whl packages by running the following command.
 
 ```bash
 pip uninstall te topi hccl -y
@@ -342,7 +342,7 @@ export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
 ## AICPU path
 export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/ccec_compiler/bin/:${PATH}
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
