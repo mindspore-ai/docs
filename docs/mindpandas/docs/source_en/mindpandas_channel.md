@@ -24,4 +24,4 @@ The channel of MindPandas supports multiple DataReceivers connect to a same Data
 
 ## Guide
 
-Please refer to [mindpandas.channel](https://www.mindspore.cn/mindpandas/docs/en/master/mindpandas.channel.html).
+For API description, please refer to [mindpandas.channel](https://www.mindspore.cn/mindpandas/docs/en/master/mindpandas.channel.html).
