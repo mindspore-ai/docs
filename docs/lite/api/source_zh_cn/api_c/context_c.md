@@ -13,23 +13,23 @@ context_c.h提供了操作Context的接口，Context对象用于保存执行中�
 | function                                                                                                                                           |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [MSContextHandle MSContextCreate()](#mscontextcreate)                                                                                              |
-| [void MSContextDestroy(MSContextHandle *context)](#mscontextdestroy)                                                                               |
+| [void MSContextDestroy(MSContextHandle* context)](#mscontextdestroy)                                                                               |
 | [void MSContextSetThreadNum(MSContextHandle context, int32_t thread_num)](#mscontextsetthreadnum)                                                  |
 | [int32_t MSContextGetThreadNum(const MSContextHandle context)](#mscontextgetthreadnum)                                                             |
 | [void MSContextSetThreadAffinityMode(MSContextHandle context, int mode)](#mscontextsetthreadaffinitymode)                                          |
 | [int MSContextGetThreadAffinityMode(const MSContextHandle context)](#mscontextgetthreadaffinitymode)                                               |
-| [void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t *core_list, size_t core_num)](#mscontextsetthreadaffinitycorelist) |
-| [int32_t *MSContextGetThreadAffinityCoreList(const MSContextHandle context, size_t *core_num)](#mscontextgetthreadaffinitycorelist)                |
+| [void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t* core_list, size_t core_num)](#mscontextsetthreadaffinitycorelist) |
+| [int32_t* MSContextGetThreadAffinityCoreList(const MSContextHandle context, size_t* core_num)](#mscontextgetthreadaffinitycorelist)                |
 | [void MSContextSetEnableParallel(MSContextHandle context, bool is_parallel)](#mscontextsetenableparallel)                                          |
 | [bool MSContextGetEnableParallel(const MSContextHandle context)](#mscontextgetenableparallel)                                                      |
 | [void MSContextAddDeviceInfo(MSContextHandle context, MSDeviceInfoHandle device_info)](#mscontextadddeviceinfo)                                    |
 | [MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)](#msdeviceinfocreate)                                                             |
-| [void MSDeviceInfoDestroy(MSDeviceInfoHandle *device_info)](#msdeviceinfodestroy)                                                                  |
-| [void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char *provider)](#msdeviceinfosetprovider)                                     |
-| [const char *MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)](#msdeviceinfogetprovider)                                              |
-| [void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char *device)](#msdeviceinfosetproviderdevice)                           |
-| [const char *MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)](#msdeviceinfogetproviderdevice)                                  |
-| [const char *MSDeviceType MSDeviceInfoGetDeviceType(const MSDeviceInfoHandle device_info)](#msdeviceinfogetdevicetype)                             |
+| [void MSDeviceInfoDestroy(MSDeviceInfoHandle* device_info)](#msdeviceinfodestroy)                                                                  |
+| [void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char* provider)](#msdeviceinfosetprovider)                                     |
+| [const char* MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)](#msdeviceinfogetprovider)                                              |
+| [void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char* device)](#msdeviceinfosetproviderdevice)                           |
+| [const char* MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)](#msdeviceinfogetproviderdevice)                                  |
+| [const char* MSDeviceType MSDeviceInfoGetDeviceType(const MSDeviceInfoHandle device_info)](#msdeviceinfogetdevicetype)                             |
 | [void MSDeviceInfoSetEnableFP16(MSDeviceInfoHandle device_info, bool is_fp16)](#msdeviceinfosetenablefp16)                                         |
 | [bool MSDeviceInfoGetEnableFP16(const MSDeviceInfoHandle device_info)](#msdeviceinfogetenablefp16)                                                 |
 | [void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)](#msdeviceinfosetfrequency)                                          |
@@ -50,14 +50,14 @@ MSContextHandle MSContextCreate()
 ### MSContextDestroy
 
 ```C
-void MSContextDestroy(MSContextHandle *context)
+void MSContextDestroy(MSContextHandle* context)
 ```
+
+销毁一个MSContext。
 
 - 参数
 
     - `context`: 指向MSContext的指针。
-
-销毁一个MSContext。
 
 ### MSContextSetThreadNum
 
@@ -120,7 +120,7 @@ int MSContextGetThreadAffinityMode(const MSContextHandle context)
 ### MSContextSetThreadAffinityCoreList
 
 ```C
-void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t *core_list, size_t core_num)
+void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t* core_list, size_t core_num)
 ```
 
 设置运行时的CPU绑核列表，如果同时调用了两个不同的`SetThreadAffinity`函数来设置同一个MSContext，仅`core_list`生效，而`mode`不生效。该选项仅MindSpore Lite有效。
@@ -134,7 +134,7 @@ void MSContextSetThreadAffinityCoreList(MSContextHandle context, const int32_t *
 ### MSContextGetThreadAffinityCoreList
 
 ```C
-int32_t *MSContextGetThreadAffinityCoreList(const MSContextHandle context, size_t *core_num)
+int32_t* MSContextGetThreadAffinityCoreList(const MSContextHandle context, size_t* core_num)
 ```
 
 获取当前CPU绑核列表，该选项仅MindSpore Lite有效。
@@ -211,7 +211,7 @@ MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)
 ### MSDeviceInfoDestroy
 
 ```C
-void MSDeviceInfoDestroy(MSDeviceInfoHandle *device_info)
+void MSDeviceInfoDestroy(MSDeviceInfoHandle* device_info)
 ```
 
 销毁一个运行设备信息对象。
@@ -222,7 +222,7 @@ void MSDeviceInfoDestroy(MSDeviceInfoHandle *device_info)
 ### MSDeviceInfoSetProvider
 
 ```C
-void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char *provider)
+void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char* provider)
 ```
 
 设置设备生产商名称。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
@@ -234,7 +234,7 @@ void MSDeviceInfoSetProvider(MSDeviceInfoHandle device_info, const char *provide
 ### MSDeviceInfoGetProvider
 
 ```C
-const char *MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)
+const char* MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)
 ```
 
 获取生产商设备名称。若参数device_info为空则输出`nullptr`，并在日志中输出空指针信息。
@@ -249,7 +249,7 @@ const char *MSDeviceInfoGetProvider(const MSDeviceInfoHandle device_info)
 ### MSDeviceInfoSetProviderDevice
 
 ```C
-void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char *device)
+void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char* device)
 ```
 
 设置供应商设备名称。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
@@ -261,7 +261,7 @@ void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char *d
 ### MSDeviceInfoGetProviderDevice
 
 ```C
-const char *MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)
+const char* MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)
 ```
 
 获取生产商设备名。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
@@ -276,7 +276,7 @@ const char *MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)
 ### MSDeviceInfoGetDeviceType
 
 ```C
-const char *MSDeviceType MSDeviceInfoGetDeviceType(const MSDeviceInfoHandle device_info)
+const char* MSDeviceType MSDeviceInfoGetDeviceType(const MSDeviceInfoHandle device_info)
 ```
 
 获得生产商设备类型。若参数device_info为空则返回`nullptr`，并在日志中输出空指针信息。
