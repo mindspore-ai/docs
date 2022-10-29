@@ -7,7 +7,7 @@ MindElec是基于MindSpore开发的AI电磁仿真工具包，由数据构建及�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_zh_cn/mindelec/images/MindElec-architecture.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_zh_cn/images/MindElec-architecture.jpg" width="600px" alt="" >
 
 数据构建及转换
 ----------------
@@ -36,7 +36,7 @@ AI电磁模型库
 使用MindElec的典型场景
 ------------------------------
 
-1. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/master/mindelec/point_cloud.html>`_
+1. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/master/point_cloud.html>`_
 
    高效、易用的AI电磁仿真套件，提供了多模数据转换、高维数据编码以及创新的AI电磁仿真模型等功能，已在手机容差等场景中实现性能提升10倍、仿真精度媲美传统科学计算的技术突破。
 
