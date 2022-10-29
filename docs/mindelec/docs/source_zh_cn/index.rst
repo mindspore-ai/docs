@@ -44,18 +44,25 @@ AI电磁模型库
    :maxdepth: 1
    :caption: 安装部署
 
-   mindelec/intro_and_install
+   intro_and_install
 
 .. toctree::
    :maxdepth: 1
    :caption: 应用实践
 
-   mindelec/physics_driven
-   mindelec/data_driven
-   mindelec/visualization
+   physics_driven
+   data_driven
+   visualization
 
 .. toctree::
    :maxdepth: 1
    :caption: API参考
 
-   mindelec
+   mindelec.architecture
+   mindelec.common
+   mindelec.data
+   mindelec.geometry
+   mindelec.loss
+   mindelec.operators
+   mindelec.solver
+   mindelec.vision

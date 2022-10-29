@@ -44,15 +44,15 @@ Typical MindElec Application Scenarios
    :maxdepth: 1
    :caption: Installation
 
-   mindelec/intro_and_install
+   intro_and_install
 
 .. toctree::
    :maxdepth: 1
    :caption: Application
 
-   mindelec/physics_driven
-   mindelec/data_driven
-   mindelec/visualization
+   physics_driven
+   data_driven
+   visualization
 
 .. toctree::
    :maxdepth: 1

@@ -7,12 +7,12 @@ MindSPONGE Documents
    :maxdepth: 1
    :caption: Guide
 
-   mindsponge/why
-   mindsponge/intro
-   mindsponge/xponge
-   mindsponge/sponge
-   mindsponge/cybertron
-   mindsponge/MEGAProtein
+   why
+   intro
+   xponge
+   sponge
+   cybertron
+   MEGAProtein
 
 .. toctree::
    :maxdepth: 1
