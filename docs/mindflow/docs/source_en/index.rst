@@ -39,6 +39,12 @@ MindSpore AI Fluid Simulation Suite
    :caption: API Reference
 
    mindflow.cell
+   mindflow.common
+   mindflow.data
+   mindflow.geometry
+   mindflow.loss
+   mindflow.operators
+   mindflow.solver
 
 .. toctree::
    :glob:

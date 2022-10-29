@@ -33,13 +33,6 @@ AI电磁模型库
 
 仿真的结果如S参数或电磁场等可保存在CSV、VTK文件中。MindInsight可以显示训练过程中的损失函数变化，并以图片的形式在网页上展示结果；Paraview是第三方开源软件，具有动态展示切片、翻转等高级功能。
 
-使用MindElec的典型场景
-------------------------------
-
-1. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/master/point_cloud.html>`_
-
-   高效、易用的AI电磁仿真套件，提供了多模数据转换、高维数据编码以及创新的AI电磁仿真模型等功能，已在手机容差等场景中实现性能提升10倍、仿真精度媲美传统科学计算的技术突破。
-
 .. toctree::
    :maxdepth: 1
    :caption: 安装部署

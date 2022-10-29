@@ -39,6 +39,12 @@ MindSpore AI 流体仿真套件
    :caption: API参考
 
    mindflow.cell
+   mindflow.common
+   mindflow.data
+   mindflow.geometry
+   mindflow.loss
+   mindflow.operators
+   mindflow.solver
 
 .. toctree::
    :glob:
