@@ -12,6 +12,7 @@
 #
 from genericpath import exists
 import os
+import shutil
 import sys
 import IPython
 import re
