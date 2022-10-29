@@ -11,8 +11,9 @@ Usually, the directly-loaded raw data cannot be directly fed into the neural net
 ```python
 import numpy as np
 from PIL import Image
-from mindvision import dataset
-from mindspore.dataset import transforms, vision, text, GeneratorDataset
+from download import download
+from mindspore.dataset import transforms, vision, text
+from mindspore.dataset import GeneratorDataset, MnistDataset
 ```
 
 ## Common Transforms
@@ -24,13 +25,21 @@ The `mindspore.dataset.transforms` module supports a set of common Transforms. H
 `Compose` takes a sequence of data enhancement operations and then combines them into a single data enhancement operation. We still present the application effect of Transforms based on the Mnist dataset.
 
 ```python
-# Download training data from open datasets
-training_data = dataset.Mnist(
-    path="dataset",
-    split="train",
-    download=True
-)
-train_dataset = training_data.dataset
+# Download data from open datasets
+
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
+
+train_dataset = MnistDataset('MNIST_Data/train')
+```
+
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:01<00:00, 5.57MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
 ```
 
 ```python
@@ -86,13 +95,13 @@ print(random_np)
 ```
 
 ```text
-array([[220, 139, 217, ..., 118, 227,  14],
-       [150, 162,  87, ...,  83, 101,  96],
-       [ 40,  53, 130, ...,  30,  97, 136],
-       ...,
-       [158, 227, 155, ...,  77, 122, 149],
-       [102, 106,  40, ...,  60, 130,  88],
-       [106, 162, 250, ..., 204,  82,  28]], dtype=uint8)
+[[ 59  38 206 ... 126 244 226]
+ [ 27 113 135 ... 248   3   0]
+ [106  13 154 ... 149   7 126]
+ ...
+ [142 135 222 ... 253  58 228]
+ [110 239 114 ...  75 142  65]
+ [  0 108 141 ... 145 159  11]]
 ```
 
 To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
@@ -104,19 +113,13 @@ print(rescaled_image)
 ```
 
 ```text
-array([[0.86274517, 0.54509807, 0.85098046, ..., 0.46274513, 0.89019614,
-        0.05490196],
-       [0.5882353 , 0.63529414, 0.34117648, ..., 0.3254902 , 0.39607847,
-        0.37647063],
-       [0.15686275, 0.20784315, 0.50980395, ..., 0.11764707, 0.3803922 ,
-        0.53333336],
-       ...,
-       [0.61960787, 0.89019614, 0.60784316, ..., 0.3019608 , 0.4784314 ,
-        0.58431375],
-       [0.40000004, 0.4156863 , 0.15686275, ..., 0.23529413, 0.50980395,
-        0.34509805],
-       [0.4156863 , 0.63529414, 0.9803922 , ..., 0.8000001 , 0.32156864,
-        0.10980393]], dtype=float32)
+[[0.23137257 0.14901961 0.8078432  ... 0.49411768 0.9568628  0.8862746 ]
+ [0.10588236 0.4431373  0.5294118  ... 0.9725491  0.01176471 0.        ]
+ [0.4156863  0.0509804  0.6039216  ... 0.58431375 0.02745098 0.49411768]
+ ...
+ [0.5568628  0.5294118  0.8705883  ... 0.9921569  0.227451   0.8941177 ]
+ [0.43137258 0.93725497 0.44705886 ... 0.29411766 0.5568628  0.25490198]
+ [0.         0.42352945 0.5529412  ... 0.5686275  0.62352943 0.04313726]]
 ```
 
 It can be seen that each pixel value is scaled after using `Rescale`.
@@ -138,19 +141,19 @@ print(normalized_image)
 ```
 
 ```text
-array([[ 2.3759987 ,  1.3450117 ,  2.337814  , ...,  1.0777187 ,
-         2.4650965 , -0.24601768],
-       [ 1.4850222 ,  1.637761  ,  0.6831434 , ...,  0.63223046,
-         0.8613388 ,  0.7976976 ],
-       [ 0.08491641,  0.2503835 ,  1.2304575 , ..., -0.04236592,
-         0.8104258 ,  1.306827  ],
-       ...,
-       [ 1.5868481 ,  2.4650965 ,  1.5486634 , ...,  0.55586106,
-         1.1286317 ,  1.472294  ],
-       [ 0.87406707,  0.92498   ,  0.08491641, ...,  0.33948112,
-         1.2304575 ,  0.69587165],
-       [ 0.92498   ,  1.637761  ,  2.7578456 , ...,  2.172347  ,
-         0.61950225, -0.06782239]], dtype=float32)
+[[ 0.32675287  0.05945994  2.1978035  ...  1.1795447   2.6814764
+   2.452368  ]\n",
+ [-0.08055063  1.0140777   1.2940987  ...  2.7323892  -0.38602826
+  -0.42421296]\n",
+ [ 0.92498    -0.2587459   1.5359352  ...  1.472294   -0.33511534
+   1.1795447 ]\n",
+ ...\n",
+ [ 1.3831964   1.2940987   2.4014552  ...  2.7960305   0.31402466
+   2.4778247 ]\n",
+ [ 0.9758929   2.617835    1.0268059  ...  0.5304046   1.3831964
+   0.40312228]\n",
+ [-0.42421296  0.9504364   1.3704681  ...  1.4213811   1.5995764
+  -0.2842024 ]]
 ```
 
 ### HWC2CWH
@@ -167,7 +170,7 @@ print(hwc_image.shape, chw_image.shape)
 ```
 
 ```text
-((48, 48, 1), (1, 48, 48))
+(48, 48, 1) (1, 48, 48)
 ```
 
 For more Vision Transforms, see [mindspore.dataset.vision](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.vision.html).
@@ -218,19 +221,7 @@ print(vocab.vocab())
 ```
 
 ```text
-{'Beijing': 2,
- '欢': 0,
- '喜': 8,
- 'Welcome': 4,
- 'China': 3,
- 'to': 5,
- '京': 6,
- '北': 7,
- '您': 9,
- '我': 10,
- '!': 1,
- '迎': 11,
- '！': 12}
+{'迎': 11, '我': 10, '您': 9, '京': 6, 'to': 5, '！': 12, '喜': 8, 'Welcome': 4, 'China': 3, '北': 7, 'Beijing': 2, '!': 1, '欢': 0}
 ```
 
 After generating the vocabulary, you can perform the vocabulary mapping transformation with the `map` method to convert Token to Index.
@@ -241,7 +232,7 @@ print(next(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
-[Tensor(shape=[6], dtype=Int32, value= [ 7,  6,  0, 11,  9, 12])]
+[Tensor(shape=[3], dtype=Int32, value= [4, 5, 2])]
 ```
 
 For more Text Transforms, see [mindspore.dataset.text](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.text.html).
@@ -257,9 +248,7 @@ print(list(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
-[[Tensor(shape=[], dtype=Int64, value= 2)],
- [Tensor(shape=[], dtype=Int64, value= 4)],
- [Tensor(shape=[], dtype=Int64, value= 6)]]
+[[Tensor(shape=[], dtype=Int64, value= 2)], [Tensor(shape=[], dtype=Int64, value= 4)], [Tensor(shape=[], dtype=Int64, value= 6)]]
 ```
 
 You can see that after `map` is passed into the Lambda function, the data is iteratively obtained for the multiply-2 operation.
@@ -278,7 +267,5 @@ print(list(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
-[[Tensor(shape=[], dtype=Int64, value= 6)],
- [Tensor(shape=[], dtype=Int64, value= 18)],
- [Tensor(shape=[], dtype=Int64, value= 38)]]
+[[Tensor(shape=[], dtype=Int64, value= 6)], [Tensor(shape=[], dtype=Int64, value= 18)], [Tensor(shape=[], dtype=Int64, value= 38)]]
 ```
