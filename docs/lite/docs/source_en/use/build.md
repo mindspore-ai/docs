@@ -91,12 +91,14 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 | MSLITE_ENABLE_MODEL_ENCRYPTION | Whether to support model encryption and decryption | on, off | off |
+| MSLITE_ENABLE_MODEL_PRE_INFERENCE | Whether to enable pre-inference during model compilation | on, off | off |
 | MSLITE_ENABLE_GITEE_MIRROR | Whether to enable download third_party from gitee mirror | on, off | off |
 
 > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
 > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
 > - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
+> - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main precess will formally execute the process of graph compilation.
 
 - Runtime feature compilation options
 
