@@ -193,7 +193,7 @@ export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
 ## AICPU path
 export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/ccec_compiler/bin/:${PATH}
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
