@@ -1,6 +1,8 @@
 mindelec.geometry
 ==================
 
+Geometry module, involving geometry, sampling, time domain and other information.
+
 .. msplatformautosummary::
     :toctree: geometry
     :nosignatures:

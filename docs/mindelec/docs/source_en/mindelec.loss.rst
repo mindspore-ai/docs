@@ -1,6 +1,8 @@
 mindelec.loss
 ==============
 
+Constraints and loss functions.
+
 .. msplatformautosummary::
     :toctree: loss
     :nosignatures:

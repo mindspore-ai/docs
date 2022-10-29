@@ -1,6 +1,8 @@
 mindelec.vision
 =================
 
+Visualization module, covering drawing, video production, loss monitoring callback functions, etc.
+
 .. msplatformautosummary::
     :toctree: vision
     :nosignatures:
