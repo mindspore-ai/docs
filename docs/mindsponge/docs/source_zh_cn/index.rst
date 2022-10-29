@@ -7,12 +7,12 @@ MindSPONGE(Simulation Package tOwards Next GEneration molecular modelling)是基
    :maxdepth: 1
    :caption: 使用指南
 
-   mindsponge/why
-   mindsponge/intro
-   mindsponge/xponge
-   mindsponge/sponge
-   mindsponge/cybertron
-   mindsponge/MEGAProtein
+   why
+   intro
+   xponge
+   sponge
+   cybertron
+   MEGAProtein
 
 .. toctree::
    :maxdepth: 1
