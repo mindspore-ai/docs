@@ -11,14 +11,18 @@ Model定义了MindSpore中编译和运行的模型。
 ## 公有函数和数据类型
 
 | function                                                                                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [MSModelHandle MSModelCreate()](#msmodelcreate)                                                                                                                                               |
 | [void MSModelDestroy(MSModelHandle *model)](#msmodeldestroy)                                                                                                                                  |
+| [size_t MSModelCalcWorkspaceSize(MSModelHandle model)](#msmodelcalcworkspacesize)                                                                                                             |
 | [void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
 | [MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
 | [MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
 | [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
 | [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
+| [MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelrunstep)                                                                |
+| [MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)](#msmodelsettrainmode)                                                                                                   |
+| [MSStatus MSModelExportWeight(const MSModelHandle model, const char *export_path)](#msmodelexportweight)                                                                                      |
 | [MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)](#msmodelgetinputs)                                                                                                          |
 | [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                        |
 | [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetinputbytensorname)                                                                |
@@ -92,7 +96,7 @@ MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_s
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelBuildFromFile
 
@@ -112,7 +116,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelResize
 
@@ -132,7 +136,7 @@ MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MS
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelPredict
 
@@ -153,7 +157,59 @@ MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, M
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelRunStep
+
+```C
+MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)
+```
+
+逐步运行模型，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `before`: 模型运行前执行的回调函数。
+    - `after`: 模型运行后执行的回调函数。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelSetTrainMode
+
+```C
+MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
+```
+
+设置模型运行模式，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `train`: True表示模型在训练模式下运行，否则为推理模式。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelSetTrainMode
+
+```C
+MSStatus MSModelExportWeight(const MSModelHandle model, const char *export_path)
+```
+
+将模型权重导出到二进制文件，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `export_path`: 导出权重文件的路径。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelGetInputs
 
