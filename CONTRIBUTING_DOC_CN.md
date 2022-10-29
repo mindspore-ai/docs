@@ -1,6 +1,6 @@
 # 贡献文档
 
-[View English](./CONTRIBUTING_DOC.md)
+[View English](./CONTRIBUTING_DOC.md#)
 
 欢迎参与MindSpore文档贡献，符合要求的文档将会在[MindSpore官网](http://www.mindspore.cn)中呈现。
 

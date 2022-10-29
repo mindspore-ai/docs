@@ -2,7 +2,7 @@
 
 ![MindSpore Logo](resource/MindSpore-logo.png)
 
-[View English](./README.md)
+[View English](./README.md#)
 
 ## 简介
 
@@ -10,7 +10,7 @@
 
 ## 贡献
 
-我们非常欢迎您贡献文档！如果想要参与，请阅读[CONTRIBUTING_DOC_CN.md](./CONTRIBUTING_DOC_CN.md)，务必遵守文档写作规范，并按照流程规则提交，审核通过后，改动会在文档工程和官网中呈现。
+我们非常欢迎您贡献文档！如果想要参与，请阅读[CONTRIBUTING_DOC_CN.md](./CONTRIBUTING_DOC_CN.md#)，务必遵守文档写作规范，并按照流程规则提交，审核通过后，改动会在文档工程和官网中呈现。
 
 同时，如果您对文档有任何意见或建议，请在Issues中提交。
 

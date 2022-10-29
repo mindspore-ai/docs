@@ -2,7 +2,7 @@
 
 ![MindSpore Logo](resource/MindSpore-logo.png)
 
-[查看中文](./README_CN.md)
+[查看中文](./README_CN.md#)
 
 ## Overview
 
@@ -10,7 +10,7 @@ This project provides the source files of the installation guide, tutorials, and
 
 ## Contributions
 
-You are welcome to contribute documents. If you want to contribute documents, read the [CONTRIBUTING_DOC.md](./CONTRIBUTING_DOC.md). Please comply with the document writing specifications, and submit documents according to the process rules. After the documents are approved, the changes will be displayed in the document project and on the official website.
+You are welcome to contribute documents. If you want to contribute documents, read the [CONTRIBUTING_DOC.md](./CONTRIBUTING_DOC.md#). Please comply with the document writing specifications, and submit documents according to the process rules. After the documents are approved, the changes will be displayed in the document project and on the official website.
 
 If you have any comments or suggestions on the documents, submit them in Issues.
 
