@@ -11,18 +11,18 @@ Model定义了MindSpore中编译和运行的模型。
 ## 公有函数和数据类型
 
 | function                                                                                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [MSModelHandle MSModelCreate()](#msmodelcreate)                                                                                                                                               |
-| [void MSModelDestroy(MSModelHandle *model)](#msmodeldestroy)                                                                                                                                  |
-| [void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
-| [MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
-| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
-| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
-| [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
+| [void MSModelDestroy(MSModelHandle* model)](#msmodeldestroy)                                                                                                                                  |
+| [void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
+| [MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
+| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
+| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
+| [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray* outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
 | [MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)](#msmodelgetinputs)                                                                                                          |
 | [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                        |
-| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetinputbytensorname)                                                                |
-| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)](#msmodelgetoutputbytensorname)                                                              |
+| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetinputbytensorname)                                                                |
+| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetoutputbytensorname)                                                              |
 
 ### 公有函数
 
@@ -41,7 +41,7 @@ MSModelHandle MSModelCreate()
 #### MSModelDestroy
 
 ```C
-void MSModelDestroy(MSModelHandle *model)
+void MSModelDestroy(MSModelHandle* model)
 ```
 
 销毁一个模型对象，该选项仅MindSpore Lite有效。
@@ -50,10 +50,21 @@ void MSModelDestroy(MSModelHandle *model)
 
     - `model`:指向模型对象指针的指针。
 
+#### MSModelCalcWorkspaceSize
+
+```C
+size_t MSModelCalcWorkspaceSize(MSModelHandle model)
+```
+
+计算模型工作时所需内存空间大小，该选项仅对IoT有效。(该接口未实现)
+
+- 参数
+    - `model`: 指向模型对象的指针。
+
 #### MSModelSetWorkspace
 
 ```C
-void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)
+void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)
 ```
 
 设置模型的工作空间，该选项仅对IoT有效。(该接口暂未实现)
@@ -66,7 +77,7 @@ void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_
 #### MSModelBuild
 
 ```C
-MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)
+MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)
 ```
 
 从内存缓冲区加载并编译MindSpore模型，该选项仅MindSpore Lite有效。
@@ -77,16 +88,16 @@ MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_s
     - `model_data`: 内存中已经加载的模型数据地址。
     - `data_size`: 模型数据的长度。
     - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r1.9/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r1.9/api_c/context_c.html)。
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelBuildFromFile
 
 ```C
-MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSModelType model_type,
+MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,
                                      const MSContextHandle model_context)
 ```
 
@@ -97,16 +108,16 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char *model_path, MSMod
     - `model`: 指向模型对象的指针。
     - `model_path`: 模型文件路径。
     - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r1.9/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](./context_c.md)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r1.9/api_c/context_c.html)。
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelResize
 
 ```C
-MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos,
+MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,
                               size_t shape_info_num)
 ```
 
@@ -121,12 +132,12 @@ MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MS
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelPredict
 
 ```C
-MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs,
+MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray* outputs,
                                const MSKernelCallBackC before, const MSKernelCallBackC after)
 ```
 
@@ -142,7 +153,59 @@ MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, M
 
 - 返回值
 
-  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明创建成功。
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelRunStep
+
+```C
+MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)
+```
+
+逐步运行模型，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `before`: 模型运行前执行的回调函数。
+    - `after`: 模型运行后执行的回调函数。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelSetTrainMode
+
+```C
+MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
+```
+
+设置模型运行模式，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `train`: True表示模型在训练模式下运行，否则为推理模式。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
+
+#### MSModelSetTrainMode
+
+```C
+MSStatus MSModelExportWeight(const MSModelHandle model, const char* export_path)
+```
+
+将模型权重导出到二进制文件，该选项仅对IoT有效。(该接口目前仅在Micro中使用)
+
+- 参数
+
+    - `model`: 指向模型对象的指针。
+    - `export_path`: 导出权重文件的路径。
+
+- 返回值
+
+  枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
 #### MSModelGetInputs
 
@@ -180,7 +243,7 @@ MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)
 
 ```C
 MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model,
-                                            const char *tensor_name)
+                                            const char* tensor_name)
 ```
 
 通过张量名获取模型的输入张量。
@@ -198,7 +261,7 @@ MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model,
 
 ```C
 MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model,
-                                            const char *tensor_name)
+                                            const char* tensor_name)
 ```
 
 通过张量名获取MindSpore模型的输出张量。
@@ -217,7 +280,7 @@ MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model,
 #### MSModelHandle
 
 ```C
-typedef void *MSModelHandle;
+typedef void* MSModelHandle;
 ```
 
 模型对象指针。
@@ -227,7 +290,7 @@ typedef void *MSModelHandle;
 ```C
 typedef struct MSTensorHandleArray {
   size_t handle_num;
-  MSTensorHandle *handle_list;
+  MSTensorHandle* handle_list;
 } MSTensorHandleArray;
 ```
 
@@ -259,8 +322,8 @@ typedef struct MSShapeInfo {
 
 ```C
 typedef struct MSCallBackParamC {
-  char *node_name;
-  char *node_type;
+  char* node_name;
+  char* node_type;
 } MSCallBackParamC;
 ```
 

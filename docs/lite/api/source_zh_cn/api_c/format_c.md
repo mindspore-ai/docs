@@ -32,7 +32,7 @@ typedef enum MSFormat {
 } MSFormat;
 ```
 
- **enum**类型变量。
+**enum**类型变量。
 
 | 类型定义 | 值  | 描述   |
 | -------- | --- | ------ |
