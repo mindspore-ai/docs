@@ -403,7 +403,7 @@ Currently there are the following two scenarios where the message will print:
 
 > One task may trigger multiple compilation processes.
 
-<font size=3>**Q: What does it mean when a warning "On the Ascend platform, when the return value of the control flow subgraph is parameter, the performance may be degraded. The value of the parameter can be returned to improve the performance." is reported?**</font>
+<font size=3>**Q: What does it mean when a warning "On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization." is reported?**</font>
 
 A: Since the Ascend platform cannot actually return a memory address, in the whole graph sinking mode, there will be some problems when there are parameters in the return value in the control flow scenario. In order to avoid problems, switch to the unified runtime mode for this scenario, and switch from the whole graph sinking mode to the unified runtime mode, the network performance may be degraded. If the return value of the control flow subgraph only uses the value of the parameter, you can obtain the  parameter value through the value interface of the parameter to avoid performance degradation caused by mode switching.
 
