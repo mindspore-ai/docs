@@ -8,6 +8,8 @@ Note: This is an experimental feature and may be modified or removed in the futu
 
 Vertical federated learning (vFL) is a major branch of federated learning (FL). When different participants have data from the same batch of users but with different attributes, they can use vFL for collaborative training. In vFL, each participant with attributes holds a bottom model, and they input the attributes into the bottom model to get the intermediate result (embedding), which is sent to the participant with labels (referred to as leader paraticipant, participant B as shown in the figure below, as shown in the figure below, and the participant without labels, called follower, as shown in the figure below, as participant A). The leader side uses the embedding and labels to train the upper layer network, and then passes the calculated gradients back to each participant to train the lower layer network. It can be seen that vFL does not require any participant to upload their own raw data to collaboratively train the model.
 
+![image.png](./images/vfl_1_en.png)
+
 However, the gradients passed back from the leader to the follower contain more information, allowing the follower to invert the labels held by the leader from the gradients. In such a context, we need to provide stronger privacy guarantees for the training of vFL to avoid the risk of label leakage.
 
 Differential privacy is a definition of privacy based strictly on statistics/information theory that ensures that changes in any individual data do not make a significant difference in the output of the algorithm (usually achieved by overlapping the distribution of random variables). Thus, it is ensured in theory that there is no possibility for the algorithm's results to be inverted to the individual data. This design scheme is based on label differential privacy, which provides differential privacy guarantees for the labels of the leader participants during vertical federated learning training, so that an attacker cannot invert the label information of the data from the returned gradients.
@@ -16,14 +18,16 @@ Differential privacy is a definition of privacy based strictly on statistics/inf
 
 We adopt a lightweight implementation of label dp. During training, a certain percentage of the labels are randomly flipped before using the label data from the leader participants. Due to the introduction of randomness, an attacker who wants to invert the labels can at most invert the labels after the random flip or perturbation, increasing the difficulty of inverting the original labels and satisfying the differential privacy guarantee. In practical applications, we can adjust the privacy parameter `eps` (which can be interpreted as the ratio of randomly flipped labels) to meet the needs of different scenarios, and can use smaller `eps` when high privacy is needed and larger `eps` when high precision is needed.
 
+![image.png](./images/label_dp_en.png)
+
 This scheme is based on the randomized response algorithm, which flips or scrambles the user tags randomly before the leader training of the vFL. The actual implementation is divided into two cases of binary tags and onehot tags:
 
-### Binary Tags Protection
+### Binary Labels Protection
 
 1. Calculate the flip probability $p = \frac{1}{1 + e^{eps}}$ according to the preset privacy parameter eps.
 2. Flip each label with probability $p$.
 
-### Onehot Tags Protection
+### Onehot Labels Protection
 
 1. For n classes of labels, calculate $p_1 = \frac{e^{eps}}{n - 1 + e^{eps}}$，$p_2 = \frac{1}{n - 1 + e^{eps}}$.
 2. Randomly scramble the labels according to the following probabilities: the probability of keeping the current label unchanged is $p_1$ and the probability of changing to any of the other n - 1 classes is $p_2$.

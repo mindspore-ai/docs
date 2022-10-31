@@ -8,11 +8,15 @@ Note: This is an experimental feature and may be modified or removed in the futu
 
 Vertical federated learning (vFL) is a major branch of federated learning (FL). When different participants have data from the same batch of users but with different attributes, they can use vFL for collaborative training. In vFL, each participant with attributes holds a bottom model, and they input the attributes into the bottom model to get the intermediate result (embedding), which is sent to the participant with labels (referred to as leader paraticipant, participant B as shown in the figure below, as shown in the figure below, and the participant without labels, called follower, as shown in the figure below, as participant A). The leader side uses the embedding and labels to train the upper layer network, and then passes the calculated gradients back to each participant to train the lower layer network. It can be seen that vFL does not require any participant to upload their own raw data to collaboratively train the model.
 
+![image.png](./images/vfl_1_en.png)
+
 By avoiding direct uploading of raw data, vFL protects privacy security to a certain extent, which is one of the core goals of vFL. However, it is still possible for an attacker to reverse user information from the uploaded embedding, causing privacy security risks. In such a context, we need to provide stronger privacy guarantees for the embedding and gradients transmitted during vFL training to circumvent privacy security risks.
 
 Trusted execution environment (TEE) is a hardware-based trusted computing solution that provides data security of the computing process by making the whole computing process in hardware black-boxed relative to the outside world. By shielding the key layer in the vFL network through TEE, it can make the computation of that layer difficult to be reversed, thus ensuring the data security of the vFL training and inference process.
 
 ## Algorithm Introduction
+
+![image.png](./images/vfl_with_tee_en.png)
 
 As shown in the figure, if participant A sends the intermediate result $\alpha^{(A)}$ directly to participant B, it is easy for participant B to use the intermediate result to reverse the original data $X^{(A)}$ of participant A. To reduce such risk, participant A encrypts the intermediate result $\alpha^{(A)}$ computed by Bottom Model to get $E(\alpha^{(A)})$ first, and passes $E(\alpha^{(A)})$ to participant B. Participant B inputs $E(\alpha^{(A)})$ into the TEE-based Cut Layer, and then decrypts it into $\alpha^{(A)}$ for forward propagation inside the TEE, and the whole process is black-boxed for B.
 
