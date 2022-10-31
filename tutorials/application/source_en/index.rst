@@ -12,6 +12,7 @@ Application
    :caption: CV
 
    cv/resnet50
+   cv/transfer_learning
    cv/fgsm
    cv/dcgan
    cv/vit
