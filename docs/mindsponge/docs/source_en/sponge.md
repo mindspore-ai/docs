@@ -12,7 +12,7 @@ Traditional molecular dynamics is a molecular dynamics simulation program based 
 
 ### Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/intro.html#installation).
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/index.html#installation).
 
 Traditional molecular dynamics installation can be compiled and installed using source code.
 
@@ -124,11 +124,11 @@ The structure of micromolecular dynamics is shown in the figure below:
 
 ### Install
 
-The installation process of micromolecular dynamics is consistent with that of MindSPONGE. Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/intro.html#installation).
+The installation process of micromolecular dynamics is consistent with that of MindSPONGE. Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/index.html#installation) .
 
 ### Basic usage
 
-The basic application methods of micromolecular dynamics can be referred to [Initial experience of the case](https://www.mindspore.cn/mindsponge/docs/en/master/intro.html#examples) and subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/mindsponge.callback.html).
+The basic application methods of micromolecular dynamics can be referred to [Initial experience of the case](https://www.mindspore.cn/mindsponge/docs/en/master/index.html#examples) and subsequent API introduction documents [MindSPONGE APIs](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/mindsponge.callback.html).
 
 ### Case
 

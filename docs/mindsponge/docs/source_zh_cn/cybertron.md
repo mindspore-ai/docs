@@ -24,7 +24,7 @@ Cybertron中内置三种GNN分子模型： SchNet[1]、 PhysNet[2]以及MolCT[3]
 
 ## 安装
 
-请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)，确保前置依赖已安装完成。
+请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/index.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)，确保前置依赖已安装完成。
 
 Cybertron安装可使用源码编译安装。
 
