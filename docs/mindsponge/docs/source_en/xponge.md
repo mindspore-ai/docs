@@ -14,7 +14,7 @@ Molecular system modeling tools are applicable to all operating systems (Windows
 
 ## Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/mindsponge/intro.html) .
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/intro.html#installation).
 
 | Dependent Name   | instructions                                        | Installation method                 |
 | :-------   | :--------------------------------------------- | :---------------------- |

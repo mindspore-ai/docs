@@ -123,7 +123,7 @@ void MSTensorSetDataType(MSTensorHandle tensor, MSDataType type)
 MSDataType MSTensorGetDataType(const MSTensorHandle tensor)
 ```
 
-获取MSTensor的数据类型，具体数据类型见[MSDataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/data_type_c.html#MSDataType)。
+获取MSTensor的数据类型，具体数据类型见[MSDataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/data_type_c.html#msdatatype)。
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
