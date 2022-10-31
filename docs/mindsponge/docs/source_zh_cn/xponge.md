@@ -14,7 +14,7 @@ MindSPONGE软件中包含一个轻量化且易于定制的分子体系建模工�
 
 ## 安装
 
-请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/mindsponge/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)。
+请参考[MindSPONGE安装教程](https://www.mindspore.cn/mindsponge/docs/zh-CN/master/intro.html#%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)。
 
 | 依赖名称   | 使用说明                                        | 安装方式                 |
 | :-------   | :--------------------------------------------- | :---------------------- |
