@@ -1,6 +1,8 @@
 mindelec.data
 ==============
 
+Data module, involving datasets, equations, boundary conditions, etc.
+
 .. msplatformautosummary::
     :toctree: data
     :nosignatures:

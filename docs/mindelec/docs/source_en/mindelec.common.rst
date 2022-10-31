@@ -1,6 +1,8 @@
 mindelec.common
 ================
 
+Common module, involving learning rate and L2 metric.
+
 .. msplatformautosummary::
     :toctree: common
     :nosignatures:

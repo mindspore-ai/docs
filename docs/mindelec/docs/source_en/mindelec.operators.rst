@@ -1,6 +1,8 @@
 mindelec.operators
 ===================
 
+Gradient operator.
+
 .. msplatformautosummary::
     :toctree: operators
     :nosignatures:

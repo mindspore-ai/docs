@@ -1,6 +1,8 @@
 mindelec.solver
 ================
 
+Solvers, callback functions, defining problems, etc.
+
 .. msplatformautosummary::
     :toctree: solver
     :nosignatures:
