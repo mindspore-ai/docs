@@ -24,7 +24,7 @@ The three GNN molecular models can be directly called from Cybertron.
 
 ## Install
 
-Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/intro.html#installation). Ensure that the pre dependency installation is complete.
+Please refer to [MindSPONGE Installation Tutorial](https://www.mindspore.cn/mindsponge/docs/en/master/index.html#installation)，Ensure that the pre dependency installation is complete.
 
 Cybertron installation can be compiled and installed using source code.
 
