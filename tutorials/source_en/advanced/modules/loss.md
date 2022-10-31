@@ -1,6 +1,6 @@
-# Loss Function
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+# Loss Function
 
 A loss function is also called objective function and is used to measure the difference between a predicted value and an actual value.
 
@@ -141,11 +141,8 @@ After the loss function `MAELoss` is customized, you can use the `train` API in 
 In `Model`, the feedforward network and loss function are associated through [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html#mindspore.nn.WithLossCell). `nn.WithLossCell` supports two inputs: `data` and `label`.
 
 ```python
-import mindspore as ms
-from mindspore.train import Model
-from mindspore import dataset as ds
-from mindspore.common.initializer import Normal
-from mindvision.engine.callback import LossMonitor
+from mindspore.train import Model, LossMonitor
+from mindspore.dataset import GeneratorDataset
 
 def get_data(num, w=2.0, b=3.0):
     """Generate data and corresponding labels."""
@@ -161,37 +158,27 @@ def create_dataset(num_data, batch_size=16):
     dataset = dataset.batch(batch_size)
     return dataset
 
-class LinearNet(nn.Cell):
-    """Define the linear regression network.""
-    def __init__(self):
-        super(LinearNet, self).__init__()
-        self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
-
-    def construct(self, x):
-        return self.fc(x)
-
-ds_train = create_dataset(num_data=160)
-net = LinearNet()
-loss = MAELoss()
-opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
+train_dataset = create_dataset(num_data=160)
+network = nn.Dense(1, 1)
+loss_fn = MAELoss()
+optimizer = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Use the model API to associate the network, loss function, and optimizer.
-model = Model(net, loss, opt)
-model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
+model = Model(network, loss_fn, optimizer)
+model.train(10, train_dataset, callbacks=[LossMonitor(10)])
 ```
 
 ```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[9.169/9.169], time:365.966 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[5.861/7.515], time:0.806 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[8.759/7.930], time:0.768 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[9.503/8.323], time:1.080 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[8.541/8.367], time:0.762 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[9.158/8.499], time:0.707 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[9.168/8.594], time:0.900 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[6.828/8.373], time:1.184 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[7.149/8.237], time:0.962 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[6.342/8.048], time:1.273 ms, lr:0.00500
-    Epoch time: 390.358 ms, per step time: 39.036 ms, avg loss: 8.048
+    epoch: 1 step: 10, loss is 6.525373935699463
+    epoch: 2 step: 10, loss is 4.005467414855957
+    epoch: 3 step: 10, loss is 2.1115174293518066
+    epoch: 4 step: 10, loss is 2.7334954738616943
+    epoch: 5 step: 10, loss is 1.7042752504348755
+    epoch: 6 step: 10, loss is 1.6317998170852661
+    epoch: 7 step: 10, loss is 1.035435438156128
+    epoch: 8 step: 10, loss is 0.6060740351676941
+    epoch: 9 step: 10, loss is 1.0374044179916382
+    epoch: 10 step: 10, loss is 0.736151397228241
 ```
 
 ## Multi-label Loss Function and Model Training
@@ -249,37 +236,14 @@ The sample code is as follows:
 
 ```python
 class MAELossForMultiLabel(nn.LossBase):
-    def __init__(self, reduction="mean"):
-        super(MAELossForMultiLabel, self).__init__(reduction)
-        self.abs = ops.Abs()
 
     def construct(self, base, target1, target2):
-        x1 = self.abs(base - target1)
-        x2 = self.abs(base - target2)
-        return (self.get_loss(x1) + self.get_loss(x2))/2
+        x1 = ops.abs(base - target1)
+        x2 = ops.abs(base - target2)
+        return (self.get_loss(x1) + self.get_loss(x2)) / 2
 ```
 
 ### Multi-label Model Training
-
-When a `Model` is used to associate a specified feedforward network, loss function, and optimizer, `nn.WithLossCell` used in the `Model` by default accepts only two inputs: `data` and `label`. Therefore, it is not applicable to multi-label scenarios.
-
-In the multi-label scenario, if you want to use a `Model` for model training, you need to associate the feedforward network with the multi-label loss function in advance, that is, customize the loss network.
-
-- Define a loss network.
-
-    The following example shows how to define the loss network `CustomWithLossCell`. The `backbone` and `loss_fn` parameters of the `__init__` method indicate the feedforward network and loss function, respectively. The input of the `construct` method is the sample input `data` and the sample actual labels `label1` and `label2`, respectively. Transfer the sample input `data` to the feedforward network `backbone`, and transfer the predicted value and two label values to the loss function `loss_fn`.
-
-    ```python
-    class CustomWithLossCell(nn.Cell):
-        def __init__(self, backbone, loss_fn):
-            super(CustomWithLossCell, self).__init__(auto_prefix=False)
-            self._backbone = backbone
-            self._loss_fn = loss_fn
-
-        def construct(self, data, label1, label2):
-            output = self._backbone(data)
-            return self._loss_fn(output, label1, label2)
-    ```
 
 - Define and train the network model.
 
@@ -288,36 +252,81 @@ In the multi-label scenario, if you want to use a `Model` for model training, yo
     If `loss_fn` is not specified, the `Model` considers that the logic of the loss function has been implemented in the `network` by default, and does not use `nn.WithLossCell` to associate the feedforward network with the loss function.
 
     ```python
-    ds_train = create_multilabel_dataset(num_data=160)
-    net = LinearNet()
+    train_dataset = create_multilabel_dataset(num_data=160)
 
     # Define a multi-label loss function.
-    loss = MAELossForMultiLabel()
-
-    # Define the loss network. Connect the feedforward network and multi-label loss function.
-    loss_net = CustomWithLossCell(net, loss)
-
+    loss_fn = MAELossForMultiLabel()
     # Define the optimizer.
-    opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
+    opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-    # Define a Model. In the multi-label scenario, the loss function does not need to be specified for the Model.
-    model = Model(network=loss_net, optimizer=opt)
+    def train(model, dataset, loss_fn, optimizer):
+    # Define forward function
+    def forward_fn(data, label1, label2):
+        output = model(data)
+        return loss_fn(output, label1, label2)
 
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
+    # Get gradient function
+    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+
+    # Define function of one-step training
+    def train_step(data, label1, label2):
+        loss, grads = grad_fn(data, label1, label2)
+        loss = ops.depend(loss, optimizer(grads))
+        return loss
+
+    size = dataset.get_dataset_size()
+    model.set_train()
+    for batch, (data, label1, label2) in enumerate(dataset.create_tuple_iterator()):
+        loss = train_step(data, label1, label2)
+
+        if batch % 2 == 0:
+            loss, current = loss.asnumpy(), batch
+            print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
+
+    epochs = 5
+    for t in range(epochs):
+        print(f"Epoch {t+1}\n-------------------------------")
+        train(network, train_dataset, loss_fn, optimizer)
+    print("Done!")
     ```
 
     ```text
-        Epoch:[  0/  1], step:[    1/   10], loss:[10.329/10.329], time:290.788 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    2/   10], loss:[10.134/10.231], time:0.813 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    3/   10], loss:[9.862/10.108], time:2.410 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    4/   10], loss:[11.182/10.377], time:1.154 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    5/   10], loss:[8.571/10.015], time:1.137 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    6/   10], loss:[7.763/9.640], time:0.928 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    7/   10], loss:[7.542/9.340], time:1.001 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    8/   10], loss:[8.644/9.253], time:1.156 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    9/   10], loss:[5.815/8.871], time:1.908 ms, lr:0.00500
-        Epoch:[  0/  1], step:[   10/   10], loss:[5.086/8.493], time:1.575 ms, lr:0.00500
-        Epoch time: 323.467 ms, per step time: 32.347 ms, avg loss: 8.493
+        Epoch 1
+        -------------------------------
+        loss: 0.739832  [  0/ 10]
+        loss: 0.949316  [  2/ 10]
+        loss: 1.052085  [  4/ 10]
+        loss: 0.982260  [  6/ 10]
+        loss: 0.784400  [  8/ 10]
+        Epoch 2
+        -------------------------------
+        loss: 0.963160  [  0/ 10]
+        loss: 0.899232  [  2/ 10]
+        loss: 0.934914  [  4/ 10]
+        loss: 0.757601  [  6/ 10]
+        loss: 0.965961  [  8/ 10]
+        Epoch 3
+        -------------------------------
+        loss: 0.815042  [  0/ 10]
+        loss: 0.999898  [  2/ 10]
+        loss: 1.008266  [  4/ 10]
+        loss: 1.024307  [  6/ 10]
+        loss: 0.798073  [  8/ 10]
+        Epoch 4
+        -------------------------------
+        loss: 0.844747  [  0/ 10]
+        loss: 0.958094  [  2/ 10]
+        loss: 0.898447  [  4/ 10]
+        loss: 0.879910  [  6/ 10]
+        loss: 0.969592  [  8/ 10]
+        Epoch 5
+        -------------------------------
+        loss: 0.917983  [  0/ 10]
+        loss: 0.862990  [  2/ 10]
+        loss: 0.947069  [  4/ 10]
+        loss: 0.854086  [  6/ 10]
+        loss: 0.910622  [  8/ 10]
+        Done!
     ```
 
 The preceding describes how to define a loss function and use a Model for model training in the multi-label dataset scenario. In many other scenarios, this method may also be used for model training.
