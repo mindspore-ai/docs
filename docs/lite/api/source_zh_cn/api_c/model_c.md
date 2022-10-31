@@ -10,19 +10,23 @@ Model定义了MindSpore中编译和运行的模型。
 
 ## 公有函数和数据类型
 
-| function                                                                                                                                                                                      |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [MSModelHandle MSModelCreate()](#msmodelcreate)                                                                                                                                               |
-| [void MSModelDestroy(MSModelHandle* model)](#msmodeldestroy)                                                                                                                                  |
-| [void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                 |
-| [MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                            |
-| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                               |
-| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,size_t shape_info_num)](#msmodelresize)                                               |
+| function                                                                                                                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [MSModelHandle MSModelCreate()](#msmodelcreate)                                                                                                                                              |
+| [void MSModelDestroy(MSModelHandle* model)](#msmodeldestroy)                                                                                                                                 |
+| [size_t MSModelCalcWorkspaceSize(MSModelHandle model)](#msmodelcalcworkspacesize)                                                                                                                                                                                             |
+| [void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                |
+| [MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)](#msmodelbuild)                           |
+| [MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSModelType model_type,const MSContextHandle model_context)](#msmodelbuildfromfile)                              |
+| [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,size_t shape_info_num)](#msmodelresize)                                              |
 | [MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray* outputs,const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelpredict) |
-| [MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)](#msmodelgetinputs)                                                                                                          |
-| [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                        |
-| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetinputbytensorname)                                                                |
-| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetoutputbytensorname)                                                              |
+| [MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelrunstep)                                                               |
+| [MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)](#msmodelsettrainmode)                                                                                                  |
+| [MSStatus MSModelExportWeight(const MSModelHandle model, const char* export_path)](#msmodelexportweight)                                                                                     |
+| [MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)](#msmodelgetinputs)                                                                                                         |
+| [MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)](#msmodelgetoutputs)                                                                                                       |
+| [MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetinputbytensorname)                                                               |
+| [MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char* tensor_name)](#msmodelgetoutputbytensorname)                                                             |
 
 ### 公有函数
 
@@ -190,7 +194,7 @@ MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
 
   枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
-#### MSModelSetTrainMode
+#### MSModelExportWeight
 
 ```C
 MSStatus MSModelExportWeight(const MSModelHandle model, const char* export_path)
