@@ -278,8 +278,33 @@ def nn_interface_name():
                     extra_write_list.append(k)
             g.write(str(extra_write_list))
 
+# 删除并获取Tensor下多余的接口文件名
+def tensor_interface_name():
+    interface_name_list = []
+    target_path = os.path.join(os.path.dirname(__file__),'api_python/mindspore','mindspore.Tensor.rst')
+    with open(target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+        interface_name_list = re.findall("mindspore\.Tensor\.(\w*)",content)
+    all_rst = []
+    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor')):
+        if j.split('.')[-1]=='rst':
+            all_rst.append(j.split('.')[-2])
+
+    extra_interface_name = set(all_rst).difference(set(interface_name_list))
+    print(extra_interface_name)
+    if extra_interface_name:
+        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
+            extra_write_list = []
+            for k in extra_interface_name:
+                k = "mindspore.Tensor." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor',k)):
+                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor',k))
+                    extra_write_list.append(k)
+            g.write(str(extra_write_list))
+
 ops_interface_name()
 nn_interface_name()
+tensor_interface_name()
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
