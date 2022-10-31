@@ -76,13 +76,7 @@ MindSpore基于源码转换机制构建神经网络的图结构，相比与传�
 
 MindSpore的源码转换机制，可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时用户基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，用户可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
-### 硬件高性能发挥
-
-MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时MindSpore针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
-
-MindSpore除了提供传统AI框架常用优化，还提供了一些比较有特色的技术：
-
-#### [自动并行](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
+### [自动并行](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
 
 MindSpore针对DL网络越来越大，需要复杂而多种分布式并行策略的问题，框架内置提供了多维分布式训练策略，可供用户灵活组装使用。并通过并行抽象，隐藏通讯操作，简化用户并行编程的复杂度。
 
@@ -91,6 +85,12 @@ MindSpore针对DL网络越来越大，需要复杂而多种分布式并行策略
 MindSpore在并行化策略搜索中引入了张量重排布技术（Tensor Redistribution，TR），这使输出张量的设备布局在输入到后续算子之前能够被转换。MindSpore识别算子在不同输入数据切片下的输出数据overlap情况，并基于此进行切片推导，自动生成对应的张量重排计划。基于此计划，可以统一表达数据并行、模型并行等多种并行策略。
 
 同时MindSpore面向分布式训练，还提供了pipeline并行、优化器并行、重计算等多种并行策略供用户使用。
+
+### 硬件高性能发挥
+
+MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时MindSpore针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
+
+MindSpore除了提供传统AI框架常用优化，还提供了一些比较有特色的技术：
 
 #### [图算融合](https://www.mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html)
 
@@ -120,7 +120,7 @@ Host侧CPU负责将图或算子下发到昇腾芯片。昇腾芯片由于具备�
 
 算法优化包括二阶优化、boost优化等。
 
-#### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html)
+### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html)
 
 MindSpore考虑到企业部署使用时，对安全可信的丰富需求。在不断演进和完善各种面向安全可信方向的技术，并内置框架：
 
