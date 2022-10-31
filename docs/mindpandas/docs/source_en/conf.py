@@ -74,6 +74,40 @@ autodoc_inherit_docstrings = False
 #
 html_theme = 'sphinx_rtd_theme'
 
+# Modify default signatures for autodoc.
+autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
+autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
+get_param_func_str = r"""\
+import re
+import inspect as inspect_
+
+def get_param_func(func):
+    try:
+        source_code = inspect_.getsource(func)
+        if func.__doc__:
+            source_code = source_code.replace(func.__doc__, '')
+        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+        if "@classmethod" in source_code:
+            all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+        else:
+            all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+        return all_params
+    except:
+        return ''
+
+def get_obj(obj):
+    if isinstance(obj, type):
+        return obj.__init__
+
+    return obj
+"""
+
+with open(autodoc_source_path, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    exec(get_param_func_str, sphinx_autodoc.__dict__)
+    exec(code_str, sphinx_autodoc.__dict__)
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
