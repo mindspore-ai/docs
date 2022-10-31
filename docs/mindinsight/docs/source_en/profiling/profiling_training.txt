@@ -8,19 +8,20 @@ There are two ways to collect neural network performance data. You can enable Pr
   Before running the network script, configure Profiler configuration items.
 
   .. code-block:: shell
-     export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
 
-  - `start`(bool): Set to "true" to enable Profiler. Set to "false" to disable performance data collection. Default value: "false".
+      export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
 
-  - `output_path`(str, optional): Represents the path (absolute path) of the output data. Default value： "./data".
+  - `start` (bool) - Set to "true" to enable Profiler. Set to "false" to disable performance data collection. Default value: "false".
 
-  - `memory`(bool, optional): Tensor data will be collected. This data is collected when the value is "true". Default value: "false".
+  - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
 
-  - `hccl`(bool, optional): Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is "true". In single-device training, this parameter is not set correctly. Default value: "false".
+  - `memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is "true". Default value: "false".
 
-  - `aicore_metrics`(int, optional): Set the indicator type of AI Core. Default value: 0.
+  - `hccl` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is "true". In single-device training, this parameter is not set correctly. Default value: "false".
 
-  - `l2_cache`(bool, optional): Set whether to collect l2 cache data. Default value: "false".
+  - `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
+
+  - `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: "false".
 
 - Method 2: Modify the training script
 
@@ -30,8 +31,8 @@ There are two ways to collect neural network performance data. You can enable Pr
     initialized.
 
     .. note::
-      The parameters of Profiler are as follows:
-      `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
+        The parameters of Profiler are as follows:
+        `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
 
   - At the end of the training, ``Profiler.analyse()`` should be called
     to finish profiling and generate the perforamnce analyse results.
