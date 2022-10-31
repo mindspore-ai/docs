@@ -101,6 +101,10 @@ const char* MSTensorGetName(const MSTensorHandle tensor)
 - 参数
     - `tensor`: 指向MSTensor的指针。
 
+- 返回值
+
+  MSTensor的名称。
+
 ### MSTensorSetDataType
 
 ```C
@@ -112,10 +116,6 @@ void MSTensorSetDataType(MSTensorHandle tensor, MSDataType type)
 - 参数
     - `tensor`: 指向MSTensor的指针。
     - `type`: 张量的数据类型。
-
-- 返回值
-
-  一个包含MSTensor形状数值的整型数组。
 
 ### MSTensorGetDataType
 
@@ -172,10 +172,6 @@ void MSTensorSetFormat(MSTensorHandle tensor, MSFormat format)
 - 参数
     - `tensor`: 指向MSTensor的指针。
     - `format`: 张量的数据排列，具体见[MSFormat](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_c/format_c.html#msformat)。
-
-- 返回值
-
-  一个包含MSTensor形状数值的整型数组。
 
 ### MSTensorGetFormat
 
