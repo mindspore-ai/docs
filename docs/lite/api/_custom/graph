@@ -2230,7 +2230,6 @@ MindSpore Lite API
    :caption: C API
 """)
                 p.write("\n"+"".join(cresult))
-                p.write("   api_c/lite_c_example")
 
             dircapi = './source_en/api_c/'
             for file in os.listdir(dircapi):
