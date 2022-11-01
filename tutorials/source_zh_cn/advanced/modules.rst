@@ -25,8 +25,6 @@
 .. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
-   alextnet
-
 如图所示，AlexNet由5个卷积层与3个全连接层串联构成，我们使用\ ``mindspore.nn``\ 提供的神经网络层接口进行构造。
 
 .. code:: python
