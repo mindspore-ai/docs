@@ -32,6 +32,7 @@ from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonito
 
 `Model` provides the following APIs for model training, evaluation, and inference:
 
+- `fit`: used for training and evaluating model.
 - `train`: used for model training on the training set.
 - `eval`: used to evaluate the model on the evaluation set.
 - `predict`: performs inference on a group of input data and outputs the prediction result.
@@ -119,7 +120,7 @@ ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config
 loss_callback = LossMonitor(steps_per_epoch)
 ```
 
-`model.train` provided by MindSpore can facilitate network training, and `LossMonitor` can monitor the change of loss value during training.
+`model.fit` provided by MindSpore can facilitate network training, and `LossMonitor` can monitor the change of loss value during training.
 
 ```python
 trainer = Model(model, loss_fn=loss_fn, optimizer=optimizer, metrics={'accuracy'})

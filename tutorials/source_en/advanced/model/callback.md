@@ -1,6 +1,6 @@
-# Callback Mechanism
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/callback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+# Callback Mechanism
 
 During deep learning training, MindSpore provides the callback mechanism to promptly learn about the training status of the network model, observe the changes of network model parameters in real time, and implement customized operations during training.
 

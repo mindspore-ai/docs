@@ -1,6 +1,6 @@
-# Optimizer
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+# Optimizer
 
 During model training, the optimizer is used to compute gradients and update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
 
