@@ -32,7 +32,6 @@ MindSpore: The input is an image of PIL type or a numpy array with a value in th
 import numpy as np
 from PIL import Image
 from torchvision import transforms
-from mindspore.dataset import py_transforms
 import mindspore.dataset.vision as vision
 
 # In MindSpore, ToTensor convert PIL Image into numpy array.
