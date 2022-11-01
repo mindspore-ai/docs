@@ -154,7 +154,7 @@ void SetThreadAffinity(int mode);
 
 - 参数
 
-    - `mode`: 绑核的模式，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
+    - `mode`: 绑核的模式，有效值为0-2，0为默认不绑核，1为绑大核，2为绑中核。
 
 #### GetThreadAffinityMode
 
@@ -166,7 +166,7 @@ int GetThreadAffinityMode() const;
 
 - 返回值
 
-  当前CPU绑核策略，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
+  当前CPU绑核策略，有效值为0-2，0为默认不绑核，1为绑大核，2为绑中核。
 
 #### SetThreadAffinity
 
