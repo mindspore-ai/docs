@@ -1,5 +1,5 @@
 
-# 基于PINNs的圆柱绕流
+# 基于PINNs关于圆柱绕流的Navier-Stokes equation求解
 
 ## 概述
 

@@ -1,4 +1,4 @@
-# 基于PINNs的伯格斯方程（Burgers' equation）求解
+# 基于PINNs的Burgers' equation求解
 
 ## 概述
 
