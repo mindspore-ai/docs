@@ -2,9 +2,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-<font size=3>**Q: What do I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?**</font>
+<font size=3>**Q: What should I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?**</font>
 
-A: HCCL fails to be initialized. The possible cause is that `rank json` is incorrect. You can use the tool in `mindspore/model_zoo/utils/hccl_tools` to generate one. Alternatively, import the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the log information.
+A: When the user starts distributed training on the Ascend and meets the error that HCCL fails to be initialized, the possible cause is that `rank_table.json` is incorrect. You can use the tool in [hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py) to generate new `rank_table.json`. Alternatively, set the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the ERROR log information.
 
 <br/>
 

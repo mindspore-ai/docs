@@ -4,7 +4,7 @@
 
 <font size=3>**Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`？**</font>
 
-A: 初始化HCCL失败了，通常由于`rank json`没写对，可以用`mindspore/model_zoo/utils/hccl_tools`下面的工具生成一个试试。或者导入环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，然后检查日志信息。
+A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_table.json`没写对，可以执行此文件[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成一个新的`rank_table.json`。或者导入环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，根据日志中的ERROR信息来排查问题。
 
 <br/>
 
