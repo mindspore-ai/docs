@@ -61,6 +61,7 @@ For Experts
    :maxdepth: 1
    :caption: Debugging and Tuning
 
+   debug/function_debug
    debug/performance_optimization
    Precision Optimization↗ <https://mindspore.cn/mindinsight/docs/en/r1.9/accuracy_problem_preliminary_location.html>
 
