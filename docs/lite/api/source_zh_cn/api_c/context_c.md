@@ -99,7 +99,7 @@ void MSContextSetThreadAffinityMode(MSContextHandle context, int mode)
 
 - 参数
     - `context`: 指向MSContext的指针。
-    - `mode`: 绑核的模式，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
+    - `mode`: 绑核的模式，有效值为0-2，0为默认不绑核，1为绑大核，2为绑中核。
 
 ### MSContextGetThreadAffinityMode
 
@@ -115,7 +115,7 @@ int MSContextGetThreadAffinityMode(const MSContextHandle context)
 
 - 返回值
 
-  当前CPU绑核策略，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
+  当前CPU绑核策略，有效值为0-2，0为默认不绑核，1为绑大核，2为绑中核。
 
 ### MSContextSetThreadAffinityCoreList
 
