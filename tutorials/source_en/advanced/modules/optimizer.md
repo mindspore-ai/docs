@@ -2,7 +2,7 @@
 
 # Optimizer
 
-During model training, the optimizer is used to compute gradients and update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
+During model training, the optimizer is used to update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
 
 The most basic optimizer is the stochastic gradient descent (SGD) algorithm. Many optimizers are improved based on the SGD to achieve the target function to converge to the global optimal point more quickly and effectively. The `nn` module in MindSpore provides common optimizers, such as `nn.SGD`, `nn.Adam`, and `nn.Momentum`. The following describes how to configure the optimizer provided by MindSpore and how to customize the optimizer.
 
@@ -26,21 +26,20 @@ The `trainable_params` method in MindSpore shields the attribute whose `requires
 
 ```python
 import numpy as np
-import mindspore.ops as ops
-from mindspore import nn
-import mindspore as ms
+import mindspore
+from mindspore import nn, ops
+from mindspore import Tensor, Parameter
 
 class Net(nn.Cell):
     def __init__(self):
-        super(Net, self).__init__()
-        self.matmul = ops.MatMul()
+        super().__init__()
         self.conv = nn.Conv2d(1, 6, 5, pad_mode="valid")
-        self.param = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)))
+        self.param = Parameter(Tensor(np.array([1.0], np.float32)), 'param')
 
     def construct(self, x):
         x = self.conv(x)
         x = x * self.param
-        out = self.matmul(x, x)
+        out = ops.matmul(x, x)
         return out
 
 net = Net()
@@ -96,8 +95,6 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     The following uses `nn.piecewise_constant_lr` as an example:
 
     ```python
-    from mindspore import nn
-
     milestone = [1, 3, 10]
     learning_rates = [0.1, 0.05, 0.01]
     lr = nn.piecewise_constant_lr(milestone, learning_rates)
@@ -121,8 +118,6 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     In the following example, the learning rate `nn.ExponentialDecayLR` is computed based on the exponential decay function.
 
     ```python
-    import mindspore as ms
-
     learning_rate = 0.1  # Initial value of the learning rate
     decay_rate = 0.9     # Decay rate
     decay_steps = 4      #Number of decay steps
@@ -131,9 +126,9 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 
     for i in range(decay_steps):
-        step = ms.Tensor(i, ms.int32)
-        result = exponential_decay_lr(step)
-        print(f"step{i+1}, lr:{result}")
+    step = Tensor(i, mindspore.int32)
+    result = exponential_decay_lr(step)
+    print(f"step{i+1}, lr:{result}")
 
     net = Net()
 
@@ -174,13 +169,11 @@ class ExponentialWeightDecay(Cell):
         self.weight_decay = weight_decay
         self.decay_rate = decay_rate
         self.decay_steps = decay_steps
-        self.pow = ops.Pow()
-        self.cast = ops.Cast()
 
     def construct(self, global_step):
         # The `construct` can have only one input. During training, the global step is automatically transferred for computation.
-        p = self.cast(global_step, ms.float32) / self.decay_steps
-        return self.weight_decay * self.pow(self.decay_rate, p)
+        p = global_step / self.decay_steps
+        return self.weight_decay * ops.pow(self.decay_rate, p)
 
 net = Net()
 
@@ -239,16 +232,12 @@ $$p_{t+1} = p_t - lr*v_{t+1} \tag{2} $$
 $grad$, $lr$, $p$, $v$, and $u$ respectively represent a gradient, a learning rate, a weight parameter, a momentum parameter, and an initial speed.
 
 ```python
-import mindspore as ms
-from mindspore import nn, ops
-
 class Momentum(nn.Optimizer):
     """Define the optimizer."""
     def __init__(self, params, learning_rate, momentum=0.9):
         super(Momentum, self).__init__(learning_rate, params)
-        self.momentum = ms.Parameter(ms.Tensor(momentum, ms.float32), name="momentum")
+        self.momentum = Parameter(Tensor(momentum, ms.float32), name="momentum")
         self.moments = self.parameters.clone(prefix="moments", init="zeros")
-        self.assign = ops.Assign()
 
     def construct(self, gradients):
         """The input of construct is gradient. Gradients are automatically transferred during training."""
@@ -257,9 +246,9 @@ class Momentum(nn.Optimizer):
 
         for i in range(len(params)):
             # Update the moments value.
-            self.assign(self.moments[i], self.moments[i] * self.momentum + gradients[i])
+            ops.assign(self.moments[i], self.moments[i] * self.momentum + gradients[i])
             update = params[i] - self.moments[i] * lr # SGD algorithm with momentum
-            self.assign(params[i], update)
+            ops.assign(params[i], update)
         return params
 
 net = Net()
