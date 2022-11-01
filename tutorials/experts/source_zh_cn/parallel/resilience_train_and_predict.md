@@ -179,12 +179,13 @@ dst_strategy.ckpt
 2. 调用`transform_checkpoint_by_rank`接口对"transform_rank"进行参数合并。
 
    ```python
+   import os
    import mindspore as ms
    rank_list = ms.rank_list_for_transform(transform_rank, src_strategy_file, dst_strategy_file)
    checkpoint_file_map = {}
    for rank_id in rank_list:
        checkpoint_file_map[rank_id] = os.path.join(src_checkpoints_dir, "rank_{}".format(rank_id), "src_checkpoint{}.ckpt".format(rank_id))
-   save_checkpoint_path = os.path.join(src_checkpoints_dir, "rank_{}".format(transform_rank),
+   save_checkpoint_path = os.path.join(dst_checkpoints_dir, "rank_{}".format(transform_rank),
                                        "dst_checkpoint{}.ckpt".format(transform_rank))
    ms.transform_checkpoint_by_rank(transform_rank, checkpoint_file_map, save_checkpoint_path,
                                    src_strategy_file, dst_strategy_file)
