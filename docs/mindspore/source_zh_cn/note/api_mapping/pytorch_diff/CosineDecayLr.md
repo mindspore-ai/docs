@@ -9,11 +9,12 @@ torch.optim.lr_scheduler.CosineAnnealingLR(
     optimizer,
     T_max,
     eta_min=0,
-    last_epoch=-1
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-更多内容详见[torch.optim.lr_scheduler.CosineAnnealingLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.CosineAnnealingLR)。
+更多内容详见[torch.optim.lr_scheduler.CosineAnnealingLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.CosineAnnealingLR)。
 
 ## mindspore.nn.cosine_decay_lr
 
@@ -29,11 +30,20 @@ mindspore.nn.cosine_decay_lr(
 
 更多内容详见[mindspore.nn.cosine_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html#mindspore.nn.cosine_decay_lr)。
 
-## 使用方式
+## 差异对比
 
-`torch.optim.lr_scheduler.CosineAnnealingLR` 用来周期性得调整学习率，其中入参 `T_max` 表示周期的1/2。假设初始的学习率为 `lr`，在每个 `2*T_max` 的一个周期内，学习率根据指定计算逻辑进行变化，公式详见API注释；周期结束后，学习率恢复初始值 `lr`，并不断循环。
+PyTorch（torch.optim.lr_scheduler.CosineAnnealingLR）：`torch.optim.lr_scheduler.CosineAnnealingLR` 用来周期性地调整学习率，其中入参 `T_max` 表示周期的1/2。假设初始的学习率为 `lr`，在每个 `2*T_max` 的一个周期内，学习率根据指定计算逻辑进行变化，公式详见API注释；周期结束后，学习率恢复初始值 `lr`，并不断循环。 `verbose` 为True时，每一次更新打印相关信息。
 
-`mindspore.nn.cosine_decay_lr` 的学习率调整无周期性变化，学习率值按照指定的计算逻辑变化，公式计算逻辑与 `torch.optim.lr_scheduler.CosineAnnealingLR` 的相同。
+MindSpore（mindspore.nn.cosine_decay_lr）：`mindspore.nn.cosine_decay_lr` 的学习率调整无周期性变化，学习率值按照指定的计算逻辑变化，公式计算逻辑与 `torch.optim.lr_scheduler.CosineAnnealingLR` 的相同。
+
+| 分类 | 子类  | PyTorch | MindSpore | 差异                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
+|      | 参数2 | T_max   | decay_steps | 进行衰减的step，功能一致，参数名不同 |
+|      | 参数3 | eta_min | min_lr     | 学习率最小值，功能一致，参数名不同 |
+|      | 参数4 | last_epoch |   | MindSpore无此参数 |
+|      | 参数5 | verbose |        | PyTorch的 `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
+|      | 参数6 |       |  max_lr   | 最大学习率，PyTorch设置为初始lr，MindSpore设置为 `max_lr` |
 
 ## 代码示例
 
