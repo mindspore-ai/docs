@@ -12,7 +12,9 @@ Vertical federated learning (vFL) is a major branch of federated learning (FL). 
 
 However, the gradients passed back from the leader to the follower contain more information, allowing the follower to invert the labels held by the leader from the gradients. In such a context, we need to provide stronger privacy guarantees for the training of vFL to avoid the risk of label leakage.
 
-Differential privacy is a definition of privacy based strictly on statistics/information theory that ensures that changes in any individual data do not make a significant difference in the output of the algorithm (usually achieved by overlapping the distribution of random variables). Thus, it is ensured in theory that there is no possibility for the algorithm's results to be inverted to the individual data. This design scheme is based on label differential privacy, which provides differential privacy guarantees for the labels of the leader participants during vertical federated learning training, so that an attacker cannot invert the label information of the data from the returned gradients.
+Differential privacy (DP) is a definition of privacy based strictly on statistics/information theory.
+
+The core idea behind DP is to induce randomness to confuse each individual data's influence on the algorithm's result, making sure that it is hard for the algorithm's results to be inverted to the individual data. See [1] for an excellent survey. This scheme is based on label differential privacy (label dp) [2], which provides differential privacy guarantees for the labels of the leader participants during vertical federated learning training, so that an attacker cannot invert the label information of the data from the returned gradients.
 
 ## Algorithm Implementation
 
@@ -20,7 +22,7 @@ We adopt a lightweight implementation of label dp. During training, a certain pe
 
 ![image.png](./images/label_dp_en.png)
 
-This scheme is based on the randomized response algorithm, which flips or scrambles the user tags randomly before the leader training of the vFL. The actual implementation is divided into two cases of binary tags and onehot tags:
+This scheme is based on the randomized response algorithm, which flips or scrambles the user tags randomly before the leader training of the vFL. The actual implementation is divided into two cases of binary tags and one-hot tags:
 
 ### Binary Labels Protection
 
@@ -34,13 +36,13 @@ This scheme is based on the randomized response algorithm, which flips or scramb
 
 ## Quick Experience
 
-We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to add label dp to a vertical federated model protection.
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to add label dp to a vertical federated model protection.
 
 ### Front-End Needs
 
 The following operations can all be found in the [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
 
-1. To install MindSpore 1.8.1 or its higher version in Python environment, please refer to [MindSpore official website installation guide](https://www.mindspore.cn/install).
+1. Install MindSpore 1.8.1 or its higher version, please refer to [MindSpore official website installation guide](https://www.mindspore.cn/install).
 2. Install MindSpore Federated and the Python libraries which the MindSpore Federated depends on.
 3. Prepare the criteo dataset.
 
@@ -61,7 +63,7 @@ The following operations can all be found in the [Wide&Deep Vertical Federated L
 3. Run the script
 
    ```bash
-   sh run_vfl_train_label_dp.sh
+   sh run_vfl_train_local_label_dp.sh
    ```
 
 ### Viewing Results
@@ -99,7 +101,7 @@ INFO:root:epoch 0 step 2500/2582 wide_loss: 0.545622 deep_loss: 0.546315
 
 ## Deep Experience
 
-We take the single-thread case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example to introduce the specific operation method of adding label dp protection in the vertical federated model.
+We take the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example to introduce the specific operation method of adding label dp protection in the vertical federated model.
 
 ### Front-End Needs
 
@@ -107,22 +109,19 @@ Same as [Quick Experience](#quick-experience): Install MindSpore, Install MindSp
 
 ### Option 1: Call the integrated label dp function in the FLModel class
 
-The MindSpore Federated Vertical Federated Learning Framework uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
+MindSpore Federated uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
 
-We have integrated the label dp function in the `FLModel` class. After the normal completion of modeling the entire vertical federated learning training process (for detailed vFl training, see [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)), users can simply add the `label_dp` submodule under the `privacy` module in the yaml file of the label side (or add it by user if there is no `privacy` module), and set the `eps` parameter in the `label_dp` module (differential privacy parameter $\epsilon$, the user can set the value of this parameter according to the actual needs). Let the model enjoy label dp protection:
+We have integrated the label dp function in the `FLModel` class. After the normal completion of modeling the entire vertical federated learning training process (for detailed vFl training, see [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://www.mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html)), users can simply add the `label_dp` submodule under the `privacy` module in the yaml file of the label side (or add it by user if there is no `privacy` module), and set the `eps` parameter in the `label_dp` module (differential privacy parameter $\epsilon$, the user can set the value of this parameter according to the actual needs). Let the model enjoy label dp protection:
 
 ```yaml
 privacy:
-  ...
-  ...
-  ...
   label_dp:
     eps: 1.0
 ```
 
 ### Option 2: Directly call the LabelDP class
 
-Users can also call the `LabelDP` class directly to use the label dp function more flexibly. The `LabelDP` class is integrated in the `mindspore_federated.privacy` module. The user can define a `LabelDP` object by specifying the value of `eps`, and then pass the label group as an argument to this object. The `_call_` functio of objext will automatically recognize whether the current input is onehot or binary label and outputs a label group processed by label dp. Refer to the following example:
+Users can also call the `LabelDP` class directly to use the label dp function more flexibly. The `LabelDP` class is integrated in the `mindspore_federated.privacy` module. The user can define a `LabelDP` object by specifying the value of `eps`, and then pass the label group as an argument to this object. The `_call_` functio of objext will automatically recognize whether the current input is one-hot or binary label and outputs a label group processed by label dp. Refer to the following example:
 
 ```python
 # make private a batch of binary labels
@@ -134,8 +133,15 @@ label_dp = LabelDP(eps=0.0)
 label = Tensor(np.zero(5, 1), dtype=mindspore.float32)
 dp_label = label_dp(label)
 
-# make private a batch of onehot labels
+# make private a batch of one-hot labels
 label = Tensor(np.hstack((np.ones((5, 1)), np.zeros((5, 2)))), dtype=mindspore.float32)
 dp_label = label_dp(label)
 print(dp_label)
 ```
+
+## References
+
+[1] Dwork C, Roth A. The algorithmic foundations of differential privacy[J]. Foundations and Trends® in Theoretical Computer Science, 2014, 9(3–4): 211-407.
+
+[2] Ghazi B, Golowich N, Kumar R, et al. Deep learning with label differential privacy[J]. Advances in Neural Information Processing Systems, 2021, 34: 27131-27145.
+
