@@ -261,7 +261,7 @@ ansatz_circuit, \
 init_amplitudes, \
 ansatz_parameter_names, \
 hamiltonian_QubitOp, \
-n_qubits, n_electrons = generate_uccsd(molecule_file, th=-1)
+n_qubits, n_electrons = generate_uccsd(molecule_file, threshold=-1)
 ```
 
 ```bash
@@ -306,7 +306,7 @@ The procedure for solving the molecular ground state by using the VQE is as foll
 In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindQuantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of variational quantum circuits in simulation. The following uses MindQuantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
 
 ```python
-sim = Simulator('projectq', total_circuit.n_qubits)
+sim = Simulator('mqvector', total_circuit.n_qubits)
 molecule_pqc = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp), total_circuit)
 ```
 
@@ -363,27 +363,20 @@ Step  10 energy  -7.8821778297424316
 Step  15 energy  -7.8822836875915527
 Step  20 energy  -7.8823199272155762
 Step  25 energy  -7.8823370933532715
-Step  30 energy  -7.8815641403198242
-Step  35 energy  -7.8786268234252930
-Step  40 energy  -7.8778734207153320
-Step  45 energy  -7.8808088302612305
-Step  50 energy  -7.8819031715393066
-Step  55 energy  -7.8821558952331543
-Step  60 energy  -7.8823504447937012
-Optimization completed at step  63
-Optimized energy:  -7.8823523521423340
+Optimization completed at step  27
+Optimized energy:  -7.8823390007019043
 Optimized amplitudes:
- [ 2.40339446e-04  1.89154677e-03  3.49554531e-02  1.59917790e-02
-  2.33248898e-07  9.09393420e-04 -1.79268172e-05  1.41595434e-02
-  6.28582342e-08  9.08669957e-04 -1.49387897e-05  1.41652254e-02
- -5.46666037e-04  4.26779327e-04  2.86067789e-03  5.38198128e-02
-  2.32545775e-04 -2.78862785e-07 -7.10907813e-08 -7.98562283e-08
-  7.00364581e-07 -9.21200325e-08 -6.73263187e-08  1.26236855e-05
- -1.04519488e-04  7.97090179e-04 -4.01437364e-06 -3.34858555e-06
- -5.49289174e-02  3.09006264e-03  7.01365061e-05 -1.36400865e-06
- -1.35536197e-06  4.63907739e-08  5.32547162e-08 -2.34681625e-08
-  3.92657455e-07  5.11744884e-06  3.09006032e-03 -2.05122589e-07
-  5.91138871e-08 -2.44064164e-08  4.26194856e-06  3.72134935e-04]
+ [ 2.7273933e-04  1.9072455e-03  2.9598266e-02  1.5151843e-02
+  1.5533751e-06  9.0890197e-04 -5.1002303e-07  1.4072354e-02
+ -1.2779084e-05  9.0818782e-04  4.1782801e-06  1.4077923e-02
+ -5.2711589e-04  4.2598479e-04  2.6523003e-03  5.3988658e-02
+  1.9281749e-04 -1.2321149e-07 -3.1405324e-07  1.9214883e-06
+  1.0062347e-06  1.0903094e-06 -1.4285328e-05 -7.8342858e-08
+  7.5983076e-04 -1.1218661e-04  8.8862755e-08 -7.2354385e-07
+ -5.3567935e-02  3.0693393e-03 -1.3467404e-10 -4.6068820e-09
+  4.5405173e-09  1.1786257e-06  8.9121182e-05 -9.4004070e-05
+ -1.0432483e-10 -2.8091000e-07  3.0693379e-03 -9.6705053e-06
+  7.7026058e-04 -7.3031953e-04  2.3029093e-06  3.5888454e-04]
 ```
 
 It can be seen that the computing result of unitary coupled-cluster is very close to that of FCI, and has good accuracy.
@@ -456,7 +449,7 @@ init_amplitudes_ccsd = [init_amplitudes_ccsd[param_i] for param_i in ansatz_para
 `MQAnsatzOnlyLayer` can be used to easily obtain a machine learning model based on a variational quantum circuit by using a parameter and a quantum circuit:
 
 ```python
-grad_ops = Simulator('projectq', total_circuit.n_qubits).get_expectation_with_grad(
+grad_ops = Simulator('mqvector', total_circuit.n_qubits).get_expectation_with_grad(
     Hamiltonian(hamiltonian_QubitOp.real),
     total_circuit)
 
@@ -506,27 +499,20 @@ Step  10 energy  -7.8818783760070801
 Step  15 energy  -7.8821649551391602
 Step  20 energy  -7.8822622299194336
 Step  25 energy  -7.8823080062866211
-Step  30 energy  -7.8822288513183594
-Step  35 energy  -7.8758554458618164
-Step  40 energy  -7.8761253356933594
-Step  45 energy  -7.8807921409606934
-Step  50 energy  -7.8818383216857910
-Step  55 energy  -7.8821811676025391
-Step  60 energy  -7.8823504447937012
-Optimization completed at step  63
-Optimized energy:  -7.8823523521423340
+Optimization completed at step  28
+Optimized energy:  -7.8823189735412598
 Optimized amplitudes:
- [-2.42472161e-04  1.89258391e-03 -3.46013680e-02  1.59353409e-02
- -8.40432079e-08  9.09362687e-04  2.01798011e-05  1.41534032e-02
- -2.81526667e-07  9.08639806e-04  2.00776722e-05  1.41590768e-02
-  5.45396935e-04  4.26715094e-04 -2.84755090e-03  5.38354851e-02
-  2.29954778e-04  9.55212727e-07 -1.24844689e-07 -9.20767249e-08
- -4.53033465e-07 -7.44455733e-08 -8.83169875e-08  1.17984437e-05
- -1.04996754e-04  7.94677646e-04 -4.50417019e-06 -4.49753043e-06
- -5.48430867e-02  3.08870710e-03 -6.50319926e-05  1.26427835e-06
-  1.25660222e-06 -2.82077963e-07  7.96948143e-08 -3.28978906e-08
- -3.63568660e-07  5.76087541e-06  3.08870478e-03  8.82309266e-08
-  5.73797401e-08 -2.53652850e-08  5.72846511e-06  3.71275470e-04]
+ [-2.92540470e-04  1.91678782e-03 -2.62904949e-02  1.46486172e-02
+ -1.80548541e-05  9.08615650e-04  6.06753974e-06  1.40150227e-02
+ -7.58499027e-06  9.07906622e-04  2.58140676e-06  1.40205137e-02
+  5.15393389e-04  4.25452046e-04 -2.52626487e-03  5.41330352e-02
+  1.68450730e-04 -1.45874014e-06  2.46176114e-05 -5.74097339e-06
+ -6.37176697e-07  1.41116643e-05 -6.13132488e-06 -7.78824597e-06
+  7.36984774e-04 -1.16545329e-04  1.00961029e-06  4.41450794e-07
+ -5.27810790e-02  3.05663864e-03  5.34516487e-10 -1.11836842e-08
+  1.16560805e-08  1.39018812e-05  1.05607708e-03 -1.11408660e-03
+  7.64744101e-10 -3.32643208e-06  3.05663352e-03  5.93083496e-06
+  4.49250219e-04 -4.74061235e-04 -1.41295470e-06  3.50885763e-04]
 ```
 
 ## Summary

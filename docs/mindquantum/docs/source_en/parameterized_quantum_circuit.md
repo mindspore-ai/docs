@@ -218,12 +218,10 @@ We generate an Encoder circuit and an Ansatz circuit through the decorator. We a
 
 ```python
 from mindquantum.simulator import Simulator
-total_circuit = encoder + ansatz
-sim = Simulator('projectq', total_circuit.n_qubits)
+total_circuit = encoder.as_encoder() + ansatz.as_ansatz()
+sim = Simulator('mqvector', total_circuit.n_qubits)
 grad_ops = sim.get_expectation_with_grad(ham,
-                                         total_circuit,
-                                         encoder_params_name=encoder_names,
-                                         ansatz_params_name=ansatz_names)
+                                         total_circuit)
 encoder_data = np.array([[0.1,0.2]])
 ansatz_data = np.array([0.3,0.4])
 measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
@@ -243,9 +241,7 @@ The above three results respectively represent the output value of the quantum n
 ```python
 encoder.no_grad()
 grad_ops = sim.get_expectation_with_grad(ham,
-                                         encoder+ansatz,
-                                         encoder_params_name=encoder_names,
-                                         ansatz_params_name=ansatz_names)
+                                         encoder.as_encoder() + ansatz.as_ansatz())
 measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
 print('Measurement result: ', measure_result)
 print('Gradient of encoder parameters: ', encoder_grad)

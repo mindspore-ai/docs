@@ -46,13 +46,3 @@ python -c 'import mindquantum'
 ## Install with Docker
 
 Mac or Windows users can install MindQuantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md#).
-
-## Note
-
-Please set the parallel core number before running MindQuantum scripts. For example, if you want to set the parallel core number to 4, please run the command below:
-
-```bash
-export OMP_NUM_THREADS=4
-```
-
-For large servers, please set the number of parallel kernels appropriately according to the size of the model to achieve optimal results.

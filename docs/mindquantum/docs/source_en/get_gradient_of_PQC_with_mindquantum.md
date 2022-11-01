@@ -20,8 +20,6 @@ Simulator.get_expectation_with_grad(
     circ_right,
     circ_left=None,
     simulator_left=None,
-    encoder_params_name=None,
-    ansatz_params_name=None,
     parallel_worker=None
 )
 ```
@@ -32,9 +30,7 @@ Then, we will introduce the meaning of each parameter one by one.
 2. circ_right. It is the $U_r(\boldsymbol{\theta})$ in the formula.
 3. circ_left. It is the $U_l^\dagger(\boldsymbol{theta})$ in the formula. When it is the default value None, circ_left and circ_right are the same circuits.
 4. simulator_left. It is the simulator that contains the $\left|\varphi\right>$ in the formula. You can set the state of the emulator to the state you need by the emulator's set_qs, apply_gate or apply_circuit methods. When it is the default value None, $\left|\varphi\right>=\left|\psi\right>$, and $\left|\psi\right>$ is the quantum state contained in the current simulator.
-5. encoder_params_name. It indicates which quantum gates with parameters in $U_l(\boldsymbol{\theta})$ and $U_r(\boldsymbol{\theta})$ are encoder. In the quantum neural network, the parameter corresponding to the encoder is the number that the user needs to input, and does not participate in the training. When it is the default value None, there is no encoder in the circuit.
-6. ansatz_params_name. It indicates which quantum gates with parameters in $U_l(\boldsymbol{\theta})$ and $U_r(\boldsymbol{\theta})$ are ansatz. In the quantum neural network, the parameters corresponding to ansatz are initialized by the system or the user, and then updated by the system according to the gradient to participate in the training. When it is the default value None, all parameter gates in the circuit are ansatz.
-7. parallel_worker. When the hams contains multiple Hamiltonians or the input of the encoder contains multiple sample points, MindQuantum will reasonably perform parallel operations based on this integer as a reference.
+5. parallel_worker. When the hams contains multiple Hamiltonians or the input of the encoder contains multiple sample points, MindQuantum will reasonably perform parallel operations based on this integer as a reference.
 
 ## Expected values of multiple Hamiltonians at multiple input sample points
 
@@ -57,7 +53,7 @@ encoder
 ```
 
 ```text
-q0: ──RY(0.176776695296637*alpha)────RX(-0.176776695296637*alpha)────RY(0.176776695296637*alpha)────RX(-0.176776695296637*alpha)────RY(0.176776695296637*alpha)────RX(-0.176776695296637*alpha)────RY(0.176776695296637*alpha)────RX(-0.176776695296637*alpha)──
+q0: ──RY(√2/4*alpha)────RX(-√2/4*alpha)────RY(√2/4*alpha)────RX(-√2/4*alpha)────RY(√2/4*alpha)────RX(-√2/4*alpha)────RY(√2/4*alpha)────RX(-√2/4*alpha)──
 ```
 
 Next, define the Hamiltonian of the expected value to be calculated:
@@ -75,7 +71,7 @@ hams
 Get the operator for the expected value and gradient:
 
 ```python
-grad_ops = Simulator('projectq', 1).get_expectation_with_grad(hams, encoder, encoder_params_name=encoder.params_name, parallel_worker=6)
+grad_ops = Simulator('mqvector', 1).get_expectation_with_grad(hams, encoder.as_encoder(), parallel_worker=6)
 grad_ops
 ```
 
@@ -142,13 +138,13 @@ q0: ──RY(a)────RZ(b)────RY(c)──
 Prepare a simulator containing uniform superposition states:
 
 ```python
-sim_l = Simulator('projectq', 1)
+sim_l = Simulator('mqvector', 1)
 sim_l.apply_gate(H.on(0))
 sim_l
 ```
 
 ```text
-projectq simulator with 1 qubit.
+mqvector simulator with 1 qubit.
 Current quantum state:
 √2/2¦0⟩
 √2/2¦1⟩
@@ -163,7 +159,7 @@ ham = Hamiltonian(QubitOperator(""))
 Get the inner product and gradient computation operators:
 
 ```python
-grad_ops = Simulator('projectq', 1).get_expectation_with_grad(ham, circuit, Circuit(), simulator_left=sim_l)
+grad_ops = Simulator('mqvector', 1).get_expectation_with_grad(ham, circuit, Circuit(), simulator_left=sim_l)
 ```
 
 Choose the appropriate parameters:

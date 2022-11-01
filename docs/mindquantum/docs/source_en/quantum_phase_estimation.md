@@ -114,7 +114,7 @@ Select the backend, pass in the total number of bits to create a simulator, evol
 ```python
 # pylint: disable=W0104
 from mindquantum.core.gates import Measure
-sim = Simulator('projectq', circ.n_qubits)                      # Create an emulator
+sim = Simulator('mqvector', circ.n_qubits)                      # Create an emulator
 sim.apply_circuit(circ)                                         # Evolving the circuit with the simulator
 qs = sim.get_qs()                                               # Obtain the evolved quantum state
 res = sim.sampling(UN(Measure(), circ.n_qubits - 1), shots=100) # Add a measurement gate to register 1 and sample the circuit 100 times to obtain statistical results
