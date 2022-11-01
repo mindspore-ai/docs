@@ -266,7 +266,6 @@ Contribution Guide
    :caption: Guide
 
    why
-   intro
    xponge
    sponge
    cybertron

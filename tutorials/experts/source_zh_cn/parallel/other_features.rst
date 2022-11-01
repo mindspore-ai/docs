@@ -63,17 +63,16 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       | text(search_mode=mode | 法，其值为字符串类 | 不配置或者少量配置 |
 |                       | )                     | 型，可选值为：1，  | 算子的切分策略，而 |
 |                       |                       | “sharding          | 由框架搜索出切分策 |
-|                       |                       | _propagat          | 略。               |
-|                       |                       | ion”：表示使用     |                    |
+|                       |                       | _propagation”：    | 略。               |
+|                       |                       | 表示使用           |                    |
 |                       |                       | 切分策略传播算法进 |                    |
 |                       |                       | 行策略搜索；2，“   |                    |
-|                       |                       | dynamic_p          |                    |
-|                       |                       | rogrammin          |                    |
-|                       |                       | g”：表示使用动态   |                    |
+|                       |                       | dynamic\_          |                    |
+|                       |                       | programming”：     |                    |
+|                       |                       | 表示使用动态       |                    |
 |                       |                       | 规划算法进行策略搜 |                    |
-|                       |                       | 索；3，“recu       |                    |
-|                       |                       | rsive_pro          |                    |
-|                       |                       | gramming”          |                    |
+|                       |                       | 索；3，“recursive\_|                    |
+|                       |                       | programming”       |                    |
 |                       |                       | ：表示使用双递归算 |                    |
 |                       |                       | 法进行策略搜索；   |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
@@ -83,8 +82,8 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       |                       | 为bool类型，默     | 速度，但搜索出来的 |
 |                       |                       | 认为True。         | 策略并非全局最优。 |
 +-----------------------+-----------------------+--------------------+--------------------+
-|                       | set_auto_parallel_con | 配置梯度AllRe      | 减少AllRedu        |
-|                       | text(all_reduce_fusio | duce算子融合策     | ce通信算子的操作   |
+|                       | set_auto_parallel_con | 配置梯度AllRe      | 减少AllReduce      |
+|                       | text(all_reduce_fusio | duce算子融合策     | 通信算子的操作     |
 |                       | n_config=config)      | 略，其值为list     | 次数，提高通信效率 |
 |                       |                       | 类型。例如：[20    | 。                 |
 |                       |                       | ,                  |                    |
@@ -116,24 +115,23 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       |                       | 选项：“auto”       |                    |
 |                       |                       | ：自动按照数据量阈 |                    |
 |                       |                       | 值64MB进行算子     |                    |
-|                       |                       | 融合，配置参数“c   |                    |
-|                       |                       | onfig”为No         |                    |
-|                       |                       | ne。“size”         |                    |
+|                       |                       | 融合，配置参数     |                    |
+|                       |                       | “config”为None。   |                    |
+|                       |                       | “size”             |                    |
 |                       |                       | ：按照手动设置数据 |                    |
 |                       |                       | 量阈值的方式进行通 |                    |
 |                       |                       | 信算子融合，配置参 |                    |
 |                       |                       | 数“config”         |                    |
 |                       |                       | 类型为int，单位    |                    |
 |                       |                       | MB。“index         |                    |
-|                       |                       | ”：仅“allre        |                    |
-|                       |                       | duce”支持配置      |                    |
+|                       |                       | ”：仅“allreduce”   |                    |
+|                       |                       | 支持配置           |                    |
 |                       |                       | index，表示按      |                    |
 |                       |                       | 照通信算子序列号进 |                    |
 |                       |                       | 行融合的方式，配置 |                    |
 |                       |                       | 参数“config        |                    |
 |                       |                       | ”类型为list。      |                    |
 |                       |                       | 例如：[20,         |                    |
-|                       |                       |                    |                    |
 |                       |                       | 35]，表示将前2     |                    |
 |                       |                       | 0个AllRedu         |                    |
 |                       |                       | ce融合成1个，第    |                    |
@@ -144,27 +142,27 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       |                       | 1个。              |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
 | 数据集切分            | set_auto_parallel_con | 配置数据集的切分策 | 当样本数比卡数少时 |
-|                       | text(dataset_strategy | 略。其中，conf     | ，可以采用         |
-|                       | =config)              | ig为Union[         | “full_batch”的     |
+|                       | text(dataset_strategy | 略。其中，config   | ，可以采用         |
+|                       | =config)              | 为Union[           | “full_batch”的     |
 |                       |                       | str,               | 方式进行导入；当样 |
 |                       |                       | tuple]。当传       | 本数大、模型参数小 |
-|                       |                       | 入字符串时，有两种 | 时，可以采用“da    |
-|                       |                       | 选项：“full_batch” | ta_parall          |
-|                       |                       | ：表示             | el”的方式导入；    |
-|                       |                       | 数据集不切分；“d   | 当数据集是高分辨率 |
-|                       |                       | ata_paral          | 图像数据时，可以采 |
-|                       |                       | lel”：表示数据     | 用配置tuple切      |
+|                       |                       | 入字符串时，有两种 | 时，可以采用       |
+|                       |                       | 选项：“full_batch” | “data_parallel”    |
+|                       |                       | ：表示             | 的方式导入；       |
+|                       |                       | 数据集不切分；     | 当数据集是高分辨率 |
+|                       |                       | data_paralel”：    | 图像数据时，可以采 |
+|                       |                       | 表示数据           | 用配置tuple切      |
 |                       |                       | 集按数据并行的方式 | 分策略的方式导入。 |
-|                       |                       | 切分。当传入tup    |                    |
-|                       |                       | le时，tuple        |                    |
+|                       |                       | 切分。当传入tuple  |                    |
+|                       |                       | 时，tuple          |                    |
 |                       |                       | 中的内容代表数据集 |                    |
 |                       |                       | 的切分策略，类似于 |                    |
 |                       |                       | primitive          |                    |
 |                       |                       | 的shard()接        |                    |
 |                       |                       | 口。若不调用此接口 |                    |
-|                       |                       | ，则默认采用“da    |                    |
-|                       |                       | ta_parall          |                    |
-|                       |                       | el”的方式。        |                    |
+|                       |                       | ，则默认采用       |                    |
+|                       |                       | “data_parallel”    |                    |
+|                       |                       | 的方式。           |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
 | 分布式推理            | infer_predict_layout( | 使用推理数据进行一 | 获取推理时所有权重 |
 |                       | \*predict_data)       | 次预编译，输出算子 | 的切分信息。       |
@@ -174,40 +172,39 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       | kpoint(network,       | 每台机器预先放置全 | 进行分布式推理。   |
 |                       | checkpoint_filenames, | 量的ckpt。其中     |                    |
 |                       | predict_strategy=None | network代表        |                    |
-|                       | ,                     | 推理网络，chec     |                    |
-|                       | train_strategy_filena | kpoint_fi          |                    |
-|                       | me=None)              | lenames代表        |                    |
-|                       |                       | checkpoin          |                    |
-|                       |                       | t文件，predi       |                    |
-|                       |                       | ct_strategy        |                    |
-|                       |                       | 为                 |                    |
-|                       |                       | infer_predict_l    |                    |
-|                       |                       | ayout()的输        |                    |
-|                       |                       | 出，train_s        |                    |
-|                       |                       | trategy_f          |                    |
-|                       |                       | ilename为训        |                    |
+|                       | ,                     | 推理网络，         |                    |
+|                       | train_strategy_filena | checkpoint\_       |                    |
+|                       | me=None)              | filenames代表      |                    |
+|                       |                       | checkpoint         |                    |
+|                       |                       | 文件，             |                    |
+|                       |                       | predict_strategy为 |                    |
+|                       |                       | infer_predict\_    |                    |
+|                       |                       | layout()的输       |                    |
+|                       |                       | 出，train\_        |                    |
+|                       |                       | strategy\_         |                    |
+|                       |                       | filename为训       |                    |
 |                       |                       | 练时保存的算子切分 |                    |
 |                       |                       | 策略信息。         |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
 | 函数式算子切分        | shard(in_strategy,    | 设置cell的输入     | 在PyNative         |
-|                       | out_strategy,         | 及输出张量的切分策 | 模式下指定某个ce   |
-|                       | device=“Ascend”,      | 略，其余算子的并行 | ll实例以图模式执   |
+|                       | out_strategy,         | 及输出张量的切分策 | 模式下指定某个cell |
+|                       | device=“Ascend”,      | 略，其余算子的并行 | 实例以图模式执     |
 |                       | level=0)在Cell类中    | 策略由切分策略传播 | 行，并且依据指定的 |
 |                       |                       | 得到。             | 输入输出切分策略进 |
-|                       |                       | in_strate          | 行算子级别的模型并 |
-|                       |                       | gy/out_st          | 行，               |
-|                       |                       | rategy指定输       | 其余的部分仍以Py   |
-|                       |                       | 入/输出张量的切分  | Native模式执       |
+|                       |                       | in_strategy        | 行算子级别的模型并 |
+|                       |                       | /out_strategy      | 行，               |
+|                       |                       | 指定输             | 其余的部分仍以     |
+|                       |                       | 入/输出张量的切分  | PyNative模式执     |
 |                       |                       | 策略，device       | 行数据并行。       |
 |                       |                       | 指定执行设备，le   |                    |
 |                       |                       | vel指定切分策略    |                    |
 |                       |                       | 传播算法的模式。   |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
-|                       | ops.shard(fn,         | 传入的fn为cel      | 此用法可以指定某个 |
-|                       | in_strategy,          | l实例或函数，其余  | 函数进行算子级别的 |
+|                       | ops.shard(fn,         | 传入的fn为cell     | 此用法可以指定某个 |
+|                       | in_strategy,          | 实例或函数，其余   | 函数进行算子级别的 |
 |                       | out_strategy,         | 输入和shard相      | 模型并行，具体功能 |
-|                       | device=“Ascend”,      | 同，返回值为函数， | 和cell的sha        |
-|                       | level=0)              | 再调用此函数时，会 | rd方法相同。       |
+|                       | device=“Ascend”,      | 同，返回值为函数， | 和cell的shard      |
+|                       | level=0)              | 再调用此函数时，会 | 方法相同。         |
 |                       |                       | 以图模式执行算子级 |                    |
 |                       |                       | 别的模型并行。     |                    |
 +-----------------------+-----------------------+--------------------+--------------------+
