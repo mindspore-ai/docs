@@ -1,4 +1,4 @@
-# 纵向联邦-基于可信执行环境（TEE）的特征保护
+# 纵向联邦-基于可信执行环境的特征保护
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -10,28 +10,28 @@
 
 ![image.png](./images/vfl_1.png)
 
-由于避免了直接上传原始数据，vFL在一定程度上保护了隐私安全（这也是vFL的核心目标之一），然而攻击者还是有可能从上传的embedding反推出用户信息，造成隐私安全隐患。在这样的背景下，我们需要对vFL的训练时传输的embedding和梯度提供更强的隐私保证来规避隐私安全风险。
+由于避免了直接上传原始数据，vFL在一定程度上保护了隐私安全（这也是vFL的核心目标之一），然而攻击者还是有可能从上传的embedding反推出用户信息，造成隐私安全隐患。在这样的背景下，我们需要对vFL在训练时传输的embedding和梯度提供更强的隐私保证来规避隐私安全风险。
 
-可信执行环境（trusted execution environment，简称TEE）是一种基于硬件提供的可信计算方案，能够让硬件中的整个计算过程相对于外界是黑盒的，来保证计算过程的数据安全。通过TEE将vFL网络中的关键层屏蔽，可以使该层计算难以被反推，从而保证vFL训练和推理过程的数据安全。
+可信执行环境（Trusted Execution Environment，TEE）是一种基于硬件的可信计算方案，通过使硬件中的整个计算过程相对于外界黑盒化，来保证计算过程的数据安全。在vFL中，我们使用TEE将网络中的关键层屏蔽，可以使该层计算难以被反推，从而保证vFL训练和推理过程的数据安全。
 
 ## 算法介绍
 
 ![image.png](./images/vfl_with_tee.png)
 
-如图，如果参与方A将中间结果$\alpha^{(A)}$直接发给参与方B，则参与方B很容易用中间结果反推出参与方A的原始数据$X^{(A)}$。为了降低这样的风险，参与方A将Bottom Model计算得到的中间结果$\alpha^{(A)}$先进行加密得到$E(\alpha^{(A)})$，将$E(\alpha^{(A)})$传给参与方B，参与方B将$E(\alpha^{(A)})$输入到基于TEE的Cut Layer层中，然后在TEE的内部解密成$\alpha^{(A)}$进行前向传播，整个过程对于B来说是黑盒的。
+如图，如果参与方A将中间结果$\alpha^{(A)}$直接发给参与方B，则参与方B很有可能用中间结果反推出参与方A的原始数据$X^{(A)}$。为了降低这样的风险，参与方A将Bottom Model计算得到的中间结果$\alpha^{(A)}$先进行加密得到$E(\alpha^{(A)})$，将$E(\alpha^{(A)})$传给参与方B，参与方B将$E(\alpha^{(A)})$输入到TEE中的Cut Layer层中，然后在TEE的内部解密出$\alpha^{(A)}$进行前向传播。上述的整个过程，对于B来说都是黑盒的。
 
 反向传梯度时也类似，Cut Layer运算出梯度$\nabla\alpha^{(A)}$，加密成$E(\nabla\alpha^{(A)})$后再由参与方B传回给参与方A，然后参与方A解密成$\nabla\alpha^{(A)}$后继续做反向传播。
 
 ## 快速体验
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单线程案例为例，给出一个配置TEE保护的范例脚本。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，给出一个配置TEE保护的范例脚本。
 
 ### 前置需要&环境配置
 
 1. 环境要求：
 
    - 处理器：需要支持Intel SGX（Intel Sofrware Guard Extensions）功能
-   - 操作系统：openEuler 21.03、openEuler 20.03 LTS SP2或更高版本
+   - 操作系统：openEuler 20.03、openEuler 21.03 LTS SP2或更高版本
 
 2. 安装SGX和SecGear（可以参考[secGear官网](https://gitee.com/openeuler/secGear)）：
 
@@ -43,7 +43,7 @@
    mkdir debug && cd debug && cmake .. && make && sudo make install
    ```
 
-3. 在 Python 环境中安装MindSpore1.8.1或更高版本，请参考[MindSpore官网安装指引](https://www.mindspore.cn/install)。
+3. 安装MindSpore1.8.1或更高版本，请参考[MindSpore官网安装指引](https://www.mindspore.cn/install)。
 
 4. 下载federated仓
 
@@ -53,11 +53,10 @@
 
 5. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
 
-6. 为TEE编译安装MindSpore Federated（跑编译脚本前，需要额外设置MS_ENABLE_SGX环境变量，表示是否使用SGX）：
+6. 为TEE编译安装MindSpore Federated（需要加入额外编译选项，表示是否使用SGX）：
 
    ```sh
-   export MS_ENABLE_SGX=ON
-   sh federated/build.sh
+   sh federated/build.sh -s on
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
@@ -74,12 +73,12 @@
 2. 运行脚本
 
    ```sh
-   sh run_vfl_train_TEE.sh
+   sh run_vfl_train_local_tee.sh
    ```
 
 ### 查看结果
 
-在训练日志`log_local_cpu_custom.txt`查看模型训练的loss变化：
+在训练日志`log_local_cpu_tee.txt`查看模型训练的loss变化：
 
 ```sh
 INFO:root:epoch 0 step 100/41322 wide_loss: 0.661822 deep_loss: 0.662018
@@ -119,7 +118,7 @@ TEE层的正向传播、反向传播都需要调用它自己的函数而非通�
 
 目前在MindSpore Federated中，上述功能是通过在`mindspore_federated.vfl_model.FLModel()`定义时传入`grad_network`来实现自定义的反向传播流程的。因此，要实现含有TEE的网络，用户可以在`grad_network`中定义好Top Model和Cut Layer的反向传播流程并传入`FLModel`即可，在反向传播时`FLModel`就会走用户自定义的训练流程。
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单线程案例为例，介绍在纵向联邦模型中配置TEE保护的具体操作方法。介绍的内容主要针对使用TEE时配置上和通常情况下的不同点，相同点则会略过（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)）。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，介绍在纵向联邦模型中配置TEE保护的具体操作方法。介绍的内容主要针对使用TEE时配置上和通常情况下的不同点，相同点则会略过（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)）。
 
 ### 前置需要&环境配置
 
@@ -129,9 +128,12 @@ TEE层的正向传播、反向传播都需要调用它自己的函数而非通�
 
 #### 正向传播
 
-和通常的vFL训练相同，使用者在定义含有TEE的网络模型时需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
+和通常的vFL训练相同，使用者需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
 
 ```python
+from mindspore_federated._mindspore_federated import init_tee_cut_layer, backward_tee_cut_layer, \
+    encrypt_client_data, secure_forward_tee_cut_layer
+
 class TeeLayer(nn.Cell):
     """
     TEE layer of the leader net.

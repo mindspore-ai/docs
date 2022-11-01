@@ -1,4 +1,4 @@
-# Vertical Federated - Feature Protection Based on Trusted Execution Environment (TEE)
+# Vertical Federated - Feature Protection Based on Trusted Execution Environment
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -24,14 +24,14 @@ The gradient is passed backward similarly, Cut Layer computes the gradient $\nab
 
 ## Quick Experience
 
-We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of configuring TEE protection.
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of configuring TEE protection.
 
 ### Front-End Needs and Environment Configuration
 
 1. Environmental requirements.
 
    - Processor: Intel SGX (Intel Sofrware Guard Extensions) support required
-   - OS: openEuler 21.03, openEuler 20.03 LTS SP2 or higher
+   - OS: openEuler 20.03, openEuler 21.03 LTS SP2 or higher
 
 2. Install SGX and SecGear (you can refer to [secGear official website](https://gitee.com/openeuler/secGear)).
 
@@ -43,7 +43,7 @@ We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](ht
    mkdir debug && cd debug && cmake .. && make && sudo make install
    ```
 
-3. To install MindSpore 1.8.1 or later in a Python environment, please refer to the [MindSpore Official Site Installation Guide](https://www.mindspore.cn/install).
+3. Install MindSpore 1.8.1 or its higher version, please refer to the [MindSpore Official Site Installation Guide](https://www.mindspore.cn/install).
 
 4. Download federated
 
@@ -53,11 +53,10 @@ We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](ht
 
 5. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
 
-6. Install MindSpore Federated for TEE compilation (before running the compilation script, you need to additionally set the MS_ENABLE_SGX environment variable to indicate whether to use SGX or not).
+6. Install MindSpore Federated for TEE compilation (need to additionally set compiler options to indicate whether to use SGX or not).
 
    ```sh
-   export MS_ENABLE_SGX=ON
-   sh federated/build.sh
+   sh federated/build.sh -s on
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
@@ -74,12 +73,12 @@ We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](ht
 2. Run the script
 
    ```sh
-   sh run_vfl_train_TEE.sh
+   sh run_vfl_train_local_tee.sh
    ```
 
 ### Viewing Results
 
-Check loss changes of the model training in the training log `log_local_cpu_custom.txt`.
+Check loss changes of the model training in the training log `log_local_cpu_tee.txt`.
 
 ```sh
 INFO:root:epoch 0 step 100/41322 wide_loss: 0.661822 deep_loss: 0.662018
@@ -119,7 +118,7 @@ Usually, the Top Model and Cut Layer are put together for the backpropagation of
 
 Currently in MindSpore Federated, the above function is used to implement a custom backward propagation process by passing `grad_network` into the `mindspore_federated.vfl_model.FLModel()` definition. Therefore, to implement a network containing TEE, the user can define the backward propagation process for Top Model and Cut Layer in `grad_network` and just pass in `FLModel`, and `FLModel` will go through the user-defined training process during backward propagation.
 
-We use the single-thread case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to configure TEE protection in a vertical federated model. The presentation focuses on the differences between the configuration and the usual case when using TEE, and the same points will be skipped (a detailed description of vFL training can be found in [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html).
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to configure TEE protection in a vertical federated model. The presentation focuses on the differences between the configuration and the usual case when using TEE, and the same points will be skipped (a detailed description of vFL training can be found in [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html).
 
 ### Front-End Needs and Environment Configuration
 
@@ -132,6 +131,9 @@ Refer to [Quick Experience](#quick-experience).
 As usual vFL training, users need to define a network model containing TEE based on the `nn.Cell` provided by MindSpore (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) to develop the training network. The difference is that at the layer where the TEE is located, the user needs to call the TEE forward propagation function in the `construct` function of the class:
 
 ```python
+from mindspore_federated._mindspore_federated import init_tee_cut_layer, backward_tee_cut_layer, \
+    encrypt_client_data, secure_forward_tee_cut_layer
+
 class TeeLayer(nn.Cell):
     """
     TEE layer of the leader net.
