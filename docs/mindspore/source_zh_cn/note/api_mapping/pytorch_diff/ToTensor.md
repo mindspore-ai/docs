@@ -32,7 +32,6 @@ MindSpore：输入为PIL类型的图像或<H, W, C>格式且取值在[0, 255]范
 import numpy as np
 from PIL import Image
 from torchvision import transforms
-from mindspore.dataset import py_transforms
 import mindspore.dataset.vision as vision
 
 # In MindSpore, ToTensor convert PIL Image into numpy array.
