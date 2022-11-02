@@ -40,6 +40,8 @@ To simulate the FIFO characteristics of a circular queue, we use two cursors to 
 3. After continuing to insert a batch_size of 4, the queue is full and the count is 6.
 4. After continuing to insert a batch_size of 2, overwrite updates the old data and adds 2 to the head.
 
+![insert schematic diagram](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/images/insert.png)
+
 #### 2 Search
 
 The search method accepts an index as an input, indicating the specific location of the data to be found. The output is a set of Tensor, as shown in the following figure:
@@ -54,10 +56,12 @@ The search method accepts an index as an input, indicating the specific location
 The sampling method has no input and the output is a set of Tensor with the size of the batch_size when the UniformReplayBuffer is created. This is shown in the following figure:
 Assuming that batch_size is 3, a random set of indexes will be generated in the operator, and this random set of indexes has two cases:
 
-1. Packet ordering: each index means the real data position, which needs to be remapped by cursor operation.
-2. No packet ordering: each index does not represent the real position and is obtained directly.
+1. Order preserving: each index means the real data position, which needs to be remapped by cursor operation.
+2. No order preserving: each index does not represent the real position and is obtained directly.
 
-Both approaches have a slight impact on randomness, and the default is to use no-packet ordering to get the best performance.
+Both approaches have a slight impact on randomness, and the default is to use no order preserving to get the best performance.
+
+![sample schematic diagram](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/images/sample.png)
 
 ## UniformReplayBuffer Introduction of MindSpore Reinforcement Learning
 
