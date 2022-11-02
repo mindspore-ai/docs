@@ -12,7 +12,7 @@
 
 ## MindSpore Reinforcement Learning 的 ReplayBuffer 实现
 
-一般情况下，算法人员使用原生的Python数据结构或Numpy的数据结构来构造ReplayBuffer, 或者一般的强化学习框架也提供了标准的API封装。不同的是，MindSpore实现了设备端的ReplayBuffer结构，一方面能在使用GPU硬件时减少数据在Host和Device之间的频繁拷贝，另一方面，以MindSpore算子的形式表达ReplayBuffer，可以构建完整的IR图，使能MindSpore GRAPH_MODE的各种图优化，提升整体的性能。
+一般情况下，算法人员使用原生的Python数据结构或Numpy的数据结构来构造ReplayBuffer，或者一般的强化学习框架也提供了标准的API封装。不同的是，MindSpore实现了设备端的ReplayBuffer结构，一方面能在使用GPU硬件时减少数据在Host和Device之间的频繁拷贝，另一方面，以MindSpore算子的形式表达ReplayBuffer，可以构建完整的IR图，使能MindSpore GRAPH_MODE的各种图优化，提升整体的性能。
 
 在MindSpore中，提供了两种ReplayBuffer，分别是UniformReplayBuffer和PriorityReplayBuffer，分别用于常用的FIFO存储和带有优先级的存储。下面以UniformReplayBuffer为例介绍实现及使用。
 以一个List的Tensor表示，每个Tensor代表一组按列存储的数据（如一组[state, action, reward]）。新放入UniformReplayBuffer中的数据以FIFO的机制进行内容的更新，具有插入、查找、采样等功能。
@@ -65,7 +65,7 @@
 
 ### UniformReplayBuffer的创建
 
-MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API. 用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/algorithm/dqn/config.py)的配置文件:
+MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API。用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/algorithm/dqn/config.py)的配置文件：
 
 ```python
 'replay_buffer':
