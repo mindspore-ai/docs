@@ -552,7 +552,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ## 通过OpenMPI运行脚本
 
-当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。
+当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#多卡启动方式)查看多卡启动方式在不同平台的支持情况。
 
 ### 单机多卡训练
 
