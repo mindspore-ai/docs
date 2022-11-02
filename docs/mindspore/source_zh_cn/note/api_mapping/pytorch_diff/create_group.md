@@ -12,7 +12,7 @@ torch.distributed.new_group(
 )
 ```
 
-更多内容详见[torch.distributed.new_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.new_group)。
+更多内容详见[torch.distributed.new_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.new_group)。
 
 ## mindspore.communication.create_group
 
@@ -27,3 +27,10 @@ mindspore.communication.create_group(group, rank_ids)
 PyTorch：该接口传入待构建通信域rank列表，指定backend创建指定的通信域，并返回创建的通信域。
 
 MindSpore：该接口传入group名字，以及待构建通信域rank列表，创建一个以传入的group名字为key的通信域，不返回任何值。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | - | group | PyTorch无此参数，MindSpore：group名字|
+| | 参数2 | ranks | rank_ids | 功能一致，参数名有差异|
+| | 参数3 | timeout | - |PyTorch：超时阈值，MindSpore无此参数且需在调用该接口之前配置相应环境变量|
+| | 参数4 | backend | - |PyTorch：集合通信后端，MindSpore无此参数且需在调用该接口之前配置相应环境变量 |
