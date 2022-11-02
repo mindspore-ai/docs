@@ -156,7 +156,7 @@ The customized `to_float` conflicts with the `amp_level` in the model. If the cu
 
 #### Customizing Initialization Parameters
 
-Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/master/advanced/modules/parameter.html#initializing-network-arguments) describes a method of initializing parameters by using API attributes. This section describes a method of initializing parameters by using Cell.
+Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/master/advanced/modules/initializer.html#customized-parameter-initialization) describes a method of initializing parameters by using API attributes. This section describes a method of initializing parameters by using Cell.
 
 For details about the parameters, see [Network Parameters](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
 
