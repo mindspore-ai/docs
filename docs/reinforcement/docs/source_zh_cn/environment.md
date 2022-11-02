@@ -20,7 +20,7 @@
 
 接下来以gym为例，将`env.reset()`封装为一个MindSpore计算图中的算子：
 
-下面的代码中创建了一个`CartPole-v0`的环境，执行`env.reset()`方法，可以看到`state`的类型是`numpy.ndarray`，数据类型和维度分别是`np.float64`和`(4,)`
+下面的代码中创建了一个`CartPole-v0`的环境，执行`env.reset()`方法，可以看到`state`的类型是`numpy.ndarray`，数据类型和维度分别是`np.float64`和`(4,)`。
 
 ```python
 import gym

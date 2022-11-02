@@ -48,6 +48,8 @@ Typical MindSpore Reinforcement Application Scenarios
 
    custom_config_info
    dqn
+   replaybuffer
+   environment
 
 .. toctree::
    :maxdepth: 1
