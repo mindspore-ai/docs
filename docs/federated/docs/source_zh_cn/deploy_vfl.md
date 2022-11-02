@@ -43,7 +43,6 @@ MindSpore纵向联邦支持在x86 CPU、GPU CUDA和Ascend硬件平台上部署�
 ```shell
 git clone https://gitee.com/mindspore/federated.git -b master
 cd federated
-LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:/usr/local/lib:/usr/local/openmpi/lib:/home/nishome/xq/anaconda3/envs/lib/:$LIBRARY_PATH
 bash build.sh
 ```
 
