@@ -26,6 +26,7 @@ MindSpore Tutorial
    :glob:
    :maxdepth: 1
    :caption: Advanced
+   :titlesonly:
 
    advanced/model
    advanced/modules
