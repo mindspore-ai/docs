@@ -154,7 +154,7 @@ model.train(*args, **kwargs)
     model.train(*args, **kwargs)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行)，确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
 import numpy as np
@@ -238,7 +238,7 @@ class HybridParallelNet(nn.Cell):
         #        经过计算：matmul(x, weight)
         #        输出结果shape为(32, 128)的tensor
         # 下面我们手动实现上面的矩阵乘法逻辑
-        # 我们需要手动的指定当前权重的切片的shape,我们希望在matmul的相关维度进行切分。相关维度切分的情况下
+        # 我们需要手动的指定当前权重的切片的shape，我们希望在matmul的相关维度进行切分。相关维度切分的情况下
         # 需要对matmul的结果进行AllReduce操作，确保数值和单机的保持一致
         #
         # 分布式逻辑
@@ -287,7 +287,7 @@ model.train(*args, **kwargs)
 
   ```python
   import mindspore as ms
-  # 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
+  # 设置输入在第1维度上进行切分，此时要求用户确保dataset返回的输入在第1维度上进行切分
   ms.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
   ms.set_auto_parallel_context(dataset_strategy="data_parallel")
