@@ -2,7 +2,7 @@
 
 [Introduction](https://www.mindspore.cn/tutorials/en/r1.9/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/r1.9/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.9/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.9/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/r1.9/beginner/infer.html)
 
-# Quick Start: Linear Fitting
+# Quick Start
 
 This section quickly implements a simple deep learning model through MindSpore APIs. For a deeper understanding of how to use MindSpore, see the reference links provided at the end of each section.
 
