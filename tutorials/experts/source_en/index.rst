@@ -60,6 +60,7 @@ For Experts
    :glob:
    :maxdepth: 1
    :caption: Debugging and Tuning
+   :titlesonly:
 
    debug/function_debug
    debug/performance_optimization
@@ -69,6 +70,7 @@ For Experts
    :glob:
    :maxdepth: 1
    :caption: Distributed Parallel
+   :titlesonly:
 
    parallel/introduction
    parallel/distributed_case
