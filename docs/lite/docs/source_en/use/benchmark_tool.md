@@ -198,7 +198,7 @@ When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache re
 
 ### Dump
 
-Benchmark tool provides Dump function (currently only supports `CPU` operator), which saves the input and output data of the operator in the model to a disk file. These files can be used to locate the problem of abnormal accuracy during the model inference process.
+Benchmark tool provides Dump function (currently only supports `CPU` and mobile `GPU` operators), which saves the input and output data of the operator in the model to a disk file. These files can be used to locate the problem of abnormal accuracy during the model inference process.
 
 #### Dump Step
 

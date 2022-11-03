@@ -198,7 +198,7 @@ Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.17900
 
 ### Dump功能
 
-Benchmark工具提供Dump功能（目前仅支持`CPU`算子），将模型中的算子的输入输出数据保存到磁盘文件中，可用于定位模型推理过程中精度异常的问题。
+Benchmark工具提供Dump功能（目前仅支持`CPU`和移动端`GPU`算子），将模型中的算子的输入输出数据保存到磁盘文件中，可用于定位模型推理过程中精度异常的问题。
 
 #### Dump操作步骤
 
