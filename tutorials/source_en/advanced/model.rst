@@ -8,9 +8,8 @@ Advanced Encapsulation: Model
   :maxdepth: 1
   :hidden:
 
-  model/metric
-  model/model
   model/callback
+  model/metric
 
 Generally, defining a training and evaluation network and running it directly can meet basic requirements.
 
