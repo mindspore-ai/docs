@@ -9,10 +9,12 @@
 
     参数：
         - **参数1** (Tensor) – 参数1说明。
-        - **参数2** (int) – 参数2说明。
+        - **参数2** (int, 可选) – 参数2说明。默认值：None。
 
           - **二级参数1** (int) – 二级参数1说明。（注意：二级参数需要和上面一级参数的“*”对齐。）
           - **二级参数2** (int) – 二级参数2说明。
+
+        - **参数3** (bool, 可选) – 参数3说明。默认值：True。
 
     返回：
         返回说明。
@@ -77,14 +79,14 @@
 
 ```text
 .. note::
-    此处描述具体需要注意的部分。
+    此处描述具体需要注意的部分，前面需缩进四格。
 ```
 
 ## Warning
 
 ```text
 .. warning::
-    此处描述具体需要警告的部分。
+    此处描述具体需要警告的部分，前面需缩进四格。
 ```
 
 ## 引入其他部分
@@ -97,14 +99,30 @@
 
 引用其他`.rst`或`.txt`文件的内容，其中`{relative_file_path.rst}`为待引用文件的相对路径。
 
-## 注意事项
+## 内容注意事项
+
+1. 类（class，如mindspore.nn模块）文档中包含参数、输入、输出、异常；函数（function，如mindspore.ops.function模块）和方法（method，如mindspore.Tensor中的方法）文档中包含参数、返回、异常。
+
+2. 参数模块：
+
+    - 参数顺序需与API定义中的参数顺序保持一致。
+    - 如果是可选参数，需在参数数据类型后面增加“可选”字样，在结尾说明默认值并根据需要解释其含义。
+    - API定义中若含有 ``*`` 项，则 ``*`` 之后的参数需单独写至“关键字参数”模块中，写法与其他参数一致。
+
+3. 异常模块：将同类异常放在一起。
+
+## 其他格式注意事项
 
 1. 链接的用法：
 
     如果链接文本是网址，语法如下：
 
     ```text
-    `tensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>`_
+    `链接文本 <超链接URL>`_
+
+    例：
+
+    请参考 `tensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>`_ 。
     ```
 
     请注意，链接文本和 URL 的开头 < 之间必须有一个空格，且整体的前后需要有空格。
@@ -138,11 +156,13 @@
 
     e. Raises翻译为“异常”。
 
+    f. Keyword Args翻译为“关键字参数”。
+
 5. 常用特殊字符标记：
 
-    - 星号： 写法为： \*text\* 是强调 (斜体), 效果为：*text*
-    - 双星号： 写法为：\*\*text\*\* 重点强调 (加粗),  效果为：**text**
-    - 反引号： 写法为：\`\`text\`\` 代码样式,  效果为：``text``
+    - 星号： 写法为： \*text\* 是强调 (斜体)，效果为：*text*
+    - 双星号： 写法为：\*\*text\*\* 重点强调 (加粗)，效果为：**text**
+    - 反引号： 写法为：\`\`text\`\` 代码样式，效果为：``text``
 
     标记需注意的一些限制：
 
@@ -155,15 +175,17 @@
 7. 当前rst文档作为整个API的文档页面时，需要添加标题，且标题名称为当前接口的全名；当前rst文档作为其他rst文档的引用时，不需要添加标题。
 8. `mindspore.train`和`mindspore.nn.transformer`模块下的接口，需要将每个API的文档分别放于`train`和`transformer`目录下，并在`mindspore.train.rst`和`mindspore.nn.transformer.rst`文件中通过`.. include::`的写法将接口引入过来；其他模块下的接口结构参考英文的API文档。
 
-9. 引入类的用法
+9. 引用类/函数的用法
 
     ```text
 
     :class:`类的全称`
 
+    :func:`函数的全称`
+
     ```
 
-    a. 引用其他类的内容，类的全称类似于mindspore.nn.Metric，包含一级二级类别的名称。
+    a. 引用其他类的内容，类的全称类似于mindspore.nn.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
 
