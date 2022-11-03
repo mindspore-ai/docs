@@ -84,7 +84,7 @@ MSTensorHandle MSTensorClone(MSTensorHandle tensor)
 void MSTensorSetName(MSTensorHandle tensor, const char* name)
 ```
 
-设置MSTensor的名称。所有参数参数不能为空，若为空则不会做任何操作，并在日志中输出错误信息。
+设置MSTensor的名称。所有参数不能为空，若为空则不会做任何操作，并在日志中输出错误信息。
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
@@ -218,7 +218,7 @@ const void* MSTensorGetData(const MSTensorHandle tensor)
 void* MSTensorGetMutableData(const MSTensorHandle tensor)
 ```
 
-获取可变的MsTensor的数据。
+获取可变的MSTensor的数据。
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
