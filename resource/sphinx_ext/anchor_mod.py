@@ -16,7 +16,7 @@ def short_title(titlename):
         titlename = titlename.replace(j, '')
     for k in spec_symbol:
         titlename = titlename.replace(k, ' ')
-    titlename = titlename.replace('  ', ' ').replace(' ', '-')
+    titlename = titlename.replace('  ', ' ').replace(' ', '-').replace('"', '')
 
     return titlename
 '''
@@ -30,6 +30,9 @@ def dupname(node, name):
 """
 
 before = "            node['ids'].append(id)"
+
+# Replace the content of the generated anchor point.
+# For general processing, just use short_ Title, lowercase and non Chinese title anchors will be processed separately.
 after = """\
         import re
         flag = 0
@@ -46,7 +49,10 @@ after = """\
                 if not zhcnPattern and origin_id==origin_id.lower():
                     flag = 1
         if flag==1:
-            node['ids'].append(origin_id.replace(".","-").replace("_","-").replace("::","-").replace(" ","-"))
+            rep_symbol = "._:"
+            for s in rep_symbol:
+                origin_id = origin_id.replace(s,'-')
+            node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-"))
         else:
             node['ids'].append(id)"""
 
