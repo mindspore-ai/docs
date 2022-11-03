@@ -263,6 +263,18 @@ model = Model(net)
 model.train(*args, **kwargs)
 ```
 
+## 多卡启动方式
+
+目前GPU和Ascend分别支持多种启动方式。主要有OpenMPI和多进程启动方式两种。
+
+- 多进程启动方式。用户需要启动和卡数对应的进程，以及配置rank_table表。可以访问[运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本)，学习如何通过多进程方式启动多卡任务。
+- OpenMPI。用户可以通过mpirun命令来启动运行脚本，此时用户需要提供host file文件。用户可以访问[通过OpenMPI运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本)，学习如何使用OpenMPI启动多卡任务。
+
+|              | GPU  |  Ascend|
+| ------------ | ---- | -----  |
+|  OpenMPI     | 支持  |  支持  |
+|  多进程启动    | 不支持|  支持  |
+
 ## 数据导入方式
 
 在并行训练中，支持三种数据的导入方式：
