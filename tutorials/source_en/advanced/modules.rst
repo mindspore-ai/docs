@@ -6,6 +6,7 @@ Model Module Customization
 
 .. toctree::
   :maxdepth: 1
+  :hidden:
   
   modules/layer
   modules/initializer
