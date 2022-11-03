@@ -126,28 +126,28 @@ Description of the Interface Related to the Feature
 | category    |                           |                       |                       |
 |             |                           |                       |                       |
 +=============+===========================+=======================+=======================+
-| Auto-       | set_auto_paralle          | Specify the           | Automatic             |
-| parallel    | _context(search\_         | policy search         | parallel allows       |
-|             | ode=mode)                 | algorithm, with a     | the user to           |
+| Auto-\      | set_auto_paralle\         | Specify the           | Automatic             |
+| parallel    | _context(search\_\        | policy search         | parallel allows       |
+|             | mode=mode)                | algorithm, with a     | the user to           |
 |             |                           | value of type         | search for            |
 |             |                           | string, and the       | sharding strategy     |
 |             |                           | optional value:       | without               |
 |             |                           | 1.                    | configuring or        |
-|             |                           | “sharding_propaga     | configuring a         |
+|             |                           | “sharding_propaga\    | configuring a         |
 |             |                           | tion”:                | small number of       |
 |             |                           | indicate a policy     | operators, and        |
 |             |                           | search by using       | the framework         |
 |             |                           | sharding strategy     | searches for the      |
 |             |                           | propagation           | sharding              |
 |             |                           | algorithm;2.          | strategy.             |
-|             |                           | “dynamic_programm     |                       |
+|             |                           | “dynamic_programm\    |                       |
 |             |                           | ing”:                 |                       |
 |             |                           | indicate the use      |                       |
 |             |                           | of dynamic            |                       |
 |             |                           | programming           |                       |
 |             |                           | algorithms for        |                       |
 |             |                           | policy search;3.      |                       |
-|             |                           | “recursive_progra     |                       |
+|             |                           | “recursive_progra\    |                       |
 |             |                           | mming”:               |                       |
 |             |                           | indicate the use      |                       |
 |             |                           | of a double           |                       |
@@ -155,8 +155,8 @@ Description of the Interface Related to the Feature
 |             |                           | algorithm for         |                       |
 |             |                           | policy search;        |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-|             | set_algo_paramet          | Whether operators     | If the operator       |
-|             | rs(fully_use_dev          | need to be split      | is split into all     |
+|             | set_algo_paramet\         | Whether operators     | If the operator       |
+|             | rs(fully_use_dev\         | need to be split      | is split into all     |
 |             | ces=bool_value)           | across all            | devices, the          |
 |             |                           | devices when          | search space can      |
 |             |                           | setting up search     | be reduced and        |
@@ -166,9 +166,9 @@ Description of the Interface Related to the Feature
 |             |                           | defaults to True.     | strategy is not       |
 |             |                           |                       | globally optimal.     |
 +-------------+---------------------------+-----------------------+-----------------------+
-|             | set_auto_paralle          | Configure the         | Reduce the number     |
-|             | _context(all_red          | gradient              | of operations of      |
-|             | ce_fusion_config          | AllReduce             | the AllReduce         |
+|             | set_auto_paralle\         | Configure the         | Reduce the number     |
+|             | _context(all_red\         | gradient              | of operations of      |
+|             | ce_fusion_config\         | AllReduce             | the AllReduce         |
 |             | config)                   | operator fusion       | communication         |
 |             |                           | strategy with a       | operator and          |
 |             |                           | value of type         | improve               |
@@ -185,8 +185,8 @@ Description of the Interface Related to the Feature
 |             |                           | AllReduce are         |                       |
 |             |                           | fused into 1.         |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-| comm\_      | set_auto_paralle          | Set the fusion        | Reduce the number     |
-| fusion      | _context(comm_fu          | configuration of      | of operations of      |
+| comm\_\     | set_auto_paralle\         | Set the fusion        | Reduce the number     |
+| fusion      | _context(comm_fu\         | configuration of      | of operations of      |
 |             | ion=config)               | the communication     | the                   |
 |             |                           | operator, and         | AllReduce/AllGath     |
 |             |                           | support the           | er/ReduceScatter      |
@@ -199,7 +199,7 @@ Description of the Interface Related to the Feature
 |             |                           | currently. Its        |                       |
 |             |                           | value is of type      |                       |
 |             |                           | dict, such as         |                       |
-|             |                           | comm_fusion={“all     |                       |
+|             |                           | comm_fusion={“all\    |                       |
 |             |                           | reduce”:              |                       |
 |             |                           | {“mode”: “auto”,      |                       |
 |             |                           | “config”: None}}.     |                       |
@@ -257,8 +257,8 @@ Description of the Interface Related to the Feature
 |             |                           | AllReduce are         |                       |
 |             |                           | fused into 1.         |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-| Dataset     | set_auto_parallel         | Configure the         | When the number       |
-| slicing     | _context(dataset\_        | sharding policy       | of samples is         |
+| Dataset     | set_auto_parallel\        | Configure the         | When the number       |
+| slicing     | _context(dataset\_\       | sharding policy       | of samples is         |
 |             | strategy=config)          | for the dataset.      | smaller than the      |
 |             |                           | where config is       | number of cards,      |
 |             |                           | Union[str,            | it can be             |
@@ -292,7 +292,7 @@ Description of the Interface Related to the Feature
 |             |                           | “data_parallel”       |                       |
 |             |                           | mode.                 |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-| Distributed | infer_predict_lay         | Use inference         | Obtain the            |
+| Distributed | infer_predict_lay\        | Use inference         | Obtain the            |
 | inference   | out(\*predict_data)       | data to perform       | sharding              |
 |             |                           | precompilation,       | information of        |
 |             |                           | which outputs the     | the ownership         |
@@ -300,37 +300,37 @@ Description of the Interface Related to the Feature
 |             |                           | information of        | time of               |
 |             |                           | the operator.         | inference.            |
 +-------------+---------------------------+-----------------------+-----------------------+
-|             | load_distributed\_        | Load the              | Load distributed      |
-|             | checkpoint(network,       | distributed           | weights for           |
-|             | checkpoint_filenames,     | weights. Each         | distributed           |
-|             | predict_strategy=None,    | machine needs to      | inference.            |
-|             | train_strategy\_          | pre-place the         |                       |
+|             | load_distributed\_\       | Load the              | Load distributed      |
+|             | checkpoint(network,\      | distributed           | weights for           |
+|             | checkpoint_filenames,\    | weights. Each         | distributed           |
+|             | predict_strategy=None,\   | machine needs to      | inference.            |
+|             | train_strategy\_\         | pre-place the         |                       |
 |             | filename=None)            | full amount of        |                       |
 |             |                           | ckpt. where           |                       |
 |             |                           | network               |                       |
 |             |                           | represents the        |                       |
 |             |                           | inference             |                       |
 |             |                           | network,              |                       |
-|             |                           | checkpoint_filena     |                       |
+|             |                           | checkpoint_filena\    |                       |
 |             |                           | mes                   |                       |
 |             |                           | represents the        |                       |
 |             |                           | checkpoint file,      |                       |
 |             |                           | predict_strategy      |                       |
 |             |                           | is the output of      |                       |
 |             |                           | the                   |                       |
-|             |                           | infer_predict_lay     |                       |
+|             |                           | infer_predict_lay\    |                       |
 |             |                           | out(),                |                       |
 |             |                           | and                   |                       |
-|             |                           | train_strategy_fi     |                       |
+|             |                           | train_strategy_fi\    |                       |
 |             |                           | lename                |                       |
 |             |                           | is the operator       |                       |
 |             |                           | slicing strategy      |                       |
 |             |                           | information saved     |                       |
 |             |                           | during training.      |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-| Functional  | shard(in_strategy,        | Set the sharding      | In PyNative mode,     |
-| operator    | out_strategy,             | strategy of the       | specify that a        |
-| sharding    | device=“Ascend”,          | input and output      | cell instance         |
+| Functional  | shard(in_strategy,\       | Set the sharding      | In PyNative mode,     |
+| operator    | out_strategy,\            | strategy of the       | specify that a        |
+| sharding    | device=“Ascend”,\         | input and output      | cell instance         |
 |             | level=0)                  | tensors of the        | executes in graph     |
 |             | In Cell class             | cell, and the         | mode, and             |
 |             |                           | parallel strategy     | synchronizes the      |
@@ -339,7 +339,7 @@ Description of the Interface Related to the Feature
 |             |                           | propagated by the     | to the specified      |
 |             |                           | sharding              | input-output          |
 |             |                           | strategy.             | sharding              |
-|             |                           | in_strategy/out_s     | strategy, while       |
+|             |                           | in_strategy/out_s\    | strategy, while       |
 |             |                           | trategy               | the rest of the       |
 |             |                           | specify the           | model is still        |
 |             |                           | sharding policy       | executed in           |
