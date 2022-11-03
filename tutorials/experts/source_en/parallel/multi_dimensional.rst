@@ -6,6 +6,7 @@ Multi Dimensional
 
 .. toctree::
   :maxdepth: 1
+  :hidden:
 
   pipeline_parallel
   host_device_training
