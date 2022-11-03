@@ -6,6 +6,7 @@ Other Features
 
 .. toctree::
   :maxdepth: 1
+  :hidden:
 
   sharding_propagation
   parameter_server_training
