@@ -551,7 +551,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ## Running the Script through OpenMPI
 
-Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`.
+Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#multi-card-startup-method) to check the support of multi-card startup method in different platforms.
 
 ### Single-host Training
 

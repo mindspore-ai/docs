@@ -393,7 +393,7 @@ When performing distributed training on a GPU, the method of saving and loading 
 
 ## Training without Relying on OpenMPI
 
-Due to training safety and reliability requirements, MindSpore GPUs also support **distributed training without relying on OpenMPI**.
+Due to training safety and reliability requirements, MindSpore GPUs also support **distributed training without relying on OpenMPI**. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#multi-card-startup-method) to check the support of multi-card startup method in different platforms.
 
 OpenMPI plays the role of synchronizing data and inter-process networking on the Host side in distributed training scenarios. MindSpore replaces openMPI capabilities by **reusing the Parameter Server mode training architecture**.
 
