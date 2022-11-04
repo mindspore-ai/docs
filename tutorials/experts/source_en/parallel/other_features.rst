@@ -10,6 +10,7 @@ Other Features
 
   sharding_propagation
   parameter_server_training
+  pynative_shard_function_parallel
   ms_operator
 
 `Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html>`__
@@ -68,8 +69,8 @@ dimension, and each device reads a part of the picture. This special
 performance supports splitting datasets into specific dimensions to meet
 training requirements in the field of large-format image processing.
 
-Functional Operator Splitting
------------------------------
+`Functional Operator Splitting <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html>`__
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 In dynamic graph mode, you specify that a part of the network structure
 executes in graph mode and performs various parallel operations.

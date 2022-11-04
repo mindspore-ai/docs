@@ -47,15 +47,15 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
     return shard_fn(fn, in_strategy, out_strategy, device, level)
 ```
 
-`in_strategy(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，对应的切分策略将自动推导生成。
+`in_strategy(tuple)`：指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，对应的切分策略将自动推导生成。
 
-`out_strategy(None, tuple)`: 指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
+`out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
 
-`parameter_plan(None, dict)`: 指定各参数的切分策略，传入字典时，键是str类型的参数名，值是1维整数tuple表示相应的切分策略， 如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
+`parameter_plan(None, dict)`：指定各参数的切分策略，传入字典时，键是str类型的参数名，值是1维整数tuple表示相应的切分策略，如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
 
-`device(string)`: 指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
+`device(string)`：指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
 
-`level(int)`: 指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0，目前尚未使能，后续会开放。
+`level(int)`：指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0，目前尚未使能，后续会开放。
 
 ### 导入相关包并设定执行模式
 
@@ -157,13 +157,13 @@ class Net(nn.Cell):
             return x
     ```
 
-    如此执行会遇到报错
+    如此执行会遇到报错：
 
     ```text
     TypeError: For 'Cell', the type of block1 should be cell, but got function.
     ```
 
-    正确使用方式如下
+    正确使用方式如下：
 
     ```python
     class Net2(Net):
@@ -227,7 +227,7 @@ print('result.shape:', result.shape)
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)。
 
-Ascend分布式相关的环境变量有:
+Ascend分布式相关的环境变量有：
 
 - RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)获取。
 - DEVICE_ID：当前卡在机器上的实际序号。
