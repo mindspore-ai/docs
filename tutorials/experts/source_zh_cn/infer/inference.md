@@ -93,7 +93,7 @@ print("============== {} ==============".format(acc))
 首先构建模型，然后使用`mindspore_hub.load`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
 
 ```python
-model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
+model_uid = "mindspore/1.9/googlenet_cifar10"  # using GoogleNet as an example.
 network = mindspore_hub.load(model_uid, num_classes=10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
