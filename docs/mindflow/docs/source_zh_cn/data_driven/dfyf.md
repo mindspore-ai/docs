@@ -1,5 +1,7 @@
 # AI工业流体仿真模型——东方·御风
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindflow/docs/source_zh_cn/data_driven/dfyf.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 **“东方·御风”** 是基于昇腾AI打造的面向大型客机翼型流场高效高精度AI预测仿真模型， 并在昇思MindSpore流体仿真套件的支持下，有效提高了对复杂流动的仿真能力，仿真时间缩短至原来的二十四分之一，减小风洞实验的次数。同时，“东方·御风”对流场中变化剧烈的区域可进行精准预测，流场平均误差降低至万分之一量级，达到工业级标准。  

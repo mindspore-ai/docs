@@ -1,5 +1,7 @@
 # Solve Inverse Problems of Differential Equations with PDE-Net and Realize Long-Term Prediction
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindflow/docs/source_en/physics_plus_data_driven/pdenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
 ## Overview
 
 PDE-Net is a feedforward deep network proposed by Zichao Long et al. to learn partial differential equations from data, predict the dynamic characteristics of complex systems accurately and uncover potential PDE models. The basic idea of PDE-Net is to approximate differential operators by learning convolution kernels (filters). Neural networks or other machine learning methods are applied to fit unknown nonlinear responses. Numerical experiments show that the model can identify the observed dynamical equations and predict the dynamical behavior over a relatively long period of time, even in noisy environments. More information can be found in [the original paper](https://arxiv.org/abs/1710.09668).
