@@ -183,14 +183,14 @@ When the compiling cache is turned on, the time consumption of the second execut
 
 ## Optimizing Compiling Performance with vmap
 
-It is currently known that MindSpore supports the vmap, which can be used instead of a for loop to optimize compiling performance when batch data without dependencies is processed and the associated operator supports the vmap. For detailed introduction, refer to [vmap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.vmap.html). It should be noted that vmap optimizes not only compiling performance, but also runtime performance.
+It is currently known that MindSpore supports the vmap, which can be used instead of a for loop to optimize compiling performance when batch data without dependencies is processed and the associated operator supports the vmap. For detailed introduction, refer to [vmap](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.vmap.html). It should be noted that vmap optimizes not only compiling performance, but also runtime performance.
 
 A sample code that uses vmap instead of a for loop to process batch data to optimize compiling performance is as follows:
 
 ```python
 import numpy as np
 import time
-from mindspore import ops
+from mindspore import ops, vmap
 import mindspore as ms
 
 def hswish_func(x):
@@ -210,7 +210,7 @@ x = ms.Tensor(x_np)
 x = ops.sub(x, 0)
 
 start_time = time.time()
-output_vmap = ops.vmap(hswish_func, in_axes=(0,))(x)
+output_vmap = vmap(hswish_func, in_axes=(0,))(x)
 end_time = time.time()
 print("vmap cost time:", end_time - start_time)
 
