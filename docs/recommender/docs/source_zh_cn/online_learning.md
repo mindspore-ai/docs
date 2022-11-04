@@ -96,7 +96,7 @@ tar -xzf kafka_2.13-3.2.0.tar.gz
 cd kafka_2.13-3.2.0
 ```
 
-如需安装其他版本，请参照https://archive.apache.org/dist/kafka/
+如需安装其他版本，请参照<https://archive.apache.org/dist/kafka/>。
 
 ### 启动kafka-zookeeper
 
@@ -157,11 +157,11 @@ python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --datase
 --map_dict： 稀疏特征列的字典
 ```
 
-consumer为criteo数据集进行特征工程需要3个数据集相关文件: `all_val_max_dict.pkl`, `all_val_min_dict.pkl`, `cat2id_dict.pkl`, `$PATH_TO_VAL_MAX_DICT`, `$PATH_TO_CAT_TO_ID_DICT`, `$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生产对应的.pkl文件。
+consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生产对应的.pkl文件。
 
 ### 启动在线训练
 
-config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore/recommender/blob/master/examples/online_learning/default_config.yaml)
+config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore/recommender/blob/master/examples/online_learning/default_config.yaml)。
 
 单卡训练：
 
