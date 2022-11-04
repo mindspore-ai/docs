@@ -47,7 +47,7 @@ The operator output can be determined only when each step is executed. Therefore
 
 ## if Statement
 
-When defining a network in `GRAPH_MODE` using the `if` statement, pay attention to the following: **When the condition expression is a variable condition, the same variable in different branches must be assigned the same data type.**
+When defining a network in `GRAPH_MODE` using the `if` statement, pay attention to the following: **When the condition expression is a variable condition, the same variable in different branches must be assigned the same data type. For example, the Tensor type variable requires the shape and type to be the same. For shape consistency restrictions, please refer to [ShapeJoin Rules](#shapejoin-rules).**
 
 ### if Statement Under a Variable Condition
 
@@ -336,7 +336,7 @@ print("output:", output)
     IndexError: mindspore/core/abstract/prim_structures.cc:127 InferTupleOrListGetItem] list_getitem evaluator index should be in range[-3, 3), but got 3.
     ```
 
-2. Constraint 2: **When the condition expression in the while statement is a variable condition, the input shape of the operator cannot be changed in the loop body.**
+2. Constraint 2: **When the condition expression in the while statement is a variable condition, the input shape of the operator cannot be changed in the loop body. The data types of variables with the same name inside the loop body and outside the loop body should be the same, for example, Tensor type variables require the same shape and type. For shape consistency restrictions, please refer to [ShapeJoin Rules](#shapejoin-rules).**
 
     MindSpore requires that the input shape of the same operator on the network be determined during graph build. However, changing the input shape of the operator in the `while` loop body takes effect during graph execution.
 
@@ -382,3 +382,44 @@ print("output:", output)
     ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:800 ProcessEvalResults] Cannot join the return values of different branches, perhaps you need to make them equal.
     Shape Join Failed: shape1 = (1), shape2 = (1, 1).
     ```
+
+## ShapeJoin Rules
+
+`unknow_shape` indicates that the length of the corresponding dimension is dynamic in the dynamic shape scenario, and `unknown_rank` indicates that the dimension of the shape is dynamic in the dynamic rank scenario. `shape1` and `shape2` indicate the shapes of the two branches where the Join is performed, respectively. Shape Join will succeed when any of the following rules are met, otherwise a `Shape Join Failed` exception will be reported.
+
+- Rule 1:
+
+    Both shape1 and shape2 dimensions are fixed and both dimensions are equal, and shape1[i] is equal to shape2[i].
+
+- Rule 2:
+
+    Both shape1 and shape2 dimensions are fixed and both dimensions are equal, and at least one of shape1[i] or shape2[i] is unknown_shape.
+
+- Rule 3:
+
+    At least one of the shape1 and shape2 dimensions is dynamic, i.e., shape1 or shape2 is dynamic rank.
+
+- Rule 4:
+
+    The dimensions of shape1 and shape2 are fixed and unequal, with the smaller dimension being m and the larger dimension being n.
+
+    In the 0 to m-1 dimensional range, satisfy:
+
+    1. shape1[i] or shape2[i] are equal.
+
+    2. Both shape1[i] and shape2[i] are unknown_shape.
+
+    In the m to n-1 dimensional range, satisfy: The shape[i] of the larger dimension is unknown_shape.
+
+The following list is an example of the rules for Shape Join.
+
+| shape1 | shape2 | Join Results|
+| :----- | :----- | :------- |
+| (3, 4)| (3, 4)| (3, 4) |
+| (3, 5)| (3, 4)| Join Fail |
+| (3, 4)| (3, 4, 1)| Join Fail |
+| (3, unknown_shape) | (3, 4)| (3, unknown_shape) |
+| unknown_rank | (3, 4)| unknown_rank  |
+| (3, unknown_shape)| (3, unknown_shape, unknown_shape)| unknown_rank |
+| (3, unknown_shape)| (4, unknown_shape, unknown_shape)| Join Fail |
+| (3, unknown_shape)| (3, 4, unknown_shape)| Join Fail |

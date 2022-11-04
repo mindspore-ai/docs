@@ -775,9 +775,7 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
-
-- The number of `if` cannot exceed 100.
+- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
 
 Example 1:
 
@@ -930,13 +928,11 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
+- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
 
 - The `while...else...` statement is not supported.
 
 - If `cond` is not a constant, in while body, the data with type of `Number`, `List`, `Tuple` are not allowed to update and the shape  of `Tensor` data are not allowed to change.
-
-- The number of `while` cannot exceed 100.
 
 Example 1:
 
