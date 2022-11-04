@@ -697,6 +697,6 @@ net_with_loss.set_train()
 net_with_loss.set_grad()
 ```
 
-You can also use the [Model](https://www.mindspore.cn/tutorials/en/master/advanced/model/model.html) interface to encapsulate the network and loss in step 5.
+You can also use the [Model](https://mindspore.cn/tutorials/en/master/advanced/model.html) interface to encapsulate the network and loss in step 5.
 
 Note that you do not need to set `set_train` and `set_grad` when using `Model` to package the network. The framework sets `set_train` and `set_grad` when executing `model.train`.
