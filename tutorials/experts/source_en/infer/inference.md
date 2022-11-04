@@ -93,7 +93,7 @@ Where
 First build the model, then use `mindspore_hub.load` to load the model parameters from the cloud, and pass in the validation dataset to infer. The validation dataset is processed in the same way as the training dataset.
 
 ```python
-model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
+model_uid = "mindspore/1.9/googlenet_cifar10"  # using GoogleNet as an example.
 network = mindspore_hub.load(model_uid, num_classes=10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
