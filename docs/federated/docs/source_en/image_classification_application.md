@@ -307,7 +307,7 @@ Currently, the `3500_clients_bin` folder contains data of 3500 clients. This scr
 
 The following figure shows the accuracy of the test dataset for federated learning on 50 clients (set `server_num` to 16).
 
-![lenet_50_clients_acc](images/lenet_50_clients_acc.png)
+![lenet_50_clients_acc](images/lenet_50_clients_acc_en.png)
 
 The total number of federated learning iterations is 100, the number of epochs for local training on the client is 20, and the value of batchSize is 32.
 
