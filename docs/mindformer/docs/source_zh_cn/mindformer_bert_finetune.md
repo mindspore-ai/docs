@@ -1,5 +1,7 @@
 # 使用Mindformer中的BERT微调
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindformer/docs/source_zh_cn/mindformer_bert_finetune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 背景
 
 通常用户在完成模型的预训练之后，需要在下游任务数据集上进行微调，从而满足更加细化的任务的要求。库中提供了完整的下有任务微调模板，本文演示了如何使用库中的BERT模型进行下游任务微调的过程。

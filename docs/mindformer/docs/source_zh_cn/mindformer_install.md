@@ -1,5 +1,7 @@
 # 确认系统环境信息
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindformer/docs/source_zh_cn/mindformer_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 - 硬件平台支持Ascend，GPU和CPU。
 - 确认安装[Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5版本。
 - Mindformer与MindSpore的版本需保持一致。目前配套关系如下
