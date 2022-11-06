@@ -28,21 +28,21 @@
 
   例如：`export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
 
-    - `start`：设置为`true`，表示使能Profiler；设置成`false`，表示关闭性能数据收集，默认值："false"。
+    - `start`：设置为"True"，表示使能Profiler；设置成"False"，表示关闭性能数据收集，默认值："False"。
     - `output_path`（可选）：需要设置为绝对路径，不设置则默认在当前路径创建data目录存储性能数据。
-    - `sync_enable`（可选）：是否开启算子异步执行模式，默认值："true"。
+    - `sync_enable`（可选）：Profiler是否用同步的方式收集算子耗时，默认值："True"。
 
 - 方式二：修改训练脚本
 
   在训练脚本中添加MindSpore Profiler相关接口。  
 
-  - `set_context`之后，初始化MindSpore `Profiler`对象。
+  - `set_context`之后，初始化MindSpore `Profiler`对象，Profiler开启收集性能数据。
 
       > GPU多卡场景需要在`set_auto_parallel_context`之后初始化`Profiler`对象。
       >
-      > GPU场景下初始化Profiler对象时只有output_path参数有效。
+      > Profiler支持的参数可以参考： [Profiler API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
 
-  - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
+  - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
   启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本)。
 
@@ -52,22 +52,26 @@
 
   ```python
   import mindspore as ms
+
   class StopAtStep(ms.Callback):
       def __init__(self, start_step, stop_step):
           super(StopAtStep, self).__init__()
           self.start_step = start_step
           self.stop_step = stop_step
           self.profiler = Profiler(start_profile=False)
+
       def step_begin(self, run_context):
           cb_params = run_context.original_args()
           step_num = cb_params.cur_step_num
           if step_num == self.start_step:
               self.profiler.start()
+
       def step_end(self, run_context):
           cb_params = run_context.original_args()
           step_num = cb_params.cur_step_num
           if step_num == self.stop_step:
               self.profiler.stop()
+
       def end(self, run_context):
           self.profiler.analyse()
   ```

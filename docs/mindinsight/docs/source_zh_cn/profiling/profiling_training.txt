@@ -27,17 +27,16 @@
 
   在训练脚本中添加MindSpore Profiler相关接口。
 
-  - 在训练开始前，初始化MindSpore ``Profiler``\ 对象。
+  - 在训练开始前，初始化MindSpore ``Profiler``\ 对象，Profiler开启收集性能数据。
 
   .. note::
       Profiler支持的参数可以参考：
       `Profiler API <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
+      Profiler初始化之前需要确定device_id。
 
   - 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
 
-  Profiler可以通过start_profile参数控制是否基于step（epoch）开启、关闭收集性能数据。对于图模式的数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
-
-  正常场景样例代码如下：
+  场景样例代码如下：
 
   .. code:: python
 
@@ -73,7 +72,7 @@
 
          # Init Profiler
          # Note that the Profiler should be initialized before model.train
-         profiler = ms.Profiler(output_path = './profiler_data')
+         profiler = ms.Profiler(output_path='./profiler_data')
 
          # Train Model
          net = Net()
@@ -82,29 +81,34 @@
          # Profiler end
          profiler.analyse()
 
-  图模式：
+  用户可以通过设置初始化参数start_profile为False来决定暂时不开启Profiler，然后通过调用start函数来在适当的时机开启Profiler，再调用stop函数停止收集数据，最后调用analyse解析数据。
+  用户可以借助Callback基于step、epoch开启关闭Profiler，只收集制定step或者epoch的数据；在数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
 
-  - 对于非数据下沉，需要基于step开启
+  - 对于非数据下沉，需要基于step开启，`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
 
     .. code:: python
 
         import mindspore as ms
+
         class StopAtStep(ms.Callback):
             def __init__(self, start_step, stop_step):
                 super(StopAtStep, self).__init__()
                 self.start_step = start_step
                 self.stop_step = stop_step
                 self.profiler = ms.Profiler(start_profile=False)
+
             def step_begin(self, run_context):
                 cb_params = run_context.original_args()
                 step_num = cb_params.cur_step_num
                 if step_num == self.start_step:
                     self.profiler.start()
+
             def step_end(self, run_context):
                 cb_params = run_context.original_args()
                 step_num = cb_params.cur_step_num
                 if step_num == self.stop_step:
                     self.profiler.stop()
+
             def end(self, run_context):
                 self.profiler.analyse()
 
@@ -118,31 +122,34 @@
                 self.start_epoch = start_epoch
                 self.stop_epoch = stop_epoch
                 self.profiler = ms.Profiler(start_profile=False)
+
             def epoch_begin(self, run_context):
                 cb_params = run_context.original_args()
                 epoch_num = cb_params.cur_epoch_num
                 if epoch_num == self.start_epoch:
                     self.profiler.start()
+
             def epoch_end(self, run_context):
                 cb_params = run_context.original_args()
                 epoch_num = cb_params.cur_epoch_num
                 if epoch_num == self.stop_epoch:
                     self.profiler.stop()
+                    
             def end(self, run_context):
                 self.profiler.analyse()
 
-  自定义训练：
+  - 自定义训练，`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_
 
-  .. code:: python
+    .. code:: python
 
-     profiler = ms.Profiler(start_profile=False)
-     data_loader = ds.create_dict_iterator()
+       profiler = ms.Profiler(start_profile=False)
+       data_loader = ds.create_dict_iterator()
 
-     for i, data in enumerate(data_loader):
-         train()
-         if i==100:
-             profiler.start()
-         if i==200:
-             profiler.stop()
+       for i, data in enumerate(data_loader):
+           train()
+           if i==100:
+               profiler.start()
+           if i==200:
+               profiler.stop()
 
-     profiler.analyse()
+       profiler.analyse()
