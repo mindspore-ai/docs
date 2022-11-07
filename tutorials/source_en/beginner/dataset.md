@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 We use the **Mnist** dataset as a sample to introduce the loading method by using `mindspore.dataset` .
 
-`mindspore.dataset` provides a large number of dataset loading interfaces. Here we still take Mnist as an example and load it directly by using the downloaded dataset file. The interface provided by `mindspore.dataset` **only supports decompressed datafiles**, so let's remove the compressed file first.
+The interface provided by `mindspore.dataset` **only supports decompressed data files**, so we use the `download` library to download the dataset and decompress it.
 
 ```python
 # Download data from open datasets
