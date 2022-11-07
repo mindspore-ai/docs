@@ -79,7 +79,7 @@ x_ones = ops.ones_like(x_data)
 print(f"Ones Tensor: \n {x_ones} \n")
 
 x_zeros = ops.zeros_like(x_data)
-print(f"Zeros Tensor: \n {x_ones} \n")
+print(f"Zeros Tensor: \n {x_zeros} \n")
 ```
 
 ```text
@@ -87,7 +87,7 @@ Ones Tensor:
  [1 1 1 1]
 
 Zeros Tensor:
- [1 1 1 1]
+ [0 0 0 0]
 ```
 
 ## Tensor Attributes
