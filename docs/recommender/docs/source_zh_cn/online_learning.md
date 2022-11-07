@@ -91,7 +91,7 @@ model.online_train(dataset, callbacks=[TimeMonitor(1), callback, ckpoint_cb], da
 ```bash
 wget https://archive.apache.org/dist/kafka/3.2.0/kafka_2.13-3.2.0.tgz
 
-tar -xzf kafka_2.13-3.2.0.tar.gz
+tar -xzf kafka_2.13-3.2.0.tgz
 
 cd kafka_2.13-3.2.0
 ```
