@@ -140,7 +140,7 @@ class LeNet(nn.Cell):
 
 #### 调用接口进行分布式图切分
 
-此次训练任务我们切分`fc1`到`Worker 0`，`fc2`到`Worker 1`，fc2到`Worker 2`，`conv1`到`Worker 3`，conv2到`Worker 4`进程。
+此次训练任务我们切分`fc1`到`Worker 0`，`fc2`到`Worker 1`，fc3到`Worker 2`，`conv1`到`Worker 3`，conv2到`Worker 4`进程。
 
 在`LeNet.__init__`函数中，添加以下切图语句，即可做到分布式图切分：
 
