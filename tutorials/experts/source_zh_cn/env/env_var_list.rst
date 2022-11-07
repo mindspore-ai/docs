@@ -390,3 +390,10 @@ Dump功能
 
        子图名字（如kernel_graph_1）：跳过子图kernel_graph_1的执行，用于子图下沉模式
      - 
+   * - MS_DEV_SAVE_GRAPTHS_SORT_MODE
+     - 选择生成ir文件的图打印排序方式
+     - Integer
+     - 0: 打印默认ir文件
+
+       1: 打印异序ir文件
+     - 

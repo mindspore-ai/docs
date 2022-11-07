@@ -11,7 +11,7 @@ MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的一些中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
-- dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
+- 通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`可以生成的ir后缀结尾的IR文件：格式跟默认的ir文件基本相同，但是生成的异序ir文件的图的生成与打印顺序和默认ir文件不同。
 - dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 文法定义

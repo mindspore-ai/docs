@@ -4,15 +4,14 @@
 
 ## 概述
 
-在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
+在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
-- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
-- dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
-- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`打印异序排序方式的ir文件。可以通过将该环境变量设置为其他值来切换为打印原来的排序方式的ir文件。
+- dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=True, save_graph_dot=True)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
 
-通过`set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有三种格式，一个是后缀名为`.ir`的文本格式，一个是后缀名为`.dat`的文本格式，一个是后缀名为`.dot`的图形化格式。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
+通过`set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有两种格式，默认保存后缀名为`.ir`的文本格式的ir文件。如果设置`set_context(save_graphs=True, save_graph_dot=True)`会打印后缀名为`.dot`的图形化格式的ir文件。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
 
 `.dot`文件可以通过graphviz转换为图片格式来查看，例如将dot转换为png的命令是`dot -Tpng *.dot -o *.png`。
 
@@ -20,7 +19,7 @@
 
 ```python
 if __name__ == "__main__":
-    set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
+    set_context(save_graphs=True, save_graph_dot=True, save_graphs_path="path/to/ir/files")
 ```
 
 执行训练命令后，在指定的路径下生成了若干个文件：
@@ -28,20 +27,15 @@ if __name__ == "__main__":
 ```text
 .
 ├──00_parse_0000.ir
-├──00_parse_0001.dat
-├──00_parse_0002.dot
-├──01_symbol_resolve_0003.ir
-├──01_symbol_resolve_0004.dat
-├──01_symbol_resolve_0005.dot
-├──02_combine_like_graphs_0006.ir
-├──02_combine_like_graphs_0007.dat
-├──02_combine_like_graphs_0008.dot
-├──03_inference_opt_prepare_0009.ir
-├──03_inference_opt_prepare_0010.dat
-├──03_inference_opt_prepare_0011.dot
-├──04_abstract_specialize_0012.ir
-├──04_abstract_specialize_0013.dat
-├──04_abstract_specialize_0014.dot
+├──00_parse_0001.dot
+├──01_symbol_resolve_0002.ir
+├──01_symbol_resolve_0003.dot
+├──02_combine_like_graphs_0004.ir
+├──02_combine_like_graphs_0005.dot
+├──03_inference_opt_prepare_0006.ir
+├──03_inference_opt_prepare_0007.dot
+├──04_abstract_specialize_0008.ir
+├──04_abstract_specialize_0009.dot
 ...
 ```
 
@@ -97,71 +91,100 @@ print(out)
 
 ### ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0012.ir`，内容如下所示（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0012.ir`，内容如下所示（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 #IR entry      : @1_construct_wrapper.21
-  2 #attrs         :
-  3 #Total params  : 2
-  4
-  5 %para1_x : <Tensor[Float32]x()>
-  6 %para2_y : <Tensor[Float32]x()>
-  7
-  8 #Total subgraph : 3
+  1 #IR entry      : @1_Default_wrapper.24
+  2 #Total subgraph: 3
+  3
+  4 #attrs         :
+  5 #Total params  : 2
+  6
+  7 %para1_x : <Tensor[Float32], ()>
+  8 %para2_y : <Tensor[Float32], ()>
   9
  10 subgraph attr:
- 11 Undeterminate : 0
- 12 subgraph @2_construct.22(%para3_x, %para4_y) {
- 13   %0(a) = Sub(%para3_x, Tensor(shape=[], dtype=Float32, value= 1)) {instance name: sub} primitive_attrs: {input_names: [x, y], output_names: [output]}
- 14       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 15       # In file train.py(34)/        a = self.sub(x, 1)/
- 16   %1(b) = Add(%0, %para4_y) {instance name: add} primitive_attrs: {input_names: [x, y], output_names: [output]}
- 17       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 18       # In file train.py(35)/        b = self.add(a, y)/
- 19   %2([CNode]5) = call @3_func.23(%0, %1)
- 20       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 21       # In file train.py(36)/        c = self.mul(b, self.func(a, b))/
- 22   %3(c) = Mul(%1, %2) {instance name: mul} primitive_attrs: {input_names: [x, y], output_names: [output]}
- 23       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 24       # In file train.py(36)/        c = self.mul(b, self.func(a, b))/
- 25   Return(%3)
- 26       : (<Tensor[Float32]x()>)
- 27       # In file train.py(37)/        return c/
- 28 }
- 29
- 30 subgraph attr:
- 31 Undeterminate : 0
- 32 subgraph @3_func.23(%para5_x, %para6_y) {
- 33   %0([CNode]20) = Div(%para5_x, %para6_y) {instance name: div} primitive_attrs: {input_names: [x, y], output_names: [output]}
- 34       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 35       # In file train.py(31)/        return self.div(x, y)/
- 36   Return(%0)
- 37       : (<Tensor[Float32]x()>)
- 38       # In file train.py(31)/        return self.div(x, y)/
- 39 }
- 40
- 41 subgraph attr:
- 42 subgraph @1_construct_wrapper.21() {
- 43   %0([CNode]2) = call @2_construct.22(%para1_x, %para2_y)
- 44       : (<Tensor[Float32]x()>, <Tensor[Float32]x()>) -> (<Tensor[Float32]x()>)
- 45       # In file train.py(37)/        return c/
- 46   Return(%0)
- 47       : (<Tensor[Float32]x()>)
- 48       # In file train.py(37)/        return c/
- 49 }
+ 11 undeterminate : 0
+ 12 subgraph instance: 2_Default.23 : 0x556cab47cd00
+ 13 # In file testir1.py:19/    def construct(self, x, y):/
+ 14 subgraph @2_Default.23(%para3_x, %para4_y) {
+ 15   %0(a) = Sub(%para3_x, Tensor(shape=[], dtype=Float32, value=1)) {instance name: sub} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 16       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+ 17       # scope: (Default)
+ 18       # In file testir1.py:20/        a = self.sub(x, 1)/
+ 19   %1(b) = Add(%0, %para4_y) {instance name: add} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 20       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 21       # scope: (Default)
+ 22       # In file testir1.py:21/        b = self.add(a, y)/
+ 23   %2([CNode]5) = call @3_func.22(%0, %1)
+ 24       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 25       # scope: (Default)
+ 26       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
+ 27   %3(c) = Mul(%1, %2) {instance name: mul} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 28       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 29       # scope: (Default)
+ 30       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
+ 31   Return(%3)
+ 32       : (<Tensor[Float32], ()>)
+ 33       # scope: (Default)
+ 34       # In file testir1.py:23/        return c/
+ 35 }
+ 36 # order:
+ 37 #   1: @2_Default.23:a{[0]: ValueNode `<PrimitivePy>` Sub, [1]: x, [2]: ValueNode `<Tensor>` Tensor(shape=[], dtype=Float32, value=1)}
+ 38 #   2: @2_Default.23:b{[0]: ValueNode `<PrimitivePy>` Add, [1]: a, [2]: y}
+ 39 #   3: @2_Default.23:[CNode]5{[0]: ValueNode `<FuncGraph>` 3_func.22, [1]: a, [2]: b}
+ 40 #   4: @2_Default.23:c{[0]: ValueNode `<PrimitivePy>` Mul, [1]: b, [2]: [CNode]5}
+ 41 #   5: @2_Default.23:[CNode]17{[0]: ValueNode `<Primitive>` Return, [1]: c}
+ 42
+ 43
+ 44 subgraph attr:
+ 45 undeterminate : 0
+ 46 subgraph instance: 3_func.22 : 0x556cab481200
+ 47 # In file testir1.py:16/    def func(x, y):/
+ 48 subgraph @3_func.22(%para5_x, %para6_y) {
+ 49   %0([CNode]19) = Div(%para5_x, %para6_y) {instance name: div} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 50       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 51       # scope: (Default)
+ 52       # In file testir1.py:17/        return self.div(x, y)/
+ 53   Return(%0)
+ 54       : (<Tensor[Float32], ()>)
+ 55       # scope: (Default)
+ 56       # In file testir1.py:17/        return self.div(x, y)/
+ 57 }
+ 58 # order:
+ 59 #   1: @3_func.22:[CNode]19{[0]: ValueNode `<PrimitivePy>` Div, [1]: x, [2]: y}
+ 60 #   2: @3_func.22:[CNode]21{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]19}
+ 61
+ 62
+ 63 subgraph attr:
+ 64 subgraph instance: 1_Default_wrapper.24 : 0x556cab47b0e0
+ 65 # In file testir1.py:19/    def construct(self, x, y):/
+ 66 subgraph @1_Default_wrapper.24() {
+ 67   %0([CNode]6) = call @2_Default.23(%para1_x, %para2_y)
+ 68       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 69       # scope: (Default)
+ 70   Return(%0)
+ 71       : (<Tensor[Float32], ()>)
+ 72       # scope: (Default)
+ 73       # In file testir1.py:23/        return c/
+ 74 }
+ 75 # order:
+ 76 #   1: @1_Default_wrapper.24:[CNode]6{[0]: ValueNode `<FuncGraph>` 2_Default.23, [1]: x, [2]: y}
+ 77 #   2: @1_Default_wrapper.24:[CNode]18{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]6}
 ```
 
 以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息：
 
-- 第1行告诉了我们该网络的顶图名称 `1_construct_wrapper.21`，也就是入口图。
-- 第3行告诉了我们该网络有多少个输入。
-- 第5-6行是输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。
-- 第8行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第42行的入口图`1_construct_wrapper.21`；第32行的图`3_func.23`，对应着网络中定义的函数`func(x, y)`；第12行的图`2_construct.22`，即对应`construct`函数。
+- 第1行告诉了我们该网络的顶图名称 `1_construct_wrapper.24`，也就是入口图。
+- 第2行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第63行的入口图`1_construct_wrapper.24`；第44行的图`3_func.22`，对应着网络中定义的函数`func(x, y)`；第10行的图`2_construct.23`，即对应`construct`函数。
+- 第5行告诉了我们该网络有多少个输入。
+- 第7-8行是输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。
 
-对于具体的图来说（此处我们以图`2_construct.22`为例）：
+对于具体的图来说（此处我们以图`2_construct.23`为例）：
 
-- 第10-28行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子。
-- 第19行以`call @3_func.23`的形式，调用了图`3_func.23`，对应脚本中调用函数`func`执行两数相除的行为。
+- 第10-41行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子。
+- 第23行以`call @3_func.22`的形式，调用了图`3_func.22`，对应脚本中调用函数`func`执行两数相除的行为。
+- 第36-41行表示图中计算节点的执行序，与代码执行的先后顺序对应。格式为：`序号: 所属图名称:节点名称{[0]: 第一个输入的信息, [1]: 第二个输入的信息, ...}`。 对于`CNode`而言，第一个输入表示该节点承载的计算方式。
 
 `CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
 由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第15行表明该节点是由脚本中`a = self.sub(x, 1)`这一行解析而来。
@@ -182,87 +205,98 @@ print(out)
 > - 经过编译器的若干优化处理后，节点可能经过了若干转换（如算子拆分、算子融合等），节点的源码解析调用栈信息与脚本可能无法完全一一对应，这里仅作为辅助手段。
 > - 在后端经过算子选择阶段后，输入输出规格信息（即`:`后内容）会有两行。第一行表示为`HOST`侧的规格信息，第二行为`DEVICE`侧的规格信息。
 
-### dat文件介绍
+### 异序ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0014.dat`，内容如下所示（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
-
-```text
-  1 # [No.1] 1_construct_wrapper.21
-  2 # In file train.py(33)/    def construct(self, x, y):/
-  3 funcgraph fg_21(
-  4         %para1 : Tensor(F32)[]    # x
-  5         , %para2 : Tensor(F32)[]    # y
-  6     ) {
-  7     %1 : Tensor(F32)[] = FuncGraph::fg_22(%para1, %para2)    #(Tensor(F32)[], Tensor(F32)[])    # fg_22=2_construct.22 #scope: Default
-  8       # In file train.py(37)/        return c/#[CNode]2
-  9     Primitive::Return{prim_type=1}(%1)    #(Tensor(F32)[]) #scope: Default
- 10       # In file train.py(37)/        return c/#[CNode]1
- 11 }
- 12 # order:
- 13 #   1: 1_construct_wrapper.21:[CNode]2{[0]: ValueNode<FuncGraph> 2_construct.22, [1]: x, [2]: y}
- 14 #   2: 1_construct_wrapper.21:[CNode]1{[0]: ValueNode<Primitive> Return, [1]: [CNode]2}
- 15
- 16
- 17 # [No.2] 2_construct.22
- 18 # In file train.py(33)/    def construct(self, x, y):/
- 19 funcgraph fg_22(
- 20         %para3 : Tensor(F32)[]    # x
- 21         , %para4 : Tensor(F32)[]    # y
- 22     ) {
- 23     %1 : Tensor(F32)[] = PrimitivePy::Sub{prim_type=2}[input_names=["x", "y"], output_names=["output"]](%para3, Tensor(43)[])    #(Tensor(F32)[], Tenso    r(F32)[]) #scope: Default
- 24       # In file train.py(34)/        a = self.sub(x, 1)/#a
- 25     %2 : Tensor(F32)[] = PrimitivePy::Add{prim_type=2}[input_names=["x", "y"], output_names=["output"]](%1, %para4)    #(Tensor(F32)[], Tensor(F32)[])     #scope: Default
- 26       # In file train.py(35)/        b = self.add(a, y)/#b
- 27     %3 : Tensor(F32)[] = FuncGraph::fg_23(%1, %2)    #(Tensor(F32)[], Tensor(F32)[])    # fg_23=3_func.23 #scope: Default
- 28       # In file train.py(36)/        c = self.mul(b, self.func(a, b))/#[CNode]5
- 29     %4 : Tensor(F32)[] = PrimitivePy::Mul{prim_type=2}[input_names=["x", "y"], output_names=["output"]](%2, %3)    #(Tensor(F32)[], Tensor(F32)[]) #sco    pe: Default
- 30       # In file train.py(36)/        c = self.mul(b, self.func(a, b))/#c
- 31     Primitive::Return{prim_type=1}(%4)    #(Tensor(F32)[]) #scope: Default
- 32       # In file train.py(37)/        return c/#[CNode]4
- 33 }
- 34 # order:
- 35 #   1: 2_construct.22:a{[0]: ValueNode<PrimitivePy> Sub, [1]: x, [2]: ValueNode<Tensor> Tensor(shape=[], dtype=Float32, value= 1)}
- 36 #   2: 2_construct.22:b{[0]: ValueNode<PrimitivePy> Add, [1]: a, [2]: y}
- 37 #   3: 2_construct.22:[CNode]5{[0]: ValueNode<FuncGraph> 3_func.23, [1]: a, [2]: b}
- 38 #   4: 2_construct.22:c{[0]: ValueNode<PrimitivePy> Mul, [1]: b, [2]: [CNode]5}
- 39 #   5: 2_construct.22:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: c}
- 40
- 41
- 42 # [No.3] 3_func.23
- 43 # In file train.py(30)/    def func(x, y):/
- 44 funcgraph fg_23(
- 45         %para5 : Tensor(F32)[]    # x
- 46         , %para6 : Tensor(F32)[]    # y
- 47     ) {
- 48     %1 : Tensor(F32)[] = PrimitivePy::Div{prim_type=2}[input_names=["x", "y"], output_names=["output"]](%para5, %para6)    #(Tensor(F32)[], Tensor(F32)    []) #scope: Default
- 49       # In file train.py(31)/        return self.div(x, y)/#[CNode]20
- 50     Primitive::Return{prim_type=1}(%1)    #(Tensor(F32)[]) #scope: Default
- 51       # In file train.py(31)/        return self.div(x, y)/#[CNode]19
- 52 }
- 53 # order:
- 54 #   1: 3_func.23:[CNode]20{[0]: ValueNode<PrimitivePy> Div, [1]: x, [2]: y}
- 55 #   2: 3_func.23:[CNode]19{[0]: ValueNode<Primitive> Return, [1]: [CNode]20}
- 56
- 57
- 58 # num of total function graphs: 3
-```
-
-以上内容，从顶图开始，以顺序方式展示了所有图的信息。其中，第1行表示序号为`No.1`，图名为`1_construct_wrapper.21`。在顶图之中，第7行调用了图`2_construct.22`。
-
-图`2_construct.22`的信息位于第17-39行，我们以该图为例展开详细说明：
-
-- 第18行表示该图对应脚本中的函数定义所在的位置。
-- 第20-21行表示图的输入信息，格式为：`%para[序号] : [data_type][shape]    # [name]`.
-- 第23-32行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子，其中第27行表示对另一张图的调用。
-- 第34-39表示图中计算节点的执行序，与代码执行的先后顺序对应。格式为：`序号: 所属图名称:节点名称{[0]: 第一个输入的信息, [1]: 第二个输入的信息, ...}`。 对于`CNode`而言，第一个输入表示该节点承载的计算方式。
-- 第58行表示图的数量，此处为3。
-
-`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、输出规格、算子名称-op_name、节点的属性-attr、输入节点-arg、输入节点的规格、所在的命名空间、关联代码行等信息。
+使用文本编辑软件（例如`vi`）打开在设置了环境变量并执行完后输出的IR文件`04_abstract_specialize_0008.ir`，内容如下所示（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
-%[序号] : [输出规格] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(输入参数规格)#[命名空间]
-  # 关联代码行/#debug_name
+  1 ###Deep Sort Order###
+  2 #IR entry      : @1_Default_wrapper.22
+  3 #Total subgraph: 3
+  4 #attrs         :
+  5
+  6 subgraph attr:
+  7 subgraph instance: 1_Default_wrapper.22 : 0x563578b33c90
+  8 # In file testir1.py:19/    def construct(self, x, y):/
+  9 subgraph @1_Default_wrapper.22(
+ 10         %para1_x : <Tensor[Float32], ()>
+ 11         , %para2_y : <Tensor[Float32], ()>
+ 12     ) {
+ 13   %1([CNode]3) = call @2_Default.23(%para1_x, %para2_y)
+ 14       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 15       #scope: Default
+ 16   Primitive::Return{prim_type=1}(%1)
+ 17       :(<Tensor[Float32], ()>)
+ 18       #scope: Default
+ 19       # In file testir1.py:23/        return c/
+ 20 }
+ 21 # order:
+ 22 #   1: @1_Default_wrapper.22:[CNode]3{[0]: ValueNode `<FuncGraph>` 2_Default.23, [1]: x, [2]: y}
+ 23 #   2: @1_Default_wrapper.22:[CNode]4{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]3}
+ 24
+ 25
+ 26 subgraph attr:
+ 27 subgraph instance: 2_Default.23 : 0x563578b358b0
+ 28 undeterminate : 0
+ 29 # In file testir1.py:19/    def construct(self, x, y):/
+ 30 subgraph @2_Default.23(
+ 31         %para3_x : <Tensor[Float32], ()>
+ 32         , %para4_y : <Tensor[Float32], ()>
+ 33     ) {
+ 34   %1(a) = PrimitivePy::Sub{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%para3_x, Tensor(43)[])
+ 35       :(<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+ 36       #scope: Default
+ 37       # In file testir1.py:20/        a = self.sub(x, 1)/
+ 38   %2(b) = PrimitivePy::Add{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%1, %para4_y)
+ 39       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 40       #scope: Default
+ 41       # In file testir1.py:21/        b = self.add(a, y)/
+ 42   %3([CNode]9) = call @3_func.24(%1, %2)
+ 43       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 44       #scope: Default
+ 45       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
+ 46   %4(c) = PrimitivePy::Mul{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%2, %3)
+ 47       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 48       #scope: Default
+ 49       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
+ 50   Primitive::Return{prim_type=1}(%4)
+ 51       :(<Tensor[Float32], ()>)
+ 52       #scope: Default
+ 53       # In file testir1.py:23/        return c/
+ 54 }
+ 55 # order:
+ 56 #   1: @2_Default.23:a{[0]: ValueNode `<PrimitivePy>` Sub, [1]: x, [2]: ValueNode `<Tensor>` Tensor(shape=[], dtype=Float32, value=1)}
+ 57 #   2: @2_Default.23:b{[0]: ValueNode `<PrimitivePy>` Add, [1]: a, [2]: y}
+ 58 #   3: @2_Default.23:[CNode]9{[0]: ValueNode `<FuncGraph>` 3_func.24, [1]: a, [2]: b}
+ 59 #   4: @2_Default.23:c{[0]: ValueNode `<PrimitivePy>` Mul, [1]: b, [2]: [CNode]9}
+ 60 #   5: @2_Default.23:[CNode]18{[0]: ValueNode `<Primitive>` Return, [1]: c}
+ 61
+ 62
+ 63 subgraph attr:
+ 64 subgraph instance: 3_func.24 : 0x563578b39db0
+ 65 undeterminate : 0
+ 66 # In file testir1.py:16/    def func(x, y):/
+ 67 subgraph @3_func.24(
+ 68         %para5_x : <Tensor[Float32], ()>
+ 69         , %para6_y : <Tensor[Float32], ()>
+ 70     ) {
+ 71   %1([CNode]20) = PrimitivePy::Div{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%para5_x, %para6_y)
+ 72       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 73       #scope: Default
+ 74       # In file testir1.py:17/        return self.div(x, y)/
+ 75   Primitive::Return{prim_type=1}(%1)
+ 76       :(<Tensor[Float32], ()>)
+ 77       #scope: Default
+ 78       # In file testir1.py:17/        return self.div(x, y)/
+ 79 }
+ 80 # order:
+ 81 #   1: @3_func.24:[CNode]20{[0]: ValueNode `<PrimitivePy>` Div, [1]: x, [2]: y}
+ 82 #   2: @3_func.24:[CNode]21{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]20}
 ```
+
+以上内容，从顶图开始，以顺序方式展示了所有图的信息。
+
+相比默认的ir图，除顺序差异，异序ir图的每个图在打印cnode信息之前都打印了每个图的输入的参数信息。以图`1_Default_wrapper.22`为例，其输入参数信息打印在第10-11行。
 
 ### dot文件介绍
 
@@ -355,61 +389,81 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...”。
 表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 1.6，后续版本中内容可能会有一些细微变化）：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 # [No.1] construct_wrapper.0
-  2 # In file test.py(22)/    def construct(self, x, y):/
-  3 funcgraph fg_0(
-  4         %para1 : Tensor(F32)[]    # x
-  5         , %para2 : Tensor(F32)[]    # y
-  6     ) {
-  7
-  8 #------------------------> 0
-  9     %1 = FuncGraph::fg_3(%para1, %para2)    #(Tensor(F32)[], Tensor(F32)[])    # fg_3=construct.3 #scope: Default
- 10       # In file test.py(26)/        return c/#[CNode]2
- 11     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
- 12       # In file test.py(26)/        return c/#[CNode]1
- 13 }
- 14 # order:
- 15 #   1: construct_wrapper.0:[CNode]2{[0]: ValueNode<FuncGraph> construct.3, [1]: x, [2]: y}
- 16 #   2: construct_wrapper.0:[CNode]1{[0]: ValueNode<Primitive> Return, [1]: [CNode]2}
- 17
- 18
- 19 # [No.2] construct.3
- 20 # In file test.py(22)/    def construct(self, x, y):/
- 21 funcgraph fg_3(
- 22         %para3 : Tensor(F32)[]    # x
- 23         , %para4 : Tensor(F32)[]    # y
- 24     ) {
- 25     %1 : Tensor(F32)[] = DoSignaturePrimitive::S-Prim-Sub{prim_type=1}[input_names=["x", "y"], output_names=["output"]](%para3, I64(1))    #(Tensor(F32)[], I64) #scope: Default
- 26       # In file test.py(23)/        a = self.sub(x, 1)/#a
- 27     %2 : Tensor(F32)[] = DoSignaturePrimitive::S-Prim-Add{prim_type=1}[input_names=["x", "y"], output_names=["output"]](%1, %para4)    #(Tensor(F32)[], Tensor(F32)[]) #scope: Default
- 28       # In file test.py(24)/        b = self.add(a, y)/#b
- 29
- 30 #------------------------> 1
- 31     %3 = FuncGraph::fg_18(%1, %1, %2)    #(Tensor(F32)[], Tensor(F32)[], Tensor(F32)[])    # fg_18=func.18 #scope: Default
- 32       # In file test.py(25)/        c = self.mul(b, self.func(a, a, b))/#[CNode]5
- 33     %4 = DoSignaturePrimitive::S-Prim-Mul{prim_type=1}[input_names=["x", "y"], output_names=["output"]](%2, %3)    #(Tensor(F32)[], Undefined) #scope: Default
- 34       # In file test.py(25)/        c = self.mul(b, self.func(a, a, b))/#c
- 35     Primitive::Return{prim_type=1}(%4)    #(Undefined) #scope: Default
- 36       # In file test.py(26)/        return c/#[CNode]4
- 37 }
- 38 # order:
- 39 #   1: construct.3:a{[0]: a, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Float> Float32}
- 40 #   2: construct.3:a{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Sub, [1]: x, [2]: ValueNode<Int64Imm> 1}
- 41 #   3: construct.3:b{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Add, [1]: a, [2]: y}
- 42 #   4: construct.3:[CNode]5{[0]: ValueNode<FuncGraph> func.18, [1]: a, [2]: a, [3]: b}
- 43 #   5: construct.3:c{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Mul, [1]: b, [2]: [CNode]5}
- 44 #   6: construct.3:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: c}
- 45
- 46
- 47 #===============================================================================
- 48 # num of function graphs in stack: 2
+  1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
+  2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  4 # ===============================================================================
+  5
+  6 subgraph attr:
+  7 subgraph instance: Default_wrapper.8 : 0x55b95477d120
+  8 # In file testir1.py:22/    def construct(self, x, y):/
+  9 subgraph @Default_wrapper.8(
+ 10         %para1_x : <Tensor[Float32], ()>
+ 11         , %para2_y : <Tensor[Float32], ()>
+ 12     ) {
+ 13
+ 14 #------------------------> 0
+ 15   %1([CNode]6) = call @Default.7(%para1_x, %para2_y)
+ 16       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (`<null>`)
+ 17       #scope: Default
+ 18   Primitive::Return{prim_type=1}(%1)
+ 19       :(`<null>`)
+ 20       #scope: Default
+ 21       # In file testir1.py:26/        return c/
+ 22 }
+ 23 # order:
+ 24 #   1: @Default_wrapper.8:[CNode]6{[0]: ValueNode `<FuncGraph>` Default.7, [1]: x, [2]: y}
+ 25 #   2: @Default_wrapper.8:[CNode]18{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]6}
+ 26
+ 27
+ 28 subgraph attr:
+ 29 subgraph instance: Default.7 : 0x55b95477c800
+ 30 # In file testir1.py:22/    def construct(self, x, y):/
+ 31 subgraph @Default.7(
+ 32         %para3_x : <Tensor[Float32], ()>
+ 33         , %para4_y : <Tensor[Float32], ()>
+ 34     ) {
+ 35   %1(a) = DoSignaturePrimitive::S-Prim-Sub{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%para3_x, I64(1))
+ 36       :(<Tensor[Float32], ()>, <Int64, NoShape>) -> (<Tensor[Float32], ()>)
+ 37       #scope: Default
+ 38       # In file testir1.py:23/        a = self.sub(x, 1)/
+ 39   %2(b) = DoSignaturePrimitive::S-Prim-Add{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%1, %para4_y)
+ 40       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 41       #scope: Default
+ 42       # In file testir1.py:24/        b = self.add(a, y)/
+ 43
+ 44 #------------------------> 1
+ 45   %3([CNode]5) = call @func.20(%1, %1, %2)
+ 46       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (`<null>`)
+ 47       #scope: Default
+ 48       # In file testir1.py:25/        c = self.mul(b, self.func(a, a, b))/
+ 49   %4(c) = DoSignaturePrimitive::S-Prim-Mul{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%2, %3)
+ 50       :(<Tensor[Float32], ()>, `<null>`) -> (`<null>`)
+ 51       #scope: Default
+ 52       # In file testir1.py:25/        c = self.mul(b, self.func(a, a, b))/
+ 53   Primitive::Return{prim_type=1}(%4)
+ 54       :(`<null>`)
+ 55       #scope: Default
+ 56       # In file testir1.py:26/        return c/
+ 57 }
+ 58 # order:
+ 59 #   1: @Default.7:a{[0]: a, [1]: ValueNode `<Int64Imm>` 1, [2]: ValueNode `<Float>` Float32}
+ 60 #   2: @Default.7:a{[0]: ValueNode `<DoSignaturePrimitive>` S-Prim-Sub, [1]: x, [2]: ValueNode `<Int64Imm>` 1}
+ 61 #   3: @Default.7:b{[0]: ValueNode `<DoSignaturePrimitive>` S-Prim-Add, [1]: a, [2]: y}
+ 62 #   4: @Default.7:[CNode]5{[0]: ValueNode `<FuncGraph>` func.20, [1]: a, [2]: a, [3]: b}
+ 63 #   5: @Default.7:c{[0]: ValueNode `<DoSignaturePrimitive>` S-Prim-Mul, [1]: b, [2]: [CNode]5}
+ 64 #   6: @Default.7:[CNode]17{[0]: ValueNode `<Primitive>` Return, [1]: c}
+ 65
+ 66
+ 67 #===============================================================================
+ 68 # num of function graphs in stack: 2
 ```
 
-`analyze_fail.dat`文件与前文介绍过的.dat文件格式一致，唯一有区别的地方在于`analyze_fail.dat`文件中会指出推导出错的节点所在的位置。
-我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第30行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3 = FuncGraph::fg_18(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看dat文件前文`dat文件介绍`一节中已经介绍，此处不再赘述。
+`analyze_fail.dat`文件与前文介绍过的异序ir文件格式一致，唯一有区别的地方在于`analyze_fail.dat`文件中会指出推导出错的节点所在的位置。
+我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第44行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.20(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看analyze_fail.dat文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
 
@@ -472,7 +526,7 @@ The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_f
 mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
 ```
 
-根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 1.8，后续版本中内容可能会有一些细微变化）：
+根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
@@ -480,52 +534,63 @@ mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
   3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
   4 # ===============================================================================
   5
-  6 # [No.1] construct_wrapper.1
-  7 # In file test.py(15)/  def construct(self, x1):/
-  8 funcgraph fg_1(
-  9         %para1 : Tensor(F32)[3, 32]    # x1
- 10         , %para2 : Ref[Tensor(F32)][4]    # bias
- 11         , %para3 : Ref[Tensor(F32)][32, 8]    # weight
- 12     ) {
- 13
- 14 #------------------------> 0
- 15     %1 = FuncGraph::fg_2(%para1)    #(Tensor(F32)[3, 32])    # fg_2=construct.2 #scope: Default
- 16 #[CNode]3
- 17     Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
- 18       # In file test.py(18)/    return x/#[CNode]4
- 19 }
- 20 # order:
- 21 #   1: construct_wrapper.1:[CNode]3{[0]: ValueNode<FuncGraph> construct.2, [1]: x1}
- 22 #   2: construct_wrapper.1:[CNode]4{[0]: ValueNode<Primitive> Return, [1]: [CNode]3}
- 23
- 24
- 25 # [No.2] construct.2
- 26 # In file test.py(15)/  def construct(self, x1):/
- 27 funcgraph fg_2[fg_1](
- 28         %para4 : Tensor(F32)[3, 32]    # x1
- 29     ) {
- 30     %1 : Tensor(F32)[3, 8] = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1    =Bool(0), transpose_b=Bool(0)](%para4, %para3)    #(Tensor(F32)[3, 32], Ref[Tensor(F32)][32, 8]) #scope: Default
- 31       # In file test.py(16)/    x = self.matmul(x1, self.weight)/#x
- 32
- 33 #------------------------> 1
- 34     %2 = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"]](%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4]) #sco    pe: Default
- 35       # In file test.py(17)/    x = self.bias_add(x, self.bias)/#x
- 36     Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
- 37       # In file test.py(18)/    return x/#[CNode]5
- 38 }
- 39 # order:
- 40 #   1: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MatMul, [1]: x1, [2]: weight}
- 41 #   2: construct.2:x{[0]: ValueNode<DoSignaturePrimitive> S-Prim-BiasAdd, [1]: x, [2]: bias}
- 42 #   3: construct.2:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: x}
- 43
- 44
- 45 #===============================================================================
- 46 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+  6 subgraph attr:
+  7 subgraph instance: Default_wrapper.1 : 0x55ef771b9dd0
+  8 # In file testir1.py:14/    def construct(self, x1):/
+  9 subgraph @Default_wrapper.1(
+ 10         %para1_x1 : <Tensor[Float32], (3, 32)>
+ 11         , %para2_bias : <Ref[Tensor(F32)], (4)>  :  has_default
+ 12         , %para3_weight : <Ref[Tensor(F32)], (32, 8)>  :  has_default
+ 13     ) {
+ 14
+ 15 #------------------------> 0
+ 16   %1([CNode]3) = call @Default.2(%para1_x1)
+ 17       :(<Tensor[Float32], (3, 32)>) -> (`<null>`)
+ 18       #scope: Default
+ 19   Primitive::Return{prim_type=1}(%1)
+ 20       :(`<null>`)
+ 21       #scope: Default
+ 22       # In file testir1.py:17/        return x/
+ 23 }
+ 24 # order:
+ 25 #   1: @Default_wrapper.1:[CNode]3{[0]: ValueNode `<FuncGraph>` Default.2, [1]: x1}
+ 26 #   2: @Default_wrapper.1:[CNode]4{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]3}
+ 27
+ 28
+ 29 subgraph attr:
+ 30 subgraph instance: Default.2 : 0x55ef771b11a0
+ 31 # In file testir1.py:14/    def construct(self, x1):/
+ 32 subgraph @Default.2 parent: [subgraph @Default_wrapper.1](
+ 33         %para4_x1 : <Tensor[Float32], (3, 32)>
+ 34     ) {
+ 35   %1(x) = DoSignaturePrimitive::S-Prim-MatMul{prim_type=1}[output_names=["output"], transpose_a=Bool(0), input_names=["x1", "x2"], transpose_x2=Bool(0), transpose_x1=Bool(0), transpose_b=Bool(    0)](%para4_x1, %para3_weight)
+ 36       :(<Tensor[Float32], (3, 32)>, <Ref[Tensor(F32)], (32, 8)>) -> (<Tensor[Float32], (3, 8)>)
+ 37       #scope: Default
+ 38       # In file testir1.py:15/        x = self.matmul(x1, self.weight)/
+ 39
+ 40 #------------------------> 1
+ 41   %2(x) = DoSignaturePrimitive::S-Prim-BiasAdd{prim_type=1}[output_names=["output"], format="NCHW", input_names=["x", "b"], data_format="NCHW"](%1, %para2_bias)
+ 42       :(<Tensor[Float32], (3, 8)>, <Ref[Tensor(F32)], (4)>) -> (`<null>`)
+ 43       #scope: Default
+ 44       # In file testir1.py:16/        x = self.bias_add(x, self.bias)/
+ 45   Primitive::Return{prim_type=1}(%2)
+ 46       :(`<null>`)
+ 47       #scope: Default
+ 48       # In file testir1.py:17/        return x/
+ 49 }
+ 50 # order:
+ 51 #   1: @Default.2:x{[0]: ValueNode `<DoSignaturePrimitive>` S-Prim-MatMul, [1]: x1, [2]: weight}
+ 52 #   2: @Default.2:x{[0]: ValueNode `<DoSignaturePrimitive>` S-Prim-BiasAdd, [1]: x, [2]: bias}
+ 53 #   3: @Default.2:[CNode]5{[0]: ValueNode `<Primitive>` Return, [1]: x}
+ 54
+ 55
+ 56 #===============================================================================
+ 57 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
 ```
 
-搜索`------------------------>`来到第33行，即推导出错的位置。根据`...(%1, %para2)    #(Tensor(F32)[3, 8], Ref[Tensor(F32)][4])`可知，算子`BiasAdd`的输入是`%1`和`%para2`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
+搜索`------------------------>`来到第41行，即推导出错的位置。根据`...(%1, %para2_bias)    :(<Tensor[Float32], (3, 8)>, <Ref[Tensor(F32)], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%1`和`%para2_bias`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2_bias`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
 
 因此，为了解决该问题，我们要么修改`%1`的shape，要么修改`%para2`（即`self.bias`）的shape。
 
 - 如果修改`self.bias`的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
-- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第30行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para4, %para3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
+- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第35行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para4_x1, %para3_weight)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
