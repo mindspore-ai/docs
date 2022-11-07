@@ -10,6 +10,8 @@ Dynamic diagram supports richer syntax and are more flexible to use, but current
 
 In MindSpore dynamic graph mode, you can specify a segment to be compiled and executed in the graph mode by using the `@jit` decorator. During forward execution, the executed operators and subgraphs will be recorded, and after the forward execution, the whole graph obtained will be automatically differentiated to obtain the reverse graph, as shown in the following diagram:
 
+![structure image](images/pynative_jit.png)
+
 *Figure 1: Schematic diagram of the @jit decorator implementation*
 
 The Shard function follows this pattern, except that it can perform operator-level model parallelism in the session where the graph pattern is compiled and executed.

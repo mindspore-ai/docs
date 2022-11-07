@@ -11,6 +11,7 @@ Multi Dimensional
   pipeline_parallel
   host_device_training
   recompute
+  distributed_graph_partition
 
 As deep learning evolves, models get larger and larger. For example, in
 the field of NLP, in just a few years, the amount of parameters has
@@ -117,6 +118,11 @@ In order to reduce memory peaks, the recomputing technique can not save
 the calculation results of the forward activation layer, so that the
 memory can be reused, and then when calculating the reverse part,
 recalculate the results of the forward activation layer.
+
+`Distributed graph partition <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_graph_partition.html>`__
+----------------------------------------------------------------------------------------------------------------------------------
+
+MindSpore supports user-defined slicing of a compute graph, and MindSpore can slice any operator in the compute graph to any process according to the user parameters, making full use of the compute resources on the nodes where different processes are located, to perform distributed training and other tasks. After distributed graph partition, the execution results of compute tasks remain the same as those of a single-machine and single-card copy.
 
 Description of the Interface Related to the Feature
 ---------------------------------------------------
