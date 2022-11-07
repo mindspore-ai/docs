@@ -2471,3 +2471,5 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    ```Text
    RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
    ```
+
+3. `nn.Cell`不支持`classmethod`修饰的类方法。

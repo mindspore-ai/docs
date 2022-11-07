@@ -2481,3 +2481,5 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    ```text
    RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
    ```
+
+3. Class methods modified by `classmethod` in `nn.Cell` are not supported.
