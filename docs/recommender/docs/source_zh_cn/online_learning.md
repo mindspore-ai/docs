@@ -180,7 +180,7 @@ bash mpirun_dist_online_train.sh [$RANK_SIZE] [$LOCAL_HOST_IP]
 
 #参数说明：
 RANK_SIZE：多卡训练卡数量
-LOCAL_HOST_IP：本机host ip，用于MindPandas戎接收训练数据
+LOCAL_HOST_IP：本机host ip，用于MindPandas接收训练数据
 ```
 
 动态组网方式启动多卡训练：
