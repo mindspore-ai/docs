@@ -16,6 +16,8 @@ Key differences between online learning and offline training:
 
 The user's streaming training data is pushed to kafka. MindPandas reads data from kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
 
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_en/images/online_training.png)
+
 ## Use Constraints
 
 - Python 3.8 and above is required to be installed.
