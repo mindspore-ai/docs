@@ -136,3 +136,7 @@ To set specified input shapes (such as 1,32,32,1), use the command as follows:
 ```bash
 ./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
+
+### Dump
+
+For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump).

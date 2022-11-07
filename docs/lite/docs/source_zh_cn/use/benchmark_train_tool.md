@@ -130,3 +130,7 @@ Mean bias of node age_out : 0%
 Mean bias of all nodes: 0%
 =======================================================
 ```
+
+### Dump功能
+
+具体用法可参考`benchmark`工具的[Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump%E5%8A%9F%E8%83%BD)。
