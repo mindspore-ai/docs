@@ -132,7 +132,7 @@ The `Normalize` transform is used for normalization of the input image and consi
 - std: the standard deviation of each channel in the image.
 - is_hwc: whether the format of input image is (height, width, channel) or (channel, height, width).
 
-Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = (input_{c} - \frac{mean_{c}}{std_{c}})$, where $c$ represents the channel index.
+Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = \frac{input_{c} - mean_{c}}{std_{c}}$, where $c$ represents the channel index.
 
 ```python
 normalize = vision.Normalize(mean=(0.1307,), std=(0.3081,))
