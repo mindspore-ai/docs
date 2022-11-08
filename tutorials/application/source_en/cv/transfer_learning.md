@@ -468,8 +468,6 @@ for epoch in range(num_epochs):
         best_acc = acc
         if not os.path.exists(best_ckpt_dir):
             os.mkdir(best_ckpt_dir)
-        if os.path.exists(best_ckpt_path):
-            os.remove(best_ckpt_path)
         ms.save_checkpoint(network, best_ckpt_path)
 
 print("=" * 80)
@@ -644,8 +642,6 @@ for epoch in range(num_epochs):
         best_acc = acc
         if not os.path.exists(best_ckpt_dir):
             os.mkdir(best_ckpt_dir)
-        if os.path.exists(best_ckpt_path):
-            os.remove(best_ckpt_path)
         ms.save_checkpoint(net_work, best_ckpt_path)
 
 print("=" * 80)
