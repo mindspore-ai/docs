@@ -51,7 +51,8 @@ softmax = ops.Softmax(axis=0)
 output2 = softmax(logits)
 print(output2)
 # out:
-# [[0.01798621 0.11920292 0.5        0.880797   0.98201376], [0.98201376 0.880797   0.5        0.11920292 0.01798621]]
+# [[0.01798621 0.11920292 0.5        0.880797   0.98201376]
+#  [0.98201376 0.880797   0.5        0.11920292 0.01798621]]
 
 # In torch, the input and dim should be input at the same time to implement the function.
 input = torch.tensor(np.array([1.0, 2.0, 3.0, 4.0, 5.0]))
@@ -59,5 +60,4 @@ output3 = torch.nn.functional.softmax(input, dim=0)
 print(output3)
 # Out:
 # tensor([0.0117, 0.0317, 0.0861, 0.2341, 0.6364], dtype=torch.float64)
-
 ```

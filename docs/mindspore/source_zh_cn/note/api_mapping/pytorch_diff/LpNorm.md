@@ -73,5 +73,5 @@ input_x = torch.tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]), dtype=torch.float
 output2 = torch.norm(input_x, dim=(0, 1), p='nuc')
 print(output2)
 # Out：
-# tensor([16.8892])
+# tensor(16.8892)
 ```
