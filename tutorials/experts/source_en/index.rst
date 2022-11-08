@@ -73,10 +73,11 @@ For Experts
    :titlesonly:
 
    parallel/introduction
+   parallel/communicate_ops
    parallel/distributed_case
    parallel/distributed_inference
-   parallel/fault_recover
    parallel/save_load
+   parallel/fault_recover
    parallel/multi_dimensional
    parallel/other_features
 

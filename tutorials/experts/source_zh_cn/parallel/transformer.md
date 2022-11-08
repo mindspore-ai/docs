@@ -42,14 +42,14 @@
 
 `TransformerOpParallelConfig`的导入路径为`mindspore.nn.transformer`，它可以配置的属性如下所示：
 
-- `data_parallel (int)`: 设置数据并行数，默认值为1。
-- `model_parallel (int)`: 设置模型并行数，默认值为1。
-- `pipeline_stage (int)`: 设置Pipeline Stage数目，默认值为 1。
-- `micro_batch_num (int)`: 设置输入Batch的切分个数，即将一个Batch切分成多个小batch，默认值为1。
-- `optimizer_shard (bool)`: 是否开启优化器并行，默认值为False。
-- `gradient_aggregation_group (int)`: 优化器并行对应梯度聚合个数，默认值为4。
-- `recompute (bool)`: 是否开启重计算，默认值为False。
-- `vocab_emb_dp (bool)`: 是否配置Embedding为数据并行，默认值为True。
+- `data_parallel (int)`：设置数据并行数，默认值为1。
+- `model_parallel (int)`：设置模型并行数，默认值为1。
+- `pipeline_stage (int)`：设置Pipeline Stage数目，默认值为 1。
+- `micro_batch_num (int)`：设置输入Batch的切分个数，即将一个Batch切分成多个小batch，默认值为1。
+- `optimizer_shard (bool)`：是否开启优化器并行，默认值为False。
+- `gradient_aggregation_group (int)`：优化器并行对应梯度聚合个数，默认值为4。
+- `recompute (bool)`：是否开启重计算，默认值为False。
+- `vocab_emb_dp (bool)`：是否配置Embedding为数据并行，默认值为True。
 
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
@@ -68,15 +68,15 @@ parallel_config = TransformerOpParallelConfig(data_parallel=1, model_parallel=8)
 
 Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组成。
 
-我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下:
+我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下：
 
-- `data_parallel`: 设置数据并行数，默认值为1。
-- `model_parallel`: 设置模型并行数，默认值为1。
-- `vocab_emb_dp`: 是否配置Embedding为数据并行，默认值为True。
+- `data_parallel`：设置数据并行数，默认值为1。
+- `model_parallel`：设置模型并行数，默认值为1。
+- `vocab_emb_dp`：是否配置Embedding为数据并行，默认值为True。
 
 `vocab_emb_dp`用来区分`embedding_lookup`操作的两种并行模式`数据并行`和`行切分并行`。当`vocab_emb_dp`为`True`时，embedding查找的过程将会被设置为并行度为`data_parallel`的数据并行。当`vocab_emb_dp`为`False`时，embedding的权重将会在第0维度按`model_parallel`进行均分，可以减少变量的存储。
 
-在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dropout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_size]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。对应的代码如下所示:
+在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dropout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_size]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。对应的代码如下所示：
 
 ```python
 import mindspore.nn as nn
@@ -108,9 +108,9 @@ class EmbeddingLayer(nn.Cell):
 
 ### Transformer层
 
-用户可以调用三个接口作为主要的构建API:`Transformer`、`TransformerEncoder`和`TransformerDecoder`。它们都需要传入`TransformerOpParallelConfig`作为并行设置的配置。我们根据`TransformerOpParallelConfig`中配置的并行配置，对`Transformer`内部使用的算子设置对应的并行策略。
+用户可以调用三个接口作为主要的构建API：`Transformer`、`TransformerEncoder`和`TransformerDecoder`。它们都需要传入`TransformerOpParallelConfig`作为并行设置的配置。我们根据`TransformerOpParallelConfig`中配置的并行配置，对`Transformer`内部使用的算子设置对应的并行策略。
 
-> `pipeline_func`这个方法可以设置transformer中每个`block`属于的`stage`、是否开启重计算和优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0， `Decoder`中传入的`offset`的值为`Encoder`的层数), `Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
+> `pipeline_func`这个方法可以设置transformer中每个`block`属于的`stage`、是否开启重计算和优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0，`Decoder`中传入的`offset`的值为`Encoder`的层数)，`Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
 
 ```python
 def pipeline_func(network, layer_id, offset, parallel_config, layers):

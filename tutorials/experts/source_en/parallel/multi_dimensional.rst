@@ -9,6 +9,7 @@ Multi Dimensional
   :hidden:
 
   pipeline_parallel
+  optimizer_parallel
   host_device_training
   recompute
   distributed_graph_partition
@@ -77,8 +78,8 @@ communication efficiency and easily handle layered neural network
 structures. The disadvantage is that some nodes may be idle at the same
 time.
 
-Optimizer Parallel
-------------------
+`Optimizer Parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html>`__
+----------------------------------------------------------------------------------------------------------------
 
 When training in parallel with data or operators, the parameters of the
 model may have the same copy on multiple devices. This allows the

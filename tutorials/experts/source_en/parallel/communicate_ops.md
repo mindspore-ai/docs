@@ -1,24 +1,24 @@
-# 分布式集合通信原语
+# Distributed Set Communication Primitives
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/communicate_ops.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/communicate_ops.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-在分布式训练中涉及例如`AllReduce`、`ReduceScatter`、`AllGather`和`Broadcast`等通信操作进行数据传输，我们将在下述的章节分别阐述其含义和示例代码。
+Distributed training involves communication operations such as `AllReduce`, `ReduceScatter`, `AllGather` and `Broadcast` for data transfer, and we will explain their meaning and sample code in the following sections.
 
-下述每个章节中给出了使用4张GPU进行不同通信操作的示例。示例中的输出来自于0号卡`rank0`程序的结果。用户需要将下述每个章节代码另存为communication.py。因为涉及到多卡程序，用户需要通过`mpirun`命令去启动communication.py。其中`mpirun`命令需要安装OpenMPI以及NCCL，对应的安装请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。准备好communication.py后，在命令行中输入如下启动命令，即可启动多卡程序：
+Examples of different communication operations by using 4 GPUs are given in each of the following sections. The output in the example comes from the results of the `rank0` program on card 0. The user needs to save each section code below as a separate communication.py. Because it involves a multi-card program, the user needs to go through the `mpirun` command to start communication.py. The `mpirun` commands requires the installation of OpenMPI as well as NCCL, and please refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html) for the corresponding installation.
 
 ```bash
 mpirun -output-filename log -merge-stderr-to-stdout -np 4 python communication.py
 ```
 
-上述代码中的`-np`表示将启动4个进程任务，分别占用0，1，2，3号卡，并且将输出日志保存在`log/1/rank.0`目录下面。用户可以在此查看程序的输出结果。`python communication.py`表示启动脚本。
+The `-np` in the above code means that 4 process tasks will be started, occupying cards 0, 1, 2 and 3 respectively, and the output logs will be saved under the `log/1/rank.0` directory. The user can view the output of the program here. `python communication.py` indicates starting the script.
 
 ## AllReduce
 
-![image](images/allreduce.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/allreduce.png)
 
-`AllReduce`操作会将每卡中`AllReduce`算子的输入Tensor进行求和操作，最终每卡的`AllReduce`算子输出是相同的数值。例如上图所示，每张卡AllReduce算子输入分别为`0, 1, 2, 3`。经过`AllReduce`之后，每张卡输出的结果为所有卡输入之和为6(0+1+2+3)。
+The `AllReduce` operation sums the input Tensor of the `AllReduce` operator in each card. Finally, the output of the `AllReduce` operator in each card is the same value. For example, as shown in the figure above, the input to the AllReduce operator for each card is `0, 1, 2, 3`. After `AllReduce`, the output of each card is the sum of all card inputs as 6(0+1+2+3).
 
-示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`AllReduce`算子输入的数值，例如卡0，我们申请了一个1x1大小，数值为0的输入。然后调用`AllReduce`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
+The sample code is as follows: we initialize the value of the `AllReduce` operator input in each process based on the rank number (the communication number to which each card belongs), e.g. for card 0, we request an input of size 1x1 with a value of 0. Then call the `AllReduce` operator to communicate among the cards with communication domain `0-1-2-3` (communication range of all cards i.e. nccl_world_group) and print the output results.
 
 ```python
 import numpy as np
@@ -43,7 +43,7 @@ output = net(input_x)
 print(output)
 ```
 
-其中0卡的运行结果如下，输出日志路径为`log/1/rank.0`：
+The card 0 runs as follows, and the output log path is `log/1/rank.0`:
 
 ```text
 [[6.]]
@@ -51,11 +51,11 @@ print(output)
 
 ## AllGather
 
-![image](images/allgather.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/allgather.png)
 
-`AllGather`操作会将每张卡的输入Tensor的第0维度上进行拼接，最终每张卡输出是相同的数值。例如上图所示，每卡的输入是大小为1x1的Tensor，经过`AllGather`操作之后，每卡`AllGather`算子的输出shape为[4,1]。其中索引为[0,0]的元素值来自于0号卡`AllGather`的输入[[0.0]]，索引为[1,0]的元素值来自于1号卡`AllGather`的输入[[1.0]]。
+The `AllGather` operation will stitch the 0th dimension of the input Tensor on each card, and the final output of each card is the same value. For example, as shown above, the input of each card is a Tensor of size 1x1. After the `AllGather` operation, the output shape of the `AllGather` operator of each card is [4,1]. The element values with index [0,0] are from the input [[0.0]] of card 0 `AllGather`, and the element values with index [1,0] are from the input [[1.0]] of card 1 `AllGather`.
 
-示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`AllGather`算子输入的数值，例如卡0，我们申请了一个1x1大小，数值为0的输入。然后调用`AllGather`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
+The sample code is as follows: we initialize the value of the `AllGather` operator input in each process based on the rank number (the communication number to which each card belongs), e.g. for card 0, we request an input of size 1x1 with a value of 0. Then call the `AllGather` operator to communicate among the cards with communication domain `0-1-2-3` (communication range of all cards i.e. nccl_world_group) and print the output results.
 
 ```python
 import numpy as np
@@ -81,7 +81,7 @@ output = net(input_x)
 print(output)
 ```
 
-运行结果如下，输出日志路径为`log/1/rank.0`：
+The result of the run is as follows, with the output log path `log/1/rank.0`:
 
 ```text
 [[0.],
@@ -92,11 +92,9 @@ print(output)
 
 ## ReduceScatter
 
-![image](images/reducescatter.png)
+The `ReduceScatter` operation will first sum the input of each card and then slice the data by number of cards in the 0th dimension and distribute the data to the corresponding card. For example, as shown above, the input of each card is a 4x1 Tensor. `ReduceScatter` first sums the input to get Tensor of [0, 4, 8, 12], and then distributes it to get Tensor of size 1x1 per card. For example, the output result corresponding to card 0 is [[0.0]], and the output result corresponding to card 1 is [[4.0]].
 
-`ReduceScatter`操作会将每张卡的输入先进行求和，然后在第0维度按卡数切分，将数据分发到对应的卡上。例如上图所示，每卡的输入均为4x1的Tensor。`ReduceScatter`先对输入求和得到[0, 4, 8, 12]的Tensor，然后进行分发，每卡获得1x1大小的Tensor。例如卡0对应的输出结果为[[0.0]]，卡1对应的输出结果为[[4.0]]。
-
-示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`ReduceScatter`算子输入的数值，例如卡0，我们申请了一个4x1大小，数值为0的输入。然后调用`ReduceScatter`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
+The sample code is as follows: we initialize the value of the `ReduceScatter` operator input in each process based on the rank number (the communication number to which each card belongs), e.g. for card 0, we request an input of size 4x1 with a value of 0. Then call the `ReduceScatter` operator to communicate among the cards with communication domain `0-1-2-3` (communication range of all cards i.e. nccl_world_group) and print the output results.
 
 ```python
 import mindspore as ms
@@ -121,7 +119,7 @@ output = net(input_x)
 print(output)
 ```
 
-运行结果如下，输出日志路径为`log/1/rank.0`：
+The running result is as follows, with the output log path `log/1/rank.0`:
 
 ```text
 [[0.]]
@@ -129,11 +127,9 @@ print(output)
 
 ## Broadcast
 
-![image](images/broadcast.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/broadcast.png)
 
-`Broadcast`操作是将某张卡的输入广播到其他卡上，常见于参数的初始化。例如上图中，将0卡大小为1x1的Tensor进行广播，最终每张卡输出均为[[0]]。
-
-示例代码如下：我们将`Broadcast`算子的根节点设置为0号卡，表示将从0号卡广播数据到其他卡上。同时申请了一个1x1大小，数值为0的输入。然后调用`Broadcast`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，最终每张卡的输出数值来自卡0。
+The sample code is as follows: we set the root node of the `Broadcast` operator to card 0, indicating that data will be broadcast from card 0 to other cards. We request an input of size 1x1 with a value of 0. Then call the `Broadcast` operator to communicate among the cards with communication domain `0-1-2-3` (communication range of all cards i.e. nccl_world_group). Finally, the output value of each card is from card 0.
 
 ```python
 import mindspore as ms
@@ -158,7 +154,7 @@ output = net(input_x)
 print(output)
 ```
 
-运行结果如下，输出日志路径为`log/1/rank.0`：
+The result of the run is as follows, with the output log path `log/1/rank.0`:
 
 ```text
 [[0]]
@@ -166,11 +162,11 @@ print(output)
 
 ## NeighborExchange
 
-![image](images/NeighborExchange.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/NeighborExchange.png)
 
-`NeighborExchange`操作会将提供一组数据分别发往其它特定的卡上，同时从特定的卡接收数据。例如上图中，rank 0 向rank 1发送shape为[16,16]的Tensor，并接收rank 1发送的shape为[32,32]的Tensor；rank 1 向rank 0发送shape为[32,32]的Tensor，并接收rank 0发送的shape为[16,16]的Tensor。最终rank 0输出了接收到的shape为[32,32]的Tensor，rank 1输出接收到的[16,16]的Tensor。
+The `NeighborExchange` operation will provide a set of data to be sent to each of the other specific cards while receiving data from the specific card. For example, in the above figure, rank 0 sends a Tensor with shape [16,16] to rank 1 and receives a Tensor with shape [32,32] from rank 1. rank 1 sends a Tensor with shape [32,32] to rank 0 and receives a Tensor with shape [16,16] from rank 0. Finally, the rank 0 outputs the received Tensor with shape [32,32], and rank 1 outputs the received Tensor with [16,16].
 
-示例代码如下：我们使用`NeighborExchange`算子进行0号卡和1号卡之间的数据交换，将0号卡的数据发送到1号卡，并接收来自1号卡的数据；1号卡将数据发送到0号卡，并接收来自0号卡的数据；最终每张卡输出接收到的数据。
+The example code as follows: we use the `NeighborExchange` operator for data exchange between card 0 and card 1, sending data from card 0 to card 1, and receiving data from card 1. Card 1 sends data to card 0 and receives data from card 0. Finally each card outputs the received data.
 
 ```python
 import os
@@ -213,7 +209,7 @@ else:
     print(output)
 ```
 
-使用shell脚本启动2卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
+Use a shell script to start the 2-card script. The `rank_table_file` file below can be generated by hccl_tools.py under [models](https://gitee.com/mindspore/models), which corresponds to the directory file `models/utils/ hccl_tools`. The sample shell script is as follows:
 
 ```shell
 export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
@@ -231,14 +227,14 @@ for((i=0; i<$DEVICE_NUM; i++)); do
 done
 ```
 
-rank0的结果为：
+The results of rank0 are:
 
 ```text
 [[2. 2.]
  [2. 2.]]
 ```
 
-rank1的结果为：
+The results of rank1 are:
 
 ```text
 [[1. 1. 1.]
@@ -248,11 +244,11 @@ rank1的结果为：
 
 ## NeighborExchangeV2
 
-![image](images/neighborexchangev2.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/neighborexchangev2.png)
 
-`NeighborExchangeV2`操作会将Tensor中按照属性设置将部分数据发送给周边的8张卡，且从周边的8张卡中接收数据并拼接成新的Tensor，常用于将大Tensor切分在多卡上进行分布式卷积运算的场景。其中，属性send_rank_ids和recv_rank_ids分别为8个数字，表示8个方向上发送/接收的rank_id，填-1表示不发送/不接收，如上图图二表示对应8个方向上的顺序；属性send_lens和recv_lens分别为4个数字，表示[top, bottom, left, right] 四个方向上的发送/接收长度。例如上图图一中为一个16卡的示例，以图中rank 10为例，设定send_rank_ids=[6,7,11,15,14,13,9,5]，将rank10的数据进行切分后分别向rank 5、6、7、11、15、14、13、9发送了对应部分的数据，例如图中红色发给rank5，红色、黄色和蓝色发给rank6，蓝色发给rank7等；设定recv_rank_ids=[6,7,11,15,14,13,9,5]，则同时rank10从这些卡分别接收了一些数据拼接到对应方向上，组成了新的Tensor输出，例如图中的rank10和浅绿色部分所示。
+The `NeighborExchangeV2` operation sends part of the data in the Tensor to the surrounding 8 cards according to the attribute settings, and receives data from the surrounding 8 cards and stitches them into a new Tensor, which is often used in scenarios where a large Tensor is sliced on multiple cards for distributed convolutional operations. Attributes send_rank_ids and recv_rank_ids are 8 numbers, respectively, indicating sending/receiving rank_id in 8 directions, and filling -1 means no send/no receive. As shown above, figure 2 indicates the order corresponding to the 8 directions. The attributes send_lens and recv_lens are four numbers that represent the send/receive lengths in the four directions [top, bottom, left, right], respectively. For example, in Figure 1 above, a 16-card example is shown, taking rank 10 as an example, setting send_rank_ids=[6,7,11,15,14,13,9,5], the data of rank 10 is sliced and sent to rank 5, 6, 7, 11, 15, 14, 13, 9 respectively, for example, red in Figure is sent to rank 5, red, yellow and blue to rank 6, blue to rank 7, etc. Setting recv_rank_ids=[6,7,11,15,14,13,9,5], at the same time rank10 receives some data from each of these cards stitched into the corresponding direction to form a new Tensor output, as shown in the figure with rank10 and the light green part.
 
-示例代码如下：我们使用`NeighborExchangeV2`算子进行0号卡和1号卡之间的数据交换，将0号卡的下方的数据发送到1号卡，并接收来自1号卡的数据拼接在下方；1号卡将上方部分数据发送到0号卡，并接收来自0号卡的数据拼接在上方；最终每张卡输出接收到的数据。
+The sample code is as follows: we use the `NeighborExchangeV2` operator for data exchange between card 0 and card 1, sending the data below card 0 to card 1 and receiving the data from card 1 stitched below. Card 1 sends the upper part of the data to card 0 and receives the data from card 0 stitched on top. Finally each card outputs the received data.
 
 ```python
 import os
@@ -295,7 +291,7 @@ else:
     print(output)
 ```
 
-使用shell脚本启动2卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
+Use a shell script to start the 2-card script. The `rank_table_file` file below can be generated by hccl_tools.py under [models](https://gitee.com/mindspore/models), which corresponds to the directory file `models/utils/ hccl_tools`. The sample shell script is as follows:
 
 ```shell
 export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
@@ -313,7 +309,7 @@ for((i=0; i<$DEVICE_NUM; i++)); do
 done
 ```
 
-rank 0结果为：
+The results of rank0 are:
 
 ```text
 [[[[1. 1.]
@@ -321,7 +317,7 @@ rank 0结果为：
    [2. 2.]]]]
 ```
 
-rank 1结果为：
+The results of rank1 are:
 
 ```text
 [[[[1. 1.]
@@ -331,11 +327,11 @@ rank 1结果为：
 
 ## AlltoAll
 
-![image](images/alltoall.png)
+![image](images/alltoall.pnghttps://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/alltoall.png)
 
-`AlltoAll`操作会将输入数据在特定的维度切分成特定的块数，并按顺序发送给其他rank，同时从其他rank接收输入，按顺序在特定的维度拼接数据。例如上图中，将Tensor在0维切分成5块，同时接收其它rank的数据，并在1维进行拼接，最后输出拼接后的数据。
+The `AlltoAll` operation will slice the input data into a specific number of chunks in a specific dimension and send them to other ranks in order, while receiving input from other ranks and stitching the data together in a specific dimension in order. For example, in the above figure, the Tensor is sliced into 5 pieces in dimension 0, while receiving data from other ranks and stitching them in dimension 1, and finally outputting the stitched data.
 
-示例代码如下：我们使用`AlltoAll`算子进行8卡的数据交换，把每张卡在第-2维进行切分，并按顺序把切分的数据发送给其它卡，同时接收其它卡的数据，在-1维进行拼接；最终每张卡输出拼接后的数据。
+The sample code is as follows: we use `AlltoAll` operator to exchange the data of 8 cards, slice each card in the negative second dimension, and send the slice data to other cards in order, and receive the data from other cards and stitch them in the negative first dimension. Finally, each card outputs the stitched data.
 
 ```python
 import os
@@ -363,7 +359,7 @@ output = net(input_x)
 print(output)
 ```
 
-使用shell脚本启动8卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
+To start the 8-card script by using a shell script, the `rank_table_file` file below can be generated by hccl_tools.py under [models](https://gitee.com/mindspore/models), which corresponds to the directory file `models/utils/ hccl_tools`. The sample shell script is as follows:
 
 ```shell
 export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
@@ -381,20 +377,20 @@ for((i=0; i<$DEVICE_NUM; i++)); do
 done
 ```
 
-rank0~rank7的结果为：
+The results of rank0 to rank7 are:
 
 ```text
 [[[[0. 1. 2. 3. 4. 5. 6. 7.]]]]
 ```
 
-## 注意事项
+## Notes
 
-在昇腾芯片上，NeighborExchange、NeighborExchangeV2、AlltoAll这三个算子需要进行全连接配网。
+On the Ascend chip, the three operators, NeighborExchange, NeighborExchangeV2, and AlltoAll, need to be fully-connected for network allocation.
 
-全连接配网支持任意卡之间进行通信，没有数量限制。全连接配网方式可参考[HCCN Tool 接口参考](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)进行配置。全连接配网时，所有卡需要VLan ID相同、IP在同一网段，配置到其他卡的静态路由表和ARP。其中，**VLan ID需要在交换机上进行配置**，其他IP等改动的单机8卡配置参考样例如下：
+The fully connected network allocation supports communication between any cards with no limit to the number of cards. The fully-connected network allocation method is available in the [HCCN Tool Interface Reference](https://support.huawei.com/enterprise/en/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) for configuration. For fully-connected network allocation, all cards need to have the same VLan ID, IP in the same network segment, static routing table and ARP configured to other cards. **VLan ID needs to be configured on the switch**, and the reference sample of the single 8-card configuration IP changes is as follows:
 
 ```shell
-# 配置IP到同一网段
+# Configure IP to the same network segment
 hccn_tool -i 0 -ip -s address 192.98.92.100 netmask 255.255.255.0
 hccn_tool -i 1 -ip -s address 192.98.92.101 netmask 255.255.255.0
 hccn_tool -i 2 -ip -s address 192.98.92.102 netmask 255.255.255.0
@@ -404,7 +400,7 @@ hccn_tool -i 5 -ip -s address 192.98.92.105 netmask 255.255.255.0
 hccn_tool -i 6 -ip -s address 192.98.92.106 netmask 255.255.255.0
 hccn_tool -i 7 -ip -s address 192.98.92.107 netmask 255.255.255.0
 
-# 策略路由
+# Strategy routing
 hccn_tool -i 0 -ip_rule -a dir from ip 192.98.92.100 table 100
 hccn_tool -i 1 -ip_rule -a dir from ip 192.98.92.101 table 101
 hccn_tool -i 2 -ip_rule -a dir from ip 192.98.92.102 table 102
@@ -423,7 +419,7 @@ hccn_tool -i 5 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.105 dev eth5
 hccn_tool -i 6 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.106 dev eth6 table 106
 hccn_tool -i 7 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.107 dev eth7 table 107
 
-# 静态ARP
+# Static ARPs
 hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.101 mac 78:b4:6a:f4:4c:16
 hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.102 mac 78:b4:6a:f4:4c:15
 hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.103 mac 78:b4:6a:f4:4c:14
