@@ -225,6 +225,7 @@ if os.path.exists(probability_dir):
     shutil.rmtree(probability_dir)
 
 # 删除并获取ops下多余的接口文件名
+white_list = ['mindspore.ops.comm_note.rst']
 def ops_interface_name():
     dir_list = ['mindspore.ops.function.rst', 'mindspore.ops.rst']
     interface_name_list = []
@@ -248,7 +249,7 @@ def ops_interface_name():
             extra_write_list = []
             for k in extra_interface_name:
                 k = "mindspore.ops." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)):
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)) and k not in white_list:
                     os.remove(os.path.join(os.path.dirname(__file__),'api_python/ops',k))
                     extra_write_list.append(k)
             g.write(str(extra_write_list))

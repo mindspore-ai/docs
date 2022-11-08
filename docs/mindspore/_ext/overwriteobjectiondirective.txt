@@ -55,6 +55,13 @@ def get_example(name: str):
         example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
+        if '.. note::' in example_str[0][0]:
+            api_doc = re.sub(r'Examples:\n    \.\. note::(?:.|\n)*?    >>>', r'Examples:\n    >>>', api_doc)
+            example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
+            example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+            example_str = example_str.strip()
+            example_list = example_str.split('\n')
+            return [""] + example_list + [""]
         example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
         example_str = example_str.strip()
         example_list = example_str.split('\n')
@@ -65,19 +72,19 @@ def get_example(name: str):
 def get_platforms(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
-        example_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
-        if not example_str:
-            example_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
-            if example_str_leak:
-                example_str = example_str_leak[0].strip()
-                example_list = example_str.split('\n')
-                example_list = ['    ' + example_list[0]]
-                return ["", "支持平台："] + example_list + [""]
+        platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+        if not platform_str:
+            platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+            if platform_str_leak:
+                platform_str = platform_str_leak[0].strip()
+                platform_list = platform_str.split('\n')
+                platform_list = ['    ' + platform_list[0]]
+                return ["", "支持平台："] + platform_list + [""]
             return []
-        example_str = example_str[0].strip()
-        example_list = example_str.split('\n')
-        example_list = ['    ' + example_list[0]]
-        return ["", "支持平台："] + example_list + [""]
+        platform_str = platform_str[0].strip()
+        platform_list = platform_str.split('\n')
+        platform_list = ['    ' + platform_list[0]]
+        return ["", "支持平台："] + platform_list + [""]
     except:
         return []
 
@@ -246,7 +253,68 @@ class ObjectDescription(SphinxDirective):
             platforms = ''
             logger.warning(f'Error API names in {self.arguments[0]}.')
         extra = platforms + example
-        if extra:
+        if "**样例：**" not in example and example:
+            try:
+                if self.objtype == "method":
+                    index_platforms = 0
+                    for num, i in enumerate(self.content.data):
+                        if i.startswith('样例：'):
+                            index_platforms = num
+                            break
+                    if index_platforms and platforms:
+                        self.content.data[index_platforms] = '**样例：**'
+                        self.content.data.insert(index_platforms+1, '')
+                        count = len(self.content.data)
+                        for i in platforms:
+                            self.content.data.insert(index_platforms-count, i)
+                    else:
+                        self.content.data[index_platforms] = '**样例：**'
+                        self.content.data.insert(index_platforms+1, '')
+                    self.content.data.extend(example)
+                else:
+                    index_num = 0
+                    index_platforms = 0
+                    for num, i in enumerate(self.content.data):
+                        if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
+                            index_num = num
+                            break
+                    if index_num:
+                        for num, j in enumerate(self.content.data[:index_num]):
+                            if j.startswith('样例：'):
+                                index_platforms = num
+                                break
+                        if index_platforms and platforms:
+                            self.content.data[index_platforms] = '**样例：**'
+                            self.content.data.insert(index_platforms+1, '')
+                            count = len(self.content.data)
+                            for k in platforms:
+                                self.content.data.insert(index_platforms-count, k)
+                        else:
+                            self.content.data[index_platforms] = '**样例：**'
+                            self.content.data.insert(index_platforms+1, '')
+                        count = len(self.content.data)
+                        count_plat = len(platforms)
+                        for i in example:
+                            self.content.data.insert(index_num-count+count_plat, i)
+                    else:
+                        index_platforms = 0
+                        for num, i in enumerate(self.content.data):
+                            if i.startswith('样例：'):
+                                index_platforms = num
+                                break
+                        if index_platforms and platforms:
+                            self.content.data[index_platforms] = '**样例：**'
+                            self.content.data.insert(index_platforms+1, '')
+                            count = len(self.content.data)
+                            for i in platforms:
+                                self.content.data.insert(index_platforms-count, i)
+                        else:
+                            self.content.data[index_platforms] = '**样例：**'
+                            self.content.data.insert(index_platforms+1, '')
+                        self.content.data.extend(example)
+            except Exception as e:
+                logger.warning(e)
+        elif extra:
             if self.objtype == "method":
                 self.content.data.extend(extra)
             else:
