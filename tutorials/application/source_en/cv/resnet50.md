@@ -23,18 +23,19 @@ In ResNet, a residual network is proposed to alleviate the degradation problem, 
 ```python
 from download import download
 
-url = "http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
 
 download(url, "./datasets-cifar10-bin", kind="tar.gz")
 ```
 
 ```tex
 Creating data folder...
-Downloading data from http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz (162.2 MB)
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz (162.2 MB)
 
-file_sizes: 100%|████████████████████████████| 170M/170M [00:26<00:00, 6.38MB/s]
+file_sizes: 100%|████████████████████████████| 170M/170M [00:08<00:00, 20.6MB/s]
 Extracting tar.gz file...
 Successfully downloaded / unzipped to ./datasets-cifar10-bin
+'./datasets-cifar10-bin'
 ```
 
 The directory structure of the CIFAR-10 dataset file is as follows:
@@ -57,9 +58,11 @@ Then, the `mindspore.dataset.Cifar10Dataset` interface is used to load the datas
 ```python
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 import mindspore as ms
 import numpy as np
 
+from mindspore import dtype as mstype
 from mindspore import nn, ops
 
 
@@ -90,7 +93,7 @@ def create_dataset_cifar10(dataset_dir, usage, resize, batch_size, workers):
         vision.HWC2CHW()
     ]
 
-    target_trans = [(lambda x: np.array([x]).astype(np.int32)[0])]
+    target_trans = transforms.TypeCast(mstype.int32)
 
     # Data mapping operation
     data_set = data_set.map(
@@ -163,7 +166,7 @@ plt.show()
 ```
 
 ```text
-Image shape: (6, 3, 32, 32), Label: [5 8 0 3 0 9]
+Image shape: (6, 3, 32, 32), Label: [9 8 6 0 8 5]
 ```
 
 ![](images/output_6_1.png)
