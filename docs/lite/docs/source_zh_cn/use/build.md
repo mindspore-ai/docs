@@ -45,6 +45,7 @@ MindSpore Lite包含模块：
 - Python API模块的编译依赖（可选），未安装Python3或者NumPy则不编译该模块。
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
+    - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
 >
@@ -157,9 +158,26 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - `mindspore-lite-maven-{version}.zip`：包含runtime(java)的AAR包。
 
+- `mindspore-lite-{version}-{python}-{os}-{arch}.whl`：包含runtime(Python)的Whl包。
+
 > - version: 输出件版本号，与所编译的分支代码对应的版本一致。
+> - python: 输出件Python版本, 如：Python3.7为`cp37-cp37m`。
 > - os: 输出件应部署的操作系统。
 > - arch: 输出件应部署的系统架构。
+
+若要体验python接口，需要移动到`output/`目录下，使用以下命令进行安装Whl安装包。
+
+```bash
+pip install `mindspore-lite-{version}-{python}-{os}-{arch}.whl`
+```
+
+安装后可以使用以下命令检查是否安装成功：若无报错，则表示安装成功。
+
+```bash
+python -c "import mindspore_lite"
+```
+
+安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite的Python模块的安装位置。
 
 ### 目录结构
 

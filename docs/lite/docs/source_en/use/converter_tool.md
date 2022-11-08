@@ -1,4 +1,4 @@
-# Converting Models for Inference
+# Offline Converting Models for Inference
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -51,10 +51,10 @@ You can enter `./converter_lite --help` to obtain the help information in real t
 
 The following describes the parameters in detail.
 
-| Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
+| Parameter  |  Mandatory or Not   | Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | No | Prints all the help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, or ONNX | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX or PYTORCH | - |
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
@@ -71,6 +71,7 @@ The following describes the parameters in detail.
 | `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true、false | false |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
+> - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models:`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#usage-description-of-the-integrated-nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
@@ -125,6 +126,24 @@ The following describes how to use the conversion command by using several commo
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
+
+    - PyTorch model `model.pt`
+
+      ```bash
+      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+      export LIB_TORCH_PATH="/home/user/libtorch"
+      ./converter_lite --fmk=PYTORCH --modelFile=model.pt --outputFile=model
+      ```
+
+    - PyTorch model `model.pth`
+
+      ```bash
+      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+      export LIB_TORCH_PATH="/home/user/libtorch"
+      ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
+      ```
+
+     > The following preconditions must be met for converting PyTorch models: `export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
 
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
 

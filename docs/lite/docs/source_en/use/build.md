@@ -45,6 +45,7 @@ Modules in MindSpore Lite:
 - Compilation dependency of the Python API module (optional). If Python3 or NumPy is not installed, this module will not be compiled:
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (If the installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
+    - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (If the installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
 
 > Gradle is recommended to use the [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all) version. If you configure other versions, gradle will automatically download  `gradle-6.6.1-complete` by gradle wrapper mechanism.
 >
@@ -157,9 +158,26 @@ Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-maven-{version}.zip`: The AAR package which contains runtime (java).
 
+- `mindspore-lite-{version}-{python}-{os}-{arch}.whl`: The Whl package which contains runtime (Python).
+
 > - version: Version of the output, consistent with that of the MindSpore.
+> - python: Python version of the output, for example, Python 3.7 is `cp37-cp37m`.
 > - os: Operating system on which the output will be deployed.
 > - arch: System architecture on which the output will be deployed.
+
+To experience the Python API, you need to move to the 'output/' directory and use the following command to install the Whl installation package.
+
+```bash
+pip install `mindspore-lite-{version}-{python}-{os}-{arch}.whl`
+```
+
+After installation, you can use the following command to check whether the installation is successful: If no error is reported, the installation is successful.
+
+```bash
+python -c "import mindspore_lite"
+```
+
+After successful installation, you can use the command of `pip show mindspore_lite` to check the installation location of the Python module of MindSpot Lite.
 
 ### Directory Structure
 

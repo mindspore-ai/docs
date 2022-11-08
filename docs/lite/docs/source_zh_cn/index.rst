@@ -38,7 +38,6 @@ MindSpore Lite文档
    :caption: 端侧推理
    :hidden:
 
-   use/converter_tool
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -51,7 +50,6 @@ MindSpore Lite文档
    :caption: 端侧训练
    :hidden:
 
-   use/converter_train
    use/runtime_train
 
 .. toctree::
@@ -77,6 +75,7 @@ MindSpore Lite文档
    :caption: 其他工具
    :hidden:
 
+   use/converter
    use/benchmark
    use/cropper_tool
    use/visual_tool

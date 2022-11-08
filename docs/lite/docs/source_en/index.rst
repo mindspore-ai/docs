@@ -38,7 +38,6 @@ MindSpore Lite Documentation
    :caption: Inference on Devices
    :hidden:
 
-   use/converter_tool
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -51,7 +50,6 @@ MindSpore Lite Documentation
    :caption: Training on Devices
    :hidden:
 
-   use/converter_train
    use/runtime_train
 
 .. toctree::
@@ -77,6 +75,7 @@ MindSpore Lite Documentation
    :caption: Other Tools
    :hidden:
 
+   use/converter
    use/benchmark
    use/cropper_tool
    use/visual_tool
