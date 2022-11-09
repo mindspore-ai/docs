@@ -45,26 +45,15 @@ import numpy as np
 m = torch.nn.Dropout(p=0.9)
 input = torch.tensor(np.ones([5,5]),dtype=float)
 output = m(input)
-print(output)
-
+print(tuple(output.shape))
 # out:
-#   [[0 10 0 0 0]
-#   [0 0 0 0 0]
-#   [0 0 10 0 0]
-#   [0 10 0 0 0]
-#   [0 0 0 0 10]]
+# (5, 5)
 
 input = mindspore.Tensor(np.ones([5,5]),mindspore.float32)
 net = mindspore.nn.Dropout(keep_prob=0.1)
 net.set_train()
 output = net(input)
-print(output)
-
+print(output.shape)
 # out:
-#   [[0 10 0 0 0]
-#   [0 0 0 10 0]
-#   [0 0 0 0 0]
-#   [0 10 10 0 0]
-#   [0 0 10 0 0]]
-
+# (5, 5)
 ```
