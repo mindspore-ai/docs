@@ -1,4 +1,4 @@
-# 推理模型转换
+# 推理模型离线转换
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -52,7 +52,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | 否 | 打印全部帮助信息。 | - | - |
-| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX | - |
+| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX、PYTORCH | - |
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
@@ -69,6 +69,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
+> - 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要打开指定编译选项进行本地编译。转换PyTorch模型需满足以下前提：编译前需要`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on`。转换前加入libtorch的环境变量：`export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到`/home/user/libtorch`的目录下。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#集成nnie使用说明))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
@@ -123,6 +124,24 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
+
+    - PyTorch模型`model.pt`
+
+      ```bash
+      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+      export LIB_TORCH_PATH="/home/user/libtorch"
+      ./converter_lite --fmk=PYTORCH --modelFile=model.pt --outputFile=model
+      ```
+
+    - PyTorch模型`model.pth`
+
+      ```bash
+      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+      export LIB_TORCH_PATH="/home/user/libtorch"
+      ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
+      ```
+
+     > 为了转换PyTorch模型，以下前提必须满足：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on。转换前加入libtorch的环境变量。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
