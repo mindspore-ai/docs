@@ -57,7 +57,7 @@ print(output)
 x = np.array([[1,2], [4,5]])
 y = np.array([[4,5], [1,2]])
 print(np.cross(x, y))
-# Tensor(shape=[2], dtype=Int32, value= [-3,  3])
+# [-3,  3]
 
 # PyTorch
 a = torch.tensor([[1,2,3], [4,5,6]], dtype=torch.int8)
