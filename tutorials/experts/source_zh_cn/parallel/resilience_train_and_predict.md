@@ -40,7 +40,7 @@
 
 ### 整体流程
 
-首先，执行分布式训练，并行模式设置为`semi_auto_parallel`/`auto_parallel`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_save_file`参数配置模型切分策略文件存储路径,
+首先，执行分布式训练，并行模式设置为`semi_auto_parallel`/`auto_parallel`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_save_file`参数配置模型切分策略文件存储路径，
 训练一段时间后，调用存储Checkpoint的callback函数，将分布式的Checkpoint存储下来。而后编译新的卡数/切分策略下的网络，生成目标网络的模型切分策略文件，调用分布式Checkpoint转换的接口进行分布式Checkpoint的转换。
 
 ### 执行分布式训练
@@ -49,7 +49,7 @@
 添加保存Checkpoint的回调函数，首先定义Checkpoint存储相关的配置对象`CheckpointConfig`，注意`integrated_save`配置为`False`，意味着不对分布式训练的权重做聚合保存，以适应大模型下的内存开销。
 而后定义保存Checkpoint的回调函数`ModelCheckpoint`。最后，调用`model.train`执行训练。
 关于分布式训练的基本使用方法，请参考[分布式训练Ascend](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
-或者[分布式训练GPU](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html) 。
+或者[分布式训练GPU](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。
 
 ```python
 import mindspore as ms
@@ -83,7 +83,7 @@ model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 bash run_train_8p.sh ../output/wmt14.en_fr.txt
 ```
 
-执行后，将会生成源Checkpoint文件目录以及源切分策略文件:
+执行后，将会生成源Checkpoint文件目录以及源切分策略文件：
 
 ```text
 src_checkpoints/
@@ -145,7 +145,7 @@ model.infer_predict_layout(Tensor(np.ones(shape=data_shape)))
 bash run_compile_4p.sh ../output/wmt14.en_fr.txt
 ```
 
-执行后，将会生成目标切分策略文件:
+执行后，将会生成目标切分策略文件：
 
 ```text
 dst_strategy.ckpt
@@ -191,13 +191,13 @@ dst_strategy.ckpt
                                    src_strategy_file, dst_strategy_file)
    ```
 
-    示例中，对Checkpoint按照rank逐个转换的脚本执行命令为：
+   示例中，对Checkpoint按照rank逐个转换的脚本执行命令为：
 
-    ```bash
-    bash transform_by_rank.sh ./src_strategy.ckpt ./dst_strategy.ckpt ./src_checkpoints ./dst_checkpoints
-    ```
+   ```bash
+   bash transform_by_rank.sh ./src_strategy.ckpt ./dst_strategy.ckpt ./src_checkpoints ./dst_checkpoints
+   ```
 
-执行后，将会生成转换后的目标Checkpoint文件目录:
+执行后，将会生成转换后的目标Checkpoint文件目录：
 
 ```text
 dst_checkpoints/
@@ -310,7 +310,7 @@ model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 bash run_train_8p_pipeline.sh ../output/wmt14.en_fr.txt
 ```
 
-执行后，将会生成源Checkpoint文件目录以及源切分策略文件:
+执行后，将会生成源Checkpoint文件目录以及源切分策略文件：
 
 ```text
 src_checkpoints_pipeline/
@@ -325,7 +325,7 @@ src_pipeline_strategys/
 bash run_compile_4p.sh ../output/wmt14.en_fr.txt
 ```
 
-执行后，将会生成目标切分策略文件:
+执行后，将会生成目标切分策略文件：
 
 ```text
 dst_strategy.ckpt

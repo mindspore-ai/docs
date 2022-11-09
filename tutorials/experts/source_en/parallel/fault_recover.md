@@ -85,7 +85,7 @@ rank_list = ms.restore_group_info_list("./ckpt_dir0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
-Distributed fault recovery requires prior access to the slicing scores, thus, it is necessary to first call [model.build](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html# mindspore.train.model.build) to compile and then perform the training.
+Distributed fault recovery requires prior access to the slicing scores, thus, it is necessary to first call [model.build](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.model.build) to compile and then perform the training.
 
 ```python
 import os
@@ -102,7 +102,7 @@ def recover_train():
 
 ## Running the Code
 
-First, please refer to the [Preparation Session](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html#Preparation) in the Distributed Parallel Training Transformer Model tutorial to prepare the dataset.
+First, please refer to the [Preparation Session](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial to prepare the dataset.
 After entering the code directory, execute the training script that saves the slice weights.
 
 ```bash

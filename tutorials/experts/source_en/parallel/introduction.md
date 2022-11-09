@@ -58,7 +58,7 @@ The following involves automatic parallel interfaces, such as the interface conf
 
 | Parallel modes | Configuration | Dynamic graph | Static graph | Supported devices |
 | ---------- | ------ | ------ | ---------- | ---------- |
-| Data parallel   | DATA_PARALLEL | Support   | Not support   | GPU, Ascend 910 |
+| Data parallel   | DATA_PARALLEL | Support   | Support   | CPU, GPU, Ascend 910 |
 | Semi-automatic parallel | SEMI_AUTO_PARALLEL | Not support | Support   | GPU, Ascend 910 |
 | Automatic parallel | AUTO_PARALLEL | Not support | Support   | GPU, Ascend 910 |
 | Hybrid parallel   | HYBRID_PARALLEL | Not support | Support   | GPU, Ascend 910 |
@@ -270,10 +270,10 @@ Currently GPU and Ascend support multiple startup methods respectively. The two 
 - Multi-process startup method. The user needs to start the processes corresponding to the number of cards, as well as configure the rank_table table. You can visit [Running Script](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script) to learn how to start multi-card tasks by multi-processing.
 - OpenMPI. The user can start running the script with the mpirun command, at which point the user needs to provide the host file. Users can visit [Run Scripts via OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi) to learn how to use OpenMPI to start multi-card tasks.
 
-|              | GPU  |  Ascend|
-| ------------ | ---- | -----  |
-|  OpenMPI     | support  |  not support  |
-|  Multi-process startup    | not support |  support  |
+|              | GPU  |  Ascend| CPU |
+| ------------ | ---- | -----  | ------------ |
+|  OpenMPI     | Support  |  Support  | Not support |
+|  Multi-process startup    | Not support |  Support  | Support |
 
 ## Data Import Method
 

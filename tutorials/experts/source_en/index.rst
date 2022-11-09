@@ -79,6 +79,7 @@ For Experts
    parallel/save_load
    parallel/fault_recover
    parallel/multi_dimensional
+   parallel/resilience_train_and_predict
    parallel/other_features
 
 .. toctree::
