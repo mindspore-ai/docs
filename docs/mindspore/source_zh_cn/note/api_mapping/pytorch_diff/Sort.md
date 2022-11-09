@@ -55,7 +55,8 @@ print(output)
 
 # Pytorch
 a = torch.tensor([[8, 2, 1], [5, 9, 3], [4, 6, 7]], dtype=torch.int8)
-torch.argsort(a, dim=1)
+output = torch.argsort(a, dim=1)
+print(output)
 # Out:
 # tensor([[2, 1, 0],
 #         [2, 0, 1],
