@@ -8,6 +8,7 @@ Multi Dimensional
   :maxdepth: 1
   :hidden:
 
+  operator_parallel
   pipeline_parallel
   optimizer_parallel
   host_device_training
@@ -44,8 +45,8 @@ MindSpore provides the following advanced features to support
 distributed training of large models, and users can flexibly combine
 them according to their own needs.
 
-Operator Parallel
------------------
+`Operator Parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/operator_parallel.html>`__
+---------------------------------------------------------------------------------------------------------------
 
 Operator-level parallelism is a distributed computation of operators by
 splitting their input tensors into multiple devices in units. On the one
