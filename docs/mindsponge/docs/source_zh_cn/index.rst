@@ -75,8 +75,8 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
    .. code:: bash
 
       cd output/
-      pip install mindscience_sponge*.whl
-      pip install mindscience_cybertron*.whl
+      pip install mindsponge*.whl
+      pip install cybertron*.whl
 
 案例初体验
 ----------
