@@ -195,7 +195,7 @@ Therefore, the inserted rescheduling operators may be `AllGather`, `Split`, `Con
 
 Pipeline parallel is also possible in automatic and semi-automatic modes by configuring the `pipeline_stage` property on the `Cell`. The corresponding tutorial on pipeline parallelism can be found in [Applying Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html).
 
-### Automatic Parallelism
+### Fully Automatic Parallelism
 
 Automatic parallel mode, a distributed parallel mode that combines data parallel, model parallel and hybrid parallel in, can automatically build cost models, find parallel strategies with shorter training time, and select the appropriate parallel mode for users. MindSpore provides the following three different strategy search algorithms:
 

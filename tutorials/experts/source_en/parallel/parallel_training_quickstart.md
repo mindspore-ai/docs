@@ -1,18 +1,18 @@
-# 快速入门分布式并行训练
+# Quick Start Distributed Parallel Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## 概述
+## Overview
 
-本篇教程通过一个单隐藏层全连接神经网络的简单示例，展示如何通过**OpenMPI**，在单机8卡的**GPU**环境下，进行MindSpore分布式并行训练。
+This tutorial shows how to perform MindSpore distributed parallel training in a single 8-card **GPU** environment via **OpenMPI** with a simple example of a single hidden layer fully connected neural network.
 
-在GPU平台上，对ResNet网络进行分布式并行训练的教程见[分布式并行训练基础样例（GPU）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。相比之下：（1）该示例使用更加复杂的ResNet网络；（2）除使用OpenMPI的方式拉起训练外，该示例还介绍使用脚本的方式拉起训练。
+A tutorial on distributed parallel training of ResNet networks on a GPU platform is available at [Sample Distributed Parallel Training Basics (GPU)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html). In contrast: (1) the example uses a more complex ResNet network; (2) in addition to pull-up training by using OpenMPI, the example also introduces pull-up training by using a scripted approach.
 
-> 你可以在这里下载完整的样例代码：
+> You can download the complete sample code here:
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_quickstart>
 
-目录结构如下：
+The directory structure is as follows:
 
 ```text
 └─sample_code
@@ -22,15 +22,15 @@
     ...
 ```
 
-其中，`net.py`为网络定义脚本，`run_with_mpi.sh`是执行脚本。
+where `net.py` is the network definition script and `run_with_mpi.sh` is the execution script.
 
-> 此外，在Ascend 910平台上进行分布式并行训练的教程详见[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)与[分布式并行训练Transformer模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html)。
+> In addition, tutorials for distributed parallel training on Ascend 910 platform are available in [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) and [Distributed Parallel Training of Transformer Models](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html).
 
-## 准备环节
+## Preparation
 
-### 数据集
+### Datasets
 
-本样例随机构造一组输入数据与标签，代码如下：
+This sample example constructs a random set of input data and labels, with the following code:
 
 ```python
 import numpy as np
@@ -45,11 +45,11 @@ def get_dataset(batch_size, in_dim, out_dim, step_per_epoch):
     return generate
 ```
 
-其中，`step_per_epoch`为训练每epoch进行的step数，`batch_size`为批大小，`in_dim`为输入向量长度，`out_dim`为输出向量长度。
+where `step_per_epoch` is the number of steps performed per epoch for training, `batch_size` is the batch size, `in_dim` is the input vector length, and `out_dim` is the output vector length.
 
-### 网络结构
+### Network Structure
 
-本样例使用的网络代码如下：
+The network code used in this sample is as follows:
 
 ```python
 class Net(Cell):
@@ -72,22 +72,22 @@ class Net(Cell):
         return out
 ```
 
-其中，`in_dim`为网络输入维度，`out_dim`为输出维度，需与数据维度匹配，而`hidden_dim`为网络隐藏层节点数。
+where `in_dim` is the network input dimension, `out_dim` is the output dimension, which needs to match the data dimension, and `hidden_dim` is the number of nodes in the hidden layer of the network.
 
-## 通过OpenMPI进行半自动并行分布式训练
+## Semi-automatic Parallel Distributed Training via OpenMPI
 
-### OpenMPI环境配置
+### OpenMPI Environment Configuration
 
-[OpenMPI](https://www.open-mpi.org/)是一种高性能消息传递库，是MindSpore采用的多进程通讯库，相关环境配置见：[通过OpenMPI运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本)。
+[OpenMPI](https://www.open-mpi.org/) is a high-performance messaging library, a multi-process communication library adopted by MindSpore. For the related environment configuration, see [Running the Script through OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi).
 
-> 此外，MindSpore还支持不依赖OpenMPI进行分布式训练，详见：[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练)。
+> In addition, MindSpore also supports distributed training without relying on OpenMPI. For the details, see [Training without Relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi).
 
-### 半自动并行
+### Semi-automatic Parallelism
 
-目前MindSpore支持四种并行模式，详见：[分布式并行训练模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#分布式并行训练模式)。
+Currently MindSpore supports four parallel modes, and see [Distributed Parallel Training Modes](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#distributed-parallel-training-mode-1) for details.
 
-本例中演示全自动并行，通过`set_auto_parallel_context()`接口配置`parallel_mode=ms.ParallelMode.AUTO_PARALLEL`实现。
-全自动并行下共有三种可配置的并行策略搜索算法，详见：[全自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#全自动并行)。本例中，选择**切分策略传播算法**，通过`set_auto_parallel_context()`接口配置`search_mode="sharding_propagation"`实现，并手动设置`matmul`算子切分策略，其他算子的切分策略由并行策略搜索算法自动给出，代码如下：
+This example demonstrates fully automatic parallelism, which is achieved by configuring `parallel_mode=ms.ParallelMode.AUTO_PARALLEL` through the `set_auto_parallel_context()` interface.
+There are three configurable parallel strategy search algorithms under fully automatic parallelism, see: [Fully automatic parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#fully-automatic-parallelism) for details. In this example, the **sharding strategy propagation algorithm** is selected, which is implemented by configuring `search_mode="sharding_propagation"` through the `set_auto_parallel_context()` interface, and manually setting the `matmul` operator sharding strategy. The sharding strategy of other operators is given by the parallel strategy search algorithm automatically. The code is as follows:
 
 ```python
 class Net(Cell):
@@ -100,9 +100,9 @@ class Net(Cell):
         self.weight = Parameter(initializer("normal", [self.in_dim, self.hidden_dim]), "w")
         self.weight2 = Parameter(initializer("normal", [self.hidden_dim, self.out_dim]), "w2")
 
-        # 对matmul算子手动设置切分策略
-        # 其中(2, 4)表示matmul算子的输入数据在batch维切分为两份，在width维切分为四份
-        # (4, 1)表示matmul算子的权重在height维切分为四份
+        # Set the sharding strategy manually for the matmul operator
+        # where (2, 4) means that the input data of matmul operator is sliced into two parts in batch dimension and four parts in width dimension
+        # (4, 1) indicates that the weights of the matmul operator are sliced into four parts in the HEIGHT dimension
         self.matmul = ops.MatMul().shard(((2, 4), (4, 1)))
 
         self.relu = ops.ReLU()
@@ -115,17 +115,17 @@ class Net(Cell):
         return out
 ```
 
-其中，`shard()`方法的详细介绍见[自动并行原理](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)，接口介绍见[函数式算子切分](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pynative_shard_function_parallel.html)。
+where the `shard()` method is described in detail in [Principles of Automatic Parallelism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#principle-of-automatic-parallelism). The inference introduction is in [functional operator sharding](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html)
 
-对于上述例子中设置的并行切分策略，在单机8卡环境下，前向传播过程的`matmul`算子计算过程示意图如下：
+For the parallel sharding strategy set in the above example, the `matmul` operator computation process for the forward propagation process in a single-machine 8-card environment is schematically shown as follows:
 
-![image](images/matmul_shard.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/matmul_shard.png)
 
-其中，上半部分为数据切分示意图，下半部分为在逻辑号（rank）0-7号的GPU卡各自执行的计算与通信过程示意图。
+The top half of the diagram shows the data sharding, and the bottom half shows the calculation and communication process performed by each GPU card at logical number (rank) 0-7.
 
-#### 代码运行
+#### Code Running
 
-本例中，损失函数、优化器与训练过程的定义与单卡训练类似，代码如下：
+In this example, the loss function, optimizer and training procedure are defined similarly to single card training, with the following code:
 
 ```python
 var_step_per_epoch = 4
@@ -136,44 +136,44 @@ var_out_dim = 16
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=True, save_graphs_path="../saved_graph")
 
-# 单机8卡环境，并行模式为全自动并行，策略搜索设置为策略传播算法
+# Single-machine 8-card environment. Parallel mode is fully automatic parallelism, and strategy search is set to strategy propagation algorithm
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation", dataset_strategy="data_parallel")
 
-# 初始化通信环境，并获取当前卡的逻辑序号，即rank_id
+# Initialize the communication environment and get the logical serial number of the current card, i.e. rank_id
 init("nccl")
 rank_id = get_rank()
 
-# 随机构造数据集
+# Randomly constructed datasets
 fake_dataset = get_dataset(var_single_batch_size, var_step_per_epoch, var_in_dim, var_out_dim)
 dataset = ds.GeneratorDataset(fake_dataset, ["input", "label"])
 
-# 定义网络结构
+# Define the network structure
 net = Net(var_in_dim, var_hidden_dim, var_out_dim)
 
-# 定义损失函数、callback
+# Define the loss function and callback
 loss = MSELoss()
 callback = [LossMonitor(), ModelCheckpoint(directory="{}".format(rank_id))]
 
-# 定义优化器
+# Define the optimizer
 learning_rate = 0.2
 momentum = 0.1
 epoch_size = 5
 opt = Momentum(net.trainable_params(), learning_rate, momentum)
 
-# 模型训练
+# Model training
 model = Model(net, loss_fn=loss, optimizer=opt)
 model.train(epoch_size, dataset, callbacks=callback, dataset_sink_mode=False)
 ```
 
-可以通过OpenMPI的`mpirun`命令进行训练，具体代码见脚本`run_with_mpi.sh`。
+Training can be performed with `mpirun` command of OpenMPI, as specified in the script `run_with_mpi.sh`.
 
-运行后，该脚本在后台进行，训练日志保存在`./device`目录下，逻辑编号为`rank_id`的卡的模型保存在`./device/{rank_id}`目录下。
+After running, the script is performed in the background and the training log is saved in the `. /device` directory, and the model of the card with the logical number `rank_id` is saved in the `. /device/{rank_id}` directory.
 
-此外，通过`ms.set_context()`接口配置`save_graphs=True`保存模型中间表示`MindIR`，逻辑编号为`rank_id`的卡的`MindIR`保存在`./saved_graph/{rank_id}`目录下。其中，MindSpore IR(MindIR)是MindSpore框架程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，详见[MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。
+In addition, `save_graphs=True` is configured via the `ms.set_context()` interface to save the model intermediate representation `MindIR`, and the `MindIR` of the card with the logical number `rank_id` is saved in the `. /saved_graph/{rank_id}` directory. MindSpore IR (MindIR) is a program representation between the source language and the target language during the compilation of MindSpore framework programs to facilitate program analysis and optimization by the compiler, see [MindIR](https://www.mindspore.cn/docs/en/master/design/mindir.html).
 
-#### 验证
+#### Verification
 
-运行`run_with_mpi.sh`脚本后，记录的loss应下降，如：
+After running the `run_with_mpi.sh` script, the recorded loss should decrease, e.g.
 
 ```text
 # ./device/train.log: #
@@ -221,7 +221,7 @@ epoch: 4 step: 2, loss is 0.2440134435892105
 ...
 ```
 
-可以在`./saved_graph/rank_x/step_parallel_begin_xxxx.ir`中，查看各算子的切分策略配置，如：
+You can check the configuration of the sharding strategy for each operator in `. /saved_graph/rank_x/step_parallel_begin_xxxx.ir` to see the configuration of the sharding strategy for each operator, e.g.
 
 ```text
 # ./saved_graph/rank_0/step_parallel_begin_0041.ir: #
@@ -241,9 +241,9 @@ epoch: 4 step: 2, loss is 0.2440134435892105
 ...
 ```
 
-可以看到，`%4(out)`行对应的`relu`算子`%6(out)`行对应的`matmul2`算子被自动配置了切分策略。
+It can be seen that the `relu` operator corresponding to the `%4(out)` line and the `matmul2` operator corresponding to the `%6(out)` line are automatically configured with a sharding strategy.
 
-进一步，可以在`./saved_graph/rank_x/18_execute_xxxx.ir`中，查看各卡实际执行的切分算子维度，如：
+Further, you can view `. /saved_graph/rank_x/18_execute_xxxx.ir` to see the actual execution of the slice operator dimension for each card, e.g.
 
 ```text
 # ./saved_graph/rank_0/18_execute_0185.ir: #
@@ -278,4 +278,4 @@ epoch: 4 step: 2, loss is 0.2440134435892105
 ...
 ```
 
-可以看到，`%12(equivout)`行对应的`matmul`算子维度与图示中一致。
+It can be seen that the dimension of the `matmul` operator corresponding to the `%12(equivout)` line is the same as that shown in the figure.
