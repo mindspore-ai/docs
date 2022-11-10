@@ -43,7 +43,7 @@ The first code will be downloaded and unpacked automatically when you run it. Ma
 ```python
 from download import download
 
-dataset_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vit_dataset.zip"
+dataset_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vit_imagenet_dataset.zip"
 path = "./"
 
 path = download(dataset_url, path, kind="zip", replace=True)
