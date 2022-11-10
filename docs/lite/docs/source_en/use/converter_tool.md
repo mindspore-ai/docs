@@ -148,7 +148,7 @@ The following describes how to use the conversion command by using several commo
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
 
    ```text
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```
 
 ## Windows Environment Instructions
