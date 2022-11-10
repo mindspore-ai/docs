@@ -80,8 +80,8 @@ source code install
    .. code:: bash
 
       cd output/
-      pip install mindscience_sponge*.whl
-      pip install mindscience_cybertron*.whl
+      pip install mindsponge*.whl
+      pip install cybertron*.whl
 
 Examples
 --------
