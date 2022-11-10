@@ -26,9 +26,9 @@ There are two ways to collect neural network performance data. You can enable Pr
 
   For example: `export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
 
-    - `start`: If this parameter is set to "true", Profiler is enabled. If the value is set to "false", the performance data collection is disabled. Default value: "false".
+    - `start`: If this parameter is set to "True", Profiler is enabled. If the parameter is set to "False", the performance data collection is disabled. Default value: "False".
     - `output_path`(str, optional): This parameter must be set to the absolute path. If this parameter is not set to the absolute path, the data directory is created in the current path to store performance data by default.
-    - `sync_enable`(bool, optional): Whether to enable the operator asynchronous execution mode. Default value: "true".
+    - `sync_enable`(bool, optional): Whether the profiler collects operators in a synchronous way. Default value: "True".
 
 - Method 2: Modify the training script
 
@@ -37,9 +37,9 @@ There are two ways to collect neural network performance data. You can enable Pr
 
       > In GPU multi-card scenarios, the `Profiler` object needs to be initialized after `set_auto_parallel_context`.
       >
-      > Now only the output_path in parameters is working in GPU when initializing the Profiler object.
+      > The parameters of Profiler are as follows: [Profiler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler).
 
-  - At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
+  - At the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the performance analysis results.
 
   For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script).
 

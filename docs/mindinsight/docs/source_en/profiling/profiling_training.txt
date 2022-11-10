@@ -27,23 +27,17 @@ There are two ways to collect neural network performance data. You can enable Pr
 
   Add the MindSpore Profiler interface to the training script.
 
-  - Before training starts, the MindSpore ``Profiler`` object needs to be
-    initialized.
+  - Before training, initialize the MindSpore Profiler object, profiler enables collection of performance data.
 
     .. note::
         The parameters of Profiler are as follows:
         `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
+        Before initializing the Profiler, you need to determine the device_id.
 
   - At the end of the training, ``Profiler.analyse()`` should be called
     to finish profiling and generate the perforamnce analyse results.
 
-  Profiler can control whether performance data collection is turned on or
-  off based on step (epoch) with the start_profile parameter. For the data
-  sinking mode of graph mode, CANN can only be told to turn on and off
-  after each epoch, so for the data sinking mode, it needs to turn on and
-  off based on the epoch.
-
-  The code for a normal scenario is as follows:
+  The simple scenario code is as follows:
 
   .. code:: python
 
@@ -88,35 +82,40 @@ There are two ways to collect neural network performance data. You can enable Pr
          # Profiler end
          profiler.analyse()
 
-  Graph mode:
+  The user can set the initialization parameter start_profile to False to decide not to turn the Profiler on temporarily, call the start function to turn the Profiler on at an appropriate time, call the stop function to stop collecting data, and finally call the analyse to parse the data.
+  The user can use Callback to turn on and off the Profiler based on step or epoch, and only collect the data of step or epoch. For the data sinking mode, CANN can only be told to turn on and off after each epoch, so for the data sinking mode, it needs to turn on and off based on the epoch.
 
   - When dataset_sink_mode is set to False, it needs to be enabled based
-    on step.
+    on step, `Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
 
     .. code:: python
 
         import mindspore as ms
+
         class StopAtStep(ms.Callback):
             def __init__(self, start_step, stop_step):
                 super(StopAtStep, self).__init__()
                 self.start_step = start_step
                 self.stop_step = stop_step
                 self.profiler = ms.Profiler(start_profile=False)
+
             def step_begin(self, run_context):
                 cb_params = run_context.original_args()
                 step_num = cb_params.cur_step_num
                 if step_num == self.start_step:
                     self.profiler.start()
+
             def step_end(self, run_context):
                 cb_params = run_context.original_args()
                 step_num = cb_params.cur_step_num
                 if step_num == self.stop_step:
                     self.profiler.stop()
+
             def end(self, run_context):
                 self.profiler.analyse()
 
   - When dataset_sink_mode is set to True, it needs to be enabled based
-    on epoch.
+    on epoch
 
     .. code:: python
 
@@ -126,31 +125,34 @@ There are two ways to collect neural network performance data. You can enable Pr
                 self.start_epoch = start_epoch
                 self.stop_epoch = stop_epoch
                 self.profiler = ms.Profiler(start_profile=False)
+
             def epoch_begin(self, run_context):
                 cb_params = run_context.original_args()
                 epoch_num = cb_params.cur_epoch_num
                 if epoch_num == self.start_epoch:
                     self.profiler.start()
+
             def epoch_end(self, run_context):
                 cb_params = run_context.original_args()
                 epoch_num = cb_params.cur_epoch_num
                 if epoch_num == self.stop_epoch:
                     self.profiler.stop()
+
             def end(self, run_context):
                 self.profiler.analyse()
 
-  Custom training:
+  - Custom training, `Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_
 
-  .. code:: python
+    .. code:: python
 
-     profiler = ms.Profiler(start_profile=False)
-     data_loader = ds.create_dict_iterator()
+       profiler = ms.Profiler(start_profile=False)
+       data_loader = ds.create_dict_iterator()
 
-     for i, data in enumerate(data_loader):
-         train()
-         if i==100:
-             profiler.start()
-         if i==200:
-             profiler.stop()
+       for i, data in enumerate(data_loader):
+           train()
+           if i==100:
+               profiler.start()
+           if i==200:
+               profiler.stop()
 
-     profiler.analyse()
+       profiler.analyse()
