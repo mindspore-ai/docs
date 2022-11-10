@@ -1,26 +1,26 @@
-# 鹏程·盘古模型网络多维度混合并行解析
+# PengCheng·PanGu Model Network Multi-dimension Hydrid Parallel Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/pangu_alpha.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/pangu_alpha.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## 概述
+## Overview
 
-在MindSpore发布的鹏程·盘古模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
+In the PengCheng·PanGu model [1] published by MindSpore, we see that distributed training of very large Transformer networks can be achieved with the help of multi-dimensional automatic hybrid parallelism. This article will explain the sharding method of each component in the model in detail, starting from the network script.
 
-> 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha)
+> For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha)
 
-在训练入口脚本train.py中，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文关注的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
+In the training entry script train.py, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
 
-## Embedding层
+## Embedding Layer
 
-在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindspore.nn.transformer.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
+In language model training, the input data are sentences composed of words, and we usually use the embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindspore.nn.transformer.VocabEmbedding`.
 
-如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略切分索引batch维度，或者模型并行策略对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
+The following code shows that the `Gather` operator takes two inputs and finds the corresponding vectors in the lookup table `embedding_table` according to the index `input_ids`. The lookup table is a parameter to be learned during training and statically occupies memory resources on the card. We can decide to use a data parallel strategy for the `Gather` operator to slice the index batch dimension or a model parallel strategy to row slice the lookup table depending on the size of the lookup table. When the word list range `config.vocab_size` is large, it is recommended to choose a model parallel strategy for `word_embedding`, and the framework will automatically introduce computation and communication operators to handle out-of-bounds lookup cases.
 
-- 数据并行策略 `gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`
+- Data parallel strategy `gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`
 
-- 模型并行策略 `gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`
+- Model parallel strategy `gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`
 
-> 脚本和文章中使用config.data_parallel和config.model_parallel指代数据并行切分维度大小和模型并行切分维度大小。
+> The scripts and articles use config.data_parallel and config.model_parallel to refer to the data parallel slice dimension size and the model parallel slice dimension size.
 
 ```python
 import mindspore as ms
@@ -46,7 +46,7 @@ class VocabEmbedding(Cell):
         return output, self.embedding_table
 ```
 
-基于`mindspore.nn.transformer.VocabEmbedding`，我们可以实现词嵌入向量和位置嵌入向量的求和。我们定义了`Add`和`Dropout`算子，并且设置这两个算子对应的策略为数据并行。
+Based on `mindspore.nn.transformer.VocabEmbedding`, we can implement the summation of word embedding vectors and location embedding vectors. We define the `Add` and `Dropout` operators and set the strategy corresponding to these two operators to be data parallelism.
 
 ```python
 from mindspore.common.initializer import initializer
@@ -87,27 +87,27 @@ class EmbeddingLayer(nn.Cell):
         return embed, word_table
 ```
 
-## Decoder层
+## Decoder Layer
 
-训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信，它们的切分方式可以参照下图[1]：
+The key difficulty in training large-scale Transformer networks is how to solve the computational and memory bottlenecks caused by the increasing number of layers, and it is especially important to choose a reasonable slicing. The main network of the PengCheng-PanGu model consists of multiple Decoders with the same structure but do not share weights, and the Decoder is composed of two parts, Self-Attention and FeedForward. The principle of slicing is to minimize the communication, and their slicing can be referred to the following figure [1]:
 
-![image](./images/pangu_strategy.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/pangu_strategy.png)
 
 ### Self-Attention
 
-Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在attention计算完成之后，需要将attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
+Self-Attention can be implemented directly via `mindspore.nn.transformer.MultiHeadAttention`. In the process of computing Attention, the input vector needs to be projected to the Query, Key, and Value vectors, and then the output of attention needs to be passed through the Dense layer again after the calculation of attention is completed. The following describes the strategy configuration of these three sections respectively.
 
-- 三个Dense矩阵乘法
+- Three Dense Matrix Multiplication
 
-  此处负责将shape为`[batch*sequence_length, hidden_size]`的输入tensor投影到三个向量，作为Attention计算的Query、Key、Value三个向量。
+  Here project the input tensor with shape `[batch*sequence_length, hidden_size]` into three vectors as the Query, Key, and Value vectors for the Attention calculation.
 
-  对输入的batch维度及权重的output_channel维度进行混合并行切分：
+  Hybrid parallel slicing of the input batch dimension and the output_channel dimension of the weight:
 
-  `matmul.shard(((parallel_config.data_parallel, 1), (parallel_config.model_parallel, 1)))`。
+  `matmul.shard(((parallel_config.data_parallel, 1), (parallel_config.model_parallel, 1)))`.
 
-  输出矩阵行、列均切，再加上切分的偏置项：
+  Output matrix rows and sliced columns, plus the sliced bias term.
 
-  `bias_add.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel,)))`。
+  `bias_add.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel,)))`.
 
   ```python
   self.dense1 = nn.Dense(hidden_size,
@@ -116,9 +116,9 @@ Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实
   self.dense1.bias_add.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel,)))
   ```
 
-- `Softmax`以及`BatchMatMul`
+- `Softmax` and `BatchMatMul`
 
-  在计算Attention的过程中，通过`BatchMatMul`实现Query和Key向量的矩阵乘法。此处，`softmax`的输入shape为`[batch, sequence_length, num_heads, size_per_head]`。因为每个`head`之间在计算attention score时是独立的，所以可以在`batch`维度和`heads`维度对`softmax`算子进行切分。
+  The matrix multiplication of Query and Key vectors is implemented by `BatchMatMul` in the process of computing Attention. Here the input shape of `softmax` is `[batch, sequence_length, num_heads, size_per_head]`. Because each `head` is independent from each other in computing the attention score, the `softmax` operator can be sliced in the `batch` dimension and the `heads` dimension.
 
   ```python
   self.softmax = nn.Softmax()
@@ -128,9 +128,9 @@ Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实
                       (parallel_config.data_parallel, parallel_config.model_parallel, 1, 1)))
   ```
 
-- Projection层
+- Projection Layer
 
-  Projection负责将attention的输出结果进行一次投影。在`MatMul`算子的相关维度进行切分。
+  Projection projects the output of attention once. The relevant dimension in the `MatMul` operator is sliced.
 
   ```python
   self.projection = nn.Dense(hidden_size,
@@ -140,7 +140,7 @@ Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实
 
 ### FeedForward
 
-FeedForward可以直接调用`mindspore.nn.transformer.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
+FeedForward can be implemented by calling `mindspore.nn.transformer.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
 
 ```python
 from mindspore.common.initializer import initializer
@@ -275,9 +275,9 @@ class FeedForward(nn.Cell):
         return output
 ```
 
-## Residual层
+## Residual Layer
 
-Transformer结构中值得注意的一个细节是，每个子层都有残差连接，并且跟着layernorm操作。虽然layernorm中也包含权重，但是仅为`hidden_size`大小的一维向量，占网络权重比例很小，所以这里直接采用数据并行切分方式。
+A detail of the Transformer structure that should be noted is that each sublayer is connected with residuals and follows the layernorm operation. Although the layernorm also contains weights, it is only a one-dimensional vector of size `hidden_size`, which accounts for a very small proportion of the network weights, so data parallel slicing is directly used here.
 
 ```python
 from mindspore import nn
@@ -286,9 +286,9 @@ layernorm1 = nn.LayerNorm((hidden_size,))
 layernorm1.shard(((parallel_config.data_parallel, 1),))
 ```
 
-## 预测层
+## Prediction Layer
 
-计算loss前需要经过一个全连接层将输出特征从`config.hidden_size`映射回`config.vocab_size`维度得到logits。这里全连接层和`word_embedding`操作共享权重，所以要求全连接层权重的切分方式与embedding层保持一致。
+A fully-connected layer is needed to map the output features from `config.hidden_size` back to the `config.vocab_size` dimension to get logits before calculating the loss. Here the fully-connected layer and the `word_embedding` operation share weights, so the slicing of the fully connected layer weights is required to be consistent with that of the embedding layer.
 
 ```python
 import mindspore.ops as ops
@@ -323,8 +323,8 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，embedding层、decorder层、residual层和linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
+In this article, we learn how to quickly implement distributed training of Transformer-like networks on the basis of a stand-alone script by configuring an operator sharding strategy. When specific to the network structure, embedding layer, decoder layer, residual layer and linear layer all have their own slicing features, and users can improve the distributed training and tuning efficiency by mastering the operator strategy configuration method.
 
-## 参考文献
+## References
 
 [1] Zeng W, Ren X, Su T, et al. PanGu-$\\alpha$: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation. 2021.
