@@ -265,15 +265,17 @@ model.train(*args, **kwargs)
 
 ## Multi-card Startup Method
 
-Currently GPU and Ascend support multiple startup methods respectively. The two main methods are OpenMPI and multi-process startup.
+Currently GPU, Ascend and CPU support multiple startup methods respectively. The three main methods are OpenMPI, dynamic networking and multi-process startup.
 
 - Multi-process startup method. The user needs to start the processes corresponding to the number of cards, as well as configure the rank_table table. You can visit [Running Script](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script) to learn how to start multi-card tasks by multi-processing.
 - OpenMPI. The user can start running the script with the mpirun command, at which point the user needs to provide the host file. Users can visit [Run Scripts via OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi) to learn how to use OpenMPI to start multi-card tasks.
+- Dynamic Networking. MindSpore uses built-in dynamic networking module and has no need to rely on external configuration files or modules to help implement multi-card tasks. Users can visit [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) to learn how to use dynamic networking to start multi-card tasks.
 
 |              | GPU  |  Ascend| CPU |
 | ------------ | ---- | -----  | ------------ |
 |  OpenMPI     | Support  |  Support  | Not support |
-|  Multi-process startup    | Not support |  Support  | Support |
+|  Multi-process startup    | Not support |  Support  | Not support |
+|  Dynamic Networking    |  Support |  Support  | Support |
 
 ## Data Import Method
 
