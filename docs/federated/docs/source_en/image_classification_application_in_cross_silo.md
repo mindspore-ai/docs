@@ -153,7 +153,7 @@ For a specific understanding of the network definition process in MindSpore, ple
 
 ### Installing MindSpore and Mindspore Federated
 
-Both source code and downloadable distribution are included. Support CPU and GPU hardware platforms, just choose to install according to the hardware platforms. The installation steps can be found in [MindSpore Installation Guide](https://www.mindspore.cn/install), [Mindspore Federated Installation Guide](https://www.mindspore.cn/federated/docs/en/master/federated_install.html).
+Both source code and downloadable distribution are included. Support CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms. The installation steps can be found in [MindSpore Installation Guide](https://www.mindspore.cn/install), [Mindspore Federated Installation Guide](https://www.mindspore.cn/federated/docs/en/master/federated_install.html).
 
 Currently the federated learning framework is only supported for deployment in Linux environments. Cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 
