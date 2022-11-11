@@ -56,6 +56,24 @@
 
 注意：相对于类要增加4空格的缩进。
 
+## 特殊方法 mindspore.Tensor
+
+该接口与func接口同名时写法如下：
+
+```text
+.. py:method:: mindspore.Tensor.abs()
+
+    详情请参考 :func:`mindspore.ops.abs`。
+```
+
+该接口是其他Tensor接口别名时写法如下：
+
+```text
+.. py:method:: mindspore.Tensor.absolute()
+
+    :func:`mindspore.Tensor.abs` 的别名。
+```
+
 ## 函数 Function
 
 ```text
