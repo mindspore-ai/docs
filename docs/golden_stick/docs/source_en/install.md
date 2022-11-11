@@ -20,6 +20,8 @@ The MindSpore Golden Stick depends on the MindSpore training and inference frame
 
 | MindSpore Golden Stick Version |                            Branch                            | MindSpore version |
 | :-----------------------------: | :----------------------------------------------------------: | :-------: |
+|          0.3.0          | [r0.3](https://gitee.com/mindspore/golden-stick/tree/r0.3/) |   2.0.0   |
+|          0.2.0          | [r0.2](https://gitee.com/mindspore/golden-stick/tree/r0.2/) |   1.9.0   |
 |          0.1.0          | [r0.1](https://gitee.com/mindspore/golden-stick/tree/r0.1/) |   1.8.0   |
 
 After MindSpore is installed, you can use pip or source code build for MindSpore Golden Stick installation.
@@ -34,7 +36,7 @@ pip install  https://ms-release.obs.cn-north-4.myhuaweicloud.com/{MindSpore_vers
 
 > - Installing whl package will download MindSpore Golden Stick dependencies automatically (detail of dependencies is shown in requirement.txt), other dependencies should install manually.
 > - `{MindSpore_version}` stands for the version of MindSpore. For the version matching relationship between MindSpore and MindSpore Golden Stick, please refer to [page](https://www.mindspore.cn/versions).
-> - `{ms_version}` stands for the version of MindSpore Golden Stick. For example, if you would like to download version 0.1.0, you should fill 1.8.0 in `{MindSpore_version}` and fill 0.1.0 in `{mg_version}`.
+> - `{ms_version}` stands for the version of MindSpore Golden Stick. For example, if you would like to download version 0.3.0, you should fill 2.0.0 in `{MindSpore_version}` and fill 0.3.0 in `{mg_version}`.
 
 ## Installing from source code
 
@@ -42,7 +44,7 @@ Download [source code](https://gitee.com/mindspore/golden-stick), then enter the
 
 ```shell
 bash build.sh
-pip install output/mindspore_gs-{mg_version}-py3-none-any.whl
+pip install output/mindspore_gs-0.3.0-py3-none-any.whl
 ```
 
 `build.sh` is the compiling script in `golden-stick` directory.
