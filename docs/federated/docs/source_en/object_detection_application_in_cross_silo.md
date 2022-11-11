@@ -36,7 +36,7 @@ Since the original COCO dataset is in json file format, the target detection scr
 
 ### Installing MindSpore and Mindspore Federated
 
-Including both downloading source code and downloading release version, supporting CPU and GPU hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install)， [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/master/index.html).
+Including both downloading source code and downloading release version, supporting CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install)， [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/master/index.html).
 
 Currently the federated learning framework is only supported for deployment in Linux environments, and cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 

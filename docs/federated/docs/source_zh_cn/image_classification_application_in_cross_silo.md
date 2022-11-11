@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
 ### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
+包括源码和下载发布版两种方式，支持CPU、GPU、Ascend硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 
