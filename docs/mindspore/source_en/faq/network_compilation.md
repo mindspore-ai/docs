@@ -453,3 +453,17 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 ```
 
 <br/>
+
+<font size=3>**Q:What can I do if an error "The input number of parameters is not Compatible."
+is reported when loading a MindIR?**</font>
+
+A: First, check whether the number of exported parameters and the number of imported parameters match.
+If the match, you need to check if a non-Tensor scenario in the exported parameters.
+
+When the exported data input is a non-Tensor, the exported input will be solidified into MindIR as a constant,
+ making the input in MindIR less than the Construct input for network construction.
+
+If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type,
+ you can use the [muatable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+
+<br/>

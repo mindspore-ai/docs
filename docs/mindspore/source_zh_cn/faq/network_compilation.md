@@ -446,3 +446,13 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 ```
 
 <br/>
+
+<font size=3>**Q: load MindIR 时，出现 “The input number of parameters is not Compatible.” 该怎么办？**</font>
+
+A: 首先检查导出参数和导入执行的参数个数是否是匹配的。如果是匹配的，则需要检查一下导出时候的参数是不是存在非Tensor的场景。
+
+因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
+
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以将其使用用[muatable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+
+<br/>
