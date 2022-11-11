@@ -523,9 +523,41 @@ Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN
 
 #### Primitive
 
-当前支持在网络里构造`Primitive`及其子类的实例，即支持语法`reduce_sum = ReduceSum(True)`。
+当前支持在construct里构造`Primitive`及其子类的实例。
 
-但在构造时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持语法`reduce_sum = ReduceSum(keep_dims=True)`。
+但在调用时，参数只能通过位置参数方式传入，不支持通过键值对方式传入。
+
+示例如下：
+
+```python
+import mindspore as ms
+from mindspore import nn, ops, Tensor, set_context
+import numpy as np
+
+set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+
+    def construct(self, x):
+        reduce_sum = ops.ReduceSum(True) #支持在construct里构造`Primitive`及其子类的实例
+        ret = reduce_sum(x, axis=2)
+        return ret
+
+x = Tensor(np.random.randn(3, 4, 5, 6).astype(np.float32))
+net = Net()
+ret = net(x)
+print('ret.shape:{}'.format(ret.shape))
+```
+
+上面所定义的网络里，reduce_sum(x, axis=2)的参数不支持通过键值对方式传入，只能通过位置参数方式传入，即reduce_sum(x, 2)。
+
+结果报错如下：
+
+```text
+TypeError: Only supported positional parameter type for python primitive, but got keyword parameter type.
+```
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
@@ -535,7 +567,7 @@ Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN
 
 当前支持在网络里构造`Cell`及其子类的实例，即支持语法`cell = Cell(args...)`。
 
-但在构造时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持在语法`cell = Cell(arg_name=value)`。
+但在调用时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持在语法`cell = Cell(arg_name=value)`。
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
