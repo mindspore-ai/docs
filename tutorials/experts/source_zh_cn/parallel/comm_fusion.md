@@ -6,7 +6,7 @@
 
 在分布式并行训练场景下训练大规模参数量的模型（如GPT-3, Pangu-$\alpha$），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
-MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`, `AllGather`, `ReduceScatter`）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
+MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`、`AllGather`、`ReduceScatter`）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 
 ## 基本原理
 
@@ -22,13 +22,13 @@ MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`, `All
 
 ### 通信融合的必要性
 
-网络通信的时间开销可以用以下公式衡量，其中，$m$是传输数据的大小，$\alpha$是网络传输速率，$\beta$是网络启动的固有开销。可见，当传输的message数变多，网络启动的固有开销占比会上升，并且传输小message，并不能有效利用网络带宽资源。即便是HPC领域的通信原语，如`AllReduce`, `AllGather`等，也遵循该原则。因此，通信融合技术能够有效提升网络资源利用率，降低网络同步时延。
+网络通信的时间开销可以用以下公式衡量，其中，$m$是传输数据的大小，$\alpha$是网络传输速率，$\beta$是网络启动的固有开销。可见，当传输的message数变多，网络启动的固有开销占比会上升，并且传输小message，并不能有效利用网络带宽资源。即便是HPC领域的通信原语，如`AllReduce`，`AllGather`等，也遵循该原则。因此，通信融合技术能够有效提升网络资源利用率，降低网络同步时延。
 
 $$t = \alpha m+\beta$$
 
 ### 通信融合的实现
 
-当前支持对`AllReduce`, `AllGather`和`ReduceScatter`三种通信算子分别进行融合，配置项为一个dict类型，如：
+当前支持对`AllReduce`，`AllGather`和`ReduceScatter`三种通信算子分别进行融合，配置项为一个dict类型，如：
 
 comm_fusion={"allreduce": {"mode": "auto", "config": None}}。其中，"mode"有三种选项：
 
@@ -168,7 +168,7 @@ The parameter layer3.output_mapping.bias's fusion id is 2
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
 
-Ascend分布式相关的环境变量有:
+Ascend分布式相关的环境变量有：
 
 - RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)获取。
 - DEVICE_ID：当前卡在机器上的实际序号。
@@ -176,7 +176,7 @@ Ascend分布式相关的环境变量有:
 
 GPU分布式相关的环境变量：
 
-- HOST_FILE: 描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
+- HOST_FILE：描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
 
 用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
 

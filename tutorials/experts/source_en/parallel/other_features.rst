@@ -10,6 +10,8 @@ Other Features
 
   sharding_propagation
   parameter_server_training
+  comm_fusion
+  dataset_slice
   pynative_shard_function_parallel
   ms_operator
 
@@ -42,8 +44,8 @@ some node abnormalities, and under the architecture of parameter
 servers, such failures can be easily handled without affecting the tasks
 in training.
 
-Communication Operator Fusion
------------------------------
+`Communication Operator Fusion <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_fusion.html>`__
+---------------------------------------------------------------------------------------------------------------------
 
 In the distributed training scenario, cross-device or even cross-node
 data transmission is a bottleneck that restricts scalability and
@@ -54,8 +56,8 @@ communication operators of the same source node and the destination node
 and executes them at the same time to avoid the additional overhead
 caused by multiple single operator execution.
 
-Dataset Splitting
------------------
+`Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dataset_slice.html>`__
+--------------------------------------------------------------------------------------------------------
 
 When doing distributed training, you need to import the training dataset
 to each device. There are two common ways to import: 1) Import in
