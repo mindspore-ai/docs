@@ -20,6 +20,8 @@ MindSpore Golden Stick依赖MindSpore训练推理框架，请按照根据下表�
 
 | MindSpore Golden Stick版本 |                             分支                             | MindSpore版本 |
 | :---------------------: | :----------------------------------------------------------: | :-------: |
+|          0.3.0          | [r0.3](https://gitee.com/mindspore/golden-stick/tree/r0.3/) |   2.0.0   |
+|          0.2.0          | [r0.2](https://gitee.com/mindspore/golden-stick/tree/r0.2/) |   1.9.0   |
 |          0.1.0          | [r0.1](https://gitee.com/mindspore/golden-stick/tree/r0.1/) |   1.8.0   |
 
 安装完MindSpore后，继续安装MindSpore Golden Stick。可以采用pip安装或者源码编译安装两种方式。
@@ -33,8 +35,8 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Gol
 ```
 
 > - 在联网状态下，安装whl包时会自动下载MindSpore Golden Stick安装包的依赖项（依赖项详情参见requirement.txt），其余情况需自行安装。
-> - `{ms_version}`表示与MindSpore Golden Stick匹配的MindSpore版本号，例如下载0.1.0版本MindSpore Golden Stick时，`{ms_version}`应写为1.8.0。
-> - `{mg_version}`表示MindSpore Golden Stick版本号，例如下载0.1.0版本MindSpore Golden Stick时，`{mg_version}`应写为0.1.0。
+> - `{ms_version}`表示与MindSpore Golden Stick匹配的MindSpore版本号，例如下载0.3.0版本MindSpore Golden Stick时，`{ms_version}`应写为2.0.0。
+> - `{mg_version}`表示MindSpore Golden Stick版本号，例如下载0.3.0版本MindSpore Golden Stick时，`{mg_version}`应写为0.3.0。
 
 ## 源码编译安装
 
@@ -42,7 +44,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Gol
 
 ```shell
 bash build.sh
-pip install output/mindspore_gs-0.1.0-py3-none-any.whl
+pip install output/mindspore_gs-0.3.0-py3-none-any.whl
 ```
 
 其中，`build.sh`为`golden_stick`目录下的编译脚本文件。
