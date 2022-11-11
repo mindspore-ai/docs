@@ -92,7 +92,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
    结果显示为：
 
    ```text
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```
 
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。

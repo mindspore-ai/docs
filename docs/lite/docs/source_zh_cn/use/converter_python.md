@@ -8,7 +8,7 @@ MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的
 
 目前支持的输入模型类型有：MindSpore、TensorFlow Lite、Caffe、TensorFlow、ONNX和PyTorch。
 
-当输入模型类型不是MindSpore时，通过转换工具转换成的MindSpore Lite或MindSpore模型。另外，支持MindSpore模型转换为MindSpore Lite模型。转换生成的模型支持与转换工具配套版本及更高版本的Runtime推理框架执行推理。
+当输入模型类型不是MindSpore时，通过转换工具转换成MindSpore Lite或MindSpore模型。另外，支持MindSpore模型转换为MindSpore Lite模型。对生成的模型进行推理时，需要的Runtime推理框架版本是与转换工具配套版本及更高版本。
 
 ## Linux环境使用说明
 
@@ -18,7 +18,7 @@ MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的
 
 - [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite的Whl安装包。
 
-  > 当前，下载提供Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
+  > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
 - 然后使用`pip install`命令进行安装。安装后可以使用以下命令检查是否安装成功：若无报错，则表示安装成功。
 
@@ -31,7 +31,7 @@ MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的
 安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite的Python模块的安装位置。
 
 ```text
-mindspore-lite-{version}-cp37-cp37m-linux-x64
+mindspore_lite
 ├── __pycache__
 ├── include
 ├── lib
@@ -55,13 +55,13 @@ mindspore-lite-{version}-cp37-cp37m-linux-x64
 
 ### 参数说明
 
-MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可根据需要来选择使用。用户可以使用`print(Converter)`命令查看当前设置的Converter接口参数。
+MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可根据需要来选择使用。
 
 使用场景：1、将第三方模型转换生成MindSpore模型或MindSpore Lite模型；2、将MindSpore模型转换生成MindSpore Lite模型。
 
-下面提供详细的参数说明以及与[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)中参数的对应关系。
+下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)中参数的对应关系。
 
-| Python接口模型转换参数 | 参数类型  | 模型转换工具参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
+| Python接口模型转换参数 | 参数类型  || 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | 是 | 输入模型框架类型。 | FmkType.TF、FmkType.CAFFE、FmkType.ONNX、FmkType.MINDIR、FmkType.TFLITE、FmkType.PYTORCH | - |
 | model_file | str | `--modelFile=<MODELFILE>` | 是 | 转换时的输入模型文件路径。 | - | - |
@@ -84,11 +84,11 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 
 > `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)
 >
-> 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要本地打开指定编译选项，编译生成支持转换PyTorch模型的安装包。转换PyTorch模型有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
+> 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要本地打开指定编译选项，编译生成支持转换PyTorch模型的安装包。转换PyTorch模型有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 >
 > `model_file`举例："/home/user/model.prototxt"。不同类型应模型后缀举例：TF: "model.pb" | CAFFE: "model.prototxt" | ONNX: "model.onnx" | MINDIR: "model.mindir" | TFLITE: "model.tflite" | PYTORCH: "model.pt or model.pth"。
 >
-> `output_file`参数说明：如果将`export_mindir`设置为`ModelType.MINDIR`，那么将生成MindSpore模型，该模型使用`.mindir`作为后缀。如果将`export_mindir`设置为`ModelType.MINDIR_LITE`，那么将生成MindSpore Lite模型，该模型使用`.ms`作为后缀。例如：输入模型为"/home/user/model.prototxt"，它将生成名为model.prototxt.ms的模型在/home/user/路径下。
+> `output_file`参数说明：如果将`export_mindir`设置为`ModelType.MINDIR`，那么将生成MindSpore模型，该模型使用`.mindir`作为后缀。如果将`export_mindir`设置为`ModelType.MINDIR_LITE`，那么将生成MindSpore Lite模型，该模型使用`.ms`作为后缀。例如：输入模型为"/home/user/model.prototxt"，export_mindir使用默认值，将在/home/user/路径下生成名为model.prototxt.ms的模型。
 >
 > Caffe模型一般分为两个文件：`*.prototxt`是模型结构，对应`model_file`参数；`model.caffemodel`是模型权值，对应`weight_file`参数。
 >
@@ -104,7 +104,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 >
 > `input_format`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#集成nnie使用说明))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
 >
-> 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
+> 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
 > 需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore加密导出的模型进行转换。
 
 ### 使用示例
@@ -124,7 +124,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
   结果显示为：
 
   ```text
-  CONVERTER RESULT SUCCESS:0
+  CONVERT RESULT SUCCESS:0
   ```
 
   这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
@@ -179,7 +179,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
       converter.converter()
       ```
 
-     > 转换PyTorch模型时，有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
+     > 转换PyTorch模型时，有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 
   以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
