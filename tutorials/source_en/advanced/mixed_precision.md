@@ -141,7 +141,7 @@ import mindspore as ms
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 from mindspore.amp import auto_mixed_precision, DynamicLossScaler, all_finite
-from mindspore import ms_function, ops
+from mindspore import ops
 
 
 class LeNet5(nn.Cell):
@@ -197,10 +197,10 @@ Instantiate the LossScaler and manually scale up the loss value when defining th
 
 ```python
 loss_fn = nn.BCELoss(reduction='mean')
-opt = nn.Adam(generator.trainable_params(), learning_rate=0.01)
+opt = nn.Adam(net.trainable_params(), learning_rate=0.01)
 
 # Define LossScaler
-loss_scaler = amp.DynamicLossScaler(scale_value=2**10, scale_factor=2, scale_window=50)
+loss_scaler = DynamicLossScaler(scale_value=2**10, scale_factor=2, scale_window=50)
 
 def net_forward(data, label):
     out = net(data)
@@ -224,7 +224,7 @@ def train_step(x, y):
     (loss_value, _), grads = grad_fn(x, y)
     loss_value = loss_scaler.unscale(loss_value)
 
-    is_finite = amp.all_finite(grads)
+    is_finite = all_finite(grads)
     if is_finite:
         grads = loss_scaler.unscale(grads)
         loss_value = ops.depend(loss_value, opt(grads))
@@ -240,12 +240,12 @@ def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
     for _ in range(num):
         img = np.random.randn(*img_size)
         target = np.random.randint(0, num_classes)
-        target_ret = np.array([target]).astype(np.float32)
+        target_ret = np.array([target]).astype(np.float16)
         if is_onehot:
             target_onehot = np.zeros(shape=(num_classes,))
             target_onehot[target] = 1
-            target_ret = target_onehot.astype(np.float32)
-        yield img.astype(np.float32), target_ret
+            target_ret = target_onehot.astype(np.float16)
+        yield img.astype(np.float16), target_ret
 
 def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
     input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
