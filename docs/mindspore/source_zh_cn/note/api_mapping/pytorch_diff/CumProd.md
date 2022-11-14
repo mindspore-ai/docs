@@ -14,7 +14,7 @@ torch.cumprod(input, dim, dtype=None) -> Tensor
 class mindspore.ops.CumProd(exclusive=False, reverse=False)(x, axis) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.CrumProd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CumProd.html)。
+更多内容详见 [mindspore.ops.CumProd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CumProd.html)。
 
 ## 差异对比
 
