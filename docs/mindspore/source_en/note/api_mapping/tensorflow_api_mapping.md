@@ -48,7 +48,7 @@ Many data processing operations in MindSpore are shared by each dataset class. T
 
 | TensorFlow  2.6 APIs                                         | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [tf.distribute.Strategy](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/distribute/Strategy) | [set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/DistributedTrain.html) |
+| [tf.distribute.Strategy](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/distribute/Strategy) | [mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/DistributedTrain.html) |
 
 ### tf.math
 
