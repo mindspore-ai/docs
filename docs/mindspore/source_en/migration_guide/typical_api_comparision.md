@@ -215,7 +215,7 @@ print(op(ms.Tensor(data)))
 
 During MindSpore model migration, if the PyTorch pre-training model is loaded to the model and fine-tune is performed in MindSpore, the difference may cause precision decrease. Developers need to pay special attention to the convolution whose padding policy is same.
 
-To keep consistent with the PyTorch behavior, you can use the `ops.Pad` operator to manually pad elements, and then use the convolution and pooling operations when `pad_mode=\"valid\"` is set.
+To keep consistent with the PyTorch behavior, you can use the `ops.Pad` operator to manually pad elements, and then use the convolution and pooling operations when `pad_mode="valid"` is set.
 
 ```python
 import numpy as np
@@ -226,7 +226,7 @@ data = np.arange(9).reshape(1, 1, 3, 3).astype(np.float32)
 # only padding on top left of feature map
 pad = ops.Pad(((0, 0), (0, 0), (1, 0), (1, 0)))
 data = pad(ms.Tensor(data))
-res = ops.MaxPool(kernel_size=2, strides=2, pad_mode='same')(data)
+res = ops.MaxPool(kernel_size=2, strides=2, pad_mode='vaild')(data)
 print(res)
 ```
 
