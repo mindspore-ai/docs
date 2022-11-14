@@ -61,7 +61,7 @@ init()
 
 其中，
 
-- `ms.set_context(mode=context.GRAPH_MODE, device_target="CPU")`：指定模式为图模式，设备为`CPU`。
+- `ms.set_context(mode=context.GRAPH_MODE, device_target="CPU")`：指定模式为图模式（CPU上PyNative模式下不支持并行），设备为`CPU`。
 - `ms.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)`：指定数据并行模式，`gradients_mean=True`表示梯度归约后会进行一个求平均，当前CPU上梯度归约仅支持求和。
 - `ms.set_ps_context`：配置安全加密通信，可通过`ms.set_ps_context(enable_ssl=True)`开启安全加密通信，默认为`False`，关闭安全加密通信。
 - `init`：节点初始化，初始化完成表示组网成功。
