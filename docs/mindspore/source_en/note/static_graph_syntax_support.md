@@ -527,9 +527,41 @@ For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/e
 
 #### Primitive
 
-Currently, `Primitive` and its subclass instances can be constructed on the network. That is, the `reduce_sum = ReduceSum(True)` syntax is supported.
+Currently, `Primitive` and its subclass instances can be constructed in construct.
 
-However, during construction, the parameter can be specified only in position parameter mode, and cannot be specified in the key-value pair mode. That is, the syntax `reduce_sum = ReduceSum(keep_dims=True)` is not supported.
+However, during call, the parameter can be specified only in position parameter mode, and cannot be specified in the key-value pair mode.
+
+For example:
+
+```python
+import mindspore as ms
+from mindspore import nn, ops, Tensor, set_context
+import numpy as np
+
+set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+
+    def construct(self, x):
+        reduce_sum = ops.ReduceSum(True) #`Primitive` and its subclass instances can be constructed in construct.
+        ret = reduce_sum(x, axis=2)
+        return ret
+
+x = Tensor(np.random.randn(3, 4, 5, 6).astype(np.float32))
+net = Net()
+ret = net(x)
+print('ret.shape:{}'.format(ret.shape))
+```
+
+In the network defined above, the parameters of reduce_sum(x, axis=2) cannot be specified in the key-value pair mode. the parameter can be specified only in position parameter mode, that is, reduce_sum(x, 2).
+
+The error is reported as follows:
+
+```text
+TypeError: Only supported positional parameter type for python primitive, but got keyword parameter type.
+```
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
@@ -539,7 +571,7 @@ For details about the defined `Primitive`, click [Primitive API document](https:
 
 Currently, `Cell` and its subclass instances can be constructed on the network. That is, the syntax `cell = Cell(args...)` is supported.
 
-However, during construction, the parameter can be specified only in position parameter mode, and cannot be specified in the key-value pair mode. That is, the syntax `cell = Cell(arg_name=value)` is not supported.
+However, during call, the parameter can be specified only in position parameter mode, and cannot be specified in the key-value pair mode. That is, the syntax `cell = Cell(arg_name=value)` is not supported.
 
 Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `construct` of `Cell`.
 
