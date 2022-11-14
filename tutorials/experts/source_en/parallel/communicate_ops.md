@@ -327,7 +327,7 @@ The results of rank1 are:
 
 ## AlltoAll
 
-![image](images/alltoall.pnghttps://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/alltoall.png)
+![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/alltoall.png)
 
 The `AlltoAll` operation will slice the input data into a specific number of chunks in a specific dimension and send them to other ranks in order, while receiving input from other ranks and stitching the data together in a specific dimension in order. For example, in the above figure, the Tensor is sliced into 5 pieces in dimension 0, while receiving data from other ranks and stitching them in dimension 1, and finally outputting the stitched data.
 
