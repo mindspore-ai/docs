@@ -1,11 +1,11 @@
-# 比较与torch.BartlettWindow的功能差异
+# 比较与torch.bartlett_window的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BartlettWindow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.bartlett_window
 
 ```text
-torch.blackman_window(
+torch.bartlett_window(
     window_length,
     periodic=True,
     dtype=None,
@@ -50,7 +50,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 # PyTorch
 import torch
 
-torch_output = torch.blackman_window(5, periodic=True)
+torch_output = torch.bartlett_window(5, periodic=True)
 print(torch_output.numpy())
 #[0.         0.4        0.8        0.79999995 0.39999998]
 
