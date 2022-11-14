@@ -30,5 +30,14 @@ For more information, see [mindspore.communication.init](https://mindspore.cn/do
 
 PyTorch: This interface supports three kinds of collective communications: MPI, Gloo, and NCCL. It initializes `backend` and also provides configuration, such as `world_size`, `rank`, `timeout`, etc.
 
-MindSpore：This interface currently supports only two kinds of collective communication: HCCL and NCCL. The configuration of `world_size`, `rank` and `timeout` is not set in this interface. The corresponding environment variable needs to be set before calling this interface.
+MindSpore：This interface currently supports three kinds of collective communication: HCCL, NCCL, and MCCL. The configuration of `world_size`, `rank` and `timeout` is not set in this interface. The corresponding environment variable needs to be set before calling this interface.
 
+| Class | Sub-class |PyTorch | MindSpore | Difference |
+| --- | --- | --- | --- |---|
+| Param | Param 1 | backend | backend_name | The functionalities are the same, but have different names and support different communication backend|
+| | Param 2 | init_method | - | PyTorch: the initialization method. MindSpore does not have this param|
+| | Param 3 | timeout | - |PyTorch: the timeout value. MindSpore does not have this param, and should set the corresponding environment variables before calling this interface|
+| | Param 4 | world_size | - |PyTorch: the world size of communication group. MindSpore does not have this param, and should set the corresponding environment variables before calling this interface|
+| | Param 5 | rank | - |PyTorch: the current rank. MindSpore does not have this param, and should set the corresponding environment variables before calling this interface|
+| | Param 6 | store | - |PyTorch: the flag of storing key/value. MindSpore does not have this param |
+| | Param 7 | group_name | - |PyTorch: the group name. MindSpore does not have this param |

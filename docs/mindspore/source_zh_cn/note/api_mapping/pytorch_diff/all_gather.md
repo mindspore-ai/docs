@@ -27,7 +27,7 @@ mindspore.ops.AllGather(group)
 
 PyTorch：该接口输入当前进程广播的tensor、通信域group及异步操作标志async_op，进行AllGather操作后输出tensor_list，类型为list[Tensor]，长度为通信域中设备数量N。当async_op=True时，返回异步work句柄，否则返回为空。
 
-MindSpore：该接口输出为tensor，第一维为通信域中设备数量N,其余维度与输入tensor一致，而不是像PyTorch对应接口输出list[Tensor]。当前该接口不支持async_op的配置。
+MindSpore：该接口输出为tensor，第一维为通信域中设备数量N，其余维度与输入tensor一致，而不是像PyTorch对应接口输出list[Tensor]。当前该接口不支持async_op的配置。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|

@@ -27,3 +27,10 @@ For more information, see [mindspore.communication.create_group](https://mindspo
 PyTorch: This interface passes in the rank list of the communication domain to be constructed, specifies the backend to create the specified communication domain, and returns the created communication domain.
 
 MindSpore：The interface passes in the group name and the rank list of the communication domain to be constructed, creates a communication domain with the incoming group name as the key, and does not return any value.
+
+| Class | Sub-class |PyTorch | MindSpore | Difference |
+| --- | --- | --- | --- |---|
+| Param | Param 1 | - | group | PyTorch does not have this param. MindSpore: the group name|
+| | Param 2 | ranks | rank_ids | The functionalities are the same, but have different names|
+| | Param 3 | timeout | - |PyTorch: the timeout value. MindSpore does not have this param, and should set the corresponding environment variables before calling this interface|
+| | Param 4 | backend | - |PyTorch: the communication backend. MindSpore does not have this param, and should set the corresponding environment variables before calling this interface|
