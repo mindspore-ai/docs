@@ -423,7 +423,9 @@ The reference type of tuple is same as List, please  refer to List.
 
 #### Dictionary
 
-`Dictionary` can be constructed on the network. That is, the syntax `y = {"a": 1, "b": 2}` is supported. Currently, only `String` can be used as the `key` value.
+`Dictionary` can be constructed on the network. That is, the syntax `y = {"a": 1, "b": 2}` is supported.
+
+Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` that contains these types. The `value` can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`. It should be noted that if the final output of the computational graph contains a `Dictionary`, it will not return a `Dictionary`, but a `Tuple` composed of all `value` values of the `Dictionary`.
 
 - Supported APIs
 
@@ -486,8 +488,6 @@ The reference type of tuple is same as List, please  refer to List.
   ```
 
 - Supported index values and value assignment
-
-  The index value supports only `String`. The assigned value can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`。
 
   For example:
 
