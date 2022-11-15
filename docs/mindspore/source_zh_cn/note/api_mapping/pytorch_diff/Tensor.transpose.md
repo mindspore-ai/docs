@@ -10,7 +10,7 @@ torch.transpose(input, dim0, dim1) -> Tensor
 
 更多内容详见 [torch.transpose](https://pytorch.org/docs/1.8.1/generated/torch.transpose)。
 
-## mindspore.ops.select
+## mindspore.ops.Tensor.transpose
 
 ```text
 mindspore.Tensor.transpose(*axes) -> Tensor
