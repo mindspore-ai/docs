@@ -17,7 +17,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    
+
     .. include:: ../nn_probability_en/{{ fullname }}.txt
 
 {% else %}

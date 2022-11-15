@@ -40,23 +40,20 @@ MindSpore Transformer是一个基于MindSpore的Python软件包。
    :maxdepth: 1
    :caption: 安装部署
 
-   mindformer_install
+   mindtransformer_install
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: BERT微调
 
-   mindformer_bert_finetune
+   mindtransformer_bert_finetune
 
 .. toctree::
    :maxdepth: 1
    :caption: API参考
 
-   AutoClass
-   Trainer
-   models
-
+   mindtransformer
 
 .. toctree::
    :glob:
