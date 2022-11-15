@@ -61,15 +61,15 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 
 下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)中参数的对应关系。
 
-| Python接口模型转换参数 | 参数类型  || 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
+| Python接口模型转换参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | 是 | 输入模型框架类型。 | FmkType.TF、FmkType.CAFFE、FmkType.ONNX、FmkType.MINDIR、FmkType.TFLITE、FmkType.PYTORCH | - |
 | model_file | str | `--modelFile=<MODELFILE>` | 是 | 转换时的输入模型文件路径。 | - | - |
 | output_file | str | `--outputFile=<OUTPUTFILE>` | 是 | 转换时的输出模型的路径，可自动生成`.ms`后缀。 | - | - |
-| weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | “” |
-| config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | “” |
+| weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | "" |
+| config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 | weight_fp16 | bool | `--fp16=<FP16>` | 否 | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | False |
-| input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 否 | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。 | {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | None，None等同于{} |
+| input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 否 | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | None，None等同于{} |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对4维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC |
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 否 | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 |
