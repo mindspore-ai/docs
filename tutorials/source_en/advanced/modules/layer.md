@@ -151,6 +151,7 @@ ParameterTuple, variable tuple, used to store multiple Parameter, is inherited f
 The following example provides the ParameterTuple creation method:
 
 ```python
+from mindspore.common.initializer import initializer
 from mindspore import ParameterTuple
 # Creation
 x = Parameter(default_input=ms.Tensor(np.arange(2 * 3).reshape((2, 3))), name="x")
