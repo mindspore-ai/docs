@@ -31,6 +31,7 @@
    :maxdepth: 1
    :caption: 模型训练优化
 
+   others/execution_opt
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
