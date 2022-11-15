@@ -12,6 +12,7 @@ MindSpore Documentation
    :caption: Design
    :hidden:
 
+   design/overview
    design/auto_gradient
    design/distributed_training_design
    design/mindir
