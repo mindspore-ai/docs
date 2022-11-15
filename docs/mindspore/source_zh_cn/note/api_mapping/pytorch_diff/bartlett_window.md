@@ -1,6 +1,6 @@
 # 比较与torch.bartlett_window的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BartlettWindow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bartlett_window.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.bartlett_window
 
@@ -17,17 +17,17 @@ torch.bartlett_window(
 
 更多内容详见 [torch.bartlett_window](https://pytorch.org/docs/1.8.1/generated/torch.bartlett_window.html)。
 
-## mindspore.ops.BartlettWindow
+## mindspore.ops.bartlett_window
 
 ```text
-mindspore.ops.BartlettWindow(
+mindspore.ops.bartlett_window(
     window_length,
     periodic=True,
     dtype=mstype.float32
 ) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.bartlett_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.blackman_window.html)。
+更多内容详见 [mindspore.ops.bartlett_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bartlett_window.html)。
 
 ## 差异对比
 
@@ -37,12 +37,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 |window_length | window_length | - |
-|参数 | 参数1 | periodic | periodic | - |
-|  | 参数2 | dtype        | dtype | - |
-| | 参数3 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数4 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | requires_grad | - | 功能一致，MindSpore无此参数 |
+| 参数 | 参数1 |window_length | window_length | - |
+| | 参数2 | periodic | periodic | - |
+|  | 参数3 | dtype        | dtype | - |
+| | 参数4 | layout | - | 功能一致，MindSpore无此参数 |
+| | 参数5 | device | - | 功能一致，MindSpore无此参数 |
+| | 参数6 | requires_grad | - | 功能一致，MindSpore无此参数 |
 
 ### 代码示例1
 
@@ -58,8 +58,7 @@ print(torch_output.numpy())
 import mindspore
 
 window_length = Tensor(5, mindspore.int32)
-bartlett_window = ops.BartlettWindow(periodic=True)
-ms_output = bartlett_window(window_length)
+ms_output = ops.bartlett_window(window_length, periodic=True)
 print(ms_output.asnumpy())
 #[0.  0.4 0.8 0.8 0.4]
 ```

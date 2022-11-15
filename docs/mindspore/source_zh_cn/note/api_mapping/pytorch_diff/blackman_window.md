@@ -1,6 +1,6 @@
 # 比较与torch.blackman_window的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BlackmanWindow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/blackman_window.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.blackman_window
 
@@ -17,10 +17,10 @@ torch.blackman_window(
 
 更多内容详见 [torch.blackman_window](https://pytorch.org/docs/1.8.1/generated/torch.blackman_window.html)。
 
-## mindspore.ops.BlackmanWindow
+## mindspore.ops.blackman_window
 
 ```text
-mindspore.ops.BlackmanWindow(
+mindspore.ops.blackman_window(
     window_length,
     periodic=True,
     dtype=mstype.float32
@@ -37,12 +37,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 |window_length | window_length | - |
-|参数 | 参数1 | periodic | periodic | - |
-|  | 参数2 | dtype        | dtype | - |
-| | 参数3 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数4 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | requires_grad | - | 功能一致，MindSpore无此参数 |
+| 参数 | 参数1 |window_length | window_length | - |
+| | 参数2 | periodic | periodic | - |
+|  | 参数3 | dtype        | dtype | - |
+| | 参数4 | layout | - | 功能一致，MindSpore无此参数 |
+| | 参数5 | device | - | 功能一致，MindSpore无此参数 |
+| | 参数6 | requires_grad | - | 功能一致，MindSpore无此参数 |
 
 ### 代码示例1
 
@@ -60,8 +60,7 @@ print(torch_output.numpy())
 import mindspore
 
 window_length = Tensor(10, mindspore.int32)
-blackman_window = ops.BlackmanWindow(periodic=True)
-ms_output = blackman_window(window_length)
+ms_output = ops.blackman_window(window_length, periodic=True)
 print(ms_output.asnumpy())
 #[0.         0.04021286 0.20077014 0.50978714 0.8492299  1.
 # 0.8492299  0.50978714 0.20077014 0.04021286]
