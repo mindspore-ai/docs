@@ -12,7 +12,7 @@ Floating-point data types include double-precision (FP64), single-precision (FP3
 
 According to [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point data types are classified into double-precision (FP64), single-precision (FP32), and half-precision (FP16). Each type is represented by three different bits. FP64 indicates a data type that uses 8 bytes (64 bits in total) for encoding and storage. FP32 indicates a data type that uses 4 bytes (32 bits in total) and FP16 indicates a data type that uses 2 bytes (16 bits in total). As shown in the following figure:
 
-![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_en/others/images/fp16_vs_fp32.png)
+![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/images/fp16_vs_fp32.png)
 
 As shown in the figure, the storage space of FP16 is half that of FP32, and the storage space of FP32 is half that of FP64. It consists of three parts:
 
@@ -61,7 +61,7 @@ However, using FP16 also brings some problems, the most important of which are p
 
 The following figure shows the typical computation process of mixed precision in MindSpore.
 
-![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_en/others/images/mix_precision_fp16.png)
+![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_en/optimize/images/mix_precision_fp16.png)
 
 1. Parameters are stored in FP32 format.
 2. During the forward computation, if an FP16 operator is involved, the operator input and parameters need to be cast from FP32 to FP16.
@@ -93,15 +93,15 @@ But using FP16 also brings some problems, the most important of which are precis
 
 As shown in the figure, if only FP32 training is used, the model converges better, but if mixed-precision training is used, there will be a situation where the network model cannot converge. The reason is that the value of the gradient is too small, and using the FP16 representation will cause the problem of underflow under the data, resulting in the model not converging, as shown in the gray part of the figure. Loss Scale needs to be introduced.
 
-![loss_scale1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/loss_scale1.png)
+![loss_scale1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/optimize/images/loss_scale1.png)
 
 The following is in the network model training stage, a layer of activation function gradient distribution, of which 68% of the network model activation parameter bit 0. Another 4% of the accuracy in the $2^{-32}, 2^{-20}$ interval, directly use FP16 to represent the data inside, which truncates the underflow data. All gradient values will become 0.
 
-![loss_scale2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/loss_scale2.png)
+![loss_scale2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/optimize/images/loss_scale2.png)
 
 In order to solve the problem of ladder overflowing over small data, the forward calculated Loss value is amplified, that is, the parameters of FP32 are multiplied by a factor coefficient, and the possible overflowing decimal data is moved forward and panned to the data range that FP16 can represent. According to the chain differentiation law, amplifying the Loss acts on each gradient of backpropagation, which is more efficient than amplifying on each gradient.
 
-![loss_scale3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/loss_scale3.png)
+![loss_scale3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/optimize/images/loss_scale3.png)
 
 Loss amplification needs to be achieved in combination with mixing accuracy, and its main main ideas are:
 

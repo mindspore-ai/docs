@@ -1,81 +1,81 @@
-# Gradient Accumulation Algorithm
+# 梯度累积算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/others/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/gradient_accumulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## Overview
+## 概述
 
-This tutorial introduces the training algorithm of gradient accumulation, the purpose of which is to solve the OOM (Out Of Memory) problem that the Batch size is too large to train the neural network or the network model is too large to load due to insufficient memory.
+本教程介绍梯度累积的训练算法，目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-## Gradient Accumulation Principle
+## 梯度累积原理
 
-Gradient accumulation is a way of training a neural network in which data samples are split into several small Batches by Batch and then calculated sequentially.
+梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。
 
-Before we discuss the gradient accumulation further, check the calculation process of the neural network.
+在进一步讨论梯度累积之前，我们来看看神经网络的计算过程。
 
-Deep learning models are made up of many interconnected neural network units, and in all neural network layers, sample data propagates continuously forward. After passing through all the layers, the network model outputs the predicted values of the samples, and then calculates the loss values (errors) for each sample through the loss function. The neural network calculates the gradient of the loss value relative to the model parameters by backpropagation. Finally, the gradient information is used to update the parameters in the network model.
+深度学习模型由许多相互连接的神经网络单元所组成，在所有神经网络层中，样本数据会不断向前传播。在通过所有层后，网络模型会输出样本的预测值，通过损失函数然后计算每个样本的损失值（误差）。神经网络通过反向传播，去计算损失值相对于模型参数的梯度。最后这些梯度信息用于对网络模型中的参数进行更新。
 
-The optimizer is a mathematical formula used to update the weight parameters of the network model. Take a simple stochastic gradient descent (SGD) algorithm as an example.
+优化器用于对网络模型权重参数更新的数学公式。以一个简单随机梯度下降(SGD)算法为例。
 
-Assuming the Loss Function function formula is:
+假设Loss Function函数公式为：
 
 $$Loss(\theta)=\frac{1}{2}\left(h(x^{k})-y^{k}\right)^{2}$$
 
-When building a model, the optimizer is used to calculate the algorithm that minimizes losses. Here the SGD algorithm uses the Loss function to update the weight parameter formula as follows:
+在构建模型时，优化器用于计算最小化损失的算法。这里SGD算法利用Loss函数来更新权重参数公式为：
 
 $$\theta{i}=\theta_{i-1}-lr * grad_{i}$$
 
-where $\theta$ is the trainable parameter (weight or error) in the network model. lr is the learning rate, and $grad_{i}$ is the loss relative to network model parameter.
+其中$\theta$是网络模型中的可训练参数（权重或偏差），lr是学习率，$grad_{i}$是相对于网络模型参数的损失。
 
-Gradient accumulation only calculates the neural network model, does not update the parameters of the network model in time, and accumulates the gradient information when calculation, and finally uses the accumulated gradient to update the parameters.
+梯度累积只计算神经网络模型，并不及时更新网络模型的参数，同时在计算的时候累积得到的梯度信息，最后统一使用累积的梯度来对参数进行更新。
 
 $$accumulated=\sum_{i=0}^{N} grad_{i}$$
 
-When the model variables are not updated, the original data Batch is actually divided into several Mini-Batches, and the samples used in each step are actually smaller data sets.
+在不更新模型变量的时候，实际上是把原来的数据Batch分成几个小的Mini-Batch，每个step中使用的样本实际上是更小的数据集。
 
-The variables are not updated within N steps, so that all Mini-Batches use the same model variables to calculate the gradient, to ensure that the same gradient and weight information is calculated, which is equivalent to using the original Batch size without splitting.
+在N个step内不更新变量，使所有Mini-Batch使用相同的模型变量来计算梯度，以确保计算出来得到相同的梯度和权重信息，算法上等价于使用原来没有切分的Batch size大小一样。即：
 
 $$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
 
-Eventually accumulating the gradient in the previous step yields the sum of the gradients of the same size as using the global Batche size.
+最终在上面步骤中累积梯度会产生与使用全局Batch size大小相同的梯度总和。
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/others/images/GradientAccumulation1.png)
+![](images/GradientAccumulation1.png)
 
-In the actual project, there are two points to pay attention to on the tuning parameters and algorithms:
+当然在实际工程当中，关于调参和算法上有两点需要注意的：
 
-1. **learning rate**: Under certain conditions, the larger the Batch size, the better the training effect. The gradient accumulation simulates the effect of the increase of the Batch size. If the accumulation steps is 4, the Batch size is increased by 4 times. According to experience, the learning rate needs to be appropriately amplified when using gradient accumulation.
-2. **Batch Norm**: Batch size simulation amplification effect is performed when the accumulation steps are 4. Compared with the real Batch size, the distribution of the data is not exactly the same, and the mean and variance calculated by BN of 4 times Batch size is not the same as the actual data mean and variance, so some implementations will use Group Norm instead of Batch Norm.
+1. **学习率 learning rate**：一定条件下，Batch size越大训练效果越好，梯度累积则模拟了Batch size增大的效果，如果accumulation steps为4，则Batch size增大了4倍，根据经验，使用梯度累积的时候需要把学习率适当放大。
 
-## Gradient Accumulation Implement
+2. **归一化 Batch Norm**：accumulation steps为4时进行Batch size模拟放大的效果，与真实Batch size相比，数据的分布其实并不完全相同，4倍Batch size的BN计算出来的均值和方差与实际数据均值和方差不太相同，因此有些实现中会使用Group Norm来代替Batch Norm。
 
-The following tutorial content will introduce the implementation of gradient accumulation training in standalone mode and Boost mode.
+## 梯度累积实现
 
-> Note: `auto_parallel` and `semi_auto_parallel` don't support the training way of gradient accumulation.
+下面教程内容将分别介绍在单机模式、Boost模式下实现梯度累积训练。
 
-### Standalone Mode
+> 注意：`auto_parallel`以及`semi_auto_parallel`并行模式下不支持梯度累积的训练方式。
 
-In standalone mode, the training process consists of three parts: forward and backward training, parameter update, and accumulated gradient clearance.
+### 单机模式
 
-MNIST is used as an example dataset. To customize a simple model to implement gradient accumulation, perform the following steps:
+单机模式下，主要通过将训练流程拆分为1)正向反向训练、2)参数更新和3)累积梯度清理，三个部分实现梯度累积。
 
-> Download the main training sample code: [train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py).
->
+下面以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下个步骤。
 
-Since you need to use the LeNet network in the models repository, please execute the following command to pull the code of the models repository:
+> 您可以在这里下载主要的训练样例代码：[train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py)
 
-```text
+由于需要使用models仓中的LeNet网络，请先执行如下命令拉取models仓的代码：
+
+```bash
 git clone https://gitee.com/mindspore/models.git
 ```
 
-If the models repository is not in the system path, it needs to be in ` train.py ` add the following two pieces of code at the beginning of the code.
+如果models仓不在系统路径中，需要在`train.py`代码起始部分添加以下两段代码。
 
 ```python
 import sys
-sys.path.append(path to models repository)
+sys.path.append(models仓的路径)
 ```
 
-#### Importing Library Files
+#### 导入需要的库文件
 
-The following are the required public modules and MindSpore modules and library files.
+下列是所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
 import argparse
@@ -90,26 +90,25 @@ from models.official.cv.lenet.src.dataset import create_dataset
 from models.official.cv.lenet.src.lenet import LeNet5
 ```
 
-#### Loading the Dataset
+#### 加载数据集
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由models中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
-#### Defining the Network
+#### 定义网络
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由models中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
-#### Defining the Training Process
+#### 定义训练流程
 
-The training process consists of three parts: forward and backward training, parameter update, and accumulated gradient clearance.
+将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
 
-- `TrainForwardBackward` calculates the loss and gradient, and uses grad_sum to implement gradient accumulation.
-- `TrainOptim` updates parameters.
-- `TrainClear` clears the gradient accumulation variable grad_sum.
+- `TrainForwardBackward` 计算loss和梯度，利用grad_sum实现梯度累加。
+- `TrainOptim` 实现参数更新。
+- `TrainClear` 实现对梯度累加变量grad_sum清零。
 
 ```python
 _sum_op = ops.MultitypeFuncGraph("grad_sum_op")
 _clear_op = ops.MultitypeFuncGraph("clear_op")
-
 
 @_sum_op.register("Tensor", "Tensor")
 def _cumulative_grad(grad_sum, grad):
@@ -117,14 +116,12 @@ def _cumulative_grad(grad_sum, grad):
     add = ops.AssignAdd()
     return add(grad_sum, grad)
 
-
 @_clear_op.register("Tensor", "Tensor")
 def _clear_grad_sum(grad_sum, zero):
     """Apply zero to clear grad_sum."""
     success = True
     success = ops.depend(success, ops.assign(grad_sum, zero))
     return success
-
 
 class TrainForwardBackward(Cell):
     def __init__(self, network, optimizer, grad_sum):
@@ -141,7 +138,6 @@ class TrainForwardBackward(Cell):
         loss, grads = ms.value_and_grad(self.network, weights=self.weights, grad_positions=None)(*inputs)
         return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
-
 class TrainOptim(Cell):
     def __init__(self, optimizer, grad_sum):
         super(TrainOptim, self).__init__(auto_prefix=False)
@@ -150,7 +146,6 @@ class TrainOptim(Cell):
 
     def construct(self):
         return self.optimizer(self.grad_sum)
-
 
 class TrainClear(Cell):
     def __init__(self, grad_sum, zeros):
@@ -164,9 +159,9 @@ class TrainClear(Cell):
         return success
 ```
 
-#### Defining the Training Model
+#### 定义训练模型
 
-Each mini-batch computes the loss and gradient through forward and backward training, and uses mini_steps to control the accumulated times before each parameter update. After the number of accumulation times is reached, the parameter is updated and the accumulated gradient variable is cleared.
+每个Mini-Batch通过正反向训练计算损失loss和梯度grad，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和累加梯度变量清零。
 
 ```python
 class GradientAccumulation:
@@ -231,9 +226,9 @@ class GradientAccumulation:
         ms.save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
 ```
 
-#### Training and Saving the Model
+#### 训练并保存模型
 
-Call the network, optimizer, and loss function, and then customize the `train_process` API of `GradientAccumulation` to train the model.
+调用网络、优化器及损失函数，然后自定义`GradientAccumulation`的`train_process`接口，进行模型训练。
 
 ```python
 if __name__ == "__main__":
@@ -256,19 +251,19 @@ if __name__ == "__main__":
     model.train_process(10, ds_train, mini_steps=4)
 ```
 
-#### Experiment Result
+#### 实验结果
 
-After 10 epochs, the accuracy on the test set is about 96.31%.
+在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
-**Start training:**
+**执行训练:**
 
-1. Run the training code and view the running result.
+1. 运行训练代码，查看运行结果。
 
     ```bash
     python train.py --data_path=./MNIST_Data
     ```
 
-    The output is as follows. You can see that the loss value decreases with the training.
+    输出如下，可以看到loss值随着训练逐步降低：
 
     ```text
     epoch: 1 step: 27 loss is  0.3660637
@@ -281,63 +276,63 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
     epoch: 10 step: 449 loss is  0.0067842817
     ```
 
-2. Check the saved checkpoint files.
+2. 查看保存的CheckPoint文件。
 
-    The checkpoint file `gradient_accumulation.ckpt`, that is, the model file, is saved during training.
+    训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
-**Validate the model:**
+**验证模型:**
 
-Through the [eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py) in the `lenet` directory in ModelZoo, use the saved CheckPoint file, load the verification dataset, and verify it.
+通过ModelZoo中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
-The output is as follows. The accuracy of the validation dataset is about 96.31%, which is the same as the result when the value of batch_size is 32.
+输出如下，可以看到使用验证的数据集，正确率在96.31%左右，与batch_size为32的验证结果一致。
 
 ```text
 ============== Starting Testing ==============
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```
 
-### Boost Model
+### Boost模式
 
-In Boost mode, as long as you simply call Boost's gradient accumulation interface, you can realize the gradient accumulation function. MNIST is also used as a demonstration dataset to show how to call the Boost interface to implement the gradient accumulation function.
+在Boost模式下，只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
 
-> You can download the main tranining example code here: [train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py).
+> 你可以在这里下载主要的训练样例代码：[train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py)
 
-#### Importing Library Files
+#### 导入需要的库文件
 
-The following are the required public modules and MindSpore modules and library files.
+下列是所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
 import argparse
 import os
 
 import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model, TimeMonitor
 from mindspore.nn import WithLossCell, TrainOneStepCell, Accuracy
 from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
+import mindspore as ms
+from mindspore.train import Model, TimeMonitor
 
 from models.official.cv.lenet.src.dataset import create_dataset
 from models.official.cv.lenet.src.lenet import LeNet5
 ```
 
-#### Loading the Dataset
+#### 加载数据集
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py) in the `lenet` directory of models.
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由models中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
-#### Defining the Network
+#### 定义网络
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py) in the `lenet` directory of models.
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由models中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
-#### Defining the Training Model
+#### 定义训练模型
 
-We can call `GradientAccumulation` under MindSpore Boost to enable gradient accumulation, controlling the number of accumulations before each parameter update by max_accumulation_step.
+我们可以调用MindSpore Boost下的`GradientAccumulation`来使能梯度累积，通过max_accumulation_step控制每次更新参数前的累加次数。
 
-Parameter updates and zeroing of the accumulated gradient variables after the number of accumulations is reached, only the interface needs to be called based on the `TrainOneStepCell` definition `TrainGradAccumulationStepsCell`.
+达到累加次数后进行参数更新和累加梯度变量清零，只需要基于`TrainOneStepCell`定义`TrainGradAccumulationStepsCell`来调用该接口即可。
 
 ```python
 class TrainGradAccumulationStepsCell(TrainOneStepCell):
@@ -356,9 +351,9 @@ class TrainGradAccumulationStepsCell(TrainOneStepCell):
         return loss
 ```
 
-#### Training the Model and Make Inference
+#### 训练模型并进行推理
 
-After the network is defined, it can be trained. After the training, the ckpt file saved during the training process is loaded for inference, and the accuracy of the model can be obtained.
+定义好网络后即可进行训练，训练结束后加载训练过程中保存的ckpt文件进行推理，可以得到模型的精度。
 
 ```python
 if __name__ == "__main__":
@@ -392,19 +387,20 @@ if __name__ == "__main__":
 
     acc = model.eval(ds_eval)
     print("============== {} ==============".format(acc))
+
 ```
 
-#### Experiment Result
+#### 实验结果
 
-After 10 epochs, the accuracy on the test set is about 98.30%.
+在经历了10轮epoch之后，在测试集上的精度约为98.30%。
 
-1. Run the training and inference code and view the results.
+1. 运行训练与推理代码，查看运行结果。
 
    ```bash
    python train_and_eval_boost.py --data_path=./MNIST_Data
    ```
 
-   The output is as follows, and you can see that the loss value gradually decreases with the training:
+   输出如下，可以看到loss值随着训练逐步降低：
 
    ```text
    epoch: 1 step: 1875 loss is  0.1889342879
@@ -414,14 +410,14 @@ After 10 epochs, the accuracy on the test set is about 98.30%.
    epoch: 10 step: 1875 loss is  0.00029468764328
    ```
 
-2. Looking at the inference precision, the code saves the checkpoint to the current directory, and then loads the checkpoint inference.
+2. 查看推理精度，代码中会将checkpoint保存到当前目录，随后会加载该checkpoint推理。
 
-   ```text
-   ============== Starting Testing ==============
-   ============== {'Accuracy': 0.983072916666} ==============
-   ```
+    ```text
+    ============== Starting Testing ==============
+    ============== {'Accuracy': 0.983072916666} ==============
+    ```
 
-## References
+## 参考文献
 
 - [1] Hermans, Joeri R., Gerasimos Spanakis, and Rico Möckel. "Accumulated gradient normalization." Asian Conference on Machine Learning. PMLR, 2017.
 - [2] Lin, Yujun, et al. "Deep gradient compression: Reducing the communication bandwidth for distributed training." arXiv preprint arXiv:1712.01887 (2017).
