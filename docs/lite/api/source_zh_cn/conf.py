@@ -248,6 +248,9 @@ exhale_args = {
         HIDE_UNDOC_CLASSES = YES
         HIDE_UNDOC_MEMBERS = YES
         EXCLUDE_SYMBOLS = operator* GVAR*
+        WARNINGS = NO
+        ENABLE_SECTIONS = DISPLAY_COMPOUND
+        WARN_IF_UNDOCUMENTED = NO
     """),
     'contentsDirectives': False,
 
