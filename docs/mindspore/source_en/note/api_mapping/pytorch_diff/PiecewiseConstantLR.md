@@ -9,11 +9,12 @@ torch.optim.lr_scheduler.StepLR(
     optimizer,
     step_size,
     gamma=0.1,
-    last_epoch=-1
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-For more information, see [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.StepLR).
+For more information, see [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR).
 
 ## torch.optim.lr_scheduler.MultiStepLR
 
@@ -41,9 +42,31 @@ For more information, see [mindspore.nn.piecewise_constant_lr](https://mindspore
 
 ## Differences
 
-PyTorch: `torch.optim.lr_scheduler.StepLR`calculates the learning rate by step_size, value of lr will multiply gamma for every fixed step size; `torch.optim.lr_scheduler.MultiStepLR`ccalculates the learning rate by a step size list, value of lr will multiply gamma when the step size is reached in the list. During the training stage, the optimizer is passed to the lr scheduler, which calls the step method to update the current learning rate.
+PyTorch (torch.optim.lr_scheduler.StepLR): Setting the learning rate in segments. `torch.optim.lr_scheduler.StepLR` multiplies the learning rate by gamma every fixed step_size, by passing in step_size. When `verbose` is True, the relevant information is printed for each update.
 
-MindSpore: Step size list and the corresponding learning rate value list are passed to the function, and a list of learning rates will be returned as input to the optimizer.
+MindSpore (mindspore.nn.piecewise_constant_lr): Pass in the list of step values of milestones and the corresponding list of learning rate setting values, reach the step values and the learning rate takes the corresponding values. A list of learning rates is eventually returned as input to the optimizer.
+
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
+|      | Parameter 2 | step_size |   milestone   | MindSpore segmentation updates the step list of learning rates, and PyTorch uses a fixed step value. |
+|      | Parameter 3 | gamma |   | Parameters for PyTorch decay learning rate. MindSpore does not have this Parameter.  |
+|      | Parameter 4 | last_epoch |        | MindSpore does not have this Parameter. |
+|      | Parameter 5 |  | verbose | PyTorch `verbose` prints information about each update when it is True. |
+|      | Parameter 6 |       |  learning_rates   | List of MindSpore settings for learning rate |
+
+PyTorch (torch.optim.lr_scheduler.MultiStepLR): `torch.optim.lr_scheduler.MultiStepLR` reaches the step value by passing in a list of step values for milestones, and the learning rate is multiplied by gamma. When used, the optimizer is used as input and the `step` method is called during the training process to update the values. `verbose` prints information about each update when it is True.
+
+MindSpore (mindspore.nn.piecewise_constant_lr): Pass in the list of step values for milestones and the corresponding list of learning rate setting values, reach the step values and the learning rate takes the corresponding values. A list of learning rates is eventually returned as input to the optimizer.
+
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
+|      | Parameter 2 | milestones |   milestone   | Segmentation updates the step list of learning rates, with the same functions and different parameter names |
+|      | Parameter 3 | gamma |   | Parameters for PyTorch decay learning rate. MindSpore does not have this Parameter.  |
+|      | Parameter 4 | last_epoch |        | MindSpore does not have this Parameter. |
+|      | Parameter 5 |  | verbose | PyTorch `verbose` prints information about each update when it is True. MindSpore does not have this Parameter.|
+|      | Parameter 6 |       |  learning_rates   | List of MindSpore settings for learning rate |
 
 ## Code Example
 

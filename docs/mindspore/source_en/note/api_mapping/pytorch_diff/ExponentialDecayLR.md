@@ -8,11 +8,12 @@
 torch.optim.lr_scheduler.ExponentialLR(
     optimizer,
     gamma,
-    last_epoch=-1
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-For more information, see [torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.ExponentialLR).
+For more information, see [torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.ExponentialLR).
 
 ## mindspore.nn.exponential_decay_lr
 
@@ -44,9 +45,33 @@ For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspor
 
 ## Differences
 
-PyTorch: The function of calculating the learning rate for each step is lr*gamma^{epoch}. In the training stage, the optimizer should be passed into the lr scheduler, then the step method will be implemented.
+PyTorch (torch.optim.lr_scheduler.ExponentialLR): The calculating method is :math:`lr * gamma^{epoch}`. When used, the optimizer is used as input and the learning rate is updated by calling the `step` method. When `verbose` is True, the relevant information is printed for each update.
 
-MindSpore: The function of calculating learning rate for each step is lr*decay_rate^{p}, which is implemented in two ways in MindSpore: `exponential_decay_lr` pregenerates a list of learning rates and passes the list to the optimizer; secondly, `ExponentialDecayLR` instance is passed into the optimizer, during the training process, the optimizer calls the instance taking the current step as the input to get the current learning rate.
+MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is :math:`lr * decay\_rate^{p}`. `exponential_decay_lr` pre-generates the learning rate list and passes the list into the optimizer.
+
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
+|      | Parameter 2 | gamma |   decay_rate   | Parameter of decay learning rate, same function, different Parameter name |
+|      | Parameter 3 | last_epoch |   | MindSpore does not have this Parameter  |
+|      | Parameter 4 | verbose |        | PyTorch `verbose` prints information about each update when it is True. MindSpore does not have this Parameter.  |
+|      | Parameter 5 |  | learning_rate | MindSpore sets the initial value of the learning rate. |
+|      | Parameter 6 |  | total_step | Total number of steps in MindSpore |
+|      | Parameter 7 |  | step_per_epoch | The number of steps per epoch in MindSpore |
+|      | Parameter 8 |       |  decay_steps   | The number of decay steps performed by MindSpore |
+|      | Parameter 9 |       |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
+
+MindSpore (mindspore.nn.ExponentialDecayLR): The calculating method is :math:`lr * decay\_rate^{p}`. `ExponentialDecayLR` is passed in the optimizer for training in the way of the computational graph.
+
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
+|      | Parameter 2 | gamma |   decay_rate   | Parameter of decay learning rate, same function, different Parameter name |
+|      | Parameter 3 | last_epoch |   | MindSpore does not have this Parameter.  |
+|      | Parameter 4 | verbose |        | PyTorch `verbose` prints information about each update when it is True. MindSpore does not have this Parameter. |
+|      | Parameter 5 |  | learning_rate | MindSpore sets the initial value of the learning rate. |
+|      | Parameter 6 |       |  decay_steps   | The number of decay steps performed by MindSpore |
+|      | Parameter 7 |       |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
 
 ## Code Example
 
