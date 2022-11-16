@@ -31,11 +31,11 @@
    :maxdepth: 1
    :caption: 模型训练优化
 
-   others/execution_opt
-   others/gradient_accumulation
-   others/adaptive_summation
-   others/dimention_reduce_training
-   others/thor
+   optimize/execution_opt
+   optimize/gradient_accumulation
+   optimize/adaptive_summation
+   optimize/dimention_reduce_training
+   optimize/thor
 
 .. toctree::
    :glob:
