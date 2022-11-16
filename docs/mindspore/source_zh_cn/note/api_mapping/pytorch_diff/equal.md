@@ -5,7 +5,7 @@
 ## torch.eq
 
 ```text
-torch.eq(input, other) -> Tensor
+torch.eq(input, other, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.eq](https://pytorch.org/docs/1.8.1/generated/torch.eq.html)。
@@ -28,6 +28,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 | :-: | :-: | :-: | :-: |:-:|
 |参数 | 参数1 | input | x |功能一致，参数名不同 |
 | | 参数2 | other | y |功能一致，参数名不同 |
+| | 参数3 | out | - |不涉及 |
 
 ### 代码示例1
 

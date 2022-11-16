@@ -13,7 +13,7 @@ tf.math.erf(x) -> Tensor
 ## mindspore.ops.erf
 
 ``` text
-mindspore.ops.erf(x) -> Tensor
+mindspore.ops.erf(x, name=None) -> Tensor
 ```
 
 更多内容详见 [mindspore.ops.erf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erf.html)。
@@ -27,6 +27,7 @@ MindSpore：与TensorFlow实现的功能基本一致，但支持的维度大小�
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | x | x |功能一致， 支持的维度大小有差异 |
+|参数 | 参数2 | name | - |不涉及 |
 
 ### 代码示例1
 

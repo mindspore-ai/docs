@@ -58,7 +58,7 @@ print(e1)
 
 # MindSpore
 import mindspore
-import minspore.ops as ops
+import mindspore.ops as ops
 e1 = ops.eye(3, 3, mindspore.float32)
 print(e1.numpy())
 # [[1. 0. 0.]
@@ -81,7 +81,7 @@ print(e2.numpy())
 
 # MindSpore
 import mindspore
-import minspore.ops as ops
+import mindspore.ops as ops
 e2 = ops.eye(3, 2, mindspore.float32)
 print(e2)
 # [[1. 0.]

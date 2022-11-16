@@ -31,12 +31,12 @@ MindSpore:MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 ### 代码示例
 
-说明：两API实功能一致，用法相同。
+> 两API实功能一致，用法相同。
 
 ```python
 # PyTorch
 import torch
-form torch import tensor
+from torch import tensor
 
 x = tensor([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=torch.float32)
 dim = 1
@@ -47,6 +47,7 @@ print(out)
 # [[ 9. 10. 11. 12.]]]
 
 # MindSpore
+import mindspore
 import numpy as np
 import mindspore.ops as ops
 from mindspore import Tensor

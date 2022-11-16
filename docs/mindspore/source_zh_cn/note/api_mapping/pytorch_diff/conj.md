@@ -10,13 +10,13 @@ torch.conj(input, *, out=None) -> Tensor
 
 更多内容详见 [torch.conj](https://pytorch.org/docs/1.8.1/generated/torch.conj.html)。
 
-## mindspore.ops.Conj
+## mindspore.ops.conj
 
 ``` text
-class mindspore.ops.Conj()(input) -> Tensor
+class mindspore.ops.conj(input) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.Conj](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conj.html)。
+更多内容详见 [mindspore.ops.conj](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.conj.html)。
 
 ## 差异对比
 
@@ -40,9 +40,7 @@ import numpy as np
 
 a = tensor([-1 + 1j, -2 + 2j, 3 - 3j], dtype=torch.complex64)
 b = torch.conj(a)
-print(a.detach().numpy())
 print(b.detach().numpy())
-# [-1.+1.j, -2.+2.j,  3.-3.j]
 # [-1.-1.j, -2.-2.j,  3.+3.j]
 
 # MindSpore
@@ -52,11 +50,7 @@ import mindspore.ops as ops
 import numpy as np
 
 a = Tensor([-1 + 1j, -2 + 2j, 3 - 3j], dtype=mindspore.complex64)
-conj = ops.Conj()
 b = conj(a)
-print(a)
 print(b)
-# [-1.+1.j, -2.+2.j,  3.-3.j]
 # [-1.-1.j, -2.-2.j,  3.+3.j]
-
 ```

@@ -5,7 +5,7 @@
 ## torch.cos
 
 ``` text
-torch.cos(input, out=None) -> Tensor
+torch.cos(input, *, out=None) -> Tensor
 ```
 
 更多内容详见[torch.cos](https://pytorch.org/docs/1.8.1/generated/torch.cos.html)。

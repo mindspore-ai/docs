@@ -5,7 +5,7 @@
 ## torch.erfc
 
 ``` text
-torch.erfc(input) -> Tensor
+torch.erfc(input, * , out=None) -> Tensor
 ```
 
 更多内容详见 [torch.erfc](https://pytorch.org/docs/1.8.1/generated/torch.erfc.html)。
@@ -27,6 +27,7 @@ MindSpore：与PyTorch实现的功能基本一致，但支持的维度大小有�
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | input | x |功能一致， 参数名不同， 支持的维度大小有差异 |
+|参数 | 参数2 | out | - |不涉及 |
 
 ### 代码示例1
 
