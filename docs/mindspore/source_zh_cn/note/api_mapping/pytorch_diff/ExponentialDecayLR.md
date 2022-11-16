@@ -8,11 +8,12 @@
 torch.optim.lr_scheduler.ExponentialLR(
     optimizer,
     gamma,
-    last_epoch=-1
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-更多内容详见[torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.ExponentialLR)。
+更多内容详见[torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.ExponentialLR)。
 
 ## mindspore.nn.exponential_decay_lr
 
@@ -42,11 +43,35 @@ mindspore.nn.ExponentialDecayLR(
 
 更多内容详见[mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：计算方式为lr*gamma^{epoch}。使用时，优化器作为输入，通过调用`step`方法进行学习率的更新。
+PyTorch（torch.optim.lr_scheduler.ExponentialLR）：计算方式为 :math:`lr * gamma^{epoch}` 。使用时，优化器作为输入，通过调用 `step` 方法进行学习率的更新。 `verbose` 为True时，每一次更新打印相关信息。
 
-MindSpore：计算方式为lr*decay_rate^{p}，这种动态学习率的调整方式在mindspore里有两种实现方式：`exponential_decay_lr`预生成学习率列表，将列表传入优化器；`ExponentialDecayLR`则是通过计算图的方式传入优化器中参与训练。
+MindSpore（mindspore.nn.exponential_decay_lr）：计算方式为 :math:`lr * decay\_rate^{p}` ， `exponential_decay_lr` 预生成学习率列表，将列表传入优化器。
+
+| 分类 | 子类  | PyTorch | MindSpore | 差异                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
+|      | 参数2 | gamma |   decay_rate   | 衰减学习率的参数，功能一致，参数名不同 |
+|      | 参数3 | last_epoch |   | MindSpore无此参数 |
+|      | 参数4 | verbose |        | PyTorch `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
+|      | 参数5 |  | learning_rate | MindSpore设置学习率的初始值 |
+|      | 参数6 |  | total_step | MindSpore的step总数 |
+|      | 参数7 |  | step_per_epoch | MindSpore每个epoch的step数 |
+|      | 参数8 |       |  decay_steps   | MindSpore进行衰减的step数 |
+|      | 参数9 |       |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
+
+MindSpore（mindspore.nn.ExponentialDecayLR）：计算方式为 :math:`lr * decay\_rate^{p}` ， `ExponentialDecayLR` 是通过计算图的方式传入优化器中参与训练。
+
+| 分类 | 子类  | PyTorch | MindSpore | 差异                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
+|      | 参数2 | gamma |   decay_rate   | 衰减学习率的参数，功能一致，参数名不同 |
+|      | 参数3 | last_epoch |   | MindSpore无此参数 |
+|      | 参数4 | verbose |        | PyTorch的 `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
+|      | 参数5 |  | learning_rate | MindSpore设置学习率的初始值 |
+|      | 参数6 |       |  decay_steps   | MindSpore进行衰减的step数 |
+|      | 参数7 |       |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
 
 ## 代码示例
 
