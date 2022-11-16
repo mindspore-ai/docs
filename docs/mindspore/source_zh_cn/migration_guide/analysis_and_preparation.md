@@ -423,7 +423,7 @@ print(y)
 在某些应用场景中（比如推荐系统、分子动力学、图神经网络等），数据的特征是稀疏的，若使用普通张量表征这些数据会引入大量不必要的计算、存储和通讯开销。在这种时候就可以使用稀疏张量来表征这些数据。
 
 MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/tensor.html#%E7%A8%80%E7%96%8F%E5%BC%A0%E9%87%8F)。但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制，在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。
-由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/gradient_accumulation.html) 来模拟大batch训练。
+由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html) 来模拟大batch训练。
 
 ## MindSpore好用功能/特性推荐
 
@@ -457,7 +457,7 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 随着深度学习的发展，模型规模越来越大。如NLP领域，短短几年时间，参数量就从BERT的亿级，发展到GPT-3的1700亿，再到盘古alpha 2000亿，以及当前业界甚至提出百万亿级。由此可以看出，近年来参数规模呈指数增长趋势。另一方面，随着大数据、互联网等领域相关技术的发展，可供模型训练的数据集也极速扩增，例如推荐、自然语言处理等场景的数据集可达数TB。
 
-### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/gradient_accumulation.html)
+### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)
 
 梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 

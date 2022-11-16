@@ -424,7 +424,7 @@ A [sparse tensor](https://matteding.github.io/2019/04/25/sparse-matrices/) is a 
 In some scenarios (such as recommendation systems, molecular dynamics, graph neural networks), the data is sparse. If you use common dense tensors to represent the data, you may introduce many unnecessary calculations, storage, and communication costs. In this case, it is better to use sparse tensor to represent the data.
 
 MindSpore now supports the most commonly used [CSR and COO data formats](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html#sparse-tensor). Currently, only a limited number of sparse operators are supported, and most sparse features are restricted. In this case, you are advised to check whether the corresponding operator supports sparse computing. If the operator does not support sparse computing, convert it into a common operator.
-After the operator is converted into a dense operator, the video memory used increases. Therefore, the batch size implemented by referring to may not be used for training. In this case, you can use [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/others/gradient_accumulation.html) to simulate large batch training.
+After the operator is converted into a dense operator, the video memory used increases. Therefore, the batch size implemented by referring to may not be used for training. In this case, you can use [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html) to simulate large batch training.
 
 ## MindSpore Function/Feature Recommendation
 
@@ -458,7 +458,7 @@ MindSpore not only allows you to customize data augmentation, but also provides 
 
 With the development of deep learning, the model scale becomes larger and larger. For example, in the NLP field, the number of parameters has increased from 100 million in BERT to 170 billion in GPT-3, and then to 200 billion in PanGu-Alpha. Currently, the industry even proposes millions of parameters. It can be seen that the parameter scale has an exponential growth trend in recent years. On the other hand, with the development of technologies in fields such as big data and the Internet, datasets that can be used for model training also increase rapidly. For example, the size of datasets in scenarios such as recommendation and natural language processing can reach TB level.
 
-### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/master/others/gradient_accumulation.html)
+### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
 

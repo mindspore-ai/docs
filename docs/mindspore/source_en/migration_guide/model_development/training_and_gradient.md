@@ -120,4 +120,4 @@ class MyTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 Gradient accumulation is a method that data samples of the training neural network are split into several small Batch  by Batch, and are calculated in order to solve the problem that Batch size is too large due to lack of memory, or the OOM, that is, the neural network can not be trained or the network model is too large to load.
 
-Please refer to [Gradient Accumulation](https://mindspore.cn/tutorials/experts/en/master/others/gradient_accumulation.html) for details.
+Please refer to [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html) for details.
