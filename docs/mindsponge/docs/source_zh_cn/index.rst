@@ -244,14 +244,6 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    :maxdepth: 1
    :caption: API参考
 
-   mindsponge.callback
    mindsponge.cell
    mindsponge.common
-   mindsponge.control
-   mindsponge.core
    mindsponge.data
-   mindsponge.function
-   mindsponge.optimizer
-   mindsponge.partition
-   mindsponge.potential
-   mindsponge.system
