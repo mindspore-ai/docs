@@ -283,7 +283,7 @@ f: <class 'numpy.ndarray'>
 g: <class 'mindspore.common.tensor.Tensor'>
 ```
 
-> 注： type作为Python的原生函数还有另外一种使用方法，即type(name, bases, dict)返回name类型的类对象，由于该用法应用场景较少，因此暂不支持。
+> 注：type作为Python的原生函数还有另外一种使用方法，即type(name, bases, dict)返回name类型的类对象，由于该用法应用场景较少，因此暂不支持。
 
 ### 支持常量场景下控制流
 
