@@ -7,6 +7,8 @@ mindsponge.data
     :template: classtemplate.rst
 
     mindsponge.data.ForceFieldParameters
+    mindsponge.data.atom37_to_frames
+    mindsponge.data.atom37_to_torsion_angles
     mindsponge.data.get_bonded_types
     mindsponge.data.get_class_parameters
     mindsponge.data.get_dihedral_types

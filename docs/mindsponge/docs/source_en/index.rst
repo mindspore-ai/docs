@@ -275,14 +275,6 @@ Contribution Guide
    :maxdepth: 1
    :caption: API References
 
-   mindsponge.callback
    mindsponge.cell
    mindsponge.common
-   mindsponge.control
-   mindsponge.core
    mindsponge.data
-   mindsponge.function
-   mindsponge.optimizer
-   mindsponge.partition
-   mindsponge.potential
-   mindsponge.system
