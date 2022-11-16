@@ -419,7 +419,9 @@ x: ((1, 2, 3), 4, 5)
 
 #### Dictionary
 
-支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`，当前仅支持`String`作为`key`值。
+支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`。
+
+当前`key`类型支持`String`、`Number`、常量`Tensor`以及只包含这些类型对象的`Tuple`，`value`类型支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`。需要注意的是，如果计算图的最终输出有`Dictionary`，返回的不是`Dictionary`，而是由其所有的`value`值组成的`Tuple`。
 
 - 支持接口
 
@@ -482,8 +484,6 @@ x: ((1, 2, 3), 4, 5)
   ```
 
 - 支持索引取值和赋值
-
-  取值和赋值的索引值都仅支持`String`。赋值时，所赋的值支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`。
 
   示例如下：
 
