@@ -82,7 +82,7 @@ MindSpore AKG的整体框架如上图所示：
 
 #### 自动映射（Auto-Mapping）
 
-自动映射是指在多线程架构的硬件后端上，自动将数据和实例执行顺序映射到多线程处理单元上，例如GPU的线程块(Block)和线程(Thread)。 通过Auto-Mapping，我们可以：
+自动映射是指在多线程架构的硬件后端上，自动将数据和实例执行顺序映射到多线程处理单元上，例如GPU的线程块(Block)和线程(Thread)。通过Auto-Mapping，我们可以：
 
 - 减少代码复杂度
 
@@ -104,7 +104,7 @@ MindSpore AKG的整体框架如上图所示：
 
 MindSpore AKG基于**Polyhedral技术**来实现**基于多层Buffer结构的DMA数据流识别与生成**。自动数据搬移能够通过分析数据流，给出数据应该放置到什么缓冲区，以及数据在缓冲区之间搬移的顺序，进一步优化算子性能。
 
-以片上内存层级较为复杂的Davinci架构为例，MindSpore AKG自动数据搬移生成的步骤如下:
+以片上内存层级较为复杂的Davinci架构为例，MindSpore AKG自动数据搬移生成的步骤如下：
 
 1. 依次遍历算子输入的Halide IR，识别每个compute节点的类型，并根据不同类型分析每条语句需使用到的计算模块；
 2. 根据目标芯片的片上缓存模型和具体芯片参数，对片上的高速存储Buffer进行分类；
@@ -126,7 +126,7 @@ MindSpore AKG基于**Polyhedral技术**来实现**基于多层Buffer结构的DMA
   1. 将数据分成小块，分别对各小块进行规约；
   2. 对每个小块的规约结果再次进行规约得到最终结果。
 
-  MindSpore AKG通过**自动轴融合+多面体调度优化+AKG-Reduce模板库**的方式对reduction操作进行优化，并通过原子加的方式，将两步reduce实现成一个kernel。  
+  MindSpore AKG通过**自动轴融合+多面体调度优化+AKG-Reduce模板库**的方式对reduction操作进行优化，并通过原子加的方式，将两步reduce实现成一个kernel。
 
   ![graphkernel_reduce](./images/graphkernel_reduce.png)
 
