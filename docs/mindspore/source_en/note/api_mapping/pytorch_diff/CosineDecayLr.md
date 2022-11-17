@@ -9,11 +9,12 @@ torch.optim.lr_scheduler.CosineAnnealingLR(
     optimizer,
     T_max,
     eta_min=0,
-    last_epoch=-1
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-For more information, see[torch.optim.lr_scheduler.CosineAnnealingLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.CosineAnnealingLR)。
+For more information, see[torch.optim.lr_scheduler.CosineAnnealingLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.CosineAnnealingLR).
 
 ## mindspore.nn.cosine_decay_lr
 
@@ -31,9 +32,18 @@ For more information, see[mindspore.nn.cosine_decay_lr](https://www.mindspore.cn
 
 ## Differences
 
-`torch.optim.lr_scheduler.CosineAnnealingLR` Used to periodically adjust the learning rate, where the input parameter `T_max` represents 1/2 of the period. Assuming the initial learning rate is `lr`, in each period of `2*T_max`, the learning rate changes according to the specified calculation logic, for the formula detail, see the API docs; after the period ends, the learning rate returns to the initial value `lr` , and keep looping.
+PyTorch (torch.optim.lr_scheduler.CosineAnnealingLR): `torch.optim.lr_scheduler.CosineAnnealingLR` is used to periodically adjust the learning rate, where the input parameter `T_max` represents 1/2 of the period. Assuming the initial learning rate is `lr`, in each period of `2*T_max`, the learning rate changes according to the specified calculation logic, for the formula detail, see the API docs; after the period ends, the learning rate returns to the initial value `lr` , and keep looping. When `verbose` is True, the relevant information is printed for each update.
 
-`mindspore.nn.cosine_decay_lr`: the learning rate adjustment has no periodic changes, and the learning rate value changes according to the specified calculation logic. The formula calculation logic is the same as that of `torch.optim.lr_scheduler.CosineAnnealingLR`.
+MindSpore (mindspore.nn.cosine_decay_lr): the learning rate adjustment of `mindspore.nn.cosine_decay_lr` has no periodic changes, and the learning rate value changes according to the specified calculation logic. The formula calculation logic is the same as that of `torch.optim.lr_scheduler.CosineAnnealingLR`.
+
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| ---- | ----- | ------- | --------- | -------------------- |
+| Parameter | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this parameter |
+|      | Parameter 2 | T_max   | decay_steps | The step to perform decay. The function is the same, and the parameter name is different |
+|      | Parameter 3 | eta_min | min_lr     | Minimum learning rate, same function, different parameter names |
+|      | Parameter 4 | last_epoch |   | MindSpore does not have this parameter |
+|      | Parameter 5 | verbose |        | PyTorch prints information about each update when `verbose` is True. MindSpore does not have this parameter |
+|      | Parameter 6 |       |  max_lr   | Maximum learning rate. PyTorch is set to initial lr, and MindSpore is set to `max_lr` |
 
 ## Code Example
 
