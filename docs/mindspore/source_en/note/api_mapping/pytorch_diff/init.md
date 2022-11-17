@@ -16,7 +16,7 @@ torch.distributed.init_process_group(
 )
 ```
 
-For more information, see [torch.distributed.init_process_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.init_process_group).
+For more information, see [torch.distributed.init_process_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.init_process_group).
 
 ## mindspore.communication.init
 
@@ -30,7 +30,7 @@ For more information, see [mindspore.communication.init](https://mindspore.cn/do
 
 PyTorch: This interface supports three kinds of collective communications: MPI, Gloo, and NCCL. It initializes `backend` and also provides configuration, such as `world_size`, `rank`, `timeout`, etc.
 
-MindSpore：This interface currently supports three kinds of collective communication: HCCL, NCCL, and MCCL. The configuration of `world_size`, `rank` and `timeout` is not set in this interface. The corresponding environment variable needs to be set before calling this interface.
+MindSpore：This interface currently supports three kinds of collective communication: HCCL, NCCL, and MCCL. The configuration of `world_size`, `rank` and `timeout` is not set in this interface. The corresponding environment variables need to be set before calling this interface.
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|

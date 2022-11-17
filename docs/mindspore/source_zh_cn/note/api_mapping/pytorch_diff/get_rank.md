@@ -5,7 +5,7 @@
 ## torch.distributed.get_rank
 
 ```python
-torch.distributed.get_rank(group)
+torch.distributed.get_rank(group=None)
 ```
 
 更多内容详见[torch.distributed.get_rank](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.get_rank)。
@@ -13,7 +13,7 @@ torch.distributed.get_rank(group)
 ## mindspore.communication.get_rank
 
 ```python
-mindspore.communication.get_rank(group)
+mindspore.communication.get_rank(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
 更多内容详见[mindspore.communication.get_rank](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.get_rank)。
