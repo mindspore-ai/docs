@@ -12,7 +12,7 @@ torch.distributed.new_group(
 )
 ```
 
-For more information, see [torch.distributed.new_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.new_group).
+For more information, see [torch.distributed.new_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.new_group).
 
 ## mindspore.communication.create_group
 
@@ -26,7 +26,7 @@ For more information, see [mindspore.communication.create_group](https://mindspo
 
 PyTorch: This interface passes in the rank list of the communication domain to be constructed, specifies the backend to create the specified communication domain, and returns the created communication domain.
 
-MindSpore：The interface passes in the group name and the rank list of the communication domain to be constructed, creates a communication domain with the incoming group name as the key, and does not return any value.
+MindSpore: This interface passes in the group name and the rank list of the communication domain to be constructed, creates a communication domain with the incoming group name as the key, and does not return any value.
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|

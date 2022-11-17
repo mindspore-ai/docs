@@ -7,8 +7,8 @@
 ```python
 torch.distributed.all_reduce(
     tensor,
-    op=ReduceOp.SUM,
-    group,
+    op=<ReduceOp.SUM: 0>,
+    group=None,
     async_op=False
 )
 ```
@@ -20,7 +20,8 @@ For more information, see [torch.distributed.all_reduce](https://pytorch.org/doc
 ```python
 mindspore.ops.AllReduce(
     op=ReduceOp.SUM,
-    group)
+    group=GlobalComm.WORLD_COMM_GROUP
+)(input_x)
 ```
 
 For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
@@ -29,7 +30,7 @@ For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en
 
 PyTorch: The inputs are the tensor broadcasted by the current process `tensor`, the AllReduce operation `op`, the communication group `group` and the async op flag `async_op`. After the AllReduce operation, the output is written back to `tensor`. The return is a async work handle if `async_op=True`, otherwise is `None`.
 
-MindSpore: The input is `tensor`, after the AllReduce operation configured by `op` in the communication group `group`, the output is written back to `tensor`. This interface currently not support the configuration of `async_op`.
+MindSpore: The input of this interface is `input_x` that is a `tensor`. The output `tensor` has the same shape as `input_x`, after the AllReduce operation configured by `op` in the communication group `group`. This interface currently not support the configuration of `async_op`.
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
