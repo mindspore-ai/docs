@@ -92,7 +92,7 @@ MindSpore provides rich hardware-independent optimizations such as IR fusion, al
 
 MindSpore offers some more distinctive techniques in addition to the usual optimizations of traditional AI frameworks:
 
-#### Graph-kernel Fusion
+#### [Graph-kernel Fusion](https://www.mindspore.cn/docs/en/master/design/graph_fusion_engine.html)
 
 Mainstream AI computing frameworks such as MindSpore provide operators to users that is usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
 

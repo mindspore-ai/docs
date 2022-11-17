@@ -15,6 +15,7 @@ MindSpore Documentation
    design/overview
    design/auto_gradient
    design/distributed_training_design
+   design/graph_fusion_engine
    design/mindir
    design/all_scenarios
    design/thor
