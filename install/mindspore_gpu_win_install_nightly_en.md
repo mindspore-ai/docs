@@ -1,8 +1,8 @@
-# Installing MindSpore CPU 2.0.0 Nightly by pip-Windows
+# Installing MindSpore GPU Nightly by pip-Windows
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU 2.0.0 Nightly by pip-Windows](#installing-mindspore-cpu-200-nightly-by-pip-windows)
+- [Installing MindSpore GPU Nightly by pip-Windows](#installing-mindspore-gpu-nightly-by-pip-windows)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -10,23 +10,24 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_nightly_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_win_install_nightly_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest changes on MindSpore.
 
-This document describes how to quickly install MindSpore Nightly by pip in a Linux system with a CPU environment.
+This document describes how to quickly install MindSpore Nightly by pip in a Linux system with a GPU environment.
 
 ## System Environment Information Confirmation
 
-- Ensure that Windows 10 is installed with the x86 architecture 64-bit operating system.
+- Caurrently supports Windows 10/11 with the x86 architecture 64-bit operating system.
 - Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
+- Ensure that [CUDA 11.1/11.6](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) is installed. Nvidia [cuDNN official installation guide](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html) is a good place to follow, and make sure put cuDNN install path into `CUDNN_HOME` environment variable.
 
 ## Installing MindSpore
 
 Execute the following command to install MindSpore:
 
 ```bash
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-gpu-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
@@ -54,7 +55,7 @@ It means MindSpore has been installed successfully.
 Use the following command if you need to update the MindSpore version:
 
 ```bash
-pip install --upgrade mindspore-dev=={version}
+pip install --upgrade mindspore-gpu-dev=={version}
 ```
 
 Of which,

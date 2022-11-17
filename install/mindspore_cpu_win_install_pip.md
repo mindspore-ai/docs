@@ -14,15 +14,10 @@
 
 本文档介绍如何在CPU环境的Windows系统上，使用pip方式快速安装MindSpore。
 
-在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Windows（CPU）上进行源码编译安装MindSpore](https://www.mindspore.cn/news/newschildren?id=364)中的第三方依赖软件安装相关部分，在此感谢社区成员[lvmingfu](https://gitee.com/lvmingfu)的分享。
-
 ## 确认系统环境信息
 
 - 确认安装Windows 10是x86架构64位操作系统。
-- 确认安装Python 3.7-3.9之间的任意版本。如果未安装或者已安装其他版本的Python，可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
-- 安装Python完毕后，将Python和pip添加到系统环境变量。
-    - 添加Python：控制面板->系统->高级系统设置->环境变量。双击系统变量中的Path，将`python.exe`的路径添加进去。
-    - 添加pip：`python.exe`同一级目录中的`Scripts`文件夹即为Python自带的pip文件，将其路径添加到系统环境变量中即可。
+- 确认安装Python（>=3.7.5）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 
 ## 安装MindSpore
 
