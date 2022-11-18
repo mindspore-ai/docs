@@ -231,7 +231,7 @@
 
         [MindSpore 数据集加载 - parse() missing 1 required positional](https://bbs.huaweicloud.com/forum/thread-189950-1-1.html)
 
-    - 自定义数据集使用Tensor计算算子
+    - 自定义数据集使用了算子或Tensor操作
 
         错误日志：
 
@@ -241,11 +241,11 @@
 
         错误描述：
 
-        在自定义数据集里面使用了 Tensor 计算算子，此时会调用后端底层的算子进行执行，但是数据处理又是多线程并行处理，因此会起多个线程进行计算，但是计算算子可能不支持多线程执行，因此报错。
+        在自定义数据集里面使用了算子或Tensor操作，而数据处理时采用多线程并行处理，但算子或Tensor操作并不支持多线程执行，因此报错。
 
         参考解决方法：
 
-        用户自定义的 Pyfunc 中，在数据集中的`__getitem__` 中不使用 MindSpore 的 Tensor 及相关操作，建议先把入参转为 Numpy 类型，再通过 Numpy 相关操作实现相关功能。
+        用户自定义的 Pyfunc 中，在数据集中的`__getitem__` 中不使用 MindSpore的Tensor操作或算子，建议先把入参转为 Numpy 类型，再通过 Numpy 相关操作实现相关功能。
 
         参考实例链接：
 
@@ -395,7 +395,7 @@
 
     参考解决方法：
 
-    ① 检查需要进行 batch 操作的数据 shape，不一致时放弃进行 shape 操作。
+    ① 检查需要进行 batch 操作的数据 shape，不一致时放弃进行 batch 操作。
 
     ② 如果一定要对 shape 不一致的数据进行 batch 操作，需要整理数据集，通过 pad 补全等方式进行输入数据 shape 的统一。
 

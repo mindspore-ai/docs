@@ -6,7 +6,7 @@
 
 ## context配置问题
 
-执行网络训练时，需要指定后端设备，使用方式是：`set_context(device_target=device)`。MindSpore支持CPU，GPU和昇腾后端Ascend。如果在GPU设备上，错误指定后端设备为Ascend，即`set_context(device_target="Ascend")`， 会得到如下报错信息：
+执行网络训练时，需要指定后端设备，使用方式是：`set_context(device_target=device)`。MindSpore支持CPU，GPU和昇腾后端Ascend。如果在GPU设备上，错误指定后端设备为Ascend，即`set_context(device_target="Ascend")`，会得到如下报错信息：
 
 ```python
 ValueError: For 'set_context', package type mindspore-gpu support 'device_target' type gpu or cpu, but got Ascend.
@@ -88,7 +88,7 @@ RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x
 
 参考实例链接：
 
-[MindSpore 算子编译问题 - ReduceSum算子不支持8维以上输入](https://bbs.huaweicloud.com/forum/thread-182168-1-1.html)。
+[MindSpore 算子编译问题 - ReduceSum算子不支持8维以上输入](https://bbs.huaweicloud.com/forum/thread-182168-1-1.html)
 
 例如，Parameter参数不支持类型自动转换，使用Parameter算子时，进行数据类型转换时报错，报错信息如下：
 
