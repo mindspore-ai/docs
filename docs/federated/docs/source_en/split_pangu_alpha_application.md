@@ -18,7 +18,7 @@ As shown in the figure above, in this case, the Pangaea α model is sliced into 
 
 The feature tensor and gradient tensor exchanged between participant A and participant B during the above forward inference and backward propagation are processed by using privacy security mechanisms and encryption algorithms, so that it is not necessary to transmit the data held by participant A to participant B for implementing the collaboration training of the network model by the two participants. Due to the small number of Embedding and Head subnetwork parameters and the huge number of Backbone subnetwork parameters, this sample application is suitable for the large model collaboration training or deployment between the service side (corresponding to participant A) and the computing center (corresponding to participant B).
 
-For a detailed introduction to the pangu α model principles, please refer to [MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha), [Introduction to Pengcheng -pangu α](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha), and its [research paper](https://arxiv.org/pdf/2104.12369.pdf).
+For a detailed introduction to the pangu α model principles, please refer to [MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha), [Introduction to Pengcheng -pangu α](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha), and its [research paper](https://arxiv.org/pdf/2104.12369.pdf).
 
 ## Preparation
 
@@ -36,7 +36,7 @@ For a detailed introduction to the pangu α model principles, please refer to [M
 
 ### Dataset Preparation
 
-Before running the sample, refer to [MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha#dataset-generation) and use the preprocess.py script to convert the raw text corpus for training into a dataset that can be used for model training.
+Before running the sample, refer to [MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha#dataset-generation) and use the preprocess.py script to convert the raw text corpus for training into a dataset that can be used for model training.
 
 ## Defining the Vertical Federated Learning Training Process
 

@@ -9,7 +9,7 @@
 MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵采用近似、切分等优化加速手段，极大的降低了逆矩阵的计算复杂度，开发出了可用的二阶优化器THOR。使用8块Ascend 910 AI处理器，THOR可以在72min内完成ResNet50-v1.5网络和ImageNet数据集的训练，相比于SGD+Momentum速度提升了近一倍。
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
-> 下载完整示例代码：[Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet) 。
+> 下载完整示例代码：[Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) 。
 
 示例代码目录结构
 
@@ -172,7 +172,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## 定义网络
 
-本示例中使用的网络模型为ResNet50-v1.5，定义[ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)。
+本示例中使用的网络模型为ResNet50-v1.5，定义[ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/resnet.py)。
 
 网络构建完成以后，在`__main__`函数中调用定义好的ResNet50：
 

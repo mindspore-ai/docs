@@ -8,7 +8,7 @@ In deep learning, one usually has to deal with the huge model problem, in which 
 the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly
 efficient method for addressing huge model problem.
 
-In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
+In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
 
 ## Basic Principle
 
@@ -28,7 +28,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Sample Code Description
 
-1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
+1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 

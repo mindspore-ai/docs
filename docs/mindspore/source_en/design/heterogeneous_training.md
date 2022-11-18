@@ -123,7 +123,7 @@ class AdamWeightDecayOp(Optimizer):
         return ms.ParameterTuple(new)
 ```
 
-Steps 4 and 5 can also be directly fused into the optimizer operator for further optimization. The complete optimizer heterogeneous training process can be found at: <https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha>.
+Steps 4 and 5 can also be directly fused into the optimizer operator for further optimization. The complete optimizer heterogeneous training process can be found at: <https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha>.
 
 ## Embedding Heterogeneity
 
@@ -186,7 +186,7 @@ class EmbeddingLookup(nn.Cell):
 
 EmbeddingLookup, FTRL, LazyAdam and other operators in the current nn directory are encapsulated the heterogeneous interface, and the user only needs to set the target attribute to CPU or DEVICE to switch the execution backend.
 
-For the overall calling process, refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
+For the overall calling process, refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
 
 ## PS Heterogeneity
 
@@ -196,7 +196,7 @@ When the EmbeddingTable reaches T level and the single machine memory cannot be 
 
 Parameter Server encapsulates heterogeneous processes, and users only need to configure parameters to use PS. For the detailed configuration process, refer to [Parameter Server training process](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html).
 
-In addition, the process of using PS is also available in the wide&deep network and can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
+In addition, the process of using PS is also available in the wide&deep network and can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
 
 ## Constraints
 
