@@ -8,9 +8,11 @@ Function Debug
   :maxdepth: 1
   :hidden:
 
+  error_analyze
   custom_debug
   mindir
   dump
+  pynative_debug
   pynative
   fixing_randomness
 
