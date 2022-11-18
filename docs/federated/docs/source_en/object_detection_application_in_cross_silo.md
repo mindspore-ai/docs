@@ -8,7 +8,7 @@ The full script to launch cross-silo federated target detection application can 
 
 ## Preparation
 
-This tutorial deploy the cross-silo federated target detection task based on the faster_rcnn network provided in MindSpore model_zoo. Please first follow the official [faster_rcnn tutorial and code](https://gitee.com/mindspore/models/tree/master/official/cv/faster_rcnn) to understand the COCO dataset, faster_rcnn network structure, training process and evaluation process first. Since the COCO dataset is open source, please refer to its [official website](https://cocodataset.org/#home) guidelines to download a dataset by yourself and perform dataset slicing (for example, suppose there are 100 clients, the dataset can be sliced into 100 copies, each representing the data held by one client).
+This tutorial deploy the cross-silo federated target detection task based on the faster_rcnn network provided in MindSpore model_zoo. Please first follow the official [faster_rcnn tutorial and code](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) to understand the COCO dataset, faster_rcnn network structure, training process and evaluation process first. Since the COCO dataset is open source, please refer to its [official website](https://cocodataset.org/#home) guidelines to download a dataset by yourself and perform dataset slicing (for example, suppose there are 100 clients, the dataset can be sliced into 100 copies, each representing the data held by one client).
 
 Since the original COCO dataset is in json file format, the target detection script provided by cross-silo federated learning framework only supports input data in MindRecord format. You can convert the json file to MindRecord format file according to the following steps.
 
@@ -94,7 +94,7 @@ cross_silo_faster_rcnn
 
         Used to set the pre-trained model path (.ckpt format).
 
-        The pre-trained model experimented in this tutorial is a ResNet-50 checkpoint trained on ImageNet 2012. You can use the [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/resnet) script in ModelZoo to train, and then use src/convert_checkpoint.py to convert the trained resnet50 weight file into a loadable weight file.
+        The pre-trained model experimented in this tutorial is a ResNet-50 checkpoint trained on ImageNet 2012. You can use the [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) script in ModelZoo to train, and then use src/convert_checkpoint.py to convert the trained resnet50 weight file into a loadable weight file.
 
 3. Start redis
 

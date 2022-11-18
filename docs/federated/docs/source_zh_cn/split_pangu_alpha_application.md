@@ -18,7 +18,7 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 上述前向推理和反向传播过程中，参与方A和参与方B交换的特征张量和梯度张量，均采用隐私安全机制和加密算法进行处理，从而无需将参与方A所持有的数据传输给参与方B，即可实现两个参与方对网络模型的协同训练。由于Embedding子网络和Head子网络参数量较少，而Backbone子网络参数量巨大，该应用样例适用于业务方（对应参与方A）与计算中心（对应参与方B）的大模型协同训练或部署。
 
-盘古α模型原理的详细介绍，可参考[MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha)、[鹏程·盘古α介绍](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha)，及其[研究论文](https://arxiv.org/pdf/2104.12369.pdf)。
+盘古α模型原理的详细介绍，可参考[MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)、[鹏程·盘古α介绍](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha)，及其[研究论文](https://arxiv.org/pdf/2104.12369.pdf)。
 
 ## 准备环节
 
@@ -36,7 +36,7 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 ### 数据集准备
 
-在运行样例前，需参考[MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha#dataset-generation)，采用preprocess.py脚本将用于训练的原始文本语料，转换为可用于模型训练的数据集。
+在运行样例前，需参考[MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha#dataset-generation)，采用preprocess.py脚本将用于训练的原始文本语料，转换为可用于模型训练的数据集。
 
 ## 定义纵向联邦学习训练过程
 

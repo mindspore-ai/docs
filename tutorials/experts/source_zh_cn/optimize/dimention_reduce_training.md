@@ -79,7 +79,7 @@ init()
 
 ### 加载数据集
 
-利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py)导入。
+利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/dataset.py)导入。
 
 ```python
 # define train dataset
@@ -103,9 +103,9 @@ init_weight(net=net)
 
 定义模型所需的损失函数loss、optimizer等。
 
-loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/CrossEntropySmooth.py)导入。
+loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/CrossEntropySmooth.py)导入。
 
-学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py)导入。
+学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/lr_generator.py)导入。
 
 ```python
 # define loss

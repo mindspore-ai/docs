@@ -122,7 +122,7 @@ init()
 
 ## Loading Dataset in the Data Parallel Mode
 
-During distributed training, data is imported in parallel with the data. Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py) in the `resnet` directory in the models.
+During distributed training, data is imported in parallel with the data. Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/dataset.py) in the `resnet` directory in the models.
 
 ```python
 # define train dataset

@@ -10,7 +10,7 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 
-> Download address of the complete code example: [Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)
+> Download address of the complete code example: [Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet)
 
 Directory Structure of Code Examples
 
@@ -171,7 +171,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py).
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/resnet.py).
 
 After the network is built, call the defined ResNet-50 in the `__main__` function.
 

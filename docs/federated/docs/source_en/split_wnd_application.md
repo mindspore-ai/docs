@@ -24,17 +24,17 @@ Vertical FL model inference scenario: similar to the forward propagation phase o
 
 This sample provides a federated learning training example for recommendation-oriented tasks by using Wide&Deep network and Criteo dataset as examples. As shown above, in this case, the vertical federated learning system consists of the Leader participant and the Follower participant. Among them, the Leader participant holds 20×2 dimensional feature information and label information, and the Follower participant holds 19×2 dimensional feature information. Leader participant and Follower participant deploy 1 set of Wide&Deep network respectively, and realize the collaborative training of the network model by exchanging embedding vectors and gradient vectors without disclosing the original features and label information.
 
-For a detailed description of the principle properties of Wide&Deep networks, see [MindSpore ModelZoo - Wide&Deep - Wide&Deep Overview](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README.md#widedeep-description) and its [research paper](https://arxiv.org/pdf/1606.07792.pdf).
+For a detailed description of the principle properties of Wide&Deep networks, see [MindSpore ModelZoo - Wide&Deep - Wide&Deep Overview](https://gitee.com/mindspore/models/blob/master/official/recommend/Wide_and_Deep/README.md#widedeep-description) and its [research paper](https://arxiv.org/pdf/1606.07792.pdf).
 
 ## Dataset Preparation
 
-This sample is based on the Criteo dataset for training and testing. Before running the sample, you need to refer to [MindSpore ModelZoo - Wide&Deep - Quick Start](https://gitee.com/mindspore/models/blob/master/official/recommend/wide_and_deep/README.md#quick-start) to pre-process the Criteo dataset.
+This sample is based on the Criteo dataset for training and testing. Before running the sample, you need to refer to [MindSpore ModelZoo - Wide&Deep - Quick Start](https://gitee.com/mindspore/models/blob/master/official/recommend/Wide_and_Deep/README.md#quick-start) to pre-process the Criteo dataset.
 
 1. Clone MindSpore ModelZoo code.
 
    ```shell
    git clone https://gitee.com/mindspore/models.git
-   cd models/official/recommend/wide_and_deep
+   cd models/official/recommend/Wide_and_Deep
    ```
 
 2. Download the dataset

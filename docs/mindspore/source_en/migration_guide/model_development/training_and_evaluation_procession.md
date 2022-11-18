@@ -74,7 +74,7 @@ A generic [script rack](https://gitee.com/mindspore/models/tree/master/utils/mod
 1. yaml parameter file parsing, parameter obtaining
 2. ModelArts unified tool both on the cloud and on-premise
 
-The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet/src/model_utils).
+The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils).
 
 ## Inference Process
 
@@ -108,7 +108,7 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 Generally, the source code for network construction and data processing will be placed in the `src` directory, and the scripting framework will be placed in the `src.model_utils` directory. For example, you can refer to the implementation in [MindSpore models](https://gitee.com/mindspore/models).
 
-The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/master/official/cv/ssd/eval.py).
+The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py).
 
 ### Inference Verification
 

@@ -4,7 +4,7 @@
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
-A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53).
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3).
 
 <br/>
 
@@ -455,7 +455,7 @@ A: While installing Ascend 310 AI Processor software packages depended by MindSp
 
 <br/>
 
-<font size=3>**Q: Why does set_ps_context(enable_ps=True) in model_zoo/official/cv/resnet/train.py in the MindSpore code have to be set before init?**</font>
+<font size=3>**Q: Why does set_ps_context(enable_ps=True) in model_zoo/official/cv/ResNet/train.py in the MindSpore code have to be set before init?**</font>
 
 A: In MindSpore Ascend mode, if init is called first, all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, and the worker and server will use the same card, resulting in an error: Ascend kernel runtime initialization failed.
 

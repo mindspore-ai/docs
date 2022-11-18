@@ -74,7 +74,7 @@ models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/
 1. yaml参数文件解析，参数获取
 2. ModelArts云上云下统一工具
 
-一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet/src/model_utils)。
+一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils)。
 
 ## 推理流程
 
@@ -108,7 +108,7 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 一般网络构造，数据处理等源代码会放到`src`目录下，脚本架会放到`src.model_utils`目录下，具体示例可以参考[MindSpore models](https://gitee.com/mindspore/models)里的实现。
 
-有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/master/official/cv/ssd/eval.py)。
+有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py)。
 
 ### 推理验证
 

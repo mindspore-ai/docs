@@ -475,9 +475,9 @@ Now, let's look at some workarounds for these scenarios.
 
 #### Input Shape Not Fixed
 
-1. You can add pads to the input data to a fixed shape. For example, [Data Processing](https://gitee.com/mindspore/models/blob/master/research/audio/deepspeech2/src/dataset.py#L153) of deep_speechv2 specifies the maximum length of `input_length`. Short `input_length` are padded with 0s, and long `input_length` are randomly truncated. Note that this method may affect the training accuracy. Therefore, the training accuracy and training performance need to be balanced.
+1. You can add pads to the input data to a fixed shape. For example, [Data Processing](https://gitee.com/mindspore/models/blob/master/official/audio/DeepSpeech2/src/dataset.py#L153) of deep_speechv2 specifies the maximum length of `input_length`. Short `input_length` are padded with 0s, and long `input_length` are randomly truncated. Note that this method may affect the training accuracy. Therefore, the training accuracy and training performance need to be balanced.
 
-2. You can set a group of fixed input shapes to process the input into several fixed scales. For example, in [Data Processing](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py#L177) of YOLOv3_darknet53, the processing function `multi_scale_trans` is added to the batch method, and a shape is randomly selected from [MultiScaleTrans](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/transforms.py#L456) for processing.
+2. You can set a group of fixed input shapes to process the input into several fixed scales. For example, in [Data Processing](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177) of YOLOv3_darknet53, the processing function `multi_scale_trans` is added to the batch method, and a shape is randomly selected from [MultiScaleTrans](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/transforms.py#L456) for processing.
 
 Currently, the support for completely random input shapes is limited and needs to be supported in the new version.
 

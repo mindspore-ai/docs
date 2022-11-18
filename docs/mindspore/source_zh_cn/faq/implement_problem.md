@@ -4,7 +4,7 @@
 
 <font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
 
-A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53)的多尺度训练实现。
+A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3)的多尺度训练实现。
 
 <br/>
 
@@ -432,7 +432,7 @@ A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`�
 
 <br/>
 
-<font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/resnet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
+<font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/ResNet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
 
 A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: Ascend kernel runtime initialization failed。
 
