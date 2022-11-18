@@ -278,3 +278,4 @@ Contribution Guide
    mindsponge.cell
    mindsponge.common
    mindsponge.data
+   mindsponge.metrics
