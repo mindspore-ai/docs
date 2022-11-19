@@ -45,6 +45,7 @@ print(torch_output.numpy())
 # MindSpore
 import mindspore
 from mindspore import Tensor
+import numpy as np
 
 shape = (2, 3)
 x = Tensor(np.array([[1], [2]]).astype(np.float32))

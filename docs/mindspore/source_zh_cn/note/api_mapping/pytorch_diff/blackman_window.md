@@ -8,6 +8,7 @@
 torch.blackman_window(
     window_length,
     periodic=True,
+    *,
     dtype=None,
     layout=torch.strided,
     device=None,
@@ -23,6 +24,7 @@ torch.blackman_window(
 mindspore.ops.blackman_window(
     window_length,
     periodic=True,
+    *,
     dtype=mstype.float32
 ) -> Tensor
 ```
@@ -40,9 +42,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 | 参数 | 参数1 |window_length | window_length | - |
 | | 参数2 | periodic | periodic | - |
 |  | 参数3 | dtype        | dtype | - |
-| | 参数4 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数6 | requires_grad | - | 功能一致，MindSpore无此参数 |
+| | 参数4 | layout | - | 不涉及 |
+| | 参数5 | device | - | 不涉及 |
+| | 参数6 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |
 
 ### 代码示例1
 
@@ -58,9 +60,10 @@ print(torch_output.numpy())
 
 # MindSpore
 import mindspore
+from mindspore import Tensor
 
-window_length = Tensor(10, mindspore.int32)
-ms_output = ops.blackman_window(window_length, periodic=True)
+window_length = Tensor(12, mindspore.int32)
+ms_output = mindspore.ops.blackman_window(window_length, periodic=True)
 print(ms_output.asnumpy())
 #[0.         0.04021286 0.20077014 0.50978714 0.8492299  1.
 # 0.8492299  0.50978714 0.20077014 0.04021286]

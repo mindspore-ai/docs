@@ -7,6 +7,7 @@
 ```text
 torch.empty_like(
     input,
+    *,
     dtype=None,
     layout=None,
     device=None,
@@ -15,7 +16,7 @@ torch.empty_like(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.empty_like](https://pytorch.org/docs/1.8.1/generated/torch.empty.html)。
+更多内容详见 [torch.empty_like](https://pytorch.org/docs/1.8.1/generated/torch.empty_like.html)。
 
 ## mindspore.numpy.empty_like
 
@@ -23,7 +24,7 @@ torch.empty_like(
 mindspore.numpy.empty_like(prototype, dtype=None, shape=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.numpy.empty_like](https://pytorch.org/docs/1.8.1/generated/torch.empty_like.html)。
+更多内容详见 [mindspore.numpy.empty_like](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.empty_like.html)。
 
 ## 差异对比
 
@@ -34,16 +35,16 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但支持的输�
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 |input | prototype | 功能一致，MindSpore支持更多输入类型 |
-|参数 | 参数1 | dtype         | dtype     | -                |
+|参数 | 参数1 | dtype         | dtype     | - |
 |  | 参数2 | -             | shape     | 实现重写shape， Pytorch无此参数 |
-| | 参数3 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数4 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | requires_grad | - | 功能一致，MindSpore无此参数 |
-| | 参数6 | memory_format | - | 功能一致，MindSpore无此参数 |
+| | 参数3 | layout | - | 不涉及 |
+| | 参数4 | device | - | 不涉及 |
+| | 参数5 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |
+| | 参数6 | memory_format | - | 不涉及 |
 
 ### 代码示例1
 
-> 对于参数shape，PyTorch的empty_like算子无此参数，MindSpore的shape参数默认值为None，通过该参数可以实现对结果数据类型的重写。
+> 对于参数shape，PyTorch的empty_like算子无此参数，MindSpore的shape参数默认值为None，通过该参数可以实现对结果shape的重写。
 
 ```python
 # PyTorch

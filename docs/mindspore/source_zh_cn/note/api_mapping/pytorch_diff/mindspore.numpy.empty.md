@@ -7,6 +7,7 @@
 ```text
 torch.empty(
     *size,
+    *,
     out=None,
     dtype=None,
     layout=torch.strided,
@@ -36,12 +37,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致， 但dtype参数�
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | size | shape |功能一致， 参数名不同 |
 |  | 参数2 | dtype         | dtype     | 功能一致， 默认值不同        |
-| | 参数3 | out           | -         | 功能一致，MindSpore无此参数 |
-| | 参数4 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数6 | requires_grad | - | 功能一致，MindSpore无此参数 |
-| | 参数7 | pin_memory | - | 功能一致，MindSpore无此参数 |
-| | 参数8 | memory_format | - | 功能一致，MindSpore无此参数 |
+| | 参数3 | out           | -         | 不涉及 |
+| | 参数4 | layout | - | 不涉及 |
+| | 参数5 | device | - | 不涉及 |
+| | 参数6 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |
+| | 参数7 | pin_memory | - | 不涉及 |
+| | 参数8 | memory_format | - | 不涉及 |
 
 ### 代码示例1
 
