@@ -4,6 +4,8 @@
 
 ## 安装
 
+MindSpore Serving当前仅支持Linux环境部署。
+
 MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/310P/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
 
 MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每个不同的构建包支持的运行目标设备和模型格式如下表所示：
@@ -51,7 +53,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 
 > - `{version}`表示MindSpore Serving版本号，例如下载1.1.0版本MindSpore Serving时，`{version}`应写为1.1.0。
 > - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
-> - `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。请和当前安装的MindSpore Serving使用的Python环境保持一致。
+> - `{python_version}`表示用户的Python版本，Python版本为3.7时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.8时，则写为`cp38-cp38`。Python版本为3.9时，则写为`cp39-cp39`。请和当前安装的MindSpore Serving使用的Python环境保持一致。
 
 ### 源码编译安装
 
@@ -64,6 +66,16 @@ bash build.sh
 ```
 
 对于`bash build.sh`，可通过例如`-jn`选项，例如`-j16`，加速编译；可通过`-S on`选项，从gitee而不是github下载第三方依赖。
+
+MindSpore Serving编译依赖MindSpore推理头文件，上述编译过程，会下载依赖的MindSpore源码，如果已安装MindSpore whl包或者MindSpore Lite包，可通过以下编译命令避免下载MindSpore源码。
+
+```shell
+git clone https://gitee.com/mindspore/serving.git -b master
+cd serving
+bash build.sh -p ${mindspore_path}/lib
+```
+
+通过`-p`参数指定依赖的MindSpore或MindSpore Lite的路径，其中`${mindspore_path}`为MindSpore whl包安装路径或MindSpore Lite tar包里的`runtime`路径。
 
 编译完成后，在`build/package/`目录下找到Serving的whl安装包进行安装：
 
