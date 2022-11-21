@@ -27,7 +27,7 @@ import os
 from easydict import EasyDict as edict
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms

@@ -25,7 +25,7 @@
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
-   from mindspore.nn import Accuracy
+   from mindspore.train import Accuracy
 
    ms.set_seed(1)
 
