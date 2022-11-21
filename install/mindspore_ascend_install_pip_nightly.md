@@ -128,7 +128,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 执行如下命令安装MindSpore：
 
 ```bash
-pip install mindspore-ascend-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
@@ -213,10 +213,16 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
+从旧版本升级到MindSpore r2.0时，需要先手动卸载旧版本：
+
+```bash
+pip uninstall mindspore-ascend-dev
+```
+
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-ascend-dev=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 其中：

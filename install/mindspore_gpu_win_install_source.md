@@ -73,7 +73,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 - 直接在线升级
 
     ```bash
-    pip install --upgrade mindspore-gpu
+    pip install --upgrade mindspore
     ```
 
 - 本地源码编译升级
@@ -81,5 +81,5 @@ The result of multiplication calculation is correct, MindSpore has been installe
     在源码根目录下执行编译脚本`build.bat`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore_gpu-{version}-{python_version}-win_amd64.whl
+    pip install --upgrade mindspore-{version}-{python_version}-win_amd64.whl
     ```

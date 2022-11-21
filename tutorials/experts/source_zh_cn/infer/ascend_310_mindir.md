@@ -338,7 +338,7 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
-export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pip3 show mindspore | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
 # if MindSpore is installed by binary, run "export LD_LIBRARY_PATH=path-to-your-custom-dir:${LD_LIBRARY_PATH}"
 
 # Environment variables that must be configured
@@ -351,7 +351,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 执行`cmake`命令，其中`pip3`需要按照实际情况修改：
 
 ```bash
-cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
+cmake . -DMINDSPORE_PATH=`pip3 show mindspore | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
 # if MindSpore is installed by binary, run "cmake . -DMINDSPORE_PATH=path-to-your-custom-dir"
 ```
 

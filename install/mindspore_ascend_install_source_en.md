@@ -295,7 +295,7 @@ Where:
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore_ascend-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
@@ -377,12 +377,18 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
+When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+
+```bash
+pip uninstall mindspore-ascend
+```
+
 Use the following command if you need to update the MindSpore version.
 
 - Update Online directly
 
     ```bash
-    pip install --upgrade mindspore-ascend
+    pip install --upgrade mindspore
     ```
 
 - Update after source code compilation
@@ -390,5 +396,5 @@ Use the following command if you need to update the MindSpore version.
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
 
     ```bash
-    pip install --upgrade mindspore_ascend-*.whl
+    pip install --upgrade mindspore-*.whl
     ```
