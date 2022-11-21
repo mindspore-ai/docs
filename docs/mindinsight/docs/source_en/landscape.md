@@ -25,7 +25,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
-   from mindspore.nn import Accuracy
+   from mindspore.train import Accuracy
 
    ms.set_seed(1)
 

@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import sys
 import IPython
 import re
@@ -112,6 +113,17 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindarmour repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir_en = os.path.join(os.getenv("MA_PATH"), 'docs/api/api_python_en')
+
+for i in os.listdir(src_dir_en):
+    if os.path.exists('./'+i):
+        os.remove('./'+i)
+    shutil.copy(os.path.join(src_dir_en,i),'./'+i)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
