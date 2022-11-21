@@ -266,7 +266,7 @@ class MAELossForMultiLabel(nn.LossBase):
         return loss_fn(output, label1, label2)
 
     # Get gradient function
-    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+    grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
     # Define function of one-step training
     def train_step(data, label1, label2):

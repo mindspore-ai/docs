@@ -134,7 +134,7 @@ optimizer(grads)
 
 Next, we define the `train_loop` function for training and the `test_loop` function for testing.
 
-To use functional automatic differentiation, we need to define the forward function `forward_fn` and use `ops.value_and_grad` to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
+To use functional automatic differentiation, we need to define the forward function `forward_fn` and use `mindspore.value_and_grad` to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
 
 ```python
 def train_loop(model, dataset, loss_fn, optimizer):
@@ -145,7 +145,7 @@ def train_loop(model, dataset, loss_fn, optimizer):
         return loss, logits
 
     # Get gradient function
-    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
     # Define function of one-step training
     def train_step(data, label):

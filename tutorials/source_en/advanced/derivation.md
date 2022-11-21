@@ -8,7 +8,7 @@ The `grad` and `value_and_grad` provided by the `mindspore.ops` module generate 
 
 ## First-order Derivation
 
-Method: `mindspore.ops.grad`. The parameter usage is as follows:
+Method: `mindspore.grad`. The parameter usage is as follows:
 
 - `fn`: the function or network to be derived.
 - `grad_position`: specifies the index of the input position to be derived. If the index is int type, it means to derive for a single input; if tuple type, it means to derive for the position of the index within the tuple, where the index starts from 0; and if None, it means not to derive for the input. In this scenario, `weights` is non-None. Default: 0.
@@ -52,7 +52,7 @@ $$\frac{\partial f}{\partial y}=x * x * z \tag{3}$$
 
 ```python
 net = Net()
-grad_fn = ops.grad(net, grad_position=(0, 1))
+grad_fn = ms.grad(net, grad_position=(0, 1))
 gradients = grad_fn(x, y)
 print(gradients)
 ```
@@ -70,7 +70,7 @@ $$\frac{\partial f}{\partial z}=x * x * y \tag{4}$$
 ```python
 params = ms.ParameterTuple(net.trainable_params())
 
-output = ops.grad(net, grad_position=None, weights=params)(x, y)
+output = ms.grad(net, grad_position=None, weights=params)(x, y)
 print(output)
 ```
 
@@ -98,7 +98,7 @@ labels = Tensor(np.random.randn(16, 1).astype(np.float32))
 weights = net.trainable_params()
 
 # Aux value does not contribute to the gradient.
-grad_fn = ops.grad(forward, grad_position=0, weights=None, has_aux=True)
+grad_fn = ms.grad(forward, grad_position=0, weights=None, has_aux=True)
 inputs_gradient, (aux_logits,) = grad_fn(inputs, labels)
 print(len(inputs_gradient), aux_logits.shape)
 ```
@@ -130,7 +130,7 @@ class Net(nn.Cell):
 
 
 net = Net()
-grad_fn = ops.grad(net)
+grad_fn = ms.grad(net)
 output = grad_fn(x, y)
 print(output)
 ```
@@ -157,7 +157,7 @@ class Net(nn.Cell):
 
 
 net = Net()
-grad_fn = ops.grad(net)
+grad_fn = ms.grad(net)
 output = grad_fn(x, y)
 print(output)
 ```
@@ -339,8 +339,8 @@ x_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
 y_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
 
 net = Net()
-firstgrad = ops.grad(net, grad_position=(0, 1))
-secondgrad = ops.grad(firstgrad, grad_position=(0, 1))
+firstgrad = ms.grad(net, grad_position=(0, 1))
+secondgrad = ms.grad(firstgrad, grad_position=(0, 1))
 output = secondgrad(x_train, y_train)
 
 # Print the result.

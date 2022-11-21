@@ -200,7 +200,7 @@ The following code defines the `ResidualBlockBase` class to implement the buildi
 
 ```python
 from typing import Type, Union, List, Optional
-from mindspore import nn
+from mindspore import nn, train
 from mindspore.common.initializer import Normal
 
 weight_init = Normal(mean=0, sigma=0.02)
@@ -467,7 +467,7 @@ def forward_fn(inputs, targets):
 
     return loss
 
-grad_fn = ops.value_and_grad(forward_fn, None, opt.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, opt.parameters)
 
 def train_step(inputs, targets):
     loss, grads = grad_fn(inputs, targets)
@@ -475,7 +475,7 @@ def train_step(inputs, targets):
     return loss
 
 # Instantiate models
-model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": nn.Accuracy()})
+model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 ```
 
 ```python

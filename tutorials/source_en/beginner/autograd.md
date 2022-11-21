@@ -65,7 +65,7 @@ Since we derive $w$ and $b$, we configure their positions `(2, 3)` corresponding
 > Using `grad` to obtain a differential function is a functional transform, i.e. the input is a function and the output is also a function.
 
 ```python
-grad_fn = ops.grad(function, (2, 3))
+grad_fn = mindspore.grad(function, (2, 3))
 ```
 
 The gradients corresponding to $w$ and $b$ are obtained by executing the differentiation function.
@@ -99,7 +99,7 @@ def function_with_logits(x, y, w, b):
 ```
 
 ```python
-grad_fn = ops.grad(function_with_logits, (2, 3))
+grad_fn = mindspore.grad(function_with_logits, (2, 3))
 grads = grad_fn(x, y, w, b)
 print(grads)
 ```
@@ -124,7 +124,7 @@ def function_stop_gradient(x, y, w, b):
 ```
 
 ```python
-grad_fn = ops.grad(function_stop_gradient, (2, 3))
+grad_fn = mindspore.grad(function_stop_gradient, (2, 3))
 grads = grad_fn(x, y, w, b)
 print(grads)
 ```
@@ -150,7 +150,7 @@ Auxiliary data is other outputs of the function in addition to the first output 
 The following still uses `function_with_logits`, configures `has_aux=True`, and executes it.
 
 ```python
-grad_fn = ops.grad(function_with_logits, (2, 3), has_aux=True)
+grad_fn = mindspore.grad(function_with_logits, (2, 3), has_aux=True)
 ```
 
 ```python
@@ -212,7 +212,7 @@ Once completed, we use the `value_and_grad` interface to obtain the differentiat
 Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. When derive the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
 
 ```python
-grad_fn = ops.value_and_grad(forward_fn, None, weights=model.trainable_params())
+grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_params())
 ```
 
 ```python

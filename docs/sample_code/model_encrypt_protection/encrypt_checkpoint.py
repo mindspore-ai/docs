@@ -23,7 +23,7 @@ from mindspore.dataset.vision import Inter
 import mindspore as ms
 
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 from mindspore.common.initializer import Normal
 
 

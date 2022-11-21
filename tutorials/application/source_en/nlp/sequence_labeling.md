@@ -369,7 +369,7 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01, weight_decay=1e
 ```
 
 ```python
-grad_fn = ops.value_and_grad(model, None, optimizer.parameters)
+grad_fn = ms.value_and_grad(model, None, optimizer.parameters)
 
 def train_step(data, seq_length, label):
     loss, grads = grad_fn(data, seq_length, label)
