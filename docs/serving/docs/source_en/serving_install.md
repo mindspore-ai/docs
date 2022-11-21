@@ -4,6 +4,8 @@
 
 ## Installation
 
+Currently, MindSpore Serving can be deployed only in the Linux environment.
+
 MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/310P/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
 
 MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
@@ -55,7 +57,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 
 > - `{version}` denotes the version of MindSpore Serving. For example, when you are downloading MindSpore Serving 1.1.0, `{version}` should be 1.1.0.
 > - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
-> - `{python_version}` spcecifies the python version for which MindSpore Serving is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`. Please use the same Python environment whereby MindSpore Serving is installed.
+> - `{python_version}` spcecifies the python version for which MindSpore Serving is built. If you wish to use Python3.7, `{python_version}` should be `cp37-cp37m`. If Python3.8 is used, it should be `cp38-cp38`. If Python3.9 is used, it should be `cp39-cp39`. Please use the same Python environment whereby MindSpore Serving is installed.
 
 ### Installation by Source Code
 
@@ -69,6 +71,16 @@ bash build.sh
 
 For the `bash build.sh` above, we can add `-jn`, for example `-j16`, to accelerate compilation. By adding `-S on`
 option, third-party dependencies can be downloaded from gitee instead of github.
+
+MindSpore Serving compliation depends on the MindSpore inference header files. During the preceding compilation, the MindSpore source code will be downloaded. If the MindSpore whl or MindSpore Lite package has been installed, we can run the following compilation command to avoid downloading the MindSpore source code.
+
+```shell
+git clone https://gitee.com/mindspore/serving.git -b master
+cd serving
+bash build.sh -p ${mindspore_path}/lib
+```
+
+Use the `-p` parameter to specify the path of MindSpore whl or MindSpore Lite package. The `${mindspore_path}` indicates the installation path of MindSpore whl package or `runtime` path in MindSpore Lite tar package.
 
 After the build is complete, find the .whl installation package of Serving in the `serving/build/package/` directory
 and install it.
