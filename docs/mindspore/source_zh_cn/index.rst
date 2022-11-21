@@ -40,26 +40,26 @@ MindSpore 文档
    :hidden:
 
    api_python/mindspore
-   api_python/mindspore.amp
-   api_python/mindspore.common.initializer
-   api_python/mindspore.communication
-   api_python/mindspore.dataset
-   api_python/mindspore.dataset.audio
-   api_python/mindspore.dataset.config
-   api_python/mindspore.dataset.text
-   api_python/mindspore.dataset.transforms
-   api_python/mindspore.dataset.vision
-   api_python/mindspore.mindrecord
    api_python/mindspore.nn
-   api_python/mindspore.nn.probability
-   api_python/mindspore.nn.transformer
-   api_python/mindspore.numpy
    api_python/mindspore.ops
    api_python/mindspore.ops.function
-   api_python/mindspore.rewrite
-   api_python/mindspore.scipy
+   api_python/mindspore.amp
    api_python/mindspore.train
+   api_python/mindspore.communication
+   api_python/mindspore.common.initializer
+   api_python/mindspore.dataset
+   api_python/mindspore.dataset.config
+   api_python/mindspore.dataset.transforms
+   api_python/mindspore.dataset.vision
+   api_python/mindspore.dataset.text
+   api_python/mindspore.dataset.audio
+   api_python/mindspore.mindrecord
+   api_python/mindspore.nn.probability
+   api_python/mindspore.nn.transformer
+   api_python/mindspore.rewrite
    api_python/mindspore.boost
+   api_python/mindspore.numpy
+   api_python/mindspore.scipy
    C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
 
 .. toctree::
