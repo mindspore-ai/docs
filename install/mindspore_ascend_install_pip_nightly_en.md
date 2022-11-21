@@ -128,7 +128,7 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 Execute the following command to install MindSpore:
 
 ```bash
-pip install mindspore-ascend-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
@@ -213,10 +213,16 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
+When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+
+```bash
+pip uninstall mindspore-ascend-dev
+```
+
 Use the following command if you need to update the MindSpore version:
 
 ```bash
-pip install --upgrade mindspore-ascend-dev=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 Of which,

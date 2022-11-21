@@ -51,10 +51,10 @@ activate mindspore_py39
 
 ## 安装MindSpore
 
-确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore-cpu=`后指定版本号。
+确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore=`后指定版本号。
 
 ```bash
-conda install mindspore-cpu -c mindspore -c conda-forge
+conda install mindspore -c mindspore -c conda-forge
 ```
 
 在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
@@ -76,8 +76,14 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 升级MindSpore版本
 
+从旧版本升级到MindSpore r2.0时，需要先手动卸载旧版本：
+
+```bash
+conda remove mindspore-cpu
+```
+
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-conda update mindspore-cpu -c mindspore -c conda-forge
+conda update mindspore -c mindspore -c conda-forge
 ```

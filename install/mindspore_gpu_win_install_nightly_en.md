@@ -27,7 +27,7 @@ This document describes how to quickly install MindSpore Nightly by pip in a Lin
 Execute the following command to install MindSpore:
 
 ```bash
-pip install mindspore-gpu-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
@@ -55,7 +55,7 @@ It means MindSpore has been installed successfully.
 Use the following command if you need to update the MindSpore version:
 
 ```bash
-pip install --upgrade mindspore-gpu-dev=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 Of which,

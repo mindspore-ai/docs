@@ -27,7 +27,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 执行如下命令安装MindSpore：
 
 ```bash
-pip install mindspore-gpu-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
@@ -55,7 +55,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-gpu-dev=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 其中：

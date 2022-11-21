@@ -11,7 +11,7 @@ cd ascend310_resnet50_preprocess_sample
 Configure the cmake project, if MindSpore is installed by pip:
 
 ```bash
-cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
+cmake . -DMINDSPORE_PATH=`pip3 show mindspore | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
 ```
 
 or installed by binary:

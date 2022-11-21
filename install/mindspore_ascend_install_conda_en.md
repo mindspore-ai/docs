@@ -165,10 +165,10 @@ pip uninstall te topi hccl -y
 
 ### Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified the version of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified the version of [Version List](https://www.mindspore.cn/versions) after `mindspore=`.
 
 ```bash
-conda install mindspore-ascend -c mindspore -c conda-forge
+conda install mindspore -c mindspore -c conda-forge
 ```
 
 When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
@@ -250,10 +250,16 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
+When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+
+```bash
+conda remove mindspore-ascend
+```
+
 Use the following command if you need to update the MindSpore version:
 
 ```bash
-conda update mindspore-ascend -c mindspore -c conda-forge
+conda update mindspore -c mindspore -c conda-forge
 ```
 
 Please reinstall .whl packages provided with the Ascend AI Processor software package. First, uninstall old versions:

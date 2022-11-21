@@ -216,24 +216,24 @@ If you wish to use another version of Python, just change the Python version in 
 
 ### Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-gpu=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore=`.
 
 For CUDA 10.1:
 
 ```bash
-conda install mindspore-gpu cudatoolkit=10.1 -c mindspore -c conda-forge
+conda install mindspore cudatoolkit=10.1 -c mindspore -c conda-forge
 ```
 
 For CUDA 11.1:
 
 ```bash
-conda install mindspore-gpu cudatoolkit=11.1 -c mindspore -c conda-forge
+conda install mindspore cudatoolkit=11.1 -c mindspore -c conda-forge
 ```
 
 For CUDA 11.6:
 
 ```bash
-conda install mindspore-gpu cudatoolkit=11.6 -c mindspore -c conda-forge
+conda install mindspore cudatoolkit=11.6 -c mindspore -c conda-forge
 ```
 
 When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).

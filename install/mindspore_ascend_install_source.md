@@ -295,7 +295,7 @@ bash build.sh -e ascend -S on
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore_ascend-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
@@ -377,12 +377,18 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
+从旧版本升级到MindSpore r2.0时，需要先手动卸载旧版本：
+
+```bash
+pip uninstall mindspore-ascend
+```
+
 当需要升级MindSpore版本时，可执行如下命令：
 
 - 直接在线升级
 
     ```bash
-    pip install --upgrade mindspore-ascend
+    pip install --upgrade mindspore
     ```
 
 - 本地源码编译升级
@@ -390,5 +396,5 @@ print(ops.add(x, y))
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore_ascend-*.whl
+    pip install --upgrade mindspore-*.whl
     ```
