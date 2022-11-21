@@ -440,7 +440,7 @@ It takes a long time to train the ViT model completely, and it is recommended to
 ```python
 import mindspore.nn as nn
 from mindspore.nn import LossBase
-from mindspore import LossMonitor
+from mindspore import LossMonitor, train
 
 # define super parameter
 epoch_size = 10
@@ -563,8 +563,8 @@ network_loss = CrossEntropySmooth(sparse=True,
                                   num_classes=num_classes)
 
 # define metric
-eval_metrics = {'Top_1_Accuracy': nn.Top1CategoricalAccuracy(),
-                'Top_5_Accuracy': nn.Top5CategoricalAccuracy()}
+eval_metrics = {'Top_1_Accuracy': train.Top1CategoricalAccuracy(),
+                'Top_5_Accuracy': train.Top5CategoricalAccuracy()}
 
 model = ms.Model(network, network_loss, metrics=eval_metrics)
 

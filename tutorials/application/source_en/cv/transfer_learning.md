@@ -176,7 +176,7 @@ This chapter uses the ResNet50 model for training. After building the model fram
 
 ```python
 from typing import Type, Union, List, Optional
-from mindspore import nn, ops
+from mindspore import nn, ops, train
 from mindspore.common.initializer import Normal
 
 
@@ -395,7 +395,7 @@ opt = nn.Momentum(params=network.trainable_params(), learning_rate=lr, momentum=
 loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Instantiate models
-model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": nn.Accuracy()})
+model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 
 def forward_fn(inputs, targets):
 
@@ -404,7 +404,7 @@ def forward_fn(inputs, targets):
 
     return loss
 
-grad_fn = ops.value_and_grad(forward_fn, None, opt.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, opt.parameters)
 
 def train_step(inputs, targets):
 
@@ -569,7 +569,7 @@ def forward_fn(inputs, targets):
 
     return loss
 
-grad_fn = ops.value_and_grad(forward_fn, None, opt.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, opt.parameters)
 
 def train_step(inputs, targets):
     loss, grads = grad_fn(inputs, targets)
@@ -577,7 +577,7 @@ def train_step(inputs, targets):
     return loss
 
 # Instantiate models
-model1 = ms.Model(net_work, loss_fn, opt, metrics={"Accuracy": nn.Accuracy()})
+model1 = ms.Model(net_work, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 ```
 
 ```text

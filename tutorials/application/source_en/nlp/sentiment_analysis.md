@@ -424,7 +424,7 @@ def train_one_epoch(model, loss_fn, optimizer, train_dataset, epoch=0):
         loss = loss_fn(logits, label)
         return loss
 
-    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+    grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
     def train_step(data, label):
         loss, grads = grad_fn(data, label)

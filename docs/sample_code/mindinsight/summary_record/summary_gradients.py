@@ -30,7 +30,7 @@ import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.nn import Accuracy
+from mindspore.train import Accuracy
 import numpy as np
 
 

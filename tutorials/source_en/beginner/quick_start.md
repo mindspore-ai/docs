@@ -175,7 +175,7 @@ def train(model, dataset, loss_fn, optimizer):
         return loss, logits
 
     # Get gradient function
-    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
     # Define function of one-step training
     def train_step(data, label):

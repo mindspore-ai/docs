@@ -306,10 +306,10 @@ def discriminator_forward(real_imgs, gen_imgs, valid, fake):
     d_loss = (real_loss + fake_loss) / 2
     return d_loss
 
-grad_generator_fn = ops.value_and_grad(generator_forward, None,
+grad_generator_fn = ms.value_and_grad(generator_forward, None,
                                        optimizer_G.parameters,
                                        has_aux=True)
-grad_discriminator_fn = ops.value_and_grad(discriminator_forward, None,
+grad_discriminator_fn = ms.value_and_grad(discriminator_forward, None,
                                            optimizer_D.parameters)
 
 @ms.jit

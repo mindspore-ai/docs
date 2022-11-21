@@ -213,7 +213,7 @@ def net_forward(data, label):
 Reverse acquisition of gradients.
 
 ```python
-grad_fn = ops.value_and_grad(net_forward, None, net.trainable_params())
+grad_fn = ms.value_and_grad(net_forward, None, net.trainable_params())
 ```
 
 Define the training step: calculate the current gradient value and recover the loss. Use `all_finite` to determine whether there is a gradient underflow problem. If there is no overflow, recover the gradient and update the network weights, while if there is overflow, skip this step.
