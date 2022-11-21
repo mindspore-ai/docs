@@ -60,10 +60,10 @@ Create a Conda virtual environment based on the Python version you want to use a
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-cpu=`.
 
 ```bash
-conda install mindspore -c mindspore -c conda-forge
+conda install mindspore-cpu -c mindspore -c conda-forge
 ```
 
 When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
@@ -85,14 +85,8 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
-
-```bash
-conda remove mindspore-cpu
-```
-
 Use the following command if you need to update the MindSpore version:
 
 ```bash
-conda update mindspore -c mindspore -c conda-forge
+conda update mindspore-cpu -c mindspore -c conda-forge
 ```
