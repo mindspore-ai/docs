@@ -21,7 +21,6 @@ MindSpore教程
    beginner/autograd
    beginner/train
    beginner/save_load
-   beginner/infer
 
 .. toctree::
    :glob:

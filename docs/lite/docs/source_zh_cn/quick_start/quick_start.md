@@ -78,7 +78,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
     ![install](../images/app1.png)
 
-    在默认情况下，MindSpore Vision分类模块内置了一个通用的AI网络模型对图像进行识别分类。也可以[自定义模型](https://mindspore.cn/tutorials/zh-CN/master/beginner/infer.html)在APP上进行调试。
+    在默认情况下，MindSpore Vision分类模块内置了一个通用的AI网络模型对图像进行识别分类。
 
     ![result](../images/app2.png)
 
