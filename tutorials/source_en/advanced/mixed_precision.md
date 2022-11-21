@@ -270,6 +270,8 @@ for epoch in range(epochs):
 
 The `Model` interface provides the input `amp_level` to achieve automatic mixed precision, or the user can set the operator involved in the Cell to FP16 via `to_float(ms.float16)` to achieve manual mixed precision.
 
+> This method only supports Ascend and GPU.
+
 #### Automatic Mixed-Precision
 
 To use the automatic mixed-precision, you need to call the `Model` API to transfer the network to be trained and optimizer as the input. This API converts the network model operators into FP16 operators.
