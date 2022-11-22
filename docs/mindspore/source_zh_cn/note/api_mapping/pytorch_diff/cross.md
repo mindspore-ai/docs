@@ -42,15 +42,10 @@ from torch import tensor
 a = tensor([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
 b = tensor([[1, 2, 3], [3, 4, 5], [4, 5, 6]])
 c = torch.cross(a, b).detach().numpy()
-d = torch.cross(a, b, dim = 1).detach().numpy()
 print(c)
-print(d)
 # [[-1, -1, -1],
 #  [-1, -2, -3],
 #  [ 1,  2,  3]]
-# [[ 0,  0,  0],
-#  [-1,  2, -1],
-#  [-1,  2, -1]]
 
 # MindSpore
 import mindspore
@@ -62,13 +57,8 @@ import mindspore.ops as ops
 a = Tensor([[1, 2, 3], [2, 3, 4], [3, 4, 5]], mstype.int8)
 b = Tensor([[1, 2, 3], [3, 4, 5], [4, 5, 6]], mstype.int8)
 c = ops.cross(a, b)
-d = ops.cross(a, b, dim = 1)
 print(c)
-print(d)
 # [[-1, -1, -1],
 #  [-1, -2, -3],
 #  [ 1,  2,  3]]
-# [[ 0,  0,  0],
-#  [-1,  2, -1],
-#  [-1,  2, -1]]
 ```

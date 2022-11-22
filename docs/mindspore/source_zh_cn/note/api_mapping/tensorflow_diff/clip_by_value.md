@@ -26,9 +26,9 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致,仅部分参数�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | t | x |功能一致， 参数名不同 |
-| | 参数2 | clip_value_min | clip_value_min | 功能一致 |
-| | 参数3 | clip_value_max | clip_value_max |功能一致 |
+|参数 | 参数1 | t | x | 功能一致， 参数名不同 |
+| | 参数2 | clip_value_min | clip_value_min | - |
+| | 参数3 | clip_value_max | clip_value_max | - |
 
 ### 代码示例1
 

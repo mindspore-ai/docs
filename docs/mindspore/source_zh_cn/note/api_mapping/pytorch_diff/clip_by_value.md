@@ -26,9 +26,9 @@ MindSpore：MindSpore此API实现功能与PyTorch一致， 仅参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | x              |功能一致， 参数名不同 |
-| | 参数2 | min | clip_value_min | 功能一致， 参数名不同|
-| | 参数3 | max | clip_value_max |功能一致， 参数名不同 |
+|参数 | 参数1 | input | x              | 功能一致，参数名不同 |
+| | 参数2 | min | clip_value_min | 功能一致，参数名不同|
+| | 参数3 | max | clip_value_max | 功能一致，参数名不同 |
 
 ### 代码示例1
 

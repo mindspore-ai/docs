@@ -5,7 +5,7 @@
 ## torch.cosh
 
 ``` text
-torch.cosh(input, out=None) -> Tensor
+torch.cosh(input, *, out=None) -> Tensor
 ```
 
 更多内容详见[torch.cosh](https://pytorch.org/docs/1.8.1/generated/torch.cosh.html)。
