@@ -8,6 +8,7 @@
 torch.full_like(
     input,
     fill_value,
+    *,
     dtype=None,
     layout=torch.strided,
     device=None,
@@ -36,12 +37,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但支持的输�
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 | input         | a         | 功能一致， 参数名不同 |
 |参数 | 参数1 | - | shape |实现重写shape， Pytorch无此参数 |
-|  | 参数2  | fill_value    | fill_value | -                            |
-|      | 参数3  | dtype         | dtype      | -                            |
-|      | 参数4  | layout        | -          | 功能一致，MindSpore无此参数 |
-|      | 参数5  | device        | -          | 功能一致，MindSpore无此参数 |
-|      | 参数6  | requires_grad | -          | 功能一致，MindSpore无此参数 |
-|      | 参数7  | memory_format | -          | 功能一致，MindSpore无此参数 |
+|  | 参数2  | fill_value    | fill_value | -                        |
+|      | 参数3  | dtype         | dtype      | 功能一致，默认值不同                  |
+|      | 参数4  | layout        | -          | 不涉及 |
+|      | 参数5  | device        | -          | 不涉及 |
+|      | 参数6  | requires_grad | -          | MindSpore无此参数，默认支持反向求导 |
+|      | 参数7  | memory_format | -          | 不涉及 |
 
 ### 代码示例1
 

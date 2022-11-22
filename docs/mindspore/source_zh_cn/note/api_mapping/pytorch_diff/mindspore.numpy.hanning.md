@@ -8,6 +8,7 @@
 torch.hann_window(
     window_length,
     periodic=True,
+    *,
     dtype=None,
     layout=torch.strided,
     device=None,
@@ -35,10 +36,10 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但缺少参数p
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 |window_length | M | 功能一致，参数名不同 |
 |参数 | 参数1 | periodic | -    | MindSpore中相当于设置为False |
-|  | 参数2 | dtype        | -    | 功能一致，MindSpore无此参数 |
-| | 参数3 | layout | - | 功能一致，MindSpore无此参数 |
-| | 参数4 | device | - | 功能一致，MindSpore无此参数 |
-| | 参数5 | requires_grad | - | 功能一致，MindSpore无此参数 |
+|  | 参数2 | dtype        | -    | MindSpore无此参数，输出dtype为Float32，与标杆默认一致 |
+| | 参数3 | layout | - | 不涉及 |
+| | 参数4 | device | - | 不涉及 |
+| | 参数5 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |
 
 ### 代码示例1
 

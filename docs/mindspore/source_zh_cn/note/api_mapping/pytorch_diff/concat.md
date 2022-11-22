@@ -8,6 +8,7 @@
 torch.cat(
     tensors,
     dim=0,
+    *,
     out=None
 ) -> Tensor
 ```
@@ -32,7 +33,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。当前要求输�
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 | tensors  | input_x | 功能一致， 参数名不同 |
 |参数 | 参数1 | dim | axis |功能一致， 参数名不同 |
-|  | 参数2  | out | - | 功能一致，MindSpore无此参数          |
+|  | 参数2  | out | - | 不涉及          |
 
 ### 代码示例1
 
