@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import sys
 import IPython
 import re
@@ -123,6 +124,24 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindscience repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir_mfl = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python_en/mindflow')
+
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir_mfl):
+    if os.path.isfile(os.path.join(src_dir_mfl,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir_mfl,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir_mfl,i),'./'+i)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod

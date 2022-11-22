@@ -152,7 +152,7 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir_mfl = os.path.join(os.getenv("MSC_PATH"), 'docs/mindflow')
+src_dir_mfl = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python/mindflow')
 
 present_path = os.path.dirname(__file__)
 
