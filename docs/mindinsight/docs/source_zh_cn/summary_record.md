@@ -374,3 +374,35 @@ mindinsight stop
 5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
 6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary API。
+
+7. 使用Summary时，需要把要执行的代码放在 `if __name__ == '__main__':` 中，否则可能会发生未知错误。
+
+    正确代码:
+
+    ```python
+    import mindspore as ms
+    from mindspore.communication.management import init
+
+
+    if __name__ == '__main__':
+        ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
+        init('nccl')
+        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
+            pass
+    ```
+
+    错误代码：
+
+    ```python
+    import mindspore as ms
+    from mindspore.communication.management import init
+
+
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
+    init('nccl')
+
+
+    if __name__ == '__main__':
+        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
+            pass
+    ```
