@@ -97,7 +97,6 @@ Using MindInsight to Debug the Model Accuracy
    :caption: API References
 
    mindinsight.debugger
-   mindconverter
 
 .. toctree::
    :glob:
