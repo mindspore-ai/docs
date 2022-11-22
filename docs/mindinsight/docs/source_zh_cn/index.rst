@@ -96,7 +96,6 @@ MindInsight包括以下内容：
    :caption: API参考
 
    mindinsight.debugger
-   mindconverter
 
 .. toctree::
    :glob:
