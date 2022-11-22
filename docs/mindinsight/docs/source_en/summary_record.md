@@ -372,3 +372,35 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 
 6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary API can not be used.
+
+7. When using summary, the code lines to be executed need to be put into `if __name__ == '__main__':`, otherwise the unknown error may occur.
+
+    Correct code:
+
+    ```python
+    import mindspore as ms
+    from mindspore.communication.management import init
+
+
+    if __name__ == '__main__':
+        ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
+        init('nccl')
+        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
+            pass
+    ```
+
+    Wrong code:
+
+    ```python
+    import mindspore as ms
+    from mindspore.communication.management import init
+
+
+    ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
+    init('nccl')
+
+
+    if __name__ == '__main__':
+        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
+            pass
+    ```
