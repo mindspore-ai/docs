@@ -32,7 +32,6 @@ with open(statemachine.__file__, 'r') as g:
 from sphinx.ext import autodoc as sphinx_autodoc
 
 import mindinsight
-import mindconverter
 
 # -- Project information -----------------------------------------------------
 
