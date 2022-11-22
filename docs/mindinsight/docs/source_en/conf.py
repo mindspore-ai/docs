@@ -17,7 +17,6 @@ import sys
 from sphinx.ext import autodoc as sphinx_autodoc
 
 import mindinsight
-import mindconverter
 
 # -- Project information -----------------------------------------------------
 
