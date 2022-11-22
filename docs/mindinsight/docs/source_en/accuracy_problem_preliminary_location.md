@@ -286,7 +286,7 @@ Check whether the freezing status of the weight is consistent with the design ba
 
 Method 1: Set requires_grad in [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) to False.
 
-Method 2: Use [Stop Gradient](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html#stop-gradient) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
+Method 2: Use [Stop Gradient](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
 
 Conclusion:
 
