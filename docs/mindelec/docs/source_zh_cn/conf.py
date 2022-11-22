@@ -148,7 +148,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir_mec = os.path.join(os.getenv("MSC_PATH"), 'docs/mindelec')
+src_dir_mec = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python/mindelec')
 
 present_path = os.path.dirname(__file__)
 
