@@ -10,13 +10,13 @@ torch.nn.AdaptiveAvgPool2d(output_size) -> Tensor
 
 更多内容详见 [torch.nn.AdaptiveAvgPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AdaptiveAvgPool2d.html)。
 
-## mindspore.ops.AdaptiveAvgPool2D
+## mindspore.nn.AdaptiveAvgPool2d
 
 ```text
-class mindspore.ops.AdaptiveAvgPool2D(output_size)(input_x) -> Tensor
+class mindspore.nn.AdaptiveAvgPool2d(output_size)(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.AdaptiveAvgPool2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AdaptiveAvgPool2D.html)。
+更多内容详见 [mindspore.nn.AdaptiveAvgPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AdaptiveAvgPool2d.html)。
 
 ## 差异对比
 
@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，参数名也相同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | input_x | 都是输入3维或4维的Tensor |
+| 输入 | 单输入 | input | x | 都是输入3维或4维的Tensor |
 | 参数 | 参数1 | output_size | output_size | 功能一致，参数名相同 |
 
 ### 代码示例1
@@ -48,9 +48,9 @@ torch_adaptive_avg_pool_2d = torch.nn.AdaptiveAvgPool2d(output_size)
 torch_output = torch_adaptive_avg_pool_2d(torch_input)
 torch_out_np = torch_output.numpy()
 print(torch_out_np)
-# [[1.5 2.5]
-#  [4.5 5.5]
-#  [7.5, 8.5]]
+# [[[1.5 2.5]
+#   [4.5 5.5]
+#   [7.5 8.5]]]
 
 # MindSpore
 import numpy as np
@@ -62,12 +62,12 @@ ms_input = Tensor(np.array([[[1.0, 2.0, 3.0],
                              [4.0, 5.0, 6.0],
                              [7.0, 8.0, 9.0]]]), mindspore.float32)
 output_size = (None, 2)
-ms_adaptive_avg_pool_2d = mindspore.ops.AdaptiveAvgPool2D(output_size)
+ms_adaptive_avg_pool_2d = mindspore.nn.AdaptiveAvgPool2d(output_size)
 # ms_output = (1, 3, 2)
 ms_output = ms_adaptive_avg_pool_2d(ms_input)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
-# [[1.5 2.5]
-#  [4.5 5.5]
-#  [7.5, 8.5]]
+# [[[1.5 2.5]
+#   [4.5 5.5]
+#   [7.5 8.5]]]
 ```
