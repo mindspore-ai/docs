@@ -5,7 +5,7 @@
 ## torch.atan
 
 ```text
-torch.atan(input) -> Tensor
+torch.atan(input, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.atan](https://pytorch.org/docs/1.8.1/generated/torch.atan.html)。
@@ -27,6 +27,7 @@ MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
+|      | 参数2 | out     | -         | 不涉及               |
 
 ### 代码示例1
 

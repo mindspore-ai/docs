@@ -5,7 +5,7 @@
 ## torch.bitwise_and
 
 ```text
-torch.bitwise_and(input, other) -> Tensor
+torch.bitwise_and(input, other, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.bitwise_and](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_and.html)。
@@ -28,6 +28,7 @@ MindSpore: MindSpore此API实现功能与PyTorch一致，但MindSpore不支持�
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
 |      | 参数2 | other   | y         | 功能一致，参数名不同 |
+|      | 参数3 | out     | -         | 不涉及               |
 
 ### 代码示例1
 
@@ -39,8 +40,8 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.array([0, 0, 1, -1, 1, 1, 1]), dtype=torch.int8)
-other = torch.tensor(np.array([0, 1, 1, -1, -1, 2, 3]), dtype=torch.int8)
+input = torch.tensor(np.array([0, 0, 1, -1, 1, 1, 1]), dtype=torch.int32)
+other = torch.tensor(np.array([0, 1, 1, -1, -1, 2, 3]), dtype=torch.int32)
 output = torch.bitwise_and(input, other).numpy()
 print(output)
 # [ 0  0  1 -1  1  0  1]
@@ -51,8 +52,8 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int8)
-y = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int8)
+x = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int32)
+y = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int32)
 output = ops.bitwise_and(x, y)
 print(output)
 # [ 0  0  1 -1  1  0  1]

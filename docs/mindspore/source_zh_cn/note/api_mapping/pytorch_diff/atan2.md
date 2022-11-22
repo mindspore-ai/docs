@@ -5,7 +5,7 @@
 ## torch.atan2
 
 ```text
-torch.atan2(input, other) -> Tensor
+ torch.atan2(input, other, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.atan2](https://pytorch.org/docs/1.8.1/generated/torch.atan2.html)。
@@ -28,6 +28,7 @@ MindSpore: MindSpore此API实现功能与PyTorch基本一致，不过也支持x�
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
 |      | 参数2 | other   | y         | 功能一致，参数名不同 |
+|      | 参数3 | out     | -         | 不涉及               |
 
 ### 代码示例1
 
@@ -39,11 +40,11 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.array([2]), dtype=torch.float32)
+input = torch.tensor(np.array([0, 1]), dtype=torch.float32)
 other = torch.tensor(np.array([1, 1]), dtype=torch.int)
 output = torch.atan2(input, other).numpy()
 print(output)
-# [1.1071488 1.1071488]
+# [0.        0.7853982]
 
 # MindSpore
 import numpy as np
@@ -51,12 +52,12 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([2]), mindspore.float32)
+x = Tensor(np.array([0, 1]), mindspore.float32)
 y = Tensor(np.array([1, 1]), mindspore.float32)
 
 output = ops.atan2(x, y)
 print(output)
-# [1.1071488 1.1071488]
+# [0.        0.7853982]
 ```
 
 ### 代码示例2
@@ -70,12 +71,11 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([2]), mindspore.float32)
+x = 1
 y = Tensor(np.array([1, 1]), mindspore.float32)
 
-atan2 = ops.Atan2()
-output = atan2(2, y)
+output = ops.atan2(x, y)
 print(output)
-# [1.1071488 1.1071488]
+# [0.7853982 0.7853982]
 ```
 

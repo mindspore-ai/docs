@@ -42,12 +42,13 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.ones(shape=[2, 1, 4]), dtype=torch.float32)
-mat2 = torch.tensor(np.ones(shape=[2, 4, 2]), dtype=torch.float32)
+input = torch.tensor(np.ones(shape=[2, 1, 5]), dtype=torch.float32)
+mat2 = torch.tensor(np.ones(shape=[2, 5, 2]), dtype=torch.float32)
 output = torch.bmm(input, mat2).numpy()
 print(output)
-# [[[4. 4.]]
-#  [[4. 4.]]]
+# [[[5. 5.]]
+#
+#  [[5. 5.]]]
 
 # MindSpore
 import numpy as np
@@ -55,14 +56,15 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.ones(shape=[2, 1, 4]), mindspore.float32)
-y = Tensor(np.ones(shape=[2, 4, 2]), mindspore.float32)
+x = Tensor(np.ones(shape=[2, 1, 5]), mindspore.float32)
+y = Tensor(np.ones(shape=[2, 5, 2]), mindspore.float32)
 
 batmatmul = ops.BatchMatMul()
 output = batmatmul(x, y)
 print(output)
-# [[[4. 4.]]
-#  [[4. 4.]]]
+# [[[5. 5.]]
+#
+#  [[5. 5.]]]
 ```
 
 ### 代码示例2

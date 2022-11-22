@@ -5,7 +5,7 @@
 ## torch.ceil
 
 ```text
-torch.ceil(input) -> Tensor
+torch.ceil(input, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.ceil](https://pytorch.org/docs/1.8.1/generated/torch.ceil.html)。
@@ -27,6 +27,7 @@ MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
+|      | 参数2 | out     | -         | 不涉及               |
 
 ### 代码示例1
 
@@ -38,10 +39,10 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.array([2.5, -1.5, 1, -0.6448, 0.5826]), dtype=torch.float32)
+input = torch.tensor(np.array([2.5, -1.5, 1, 1.4448, 0.5826]), dtype=torch.float32)
 output = torch.ceil(input).numpy()
 print(output)
-# [ 3. -1.  1. -0.  1.]
+# [ 3. -1.  1.  2.  1.]
 
 # MindSpore
 import numpy as np
@@ -49,8 +50,8 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([2.5, -1.5, 1, -0.6448, 0.5826]), mindspore.float32)
+x = Tensor(np.array([2.5, -1.5, 1, 1.4448, 0.5826]), mindspore.float32)
 output = ops.ceil(x).asnumpy()
 print(output)
-# [ 3. -1.  1. -0.  1.]
+# [ 3. -1.  1.  2.  1.]
 ```

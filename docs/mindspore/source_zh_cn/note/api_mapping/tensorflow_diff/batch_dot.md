@@ -13,7 +13,7 @@ tf.keras.backend.batch_dot(x, y, axes=None)
 ## mindspore.ops.batch_dot
 
 ```text
-mindspore.ops.BiasAdd(x1, x2, axes=None)
+mindspore.ops.batch_dot(x1, x2, axes=None)
 ```
 
 更多内容详见 [mindspore.ops.batch_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.batch_dot.html)。
@@ -44,7 +44,7 @@ x = K.variable(np.random.randint(10,size=(10,12,4,5)), dtype=tf.float32)
 y = K.variable(np.random.randint(10,size=(10,12,5,8)), dtype=tf.float32)
 output = K.batch_dot(x, y)
 print(output.shape)
-# (10, 12, 4, 8)
+# (10, 12, 4, 12, 8)
 
 # MindSpore
 import numpy as np
