@@ -48,11 +48,7 @@ MindSpore 文档
    api_python/mindspore.communication
    api_python/mindspore.common.initializer
    api_python/mindspore.dataset
-   api_python/mindspore.dataset.config
    api_python/mindspore.dataset.transforms
-   api_python/mindspore.dataset.vision
-   api_python/mindspore.dataset.text
-   api_python/mindspore.dataset.audio
    api_python/mindspore.mindrecord
    api_python/mindspore.nn.probability
    api_python/mindspore.nn.transformer
