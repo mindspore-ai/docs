@@ -118,6 +118,25 @@ Eager类提供了Execute类的定义。
 - :doc:`../generate/variable_mindspore_dataset_kMaxLegalPort-1`
 - :doc:`../generate/variable_mindspore_dataset_kMinLegalPort-1`
 
+配置
+-----
+
+函数
+^^^^
+
+- :doc:`../generate/function_mindspore_dataset_config_get_callback_timeout-1`
+- :doc:`../generate/function_mindspore_dataset_config_get_monitor_sampling_interval-1`
+- :doc:`../generate/function_mindspore_dataset_config_get_num_parallel_workers-1`
+- :doc:`../generate/function_mindspore_dataset_config_get_prefetch_size-1`
+- :doc:`../generate/function_mindspore_dataset_config_get_seed-1`
+- :doc:`../generate/function_mindspore_dataset_config_load-2`
+- :doc:`Function mindspore::dataset::config::load (overloaded) <../generate/function_mindspore_dataset_config_load-1>`
+- :doc:`../generate/function_mindspore_dataset_config_set_callback_timeout-1`
+- :doc:`../generate/function_mindspore_dataset_config_set_monitor_sampling_interval-1`
+- :doc:`../generate/function_mindspore_dataset_config_set_num_parallel_workers-1`
+- :doc:`../generate/function_mindspore_dataset_config_set_prefetch_size-1`
+- :doc:`../generate/function_mindspore_dataset_config_set_seed-1`
+
 
 其他
 ------
