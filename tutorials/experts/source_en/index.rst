@@ -34,6 +34,7 @@ For Experts
    optimize/gradient_accumulation
    optimize/adaptive_summation
    optimize/dimention_reduce_training
+   optimize/thor
 
 .. toctree::
    :glob:
