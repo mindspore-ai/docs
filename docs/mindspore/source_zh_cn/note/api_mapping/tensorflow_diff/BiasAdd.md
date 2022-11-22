@@ -13,23 +13,23 @@ class tf.nn.bias_add(value, bias, data_format=None, name=None)
 ## mindspore.ops.BiasAdd
 
 ```text
-mindspore.ops.BiasAdd(data_format="NCHW")(input_x, bias)
+mindspore.ops.bias_add(input_x, bias)
 ```
 
-更多内容详见 [mindspore.ops.BiasAdd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BiasAdd.html)。
+更多内容详见 [mindspore.ops.bias_add](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bias_add.html?highlight=bias_add)。
 
 ## 差异对比
 
 TensorFlow：返回输入value和bias的tensor相加之和，其中bias被限制为1D的tensor，value支持各种数量的维度，两者相加前会把bias广播成与输入value的shape一致。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致， 不过MindSpore与TensorFlow的参数data_format的默认值不同，MindSpore的输入input_x只支持2-5维的shape。
+MindSpore: MindSpore此API实现功能与TensorFlow基本一致， 不过MindSpore的输入input_x只支持2-5维的shape。
 
-| 分类 | 子类  | TensorFlow | MindSpore  | 差异                                |
-| ---- | ----- | ---------- | ---------- | ----------------------------------- |
-| 参数 | 参数1 | value      | input_x    | 功能一致，参数名不同                |
-|      | 参数2 | bias       | bias       | 功能一致                            |
-|      | 参数3 | dataformat | dataformat | 功能一致，默认值不同                |
-|      | 参数4 | name       | -          | 自定义操作的名称，MindSpore无此参数 |
+| 分类 | 子类  | TensorFlow | MindSpore | 差异                                  |
+| ---- | ----- | ---------- | --------- | ------------------------------------- |
+| 参数 | 参数1 | value      | input_x   | 功能一致，参数名不同                  |
+|      | 参数2 | bias       | bias      | 功能一致                              |
+|      | 参数3 | dataformat | -         | 输入数据的数据格式，MindSpore无此参数 |
+|      | 参数4 | name       | -         | 自定义操作的名称，MindSpore无此参数   |
 
 ### 代码示例1
 
@@ -58,8 +58,7 @@ from mindspore import Tensor
 
 input_x = Tensor(np.array([[1, 2], [3, 4], [5, 6]]), mindspore.float32)
 bias = Tensor(np.array([-2 , -1]), mindspore.float32)
-bias_add = ops.BiasAdd()
-output = bias_add(input_x, bias)
+output = ops.bias_add(input_x, bias)
 print(output)
 # [[-1.  1.]
 #  [ 1.  3.]

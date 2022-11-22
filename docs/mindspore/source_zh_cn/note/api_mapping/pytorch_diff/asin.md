@@ -5,7 +5,7 @@
 ## torch.asin
 
 ```text
-torch.asin(input) -> Tensor
+torch.asin(input, *, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.asin](https://pytorch.org/docs/1.8.1/generated/torch.asin.html)。
@@ -27,6 +27,7 @@ MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
+|      | 参数2 | out     | -         | 不涉及               |
 
 ### 代码示例1
 
@@ -38,19 +39,20 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.array([-0.5962, 1.04, 0.30, -0.4396]), dtype=torch.float32)
+input = torch.tensor(np.array([-0.4396, 0.04, 0.30, 0.56]), dtype=torch.float32)
 output = torch.asin(input).numpy()
 print(output)
-# [-0.6387595          nan  0.30469266 -0.4551533 ]
+# [-0.4551533   0.04001067  0.30469266  0.5943858 ]
 
 # MindSpore
 import numpy as np
 import mindspore
+import mindspore.context as context
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([-0.5962, 1.04, 0.30, -0.4396]), mindspore.float32)
+x = Tensor(np.array([-0.4396, 0.04, 0.30, 0.56]), mindspore.float32)
 output = ops.asin(x)
 print(output)
-# [-0.6387595          nan  0.30469266 -0.4551533 ]
+# [-0.4551533   0.04001067  0.30469266  0.5943858 ]
 ```
