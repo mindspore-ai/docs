@@ -5,3 +5,4 @@ Second-order Optimization
   :maxdepth: 1
 
   thor/intro
+  thor/resnet50

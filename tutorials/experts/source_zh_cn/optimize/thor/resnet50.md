@@ -9,7 +9,7 @@
 MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵采用近似、切分等优化加速手段，极大的降低了逆矩阵的计算复杂度，开发出了可用的二阶优化器THOR。使用8块Ascend 910 AI处理器，THOR可以在72min内完成ResNet50-v1.5网络和ImageNet数据集的训练，相比于SGD+Momentum速度提升了近一倍。
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
-> 下载完整示例代码：[Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) 。
+> 下载完整示例代码：[Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet)。
 
 示例代码目录结构
 
@@ -359,7 +359,7 @@ epoch: 42 step: 5004, loss is 1.6453942
 ...
 ```
 
-训练完后，每张卡训练产生的checkpoint文件保存在各自训练目录下，`device_0`产生的checkpoint文件示例如下:
+训练完后，每张卡训练产生的checkpoint文件保存在各自训练目录下，`device_0`产生的checkpoint文件示例如下：
 
 ```text
 └─train_parallel0
@@ -405,7 +405,7 @@ epoch: 36 step: 5004, loss is 1.645802
 ...
 ```
 
-训练完后，保存的模型文件示例如下:
+训练完后，保存的模型文件示例如下：
 
 ```text
 └─train_parallel
@@ -504,7 +504,7 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
   bash run_eval_gpu.sh <DATASET_PATH> <CHECKPOINT_PATH> <CONFIG_PATH>
 ```
 
-脚本需要传入变量`DATASET_PATH`，`CHECKPOINT_PATH`和，其中：
+脚本需要传入变量`DATASET_PATH`，`CHECKPOINT_PATH`和`CONFIG_PATH`，其中：
 
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
