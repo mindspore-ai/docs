@@ -1,6 +1,6 @@
 # 比较与tf.nn.bias_add的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/BiasAdd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/bias_add.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.nn.bias_add
 
@@ -29,7 +29,7 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致， 不过MindSpo
 | 参数 | 参数1 | value      | input_x   | 功能一致，参数名不同                  |
 |      | 参数2 | bias       | bias      | 功能一致                              |
 |      | 参数3 | dataformat | -         | 输入数据的数据格式，MindSpore无此参数 |
-|      | 参数4 | name       | -         | 自定义操作的名称，MindSpore无此参数   |
+|      | 参数4 | name       | -         | 不涉及   |
 
 ### 代码示例1
 

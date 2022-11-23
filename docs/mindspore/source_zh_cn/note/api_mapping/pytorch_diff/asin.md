@@ -39,10 +39,10 @@ import numpy as np
 import torch
 from torch import tensor
 
-input = torch.tensor(np.array([-0.4396, 0.04, 0.30, 0.56]), dtype=torch.float32)
+input = torch.tensor(np.array([-0.14, 0.14, 0.30, 0.314]), dtype=torch.float32)
 output = torch.asin(input).numpy()
 print(output)
-# [-0.4551533   0.04001067  0.30469266  0.5943858 ]
+# [-0.14046142 0.14046142 0.30469266 0.3194032 ]
 
 # MindSpore
 import numpy as np
@@ -51,8 +51,8 @@ import mindspore.context as context
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([-0.4396, 0.04, 0.30, 0.56]), mindspore.float32)
+x = Tensor(np.array([-0.14, 0.14, 0.30, 0.314]), mindspore.float32)
 output = ops.asin(x)
 print(output)
-# [-0.4551533   0.04001067  0.30469266  0.5943858 ]
+# [-0.14046142 0.14046142 0.30469266 0.3194032 ]
 ```

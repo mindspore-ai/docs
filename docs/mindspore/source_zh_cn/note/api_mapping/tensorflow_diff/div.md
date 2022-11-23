@@ -27,6 +27,7 @@ MindSpore：当MindSpore的该API的参数rounding_mode为默认值None时，Min
 |参数 | 参数1 | x          | input  | 功能一致，参数名不同                                                   |
 | | 参数2 | y          | other    | 功能一致，参数名不同                                                  |
 | | 参数3 | -          |  rounding_mode | TensorFlow中无此参数。MindSpore为可选参数，用于决定结果的舍入类型，默认值为None |
+| | 参数4 | name         |  - | 不涉及 |
 
 ### 代码示例
 

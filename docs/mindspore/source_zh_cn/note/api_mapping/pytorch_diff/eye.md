@@ -5,7 +5,15 @@
 ## torch.eye
 
 ```text
-torch.eye(n, m=None) -> Tensor
+torch.eye(
+    n,
+    m=None,
+    *,
+    out=None,
+    dtype=None,
+    layout=torch.strided,
+    device=None,
+    requires_grad=False) -> Tensor
 ```
 
 更多内容详见[torch.eye](https://pytorch.org/docs/1.8.1/generated/torch.eye.html)。
@@ -34,7 +42,11 @@ PyTorch中`dtype`是可选的，如果没有该参数，默认为`torch.float32`
 | ---- | ----- | ------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | n       | n         | -                                                            |
 |      | 参数2 | m       | m         | 指定张量的列数。PyTorch中是可选的，如果没有该参数，那么返回一个列数和行数相同的张量；MindSpore中是必须的 |
-|      | 参数3 | dtype   | t         | 功能一致， 参数名不同，PyTorch中是可选的，如果没有默认为`torch.float32`；MindSpore中是必须的 |
+|       | 参数3 | out | - | 不涉及 |
+|      | 参数4 | dtype   | t         | 功能一致， 参数名不同，PyTorch中是可选的，如果没有默认为`torch.float32`；MindSpore中是必须的 |
+|       | 参数5 | layout | - | 不涉及 |
+|       | 参数6 | device | - | 不涉及 |
+|       | 参数7 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |
 
 ## 差异分析与示例
 

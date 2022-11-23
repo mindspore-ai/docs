@@ -1,6 +1,6 @@
 # 比较与tf.math.cumsum的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/CumSum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/cumsum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.math.cumsum
 
@@ -16,7 +16,7 @@ tf.math.cumsum(x, axis=0, exclusive=False, reverse=False, name=None) -> Tensor
 mindspore.ops.cumsum(x, axis, dtype=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.CumSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumsum.html)。
+更多内容详见 [mindspore.ops.cumsum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumsum.html)。
 
 ## 差异对比
 
