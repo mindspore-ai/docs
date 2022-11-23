@@ -77,7 +77,7 @@ A: `c_transforms` is recommended. Its performance is better because it is execut
 
 Principle: The underlying layer of `c_transform` uses `opencv/jpeg-turbo` of the C version for data processing, and `py_transform` uses `Pillow` of the Python version for data processing.
 
-Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_transforms` and `py_transforms` will be selected automatically due to input tensor type instead of importing them manually. `c_transforms` is set to default option since its performance is better. More details please refer to [Latest API doc and import note](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html).
+Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_transforms` and `py_transforms` will be selected automatically due to input tensor type instead of importing them manually. `c_transforms` is set to default option since its performance is better. More details please refer to [Latest API doc and import note](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
 
 <br/>
 
