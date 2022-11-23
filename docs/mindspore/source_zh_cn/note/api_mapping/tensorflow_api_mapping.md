@@ -10,14 +10,14 @@
 
 ### tf
 
-| TensorFlow 2.6 APIs                                        | MindSpore APIs                                               | 说明                                                         |
+| TensorFlow 2.6 APIs                                          | MindSpore APIs                                               | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=zh-cn) | [mindspore.ops.Argmax](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Argmax.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/Argmax.html) |
-| [tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn) | [mindspore.ops.Argmin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Argmin.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/Argmin.html) |
+| [tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=zh-cn) | [mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/Argmax.html) |
+| [tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn) | [mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/Argmin.html) |
 | [tf.clip_by_value](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/clip_by_value) | [mindspore.ops.clip_by_value](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/clip_by_value.html) |
-| [tf.expand_dims](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/expand_dims) |  [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/expand_dims.html)                                                             |
-| [tf.eye](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/eye) | [mindspore.ops.eye](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.eye.html) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/eye.html)                                                            |
-| [tf.fill](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/fill) | [mindspore.ops.fill](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.fill.html) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/fill.html)                                                            |
+| [tf.expand_dims](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/expand_dims) | [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/expand_dims.html) |
+| [tf.eye](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/eye) | [mindspore.ops.eye](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.eye.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/eye.html) |
+| [tf.fill](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/fill) | [mindspore.ops.fill](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.fill.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/fill.html) |
 
 ### tf.data
 

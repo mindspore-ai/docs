@@ -15,13 +15,13 @@ tf.math.argmax(
 
 更多内容详见 [tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=zh-cn)。
 
-## mindspore.ops.Argmax
+## mindspore.ops.argmax
 
 ```text
-class mindspore.ops.Argmax(axis=-1, output_type=mstype.int32)(input_x) -> Tensor
+mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.Argmax](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Argmin.html)。
+更多内容详见 [mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html)。
 
 ## 差异对比
 
@@ -31,14 +31,15 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回值类�
 
 | 分类 | 子类 | PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|输入 | 单输入 | input | input_x |都是输入Tensor，二者均不支持0维张量，TensorFlow支持Tensor类型和Numpy.ndarray类型的输入，MindSpore只支持Tensor类型的输入 |
+|输入 | 单输入 | input | x |都是输入Tensor，二者均不支持0维张量，TensorFlow支持Tensor类型和Numpy.ndarray类型的输入，MindSpore只支持Tensor类型的输入 |
 |参数 | 参数1 | axis | axis |功能一致，参数名相同，默认值不同 |
 | | 参数2 | output_type | output_type | 功能一致，参数名相同，默认值不同 |
 | | 参数3 | name | - | 功能一致，MindSpore无此参数，行为与TensorFlow算子参数name设为None时一致 |
+| | 参数4 | - | keepdims | Pytorch无此参数，MindSpore的参数keepdims为True时将进行聚合的维度保留，并设定为1 |
 
 ### 代码示例1
 
-> TensorFlow的argmax算子在不显式给出axis参数时，计算结果是axis按默认值为0时最大值的索引，而MindSpore默认是返回axis为-1时最大值的索引。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.Argmax算子参数axis赋值为0，同时为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。
+> TensorFlow的argmax算子在不显式给出axis参数时，计算结果是axis按默认值为0时最大值的索引，而MindSpore默认是返回axis为-1时最大值的索引。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.argmax算子参数axis赋值为0，同时为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。
 
 ```python
 # TensorFlow
@@ -61,8 +62,8 @@ from mindspore import Tensor
 
 x = np.arange(2*3*4).reshape(2,3,4).astype(np.float32)
 axis = 0
-ms_argmax = mindspore.ops.Argmax(axis)
-ms_output = ms_argmax(Tensor(x))
+ms_argmax = mindspore.ops.argmax
+ms_output = ms_argmax(Tensor(x), axis)
 ms_cast = mindspore.ops.Cast()
 ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
@@ -97,8 +98,8 @@ from mindspore import Tensor
 
 x = np.arange(2*3*4).reshape(2,3,4).astype(np.float32)
 axis = 2
-ms_argmax = mindspore.ops.Argmax(axis)
-ms_output = ms_argmax(Tensor(x))
+ms_argmax = mindspore.ops.argmax
+ms_output = ms_argmax(Tensor(x), axis)
 ms_cast = mindspore.ops.Cast()
 ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
@@ -132,8 +133,8 @@ from mindspore import Tensor
 
 x = np.arange(2*3*4).reshape(2,3,4).astype(np.float32)
 axis = 1
-ms_argmax = mindspore.ops.Argmax(axis)
-ms_output = ms_argmax(Tensor(x))
+ms_argmax = mindspore.ops.argmax
+ms_output = ms_argmax(Tensor(x), axis)
 ms_cast = mindspore.ops.Cast()
 ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
