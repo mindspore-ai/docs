@@ -54,9 +54,9 @@ import torch
 
 torch_output = torch.blackman_window(12, periodic=True)
 print(torch_output.numpy())
-#[-2.9802322e-08  4.0212840e-02  2.0077014e-01  5.0978714e-01
-#  8.4922981e-01  1.0000000e+00  8.4922981e-01  5.0978720e-01
-#  2.0077008e-01  4.0212780e-02]
+# [-2.9802322e-08 2.6987284e-02 1.3000000e-01 3.4000000e-01
+#  6.3000000e-01 8.9301264e-01 1.0000000e+00 8.9301258e-01
+#  6.2999994e-01 3.3999997e-01 1.3000003e-01 2.6987225e-02]
 
 # MindSpore
 import mindspore
@@ -65,6 +65,7 @@ from mindspore import Tensor
 window_length = Tensor(12, mindspore.int32)
 ms_output = mindspore.ops.blackman_window(window_length, periodic=True)
 print(ms_output.asnumpy())
-#[0.         0.04021286 0.20077014 0.50978714 0.8492299  1.
-# 0.8492299  0.50978714 0.20077014 0.04021286]
+# [-1.3877788e-17 2.6987297e-02 1.3000000e-01 3.4000000e-01
+#  6.3000000e-01 8.9301270e-01 1.0000000e+00 8.9301270e-01
+#  6.3000000e-01 3.4000000e-01 1.3000000e-01 2.6987297e-02]
 ```

@@ -46,10 +46,10 @@ MindSpore：MindSpore此API实现功能与Pytorch基本一致，返回`loss`及�
 |      | 参数5  | label_length                      | sequence_length              | 功能一致，参数名称不同                                       |
 |      | 参数6  | logit_length                      |    -                          | MindSpore无此参数                                            |
 |      | 参数7  | blank_index                       |    -                          | MindSpore无此参数，为-1时，blank用num_classes-1表示，此时与MindSpore一致 |
-|      | 参数8  | unique                            |     -                         | MindsSpore无此参数                                 |
+|      | 参数8  | unique                            |     -                         | MindSpore无此参数                                 |
 |      | 参数9  | name                              |     -                         | 不涉及                                |
 |      | 参数10 |    -                               | labels_indices               | labels_indices[i, :] = [b, t] 表示 labels_values[i] 存储 (batch b, time t) 的ID，保证了labels_values的秩为1 |
-|      | 参数11 | ignore_longer_outputs_than_inputs |     -                         | MindsSpore无此参数                                 |
+|      | 参数11 | ignore_longer_outputs_than_inputs |     -                         | MindSpore无此参数                                 |
 
 ### 代码示例
 

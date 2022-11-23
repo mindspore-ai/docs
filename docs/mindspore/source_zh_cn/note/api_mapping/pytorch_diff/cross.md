@@ -29,6 +29,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致。
 | 参数 | 参数1 | input   | input        | 功能一致，参数名不同 |
 |      | 参数2 | other   | other        | 功能一致，参数名不同 |
 |      | 参数3 | dim     | dim       | -                    |
+|      | 参数4 | out     | -       | 不涉及                  |
 
 ### 代码示例
 

@@ -20,9 +20,9 @@ mindspore.ops.fill(type, shape, value) -> Tensor
 
 ## 差异对比
 
-TensorFlow：‎用于生成具有标量值的张量
+TensorFlow：‎用于生成具有标量值的张量。
 
-MindSpore：与TensorFlow实现同样的功能，仅参数名不同
+MindSpore：与TensorFlow实现同样的功能，仅参数名不同。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -33,7 +33,7 @@ MindSpore：与TensorFlow实现同样的功能，仅参数名不同
 
 ### 代码示例1
 
-> 两个API实现功能相同，MindSpore仅多一个指定输出的类型参数，其余参数用法相同
+> 两个API实现功能相同，MindSpore仅多一个指定输出的类型参数，其余参数用法相同。
 
 ```python
 # TensorFlow

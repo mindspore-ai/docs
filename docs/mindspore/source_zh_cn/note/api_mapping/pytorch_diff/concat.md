@@ -49,12 +49,12 @@ torch_x3 = torch.Tensor([[0, 1], [2, 3]]).type(torch.float16)
 
 torch_output = torch.cat((torch_x1, torch_x2, torch_x3))
 print(torch_output.numpy())
-#[[0. 1.]
-# [2. 3.]
-# [0. 1.]
-# [2. 3.]
-# [0. 1.]
-# [2. 3.]]
+# [[0. 1.]
+#  [2. 3.]
+#  [0. 1.]
+#  [2. 3.]
+#  [0. 1.]
+#  [2. 3.]]
 
 # MindSpore
 import mindspore
@@ -69,10 +69,10 @@ ms_x3 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float16))
 ms_x3 = mindspore.ops.cast(ms_x2, mindspore.float32)
 output = mindspore.ops.concat((ms_x1, ms_x2, ms_x3))
 print(output)
-#[[0. 1.]
-# [2. 3.]
-# [0. 1.]
-# [2. 3.]
-# [0. 1.]
-# [2. 3.]]
+# [[0. 1.]
+#  [2. 3.]
+#  [0. 1.]
+#  [2. 3.]
+#  [0. 1.]
+#  [2. 3.]]
 ```

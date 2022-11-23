@@ -5,7 +5,7 @@
 ## torch.bmm
 
 ```text
-torch.bmm(input, mat2, deterministic=False) -> Tensor
+torch.bmm(input, mat2, *, deterministic=False, out=None) -> Tensor
 ```
 
 更多内容详见 [torch.bmm](https://pytorch.org/docs/1.8.1/generated/torch.bmm.html)。
@@ -27,10 +27,11 @@ MindSpore: MindSpore此API实现功能与PyTorch基本一致， 不过MindSpore�
 | 分类 | 子类  | PyTorch       | MindSpore   | 差异                                                         |
 | ---- | ----- | ------------- | ----------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | input         | x           | 功能一致，参数名不同                                         |
-|      | 参数2 | mat_2         | y           | 功能一致，参数名不同                                         |
+|      | 参数2 | mat2         | y           | 功能一致，参数名不同                                         |
 |      | 参数3 | deterministic | -           | 此参数只适用于稀疏的稀疏密集的CUDA bmm，MindSpore无此参数    |
-|      | 参数4 | -             | transpose_a | transpose_a若为True，会把输入相乘的第一个tensor的最后两维进行交换。 |
-|      | 参数5 | -             | transpose_b | transpose_b若为True，会把输入相乘的第二个tensor的最后两维进行交换。 |
+|      | 参数4 | out         | -         | 不涉及                                    |
+|      | 参数5 | -             | transpose_a | transpose_a若为True，会把输入相乘的第一个tensor的最后两维进行交换。 |
+|      | 参数6 | -             | transpose_b | transpose_b若为True，会把输入相乘的第二个tensor的最后两维进行交换。 |
 
 ### 代码示例1
 
@@ -47,7 +48,6 @@ mat2 = torch.tensor(np.ones(shape=[2, 5, 2]), dtype=torch.float32)
 output = torch.bmm(input, mat2).numpy()
 print(output)
 # [[[5. 5.]]
-#
 #  [[5. 5.]]]
 
 # MindSpore
@@ -63,7 +63,6 @@ batmatmul = ops.BatchMatMul()
 output = batmatmul(x, y)
 print(output)
 # [[[5. 5.]]
-#
 #  [[5. 5.]]]
 ```
 

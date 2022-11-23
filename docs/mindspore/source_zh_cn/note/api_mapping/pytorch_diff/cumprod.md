@@ -1,5 +1,6 @@
 # 比较与torch.cumprod的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/crumprod.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 ## torch.cumprod
 
 ```text
@@ -24,9 +25,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数| 参数1 | input | input | 功能一致， 参数名相同 |
-| | 参数2 | dim | dim | 功能一致，参数名相同 |
-| | 参数3 | dtype | dtype | 功能一致，参数名相同 |
+| 参数| 参数1 | input | input | - |
+| | 参数2 | dim | dim | - |
+| | 参数3 | dtype | dtype | - |
 | | 参数4 | out | - | 不涉及 |
 
 ### 代码示例1

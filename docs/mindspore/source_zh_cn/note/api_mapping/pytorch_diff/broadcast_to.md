@@ -39,8 +39,8 @@ shape = (2, 3)
 x = torch.tensor([[1], [2]]).float()
 torch_output = torch.broadcast_to(x, shape)
 print(torch_output.numpy())
-#[[1. 1. 1.]
-# [2. 2. 2.]]
+# [[1. 1. 1.]
+#  [2. 2. 2.]]
 
 # MindSpore
 import mindspore
@@ -51,6 +51,6 @@ shape = (2, 3)
 x = Tensor(np.array([[1], [2]]).astype(np.float32))
 output = mindspore.ops.function.broadcast_to(x, shape)
 print(output)
-#[[1. 1. 1.]
-# [2. 2. 2.]]
+# [[1. 1. 1.]
+#  [2. 2. 2.]]
 ```

@@ -1,5 +1,6 @@
 # 比较与torch.nn.Dropout的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 ## torch.nn.Dropout
 
 ```python
@@ -14,7 +15,7 @@ torch.nn.Dropout(p=0.5, inplace=False) -> Tensor
 mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout.html?highlight=dropout)
+更多内容详见 [mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout.html)
 
 ## 差异对比
 
@@ -25,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                                         |
 | ---- | ----- | ------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | p       | p         | -                                                            |
-|      | 参数2 | inplace |           | 如果设置为True，将就地执行此操作，默认值为False。就地执行指在输入本身的内存空间进行操作，即对input也进行Dropout操作并保存。mindspore无此参数 |
+|      | 参数2 | inplace |           | 如果设置为True，将就地执行此操作，默认值为False。就地执行指在输入本身的内存空间进行操作，即对input也进行Dropout操作并保存。MindSpore无此参数 |
 |      | 参数3 |         | x         | (Tensor)，dropout的输入，任意维度的Tensor。                  |
 |      | 参数4 |         | seed0     | (int)，算子层的随机种子，用于生成随机数。默认值：0           |
 |      | 参数5 |         | seed1     | (int)，全局的随机种子，和算子层的随机种子共同决定最终生成的随机数。默认值：0 |
