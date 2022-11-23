@@ -173,7 +173,7 @@ print(hwc_image.shape, chw_image.shape)
 (48, 48, 1) (1, 48, 48)
 ```
 
-For more Vision Transforms, see [mindspore.dataset.vision](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html).
+For more Vision Transforms, see [mindspore.dataset.vision](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
 
 ## Text Transforms
 
@@ -235,7 +235,7 @@ print(next(test_dataset.create_tuple_iterator()))
 [Tensor(shape=[3], dtype=Int32, value= [4, 5, 2])]
 ```
 
-For more Text Transforms, see [mindspore.dataset.text](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html).
+For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
 
 ## Lambda Transforms
 

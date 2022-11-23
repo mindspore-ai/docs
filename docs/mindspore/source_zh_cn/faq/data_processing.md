@@ -77,7 +77,7 @@ A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
 原理:`c_transform`底层使用的是C版本`opencv/jpeg-turbo`进行的数据处理，`py_transform`使用的是Python版本的`Pillow`进行数据处理。
 
-在MindSpore1.8开始，数据增强API进行了合并，用户无需显式感知`c_transforms`和`py_transforms`，MindSpore将根据传入数据增强API的数据类型决定使用何种后端，默认使用`c_transforms`，因其性能更佳。详细可以参考[最新API文档与import说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.vision.html)。
+在MindSpore1.8开始，数据增强API进行了合并，用户无需显式感知`c_transforms`和`py_transforms`，MindSpore将根据传入数据增强API的数据类型决定使用何种后端，默认使用`c_transforms`，因其性能更佳。详细可以参考[最新API文档与import说明](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)。
 
 <br/>
 

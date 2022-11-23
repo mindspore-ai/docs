@@ -106,9 +106,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
     如果属于以下模块，还需更新MindSpore docs仓的接口列表，请按字母序添加API。
 
     - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
-    - `mindspore.dataset.text`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.text.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.text.rst)
     - `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
-    - `mindspore.dataset.vision`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.vision.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.vision.rst)
     - `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
     - `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
     - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
