@@ -43,9 +43,9 @@ x = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=np.float32)
 axis = 1
 out = tf.expand_dims (x, axis).numpy()
 print(out)
-#[[[ 1.  2.  3.  4.]]
-# [[ 5.  6.  7.  8.]]
-# [[ 9. 10. 11. 12.]]]
+# [[[ 1.  2.  3.  4.]]
+#  [[ 5.  6.  7.  8.]]
+#  [[ 9. 10. 11. 12.]]]
 
 # MindSpore
 import mindspore
@@ -57,9 +57,9 @@ input_params = Tensor(np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]), m
 axis = 1
 output = ops.expand_dims(input_params,  axis)
 print(output)
-#[[[ 1.  2.  3.  4.]]
-# [[ 5.  6.  7.  8.]]
-# [[ 9. 10. 11. 12.]]]
+# [[[ 1.  2.  3.  4.]]
+#  [[ 5.  6.  7.  8.]]
+#  [[ 9. 10. 11. 12.]]]
 
 ```
 
@@ -76,9 +76,9 @@ x = np.array([[1,1,1]], dtype=np.float32)
 axis = 2
 out = tf.expand_dims (x, axis).numpy()
 print(out)
-#[[[1.]
-#  [1.]
-#  [1.]]]
+# [[[1.]
+#   [1.]
+#   [1.]]]
 
 
 # MindSpore
@@ -91,7 +91,7 @@ input_params = Tensor(np.array([[1,1,1]]), mindspore.float32)
 axis = 2
 output = ops.expand_dims(input_params,  axis)
 print(output)
-#[[[1.]
-#  [1.]
-#  [1.]]]
+# [[[1.]
+#   [1.]
+#   [1.]]]
 ```

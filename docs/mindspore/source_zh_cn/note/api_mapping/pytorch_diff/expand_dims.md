@@ -42,9 +42,9 @@ x = tensor([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=torch.float32)
 dim = 1
 out = torch.unsqueeze(x,dim).numpy()
 print(out)
-#[[[ 1.  2.  3.  4.]]
-# [[ 5.  6.  7.  8.]]
-# [[ 9. 10. 11. 12.]]]
+# [[[ 1.  2.  3.  4.]]
+#  [[ 5.  6.  7.  8.]]
+#  [[ 9. 10. 11. 12.]]]
 
 # MindSpore
 import mindspore
@@ -56,7 +56,7 @@ input_params = Tensor(np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]), m
 axis = 1
 output = ops.expand_dims(input_params,  axis)
 print(output)
-#[[[ 1.  2.  3.  4.]]
-# [[ 5.  6.  7.  8.]]
-# [[ 9. 10. 11. 12.]]]
+# [[[ 1.  2.  3.  4.]]
+#  [[ 5.  6.  7.  8.]]
+#  [[ 9. 10. 11. 12.]]]
 ```

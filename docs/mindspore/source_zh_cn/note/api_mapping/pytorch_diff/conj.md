@@ -41,7 +41,7 @@ from torch import tensor
 a = tensor([-1 + 1j, -2 + 2j, 3 - 3j], dtype=torch.complex64)
 b = torch.conj(a)
 print(b.detach().numpy())
-# [-1.-1.j, -2.-2.j,  3.+3.j]
+# [-1.-1.j -2.-2.j 3.+3.j]
 
 # MindSpore
 import mindspore
@@ -51,5 +51,5 @@ import mindspore.ops as ops
 a = Tensor([-1 + 1j, -2 + 2j, 3 - 3j], dtype=mindspore.complex64)
 b = ops.conj(a)
 print(b)
-# [-1.-1.j, -2.-2.j,  3.+3.j]
+# [-1.-1.j -2.-2.j 3.+3.j]
 ```

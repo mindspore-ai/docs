@@ -1,6 +1,6 @@
 # 比较与torch.cumsum的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CumSum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cumsum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.cumsum
 
@@ -43,10 +43,10 @@ import numpy as np
 a = tensor(np.array([[3, 4, 6, 10], [1, 6, 7, 9], [4, 3, 8, 7], [1, 3, 7, 9]]).astype(np.float32))
 y = torch.cumsum(a, dim=-1)
 print(y.numpy())
-# [[ 3.,  7., 13., 23.],
-#  [ 1.,  7., 14., 23.],
-#  [ 4.,  7., 15., 22.],
-#  [ 1.,  4., 11., 20.]]
+# [[ 3.  7. 13. 23.]
+#  [ 1.  7. 14. 23.]
+#  [ 4.  7. 15. 22.]
+#  [ 1.  4. 11. 20.]]
 
 # MindSpore
 from mindspore import Tensor
@@ -55,10 +55,10 @@ import numpy as np
 x = Tensor(np.array([[3, 4, 6, 10], [1, 6, 7, 9], [4, 3, 8, 7], [1, 3, 7, 9]]).astype(np.float32))
 y = ops.cumsum(x, -1)
 print(y)
-#[[ 3.  7. 13. 23.]
-# [ 1.  7. 14. 23.]
-# [ 4.  7. 15. 22.]
-# [ 1.  4. 11. 20.]]
+# [[ 3.  7. 13. 23.]
+#  [ 1.  7. 14. 23.]
+#  [ 4.  7. 15. 22.]
+#  [ 1.  4. 11. 20.]]
 ```
 
 ### 代码示例2
@@ -73,11 +73,11 @@ import numpy as np
 a = tensor(np.array([[3, 4, 6, 10], [1, 6, 7, 9], [4, 3, 8, 7], [1, 3, 7, 9]]).astype(np.float32))
 y = torch.cumsum(a, dim=0, dtype=torch.int8)
 print(y.numpy())
-print(y.dtype)
 # [[ 3  4  6 10]
 #  [ 4 10 13 19]
 #  [ 8 13 21 26]
 #  [ 9 16 28 35]]
+print(y.dtype)
 # torch.int8
 
 # MindSpore
@@ -87,10 +87,10 @@ import mindspore.ops as ops
 x = Tensor([[3, 4, 6, 10], [1, 6, 7, 9], [4, 3, 8, 7], [1, 3, 7, 9]], mindspore.float32)
 y = ops.cumsum(x, 0, dtype=mindspore.int8)
 print(y)
-print(y.dtype)
 # [[ 3  4  6 10]
 #  [ 4 10 13 19]
 #  [ 8 13 21 26]
 #  [ 9 16 28 35]]
+print(y.dtype)
 # Int8
 ```

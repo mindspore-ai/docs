@@ -10,6 +10,7 @@ tf.eye(
     num_columns=None,
     batch_shape=None,
     dtype=tf.dtypes.float32
+    name=None
 ) -> Tensor
 ```
 
@@ -25,20 +26,17 @@ mindspore.ops.eye(n, m, t) -> Tensor
 
 ## 差异对比
 
-Tensorflow：
+Tensorflow：TensorFlow中可以在参数中接受`batch_shape`，使输出具有这样的形状。
 
-Tensorflow中可以在参数中接受`batch_shape`，使输出具有这样的形状。
-
-MindSpore：
-
-列数和数据类型不可缺省，功能上无差异。
+MindSpore：列数和数据类型不可缺省，功能上无差异。
 
 | 分类 | 子类  | Tensorflow  | MindSpore | 差异                                                         |
 | ---- | ----- | ----------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | num_rows    | n         | 功能一致， 参数名不同                                        |
-|      | 参数2 | num_columns | m         | 指定张量的列数。Tensorflow中是可选的，如果没有该参数，那么返回一个列数和行数相同的张量；MindSpore中是必须的 |
-|      | 参数3 | batch_shape | 无        | 使输出具有指定的形状，mindspore无此参数。如`batch_shape=[3]` |
+|      | 参数2 | num_columns | m         | 指定张量的列数。TensorFlow中是可选的，如果没有该参数，那么返回一个列数和行数相同的张量；MindSpore中是必须的 |
+|      | 参数3 | batch_shape | 无        | 使输出具有指定的形状，MindSpore无此参数。如`batch_shape=[3]` |
 |      | 参数4 | dtype       | t         | 名称不同，Tensorflow中是可选的，如果没有默认为`tf.dtypes.float32`；MindSpore中是必须的 |
+|      | 参数5 | name       | -        | 不涉及 |
 
 ## 差异分析与示例
 
@@ -51,9 +49,9 @@ MindSpore：
 import tensorflow as tf
 
 e1 = tf.eye(3)
-print(e1)
-# [[1., 0., 0.],
-#  [0., 1., 0.],
+print(e1.numpy())
+# [[1., 0., 0.]
+#  [0., 1., 0.]
 #  [0., 0., 1.]]
 
 # MindSpore
@@ -75,9 +73,9 @@ print(e1.numpy())
 import tensorflow as tf
 e2 = tf.eye(3, 2)
 print(e2.numpy())
-# [[1, 0],
-#  [0, 1],
-#   [0, 0]]
+# [[1, 0]
+#  [0, 1]
+#  [0, 0]]
 
 # MindSpore
 import mindspore
