@@ -20,11 +20,11 @@ In the Eager mode, the execution of Transforms will not rely on constructing the
 
 MindSpore currently supports executing various Transforms in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html)
+- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
 
     - Submodule transforms, data transform implemented based on OpenCV/Pillow.
 
-- [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html)
+- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
 
     - Submodule transforms, data transform implemented based on Jieba, ICU4C, etc.
 

@@ -116,7 +116,7 @@ def create_dataset(...)
 
 ### Starting Training
 
-Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#). Dataset AutoTune will display its analysis result through LOG messages.
+Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README.md#). Dataset AutoTune will display its analysis result through LOG messages.
 
 ```text
 [INFO] [auto_tune.cc:73 LaunchThread] Launching Dataset AutoTune thread
@@ -255,7 +255,7 @@ This allows the dataset pipeline to be run at an improved speed from the beginni
 
 By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size.
 
-Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html):
+Please refer to [mindspore.dataset.config](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#config):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
