@@ -5,7 +5,7 @@
 ## torch.nn.AdaptiveAvgPool2d
 
 ```text
-torch.nn.AdaptiveAvgPool2d(output_size) -> Tensor
+torch.nn.AdaptiveAvgPool2d(output_size)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.AdaptiveAvgPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AdaptiveAvgPool2d.html)。
@@ -27,7 +27,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，参数名也相同。
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 | input | x | 都是输入3维或4维的Tensor |
-| 参数 | 参数1 | output_size | output_size | 功能一致，参数名相同 |
+| 参数 | 参数1 | output_size | output_size | - |
 
 ### 代码示例1
 

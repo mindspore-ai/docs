@@ -10,7 +10,7 @@ class tf.nn.bias_add(value, bias, data_format=None, name=None)
 
 更多内容详见 [tf.nn.bias_add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/bias_add?hl=zh-cn%3B)。
 
-## mindspore.ops.BiasAdd
+## mindspore.ops.bias_add
 
 ```text
 mindspore.ops.bias_add(input_x, bias)
@@ -28,7 +28,7 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致， 不过MindSpo
 | ---- | ----- | ---------- | --------- | ------------------------------------- |
 | 参数 | 参数1 | value      | input_x   | 功能一致，参数名不同                  |
 |      | 参数2 | bias       | bias      | 功能一致                              |
-|      | 参数3 | dataformat | -         | 输入数据的数据格式，MindSpore无此参数 |
+|      | 参数3 | data_format | -         | 输入数据的数据格式，MindSpore无此参数 |
 |      | 参数4 | name       | -         | 不涉及   |
 
 ### 代码示例1
