@@ -4,16 +4,16 @@
 
 ## Automatic Differentiation
 
-After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/master/beginner/autograd.html) to calculate the gradient results of the model.
-In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/master/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
+After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/r1.9/beginner/autograd.html) to calculate the gradient results of the model.
+In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/r1.9/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
 
 ## Network Training
 
 The entire training network consists of the forward network (network and loss function), automatic gradient derivation and optimizer update. MindSpore provides three ways to implement this process.
 
-1. Encapsulate `model` and perform network training by using `model.train` or `model.fit`, such as [model training](https://mindspore.cn/tutorials/en/master/beginner/train.html).
+1. Encapsulate `model` and perform network training by using `model.train` or `model.fit`, such as [model training](https://mindspore.cn/tutorials/en/r1.9/beginner/train.html).
 
-2. Apply the encapsulated [TrainOneStepCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) separately to common training process and training process with [loss_scale](https://www.mindspore.cn/tutorials/experts/en/r1.9/others/mixed_precision.html), such as [Quick Start: Linear Fitting](https://mindspore.cn/tutorials/en/master/beginner/quick_start.html).
+2. Apply the encapsulated [TrainOneStepCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) separately to common training process and training process with [loss_scale](https://www.mindspore.cn/tutorials/experts/en/r1.9/others/mixed_precision.html), such as [Quick Start: Linear Fitting](https://mindspore.cn/tutorials/en/r1.9/beginner/quick_start.html).
 
 3. Customize training Cell.
 
