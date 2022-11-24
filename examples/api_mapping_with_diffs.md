@@ -14,7 +14,7 @@ torch.where(condition, x, y) -> Tensor
 mindspore.ops.select(cond, x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.select](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.select.html)。
+更多内容详见 [mindspore.ops.select](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.select.html)。
 
 ## 差异对比
 

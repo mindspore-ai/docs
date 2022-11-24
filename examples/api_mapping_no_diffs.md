@@ -14,7 +14,7 @@ torch.index_select(input, dim,index) -> Tensor
 mindspore.ops.gather(input_params, input_indices, axis) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.gather](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.gather.html)。
+更多内容详见 [mindspore.ops.gather](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.gather.html)。
 
 ## 差异对比
 
