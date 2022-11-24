@@ -11,7 +11,7 @@ tf.data.Dataset.from_tensor_slices(
 )
 ```
 
-For more information, see [tf.data.Dataset.from_tensor_slices](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/Dataset#from_tensor_slices).
+For more information, see [tf.data.Dataset.from_tensor_slices](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/Dataset#from_tensor_slices).
 
 ## mindspore.dataset.NumpySlicesDataset
 

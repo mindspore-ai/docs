@@ -11,7 +11,7 @@ tf.image.rgb_to_grayscale(
 )
 ```
 
-For more information, see [tf.image.rgb_to_grayscale](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/rgb_to_grayscale).
+For more information, see [tf.image.rgb_to_grayscale](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/image/rgb_to_grayscale).
 
 ## mindspore.dataset.vision.ConvertColor
 

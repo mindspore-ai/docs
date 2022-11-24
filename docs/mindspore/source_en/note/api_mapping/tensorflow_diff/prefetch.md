@@ -10,7 +10,7 @@ tf.data.Dataset.prefetch(
 )
 ```
 
-For more information, see [tf.data.Dataset.prefetch](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/Dataset#prefetch).
+For more information, see [tf.data.Dataset.prefetch](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/Dataset#prefetch).
 
 ## mindspore.dataset.config.set_prefetch_size
 

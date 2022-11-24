@@ -17,7 +17,7 @@ tf.data.experimental.bucket_by_sequence_length(
 )
 ```
 
-For more information, see [tf.data.experimental.bucket_by_sequence_length](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/experimental/bucket_by_sequence_length).
+For more information, see [tf.data.experimental.bucket_by_sequence_length](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/experimental/bucket_by_sequence_length).
 
 ## mindspore.dataset.GeneratorDataset.bucket_batch_by_length
 

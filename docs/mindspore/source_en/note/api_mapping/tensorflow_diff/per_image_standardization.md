@@ -10,7 +10,7 @@ tf.image.per_image_standardization(
 )
 ```
 
-For more information, see [tf.image.per_image_standardization](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/per_image_standardization).
+For more information, see [tf.image.per_image_standardization](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/image/per_image_standardization).
 
 ## mindspore.dataset.vision.Normalize
 

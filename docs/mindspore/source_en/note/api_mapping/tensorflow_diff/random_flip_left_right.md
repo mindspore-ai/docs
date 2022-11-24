@@ -11,7 +11,7 @@ tf.image.random_flip_left_right(
 )
 ```
 
-For more information, see [tf.image.random_flip_left_right](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/random_flip_left_right).
+For more information, see [tf.image.random_flip_left_right](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/image/random_flip_left_right).
 
 ## mindspore.dataset.vision.RandomHorizontalFlip
 
