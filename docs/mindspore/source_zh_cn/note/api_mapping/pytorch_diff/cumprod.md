@@ -49,7 +49,7 @@ print(out)
 import mindspore
 from mindspore import Tensor
 import mindspore.ops as ops
-x = Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]]).astype('int32').
+x = Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]]).astype('int32')
 out = ops.cumprod(x, 0)
 print(out)
 # [[  1   2   3]

@@ -39,7 +39,7 @@ MindSpore: MindSpore此API实现功能与PyTorch基本一致，返回`loss`及�
 |      | 参数3  | zero_infinity=False | ignore_longer_outputs_than_inputs | 功能一致，参数名称不同。用于解决输入序列长度小于输出序列长度的问题 |
 |      | 参数4  | inputs               | x                                 | 功能一致，参数名称不同                                       |
 |      | 参数5  | targets              | labels_values                     | 功能一致，参数名称不同                                       |
-|      | 参数6  | input_lengths       |        -                           | MindSpore无此参数，PyTorch用用此参数控制输入各个批次的长度                                |
+|      | 参数6  | input_lengths       |        -                           | MindSpore无此参数，PyTorch用此参数控制输入各个批次的长度                                |
 |      | 参数7  | target_lengths      | sequence_length                   | 功能一致，参数名称不同                                       |
 |      | 参数8  |    -                 | preprocess_collapse_repeated      | 如果为True，在CTC计算之前将折叠重复标签。默认值：False       |
 |      | 参数9  |    -                 | ctc_merge_repeated                | 如果为False，在CTC计算过程中，重复的非空白标签不会被合并，这些标签将被解释为单独的标签。这是CTC的简化版本。默认值：True |

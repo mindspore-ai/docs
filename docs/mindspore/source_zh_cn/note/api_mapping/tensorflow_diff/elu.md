@@ -32,7 +32,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致， 不过支持
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | features | input_x |功能一致， 参数名不同 |
 | | 参数2 | name |  | 不涉及 |
-| | 参数3 |  | alpha | Mindspore目前只支持alpha等于1.0，与TensorFlow接口一致 |
+| | 参数3 | - | alpha | Mindspore目前只支持alpha等于1.0，与TensorFlow接口一致 |
 
 ### 代码示例1
 
@@ -48,9 +48,9 @@ x = tf.convert_to_tensor(x_, dtype=tf.float32)
 output = tf.nn.elu(x).numpy()
 print(output)
 # [[[[-0.9975212  -0.99326205 -0.9816844 ]
-# [-0.95021296 -0.86466473 -0.6321205 ]]
+#    [-0.95021296 -0.86466473 -0.6321205 ]]
 #
-#  [[ 0.          1.          2.        ]
+#   [[ 0.          1.          2.        ]
 #   [ 3.          4.          5.        ]]]]
 
 # MindSpore
@@ -62,10 +62,9 @@ x_ = np.array([[np.arange(-6,0).reshape(2, 3),np.arange(0,6).reshape(2, 3)]])
 x = ms.Tensor(x_, ms.float32)
 output = ops.elu(x)
 print(output)
-##[[[[-0.9975212  -0.99326205 -0.9816844 ]
+# [[[[-0.9975212  -0.99326205 -0.9816844 ]
 #   [-0.95021296 -0.86466473 -0.6321205 ]]
 #
 #  [[ 0.          1.          2.        ]
 #   [ 3.          4.          5.        ]]]]
-
 ```

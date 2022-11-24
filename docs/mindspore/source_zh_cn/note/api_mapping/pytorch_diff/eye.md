@@ -61,8 +61,8 @@ import torch
 # 参数m可以缺省， dtype可以缺省
 e1 = torch.eye(3)
 print(e1.numpy())
-# [[1., 0., 0.],
-#  [0., 1., 0.],
+# [[1., 0., 0.]
+#  [0., 1., 0.]
 #  [0., 0., 1.]]
 
 # MindSpore
@@ -86,8 +86,8 @@ import torch
 # 参数dtype可以缺省
 e2 = torch.eye(3, 2)
 print(e2.numpy())
-# [[1, 0],
-#  [0, 1],
+# [[1, 0]
+#  [0, 1]
 #  [0, 0]]
 
 # MindSpore
