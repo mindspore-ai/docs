@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## torch.optim.optimizer()
+## torch.optim.Optimizer
 
 ```python
 class torch.optim.Optimizer(
@@ -13,7 +13,7 @@ class torch.optim.Optimizer(
 
 For more information, see [torch.optim.Optimizer](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer).
 
-## mindspore.nn.Optimizer()
+## mindspore.nn.Optimizer
 
 ```python
 class mindspore.nn.Optimizer(
