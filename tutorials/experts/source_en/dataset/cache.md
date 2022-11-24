@@ -387,7 +387,7 @@ It should be noted that in the data processing process of the training process, 
 
 Therefore, we can choose to add a cache directly after the data set reads the operator. This section takes this approach, using the MobileNetV2 network as a sample for an example.
 
-For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2).
+For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mindspore/models/tree/r1.9/official/cv/mobilenetv2).
 
 1. Create Shell script `cache_util.sh` for managing cache:
 
