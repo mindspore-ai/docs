@@ -13,7 +13,7 @@ class tf.data.TextLineDataset(
 )
 ```
 
-更多内容详见[tf.data.TextLineDataset](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/TextLineDataset)。
+更多内容详见[tf.data.TextLineDataset](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/TextLineDataset)。
 
 ## mindspore.dataset.TextFileDataset
 

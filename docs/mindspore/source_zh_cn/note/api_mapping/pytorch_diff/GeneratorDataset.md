@@ -8,7 +8,7 @@
 class torch.utils.data.Dataset(*args, **kwds)
 ```
 
-更多内容详见[torch.utils.data.Dataset](https://pytorch.org/docs/1.9.0/data.html#torch.utils.data.Dataset)。
+更多内容详见[torch.utils.data.Dataset](https://pytorch.org/docs/1.8.1/data.html#torch.utils.data.Dataset)。
 
 ## mindspore.dataset.GeneratorDataset
 

@@ -12,7 +12,7 @@ tf.data.Dataset.shuffle(
 )
 ```
 
-更多内容详见[tf.data.Dataset.shuffle](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/Dataset#shuffle)。
+更多内容详见[tf.data.Dataset.shuffle](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/Dataset#shuffle)。
 
 ## mindspore.dataset.GeneratorDataset.shuffle
 

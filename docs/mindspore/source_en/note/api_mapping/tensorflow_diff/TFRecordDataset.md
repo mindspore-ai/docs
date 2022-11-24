@@ -13,7 +13,7 @@ class tf.data.TFRecordDataset(
 )
 ```
 
-For more information, see [tf.data.TFRecordDataset](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/TFRecordDataset).
+For more information, see [tf.data.TFRecordDataset](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/TFRecordDataset).
 
 ## mindspore.dataset.TFRecordDataset
 

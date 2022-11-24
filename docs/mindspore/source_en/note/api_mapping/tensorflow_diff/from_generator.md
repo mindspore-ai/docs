@@ -8,13 +8,14 @@
 @staticmethod
 tf.data.Dataset.from_generator(
     generator,
-    output_types,
+    output_types=None,
     output_shapes=None,
-    args=None
+    args=None,
+    output_signature=None
 )
 ```
 
-For more information, see [tf.data.Dataset.from_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/Dataset#from_generator).
+For more information, see [tf.data.Dataset.from_generator](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/Dataset#from_generator).
 
 ## mindspore.dataset.GeneratorDataset
 

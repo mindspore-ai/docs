@@ -11,7 +11,7 @@ tf.image.central_crop(
 )
 ```
 
-For more information, see [tf.image.central_crop](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/central_crop).
+For more information, see [tf.image.central_crop](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/image/central_crop).
 
 ## mindspore.dataset.vision.CenterCrop
 

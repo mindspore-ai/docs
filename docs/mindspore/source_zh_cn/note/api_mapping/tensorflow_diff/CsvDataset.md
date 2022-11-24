@@ -14,11 +14,12 @@ class tf.data.experimental.CsvDataset(
     field_delim=',',
     use_quote_delim=True,
     na_value='',
-    select_cols=None
+    select_cols=None,
+    exclude_cols=None
 )
 ```
 
-更多内容详见[tf.data.experimental.CsvDataset](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/data/experimental/CsvDataset)。
+更多内容详见[tf.data.experimental.CsvDataset](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/experimental/CsvDataset)。
 
 ## mindspore.dataset.CSVDataset
 

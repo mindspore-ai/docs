@@ -1,21 +1,21 @@
-# Function Differences with tf.image.resize_images
+# Function Differences with tf.image.resize
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/resize_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/resize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## tf.image.resize_images
+## tf.image.resize
 
 ```python
-tf.image.resize_images(
+tf.image.resize(
     images,
     size,
     method=ResizeMethodV1.BILINEAR,
-    align_corners=False,
     preserve_aspect_ratio=False,
+    antialias=False,
     name=None
 )
 ```
 
-For more information, see [tf.image.resize_images](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/resize_images).
+For more information, see [tf.image.resize](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/image/resize).
 
 ## mindspore.dataset.vision.Resize
 
@@ -47,12 +47,12 @@ result = ds.vision.Resize((14, 14), Inter.BICUBIC)(image)
 print(result.shape)
 # (14, 14, 3)
 
-# The following implements resize_images with TensorFlow.
+# The following implements resize with TensorFlow.
 import tensorflow as tf
 from tensorflow.image import ResizeMethod
 
 image = tf.random.normal((28, 28, 3))
-result = tf.image.resize_images(image, (14, 14), ResizeMethod.BICUBIC)
+result = tf.image.resize(image, (14, 14), ResizeMethod.BICUBIC)
 print(result.shape)
 # (14, 14, 3)
 ```
