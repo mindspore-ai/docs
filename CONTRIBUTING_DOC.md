@@ -106,9 +106,7 @@ If you want to add an API, check whether the API has been added to an existing m
     If the API belongs to the following modules, the API list of the MindSpore docs repository needs to be updated. Please add APIs in alphabetical order.
 
     - `mindspore.dataset`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
-    - `mindspore.dataset.text`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.text.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.text.rst)
     - `mindspore.dataset.transforms`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
-    - `mindspore.dataset.vision`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.vision.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.vision.rst)
     - `mindspore.nn`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
     - `mindspore.nn.probability`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
     - `mindspore.ops`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
