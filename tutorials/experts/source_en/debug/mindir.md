@@ -207,92 +207,86 @@ About the corresponding source code:
 Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0008.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`. The file contents are as follows (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
-  1 ###Deep Sort Order###
-  2 #IR entry      : @1_Default_wrapper.22
-  3 #Total subgraph: 3
+  1 #IR entry      : @1_construct.Default_wrapper.22
+  2 #Total subgraph: 3
+  3
   4 #attrs         :
-  5
-  6 subgraph attr:
-  7 subgraph instance: 1_Default_wrapper.22 : 0x563578b33c90
-  8 # In file testir1.py:19/    def construct(self, x, y):/
-  9 subgraph @1_Default_wrapper.22(
- 10         %para1_x : <Tensor[Float32], ()>
- 11         , %para2_y : <Tensor[Float32], ()>
- 12     ) {
- 13   %1([CNode]3) = call @2_Default.23(%para1_x, %para2_y)
- 14       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 15       #scope: Default
- 16   Primitive::Return{prim_type=1}(%1)
- 17       :(<Tensor[Float32], ()>)
- 18       #scope: Default
- 19       # In file testir1.py:23/        return c/
- 20 }
- 21 # order:
- 22 #   1: @1_Default_wrapper.22:[CNode]3{[0]: ValueNode `<FuncGraph>` 2_Default.23, [1]: x, [2]: y}
- 23 #   2: @1_Default_wrapper.22:[CNode]4{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]3}
- 24
+  5 #Total params  : 2
+  6
+  7 %para1_x : <Tensor[Float32], ()>
+  8 %para2_y : <Tensor[Float32], ()>
+  9
+ 10 subgraph attr:
+ 11 subgraph instance: 1_construct.Default_wrapper.22 : 0x5568122fcf90
+ 12 # In file kldtest.py:19/    def construct(self, x, y):/
+ 13 subgraph @1_construct.Default_wrapper.22() {
+ 14   %0([CNode]2) = call @2_construct.Default.23(%para1_x, %para2_y)
+ 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 16       # scope: (Default)
+ 17   Return(%0)
+ 18       : (<Tensor[Float32], ()>)
+ 19       # scope: (Default)
+ 20       # In file kldtest.py:23/        return c/
+ 21 }
+ 22 # order:
+ 23 #   1: @1_construct.Default_wrapper.22:[CNode]2{[0]: ValueNode `<FuncGraph>` 2_construct.Default.23, [1]: x, [2]: y}
+ 24 #   2: @1_construct.Default_wrapper.22:[CNode]4{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]2}
  25
- 26 subgraph attr:
- 27 subgraph instance: 2_Default.23 : 0x563578b358b0
+ 26
+ 27 subgraph attr:
  28 undeterminate : 0
- 29 # In file testir1.py:19/    def construct(self, x, y):/
- 30 subgraph @2_Default.23(
- 31         %para3_x : <Tensor[Float32], ()>
- 32         , %para4_y : <Tensor[Float32], ()>
- 33     ) {
- 34   %1(a) = PrimitivePy::Sub{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%para3_x, Tensor(43)[])
- 35       :(<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
- 36       #scope: Default
- 37       # In file testir1.py:20/        a = self.sub(x, 1)/
- 38   %2(b) = PrimitivePy::Add{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%1, %para4_y)
- 39       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 40       #scope: Default
- 41       # In file testir1.py:21/        b = self.add(a, y)/
- 42   %3([CNode]9) = call @3_func.24(%1, %2)
- 43       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 44       #scope: Default
- 45       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
- 46   %4(c) = PrimitivePy::Mul{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%2, %3)
- 47       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 48       #scope: Default
- 49       # In file testir1.py:22/        c = self.mul(b, self.func(a, b))/
- 50   Primitive::Return{prim_type=1}(%4)
- 51       :(<Tensor[Float32], ()>)
- 52       #scope: Default
- 53       # In file testir1.py:23/        return c/
- 54 }
- 55 # order:
- 56 #   1: @2_Default.23:a{[0]: ValueNode `<PrimitivePy>` Sub, [1]: x, [2]: ValueNode `<Tensor>` Tensor(shape=[], dtype=Float32, value=1)}
- 57 #   2: @2_Default.23:b{[0]: ValueNode `<PrimitivePy>` Add, [1]: a, [2]: y}
- 58 #   3: @2_Default.23:[CNode]9{[0]: ValueNode `<FuncGraph>` 3_func.24, [1]: a, [2]: b}
- 59 #   4: @2_Default.23:c{[0]: ValueNode `<PrimitivePy>` Mul, [1]: b, [2]: [CNode]9}
- 60 #   5: @2_Default.23:[CNode]18{[0]: ValueNode `<Primitive>` Return, [1]: c}
- 61
- 62
- 63 subgraph attr:
- 64 subgraph instance: 3_func.24 : 0x563578b39db0
- 65 undeterminate : 0
- 66 # In file testir1.py:16/    def func(x, y):/
- 67 subgraph @3_func.24(
- 68         %para5_x : <Tensor[Float32], ()>
- 69         , %para6_y : <Tensor[Float32], ()>
- 70     ) {
- 71   %1([CNode]20) = PrimitivePy::Div{prim_type=2}[output_names=["output"], input_names=["x", "y"]](%para5_x, %para6_y)
- 72       :(<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 73       #scope: Default
- 74       # In file testir1.py:17/        return self.div(x, y)/
- 75   Primitive::Return{prim_type=1}(%1)
- 76       :(<Tensor[Float32], ()>)
- 77       #scope: Default
- 78       # In file testir1.py:17/        return self.div(x, y)/
- 79 }
- 80 # order:
- 81 #   1: @3_func.24:[CNode]20{[0]: ValueNode `<PrimitivePy>` Div, [1]: x, [2]: y}
- 82 #   2: @3_func.24:[CNode]21{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]20}
+ 29 subgraph instance: 2_construct.Default.23 : 0x5568122fe9c0
+ 30 # In file kldtest.py:19/    def construct(self, x, y):/
+ 31 subgraph @2_construct.Default.23(%para3_x, %para4_y) {
+ 32   %0(a) = Sub(%para3_x, Tensor(shape=[], dtype=Float32, value=1)) {instance name: sub} primitive_attrs:  {output_names: [output], input_names: [x, y]}
+ 33       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+ 34       # scope: (Default)
+ 35       # In file kldtest.py:20/        a = self.sub(x, 1)/
+ 36   %1(b) = Add(%0, %para4_y) {instance name: add} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 37       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 38       # scope: (Default)
+ 39       # In file kldtest.py:21/        b = self.add(a, y)/
+ 40   %2([CNode]9) = call @3_func.24(%0, %1)
+ 41       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 42       # scope: (Default)
+ 43       # In file kldtest.py:22/        c = self.mul(b, self.func(a, b))/
+ 44   %3(c) = Mul(%1, %2) {instance name: mul} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 45       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 46       # scope: (Default)
+ 47       # In file kldtest.py:22/        c = self.mul(b, self.func(a, b))/
+ 48   Return(%3)
+ 49       : (<Tensor[Float32], ()>)
+ 50       # scope: (Default)
+ 51       # In file kldtest.py:23/        return c/
+ 52 }
+ 53 # order:
+ 54 #   1: @2_construct.Default.23:a{[0]: ValueNode `<PrimitivePy>` Sub, [1]: x, [2]: ValueNode `<Tensor>` Tensor(shape=[], dtype=Float32, value=1)}
+ 55 #   2: @2_construct.Default.23:b{[0]: ValueNode `<PrimitivePy>` Add, [1]: a, [2]: y}
+ 56 #   3: @2_construct.Default.23:[CNode]9{[0]: ValueNode `<FuncGraph>` 3_func.24, [1]: a, [2]: b}
+ 57 #   4: @2_construct.Default.23:c{[0]: ValueNode `<PrimitivePy>` Mul, [1]: b, [2]: [CNode]9}
+ 58 #   5: @2_construct.Default.23:[CNode]18{[0]: ValueNode `<Primitive>` Return, [1]: c}
+ 59
+ 60
+ 61 subgraph attr:
+ 62 undeterminate : 0
+ 63 subgraph instance: 3_func.24 : 0x556812302e20
+ 64 # In file kldtest.py:16/    def func(x, y):/
+ 65 subgraph @3_func.24(%para3_x, %para4_y) {
+ 66   %0([CNode]20) = Div(%para3_x, %para4_y) {instance name: div} primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 67       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 68       # scope: (Default)
+ 69       # In file kldtest.py:17/        return self.div(x, y)/
+ 70   Return(%0)
+ 71       : (<Tensor[Float32], ()>)
+ 72       # scope: (Default)
+ 73       # In file kldtest.py:17/        return self.div(x, y)/
+ 74 }
+ 75 # order:
+ 76 #   1: @3_func.24:[CNode]20{[0]: ValueNode `<PrimitivePy>` Div, [1]: x, [2]: y}
+ 77 #   2: @3_func.24:[CNode]21{[0]: ValueNode `<Primitive>` Return, [1]: [CNode]20}
 ```
 
 Above, it lists all the graphs beginning with the entry graph.
-Compared with default ir file, except for the order difference, each graph of the deep sorted ir file prints the input parameter information of each graph before printing the cnode information. Taking graph `_Default_wrapper.22` as an example, its parameter information is located at Line 10 to 11.
 
 ### dot Introduction
 
