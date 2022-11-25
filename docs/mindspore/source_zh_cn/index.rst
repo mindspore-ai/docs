@@ -42,7 +42,7 @@ MindSpore 文档
    api_python/mindspore
    api_python/mindspore.nn
    api_python/mindspore.ops
-   api_python/mindspore.ops.function
+   api_python/mindspore.ops.primitive
    api_python/mindspore.amp
    api_python/mindspore.train
    api_python/mindspore.communication
