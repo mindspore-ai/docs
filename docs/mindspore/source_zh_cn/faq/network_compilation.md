@@ -453,6 +453,6 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
 
-如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以将其使用用[muatable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>

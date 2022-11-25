@@ -464,6 +464,6 @@ When the exported data input is a non-Tensor, the exported input will be solidif
  making the input in MindIR less than the Construct input for network construction.
 
 If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type,
- you can use the [muatable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+ you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
