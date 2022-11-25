@@ -81,6 +81,7 @@ MindSpore 文档
    migration_guide/debug_and_tune
    migration_guide/sample_code
    migration_guide/faq
+   migration_guide/typical_api_comparision
    migration_guide/use_third_party_op
 
 .. toctree::
