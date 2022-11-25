@@ -122,6 +122,17 @@ After the inference verification is complete, the basic model, data processing, 
 
 - Add loss scale. On Ascend, operators such as Conv, Sort, and TopK can only be float16. MatMul is recommended to be float16 due to performance problems. Therefore, it is recommended that loss scale be used as a standard configuration for network training.
 
+The list of operators only supports float16 on Ascend:
+
+| type | operators |
+| ------  | ------ |
+| Pool    | AdaptiveMaxPool2D，AvgPool3D，AvgPool，MaxPool，MaxPoolWithArgmax，Pooling |
+| RNN     | LSTM，DynamicRNN，GRUV2 |
+| Conv    | Conv2D，Conv2DTranspose，Conv3D，Conv3DTranspose，DepthwiseConv2dNative |
+| Matmul (float32 is too slow and needs to be cast to float16) | MatMul，BatchMatMul |
+| Sort | Sort，TopK |
+| Others | BoundingBoxEncode，ExtractImagePatches，ExtractVolumePatches，FusedDbnDw，IOU，NewIm2Col，NMSWithMask |
+
 ```python
 import mindspore as ms
 from mindspore import nn
