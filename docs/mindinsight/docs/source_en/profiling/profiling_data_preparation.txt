@@ -33,6 +33,11 @@ queue graphs:
   data queue is continuously small, there may be a performance
   bottleneck in data transfer.
 
+.. note::
+   The queue size is the value recorded when fetching data, and obtaining the data
+   of host queue and data queue is executed asynchronously, so the number of host
+   queue steps, data queue steps, and user training steps may be different.
+
 .. figure:: ./images/data_op_profile.png
    :alt: data_op_profile.png
 

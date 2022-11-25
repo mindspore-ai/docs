@@ -25,4 +25,4 @@ The figure above shows the analysis details of iteration time of different opera
 The figure above shows the shape information of the operator of a specific step. Click the corresponding point of the curve to check the shape information of the specified operator instance.
 
 .. note::
-   Dynamic Shape network currently only supports the function modules of operator time (by iteration), operator time statistics ranking, data preparation, timeline, CPU utilization and parallel strategy, but does not support the functions of step trace, flops, memory usage and cluster communication.
+   Dynamic Shape network currently only supports the function modules of operator time (by iteration), operator time statistics ranking, data preparation, timeline, CPU utilization and parallel strategy, but does not support the functions of step trace, memory usage and cluster communication.
