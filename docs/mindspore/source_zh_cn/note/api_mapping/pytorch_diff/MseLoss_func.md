@@ -1,0 +1,107 @@
+# 比较与torch.nn.functional.mse_loss的功能差异
+
+## torch.nn.functional.mse_loss
+
+```text
+torch.nn.functional.mse_loss(input, target, size_average=None, reduce=None, reduction='mean') -> Tensor
+```
+
+更多内容详见[torch.nn.functional.mse_loss](https://pytorch.org/docs/1.8.1/nn.functional.html)。
+
+## mindspore.nn.MSELoss
+
+```text
+mindspore.nn.MSELoss(reduction='mean') -> Tensor
+```
+
+更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.MSELoss.html)。
+
+## 差异对比
+
+PyTorch：用于计算输入 x 和 y 每一个元素的均方误差。reduction参数指定应用于loss的reduction类型。
+
+MindSpore：除两个在Pytorch已弃用的参数不同外，`torch.nn.functional.mse_loss`可直接调用，`mindspore.nn.MSELoss`需先实例化。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | input        | -        | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
+|      | 参数2 | target       | -        | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
+|      | 参数3 | size_average | -        | 被`reduction`替代，MindSpore无此参数 |
+| | 参数4 | reduce | - | 被`reductio`替代，MindSpore无此参数 |
+| | 参数5 | reduction | reduction | - |
+
+## 差异分析与示例
+
+### 代码示例1
+
+> 计算`input`和`target`的均方误差。
+
+```python
+# pytoch
+import torch
+from torch.nn.functional import mse_loss
+from torch import tensor
+import numpy as np
+
+# 默认情况，reduction='mean'
+input_ = np.array([1,1,1,1]).reshape((2,2))
+input = tensor(input_, dtype=torch.float32)
+target_ = np.array([1,2,2,1]).reshape((2,2))
+target = tensor(target_, dtype=torch.float32)
+output = mse_loss(input, target)
+print(output.numpy())
+# 0.5
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import mindspore.nn as nn
+import numpy as np
+
+loss = nn.MSELoss()
+input_ = np.array([1,1,1,1]).reshape((2,2))
+input = Tensor(input_, dtype=mindspore.float32)
+target_ = np.array([1,2,2,1]).reshape((2,2))
+target = Tensor(target_, dtype=mindspore.float32)
+output = loss(input, target)
+print(output)
+# 0.5
+```
+
+### 代码实例2
+
+> 计算`input`和`target`的均方误差，以求和方式规约。
+
+```python
+# pytoch
+import torch
+from torch.nn.functional import mse_loss
+from torch import tensor
+import numpy as np
+
+# redcution='sum'
+input_ = np.array([1,1,1,1]).reshape((2,2))
+input = tensor(input_, dtype=torch.float32)
+target_ = np.array([1,2,2,1]).reshape((2,2))
+target = tensor(target_, dtype=torch.float32)
+print(target)
+output = mse_loss(input, target, reduction='sum')
+print(output.numpy())
+# 2
+
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import mindspore.nn as nn
+import numpy as np
+
+loss = nn.MSELoss(reduction='sum')
+input_ = np.array([1,1,1,1]).reshape((2,2))
+input = Tensor(input_, dtype=mindspore.float32)
+target_ = np.array([1,2,2,1]).reshape((2,2))
+target = Tensor(target_, dtype=mindspore.float32)
+output = loss(input, target)
+print(output)
+# 2
+```

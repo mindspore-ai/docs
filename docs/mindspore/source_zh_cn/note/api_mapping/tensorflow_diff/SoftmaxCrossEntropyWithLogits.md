@@ -1,64 +1,96 @@
 # 比较与tf.nn.softmax_cross_entropy_with_logits的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+## tf.nn.softmax_cross_entropy_with_logit
 
-## tf.nn.softmax_cross_entropy_with_logits
-
-```python
-class tf.nn.softmax_cross_entropy_with_logits(
-    _sentinel=None,
-    labels=None,
-    logits=None,
-    dim=-1,
-    name=None,
-    axis=None
-)
+```text
+tf.nn.softmax_cross_entropy_with_logits(
+    labels, logits, axis=-1
+) -> Tensor
 ```
 
-更多内容详见[tf.nn.softmax_cross_entropy_with_logits](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)。
+更多内容详见[tf.nn.softmax_cross_entropy_with_logits](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)。
 
 ## mindspore.nn.SoftmaxCrossEntropyWithLogits
 
-```python
-class mindspore.nn.SoftmaxCrossEntropyWithLogits(
-    sparse=False,
-    reduction='none'
-)(logits, labels)
+```text
+class mindspore.nn.SoftmaxCrossEntropyWithLogits(sparse=False, reduction='none')(logits, labels) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
+更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
 
-## 使用方式
+## 差异对比
 
-TensorFlow：labels和logits的shape需一致，未提供reduction参数对loss求mean或sum。
+Tensorflow：tensorflow中该算子是函数式，可以直接调用算子接受`logits`和`labels`输入，并返回输出结果。参数`labels`和`logits`的shape需一致。可指定`axis`参数指定‘类’所在的维度。
 
-MindSpore：支持labels是稀疏矩阵，且通过reduction参数可对loss求mean或sum。
+Mindspore：Mindspore中该算子需要实例化，实例化时可接受`sparse`参数表示输入的`labels`是否是稀疏表示，默认为`False`；可接受`reduction`参数表示输入结果的规约方式，取值为`mean`,`sum`或`none`,默认为`none`。
 
-## 代码示例
+| 分类 | 子类  | Tensorflow | MindSpore | 差异                                                         |
+| ---- | ----- | ---------- | --------- | ------------------------------------------------------------ |
+| 参数 | 参数1 | logits     | logits    | mindspore在实例化函数中接收此参数，功能无差异。              |
+|      | 参数2 | labels     | labels    | mindspore在实例化函数中接收此参数，功能无差异。              |
+|      | 参数3 | axis       | -         | tensorflow可指定`axis`参数指定‘类’所在的维度，mindspore无此参数。如`axis=-1`表示最后一个维度作为‘类’的维度。 |
+|      | 参数4 | name       | -         | mindspore无此参数。                                          |
+|      | 参数5 | -          | sparse    | mindspore实例化时可以接受`sparse`指定输入的`labels`是否为稀疏表示。 |
+|      | 参数6 | -          | reduction | mindspore可对输出结果进行规约。                              |
+
+## 差异分析与示例
+
+### 代码示例1
+
+> tensorflow该算子是函数式的，直接接受输入。mindspore中需要先实例化。
 
 ```python
-# The following implements SoftmaxCrossEntropyWithLogits with MindSpore.
-import numpy as np
+# tensorflow
 import tensorflow as tf
-import mindspore.nn as nn
-import mindspore as ms
+from tensorflow import nn
+logits = tf.constant([[4.0, 2.0, 1.0], [0.0, 5.0, 1.0]])
+labels = tf.constant([[1.0, 0.0, 0.0], [0.0, 0.8, 0.2]])
 
-loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='sum')
-logits = ms.Tensor(np.array([[3, 5, 6, 9], [42, 12, 32, 72]]), ms.float32)
-labels_np = np.array([1, 0]).astype(np.int32)
-labels = ms.Tensor(labels_np)
-output = loss(logits, labels)
-print(output)
-# Out：
-# 34.068203
+out = nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
+print(out.numpy())
+# [0.16984604 0.82474494]
 
+# mindspore
+import numpy as np
+import mindspore
+from mindspore import Tensor, nn
 
-# The following implements softmax_cross_entropy_with_logits with TensorFlow.
-logits = tf.constant([[3, 5, 6, 9], [42, 12, 32, 72]], dtype=tf.float32)
-labels = tf.constant([[0, 1, 0, 0], [1, 0, 0, 0]], dtype=tf.float32)
-output = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
-ss = tf.Session()
-ss.run(output)
-# out
-# array([ 4.068202, 30.  ], dtype=float32)
+logits = Tensor(np.array([[4.0, 2.0, 1.0], [0.0, 5.0, 1.0]]), mindspore.float32)
+labels = Tensor(np.array([[1.0, 0.0, 0.0], [0.0, 0.8, 0.2]]), mindspore.float32)
+
+loss = nn.SoftmaxCrossEntropyWithLogits()
+out = loss(logits, labels)
+print(out)
+# [0.16984606 0.82474494]
 ```
+
+### 代码示例2
+
+> tensorflow中可接受`axis`参数指定'类'所在维度。Mindspore默认最后一维，因为接受的`logits`的`shape`为`[batch_size, num_classes]`，mindspore可以通过交换`axis`实现相同的功能。
+
+```python
+# tensorflow
+import tensorflow as tf
+from tensorflow import nn
+logits = tf.constant([[4.0, 0.0],[2.0, 5.0],[1.0, 1.0]])
+labels = tf.constant([[1.0, 0.0],[0.0, 0.8],[0.0, 0.2]])
+out = nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits, axis=0)
+print(out.numpy())
+# [0.16984604 0.82474494]
+
+# MindSpore
+import numpy as np
+import mindspore
+from mindspore import Tensor, nn, ops
+
+logits_ = Tensor(np.array([[4.0, 0.0],[2.0, 5.0],[1.0, 1.0]]), mindspore.float32)
+labels_ = Tensor(np.array([[1.0, 0.0],[0.0, 0.8],[0.0, 0.2]]), mindspore.float32)
+transpose = ops.Transpose()
+logits = transpose(logits_, (1,0))
+labels = transpose(labels_, (1,0))
+loss = nn.SoftmaxCrossEntropyWithLogits()
+out = loss(logits, labels)
+print(out)
+# [0.16984606 0.82474494]
+```
+

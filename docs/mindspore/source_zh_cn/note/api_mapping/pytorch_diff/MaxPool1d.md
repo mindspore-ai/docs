@@ -1,87 +1,134 @@
 # 比较与torch.nn.MaxPool1d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-
 ## torch.nn.MaxPool1d
 
-```python
-torch.nn.MaxPool1d(
+```text
+class torch.nn.MaxPool1d(
     kernel_size,
     stride=None,
     padding=0,
     dilation=1,
     return_indices=False,
     ceil_mode=False
-)
+) -> Tensor
 ```
 
-更多内容详见[torch.nn.MaxPool1d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.MaxPool1d)。
+更多内容详见 [torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool1d.html)。
 
 ## mindspore.nn.MaxPool1d
 
-```python
+```text
 class mindspore.nn.MaxPool1d(
     kernel_size=1,
     stride=1,
-    pad_mode="valid"
-)
+    pad_mode='valid'
+) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MaxPool1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d)。
+更多内容详见 [mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：可以通过padding参数调整输出的shape。若输入的shape为 $ (N, C, L_{in}) $，则输出的shape为 $ (N, C, L_{out}) $，其中
+PyTorch：对时间数据进行最大池化运算。
 
-$$
-        L_{out} = \left\lfloor \frac{L_{in} + 2 \times \text{padding} - \text{dilation}
-                    \times (\text{kernel_size} - 1) - 1}{\text{stride}} + 1\right\rfloor
-$$
+MindSpore：MindSpore此API实现功能与PyTorch基本一致， 但参数设定上缺少padding，dilation，return_indices的功能。
 
-MindSpore：没有padding参数，仅通过pad_mode参数控制pad模式。若输入的shape为 $ (N, C, L_{in}) $，则输出的shape为 $ (N, C, L_{out}) $，其中
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | kernel_size | kernel_size |- |
+| | 参数2 | stride | stride | - |
+| | 参数3 | padding | - | 填充元素个数。默认值为0（不填充），值不能超过kernel_size/2（向下取值）。 |
+| | 参数4 | dilation | - | 窗口内元素间跨步长度：默认值为1，此时窗口内的元素是连续的。若值>1，窗口中的元素是间隔的。 |
+| | 参数5 | return_indices | - | 返回索引：若值为True，会在返回最大池化结果的同时返回对应元素的索引。对于后续调用torch.nn.MaxUnpool1d的时候很有用。 |
+| | 参数6 | ceil_mode | pad_mode | 功能一致,参数名不同 |
+| | 参数7 | input | x | 功能一致,参数名不同 |
 
-1. pad_mode为"valid"：
+### 代码示例1
 
-   $$
-        L_{out} = \left\lfloor \frac{L_{in} - (\text{kernel_size} - 1)}{\text{stride}}\right\rfloor
-   $$
-
-2. pad_mode为"same"：
-
-   $$
-        L_{out} = \left\lfloor \frac{L_{in}}{\text{stride}}\right\rfloor
-   $$
-
-## 代码示例
+> 构建一个卷积核大小为1x3，步长为1的池化层，padding默认为0，不进行元素填充。dilation的默认值为1，窗口中的元素是连续的。池化填充模式的默认值为valid,在不填充的前提下返回有效计算所得的输出。不满足计算的多余像素会被丢弃。在相同的参数设置下，两API实现相同的功能，对数据进行了最大池化运算。
 
 ```python
-import mindspore as ms
-import mindspore.nn as nn
+# PyTorch
 import torch
+from torch import tensor
 import numpy as np
+max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=1)
+x = tensor(np.random.randint(0, 10, [1, 2, 4]), dtype=torch.float32)
+output = max_pool(x)
+result = output.shape
+print(tuple(result))
+# (1, 2, 2)
 
-# In MindSpore, pad_mode="valid"
-pool = nn.MaxPool1d(kernel_size=3, stride=2, pad_mode="valid")
-input_x = ms.Tensor(np.random.randn(20, 16, 50).astype(np.float32))
-output = pool(input_x)
-print(output.shape)
-# Out：
-# (20, 16, 24)
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import numpy as np
+max_pool = mindspore.nn.MaxPool1d(kernel_size=3, stride=1)
+x = Tensor(np.random.randint(0, 10, [1, 2, 4]), mindspore.float32)
+output = max_pool(x)
+result = output.shape
+print(result)
+# (1, 2, 2)
+```
 
-# In MindSpore, pad_mode="same"
-pool = nn.MaxPool1d(kernel_size=3, stride=2, pad_mode="same")
-input_x = ms.Tensor(np.random.randn(20, 16, 50).astype(np.float32))
-output = pool(input_x)
-print(output.shape)
-# Out：
-# (20, 16, 25)
+### 代码示例2
 
+> ceil_mode=True和pad_mode='same'时，两API实现相同的功能。
 
-# In torch, padding=1
-m = torch.nn.MaxPool1d(3, stride=2, padding=1)
-input_x = torch.randn(20, 16, 50)
-output = m(input_x)
-print(output.shape)
-# Out：
-# torch.Size([20, 16, 25])
+```python
+# PyTorch
+import torch
+from torch import tensor
+import numpy as np
+max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=2, ceil_mode=True)
+x = torch.Tensor([[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]])
+output = max_pool(x)
+print(output.numpy())
+# [[ 3.,  5.,  7.,  9., 10.],
+#  [ 3.,  5.,  7.,  9., 10.]]
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import numpy as np
+max_pool = mindspore.nn.MaxPool1d(kernel_size=3, stride=2, pad_mode='same')
+x = Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]],mindspore.float32)
+output = max_pool(x)
+print(output)
+# [[[ 3.  5.  7.  9. 10.]
+#   [ 3.  5.  7.  9. 10.]]]
+```
+
+### 代码示例3
+
+> PyTorch中设置padding=1时，在MindSpore中将输入张量x的shape(1，2，10)中的的10换成PyTorch中padding的值，构造shape为(1，2，1)的负无穷张量，在原输入张量x的两侧通过concat函数在axis=2进行拼接，用新的x张量计算最大池化的结果，使两API实现相同的功能。
+
+```python
+# PyTorch
+import torch
+max_pool = torch.nn.MaxPool1d(kernel_size=4, stride=2, padding=1)
+x = torch.Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]])
+output = max_pool(x)
+result = output.shape
+print(output.numpy())
+print(tuple(result))
+# [[[ 3.,  5.,  7.,  9., 10.],
+#   [ 3.,  5.,  7.,  9., 10.]]]
+# (1, 2, 5)
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import mindspore.ops as ops
+max_pool = mindspore.nn.MaxPool1d(kernel_size=4, stride=2)
+x = Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]], mindspore.float32)
+pad = ops.Pad(((0,0),(0,0),(1,1)))
+data = pad(Tensor(x))
+output = max_pool(data)
+result = output.shape
+print(output)
+print(result)
+# [[[ 3.  5.  7.  9. 10.]
+#   [ 3.  5.  7.  9. 10.]]]
+# (1, 2, 5)
 ```
