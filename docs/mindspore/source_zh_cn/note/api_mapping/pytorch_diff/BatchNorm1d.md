@@ -1,72 +1,81 @@
 # 比较与torch.nn.BatchNorm1d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BatchNorm1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-
 ## torch.nn.BatchNorm1d
 
-```python
+```text
 class torch.nn.BatchNorm1d(
     num_features,
     eps=1e-05,
     momentum=0.1,
     affine=True,
     track_running_stats=True
-)
+)(input) -> Tensor
 ```
 
-更多内容详见[torch.nn.BatchNorm1d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.BatchNorm1d)。
+更多内容详见 [torch.nn.BatchNorm1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm1d.html)。
 
 ## mindspore.nn.BatchNorm1d
 
-```python
+```text
 class mindspore.nn.BatchNorm1d(
     num_features,
-    eps=1e-05,
+    eps=1e-5,
     momentum=0.9,
     affine=True,
-    gamma_init="ones",
-    beta_init="zeros",
-    moving_mean_init="zeros",
-    moving_var_init="ones",
-    use_batch_statistics=None)
-)
+    gamma_init='ones',
+    beta_init='zeros',
+    moving_mean_init='zeros',
+    moving_var_init='ones',
+    use_batch_statistics=None
+)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html#mindspore.nn.BatchNorm1d)。
+更多内容详见 [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：用于running_mean和running_var计算的momentum参数的默认值为0.1。
+PyTorch：对输入的二维或三维数据进行批归一化。
 
-MindSpore：momentum参数的默认值为0.9，与Pytorch的momentum关系为1-momentum，即当Pytorch的momentum值为0.2时，MindSpore的momemtum应为0.8。其中，beta、gamma、moving_mean和moving_variance参数分别对应Pytorch的bias、weight、running_mean和running_var参数。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，对于momentum参数默认值为0.9，与Pytorch的momentum关系为1-momentum。
 
-## 代码示例
+| 分类 | 子类   | PyTorch             | MindSpore            | 差异                                                         |
+| ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
+| 参数 | 参数1  | num_features        | num_features         | -                                                            |
+|      | 参数2  | eps                 | eps                  | -                                                            |
+|      | 参数3  | momentum            | momentum             | 功能一致，但PyTorch里的默认值是0.1，MindSpore里是0.9         |
+|      | 参数4  | affine              | affine               | -                                                            |
+|      | 参数5  | Input               | x                    | 功能一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
+|      | 参数6  | -                   | gamma_init           |    PyTorch无此参数，MindSpore可以初始化参数gamma的值    |
+|      | 参数7  | -                   | beta_init            |    PyTorch无此参数，MindSpore可以初始化参数beta的值     |
+|      | 参数8  | -                   | moving_mean_init     |    PyTorch无此参数，MindSpore可以初始化参数moving_mean的值    |
+|      | 参数9  | -                   | moving_var_init      |    PyTorch无此参数，MindSpore可以初始化参数moving_var的值     |
+|      | 参数10 | -                   | use_batch_statistics |    PyTorch无此参数，MindSpore里如果为True，则使用当前批次数据的平均值和方差值      |
 
-```python
-# The following implements BatchNorm1d with MindSpore.
-import numpy as np
+### 代码示例
+
+> 两API实现功能一致，用法相同。
+
+```PyThon
+# pytorch
 import torch
+import numpy as np
+from torch import nn, tensor
+m = nn.BatchNorm1d(4, affine=False, momentum=0.1)
+input = tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
+output = m(input)
+print(output.detach().numpy())
+# [[ 0.9995001   0.9980063  -0.998006   -0.99977785]
+#  [-0.9995007  -0.9980057   0.998006    0.99977785]]
+
+# MindSpore
+import numpy as np
 import mindspore.nn as nn
-import mindspore as ms
-
-net = nn.BatchNorm1d(num_features=4, momentum=0.8)
-x = ms.Tensor(np.array([[0.7, 0.5, 0.5, 0.6],
-                        [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
-output = net(x)
-print(output)
-# Out:
-# [[ 0.6999965   0.4999975  0.4999975  0.59999704 ]
-#  [ 0.4999975   0.399998   0.59999704 0.89999545 ]]
-
-
-# The following implements BatchNorm1d with torch.
-input_x = torch.tensor(np.array([[0.7, 0.5, 0.5, 0.6],
-                                 [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
-m = torch.nn.BatchNorm1d(4, momentum=0.2)
-output = m(input_x)
-print(output)
-# Out:
-# tensor([[ 0.9995,  0.9980, -0.9980, -0.9998],
-#         [-0.9995, -0.9980,  0.9980,  0.9998]],
-#        grad_fn=<NativeBatchNormBackward>)
+from mindspore import Tensor
+net = nn.BatchNorm1d(num_features=4, affine=False, momentum=0.9)
+net.set_train()
+input = Tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
+output = net(input)
+print(output.asnumpy())
+# [[ 0.9995001  0.9980063 -0.998006  -0.9997778]
+#  [-0.9995007 -0.9980057  0.998006   0.9997778]]
 ```

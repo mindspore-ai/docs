@@ -1,22 +1,20 @@
 # 比较与torch.nn.Linear的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Dense.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-
 ## torch.nn.Linear
 
-```python
-torch.nn.Linear(
+```text
+class torch.nn.Linear(
     in_features,
     out_features,
     bias=True
-)
+)(x) -> Tensor
 ```
 
-更多内容详见[torch.nn.Linear](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Linear)。
+更多内容详见 [torch.nn.Linear](https://pytorch.org/docs/1.8.1/generated/torch.nn.Linear.html)。
 
 ## mindspore.nn.Dense
 
-```python
+```text
 class mindspore.nn.Dense(
     in_channels,
     out_channels,
@@ -24,41 +22,50 @@ class mindspore.nn.Dense(
     bias_init='zeros',
     has_bias=True,
     activation=None
-)(input)
+)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Dense](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense)。
+更多内容详见 [mindspore.nn.Dense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html)。
 
-## 使用方式
+## 差异对比
 
-Pytorch：对传入数据应用线性变换，默认权重矩阵和偏移矩阵都由均匀分布初始化。
+Pytorch: 全连接层，实现矩阵相乘的运算。
 
-MindSpore：对传入数据应用线性变换，在输出数据之前可以选择应用激活函数`activation`，默认权重矩阵由标准正态分布初始化，偏移矩阵初始化为0。
+MindSpore: MindSpore此API实现功能与Pytorch基本一致，而且可以在全连接层后添加激活函数。
 
-## 代码示例
+| 分类 | 子类  | Pytorch      | MindSpore    | 差异                         |
+| ---- | ----- | ------------ | ------------ | ---------------------------- |
+| 参数 | 参数1 | in_features  | in_channels  | -                            |
+|      | 参数2 | out_features | out_channels | -                            |
+|      | 参数3 | bias         | has_bias     | 参数名称不同，功能一致       |
+|      | 参数4 | -             | weight_init  | 权重参数的初始化方法         |
+|      | 参数5 | -             | bias_init    | 偏置参数的初始化方法         |
+|      | 参数6 | -             | activation   | 应用于全连接层输出的激活函数 |
+
+### 代码示例
+
+> 两API实现功能一致，用法相同。
 
 ```python
-import mindspore as ms
-from mindspore import nn
+# PyTorch
 import torch
+from torch import nn
 import numpy as np
 
-# In MindSpore, default weight will be initialized through standard normal distribution.
-# Default bias will be initialized by zero.
-# Default none activation used.
-input_net = ms.Tensor(np.array([[180, 234, 154], [244, 48, 247]]), ms.float32)
-net = nn.Dense(3, 4)
-output = net(input_net)
-print(output.shape)
-# Out：
+net = nn.Linear(3, 4)
+x = torch.tensor(np.array([[180, 234, 154], [244, 48, 247]]),dtype=torch.float)
+output = net(x)
+print(output.detach().numpy().shape)
 # (2, 4)
 
-# In torch, default weight and bias will be initialized through uniform distribution.
-# No parameter to set the activation.
-input_net = torch.Tensor(np.array([[180, 234, 154], [244, 48, 247]]))
-net = torch.nn.Linear(3, 4)
-output = net(input_net)
+# MindSpore
+import mindspore
+from mindspore import Tensor, nn
+import numpy as np
+
+x = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
+net = nn.Dense(3, 4, activation=nn.ReLU())
+output = net(x)
 print(output.shape)
-# Out：
-# torch.Size([2, 4])
+# (2, 4)
 ```
