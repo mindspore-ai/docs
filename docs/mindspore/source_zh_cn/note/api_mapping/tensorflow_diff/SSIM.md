@@ -56,8 +56,8 @@ MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回
 # tensorflow
 import numpy as np
 import tensorflow as tf
-img1 = Tensor(np.ones([1, 3, 16, 16]).astype(np.float32))
-img2 = Tensor(np.ones([1, 3, 16, 16]).astype(np.float32))
+img1 = tf.ones([1, 16, 16, 3])
+img2 = tf.ones([1, 16, 16, 3])
 output = tf.image.ssim(img1, img2, max_val=1.0)
 print(output.numpy())
 # [1.]
@@ -100,14 +100,11 @@ img2 = np.random.randint(0, 2, (2, 5, 5, 5)).astype(np.float32)
 img1_t = Tensor(img1)
 img2_t = Tensor(img2)
 net = nn.SSIM(filter_size=3)
-output_m = net(img1_t, img2_t)
-print(output_m)
-# [ 0.05720977 -0.1709766 ]
 transpose = ops.Transpose()
 trans_term = (0, 3, 1, 2)
 img1_trans = transpose(img1_t, trans_term)
 img2_trans = transpose(img2_t, trans_term)
-output_m = net(img1_t, img2_t)
+output_m = net(img1_trans, img2_trans)
 print(output_m)
 # [-0.00746753 -0.09539266]
 ```
