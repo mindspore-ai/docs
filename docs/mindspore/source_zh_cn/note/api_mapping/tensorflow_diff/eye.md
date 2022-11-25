@@ -34,7 +34,7 @@ MindSpore：列数和数据类型不可缺省，功能上无差异。
 | ---- | ----- | ----------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | num_rows    | n         | 功能一致， 参数名不同                                        |
 |      | 参数2 | num_columns | m         | 指定张量的列数。TensorFlow中是可选的，如果没有该参数，那么返回一个列数和行数相同的张量；MindSpore中是必须的 |
-|      | 参数3 | batch_shape | 无        | 使输出具有指定的形状，MindSpore无此参数。如`batch_shape=[3]` |
+|      | 参数3 | batch_shape | -       | 使输出具有指定的形状，MindSpore无此参数。如`batch_shape=[3]` |
 |      | 参数4 | dtype       | t         | 名称不同，Tensorflow中是可选的，如果没有默认为`tf.dtypes.float32`；MindSpore中是必须的 |
 |      | 参数5 | name       | -        | 不涉及 |
 
