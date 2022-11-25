@@ -86,12 +86,12 @@ After obtaining the reference code, you need to reproduce the accuracy of the re
 
 ## Analyzing API Compliance
 
-The API missing analysis here refers to APIs in the network execution diagram, including MindSpore [operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) and advanced encapsulated APIs, and excluding the APIs used in data processing. You are advised to use third-party APIs, such as NumPy, OpenCV, Pandas, and PIL, to replace APIs used in data processing.
+The API missing analysis here refers to APIs in the network execution diagram, including MindSpore [operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) and advanced encapsulated APIs, and excluding the APIs used in data processing. You are advised to use third-party APIs, such as NumPy, OpenCV, Pandas, and PIL, to replace APIs used in data processing.
 
 ### Querying the API Mapping Table
 
 Take the PyTorch code migration as an example. After obtaining the reference code implementation, you can filter keywords such as `torch`, `nn`, and `ops` to obtain the used APIs. If the method of another repository is invoked, you need to manually analyze the API. Then, check the [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
-Alternatively, the [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) searches for the corresponding API implementation.
+Alternatively, the [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) searches for the corresponding API implementation.
 
 Generally the training process of a network contains forward calculation, backward gradient calculation and parameter update. In some special scenarios, another gradient calculation is needed for the gradient, such as [Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf), and this kind of scenario uses the second order gradient calculation. For scenarios where second-order gradient calculations are used in the network requires additional analysis of the second-order support of the APIs, the derivative links of the network need to be analyzed by code walk-through, and all APIs within the second-order derivative links need to support second order. The second-order support case can be viewed in [MindSpore gradient section source code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad) to see if its first-order Grad has a corresponding of the bprop function definition.
 

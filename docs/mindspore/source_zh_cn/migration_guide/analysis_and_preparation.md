@@ -86,12 +86,12 @@
 
 ## 分析API满足度
 
-这里分析的API缺失专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
+这里分析的API缺失专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
 
 ### 查询API映射表
 
 以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
-或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html) 查找对应的API实现。
+或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html) 查找对应的API实现。
 
 一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad)中查看其一阶Grad是否存在对应的bprop函数定义。
 如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
