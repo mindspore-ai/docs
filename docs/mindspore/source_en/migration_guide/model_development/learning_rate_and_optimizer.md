@@ -12,7 +12,33 @@ MindSpore optimizer supports some special operations, such as different learning
 
 ```python
 from mindspore import nn
-from mindvision.classification.models import resnet50
+
+# Define model
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = nn.SequentialCell([
+            nn.Conv2d(3, 12, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(12),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.layer2 = nn.SequentialCell([
+            nn.Conv2d(12, 4, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.pool = nn.AdaptiveMaxPool2d((5, 5))
+        self.fc = nn.Dense(100, 10)
+
+    def construct(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.pool(x)
+        x = x.view((-1, 100))
+        out = nn.Dense(x)
+        return out
 
 def params_not_in(param, param_list):
     # Use the Parameter id to determine if param is not in the param_list
@@ -22,10 +48,10 @@ def params_not_in(param, param_list):
             return False
     return True
 
-resnet = resnet50(pretrained=False)
-trainable_param = resnet.trainable_params()
+net = Network()
+trainable_param = net.trainable_params()
 conv_weight, bn_weight, dense_weight = [], [], []
-for _, cell in resnet.cells_and_names():
+for _, cell in net.cells_and_names():
     # Determine what the API is and add the corresponding parameters to the different lists
     if isinstance(cell, nn.Conv2d):
         conv_weight.append(cell.weight)
