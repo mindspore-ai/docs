@@ -5,7 +5,7 @@
 ## torch.nn.Unfold
 
 ```text
-torch.nn.Unfold(kernel_size, dilation=1, padding=0, stride=1) -> Tensor
+torch.nn.Unfold(kernel_size, stride=1, padding=0, dilation=1)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html)。
