@@ -51,8 +51,8 @@ from torch import tensor
 input = tensor([0.1, 0.2, 0.3], requires_grad=True)
 target = tensor([1., 1., 1.])
 loss = F.binary_cross_entropy(input, target)
-print(loss)
-# 1.7053
+print(loss.detach().numpy())
+# 1.7053319
 
 # MindSpore
 import mindspore

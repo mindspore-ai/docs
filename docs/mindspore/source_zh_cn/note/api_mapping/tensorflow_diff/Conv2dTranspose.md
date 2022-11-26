@@ -72,7 +72,7 @@ x = tf.convert_to_tensor(x_, dtype=tf.float32)
 f = np.ones((k,k,64,3), dtype=np.float32)
 output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,19,53,64], strides=1, padding=[[0, 0], [0,0], [0, 0], [0, 0]])
 print(tf.transpose(output,[0,3,1,2]).shape)
-## (1, 19, 53, 64)
+# (1, 19, 53, 64)
 
 
 # MindSpore
@@ -86,7 +86,7 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv2dTranspose(3, 64, kernel_size=k, weight_init='normal', pad_mode='pad')
 output = net(x)
 print(output.shape)
-## (1, 64, 19, 53)
+# (1, 64, 19, 53)
 ```
 
 ### 代码示例2
@@ -104,7 +104,7 @@ x = tf.convert_to_tensor(x_, dtype=tf.float32)
 f = np.ones((k,k,64,3), dtype=np.float32)
 output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,16,50, 64], strides=1, padding="SAME")
 print(tf.transpose(output,[0,3,1,2]).shape)
-## (1, 16, 50, 64)
+# (1, 16, 50, 64)
 
 
 # MindSpore
@@ -118,7 +118,7 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv2dTranspose(3, 64, kernel_size=k, stride=1, weight_init='normal', pad_mode='same', padding=0)
 output = net(x)
 print(output.shape)
-## (1, 64, 16, 50)
+# (1, 64, 16, 50)
 ```
 
 ### 代码示例3
@@ -137,7 +137,7 @@ x = tf.convert_to_tensor(x_, dtype=tf.float32)
 f = np.ones((k,k,64,3), dtype=np.float32)
 output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,50,152, 64], strides=s, padding="VALID")
 print(tf.transpose(output,[0,3,1,2]).shape)
-## (1, 50, 152, 64)
+# (1, 50, 152, 64)
 
 
 # MindSpore
@@ -152,5 +152,5 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv2dTranspose(3, 64, kernel_size=k, stride=s, weight_init='normal', pad_mode='valid', padding=0)
 output = net(x)
 print(output.shape)
-## (1, 64, 50, 152)
+# (1, 64, 50, 152)
 ```

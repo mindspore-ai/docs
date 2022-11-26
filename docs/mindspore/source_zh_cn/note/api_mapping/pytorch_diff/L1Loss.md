@@ -32,7 +32,7 @@ MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相�
 
 > 两API功能一致，用法相同。
 
-~~~ python
+```python
 # PyTorch
 import torch
 import torch.nn as nn
@@ -56,4 +56,4 @@ labels = Tensor(np.array([1, 2, 2]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
 # 0.6666667
-~~~
+```

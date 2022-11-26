@@ -31,7 +31,7 @@ MindSpore:MindSpore此API实现功能与PyTorch基本一致。
 
 > 两API功能一致，用法相同。
 
-~~~ python
+```python
 # PyTorch
 import torch
 import torch.nn as nn
@@ -53,7 +53,7 @@ input_x = Tensor(np.array([[ 0.5,  1,  2.0], [0.0533,0.0776,-2.1233]]), mindspor
 hshrink = nn.HShrink()
 output = hshrink(input_x)
 print(output)
-#[[ 0.      1.      2.    ]
-# [ 0.      0.     -2.1233]]
-~~~
+# [[ 0.      1.      2.    ]
+#  [ 0.      0.     -2.1233]]
+```
 

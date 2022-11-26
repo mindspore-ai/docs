@@ -40,18 +40,19 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致， 仅参数名不同
 #TensorFlow
 import tensorflow as tf
 import numpy as np
-y=tf.constant(10*np.random.random(size=(2,3,4,4)))
+y=tf.constant(10*np.random.random(size=(2,3,4,4)), dtype=tf.float16)
 out=tf.nn.avg_pool2d(input=y,ksize=3,strides=1,padding='SAME')
 print(out.shape)
-#(2, 3, 4, 4)
+# (2, 3, 4, 4)
 
 #MindSpore
+import mindspore
 import mindspore.nn as nn
 import numpy as np
 from mindspore import Tensor
 pool = nn.AvgPool2d(kernel_size=3, stride=1,pad_mode='SAME')
-x = Tensor(10*np.random.random(size=(2,3,4,4)))
+x = Tensor(10*np.random.random(size=(2,3,4,4)), dtype=mindspore.float16)
 output = pool(x)
 print(output.shape)
-#(2, 3, 4, 4)
+# (2, 3, 4, 4)
 ```

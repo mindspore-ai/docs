@@ -41,7 +41,7 @@ MindSpore:功能一致，仅参数名不同
 
 > 两API实现功能一致， 用法相同。
 
-~~~ python
+```python
 # PyTorch
 import torch
 import torch.nn as nn
@@ -64,4 +64,4 @@ h0 = Tensor(np.ones([1 * 2, 3, 16]).astype(np.float32))
 output, hn = net(x, h0)
 print(output.shape)
 # (3, 5, 16)
-~~~
+```
