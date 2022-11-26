@@ -16,6 +16,9 @@
 - 主机队列Size可以推断出数据处理和发送速度，如果主机队列Size为0，表示数据处理速度慢而数据发送速度快，需要加快数据处理。
 - 如果主机队列Size一直较大，而数据队列的Size持续很小，则数据发送有可能存在性能瓶颈。
 
+.. note::
+   队列Size是取数据的时候记录的值，获取主机队列和数据队列数据是都异步执行，因此主机队列step数、数据队列step数、用户训练的step数都可能不一样。
+
 .. figure:: ./images/data_op_profile.png
    :alt: data_op_profile.png
 
