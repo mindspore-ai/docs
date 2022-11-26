@@ -34,6 +34,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，仅参数名�
 ```python
 # TensorFlow
 import tensorflow as tf
+
 features = tf.constant([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]],dtype=tf.float32)
 output = tf.nn.leaky_relu(features).numpy()
 print(output)
@@ -44,6 +45,7 @@ print(output)
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+
 x = Tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]]).astype('float32')
 m = nn.LeakyReLU()
 output = m(x)

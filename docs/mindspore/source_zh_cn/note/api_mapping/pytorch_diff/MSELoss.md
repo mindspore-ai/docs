@@ -86,7 +86,7 @@ target_ = np.array([1,2,2,1]).reshape((2,2))
 target = tensor(target_, dtype=torch.float32)
 output = loss(input, target)
 print(output.numpy())
-# 2
+# 2.0
 
 
 # MindSpore
@@ -102,5 +102,5 @@ target_ = np.array([1,2,2,1]).reshape((2,2))
 target = Tensor(target_, dtype=mindspore.float32)
 output = loss(input, target)
 print(output)
-# 2
+# 2.0
 ```

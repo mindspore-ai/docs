@@ -43,7 +43,7 @@ out = m(x)
 output = out.detach().numpy()
 print(output)
 # [[ 0.1   -0.15 ]
-#    [-0.225  0.9  ]]
+#  [-0.225  0.9  ]]
 
 # MindSpore
 import mindspore
@@ -55,7 +55,7 @@ prelu = nn.PReLU()
 output = prelu(x)
 print(output)
 # [[ 0.1   -0.15 ]
-#    [-0.225  0.9  ]]
+#  [-0.225  0.9  ]]
 ```
 
 ### 代码示例2
@@ -74,7 +74,7 @@ out = m(x)
 output = out.detach().numpy()
 print(output)
 # [[ 0.1  -0.3 ]
-#    [-0.25  0.9 ]]
+#  [-0.25  0.9 ]]
 
 # MindSpore
 import mindspore
@@ -86,5 +86,5 @@ prelu = nn.PReLU(channel=1, w=0.5)
 output = prelu(x)
 print(output)
 # [[ 0.1  -0.3 ]
-#    [-0.25  0.9 ]]
+#  [-0.25  0.9 ]]
 ```

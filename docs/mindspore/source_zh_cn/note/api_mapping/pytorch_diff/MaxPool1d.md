@@ -79,18 +79,16 @@ print(result)
 # PyTorch
 import torch
 from torch import tensor
-import numpy as np
 max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.Tensor([[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]])
+x = torch.Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]])
 output = max_pool(x)
 print(output.numpy())
-# [[ 3.,  5.,  7.,  9., 10.],
-#  [ 3.,  5.,  7.,  9., 10.]]
+# [[[ 3.  5.  7.  9. 10.]
+#   [ 3.  5.  7.  9. 10.]]]
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
-import numpy as np
 max_pool = mindspore.nn.MaxPool1d(kernel_size=3, stride=2, pad_mode='same')
 x = Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]],mindspore.float32)
 output = max_pool(x)
@@ -111,9 +109,9 @@ x = torch.Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]])
 output = max_pool(x)
 result = output.shape
 print(output.numpy())
+# [[[ 3.  5.  7.  9. 10.]
+#   [ 3.  5.  7.  9. 10.]]]
 print(tuple(result))
-# [[[ 3.,  5.,  7.,  9., 10.],
-#   [ 3.,  5.,  7.,  9., 10.]]]
 # (1, 2, 5)
 
 # MindSpore
@@ -127,8 +125,8 @@ data = pad(Tensor(x))
 output = max_pool(data)
 result = output.shape
 print(output)
-print(result)
 # [[[ 3.  5.  7.  9. 10.]
 #   [ 3.  5.  7.  9. 10.]]]
+print(result)
 # (1, 2, 5)
 ```
