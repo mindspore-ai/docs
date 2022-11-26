@@ -63,6 +63,8 @@ MindSpore：TensorFlow的此API中各参数均为默认时，MindSpore此API实�
 
 ```python
 # TensorFlow
+import tensorflow as tf
+
 inputs = tf.ones([20, 5, 10, 10])
 layer = tf.keras.layers.LayerNormalization(axis=-1)
 output = layer(inputs)
@@ -74,6 +76,7 @@ import mindspore
 from mindspore import Tensor
 import mindspore.numpy as np
 import mindspore.nn as nn
+
 x = Tensor(np.ones([20, 5, 10, 10]), mindspore.float32)
 shape1 = x.shape[1:]
 m = nn.LayerNorm(shape1,  begin_norm_axis=1, begin_params_axis=1)

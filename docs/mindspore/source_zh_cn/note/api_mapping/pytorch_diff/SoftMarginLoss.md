@@ -42,7 +42,7 @@ logits = torch.FloatTensor([[0.3, 0.7], [0.5, 0.5]])
 labels = torch.FloatTensor([[-1, 1], [1, -1]])
 output = torch.nn.functional.soft_margin_loss(logits, labels)
 print(output.numpy())
-#0.6764238
+# 0.6764238
 
 # MindSpore
 import mindspore
@@ -54,7 +54,7 @@ logits = Tensor(np.array([[0.3, 0.7], [0.5, 0.5]]), mindspore.float32)
 labels = Tensor(np.array([[-1, 1], [1, -1]]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
-#0.6724238
+# 0.6764238
 ```
 
 ### 代码示例2
@@ -71,7 +71,7 @@ logits = torch.FloatTensor([1,1,1,1])
 labels = torch.FloatTensor([2,2,2,2])
 output = torch.nn.functional.soft_margin_loss(logits, labels)
 print(output.numpy())
-#0.12692805
+# 0.12692805
 
 # MindSpore
 import mindspore
@@ -83,5 +83,5 @@ logits = Tensor(np.array([1,1,1,1]), mindspore.float32)
 labels = Tensor(np.array([2,2,2,2]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
-#0.12692805
+# 0.12692805
 ```

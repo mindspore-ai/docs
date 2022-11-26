@@ -98,9 +98,9 @@ epoch = 3
 output = forward_tensorflow_impl(input_np, label_np_onehot, output_channels, weight_np, bias_np, epoch, locking=False,
                             lr=0.1, momentum=0.0, use_nesterov=False, dtype=np.float32)
 print(output)
-# [[0.28360397 0.5487785  0.7275395 ]
-#  [0.46028167 1.0303712  1.4192691 ]
-#  [0.63687164 1.5118371  2.110847  ]]
+# [[0.28361297 0.5488669 0.72752017]
+#  [0.4602843 1.0305372 1.4191785 ]
+#  [0.6369556 1.5122076 2.1108367 ]]
 
 # MindSpore
 import numpy as np
@@ -149,7 +149,7 @@ epoch = 3
 out = forward_mindspore_impl(input_np, weight_np, label_np_onehot, has_bias, bias_np, input_channels, output_channels,
                            epoch, learning_rate=0.1, weight_decay=0.0, momentum=0.0, loss_scale=1.0, use_nesterov=False)
 print(out)
-# [[0.28361297 0.5488669  0.72752017]
-#  [0.4602843  1.0305372  1.4191784 ]
-#  [0.6369556  1.5122077  2.1108367 ]]
+# [[0.28361297 0.5488669 0.72752017]
+#  [0.4602843 1.0305372 1.4191784 ]
+#  [0.6369556 1.5122076 2.1108367 ]]
 ```

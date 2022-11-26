@@ -85,17 +85,17 @@ import numpy as np
 max_pool = torch.nn.MaxPool2d(kernel_size=3, stride=2, ceil_mode=True)
 x = torch.Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]])
 print(x.dtype)
+# torch.float32
 output = max_pool(x)
 print(output.numpy())
-# torch.float32
-# [[[[ 3.,  5.,  7.,  9., 10.]]]]
+# [[[[ 3.  5.  7.  9. 10.]]]]
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
 import numpy as np
 max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')
-x = Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]],mindspore.float32)
+x = Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]], mindspore.float32)
 output = max_pool(x)
 print(output)
 # [[[[ 3.  5.  7.  9. 10.]]]]
