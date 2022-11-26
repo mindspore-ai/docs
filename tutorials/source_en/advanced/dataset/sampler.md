@@ -224,15 +224,19 @@ According to the preceding result, the dataset is divided into four slices, and 
 
 ## Customized Sampler
 
+Users can define a sampler and apply it to a dataset.
+
+### \_\_iter\_\_ mode
+
 Users can inherit the `Sampler` base class and customize the sampling mode of the sampler by implementing the `__iter__` method.
 
 The following example defines a sampler with an interval of 2 samples from subscript 0 to subscript 9, takes the sampler as the customized dataset, and displays the read data.
 
 ```python
-from mindspore.dataset import Sampler, IterSampler
+import mindspore.dataset as ds
 
 # Customize a sampler.
-class MySampler(Sampler):
+class MySampler(ds.Sampler):
     def __iter__(self):
         for i in range(0, 10, 2):
             yield i
@@ -241,8 +245,7 @@ class MySampler(Sampler):
 np_data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
 
 # Load data.
-sampler = IterSampler(sampler=MySampler())
-dataset = NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler)
+dataset = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=MySampler())
 for data in dataset.create_tuple_iterator(output_numpy=True):
     print(data[0], end=' ')
 ```
@@ -252,3 +255,35 @@ for data in dataset.create_tuple_iterator(output_numpy=True):
 ```
 
 According to the preceding information, the customized sampler reads the sample data whose subscripts are 0, 2, 4, 6, and 8, which is the same as the sampling purpose of the customized sampler.
+
+### \_\_getitem\_\_ mode
+
+Users can define a sampler class, which contains `__init__`, `__getitem__` and `__len__` methods.
+
+The following example defines a sampler with index ids `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` which will be applied to a custom dataset and display the read data.
+
+```python
+import mindspore.dataset as ds
+
+class MySampler():
+    def __init__(self):
+        self.index_ids = [3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]
+    def __getitem__(self, index):
+        return self.index_ids[index]
+    def __len__(self):
+        return len(self.index_ids)
+
+# Customize a dataset.
+np_data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
+
+# Load data.
+dataset = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=MySampler())
+for data in dataset.create_tuple_iterator(output_numpy=True):
+    print(data[0], end=' ')
+```
+
+```text
+    d e d c a l f f f j b l l l l i
+```
+
+According to the preceding information, the customized sampler reads the sample data which index is `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` , which is the same as the sampling purpose of the customized sampler.
