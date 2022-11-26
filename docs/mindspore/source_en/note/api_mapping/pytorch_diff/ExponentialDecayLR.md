@@ -63,7 +63,7 @@ MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is :math:`
 
 MindSpore (mindspore.nn.ExponentialDecayLR): The calculating method is :math:`lr * decay\_rate^{p}`. `ExponentialDecayLR` is passed in the optimizer for training in the way of the computational graph.
 
-| Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
+| Categories | Subcategories  | PyTorch | MindSpore | Differences                |
 | ---- | ----- | ------- | --------- | -------------------- |
 | Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
 |      | Parameter 2 | gamma |   decay_rate   | Parameter of decay learning rate, same function, different Parameter name |
@@ -88,7 +88,6 @@ step_per_epoch = 2
 decay_epoch = 1
 output = nn.exponential_decay_lr(learning_rate, decay_rate, total_step, step_per_epoch, decay_epoch)
 print(output)
-# out
 # [0.1, 0.1, 0.09000000000000001, 0.09000000000000001, 0.08100000000000002, 0.08100000000000002]
 
 # In MindSpore：ExponentialDecayLR
@@ -99,7 +98,6 @@ global_step = ms.Tensor(2, ms.int32)
 exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 result = exponential_decay_lr(global_step)
 print(result)
-#  out
 # 0.09486833
 
 # In torch:

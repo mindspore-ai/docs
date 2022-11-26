@@ -42,15 +42,7 @@ MindSpore：与PyTorch实现同样的功能
 
 ### 代码示例1
 
-> 两API实现功能相同，给定两个Tensor，x1和x2，以及一个Tensor标签y，值为1或-1，使用方法相同
-
-公式如下：
-
-```text
-loss(x1,x2,y)={  1−cos(x1,x2),              if y=1
-
-                 max(0,cos(x1,x2)−margin),  if y=−1 }
-```
+> 两API实现功能相同，给定两个Tensor，x1和x2，以及一个Tensor标签y，值为1或-1，使用方法相同。
 
 ```python
 # PyTorch
@@ -64,7 +56,7 @@ labels = tensor(np.array([1, -1]))
 cosine_embedding_loss = nn.CosineEmbeddingLoss()
 output = cosine_embedding_loss(logits_x1, logits_x2, labels)
 print(output.detach().numpy())
-#0.00034258311711488076
+# 0.00034258311711488076
 
 # MindSpore
 import mindspore
@@ -77,5 +69,5 @@ labels = Tensor(np.array([1, -1]), mindspore.int32)
 cosine_embedding_loss = nn.CosineEmbeddingLoss()
 output = cosine_embedding_loss(logits_x1, logits_x2, labels)
 print(output)
-#0.0003425479
+# 0.0003425479
 ```

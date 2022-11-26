@@ -79,15 +79,15 @@ net = nn.ConvTranspose1d(3, 64, kernel_size=k, stride=1, padding=0, output_paddi
 net.weight.data = torch.ones(3, 64, k)
 output = net(x).detach().numpy()
 print(output.shape)
+# (1, 64, 53)
 print(output)
-## (1, 64, 53)
-#[[[3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  ...
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]]]
+# [[[3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   ...
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]]]
 
 
 # MindSpore
@@ -101,15 +101,15 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv1dTranspose(3, 64, kernel_size=k, weight_init='ones', pad_mode='pad')
 output = net(x)
 print(output.shape)
+# (1, 64, 53)
 print(output)
-## (1, 64, 53)
-#[[[3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  ...
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]
-#  [3. 6. 9. ... 9. 6. 3.]]]
+# [[[3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   ...
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]
+#   [3. 6. 9. ... 9. 6. 3.]]]
 ```
 
 ### 代码示例2
@@ -168,7 +168,7 @@ net = nn.ConvTranspose1d(3, 64, kernel_size=k, stride=s, padding=0, output_paddi
 net.weight.data = torch.ones(3, 64, k)
 output = net(x).detach().numpy()
 print(output.shape)
-## (1, 64, 152)
+# (1, 64, 152)
 
 
 # MindSpore
@@ -183,5 +183,5 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv1dTranspose(3, 64, kernel_size=k, stride=s, weight_init='ones', pad_mode='valid', padding=0)
 output = net(x)
 print(output.shape)
-## (1, 64, 152)
+# (1, 64, 152)
 ```

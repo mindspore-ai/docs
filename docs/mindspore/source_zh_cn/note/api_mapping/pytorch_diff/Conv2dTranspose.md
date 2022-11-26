@@ -81,8 +81,8 @@ net = nn.ConvTranspose2d(3, 64, kernel_size=k, stride=1, padding=(2,4), output_p
 net.weight.data = torch.ones(3, 64, k, k)
 output = net(x).detach().numpy()
 print(output.shape)
+# (1, 64, 15, 45)
 print(output)
-## (1, 64, 15, 45)
 # [[[[36. 36. 36. ... 36. 36. 36.]
 #   [48. 48. 48. ... 48. 48. 48.]
 #   [48. 48. 48. ... 48. 48. 48.]
@@ -90,7 +90,6 @@ print(output)
 #   [48. 48. 48. ... 48. 48. 48.]
 #   [48. 48. 48. ... 48. 48. 48.]
 #   [36. 36. 36. ... 36. 36. 36.]]]]
-
 
 # MindSpore
 import mindspore as ms
@@ -103,8 +102,8 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv2dTranspose(3, 64, kernel_size=k, weight_init='ones', pad_mode='pad',padding=(2,2,4,4))
 output = net(x)
 print(output.shape)
+# (1, 64, 15, 45)
 print(output)
-## (1, 64, 15, 45)
 # [[[[36. 36. 36. ... 36. 36. 36.]
 #   [48. 48. 48. ... 48. 48. 48.]
 #   [48. 48. 48. ... 48. 48. 48.]
@@ -170,7 +169,7 @@ net = nn.ConvTranspose2d(3, 64, kernel_size=k, stride=s, padding=0, output_paddi
 net.weight.data = torch.ones(3, 64, k, k)
 output = net(x).detach().numpy()
 print(output.shape)
-## (1, 64, 50, 152)
+# (1, 64, 50, 152)
 
 
 # MindSpore
@@ -185,5 +184,5 @@ x = ms.Tensor(x_, ms.float32)
 net = nn.Conv2dTranspose(3, 64, kernel_size=k, stride=s, weight_init='ones', pad_mode='valid', padding=0)
 output = net(x)
 print(output.shape)
-## (1, 64, 50, 152)
+# (1, 64, 50, 152)
 ```

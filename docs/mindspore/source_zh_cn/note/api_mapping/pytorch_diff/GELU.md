@@ -43,9 +43,9 @@ print(output.detach().numpy())
 # MindSpore
 import mindspore
 import numpy as np
-x = mindspore.Tensor(np.array([[2, 4], [1, 2]]), mindspore.float64)
+x = mindspore.Tensor(np.array([[2, 4], [1, 2]]), mindspore.float32)
 output = mindspore.nn.GELU()(x)
 print(output)
-# [[1.95459771 3.99992979]
-#  [0.84119198 1.95459771]]
+# [[1.9545977 3.99993 ]
+#  [0.841192 1.9545977]]
 ```
