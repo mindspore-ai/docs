@@ -45,6 +45,7 @@ AI电磁模型库
 
    physics_driven
    data_driven
+   AD_FDTD
    visualization
 
 .. toctree::
