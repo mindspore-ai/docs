@@ -133,10 +133,10 @@ producer is used to simulate an online learning scenario where a local criteo da
 
 ```bash
 python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_FILE_PATH
-#Parameter description
-#--file1： Path to the local disk for the criteo dataset
-#--file2： Path to the local disk for the criteo dataset
-#The above files are all Criteo original dataset text files, File1 and File2 can be processed concurrently, File1 and File2 can be the same or different, if they are the same it is equivalent to each sample in the file being used twice.
+# Parameter description
+# --file1： Path to the local disk for the criteo dataset
+# --file2： Path to the local disk for the criteo dataset
+# The above files are all Criteo original dataset text files, File1 and File2 can be processed concurrently, File1 and File2 can be the same or different, if they are the same it is equivalent to each sample in the file being used twice.
 ```
 
 ### Starting Data consumer
