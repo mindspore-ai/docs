@@ -31,7 +31,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，参数名也相同。
 
 ### 代码示例1
 
-> 两API实功能一致，用法相同。输入为3维Tensor，数据尺寸为(C, H, W)，output_size=(None, new_W)，则Pytorch和MindSpore的AdaptiveAvgPool2D输出一致，数据尺寸为(C, H, new_W)。
+> 两API实现功能一致，用法相同。输入为3维Tensor，数据尺寸为(C, H, W)，output_size=(None, new_W)，则Pytorch和MindSpore的AdaptiveAvgPool2D输出一致，数据尺寸为(C, H, new_W)。
 
 ```python
 # case 1: output_size = (None, 2)

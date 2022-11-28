@@ -41,7 +41,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 ## 代码示例1
 
-> 两API实功能一致， 用法相同。
+> 两API实现功能一致， 用法相同。
 
 ```python
 # PyTorch

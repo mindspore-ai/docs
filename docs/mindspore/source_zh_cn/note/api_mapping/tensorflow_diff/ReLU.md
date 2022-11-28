@@ -29,7 +29,7 @@ MindSpore: MindSpore此算子实现功能与PyTorch一致，仅参数设置不�
 
 ### 代码示例1
 
-> 两API实功能一致，用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # Tensorflow

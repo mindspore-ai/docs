@@ -29,7 +29,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，仅参数名�
 
 ### 代码示例
 
-> 两API实功能一致，用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # TensorFlow
