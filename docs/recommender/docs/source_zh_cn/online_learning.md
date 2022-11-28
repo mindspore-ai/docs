@@ -133,10 +133,10 @@ producer用于模拟在线学习场景，将本地的criteo数据集写入到Kaf
 
 ```bash
 python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_FILE_PATH
-#参数说明
-#--file1： criteo数据集在本地磁盘的存放路径
-#--file2： criteo数据集在本地磁盘的存放路径
-#上述文件均为criteo原始数据集文本文件，file1和file2可以被并发处理，file1和file2可以相同也可以不同，如果相同则相当于文件中每个样本被使用两次。
+# 参数说明
+# --file1： criteo数据集在本地磁盘的存放路径
+# --file2： criteo数据集在本地磁盘的存放路径
+# 上述文件均为criteo原始数据集文本文件，file1和file2可以被并发处理，file1和file2可以相同也可以不同，如果相同则相当于文件中每个样本被使用两次。
 ```
 
 ### 启动数据consumer
