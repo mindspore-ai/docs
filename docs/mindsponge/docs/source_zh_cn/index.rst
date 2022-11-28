@@ -1,16 +1,32 @@
-MindSPONGE 文档
-===================
+MindSPONGE 简介
+===============
 
-MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular
-modelling)是基于\ `昇思MindSpore <https://www.mindspore.cn/>`__\ 的计算生物领域套件，支持分子动力学、蛋白质折叠等常用功能，旨在于为广大的科研人员、老师及学生提供高效易用的AI计算生物软件。
+分子模拟或建模过程与AI模型训练/推理过程具有高度一致的逻辑，因此分子模拟原则上可以与AI训练/推理模式进行统一。MindSPONGE就是这样一款由基于AI框架的分子模拟库，它将分子模拟与AI训练/推理统一到同一套编程架构下，整体架构视图如下：
 
-.. figure:: ./images/archi_cn.png
+.. figure:: ./intro/images/archi_cn.png
    :alt: MindSPONGE Architecture
 
-   MindSPONGE Architecture
+*MindSPONGE Architecture*
 
-安装教程
---------
+与传统分子模拟软件不同，AI分子模拟库具有全新的特性，例如：
+
+1. 自动微分技术取代手动的导数编程，为不同的能量函数或构建复杂打分函数提供了统一的编程范式；
+2. 完全兼容神经网络模型，支持分子模拟内的AI推理，或模拟作为引擎的AI训练；
+3. 端到端可微的建模方法可以实现物理模型的元优化；
+4. 分级式的代码架构，在底层采用高效语言实现算子；对用户提供面向对象的Python API方便用户自定义功能；
+5. 多后端自动适配，用户只需要写一份简单的Python代码，即可在多种后端如GPU、NPU上进行加速执行；
+6. 自动并行支持的高通量模拟，用户不必区分单机或多机执行的代码，可在一个硬件单元上并发多个体系的模拟，无需进行特殊的MPI编程。
+
+在这些新特性的加持下，分子模拟与AI的统一框架可以支持广泛的分子建模与应用场景，例如：
+
+- 基于AI改进力场或增强抽样的分子模拟；
+- 数据驱动+物理驱动的分子对接；
+- 蛋白质结构的预测与力场优化；
+- 高通量的分子模拟；
+- 分子设计等。
+
+MindSPONGE 安装说明
+-------------------
 
 硬件支持情况
 ~~~~~~~~~~~~
@@ -42,24 +58,26 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 源码安装
 ~~~~~~~~
 
-.. code:: 
+   .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
-    cd mindscience/MindSPONGE
+      git clone https://gitee.com/mindspore/mindscience.git
+      cd mindscience/MindSPONGE
 
--  安装依赖
+- 安装依赖
 
-   .. code:: bash
+    .. code::
 
-      pip install -r requirements.txt
+        pip install -r requirements.txt
 
--  昇腾后端
+- 昇腾后端
 
-   .. code:: bash
+   若使用Cybetron，开启编译选项 ``c``\ 。
 
-      bash build.sh -e ascend
+    .. code::
 
--  GPU后端
+        bash build.sh -e ascend -c on
+
+- GPU后端
 
    若使用Cybetron，开启编译选项 ``c``\ 。
 
@@ -67,128 +85,16 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 
    .. code:: bash
 
-      export CUDA_PATH={your_cuda_path}
-      bash build.sh -e gpu -j32 -t on -c on
+        export CUDA_PATH={your_cuda_path}
+        bash build.sh -e gpu -j32 -t on -c on
 
--  安装编译所得whl包
+- 安装编译所得whl包
 
    .. code:: bash
 
-      cd output/
-      pip install mindsponge*.whl
-      pip install cybertron*.whl
-
-案例初体验
-----------
-
-蛋白质 violation 计算
-~~~~~~~~~~~~~~~~~~~~~
-
-蛋白质推理模型预测的pdb虽然在绝大多数原子上都准确预测出理想的键长和键角，然而原子间是否存在冲突以及肽键信息对于真实结构也尤为重要，violation
-则计算了预测pdb的总原子间冲突程度以及肽键键长键角是否满足一定的限制条件。该计算数值对于评估预测蛋白质结构是否合理以及后续做蛋白质relax尤其重要。
-
-violation计算公式如下:
-
-.. math::
-
-
-   \begin{align}
-   \mathcal L_{viol} = \mathcal L_{bondlength }+\mathcal L_{bondangle }+\mathcal L_{clash } .
-   \end{align}
-
-.. code:: 
-
-    import mindspore as ms
-    from mindspore import set_context
-    from mindspore import Tensor
-    from mindsponge.common.utils import get_pdb_info
-    from mindsponge.metrics.structure_violations import get_structural_violations
-    
-    # set which gpu to use, in default use 0 card
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", device_id=0)
-    input_pdb = "xxx.pdb"
-    
-    # extract features from pdb
-    features = get_pdb_info(input_pdb)
-    
-    violations = get_structural_violations(Tensor(features.get("atom14_gt_exists")).astype(ms.float32),
-                                           Tensor(features.get("residue_index")).astype(ms.float32),
-                                           Tensor(features.get("aatype")).astype(ms.int32),
-                                           Tensor(features.get("residx_atom14_to_atom37")).astype(ms.int32),
-                                           Tensor(features.get("atom14_gt_positions")).astype(ms.float32))
-    violation_all = violations[-1]
-
-四元数与旋转矩阵转换
-~~~~~~~~~~~~~~~~~~~~
-
-geometry模块提供基础四元数、旋转矩阵、向量操作。
-
-.. code:: 
-
-    from mindsponge.common.geometry import initial_affine
-    from mindsponge.common.geometry import quat_to_rot, rot_to_quat
-    # quaternion is a mindspore tensor
-    # rotation_matrix is a tuple of mindspore tensor, length is 9
-    # translation is a tuple of mindsproe tensor, length is 3
-    quat, rot, trans = initial_affine(128) # 128 is the num of residues
-    transformed_rot = quat_to_rot(quat)
-    transformed_quat = rot_to_quat(rot)
-
-一个简单的分子动力学模拟案例
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: 
-
-    import numpy as np
-    import mindspore as ms
-    from mindspore import set_context
-    from mindsponge import Sponge
-    from mindsponge import Molecule
-    from mindsponge import ForceFieldBase
-    from mindsponge import DynamicUpdater
-    from mindsponge.potential import BondEnergy, AngleEnergy
-    from mindsponge.callback import WriteH5MD, RunInfo
-    from mindsponge.function import VelocityGenerator
-    from mindsponge.control import LeapFrog
-    
-    set_context(mode=ms.GRAPH_MODE, device_target="GPU")
-    
-    system = Molecule(
-        atoms=['O', 'H', 'H'],
-        coordinate=[[0, 0, 0], [0.1, 0, 0], [-0.0333, 0.0943, 0]],
-        bond=[[[0, 1], [0, 2]]],
-    )
-    
-    bond_energy = BondEnergy(
-        index=system.bond,
-        force_constant=[[345000, 345000]],
-        bond_length=[[0.1, 0.1]],
-    )
-    
-    angle_energy = AngleEnergy(
-        index=[[1, 0, 2]],
-        force_constant=[[383]],
-        bond_angle=[[109.47 / 180 * np.pi]],
-    )
-    
-    energy = ForceFieldBase(energy=[bond_energy, angle_energy])
-    
-    velocity_generator = VelocityGenerator(300)
-    velocity = velocity_generator(system.coordinate.shape, system.atom_mass)
-    
-    opt = DynamicUpdater(
-        system,
-        integrator=LeapFrog(system),
-        time_step=1e-3,
-        velocity=velocity,
-    )
-    
-    md = Sponge(system, energy, opt)
-    
-    run_info = RunInfo(10)
-    cb_h5md = WriteH5MD(system, 'test.h5md', save_freq=10, write_velocity=True, write_force=True)
-    
-    md.run(1000, callbacks=[run_info, cb_h5md])
+        cd output/
+        pip install mindsponge*.whl
+        pip install cybertron*.whl # if "-c on" is used
 
 SIG小组介绍
 -----------
@@ -231,21 +137,20 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
 -  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__\ 。
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: 使用指南
+   :caption: 分子模拟简介
 
-   why
-   xponge
-   sponge
-   cybertron
-   MEGAProtein
+   intro/physics_driven
+   intro/data_driven
+   intro/physics_plus_data_driven
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: API参考
+   :caption: 使用者指南
 
-   mindsponge.cell
-   mindsponge.common
-   mindsponge.data
-   mindsponge.metrics
-   constant
+   intro/simulation
+   intro/structure_prediction
+   intro/property_prediction
+   intro/design
