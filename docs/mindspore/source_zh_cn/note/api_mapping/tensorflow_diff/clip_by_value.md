@@ -20,9 +20,9 @@ mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None) -> Tens
 
 ## 差异对比
 
-TensorFlow：给定一个张量t，此操作返回一个类型和形状与t相同的张量。t中任何小于clip_value_min的都设置为clip_value_min，任何大于的值clip_value_max都设置为clip_value_max。
+TensorFlow：给定一个张量t，此操作返回一个类型和形状与t相同的张量。t中任何小于clip_value_min的都设置为clip_value_min，任何大于的值clip_value_max都设置为clip_value_max。当clip_value_min大于clip_value_max时，张量的值会被设置为**clip_value_min**。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致,仅部分参数名不同。
+MindSpore: 当clip_value_min小于等于clip_value_max时，MindSpore此API实现功能与TensorFlow基本一致。当clip_value_min大于clip_value_max时，张量元素的值会被设置为**clip_value_max**。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -33,7 +33,7 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致,仅部分参数�
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> clip_value_min小于等于clip_value_max时，两API实现功能一致，用法相同。
 
 ```python
 # TensorFlow
@@ -53,4 +53,28 @@ output = ops.clip_by_value(input, clip_value_min=5, clip_value_max=22)
 print(output)
 #[[ 5. 22.  5.  7.]
 # [ 5. 11.  6. 21.]]
+```
+
+### 代码示例2
+
+> clip_value_min大于clip_value_max时，TensorFlow会将张量的值设置为**clip_value_min**，MindSpore会设置为**clip_value_max**。
+
+```python
+# TensorFlow
+import tensorflow as tf
+t = tf.constant([[1., 25., 5., 7.], [4., 11., 6., 21.]])
+t2 = tf.clip_by_value(t, clip_value_min=22, clip_value_max=5)
+print(t2.numpy())
+#[[ 22. 22. 22. 22.]
+# [ 22. 22. 22. 22.]]
+
+# MindSpore
+import mindspore
+from mindspore import Tensor, ops
+import numpy as np
+input = Tensor(np.array([[1., 25., 5., 7.], [4., 11., 6., 21.]]), mindspore.float32)
+output = ops.clip_by_value(input, clip_value_min=22, clip_value_max=5)
+print(output)
+#[[ 5. 5. 5. 5.]
+# [ 5. 5. 5. 5.]]
 ```
