@@ -32,7 +32,7 @@ MindSpore：MindSpore此API实现功能与PyTorch不设置alpha参数时一致�
 
 ### 代码示例1
 
-torch.add不设置alpha参数时，两API实功能一致， 用法相同。
+torch.add不设置alpha参数时，两API实现功能一致， 用法相同。
 
 ```python
 # PyTorch

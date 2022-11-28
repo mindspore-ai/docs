@@ -32,7 +32,7 @@ MindSpore:MindSpore此API实现功能与TensorFlow一致， 仅参数名不同�
 
 ### 代码示例1
 
-> 两API实功能一致，用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # TensorFlow
@@ -65,7 +65,7 @@ print(output)
 
 ### 代码示例2
 
-> 两API实功能一致，用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # TensorFlow

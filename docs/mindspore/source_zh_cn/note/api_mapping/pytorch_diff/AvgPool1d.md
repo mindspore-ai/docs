@@ -33,7 +33,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore不存�
 
 ### 代码示例1
 
-> 当不涉及到padding、count_include_pad、pad_mode参数时，两API实功能一致，用法相同。
+> 当不涉及到padding、count_include_pad、pad_mode参数时，两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

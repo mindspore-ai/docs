@@ -46,7 +46,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅输入参数名不�
 
 ### 代码示例1
 
-> 两API实功能一致，用法相同。PyTorch的BCEWithLogitsLoss算子的三个参数weight、reduction和pos_weight与MindSpore的BCEWithLogitsLoss算子相对应的三个参数功能一致，参数名相同，默认值也相同。默认情况下，MindSpore能得到和PyTorch一样的结果。
+> 两API实现功能一致，用法相同。PyTorch的BCEWithLogitsLoss算子的三个参数weight、reduction和pos_weight与MindSpore的BCEWithLogitsLoss算子相对应的三个参数功能一致，参数名相同，默认值也相同。默认情况下，MindSpore能得到和PyTorch一样的结果。
 
 ```python
 # PyTorch

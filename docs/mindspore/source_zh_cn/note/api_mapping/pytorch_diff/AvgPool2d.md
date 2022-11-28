@@ -47,7 +47,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 ### 代码示例1
 
-> 当不涉及到padding、ceil_mode、count_include_pad、divisor_override、pad_mode、data_format等参数时，两API实功能一致，用法相同。
+> 当不涉及到padding、ceil_mode、count_include_pad、divisor_override、pad_mode、data_format等参数时，两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
