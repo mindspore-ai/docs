@@ -126,7 +126,7 @@ Unlike stand-alone, the `num_shards` and `shard_id` parameters need to be passed
 
 ## Defining the Model
 
-The network definition in data parallel mode is written in the same way with the stand-alone, which can be found in [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/ resnet.py).
+The network definition in data parallel mode is written in the same way with the stand-alone, which can be found in [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet.py).
 
 The definitions of optimizer, loss function and training model can be found in [Training Model Definition](https://www.mindspore.cn/tutorials/en/master/beginner/train.html).
 
