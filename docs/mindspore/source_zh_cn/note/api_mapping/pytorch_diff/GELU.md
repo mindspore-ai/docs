@@ -3,7 +3,7 @@
 ## torch.nn.GELU
 
 ```python
-class torch.nn.GELU()(x) -> Tensor
+class torch.nn.GELU()(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.GELU](https://pytorch.org/docs/1.8.1/generated/torch.nn.GELU.html)。
@@ -24,8 +24,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类  | PyTorch | MindSpore   | 差异                                                         |
 | ---- | ----- | ------- | ----------- | ------------------------------------------------------------ |
-| 参数 | 参数1 | x       | x           | -                                                            |
-|      | 参数2 |         | approximate | 决定是否启用approximation，默认值为True，如果approximate的值为True，高斯误差线性激活函数为：$0.5\times x\times (1+tanh(aqrt(2/pi)\times (x+0.044715 \times x^{3})))$，否则为：$x \times P(X\leqslant x)=0.5\times x \times (1+erf(x/sqrt(2)))$，其中$P(X)\sim N(0,1)$ |
+| 参数 | 参数1 | input      | x           | 接口输入，功能一致，仅参数名不同               |
+|      | 参数2 |    -     | approximate | 决定是否启用approximation，默认值为True，如果approximate的值为True，高斯误差线性激活函数为：$0.5\times x\times (1+tanh(aqrt(2/pi)\times (x+0.044715 \times x^{3})))$，否则为：$x \times P(X\leqslant x)=0.5\times x \times (1+erf(x/sqrt(2)))$，其中$P(X)\sim N(0,1)$ |
 
 ### 代码示例1
 

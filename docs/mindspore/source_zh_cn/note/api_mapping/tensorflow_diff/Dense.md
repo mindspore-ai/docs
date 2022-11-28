@@ -41,7 +41,7 @@ class mindspore.nn.Dense(
 
 TensorFlow: 全连接层，实现矩阵相乘的运算。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致，缺失泛化的相关参数。
+MindSpore: MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类   | TensorFlow           | MindSpore    | 差异                                                         |
 | ---- | ------ | -------------------- | ------------ | ------------------------------------------------------------ |
@@ -57,6 +57,9 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致，缺失泛化�
 |      | 参数10 | bias_constraint      |     -         | 由 `Optimizer`更新后要应用于偏差的可选投影函数。MindsSpore无此参数 |
 |      | 参数11 | trainable            |     -         | 布尔值，如果为 `True` ，则还将变量添加到图形集合 `GraphKeys.TRAINABLE_VARIABLES`。MindsSpore无此参数 |
 |      | 参数12 | name                 |     -         | 不涉及    |
+|      | 参数13 | **kwargs                 |     -         | 不涉及    |
+|      | 参数14 | -                 |     in_channels         | 输入的空间维度，TensorFlow无此参数    |
+|      | 参数15 | x                 |     x         | -    |
 
 ### 代码示例
 

@@ -8,7 +8,9 @@ class tf.keras.optimizers.Adam(
     beta_1=0.9,
     beta_2=0.999,
     epsilon=1e-07,
-    amsgrad=False
+    amsgrad=False,
+    name='Adam',
+    **kwargs
 ) -> Tensor
 ```
 
@@ -35,29 +37,32 @@ class classmindspore.nn.Adam(
 
 ## 差异对比
 
-Tensorflow：对所有参数采用Adam方法进行梯度下降。
+TensorFlow：对所有参数采用Adam方法进行梯度下降。
 
-MindSpore：MindSpore此API实现功能与Tensorflow基本一致，MindSpore的API还可以根据params里的设置，对不同参数采用不同的学习率进行更新。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，MindSpore的API还可以根据params里的设置，对不同参数采用不同的学习率进行更新。
 
-| 分类 | 子类   | Tensorflow    | MindSpore     | 差异                                                                                                       |
+| 分类 | 子类   | TensorFlow    | MindSpore     | 差异                                                                                                       |
 | ---- | ------ | ------------- | ------------- | ---------------------------------------------------------------------------------------------------------- |
 | 参数 | 参数1  | learning_rate | learning_rate | -                                                                                                          |
-|      | 参数2  | beta_1        | beta1         | 功能一致， 参数名不同                                                                                      |
-|      | 参数3  | beta_2        | beta2         | 功能一致， 参数名不同                                                                                      |
-|      | 参数4  | epsilon       | eps           | 功能一致， 参数名不同，但是tensorflow上的默认值是1e-8，而mindspore上的默认值是1e-7                         |
-|      | 参数5  | amsgrad       | use_amsgrad   | 功能一致， 参数名不同                                                                                      |
-|      | 参数6  | -             | params        | tensorflow无此参数，mindspore中可以根据该参数，可以给不同参数设置不同的学习率、权重衰减值等                |
-|      | 参数7  | -             | use_locking   | tensorflow无此参数，mindspore中可以根据该参数，决定是否对参数更新加锁保护                                  |
-|      | 参数8  | -             | use_nesterov  | tensorflow无此参数，mindspore中可以根据该参数，决定是否使用Nesterov Accelerated Gradient (NAG)算法更新梯度 |
-|      | 参数9  | -             | weight_decay  | tensorflow无此参数，mindspore中可以根据该参数，设定权重衰减的值                                            |
-|      | 参数10 | -             | loss_scale    | tensorflow无此参数，mindspore中可以根据该参数，设定梯度缩放系数                                            |
+|      | 参数2  | beta_1        | beta1         | 功能一致，参数名不同                                                                                      |
+|      | 参数3  | beta_2        | beta2         | 功能一致，参数名不同                                                                                      |
+|      | 参数4  | epsilon       | eps           | 功能一致，参数名不同，但是TensorFlow上的默认值是1e-8，而MindSpore上的默认值是1e-7                         |
+|      | 参数5  | amsgrad       | use_amsgrad   | 功能一致，参数名不同                                                                                      |
+|      | 参数6 | name                   | -             | 不涉及 |
+|      | 参数7 |  **kwargs                   | -             | 不涉及 |
+|      | 参数8  | -             | params        | MindSpore中可以根据该参数，可以给不同参数设置不同的学习率、权重衰减值等。TensorFlow无此参数                |
+|      | 参数9  | -             | use_locking   | MindSpore中可以根据该参数，决定是否对参数更新加锁保护。TensorFlow无此参数                                   |
+|      | 参数10  | -             | use_nesterov  | MindSpore中可以根据该参数，决定是否使用Nesterov Accelerated Gradient(NAG)算法更新梯度。TensorFlow无此参数  |
+|      | 参数11  | -             | weight_decay  | MindSpore中可以根据该参数，设定权重衰减的值。TensorFlow无此参数                                            |
+|      | 参数12 | -             | loss_scale    | MindSpore中可以根据该参数，设定梯度缩放系数。TensorFlow无此参数                                             |
+|      | 参数13 | -             | gradients    | MindSpore中的输入梯度，TensorFlow无此参数                                       |
 
 ### 代码示例
 
 > 实现功能一致。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 import numpy as np
 input_n =2
@@ -93,7 +98,6 @@ with tf.compat.v1.Session() as ss:
         ss.run(opt)
     output = net.eval()
 print(output.astype(dtype))
-
 # [[ 5.8998876 11.100113 ]
 #  [12.299808  24.700195 ]]
 
@@ -137,8 +141,6 @@ for _ in range(0, num):
     train_network(input_me, label)
 output = net(input_me)
 print(output.asnumpy())
-
 # [[ 5.8998876 11.100113 ]
 #  [12.299808  24.700195 ]]
 ```
-

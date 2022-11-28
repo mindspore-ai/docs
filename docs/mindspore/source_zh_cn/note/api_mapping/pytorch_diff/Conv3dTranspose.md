@@ -14,7 +14,7 @@ class torch.nn.ConvTranspose3d(
     bias=True,
     dilation=1,
     padding_mode='zeros'
-)(x) -> Tensor
+)(input) -> Tensor
 ```
 
 更多内容详见[torch.nn.ConvTranspose3d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ConvTranspose3d.html)。
@@ -48,7 +48,7 @@ $D_{out}=(D_{in}−1)×stride[0]−2×padding[0]+dilation[0]×(kernel\underline{
 $H_{out}=(H_{in}−1)×stride[1]−2×padding[1]+dilation[1]×(kernel\underline{ }size[1]−1)+output\underline{ }padding[1]+1$
 $W_{out}=(W_{in}−1)×stride[2]−2×padding[2]+dilation[2]×(kernel\underline{ }size[2]−1)+output\underline{ }padding[2]+1$
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与Pytorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
 | ---- | ----- | ------- | --------- | -------------------------------------- |
@@ -56,20 +56,21 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 |      | 参数2 | out_channels    | out_channels      | - |
 |      | 参数3 | kernel_size  |  kernel_size          | -  |
 |      | 参数4 | stride   |  stride           | -  |
-|      | 参数5 | padding   |  padding           | 功能一致，PyTorch中只能在三个维度的两侧分别填充相同的值，可为长度为3的tuple。MindSpore中可以分别设置前部、尾部、顶部、底部、左边和右边的填充数量，可为长度为6的tuple。  |
+|      | 参数5 | padding   |  padding           | 功能一致，PyTorch中只能在三个维度的两侧分别填充相同的值，可为长度为3的tuple。MindSpore中可以分别设置前部、尾部、顶部、底部、左边和右边的填充数量，可为长度为6的tuple  |
 |      | 参数6 | output_padding   |  output_padding          | -  |
-|      | 参数7 | groups   |  group           | 功能一致， 参数名不同。  |
-|      | 参数8 | bias   |  has_bias           | PyTorch默认为True，MindSpore默认为False。  |
+|      | 参数7 | groups   |  group           | 功能一致，参数名不同  |
+|      | 参数8 | bias   |  has_bias           | PyTorch默认为True，MindSpore默认为False  |
 |      | 参数9 | dilation   |  dilation           | -  |
-|      | 参数10 |  padding_mode   |         | 数值填充模式，只支持”zeros”即填充0。MindSpore无此参数，但默认填充0。|
-|      | 参数11 |     | pad_mode       | 指定填充模式。可选值为”same”、”valid”、”pad”，在”same”和”valid”模式下，padding必须设置为0，默认为”same”。 |
-|      | 参数12 |     | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选”TruncatedNormal”，”Normal”，”Uniform”，”HeUniform”和”XavierUniform”分布以及常量”One”和”Zero”分布的值。默认为”normal”。 |
-|      | 参数13 |     | bias_init        | 偏置参数的初始化方法。可选填参数与”weight_init”相同，默认为”zeros”。 |
-|      | 参数14 |     |   data_format  |数据格式的可选值。目前仅支持”NCDHW”，与PyTorch中默认顺序一致。|
+|      | 参数10 |  padding_mode   |   -      | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
+|      | 参数11 |  -   | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same" |
+|      | 参数12 |    - | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal" |
+|      | 参数13 |    -  | bias_init        | 偏置参数的初始化方法。可选填参数与"weight_init"相同，默认为"zeros" |
+|      | 参数14 |   -   |   data_format  |数据格式的可选值。目前仅支持"NCDHW"，与PyTorch中默认顺序一致|
+| | 参数15 | input | x | 接口输入，功能一致，仅参数名不同|
 
 ### 代码示例1
 
-> 两API都是实现三维转置卷积运算，使用时需先进行实例化。PyTorch中深度，高度和宽度的padding值在同一方向上相同，如padding设为(1,2,4)表示分别在深度，高度和宽度的两侧填充1，2和4面0，对应在MindSpore中将pad_mode设为"pad"，padding设置为(1,1,2,2,4,4)。PyTorch中利用net.weight.data = torch.ones()的方式将权重初始化为1，shape为$(in\underline{ }channels,\frac {out\underline{ }channels}{groups} , kernel\underline{ }size[0], kernel\underline{ }size[1],kernel\underline{ }size[2])$，MindSpore直接设置参数weight_init = "ones"。
+> 两API都是实现三维转置卷积运算，使用时需先进行实例化。PyTorch中深度，高度和宽度的padding值在同一方向上相同，如padding设为(1,2,4)表示分别在深度，高度和宽度的两侧填充1，2和4面0，对应在MindSpore中将pad_mode设为"pad"，padding设置为(1,1,2,2,4,4)。PyTorch中利用net.weight.data = torch.ones()的方式将权重初始化为1，shape为$(in\underline{ }channels,\frac {out\underline{ }channels}{groups}, kernel\underline{ }size[0], kernel\underline{ }size[1],kernel\underline{ }size[2])$，MindSpore直接设置参数weight_init = "ones"。
 
 ```python
 # PyTorch
@@ -95,7 +96,6 @@ print(output)
 #     [48. 48. 48. ... 48. 48. 48.]
 #     [36. 36. 36. ... 36. 36. 36.]]]]]
 
-
 # MindSpore
 import mindspore as ms
 import mindspore.nn as nn
@@ -104,7 +104,7 @@ import numpy as np
 k = (3, 5, 2)
 x_ = np.ones([1, 3, 4, 9, 16])
 x = ms.Tensor(x_, ms.float32)
-net = nn.Conv3dTranspose(3, 32, kernel_size=k, weight_init='ones', pad_mode='pad',padding=(1,1,2,2,4,4))
+net = nn.Conv3dTranspose(3, 32, kernel_size=k, weight_init='ones', pad_mode='pad', padding=(1,1,2,2,4,4))
 output = net(x)
 print(output.shape)
 # (1, 32, 4, 9, 9)

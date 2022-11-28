@@ -7,7 +7,7 @@ class torch.nn.Linear(
     in_features,
     out_features,
     bias=True
-)(x) -> Tensor
+)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.Linear](https://pytorch.org/docs/1.8.1/generated/torch.nn.Linear.html)。
@@ -29,18 +29,19 @@ class mindspore.nn.Dense(
 
 ## 差异对比
 
-Pytorch: 全连接层，实现矩阵相乘的运算。
+Pytorch：全连接层，实现矩阵相乘的运算。
 
-MindSpore: MindSpore此API实现功能与Pytorch基本一致，而且可以在全连接层后添加激活函数。
+MindSpore：MindSpore此API实现功能与Pytorch基本一致，而且可以在全连接层后添加激活函数。
 
 | 分类 | 子类  | Pytorch      | MindSpore    | 差异                         |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
-| 参数 | 参数1 | in_features  | in_channels  | -                            |
-|      | 参数2 | out_features | out_channels | -                            |
-|      | 参数3 | bias         | has_bias     | 参数名称不同，功能一致       |
-|      | 参数4 | -             | weight_init  | 权重参数的初始化方法         |
-|      | 参数5 | -             | bias_init    | 偏置参数的初始化方法         |
-|      | 参数6 | -             | activation   | 应用于全连接层输出的激活函数 |
+| 参数 | 参数1 | in_features  | in_channels  | 功能一致，参数名不同                          |
+|      | 参数2 | out_features | out_channels | 功能一致，参数名不同                        |
+|      | 参数3 | bias         | has_bias     | 功能一致，参数名不同        |
+|      | 参数4 | -             | weight_init  | 权重参数的初始化方法，PyTorch无此参数         |
+|      | 参数5 | -             | bias_init    | 偏置参数的初始化方法，PyTorch无此参数           |
+|      | 参数6 | -             | activation   | 应用于全连接层输出的激活函数，PyTorch无此参数   |
+|      | 参数7 | input | x | 接口输入，功能一致，参数名不同|
 
 ### 代码示例
 
@@ -53,7 +54,7 @@ from torch import nn
 import numpy as np
 
 net = nn.Linear(3, 4)
-x = torch.tensor(np.array([[180, 234, 154], [244, 48, 247]]),dtype=torch.float)
+x = torch.tensor(np.array([[180, 234, 154], [244, 48, 247]]), dtype=torch.float)
 output = net(x)
 print(output.detach().numpy().shape)
 # (2, 4)

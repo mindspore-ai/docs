@@ -20,13 +20,13 @@ mindspore.nn.GRU(*args, **kwargs) -> Tensor
 
 PyTorch:根据输出序列和给定的初始状态计算输出序列和最终状态。
 
-MindSpore:功能一致，仅参数名不同
+MindSpore:功能一致，仅参数名不同。
 
 | 分类 | 子类   | PyTorch       | MindSpore     | 差异                      |
 | ---- | ------ | :------------ | ------------- | ------------------------- |
 | 参数 | 参数1  | input_size    | input_size    | -                         |
 |      | 参数2  | hidden_size   | hidden_size   | -                         |
-|      | 参数3  | num_layers    | num_layer     | -                         |
+|      | 参数3  | num_layers    | num_layers     | -                         |
 |      | 参数4  | bias          | has_bias      | 功能一致，参数名不同      |
 |      | 参数5  | batch_first   | batch_first   | -                         |
 |      | 参数6  | dropout       | dropout       | -                         |
@@ -39,7 +39,7 @@ MindSpore:功能一致，仅参数名不同
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
@@ -47,7 +47,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-rnn = nn.GRU(10, 16, 2,batch_first=True)
+rnn = nn.GRU(10, 16, 2, batch_first=True)
 input = torch.ones([3,5,10], dtype=torch.float32)
 h0 = torch.ones([1 * 2,3,16], dtype=torch.float32)
 output, hn = rnn(input, h0)
@@ -58,7 +58,7 @@ print(output.shape)
 # MindSpore
 from mindspore import Tensor, nn
 
-net = nn.GRU(10, 16, 2,batch_first=True)
+net = nn.GRU(10, 16, 2, batch_first=True)
 x = Tensor(np.ones([3, 5, 10]).astype(np.float32))
 h0 = Tensor(np.ones([1 * 2, 3, 16]).astype(np.float32))
 output, hn = net(x, h0)

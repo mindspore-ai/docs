@@ -11,7 +11,7 @@ torch.nn.functional.l1_loss(input, target, size_average=None, reduce=None, reduc
 ## mindspore.nn.L1Loss
 
 ```text
-mindspore.nn.L1Loss(reduction='mean') -> Tensor
+mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 ```
 
 更多内容详见[MindSpore.nn.L1Loss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.L1Loss.html)。
@@ -24,9 +24,11 @@ MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相�
 
 | 分类 | 子类  | PyTorch   | MindSpore | 差异                 |
 | ---- | ----- | --------- | --------- | -------------------- |
-| 参数 | 参数1 | Input     | logits    | 功能一致，参数名不同 |
-|      | 参数2 | Target    | labels    | 功能一致，参数名不同 |
-|      | 参数3 | reduction | reduction | 功能一致，参数名不同 |
+| 参数  | 参数1| input     | logits    | 功能一致，参数名不同 |
+|      | 参数2| target    | labels    | 功能一致，参数名不同 |
+|      | 参数3 | size_average     | -    | 已弃用，功能由reduction接替 |
+|      | 参数4 | reduce    | -    | 已弃用，功能由reduction接替|
+|      | 参数5 | reduction | reduction | - |
 
 ### 代码示例1
 

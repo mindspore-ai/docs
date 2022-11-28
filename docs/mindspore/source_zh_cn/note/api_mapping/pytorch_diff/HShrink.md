@@ -3,7 +3,7 @@
 ## torch.nn.Hardshrink
 
 ```text
-torch.nn.Hardshrink(lambd=0.5) -> Tensor
+torch.nn.Hardshrink(lambd=0.5)(input) -> Tensor
 ```
 
 更多内容详见[torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Hardshrink.html#torch.nn.Hardshrink)。
@@ -11,21 +11,21 @@ torch.nn.Hardshrink(lambd=0.5) -> Tensor
 ## mindspore.nn.HShrink
 
 ``` text
-mindspore.nn.HShrink(lambd=0.5) -> Tensor
+mindspore.nn.HShrink(lambd=0.5)(input_x) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.HShrink](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.HShrink.html)。
 
 ## 差异对比
 
-PyTorch:激活函数,按输入元素计算输出。
+PyTorch：激活函数，按输入元素计算输出。
 
-MindSpore:MindSpore此API实现功能与PyTorch基本一致。
+MindSpore：MindSpore此API实现功能与PyTorch一致。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
 | 参数 | 参数1 | lambd   | lambd     | -    |
-|      | 参数2 | input   | input     | -    |
+|      | 参数2 | input   | input_x     | 功能一致，参数名不同    |
 
 ### 代码示例1
 

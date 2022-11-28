@@ -50,9 +50,9 @@ import tensorflow as tf
 
 e1 = tf.eye(3)
 print(e1.numpy())
-# [[1., 0., 0.]
-#  [0., 1., 0.]
-#  [0., 0., 1.]]
+# [[1. 0. 0.]
+#  [0. 1. 0.]
+#  [0. 0. 1.]]
 
 # MindSpore
 import mindspore
@@ -73,9 +73,9 @@ print(e1.numpy())
 import tensorflow as tf
 e2 = tf.eye(3, 2)
 print(e2.numpy())
-# [[1, 0]
-#  [0, 1]
-#  [0, 0]]
+# [[1. 0.]
+#  [0. 1.]
+#  [0. 0.]]
 
 # MindSpore
 import mindspore

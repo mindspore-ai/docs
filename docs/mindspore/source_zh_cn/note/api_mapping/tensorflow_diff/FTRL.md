@@ -9,8 +9,10 @@ tf.keras.optimizers.Ftrl(
     initial_accumulator_value=0.1,
     l1_regularization_strength=0.0,
     l2_regularization_strength=0.0,
+    name='Ftrl',
     l2_shrinkage_regularization_strength=0.0,
-    beta=0.0
+    beta=0.0,
+    **kwargs
 ) -> Tensor
 ```
 
@@ -29,7 +31,7 @@ class mindspore.nn.FTRL(
     use_locking=False,
     loss_scale=1.0,
     weight_decay=0.0
-) -> Tensor
+)(grads) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
@@ -47,19 +49,23 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数3 | initial_accumulator_value  | initial_accum | 功能一致，参数名不同 |
 |      | 参数4 | l1_regularization_strength | l1 | 功能一致，参数名不同 |
 |      | 参数5 | l2_regularization_strength | l2 | 功能一致，参数名不同 |
+|      | 参数5 | name | - | 不涉及 |
 |      | 参数6 | l2_shrinkage_regularization_strength | weight_decay | 功能一致，参数名不同 |
-|      | 参数7 | beta |           | 一个浮点值，默认值为0.0。MindSpore无此参数。                 |
-|      | 参数8 |  | params | Parameter组成的列表或字典组成的列表。TensorFlow无此参数。 |
-|      | 参数9 |  | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow无此参数。 |
-|      | 参数10 |  | loss_scale | 梯度缩放稀疏，必须大于0。如果 loss_scale 是整数，它将被转换为浮点数。通常使用默认值，仅当训练时使用了 FixedLossScaleManager，且 FixedLossScaleManager 的 drop_overflow_update 属性配置为False时，此值需要与 FixedLossScaleManager 中的 loss_scale 相同。默认值为1.0。TensorFlow无此参数。 |
+|      | 参数7 | beta |      -     | 一个浮点值，默认值为0.0。MindSpore无此参数                 |
+|      | 参数8 | **kwargs | - | 不涉及 |
+|      | 参数9 | - | params | Parameter组成的列表或字典组成的列表。TensorFlow无此参数 |
+|      | 参数10 | - | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow无此参数 |
+|      | 参数11 | - | loss_scale | 梯度缩放稀疏，必须大于0。如果 loss_scale 是整数，它将被转换为浮点数。通常使用默认值，仅当训练时使用了 FixedLossScaleManager，且 FixedLossScaleManager 的 drop_overflow_update 属性配置为False时，此值需要与 FixedLossScaleManager 中的 loss_scale 相同。默认值为1.0。TensorFlow无此参数 |
+|      | 参数12 | - | grads | 反向输入，TensorFlow无此参数 |
 
 ### 代码示例1
 
-> learning_rate均设置为0.1，两API功能一致， 用法相同。
+> learning_rate均设置为0.1，两API功能一致，用法相同。
 
 ```python
 # TensorFlow
 import tensorflow as tf
+
 opt = tf.keras.optimizers.Ftrl(learning_rate=0.1)
 var = tf.Variable(1.0)
 val0 = var.value()
@@ -78,6 +84,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset
+
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -110,11 +117,12 @@ print(y2)
 
 ### 代码示例2
 
-> learning_rate均设置为0.01，两API功能一致， 用法相同。
+> learning_rate均设置为0.01，两API功能一致，用法相同。
 
 ```python
 # TensorFlow
 import tensorflow as tf
+
 opt = tf.keras.optimizers.Ftrl(learning_rate=0.01)
 var = tf.Variable(1.0)
 val0 = var.value()
@@ -133,6 +141,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset
+
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()

@@ -13,7 +13,7 @@ class torch.nn.Conv2d(
     groups=1,
     bias=True,
     padding_mode='zeros'
-)(Input) -> Tensor
+)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.Conv2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv2d.html)。
@@ -57,11 +57,11 @@ circular：循环填充。
 
 而MindSpore的参数pad_mode可选项有'same'、'valid'、'pad'，含义如下：
 
-same：使用0填充使得输出的高度和宽度分别与输入整除 stride 后的值相同，使用此模式，padding 的值必须为0。
+same：使用0填充使得输出的高度和宽度分别与输入整除 stride 后的值相同，使用此模式，padding的值必须为0。
 
 valid：不填充。
 
-pad：零填充，使用此模式，padding 必须大于或等于0。
+pad：零填充，使用此模式，padding必须大于或等于0。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -70,13 +70,14 @@ pad：零填充，使用此模式，padding 必须大于或等于0。
 | | 参数3 | kernel_size | kernel_size |- |
 | | 参数4 | stride | stride |- |
 | | 参数5 | padding | padding |-|
-| | 参数6 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同， 默认值不同|
+| | 参数6 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同，默认值不同|
 | | 参数7 | dilation | dilation |-|
-| | 参数8 | groups | group |功能一致， 参数名不同|
-| | 参数9 | bias | has_bias |功能一致， 参数名不同， 默认值不同|
+| | 参数8 | groups | group |功能一致，参数名不同|
+| | 参数9 | bias | has_bias |功能一致，参数名不同，默认值不同|
 | | 参数10 | - | weight_init |权重参数的初始化方法，PyTorch可使用init函数进行权重初始化|
-| | 参数11 | - | bias_init |偏置参数的初始化方法|
-| | 参数12 | - | data_format |数据格式|
+| | 参数11 | - | bias_init |偏置参数的初始化方法，PyTorch无此参数|
+| | 参数12 | - | data_format |指定输入数据格式，PyTorch无此参数|
+| |参数14  | input | x  | 接口输入，功能一致，仅参数名不同 |
 
 ### 代码示例1
 

@@ -13,7 +13,7 @@ torch.nn.functional.binary_cross_entropy(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html)。
+更多内容详见 [torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy)。
 
 ## mindspore.nn.BCELoss
 
@@ -37,17 +37,20 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 | 参数 | 参数1 | input     | logits    | 功能一致，参数名不同                                         |
 |      | 参数2 | target    | labels    | 功能一致，参数名不同                                         |
 |      | 参数3 | weight    | weight    | -                                                            |
-|      | 参数4 | reduction | reduction | 功能一致，指定输出结果的计算方式，PyTorch默认值是"mean"，MindSpore默认值是none |
+|      | 参数4 | size_average    | -    | PyTorch的已弃用参数，功能由reduction参数取代          |
+|      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
+|      | 参数6 | reduction | reduction | 功能一致，指定输出结果的计算方式，PyTorch默认值是"mean"，MindSpore默认值是None |
 
 ## 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
 import torch
 import torch.nn.functional as F
 from torch import tensor
+
 input = tensor([0.1, 0.2, 0.3], requires_grad=True)
 target = tensor([1., 1., 1.])
 loss = F.binary_cross_entropy(input, target)
@@ -59,6 +62,7 @@ import mindspore
 import numpy as np
 from mindspore import Tensor
 from mindspore import nn
+
 loss = nn.BCELoss(reduction='mean')
 logits = Tensor(np.array([0.1, 0.2, 0.3]), mindspore.float32)
 labels = Tensor(np.array([1., 1., 1.]), mindspore.float32)

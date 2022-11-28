@@ -47,7 +47,7 @@ MindSpore：与TensorFlow实现的功能基本一致，但部分参数结构、�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 |input | x | - |
+| 参数 | 参数1 |input | x | 功能一致， 参数名不同 |
 | | 参数2 | filters | kernel_size |功能一致， 参数名不同， 数据结构不同 |
 | | 参数3 | strides | stride |功能一致， 参数名不同， 支持维度不同， 默认值不同 |
 | | 参数4 | padding | pad_mode |功能一致， 参数名不同， 可选项不同， 默认值不同|
@@ -64,7 +64,7 @@ MindSpore：与TensorFlow实现的功能基本一致，但部分参数结构、�
 
 ### 代码示例1
 
-> TensorFlow的参数data_format默认值为'NHWC'，表示输入和输出的Tensor格式为[batchsize，in_height，in_width，in_channels]。MindSpore的参数data_format默认值为'NCHW'，表示输入和输出的Tensor格式为[batchsize，in_channels，in_height，in_width]。
+> TensorFlow的参数data_format默认值为'NHWC'，表示输入和输出的Tensor格式为[batchsize，in_height，in_width，in_channels]。MindSpore的参数data_format默认值为'NCHW'，表示输入和输出的Tensor格式为[batchsize，in_channels，in_height，in_width]。为使输出格式一致，MindSpore可以将data_format设为'NHWC'。
 
 ```python
 # TensorFlow
@@ -126,7 +126,7 @@ print(output)
 
 ### 代码示例3
 
-> TensorFlow的参数strides是一个一维向量，长度可以为1、2、4，表示卷积时每一维的步长，一个整数表示在高度和宽度方向的移动步长均为该值，两个整数分别表示在高度和宽度方向的移动步长，剩下两维移动步长默认为1，此参数无默认值。MindSpore的参数stride为整型或两个整型的tuple。一个整数表示在高度和宽度方向的移动步长均为该值。两个整数的tuple分别表示在高度和宽度方向的移动步长，参数默认值为1。
+> TensorFlow的参数strides是一个一维向量，长度可以为1、2、4，表示卷积时每一维的步长。一个整数表示在高度和宽度方向的移动步长均为该值，两个整数分别表示在高度和宽度方向的移动步长，剩下两维移动步长默认为1，此参数无默认值。MindSpore的参数stride为整型或两个整型的tuple。一个整数表示在高度和宽度方向的移动步长均为该值。两个整数的tuple分别表示在高度和宽度方向的移动步长，参数默认值为1。
 
 ```python
 # TensorFlow

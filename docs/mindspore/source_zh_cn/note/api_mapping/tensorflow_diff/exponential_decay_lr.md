@@ -25,16 +25,16 @@ mindspore.nn.exponential_decay_lr(
     step_per_epoch,
     decay_epoch,
     is_stair=False
-) -> list
+) -> list[float]
 ```
 
 更多内容详见 [mindspore.nn.exponential_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html)。
 
 ## 差异对比
 
-TensorFlow: 基于指数衰减函数计算学习率。
+TensorFlow：基于指数衰减函数计算学习率。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类  | TensorFlow    | MindSpore      | 差异                   |
 | ---- | ----- | ------------- | -------------- | ---------------------- |
@@ -43,7 +43,7 @@ MindSpore: MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数3 | decay_steps   | decay_epoch    | 功能一致，参数名称不同 |
 |      | 参数4 | decay_rate    | decay_rate     | -                      |
 |      | 参数5 | staircase     | is_stair       | 功能一致，参数名称不同 |
-|      | 参数6 |     -          | step_per_epoch | 每个 epoch的step数     |
+|      | 参数6 |     -          | step_per_epoch | 每个epoch的step数，TensorFlow无此参数    |
 |      | 参数7 |     name          | -| 不涉及    |
 
 ### 代码示例
