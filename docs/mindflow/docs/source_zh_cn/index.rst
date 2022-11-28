@@ -21,7 +21,7 @@ MindSpore AI 流体仿真套件
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 物理驱动的AI流体仿真
+   :caption: 物理驱动
 
    physics_driven/burgers
    physics_driven/cylinder_flow
@@ -29,7 +29,7 @@ MindSpore AI 流体仿真套件
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 数据驱动的AI流体仿真
+   :caption: 数据驱动
 
    data_driven/dfyf
    data_driven/fno1d
@@ -38,7 +38,7 @@ MindSpore AI 流体仿真套件
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 数据机理融合的AI流体仿真
+   :caption: 数据机理融合
 
    physics_plus_data_driven/pdenet
 
