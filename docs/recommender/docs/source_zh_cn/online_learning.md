@@ -8,13 +8,13 @@
 
 在线学习与离线训练的主要区别：
 
-1. 在线学习的数据集为流式数据，无确定的dataset size、epoch，离线训练的数据集有确定的data set size、epoch。
+1. 在线学习的数据集为流式数据，无确定的dataset size、epoch，离线训练的数据集有确定的dataset size、epoch。
 2. 在线学习为常驻服务形式，离线训练结束后任务退出。
 3. 在线学习需要收集并存储训练数据，收集到固定数量的数据或经过固定的时间窗口后驱动训练流程。
 
 ## 整体架构
 
-用户的流式训练数据推送到kafka中，MindPandas从kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore 作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
+用户的流式训练数据推送到Kafka中，MindPandas从Kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
 
 ![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/online_training.png)
 
@@ -36,19 +36,17 @@ kafka-python v2.0.2
 下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://gitee.com/mindspore/recommender/tree/master/examples/online_learning)。
 
 MindSpore Recommender为在线学习提供了专门的算法模型`RecModel`，搭配实时数据源Kafka数据读取与特征处理的MindPandas即可实现一个简单的在线学习流程。
-首先定义一个自定义的实时数据处理的数据集，其中的构造参数`receiver`是MindPands中的`DataReceiver`类型，用于接收实时数据，`__getitem__`表示一次读取一条数据。
+首先自定义一个实时数据处理的数据集，其中的构造函数参数`receiver`是MindPands中的`DataReceiver`类型，用于接收实时数据，`__getitem__`表示一次读取一条数据。
 
 ```python
 class StreamingDataset:
     def __init__(self, receiver):
       self.data_ = []
       self.receiver_ = receiver
-      self.recv_data_cnt_ = 0
 
     def __getitem__(self, item):
       while not self.data_:
         data = self.receiver_.recv()
-        self.recv_data_cnt_ += 1
         if data is not None:
           self.data_ = data.tolist()
 
@@ -90,9 +88,7 @@ model.online_train(dataset, callbacks=[TimeMonitor(1), callback, ckpoint_cb], da
 
 ```bash
 wget https://archive.apache.org/dist/kafka/3.2.0/kafka_2.13-3.2.0.tgz
-
 tar -xzf kafka_2.13-3.2.0.tgz
-
 cd kafka_2.13-3.2.0
 ```
 
@@ -114,9 +110,10 @@ bin/kafka-server-start.sh config/server.properties
 
 ### 启动kafka_client
 
-kafka_client只需要启动一次，可以使用kafka设置topic对应的partition数量。
+进入recommender仓在线学习样例目录，启动kafka_client。kafka_client只需要启动一次，可以使用kafka设置topic对应的partition数量。
 
 ```bash
+cd recommender/examples/online_learning
 python kafka_client.py
 ```
 
@@ -132,13 +129,14 @@ yrctl start --master  --address $MASTER_HOST_IP
 
 ### 启动数据producer
 
-producer用于模拟在线学习场景，将本地的criteo数据集写入到kafka，供consumer使用。当前样例使用多进程读取两个文件，并将数据写入kafka。
+producer用于模拟在线学习场景，将本地的criteo数据集写入到Kafka，供consumer使用。当前样例使用多进程读取两个文件，并将数据写入Kafka。
 
 ```bash
 python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_FILE_PATH
 #参数说明
---file1： criteo数据集在本地磁盘的存放路径
---file2： criteo数据集在本地磁盘的存放路径
+#--file1： criteo数据集在本地磁盘的存放路径
+#--file2： criteo数据集在本地磁盘的存放路径
+#上述文件均为criteo原始数据集文本文件，file1和file2可以被并发处理，file1和file2可以相同也可以不同，如果相同则相当于文件中每个样本被使用两次。
 ```
 
 ### 启动数据consumer
@@ -157,7 +155,7 @@ python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --datase
 --map_dict： 稀疏特征列的字典
 ```
 
-consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生产对应的.pkl文件。
+consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
 
 ### 启动在线训练
 

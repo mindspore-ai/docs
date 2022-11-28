@@ -8,13 +8,13 @@ The real-time update of the recommendation network model is one of the important
 
 Key differences between online learning and offline training:
 
-1. The dataset for online learning is streaming data with no definite dataset size, epoch, while the dataset for offline training has a definite data set size, epoch.
+1. The dataset for online learning is streaming data with no definite dataset size, epoch, while the dataset for offline training has a definite dataset size, epoch.
 2. Online learning is in the form of a resident service, while the offline training exits tasks at the end of offline training.
 3. Online learning requires collecting and storing training data, and driving the training process after a fixed amount of data has been collected or a fixed time window has elapsed.
 
 ## Overall Architecture
 
-The user's streaming training data is pushed to kafka. MindPandas reads data from kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
+The user's streaming training data is pushed to Kafka. MindPandas reads data from Kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
 
 ![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_en/images/online_training.png)
 
@@ -43,12 +43,10 @@ class StreamingDataset:
     def __init__(self, receiver):
       self.data_ = []
       self.receiver_ = receiver
-      self.recv_data_cnt_ = 0
 
     def __getitem__(self, item):
       while not self.data_:
         data = self.receiver_.recv()
-        self.recv_data_cnt_ += 1
         if data is not None:
           self.data_ = data.tolist()
 
@@ -90,9 +88,7 @@ The following describes the start process for each module involved in the online
 
 ```bash
 wget https://archive.apache.org/dist/kafka/3.2.0/kafka_2.13-3.2.0.tgz
-
 tar -xzf kafka_2.13-3.2.0.tgz
-
 cd kafka_2.13-3.2.0
 ```
 
@@ -114,9 +110,10 @@ bin/kafka-server-start.sh config/server.properties
 
 ### Starting kafka_client
 
-kafka_client needs to be started only once, and you can use kafka to set the number of partitions corresponding to the topic.
+Enter into the recommender repo online learning example directory and start kafka_client, kafka_client needs to be started only once, and you can use kafka to set the number of partitions corresponding to the topic.
 
 ```bash
+cd recommender/examples/online_learning
 python kafka_client.py
 ```
 
@@ -132,13 +129,14 @@ yrctl start --master  --address $MASTER_HOST_IP
 
 ### Starting Data producer
 
-producer is used to simulate an online learning scenario where a local criteo dataset is written to kafka for use by the consumer. The current sample uses multiple processes to read two files and write the data to kafka.
+producer is used to simulate an online learning scenario where a local criteo dataset is written to Kafka for use by the consumer. The current sample uses multiple processes to read two files and write the data to Kafka.
 
 ```bash
 python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_FILE_PATH
 #Parameter description
---file1： Path to the local disk for the criteo dataset
---file2： Path to the local disk for the criteo dataset
+#--file1： Path to the local disk for the criteo dataset
+#--file2： Path to the local disk for the criteo dataset
+#The above files are all Criteo original dataset text files, File1 and File2 can be processed concurrently, File1 and File2 can be the same or different, if they are the same it is equivalent to each sample in the file being used twice.
 ```
 
 ### Starting Data consumer
