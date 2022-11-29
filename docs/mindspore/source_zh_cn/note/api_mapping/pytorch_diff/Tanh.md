@@ -3,7 +3,7 @@
 ## torch.nn.Tanh
 
 ```text
-class torch.nn.Tanh()(x) -> Tensor
+class torch.nn.Tanh()(input) -> Tensor
 ```
 
 更多内容详见[torch.nn.Tanh](https://pytorch.org/docs/1.8.1/generated/torch.nn.Tanh.html)。
@@ -18,13 +18,13 @@ class mindspore.nn.Tanh()(x) -> Tensor
 
 ## 差异对比
 
-Pytorch: 计算双曲正切函数tanh。
+Pytorch：计算双曲正切函数tanh。
 
-MindSpore: MindSpore此API实现功能与PyTorch一致。
+MindSpore：MindSpore此API实现功能与PyTorch一致。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
-| 参数 | 参数1 | x       | x         | -    |
+| 参数 | 参数1 | input      | x         | 功能一致，参数名不同  |
 
 ## 差异分析与示例
 

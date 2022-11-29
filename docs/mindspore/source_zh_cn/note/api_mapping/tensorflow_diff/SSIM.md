@@ -32,14 +32,14 @@ class mindspore.nn.SSIM(
 
 ## 差异对比
 
-Tensorflow: 在Tensorflow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
+Tensorflow: 在TensorFlow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
 
 MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回结果。接受图片的格式为"NCHW"。
 
 | 分类 | 子类  | Tensorflow   | MindSpore    | 差异                                                         |
 | ---- | ----- | ------------ | ------------ | ------------------------------------------------------------ |
-| 参数 | 参数1 | img1         | img1         | mindspore在实例化的函数中接收该输入，功能上一致            |
-|      | 参数2 | img2         | img2         | mindspore在实例化的函数中接收该输入，功能上一致            |
+| 参数 | 参数1 | img1         | img1         | MindSpore在实例化的函数中接收该输入，功能上一致            |
+|      | 参数2 | img2         | img2         |MindSpore在实例化的函数中接收该输入，功能上一致            |
 |      | 参数3 | max_val      | max_val      | tensorflow中此参数是必须的，mindspore中此参数可缺省，默认值为`1.0` |
 |      | 参数4 | filter_size  | filter_size  | -                                                            |
 |      | 参数5 | filter_sigma | filter_sigma | -                                                            |

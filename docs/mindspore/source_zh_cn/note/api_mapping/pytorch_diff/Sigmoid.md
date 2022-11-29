@@ -24,11 +24,11 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅实例化后的参�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | :-: | :-: | :-: | :-: |:-:|
-|参数 | 参数1 | input | x |功能一致， 类实例化前均无此参数，实例化后调用时仅参数名不同 |
+|参数 | 参数1 | input | input_x |功能一致，参数名不同 |
 
 ### 代码示例
 
-> 当两个输入参数的都为Tensor类型且shape值不同时，实现功能一致， 用法相同。
+> 当两个输入参数的都为Tensor类型且shape值不同时，实现功能一致，用法相同。
 
 ```python
 # PyTorch

@@ -3,7 +3,7 @@
 ## torch.nn.ReLU
 
 ```text
-CLASS torch.nn.ReLU(inplace=False) -> class
+class torch.nn.ReLU(inplace=False)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.ReLU](https://pytorch.org/docs/1.8.1/generated/torch.nn.ReLU.html)。
@@ -20,16 +20,16 @@ class mindspore.nn.ReLU()(x) -> Tensor
 
 PyTorch：ReLU激活函数。
 
-MindSpore: MindSpore此算子实现功能与PyTorch一致，仅参数设置不同。
+MindSpore：MindSpore此算子实现功能与PyTorch一致，仅参数设置不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | inplace | - | 是否就地执行，默认值：False。不影响功能，MindSpore无此参数 |
-|参数 | 参数2 | - | x | 用于计算ReLU的任意维度的Tensor |
+|参数 | 参数1 | inplace | - | 是否就地执行，默认值：False。MindSpore无此参数 |
+| | 参数2 | input | x | 功能一致，参数名不同 |
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
@@ -37,6 +37,7 @@ import torch
 from torch import tensor
 from torch import nn
 import numpy as np
+
 x = tensor(np.array([[0.1, -0.6], [-0.9, 0.8]]), dtype=torch.float32)
 m = nn.ReLU()
 out = m(x)
@@ -50,7 +51,8 @@ import mindspore
 import mindspore.nn as nn
 from mindspore import Tensor
 import numpy as np
-x = Tensor(np.array([[0.1, -0.6], [-0.9, 0.8]]), mindspore.float32)
+
+x = Tensor(np.array([[0.1, -0.6], [-0.9, 0.8]]), dtype=mindspore.float32)
 relu = nn.ReLU()
 output = relu(x)
 print(output)

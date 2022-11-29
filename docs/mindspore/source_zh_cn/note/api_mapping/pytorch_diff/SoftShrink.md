@@ -18,20 +18,20 @@ class mindspore.nn.SoftShrink(lambd=0.5)(input_x) -> Tensor
 
 ## 差异对比
 
-Pytorch: 用于计算Softshrink激活函数。
+Pytorch：用于计算Softshrink激活函数。
 
-MindSpore: 接口名称与PyTorch有差异MindSpore为SoftShrink，PyTorch为Softshrink，功能一致。
+MindSpore：接口名称与PyTorch有差异MindSpore为SoftShrink，PyTorch为Softshrink，功能一致。
 
 | 分类 | 子类  | Pyroch | MindSpore | 差异                    |
 | ---- | ----- | ------ | --------- | ----------------------- |
-| 参数 | 参数1 | lambd  | lambd     | 功能一致， 参数名相同 |
-|      | 参数2 | input  | Input_x   | 功能一致， 参数名不同 |
+| 参数 | 参数1 | lambd  | lambd     | - |
+|      | 参数2 | input  | input_x   | 功能一致，参数名不同 |
 
 ## 差异分析与示例
 
 ### 代码示例1
 
-> 计算`lambd=0.3`的SoftShrink激活函数。
+> 计算lambd=0.3的SoftShrink激活函数。
 
 ```python
 # pytorch

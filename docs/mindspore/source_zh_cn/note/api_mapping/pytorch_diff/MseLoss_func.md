@@ -6,35 +6,35 @@
 torch.nn.functional.mse_loss(input, target, size_average=None, reduce=None, reduction='mean') -> Tensor
 ```
 
-更多内容详见[torch.nn.functional.mse_loss](https://pytorch.org/docs/1.8.1/nn.functional.html)。
+更多内容详见[torch.nn.functional.mse_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.mse_loss)。
 
 ## mindspore.nn.MSELoss
 
 ```text
-mindspore.nn.MSELoss(reduction='mean') -> Tensor
+class mindspore.nn.MSELoss(reduction='mean')(logits, labels) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.MSELoss.html)。
 
 ## 差异对比
 
-PyTorch：用于计算输入 x 和 y 每一个元素的均方误差。reduction参数指定应用于loss的reduction类型。
+PyTorch：用于计算输入x和y每一个元素的均方误差。reduction参数指定应用于loss的规约类型。
 
-MindSpore：除两个在Pytorch已弃用的参数不同外，`torch.nn.functional.mse_loss`可直接调用，`mindspore.nn.MSELoss`需先实例化。
+MindSpore：实现与PyTorch一致的功能。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input        | -        | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
-|      | 参数2 | target       | -        | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
-|      | 参数3 | size_average | -        | 被`reduction`替代，MindSpore无此参数 |
-| | 参数4 | reduce | - | 被`reductio`替代，MindSpore无此参数 |
+|参数 | 参数1 | input        | logits       | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
+|      | 参数2 | target       | labels      | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
+|      | 参数3 | size_average | -        | 被reduction替代，MindSpore无此参数 |
+| | 参数4 | reduce | - | 被reduction替代，MindSpore无此参数 |
 | | 参数5 | reduction | reduction | - |
 
 ## 差异分析与示例
 
 ### 代码示例1
 
-> 计算`input`和`target`的均方误差。
+> 计算input和target的均方误差。
 
 ```python
 # pytoch

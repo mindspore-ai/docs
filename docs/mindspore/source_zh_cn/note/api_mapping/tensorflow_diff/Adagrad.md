@@ -30,7 +30,7 @@ class mindspore.nn.Adagrad(params,
 
 TensorFlow：Adagrad是一个具有特定参数学习率的优化器，用来实现Adagrad算法，它根据训练期间参数更新的频率进行调整。参数接收的更新越多，更新越小。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，部分参数名不一样，并且比TensorFlow多出update_slots、loss_scale、weight_decay参数。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数名不一样，并且比TensorFlow多出update_slots、loss_scale、weight_decay参数。
 
 | 分类 | 子类  | TensorFlow                | MindSpore     | 差异                                                        |
 | ---- | ----- | ------------------------- | ------------- | ----------------------------------------------------------- |
