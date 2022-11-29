@@ -53,6 +53,6 @@ max = Tensor(20, mindspore.float32)
 x = Tensor(np.array([[1., 25., 5., 7.], [4., 11., 6., 21.]]), mindspore.float32)
 output = ops.clamp(x, min, max)
 print(output)
-# [[ 5. 20.  5.  7.]
-#  [ 5. 11.  6. 20.]]
+#[[ 5. 20.  5.  7.]
+# [ 5. 11.  6. 20.]]
 ```
