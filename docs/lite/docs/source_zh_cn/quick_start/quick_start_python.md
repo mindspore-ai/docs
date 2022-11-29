@@ -30,7 +30,7 @@ MINDSPORE_LITE_VERSION=1.9.0 bash ./lite-cpu-pip.sh
 >
 > 若input.bin输入数据文件下载失败，请手动下载相关输入数据文件[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)，并将其拷贝到`mindspore/lite/examples/quick_start_python/model`目录。
 >
-> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统。并将其拷贝到`mindspore/lite/examples/quick_start_python`目录下。
+> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore/lite/examples/quick_start_python`目录下。
 >
 > 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/quick_start_python`目录下。
 >
