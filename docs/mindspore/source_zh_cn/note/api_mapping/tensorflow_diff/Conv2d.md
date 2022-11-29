@@ -64,7 +64,7 @@ MindSpore：与TensorFlow实现的功能基本一致，但部分参数结构、�
 
 ### 代码示例1
 
-> TensorFlow的参数data_format默认值为'NHWC'，表示输入和输出的Tensor格式为[batchsize，in_height，in_width，in_channels]。MindSpore的参数data_format默认值为'NCHW'，表示输入和输出的Tensor格式为[batchsize，in_channels，in_height，in_width]。为使输出格式一致，MindSpore可以将data_format设为'NHWC'。
+> TensorFlow的参数data_format默认值为'NHWC'，表示输入和输出的Tensor格式为[batchsize，in_height，in_width，in_channels]。MindSpore的参数data_format默认值为'NCHW'，表示输入和输出的Tensor格式为[batchsize，in_channels，in_height，in_width]。MindSpore的'NHWC'数据格式只能在GPU上使用，其它平台上，当输入数据格式为'NHWC'时，可以使用ops.transpose将数据格式修改为'NCHW'再进行卷积操作，最后将结果再通过ops.transpose转化为'NHWC'。
 
 ```python
 # TensorFlow
@@ -83,12 +83,14 @@ print(output)
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+import mindspore.ops as ops
 import numpy as np
 
 x_ = np.ones((1, 3, 3, 5))
-x = Tensor(x_, mindspore.float32)
-net = nn.Conv2d(5, 1, 2, stride=1, pad_mode='same', data_format='NHWC')
-output = net(x).shape
+x_NHWC = Tensor(x_, mindspore.float32)
+x = ops.transpose(x_NHWC, (0, 3, 1, 2))
+net = nn.Conv2d(5, 1, 2, stride=1, pad_mode='same')
+output = ops.transpose(net(x), (0, 2, 3, 1)).shape
 print(output)
 # (1, 3, 3, 1)
 ```
@@ -114,12 +116,14 @@ print(output)
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+import mindspore.ops as ops
 import numpy as np
 
 x_ = np.ones((1, 4, 4, 5))
-x = Tensor(x_, mindspore.float32)
-net = nn.Conv2d(5, 1, (2, 3), stride=1, pad_mode='valid', data_format='NHWC')
-output = net(x).shape
+x_NHWC = Tensor(x_, mindspore.float32)
+x = ops.transpose(x_NHWC, (0, 3, 1, 2))
+net = nn.Conv2d(5, 1, (2, 3), stride=1, pad_mode='valid')
+output = ops.transpose(net(x), (0, 2, 3, 1)).shape
 print(output)
 # (1, 3, 2, 1)
 ```
@@ -145,12 +149,14 @@ print(output)
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+import mindspore.ops as ops
 import numpy as np
 
 x_ = np.ones((1, 4, 4, 5))
-x = Tensor(x_, mindspore.float32)
-net = nn.Conv2d(5, 1, (2, 3), pad_mode='valid', data_format='NHWC')
-output = net(x).shape
+x_NHWC = Tensor(x_, mindspore.float32)
+x = ops.transpose(x_NHWC, (0, 3, 1, 2))
+net = nn.Conv2d(5, 1, (2, 3), pad_mode='valid')
+output = ops.transpose(net(x), (0, 2, 3, 1)).shape
 print(output)
 # (1, 3, 2, 1)
 ```
@@ -164,26 +170,28 @@ print(output)
 import tensorflow as tf
 import numpy as np
 
-x_ = tf.ones((1, 4, 4, 5))
+x_ = tf.ones((1, 6, 6, 5))
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
 filters_ = tf.ones((2, 3, 5, 1))
 filters = tf.convert_to_tensor(filters_, dtype=tf.float32)
 output = tf.nn.conv2d(x, filters, strides=1, dilations=[1,2,2,1], padding='VALID').shape
 print(output)
-# (1, 2, 0, 1)
+# (1, 4, 2, 1)
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+import mindspore.ops as ops
 import numpy as np
 
-x_ = np.ones((1, 4, 4, 5))
-x = Tensor(x_, mindspore.float32)
-net = nn.Conv2d(5, 1, (2, 3), dilations=(2,2), pad_mode='valid', data_format='NHWC')
-output = net(x).shape
+x_ = np.ones((1, 6, 6, 5))
+x_NHWC = Tensor(x_, mindspore.float32)
+x = ops.transpose(x_NHWC, (0, 3, 1, 2))
+net = nn.Conv2d(5, 1, (2, 3), dilation=(2,2), pad_mode='valid')
+output = ops.transpose(net(x), (0, 2, 3, 1)).shape
 print(output)
-# (1, 2, 0, 1)
+# (1, 4, 2, 1)
 ```
 
 ### 代码示例5
@@ -207,12 +215,14 @@ print(output)
 import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
+import mindspore.ops as ops
 import numpy as np
 
 x_ = np.ones((1, 4, 4, 5))
-x = Tensor(x_, mindspore.float32)
-net = nn.Conv2d(5, 1, (2, 3), stride=1, data_format='NHWC')
-output = net(x).shape
+x_NHWC = Tensor(x_, mindspore.float32)
+x = ops.transpose(x_NHWC, (0, 3, 1, 2))
+net = nn.Conv2d(5, 1, (2, 3), stride=1)
+output = ops.transpose(net(x), (0, 2, 3, 1)).shape
 print(output)
 # (1, 4, 4, 1)
 ```
