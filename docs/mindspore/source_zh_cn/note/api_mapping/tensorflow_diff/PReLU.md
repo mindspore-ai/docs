@@ -8,7 +8,7 @@ tf.keras.layers.PReLU(
   alpha_regularizer=None,
   alpha_constraint=None,
   shared_axes=None
-) -> Tensor
+)(x) -> Tensor
 ```
 
 更多内容详见 [tf.keras.layers.PReLU](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/PReLU)。
@@ -23,17 +23,18 @@ class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 
 ## 差异对比
 
-Tensorflow：PReLU 激活函数。
+Tensorflow：PReLU激活函数。
 
-MindSpore: MindSpore此算子功能与Pytorch基本一致，但参数名称设置与PyTorch有区别。
+MindSpore: MindSpore此接口功能与Tensorflow基本一致。
 
 | 分类 | 子类 | Tensorflow | MindSpore | 差异 |
 | --- | --- | :-- | --- |---|
 |参数 | 参数1 | - | channel | 输入张量的通道数，默认值为1。Tensorflow无此参数 |
 | | 参数2 | alpha_initializer | w | 权重的初始化函数，参数功能一致，默认值不同，参数名不同 |
-| | 参数2 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
-| | 参数3 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
-| | 参数4 | shared_axes | - | 共享激活函数的可学习参数的轴。MindSpore无此参数 |
+| | 参数3 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
+| | 参数4 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
+| | 参数5 | shared_axes | - | 共享激活函数的可学习参数的轴。MindSpore无此参数 |
+| | 参数6 | x | x | - |
 
 ### 代码示例1
 
@@ -44,6 +45,7 @@ MindSpore: MindSpore此算子功能与Pytorch基本一致，但参数名称设�
 import tensorflow as tf
 from keras.layers import PReLU
 import numpy as np
+
 x = tf.constant([[-1.0, 2.2], [3.3, -4.0]])
 m = PReLU()
 out = m(x)
@@ -56,6 +58,7 @@ import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
 import numpy as np
+
 x = Tensor(np.array([[-1.0, 2.2], [3.3, -4.0]]), mindspore.float32)
 prelu = nn.PReLU(w=0.0)
 output = prelu(x)

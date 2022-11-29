@@ -38,11 +38,12 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 |参数 | 参数1 | learning_rate | learning_rate | -                                                   |
 | | 参数2 | momentum      | momentum      | -                                                   |
 | | 参数3 | use_locking   | -             | TensorFlow中为是否在更新操作中使用锁，默认值：False。MindSpore中无此参数    |
-| | 参数4 | use_nesterov  | use_nesterov  | -                                                   |
-| | 参数5 | -             | params        | TensorFlow中无此参数。MindSpore中是Parameter组成的列表或字典组成的列表   |
-| | 参数6 | -             | weight_decay  | TensorFlow中无此参数。MindSpore中是权重衰减（L2 penalty），默认值：0.0 |
-| | 参数7 | -             | loss_scale    | TensorFlow中无此参数。MindSpore中是梯度缩放系数                   |
-| | 参数8 | -             |  gradients    | TensorFlow中无此参数。MindSpore中是参数params的梯度              |
+| | 参数4 | name  | -  | 不涉及                                                 |
+| | 参数5 | use_nesterov  | use_nesterov  | -                                                   |
+| | 参数6 | -             | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数  |
+| | 参数7 | -             | weight_decay  | 权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数|
+| | 参数8 | -             | loss_scale    | 梯度缩放系数，TensorFlow中无此参数                   |
+| | 参数9 | -             |  gradients    | 参数params的梯度，TensorFlow中无此参数              |
 
 ### 代码示例
 

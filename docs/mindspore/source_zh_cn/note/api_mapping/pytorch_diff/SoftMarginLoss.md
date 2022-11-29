@@ -3,7 +3,7 @@
 ## torch.nn.functional.soft_margin_loss
 
 ```text
-class torch.nn.SoftMarginLoss(size_average=None, reduce=None, reduction='mean') -> Tensor
+class torch.nn.SoftMarginLoss(size_average=None, reduce=None, reduction='mean')(input, target)  -> Tensor/Scalar
 ```
 
 更多内容详见 [torch.nn.functional.soft_margin_loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.SoftMarginLoss.html)。
@@ -11,26 +11,27 @@ class torch.nn.SoftMarginLoss(size_average=None, reduce=None, reduction='mean') 
 ## mindspore.nn.SoftMarginLoss
 
 ```text
-class mindspore.nn.SoftMarginLoss(reduction='mean') -> Tensor
+class mindspore.nn.SoftMarginLoss(reduction='mean')(logits, labels)  -> Tensor/Scalar
 ```
 
 更多内容详见 [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftMarginLoss.html)。
 
 ## 差异对比
 
-PyTorch:对输入input在给定的轴上添加额外维度。
+PyTorch：对输入input在给定的轴上添加额外维度。
 
-MindSpore:除两个在Pytorch已弃用的参数不同外，功能上无差异。
-
+MindSpore：除两个在PyTorch已弃用的参数不同外，功能上无差异。
 | 分类 | 子类  | PyTorch      | MindSpore | 差异                                                         |
 | ---- | ----- | ------------ | --------- | ------------------------------------------------------------ |
-| 参数 | 参数1 | reduction    | reduction | -                                        |
-|      | 参数2 | size_average | -         | 被reduction=替代，MindsSpore无此参数 |
-|      | 参数3 | reduce       | -         | 被reduction=替代，MindsSpore无此参数 |
+| 参数| 参数1 | size_average | -         | 已弃用，被reduction取代，MindSpore无此参数 |
+| | 参数2 | reduce | - | 已弃用，被reduction取代，MindSpore无此参数 |
+| | 参数3 | reduction | reduction | - |
+| | 参数4 | input | logits | 功能一致，参数名不同|
+| | 参数5 | target | labels | 功能一致，参数名不同|
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
@@ -59,7 +60,7 @@ print(output)
 
 ### 代码示例2
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

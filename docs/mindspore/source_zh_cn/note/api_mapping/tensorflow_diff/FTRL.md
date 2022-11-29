@@ -16,7 +16,7 @@ tf.keras.optimizers.Ftrl(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)。
+更多内容详见 [tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)
 
 ## mindspore.nn.FTRL
 
@@ -34,7 +34,7 @@ class mindspore.nn.FTRL(
 )(grads) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
+更多内容详见 [mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)
 
 ## 差异对比
 
@@ -100,16 +100,18 @@ class MyLoss(nn.LossBase):
         return (y - y_pred) ** 2 / 2.0
 net = Net()
 loss = MyLoss()
-net_opt = nn.FTRL(net.trainable_params(), learning_rate=0.1)
-model = ms.Model(net, loss_fn=loss, optimizer=net_opt)
-t = {"x": [1.0], "y": [0.0]}
-data = NumpySlicesDataset(t)
-y0 = net(1.0)
+optim = nn.FTRL(params=net.trainable_params(), learning_rate=0.1)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
+data_x = np.array([1.0], dtype=np.float32)
+data_y = np.array([0.0], dtype=np.float32)
+data = NumpySlicesDataset((data_x, data_y), ["x", "y"])
+input_x = ms.Tensor(np.array([1.0], np.float32))
+y0 = net(input_x)
 model.train(1, data)
-y1 = net(1.0)
+y1 = net(input_x)
 print(y1)
 model.train(1, data)
-y2 = net(1.0)
+y2 = net(input_x)
 print(y2)
 # [0.6031424]
 # [0.5532904]
@@ -157,17 +159,19 @@ class MyLoss(nn.LossBase):
         return (y - y_pred) ** 2 / 2.0
 net = Net()
 loss = MyLoss()
-net_opt = nn.FTRL(net.trainable_params(), learning_rate=0.01)
-model = ms.Model(net, loss_fn=loss, optimizer=net_opt)
-t = {"x": [1.0], "y": [0.0]}
-data = NumpySlicesDataset(t)
-y0 = net(1.0)
+optim = nn.FTRL(params=net.trainable_params(), learning_rate=0.01)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
+data_x = np.array([1.0], dtype=np.float32)
+data_y = np.array([0.0], dtype=np.float32)
+data = NumpySlicesDataset((data_x, data_y), ["x", "y"])
+input_x = ms.Tensor(np.array([1.0], np.float32))
+y0 = net(input_x)
 model.train(1, data)
-y1 = net(1.0)
+y1 = net(input_x)
 print(y1)
 model.train(1, data)
-y2 = net(1.0)
+y2 = net(input_x)
 print(y2)
 # [0.688954]
-# [0.68346363]
+# [0.6834637]
 ```

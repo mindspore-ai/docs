@@ -30,7 +30,7 @@ class mindspore.nn.Adagrad(params,
 
 TensorFlow：Adagrad是一个具有特定参数学习率的优化器，用来实现Adagrad算法，它根据训练期间参数更新的频率进行调整。参数接收的更新越多，更新越小。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，部分参数名不一样，并且比TensorFlow多出update_slots、loss_scale、weight_decay参数。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数名不一样，并且比TensorFlow多出update_slots、loss_scale、weight_decay参数。
 
 | 分类 | 子类  | TensorFlow                | MindSpore     | 差异                                                        |
 | ---- | ----- | ------------------------- | ------------- | ----------------------------------------------------------- |
@@ -84,20 +84,21 @@ class MyLoss(nn.LossBase):
 
     def construct(self, y, y_pred):
         return (y - y_pred) ** 2 / 2.0
-
 net = Net()
 loss = MyLoss()
 optim = nn.Adagrad(params=net.trainable_params(), accum=0.1, learning_rate=0.1)
 model = ms.Model(net, loss_fn=loss, optimizer=optim)
-t = {"x": [1.0], "y": [0.0]}
-data = NumpySlicesDataset(t)
-y0 = net(1.0)
+data_x = np.array([1.0], dtype=np.float32)
+data_y = np.array([0.0], dtype=np.float32)
+data = NumpySlicesDataset((data_x, data_y), ["x", "y"])
+input_x = ms.Tensor(np.array([1.0], np.float32))
+y0 = net(input_x)
 model.train(1, data)
-y1 = net(1.0)
+y1 = net(input_x)
 print(y1)
-# [0.9046538]
+#[0.9046537]
 model.train(1, data)
-y2 = net(1.0)
+y2 = net(input_x)
 print(y2)
-# [0.8393388]
+#[0.8393387]
 ```
