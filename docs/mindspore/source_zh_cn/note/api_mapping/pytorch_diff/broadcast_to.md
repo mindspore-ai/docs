@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，额外支持shap
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 功能一致， 参数名不同 |
+| 输入 | 单输入 | input | x | 功能一致，参数名不同 |
 |参数 | 参数1 | shape | shape |功能一致 |
 
 ### 代码示例1

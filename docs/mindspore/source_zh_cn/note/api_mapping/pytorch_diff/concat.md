@@ -31,8 +31,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。当前要求输�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | tensors  | input_x | 功能一致， 参数名不同 |
-|参数 | 参数1 | dim | axis |功能一致， 参数名不同 |
+| 输入 | 单输入 | tensors  | input_x | 功能一致，参数名不同 |
+|参数 | 参数1 | dim | axis |功能一致，参数名不同 |
 |  | 参数2  | out | - | 不涉及          |
 
 ### 代码示例1

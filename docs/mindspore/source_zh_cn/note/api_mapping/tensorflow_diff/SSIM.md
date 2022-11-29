@@ -56,6 +56,7 @@ MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回
 # tensorflow
 import numpy as np
 import tensorflow as tf
+
 img1 = tf.ones([1, 16, 16, 3])
 img2 = tf.ones([1, 16, 16, 3])
 output = tf.image.ssim(img1, img2, max_val=1.0)
@@ -66,6 +67,7 @@ print(output.numpy())
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
+
 net = nn.SSIM()
 img1 = Tensor(np.ones([1, 3, 16, 16]).astype(np.float32))
 img2 = Tensor(np.ones([1, 3, 16, 16]).astype(np.float32))
@@ -94,6 +96,7 @@ print(output.numpy())
 import numpy as np
 import mindspore
 from mindspore import nn, ops, Tensor
+
 np.random.seed(10)
 img1 = np.random.randint(0, 2, (2, 5, 5, 5)).astype(np.float32)
 img2 = np.random.randint(0, 2, (2, 5, 5, 5)).astype(np.float32)

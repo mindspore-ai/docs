@@ -26,11 +26,11 @@ e^{\text {feature }}-1, & \text { feature }<0 \\
 \text { feature } & , \text { feature } \geq 0
 \end{array}\right.$
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致， 不过支持数据类型有所差异。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，不过支持数据类型有所差异。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | features | input_x |功能一致， 参数名不同 |
+|参数 | 参数1 | features | input_x |功能一致，参数名不同 |
 | | 参数2 | name |  | 不涉及 |
 | | 参数3 | - | alpha | Mindspore目前只支持alpha等于1.0，与TensorFlow接口一致 |
 

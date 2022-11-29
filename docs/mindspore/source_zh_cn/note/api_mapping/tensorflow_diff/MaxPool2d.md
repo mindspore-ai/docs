@@ -45,57 +45,34 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 ### 代码示例1
 
-> 在TensorFlow中，当padding="VALID"，data_format="NCHW"时，对应MindSpore中pad_mode和data_format的默认值，再设置ksize=3，strides=1，对输入数据进行二维的最大池化运算，两API实现相同的功能。
-
-```python
-# TensorFlow
-import tensorflow as tf
-x = tf.ones((1, 2, 4, 4), dtype=tf.float32, name=None)
-output = tf.nn.max_pool2d(x, ksize=3, strides=1, padding="VALID", data_format='NCHW')
-print(output.shape)
-# (1, 2, 2, 2)
-
-# MindSpore
-import mindspore
-import mindspore.nn as nn
-from mindspore import Tensor
-import numpy as np
-pool = nn.MaxPool2d(kernel_size=3, stride=1)
-x = Tensor(np.random.randint(0, 10, [1, 2, 4, 4]), mindspore.float32)
-output = pool(x)
-print(output.shape)
-# (1, 2, 2, 2)
-```
-
-### 代码示例2
-
 > 在TensorFlow中，当padding="SAME"时，对应MindSpore中pad_mode="same"，data_format="NHWC"，再设置ksize=3，strides=2，对输入数据进行二维的最大池化运算，两API实现相同的功能。
 
 ```python
 # TensorFlow
 import tensorflow as tf
+
 x = tf.constant([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]])
 output = tf.nn.max_pool2d(x, ksize=3, strides=2, padding="SAME")
 print(output.shape)
 # (1, 1, 1, 10)
 
-# MindSpore，Ascend环境
+# MindSpore
 import mindspore
 import numpy as np
-max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')
-x = mindspore.Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]],mindspore.float32)
-x = mindspore.ops.transpose(x, (0, 3, 2, 1))
-output = max_pool(mindspore.Tensor(x))
-output = mindspore.ops.transpose(output, (0, 3, 2, 1))
-print(output.shape)
-# (1, 1, 1, 10)
+from mindspore import context
 
-# MindSpore，CPU和GPU环境
-import mindspore
-import numpy as np
-max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same', data_format='NHWC')
-x = Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]],mindspore.float32)
-output = max_pool(x)
-print(output.shape)
+device = context.get_context("device_target")
+x = Tensor(np.array([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]]).astype(np.float32))
+if device == "Ascend" or device == "CPU":
+    max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')
+    x = mindspore.ops.transpose(x, (0, 3, 2, 1))
+    output = max_pool(mindspore.Tensor(x))
+    output = mindspore.ops.transpose(output, (0, 3, 2, 1))
+    print(output.shape)
+# (1, 1, 1, 10)
+else:
+    max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same', data_format='NHWC')
+    output = max_pool(x)
+    print(output.shape)
 # (1, 1, 1, 10)
 ```

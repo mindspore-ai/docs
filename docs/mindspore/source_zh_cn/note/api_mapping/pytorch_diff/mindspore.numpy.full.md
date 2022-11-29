@@ -31,11 +31,11 @@ mindspore.numpy.full(shape, fill_value, dtype=None) -> Tensor
 
 PyTorch：返回用fill_value填充的给定大小的张量。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致， 但参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，但参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | size | shape |功能一致， 参数名不同 |
+|参数 | 参数1 | size | shape |功能一致，参数名不同 |
 | | 参数2 | fill_value | fill_value | 功能一致 |
 |  | 参数3 | dtype         | dtype     | 功能一致       |
 | | 参数4 | out           | -         | 不涉及 |

@@ -47,12 +47,12 @@ MindSpore：与TensorFlow实现的功能基本一致，但部分参数结构、�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 |input | x | 功能一致， 参数名不同 |
-| | 参数2 | filters | kernel_size |功能一致， 参数名不同， 数据结构不同 |
-| | 参数3 | strides | stride |功能一致， 参数名不同， 支持维度不同， 默认值不同 |
-| | 参数4 | padding | pad_mode |功能一致， 参数名不同， 可选项不同， 默认值不同|
-| | 参数5 | data_format | data_format |功能一致， 默认值不同|
-| | 参数6 | dilations | dilation |功能一致， 参数名不同， 支持维度不同， 默认值不同 |
+| 参数 | 参数1 |input | x | 功能一致，参数名不同 |
+| | 参数2 | filters | kernel_size |功能一致，参数名不同，数据结构不同 |
+| | 参数3 | strides | stride |功能一致，参数名不同，支持维度不同，默认值不同 |
+| | 参数4 | padding | pad_mode |功能一致，参数名不同，可选项不同，默认值不同|
+| | 参数5 | data_format | data_format |功能一致，默认值不同|
+| | 参数6 | dilations | dilation |功能一致，参数名不同，支持维度不同，默认值不同 |
 | | 参数7 | name | - |不涉及|
 | | 参数8 | - | in_channels |输入Tensor的空间维度 |
 | | 参数9 | - | out_channels |输出Tensor的空间维度 |

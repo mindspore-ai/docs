@@ -35,7 +35,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但支持的输�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input         | a         | 功能一致， 参数名不同 |
+| 输入 | 单输入 | input         | a         | 功能一致，参数名不同 |
 |参数 | 参数1 | - | shape |实现重写shape， Pytorch无此参数 |
 |  | 参数2  | fill_value    | fill_value | -                        |
 |      | 参数3  | dtype         | dtype      | 功能一致，默认值不同                  |

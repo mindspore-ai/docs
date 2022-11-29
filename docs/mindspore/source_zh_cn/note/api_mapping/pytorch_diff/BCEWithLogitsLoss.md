@@ -38,11 +38,11 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅输入参数名不�
 | --- | --- | --- | --- |---|
 | 输入 | 输入1 | input | logits | 都是输入Tensor |
 | | 输入2 | target | labels | 都是输入Tensor |
-| 参数 | 参数1 | weight | weight | 功能一致， 参数名相同 |
+| 参数 | 参数1 | weight | weight | 功能一致，参数名相同 |
 | | 参数2 | size_average | - | 功能一致，PyTorch已弃用该参数，MindSpore无此参数 |
 | | 参数3 | reduce | - | 功能一致，PyTorch已弃用该参数，MindSpore无此参数 |
-| | 参数4 | reduction | reduction | 功能一致， 参数名相同 |
-| | 参数5 | pos_weight | pos_weight | 功能一致， 参数名相同 |
+| | 参数4 | reduction | reduction | 功能一致，参数名相同 |
+| | 参数5 | pos_weight | pos_weight | 功能一致，参数名相同 |
 
 ### 代码示例1
 

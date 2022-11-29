@@ -22,7 +22,7 @@ mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None) -> Tens
 
 PyTorch：将input中所有元素限制在[min,max]范围中，将比min更小的值变为min，比max更大的值变为max。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致， 仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -33,7 +33,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致， 仅参数名不同。
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

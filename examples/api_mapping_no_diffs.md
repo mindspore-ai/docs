@@ -22,17 +22,17 @@ mindspore.ops.gather(input_params, input_indices, axis) -> Tensor
 
 PyTorch dim 上 index 索引对应的元素组成的切片。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致， 仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input_params |功能一致， 参数名不同 |
-| | 参数2 | dim | axis | 功能一致， 参数名不同|
-| | 参数3 | index | input_indices |功能一致， 参数名不同 |
+|参数 | 参数1 | input | input_params |功能一致，参数名不同 |
+| | 参数2 | dim | axis | 功能一致，参数名不同|
+| | 参数3 | index | input_indices |功能一致，参数名不同 |
 
 ### 代码示例
 
-说明：两API实现功能一致， 用法相同。
+说明：两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

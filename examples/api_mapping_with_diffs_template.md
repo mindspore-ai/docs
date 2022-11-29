@@ -26,9 +26,9 @@ MindSpore: ms_op算子功能简要描述， 需要重点突出与PyTorch的区�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | torch_arg1 | ms_arg1 |功能一致， 参数名不同 |
-| | 参数2 | torch_arg2 | ms_arg2 | 功能一致， 参数名不同， 默认值不同 |
-| | 参数3 | torch_arg3 | ms_arg3 |功能一致， 参数传入方式不同 |
+|参数 | 参数1 | torch_arg1 | ms_arg1 |功能一致，参数名不同 |
+| | 参数2 | torch_arg2 | ms_arg2 | 功能一致，参数名不同， 默认值不同 |
+| | 参数3 | torch_arg3 | ms_arg3 |功能一致，参数传入方式不同 |
 | | 参数4 | torch_arg4 | - |描述PyTorch上torch_arg4实现的功能，附上“MindSpore无此参数” |
 | | 参数5 | torch_arg5 | ms_arg4 |-|
 

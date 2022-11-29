@@ -32,7 +32,7 @@ MindSpore: MindSpore此API实现功能与Keras一致，仅参数名不同。
 
 ### 代码示例1
 
-两API不带axes参数实现功能一致， 用法相同。
+两API不带axes参数实现功能一致，用法相同。
 
 ```python
 # TensorFlow
@@ -61,7 +61,7 @@ print(output.shape)
 
 ### 代码示例2
 
-两API带axes参数实现功能一致， 用法相同。
+两API带axes参数实现功能一致，用法相同。
 
 ```python
 # TensorFlow
