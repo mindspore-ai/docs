@@ -121,6 +121,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    | MindPandas | MP_PATH | <https://gitee.com/mindspore/mindpandas.git> | mindpandas |
    | MindScience | MSC_PATH | <https://gitee.com/mindspore/mindscience.git> | mindscience |
    | Recommender | RD_PATH | <https://gitee.com/mindspore/recommender.git> | recommender |
+   | Graphlearning | ML_PATH | <https://gitee.com/mindspore/graphlearning.git> | graphlearning |
 
    克隆仓库以及设置环境变量的代码如下：
 
