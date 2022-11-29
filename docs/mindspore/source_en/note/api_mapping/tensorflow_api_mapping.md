@@ -44,12 +44,6 @@ Many data processing operations in MindSpore are shared by each dataset class. T
 | [tf.data.experimental.bucket_by_sequence_length](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/experimental/bucket_by_sequence_length) | [mindspore.dataset.GeneratorDataset.bucket_batch_by_length](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.bucket_batch_by_length.html#mindspore.dataset.Dataset.bucket_batch_by_length) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/bucket_by_sequence_length.html) |
 | [tf.data.experimental.CsvDataset](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/data/experimental/CsvDataset) | [mindspore.dataset.CSVDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/CsvDataset.html) |
 
-### tf.distribute
-
-| TensorFlow  2.6 APIs                                         | MindSpore APIs                                               | Descriptions                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [tf.distribute.Strategy](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/distribute/Strategy) | [mindspore.set_auto_parallel_context](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/DistributedTrain.html) |
-
 ### tf.math
 
 | TensorFlow 2.6 APIs                                          | MindSpore APIs                                               | Descriptions                                                 |
