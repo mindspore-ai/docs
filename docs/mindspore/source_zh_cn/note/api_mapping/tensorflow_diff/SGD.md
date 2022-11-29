@@ -96,15 +96,17 @@ net = Net()
 loss = MyLoss()
 optim = nn.SGD(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
 model = ms.Model(net, loss_fn=loss, optimizer=optim)
-t = {"x": [1.0], "y": [0.0]}
-data = NumpySlicesDataset(t)
-y0 = net(1.0)
+data_x = np.array([1.0], dtype=np.float32)
+data_y = np.array([0.0], dtype=np.float32)
+data = NumpySlicesDataset((data_x, data_y), ["x", "y"])
+input_x = ms.Tensor(np.array([1.0], np.float32))
+y0 = net(input_x)
 model.train(1, data)
-y1 = net(1.0)
+y1 = net(input_x)
 print(y1)
 # [0.9]
 model.train(1, data)
-y2 = net(1.0)
+y2 = net(input_x)
 print(y2)
 # [0.71999997]
 ```

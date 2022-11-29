@@ -56,6 +56,7 @@ print(output.shape)
 # (1, 2, 2, 2)
 
 # MindSpore
+import mindspore
 import mindspore.nn as nn
 from mindspore import Tensor
 import numpy as np
@@ -78,9 +79,19 @@ output = tf.nn.max_pool2d(x, ksize=3, strides=2, padding="SAME")
 print(output.shape)
 # (1, 1, 1, 10)
 
-# MindSpore
+# MindSpore，Ascend环境
 import mindspore
-from mindspore import Tensor
+import numpy as np
+max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')
+x = mindspore.Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]],mindspore.float32)
+x = mindspore.ops.transpose(x, (0, 3, 2, 1))
+output = max_pool(mindspore.Tensor(x))
+output = mindspore.ops.transpose(output, (0, 3, 2, 1))
+print(output.shape)
+# (1, 1, 1, 10)
+
+# MindSpore，CPU和GPU环境
+import mindspore
 import numpy as np
 max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same', data_format='NHWC')
 x = Tensor([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]],mindspore.float32)
