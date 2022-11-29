@@ -18,14 +18,14 @@ class mindspore.nn.LeakyReLU(alpha=0.2)(x) -> Tensor
 
 ## 差异对比
 
-TensorFlow：实现Leaky ReLU激活函数的基本功能，其中参数`alpha`是用于控制激活函数的斜率。
+TensorFlow：应用Leaky ReLU激活函数，其中参数`alpha`是用于控制激活函数的斜率。
 
 MindSpore：MindSpore此API实现功能与TensorFlow基本一致，仅参数名不同。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | features | x |功能一致，参数名不同 |
-| | 参数2 | alpha | alpha | 功能一致，参数名相同，默认值相同|
+| | 参数2 | alpha | alpha | - |
 
 ### 代码示例
 
@@ -35,7 +35,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，仅参数名�
 # TensorFlow
 import tensorflow as tf
 
-features = tf.constant([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]],dtype=tf.float32)
+features = tf.constant([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=tf.float32)
 output = tf.nn.leaky_relu(features).numpy()
 print(output)
 # [[-0.2  4.  -1.6]

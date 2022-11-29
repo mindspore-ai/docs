@@ -45,7 +45,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 ### 代码示例1
 
-> 在pytorch中，当padding="VALID"，data_format='NCHW'时，对应MindSpore中pad_mode和data_format的默认值，再设置ksize=3，strides=1，对输入数据进行二维的最大池化运算，两API实现相同的功能。
+> 在TensorFlow中，当padding="VALID"，data_format="NCHW"时，对应MindSpore中pad_mode和data_format的默认值，再设置ksize=3，strides=1，对输入数据进行二维的最大池化运算，两API实现相同的功能。
 
 ```python
 # TensorFlow
@@ -68,7 +68,7 @@ print(output.shape)
 
 ### 代码示例2
 
-> 在pytorch中，当padding="SAME"时，对应MindSpore中pad_mode='same'， data_format='NHWC'，再设置ksize=3，strides=2，对输入数据进行二维的最大池化运算，两API实现相同的功能。
+> 在TensorFlow中，当padding="SAME"时，对应MindSpore中pad_mode="same"，data_format="NHWC"，再设置ksize=3，strides=2，对输入数据进行二维的最大池化运算，两API实现相同的功能。
 
 ```python
 # TensorFlow

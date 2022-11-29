@@ -3,7 +3,10 @@
 ## torch.nn.LSTMCell
 
 ```text
-class torch.nn.LSTMCell(input_size, hidden_size, bias=True)
+class torch.nn.LSTMCell(
+    input_size,
+    hidden_size,
+    bias=True)(input, h_0, c_0) -> Tensor
 ```
 
 更多内容详见 [torch.nn.LSTMCell](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTMCell.html?torch.nn.LSTMCell)。
@@ -11,7 +14,10 @@ class torch.nn.LSTMCell(input_size, hidden_size, bias=True)
 ## mindspore.nn.LSTMCell
 
 ```text
-class mindspore.nn.LSTMCell(*args, **kwargs)
+class mindspore.nn.LSTMCell(
+    input_size,
+    hidden_size,
+    has_bias=True)(x, hx) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTMCell.html)。
@@ -28,7 +34,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值在形�
 | | 参数2 | hidden_size | hidden_size | - |
 | | 参数3 | bias | has_bias | 功能一致，参数名不同 |
 | | 参数4 | input | x | 功能一致，参数名不同 |
-| | 参数5 | hx | hc | 功能一致，参数名不同 |
+| | 参数5 | h_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的参数10和11，功能相同  |
+| | 参数5 | c_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的参数10和11，功能相同  |
 
 ### 代码示例1
 
@@ -39,6 +46,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值在形�
 import torch
 from torch import tensor
 import numpy as np
+
 rnn = torch.nn.LSTMCell(10, 16)
 input = tensor(np.ones([5, 3, 10]).astype(np.float32))
 hx = tensor(np.ones([3, 16]).astype(np.float32))
@@ -54,6 +62,7 @@ print(tuple(output[0].shape))
 import mindspore.nn as nn
 from mindspore import Tensor
 import numpy as np
+
 net = nn.LSTMCell(10, 16)
 x = Tensor(np.ones([5, 3, 10]).astype(np.float32))
 h = Tensor(np.ones([3, 16]).astype(np.float32))
@@ -68,13 +77,14 @@ print(output[0][0].shape)
 
 ### 代码示例2
 
-> bias=False时无偏置b_ih和b_hh,该层不使用偏移权重，两API实现相同的功能。
+> bias=False时无偏置b_ih和b_hh，该层不使用偏移权重，两API实现相同的功能。
 
 ```python
 # PyTorch
 import torch
 from torch import tensor
 import numpy as np
+
 rnn = torch.nn.LSTMCell(10, 16, bias=False)
 input = tensor(np.ones([5, 3, 10]).astype(np.float32))
 hx = tensor(np.ones([3, 16]).astype(np.float32))
@@ -90,6 +100,7 @@ print(tuple(output[0].shape))
 import mindspore.nn as nn
 from mindspore import Tensor
 import numpy as np
+
 net = nn.LSTMCell(10, 16, has_bias=False)
 x = Tensor(np.ones([5, 3, 10]).astype(np.float32))
 h = Tensor(np.ones([3, 16]).astype(np.float32))

@@ -3,7 +3,7 @@
 ## torch.nn.PReLU
 
 ```text
-CLASS torch.nn.PReLU(num_parameters=1, init=0.25) -> class
+class torch.nn.PReLU(num_parameters=1, init=0.25)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.PReLU](https://pytorch.org/docs/1.8.1/generated/torch.nn.PReLU.html)。
@@ -11,21 +11,22 @@ CLASS torch.nn.PReLU(num_parameters=1, init=0.25) -> class
 ## mindspore.nn.PReLU
 
 ```text
-class mindspore.nn.PReLU(channel=1, w=0.25) -> Tensor
+class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.PReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PReLU.html)。
 
 ## 差异对比
 
-PyTorch：PReLU 激活函数。
+PyTorch：PReLU激活函数。
 
-MindSpore: MindSpore此算子功能与PyTorch一致， 仅参数名不同。
+MindSpore：MindSpore此算子功能与PyTorch一致。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | num_parameters | channel | 功能一致， 参数名不同， 默认值相同 |
-| | 参数2 | init | w | 功能一致， 参数名不同， 默认值相同 |
+|参数 | 参数1 | num_parameters | channel | 功能一致，参数名不同，默认值相同 |
+| | 参数2 | init | w | 功能一致，参数名不同，默认值相同 |
+| | 参数3 | input | x | 功能一致，参数名不同|
 
 ### 代码示例1
 
@@ -37,6 +38,7 @@ import torch
 from torch import tensor
 from torch import nn
 import numpy as np
+
 x = tensor(np.array([[0.1, -0.6], [-0.9, 0.9]]), dtype=torch.float32)
 m = nn.PReLU()
 out = m(x)
@@ -50,6 +52,7 @@ import mindspore
 from mindspore import Tensor
 import mindspore.nn as nn
 import numpy as np
+
 x = Tensor(np.array([[0.1, -0.6], [-0.9, 0.9]]), mindspore.float32)
 prelu = nn.PReLU()
 output = prelu(x)
@@ -68,6 +71,7 @@ import torch
 from torch import tensor
 from torch import nn
 import numpy as np
+
 x = tensor(np.array([[0.1, -0.6], [-0.5, 0.9]]), dtype=torch.float32)
 m = nn.PReLU(num_parameters=1, init=0.5)
 out = m(x)
@@ -81,6 +85,7 @@ import mindspore
 import mindspore.nn as nn
 from mindspore import Tensor
 import numpy as np
+
 x = Tensor(np.array([[0.1, -0.6], [-0.5, 0.9]]), mindspore.float32)
 prelu = nn.PReLU(channel=1, w=0.5)
 output = prelu(x)

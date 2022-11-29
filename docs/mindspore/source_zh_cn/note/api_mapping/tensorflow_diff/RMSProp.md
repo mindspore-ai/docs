@@ -11,7 +11,7 @@ tf.compat.v1.train.RMSPropOptimizer(
     use_locking=False,
     centered=False,
     name='RMSProp'
-)
+) -> Tensor
 ```
 
 更多内容详见 [tf.compat.v1.train.RMSPropOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/RMSPropOptimizer)。
@@ -29,7 +29,7 @@ class mindspore.nn.RMSProp(
     centered=False,
     loss_scale=1.0,
     weight_decay=0.0
-)
+)(gradients) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html)。
@@ -52,6 +52,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。MindSpore支�
 | | 参数8 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，TensorFlow没有此入参配置 |
 | | 参数9 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
 | | 参数10 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
+| | 参数11 | - | gradients  |反向输入，TensorFlow无此参数 |
 
 ### 代码示例
 
@@ -101,7 +102,6 @@ from mindspore import Parameter
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.nn import TrainOneStepCell, WithLossCell
 from mindspore.nn import Cell
-
 
 class NetWithGatherV2(Cell):
     def __init__(self, param_np, label, axis=0):
