@@ -8,7 +8,7 @@ class torch.nn.GroupNorm(
     num_channels,
     eps=1e-05,
     affine=True
-)(Input) -> Tensor
+)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.GroupNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.GroupNorm.html)。
@@ -40,13 +40,13 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore还可�
 |      | 参数2 | num_channels | num_channels | -                                                            |
 |      | 参数3 | eps          | eps          | -                                                            |
 |      | 参数4 | affine       | affine       | -                                                            |
-|      | 参数5 | Input        | x            | 功能一致，参数名不同                                         |
-|      | 参数6 | -            | gamma_init   | 给公式中用于学习的放射变换参数gamma初始化，默认是'ones'，而PyTorch不能额外设置，只能是'ones'。 |
-|      | 参数7 | -            | beta_init    | 给公式中用于学习的放射变换参数beta初始化，默认是'zeros'，而PyTorch不能额外设置，只能是'zeros'。 |
+|      | 参数5 | input        | x            | 功能一致，参数名不同                                         |
+|      | 参数6 | -            | gamma_init   | 给公式中用于学习的放射变换参数gamma初始化，默认是'ones'，而PyTorch不能额外设置，只能是'ones' |
+|      | 参数7 | -           | beta_init    | 给公式中用于学习的放射变换参数beta初始化，默认是'zeros'，而PyTorch不能额外设置，只能是'zeros' |
 
 ## 代码示例1
 
-> 两API功能基本一致， MindSpore还可以对两个学习的参数进行额外初始化。
+> 两API功能基本一致，MindSpore还可以对两个学习的参数进行额外初始化。
 
 ```python
 # PyTorch

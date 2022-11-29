@@ -11,7 +11,7 @@ tf.compat.v1.train.linear_cosine_decay(
     alpha=0.0,
     beta=0.001,
     name=None
-) -> Number
+) -> Tensor
 ```
 
 更多内容详见 [tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay)。
@@ -23,7 +23,7 @@ class mindspore.nn.CosineDecayLR(
     min_lr,
     max_lr,
     decay_steps
-)(global_step) -> Number
+)(global_step) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.CosineDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
@@ -32,7 +32,7 @@ class mindspore.nn.CosineDecayLR(
 
 TensorFlow：基于余弦衰减函数计算学习率。
 
-MindSpore：与PyTorch实现同样的功能，依据的计算公式不同。
+MindSpore：与TensorFlow现同样的功能，依据的计算公式不同。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -81,13 +81,13 @@ print(ss.run(output))
 
 # MindSpore
 import mindspore
-from mindspore import Tensor,nn
+from mindspore import Tensor, nn
 
 min_lr = 0.01
 max_lr = 0.1
 decay_steps = 4
-global_steps = Tensor(2,mindspore.int32)
-cosine_decay_lr = nn.CosineDecayLR(min_lr,max_lr,decay_steps)
+global_steps = Tensor(2, mindspore.int32)
+cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
 output = cosine_decay_lr(global_steps)
 print(output)
 #0.055

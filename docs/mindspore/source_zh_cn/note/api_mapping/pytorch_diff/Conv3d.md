@@ -13,7 +13,7 @@ class torch.nn.Conv3d(
     groups=1,
     bias=True,
     padding_mode='zeros'
-)(Input) -> Tensor
+)(input) -> Tensor
 ```
 
 更多内容详见 [torch.nn.Conv3d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv3d.html)。
@@ -47,7 +47,7 @@ $$
 $$
 其中，$\star$ 为3d cross-correlation 算子，$N$ 是batch size，$C$ 是通道数量，$D$、$H$、$W$ 分别是特征层的深度、高度和宽度。
 
-MindSpore：与PyTorch实现的功能基本一致，但默认不添加偏置参数，与PyTorch相反。且MindSpore默认对输入进行填充，而PyTorch则默认不填充。同时MindSpore填充模式可选项与PyTorch不同，PyTorch的参数padding_mode可选项有‘zeros’、'reflect'、'replicate'、'circular'，含义如下：
+MindSpore：与PyTorch实现的功能基本一致，但默认不添加偏置参数，与PyTorch相反。且MindSpore默认对输入进行填充，而PyTorch则默认不填充。同时MindSpore填充模式可选项与PyTorch不同，PyTorch的参数padding_mode可选项有'zeros'、'reflect'、'replicate'、'circular'，含义如下：
 
 zero：常量填充（默认零填充）。
 
@@ -72,13 +72,14 @@ pad：零填充。
 | | 参数3 | kernel_size | kernel_size |- |
 | | 参数4 | stride | stride |- |
 | | 参数5 | padding | padding |-|
-| | 参数6 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同， 默认值不同|
-| | 参数7 | dilation | dilation |-|
-| | 参数8 | groups | group |功能一致， 参数名不同|
-| | 参数9 | bias | has_bias |功能一致， 参数名不同， 默认值不同|
-| | 参数10 | - | weight_init |权重参数的初始化方法|
-| | 参数11 | - | bias_init |偏置参数的初始化方法|
-| | 参数12 | - | data_format |数据格式|
+| | 参数6 | dilation | dilation |-|
+| | 参数7 | groups | group |功能一致，参数名不同|
+| | 参数8 | bias | has_bias |功能一致，参数名不同，默认值不同|
+| | 参数9 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同，默认值不同|
+| | 参数10 | - | weight_init |权重参数的初始化方法，PyTorch无此参数|
+| | 参数11 | - | bias_init |偏置参数的初始化方法，PyTorch无此参数|
+| | 参数12 | - | data_format |输入数据格式，PyTorch无此参数|
+| | 参数13 | input | x | 接口输入，功能一致，仅参数名不同|
 
 ### 代码示例1
 
@@ -113,7 +114,7 @@ print(output)
 
 ### 代码示例2
 
-> Pytorch的参数padding_mode为'zero'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
+> PyTorch的参数padding_mode为'zero'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
 
 ```python
 # PyTorch
@@ -144,7 +145,7 @@ print(output)
 
 ### 代码示例3
 
-> Pytorch默认情况下不对输入进行填充，而MindSpore默认情况下需要对输入进行填充，如果不对输入进行填充，需要将pad_mode设置为'valid'。
+> PyTorch默认情况下不对输入进行填充，而MindSpore默认情况下需要对输入进行填充，如果不对输入进行填充，需要将pad_mode设置为'valid'。
 
 ```python
 # PyTorch
