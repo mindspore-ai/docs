@@ -11,10 +11,13 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import IPython
 import re
 import sys
 from sphinx.ext import autodoc as sphinx_autodoc
+import sphinx.ext.autosummary.generate as g
+sys.path.append(os.path.abspath('../_ext'))
 
 import mindspore_gl
 
@@ -35,6 +38,7 @@ release = 'master'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -65,6 +69,8 @@ pygments_style = 'sphinx'
 
 autodoc_inherit_docstrings = False
 
+autosummary_generate = True
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -77,6 +83,15 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
+
+# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
+gfile_abs_path = os.path.abspath(g.__file__)
+autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
+autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
+with open(gfile_abs_path, "r+", encoding="utf8") as f:
+    data = f.read()
+    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
+    exec(data, g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -109,6 +124,24 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# Copy source files of chinese python api from mindscience repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+gl_dir_msg = os.path.join(os.getenv("ML_PATH"), 'docs/api_python_en')
+
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(gl_dir_msg):
+    if os.path.isfile(os.path.join(gl_dir_msg,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(gl_dir_msg,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(gl_dir_msg,i),'./'+i)
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
@@ -118,6 +151,8 @@ import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
+from myautosummary import MsPlatformAutoSummary
 
 def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
