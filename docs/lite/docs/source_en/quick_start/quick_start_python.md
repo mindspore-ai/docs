@@ -10,7 +10,7 @@ The following is an example of how to use the Python Simplified Inference Demo o
 
 - One-click installation of inference-related model files, MindSpore Lite and its required dependencies. See the [One-click installation](#one-click-installation) section for details.
 
-- Execute the Python Simplified Inference Demo. See the [Execute Demo](#execute-demo) section for details.
+- Execute the Python Simplified Inference Demo. See the [Execute Demo](#executing-demo) section for details.
 
 - For a description of the Python Simplified Inference Demo content, see the [Demo Content Description](#demo-content-description) section for details.
 
@@ -67,7 +67,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 2. [Model Loading and Compilation](#model-loading-and-compilation): Before executing inference, you need to call [build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of `Model` for model loading and model compilation, and to configure the Context obtained in the previous step into the Model. The model loading phase parses the file cache into a runtime model. The model compilation phase mainly carries out the process of operator selection scheduling, subgraph slicing, etc. This phase will consume more time, so it is recommended that `Model` be loaded once, compiled once, and inferenced for several times.
 3. [Input Data](#inputting-data): The model needs to fill the `Input Tensor` with data before executing inference.
 4. [Execute Inference](#executing-inference): Use the [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface of `Model` for model inference.
-5. [Get Output](#getting-output): After the model finishes performing inference, you can get the inference result by `Output Tensor`.
+5. [Get Output](#getting-outputs): After the model finishes performing inference, you can get the inference result by `Output Tensor`.
 
 For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
 
