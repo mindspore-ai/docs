@@ -75,10 +75,12 @@ cross_silo_faster_rcnn
 ├── mindspore_hub_conf.py
 ├── generate_mindrecord.py              // Convert annotations files in .json format to MindRecord format for reading datasets
 ├── default_config.yaml                 // Network structure, dataset address, configuration file required by fl_plan
-├── default.yaml                         // Configuration file required for federated training
+├── default_yaml_config.yaml            // Configuration file required for federated training
 ├── config.json                         // Configuration file required for disaster recovery
 ├── run_cross_silo_fasterrcnn_worker.py // Starting cross-silo federated worker script
 └── test_fl_fasterrcnn.py               // Training scripts used on the client side
+└── run_cross_silo_fasterrcnn_sched.py  // Starting cross-silo federated scheduler script
+└── run_cross_silo_fasterrcnn_server.py // Starting cross-silo federated server script
 ```
 
 1. Note that you can choose whether to record the loss value for each step by setting the parameter `dataset_sink_mode` in the `test_fl_fasterrcnn.py` file.
@@ -104,13 +106,13 @@ cross_silo_faster_rcnn
 
 4. Start Scheduler
 
-    `run_sched.py` is the Python script used to start `Scheduler` and supports modifying the configuration by passing argument `argparse`. Execute the following command, which represents the `Scheduler` that starts this federated learning task. `--yaml_config` is used to set the yaml file path, and its management ip:port is `10.113.216.40:18019`.
+    `run_cross_silo_fasterrcnn_sched.py` is the Python script used to start `Scheduler` and supports modifying the configuration by passing argument `argparse`. Execute the following command, which represents the `Scheduler` that starts this federated learning task. `--yaml_config` is used to set the yaml file path, and its management ip:port is `127.0.0.1:18019`.
 
     ```sh
-    python run_sched.py --yaml_config="default.yaml" --scheduler_manage_address="10.113.216.40:18019"
+    python run_cross_silo_fasterrcnn_sched.py --yaml_config="default_yaml_config.yaml" --scheduler_manage_address="127.0.0.1:18019"
     ```
 
-    For the detailed implementation, see [run_sched.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/run_sched.py).
+    For the detailed implementation, see [run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py).
 
     The following print represents a successful starting:
 
@@ -121,13 +123,13 @@ cross_silo_faster_rcnn
 
 5. Start Server
 
-    `run_server.py` is a Python script for starting a number of `Server`s, and supports modifying the configuration by the passing argument `argparse`. Execute the following command, representing the `Server` that starts this Federated Learning task with a TCP address of `10.113.216.40`, a Federated Learning HTTP service starting port of `6668`, and a number of `Server`s of `4`.
+    `run_cross_silo_fasterrcnn_server.py` is a Python script for starting a number of `Server`s, and supports modifying the configuration by passing argument `argparse`. Execute the following command, representing the `Server` that starts this Federated Learning task with a TCP address of `127.0.0.1`. The starting port for the Federated Learning HTTP service is `6668` and the number of `Server`s is `4`.
 
     ```sh
-    python run_server.py --yaml_config="default.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:6668"
+    python run_cross_silo_fasterrcnn_server.py --yaml_config="default_yaml_config.yaml" --tcp_server_ip="127.0.0.1" --checkpoint_dir="/path/to/fl_ckpt" --local_server_num=4 --http_server_address="127.0.0.1:6668"
     ```
 
-    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/run_server.py).
+    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py), and checkpoint_dir needs to enter the directory path where the checkpoint is located. The server will read the checkpoint initialization weight from this path. The prefix format of the checkpoint needs to be `{fl_name}_ recovery_ iteration_`.
 
     The following print represents a successful starting:
 
@@ -140,15 +142,15 @@ cross_silo_faster_rcnn
 
 6. Start Worker
 
-    `run_cross_silo_femnist_worker.py` is a Python script for starting a number of `worker`s, and supports modifying the configuration by the passing argument `argparse`. The following instruction is executed, representing the `worker` that starts this federated learning task, and the number of `workers` needed for the federated learning task to proceed properly is `2`.
+    `run_cross_silo_femnist_worker.py` is a Python script for starting a number of `worker`s, and supports modifying the configuration by the passing argument `argparse`. The following instruction is executed, representing the `worker` that starts this federated learning task, and the number of `workers` needed for the federated learning task to proceed properly is at least `2`.
 
     ```sh
-    python run_cross_silo_fasterrcnn_worker.py --worker_num=2 --dataset_path datasets/coco_split/split_100 --http_server_address=10.113.216.40:6668
+    python run_cross_silo_fasterrcnn_worker.py --local_worker_num=2 --yaml_config="default_yaml_config.yaml" --pre_trained="/path/to/pre_trained" --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
     ```
 
-    For the detailed implementation, see [run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py).
+    For the detailed implementation, see [run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py). Note that in dataset sink mode, the unit of the synchronization frequency of Cloud Federated is in epoch, otherwise the synchronization frequency is in step.
 
-    As the above command, `--worker_num=2` means starting two clients, and the datasets used by the two clients are `datasets/coco_split/split_100/mindrecord_0` and `datasets/coco_split/split_100/mindrecord_1`. Please prepare the required datasets for the corresponding clients according to the `pre-task preparation` tutorial.
+    As the above command, `--local_worker_num=2` means starting two clients, and the datasets used by the two clients are `datasets/coco_split/split_100/mindrecord_0` and `datasets/coco_split/split_100/mindrecord_1`. Please prepare the required datasets for the corresponding clients according to the `pre-task preparation` tutorial.
 
     After executing the above three commands and waiting for a while, go to the `worker_0` folder in the current directory and check the `worker_0` log with the command `grep -rn "\epoch:" *` and you will see a log message similar to the following:
 
@@ -205,7 +207,7 @@ cross_silo_faster_rcnn
 If you want to exit in the middle, the following command is available:
 
 ```sh
-python finish_cloud.py --redis_port=2345
+python finish_cross_silo_fasterrcnn.py --redis_port=2345
 ```
 
 For the detailed implementation, see [finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/finish_cloud.py).

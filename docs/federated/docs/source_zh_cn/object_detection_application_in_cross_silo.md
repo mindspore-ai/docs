@@ -74,11 +74,12 @@ cross_silo_faster_rcnn
 ├── requirements.txt
 ├── mindspore_hub_conf.py
 ├── generate_mindrecord.py              // 将.json格式的annotations文件转化为MindRecord格式，以便读取datasets
-├── default_config.yaml                 // 网络结构、数据集地址、fl_plan所需配置文件
-├── default.yaml                         // 联邦训练所需配置文件
-├── config.json                         // 容灾所需配置文件
+├── default_yaml_config.yaml                 // 联邦训练所需配置文件
+├── default_config.yaml                         // 网络结构、数据集地址、fl_plan所需配置文件
 ├── run_cross_silo_fasterrcnn_worker.py // 启动云云联邦worker脚本
 └── test_fl_fasterrcnn.py               // 客户端使用的训练脚本
+└── run_cross_silo_fasterrcnn_sched.py  // 启动云云联邦scheduler脚本
+└── run_cross_silo_fasterrcnn_server.py // 启动云云联邦server脚本
 ```
 
 1. 注意在`test_fl_fasterrcnn.py`文件中可通过设置参数`dataset_sink_mode`来选择是否记录每个step的loss值：
@@ -104,13 +105,13 @@ cross_silo_faster_rcnn
 
 4. 启动Scheduler
 
-   `run_sched.py`是用于启动`Scheduler`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，`--yaml_config`用于设置yaml文件路径，其管理ip:port为`10.113.216.40:18019`。
+   `run_sched.py`是用于启动`Scheduler`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，`--yaml_config`用于设置yaml文件路径，其管理ip:port为`127.0.0.1:18019`。
 
    ```sh
-   python run_sched.py --yaml_config="default.yaml" --scheduler_manage_address="10.113.216.40:18019"
+   python run_cross_silo_fasterrcnn_sched.py --yaml_config="default_yaml_config.yaml" --scheduler_manage_address="127.0.0.1:18019"
    ```
 
-   具体实现详见[run_sched.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/run_sched.py)。
+   具体实现详见[run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py)。
 
    打印如下代表启动成功：
 
@@ -121,13 +122,13 @@ cross_silo_faster_rcnn
 
 5. 启动Server
 
-   `run_server.py`是用于启动若干`Server`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP地址为`10.113.216.40`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个。
+   `run_cross_silo_fasterrcnn_server.py`是用于启动若干`Server`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP地址为`127.0.0.1`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个。
 
    ```sh
-   python run_server.py --yaml_config="default.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:6668"
+   python run_cross_silo_fasterrcnn_server.py --yaml_config="default_yaml_config.yaml" --tcp_server_ip="127.0.0.1" --checkpoint_dir="/path/to/fl_ckpt" --local_server_num=4 --http_server_address="127.0.0.1:6668"
    ```
 
-   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_server.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/run_server.py)。
+   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py)。其中checkpoint_dir需要输入checkpoint所在的目录路径，server会从该路径下读取checkpoint初始化权重，checkpoint的前缀格式需要是`{fl_name}_recovery_iteration_`。
 
    打印如下代表启动成功：
 
@@ -140,15 +141,15 @@ cross_silo_faster_rcnn
 
 6. 启动Worker
 
-    `run_cross_silo_femnist_worker.py`是用于启动若干`worker`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`2`个：
+    `run_cross_silo_femnist_worker.py`是用于启动若干`worker`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量至少为`2`个：
 
     ```sh
-    python run_cross_silo_fasterrcnn_worker.py --worker_num=2 --dataset_path datasets/coco_split/split_100 --http_server_address=10.113.216.40:6668
+    python run_cross_silo_fasterrcnn_worker.py --local_worker_num=2 --yaml_config="default_yaml_config.yaml" --pre_trained="/path/to/pre_trained" --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
     ```
 
-   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py)。
+   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py)。在数据下沉模式下，云云联邦的同步频率以epoch为单位，否则同步频率以step为单位。
 
-    如上指令，`--worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
+    如上指令，`--local_worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
 
     当执行以上三个指令之后，等待一段时间之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\epoch:" *`查看`worker_0`日志，可看到类似如下内容的日志信息：
 
@@ -205,7 +206,7 @@ cross_silo_faster_rcnn
 若想中途退出，则可用以下指令：
 
 ```sh
-python finish_cloud.py --redis_port=2345
+python finish_cross_silo_fasterrcnn.py --redis_port=2345
 ```
 
 具体实现详见[finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/finish_cloud.py)。
