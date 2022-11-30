@@ -50,22 +50,6 @@ MindSpore：与TensorFlow现同样的功能，依据的计算公式不同。
 
 > 两API实现功能相同，计算逻辑不同。
 
-TensorFlow中的计算公式为：
-
-```text
-global_step = min(global_step, decay_steps)
-linear_decay = (decay_steps - global_step) / decay_steps)
-cosine_decay = 0.5 * (1 + cos(pi*2*num_periods*global_step/decay_steps))
-decayed = (alpha + linear_decay) * cosine_decay + beta
-decayed_learning_rate = learning_rate * decayed
-```
-
-在MindSpore中，对于当前step，计算学习率的公式为：
-
-```text
-decayed_learning_rate = min_lr + 0.5 ∗ (max_lr − min_lr) ∗ (1 + cos(current_step*π/decay_steps))
-```
-
 ```python
 # TensorFlow
 import tensorflow as tf

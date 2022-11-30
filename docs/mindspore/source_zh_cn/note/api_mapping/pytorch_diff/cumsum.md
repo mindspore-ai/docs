@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过参数设�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input |- |
+|参数 | 参数1 | input | x |功能一致，参数名不同 |
 | | 参数2 | dim | axis | 功能一致，参数名不同 |
 | | 参数3 | dtype | dtype | - |
 | | 参数4 | out | - | 不涉及 |
