@@ -71,7 +71,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ### Creating Configuration Context
 
