@@ -808,7 +808,7 @@ MindSpore has three methods to use mixed precision:
 
 1. Use `Cast` to convert the network input `cast` into `float16` and the loss input `cast` into `float32`.
 2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html).
-3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html#mixed-precision).
+3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html#automatic-mix-precision).
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 
