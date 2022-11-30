@@ -41,7 +41,7 @@ class mindspore.nn.Dense(
 
 TensorFlow: 全连接层，实现矩阵相乘的运算。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类   | TensorFlow           | MindSpore    | 差异                                                         |
 | ---- | ------ | -------------------- | ------------ | ------------------------------------------------------------ |

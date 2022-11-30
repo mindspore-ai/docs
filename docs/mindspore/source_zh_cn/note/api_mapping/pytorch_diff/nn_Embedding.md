@@ -79,7 +79,7 @@ print(result)
 #  [-0.00962828 -0.01533093 -0.01377784]
 #  [-0.01083433  0.00337794 -0.00224762]]
 
-# In Pytorch, you can initialize the embedding weight with _weight attribute.
+# In PyTorch, you can initialize the embedding weight with _weight attribute.
 embedding_weight = torch.randn([3, 5], dtype=torch.float32)
 print(embedding_weight)
 # Out：
@@ -97,7 +97,7 @@ print(result)
 #         [-0.8473, -1.2814, -1.6156, -0.8399, -0.0408]],
 #        grad_fn=<EmbeddingBackward>)
 
-# In Pytorch, you can get the embedding weight with the weight variable.
+# In PyTorch, you can get the embedding weight with the weight variable.
 print(embedding.weight)
 # Out：
 # Parameter containing:

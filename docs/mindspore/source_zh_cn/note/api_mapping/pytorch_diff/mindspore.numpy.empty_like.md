@@ -36,7 +36,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但支持的输�
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 |input | prototype | 功能一致，MindSpore支持更多输入类型 |
 |参数 | 参数1 | dtype         | dtype     | - |
-|  | 参数2 | -             | shape     | 实现重写shape， Pytorch无此参数 |
+|  | 参数2 | -             | shape     | 实现重写shape， PyTorch无此参数 |
 | | 参数3 | layout | - | 不涉及 |
 | | 参数4 | device | - | 不涉及 |
 | | 参数5 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |

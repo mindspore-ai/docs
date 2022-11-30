@@ -20,7 +20,7 @@ mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 
 PyTorch:L1Loss用于计算预测值和目标值之间的平均绝对误差。
 
-MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相传播时，仍可运行，Pytorch不可以。
+MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相传播时，仍可运行，PyTorch不可以。
 
 | 分类 | 子类  | PyTorch   | MindSpore | 差异                 |
 | ---- | ----- | --------- | --------- | -------------------- |

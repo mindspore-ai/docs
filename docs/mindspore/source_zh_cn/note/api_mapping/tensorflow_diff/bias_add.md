@@ -22,7 +22,7 @@ mindspore.ops.bias_add(input_x, bias)
 
 TensorFlow：返回输入value和bias的tensor相加之和，其中bias被限制为1D的tensor，value支持各种数量的维度，两者相加前会把bias广播成与输入value的shape一致。
 
-MindSpore: MindSpore此API实现功能与TensorFlow基本一致，不过MindSpore的输入input_x只支持2-5维的shape。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致，不过MindSpore的输入input_x只支持2-5维的shape。
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                                  |
 | ---- | ----- | ---------- | --------- | ------------------------------------- |

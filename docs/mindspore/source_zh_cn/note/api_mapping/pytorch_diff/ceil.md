@@ -22,7 +22,7 @@ mindspore.ops.ceil(x) -> Tensor
 
 PyTorch：返回带有 input 元素的 ceil 的新张量，该元素大于或等于每个元素的最小整数。
 
-MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |

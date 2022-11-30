@@ -22,7 +22,7 @@ mindspore.ops.atan2(x, y) -> Tensor
 
 PyTorch：逐元素计算考虑象限的input/other的反正切值，其中第二个参数other是x坐标，第一个参数input是y坐标。
 
-MindSpore: MindSpore此API实现功能与PyTorch基本一致，不过也支持x或者y为Scalar的输入。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过也支持x或者y为Scalar的输入。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |

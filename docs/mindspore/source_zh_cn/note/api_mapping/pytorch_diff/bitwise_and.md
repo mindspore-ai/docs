@@ -22,7 +22,7 @@ mindspore.ops.bitwise_and(x, y) -> Tensor
 
 PyTorch：如果输入的两tensor数据类型为布尔类型则计算两tensor数据的逻辑与，否则计算两tensor数据的按位与。
 
-MindSpore: MindSpore此API实现功能与PyTorch一致，但MindSpore不支持布尔类型的tensor数据。
+MindSpore：MindSpore此API实现功能与PyTorch一致，但MindSpore不支持布尔类型的tensor数据。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |

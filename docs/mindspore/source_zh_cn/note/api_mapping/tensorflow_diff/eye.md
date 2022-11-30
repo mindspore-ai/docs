@@ -26,11 +26,11 @@ mindspore.ops.eye(n, m, t) -> Tensor
 
 ## 差异对比
 
-Tensorflow：TensorFlow中可以在参数中接受`batch_shape`，使输出具有这样的形状。
+TensorFlow：TensorFlow中可以在参数中接受`batch_shape`，使输出具有这样的形状。
 
 MindSpore：列数和数据类型不可缺省，功能上无差异。
 
-| 分类 | 子类  | Tensorflow  | MindSpore | 差异                                                         |
+| 分类 | 子类  | TensorFlow  | MindSpore | 差异                                                         |
 | ---- | ----- | ----------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | num_rows    | n         | 功能一致，参数名不同                                        |
 |      | 参数2 | num_columns | m         | 指定张量的列数。TensorFlow中是可选的，如果没有该参数，那么返回一个列数和行数相同的张量；MindSpore中是必须的 |
@@ -42,10 +42,10 @@ MindSpore：列数和数据类型不可缺省，功能上无差异。
 
 ### 代码示例1
 
-> Tensorflow可以缺省`num_columns`，MindSpore不可以缺省。
+> TensorFlow可以缺省`num_columns`，MindSpore不可以缺省。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 
 e1 = tf.eye(3)
@@ -66,10 +66,10 @@ print(e1.numpy())
 
 ### 代码示例2
 
-> Tensorflow可以缺省`dtype`，MindSpore不可以缺省。
+> TensorFlow可以缺省`dtype`，MindSpore不可以缺省。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 e2 = tf.eye(3, 2)
 print(e2.numpy())

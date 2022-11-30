@@ -20,11 +20,11 @@ mindspore.ops.conj(input) -> Tensor
 
 ## 差异对比
 
-Pytorch：返回输入张量的共轭复数。
+PyTorch：返回输入张量的共轭复数。
 
 MindSpore：MindSpore此API实现功能与PyTorch一致。
 
-| 分类 | 子类  | Pytorch | MindSpore | 差异 |
+| 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
 | 参数 | 参数1 | input   | input     | -    |
 | 参数 | 参数2 | out   | -     | 不涉及    |

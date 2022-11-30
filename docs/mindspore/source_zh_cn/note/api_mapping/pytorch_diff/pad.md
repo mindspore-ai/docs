@@ -57,7 +57,7 @@ print(output.shape)
 # Out:
 # (1, 2, 6, 5)
 
-# In Pytorch.
+# In PyTorch.
 x = torch.empty(1, 2, 2, 3)
 pad = (1, 1, 2, 2)
 output = torch.nn.functional.pad(x, pad)

@@ -30,7 +30,7 @@ class mindspore.ops.CTCLoss(
 
 PyTorch: 计算连续时间序列和目标序列之间的损失。`loss`的形状和`reduction`的设置有关，若指定为`mean`（默认）或者`sum`，则返回一个标量，若指定为'none'，则返回`batchsize`个标量。
 
-MindSpore: MindSpore此API实现功能与PyTorch基本一致，返回`loss`及其`梯度`。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回`loss`及其`梯度`。
 
 | 分类 | 子类   | PyTorch             | MindSpore                         | 差异                                                         |
 | ---- | ------ | ------------------- | --------------------------------- | ------------------------------------------------------------ |

@@ -37,7 +37,7 @@ MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`
 
 ### 代码示例1
 
-> 两API实现功能一致，但是Tensorflow该算子是函数式的，直接接受输入。MindSpore中需要先实例化。
+> 两API实现功能一致，但是TensorFlow该算子是函数式的，直接接受输入。MindSpore中需要先实例化。
 
 ```python
 # tensorflow
@@ -67,7 +67,7 @@ print(out)
 
 ### 代码示例2
 
-> Tensorflow中可接受`axis`参数指定'类'所在维度。MindSpore默认最后一维，因为接受的`logits`的`shape`为`[batch_size, num_classes]`，MindSpore可以通过调用Transpose算子交换`axis`实现相同的功能。
+> TensorFlow中可接受`axis`参数指定'类'所在维度。MindSpore默认最后一维，因为接受的`logits`的`shape`为`[batch_size, num_classes]`，MindSpore可以通过调用Transpose算子交换`axis`实现相同的功能。
 
 ```python
 # tensorflow

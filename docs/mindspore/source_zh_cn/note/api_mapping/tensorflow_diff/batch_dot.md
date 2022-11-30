@@ -20,9 +20,9 @@ mindspore.ops.batch_dot(x1, x2, axes=None)
 
 ## 差异对比
 
-Keras:当输入x和y是批量数据时，batch_dot返回x和y的点积。
+TensorFlow：当输入x和y是批量数据时，batch_dot返回x和y的点积。
 
-MindSpore: MindSpore此API实现功能与Keras一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与Keras一致，仅参数名不同。
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                 |
 | ---- | ----- | ---------- | --------- | -------------------- |

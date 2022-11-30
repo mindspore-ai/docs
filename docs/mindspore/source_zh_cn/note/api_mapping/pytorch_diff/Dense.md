@@ -29,11 +29,11 @@ class mindspore.nn.Dense(
 
 ## 差异对比
 
-Pytorch：全连接层，实现矩阵相乘的运算。
+PyTorch：全连接层，实现矩阵相乘的运算。
 
-MindSpore：MindSpore此API实现功能与Pytorch基本一致，而且可以在全连接层后添加激活函数。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且可以在全连接层后添加激活函数。
 
-| 分类 | 子类  | Pytorch      | MindSpore    | 差异                         |
+| 分类 | 子类  | PyTorch      | MindSpore    | 差异                         |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
 | 参数 | 参数1 | in_features  | in_channels  | 功能一致，参数名不同                          |
 |      | 参数2 | out_features | out_channels | 功能一致，参数名不同                        |

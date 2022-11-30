@@ -22,7 +22,7 @@ mindspore.ops.expand_dims(input_x, axis) -> Tensor
 
 PyTorch:对输入input在给定的轴上添加额外维度。
 
-MindSpore:MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                  |
 | ---- | ----- | ------- | --------- | --------------------- |

@@ -45,7 +45,7 @@ PyTorch：计算二维转置卷积，可以视为Conv2d对输入求梯度，也�
 $H_{out}=(H_{in}−1)×stride[0]−2×padding[0]+dilation[0]×(kernel\underline{ }size[0]−1)+output\underline{ }padding[0]+1$
 $W_{out}=(W_{in}−1)×stride[1]−2×padding[1]+dilation[1]×(kernel\underline{ }size[1]−1)+output\underline{ }padding[1]+1$
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与Pytorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
 | ---- | ----- | ------- | --------- | -------------------------------------- |

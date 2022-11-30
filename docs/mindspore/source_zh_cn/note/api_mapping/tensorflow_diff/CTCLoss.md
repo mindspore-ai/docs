@@ -35,7 +35,7 @@ class mindspore.ops.CTCLoss(
 
 TensorFlow：计算连续时间序列和目标序列之间的损失。并且只返回一个和`label_length`形状一致的`loss`。
 
-MindSpore：MindSpore此API实现功能与Pytorch基本一致，返回`loss`及其`梯度`。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回`loss`及其`梯度`。
 
 | 分类 | 子类   | TensorFlow                        | MindSpore                    | 差异                                                         |
 | ---- | ------ | --------------------------------- | ---------------------------- | ------------------------------------------------------------ |

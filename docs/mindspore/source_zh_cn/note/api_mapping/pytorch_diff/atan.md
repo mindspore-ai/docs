@@ -22,7 +22,7 @@ mindspore.ops.atan(x) -> Tensor
 
 PyTorch：逐元素计算输入Tensor的反正切值。
 
-MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |

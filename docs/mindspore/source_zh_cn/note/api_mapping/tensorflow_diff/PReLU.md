@@ -23,13 +23,13 @@ class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 
 ## 差异对比
 
-Tensorflow：PReLU激活函数。
+TensorFlow：PReLU激活函数。
 
-MindSpore: MindSpore此接口功能与Tensorflow基本一致。
+MindSpore：MindSpore此接口功能与TensorFlow基本一致。
 
-| 分类 | 子类 | Tensorflow | MindSpore | 差异 |
+| 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | :-- | --- |---|
-|参数 | 参数1 | - | channel | 输入张量的通道数，默认值为1。Tensorflow无此参数 |
+|参数 | 参数1 | - | channel | 输入张量的通道数，默认值为1。TensorFlow无此参数 |
 | | 参数2 | alpha_initializer | w | 权重的初始化函数，参数功能一致，默认值不同，参数名不同 |
 | | 参数3 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
 | | 参数4 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
@@ -38,10 +38,10 @@ MindSpore: MindSpore此接口功能与Tensorflow基本一致。
 
 ### 代码示例1
 
-> Tensorflow的alpha_initializer参数与MindSpore的参数功能一致，默认值不同，参数名不同，Tensorflow默认alpha为0.0，故使用MindSpore只需将w设置为0.0即可实现相同功能。
+> TensorFlow的alpha_initializer参数与MindSpore的参数功能一致，默认值不同，参数名不同，TensorFlow默认alpha为0.0，故使用MindSpore只需将w设置为0.0即可实现相同功能。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 from keras.layers import PReLU
 import numpy as np
@@ -69,10 +69,10 @@ print(output)
 
 ### 代码示例2
 
-> Tensorflow的alpha_initializer参数可以通过初始化函数改变alpha值，MindSpore只需将w设置为对应值即可实现相同功能。
+> TensorFlow的alpha_initializer参数可以通过初始化函数改变alpha值，MindSpore只需将w设置为对应值即可实现相同功能。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 from keras.layers import PReLU
 import numpy as np

@@ -112,7 +112,7 @@ print(output)
 
 ### 代码示例2
 
-> Pytorch的参数padding_mode为'zero'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
+> PyTorch的参数padding_mode为'zero'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
 
 ```python
 # PyTorch
@@ -143,7 +143,7 @@ print(output)
 
 ### 代码示例3
 
-> Pytorch的参数padding_mode为'reflect'时，表示对输入进行反射填充，而MindSpore中实现反射填充需通过API组合实现，首先调用nn.Pad对输入x进行反射填充，再对填充后的结果进行卷积操作。
+> PyTorch的参数padding_mode为'reflect'时，表示对输入进行反射填充，而MindSpore中实现反射填充需通过API组合实现，首先调用nn.Pad对输入x进行反射填充，再对填充后的结果进行卷积操作。
 
 ```python
 # PyTorch
@@ -176,7 +176,7 @@ print(output)
 
 ### 代码示例4
 
-> Pytorch默认情况下不对输入进行填充，而MindSpore默认情况下需要对输入进行填充，如果不对输入进行填充，需要将pad_mode设置为'valid'。
+> PyTorch默认情况下不对输入进行填充，而MindSpore默认情况下需要对输入进行填充，如果不对输入进行填充，需要将pad_mode设置为'valid'。
 
 ```python
 # PyTorch
