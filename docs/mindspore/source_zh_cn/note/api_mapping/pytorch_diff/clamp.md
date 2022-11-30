@@ -33,7 +33,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名`input`不
 
 ### 代码示例1
 
-> 两API实现功能一致， 用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

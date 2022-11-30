@@ -22,11 +22,11 @@ mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 
 PyTorch：计算输入x的指数线性值，返回结果为 $ \text{elu}(x) = \max(0,x) + \min(0, \alpha * (\exp(x) - 1)) $，inplace参数可选择是否就地操作，默认为False。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致， 不过α目前只支持1.0。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过α目前只支持1.0。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input_x |功能一致， 参数名不同 |
+|参数 | 参数1 | input | input_x |功能一致，参数名不同 |
 | | 参数2 | alpha | alpha | α系数，MindSpore目前只支持alpha等于1.0 |
 | | 参数3 | inplace | - | MindSpore无此参数 |
 

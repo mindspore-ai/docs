@@ -26,7 +26,7 @@ MindSpore: 当clip_value_min小于等于clip_value_max时，MindSpore此API实�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | t | x | 功能一致， 参数名不同 |
+|参数 | 参数1 | t | x | 功能一致，参数名不同 |
 | | 参数2 | clip_value_min | clip_value_min | - |
 | | 参数3 | clip_value_max | clip_value_max | - |
 | | 参数4 | name | - | 不涉及 |

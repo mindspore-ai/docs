@@ -22,7 +22,7 @@ mindspore.ops.BatchMatMul(transpose_a=False, transpose_b=False)(x, y) -> Tensor
 
 PyTorch：对input和mat2执行批量矩阵乘积，其中input和mat2必须是3-D的tensor。如果input是一个(b, n, m)的tensor，mat2是一个(b, n, p)的tensor，两者矩阵乘积的结果out为(b, n, p)。
 
-MindSpore: MindSpore此API实现功能与PyTorch基本一致， 不过MindSpore支持3D以及更高维度的矩阵乘法计算，其中MindSpore的transpose_a若为True，会把输入相乘的第一个tensor的最后两维进行交换。
+MindSpore: MindSpore此API实现功能与PyTorch基本一致，不过MindSpore支持3D以及更高维度的矩阵乘法计算，其中MindSpore的transpose_a若为True，会把输入相乘的第一个tensor的最后两维进行交换。
 
 | 分类 | 子类  | PyTorch       | MindSpore   | 差异                                                         |
 | ---- | ----- | ------------- | ----------- | ------------------------------------------------------------ |
@@ -35,7 +35,7 @@ MindSpore: MindSpore此API实现功能与PyTorch基本一致， 不过MindSpore�
 
 ### 代码示例1
 
-两API实现功能一致， 用法相同。
+两API实现功能一致，用法相同。
 
 ```python
 # PyTorch

@@ -22,11 +22,11 @@ mindspore.ops.select(cond, x, y) -> Tensor
 
 PyTorch：根据条件判断Tensor中的元素的值来决定输出中的相应元素是从 x （如果元素值为True）还是从 y （如果元素值为False）中选择。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致， 不过广播机制有所差异。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过广播机制有所差异。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | condition | cond |功能一致， 参数名不同 |
+|参数 | 参数1 | condition | cond |功能一致，参数名不同 |
 | | 参数2 | x | x | PyTorch与MindSpore广播功能有差异|
 | | 参数3 | y | y | PyTorch与MindSpore广播功能有差异|
 

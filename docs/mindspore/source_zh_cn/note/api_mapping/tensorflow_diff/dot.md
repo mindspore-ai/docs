@@ -26,8 +26,8 @@ MindSpore：当输入的两个参数都是张量时，MindSpore此API实现功�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | :-: | :-: | :-: | :-: |:-:|
-|参数 | 参数1 | x | x1 |功能一致， 参数名不同，且MindSpore参数只能为Tensor类型 |
-| | 参数2 | y | x2 |功能一致， 参数名不同，且MindSpore参数只能为Tensor类型 |
+|参数 | 参数1 | x | x1 |功能一致，参数名不同，且MindSpore参数只能为Tensor类型 |
+| | 参数2 | y | x2 |功能一致，参数名不同，且MindSpore参数只能为Tensor类型 |
 
 ### 代码示例
 

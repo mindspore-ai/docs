@@ -22,7 +22,7 @@ mindspore.ops.cumsum(x, axis, dtype=None) -> Tensor
 
 PyTorch：计算输入Tensor在指定轴上的累加和。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致， 不过参数设定上有所差异。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过参数设定上有所差异。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|

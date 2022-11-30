@@ -22,7 +22,7 @@ mindspore.nn.AvgPool2d(
 
 TensorFlow：对输入的Tensor执行平均池化。
 
-MindSpore：MindSpore此API实现功能与TensorFlow一致， 仅参数名不同以及使用输入Tensor的方式不同。
+MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同以及使用输入Tensor的方式不同。
 
 | 分类 | 子类  | TensorFlow  | MindSpore   | 差异                                                   |
 | ---- | ----- | ----------- | ----------- | ------------------------------------------------------ |

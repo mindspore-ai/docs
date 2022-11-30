@@ -22,11 +22,11 @@ mindspore.ops.expand_dims(input_x, axis) -> Tensor
 
 TensorFlow:对输入x在给定的轴上添加额外维度。
 
-MindSpore:MindSpore此API实现功能与TensorFlow一致， 仅参数名不同。
+MindSpore:MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                  |
 | ---- | ----- | ---------- | --------- | --------------------- |
-| 参数 | 参数1 | x          | input_x   | 功能一致， 参数名不同 |
+| 参数 | 参数1 | x          | input_x   | 功能一致，参数名不同 |
 |      | 参数2 | axis       | axis      | - |
 |      | 参数3 | name       | -      | 不涉及 |
 

@@ -32,13 +32,13 @@ mindspore.numpy.empty(shape, dtype=mstype.float32) -> Tensor
 
 PyTorch：返回一个未初始化张量，张量的形状由size定义。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致， 但dtype参数默认值不同。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，但dtype参数默认值不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | size | shape |功能一致， 参数名不同 |
+|参数 | 参数1 | size | shape |功能一致，参数名不同 |
 | | 参数2 | out           | -         | 不涉及 |
-|  | 参数3 | dtype         | dtype     | 功能一致， 默认值不同 |
+|  | 参数3 | dtype         | dtype     | 功能一致，默认值不同 |
 | | 参数4 | layout | - | 不涉及 |
 | | 参数5 | device | - | 不涉及 |
 | | 参数6 | requires_grad | - | MindSpore无此参数，默认支持反向求导 |

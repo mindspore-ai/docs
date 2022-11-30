@@ -51,6 +51,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数�
 ```python
 # TensorFlow
 import tensorflow as tf
+
 opt = tf.keras.optimizers.Adagrad(initial_accumulator_value=0.1,learning_rate=0.1)
 var = tf.Variable(1.0)
 val0 = var.value()
@@ -69,6 +70,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset
+
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -96,9 +98,9 @@ y0 = net(input_x)
 model.train(1, data)
 y1 = net(input_x)
 print(y1)
-#[0.9046537]
+# [0.9046537]
 model.train(1, data)
 y2 = net(input_x)
 print(y2)
-#[0.8393387]
+# [0.8393387]
 ```
