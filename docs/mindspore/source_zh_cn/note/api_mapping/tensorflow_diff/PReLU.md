@@ -63,8 +63,8 @@ x = Tensor(np.array([[-1.0, 2.2], [3.3, -4.0]]), mindspore.float32)
 prelu = nn.PReLU(w=0.0)
 output = prelu(x)
 print(output)
-# [[-0.   2.2]
-#  [ 3.3 -0. ]]
+# [[0.   2.2]
+#  [ 3.3 0. ]]
 ```
 
 ### 代码示例2

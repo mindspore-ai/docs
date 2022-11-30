@@ -26,12 +26,12 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，参数设定�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | x | input |功能一致，参数名不同 |
-| | 参数2 | axis | axis | - |
+|参数 | 参数1 | x | x |- |
+| | 参数2 | axis | axis | MindSpore无默认值，可以指定维度 |
 | | 参数3 | exclusive | - | MindSpore无此参数 |
 | | 参数4 | reverse | - | MindSpore无此参数 |
 | | 参数5 | name | - | 不涉及 |
-| | 参数6 | - | dtype | mindspore中设置输出数据类型 |
+| | 参数6 | - | dtype | MindSpore中设置输出数据类型 |
 
 ### 代码示例1
 
