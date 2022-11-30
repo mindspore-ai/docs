@@ -12,25 +12,25 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/install/mindspore_ascend_install_docker.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 
 本文档介绍如何在Ascend 910环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
-MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascendhub/#/main)上。
+MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/swr/index.html)上。
 
 目前容器化构建选项支持情况如下：
 
 | 硬件平台   | Docker镜像仓库                | 标签                       | 说明                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `public-ascendhub/mindspore-modelzoo` | `x.y.z` | 已经预安装与Ascend Data Center Solution `x.y.z` 版本共同发布的MindSpore的生产环境。 |
+| Ascend | `mindspore/mindspore-ascend` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
-> `x.y.z`对应Atlas Data Center Solution版本号，可以在Ascend Hub页面获取。
+> `x.y.z`对应MindSpore版本号，例如安装1.9.0版本MindSpore时，`x.y.z`应写为1.9.0。
 
 ## 确认系统环境信息
 
-- 确认安装Ubuntu 18.04/CentOS 7.6是64位操作系统。
+- 确认安装基于ARM的Ubuntu 18.04/CentOS 7.6 64位操作系统。
 
 - 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
 
@@ -42,24 +42,19 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
 - 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`6.0.RC1.alpha005`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
-- 在完成安装基础驱动与配套软件包的基础上，确认安装CANN软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
-
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
 ## 获取MindSpore镜像
 
-1. 登录[Ascend Hub镜像中心](https://ascend.huawei.com/ascendhub/#/home)，注册并激活账号，获取登录指令和下载指令。
-2. 获取下载权限后，进入[MindSpore镜像下载页面](https://ascendhub.huawei.com/#/detail/mindspore-modelzoo)，获取登录与下载指令并执行：
+对于`Ascend`后端，可以直接使用以下命令获取最新的稳定镜像：
 
-    ```bash
-    docker login -u {username} -p {password} {url}
-    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
-    ```
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+```
 
-    其中：
+其中：
 
-    - `{username}` `{password}` `{url}` 代表用户的登录信息与镜像服务器信息，均为注册并激活账号后自动生成，在对应MindSpore镜像页面复制登录命令即可获取。
-    - `{tag}` 对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面复制下载命令获取。
+- `{tag}`对应上述表格中的标签。
 
 ## 运行MindSpore镜像
 
@@ -78,16 +73,15 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/latest/driver:/usr/local/Ascend/latest/driver \
-               -v /usr/local/Ascend/latest/add-ons/:/usr/local/Ascend/latest/add-ons/ \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                -v /var/log/npu/:/usr/slog \
-               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
                /bin/bash
 ```
 
 其中：
 
-- `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
+- `{tag}`对应上述表格中的标签。
 
 如需使用MindInsight，需设置`--network`参数为”host”模式, 例如:
 
@@ -105,10 +99,9 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/latest/driver:/usr/local/Ascend/latest/driver \
-               -v /usr/local/Ascend/latest/add-ons/:/usr/local/Ascend/latest/add-ons/ \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                -v /var/log/npu/:/usr/slog \
-               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
                /bin/bash
 ```
 
@@ -171,12 +164,12 @@ print(ops.add(x, y))
 当需要升级MindSpore版本时：
 
 - 根据需要升级的MindSpore版本，升级对应的Ascend AI处理器配套软件包。
-- 再次登录[Ascend Hub镜像中心](https://ascend.huawei.com/ascendhub/#/home)获取最新docker版本的下载命令，并执行：
+- 直接使用以下命令获取最新的稳定镜像：
 
-    ```bash
-    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
-    ```
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+```
 
-    其中：
+其中：
 
-    - `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面自动获取。
+- `{tag}`对应上述表格中的标签。
