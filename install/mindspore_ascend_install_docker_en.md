@@ -18,19 +18,19 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by Docker.
 
-The Ascend 910 image of MindSpore is hosted on the [Ascend Hub](https://ascend.huawei.com/ascendhub/#/main).
+The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicloud.com/swr/index.html).
 
 The current support for containerized build options is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `public-ascendhub/mindspore-modelzoo` | `x.y.z` | The production environment of MindSpore released together with the Ascend Data Center Solution `x.y.z` version is pre-installed. |
+| Ascend | `mindspore/mindspore-ascend` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the version number of Atlas Data Center Solution, which can be obtained on the Ascend Hub page.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 1.9.0 is installed, `x.y.z` should be written as 1.9.0.
 
 ## System Environment Information Confirmation
 
-- Ensure that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
+- Ensure that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit ARM architecture operating system.
 
 - Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
 
@@ -42,24 +42,19 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Community edition has no restrictions, choose `6.0.RC1.alpha005` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
-- After installing basic driver and corresponding software packages, ensure that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
-
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 ## Obtaining MindSpore Image
 
-1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), and register and activate an account. Get login instructions and download instructions.
-2. After obtaining the download permission, enter the [MindSpore image download page](https://ascendhub.huawei.com/#/detail/mindspore-modelzoo). Get login and download commands and execute:
+For the `Ascend` backend, you can directly use the following command to obtain the latest stable image:
 
-    ```bash
-    docker login -u {username} -p {password} {url}
-    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
-    ```
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+```
 
-    of which,
+of which,
 
-    - `{username}` `{password}` `{url}` represents the user's login information and image server information, which are automatically generated after registering and activating the account, and can be obtained by copying the login command on the corresponding MindSpore image page.
-    - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
+- `{tag}` corresponds to the label in the above table.
 
 ## Running MindSpore Image
 
@@ -78,16 +73,15 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/latest/driver:/usr/local/Ascend/latest/driver \
-               -v /usr/local/Ascend/latest/add-ons/:/usr/local/Ascend/latest/add-ons/ \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                -v /var/log/npu/:/usr/slog \
-               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
                /bin/bash
 ```
 
 of which,
 
-- `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
+- `{tag}` corresponds to the label in the above table.
 
 If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
@@ -105,10 +99,9 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/latest/driver:/usr/local/Ascend/latest/driver \
-               -v /usr/local/Ascend/latest/add-ons/:/usr/local/Ascend/latest/add-ons/ \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                -v /var/log/npu/:/usr/slog \
-               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
                /bin/bash
 ```
 
@@ -171,12 +164,12 @@ Enter ```mindinsight start --port 8080```, if it prompts that the startup status
 When you need to update the MindSpore version:
 
 - update corresponding Ascend AI processor software package according to MindSpore package version of which you wish to update.
-- log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest Docker and execute:
+- directly use the following command to obtain the latest stable image:
 
-    ```bash
-    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
-    ```
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+```
 
-    of which,
+of which,
 
-    - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
+- `{tag}` corresponds to the label in the above table.
