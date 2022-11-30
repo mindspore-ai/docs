@@ -37,7 +37,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。当前要求输�
 
 ### 代码示例1
 
-> Mindspore当前要求输入tensor的数据类型保持一致，若不一致时可通过ops.cast把低精度tensor转成高精度类型再调用concat算子。
+> MindSpore当前要求输入tensor的数据类型保持一致，若不一致时可通过ops.cast把低精度tensor转成高精度类型再调用concat算子。
 
 ```python
 # PyTorch

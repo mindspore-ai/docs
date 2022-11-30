@@ -18,7 +18,7 @@ class mindspore.nn.SoftShrink(lambd=0.5)(input_x) -> Tensor
 
 ## 差异对比
 
-Pytorch：用于计算Softshrink激活函数。
+PyTorch：用于计算Softshrink激活函数。
 
 MindSpore：接口名称与PyTorch有差异MindSpore为SoftShrink，PyTorch为Softshrink，功能一致。
 

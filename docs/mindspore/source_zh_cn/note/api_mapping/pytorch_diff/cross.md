@@ -20,11 +20,11 @@ mindspore.ops.cross(input, other, dim=None) -> Tensor
 
 ## 差异对比
 
-Pytorch：返回 input 和 other 两个向量组的叉积。
+PyTorch：返回 input 和 other 两个向量组的叉积。
 
 MindSpore：MindSpore此API实现功能与PyTorch一致。
 
-| 分类 | 子类  | Pytorch | MindSpore | 差异                 |
+| 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | input        | 功能一致，参数名不同 |
 |      | 参数2 | other   | other        | 功能一致，参数名不同 |

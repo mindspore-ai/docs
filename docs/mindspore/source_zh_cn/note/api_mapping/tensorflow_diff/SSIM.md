@@ -32,11 +32,11 @@ class mindspore.nn.SSIM(
 
 ## 差异对比
 
-Tensorflow: 在TensorFlow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
+TensorFlow: 在TensorFlow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
 
 MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回结果。接受图片的格式为"NCHW"。
 
-| 分类 | 子类  | Tensorflow   | MindSpore    | 差异                                                         |
+| 分类 | 子类  | TensorFlow   | MindSpore    | 差异                                                         |
 | ---- | ----- | ------------ | ------------ | ------------------------------------------------------------ |
 | 参数 | 参数1 | img1         | img1         | MindSpore在实例化的函数中接收该输入，功能上一致            |
 |      | 参数2 | img2         | img2         |MindSpore在实例化的函数中接收该输入，功能上一致            |
@@ -50,7 +50,7 @@ MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回
 
 ### 代码示例1
 
-> Tensorflow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`.
+> TensorFlow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`.
 
 ```python
 # tensorflow
@@ -78,10 +78,10 @@ print(output)
 
 ### 代码示例2
 
-> Tensorflow中接受图片输入的格式为“NHWC”，Mindspore中为"NCHW"。下面的例子用同一个随机种子生成的4D张量，在MindSpore中经`(0, 3, 1, 2)`的轴变换后可以得到和Tensorflow相同的结果。
+> TensorFlow中接受图片输入的格式为“NHWC”，MindSpore中为"NCHW"。下面的例子用同一个随机种子生成的4D张量，在MindSpore中经`(0, 3, 1, 2)`的轴变换后可以得到和TensorFlow相同的结果。
 
 ```python
-# Tensorflow
+# TensorFlow
 import numpy as np
 import tensorflow as tf
 

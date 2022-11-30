@@ -43,7 +43,7 @@ class mindspore.nn.Conv1dTranspose(
 
 PyTorch：计算一维转置卷积，可以视为Conv1d对输入求梯度，也称为反卷积（实际不是真正的反卷积）。输入的shape通常是$(N,C_{in}, L_{in})$，其中$N$是batch size，$C$是空间维度，$L$是序列的长度。输出的shape为$(N,C_{out},L_{out})$，其中$L_{out}=(L_{in}−1)×stride−2×padding+dilation×(kernel\_size−1)+output\_padding+1$
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与Pytorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
 | ---- | ----- | ------- | --------- | -------------------------------------- |

@@ -20,7 +20,7 @@ class mindspore.nn.LeakyReLU(alpha=0.2)(x) -> Tensor
 
 PyTorch：实现Leaky ReLU激活函数的基本功能，其中参数`negative_slope`是用于控制激活函数的斜率，参数`inplace`用于控制是否选择就地执行激活函数的操作。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，其中参数`alpha`与Pytorch中的参数`negative_slope`功能一致，参数名不同，默认值不同；但MindSpore不存在`inplace`参数。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，其中参数`alpha`与PyTorch中的参数`negative_slope`功能一致，参数名不同，默认值不同；但MindSpore不存在`inplace`参数。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|

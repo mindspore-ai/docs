@@ -18,11 +18,11 @@ class mindspore.nn.ReLU()(x) -> Tensor
 
 ## 差异对比
 
-Tensorflow：ReLU激活函数。
+TensorFlow：ReLU激活函数。
 
-MindSpore: MindSpore此算子实现功能与TensorFlow一致，仅参数名不同。
+MindSpore：MindSpore此算子实现功能与TensorFlow一致，仅参数名不同。
 
-| 分类 | 子类 | Tensorflow | MindSpore | 差异 |
+| 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | features | x | 输入Tensor |
 | | 参数2 | name | - | 不涉及 |
@@ -32,7 +32,7 @@ MindSpore: MindSpore此算子实现功能与TensorFlow一致，仅参数名不�
 > 两API实现功能一致，用法相同。
 
 ```python
-# Tensorflow
+# TensorFlow
 import tensorflow as tf
 
 x = tf.constant([[-1.0, 2.2], [3.3, -4.0]])

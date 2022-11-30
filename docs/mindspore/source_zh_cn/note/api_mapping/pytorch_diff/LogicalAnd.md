@@ -44,7 +44,7 @@ logical_and = ops.LogicalAnd()
 print(logical_and(x, y))
 # TypeError: For primitive[LogicalAnd], the input argument[x] must be a type of {Tensor[Bool],}, but got Int32.
 
-# Pytorch
+# PyTorch
 print(torch.logical_and(torch.tensor([True, False, True]), torch.tensor([True, False, False])))
 # tensor([ True, False, False])
 a = torch.tensor([0, 1, 10, 0], dtype=torch.int8)

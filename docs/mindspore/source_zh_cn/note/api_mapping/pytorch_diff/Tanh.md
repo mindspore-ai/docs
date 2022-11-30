@@ -18,7 +18,7 @@ class mindspore.nn.Tanh()(x) -> Tensor
 
 ## 差异对比
 
-Pytorch：计算双曲正切函数tanh。
+PyTorch：计算双曲正切函数tanh。
 
 MindSpore：MindSpore此API实现功能与PyTorch一致。
 

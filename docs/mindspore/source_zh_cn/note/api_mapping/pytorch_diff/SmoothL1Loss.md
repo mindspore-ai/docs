@@ -20,7 +20,7 @@ class mindspore.nn.SmoothL1Loss(beta=1.0, reduction='none')(logits, labels) -> T
 
 PyTorch：SmoothL1Loss损失函数，如果预测值和目标值的逐个元素绝对误差小于设定阈值beta则用平方项，否则用绝对误差项。
 
-MindSpore：除两个在Pytorch已弃用的参数不同外，功能上无差异。
+MindSpore：除两个在PyTorch已弃用的参数不同外，功能上无差异。
 
 | 分类 | 子类  | PyTorch      | MindSpore | 差异                                                         |
 | ---- | ----- | ------------ | --------- | ------------------------------------------------------------ |

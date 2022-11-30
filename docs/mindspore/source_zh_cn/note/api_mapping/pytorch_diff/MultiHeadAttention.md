@@ -44,7 +44,7 @@ mindspore.nn.transformer.MultiHeadAttention在初始化参数和torch.nn.Multihe
 |                                          | add_zero_attn               | 是否在第1维度的key和value序列上面添加全零的数据。MindSpore未实现此功能。 |
 |                                          | kdims                       | key维度的feature数量。MindSpore未实现此功能。                |
 |                                          | vdims                       | value维度的feature数量。MindSpore未实现此功能。              |
-|                                          | batch_first                 | MindSpore默认配置为(batch,seq, feature)，即Pytorch的batch_first=True |
+|                                          | batch_first                 | MindSpore默认配置为(batch,seq, feature)，即PyTorch的batch_first=True |
 
 - mindspore.nn.transformer.MultiHeadAttention缺少bias、add_bias_kv、add_zero_attn、kdim和vdim的输入，在前向计算中缺少key_padding_mask的输入。
 - mindspore.nn.transformer.MultiHeadAttention的dropout_rate分别为0.1，而pytorch对应的版本为0.0。

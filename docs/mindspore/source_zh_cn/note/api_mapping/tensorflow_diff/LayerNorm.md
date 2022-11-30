@@ -39,14 +39,14 @@ class mindspore.nn.LayerNorm(
 
 TensorFlow：在mini-batch输入上应用层归一化（Layer Normalization），其中，参数`center`和`scale`控制是否使用beta和gamma，`beta_regularizer`和`gamma_regularizer`用于控制是否采用beta和gamma的可选正则化器，参数`beta_constraint`和`gamma_constraint`用于控制是否采用beta和gamma的可选约束。
 
-MindSpore：TensorFlow的此API中各参数均为默认时，MindSpore此API实现功能与TensorFlow基本一致。但Mindspore中不存在参数`center`和`scale`，不能实现忽略beta和gamma的功能；不存在参数`beta_regularizer`，`gamma_regularizer`，`beta_constraint`，和`gamma_constraint`，暂不支持实现对应功能；同时MindSpore此API增加了参数`begin_params_axis`控制第一个参数(beta, gamma)的维度，以及参数`normalized_shape`用来控制平均值和标准差计算的特定维度。
+MindSpore：TensorFlow的此API中各参数均为默认时，MindSpore此API实现功能与TensorFlow基本一致。但MindSpore中不存在参数`center`和`scale`，不能实现忽略beta和gamma的功能；不存在参数`beta_regularizer`，`gamma_regularizer`，`beta_constraint`，和`gamma_constraint`，暂不支持实现对应功能；同时MindSpore此API增加了参数`begin_params_axis`控制第一个参数(beta, gamma)的维度，以及参数`normalized_shape`用来控制平均值和标准差计算的特定维度。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | axis | begin_norm_axis | 功能一致，参数名不同|
 | | 参数2 | epsilon | epsilon | 功能一致，参数名相同，默认值不同 |
-| | 参数3 | center | - | TensorFlow中此参数用于控制是否使用beta偏移量，Mindspore中无此参数|
-| | 参数4 | scale | - | TensorFlow中此参数用于控制是否使用gamma，Mindspore中无此参数|
+| | 参数3 | center | - | TensorFlow中此参数用于控制是否使用beta偏移量，MindSpore中无此参数|
+| | 参数4 | scale | - | TensorFlow中此参数用于控制是否使用gamma，MindSpore中无此参数|
 | | 参数5 | beta_initializer | beta_init | 功能一致，参数名不同|
 | | 参数6 | gamma_initializer | gamma_init | 功能一致，参数名不同|
 | | 参数7 | beta_regularizer | - | TensorFlow中此参数用于控制是否采用beta权重的可选正则化器，MindSpore中无此参数|

@@ -20,7 +20,7 @@ mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 
 PyTorch:functional.l1_loss等价于L1Loss。
 
-MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相传播时，仍可运行，但Pytorch不可以。
+MindSpore:包含PyTorch功能，当logits和labels的shape不同但可以互相传播时，仍可运行，但PyTorch不可以。
 
 | 分类 | 子类  | PyTorch   | MindSpore | 差异                 |
 | ---- | ----- | --------- | --------- | -------------------- |

@@ -22,7 +22,7 @@ mindspore.ops.abs(x) -> Tensor
 
 PyTorch：计算输入的绝对值。
 
-MindSpore: MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                  |
 | ---- | ----- | ------- | --------- | --------------------- |

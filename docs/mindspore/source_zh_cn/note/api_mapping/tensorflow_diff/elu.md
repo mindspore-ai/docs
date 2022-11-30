@@ -32,7 +32,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，不过支持�
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | features | input_x |功能一致，参数名不同 |
 | | 参数2 | name |  | 不涉及 |
-| | 参数3 | - | alpha | Mindspore目前只支持alpha等于1.0，与TensorFlow接口一致 |
+| | 参数3 | - | alpha | MindSpore目前只支持alpha等于1.0，与TensorFlow接口一致 |
 
 ### 代码示例1
 
