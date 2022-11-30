@@ -1,5 +1,7 @@
 # 物理驱动
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/intro/physics_driven.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 传统的分子动力学模拟主要利用物理知识对分子体系进行计算模拟。
 
 通常，研究体系会被设定为由许多质点组成，每个质点代表一个原子（全原子模拟）或若干原子（粗粒化模拟）。这些质点彼此之间存在一定的相互作用势能，根据理论力学即可求解运动方程，获得运动轨迹，以此可以进行动力学研究。

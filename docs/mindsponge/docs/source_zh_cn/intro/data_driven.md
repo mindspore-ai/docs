@@ -1,5 +1,7 @@
 # 数据驱动
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/intro/data_driven.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 数据驱动的方法主要基于已有的各种物理、化学、生物数据，应用机器学习方法，实现分子学习任务。
 
 数据驱动方法的发展是数据积累以及AI技术进步两方面综合促进的结果。随着蛋白、DNA、RNA等生物大分子序列、结构数据库，小分子结构、性质数据库，分子模拟等数据的不断扩增，应用一种或多种数据，可以训练AI模型学习其中的表示、性质、关联性等，以实现下游任务。
