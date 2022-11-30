@@ -1,5 +1,7 @@
 # 分子结构预测
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/user/structure_prediction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 获取分子结构，尤其是生物大分子（DNA、RNA、蛋白质）的结构，是生物制药领域研究的重要问题，其用途也十分广泛，MindSPONGE生物计算工具包提供一系列分子结构预测的计算工具，帮助研究者高效获取高精度的分子结构。
 
 当前已开放了蛋白质与RNA结构预测的一系列工具，支持高精度预测蛋白质单体与复合物结构以及RNA的二级结构。

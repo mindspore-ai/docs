@@ -1,5 +1,7 @@
 # 融合驱动
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/intro/physics_plus_data_driven.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 如下表格中展示了部分当前较为流行的分子动力学模拟软件。
 
 |         | 原型/初版 | 开发语言      | 开发团队所在国 |
