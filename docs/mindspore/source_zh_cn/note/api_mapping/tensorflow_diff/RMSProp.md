@@ -1,5 +1,7 @@
 # 比较与tf.compat.v1.train.RMSPropOptimizer的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/RMSProp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## tf.compat.v1.train.RMSPropOptimizer
 
 ```text
