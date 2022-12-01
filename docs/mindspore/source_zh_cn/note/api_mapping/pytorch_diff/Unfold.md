@@ -31,7 +31,6 @@ MindSpore：MindSpore此API实现功能与PyTorch功能有差异。PyTorch的ker
 | | 参数2 | dilation | rates | 功能一致，但输入格式不一致。dilation表示控制滑动过程中所跨越元素的个数，支持int和tuple输入，默认值是1，如果dilation是一个int，其值将在所有维度上进行复制；rates表示滑窗元素之间的空洞个数，支持格式为(1, rate_row, rate_col, 1)的tuple或list |
 | | 参数3 | padding | padding | 功能不一致。都表示填充模式，PyTorch是在输入的两侧进行零填充，支持int和tuple输入，默认值是0，如果padding是一个int，其值将在所有维度上进行复制；MindSpore支持str输入，可选值有"same"或"valid"，默认值是"valid"，表示所提取的区域块被原始输入所覆盖，取值为"same"时表示所提取的区域块的部分区域可以在原始输入之外进行零填充 |
 |  | 参数4 | stride      | strides | 功能一致，但输入格式不一致。都表示空间维度上滑动窗口的步长，PyTorch支持int和tuple输入，默认值是1，如果stride是一个int，其值将在所有维度上进行复制；MindSpore支持格式为(1, stride_row, stride_col, 1)的tuple或list |
-| 输出 | 单输出 | output | output | PyTorch输出3维张量，MindSpore输出4维张量。PyTorch与MindSpore的计算方式不同，PyTorch将提取出滑动的每个局部区域块进行Flatten，而MindSpore不做Flatten处理 |
 
 ### 代码示例1
 

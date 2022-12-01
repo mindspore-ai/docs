@@ -72,41 +72,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 
 ### 代码示例1
 
-> 两API都是实现三维转置卷积运算，使用时需先进行实例化。PyTorch中深度，高度和宽度的padding值在同一方向上相同，如padding设为(1,2,4)表示分别在深度，高度和宽度的两侧填充1，2和4面0，对应在MindSpore中将pad_mode设为"pad"，padding设置为(1,1,2,2,4,4)。PyTorch中利用net.weight.data = torch.ones()的方式将权重初始化为1，shape为$(in\underline{ }channels,\frac {out\underline{ }channels}{groups}, kernel\underline{ }size[0], kernel\underline{ }size[1],kernel\underline{ }size[2])$，MindSpore直接设置参数weight_init = "ones"。
-
-```python
-# PyTorch
-import torch
-from torch import tensor
-import torch.nn as nn
-import numpy as np
-
-k = (3, 5, 2)
-x_ = np.ones([1, 3, 4, 9, 16])
-x = tensor(x_, dtype=torch.float32)
-net = nn.ConvTranspose3d(3, 32, kernel_size=k, padding=(1,2,4), bias=False)
-net.weight.data = torch.ones(3, 32, k[0], k[1], k[2])
-output = net(x).detach().numpy()
-print(output.shape)
-# (1, 32, 4, 9, 9)
-
-# MindSpore
-import mindspore as ms
-import mindspore.nn as nn
-import numpy as np
-
-k = (3, 5, 2)
-x_ = np.ones([1, 3, 4, 9, 16])
-x = ms.Tensor(x_, ms.float32)
-net = nn.Conv3dTranspose(3, 32, kernel_size=k, weight_init='ones', pad_mode='pad', padding=(1,1,2,2,4,4))
-output = net(x)
-print(output.shape)
-# (1, 32, 4, 9, 9)
-```
-
-### 代码示例2
-
-> 为使输出的宽度与输入整除stride后的值相同，PyTorch中设置output_padding = stride - 1，padding设置为(kernel_size - 1)/2。MindSpore则设置pad_mode = "same"，同时padding = 0。
+> 两API都是实现三维转置卷积运算，使用时需先进行实例化。为使输出的宽度与输入整除stride后的值相同，PyTorch中设置output_padding = stride - 1，padding设置为(kernel_size - 1)/2。MindSpore则设置pad_mode = "same"，同时padding = 0。
 
 ```python
 # PyTorch
@@ -141,9 +107,9 @@ print(output.shape)
 # (1, 32, 12, 27, 48)
 ```
 
-### 代码示例3
+### 代码示例2
 
-> 若不在原有图像上做任何填充，在stride>1的情况下可能舍弃一部分数据，在PyTorch中将padding和output_padding设为0，MindSpore中设置pad_mode = "valid"，同时padding = 0。
+> 两API都是实现三维转置卷积运算，使用时需先进行实例化。若不在原有图像上做任何填充，在stride>1的情况下可能舍弃一部分数据，在PyTorch中将padding和output_padding设为0，MindSpore中设置pad_mode = "valid"，同时padding = 0。
 
 ```python
 # PyTorch
