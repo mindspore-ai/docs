@@ -20,9 +20,9 @@ mindspore.nn.GRU(*args, **kwargs) -> Tensor
 
 ## 差异对比
 
-PyTorch:根据输出序列和给定的初始状态计算输出序列和最终状态。
+PyTorch：根据输出序列和给定的初始状态计算输出序列和最终状态。
 
-MindSpore:功能一致，仅参数名不同。
+MindSpore：功能一致，仅参数名不同。
 
 | 分类 | 子类   | PyTorch       | MindSpore     | 差异                      |
 | ---- | ------ | :------------ | ------------- | ------------------------- |
@@ -35,7 +35,6 @@ MindSpore:功能一致，仅参数名不同。
 |      | 参数7  | bidirectional | bidirectional | -                         |
 |      | 参数8  | input         | x             | 功能一致，参数名不同      |
 |      | 参数9  | h_0           | hx            | 功能一致，参数名不同      |
-|      | 参数10 | output        | output        | -                         |
 |      | 参数11 | h_n           | hx_n          | 功能一致，参数名不同      |
 |      | 参数12 | -             | seq_length    | 输入batch中每个序列的长度 |
 

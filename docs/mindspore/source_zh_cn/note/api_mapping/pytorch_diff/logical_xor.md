@@ -20,9 +20,9 @@ class mindspore.numpy.logical_xor(x1, x2, dtype=None)
 
 ## 使用方式
 
-PyTorch: 计算给定输入张量的逐元素逻辑异或。零被视为“False”，非零被视为“True”
+PyTorch：计算给定输入张量的逐元素逻辑异或。零被视为“False”，非零被视为“True”
 
-MindSpore: 按元素计算输入张量的逻辑异或。输入应该是bool或数据类型为bool的张量。
+MindSpore：按元素计算输入张量的逻辑异或。输入应该是bool或数据类型为bool的张量。
 
 ## 代码示例
 

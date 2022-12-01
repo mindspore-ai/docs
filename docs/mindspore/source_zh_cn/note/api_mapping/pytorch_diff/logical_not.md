@@ -20,9 +20,9 @@ class mindspore.numpy.logical_not(a, dtype=None)
 
 ## 使用方式
 
-PyTorch: 计算给定输入张量的逐元素逻辑非。零被视为“False”，非零被视为“True”。
+PyTorch：计算给定输入张量的逐元素逻辑非。零被视为“False”，非零被视为“True”。
 
-MindSpore: 按元素计算输入张量的逻辑非。输入应该是一个dtype为bool的张量。
+MindSpore：按元素计算输入张量的逻辑非。输入应该是一个dtype为bool的张量。
 
 ## 代码示例
 

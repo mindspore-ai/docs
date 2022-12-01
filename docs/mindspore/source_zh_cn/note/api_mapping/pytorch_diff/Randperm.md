@@ -31,9 +31,9 @@ class mindspore.ops.Randperm(
 
 ## 使用方式
 
-PyTorch: 返回从0到n-1的整数的随机排列。
+PyTorch：返回从0到n-1的整数的随机排列。
 
-MindSpore: 生成从0到n-1的n个随机样本，不重复。如果max_length大于n，最后的max_length-n个元素将用参数值pad填充。
+MindSpore：生成从0到n-1的n个随机样本，不重复。如果max_length大于n，最后的max_length-n个元素将用参数值pad填充。
 
 ## 代码示例
 

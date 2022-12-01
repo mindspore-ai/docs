@@ -45,8 +45,8 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数3 | decay_steps   | decay_epoch    | 功能一致，参数名称不同 |
 |      | 参数4 | decay_rate    | decay_rate     | -                      |
 |      | 参数5 | staircase     | is_stair       | 功能一致，参数名称不同 |
-|      | 参数6 |     -          | step_per_epoch | 每个epoch的step数，TensorFlow无此参数    |
-|      | 参数7 |     name          | -| 不涉及    |
+|      | 参数6 |     name          | -| 不涉及    |
+|      | 参数7 |     -          | step_per_epoch | 每个epoch的step数，TensorFlow无此参数    |
 
 ### 代码示例
 

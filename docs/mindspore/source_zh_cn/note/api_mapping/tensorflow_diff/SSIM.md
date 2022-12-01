@@ -34,9 +34,9 @@ class mindspore.nn.SSIM(
 
 ## 差异对比
 
-TensorFlow: 在TensorFlow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
+TensorFlow：在TensorFlow中，算子是函数式的，直接接收输入的两张图片并返回结果。`max_val`参数不可缺省。接受图片的格式为"NHWC"。
 
-MindSpore: 在MindSpore中，算子需要先实例化，然后接收输入返回结果。接受图片的格式为"NCHW"。
+MindSpore：在MindSpore中，算子需要先实例化，然后接收输入返回结果。接受图片的格式为"NCHW"。
 
 | 分类 | 子类  | TensorFlow   | MindSpore    | 差异                                                         |
 | ---- | ----- | ------------ | ------------ | ------------------------------------------------------------ |
