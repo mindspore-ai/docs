@@ -12,7 +12,7 @@ A tensor is a special data structure that is similar to arrays and matrices. [Te
 import numpy as np
 import mindspore
 from mindspore import ops
-from mindspore import Tensor, CSRTensor, COOTensor, RowTensor
+from mindspore import Tensor, CSRTensor, COOTensor
 ```
 
 ## Creating a Tensor
@@ -362,50 +362,6 @@ $$
    0 & 1 & 0 & 0 \\
    0 & 0 & 2 & 0 \\
    0 & 0 & 0 & 0
-  \end{matrix}
-  \right]
-$$
-
-### RowTensor
-
-`RowTensor` is used to compress tensors that are sparse in the dimension 0. If the dimension of `RowTensor` is `[L0, D1, D2, ..., DN ]` and the number of non-zero elements in the dimension 0 is `D0`, then `L0 >> D0`. The meaning of each parameter is as follows:
-
-- `indices`: 1-D integer tensor, indicating the position of non-zero elements in the dimension 0 of the sparse tensor. The shape is `[D0]`.
-
-- `values`: indicating the value of the corresponding non-zero element. The shape is `[D0, D1, D2, ..., DN]`.
-
-- `dense_shape`: indicates the shape of a compressed sparse tensor.
-
-> For the detailed documentation of `RowTensor`, see the code example in [mindspore.RowTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.RowTensor.html).
-
-A code example is as follows:
-
-```python
-indices = Tensor([0])
-values = Tensor([[1, 2]], dtype=mindspore.float32)
-dense_shape = (3, 2)
-
-x = RowTensor(indices, values, dense_shape)
-
-print("non-zero values:", x.values)
-print("non-zero indices:", x.indices)
-print("shape:", x.dense_shape)
-```
-
-```text
-non-zero values: [[1. 2.]]
-non-zero indices: [0]
-shape: (3, 2)
-```
-
-The preceding code generates `RowTensor` as shown in the following equation:
-
-$$
- \left[
- \begin{matrix}
-   1 & 2 \\
-   0 & 0 \\
-   0 & 0
   \end{matrix}
   \right]
 $$
