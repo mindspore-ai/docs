@@ -130,7 +130,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-gl_dir_msg = os.path.join(os.getenv("ML_PATH"), 'docs/api_python')
+gl_dir_msg = os.path.join(os.getenv("GL_PATH"), 'docs/api_python')
 
 present_path = os.path.dirname(__file__)
 
