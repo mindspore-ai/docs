@@ -20,6 +20,6 @@ mindspore.set_context(**kwargs)
 
 ## Differences
 
-PyTorch: 将Tenosr 拷贝到 cuda 内存.
+PyTorch：将Tenosr 拷贝到 cuda 内存.
 
 MindSpore：将变量设置为 `device_target='GPU'` 或 `device_target='Ascend'` 时, 网络和Tensor都将自动拷贝到 GPU/Ascend 设备.

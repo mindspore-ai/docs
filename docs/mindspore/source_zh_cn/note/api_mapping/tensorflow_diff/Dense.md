@@ -41,7 +41,7 @@ class mindspore.nn.Dense(
 
 ## 差异对比
 
-TensorFlow: 全连接层，实现矩阵相乘的运算。
+TensorFlow：全连接层，实现矩阵相乘的运算。
 
 MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 

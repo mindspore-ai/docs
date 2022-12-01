@@ -20,9 +20,9 @@ class class mindspore.ops.LogicalAnd()(x, y)
 
 ## 使用方式
 
-PyTorch: 计算给定输入张量的逐元素逻辑与。零被视为“False”，非零被视为“True”。
+PyTorch：计算给定输入张量的逐元素逻辑与。零被视为“False”，非零被视为“True”。
 
-MindSpore: 按元素计算两个输入张量的逻辑与。输入可以是bool值或数据类型为bool的张量。
+MindSpore：按元素计算两个输入张量的逻辑与。输入可以是bool值或数据类型为bool的张量。
 
 ## 代码示例
 

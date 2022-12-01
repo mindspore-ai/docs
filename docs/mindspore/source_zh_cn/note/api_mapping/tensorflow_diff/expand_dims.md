@@ -20,7 +20,7 @@ mindspore.ops.expand_dims(input_x, axis) -> Tensor
 
 ## 差异对比
 
-TensorFlow:对输入x在给定的轴上添加额外维度。
+TensorFlow：对输入x在给定的轴上添加额外维度。
 
 MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
 

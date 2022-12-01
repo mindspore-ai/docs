@@ -20,7 +20,7 @@ mindspore.common.initializer.Constant(value)
 
 ## 使用方式
 
-TensorFlow: 函数入参`value`支持标量，列表，元组，数组类型。假设需要创建一个指定shape的张量，且此接口的入参`value`类型为列表或数组时，`value`包含的元素数量必须小于等于指定shape的元素数量，小于的情况下，`value`的最后一个元素值用来填充剩余的位置。
+TensorFlow：函数入参`value`支持标量，列表，元组，数组类型。假设需要创建一个指定shape的张量，且此接口的入参`value`类型为列表或数组时，`value`包含的元素数量必须小于等于指定shape的元素数量，小于的情况下，`value`的最后一个元素值用来填充剩余的位置。
 
 MindSpore：函数入参`value`支持标量和数组类型。`value`为数组时，只能生成与`value`形状相同的张量。
 
