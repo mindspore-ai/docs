@@ -150,7 +150,17 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    :maxdepth: 1
    :caption: 使用者指南
 
-   intro/simulation
-   intro/structure_prediction
-   intro/property_prediction
-   intro/design
+   user/simulation
+   user/structure_prediction
+   user/property_prediction
+   user/design
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindsponge.cell
+   mindsponge.common
+   mindsponge.data
+   mindsponge.metrics
+   constant
