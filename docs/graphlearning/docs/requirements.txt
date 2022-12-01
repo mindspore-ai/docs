@@ -9,3 +9,4 @@ IPython
 ipykernel
 jieba
 rdkit
+networkx
