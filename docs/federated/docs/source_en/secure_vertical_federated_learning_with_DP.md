@@ -2,27 +2,34 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-Note: This is an experimental feature and may be modified or removed in the future.
-
 ## Background
 
-Vertical federated learning (vFL) is a major branch of federated learning (FL). When different participants have data from the same batch of users but with different attributes, they can use vFL for collaborative training. In vFL, each participant with attributes holds a bottom model, and they input the attributes into the bottom model to get the intermediate result (embedding), which is sent to the participant with labels (referred to as leader paraticipant, participant B as shown in the figure below, as shown in the figure below, and the participant without labels, called follower, as shown in the figure below, as participant A). The leader side uses the embedding and labels to train the upper layer network, and then passes the calculated gradients back to each participant to train the lower layer network. It can be seen that vFL does not require any participant to upload their own raw data to collaboratively train the model.
+Vertical federated learning (vFL) is a major branch of federated learning (FL). When different participants have data from the same batch of users but with different attributes, they can use vFL for collaborative training. In vFL, the participants with user features (follower for short, participant A as shown in the figure below) hold a bottom network (Bottom Model). They input the features into the bottom network, compute the intermediate results (embedding), and send them to the participants with labels (leader for short, participant B as shown in the figure below). The leader uses these embeddings and its own labels to train the upper network (upper network), and then passes the computed gradients back to each participant to train the bottom network. It can be seen that vFL does not require any participant to upload their own raw data to collaboratively train the model.
 
 ![image.png](./images/vfl_1_en.png)
 
-However, the gradients passed back from the leader to the follower contain more information, allowing the follower to invert the labels held by the leader from the gradients. In such a context, we need to provide stronger privacy guarantees for the training of vFL to avoid the risk of label leakage.
+The vFL framework avoids the direct upload of raw data, protecting data privacy at a certain level. However, there exists possibility for a semi-honest or a malicious party to infer the label information from the gradients passing back from the leader party, causing privacy disclosure. Given the large number of vFL scenarios where labels are the most valuable and most important piece of information to protect, in this context, we need to provide stronger privacy guarantees for vFL training to avoid the privacy disclosure.
 
-Differential privacy (DP) is a definition of privacy based strictly on statistics/information theory.
+Differential privacy (DP) is a definition of privacy based strictly on statistics/information theory, which currently the golden standard of privacy-preserving data analysis. The core idea behind DP is to induce randomness to overwhelm each individual data's influence on the algorithm's result, making sure that it is hard for the algorithm's results to be inverted to the individual data. The protection of DP can hold under an extreme threat model, which holds even when:
 
-The core idea behind DP is to induce randomness to confuse each individual data's influence on the algorithm's result, making sure that it is hard for the algorithm's results to be inverted to the individual data. See [1] for an excellent survey. This scheme is based on label differential privacy (label dp) [2], which provides differential privacy guarantees for the labels of the leader participants during vertical federated learning training, so that an attacker cannot invert the label information of the data from the returned gradients.
+- the adversary knows all the details of the DP algorithm
+- the adversary has infinite computing power
+- the adversary has arbitrary auxiliary information about the raw data
+
+Regarding the backgrounds, theories and implementation of DP, please refer to [1] for an excellent survey.
+
+Our scheme is based on label differential privacy (label dp) [2], which provides differential privacy guarantees for the labels of the leader participants during vertical federated learning training, so that an attacker cannot invert the label information of the data from the returned gradients. Under the protection of this scheme, even if the follower party is semi-honest or malicious, the label information of the leader party is guaranteed to be protected, mitigating vFL participants' concerns on the data privacy risk.
 
 ## Algorithm Implementation
 
-We adopt a lightweight implementation of label dp. During training, a certain percentage of the labels are randomly flipped before using the label data from the leader participants. Due to the introduction of randomness, an attacker who wants to invert the labels can at most invert the labels after the random flip or perturbation, increasing the difficulty of inverting the original labels and satisfying the differential privacy guarantee. In practical applications, we can adjust the privacy parameter `eps` (which can be interpreted as the ratio of randomly flipped labels) to meet the needs of different scenarios, and can use smaller `eps` when high privacy is needed and larger `eps` when high precision is needed.
+MindSpore Federated adopt a lightweight implementation of label dp. During training, a certain percentage of the labels are randomly flipped before using the label data from the leader participants. Due to the introduction of randomness, an attacker who wants to invert the labels can at most invert the labels after the random flip or perturbation, increasing the difficulty of inverting the original labels and satisfying the differential privacy guarantee. In practical applications, we can adjust the privacy parameter `eps` (which can be interpreted as the ratio of randomly flipped labels) to meet the needs of different scenarios:
+
+- smaller `eps` (<1.0) corresponds to high privacy, low performance
+- larger `eps`  (>5.0) corresponds to high performance, low privacy
 
 ![image.png](./images/label_dp_en.png)
 
-This scheme is based on the randomized response algorithm, which flips or scrambles the user tags randomly before the leader training of the vFL. The actual implementation is divided into two cases of binary tags and one-hot tags:
+The implementation of this scheme is divided into the binary case and the onehot case. Whether the input labels are binary or onehot is automatically recognized, and the same type of labels will then be output. The detailed algorithm is shown as follows:
 
 ### Binary Labels Protection
 
@@ -40,11 +47,15 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
 
 ### Front-End Needs
 
-The following operations can all be found in the [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
-
 1. Install MindSpore 1.8.1 or its higher version, please refer to [MindSpore official website installation guide](https://www.mindspore.cn/install).
 2. Install MindSpore Federated and the Python libraries which the MindSpore Federated depends on.
-3. Prepare the criteo dataset.
+
+   ```shell
+   cd federated
+   python -m pip install -r requirements_test.txt
+   ```
+
+3. Prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
 
 ### Starting the Script
 
@@ -71,31 +82,31 @@ The following operations can all be found in the [Wide&Deep Vertical Federated L
 Check loss changes of the model training in the training log `log_local_gpu.txt`.
 
 ```sh
-INFO:root:epoch 0 step 100/2582 wide_loss: 0.588637 deep_loss: 0.589756
-INFO:root:epoch 0 step 200/2582 wide_loss: 0.561055 deep_loss: 0.562271
-INFO:root:epoch 0 step 300/2582 wide_loss: 0.556246 deep_loss: 0.557509
-INFO:root:epoch 0 step 400/2582 wide_loss: 0.557931 deep_loss: 0.559055
-INFO:root:epoch 0 step 500/2582 wide_loss: 0.553283 deep_loss: 0.554257
-INFO:root:epoch 0 step 600/2582 wide_loss: 0.549618 deep_loss: 0.550489
-INFO:root:epoch 0 step 700/2582 wide_loss: 0.550243 deep_loss: 0.551095
-INFO:root:epoch 0 step 800/2582 wide_loss: 0.549496 deep_loss: 0.550298
-INFO:root:epoch 0 step 900/2582 wide_loss: 0.549224 deep_loss: 0.549974
-INFO:root:epoch 0 step 1000/2582 wide_loss: 0.547547 deep_loss: 0.548288
-INFO:root:epoch 0 step 1100/2582 wide_loss: 0.546989 deep_loss: 0.547737
-INFO:root:epoch 0 step 1200/2582 wide_loss: 0.552165 deep_loss: 0.552862
-INFO:root:epoch 0 step 1300/2582 wide_loss: 0.546926 deep_loss: 0.547594
-INFO:root:epoch 0 step 1400/2582 wide_loss: 0.558071 deep_loss: 0.558702
-INFO:root:epoch 0 step 1500/2582 wide_loss: 0.548258 deep_loss: 0.548910
-INFO:root:epoch 0 step 1600/2582 wide_loss: 0.546442 deep_loss: 0.547072
-INFO:root:epoch 0 step 1700/2582 wide_loss: 0.549062 deep_loss: 0.549701
-INFO:root:epoch 0 step 1800/2582 wide_loss: 0.546558 deep_loss: 0.547184
-INFO:root:epoch 0 step 1900/2582 wide_loss: 0.542755 deep_loss: 0.543386
-INFO:root:epoch 0 step 2000/2582 wide_loss: 0.543118 deep_loss: 0.543774
-INFO:root:epoch 0 step 2100/2582 wide_loss: 0.542587 deep_loss: 0.543265
-INFO:root:epoch 0 step 2200/2582 wide_loss: 0.545770 deep_loss: 0.546451
-INFO:root:epoch 0 step 2300/2582 wide_loss: 0.554520 deep_loss: 0.555198
-INFO:root:epoch 0 step 2400/2582 wide_loss: 0.551129 deep_loss: 0.551790
-INFO:root:epoch 0 step 2500/2582 wide_loss: 0.545622 deep_loss: 0.546315
+INFO:root:epoch 0 step 100/2582 loss: 0.588637
+INFO:root:epoch 0 step 200/2582 loss: 0.561055
+INFO:root:epoch 0 step 300/2582 loss: 0.556246
+INFO:root:epoch 0 step 400/2582 loss: 0.557931
+INFO:root:epoch 0 step 500/2582 loss: 0.553283
+INFO:root:epoch 0 step 600/2582 loss: 0.549618
+INFO:root:epoch 0 step 700/2582 loss: 0.550243
+INFO:root:epoch 0 step 800/2582 loss: 0.549496
+INFO:root:epoch 0 step 900/2582 loss: 0.549224
+INFO:root:epoch 0 step 1000/2582 loss: 0.547547
+INFO:root:epoch 0 step 1100/2582 loss: 0.546989
+INFO:root:epoch 0 step 1200/2582 loss: 0.552165
+INFO:root:epoch 0 step 1300/2582 loss: 0.546926
+INFO:root:epoch 0 step 1400/2582 loss: 0.558071
+INFO:root:epoch 0 step 1500/2582 loss: 0.548258
+INFO:root:epoch 0 step 1600/2582 loss: 0.546442
+INFO:root:epoch 0 step 1700/2582 loss: 0.549062
+INFO:root:epoch 0 step 1800/2582 loss: 0.546558
+INFO:root:epoch 0 step 1900/2582 loss: 0.542755
+INFO:root:epoch 0 step 2000/2582 loss: 0.543118
+INFO:root:epoch 0 step 2100/2582 loss: 0.542587
+INFO:root:epoch 0 step 2200/2582 loss: 0.545770
+INFO:root:epoch 0 step 2300/2582 loss: 0.554520
+INFO:root:epoch 0 step 2400/2582 loss: 0.551129
+INFO:root:epoch 0 step 2500/2582 loss: 0.545622
 ...
 ```
 
