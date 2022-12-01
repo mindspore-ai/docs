@@ -6,7 +6,7 @@
 tf.nn.leaky_relu(features, alpha=0.2) -> Tensor
 ```
 
-更多内容详见 [torch.nn.LeakyReLU](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/leaky_relu)。
+更多内容详见 [tf.nn.leaky_relu](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/leaky_relu)。
 
 ## mindspore.nn.LeakyReLU
 
