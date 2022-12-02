@@ -2,25 +2,34 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-注：这是一个实验特性，未来有可能被修改或删除。
-
 ## 背景
 
-纵向联邦学习（vFL）是联邦学习（FL）的一大重要分支。当不同的参与方拥有来自相同一批用户但属性不同的数据时，他们便可使用vFL进行协同训练。在vFL中，拥有属性的参与方都会持有一个下层网络（Bottom Model），他们分别将属性输入下层网络，得到中间结果（embedding），发送给拥有标签的参与方（简称leader方，如下图参与方B，而不拥有标签的被称作follower方，如下图参与方A），leader方使用embedding和标签来训练上层网络，再将算得的梯度回传给各个参与方用以训练下层网络。由此可见，vFL不需要任何参与方上传自己的原始数据即可协同训练模型。
+纵向联邦学习（vFL）是联邦学习（FL）的一大重要分支。当几个参与方拥有同一批用户不同属性的数据时，他们便可使用 vFL 进行协同训练。在 vFL 中，拥有用户特征的参与方（简称follower 方，如下图参与方 A）会持有一个下层网络（Bottom Model），他们将特征输入下层网络，计算得到中间结果（embedding），发送给拥有标签的参与方（简称 leader 方，如下图参与方 B），leader 方使用这些embedding 和自己持有的标签来训练上层网络（上层网络），再将算得的梯度回传给各个参与方来训练下层网络。由此可见，vFL 不需要任何参与方上传自己的原始数据即可协同训练模型。
 
 ![image.png](./images/vfl_1.png)
 
-然而，leader方传回给follower方的梯度中包含的信息较多，让follower方能够从梯度反推出leader方持有的标签。在这样的背景下，我们需要对vFL的训练提供更强的隐私保证来规避标签泄露的风险。
+vFL框架避免了原始数据的直接上传，因此在一定程度上保护了隐私安全，然而一个半诚实或者恶意的follower方有可能从leader方回传的梯度反推出leader方的标签信息，造成隐私安全隐患。考虑到在大量vFL场景中，标签是最有价值并且最需要保护的信息，在这样的背景下，我们需要对vFL训练提供更强的隐私保证来避免隐私信息的泄露。
 
-差分隐私（Differential Privacy，DP）是一种严格基于统计学/信息论的隐私定义，它的核心思想是通过随机性的引入来混淆个体数据对最终计算结果的影响，从而保证计算结果难以反推出个体信息，可以参见[1]获取更细致的介绍。本设计方案基于标签差分隐私（label differential privacy，label dp）[2]，在纵向联邦学习训练时为leader参与方的标签提供差分隐私保证，从而使攻击者无法从回传的梯度反推出数据的标签信息。
+差分隐私（Differential Privacy，DP）是一种严格基于统计学/信息论的隐私定义，是目前数据分析领域对于隐私保护的黄金标准。DP核心思想是通过在计算过程中引入随机性，来淹没个体数据对最终计算结果的影响，从而保证计算结果难以反推出个体信息。DP保护能够在极强的威胁模型下保持成立，即使在以下条件下都无法被攻破：
+
+- 攻击者知道算法的所有细节
+- 攻击者有无限的算力
+- 攻击者关于原始数据有任意多的背景知识
+
+关于DP的背景、理论和具体实现，可以参见[1]获取更细致的介绍。
+
+本设计方案基于标签差分隐私（label differential privacy，label dp）[2]，在纵向联邦学习训练时为 leader 参与方的标签提供差分隐私保证，使攻击者难以从回传的梯度反推出数据的标签信息。在本方案的保护下，即使follower方是半诚实或者恶意的，都能确保在训练过程中leader方的标签信息不会被泄露，缓解参与方对于数据隐私安全的担忧。
 
 ## 算法实现
 
-MindSpore Federated采用了一种轻量级的label dp实现方式：训练时，在使用leader参与方的标签数据之前，将一定比例的标签进行随机翻转后再进行训练。由于随机性的引入，攻击者若想反推标签，最多只能反推出随机翻转/扰动之后的标签，增加了反推出原始标签的难度，满足差分隐私保证。在实际应用时，我们可以调整隐私参数`eps`（可以理解为随机翻转标签的比例）来满足不同的场景需求，可以在需要高隐私时使用较小的`eps`，需要高精度时使用较大的`eps`。
+MindSpore Federated采用了一种轻量级的label dp实现方式：训练时，leader参与方在使用标签数据训练之前，对一定比例的标签进行随机翻转操作。由于随机性的引入，攻击者若想反推标签，最多只能反推出随机翻转/扰动之后的标签，增加了反推出原始标签的难度，满足差分隐私保证。在实际应用时，我们可以调整隐私参数`eps`（可以理解为随机翻转标签的比例）来满足不同的场景需求：
+
+- 较小`eps`（<1.0）对应高隐私，低精度
+- 较大`eps`（>5.0）对应高精度，低隐私
 
 ![image.png](./images/label_dp.png)
 
-此方案基于randomized response算法，在vFL的leader训练前将用户的标签随机翻转/扰乱后再进行训练，实际实现时分为binary标签和one-hot标签两种情况：
+本方案具体实际实现时，分为binary标签和onehot标签两种情况，函数中会自动判断输入的是binary还是onehot标签，输出的也是同类的标签。具体算法如下：
 
 ### binary标签保护
 
@@ -38,11 +47,15 @@ MindSpore Federated采用了一种轻量级的label dp实现方式：训练时�
 
 ### 前置需要
 
-以下操作皆可参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)：
-
 1. 安装MindSpore1.8.1或其更高版本，请参考[MindSpore官网安装指引](https://www.mindspore.cn/install)。
-2. 安装MindSpore Federated及所依赖Python库。
-3. 准备criteo数据集。
+2. 安装MindSpore Federated及所依赖Python库
+
+   ```shell
+   cd federated
+   python -m pip install -r requirements_test.txt
+   ```
+
+3. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
 
 ### 启动脚本
 
@@ -69,31 +82,31 @@ MindSpore Federated采用了一种轻量级的label dp实现方式：训练时�
 在训练日志`log_local_gpu.txt`查看模型训练的loss变化：
 
 ```sh
-INFO:root:epoch 0 step 100/2582 wide_loss: 0.588637 deep_loss: 0.589756
-INFO:root:epoch 0 step 200/2582 wide_loss: 0.561055 deep_loss: 0.562271
-INFO:root:epoch 0 step 300/2582 wide_loss: 0.556246 deep_loss: 0.557509
-INFO:root:epoch 0 step 400/2582 wide_loss: 0.557931 deep_loss: 0.559055
-INFO:root:epoch 0 step 500/2582 wide_loss: 0.553283 deep_loss: 0.554257
-INFO:root:epoch 0 step 600/2582 wide_loss: 0.549618 deep_loss: 0.550489
-INFO:root:epoch 0 step 700/2582 wide_loss: 0.550243 deep_loss: 0.551095
-INFO:root:epoch 0 step 800/2582 wide_loss: 0.549496 deep_loss: 0.550298
-INFO:root:epoch 0 step 900/2582 wide_loss: 0.549224 deep_loss: 0.549974
-INFO:root:epoch 0 step 1000/2582 wide_loss: 0.547547 deep_loss: 0.548288
-INFO:root:epoch 0 step 1100/2582 wide_loss: 0.546989 deep_loss: 0.547737
-INFO:root:epoch 0 step 1200/2582 wide_loss: 0.552165 deep_loss: 0.552862
-INFO:root:epoch 0 step 1300/2582 wide_loss: 0.546926 deep_loss: 0.547594
-INFO:root:epoch 0 step 1400/2582 wide_loss: 0.558071 deep_loss: 0.558702
-INFO:root:epoch 0 step 1500/2582 wide_loss: 0.548258 deep_loss: 0.548910
-INFO:root:epoch 0 step 1600/2582 wide_loss: 0.546442 deep_loss: 0.547072
-INFO:root:epoch 0 step 1700/2582 wide_loss: 0.549062 deep_loss: 0.549701
-INFO:root:epoch 0 step 1800/2582 wide_loss: 0.546558 deep_loss: 0.547184
-INFO:root:epoch 0 step 1900/2582 wide_loss: 0.542755 deep_loss: 0.543386
-INFO:root:epoch 0 step 2000/2582 wide_loss: 0.543118 deep_loss: 0.543774
-INFO:root:epoch 0 step 2100/2582 wide_loss: 0.542587 deep_loss: 0.543265
-INFO:root:epoch 0 step 2200/2582 wide_loss: 0.545770 deep_loss: 0.546451
-INFO:root:epoch 0 step 2300/2582 wide_loss: 0.554520 deep_loss: 0.555198
-INFO:root:epoch 0 step 2400/2582 wide_loss: 0.551129 deep_loss: 0.551790
-INFO:root:epoch 0 step 2500/2582 wide_loss: 0.545622 deep_loss: 0.546315
+INFO:root:epoch 0 step 100/2582 loss: 0.588637
+INFO:root:epoch 0 step 200/2582 loss: 0.561055
+INFO:root:epoch 0 step 300/2582 loss: 0.556246
+INFO:root:epoch 0 step 400/2582 loss: 0.557931
+INFO:root:epoch 0 step 500/2582 loss: 0.553283
+INFO:root:epoch 0 step 600/2582 loss: 0.549618
+INFO:root:epoch 0 step 700/2582 loss: 0.550243
+INFO:root:epoch 0 step 800/2582 loss: 0.549496
+INFO:root:epoch 0 step 900/2582 loss: 0.549224
+INFO:root:epoch 0 step 1000/2582 loss: 0.547547
+INFO:root:epoch 0 step 1100/2582 loss: 0.546989
+INFO:root:epoch 0 step 1200/2582 loss: 0.552165
+INFO:root:epoch 0 step 1300/2582 loss: 0.546926
+INFO:root:epoch 0 step 1400/2582 loss: 0.558071
+INFO:root:epoch 0 step 1500/2582 loss: 0.548258
+INFO:root:epoch 0 step 1600/2582 loss: 0.546442
+INFO:root:epoch 0 step 1700/2582 loss: 0.549062
+INFO:root:epoch 0 step 1800/2582 loss: 0.546558
+INFO:root:epoch 0 step 1900/2582 loss: 0.542755
+INFO:root:epoch 0 step 2000/2582 loss: 0.543118
+INFO:root:epoch 0 step 2100/2582 loss: 0.542587
+INFO:root:epoch 0 step 2200/2582 loss: 0.545770
+INFO:root:epoch 0 step 2300/2582 loss: 0.554520
+INFO:root:epoch 0 step 2400/2582 loss: 0.551129
+INFO:root:epoch 0 step 2500/2582 loss: 0.545622
 ...
 ```
 
