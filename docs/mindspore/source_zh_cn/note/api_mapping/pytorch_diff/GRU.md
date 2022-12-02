@@ -13,7 +13,7 @@ torch.nn.GRU(*args, **kwargs) -> Tensor
 ## mindspore.nn.GRU
 
 ``` text
-mindspore.nn.GRU(*args, **kwargs) -> Tensor
+mindspore.nn.GRU(*args, **kwargs) -> tuple[Tensor]
 ```
 
 更多内容详见[MindSpore.nn.GRU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)。
