@@ -2,6 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+> `torch.clip`别名`torch.clamp`，`torch.Tensor.clip`别名`torch.Tensor.clamp`。
+>
+> `mindspore.ops.clip`别名`mindspore.ops.clamp`，`mindspore.Tensor.clip`别名`mindspore.Tensor.clamp`。
+>
+> `mindspore.ops.clip`与`torch.clip`，`mindspore.Tensor.clamp`与`torch.Tensor.clamp`,`mindspore.Tensor.clip`与`torch.Tensor.clip`的功能差异，均参考`mindspore.ops.clamp`与`torch.clamp`的功能差异比较。
+
 ## torch.clamp
 
 ```text
@@ -22,7 +28,7 @@ mindspore.ops.clamp(x, min=None, max=None) -> Tensor
 
 PyTorch：将`input`中所有元素限制在`[min, max]`范围中，将比`min`更小的值变为`min`，比`max`更大的值变为`max`。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名`input`不同。
+MindSpore：MindSpore此API实现基本功能与PyTorch一致，参数名`input`不同。返回结果的数据类型和输入`x`相同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异         |
 | --- | --- | --- | --- |------------|
@@ -33,7 +39,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名`input`不
 
 ### 代码示例1
 
-> 两API实现功能一致，用法相同。
+> 两API实现基本功能一致，用法相同。
 
 ```python
 # PyTorch
@@ -55,4 +61,30 @@ output = ops.clamp(x, min, max)
 print(output)
 #[[ 5. 20.  5.  7.]
 # [ 5. 11.  6. 20.]]
+```
+
+### 代码示例2
+
+> MindSpore此API返回结果的数据类型和输入`x`相同。
+
+```python
+# PyTorch
+import torch
+a = torch.tensor([1, 2, 3])
+max = torch.tensor([0.5, 0.6, 0.7])
+output = torch.clamp(a, max=max)
+print(output)
+#tensor([0.5000, 0.6000, 0.7000])
+
+# MindSpore
+x = Tensor([1., 2., 3.])
+max = Tensor([0.5, 0.6, 0.7])
+output = ops.clamp(x, max=max)
+print(output)
+#[0.5 0.6 0.7]
+x = Tensor([1, 2, 3])
+max = Tensor([0.5, 0.6, 0.7])
+output = ops.clamp(x, max=max)
+print(output)
+#[0 0 0]
 ```
