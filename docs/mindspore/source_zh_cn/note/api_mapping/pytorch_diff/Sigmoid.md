@@ -13,7 +13,7 @@ class torch.nn.Sigmoid()(input) -> Tensor
 ## mindspore.nn.Sigmoid
 
 ```text
-class mindspore.nn.Sigmoid()(x) -> Tensor
+class mindspore.nn.Sigmoid()(input_x) -> Tensor
 ```
 
 更多内容详见 [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Sigmoid.html)。

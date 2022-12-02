@@ -41,7 +41,7 @@ MindSpore：包含PyTorch功能，当logits和labels的shape不同但可以互�
 import torch
 import torch.nn as nn
 
-loss = nn.L1Loss()
+loss = nn.functional.l1_loss
 input = torch.tensor([2,2,3], dtype=torch.float32)
 target = torch.tensor([1,2,2], dtype=torch.float32)
 output = loss(input, target)
