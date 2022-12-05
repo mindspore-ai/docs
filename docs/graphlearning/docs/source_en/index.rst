@@ -27,7 +27,7 @@ Typical MindSpore Graph Learning Application Scenarios
 
 - Graph convolutional neural network (GCN) for entire graph training
 
-   Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
+  Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
 
 .. toctree::
    :maxdepth: 1
