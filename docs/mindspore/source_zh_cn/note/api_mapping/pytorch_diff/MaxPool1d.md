@@ -43,8 +43,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但参数设定�
 | | 参数4 | dilation | - | 窗口内元素间跨步长度：默认值为1，此时窗口内的元素是连续的。若值>1，窗口中的元素是间隔的 |
 | | 参数5 | return_indices | - | 返回索引：若值为True，会在返回最大池化结果的同时返回对应元素的索引。对于后续调用torch.nn.MaxUnpool1d的时候很有用|
 | | 参数6 | ceil_mode | - | 控制输出shape(N, C, L_{out})中L_{out}向上取整还是向下取整，MindSpore默认向下取整 |
-| | 参数7 | - | pad_mode | 控制填充模式，PyTorch无此参数 |
-| | 参数8 | input | x | 功能一致，参数名不同 |
+| | 参数7 | input | x | 功能一致，参数名不同 |
+| | 参数8 | - | pad_mode | 控制填充模式，PyTorch无此参数 |
 
 ### 代码示例1
 
@@ -86,7 +86,7 @@ import torch
 from torch import tensor
 
 max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]])
+x = torch.Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]])
 output = max_pool(x)
 print(output.numpy())
 # [[[ 3.  5.  7.  9. 10.]
@@ -97,7 +97,7 @@ import mindspore
 from mindspore import Tensor
 
 max_pool = mindspore.nn.MaxPool1d(kernel_size=3, stride=2, pad_mode='same')
-x = Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]],mindspore.float32)
+x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
 output = max_pool(x)
 print(output)
 # [[[ 3.  5.  7.  9. 10.]
@@ -113,7 +113,7 @@ print(output)
 import torch
 
 max_pool = torch.nn.MaxPool1d(kernel_size=4, stride=2, padding=1)
-x = torch.Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]])
+x = torch.Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]])
 output = max_pool(x)
 result = output.shape
 print(output.numpy())
@@ -128,8 +128,8 @@ from mindspore import Tensor
 import mindspore.ops as ops
 
 max_pool = mindspore.nn.MaxPool1d(kernel_size=4, stride=2)
-x = Tensor([[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]], mindspore.float32)
-pad = ops.Pad(((0,0),(0,0),(1,1)))
+x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
+pad = ops.Pad(((0, 0), (0, 0), (1, 1)))
 data = pad(Tensor(x))
 output = max_pool(data)
 result = output.shape

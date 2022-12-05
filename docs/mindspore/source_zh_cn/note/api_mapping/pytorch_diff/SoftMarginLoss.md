@@ -70,8 +70,8 @@ import torch
 from torch import tensor
 import torch.nn as nn
 
-logits = torch.FloatTensor([1,1,1,1])
-labels = torch.FloatTensor([2,2,2,2])
+logits = torch.FloatTensor([1, 1, 1, 1])
+labels = torch.FloatTensor([2, 2, 2 ,2])
 output = torch.nn.functional.soft_margin_loss(logits, labels)
 print(output.numpy())
 # 0.12692805
@@ -82,8 +82,8 @@ import numpy as np
 from mindspore import Tensor
 
 loss = mindspore.nn.SoftMarginLoss()
-logits = Tensor(np.array([1,1,1,1]), mindspore.float32)
-labels = Tensor(np.array([2,2,2,2]), mindspore.float32)
+logits = Tensor(np.array([1, 1, 1, 1]), mindspore.float32)
+labels = Tensor(np.array([2, 2, 2, 2]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
 # 0.12692805

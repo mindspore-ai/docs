@@ -92,7 +92,6 @@ output = loss(input, target)
 print(output.numpy())
 # 2.0
 
-
 # MindSpore
 import mindspore
 from mindspore import Tensor
