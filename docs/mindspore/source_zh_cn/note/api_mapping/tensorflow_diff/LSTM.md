@@ -17,7 +17,7 @@ class tf.keras.layers.LSTM(
     time_major=False, unroll=False)(inputs, mask, training, initial_state) -> Tensor
 ```
 
-更多内容详见 [tf.keras.layers.LSTM](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LSTM)。
+更多内容详见[tf.keras.layers.LSTM](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LSTM)。
 
 ## mindspore.nn.LSTM
 
@@ -32,7 +32,7 @@ class mindspore.nn.LSTM(
     bidirectional=False)(x, hx, seq_length=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
+更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
 
 ## 差异对比
 
@@ -57,8 +57,8 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | | 参数13 | kernel_constraint     | -             | 应用于kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                              |
 | | 参数14 | recurrent_constraint  | -             | 应用于recurrent_kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                    |
 | | 参数15 | bias_constraint       | -             | 应用于偏置向量的约束函数，默认值：None。MindSpore无此参数                                                                                                   |
-| | 参数16 | dropout               | dropout       | -                                                                                                                                                    |
-| | 参数17 | recurrent_dropout     | dropout       | -                                                                                                                                                    |
+| | 参数16 | dropout               | dropout       |  |
+| | 参数17 | recurrent_dropout     | -       | 递变状态下使用的丢弃概率，MindSpore使用dropout|
 | | 参数18 | return_sequences      | -             | 是否返回在输出序列或完整序列中的最后一次输出，默认值：False。MindSpore无此参数，但默认为True                                                                                   |
 | | 参数19 | return_state          | -             | 是否返回最后的状态，默认值：False。MindSpore无此参数，但默认为True                                                                                                |
 | | 参数20 | go_backwards          | -             | 是否反向处理输入序列并返回反向序列，默认值：False。MindSpore无此参数                                                                                              |
@@ -70,10 +70,10 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | | 参数26 | training              | -             | Python布尔值，指示layer应在训练模式还是推理模式下运行。调用cell时，该参数被传递给单元格。这仅在使用dropout或recurrent_dropout时才有意义(可选，默认为None)。MindSpore无此参数                      |
 | | 参数27 | initial_state         | hx            | 要传递给cell第一次调用的初始状态张量列表(可选，默认为None，这将导致创建零填充的初始状态张量)。MindSpore中作用是给定初始状态张量                                                               |
 | | 参数28 | -                     | input_size    | 自动判断输入大小，TensorFlow无此参数|
-| | 参数29 | -                     | num_layers    | 但和MindSpore一样，都默认为1，因此需要自己构建1层以上的网络，TensorFlow无此参数|
+| | 参数29 | -                     | num_layers    | 设置网络层数，默认值：1。TensorFlow无此参数|
 | | 参数30 | -                     | batch_first   | 默认输入的第一个维度为batch_size，TensorFlow无此参数|
-| | 参数31 | -                     | bidirectional | MindSpore中功能为设置双向LSTM，TensorFlow无此参数|
-| | 参数32 | -                     | seq_length    | MindSpore中作用是指定输入batch的序列长度，TensorFlow无此参数|
+| | 参数31 | -                     | bidirectional | 功能为设置双向LSTM，TensorFlow无此参数|
+| | 参数32 | -                     | seq_length    | 指定输入batch的序列长度，TensorFlow无此参数|
 
 ### 代码示例
 

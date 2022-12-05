@@ -14,7 +14,7 @@ class torch.nn.BatchNorm1d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.BatchNorm1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm1d.html)。
+更多内容详见[torch.nn.BatchNorm1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm1d.html)。
 
 ## mindspore.nn.BatchNorm1d
 
@@ -33,7 +33,7 @@ class mindspore.nn.BatchNorm1d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html)。
+更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html)。
 
 ## 差异对比
 

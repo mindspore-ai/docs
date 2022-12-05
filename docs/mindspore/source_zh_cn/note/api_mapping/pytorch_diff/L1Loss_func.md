@@ -8,7 +8,7 @@
 torch.nn.functional.l1_loss(input, target, size_average=None, reduce=None, reduction='mean') -> Tensor
 ```
 
-更多内容详见 [torch.nn.functional.l1_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#l1-loss)。
+更多内容详见[torch.nn.functional.l1_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#l1-loss)。
 
 ## mindspore.nn.L1Loss
 

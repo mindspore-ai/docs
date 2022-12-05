@@ -8,7 +8,7 @@
 tf.math.cumsum(x, axis=0, exclusive=False, reverse=False, name=None) -> Tensor
 ```
 
-更多内容详见 [tf.math.cumsum](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/cumsum)。
+更多内容详见[tf.math.cumsum](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/cumsum)。
 
 ## mindspore.ops.cumsum
 
@@ -16,7 +16,7 @@ tf.math.cumsum(x, axis=0, exclusive=False, reverse=False, name=None) -> Tensor
 mindspore.ops.cumsum(x, axis, dtype=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.cumsum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumsum.html)。
+更多内容详见[mindspore.ops.cumsum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumsum.html)。
 
 ## 差异对比
 

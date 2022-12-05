@@ -8,7 +8,7 @@
 tf.keras.backend.dot(x, y) -> Tensor
 ```
 
-更多内容详见 [tf.keras.backend.dot](https://keras.io/zh/backend/#dot)。
+更多内容详见[tf.keras.backend.dot](https://keras.io/zh/backend/#dot)。
 
 ## mindspore.ops.dot
 
@@ -16,7 +16,7 @@ tf.keras.backend.dot(x, y) -> Tensor
 mindspore.ops.dot(x1, x2) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.dot](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dot.html)。
+更多内容详见[mindspore.ops.dot](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dot.html)。
 
 ## 差异对比
 

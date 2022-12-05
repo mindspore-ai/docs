@@ -8,7 +8,7 @@
 torch.erfc(input, * , out=None) -> Tensor
 ```
 
-更多内容详见 [torch.erfc](https://pytorch.org/docs/1.8.1/generated/torch.erfc.html)。
+更多内容详见[torch.erfc](https://pytorch.org/docs/1.8.1/generated/torch.erfc.html)。
 
 ## mindspore.ops.erfc
 
@@ -16,7 +16,7 @@ torch.erfc(input, * , out=None) -> Tensor
 mindspore.ops.erfc(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.erfc](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erfc.html)。
+更多内容详见[mindspore.ops.erfc](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erfc.html)。
 
 ## 差异对比
 

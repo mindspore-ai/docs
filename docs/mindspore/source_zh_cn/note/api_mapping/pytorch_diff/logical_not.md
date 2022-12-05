@@ -8,7 +8,7 @@
 class torch.logical_not(input, out=None)
 ```
 
-更多内容详见 [torch.logical_not](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_not)。
+更多内容详见[torch.logical_not](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_not)。
 
 ## mindspore.numpy.logical_not
 
@@ -16,7 +16,7 @@ class torch.logical_not(input, out=None)
 class mindspore.numpy.logical_not(a, dtype=None)
 ```
 
-更多内容详见 [mindspore.numpy.logical_not](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not)。
+更多内容详见[mindspore.numpy.logical_not](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not)。
 
 ## 使用方式
 

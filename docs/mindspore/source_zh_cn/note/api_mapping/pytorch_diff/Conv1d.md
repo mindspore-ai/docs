@@ -18,7 +18,7 @@ class torch.nn.Conv1d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.Conv1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv1d.html)。
+更多内容详见[torch.nn.Conv1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv1d.html)。
 
 ## mindspore.nn.Conv1d
 
@@ -37,7 +37,7 @@ class mindspore.nn.Conv1d(
     bias_init='zeros')(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Conv1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1d.html)。
+更多内容详见[mindspore.nn.Conv1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1d.html)。
 
 ## 差异对比
 

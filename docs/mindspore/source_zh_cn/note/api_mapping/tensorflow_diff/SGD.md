@@ -14,7 +14,7 @@ class tf.keras.optimizers.SGD(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.keras.optimizers.SGD](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/SGD)。
+更多内容详见[tf.keras.optimizers.SGD](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/SGD)。
 
 ## mindspore.nn.SGD
 
@@ -30,7 +30,7 @@ class mindspore.nn.SGD(
 )(gradients) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html)。
+更多内容详见[mindspore.nn.SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html)。
 
 ## 差异对比
 

@@ -8,7 +8,7 @@
 torch.argmax(input, dim, keepdim=False) -> Tensor
 ```
 
-更多内容详见 [torch.argmax](https://pytorch.org/docs/1.8.1/generated/torch.argmax.html)。
+更多内容详见[torch.argmax](https://pytorch.org/docs/1.8.1/generated/torch.argmax.html)。
 
 ## mindspore.ops.argmax
 
@@ -16,7 +16,7 @@ torch.argmax(input, dim, keepdim=False) -> Tensor
 mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html)。
+更多内容详见[mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html)。
 
 ## 差异对比
 

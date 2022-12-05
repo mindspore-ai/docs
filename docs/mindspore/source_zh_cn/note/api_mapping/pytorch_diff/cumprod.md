@@ -7,7 +7,7 @@
 torch.cumprod(input, dim, *, dtype=None, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.cumprod](https://pytorch.org/docs/1.8.1/generated/torch.cumprod.html)。
+更多内容详见[torch.cumprod](https://pytorch.org/docs/1.8.1/generated/torch.cumprod.html)。
 
 ## mindspore.ops.cumprod
 
@@ -15,7 +15,7 @@ torch.cumprod(input, dim, *, dtype=None, out=None) -> Tensor
 mindspore.ops.cumprod(input, dim, dtype=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.crumprod](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumprod.html)。
+更多内容详见[mindspore.ops.cumprod](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cumprod.html)。
 
 ## 差异对比
 

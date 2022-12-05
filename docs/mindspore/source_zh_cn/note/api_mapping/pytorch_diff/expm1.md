@@ -8,7 +8,7 @@
 torch.expm1(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.expm1](https://pytorch.org/docs/1.8.1/generated/torch.expm1.html)。
+更多内容详见[torch.expm1](https://pytorch.org/docs/1.8.1/generated/torch.expm1.html)。
 
 ## mindspore.ops.expm1
 
@@ -16,7 +16,7 @@ torch.expm1(input, *, out=None) -> Tensor
 mindspore.ops.expm1(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.expm1](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expm1.html)。
+更多内容详见[mindspore.ops.expm1](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expm1.html)。
 
 ## 差异对比
 

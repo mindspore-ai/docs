@@ -8,7 +8,7 @@
 torch.cross(input, other, dim=None, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.cross](https://pytorch.org/docs/1.8.1/generated/torch.cross.html)。
+更多内容详见[torch.cross](https://pytorch.org/docs/1.8.1/generated/torch.cross.html)。
 
 ## mindspore.ops.cross
 
@@ -16,7 +16,7 @@ torch.cross(input, other, dim=None, *, out=None) -> Tensor
 mindspore.ops.cross(input, other, dim=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.cross](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cross.html)。
+更多内容详见[mindspore.ops.cross](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cross.html)。
 
 ## 差异对比
 

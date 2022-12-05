@@ -12,7 +12,7 @@ class torch.nn.CTCLoss(
 )(log_probs, targets, input_lengths, target_lengths) -> Tensor
 ```
 
-更多内容详见 [torch.nn.CTCLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CTCLoss.html)。
+更多内容详见[torch.nn.CTCLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CTCLoss.html)。
 
 ## mindspore.ops.CTCLoss
 
@@ -24,7 +24,7 @@ class mindspore.ops.CTCLoss(
 )(x, labels_indices, labels_values, sequence_length) -> (Tensor, Tensor)
 ```
 
-更多内容详见 [mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CTCLoss.html)。
+更多内容详见[mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CTCLoss.html)。
 
 ## 差异对比
 

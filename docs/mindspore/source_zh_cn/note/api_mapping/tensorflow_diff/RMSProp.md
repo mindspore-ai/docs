@@ -16,7 +16,7 @@ tf.compat.v1.train.RMSPropOptimizer(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.compat.v1.train.RMSPropOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/RMSPropOptimizer)。
+更多内容详见[tf.compat.v1.train.RMSPropOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/RMSPropOptimizer)。
 
 ## mindspore.nn.RMSProp
 
@@ -34,7 +34,7 @@ class mindspore.nn.RMSProp(
 )(gradients) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html)。
+更多内容详见[mindspore.nn.RMSProp](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html)。
 
 ## 差异对比
 

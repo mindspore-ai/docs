@@ -8,7 +8,7 @@
 torch.argmin(input, dim=None, keepdim=False) -> Tensor
 ```
 
-更多内容详见 [torch.argmin](https://pytorch.org/docs/1.8.1/generated/torch.argmin.html)。
+更多内容详见[torch.argmin](https://pytorch.org/docs/1.8.1/generated/torch.argmin.html)。
 
 ## mindspore.ops.argmin
 
@@ -16,7 +16,7 @@ torch.argmin(input, dim=None, keepdim=False) -> Tensor
 mindspore.ops.argmin(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmin.html)。
+更多内容详见[mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmin.html)。
 
 ## 差异对比
 

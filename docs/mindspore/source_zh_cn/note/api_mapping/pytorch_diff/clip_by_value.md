@@ -8,7 +8,7 @@
 torch.clamp(input, min, max, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.clamp](https://pytorch.org/docs/1.8.1/generated/torch.clamp.html)。
+更多内容详见[torch.clamp](https://pytorch.org/docs/1.8.1/generated/torch.clamp.html)。
 
 ## mindspore.ops.clip_by_value
 
@@ -16,7 +16,7 @@ torch.clamp(input, min, max, *, out=None) -> Tensor
 mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.clip_by_value](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)。
+更多内容详见[mindspore.ops.clip_by_value](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)。
 
 ## 差异对比
 

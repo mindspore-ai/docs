@@ -8,7 +8,7 @@
 torch.bitwise_xor(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.bitwise_xor](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_xor.html)。
+更多内容详见[torch.bitwise_xor](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_xor.html)。
 
 ## mindspore.ops.bitwise_xor
 
@@ -16,7 +16,7 @@ torch.bitwise_xor(input, other, *, out=None) -> Tensor
 mindspore.ops.bitwise_xor(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.bitwise_xor](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_xor.html)。
+更多内容详见[mindspore.ops.bitwise_xor](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_xor.html)。
 
 ## 差异对比
 

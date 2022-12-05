@@ -8,7 +8,7 @@
 torch.nn.AdaptiveAvgPool2d(output_size)(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.AdaptiveAvgPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AdaptiveAvgPool2d.html)。
+更多内容详见[torch.nn.AdaptiveAvgPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AdaptiveAvgPool2d.html)。
 
 ## mindspore.nn.AdaptiveAvgPool2d
 
@@ -16,7 +16,7 @@ torch.nn.AdaptiveAvgPool2d(output_size)(input) -> Tensor
 class mindspore.nn.AdaptiveAvgPool2d(output_size)(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.AdaptiveAvgPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AdaptiveAvgPool2d.html)。
+更多内容详见[mindspore.nn.AdaptiveAvgPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AdaptiveAvgPool2d.html)。
 
 ## 差异对比
 

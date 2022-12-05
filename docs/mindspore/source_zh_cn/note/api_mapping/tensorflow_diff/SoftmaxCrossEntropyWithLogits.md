@@ -10,7 +10,7 @@ tf.nn.softmax_cross_entropy_with_logits(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.nn.softmax_cross_entropy_with_logits](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)。
+更多内容详见[tf.nn.softmax_cross_entropy_with_logits](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)。
 
 ## mindspore.nn.SoftmaxCrossEntropyWithLogits
 
@@ -18,7 +18,7 @@ tf.nn.softmax_cross_entropy_with_logits(
 class mindspore.nn.SoftmaxCrossEntropyWithLogits(sparse=False, reduction='none')(logits, labels) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
+更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
 
 ## 差异对比
 
@@ -28,8 +28,8 @@ MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                                                         |
 | ---- | ----- | ---------- | --------- | ------------------------------------------------------------ |
-| 参数 | 参数1 | logits     | logits    | MindSpore在实例化函数中接收此参数，功能一致              |
-|      | 参数2 | labels     | labels    | MindSpore在实例化函数中接收此参数，功能一致              |
+|  参数    | 参数1 | labels     | labels    | MindSpore在实例化函数中接收此参数，功能一致              |
+|      | 参数2 | logits     | logits    | MindSpore在实例化函数中接收此参数，功能一致              |
 |      | 参数3 | axis       | -         | TensorFlow`axis`参数指定‘类’所在的维度，如`axis=-1`表示最后一个维度作为‘类’的维度，MindSpore无此参数|
 |      | 参数4 | name       | -         | 不涉及                                     |
 |      | 参数5 | -          | sparse    | MindSpore实例化时可以接受`sparse`指定输入的`labels`是否为稀疏表示，TensorFlow无此参数 |

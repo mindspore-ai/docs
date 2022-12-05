@@ -8,7 +8,7 @@
 torch.broadcast_to(input, shape) -> Tensor
 ```
 
-更多内容详见 [torch.broadcast_to](https://pytorch.org/docs/1.8.1/generated/torch.broadcast_to.html)。
+更多内容详见[torch.broadcast_to](https://pytorch.org/docs/1.8.1/generated/torch.broadcast_to.html)。
 
 ## mindspore.ops.broadcast_to
 
@@ -16,7 +16,7 @@ torch.broadcast_to(input, shape) -> Tensor
 mindspore.ops.broadcast_to(x, shape) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.broadcast_to](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.broadcast_to.html)。
+更多内容详见[mindspore.ops.broadcast_to](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.broadcast_to.html)。
 
 ## 差异对比
 

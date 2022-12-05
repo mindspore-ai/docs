@@ -8,7 +8,7 @@
 torch.eq(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.eq](https://pytorch.org/docs/1.8.1/generated/torch.eq.html)。
+更多内容详见[torch.eq](https://pytorch.org/docs/1.8.1/generated/torch.eq.html)。
 
 ## mindspore.ops.equal
 
@@ -16,7 +16,7 @@ torch.eq(input, other, *, out=None) -> Tensor
 mindspore.ops.equal(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.equal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.equal.html)。
+更多内容详见[mindspore.ops.equal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.equal.html)。
 
 ## 差异对比
 

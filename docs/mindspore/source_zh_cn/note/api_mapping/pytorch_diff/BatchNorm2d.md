@@ -14,7 +14,7 @@ class torch.nn.BatchNorm2d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.BatchNorm2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm2d.html)。
+更多内容详见[torch.nn.BatchNorm2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm2d.html)。
 
 ## mindspore.nn.BatchNorm2d
 
@@ -33,7 +33,7 @@ class mindspore.nn.BatchNorm2d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html)。
+更多内容详见[mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html)。
 
 ## 差异对比
 
@@ -43,8 +43,8 @@ MindSpore：与PyTorch实现同样的功能。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | num_features | num_features | - |
-| | 参数2 | input | x | 接口输入，功能一致，仅参数名不同 |
+| 参数 | 参数1 | input | x | 接口输入，功能一致，仅参数名不同 |
+| | 参数2 | num_features | num_features | - |
 | | 参数3 | eps | eps | - |
 | | 参数4 | momentum | momentum |功能相同，计算方式不同 |
 | | 参数5 | affine | affine |- |
@@ -53,7 +53,7 @@ MindSpore：与PyTorch实现同样的功能。
 | | 参数8 | - | beta_init |β 参数的初始化方法，默认值："zeros" |
 | | 参数9 | - | moving_mean_init |动态平均值的初始化方法，默认值："zeros" |
 | | 参数10 | - | moving_var_init |动态方差的初始化方法，默认值："ones" |
-| | 参数11 | - | data_format |数据格式可为"NHWC"或"NCHW"，默认值："NCHW" |
+| | 参数11 | - | data_format |MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。PyTorch无此参数|
 
 ### 代码示例1
 

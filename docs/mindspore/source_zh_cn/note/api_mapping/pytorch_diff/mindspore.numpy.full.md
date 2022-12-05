@@ -17,7 +17,7 @@ torch.full(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.full](https://pytorch.org/docs/1.8.1/generated/torch.full.html)。
+更多内容详见[torch.full](https://pytorch.org/docs/1.8.1/generated/torch.full.html)。
 
 ## mindspore.numpy.full
 
@@ -25,7 +25,7 @@ torch.full(
 mindspore.numpy.full(shape, fill_value, dtype=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.numpy.full](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.full.html)。
+更多内容详见[mindspore.numpy.full](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.full.html)。
 
 ## 差异对比
 

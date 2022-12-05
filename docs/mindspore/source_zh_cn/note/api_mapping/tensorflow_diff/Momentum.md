@@ -13,7 +13,7 @@ tf.compat.v1.train.MomentumOptimizer(
     use_nesterov=False) -> Tensor
 ```
 
-更多内容详见 [tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer)。
+更多内容详见[tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer)。
 
 ## mindspore.nn.Momentum
 
@@ -27,7 +27,7 @@ class mindspore.nn.Momentum(
     use_nesterov=False)(gradients) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html)。
+更多内容详见[mindspore.nn.Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html)。
 
 ## 差异对比
 

@@ -18,7 +18,7 @@ For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.
 ## mindspore.nn.ResizeBilinear
 
 ```python
-class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
+class mindspore.nn.ResizeBilinear(half_pixel_centers=False)(x, size=None, scale_factor=None, align_corners=False)
 ```
 
 For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
@@ -27,7 +27,7 @@ For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/doc
 
 PyTorch: Multiple modes can be chosen when upsampling data.
 
-MindSpore：Only supports `bilinear` mode to sample data.
+MindSpore：Currently only supports `bilinear` mode to sample data. To apply other modes sampling data, please refer to [mindspore.ops.interpolate](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.interpolate.html). `half_pixel_centers` defaults to False, to achieve the same result as PyTorch, it should be set to True.
 
 ## Code Example
 
@@ -39,7 +39,7 @@ import numpy as np
 
 # In MindSpore, it is predetermined to use bilinear to resize the input image.
 x = np.random.randn(1, 2, 3, 4).astype(np.float32)
-resize = nn.ResizeBilinear()
+resize = nn.ResizeBilinear(half_pixel_centers=True)
 tensor = ms.Tensor(x)
 output = resize(tensor, (5, 5))
 print(output.shape)
@@ -51,7 +51,7 @@ x = np.random.randn(1, 2, 3, 4).astype(np.float32)
 resize = torch.nn.Upsample(size=(5, 5), mode='bilinear')
 tensor = torch.tensor(x)
 output = resize(tensor)
-print(output.shape)
+print(output.detach().numpy().shape)
 # Out：
-# torch.Size([1, 2, 5, 5])
+# (1, 2, 5, 5)
 ```

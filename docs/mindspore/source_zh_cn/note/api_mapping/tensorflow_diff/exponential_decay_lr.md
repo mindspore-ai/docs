@@ -15,7 +15,7 @@ tf.compat.v1.train.exponential_decay(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.compat.v1.train.exponential_decay](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/compat/v1/train/exponential_decay)。
+更多内容详见[tf.compat.v1.train.exponential_decay](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/compat/v1/train/exponential_decay)。
 
 ## mindspore.nn.exponential_decay_lr
 
@@ -30,7 +30,7 @@ mindspore.nn.exponential_decay_lr(
 ) -> list[float]
 ```
 
-更多内容详见 [mindspore.nn.exponential_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html)。
+更多内容详见[mindspore.nn.exponential_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html)。
 
 ## 差异对比
 

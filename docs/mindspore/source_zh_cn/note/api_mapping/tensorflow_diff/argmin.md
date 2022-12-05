@@ -13,7 +13,7 @@ tf.math.argmin(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn)。
+更多内容详见[tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn)。
 
 ## mindspore.ops.argmin
 
@@ -21,7 +21,7 @@ tf.math.argmin(
 mindspore.ops.argmin(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmin.html)。
+更多内容详见[mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmin.html)。
 
 ## 差异对比
 

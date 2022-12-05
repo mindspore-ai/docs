@@ -14,7 +14,7 @@
 torch.clamp(input, min, max, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.clamp](https://pytorch.org/docs/1.8.1/generated/torch.clamp.html)。
+更多内容详见[torch.clamp](https://pytorch.org/docs/1.8.1/generated/torch.clamp.html)。
 
 ## mindspore.ops.clamp
 
@@ -22,7 +22,7 @@ torch.clamp(input, min, max, *, out=None) -> Tensor
 mindspore.ops.clamp(x, min=None, max=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.clamp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clamp.html)。
+更多内容详见[mindspore.ops.clamp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clamp.html)。
 
 ## 差异对比
 

@@ -14,7 +14,7 @@ torch.nn.BCEWithLogitsLoss(
 )(input, target) -> Tensor
 ```
 
-更多内容详见 [torch.nn.BCEWithLogitsLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.BCEWithLogitsLoss.html)。
+更多内容详见[torch.nn.BCEWithLogitsLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.BCEWithLogitsLoss.html)。
 
 ## mindspore.nn.BCEWithLogitsLoss
 
@@ -26,7 +26,7 @@ class mindspore.nn.BCEWithLogitsLoss(
 )(logits, labels) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)。
+更多内容详见[mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)。
 
 ## 差异对比
 

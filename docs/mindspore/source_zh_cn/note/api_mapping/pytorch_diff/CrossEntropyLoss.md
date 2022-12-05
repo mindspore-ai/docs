@@ -14,7 +14,7 @@ class torch.nn.CrossEntropyLoss(
 )(input, target) -> Tensor
 ```
 
-更多内容详见 [torch.nn.CrossEntropyLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CrossEntropyLoss.html)。
+更多内容详见[torch.nn.CrossEntropyLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CrossEntropyLoss.html)。
 
 ## mindspore.nn.CrossEntropyLoss
 
@@ -27,7 +27,7 @@ class mindspore.nn.CrossEntropyLoss(
 )(logits, labels) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.CrossEntropyLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CrossEntropyLoss.html)。
+更多内容详见[mindspore.nn.CrossEntropyLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CrossEntropyLoss.html)。
 
 ## 差异对比
 

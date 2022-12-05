@@ -5,7 +5,7 @@
 ## tf.keras.optimizers.Adam
 
 ``` text
-class tf.keras.optimizers.Adam(
+tf.keras.optimizers.Adam(
     learning_rate=0.001,
     beta_1=0.9,
     beta_2=0.999,
@@ -16,7 +16,7 @@ class tf.keras.optimizers.Adam(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.keras.optimizers.Adam](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Adam)。
+更多内容详见[tf.keras.optimizers.Adam](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Adam)。
 
 ## mindspore.nn.Adam
 
@@ -35,7 +35,7 @@ class mindspore.nn.Adam(
 )(gradients) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Adam](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html)。
+更多内容详见[mindspore.nn.Adam](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html)。
 
 ## 差异对比
 

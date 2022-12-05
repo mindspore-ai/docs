@@ -6,7 +6,7 @@
 tf.math.divide(x, y, name=None) -> Tensor
 ```
 
-更多内容详见 [tf.math.divide](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/divide)。
+更多内容详见[tf.math.divide](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/divide)。
 
 ## mindspore.ops.div
 
@@ -14,7 +14,7 @@ tf.math.divide(x, y, name=None) -> Tensor
 mindspore.ops.div(input, other, rounding_mode=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.div](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.div.html)。
+更多内容详见[mindspore.ops.div](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.div.html)。
 
 ## 差异对比
 

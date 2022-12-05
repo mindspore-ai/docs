@@ -16,7 +16,7 @@ tf.compat.v1.train.linear_cosine_decay(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay)。
+更多内容详见[tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay)。
 
 ## mindspore.nn.CosineDecayLR
 
@@ -28,7 +28,7 @@ class mindspore.nn.CosineDecayLR(
 )(global_step) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.CosineDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
+更多内容详见[mindspore.nn.CosineDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
 
 ## 差异对比
 

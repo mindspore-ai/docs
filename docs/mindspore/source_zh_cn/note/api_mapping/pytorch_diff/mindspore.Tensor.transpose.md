@@ -8,7 +8,7 @@
 torch.transpose(input, dim0, dim1) -> Tensor
 ```
 
-更多内容详见 [torch.transpose](https://pytorch.org/docs/1.8.1/generated/torch.transpose)。
+更多内容详见[torch.transpose](https://pytorch.org/docs/1.8.1/generated/torch.transpose)。
 
 ## mindspore.Tensor.transpose
 
@@ -16,7 +16,7 @@ torch.transpose(input, dim0, dim1) -> Tensor
 mindspore.Tensor.transpose(*axes) -> Tensor
 ```
 
-更多内容详见 [mindspore.Tensor.transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.transpose.html)。
+更多内容详见[mindspore.Tensor.transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.transpose.html)。
 
 ## 差异对比
 

@@ -8,7 +8,7 @@
 torch.conj(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.conj](https://pytorch.org/docs/1.8.1/generated/torch.conj.html)。
+更多内容详见[torch.conj](https://pytorch.org/docs/1.8.1/generated/torch.conj.html)。
 
 ## mindspore.ops.conj
 
@@ -16,7 +16,7 @@ torch.conj(input, *, out=None) -> Tensor
 mindspore.ops.conj(input) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.conj](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.conj.html)。
+更多内容详见[mindspore.ops.conj](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.conj.html)。
 
 ## 差异对比
 

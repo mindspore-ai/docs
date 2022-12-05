@@ -8,7 +8,7 @@
 torch.bmm(input, mat2, *, deterministic=False, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.bmm](https://pytorch.org/docs/1.8.1/generated/torch.bmm.html)。
+更多内容详见[torch.bmm](https://pytorch.org/docs/1.8.1/generated/torch.bmm.html)。
 
 ## mindspore.ops.BatchMatMul
 
@@ -16,7 +16,7 @@ torch.bmm(input, mat2, *, deterministic=False, out=None) -> Tensor
 mindspore.ops.BatchMatMul(transpose_a=False, transpose_b=False)(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.BatchMatMul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。
+更多内容详见[mindspore.ops.BatchMatMul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。
 
 ## 差异对比
 
