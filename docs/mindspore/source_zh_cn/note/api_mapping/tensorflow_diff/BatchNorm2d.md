@@ -52,7 +52,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input | - |
+|参数 | 参数1 | x | x | - |
 | | 参数2 | axis | - | 应规范化的轴（通常是特征轴），MindSpore无此参数 |
 | | 参数3 | moving_mean_initializer | moving_mean_init | 功能相同，参数名不同 |
 | | 参数4 | moving_variance_initializer | moving_var_init | 功能相同，参数名不同 |
@@ -67,10 +67,9 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 | | 参数13 | beta_constraint | - | beta权重的可选约束。MindSpore无此参数 |
 | | 参数14 | gamma_constraint | - | gamma权重的可选约束。MindSpore无此参数 |
 | | 参数15 | - | num_features | 通道数量，输入Tensor shape (N,C,H,W)(N,C,H,W) 中的C |
-| | 参数16 | - | affine | bool类型。设置为True时，可学习 γ 和 β 值。默认值：True。 |
+| | 参数16 | - | affine | bool类型。设置为True时，可学习 γ 和 β 值。默认值：True |
 | | 参数17 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False。默认值：None |
 | | 参数18 | - | data_format | 数据格式可为"NHWC"或"NCHW"。默认值："NCHW" |
-| | 参数19 | x | x | - |
 
 ### 代码示例1
 

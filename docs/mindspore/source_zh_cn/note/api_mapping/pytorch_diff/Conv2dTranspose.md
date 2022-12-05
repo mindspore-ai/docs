@@ -47,7 +47,7 @@ PyTorch：计算二维转置卷积，可以视为Conv2d对输入求梯度，也�
 $H_{out}=(H_{in}−1)×stride[0]−2×padding[0]+dilation[0]×(kernel\underline{ }size[0]−1)+output\underline{ }padding[0]+1$
 $W_{out}=(W_{in}−1)×stride[1]−2×padding[1]+dilation[1]×(kernel\underline{ }size[1]−1)+output\underline{ }padding[1]+1$
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。此外，torch.nn.ConvTranspose2d有一个output_padding参数，其功能是指对反卷积后的特征图进行单侧补零（右侧和下侧），而mindspore.nn.Conv2dTranspose中目前没有该参数，可以对输出结果使用[nn.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) 进行补维来代替。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。此外，torch.nn.ConvTranspose2d有一个output_padding参数，其功能是指对反卷积后的特征图进行单侧补零（右侧和下侧），而mindspore.nn.Conv2dTranspose中目前没有该参数，可以对输出结果使用[nn.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)进行补维来代替。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
 | ---- | ----- | ------- | --------- | -------------------------------------- |
@@ -57,13 +57,13 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 |      | 参数4 | stride   |  stride           | -  |
 |      | 参数5 | padding   |  padding           | 功能一致，PyTorch中只能在两个维度的两侧分别填充相同的值，可为长度为2的tuple。MindSpore中可以分别设置顶部、底部、左边和右边的填充数量，可为长度为4的tuple|
 |      | 参数6 | output_padding   |     -       | 对反卷积后的特征图进行单侧补零（右侧和下侧），通常在stride > 1的前提下使用，用来调整output shapes。例如，通常将padding设置为(kernel_size - 1)/2，此时设置output_padding = (stride - 1)可确保input shapes/output shapes = stride，MindSpore此参数|
-|      | 参数7 | groups   |  group           | 功能一致，参数名不同。  |
+|      | 参数7 | groups   |  group           | 功能一致，参数名不同  |
 |      | 参数8 | bias   |  has_bias           | PyTorch默认为True，MindSpore默认为False|
 |      | 参数9 | dilation   |  dilation           | -  |
-|      | 参数10 |  padding_mode   |         | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
-|      | 参数11 |     | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same"|
-|      | 参数12 |     | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal" 、"Normal" 、"Uniform" 、"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal"|
-|      | 参数13 |     | bias_init        | 偏置参数的初始化方法。初始化可选参数与"weight_init"相同，默认为"zeros" |
+|      | 参数10 |  padding_mode   |    -     | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
+|      | 参数11 |   -  | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same"|
+|      | 参数12 |   -  | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal" 、"Normal" 、"Uniform" 、"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal"|
+|      | 参数13 |  -   | bias_init        | 偏置参数的初始化方法。初始化可选参数与"weight_init"相同，默认为"zeros" |
 | |参数14  | input | x  | 接口输入，功能一致，仅参数名不同 |
 
 ### 代码示例1

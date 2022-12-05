@@ -9,7 +9,7 @@ tf.nn.avg_pool2d(
     input, ksize, strides, padding, data_format='NHWC', name=None) -> Tensor
 ```
 
-更多内容详见[tf.nn.avg_pool2d](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/avg_pool2d)。
+更多内容详见[tf.nn.avg_pool2d](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/avg_pool2d)。
 
 ## mindspore.nn.AvgPool2d
 
@@ -26,13 +26,13 @@ TensorFlow：对输入的Tensor执行平均池化。
 
 MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同以及使用输入Tensor的方式不同。
 
-| 分类 | 子类  | TensorFlow  | MindSpore   | 差异                                                   |
-| ---- | ----- | ----------- | ----------- | ------------------------------------------------------ |
-| 参数 | 参数1 | input       | x          | TensorFlow用于输入一个4-D的Tensor|
-|      | 参数2 | ksize       | kernel_size | 功能一致，参数名不同                                   |
-|      | 参数3 | strides     | stride      | 功能一致，参数名不同                                   |
-|      | 参数4 | padding     | pad_mode    | 功能一致，参数名不同                                   |
-|      | 参数5 | data_format | data_format | -                                   |
+| 分类 | 子类  | TensorFlow  | MindSpore   | 差异                              |
+| ---- | ----- | ----------- | ----------- | --------------------------------- |
+| 参数 | 参数1 | input       | x           | TensorFlow用于输入一个4-D的Tensor |
+|      | 参数2 | ksize       | kernel_size | 功能一致，参数名不同              |
+|      | 参数3 | strides     | stride      | 功能一致，参数名不同              |
+|      | 参数4 | padding     | pad_mode    | 功能一致，参数名不同              |
+|      | 参数5 | data_format | data_format | -                                 |
 
 ### 代码示例1
 
@@ -43,8 +43,8 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 import tensorflow as tf
 import numpy as np
 
-y=tf.constant(10*np.random.random(size=(2,3,4,4)), dtype=tf.float16)
-out=tf.nn.avg_pool2d(input=y,ksize=3, strides=1, padding='SAME')
+y = tf.constant(10*np.random.random(size=(2,3,4,4)), dtype=tf.float16)
+out = tf.nn.avg_pool2d(input=y, ksize=3, strides=1, padding='SAME')
 print(out.shape)
 # (2, 3, 4, 4)
 

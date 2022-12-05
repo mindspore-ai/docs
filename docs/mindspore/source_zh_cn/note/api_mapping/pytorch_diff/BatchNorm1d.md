@@ -60,8 +60,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，momentum参数�
 
 > 两API实现功能一致，用法相同。
 
-```PyThon
-# pytorch
+```python
+# PyTorch
 import torch
 import numpy as np
 from torch import nn, tensor

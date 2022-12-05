@@ -55,11 +55,11 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 |      | 参数4 | stride   |  stride           | -  |
 |      | 参数5 | padding   |  padding           | -  |
 |      | 参数6 | output_padding   |     -       | 通常在stride > 1的前提下使用，用来调整output shapes。例如，通常将padding设置为(kernel_size - 1)/2，此时设置output_padding = (stride - 1)可确保input shapes/output shapes = stride，MindSpore无此参数  |
-|      | 参数7 | groups   |  group           | 功能一致，参数名不同。  |
+|      | 参数7 | groups   |  group           | 功能一致，参数名不同  |
 |      | 参数8 | bias   |  has_bias           | PyTorch默认为True，MindSpore默认为False |
 |      | 参数9 | dilation   |  dilation           | -  |
 |      | 参数10 |  padding_mode   |   -      | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
-|      | 参数11 |     | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same" |
+|      | 参数11 |  -   | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same" |
 |      | 参数12 |   -  | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal" |
 |      | 参数13 |   -  | bias_init        | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为"zeros" |
 |      | 参数14  | input               | x                    | 接口输入，功能一致，仅参数名不同 |

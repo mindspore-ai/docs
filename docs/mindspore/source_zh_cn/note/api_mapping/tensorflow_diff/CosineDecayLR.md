@@ -38,12 +38,12 @@ MindSpore：与TensorFlow现同样的功能，依据的计算公式不同。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | learning_rate | - |初始学习速率，MindSpore无此参数。 |
+|参数 | 参数1 | learning_rate | - |初始学习速率，MindSpore无此参数 |
 | | 参数2 | global_step | global_step |- |
 | | 参数3 | decay_steps | decay_steps |- |
-| | 参数4 | num_periods | - |余弦部分衰减的周期数，MindSpore无此参数。 |
-| | 参数5 | alpha | - |计算公式中的α参数，MindSpore无此参数。 |
-| | 参数6 | beta | - |计算公式中的β参数，MindSpore无此参数。 |
+| | 参数4 | num_periods | - |余弦部分衰减的周期数，MindSpore无此参数 |
+| | 参数5 | alpha | - |计算公式中的α参数，MindSpore无此参数 |
+| | 参数6 | beta | - |计算公式中的β参数，MindSpore无此参数 |
 | | 参数7 | name | - | 不涉及 |
 | | 参数8 | - | min_lr |学习率的最小值 |
 | | 参数9 | - | max_lr |学习率的最大值 |
