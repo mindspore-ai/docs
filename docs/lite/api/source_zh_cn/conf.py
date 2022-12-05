@@ -85,6 +85,11 @@ from custom_directives import IncludeCodeDirective
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
+import sphinx
+import shutil
+mo_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+if os.path.exists(mo_target):
+    os.remove(mo_target)
 language = 'zh_CN'
 locale_dirs = ['../../../../resource/locale/']
 gettext_compact = False
