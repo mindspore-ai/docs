@@ -124,10 +124,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-import mindsponge
-
-import mindelec
-
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
