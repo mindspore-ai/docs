@@ -40,7 +40,7 @@
 
 在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/CTPN)。
 
-- `--TEST_DATASET_PATH`：测试数据集路。
+- `--TEST_DATASET_PATH`：测试数据集路径。
 - `--CHECKPOINT_PATH`：checkpoint路径。
 - `--ADV_TEST_DATASET_PATH`：扰动样本数据集路径。
 - `--IS_ADV`：是否使用扰动样本进行测试。

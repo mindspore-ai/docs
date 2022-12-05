@@ -49,6 +49,7 @@ Typical Application Scenarios
    improve_model_security_nad
    test_model_security_fuzzing
    test_model_security_membership_inference
+   evaluation_of_CNNCTC
 
 .. toctree::
    :glob:
