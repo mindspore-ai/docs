@@ -54,7 +54,7 @@ Why do we need mixed-precision? Compared with FP32, FP16 has the following advan
 
 However, using FP16 also brings some problems, the most important of which are precision overflow and rounding error.
 
-- Data overflow: Data overflow is easliy to understand. The valid data range of FP16 is $[6.10\times10^{-5}, 65504]$, and that of FP32 is $[1.4\times10^{-45}, 1.7\times10^{38}]$. We can see that the valid range of FP16 is much narrower than that of FP32. When FP16 is used to replace FP32, overflow and underflow occur. In deep learning, a gradient (a first-order derivative) of a weight in a network model needs to be calculated. Therefore, the gradient is smaller than the weight value, and underflow often occurs.
+- Data overflow: Data overflow is easliy to understand. The valid data range of FP16 is $[5.9\\times10^{-8}, 65504]$, and that of FP32 is $[1.4\times10^{-45}, 1.7\times10^{38}]$. We can see that the valid range of FP16 is much narrower than that of FP32. When FP16 is used to replace FP32, overflow and underflow occur. In deep learning, a gradient (a first-order derivative) of a weight in a network model needs to be calculated. Therefore, the gradient is smaller than the weight value, and underflow often occurs.
 - Rounding error: Rounding error instruction is when the backward gradient of a network model is small, FP32 is usually used. However, when it is converted to FP16, the interval is smaller than the minimum interval, causing data overflow. For example, 0.00006666666 can be properly represented in FP32, but it will be represented as 0.000067 in FP16. The number that does not meet the minimum interval requirement of FP16 will be forcibly rounded off.
 
 ## Mixed-precision Computing Process
