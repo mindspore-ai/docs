@@ -239,3 +239,5 @@ obf_graph = ms.load("obf_net.mindir", obf_func=my_func)
 obf_net = nn.GraphCell(obf_graph)
 right_func_result = obf_net(input_tensor).asnumpy()
 ```
+
+注意：动态混淆目前还不支持动态shape输入，所以在使用 `export()` 接口和 `obfuscate_model()` 的时候，传入的模型输入 `inputs` / `model_inputs` 不能是动态shape形式（Tensor的某些维度为None），例如 inputs=Tensor(shape=[1, 1, None, None], dtype=ms.float32) 是不允许的。
