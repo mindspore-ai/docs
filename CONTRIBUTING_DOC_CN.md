@@ -4,7 +4,7 @@
 
 欢迎参与MindSpore文档贡献，符合要求的文档将会在[MindSpore官网](http://www.mindspore.cn)中呈现。
 
-本项目支持Markdown和reStructuredText格式的内容贡献，对应地可创建`.md`和`.rst`为后缀的文档或修改已存在的文档。
+本项目支持Markdown、reStructuredText和Jupyter Notebook格式的内容贡献，对应地可创建`.md`、`.rst`和`.ipynb`为后缀的文档或修改已存在的文档。
 
 ## 文档
 
