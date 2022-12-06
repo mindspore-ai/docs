@@ -112,7 +112,7 @@ $$
 T_x|x\rangle \rightarrow |a^x\ mod\ N\rangle
 $$
 
-Each $T_x$ is controlled by register 1, they only works when the number stored in register 1 is $x$. Finally, there are a total of $N$ gates, and the entire circuit including these $N$ gates corresponds to the operator $U$. Note that $T_x$ is not itself a gate, since it is not a reversible operation. Therefore, only when register 2 is in the $|0\rangle$ state, the oracle can give the correct output.
+Each $T_x$ is controlled by register 1, and they only works when the number stored in register 1 is $x$. Finally, there are a total of $N$ gates, and the entire circuit including these $N$ gates corresponds to the operator $U$. Note that $T_x$ is not itself a gate, since it is not a reversible operation. Therefore, only when register 2 is in the $|0\rangle$ state, the oracle can give the correct output.
 
 The following is the compromised Oracle construction method:
 
