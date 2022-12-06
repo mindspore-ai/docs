@@ -183,7 +183,7 @@ class Net(nn.Cell):
 
 ### function Uses Shard Function
 
-- function can using ops.shard for shard function. Taking the matmul+bias_add+relu function as an example, the use is as follows:
+- function can using `mindspore.shard` for shard function. Taking the matmul+bias_add+relu function as an example, the use is as follows:
 
     ```python
     import numpy as np

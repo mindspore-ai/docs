@@ -185,7 +185,7 @@ class Net(nn.Cell):
 
 ### function使用函数式切分
 
-- function可以使用ops.shard进行函数式切分，以matmul+bias_add+relu函数为例，使用方法如下：
+- function可以使用`mindspore.shard`进行函数式切分，以matmul+bias_add+relu函数为例，使用方法如下：
 
 ```python
 import numpy as np
