@@ -368,6 +368,7 @@ for batch_idx, (data, target) in enumerate(data_loader):
 | Transpose | 根据轴进行变换 | 当变化轴不定时 |
 | Unique | 去重 | 使用就会引入动态shape |
 | MaskedSelect | 根据bool型的mask取值 | 使用就会引入动态shape |
+| NonZero | 计算非零元素的下标 | 使用就会引入动态shape |
 
 比如：
 
