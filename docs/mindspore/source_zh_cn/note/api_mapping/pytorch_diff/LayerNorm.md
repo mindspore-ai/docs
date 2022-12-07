@@ -54,20 +54,22 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但MindSpore中�
 # PyTorch
 import torch
 import torch.nn as nn
+
 input = torch.ones([20, 5, 10, 10])
 m = nn.LayerNorm(input.size()[1:])
-output = m(input).shape
-print(output)
-# torch.Size([20, 5, 10, 10])
+output = m(input)
+print(output.detach().numpy().shape)
+# (20, 5, 10, 10)
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
 import mindspore.numpy as np
 import mindspore.nn as nn
+
 x = Tensor(np.ones([20, 5, 10, 10]), mindspore.float32)
 shape1 = x.shape[1:]
-m = nn.LayerNorm(shape1,  begin_norm_axis=1, begin_params_axis=1)
+m = nn.LayerNorm(shape1, begin_norm_axis=1, begin_params_axis=1)
 output = m(x).shape
 print(output)
 # (20, 5, 10, 10)

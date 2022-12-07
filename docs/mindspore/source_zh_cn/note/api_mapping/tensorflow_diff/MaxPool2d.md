@@ -53,7 +53,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 # TensorFlow
 import tensorflow as tf
 
-x = tf.constant([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]])
+x = tf.constant([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]])
 output = tf.nn.max_pool2d(x, ksize=3, strides=2, padding="SAME")
 print(output.shape)
 # (1, 1, 1, 10)
@@ -64,7 +64,7 @@ import numpy as np
 from mindspore import context
 
 device = context.get_context("device_target")
-x = Tensor(np.array([[[[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]]]).astype(np.float32))
+x = Tensor(np.array([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]]).astype(np.float32))
 if device == "Ascend" or device == "CPU":
     max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')
     x = mindspore.ops.transpose(x, (0, 3, 2, 1))

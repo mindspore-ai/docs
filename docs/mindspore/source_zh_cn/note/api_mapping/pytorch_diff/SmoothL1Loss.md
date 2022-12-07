@@ -73,8 +73,8 @@ import torch.nn as nn
 
 beta = 1
 loss = nn.SmoothL1Loss(reduction="none", beta=beta)
-logits = torch.FloatTensor([1, 1, 1,1])
-labels = torch.FloatTensor([0, 2, 3,4])
+logits = torch.FloatTensor([1, 1, 1, 1])
+labels = torch.FloatTensor([0, 2, 3, 4])
 output = loss(logits, labels)
 print(output.numpy())
 #[0.5 0.5 1.5 2.5]
@@ -85,8 +85,8 @@ import numpy as np
 from mindspore import Tensor
 
 loss = mindspore.nn.SmoothL1Loss()
-logits = mindspore.Tensor(np.array([1, 1, 1,1]), mindspore.float32)
-labels = mindspore.Tensor(np.array([0, 2, 3,4]), mindspore.float32)
+logits = mindspore.Tensor(np.array([1, 1, 1, 1]), mindspore.float32)
+labels = mindspore.Tensor(np.array([0, 2, 3, 4]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
 #[0.5 0.5 1.5 2.5]

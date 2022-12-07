@@ -5,7 +5,7 @@
 ## tf.keras.layers.LayerNormalization
 
 ```python
-class torch.nn.LayerNorm(
+class tf.keras.layers.LayerNormalization(
     axis=-1,
     epsilon=0.001,
     center=True,

@@ -30,16 +30,16 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅实例化后的参�
 
 ### 代码示例
 
-> 当两个输入参数的都为Tensor类型且shape值不同时，实现功能一致，用法相同。
+> 实现功能一致，用法相同。
 
 ```python
 # PyTorch
 import torch
 from torch import tensor
 
-input = tensor([-1, -2, 0, 2, 1], dtype=torch.float32)
+input_x = tensor([-1, -2, 0, 2, 1], dtype=torch.float32)
 sigmoid = torch.nn.Sigmoid()
-output = sigmoid(input).numpy()
+output = sigmoid(input_x).numpy()
 print(output)
 # [0.26894143 0.11920292 0.5        0.880797   0.7310586 ]
 
@@ -47,9 +47,9 @@ print(output)
 import mindspore
 from mindspore import Tensor
 
-x = Tensor([-1, -2, 0, 2, 1], mindspore.float32)
+input_x = Tensor([-1, -2, 0, 2, 1], mindspore.float32)
 sigmoid = mindspore.nn.Sigmoid()
-output = sigmoid(x)
+output = sigmoid(input_x)
 print(output)
 # [0.26894143 0.11920292 0.5        0.8807971  0.7310586 ]
 ```

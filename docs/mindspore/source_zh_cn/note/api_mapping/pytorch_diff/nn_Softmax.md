@@ -40,8 +40,8 @@ import numpy
 from torch import tensor
 import torch.nn as nn
 
-x=torch.FloatTensor([1,1])
-softmax=nn.Softmax(dim=0)(x)
+x = torch.FloatTensor([1, 1])
+softmax = nn.Softmax(dim=0)(x)
 print(softmax.numpy())
 # [0.5 0.5]
 
@@ -68,8 +68,8 @@ import numpy
 from torch import tensor
 import torch.nn as nn
 
-x=torch.FloatTensor([1,1,1,1])
-softmax=nn.Softmax(dim=0)(x)
+x = torch.FloatTensor([1, 1, 1, 1])
+softmax = nn.Softmax(dim=0)(x)
 print(softmax.numpy())
 # [0.25 0.25 0.25 0.25]
 
@@ -78,7 +78,7 @@ import mindspore
 import numpy as np
 from mindspore import Tensor
 
-x = Tensor(np.array([1,1,1,1]), mindspore.float16)
+x = Tensor(np.array([1, 1, 1, 1]), mindspore.float16)
 softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)

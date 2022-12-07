@@ -58,7 +58,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。MindSpore支�
 
 ### 代码示例
 
-> 实现功能一致，用法相同。
+> 实现功能一致。
 
 ```python
 # TensorFlow

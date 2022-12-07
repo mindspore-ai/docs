@@ -28,7 +28,7 @@ class mindspore.nn.LSTMCell(
 
 PyTorch：计算长短期记忆网络单元。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值在形式上有差异。PyTorch中返回h_1和 c_1，MindSpore中返回hx’ 两个Tensor(h’, c’)。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值在形式上有差异。PyTorch中返回h_1和 c_1，MindSpore中返回hx’，是两个Tensor组成的的元组(h’, c’)。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|

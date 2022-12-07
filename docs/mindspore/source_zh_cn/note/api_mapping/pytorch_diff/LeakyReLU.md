@@ -40,7 +40,7 @@ import torch
 import torch.nn as nn
 
 m = nn.LeakyReLU(0.2)
-input = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]],dtype=float)
+input = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=float)
 output = m(input).to(torch.float32).detach().numpy()
 print(output)
 # [[-0.2  4.  -1.6]
@@ -68,7 +68,7 @@ print(output)
 import torch
 import torch.nn as nn
 
-m = nn.LeakyReLU(0.2,inplace=True)
+m = nn.LeakyReLU(0.2, inplace=True)
 input = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=torch.float32)
 output = m(input)
 print(output.detach().numpy())
