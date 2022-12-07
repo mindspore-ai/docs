@@ -1,17 +1,49 @@
 MindSPONGE Documents
-=======================
+====================
 
-MindSpore SPONGE(Simulation Package tOwards Next GEneration molecular
-modelling) is a toolkit for Computational Biology based on AI framework
-`MindSpore <https://www.mindspore.cn/en>`__\ ，which supports MD,
-folding and so on. It aims to provide efficient AI computational biology
-software for a wide range of scientific researchers, staff, teachers and
-students.
+The molecular simulation or modeling process has a high degree
+of logic consistency with the AI model training/inferring process,
+so the molecular simulation can in principle be unified with the
+AI training/inferring mode. MindSPONGE is a molecular simulation
+library based on AI framework. It integrates molecular simulation
+and AI training/inferring under the same programming structure.
+The overall structure view is as follows:
 
-.. figure:: images/archi.png
+.. figure:: ./intro/images/archi.png
    :alt: MindSPONGE Architecture
 
    MindSPONGE Architecture
+
+Different from traditional molecular simulation software,
+AI molecular simulation library has completely new features, such as:
+
+1. Instead of manual derivative programming, automatic differential
+   technology provides a unified programming paradigm for different
+   energy functions or the construction of complex scoring functions;
+2. Fully compatible with neural network models, supporting AI inferring
+   within molecular simulation, or simulation as an engine for AI training;
+3. The end-to-end differentiable modeling method can realize
+   the meta-optimization of the physical model;
+4. Hierarchical code architecture, using efficient language operator
+   at the bottom; Provide users with object-oriented Python API
+   to facilitate user customization;
+5. Automatic adaptation of multiple back-end. Users only need to write
+   a simple Python code to accelerate execution on multiple back-end,
+   such as GPU and NPU;
+6. High-throughput simulation supported by automatic parallel. Users
+   do not need to distinguish between single or multi-machine execution
+   of code, can concurrently simulate multiple systems on a single
+   hardware unit, without special MPI programming.
+
+Combined with these new features, the unified framework of molecular
+simulation and AI can support a wide range of molecular modeling
+and application scenarios, such as:
+
+- Molecular simulation based on AI improved force field or enhanced sampling;
+- Data-driven & physics-driven molecular docking;
+- Protein structure prediction and force field optimization;
+- High throughput molecular simulation;
+- Molecular design, etc.
 
 Installation
 ------------
@@ -39,7 +71,7 @@ Dependency
 ~~~~~~~~~~
 
 -  Python>=3.7
--  MindSpore>=1.8
+-  MindSpore>=2.0
 
 Please refer to `MindSpore installation
 tutorial <https://www.mindspore.cn/install/en>`__.
@@ -60,9 +92,11 @@ source code install
 
 -  Ascend backend
 
+   Enable ``c`` if you want to use Cybertron.
+
    .. code:: bash
 
-      bash build.sh -e ascend
+      bash build.sh -e ascend -c on
 
 -  GPU backend
 
@@ -81,123 +115,7 @@ source code install
 
       cd output/
       pip install mindsponge*.whl
-      pip install cybertron*.whl
-
-Examples
---------
-
-Protein Violation Computation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Although the structure predicted by structure prediciton
-model(e.g. AlphaFold2, MEGA-Fold) has ideal bond-length and bond-angle
-on most atoms, whether there is conflict between atoms and peptide bond
-information are also particularly important. Violation can measure the
-conflict well and is an import metric for protein relaxation.
-
-The formula for violation computation as below:
-
-.. math::
-
-
-   \begin{align}
-   \mathcal L_{viol} = \mathcal L_{bondlength }+\mathcal L_{bondangle }+\mathcal L_{clash } .
-   \end{align}
-
-.. code:: 
-
-    import mindspore as ms
-    from mindspore import set_context
-    from mindspore import Tensor
-    from mindsponge.common.utils import get_pdb_info
-    from mindsponge.metrics.structure_violations import get_structural_violations
-    
-    # set which gpu to use, in default use 0 card
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", device_id=0)
-    input_pdb = "xxx.pdb"
-    
-    # extract features from pdb
-    features = get_pdb_info(input_pdb)
-    
-    violations = get_structural_violations(Tensor(features.get("atom14_gt_exists")).astype(ms.float32),
-                                           Tensor(features.get("residue_index")).astype(ms.float32),
-                                           Tensor(features.get("aatype")).astype(ms.int32),
-                                           Tensor(features.get("residx_atom14_to_atom37")).astype(ms.int32),
-                                           Tensor(features.get("atom14_gt_positions")).astype(ms.float32))
-    violation_all = violations[-1]
-
-Transfer between rotation matrix and quaternion
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-geometry module provides basic operations for quaternion, rotation
-matrix and vectors.
-
-.. code:: 
-
-    from mindsponge.common.geometry import initial_affine
-    from mindsponge.common.geometry import quat_to_rot, rot_to_quat
-    # quaternion is a mindspore tensor
-    # rotation_matrix is a tuple of mindspore tensor, length is 9
-    # translation is a tuple of mindsproe tensor, length is 3
-    quat, rot, trans = initial_affine(128) # 128 is the num of residues
-    transformed_rot = quat_to_rot(quat)
-    transformed_quat = rot_to_quat(rot)
-
-A simple example for molecular dynamics
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: 
-
-    import numpy as np
-    import mindspore as ms
-    from mindspore import set_context
-    from mindsponge import Sponge
-    from mindsponge import Molecule
-    from mindsponge import ForceFieldBase
-    from mindsponge import DynamicUpdater
-    from mindsponge.potential import BondEnergy, AngleEnergy
-    from mindsponge.callback import WriteH5MD, RunInfo
-    from mindsponge.function import VelocityGenerator
-    from mindsponge.control import LeapFrog
-    
-    set_context(mode=ms.GRAPH_MODE, device_target="GPU")
-    
-    system = Molecule(
-        atoms=['O', 'H', 'H'],
-        coordinate=[[0, 0, 0], [0.1, 0, 0], [-0.0333, 0.0943, 0]],
-        bond=[[[0, 1], [0, 2]]],
-    )
-    
-    bond_energy = BondEnergy(
-        index=system.bond,
-        force_constant=[[345000, 345000]],
-        bond_length=[[0.1, 0.1]],
-    )
-    
-    angle_energy = AngleEnergy(
-        index=[[1, 0, 2]],
-        force_constant=[[383]],
-        bond_angle=[[109.47 / 180 * np.pi]],
-    )
-    
-    energy = ForceFieldBase(energy=[bond_energy, angle_energy])
-    
-    velocity_generator = VelocityGenerator(300)
-    velocity = velocity_generator(system.coordinate.shape, system.atom_mass)
-    
-    opt = DynamicUpdater(
-        system,
-        integrator=LeapFrog(system),
-        time_step=1e-3,
-        velocity=velocity,
-    )
-    
-    md = Sponge(system, energy, opt)
-    
-    run_info = RunInfo(10)
-    cb_h5md = WriteH5MD(system, 'test.h5md', save_freq=10, write_velocity=True, write_force=True)
-    
-    md.run(1000, callbacks=[run_info, cb_h5md])
+      pip install cybertron*.whl # if "-c on" is used
 
 SIG
 ---
@@ -262,14 +180,24 @@ Contribution Guide
    Guide <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: Guide
+   :caption: Molecular Simulation Introduction
 
-   why
-   xponge
-   sponge
-   cybertron
-   MEGAProtein
+   intro/physics_driven
+   intro/data_driven
+   intro/physics_plus_data_driven
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: User Guide
+
+   user/simulation
+   user/structure_prediction
+   user/property_prediction
+   user/design
+   user/basic
 
 .. toctree::
    :maxdepth: 1
@@ -279,3 +207,4 @@ Contribution Guide
    mindsponge.common
    mindsponge.data
    mindsponge.metrics
+   constant

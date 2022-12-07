@@ -6,15 +6,15 @@ MindSPONGE采取了一种独一无二的 “类AI”分子模拟程序架构：
 
 ![MindSPONGE](./images/mindsponge.png)
 
-该架构的特点在于其将分子模拟变成了一种特殊的AI训练过程，这使得MindSPONGE像可以像使用MindSpore对训练网络模型那样进行分子动力学模拟。
+该架构的特点在于其将分子模拟变成了一种特殊的AI训练过程，这使得MindSPONGE可以像使用MindSpore对训练网络模型那样进行分子动力学模拟。
 
 首先，MindSpore和MindSPONGE都需要设置三个基础单元（Cell）或功能模块，而且MindSpore和MindSPONGE的这三个基础单元之间有着一一对应的关系：
 
-| MindSpore | | MindSPONGE | |
-| :-------- | :--------- | :--------- | :--------- |
-| 网络模型 | network | 模拟体系 | system |
-| 损失函数 | loss_fn | 势能函数 | potential |
-| 优化器 | optimizer | 更新器 | updater |
+| MindSpore |           | MindSPONGE |           |
+| :-------- | :-------- | :--------- | :-------- |
+| 网络模型  | network   | 模拟体系   | system    |
+| 损失函数  | loss_fn   | 势能函数   | potential |
+| 优化器    | optimizer | 更新器     | updater   |
 
 在设置好三个功能模块后，还需要将它们进行封装，这样才能执行训练或者模拟。
 
@@ -136,7 +136,7 @@ potential = ForceFieldBase(
 
 在MindSPONGE中，更新器Updater用于在模拟过程中更新模拟体系的原子坐标。更新器Updater本质上其实是一个优化器（optimizer），其基类mindsponge.optimizer.Updater也是mindspore.nn.Optimizer的子类。实际上MindSpore的优化器，如Adam等可以直接作为MindSPONGE的更新器使用，此时的模拟过程就相当于对模拟体系进行能量极小化（energy minimization）。
 
-而MindSPONGE的更新器Updater可以通过不同的“控制器”（controller）对模拟过程进行细致的调控。控制器Controller的基类（父类）是mindsponge.control.Controller，可以用来调节和更新模拟过程中体系的坐标（coordinate）、速度（velocity）、力（force）、能量（energy）、动能（kinetics）、维里（virial）、周期性盒子（PBC box）七个变量。常见的控制器Controller包括积分器Integrator、控温器Thermostat、控压器Barostat以及约束Constraint等。基类的更新器Updater可以通过接受一个控制器类的列表（list）进行初始化，而在模拟过程中会按照列表中控制器的顺序更新相应的参数：
+而MindSPONGE的更新器（Updater）可以通过不同的“控制器”（controller）对模拟过程进行细致的调控。控制器（Controller）的基类（父类）是mindsponge.control.Controller，可以用来调节和更新模拟过程中体系的坐标（coordinate）、速度（velocity）、力（force）、能量（energy）、动能（kinetics）、维里（virial）、周期性盒子（PBC box）七个变量。常见的控制器（Controller）包括积分器（Integrator）、控温器（Thermostat）、控压器（Barostat）以及约束（Constraint）等。基类的更新器（Updater）可以通过接受一个控制器类的列表（list）进行初始化，而在模拟过程中会按照列表中控制器的顺序更新相应的参数：
 
 ```python
 from mindsponge import Updater
@@ -159,7 +159,7 @@ time_step=1e-3,
 )
 ```
 
-而对于一般的分子动力学模拟来说，则可以使用Updater的子类mindsponge.control.MolecularDynamics来作为更新，直接设置积分器（integrator）、控温器（thermostat）、控压器（barostat）以及约束（constraint）来进行初始化：
+而对于一般的分子动力学模拟来说，则可以使用更新器（Updater）的子类mindsponge.control.MolecularDynamics来作为更新，直接设置积分器（integrator）、控温器（thermostat）、控压器（barostat）以及约束（constraint）来进行初始化：
 
 ```python
 from mindsponge import MolecularDynamics
@@ -211,7 +211,7 @@ simulation = SimulationCell(
 
 ## 模拟轨迹文件：H5MD
 
-MindSPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (HDF5 Molecular Data）比利时布鲁塞尔自由大学的Pierre de Buyl博士等人与2014年提出的一种基于HDF5（Hierarchical Data Format 5）格式的MD模拟轨迹文件格式（de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.）。
+MindSPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (HDF5 Molecular Data）是比利时布鲁塞尔自由大学的Pierre de Buyl博士等人于2014年提出的一种基于HDF5（Hierarchical Data Format 5）格式的MD模拟轨迹文件格式[1]。
 
 德国斯图加特大学的Jonas Landsgesell和Sascha Ehrhardt和开发了一款[VMD插件](https://github.com/h5md/VMD-h5mdplugin)，安装后可以用VMD查看H5MD格式的模拟轨迹文件。但此插件存在Bug，且自2019以后就不再更新。我们Fork了[原版仓库](https://gitee.com/helloyesterday/VMD-h5mdplugin)，修正了bug，并在原版程序的基础上进行了小幅修改，增加了坐标的单位转换等功能，并将默认的文件扩展名由.h5改为.h5md。此外，也可以使用[MDAnalysis](https://www.mdanalysis.org/)来读取H5MD文件的模拟轨迹信息。
 
@@ -222,3 +222,7 @@ MindSPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (HDF5 M
 ## 使用教程
 
 使用MindSPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic)进行查看。
+
+## 参考文献
+
+[1] de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.
