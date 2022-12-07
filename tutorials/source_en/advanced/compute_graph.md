@@ -83,7 +83,7 @@ In static graph mode, MindSpore converts Python source code into Intermediate Re
 
 MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph. However, in practice, it is not sensed when the instantiated Cell object is called. MindSpore encapsulates both phases in the `__call__` method of the Cell, so the actual calling process is as follows:
 
-> `model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` is the instantiated Cell object.
+`model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` is the instantiated Cell object.
 
 We call the `compile` method explicitly for the following example:
 
