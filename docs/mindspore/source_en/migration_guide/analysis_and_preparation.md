@@ -369,6 +369,7 @@ The common APIs that cause this scenario are as follows:
 | Transpose | Performs transformation based on the axis.| The axis is not fixed.|
 | Unique | Deduplicates data.| Dynamic shape is introduced when this API is used.|
 | MaskedSelect | Obtains the value of mask based on the Boolean type.| Dynamic shape is introduced when this API is used.|
+| NonZero | Obtains the positions of all non-zero values.| Dynamic shape is introduced when this API is used.|
 
 For example:
 
