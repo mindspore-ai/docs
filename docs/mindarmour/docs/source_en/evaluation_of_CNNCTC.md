@@ -38,7 +38,7 @@ This tutorial uses natural perturbation serving to evaluate the robustness of th
 
 ### Script Parameters
 
-You can configure training parameters, inference parameters, and robustness evaluation parameters in `default_config.yaml`. We focus on the parameters used in the evaluation and the parameters that need to be configured by users. For details about other parameters, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc).
+You can configure training parameters, inference parameters, and robustness evaluation parameters in `default_config.yaml`. We focus on the parameters used in the evaluation and the parameters that need to be configured by users. For details about other parameters, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/research/cv/cnnctc).
 
 - `--TEST_DATASET_PATH`: indicates the path of the test dataset.
 - `--CHECKPOINT_PATH`: indicates the checkpoint path.
@@ -51,7 +51,7 @@ The model to be evaluated is the CNN-CTC model implemented based on MindSpore. T
 
 [Paper](https://arxiv.org/abs/1904.01906): J. Baek, G. Kim, J. Lee, S. Park, D. Han, S. Yun, S. J. Oh, and H. Lee, "What is wrong with scene text recognition model comparisons? dataset and model analysis," ArXiv, vol. abs/1904.01906, 2019.
 
-For details about data processing and model training, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc). You need to obtain the preprocessed dataset and checkpoint model file based on this tutorial for the following evaluation task.
+For details about data processing and model training, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/research/cv/cnnctc). You need to obtain the preprocessed dataset and checkpoint model file based on this tutorial for the following evaluation task.
 
 The preprocessed dataset is in .lmdb format and stored in key-value pairs.
 
