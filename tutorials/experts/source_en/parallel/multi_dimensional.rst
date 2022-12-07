@@ -338,24 +338,27 @@ Description of the Interface Related to the Feature
 |             |                           | during training.      |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
 | Functional  | shard(in_strategy,\       | Set the sharding      | In PyNative mode,     |
-| operator    | out_strategy,\            | strategy of the       | specify that a        |
-| sharding    | device=“Ascend”,\         | input and output      | cell instance         |
-|             | level=0)                  | tensors of the        | executes in graph     |
-|             | In Cell class             | cell, and the         | mode, and             |
-|             |                           | parallel strategy     | synchronizes the      |
+| operator    | out_strategy=None,\       | strategy of the       | specify that a        |
+| sharding    | parameter_plan=None,\     | input/output tensors  | cell instance         |
+|             | device="Ascend",\         | and key parameters    | executes in graph     |
+|             | level=1)                  | of the cell, and the  | mode, and             |
+|             | In Cell class.            | parallel strategy     | synchronizes the      |
 |             |                           | of the remaining      | operator-level        |
 |             |                           | operators is          | model according       |
-|             |                           | propagated by the     | to the specified      |
-|             |                           | sharding              | input-output          |
-|             |                           | strategy.             | sharding              |
-|             |                           | in_strategy/out_s\    | strategy, while       |
-|             |                           | trategy               | the rest of the       |
+|             |                           | propagated by the     | to the specified the  |
+|             |                           | sharding              | strategy for          |
+|             |                           | strategy.             | input-output and key  |
+|             |                           | in_strategy/          | parameters, while     |
+|             |                           | out_strategy          | the rest of the       |
 |             |                           | specify the           | model is still        |
-|             |                           | sharding policy       | executed in           |
+|             |                           | sharding strategy     | executed in           |
 |             |                           | for the               | Python mode.          |
-|             |                           | input/output          |                       |
-|             |                           | tensor. device        |                       |
+|             |                           | input/output tensor.  |                       |
+|             |                           | parameter_plan        |                       |
 |             |                           | specifies the         |                       |
+|             |                           | sharding strategy for |                       |
+|             |                           | key parameters.       |                       |
+|             |                           | device specifies the  |                       |
 |             |                           | execution device,     |                       |
 |             |                           | and level             |                       |
 |             |                           | specifies the         |                       |
@@ -364,15 +367,15 @@ Description of the Interface Related to the Feature
 |             |                           | propagation           |                       |
 |             |                           | algorithm.            |                       |
 +-------------+---------------------------+-----------------------+-----------------------+
-|             | ops.shard(fn,             | The incoming fn       | This usage allows     |
-|             | in_strategy,              | is a cell             | you to specify        |
-|             | out_strategy,             | instance or           | that a function       |
-|             | device=“Ascend”,          | function. The         | performs model        |
-|             | level=0)                  | rest of the input     | parallelism at        |
-|             |                           | is the same as        | the operator          |
-|             |                           | shard, and the        | level, with the       |
-|             |                           | return value is a     | same function as      |
-|             |                           | function. When        | cell’s shard          |
+|             | mindspore.shard(fn,\      | The incoming fn       | This usage allows     |
+|             | in_strategy,\             | is a cell instance or | you to specify        |
+|             | out_strategy=None,\       | function. The         | that a function       |
+|             | parameter_plan=None,\     | description of        | performs model        |
+|             | device="Ascend",\         | remaining parameters  | parallelism at        |
+|             | level=0)                  | are the same as above | the operator          |
+|             |                           | shard interface,      | level, with the       |
+|             |                           | and the return value  | same function as      |
+|             |                           | is a function. When   | cell’s shard          |
 |             |                           | this function is      | method.               |
 |             |                           | called, the           |                       |
 |             |                           | operator-level        |                       |
