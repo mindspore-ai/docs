@@ -209,11 +209,20 @@ if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir, des_sir)
 
-target_dir="./api_python/ops/"
+# rename file name to solve Case sensitive.
+target_dir_ops="./api_python/ops/"
 try:
-    for filename in os.listdir(target_dir):
+    for filename in os.listdir(target_dir_ops):
         newname = filename.replace("func_",'')
-        os.rename(os.path.join(target_dir, filename),os.path.join(target_dir, newname))
+        os.rename(os.path.join(target_dir_ops, filename),os.path.join(target_dir_ops, newname))
+except Exception as e:
+    print(e)
+
+target_dir_tensor="./api_python/mindspore/Tensor/"
+try:
+    for filename in os.listdir(target_dir_tensor):
+        newname = filename.replace("method_",'')
+        os.rename(os.path.join(target_dir_tensor, filename),os.path.join(target_dir_tensor, newname))
 except Exception as e:
     print(e)
 
