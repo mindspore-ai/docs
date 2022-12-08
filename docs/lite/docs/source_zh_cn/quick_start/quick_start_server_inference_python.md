@@ -68,39 +68,39 @@ python quick_start_server_inferece_python.py
 
 - `total run time`表示服务器完成所有并发推理任务的总耗时。
 
-```text
-parallel id:  0  | task index:  1  | run once time:  0.024082660675048828  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  2  | task index:  1  | run once time:  0.029989957809448242  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  1  | task index:  1  | run once time:  0.03409552574157715  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  3  | task index:  1  | run once time:  0.04005265235900879  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  4  | task index:  1  | run once time:  0.04981422424316406  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  0  | task index:  2  | run once time:  0.028667926788330078  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  2  | task index:  2  | run once time:  0.03010392189025879  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  3  | task index:  2  | run once time:  0.030695676803588867  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  1  | task index:  2  | run once time:  0.04117941856384277  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-parallel id:  4  | task index:  2  | run once time:  0.028671741485595703  s
-tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-total run time:  0.08787751197814941  s
-```
+    ```text
+    parallel id:  0  | task index:  1  | run once time:  0.024082660675048828  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  2  | task index:  1  | run once time:  0.029989957809448242  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  1  | task index:  1  | run once time:  0.03409552574157715  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  3  | task index:  1  | run once time:  0.04005265235900879  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  4  | task index:  1  | run once time:  0.04981422424316406  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  0  | task index:  2  | run once time:  0.028667926788330078  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  2  | task index:  2  | run once time:  0.03010392189025879  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  3  | task index:  2  | run once time:  0.030695676803588867  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  1  | task index:  2  | run once time:  0.04117941856384277  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    parallel id:  4  | task index:  2  | run once time:  0.028671741485595703  s
+    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
+    total run time:  0.08787751197814941  s
+    ```
 
 ## Demo内容说明
 
@@ -126,25 +126,25 @@ total run time:  0.08787751197814941  s
 
 - `TASK_NUM`：任务数量，即单个客户端发送的推理任务请求的数量。
 
-```python
-import time
-from threading import Thread
-import numpy as np
-import mindspore_lite as mslite
+    ```python
+    import time
+    from threading import Thread
+    import numpy as np
+    import mindspore_lite as mslite
 
-# the number of threads of one worker.
-# WORKERS_NUM * THREAD_NUM should not exceed the number of cores of the machine.
-THREAD_NUM = 1
+    # the number of threads of one worker.
+    # WORKERS_NUM * THREAD_NUM should not exceed the number of cores of the machine.
+    THREAD_NUM = 1
 
-# In parallel inference, the number of workers in one `ModelParallelRunner` in server.
-# If you prepare to compare the time difference between parallel inference and serial inference,
-# you can set WORKERS_NUM = 1 as serial inference.
-WORKERS_NUM = 3
+    # In parallel inference, the number of workers in one `ModelParallelRunner` in server.
+    # If you prepare to compare the time difference between parallel inference and serial inference,
+    # you can set WORKERS_NUM = 1 as serial inference.
+    WORKERS_NUM = 3
 
-# Simulate 5 clients, and each client sends 2 inference tasks to the server at the same time.
-PARALLEL_NUM = 5
-TASK_NUM = 2
-```
+    # Simulate 5 clients, and each client sends 2 inference tasks to the server at the same time.
+    PARALLEL_NUM = 5
+    TASK_NUM = 2
+    ```
 
 ### 创建并发推理配置
 
