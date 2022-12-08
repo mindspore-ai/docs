@@ -70,10 +70,10 @@ pad：零填充。
 | | 参数3 | kernel_size | kernel_size |- |
 | | 参数4 | stride | stride |- |
 | | 参数5 | padding | padding |-|
-| | 参数7 | dilation | dilation |-|
-| | 参数8 | groups | group |功能一致，参数名不同|
-| | 参数9 | bias | has_bias |功能一致，参数名不同，默认值不同|
-| | 参数6 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同，默认值不同|
+| | 参数6 | dilation | dilation |-|
+| | 参数7 | groups | group |功能一致，参数名不同|
+| | 参数8 | bias | has_bias |功能一致，参数名不同，默认值不同|
+| | 参数9 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同，默认值不同|
 | | 参数10 | - | weight_init |权重参数的初始化方法|
 | | 参数11 | - | bias_init |偏置参数的初始化方法|
 | | 参数12  | input  | x | 接口输入，功能一致，仅参数名不同|

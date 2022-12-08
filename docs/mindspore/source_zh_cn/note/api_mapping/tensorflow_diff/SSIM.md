@@ -52,7 +52,7 @@ MindSpore：在MindSpore中，算子需要先实例化，然后接收输入返�
 
 ### 代码示例1
 
-> TensorFlow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`.
+> TensorFlow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`。
 
 ```python
 # tensorflow

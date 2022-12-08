@@ -21,7 +21,7 @@ class tf.keras.optimizers.Adam(
 ## mindspore.nn.Adam
 
 ``` text
-class classmindspore.nn.Adam(
+class mindspore.nn.Adam(
     params,
     learning_rate=1e-3,
     beta1=0.9,

@@ -5,7 +5,7 @@
 ## torch.nn.GRU
 
 ```text
-torch.nn.GRU(*args, **kwargs) -> Tensor
+torch.nn.GRU(*args, **kwargs)(input, h_0) -> Tensor
 ```
 
 更多内容详见[torch.nn.GRU](https://pytorch.org/docs/1.8.1/generated/torch.nn.GRU.html#torch.nn.GRU)。
@@ -13,7 +13,7 @@ torch.nn.GRU(*args, **kwargs) -> Tensor
 ## mindspore.nn.GRU
 
 ``` text
-mindspore.nn.GRU(*args, **kwargs) -> tuple[Tensor]
+mindspore.nn.GRU(*args, **kwargs)(x, hx, seq_length)  -> Tensor
 ```
 
 更多内容详见[MindSpore.nn.GRU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)。
@@ -35,8 +35,7 @@ MindSpore：功能一致，仅参数名不同。
 |      | 参数7  | bidirectional | bidirectional | -                         |
 |      | 参数8  | input         | x             | 功能一致，参数名不同      |
 |      | 参数9  | h_0           | hx            | 功能一致，参数名不同      |
-|      | 参数11 | h_n           | hx_n          | 功能一致，参数名不同      |
-|      | 参数12 | -             | seq_length    | 输入batch中每个序列的长度 |
+|      | 参数10 | -             | seq_length    | 输入batch中每个序列的长度 |
 
 ### 代码示例1
 

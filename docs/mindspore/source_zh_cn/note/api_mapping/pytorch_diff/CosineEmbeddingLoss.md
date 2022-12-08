@@ -30,7 +30,7 @@ class mindspore.nn.CosineEmbeddingLoss(
 
 PyTorch：余弦相似度损失函数，用于测量两个Tensor之间的相似性。
 
-MindSpore：与PyTorch实现同样的功能
+MindSpore：与PyTorch实现同样的功能。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
