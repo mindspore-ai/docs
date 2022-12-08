@@ -8,7 +8,7 @@
 torch.atan(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.atan](https://pytorch.org/docs/1.8.1/generated/torch.atan.html)。
+更多内容详见[torch.atan](https://pytorch.org/docs/1.8.1/generated/torch.atan.html)。
 
 ## mindspore.ops.atan
 
@@ -16,7 +16,7 @@ torch.atan(input, *, out=None) -> Tensor
 mindspore.ops.atan(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.atan](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan.html)。
+更多内容详见[mindspore.ops.atan](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan.html)。
 
 ## 差异对比
 

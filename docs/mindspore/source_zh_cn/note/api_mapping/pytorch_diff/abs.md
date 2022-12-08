@@ -8,7 +8,7 @@
 torch.abs(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.abs](https://pytorch.org/docs/1.8.1/generated/torch.abs.html)。
+更多内容详见[torch.abs](https://pytorch.org/docs/1.8.1/generated/torch.abs.html)。
 
 ## mindspore.ops.abs
 
@@ -16,7 +16,7 @@ torch.abs(input, *, out=None) -> Tensor
 mindspore.ops.abs(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.abs](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.abs.html)。
+更多内容详见[mindspore.ops.abs](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.abs.html)。
 
 ## 差异对比
 

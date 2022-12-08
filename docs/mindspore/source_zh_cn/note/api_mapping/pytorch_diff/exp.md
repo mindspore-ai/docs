@@ -8,7 +8,7 @@
 torch.exp(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.exp](https://pytorch.org/docs/1.8.1/generated/torch.exp.html)。
+更多内容详见[torch.exp](https://pytorch.org/docs/1.8.1/generated/torch.exp.html)。
 
 ## mindspore.ops.exp
 
@@ -16,7 +16,7 @@ torch.exp(input, *, out=None) -> Tensor
 mindspore.ops.exp(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.exp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.exp.html)。
+更多内容详见[mindspore.ops.exp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.exp.html)。
 
 ## 差异对比
 

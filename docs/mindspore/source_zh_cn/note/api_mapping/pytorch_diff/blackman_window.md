@@ -16,7 +16,7 @@ torch.blackman_window(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.blackman_window](https://pytorch.org/docs/1.8.1/generated/torch.blackman_window.html)。
+更多内容详见[torch.blackman_window](https://pytorch.org/docs/1.8.1/generated/torch.blackman_window.html)。
 
 ## mindspore.ops.blackman_window
 
@@ -29,7 +29,7 @@ mindspore.ops.blackman_window(
 ) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.blackman_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.blackman_window.html)。
+更多内容详见[mindspore.ops.blackman_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.blackman_window.html)。
 
 ## 差异对比
 

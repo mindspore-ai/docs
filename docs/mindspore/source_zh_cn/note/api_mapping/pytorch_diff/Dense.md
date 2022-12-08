@@ -12,7 +12,7 @@ class torch.nn.Linear(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.Linear](https://pytorch.org/docs/1.8.1/generated/torch.nn.Linear.html)。
+更多内容详见[torch.nn.Linear](https://pytorch.org/docs/1.8.1/generated/torch.nn.Linear.html)。
 
 ## mindspore.nn.Dense
 
@@ -27,7 +27,7 @@ class mindspore.nn.Dense(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Dense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html)。
+更多内容详见[mindspore.nn.Dense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html)。
 
 ## 差异对比
 

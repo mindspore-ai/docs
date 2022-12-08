@@ -18,7 +18,7 @@ tf.keras.optimizers.Ftrl(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)
+更多内容详见[tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)
 
 ## mindspore.nn.FTRL
 
@@ -36,7 +36,7 @@ class mindspore.nn.FTRL(
 )(grads) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)
+更多内容详见[mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)
 
 ## 差异对比
 

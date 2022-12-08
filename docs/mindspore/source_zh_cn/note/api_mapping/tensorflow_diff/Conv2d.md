@@ -16,7 +16,7 @@ tf.nn.conv2d(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.nn.conv2d](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/conv2d)。
+更多内容详见[tf.nn.conv2d](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/conv2d)。
 
 ## mindspore.nn.Conv2d
 
@@ -37,7 +37,7 @@ class mindspore.nn.Conv2d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)。
+更多内容详见[mindspore.nn.Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)。
 
 ## 差异对比
 

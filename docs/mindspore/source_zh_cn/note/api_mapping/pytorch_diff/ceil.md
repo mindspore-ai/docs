@@ -8,7 +8,7 @@
 torch.ceil(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.ceil](https://pytorch.org/docs/1.8.1/generated/torch.ceil.html)。
+更多内容详见[torch.ceil](https://pytorch.org/docs/1.8.1/generated/torch.ceil.html)。
 
 ## mindspore.ops.ceil
 
@@ -16,7 +16,7 @@ torch.ceil(input, *, out=None) -> Tensor
 mindspore.ops.ceil(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.ceil](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ceil.html)。
+更多内容详见[mindspore.ops.ceil](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ceil.html)。
 
 ## 差异对比
 

@@ -16,7 +16,7 @@ torch.cos(input, *, out=None) -> Tensor
 mindspore.ops.cos(x) -> Tensor
 ```
 
-更多内容详见[MindSpore.ops.cos](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cos.html)。
+更多内容详见[mindspore.ops.cos](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cos.html)。
 
 ## 差异对比
 

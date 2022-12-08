@@ -12,7 +12,7 @@ class torch.nn.LayerNorm(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.LayerNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.LayerNorm.html)。
+更多内容详见[torch.nn.LayerNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.LayerNorm.html)。
 
 ## mindspore.nn.LayerNorm
 
@@ -27,7 +27,7 @@ class mindspore.nn.LayerNorm(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.LayerNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LayerNorm.html)。
+更多内容详见[mindspore.nn.LayerNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LayerNorm.html)。
 
 ## 差异对比
 

@@ -8,7 +8,7 @@
 class torch.nn.Sigmoid()(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.Sigmoid](https://pytorch.org/docs/1.8.1/generated/torch.nn.Sigmoid.html)。
+更多内容详见[torch.nn.Sigmoid](https://pytorch.org/docs/1.8.1/generated/torch.nn.Sigmoid.html)。
 
 ## mindspore.nn.Sigmoid
 
@@ -16,7 +16,7 @@ class torch.nn.Sigmoid()(input) -> Tensor
 class mindspore.nn.Sigmoid()(input_x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Sigmoid.html)。
+更多内容详见[mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Sigmoid.html)。
 
 ## 差异对比
 

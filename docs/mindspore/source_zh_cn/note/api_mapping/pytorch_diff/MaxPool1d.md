@@ -15,7 +15,7 @@ class torch.nn.MaxPool1d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool1d.html)。
+更多内容详见[torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool1d.html)。
 
 ## mindspore.nn.MaxPool1d
 
@@ -27,7 +27,7 @@ class mindspore.nn.MaxPool1d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html)。
+更多内容详见[mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html)。
 
 ## 差异对比
 

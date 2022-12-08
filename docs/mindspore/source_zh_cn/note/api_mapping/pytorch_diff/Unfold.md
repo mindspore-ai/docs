@@ -8,7 +8,7 @@
 torch.nn.Unfold(kernel_size, dilation=1, padding=0, stride=1)(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html)。
+更多内容详见[torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html)。
 
 ## mindspore.nn.Unfold
 
@@ -16,7 +16,7 @@ torch.nn.Unfold(kernel_size, dilation=1, padding=0, stride=1)(input) -> Tensor
 class mindspore.nn.Unfold(ksizes, strides, rates, padding='valid')(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Unfold](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html)。
+更多内容详见[mindspore.nn.Unfold](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html)。
 
 ## 差异对比
 

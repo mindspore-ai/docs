@@ -5,10 +5,10 @@
 ## torch.nn.functional.soft_margin_loss
 
 ```text
-class torch.nn.SoftMarginLoss(size_average=None, reduce=None, reduction='mean')(input, target)  -> Tensor/Scalar
+torch.nn.functional.soft_margin_loss(input, target, size_average=None, reduce=None, reduction='mean')  -> Tensor/Scalar
 ```
 
-更多内容详见 [torch.nn.functional.soft_margin_loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.SoftMarginLoss.html)。
+更多内容详见[torch.nn.functional.soft_margin_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#soft-margin-loss)。
 
 ## mindspore.nn.SoftMarginLoss
 
@@ -16,13 +16,14 @@ class torch.nn.SoftMarginLoss(size_average=None, reduce=None, reduction='mean')(
 class mindspore.nn.SoftMarginLoss(reduction='mean')(logits, labels)  -> Tensor/Scalar
 ```
 
-更多内容详见 [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftMarginLoss.html)。
+更多内容详见[mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftMarginLoss.html)。
 
 ## 差异对比
 
 PyTorch：对输入input在给定的轴上添加额外维度。
 
 MindSpore：除两个在PyTorch已弃用的参数不同外，功能上无差异。
+
 | 分类 | 子类  | PyTorch      | MindSpore | 差异                                                         |
 | ---- | ----- | ------------ | --------- | ------------------------------------------------------------ |
 | 参数| 参数1 | size_average | -         | 已弃用，被reduction取代，MindSpore无此参数 |

@@ -15,7 +15,7 @@ torch.nn.functional.binary_cross_entropy(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy)。
+更多内容详见[torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy)。
 
 ## mindspore.nn.BCELoss
 
@@ -26,7 +26,7 @@ class mindspore.nn.BCELoss(
 )(logits, labels) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.BCELoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html)。
+更多内容详见[mindspore.nn.BCELoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html)。
 
 ## 差异对比
 

@@ -18,7 +18,7 @@ class torch.nn.Conv2d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.Conv2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv2d.html)。
+更多内容详见[torch.nn.Conv2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv2d.html)。
 
 ## mindspore.nn.Conv2d
 
@@ -39,7 +39,7 @@ class mindspore.nn.Conv2d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)。
+更多内容详见[mindspore.nn.Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)。
 
 ## 差异对比
 

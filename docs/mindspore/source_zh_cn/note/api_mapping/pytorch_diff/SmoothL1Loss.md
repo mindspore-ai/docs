@@ -8,7 +8,7 @@
 class torch.nn.SmoothL1Loss(size_average=None, reduce=None, reduction='mean', beta=1.0)(input, target) -> Tensor/Scalar
 ```
 
-更多内容详见 [torch.nn.SmoothL1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.SmoothL1Loss.html)。
+更多内容详见[torch.nn.SmoothL1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.SmoothL1Loss.html)。
 
 ## mindspore.nn.SmoothL1Loss
 
@@ -16,7 +16,7 @@ class torch.nn.SmoothL1Loss(size_average=None, reduce=None, reduction='mean', be
 class mindspore.nn.SmoothL1Loss(beta=1.0, reduction='none')(logits, labels) -> Tensor/Scalar
 ```
 
-更多内容详见 [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SmoothL1Loss.html)。
+更多内容详见[mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SmoothL1Loss.html)。
 
 ## 差异对比
 

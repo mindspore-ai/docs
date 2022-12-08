@@ -8,7 +8,7 @@
 tf.nn.moments(x, axes, shift=None, keepdims=False, name=None) -> Tensor
 ```
 
-更多内容详见 [tf.nn.moments](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/moments)。
+更多内容详见[tf.nn.moments](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/moments)。
 
 ## mindspore.nn.Moments
 
@@ -16,7 +16,7 @@ tf.nn.moments(x, axes, shift=None, keepdims=False, name=None) -> Tensor
 class mindspore.nn.Moments(axis=None, keep_dims=None)(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Moments](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Moments.html)。
+更多内容详见[mindspore.nn.Moments](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Moments.html)。
 
 ## 差异对比
 

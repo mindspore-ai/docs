@@ -12,7 +12,7 @@ class torch.argsort(
 )
 ```
 
-更多内容详见 [torch.argsort](https://pytorch.org/docs/1.5.0/torch.html#torch.argsort)。
+更多内容详见[torch.argsort](https://pytorch.org/docs/1.5.0/torch.html#torch.argsort)。
 
 ## mindspore.ops.Sort
 
@@ -23,7 +23,7 @@ class mindspore.ops.Sort(
 )(x)
 ```
 
-更多内容详见 [mindspore.ops.Sort](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort)。
+更多内容详见[mindspore.ops.Sort](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort)。
 
 ## 使用方式
 

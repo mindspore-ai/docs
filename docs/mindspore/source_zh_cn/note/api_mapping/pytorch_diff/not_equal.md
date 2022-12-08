@@ -8,7 +8,7 @@
 torch.not_equal(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.not_equal](https://pytorch.org/docs/1.8.1/generated/torch.not_equal.html)。
+更多内容详见[torch.not_equal](https://pytorch.org/docs/1.8.1/generated/torch.not_equal.html)。
 
 ## mindspore.ops.not_equal
 
@@ -16,7 +16,7 @@ torch.not_equal(input, other, *, out=None) -> Tensor
 mindspore.ops.not_equal(x, other) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.not_equal](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.not_equal.html)。
+更多内容详见[mindspore.ops.not_equal](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.not_equal.html)。
 
 ## 差异对比
 

@@ -8,7 +8,7 @@
 tf.fill(dims, value, name=None) -> Tensor
 ```
 
-更多内容详见 [tf.fill](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/fill)。
+更多内容详见[tf.fill](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/fill)。
 
 ## mindspore.ops.fill
 
@@ -16,7 +16,7 @@ tf.fill(dims, value, name=None) -> Tensor
 mindspore.ops.fill(type, shape, value) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.fill](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.fill.html)。
+更多内容详见[mindspore.ops.fill](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.fill.html)。
 
 ## 差异对比
 

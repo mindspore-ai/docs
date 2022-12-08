@@ -37,7 +37,7 @@ class mindspore.nn.Conv2dTranspose(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2dTranspose.html)。
+更多内容详见[mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2dTranspose.html)。
 
 ## 差异对比
 
@@ -108,7 +108,7 @@ k = 5
 x_ = np.ones([1, 16, 50, 3])
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
 f = np.ones((k,k,64,3), dtype=np.float32)
-output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,16,50, 64], strides=1, padding="SAME")
+output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,16,50, 64], strides=1, padding='SAME')
 print(tf.transpose(output,[0,3,1,2]).shape)
 # (1, 64, 16, 50)
 
@@ -141,7 +141,7 @@ s = 3
 x_ = np.ones([1, 16, 50, 3])
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
 f = np.ones((k,k,64,3), dtype=np.float32)
-output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,50,152, 64], strides=s, padding="VALID")
+output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,50,152, 64], strides=s, padding='VALID')
 print(tf.transpose(output,[0,3,1,2]).shape)
 # (1, 64, 50, 152)
 

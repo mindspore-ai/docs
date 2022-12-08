@@ -17,7 +17,7 @@ torch.full_like(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.full_like](https://pytorch.org/docs/1.8.1/generated/torch.full_like.html)。
+更多内容详见[torch.full_like](https://pytorch.org/docs/1.8.1/generated/torch.full_like.html)。
 
 ## mindspore.numpy.full_like
 
@@ -25,7 +25,7 @@ torch.full_like(
 mindspore.numpy.full_like(a, fill_value, dtype=None, shape=None) -> Tensor
 ```
 
-更多内容详见 [mindspore.numpy.full_like](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.full_like.html)。
+更多内容详见[mindspore.numpy.full_like](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.full_like.html)。
 
 ## 差异对比
 

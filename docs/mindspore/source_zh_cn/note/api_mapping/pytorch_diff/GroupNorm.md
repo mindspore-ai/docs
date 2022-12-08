@@ -13,7 +13,7 @@ class torch.nn.GroupNorm(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.GroupNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.GroupNorm.html)。
+更多内容详见[torch.nn.GroupNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.GroupNorm.html)。
 
 ## mindspore.nn.GroupNorm
 
@@ -28,7 +28,7 @@ class mindspore.nn.GroupNorm(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.GroupNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GroupNorm.html)。
+更多内容详见[mindspore.nn.GroupNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GroupNorm.html)。
 
 ## 差异对比
 

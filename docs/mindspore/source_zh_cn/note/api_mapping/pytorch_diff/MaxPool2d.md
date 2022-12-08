@@ -15,7 +15,7 @@ class torch.nn.MaxPool2d(
 )(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.MaxPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool2d.html)。
+更多内容详见[torch.nn.MaxPool2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool2d.html)。
 
 ## mindspore.nn.MaxPool2d
 
@@ -28,7 +28,7 @@ class mindspore.nn.MaxPool2d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
+更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
 
 ## 差异对比
 
@@ -40,7 +40,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | kernel_size | kernel_size |- |
 | | 参数2 | stride | stride | - |
-| | 参数3 | padding | - | 添加的隐式零填充。当pad_mode='same'时，若padding的元素为偶数时，padding的元素会均匀分布在特征图的上下左右；而当padding的元素为奇数时，PyTorch会优先填充在输入特征图的左侧和上侧，MindSpore则优先填充在特征图的右侧和下侧。更多内容详见 [Conv 和 Pooling](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#conv-%E5%92%8C-pooling) |
+| | 参数3 | padding | - | 添加的隐式零填充。当pad_mode='same'时，若padding的元素为偶数时，padding的元素会均匀分布在特征图的上下左右；而当padding的元素为奇数时，PyTorch会优先填充在输入特征图的左侧和上侧，MindSpore则优先填充在特征图的右侧和下侧。更多内容详见[Conv 和 Pooling](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#conv-%E5%92%8C-pooling) |
 | | 参数4 | dilation | - | 窗口内元素间跨步长度：默认值为1，此时窗口内的元素是连续的。若值>1，窗口中的元素是间隔的 |
 | | 参数5 | return_indices | - | 返回索引：若值为True，会在返回最大池化结果的同时返回对应元素的索引。对于后续调用torch.nn.MaxUnpool2d的时候很有用|
 | | 参数6 | ceil_mode | - | 控制输出shape(N, C, L_{out})中L_{out}向上取整还是向下取整，MindSpore默认向下取整 |

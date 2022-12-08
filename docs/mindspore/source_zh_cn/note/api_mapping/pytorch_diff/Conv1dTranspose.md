@@ -39,7 +39,7 @@ class mindspore.nn.Conv1dTranspose(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1dTranspose.html)。
+更多内容详见[mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1dTranspose.html)。
 
 ## 差异对比
 
@@ -83,14 +83,6 @@ net.weight.data = torch.ones(3, 64, k)
 output = net(x).detach().numpy()
 print(output.shape)
 # (1, 64, 53)
-print(output)
-# [[[3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   ...
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]]]
 
 
 # MindSpore
@@ -105,14 +97,6 @@ net = nn.Conv1dTranspose(3, 64, kernel_size=k, weight_init='ones', pad_mode='pad
 output = net(x)
 print(output.shape)
 # (1, 64, 53)
-print(output)
-# [[[3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   ...
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]
-#   [3. 6. 9. ... 9. 6. 3.]]]
 ```
 
 ### 代码示例2

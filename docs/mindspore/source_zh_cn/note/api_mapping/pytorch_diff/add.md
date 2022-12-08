@@ -8,7 +8,7 @@
 torch.add(input, other, alpha=1) -> Tensor
 ```
 
-更多内容详见 [torch.add](https://pytorch.org/docs/1.8.1/generated/torch.add.html)。
+更多内容详见[torch.add](https://pytorch.org/docs/1.8.1/generated/torch.add.html)。
 
 ## mindspore.ops.add
 
@@ -16,7 +16,7 @@ torch.add(input, other, alpha=1) -> Tensor
 mindspore.ops.add(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
+更多内容详见[mindspore.ops.add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
 
 ## 差异对比
 

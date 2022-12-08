@@ -8,7 +8,7 @@
 torch.erfinv(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.erfinv](https://pytorch.org/docs/1.8.1/generated/torch.erfinv.html)。
+更多内容详见[torch.erfinv](https://pytorch.org/docs/1.8.1/generated/torch.erfinv.html)。
 
 ## mindspore.ops.erfinv
 
@@ -16,7 +16,7 @@ torch.erfinv(input, *, out=None) -> Tensor
 mindspore.ops.erfinv(input) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.erfinv](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erfinv.html)。
+更多内容详见[mindspore.ops.erfinv](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erfinv.html)。
 
 ## 差异对比
 

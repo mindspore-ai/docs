@@ -16,7 +16,7 @@ torch.bartlett_window(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.bartlett_window](https://pytorch.org/docs/1.8.1/generated/torch.bartlett_window.html)。
+更多内容详见[torch.bartlett_window](https://pytorch.org/docs/1.8.1/generated/torch.bartlett_window.html)。
 
 ## mindspore.ops.bartlett_window
 
@@ -28,7 +28,7 @@ mindspore.ops.bartlett_window(
 ) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.bartlett_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bartlett_window.html)。
+更多内容详见[mindspore.ops.bartlett_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bartlett_window.html)。
 
 ## 差异对比
 

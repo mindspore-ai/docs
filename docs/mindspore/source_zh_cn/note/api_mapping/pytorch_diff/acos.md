@@ -8,7 +8,7 @@
 torch.acos(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.acos](https://pytorch.org/docs/1.8.1/generated/torch.acos.html)。
+更多内容详见[torch.acos](https://pytorch.org/docs/1.8.1/generated/torch.acos.html)。
 
 ## mindspore.ops.acos
 
@@ -16,7 +16,7 @@ torch.acos(input, *, out=None) -> Tensor
 mindspore.ops.acos(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.acos](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.acos.html)。
+更多内容详见[mindspore.ops.acos](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.acos.html)。
 
 ## 差异对比
 

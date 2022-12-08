@@ -10,10 +10,10 @@ class torch.nn.CosineEmbeddingLoss(
     size_average=None,
     reduce=None,
     reduction='mean'
-)(input1, input2, target) -> Tensor/Scalar
+)(x1, x2, target) -> Tensor/Scalar
 ```
 
-更多内容详见 [torch.nn.CosineEmbeddingLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CosineEmbeddingLoss.html)。
+更多内容详见[torch.nn.CosineEmbeddingLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CosineEmbeddingLoss.html)。
 
 ## mindspore.nn.CosineEmbeddingLoss
 
@@ -24,7 +24,7 @@ class mindspore.nn.CosineEmbeddingLoss(
 )(logits_x1, logits_x2, labels) -> Tensor/Scalar
 ```
 
-更多内容详见 [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineEmbeddingLoss.html)。
+更多内容详见[mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineEmbeddingLoss.html)。
 
 ## 差异对比
 
@@ -38,8 +38,8 @@ MindSpore：与PyTorch实现同样的功能。
 | | 参数5 | size_average | - | 已弃用，功能由reduction接替 |
 | | 参数5 | reduce | - | 已弃用，功能由reduction接替 |
 | | 参数2 | reduction | reduction | - |
-| | 参数3 | input1 | logits_x1 |  功能一致，参数名不同  |
-| | 参数4 | input2 | logits_x2 |  功能一致，参数名不同  |
+| | 参数3 | x1 | logits_x1 |  功能一致，参数名不同  |
+| | 参数4 | x2 | logits_x2 |  功能一致，参数名不同  |
 | | 参数5 | target | labels |  功能一致，参数名不同  |
 
 ### 代码示例1

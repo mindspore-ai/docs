@@ -11,18 +11,15 @@ class torch.nn.LSTMCell(
     bias=True)(input, h_0, c_0) -> Tensor
 ```
 
-更多内容详见 [torch.nn.LSTMCell](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTMCell.html?torch.nn.LSTMCell)。
+更多内容详见[torch.nn.LSTMCell](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTMCell.html?torch.nn.LSTMCell)。
 
 ## mindspore.nn.LSTMCell
 
 ```text
-class mindspore.nn.LSTMCell(
-    input_size,
-    hidden_size,
-    has_bias=True)(x, hx) -> Tensor
+class mindspore.nn.LSTMCell(*args, **kwargs)(x, hx) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTMCell.html)。
+更多内容详见[mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTMCell.html)。
 
 ## 差异对比
 

@@ -8,7 +8,7 @@
 torch.Tensor.cuda()
 ```
 
-更多内容详见 [torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.cuda).
+更多内容详见[torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.cuda).
 
 ## mindspore.set_context
 
@@ -16,7 +16,7 @@ torch.Tensor.cuda()
 mindspore.set_context(**kwargs)
 ```
 
-更多内容详见 [mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
 
 ## Differences
 

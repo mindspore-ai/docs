@@ -8,7 +8,7 @@
 tf.math.add(x, y, name=None) -> Tensor
 ```
 
-更多内容详见 [tf.math.add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/add?hl=zh-cn%3B)。
+更多内容详见[tf.math.add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/add?hl=zh-cn%3B)。
 
 ## mindspore.ops.add
 
@@ -16,7 +16,7 @@ tf.math.add(x, y, name=None) -> Tensor
 mindspore.ops.add(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
+更多内容详见[mindspore.ops.add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
 
 ## 差异对比
 

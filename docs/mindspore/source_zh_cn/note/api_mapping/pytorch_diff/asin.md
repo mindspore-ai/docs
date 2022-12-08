@@ -8,7 +8,7 @@
 torch.asin(input, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.asin](https://pytorch.org/docs/1.8.1/generated/torch.asin.html)。
+更多内容详见[torch.asin](https://pytorch.org/docs/1.8.1/generated/torch.asin.html)。
 
 ## mindspore.ops.asin
 
@@ -16,7 +16,7 @@ torch.asin(input, *, out=None) -> Tensor
 mindspore.ops.asin(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.asin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.asin.html)。
+更多内容详见[mindspore.ops.asin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.asin.html)。
 
 ## 差异对比
 

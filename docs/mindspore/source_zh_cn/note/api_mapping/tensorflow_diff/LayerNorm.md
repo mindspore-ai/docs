@@ -20,7 +20,7 @@ class tf.keras.layers.LayerNormalization(
 )(x) -> Tensor
 ```
 
-更多内容详见 [tf.keras.layers.LayerNormalization](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LayerNormalization)。
+更多内容详见[tf.keras.layers.LayerNormalization](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LayerNormalization)。
 
 ## mindspore.nn.LayerNorm
 
@@ -35,7 +35,7 @@ class mindspore.nn.LayerNorm(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.LayerNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LayerNorm.html)。
+更多内容详见[mindspore.nn.LayerNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LayerNorm.html)。
 
 ## 差异对比
 

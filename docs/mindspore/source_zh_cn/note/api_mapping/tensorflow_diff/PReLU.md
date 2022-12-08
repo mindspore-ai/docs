@@ -13,7 +13,7 @@ tf.keras.layers.PReLU(
 )(x) -> Tensor
 ```
 
-更多内容详见 [tf.keras.layers.PReLU](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/PReLU)。
+更多内容详见[tf.keras.layers.PReLU](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/PReLU)。
 
 ## mindspore.nn.PReLU
 
@@ -21,7 +21,7 @@ tf.keras.layers.PReLU(
 class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.PReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PReLU.html)。
+更多内容详见[mindspore.nn.PReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PReLU.html)。
 
 ## 差异对比
 

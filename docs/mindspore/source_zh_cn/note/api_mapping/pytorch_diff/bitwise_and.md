@@ -8,7 +8,7 @@
 torch.bitwise_and(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.bitwise_and](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_and.html)。
+更多内容详见[torch.bitwise_and](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_and.html)。
 
 ## mindspore.ops.bitwise_and
 
@@ -16,7 +16,7 @@ torch.bitwise_and(input, other, *, out=None) -> Tensor
 mindspore.ops.bitwise_and(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.bitwise_and](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_and.html)。
+更多内容详见[mindspore.ops.bitwise_and](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_and.html)。
 
 ## 差异对比
 

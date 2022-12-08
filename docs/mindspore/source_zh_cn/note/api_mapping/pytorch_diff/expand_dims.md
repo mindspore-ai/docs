@@ -8,7 +8,7 @@
 torch.unsqueeze(input, dim) -> Tensor
 ```
 
-更多内容详见 [torch.unsqueeze](https://pytorch.org/docs/1.8.1/generated/torch.unsqueeze.html)。
+更多内容详见[torch.unsqueeze](https://pytorch.org/docs/1.8.1/generated/torch.unsqueeze.html)。
 
 ## mindspore.ops.expand_dims
 
@@ -16,7 +16,7 @@ torch.unsqueeze(input, dim) -> Tensor
 mindspore.ops.expand_dims(input_x, axis) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html)。
+更多内容详见[mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html)。
 
 ## 差异对比
 

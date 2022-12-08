@@ -16,7 +16,7 @@ torch.cosh(input, *, out=None) -> Tensor
 mindspore.ops.cosh(x) -> Tensor
 ```
 
-更多内容详见[MindSpore.ops.cosh](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cosh.html)。
+更多内容详见[mindspore.ops.cosh](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cosh.html)。
 
 ## 差异对比
 

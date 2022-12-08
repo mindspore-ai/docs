@@ -5,10 +5,10 @@
 ## torch.atan2
 
 ```text
- torch.atan2(input, other, *, out=None) -> Tensor
+torch.atan2(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.atan2](https://pytorch.org/docs/1.8.1/generated/torch.atan2.html)。
+更多内容详见[torch.atan2](https://pytorch.org/docs/1.8.1/generated/torch.atan2.html)。
 
 ## mindspore.ops.atan2
 
@@ -16,7 +16,7 @@
 mindspore.ops.atan2(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.atan2](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan2.html)。
+更多内容详见[mindspore.ops.atan2](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan2.html)。
 
 ## 差异对比
 

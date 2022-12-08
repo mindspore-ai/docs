@@ -13,7 +13,7 @@ torch.cat(
 ) -> Tensor
 ```
 
-更多内容详见 [torch.cat](https://pytorch.org/docs/1.8.1/generated/torch.cat.html)。
+更多内容详见[torch.cat](https://pytorch.org/docs/1.8.1/generated/torch.cat.html)。
 
 ## mindspore.ops.concat
 
@@ -21,7 +21,7 @@ torch.cat(
 mindspore.ops.concat(input_x, axis=0) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.concat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)。
+更多内容详见[mindspore.ops.concat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)。
 
 ## 差异对比
 

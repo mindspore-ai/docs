@@ -15,7 +15,7 @@ tf.nn.max_pool2d(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.nn.max_pool2d](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/max_pool2d)。
+更多内容详见[tf.nn.max_pool2d](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/max_pool2d)。
 
 ## mindspore.nn.MaxPool2d
 
@@ -28,7 +28,7 @@ class mindspore.nn.MaxPool2d(
 )(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
+更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
 
 ## 差异对比
 

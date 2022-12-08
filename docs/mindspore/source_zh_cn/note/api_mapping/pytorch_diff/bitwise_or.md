@@ -8,7 +8,7 @@
 torch.bitwise_or(input, other, *, out=None) -> Tensor
 ```
 
-更多内容详见 [torch.bitwise_or](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_or.html)。
+更多内容详见[torch.bitwise_or](https://pytorch.org/docs/1.8.1/generated/torch.bitwise_or.html)。
 
 ## mindspore.ops.bitwise_or
 
@@ -16,7 +16,7 @@ torch.bitwise_or(input, other, *, out=None) -> Tensor
 mindspore.ops.bitwise_or(x, y) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.bitwise_or](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_or.html)。
+更多内容详见[mindspore.ops.bitwise_or](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_or.html)。
 
 ## 差异对比
 

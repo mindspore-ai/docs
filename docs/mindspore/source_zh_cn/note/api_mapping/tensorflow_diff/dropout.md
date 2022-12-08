@@ -12,7 +12,7 @@ tf.nn.dropout(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.nn.dropout](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/dropout)
+更多内容详见[tf.nn.dropout](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/dropout)
 
 ## mindspore.ops.dropout
 
@@ -20,7 +20,7 @@ tf.nn.dropout(
 mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout.html)
+更多内容详见[mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout.html)
 
 ## 差异对比
 

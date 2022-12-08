@@ -17,7 +17,7 @@ tf.nn.ctc_loss(
 ) -> Tensor
 ```
 
-更多内容详见 [tf.nn.ctc_loss](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/ctc_loss)。
+更多内容详见[tf.nn.ctc_loss](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/nn/ctc_loss)。
 
 ## mindspore.ops.CTCLoss
 
@@ -29,7 +29,7 @@ class mindspore.ops.CTCLoss(
 )(x, labels_indices, labels_values, sequence_length) -> (Tensor, Tensor)
 ```
 
-更多内容详见 [mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CTCLoss.html)。
+更多内容详见[mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CTCLoss.html)。
 
 ## 差异对比
 

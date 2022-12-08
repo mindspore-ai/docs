@@ -8,15 +8,15 @@
 torch.nn.AvgPool1d(kernel_size, stride=None, padding=0, ceil_mode=False, count_include_pad=True)(input) -> Tensor
 ```
 
-更多内容详见 [torch.nn.AvgPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AvgPool1d.html)。
+更多内容详见[torch.nn.AvgPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.AvgPool1d.html)。
 
 ## mindspore.nn.AvgPool1d
 
 ```text
-mindspore.nn.AvgPool1d(kernel_size=1, stride=1, pad_mode='valid')(x)-> Tensor
+mindspore.nn.AvgPool1d(kernel_size=1, stride=1, pad_mode='valid')(x) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AvgPool1d.html)。
+更多内容详见[mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AvgPool1d.html)。
 
 ## 差异对比
 
@@ -32,7 +32,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore不存�
 |      | 参数3 | ceil_mode         | -           | PyTorch中此参数用于决定输出shape: (N, C, L{out})中L{out}为小数时，是取上界ceil值还是舍弃小数部分取floor值；MindSpore中无此参数，默认取floor值 |
 |      | 参数4 | count_include_pad | -           | PyTorch中此参数用于决定是否在平均计算中包括padding，MindSpore中无此参数 |
 |      | 参数5 | -                 | pad_mode    | MindSpore指定池化的填充方式，可选值为"same"或"valid"，PyTorch中无此参数 |
-|      | 参数6 | input             | x       | 功能一致，参数名不同                                                            |
+|      | 参数6 | input             | x       | 功能一致，参数名不同  |
 
 ### 代码示例1
 

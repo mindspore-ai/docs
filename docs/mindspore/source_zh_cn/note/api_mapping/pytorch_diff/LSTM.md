@@ -8,7 +8,7 @@
 class torch.nn.LSTM(*args, **kwargs) -> Tensor
 ```
 
-更多内容详见 [torch.nn.LSTM](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTM.html)。
+更多内容详见[torch.nn.LSTM](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTM.html)。
 
 ## mindspore.nn.LSTM
 
@@ -16,7 +16,7 @@ class torch.nn.LSTM(*args, **kwargs) -> Tensor
 class mindspore.nn.LSTM(*args, **kwargs) -> Tensor
 ```
 
-更多内容详见 [mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
+更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
 
 ## 差异对比
 
