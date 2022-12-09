@@ -62,7 +62,10 @@ def get_example(name: str):
             example_str = example_str.strip()
             example_list = example_str.split('\n')
             return [""] + example_list + [""]
-        example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+        if '\n     ' in example_str[0][0]:
+            example_str = re.sub(r'\n    ', r'\n', example_str[0][0])
+        else:
+            example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
         example_str = example_str.strip()
         example_list = example_str.split('\n')
         return ["", "**样例：**", ""] + example_list + [""]
