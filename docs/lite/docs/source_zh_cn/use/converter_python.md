@@ -82,7 +82,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 | train_model | bool | `--trainModel=<TRAINMODEL>` | 否 | 模型是否将在设备上进行训练。 | True、False | False |
 | no_fusion | bool | `--NoFusion=<NOFUSION>` | 否 | 是否避免融合优化，默认允许融合优化。 | True、False | False |
 
-> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)
+> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)。
 >
 > 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要本地打开指定编译选项，编译生成支持转换PyTorch模型的安装包。转换PyTorch模型有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 >
