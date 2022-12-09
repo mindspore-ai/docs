@@ -51,7 +51,7 @@ MindSPONGE 安装说明
 ~~~~~~~~
 
 -  Python>=3.7
--  MindSpore>=1.8
+-  MindSpore>=2.0
 
 MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/install>`__\ 。
 
@@ -154,6 +154,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    user/structure_prediction
    user/property_prediction
    user/design
+   user/basic
 
 .. toctree::
    :maxdepth: 1
