@@ -12,7 +12,7 @@ The following is an example of how to use the Python simplified concurrent infer
 
 - One-click installation of inference-related model files, MindSpore Lite and its required dependencies. See the [One-click installation](#one-click-installation) section for details.
 
-- Execute the Python Simplified Inference Demo. See the [Execute Demo](#execute-demo) section for details.
+- Execute the Python Simplified Inference Demo. See the [Execute Demo](#executing-demo) section for details.
 
 - For a description of the Python Simplified Inference Demo content, see the [Demo Content Description](#demo-content-description) section for details.
 
@@ -102,7 +102,7 @@ Description of inference results:
     total run time:  0.08787751197814941  s
     ```
 
-## Demo Contents Description
+## Demo Content Description
 
 Performing concurrent inference with MindSpore Lite consists of the following main steps:
 
