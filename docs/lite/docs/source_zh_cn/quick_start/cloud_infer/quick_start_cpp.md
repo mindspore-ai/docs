@@ -57,7 +57,7 @@ MindSpore Lite云侧统一推理包仅支持在Linux环境部署运行。
 
   编译构建后，进入`mindspore/lite/examples/cloud_infer/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
-  ```bash0.....................................................................................................................................................+
+  ```bash
   ./mindspore_quick_start_cpp ../model/mobilenetv2.mindir
   ```
 
