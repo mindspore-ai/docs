@@ -48,6 +48,13 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Automatic Vectorization
+
+   vmap/vmap
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Model Inference
 
    infer/inference
