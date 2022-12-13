@@ -416,4 +416,4 @@ mindspore-lite.framework
     └── mindspore-lite # 静态库
 ```
 
-> Currently, MindSpore Lite Train and converter are not supported on macOS.
+> Currently, device-side training and model conversion are not supported on macOS.

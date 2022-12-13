@@ -416,4 +416,4 @@ mindspore-lite.framework
     └── mindspore-lite # 静态库
 ```
 
-> 暂不支持在macOS进行端侧训练与转换工具。
+> 暂不支持在macOS构建端侧训练与模型转换。
