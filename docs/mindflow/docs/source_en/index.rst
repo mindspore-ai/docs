@@ -53,6 +53,7 @@ MindSpore AI Fluid Simulation Suite
    mindflow.geometry
    mindflow.loss
    mindflow.operators
+   mindflow.pde
    mindflow.solver
 
 .. toctree::
