@@ -12,6 +12,8 @@ tf.keras.metrics.Accuracy(
 
 更多内容详见[tf.keras.metrics.Accuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/Accuracy)。
 
+## tf.keras.metrics.BinaryAccuracy
+
 ```python
 tf.keras.metrics.BinaryAccuracy(
     name='binary_accuracy', dtype=None, threshold=0.5
@@ -20,6 +22,8 @@ tf.keras.metrics.BinaryAccuracy(
 
 更多内容详见[tf.keras.metrics.BinaryAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/BinaryAccuracy)。
 
+## tf.keras.metrics.CategoricalAccuracy
+
 ```python
 tf.keras.metrics.CategoricalAccuracy(
     name='categorical_accuracy', dtype=None
@@ -27,6 +31,8 @@ tf.keras.metrics.CategoricalAccuracy(
 ```
 
 更多内容详见[tf.keras.metrics.CategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/CategoricalAccuracy)。
+
+## tf.keras.metrics.SparseCategoricalAccuracy
 
 ```python
 tf.keras.metrics.SparseCategoricalAccuracy(

@@ -16,7 +16,7 @@ torch.nn.functional.l1_loss(input, target, size_average=None, reduce=None, reduc
 mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-更多内容详见[MindSpore.nn.L1Loss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.L1Loss.html)。
+更多内容详见[mindspore.nn.L1Loss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.L1Loss.html)。
 
 ## 差异对比
 
