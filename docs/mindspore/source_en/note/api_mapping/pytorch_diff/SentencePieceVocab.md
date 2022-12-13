@@ -15,7 +15,7 @@ For more information, see [torchtext.data.functional.load_sp_model](https://pyto
 ## mindspore.dataset.text.SentencePieceVocab
 
 ```python
-classmindspore.dataset.text.SentencePieceVocab
+class mindspore.dataset.text.SentencePieceVocab
 ```
 
 For more information, see [mindspore.dataset.text.SentencePieceVocab](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.SentencePieceVocab).
