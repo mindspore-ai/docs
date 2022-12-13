@@ -15,6 +15,10 @@ torch.norm(
 )
 ```
 
+更多内容详见[torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm)。
+
+## torch.Tensor.norm
+
 ```python
 torch.Tensor.norm(
     p='fro',
@@ -24,7 +28,7 @@ torch.Tensor.norm(
 )
 ```
 
-更多内容详见[torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm)。
+更多内容详见[torch.Tensor.norm](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.norm)。
 
 ## mindspore.ops.LpNorm
 

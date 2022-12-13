@@ -16,7 +16,7 @@ torch.nn.GRU(*args, **kwargs)(input, h_0) -> Tensor
 mindspore.nn.GRU(*args, **kwargs)(x, hx, seq_length)  -> Tensor
 ```
 
-更多内容详见[MindSpore.nn.GRU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)。
+更多内容详见[mindspore.nn.GRU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)。
 
 ## 差异对比
 
