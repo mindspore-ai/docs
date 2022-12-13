@@ -31,6 +31,7 @@ For Experts
    :maxdepth: 1
    :caption: Model Training Optimization
 
+   optimize/execution_opt
    optimize/gradient_accumulation
    optimize/adaptive_summation
    optimize/dimention_reduce_training
