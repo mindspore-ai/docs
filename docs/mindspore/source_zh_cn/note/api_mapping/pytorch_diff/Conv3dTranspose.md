@@ -23,7 +23,7 @@ class torch.nn.ConvTranspose3d(
 
 ## mindspore.nn.Conv3dTranspose
 
-``` text
+```text
 class mindspore.nn.Conv3dTranspose(
     in_channels,
     out_channels,

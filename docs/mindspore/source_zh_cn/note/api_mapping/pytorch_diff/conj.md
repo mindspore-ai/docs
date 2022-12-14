@@ -4,7 +4,7 @@
 
 ## torch.conj
 
-``` text
+```text
 torch.conj(input, *, out=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ torch.conj(input, *, out=None) -> Tensor
 
 ## mindspore.ops.conj
 
-``` text
+```text
 mindspore.ops.conj(input) -> Tensor
 ```
 
