@@ -1,6 +1,6 @@
 # Enabling Mixed Precision
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -298,15 +298,15 @@ But using FP16 also brings some problems, the most important of which are precis
 
 As shown in the figure, if only FP32 training is used, the model converges better, but if mixed-precision training is used, there will be a situation where the network model cannot converge. The reason is that the value of the gradient is too small, and using the FP16 representation will cause the problem of underflow under the data, resulting in the model not converging, as shown in the gray part of the figure. Loss Scale needs to be introduced.
 
-![loss_scale1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/others/images/loss_scale1.png)
+![loss_scale1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/experts/source_zh_cn/others/images/loss_scale1.png)
 
 The following is in the network model training stage, a layer of activation function gradient distribution, of which 68% of the network model activation parameter bit 0. Another 4% of the accuracy in the $2^{-32}, 2^{-20}$ interval, directly use FP16 to represent the data inside, which truncates the underflow data. All gradient values will become 0.
 
-![loss_scale2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/others/images/loss_scale2.png)
+![loss_scale2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/experts/source_zh_cn/others/images/loss_scale2.png)
 
 In order to solve the problem of ladder overflowing over small data, the forward calculated Loss value is amplified, that is, the parameters of FP32 are multiplied by a factor coefficient, and the possible overflowing decimal data is moved forward and panned to the data range that FP16 can represent. According to the chain differentiation law, amplifying the Loss acts on each gradient of backpropagation, which is more efficient than amplifying on each gradient.
 
-![loss_scale3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/experts/source_zh_cn/others/images/loss_scale3.png)
+![loss_scale3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/experts/source_zh_cn/others/images/loss_scale3.png)
 
 Loss amplification needs to be achieved in combination with mixing accuracy, and its main main ideas are:
 

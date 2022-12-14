@@ -1,6 +1,6 @@
 # Advanced Automatic Differentiation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/derivation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/derivation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 The `grad` and `value_and_grad` provided by the `mindspore.ops` module generate the gradients of the network model. `grad` computes the network gradient, and `value_and_grad` computes both the forward output and the gradient of the network. This article focuses on how to use the main functions of the `grad`, including first-order and second-order derivations, derivation of the input or network weights separately, returning auxiliary variables, and stopping calculating the gradient.
 

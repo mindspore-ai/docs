@@ -1,6 +1,6 @@
 # Downloading MindSpore Lite
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 

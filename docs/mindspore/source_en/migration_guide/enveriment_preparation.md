@@ -1,6 +1,6 @@
 # Environment Preparation and Information Acquisition
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -48,7 +48,7 @@ ModelArts is a one-stop development platform for AI developers provided by HUAWE
 
 **Development environment** mainly refers to Notebook's development environment, which is mainly used for code writing and debugging and has almost the same development experience as offline, but the number of machines and cores is relatively small and the usage time is limited.
 
-![notebook](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindspore/source_zh_cn/migration_guide/images/modelart_notebook.png "Development environment")
+![notebook](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/modelart_notebook.png "Development environment")
 
 **Training environment** is the primary production environment on the cloud with more machines and cores for large clusters and batch tasks.
 

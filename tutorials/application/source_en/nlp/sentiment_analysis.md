@@ -1,6 +1,6 @@
 # Sentiment Classification Implemented by RNN
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -329,17 +329,17 @@ Here, the processed GloVe word vector matrix is used. `embedding_table` of `nn.E
 
 RNN is a type of neural network that uses sequence data as an input, performs recursion in the evolution direction of a sequence, and connects all nodes (circulating units) in a chain. The following figure shows the general RNN structure.
 
-![RNN-0](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/application/source_zh_cn/nlp/images/0-RNN-0.png)
+![RNN-0](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/application/source_zh_cn/nlp/images/0-RNN-0.png)
 
 > The left part of the figure shows an RNN Cell cycle, and the right part shows the RNN chain connection. Actually, there is only one Cell parameter regardless of a single RNN Cell or an RNN network, and the parameter is updated in continuous cyclic calculation.
 
 The recurrent feature of the RNN matches the sequence feature (a sentence is a sequence composed of words) of the natural language text. Therefore, the RNN is widely used in the research of natural language processing. The following figure shows the disassembled RNN structure.
 
-![RNN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/application/source_zh_cn/nlp/images/0-RNN.png)
+![RNN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/application/source_zh_cn/nlp/images/0-RNN.png)
 
 A structure of a single RNN Cell is simple, causing the gradient vanishing problem. Specifically, when a sequence in the RNN is relatively long, information of a sequence header is basically lost at a tail of the sequence. To solve this problem, the long short term memory (LSTM) is proposed. The gating mechanism is used to control the retention and discarding of information flows in each cycle. The following figure shows the disassembled LSTM structure.
 
-![LSTM](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/application/source_zh_cn/nlp/images/0-LSTM.png)
+![LSTM](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/application/source_zh_cn/nlp/images/0-LSTM.png)
 
 In this section, the LSTM variant instead of the classic RNN is used for feature extraction to avoid the gradient vanishing problem and obtain a better model effect. The formula corresponding to `nn.LSTM` in MindSpore is as follows:
 

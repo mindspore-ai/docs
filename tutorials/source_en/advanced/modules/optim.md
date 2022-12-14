@@ -1,12 +1,12 @@
 # Optimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 During model training, the optimizer is used to compute gradients and update network parameters. A proper optimizer can effectively reduce the training time and improve model performance.
 
 The most basic optimizer is the stochastic gradient descent (SGD) algorithm. Many optimizers are improved based on the SGD to achieve the target function to converge to the global optimal point more quickly and effectively. The `nn` module in MindSpore provides common optimizers, such as `nn.SGD`, `nn.Adam`, and `nn.Momentum`. The following describes how to configure the optimizer provided by MindSpore and how to customize the optimizer.
 
-![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/learning_rate.png)
+![learningrate.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/advanced/modules/images/learning_rate.png)
 
 > For details about the optimizer provided by MindSpore, see [Optimizer API](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#optimizer).
 

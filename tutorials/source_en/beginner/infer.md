@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 [Introduction](https://www.mindspore.cn/tutorials/en/r1.10/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.10/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.10/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.10/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.10/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.10/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.10/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.10/beginner/save_load.html) || **Infer**
 
@@ -14,7 +14,7 @@ First, you need to download the [dog and croissants classification dataset](http
 
 The dataset is as follows:
 
-![datset-dog](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/datset_dog.png)
+![datset-dog](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/datset_dog.png)
 
 Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) to download and decompress the dataset to the specified path. The sample code is as follows.
 
@@ -105,7 +105,7 @@ MobileNet is a lightweight CNN proposed by the Google team in 2017 to focus on m
 
 Because a large amount of data is lost when the ReLU activation function in the MobileNet processes low-dimensional feature information, the MobileNetV2 proposes to use an inverted residual block and Linear Bottlenecks to design the network, to improve accuracy of the model and make the optimized model smaller.
 
-![mobilenet](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/mobilenet.png)
+![mobilenet](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/mobilenet.png)
 
 In the inverted residual block structure, the 1 x 1 convolution is used for dimension increase, the 3 x 3 DepthWise convolution is used, and the 1 x 1 convolution is used for dimension reduction. This structure is opposite to the residual block structure. For the residual block, the 1 x 1 convolution is first used for dimension reduction, then the 3 x 3 convolution is used, and finally the 1 x 1 convolution is used for dimension increase.
 
@@ -356,7 +356,7 @@ After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and
 
 Download [Android app APK](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk) of the MindSpore Vision Suite, or download it by scanning the QR code on phone.
 
-![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app_qr_code.png)
+![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/app_qr_code.png)
 
 Install the APK on your phone, and its app name appears as `MindSpore Vision`.
 
@@ -364,11 +364,11 @@ Install the APK on your phone, and its app name appears as `MindSpore Vision`.
 
 Open the app, tap the `classification` module on the home screen, and then tap the middle button to take photos or tap the image album button on the top bar to select an image for classification.
 
-![main](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app1.png)
+![main](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/app1.png)
 
 By default, the MindSpore Vision `classification` module has a built-in general AI network model for image identification and classification.
 
-![result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app2.png)
+![result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/app2.png)
 
 ### Application Experience
 
@@ -398,10 +398,10 @@ On the home page of the `MindSpore Vision APK`, hold down the `classification` b
 
 To implement the identification function of the dogs and croissants on the mobile phone, you need to place the label file `custom.json` and model file `mobilenet_v2_1.0_224.ms` to the specified directory on the mobile phone. The `Android/data/Download/` folder is used as an example. Place the label file and model file in the preceding mobile phone address, as shown in the following figure. Click the custom button. The system file function is displayed. Click icon in the upper left corner and find the directory where the JSON label file and model file are stored, and select the corresponding JSON file.
 
-![step](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app3.png)
+![step](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/app3.png)
 
 After the label and model file are deployed on the mobile phone, you can click the middle button to take photos and obtain images, or click the image button on the upper side bar to select an image album for images. In this way, the dogs and croissants can be classified and identified.
 
-![result1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app4.png)
+![result1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/beginner/images/app4.png)
 
 > This chapter only covers the simple deployment process on the mobile phone. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.10/index.html).

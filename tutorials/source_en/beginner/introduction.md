@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/beginner/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/beginner/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 **Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.10/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.10/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.10/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.10/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.10/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.10/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.10/beginner/save_load.html) || [Infer](https://www.mindspore.cn/tutorials/en/r1.10/beginner/infer.html)
 
@@ -14,7 +14,7 @@ Easy development features user-friendly APIs and low debugging difficulty. Effic
 
 The following figure shows the overall MindSpore architecture:
 
-![MindSpore-arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/beginner/images/introduction2.png)
+![MindSpore-arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_en/beginner/images/introduction2.png)
 
 - **ModelZoo**: provides available deep learning algorithm networks, and more developers are welcome to contribute new networks. ([ModelZoo](https://gitee.com/mindspore/models))
 - **Extend**: The MindSpore expansion package supports new domain scenarios, such as GNN, deep probabilistic programming, and reinforcement learning. More developers are expected to contribute and build the library.
@@ -31,7 +31,7 @@ The following figure shows the overall MindSpore architecture:
 
 With an understanding of the overall architecture of MindSpore, we can look at the overall coordination relationship between the various modules, as shown in the figure:
 
-![MindSpore](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/beginner/images/introduction4.png)
+![MindSpore](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_en/beginner/images/introduction4.png)
 
 As an all-scenario AI framework, MindSpore supports different series of hardware in the device (mobile phone and IoT device), edge (base station and routing device), and cloud (server) scenarios, including Ascend series products and NVIDIA series products, Qualcomm Snapdragon in the ARM series, and Huawei Kirin chips.
 
@@ -76,7 +76,7 @@ After the neural network model is trained, you can export the model or load the 
 
 MindSpore provides users with three different levels of APIs to support AI application (algorithm/model) development, from high to low: High-Level Python API, Medium-Level Python API and Low-Level Python API. The High-Level API provides better encapsulation, the Low-Level API provides better flexibility, and the Mid-Level API combines flexibility and encapsulation to meet the needs of developers in different fields and levels.
 
-![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/beginner/images/introduction3.png)
+![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_en/beginner/images/introduction3.png)
 
 - High-Level Python API
 

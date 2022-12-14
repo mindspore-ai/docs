@@ -1,6 +1,6 @@
 # 在K8S集群上进行分布式训练
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png"></a>
 
 MindSpore Operator 是遵循Kubernetes的Operator模式（基于CRD-Custom Resource Definition功能），实现的在Kubernetes上进行分布式训练的插件。其中，MindSpore Operator在CRD中定义了Scheduler、PS、Worker三种角色，用户只需通过简单的YAML文件配置，就可以轻松地在K8S上使用MindSpore进行分布式训练。MindSpore Operator的代码仓详见：[ms-operator](https://gitee.com/mindspore/ms-operator/)。
 

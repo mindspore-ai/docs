@@ -1,6 +1,6 @@
 # 概述
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/overview.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png"></a>
 
 本迁移指导包含以PyTorch为主的其他机器学习框架将神经网络迁移到MindSpore的完整步骤。
 

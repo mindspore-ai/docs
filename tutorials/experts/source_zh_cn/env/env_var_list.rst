@@ -1,7 +1,7 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png 
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png 
    :target: https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/env/env_var_list.rst
 
 本文介绍MindSpore的环境变量。

@@ -1,7 +1,7 @@
 Other Features
 ==============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png
     :target: https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/parallel/other_features.rst
 
 .. toctree::
