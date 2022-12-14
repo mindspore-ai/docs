@@ -1,6 +1,6 @@
 # 比较与torch.clamp的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clip_by_value.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clip_by_value.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.clamp
 
@@ -25,7 +25,7 @@ mindspore.ops.clip_by_value(
 )
 ```
 
-更多内容详见[mindspore.ops.clip_by_value](https://mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.clip_by_value.html#mindspore.ops.clip_by_value)。
+更多内容详见[mindspore.ops.clip_by_value](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.clip_by_value.html#mindspore.ops.clip_by_value)。
 
 ## 使用方式
 

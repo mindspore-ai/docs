@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.Embedding
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nn_Embedding.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nn_Embedding.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Embedding
 
@@ -30,7 +30,7 @@ class mindspore.nn.Embedding(
     padding_idx=None)
 ```
 
-For more information, see [mindspore.nn.Embedding](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
+For more information, see [mindspore.nn.Embedding](https://mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
 
 ## Differences
 

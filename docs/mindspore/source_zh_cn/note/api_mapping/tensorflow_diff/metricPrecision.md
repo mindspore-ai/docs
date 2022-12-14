@@ -1,6 +1,6 @@
 # 比较与tf.keras.metrics.Precision的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricPrecision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricPrecision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.metrics.Precision
 
@@ -18,7 +18,7 @@ tf.keras.metrics.Precision(
 mindspore.nn.Precision(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Precision](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Precision.html#mindspore.nn.Precision)。
+更多内容详见[mindspore.nn.Precision](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Precision.html#mindspore.nn.Precision)。
 
 ## 使用方式
 

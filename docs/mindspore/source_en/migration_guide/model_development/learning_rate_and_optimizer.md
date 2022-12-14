@@ -1,8 +1,8 @@
 # Learning Rate and Optimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/learning_rate_and_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/model_development/learning_rate_and_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
-Before reading this chapter, please read the official MindSpore tutorial [Optimizer](https://www.mindspore.cn/tutorials/en/r1.9/advanced/modules/optim.html).
+Before reading this chapter, please read the official MindSpore tutorial [Optimizer](https://www.mindspore.cn/tutorials/en/r1.10/advanced/modules/optim.html).
 
 The chapter of official tutorial optimizer in MindSpore is already detailed, so here is an introduction to some special ways of using MindSpore optimizer and the principle of learning rate decay strategy.
 
@@ -67,17 +67,17 @@ The following points need to be noted:
 
 ## MindSpore Learning Rate Decay Strategy
 
-During the training process, MindSpore learning rate is in the form of parameters in the network. Before executing the optimizer to update the trainable parameters in network, MindSpore will call [get_lr](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.get_lr) to get the value of the learning rate needed for the current step.
+During the training process, MindSpore learning rate is in the form of parameters in the network. Before executing the optimizer to update the trainable parameters in network, MindSpore will call [get_lr](https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.get_lr) to get the value of the learning rate needed for the current step.
 
 MindSpore learning rate supports static, dynamic, and grouping, where the static learning rate is a Tensor in float32 type in the network.
 
-There are two types of dynamic learning rates, one is a Tensor in the network, with the length of the total number of steps of training and in float32 type, such as [Dynamic LR function](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#dynamic-lr-function). There is `global_step` in the optimizer, and the parameter will be +1 for every optimizer update. MindSpore will internally get the learning rate value of the current step based on the parameters `global_step` and `learning_rate`.
+There are two types of dynamic learning rates, one is a Tensor in the network, with the length of the total number of steps of training and in float32 type, such as [Dynamic LR function](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#dynamic-lr-function). There is `global_step` in the optimizer, and the parameter will be +1 for every optimizer update. MindSpore will internally get the learning rate value of the current step based on the parameters `global_step` and `learning_rate`.
 
-The other one is the one that generates the value of learning rate by composition, such as [LearningRateSchedule class](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#learningrateschedule-class).
+The other one is the one that generates the value of learning rate by composition, such as [LearningRateSchedule class](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#learningrateschedule-class).
 
 The grouping learning rate is as described in parameter grouping in the previous section.
 
-Because the learning rate of MindSpore is a parameter, we can also modify the value of learning rate during training by assigning values to `learning_rate` parameter, as in [LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/r1.9/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler). This method only supports static learning rates passed into the optimizer. The key code is as follows:
+Because the learning rate of MindSpore is a parameter, we can also modify the value of learning rate during training by assigning values to `learning_rate` parameter, as in [LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/r1.10/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler). This method only supports static learning rates passed into the optimizer. The key code is as follows:
 
 ```python
 import mindspore as ms

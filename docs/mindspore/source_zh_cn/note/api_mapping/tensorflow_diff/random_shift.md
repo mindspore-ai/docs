@@ -1,6 +1,6 @@
 # 比较与tf.keras.preprocessing.image.random_shift的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/random_shift.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/random_shift.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.preprocessing.image.random_shift
 
@@ -33,7 +33,7 @@ class mindspore.dataset.vision.RandomAffine(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html#mindspore.dataset.vision.RandomAffine)。
+更多内容详见[mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/zh-CN/r1.10/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html#mindspore.dataset.vision.RandomAffine)。
 
 ## 使用方式
 

@@ -1,6 +1,6 @@
 # 比较与tf.image.central_crop的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/central_crop.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/central_crop.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.image.central_crop
 
@@ -21,7 +21,7 @@ class mindspore.dataset.vision.CenterCrop(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.CenterCrop](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html#mindspore.dataset.vision.CenterCrop)。
+更多内容详见[mindspore.dataset.vision.CenterCrop](https://mindspore.cn/docs/zh-CN/r1.10/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html#mindspore.dataset.vision.CenterCrop)。
 
 ## 使用方式
 

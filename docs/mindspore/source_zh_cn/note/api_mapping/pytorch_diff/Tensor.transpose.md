@@ -1,6 +1,6 @@
 # 比较与torch.transpose的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Tensor.transpose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Tensor.transpose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.transpose
 
@@ -16,7 +16,7 @@ torch.transpose(input, dim0, dim1) -> Tensor
 mindspore.Tensor.transpose(*axes) -> Tensor
 ```
 
-更多内容详见 [mindspore.Tensor.transpose](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.transpose.html)。
+更多内容详见 [mindspore.Tensor.transpose](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.transpose.html)。
 
 ## 差异对比
 

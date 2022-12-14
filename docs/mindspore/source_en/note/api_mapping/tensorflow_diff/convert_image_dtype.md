@@ -1,6 +1,6 @@
 # Function Differences with tf.image.convert_image_dtype
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/convert_image_dtype.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/convert_image_dtype.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## tf.image.convert_image_dtype
 
@@ -23,7 +23,7 @@ class mindspore.dataset.transforms.TypeCast(
 )
 ```
 
-For more information, see [mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/en/r1.9/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast).
+For more information, see [mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/en/r1.10/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast).
 
 ## Differences
 

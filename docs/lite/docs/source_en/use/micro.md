@@ -1,6 +1,6 @@
 # Performing Inference on MCU or Small Systems
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -18,7 +18,7 @@ Deploying a model for inference via the Micro involves the following four steps:
 ### Overview
 
 The Micro configuration item in the parameter configuration file is configured via the MindSpore Lite conversion tool `convert_lite`.
-This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.9/use/converter_tool.html).
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.10/use/converter_tool.html).
 
 ### Preparing Environment
 
@@ -32,11 +32,11 @@ The following describes how to prepare the environment for using the conversion 
 
     You can obtain the conversion tool in either of the following ways:
 
-    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html) from the MindSpore official website.
+    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html) from the MindSpore official website.
 
         Download the release package whose OS is Linux-x86_64 and hardware platform is CPU.
 
-    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.9/use/build.html).
+    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.10/use/build.html).
 
 3. Decompress the downloaded package.
 
@@ -103,7 +103,7 @@ The following describes how to prepare the environment for using the conversion 
     CONVERTER RESULT SUCCESS:0
     ```
 
-    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r1.9/use/converter_tool.html#parameter-description).
+    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r1.10/use/converter_tool.html#parameter-description).
 
     After the conversion tool is successfully executed, the generated code is saved in the specified `outputFile` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
 
@@ -131,7 +131,7 @@ The following describes how to prepare the environment for using the conversion 
         └── weight.h
     ```
 
-    You can integrate code to implement the application by referring to the interface calling of the inference code in the benchmark routine. For details about the interface, see [API Documentation](https://www.mindspore.cn/lite/api/en/r1.9/index.html).
+    You can integrate code to implement the application by referring to the interface calling of the inference code in the benchmark routine. For details about the interface, see [API Documentation](https://www.mindspore.cn/lite/api/en/r1.10/index.html).
 
 Table 1: micro_param parameter definition
 
@@ -146,7 +146,7 @@ Table 1: micro_param parameter definition
 After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
 
 The inference code of different platforms depends on the `Micro` lib of the corresponding platform. You need to specify the platform via the micro configuration item `target` based on the platform in use when generating code, and obtain the `Micro` lib of the platform when obtaining the inference package.
-You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html) of the corresponding platform from the MindSpore official website.
+You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html) of the corresponding platform from the MindSpore official website.
 
 In chapter [Generating Model Inference Code](#generating-model-inference-code), we obtain the model inference code of the Linux platform with the x86_64 architecture. The `Micro` lib on which the code depends is the release package used by the conversion tool.
 In the release package, the following content depended by the inference code:
@@ -177,9 +177,9 @@ Different platforms have differences in code integration and compilation deploym
 
 - For the MCU of the cortex-M architecture, see [Performing Inference on the MCU](#performing-inference-on-the-mcu)
 
-- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/r1.9/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/r1.10/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/r1.9/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/r1.10/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - For compilation and deployment on the OpenHarmony platform, see [Executing Inference on Light Harmony Devices](#executing-inference-on-light-harmony-devices)
 
@@ -233,11 +233,11 @@ mnist                          # Specified name of generated code root directory
 
 The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of the architecture in either of the following ways:
 
-- Download [Release Version](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html) from the MindSpore official website.
+- Download [Release Version](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html) from the MindSpore official website.
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
 
-- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.9/use/build.html).
+- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.10/use/build.html).
 
     You can run the `MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64` command to compile the Cortex-M7 release package.
 
@@ -618,7 +618,7 @@ For details about how to develop light Harmony applications, see [Running Hello 
 └── src  
 ```
 
-Download the [precompiled inference runtime package](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html) for OpenHarmony and decompress it to any Harmony source code path. Compile Build.gn file:
+Download the [precompiled inference runtime package](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html) for OpenHarmony and decompress it to any Harmony source code path. Compile Build.gn file:
 
 ```text
 import("//build/lite/config/component/lite_component.gni")

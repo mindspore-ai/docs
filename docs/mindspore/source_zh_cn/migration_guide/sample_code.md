@@ -1,12 +1,12 @@
 # 网络迁移调试实例
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 本章将以经典网络 ResNet50 为例，结合代码来详细介绍网络迁移方法。
 
 ## 模型分析与准备
 
-假设已经按照[环境准备](https://www.mindspore.cn/docs/zh-CN/r1.9/migration_guide/enveriment_preparation.html)章节配置好了MindSpore的运行环境。且假设resnet50在models仓还没有实现。
+假设已经按照[环境准备](https://www.mindspore.cn/docs/zh-CN/r1.10/migration_guide/enveriment_preparation.html)章节配置好了MindSpore的运行环境。且假设resnet50在models仓还没有实现。
 
 首先需要分析算法及网络结构。
 
@@ -14,7 +14,7 @@
 
 [论文](https://arxiv.org/pdf/1512.03385.pdf)：Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r1.9/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
+我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r1.10/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
 
 ### checklist
 
@@ -64,15 +64,15 @@ Finished Training
 
 | PyTorch 使用API       | MindSpore 对应API | 是否有差异 |
 | ---------------------- | ------------------ | ------|
-| `nn.Conv2D`            | `nn.Conv2d`        | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.9/note/api_mapping/pytorch_diff/nn_Conv2d.html) |
-| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.9/note/api_mapping/pytorch_diff/BatchNorm2d.html) |
+| `nn.Conv2D`            | `nn.Conv2d`        | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.10/note/api_mapping/pytorch_diff/nn_Conv2d.html) |
+| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.10/note/api_mapping/pytorch_diff/BatchNorm2d.html) |
 | `nn.ReLU`              | `nn.ReLU`          | 无 |
-| `nn.MaxPool2D`         | `nn.MaxPool2d`     | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.9/note/api_mapping/pytorch_diff/MaxPool2d.html) |
+| `nn.MaxPool2D`         | `nn.MaxPool2d`     | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.10/note/api_mapping/pytorch_diff/MaxPool2d.html) |
 | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  无  |
-| `nn.Linear`            | `nn.Dense`         | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.9/note/api_mapping/pytorch_diff/Dense.html) |
+| `nn.Linear`            | `nn.Dense`         | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r1.10/note/api_mapping/pytorch_diff/Dense.html) |
 | `torch.flatten`        | `nn.Flatten`       | 无 |
 
-查看[PyTorch API映射](https://www.mindspore.cn/docs/zh-CN/r1.9/note/api_mapping/pytorch_api_mapping.html)，我们获取到有四个API有差异。
+查看[PyTorch API映射](https://www.mindspore.cn/docs/zh-CN/r1.10/note/api_mapping/pytorch_api_mapping.html)，我们获取到有四个API有差异。
 
 - 功能分析
 
@@ -174,7 +174,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
 
 ### 网络模型实现
 
-参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
+参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
 
 ```python
 # Conv2d PyTorch
@@ -655,7 +655,7 @@ Test set: Average loss: 0.3240, Accuracy: 91%
 
 ## 训练流程
 
-PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r1.9/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
+PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r1.10/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
 
 对应的MindSpore代码：
 
@@ -782,7 +782,7 @@ Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进
 
 ![resnet_profiler6](images/resnet_profiler6.png)
 
-此外，`aicore_intermediate_0_detail.csv`是每个算子的详细数据，和MindInsight里显示的算子详细信息差不多。`ascend_timeline_display_0.json`是timeline数据文件，详情请参考[timeline](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/performance_profiling_ascend.html#timeline%E5%88%86%E6%9E%90)。
+此外，`aicore_intermediate_0_detail.csv`是每个算子的详细数据，和MindInsight里显示的算子详细信息差不多。`ascend_timeline_display_0.json`是timeline数据文件，详情请参考[timeline](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/performance_profiling_ascend.html#timeline%E5%88%86%E6%9E%90)。
 
 第三部分是数据处理的性能数据，在这部分可以查看，数据队列的情况：
 
@@ -794,7 +794,7 @@ Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进
 
 下面我们来对这个过程进行分析以及问题解决方法介绍：
 
-从迭代轨迹来看，迭代间隙和前向反向执行的时间基本一半一半。MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/r1.9/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
+从迭代轨迹来看，迭代间隙和前向反向执行的时间基本一半一半。MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/r1.10/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`True`当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
 
 下面是设置`dataset_sink_mode=True`的profiler的结果：
 
@@ -802,13 +802,13 @@ Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进
 
 我们发现执行时间节省了一半。
 
-我们接着进行分析和优化。从前反向的算子执行时间来看，`Cast`和`BatchNorm`几乎占了50%，那为什么会有这么多`Cast`呢？之前[MindSpore网络编写容易出现问题的地方](https://www.mindspore.cn/docs/zh-CN/r1.9/migration_guide/model_development/model_development.html)章节有介绍说Ascend环境下Conv，Sort，TopK只能是float16的，所以在Conv计算前后会加`Cast`算子。一个最直接的方法是将网络计算都改成float16的，只会在网络的输入和loss计算前加`Cast`，`Cast`算子的消耗就可以不计了，这就涉及到MindSpore的混合精度策略。
+我们接着进行分析和优化。从前反向的算子执行时间来看，`Cast`和`BatchNorm`几乎占了50%，那为什么会有这么多`Cast`呢？之前[MindSpore网络编写容易出现问题的地方](https://www.mindspore.cn/docs/zh-CN/r1.10/migration_guide/model_development/model_development.html)章节有介绍说Ascend环境下Conv，Sort，TopK只能是float16的，所以在Conv计算前后会加`Cast`算子。一个最直接的方法是将网络计算都改成float16的，只会在网络的输入和loss计算前加`Cast`，`Cast`算子的消耗就可以不计了，这就涉及到MindSpore的混合精度策略。
 
 MindSpore有三种方法使用混合精度：
 
 1. 直接使用`Cast`，将网络的输入`cast`成`float16`，将loss的输入`cast`成`float32`；
-2. 使用`Cell`的`to_float`方法，详情参考[网络主体及loss搭建](https://www.mindspore.cn/docs/zh-CN/r1.9/migration_guide/model_development/model_and_loss.html)；
-3. 使用`Model`的`amp_level`接口进行混合精度，详情参考[自动混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/others/mixed_precision.html#%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)。
+2. 使用`Cell`的`to_float`方法，详情参考[网络主体及loss搭建](https://www.mindspore.cn/docs/zh-CN/r1.10/migration_guide/model_development/model_and_loss.html)；
+3. 使用`Model`的`amp_level`接口进行混合精度，详情参考[自动混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/others/mixed_precision.html#%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)。
 
 这里我们使用第三种方法，将`Model`中的`amp_level`设置成`O3`，看一下profiler的结果：
 
@@ -829,9 +829,9 @@ MindSpore有三种方法使用混合精度：
 
 ![resnet_profiler12](images/resnet_profiler12.png)
 
-每个数据处理操作的队列，发现最后一个算子，`batch`算子空的时间比较多，可以考虑增加`batch`算子的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/dataset/optimize.html)。
+每个数据处理操作的队列，发现最后一个算子，`batch`算子空的时间比较多，可以考虑增加`batch`算子的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/dataset/optimize.html)。
 
-整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/r1.9/docs/mindspore/source_zh_cn/migration_guide/code)获取。
+整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/r1.10/docs/mindspore/source_zh_cn/migration_guide/code)获取。
 
 欢迎点击下面视频，一起来学习。
 

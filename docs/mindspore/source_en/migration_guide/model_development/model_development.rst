@@ -2,7 +2,7 @@ Constructing MindSpore Network
 ==============================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/model_development.rst
+    :target: https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/model_development/model_development.rst
 
 This chapter will introduce the related contents of MindSpore scripting,
 including datasets, network models and loss functions, optimizers,
@@ -24,7 +24,7 @@ The training process of the whole network consists of 5 modules:
 
 -  dataset: for obtaining data, containing input of network and labels.
    MindSpore provides a basic `common dataset processing
-   interface <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.html>`__,
+   interface <https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.html>`__,
    and also supports constructing datasets by using python iterators.
 
 -  network: network model implementation, typically encapsulated by
@@ -37,7 +37,7 @@ The training process of the whole network consists of 5 modules:
    iterating continuously. Defining a good loss function can help the
    loss function value converge faster to achieve better precision.
    MindSpore provides many `common loss
-   functions <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#loss-function>`__,
+   functions <https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#loss-function>`__,
    but of course you can define and implement your own loss function.
 
 -  Automatic gradient derivation: Generally, network and loss are
@@ -48,12 +48,12 @@ The training process of the whole network consists of 5 modules:
    details and procedures and greatly reduces the threshold of
    framework. When you need to customize the gradient, MindSpore also
    provides
-   `interface <https://www.mindspore.cn/tutorials/experts/en/r1.9/network/custom_cell_reverse.html>`__
+   `interface <https://www.mindspore.cn/tutorials/experts/en/r1.10/network/custom_cell_reverse.html>`__
    to freely implement the gradient calculation.
 
 -  Optimizer: used to calculate and update network parameters during
    model training. MindSpore provides a number of `general-purpose
-   optimizers <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#optimizer>`__
+   optimizers <https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#optimizer>`__
    for users to choose, and also supports users to customize the
    optimizers.
 
@@ -87,7 +87,7 @@ The training process of the whole network consists of 3 modules:
    well. Commonly used evaluation metrics include Confusion Matrix,
    Accuracy, Precision, and Recall. The mindspore.nn module provides the
    common `evaluation
-   functions <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#evaluation-metrics>`__,
+   functions <https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#evaluation-metrics>`__,
    and users can also define their own evaluation metrics as needed.
    Customized Metrics functions need to inherit nn.Metric parent class
    and reimplement the clear method, update method and eval method of
@@ -135,20 +135,20 @@ for the following situations:
    operation as an alternative in the data processing process, such as
    numpy, opencv, pandas, PIL.
 2. Control flow. For details, refer to `Flow Control
-   Statements <https://www.mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html>`__.
+   Statements <https://www.mindspore.cn/tutorials/experts/en/r1.10/network/control_flow.html>`__.
    Compilation in graph mode can be slow when multiple layers of
    conditional control statements are called.
 3. Slicing operation. When it comes to slicing a Tensor, note that
    whether subscript of the slice is a variable. When it is a variable,
    there will be restrictions. Please refer to `network body and loss
-   building <https://www.mindspore.cn/docs/en/r1.9/migration_guide/model_development/model_and_loss.html>`__
+   building <https://www.mindspore.cn/docs/en/r1.10/migration_guide/model_development/model_and_loss.html>`__
    for dynamic shape mitigation.
 4. Customized mixed precision conflicts with ``amp_level`` in Model, so
    don’t set ``amp_level`` in Model if you use customized mixed
    precision.
 5. In Ascend environment, Conv, Sort and TopK can only be float16, and
    add `loss
-   scale <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/others/mixed_precision.html>`__
+   scale <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/others/mixed_precision.html>`__
    to avoid overflow.
 6. In the Ascend environment, operators with the stride property such as
    Conv and Pooling have rules about the length of the stride, which
@@ -157,10 +157,10 @@ for the following situations:
    initialized parameters of multiple cards are consistent.
 8. In the case of using list of Cell or list of Parameter in the
    network, please convert the list to
-   `CellList <https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.CellList.html>`__,
-   `SequentialCell <https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.SequentialCell.html>`__,
+   `CellList <https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.CellList.html>`__,
+   `SequentialCell <https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.SequentialCell.html>`__,
    and
-   `ParameterTuple <https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ParameterTuple.html>`__
+   `ParameterTuple <https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.ParameterTuple.html>`__
    in ``init``.
 
 .. code:: python

@@ -1,6 +1,6 @@
 # 比较与tf.keras.Model.predict、tf.keras.Model.predict_generator的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelEval.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelEval.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.Model.predict
 
@@ -30,7 +30,7 @@ tf.keras.Model.predict_generator(
 mindspore.train.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 ```
 
-更多内容详见[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
+更多内容详见[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
 
 ## 使用方式
 

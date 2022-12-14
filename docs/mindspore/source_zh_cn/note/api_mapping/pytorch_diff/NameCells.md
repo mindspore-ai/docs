@@ -1,6 +1,6 @@
 # 比较与torch.nn.Module.named_children()的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/NameCells.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/NameCells.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Module.named_children
 
@@ -16,7 +16,7 @@ torch.nn.Module.named_children()
 mindspore.nn.Cell.name_cells()
 ```
 
-更多内容详见[mindspore.nn.Cell.name_cells](https://mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.name_cells)。
+更多内容详见[mindspore.nn.Cell.name_cells](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.name_cells)。
 
 ## 使用方式
 

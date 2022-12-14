@@ -2,7 +2,7 @@ Other Features
 ==============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/parallel/other_features.rst
+    :target: https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/parallel/other_features.rst
 
 .. toctree::
   :maxdepth: 1
@@ -11,7 +11,7 @@ Other Features
   parameter_server_training
   ms_operator
 
-`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/sharding_propagation.html>`__
+`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/r1.10/parallel/sharding_propagation.html>`__
 ------------------------------------------------------------------------------------------------------------------
 
 In operator-level parallelism, the user is required to configure a
@@ -22,7 +22,7 @@ automatically generate a feasible sharding strategy for operators
 without a sharding strategy, and achieve the effect of minimizing
 communication overhead.
 
-`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/parameter_server_training.html>`__
+`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/r1.10/parallel/parameter_server_training.html>`__
 ----------------------------------------------------------------------------------------------------------------------------
 
 Parameter Server is a widely used architecture in distributed training,
@@ -73,7 +73,7 @@ Functional Operator Splitting
 In dynamic graph mode, you specify that a part of the network structure
 executes in graph mode and performs various parallel operations.
 
-`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/r1.9/parallel/ms_operator.html>`__
+`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/r1.10/parallel/ms_operator.html>`__
 ------------------------------------------------------------------------------------------------------------------------------------
 
 MindSpore Operator is a plugin that follows Kubernetes’ Operator pattern

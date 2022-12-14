@@ -1,6 +1,6 @@
 # 比较与tf.data.experimental.CsvDataset的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/CsvDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/CsvDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.data.experimental.CsvDataset
 
@@ -37,7 +37,7 @@ class mindspore.dataset.CSVDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.CSVDataset](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset)。
+更多内容详见[mindspore.dataset.CSVDataset](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset)。
 
 ## 使用方式
 

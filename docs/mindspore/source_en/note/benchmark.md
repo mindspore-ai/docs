@@ -1,9 +1,9 @@
 # Benchmarks
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/benchmark.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/benchmark.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 This document describes the MindSpore benchmarks.
-For details about the MindSpore networks, see [ModelZoo](https://gitee.com/mindspore/models/blob/r1.9/README.md#).
+For details about the MindSpore networks, see [ModelZoo](https://gitee.com/mindspore/models/blob/r1.10/README.md#).
 
 ## Training Performance
 

@@ -1,10 +1,10 @@
 # 切分策略传播
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 背景
 
-分布式算子、张量排布和张量重排布是MindSpore中算子级并行中的基本概念。在[这里](https://www.mindspore.cn/docs/zh-CN/r1.9/design/distributed_training_design.html#自动并行原理)，以例子的形式介绍了这些概念。现在，我们形式化地定义这些概念。
+分布式算子、张量排布和张量重排布是MindSpore中算子级并行中的基本概念。在[这里](https://www.mindspore.cn/docs/zh-CN/r1.10/design/distributed_training_design.html#自动并行原理)，以例子的形式介绍了这些概念。现在，我们形式化地定义这些概念。
 
 算子级并行属于“单程序多数据”（Single Program Multiple Data，SPMD）的一种实现。同一段程序执行在不同数据分片上。MindSpore将单机版本的程序转换成并行版本的程序。该转换是细粒度的，会将单机版本程序中每个算子替换成分布式算子，同时保证替换是数学等价的。
 
@@ -62,9 +62,9 @@
 
 > 可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/sharding_propagation>。
+> <https://gitee.com/mindspore/docs/tree/r1.10/docs/sample_code/sharding_propagation>。
 
-目录结构如下，其中，`rank_table_8pcs.json`是配置当前Ascend多卡环境的组网信息文件（关于该配置文件的说明，参见[这里](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html#配置分布式环境变量)），`train.py`是模型定义脚本，`run.sh`是执行脚本。
+目录结构如下，其中，`rank_table_8pcs.json`是配置当前Ascend多卡环境的组网信息文件（关于该配置文件的说明，参见[这里](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/parallel/train_ascend.html#配置分布式环境变量)），`train.py`是模型定义脚本，`run.sh`是执行脚本。
 
 ```text
 └─sample_code
@@ -172,7 +172,7 @@ set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_p
 
 ### 配置涉及权重的算子
 
-参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[Transformer](https://gitee.com/mindspore/mindspore/tree/r1.9/mindspore/python/mindspore/nn/transformer)中的数据并行Embedding层和混合并行FeedForward层。
+参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[Transformer](https://gitee.com/mindspore/mindspore/tree/r1.10/mindspore/python/mindspore/nn/transformer)中的数据并行Embedding层和混合并行FeedForward层。
 
 ![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
 

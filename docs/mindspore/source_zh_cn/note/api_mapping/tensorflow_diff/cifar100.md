@@ -1,6 +1,6 @@
 # 比较与tf.keras.datasets.cifar100的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/cifar100.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/cifar100.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.datasets.cifar100
 
@@ -26,7 +26,7 @@ class mindspore.dataset.Cifar100Dataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.Cifar100Dataset](https://mindspore.cn/docs/zh-CN/r1.9/api_python/dataset/mindspore.dataset.Cifar100Dataset.html#mindspore.dataset.Cifar100Dataset)。
+更多内容详见[mindspore.dataset.Cifar100Dataset](https://mindspore.cn/docs/zh-CN/r1.10/api_python/dataset/mindspore.dataset.Cifar100Dataset.html#mindspore.dataset.Cifar100Dataset)。
 
 ## 使用方式
 

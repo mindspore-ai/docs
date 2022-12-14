@@ -1,6 +1,6 @@
 # 比较与tf.distribute.Strategy的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/DistributedTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/DistributedTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.distribute.Strategy
 
@@ -24,7 +24,7 @@ init()
 # Run net, the same with stand alone training
 ```
 
-更多内容详见[set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context)。
+更多内容详见[set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context)。
 
 ## 使用方式
 

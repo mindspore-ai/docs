@@ -2,7 +2,7 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png 
-   :target: https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/env/env_var_list.rst
+   :target: https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/env/env_var_list.rst
 
 本文介绍MindSpore的环境变量。
 
@@ -26,7 +26,7 @@
      - 1~24：允许设置并行进程数取值范围
      - 
    * - MS_COMPILER_CACHE_ENABLE
-     - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
+     - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
 
        注意：该环境变量优先级低于 `enable_compile_cache` context。
      - Integer
@@ -68,7 +68,7 @@
        false：使能预编译
      - 
 
-具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r1.9/faq/operators_compile.html>`_ 。
+具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r1.10/faq/operators_compile.html>`_ 。
 
 并行训练
 --------
@@ -102,7 +102,7 @@
      - 文件路径，支持相对路径与绝对路径
      - 与RANK_SIZE配合使用
 
-具体用法详见 `分布式并行训练基础样例 <https://mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html#运行脚本>`_ 。
+具体用法详见 `分布式并行训练基础样例 <https://mindspore.cn/tutorials/experts/zh-CN/r1.10/parallel/train_ascend.html#运行脚本>`_ 。
 
 运行数据保存
 ------------
@@ -139,7 +139,7 @@
      - 配合 `MS_RDR_ENABLE=1` 使用，最终RDR文件将 `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`目录下。
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
 
-具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#running-data-recorder>`_ 。
+具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/custom_debug.html#running-data-recorder>`_ 。
 
 日志
 ----
@@ -222,7 +222,7 @@
        SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
      - 
 
-具体用法详见 `日志功能与用法 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/custom_debug.html#日志相关的环境变量和配置>`_ 。
+具体用法详见 `日志功能与用法 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/custom_debug.html#日志相关的环境变量和配置>`_ 。
 
 Dump功能
 --------
@@ -237,20 +237,20 @@ Dump功能
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html#同步dump>`_ 
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/dump.html#同步dump>`_ 
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r1.10/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html#同步dump>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/dump.html#同步dump>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
      - 文件路径，只支持绝对路径
      - 与MINDSPORE_DUMP_CONFIG配合使用
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/debug/dump.html>`_ 。
 
 数据处理性能
 ------------
@@ -287,8 +287,8 @@ Dump功能
        false: 关闭pipeline树优化
      - 
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/r1.9/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/r1.9/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/r1.10/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/r1.10/dataset/optimize.html>`_ 。
 
 调试器
 ------
@@ -327,7 +327,7 @@ Dump功能
      - 1~65536，连接MindInsight Debugger Server的端口
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
 
-具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger.html>`_ 。
+具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/debugger.html>`_ 。
 
 其他
 ----

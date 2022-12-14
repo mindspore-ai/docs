@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.MaxPool3D
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MaxPool3D.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MaxPool3D.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.MaxPool3D
 
@@ -30,7 +30,7 @@ class mindspore.ops.MaxPool3D(
 )(input)
 ```
 
-For more information, see [mindspore.ops.MaxPool3D](https://mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D).
+For more information, see [mindspore.ops.MaxPool3D](https://mindspore.cn/docs/en/r1.10/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D).
 
 ## Differences
 

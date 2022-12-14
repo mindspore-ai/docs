@@ -1,6 +1,6 @@
 # 推理及训练流程
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 通用运行环境设置
 
@@ -65,16 +65,16 @@ device_num: 1
 device_id: 0
 ```
 
-上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
+上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
 ## 通用脚本架
 
-models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/r1.9/utils/model_scaffolding)用于：
+models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/r1.10/utils/model_scaffolding)用于：
 
 1. yaml参数文件解析，参数获取
 2. ModelArts云上云下统一工具
 
-一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/r1.9/official/cv/resnet/src/model_utils)。
+一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/r1.10/official/cv/resnet/src/model_utils)。
 
 ## 推理流程
 
@@ -107,13 +107,13 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 一般网络构造，数据处理等源代码会放到`src`目录下，脚本架会放到`src.model_utils`目录下，具体示例可以参考[MindSpore models](https://gitee.com/mindspore/models)里的实现。
 
-有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/r1.9/official/cv/ssd/eval.py)。
+有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/r1.10/official/cv/ssd/eval.py)。
 
 ### 推理验证
 
-在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/save_load.html)文件加载到网络中进行推理验证。
+在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/r1.10/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r1.9/migration_guide/sample_code.html)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r1.10/migration_guide/sample_code.html)。
 
 ## 训练流程
 
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     train_net()
 ```
 
-其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/r1.9/beginner/save_load.html)。
+其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/r1.10/beginner/save_load.html)。
 
 ### 分布式训练
 
@@ -248,8 +248,8 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡，Ascend上目前不支持指定卡号。
 
-详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/distributed_case.html)。
+详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/parallel/distributed_case.html)。
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/infer/inference.html)。
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/infer/inference.html)。

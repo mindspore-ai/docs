@@ -1,6 +1,6 @@
 # Network Arguments
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides initialization modules for parameters and network arguments. You can initialize network arguments by encapsulating operators to call character strings, Initializer subclasses, or customized tensors.
 
@@ -12,7 +12,7 @@ The following describes the data type (`dtype`), parameter (`Parameter`), parame
 
 ## dtype
 
-MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.html#mindspore.dtype).
+MindSpore tensors support different data types, including int8, int16, int32, int64, uint8, uint16, uint32, uint64, float16, float32, float64, and Boolean. These data types correspond to those of NumPy. For details about supported data types, visit [mindspore.dtype](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.html#mindspore.dtype).
 
 In the computation process of MindSpore, the int data type in Python is converted into the defined int64 type, and the float data type is converted into the defined float32 type.
 
@@ -59,7 +59,7 @@ print(py_type)
 
 ## Parameter
 
-A [Parameter](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) of MindSpore indicates an argument that needs to be updated during network training. For example, the most common parameters of the `nn.conv` operator during forward computation include `weight` and `bias`. During backward graph build and backward propagation computation, many intermediate parameters are generated to temporarily store first-step information and intermediate output values.
+A [Parameter](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) of MindSpore indicates an argument that needs to be updated during network training. For example, the most common parameters of the `nn.conv` operator during forward computation include `weight` and `bias`. During backward graph build and backward propagation computation, many intermediate parameters are generated to temporarily store first-step information and intermediate output values.
 
 ### Parameter Initialization
 
@@ -231,7 +231,7 @@ print("Parameter update:\n", output)
 
 ## Parameter Tuple
 
-The [ParameterTuple](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple) is used to store multiple `Parameter`s. It is inherited from the `tuple` and provides the clone function.
+The [ParameterTuple](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple) is used to store multiple `Parameter`s. It is inherited from the `tuple` and provides the clone function.
 
 The following example describes how to create a `ParameterTuple`:
 

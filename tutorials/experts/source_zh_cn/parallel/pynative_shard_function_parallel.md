@@ -1,6 +1,6 @@
 # 函数式算子切分
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -22,7 +22,7 @@ Shard function沿用此模式，不同的是可以在图模式编译执行的环
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/pynative_shard_function_parallel>。
+><https://gitee.com/mindspore/docs/tree/r1.10/docs/sample_code/pynative_shard_function_parallel>。
 
 目录结构如下：
 
@@ -169,11 +169,11 @@ class Net(nn.Cell):
 
 ### 运行代码
 
-上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/parallel/train_ascend.html#配置分布式环境变量)。
+上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/parallel/train_ascend.html#配置分布式环境变量)。
 
 Ascend分布式相关的环境变量有:
 
-- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/r1.9/utils/hccl_tools)获取。
+- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/r1.10/utils/hccl_tools)获取。
 - DEVICE_ID：当前卡在机器上的实际序号。
 - RANK_ID：当前卡的逻辑序号。
 

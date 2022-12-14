@@ -1,6 +1,6 @@
 # Function Differences with torch.logical_and
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LogicalAnd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LogicalAnd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.logical_and
 
@@ -16,7 +16,7 @@ For more information, see  [torch.logical_and](https://pytorch.org/docs/1.5.0/to
 class class mindspore.ops.LogicalAnd()(x, y)
 ```
 
-For more information, see  [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
+For more information, see  [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/en/r1.10/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # 比较与tf.data.Dataset.from_tensor_slices的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/from_tensor_slices.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/from_tensor_slices.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.data.Dataset.from_tensor_slices
 
@@ -28,7 +28,7 @@ class mindspore.dataset.NumpySlicesDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.NumpySlicesDataset](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset)。
+更多内容详见[mindspore.dataset.NumpySlicesDataset](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset)。
 
 ## 使用方式
 

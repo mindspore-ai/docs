@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r1.9/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.9/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.9/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.9/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.9/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.9/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html) || **Infer**
+[Introduction](https://www.mindspore.cn/tutorials/en/r1.10/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.10/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.10/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.10/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.10/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.10/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.10/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.10/beginner/save_load.html) || **Infer**
 
 # Inference and Deployment
 
@@ -318,11 +318,11 @@ To implement the inference function of the model file on the mobile phone, perfo
 
 ### Converting the File Format
 
-Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/use/converter_tool.html) applied on the device side to convert the mobilenet_v2_1.0_224.mindir file generated during the training process into the mobilenet_v2_1.0_224.ms file which can be recognized by the MindSpore Lite on-device inference framework.
+Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/use/converter_tool.html) applied on the device side to convert the mobilenet_v2_1.0_224.mindir file generated during the training process into the mobilenet_v2_1.0_224.ms file which can be recognized by the MindSpore Lite on-device inference framework.
 
 The following describes how to convert the model file format:
 
-1. Use MindSpore Lite Converter to convert the file format in Linux. [Linux-x86_64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html)
+1. Use MindSpore Lite Converter to convert the file format in Linux. [Linux-x86_64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html)
 
     ```shell
     # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
@@ -335,7 +335,7 @@ The following describes how to convert the model file format:
     ./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
     ```
 
-2. Use MindSpore Lite Converter to convert the file format in Windows. [Windows-x64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html)
+2. Use MindSpore Lite Converter to convert the file format in Windows. [Windows-x64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html)
 
     ```shell
     # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
@@ -350,7 +350,7 @@ The following describes how to convert the model file format:
 
 After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and the `mobilenet_v2_1.0_224.ms` file is generated in the current directory.
 
-> For details about how to download MindSpore Lite Converter in other environments, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.9/use/downloads.html).
+> For details about how to download MindSpore Lite Converter in other environments, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.10/use/downloads.html).
 
 ### Application Deployment
 
@@ -404,4 +404,4 @@ After the label and model file are deployed on the mobile phone, you can click t
 
 ![result1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/beginner/images/app4.png)
 
-> This chapter only covers the simple deployment process on the mobile phone. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.9/index.html).
+> This chapter only covers the simple deployment process on the mobile phone. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.10/index.html).
