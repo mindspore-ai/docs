@@ -12,7 +12,7 @@ torch.nn.GRU(*args, **kwargs)(input, h_0) -> Tensor
 
 ## mindspore.nn.GRU
 
-``` text
+```text
 mindspore.nn.GRU(*args, **kwargs)(x, hx, seq_length)  -> Tensor
 ```
 

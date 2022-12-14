@@ -4,7 +4,7 @@
 
 ## torch.cross
 
-``` text
+```text
 torch.cross(input, other, dim=None, *, out=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ torch.cross(input, other, dim=None, *, out=None) -> Tensor
 
 ## mindspore.ops.cross
 
-``` text
+```text
 mindspore.ops.cross(input, other, dim=None) -> Tensor
 ```
 
