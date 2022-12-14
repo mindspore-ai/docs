@@ -48,8 +48,9 @@ Typical Application Scenarios
 
    improve_model_security_nad
    test_model_security_fuzzing
-   test_model_security_membership_inference
    evaluation_of_CNNCTC
+   dynamic_obfuscation_protection
+   model_encrypt_protection
 
 .. toctree::
    :glob:
@@ -58,7 +59,7 @@ Typical Application Scenarios
 
    protect_user_privacy_with_differential_privacy
    protect_user_privacy_with_suppress_privacy
-   model_encrypt_protection
+   test_model_security_membership_inference
 
 .. toctree::
    :glob:

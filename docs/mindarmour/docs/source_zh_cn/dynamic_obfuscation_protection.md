@@ -136,7 +136,16 @@ def my_func(x1, x2):
     return False
 ```
 
-注意：感兴趣的用户可以搜索**不透明谓词表达式**，来构造满足上述要求的函数，后续我们也会增加不透明谓词表达式的构造教程。
+注意：感兴趣的用户可以搜索**不透明谓词表达式**，来构造满足上述要求的函数，例如：
+
+```python
+def opaque_predicate(x, y):
+    if 7*y^2 - 1 == x^2:
+        return True
+    return False
+```
+
+若 x 和 y 为整数，则 `opaque_predicate(x, y)` 恒为 False。您可以参考 [manufacturing cheap, resilient, and stealthy opaque constructs](https://dl.acm.org/doi/epdf/10.1145/268946.268962) 或其他文献了解不透明谓词。
 
 准备好 `cutomized_func` 之后，我们就可以如下导出混淆模型了：
 
