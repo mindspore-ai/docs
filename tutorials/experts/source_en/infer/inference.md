@@ -1,6 +1,6 @@
 # Inference Model Overview
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 MindSpore can execute inference tasks on different hardware platforms based on trained models.
 
@@ -43,7 +43,7 @@ Inference can be classified into the following two modes based on the applicatio
 
 2. Cross-platform inference
 
-    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html).
+    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/r1.10/beginner/save_load.html).
 
 ## Introduction to MindIR
 
@@ -60,7 +60,7 @@ MindSpore defines logical network structures and operator attributes through a u
 
 2. Application Scenarios
 
-    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorials/experts/en/r1.9/infer/ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r1.9/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en/r1.9/index.html).
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorials/experts/en/r1.10/infer/ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r1.10/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en/r1.10/index.html).
 
 ## model.eval Model Validation
 
@@ -84,9 +84,9 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model).
+`model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.Model](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.Model.html#mindspore.Model).
 
-> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/lenet/eval.py).
+> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/r1.10/official/cv/lenet/eval.py).
 
 ### Using MindSpore Hub to Load Models from HUAWEI CLOUD
 
@@ -107,7 +107,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/r1.9/hub.html#mindspore_hub.load).
+`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/r1.10/hub.html#mindspore_hub.load).
 
 ## Using the `model.predict` Interface for Inference Operations
 
@@ -117,4 +117,4 @@ model.predict(input_data)
 
 Where
 
-`model.predict` is inference interface, and corresponding interface description is as follows: [mindspore.Model.predict](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model.predict).
+`model.predict` is inference interface, and corresponding interface description is as follows: [mindspore.Model.predict](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.Model.html#mindspore.Model.predict).

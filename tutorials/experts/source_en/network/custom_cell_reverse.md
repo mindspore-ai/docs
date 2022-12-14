@@ -1,6 +1,6 @@
 # Customizing Reverse Propagation Function of Cell
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/network/custom_cell_reverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/network/custom_cell_reverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 When MindSpore is used to build a neural network, the `nn.Cell` class needs to be inherited. We might have the following problems when we construct networks:
 
@@ -154,6 +154,6 @@ This example customizes the gradient calculation process for the `MatMul` operat
 ## Constraints
 
 - If the number of return values of the `bprop` function is 1, the return value must be written in the tuple format, that is, `return (dx,)`.
-- In graph mode, the `bprop` function needs to be converted into a graph IR. Therefore, the static graph syntax must be complied with. For details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html).
+- In graph mode, the `bprop` function needs to be converted into a graph IR. Therefore, the static graph syntax must be complied with. For details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.10/note/static_graph_syntax_support.html).
 - Only support returning the gradient of the forward propagation input, not the gradient of the `Parameter`.
 - The use of `Parameter` is not supported in `bprop`.

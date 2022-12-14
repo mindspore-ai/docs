@@ -1,6 +1,6 @@
 # 副作用
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/design/side_effect.md" target="_blank">
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/design/side_effect.md" target="_blank">
 <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png">
 </a>
 
@@ -40,7 +40,7 @@
 ## 设计
 
 MindSpore采用的是一种基于图表示的函数式中间表示，
-参考[MindIR](https://www.mindspore.cn/docs/zh-CN/r1.9/design/mindir.html)。
+参考[MindIR](https://www.mindspore.cn/docs/zh-CN/r1.10/design/mindir.html)。
 在概念上，MindIR中的函数都是纯函数，不存在副作用；
 但MindSpore能够支持带副作用的计算模型，且提供带副作用的算子，比如会直接修改输入参数的优化器算子。
 为了支持带副作用的算子和计算模型，MindSpore在编译模型的时候将代码中的副作用转换成了纯函数形式，

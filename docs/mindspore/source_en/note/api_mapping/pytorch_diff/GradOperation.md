@@ -1,6 +1,6 @@
 # Function Differences with torch.autograd.backward and torch.autograd.grad
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.autograd.backward
 
@@ -42,7 +42,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
+For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r1.10/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
 
 ## Differences
 

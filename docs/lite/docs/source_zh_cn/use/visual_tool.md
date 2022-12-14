@@ -1,6 +1,6 @@
 # 可视化工具
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/docs/source_zh_cn/use/visual_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_zh_cn/use/visual_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 

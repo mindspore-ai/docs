@@ -1,6 +1,6 @@
 # 比较与tf.keras.metrics.Accuracy、tf.keras.metrics.BinaryAccuracy、tf.keras.metrics.CategoricalAccuracy、tf.keras.metrics.SparseCategoricalAccuracy的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricAcc.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricAcc.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.keras.metrics.Accuracy
 
@@ -42,7 +42,7 @@ tf.keras.metrics.SparseCategoricalAccuracy(
 mindspore.nn.Accuracy(eval_type="classification")
 ```
 
-更多内容详见[mindspore.nn.Accuracy](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Accuracy.html#mindspore.nn.Accuracy)。
+更多内容详见[mindspore.nn.Accuracy](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Accuracy.html#mindspore.nn.Accuracy)。
 
 ## 使用方式
 

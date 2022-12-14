@@ -1,6 +1,6 @@
 # Function Differences with torch.logical_not
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/logical_not.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/logical_not.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torch.logical_not
 
@@ -16,7 +16,7 @@ For more information, see  [torch.logical_not](https://pytorch.org/docs/1.5.0/to
 class mindspore.numpy.logical_not(a, dtype=None)
 ```
 
-For more information, see  [mindspore.numpy.logical_not](https://mindspore.cn/docs/en/r1.9/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not).
+For more information, see  [mindspore.numpy.logical_not](https://mindspore.cn/docs/en/r1.10/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not).
 
 ## Differences
 

@@ -1,18 +1,18 @@
 # Loss Function
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 A loss function is also called objective function and is used to measure the difference between a predicted value and an actual value.
 
 In deep learning, model training is a process of reducing the loss function value through continuous iteration. Therefore, it is very important to select a loss function in a model training process, and a good loss function can effectively improve model performance.
 
-The `mindspore.nn` module provides many [general loss functions](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#loss-function), but these functions cannot meet all requirements. In many cases, you need to customize the required loss functions. The following describes how to customize loss functions.
+The `mindspore.nn` module provides many [general loss functions](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#loss-function), but these functions cannot meet all requirements. In many cases, you need to customize the required loss functions. The following describes how to customize loss functions.
 
 ![lossfun.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/loss_function.png)
 
 ## Built-in Loss Functions
 
-The following introduces [loss functions](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.nn.html#loss-function) built in the `mindspore.nn` module.
+The following introduces [loss functions](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#loss-function) built in the `mindspore.nn` module.
 
 For example, use `nn.L1Loss` to compute the mean absolute error between the predicted value and the target value.
 
@@ -104,7 +104,7 @@ print(output)
 
 ### `nn.LossBase`-based Loss Function Build
 
-The process of building the loss function `MAELoss` based on [nn.LossBase](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.LossBase.html#mindspore.nn.LossBase) is similar to that of building the loss function based on `nn.Cell`. The `__init__` and `construct` methods need to be rewritten.
+The process of building the loss function `MAELoss` based on [nn.LossBase](https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.LossBase.html#mindspore.nn.LossBase) is similar to that of building the loss function based on `nn.Cell`. The `__init__` and `construct` methods need to be rewritten.
 
 `nn.LossBase` can use the `get_loss` method to apply `reduction` to loss computation.
 
@@ -136,9 +136,9 @@ print(output)
 
 ## Loss Function and Model Training
 
-After the loss function `MAELoss` is customized, you can use the `train` API in the [Model](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.Model.html#mindspore.Model) API of MindSpore to train a model. When building a model, you need to transfer the feedforward network, loss function, and optimizer. The `Model` associates them internally to generate a network model that can be used for training.
+After the loss function `MAELoss` is customized, you can use the `train` API in the [Model](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.Model.html#mindspore.Model) API of MindSpore to train a model. When building a model, you need to transfer the feedforward network, loss function, and optimizer. The `Model` associates them internally to generate a network model that can be used for training.
 
-In `Model`, the feedforward network and loss function are associated through [nn.WithLossCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.WithLossCell.html#mindspore.nn.WithLossCell). `nn.WithLossCell` supports two inputs: `data` and `label`.
+In `Model`, the feedforward network and loss function are associated through [nn.WithLossCell](https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.WithLossCell.html#mindspore.nn.WithLossCell). `nn.WithLossCell` supports two inputs: `data` and `label`.
 
 ```python
 import mindspore as ms

@@ -1,6 +1,6 @@
 # Dimension Reduction Training Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/others/dimention_reduce_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/others/dimention_reduce_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -12,13 +12,13 @@ In view of the time-consuming  single-card training, this tutorial will use the 
 
 ## Preparation
 
->Download the complete sample code from: [dimension_reduce_training](https://gitee.com/mindspore/docs/tree/r1.9/docs/sample_code/dimension_reduce_training).
+>Download the complete sample code from: [dimension_reduce_training](https://gitee.com/mindspore/docs/tree/r1.10/docs/sample_code/dimension_reduce_training).
 >
 >The models library links referenced in the code: [models](https://gitee.com/mindspore/models).
 
 ### Configuring the Distributed Environment Variables
 
-When performing distributed training on the local Ascend processor, you need to configure the networking information file of the current multi-card environment. The json file of an 8-card environment is configured as follows, and the configuration file is named rank_table_8pcs.json. rank_table can be generated using the [hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.9/utils/hccl_tools/hccl_tools.py) below the models.
+When performing distributed training on the local Ascend processor, you need to configure the networking information file of the current multi-card environment. The json file of an 8-card environment is configured as follows, and the configuration file is named rank_table_8pcs.json. rank_table can be generated using the [hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.10/utils/hccl_tools/hccl_tools.py) below the models.
 
 ```json
 {
@@ -64,7 +64,7 @@ Used dataset: [ImageNet 2012](http://www.image-net.org/)
 
 ## First Stage: Regular Training
 
-> The main training sample code for the first phase: [train_stage_1.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_stage_1.py).
+> The main training sample code for the first phase: [train_stage_1.py](https://gitee.com/mindspore/docs/blob/r1.10/docs/sample_code/dimension_reduce_training/train_stage_1.py).
 
 ### Runtime Mode and Backend Device Settings
 
@@ -82,7 +82,7 @@ init()
 
 ### Loading the Dataset
 
-Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/dataset.py) in the `resnet` directory in the models.
+Image loading interface ImageFolderDataset is used to load the ImageNet 2012 dataset by using MindSpore. The dataset is processed through the data augmentation interface provided by MindSpore, and this part of the code is imported by [dataset.py](https://gitee.com/mindspore/models/blob/r1.10/official/cv/resnet/src/dataset.py) in the `resnet` directory in the models.
 
 ```python
 # define train dataset
@@ -94,7 +94,7 @@ step_size = ds_train.get_dataset_size()
 
 ### Defining the Network
 
-The build code for the ResNet-50 network is imported by [resnet.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/adasum/resnet.py).
+The build code for the ResNet-50 network is imported by [resnet.py](https://gitee.com/mindspore/docs/blob/r1.10/docs/sample_code/adasum/resnet.py).
 
 ```python
 # define net
@@ -106,9 +106,9 @@ init_weight(net=net)
 
 Define the loss functions loss and optimizer required by the model.
 
-Loss uses CrossEntropySmooth, imported by [CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/CrossEntropySmooth.py) in the `resnet` directory in ModelZoo.
+Loss uses CrossEntropySmooth, imported by [CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/r1.10/official/cv/resnet/src/CrossEntropySmooth.py) in the `resnet` directory in ModelZoo.
 
-The build code for the learning rate lr is imported by [lr_generator.py](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/src/lr_generator.py) in the `resnet` directory in the models.
+The build code for the learning rate lr is imported by [lr_generator.py](https://gitee.com/mindspore/models/blob/r1.10/official/cv/resnet/src/lr_generator.py) in the `resnet` directory in the models.
 
 ```python
 # define loss
@@ -175,7 +175,7 @@ if get_rank_id() == 0:
 
 After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
-1. Call the run script [run_stage_1.sh](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/run_stage_1.sh) to view the run results. Running the script requires a given dataset path, and the model is saved under device0_stage_1/checkpoint_stage_1 by default.
+1. Call the run script [run_stage_1.sh](https://gitee.com/mindspore/docs/blob/r1.10/docs/sample_code/dimension_reduce_training/run_stage_1.sh) to view the run results. Running the script requires a given dataset path, and the model is saved under device0_stage_1/checkpoint_stage_1 by default.
 
    ```bash
    bash run_stage_1.sh ./imagenet
@@ -206,7 +206,7 @@ After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
 Based on the weight file obtained in the first stage, in the Boost mode, we can realize the function of dimension reduction training by simply calling the dimension reduction training interface of mindspore.boost.
 
-> The main training sample code for the second phase: [train_boost_stage_2.py](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py).
+> The main training sample code for the second phase: [train_boost_stage_2.py](https://gitee.com/mindspore/docs/blob/r1.10/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py).
 
 The code for the second and first stages is essentially the same, and only the inconsistencies are described below.
 
@@ -282,7 +282,7 @@ model.train(2, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=Tr
 
 After 2 rounds of epoch, the accuracy on the test set is about 74.31%.
 
-1. Call the run script [run_stage_2.sh](https://gitee.com/mindspore/docs/blob/r1.9/docs/sample_code/dimension_reduce_training/run_stage_2.sh) to view the run results. Running the script requires a given dataset path. Weight file at the end of the first phase of training, and weight file saved in the second phase under device0_stage_2/checkpoint_stage_2 by default.
+1. Call the run script [run_stage_2.sh](https://gitee.com/mindspore/docs/blob/r1.10/docs/sample_code/dimension_reduce_training/run_stage_2.sh) to view the run results. Running the script requires a given dataset path. Weight file at the end of the first phase of training, and weight file saved in the second phase under device0_stage_2/checkpoint_stage_2 by default.
 
    ```bash
    bash run_stage_2.sh ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt

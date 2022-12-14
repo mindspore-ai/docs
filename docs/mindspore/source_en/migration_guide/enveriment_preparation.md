@@ -1,6 +1,6 @@
 # Environment Preparation and Information Acquisition
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ Network migration starts with the configuration of the MindSpore development env
 
 ## Installing MindSpore
 
-[MindSpore](https://www.mindspore.cn/tutorials/en/r1.9/beginner/introduction.html) is a full-scene deep learning framework, which currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices. Before installing MindSpore on Ascend and GPU, you need to configure the corresponding runtime environment.
+[MindSpore](https://www.mindspore.cn/tutorials/en/r1.10/beginner/introduction.html) is a full-scene deep learning framework, which currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices. Before installing MindSpore on Ascend and GPU, you need to configure the corresponding runtime environment.
 
 > MindSpore Ascend supports AI training (910), inference cards (310 and 310P) and training servers on various Atlas series chips, etc. Note that MindSpore version needs to be used with Ascend AI processor package. For example, MindSpore 1.8.1 must be used with Ascend package commercial version 22.0.RC2 or CANN Community version 5.1.RC2.alpha008. There may be problems with other versions. Please refer to the "Installing Ascend AI Processor Package" section in the MindSpore Ascend Version Installation Guide for more details.
 >
@@ -34,7 +34,7 @@ According to the operating system and computing hardware you are using, choose t
 
 At present, there are 300+ model implementations, among which the network under the official directory is the official network, with some optimization for the model implementation. Most of the models under the research directory are the models of Zongzhi, with certain guarantee of accuracy and performance. The community directory is the code contributed by developers, which has not been maintained yet and is for reference only.
 
-[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform for storing pre-trained models provided by MindSpore official or third-party developers. It provides easy-to-use model loading and fine-tuning APIs to application developers, enabling users to make inference or fine-tuning based on pre-trained models and deploy them to their own applications. Users can also follow the specified steps on [Publish Model](https://www.mindspore.cn/hub/docs/en/r1.9/publish_model.html), publishing their trained models into MindSpore Hub for other users to download and use.
+[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform for storing pre-trained models provided by MindSpore official or third-party developers. It provides easy-to-use model loading and fine-tuning APIs to application developers, enabling users to make inference or fine-tuning based on pre-trained models and deploy them to their own applications. Users can also follow the specified steps on [Publish Model](https://www.mindspore.cn/hub/docs/en/r1.10/publish_model.html), publishing their trained models into MindSpore Hub for other users to download and use.
 
 The [Download Center](https://download.mindspore.cn/model_zoo/) saves the parameter files of the trained models in the models bin, where users can download the corresponding parameter files for development.
 

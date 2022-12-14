@@ -1,6 +1,6 @@
 # Operators Compile
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicating that the data volume is large. What can I do?**</font>
 
@@ -40,7 +40,7 @@ A: The `Conv2d` operator has the following constraint: When the value of `group`
 
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
-A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/r1.9/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/r1.10/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 <br/>
 
@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.10/note/static_graph_syntax_support.html).
 
 <br/>
 
@@ -71,13 +71,13 @@ A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/r1.9/operation/op_custom.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/r1.10/operation/op_custom.html).
 
 <br/>
 
 <font size=3>**Q: What should I do if other operations can not be performed on Ascend environment when training a model？**</font>
 
-A: It may because the computer recourses if fulled when operators compilation. Try to use the environment variable `MS_BUILD_PROCESS_NUM` to reduce the parallel number of operator compilation. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r1.9/env/env_var_list.html).
+A: It may because the computer recourses if fulled when operators compilation. Try to use the environment variable `MS_BUILD_PROCESS_NUM` to reduce the parallel number of operator compilation. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r1.10/env/env_var_list.html).
 
 <br/>
 
@@ -87,7 +87,7 @@ A: In this case,
 
 1. Make sure if these operators are fusion operators, and then suing the environment variable `export MS_DEV_DISABLE_PREBUILD=True` to close the operator fusion. The operator pre-compiling may change the value of operator's attribute `fusion_type`, the attr will affect the fusion of operator. The performance of the fused operator is not necessarily better than that of small operator.
 
-2. If these operators are not fusion operators, using the environment variable `MS_COMPILER_OP_LEVEL` to generate the operator debug info, and then ask the operator developer for help. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r1.9/env/env_var_list.html).
+2. If these operators are not fusion operators, using the environment variable `MS_COMPILER_OP_LEVEL` to generate the operator debug info, and then ask the operator developer for help. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r1.10/env/env_var_list.html).
 
 <br/>
 
@@ -114,4 +114,4 @@ A: The `Ascend` backend operators can be divided into AI CORE operators and AI C
 1. If the `AI CORE` operator's candidates list is empty, it may be that all operator information failed to pass the verification in the `check support` stage. You can search the keyword `CheckSupport` in the log to find the reason for the failure. Modify the shape or data type according to the specific information, or ask the developer to further locate the problem.
 2. If the `AI CPU` candidate operator information is not empty, or the candidate operator information of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
 
-You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/en/r1.9/advanced/compute_graph/mode.html).
+You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/en/r1.10/advanced/compute_graph/mode.html).

@@ -1,6 +1,6 @@
 # 算子增量编译
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_zh_cn/debug/op_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/debug/op_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## 概述
 

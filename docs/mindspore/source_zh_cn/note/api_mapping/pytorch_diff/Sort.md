@@ -1,6 +1,6 @@
 # 比较与torch.argsort的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Sort.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Sort.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.argsort
 
@@ -23,7 +23,7 @@ class mindspore.ops.Sort(
 )(x)
 ```
 
-更多内容详见 [mindspore.ops.Sort](https://mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort)。
+更多内容详见 [mindspore.ops.Sort](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort)。
 
 ## 使用方式
 

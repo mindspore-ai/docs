@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.scatter_add_的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ScatterNdAdd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ScatterNdAdd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.Tensor.scatter_add_
 
@@ -24,7 +24,7 @@ class mindspore.ops.ScatterNdAdd(use_locking=False)(
 )
 ```
 
-更多内容详见[mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd)。
+更多内容详见[mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd)。
 
 ## 使用方式
 

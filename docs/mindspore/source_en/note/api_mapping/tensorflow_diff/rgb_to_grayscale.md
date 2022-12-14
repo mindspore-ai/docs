@@ -1,6 +1,6 @@
 # Function Differences with tf.image.rgb_to_grayscale
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/rgb_to_grayscale.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/rgb_to_grayscale.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## tf.image.rgb_to_grayscale
 
@@ -21,7 +21,7 @@ class mindspore.dataset.vision.ConvertColor(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.ConvertColor](https://mindspore.cn/docs/en/r1.9/api_python/dataset_vision/mindspore.dataset.vision.ConvertColor.html#mindspore.dataset.vision.ConvertColor).
+For more information, see [mindspore.dataset.vision.ConvertColor](https://mindspore.cn/docs/en/r1.10/api_python/dataset_vision/mindspore.dataset.vision.ConvertColor.html#mindspore.dataset.vision.ConvertColor).
 
 ## Differences
 

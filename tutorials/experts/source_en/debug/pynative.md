@@ -1,6 +1,6 @@
 # Applying PyNative Mode
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/debug/pynative.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/debug/pynative.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 In PyNative mode, MindSpore supports the execution of single operators, ordinary functions and networks, as well as the operation of individual gradients. Below we will introduce the use of these operations and considerations in detail through sample code.
 
@@ -19,7 +19,7 @@ ms.set_context(mode=ms.PYNATIVE_MODE)
 
 ### Executing Single Operators
 
-The following is example code of executing Add operator [mindspore.ops.Add](https://mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add):
+The following is example code of executing Add operator [mindspore.ops.Add](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add):
 
 ```python
 add = ops.Add()

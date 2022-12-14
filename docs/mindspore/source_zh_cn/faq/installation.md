@@ -1,6 +1,6 @@
 # 安装
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## Pip安装
 
@@ -218,7 +218,7 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
 2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考[CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)。
 
    > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
-3. 参考[Docker镜像](https://gitee.com/mindspore/mindspore/blob/r1.9/README_CN.md#docker%E9%95%9C%E5%83%8F)，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
+3. 参考[Docker镜像](https://gitee.com/mindspore/mindspore/blob/r1.10/README_CN.md#docker%E9%95%9C%E5%83%8F)，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
 
     ```docker
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
@@ -255,7 +255,7 @@ A: MindSpore GPU模式一般无需设置`DEVICE_ID`环境变量，MindSpore会�
 
 <font size=3>**Q: 编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
 
-A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/infer/ascend_310_mindir.html#编译推理代码)。
+A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/infer/ascend_310_mindir.html#编译推理代码)。
 
 <br/>
 

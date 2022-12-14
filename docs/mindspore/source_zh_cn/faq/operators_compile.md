@@ -1,6 +1,6 @@
 # 算子编译
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？**</font>
 
@@ -40,7 +40,7 @@ A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必
 
 <font size=3>**Q: MindSpore支持矩阵转置吗？**</font>
 
-A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
@@ -59,7 +59,7 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 <font size=3>**Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？**</font>
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.9/note/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.10/note/static_graph_syntax_support.html)。
 
 <br/>
 
@@ -71,13 +71,13 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 <font size=3>**Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/operation/op_custom.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/operation/op_custom.html)。
 
 <br/>
 
 <font size=3>**Q: Ascend环境，训练模型的时候，遇到了无法在当前环境上进行其他操作怎么办？**</font>
 
-A: 遇到这种情况，可能是由于算子并行编译的时候把资源占满了。这时候可以尝试配置环境变量`MS_BUILD_PROCESS_NUM`，减小算子编译并行数，减小对当前环境的资源抢占。具体配置信息请参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/env/env_var_list.html)。
+A: 遇到这种情况，可能是由于算子并行编译的时候把资源占满了。这时候可以尝试配置环境变量`MS_BUILD_PROCESS_NUM`，减小算子编译并行数，减小对当前环境的资源抢占。具体配置信息请参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/env/env_var_list.html)。
 
 <br/>
 
@@ -87,7 +87,7 @@ A: 遇到这种情况，
 
 1. 看一下这些算子是否为融合算子，如果是融合算子，可以尝试使用环境变量`export MS_DEV_DISABLE_PREBUILD=True`来关闭算子预编译。因为算子预编译可能会改变算子的fusion_type属性，而该属性会影响算子的融合，导致原本不应该融合的小算子融合成了大算子，这些融合出来的大算子性能不一定比小算子性能好。
 
-2. 其次，如果排除了上述融合算子的影响，可以尝试使用环境变量`MS_COMPILER_OP_LEVEL`来生成算子编译的debug调试信息，然后找算子开发人员根据这些调试信息进一步定位，具体配置信息可以参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/env/env_var_list.html)。
+2. 其次，如果排除了上述融合算子的影响，可以尝试使用环境变量`MS_COMPILER_OP_LEVEL`来生成算子编译的debug调试信息，然后找算子开发人员根据这些调试信息进一步定位，具体配置信息可以参考[环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/env/env_var_list.html)。
 
 <br/>
 
@@ -115,4 +115,4 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
-用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/r1.9/advanced/compute_graph/mode.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/r1.10/advanced/compute_graph/mode.html)选择合适、统一的模式和写法来完成训练。

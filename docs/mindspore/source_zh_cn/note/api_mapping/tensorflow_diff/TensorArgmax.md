@@ -1,6 +1,6 @@
 # 比较与tf.arg_max的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/TensorArgmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/TensorArgmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.arg_max
 
@@ -16,7 +16,7 @@ tf.arg_max(input, dimension, output_type=tf.dtypes.int64, name=None)
 mindspore.Tensor.argmax(axis=None)
 ```
 
-更多内容详见[mindspore.Tensor.argmax](https://mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax)。
+更多内容详见[mindspore.Tensor.argmax](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax)。
 
 ## 使用方式
 

@@ -1,6 +1,6 @@
 # Function Differences with tf.image.pad_to_bounding_box
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/pad_to_bounding_box.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/pad_to_bounding_box.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## tf.image.pad_to_bounding_box
 
@@ -26,7 +26,7 @@ class mindspore.dataset.vision.Pad(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.Pad](https://mindspore.cn/docs/en/r1.9/api_python/dataset_vision/mindspore.dataset.vision.Pad.html#mindspore.dataset.vision.Pad).
+For more information, see [mindspore.dataset.vision.Pad](https://mindspore.cn/docs/en/r1.10/api_python/dataset_vision/mindspore.dataset.vision.Pad.html#mindspore.dataset.vision.Pad).
 
 ## Differences
 

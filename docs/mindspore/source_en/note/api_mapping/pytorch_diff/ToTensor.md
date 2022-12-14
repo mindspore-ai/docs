@@ -1,6 +1,6 @@
 # Function differences with torchvision.transforms.ToTensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToTensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToTensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.transforms.ToTensor
 
@@ -18,7 +18,7 @@ class mindspore.dataset.vision.ToTensor(
     )
 ```
 
-For more information, see [mindspore.dataset.vision.ToTensor](https://mindspore.cn/docs/en/r1.9/api_python/dataset_vision/mindspore.dataset.vision.ToTensor.html#mindspore.dataset.vision.ToTensor).
+For more information, see [mindspore.dataset.vision.ToTensor](https://mindspore.cn/docs/en/r1.10/api_python/dataset_vision/mindspore.dataset.vision.ToTensor.html#mindspore.dataset.vision.ToTensor).
 
 ## Differences
 

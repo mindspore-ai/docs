@@ -204,7 +204,7 @@ except:
 # Repair error content defined in mindspore.
 try:
     decorator_list = [("mindspore/ops/function/math_func.py","modify url",
-                       "https://www.mindspore.cn/docs/api/en/r1.9/api_python/mindspore.html#mindspore.dtype","https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.html#mindspore.dtype"),
+                       "https://www.mindspore.cn/docs/api/en/r1.10/api_python/mindspore.html#mindspore.dtype","https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.html#mindspore.dtype"),
                       ("mindspore/nn/cell.py","modify url",
                        ":class:`mindspore.nn.ReLU` and :class:`mindspore.nn.BatchNorm`","and :class:`mindspore.nn.ReLU`")]
 

@@ -1,6 +1,6 @@
 # Debugging and Tuning
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/debug_and_tune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/debug_and_tune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Function Debugging
 
@@ -105,15 +105,15 @@ The parameters of MindSpore and PyTorch are similar except BatchNorm. Note that 
 
 ### 2. Model Verification
 
-The implementation of the model algorithm is irrelevant to the framework. The trained parameters can be converted into the [checkpoint](https://www.mindspore.cn/tutorials/en/r1.9/beginner/save_load.html) file of MindSpore and loaded to the network for inference verification.
+The implementation of the model algorithm is irrelevant to the framework. The trained parameters can be converted into the [checkpoint](https://www.mindspore.cn/tutorials/en/r1.10/beginner/save_load.html) file of MindSpore and loaded to the network for inference verification.
 
-For details about the model verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.9/migration_guide/sample_code.html#model-validation).
+For details about the model verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.10/migration_guide/sample_code.html#model-validation).
 
 ### 3. Inference Verification
 
 After confirming that the model structures are the same, you are advised to perform inference verification again. In addition to models, the entire inference process also involves datasets and metrics. When the inference results are inconsistent, you can use the control variable method to gradually rectify the fault.
 
-For details about the inference verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.9/migration_guide/sample_code.html#inference-process).
+For details about the inference verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.10/migration_guide/sample_code.html#inference-process).
 
 ### 4. Training Accuracy
 
@@ -148,7 +148,7 @@ train_net = nn.TrainOneStepWithLossScaleCell(net_with_loss, optimizer=opt, scale
 model = ms.Model(network=train_net)
 ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.9/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r1.9/debug/dump.html) of MindInsight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.10/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r1.10/debug/dump.html) of MindInsight to check why overflow occurs.
 
 ```python
 import numpy as np
@@ -188,7 +188,7 @@ for i, data in enumerate(iterator):
 ```
 
 - Check the optimizer, loss, and parameter initialization. In addition to the model and dataset, only the optimizer, loss, and parameter initialization are added in the entire training process. If the training is abnormal, check the optimizer, loss, and parameter initialization. Especially for loss and parameter initialization, there is a high probability that the problem occurs.
-- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/r1.9/migration_guide/model_development/training_and_gradient.html#customizing-training-cell).
+- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/r1.10/migration_guide/model_development/training_and_gradient.html#customizing-training-cell).
 
 ```python
 import mindspore as ms
@@ -197,7 +197,7 @@ ms.set_seed(1) # The random seeds of MindSpore, NumPy, and dataset are fixed. Th
 
 - Check whether the data processing meets the expectation through visualization. Focus on data shuffle and check whether data mismatch occurs.
 
-For details about more accuracy debugging policies, see [Accuracy Debugging](https://mindspore.cn/mindinsight/docs/en/r1.9/accuracy_problem_preliminary_location.html).
+For details about more accuracy debugging policies, see [Accuracy Debugging](https://mindspore.cn/mindinsight/docs/en/r1.10/accuracy_problem_preliminary_location.html).
 
 ## Performance Tuning
 
@@ -208,9 +208,9 @@ The performance tuning directions are as follows:
 3. Multi-Node synchronization performance tuning
 4. Data processing performance tuning
 
-For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.9/migration_guide/sample_code.html).
+For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r1.10/migration_guide/sample_code.html).
 
-> Some networks are large or there are many [process control statements](https://www.mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/r1.9/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
+> Some networks are large or there are many [process control statements](https://www.mindspore.cn/tutorials/experts/en/r1.10/network/control_flow.html). In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/r1.10/debug/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
 
 ### Operator Performance Tuning
 
@@ -221,7 +221,7 @@ If a single operator takes a long time and the performance of the same operator 
 1. Use data types with less computational workload. For example, if there is no obvious difference between the precision of the same operator in float16 and float32 modes, you can use the float16 format with less calculation workload.
 2. Use other operators with the same algorithm to avoid this problem.
 3. Pay attention to 16-alignment in the Ascend environment. Due to the design of the Ascend AI Processors, it is recommended that the calculation on the AI core be 16-alignment (each dimension in the shape is a multiple of 16).
-4. [Operator Tuning](https://mindspore.cn/tutorials/experts/en/r1.9/debug/auto_tune.html).
+4. [Operator Tuning](https://mindspore.cn/tutorials/experts/en/r1.10/debug/auto_tune.html).
 
 If you find an operator with poor performance, you are advised to contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback. We will optimize the operator in time after confirming that the problem is caused by poor performance.
 
@@ -239,7 +239,7 @@ You only need to set `dataset_sink_mode=True` in `model.train`. Note that this c
 
 The mixed precision training method accelerates the deep neural network training process by mixing the single-precision floating-point data format and the half-precision floating-point data format without compromising the network accuracy. Mixed precision training can accelerate the computing process, reduce memory usage and retrieval, and enable a larger model or batch size to be trained on specific hardware.
 
-For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/experts/en/r1.9/others/mixed_precision.html).
+For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/experts/en/r1.10/others/mixed_precision.html).
 
 #### Enabling Graph Kernel Fusion
 
@@ -253,14 +253,14 @@ If there are too many conversion operators (TransData and Cast operators) and th
 
 If there are too many conversion operators automatically generated by MindSpore, the MindSpore framework may not be fully optimized for some special cases. In this case, contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
 
-In [dynamic shape scenario](https://www.mindspore.cn/docs/en/r1.9/migration_guide/analysis_and_preparation.html), continuous graph build is required, which may cause a long end-to-end training time. You are advised to [avoid dynamic shape](https://www.mindspore.cn/docs/en/r1.9/migration_guide/model_development/model_and_loss.html).
+In [dynamic shape scenario](https://www.mindspore.cn/docs/en/r1.10/migration_guide/analysis_and_preparation.html), continuous graph build is required, which may cause a long end-to-end training time. You are advised to [avoid dynamic shape](https://www.mindspore.cn/docs/en/r1.10/migration_guide/model_development/model_and_loss.html).
 
 ### Multi-Node Synchronization Performance Tuning
 
 During distributed training, after forward propagation and gradient calculation are complete in a step training process, each machine starts to perform AllReduce gradient synchronization. The AllReduce synchronization time is mainly affected by the number of weights and machines. For a more complex network with a larger machine scale, the AllReduce gradient update time is longer. In this case, you can perform AllReduce segmentation to reduce the time consumption.
 
 In normal cases, AllReduce gradient synchronization waits until all backward operators are executed. That is, after the gradient of all gradients is calculated, the gradients of all machines are synchronized at a time. After AllReduce segmentation is used, the gradients of some weights can be calculated, gradient synchronization of this part of weights is immediately performed. In this way, gradient synchronization and gradient calculation of remaining operators can be performed concurrently, and this part of AllReduce gradient synchronization time is hidden. The shard strategy is usually manually tried to find an optimal solution (more than two shards are supported).
-The [ResNet-50](https://gitee.com/mindspore/models/blob/r1.9/official/cv/resnet/train.py) is used as an example. The network has 160 weights. [85, 160] indicates that gradient synchronization is performed immediately after the gradients of weights 0 to 85 are calculated, and gradient synchronization is performed after the gradients of weights 86 to 160 are calculated. The network is divided into two shards. Therefore, gradient synchronization needs to be performed twice. The sample code is as follows:
+The [ResNet-50](https://gitee.com/mindspore/models/blob/r1.10/official/cv/resnet/train.py) is used as an example. The network has 160 weights. [85, 160] indicates that gradient synchronization is performed immediately after the gradients of weights 0 to 85 are calculated, and gradient synchronization is performed after the gradients of weights 86 to 160 are calculated. The network is divided into two shards. Therefore, gradient synchronization needs to be performed twice. The sample code is as follows:
 
 ```python
 import os
@@ -280,7 +280,7 @@ if rank_size > 1:
     init()
 ```
 
-For details, see [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.9/performance_profiling_of_cluster.html).
+For details, see [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_of_cluster.html).
 
 ### Data Processing Performance Tuning
 
@@ -288,6 +288,6 @@ The performance jitter of a single step and the empty data queue for a period of
 
 When the data processing speed is slow, the empty queue is gradually consumed from the beginning when the queue is full. The training process starts to wait for the empty queue to fill in data. Once new data is filled in, the network continues single-step training. Because no queue is used as the buffer for data processing, the performance jitter of data processing is directly reflected by the performance of a single step. Therefore, the performance jitter of a single step is also caused.
 
-For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/r1.9/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindInsight. This describes common data performance problems and solutions.
+For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindInsight. This describes common data performance problems and solutions.
 
-For more performance debugging methods, see [Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r1.9/debug/performance_optimization.html).
+For more performance debugging methods, see [Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r1.10/debug/performance_optimization.html).

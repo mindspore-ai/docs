@@ -1,6 +1,6 @@
 # 比较与tf.math.reduce_std的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/TensorStd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/TensorStd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## tf.math.reduce_std
 
@@ -16,7 +16,7 @@ tf.math.reduce_std(input_tensor, axis=None, keepdims=False, name=None)
  mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.Tensor.std](https://mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std)。
+更多内容详见[mindspore.Tensor.std](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std)。
 
 ## 使用方式
 

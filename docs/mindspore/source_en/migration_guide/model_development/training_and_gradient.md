@@ -1,19 +1,19 @@
 # Network Training and Gadient Derivation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/training_and_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/model_development/training_and_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 ## Automatic Differentiation
 
-After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/r1.9/beginner/autograd.html) to calculate the gradient results of the model.
-In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/r1.9/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
+After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/r1.10/beginner/autograd.html) to calculate the gradient results of the model.
+In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/r1.10/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
 
 ## Network Training
 
 The entire training network consists of the forward network (network and loss function), automatic gradient derivation and optimizer update. MindSpore provides three ways to implement this process.
 
-1. Encapsulate `model` and perform network training by using `model.train` or `model.fit`, such as [model training](https://mindspore.cn/tutorials/en/r1.9/beginner/train.html).
+1. Encapsulate `model` and perform network training by using `model.train` or `model.fit`, such as [model training](https://mindspore.cn/tutorials/en/r1.10/beginner/train.html).
 
-2. Apply the encapsulated [TrainOneStepCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) separately to common training process and training process with [loss_scale](https://www.mindspore.cn/tutorials/experts/en/r1.9/others/mixed_precision.html), such as [Quick Start: Linear Fitting](https://mindspore.cn/tutorials/en/r1.9/beginner/quick_start.html).
+2. Apply the encapsulated [TrainOneStepCell](https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) separately to common training process and training process with [loss_scale](https://www.mindspore.cn/tutorials/experts/en/r1.10/others/mixed_precision.html), such as [Quick Start: Linear Fitting](https://mindspore.cn/tutorials/en/r1.10/beginner/quick_start.html).
 
 3. Customize training Cell.
 
@@ -120,4 +120,4 @@ class MyTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 Gradient accumulation is a method that data samples of the training neural network are split into several small Batch  by Batch, and are calculated in order to solve the problem that Batch size is too large due to lack of memory, or the OOM, that is, the neural network can not be trained or the network model is too large to load.
 
-Please refer to [Gradient Accumulation](https://mindspore.cn/tutorials/experts/en/r1.9/others/gradient_accumulation.html) for details.
+Please refer to [Gradient Accumulation](https://mindspore.cn/tutorials/experts/en/r1.10/others/gradient_accumulation.html) for details.

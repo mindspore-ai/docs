@@ -1,6 +1,6 @@
 # Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/compute_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/compute_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (Graph) and a dynamic graph mode (PyNative).
 
@@ -12,7 +12,7 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 MindSpore provides a unified encoding mode for static and dynamic graphs, significantly enhancing compatibility between both types of graphs. This enables you to switch between the static and dynamic graph modes by changing only one line of code, eliminating the need to develop multiple sets of code. By default, MindSpore uses the static graph mode, and the dynamic graph mode is used for debugging.
 
-> When switching the running mode from dynamic graph to static graph, pay attention to the [static graph syntax support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html).
+> When switching the running mode from dynamic graph to static graph, pay attention to the [static graph syntax support](https://www.mindspore.cn/docs/en/r1.10/note/static_graph_syntax_support.html).
 
 ### Mode Selection
 
@@ -62,7 +62,7 @@ print(net(x, y))
     [5. 7. 9.]
 ```
 
-When MindSpore is in static graph mode, you can switch to the dynamic graph mode by setting `mode=ms.PYNATIVE_MODE`. Similarly, when MindSpore is in dynamic graph mode, you can switch to the static graph mode by setting`mode=ms.GRAPH_MODE`. Pay attention to [static graph syntax support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html).
+When MindSpore is in static graph mode, you can switch to the dynamic graph mode by setting `mode=ms.PYNATIVE_MODE`. Similarly, when MindSpore is in dynamic graph mode, you can switch to the static graph mode by setting`mode=ms.GRAPH_MODE`. Pay attention to [static graph syntax support](https://www.mindspore.cn/docs/en/r1.10/note/static_graph_syntax_support.html).
 
 ```python
 ms.set_context(mode=ms.PYNATIVE_MODE)
@@ -79,13 +79,13 @@ print(net(x, y))
 
 In MindSpore, the static graph mode is also called the Graph mode, which is applicable to scenarios where the network is fixed and high performance is required. You can set the input parameter `mode` to `GRAPH_MODE` in the `set_context` API to set the static graph mode.
 
-In static graph mode, the compiler can perform global optimization on graphs based on technologies such as graph optimization and entire computational graph offloading. Therefore, good performance can be obtained when the compiler is executed in static graph mode. However, the execution graph is converted from the source code. Therefore, not all Python syntax is supported in static graph mode. There are some special constraints. For details about the support, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.9/note/static_graph_syntax_support.html).
+In static graph mode, the compiler can perform global optimization on graphs based on technologies such as graph optimization and entire computational graph offloading. Therefore, good performance can be obtained when the compiler is executed in static graph mode. However, the execution graph is converted from the source code. Therefore, not all Python syntax is supported in static graph mode. There are some special constraints. For details about the support, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.10/note/static_graph_syntax_support.html).
 
 ### Execution Principle of the Static Graph Mode
 
 In static graph mode, MindSpore converts the Python source code into an intermediate representation (IR), optimizes the IR graph based on the IR, and executes the optimized graph on the hardware device.
 
-MindSpore uses a graph-based functional IR called MindIR. The static graph mode is built and optimized based on MindIR. When using the static graph mode, you need to use the [nn.Cell](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) class and writ execution code in the `construct` function.
+MindSpore uses a graph-based functional IR called MindIR. The static graph mode is built and optimized based on MindIR. When using the static graph mode, you need to use the [nn.Cell](https://mindspore.cn/docs/en/r1.10/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) class and writ execution code in the `construct` function.
 
 ### Code Example in Static Graph Mode
 
@@ -119,7 +119,7 @@ print(net(x, y))
 
 ### Control Flow in Static Graph Mode
 
-For details about control flows in static graph mode, see [Process Control Statements](https://mindspore.cn/tutorials/experts/en/r1.9/network/control_flow.html).
+For details about control flows in static graph mode, see [Process Control Statements](https://mindspore.cn/tutorials/experts/en/r1.10/network/control_flow.html).
 
 ## Dynamic Graph
 
@@ -213,7 +213,7 @@ print(output)
      [4.5099998 2.7       3.6000001]]
 ```
 
-> The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/r1.9/advanced/derivation.html#).
+> The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/r1.10/advanced/derivation.html#).
 
 ![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/compute_graph/images/forward_backward.png)
 

@@ -1,16 +1,16 @@
 # Constructing Dataset
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/migration_guide/model_development/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/model_development/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
 This chapter focuses on considerations related to data processing in network migration. For basic data processing, please refer to:
 
-[Data Processing](https://www.mindspore.cn/tutorials/en/r1.9/beginner/dataset.html)
+[Data Processing](https://www.mindspore.cn/tutorials/en/r1.10/beginner/dataset.html)
 
-[Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/augment.html)
+[Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/augment.html)
 
-[Lightweight Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/eager.html)
+[Lightweight Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/eager.html)
 
-[Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/optimize.html)
+[Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/optimize.html)
 
 ## Basic Process of Data Construction
 
@@ -22,14 +22,14 @@ MindSpore provides interfaces for loading many common datasets. The most used on
 
 | Data Interfaces | Introduction |
 | -------| ---- |
-| [Cifar10Dataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset) | Cifar10 dataset read interface (you need to download the original bin file of Cifar10) |
-| [MNIST](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset) | Minist handwritten digit recognition dataset (you need to download the original file) |
-| [ImageFolderDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) | Dataset reading method of using file directories as the data organization format for classification (common for ImageNet) |
-| [MindDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset) | MindRecord data read interface |
-| [GeneratorDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html) | customized data interface |
-| [FakeImageDataset](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.FakeImageDataset.html) | Constructing a fake image dataset |
+| [Cifar10Dataset](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset) | Cifar10 dataset read interface (you need to download the original bin file of Cifar10) |
+| [MNIST](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset) | Minist handwritten digit recognition dataset (you need to download the original file) |
+| [ImageFolderDataset](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) | Dataset reading method of using file directories as the data organization format for classification (common for ImageNet) |
+| [MindDataset](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset) | MindRecord data read interface |
+| [GeneratorDataset](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.GeneratorDataset.html) | customized data interface |
+| [FakeImageDataset](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.FakeImageDataset.html) | Constructing a fake image dataset |
 
-For common dataset interfaces in different fields, refer to [Loading interfaces to common datasets](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.html).
+For common dataset interfaces in different fields, refer to [Loading interfaces to common datasets](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.html).
 
 #### GeneratorDataset, A Custom Dataset
 
@@ -111,7 +111,7 @@ print(dataset.get_dataset_size())
 
 ### Data Processing and Augmentation
 
-MindSpore dataset object uses the map interface for data augmentation. See [map Interface](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)
+MindSpore dataset object uses the map interface for data augmentation. See [map Interface](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)
 
 ```text
 map(operations, input_columns=None, output_columns=None, column_order=None, num_parallel_workers=None, python_multiprocessing=False, cache=None, callbacks=None, max_rowsize=16, offload=None)
@@ -125,9 +125,9 @@ The column name of output column in the last data augmentation is specified by `
 
 The above introduction may be tedious, but in short, `map` is to do the operations specified in `operations` on some columns of the dataset. Here `operations` can be the data augmentation provided by MindSpore.
 
-[audio](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.audio.html), [text](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.text.html), [vision](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.vision.html), and [transforms](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore.dataset.transforms.html). For more details, refer to [Data Transforms](https://www.mindspore.cn/tutorials/en/r1.9/beginner/transforms.html), which is also a method of python. You can use opencv, PIL, pandas and some other third party methods, like loading dataset. **Don't use MindSpore operators**.
+[audio](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.audio.html), [text](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.text.html), [vision](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.vision.html), and [transforms](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.dataset.transforms.html). For more details, refer to [Data Transforms](https://www.mindspore.cn/tutorials/en/r1.10/beginner/transforms.html), which is also a method of python. You can use opencv, PIL, pandas and some other third party methods, like loading dataset. **Don't use MindSpore operators**.
 
-MindSpore also provides some common random augmentation methods: [Auto augmentation](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/augment.html). When using data augmentation specifically, it is best to read [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.9/dataset/optimize.html) in the recommended order.
+MindSpore also provides some common random augmentation methods: [Auto augmentation](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/augment.html). When using data augmentation specifically, it is best to read [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/optimize.html) in the recommended order.
 
 At the end of data augmentation, you can use the batch operator to merge `batch_size` pieces of consecutive data in the dataset into a single batch data. For details, please refer to [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch). Note that the parameter `drop_remainder` needs to be set to True during training and False during inference.
 
@@ -150,13 +150,13 @@ print(dataset.get_dataset_size())
 32
 ```
 
-The batch operator can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/r1.9/official/cv/yolov3_darknet53/src/yolo_dataset.py#L177).
+The batch operator can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/r1.10/official/cv/yolov3_darknet53/src/yolo_dataset.py#L177).
 
 ## Data Iteration
 
 MindSpore data objects are obtained iteratively in the following ways.
 
-### [create_dict_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_dict_iterator)
+### [create_dict_iterator](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_dict_iterator)
 
 Creates an iterator based on the dataset object, and the output data is of dictionary type.
 
@@ -180,7 +180,7 @@ label (10,)
 ====================
 ```
 
-### [create_tuple_iterator](https://www.mindspore.cn/docs/en/r1.9/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_tuple_iterator)
+### [create_tuple_iterator](https://www.mindspore.cn/docs/en/r1.10/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.create_tuple_iterator)
 
 Create an iterator based on the dataset object, and output data is a list of `numpy.ndarray` data.
 

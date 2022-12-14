@@ -1,6 +1,6 @@
 # 比较与torch.nn.Module.buffers的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/UnTrainableParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/UnTrainableParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Module.buffers
 
@@ -16,7 +16,7 @@ torch.nn.Module.buffers(recurse=True)
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
-更多内容详见[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params)。
+更多内容详见[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params)。
 
 ## 使用方式
 
