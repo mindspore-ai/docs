@@ -263,7 +263,7 @@ ansatz_circuit, \
 init_amplitudes, \
 ansatz_parameter_names, \
 hamiltonian_QubitOp, \
-n_qubits, n_electrons = generate_uccsd(molecule_file, th=-1)
+n_qubits, n_electrons = generate_uccsd(molecule_file, threshold=-1)
 ```
 
 ```bash
