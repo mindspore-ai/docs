@@ -14,6 +14,7 @@ MindSpore Lite文档
  
 	use/downloads
 	use/build
+	use/cloud_infer/build
  
 .. toctree::
    :glob:
@@ -22,17 +23,6 @@ MindSpore Lite文档
    :hidden:
 
    quick_start/one_hour_introduction
-   quick_start/quick_start_cpp
-   quick_start/quick_start_server_inference_cpp
-   quick_start/quick_start_java
-   quick_start/quick_start_server_inference_java
-   quick_start/quick_start_python
-   quick_start/quick_start_server_inference_python
-   quick_start/quick_start_c
-   quick_start/quick_start
-   quick_start/image_segmentation
-   quick_start/train_lenet
-   quick_start/train_lenet_java
 
 .. toctree::
    :glob:
@@ -40,6 +30,7 @@ MindSpore Lite文档
    :caption: 端侧推理
    :hidden:
 
+   device_infer_example
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -52,20 +43,13 @@ MindSpore Lite文档
    :caption: 端侧训练
    :hidden:
 
+   device_train_example
    use/runtime_train
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 服务端推理
-   :hidden:
-
-   use/runtime_server_inference
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 第三方接入
+   :caption: 端侧第三方接入
    :hidden:
 
    use/register
@@ -74,7 +58,7 @@ MindSpore Lite文档
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 其他工具
+   :caption: 端侧工具
    :hidden:
 
    use/converter
@@ -82,6 +66,31 @@ MindSpore Lite文档
    use/cropper_tool
    use/visual_tool
    use/obfuscator_tool
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 云侧推理
+   :hidden:
+
+   cloud_infer/quick_start_java
+   cloud_infer/quick_start_python
+   cloud_infer/runtime_cpp
+   cloud_infer/runtime_java
+   quick_start/quick_start_server_inference_cpp
+   quick_start/quick_start_server_inference_java
+   quick_start/quick_start_server_inference_python
+   use/runtime_server_inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 云侧工具
+   :hidden:
+   
+   cloud_infer/converter_tool
+   cloud_infer/converter_python
+   cloud_infer/benchmark_tool
 
 .. toctree::
    :glob:
