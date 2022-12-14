@@ -20,7 +20,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 ![img](../../images/lite_runtime.png)
 
-> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行云侧推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp_extendrt.html)。
+> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行云侧推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
 
 ## 构建与运行
 
