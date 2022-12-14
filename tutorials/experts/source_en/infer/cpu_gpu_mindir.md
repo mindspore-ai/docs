@@ -1,4 +1,4 @@
-# Inference on a GPU/CPU
+# Inference on a GPU
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/experts/source_en/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
 
