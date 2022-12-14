@@ -101,53 +101,53 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
     - MindSpore模型`model.mindir`
 
-      ```bash
-      ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
-      ```
+        ```bash
+        ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
+        ```
 
-     > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
+        > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
 
     - TensorFlow Lite模型`model.tflite`
 
-      ```bash
-      ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
-      ```
+        ```bash
+        ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
+        ```
 
     - TensorFlow模型`model.pb`
 
-      ```bash
-      ./converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
-      ```
+        ```bash
+        ./converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
+        ```
 
     - ONNX模型`model.onnx`
 
-      ```bash
-      ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
-      ```
+        ```bash
+        ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
+        ```
 
     - PyTorch模型`model.pt`
 
-      ```bash
-      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
-      export LIB_TORCH_PATH="/home/user/libtorch"
-      ./converter_lite --fmk=PYTORCH --modelFile=model.pt --outputFile=model
-      ```
+        ```bash
+        export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+        export LIB_TORCH_PATH="/home/user/libtorch"
+        ./converter_lite --fmk=PYTORCH --modelFile=model.pt --outputFile=model
+        ```
 
     - PyTorch模型`model.pth`
 
-      ```bash
-      export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
-      export LIB_TORCH_PATH="/home/user/libtorch"
-      ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
-      ```
+        ```bash
+        export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"
+        export LIB_TORCH_PATH="/home/user/libtorch"
+        ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
+        ```
 
-     > 为了转换PyTorch模型，以下前提必须满足：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on。转换前加入libtorch的环境变量。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
+        > 为了转换PyTorch模型，以下前提必须满足：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on。转换前加入libtorch的环境变量。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 
-   以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
+    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
-   ```text
-   CONVERTER RESULT SUCCESS:0
-   ```
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
 
 > 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html>。
 
@@ -220,32 +220,32 @@ set GLOG_v=1
 
     - MindSpore模型`model.mindir`
 
-      ```bat
-      call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
-      ```
+        ```bat
+        call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
+        ```
 
-      > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
+        > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
 
     - TensorFlow Lite模型`model.tflite`
 
-      ```bat
-      call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
-      ```
+        ```bat
+        call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
+        ```
 
     - TensorFlow模型`model.pb`
 
-      ```bat
-      call converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
-      ```
+        ```bat
+        call converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
+        ```
 
     - ONNX模型`model.onnx`
 
-      ```bat
-      call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
-      ```
+        ```bat
+        call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
+        ```
 
-   以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
+    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
-   ```text
-   CONVERTER RESULT SUCCESS:0
-   ```
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
