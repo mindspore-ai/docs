@@ -1,6 +1,6 @@
 # Loss Function
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/modules/loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 A loss function is also called objective function and is used to measure the difference between a predicted value and an actual value.
 
@@ -8,7 +8,7 @@ In deep learning, model training is a process of reducing the loss function valu
 
 The `mindspore.nn` module provides many [general loss functions](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore.nn.html#loss-function), but these functions cannot meet all requirements. In many cases, you need to customize the required loss functions. The following describes how to customize loss functions.
 
-![lossfun.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/modules/images/loss_function.png)
+![lossfun.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/advanced/modules/images/loss_function.png)
 
 ## Built-in Loss Functions
 

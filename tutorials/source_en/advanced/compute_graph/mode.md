@@ -1,6 +1,6 @@
 # Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/compute_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/compute_graph/mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (Graph) and a dynamic graph mode (PyNative).
 
@@ -133,7 +133,7 @@ In dynamic graph mode, you can use complete Python APIs. In addition, when APIs 
 
 The overall execution process of the framework is as follows:
 
-![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_en/advanced/compute_graph/images/framework2.png)
+![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_en/advanced/compute_graph/images/framework2.png)
 
 The front-end Python API is called to the framework layer and finally computed on the corresponding hardware device.
 
@@ -215,7 +215,7 @@ print(output)
 
 > The accuracy may vary depending on the computing platform. Therefore, the execution results of the preceding code vary slightly on different platforms. For details about the derivation of the formula and the explanation of the preceding printed results, see [Automatic Derivation](https://www.mindspore.cn/tutorials/en/r1.10/advanced/derivation.html#).
 
-![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/compute_graph/images/forward_backward.png)
+![forward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/advanced/compute_graph/images/forward_backward.png)
 
 It can be learned from the preceding dynamic graph mode that, in a forward propagation process, MindSpore records a computation process of Mul, and a backward MulGrad operator is obtained according to a definition of a backward bprop corresponding to Mul.
 

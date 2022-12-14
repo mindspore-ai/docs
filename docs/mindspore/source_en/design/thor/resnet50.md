@@ -1,6 +1,6 @@
 # ResNet-50 Second-Order Optimization Practice
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/design/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/design/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 

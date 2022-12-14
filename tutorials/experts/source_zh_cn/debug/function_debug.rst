@@ -1,7 +1,7 @@
 功能调试
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png
     :target: https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_zh_cn/debug/function_debug.rst
 
 .. toctree::
@@ -229,21 +229,21 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +==========+================+==============================================+===================================+
 | 执行观测 | 训练过程可视   | 将训练过程中的标量、图像、计算图、训练优化过 | `收集Summary数据 <https://w       |
 |          |                | 程以及模型超参等信息记录到文件中，通过Min    | ww.mindspore.cn/mindins           |
-|          |                | dInsight可视化界面供用户查看，包含：         | ight/docs/zh-CN/r1.9/             |
+|          |                | dInsight可视化界面供用户查看，包含：         | ight/docs/zh-CN/r1.10/             |
 |          |                | 标量可视化、参数分布图可视化、计算图可视化、 | summary_record.html>`__           |
 |          |                | 数据图可视化、图像可视化、张量可视化和优化过 |                                   |
 |          |                | 程可视化等。                                 |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 训练溯源及对比 | 提供了模型溯源、数据溯源和对比看板，通过对比 | `查看溯源和对比看板 <https://www  |
 |          |                | 看板可以观察不同标量趋势图以发现问题，再使用 | .mindspore.cn/mindinsig           |
-|          |                | 溯源功能定位问题原因，给用户在数据增强和深度 | ht/docs/zh-CN/r1.9/li             |
+|          |                | 溯源功能定位问题原因，给用户在数据增强和深度 | ht/docs/zh-CN/r1.10/li             |
 |          |                | 神经网络中提供高效调优的能力。               | neage_and_scalars_compa           |
 |          |                |                                              | rison.html>`__                    |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | metrics        | 当训练结束后，可以使用metrics评估训练        | `MindSpore                        |
 |          |                | 结果的好坏。提供了多种metrics评估指标        | metrics功能介绍 <https://ww       |
 |          |                | ，如：accuracy、loss、preci                  | w.mindspore.cn/tutorial           |
-|          |                | sion、recall、F1                             | s/experts/zh-CN/r1.9/             |
+|          |                | sion、recall、F1                             | s/experts/zh-CN/r1.10/             |
 |          |                |                                              | debug/custom_debug.html           |
 |          |                |                                              | #mindspore-metrics%E5%8           |
 |          |                |                                              | A%9F%E8%83%BD%E4%BB%8B%           |
@@ -259,25 +259,25 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为 | `查看中间文件 <https://www.mi     |
 |          |                | IR文件，用于支持与图结构、图信息相关的问题   | ndspore.cn/tutorials/ex           |
-|          |                | 诊断。                                       | perts/zh-CN/r1.9/debu             |
+|          |                | 诊断。                                       | perts/zh-CN/r1.10/debu             |
 |          |                |                                              | g/mindir.html>`__                 |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 数据Dump       | 训练网络时，若训练结果和预期有偏差，通过Du   | `Dump功能调试 <https://www.       |
 |          |                | mp功能保存算子输入输出数据进行调试。         | mindspore.cn/tutorials/           |
-|          |                |                                              | experts/zh-CN/r1.9/de             |
+|          |                |                                              | experts/zh-CN/r1.10/de             |
 |          |                |                                              | bug/dump.html>`__                 |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或 | `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、 | Callback <https://www.m           |
 |          |                | 监控loss、动态调整参数、提前终止训练任务     | indspore.cn/tutorials/e           |
-|          |                | 等。                                         | xperts/zh-CN/r1.9/deb             |
+|          |                | 等。                                         | xperts/zh-CN/r1.10/deb             |
 |          |                |                                              | ug/custom_debug.html#ca           |
 |          |                |                                              | llback%E4%BB%8B%E7%BB%8           |
 |          |                |                                              | D>`__                             |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕             | `Hook功能 <https://www.mi         |
 |          |                | 获中间层算子的输入、输出数据以及反向梯度。已 | ndspore.cn/tutorials/ex           |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo        | perts/zh-CN/r1.9/debu             |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo        | perts/zh-CN/r1.10/debu             |
 |          |                | kBackward算子和在Cell对象上进行              | g/pynative.html#hook功能>`__      |
 |          |                | 注册的register_forward_pr                    |                                   |
 |          |                | e_hook、register_forwar                      |                                   |
@@ -286,7 +286,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 同步执行       | 在动态图模式下，为了提升性能，算子在devi     | `动态图同步执行 <https://www.m    |
 |          |                | ce上使用了异步执行方式，因此算子执行错误可   | indspore.cn/tutorials/z           |
-|          |                | 能会在程序执行最后才显示。针对这种情况，Mi   | h-CN/r1.9/advanced/co             |
+|          |                | 能会在程序执行最后才显示。针对这种情况，Mi   | h-CN/r1.10/advanced/co             |
 |          |                | ndSpore提供了同步执行的设置来控制算子        | mpute_graph/mode.html#动          |
 |          |                | 在device上是否使用异步执行。                 | 态图>`__                          |
 +----------+----------------+----------------------------------------------+-----------------------------------+
@@ -331,7 +331,7 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | ，用于排查或调试怀疑与内存  | //www.mindspo             |
 |               |                       | 复用相关的问题。            | re.cn/tutoria             |
 |               |                       |                             | ls/experts/zh             |
-|               |                       |                             | -CN/r1.9/de               |
+|               |                       |                             | -CN/r1.10/de               |
 |               |                       |                             | bug/custom_de             |
 |               |                       |                             | bug.html#%E5%             |
 |               |                       |                             | 86%85%E5%AD%9             |

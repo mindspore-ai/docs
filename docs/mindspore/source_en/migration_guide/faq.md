@@ -1,6 +1,6 @@
 # FAQs
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/migration_guide/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides a [FAQ](https://mindspore.cn/docs/en/r1.10/faq/installation.html) during using MindSpore. This chapter also collates the solutions to the set of common problems mentioned in the migration documentation.
 

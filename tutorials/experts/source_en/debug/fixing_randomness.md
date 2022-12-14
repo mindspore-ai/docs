@@ -1,6 +1,6 @@
 # Fixed Randomness to Reproduce Run Results of Script
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/experts/source_en/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 The purpose of fixed randomness is to reproduce the run results of the script and assist in locating the problem. After fixing the randomness, the loss curve produced by the two trainings under the same conditions should be basically the same, and you can perform debugging multiple times to easily find the cause of the loss curve abnormality without worrying about the problem phenomenon of the last debugging and no longer appearing in this run.
 

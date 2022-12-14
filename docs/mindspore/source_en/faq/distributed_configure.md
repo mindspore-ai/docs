@@ -1,6 +1,6 @@
 # Distributed Configuration
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: What do I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?**</font>
 

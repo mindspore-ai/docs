@@ -1,6 +1,6 @@
 # Functional Differential Programming
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/design/auto_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/design/auto_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 ## Automatic Differentiation Overview
 
@@ -260,11 +260,11 @@ class Net(nn.Cell):
 
 The structure of a forward network is:
 
-![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
+![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
 
 After the network is reversely differential, the resulting differential network structure is:
 
-![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
+![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
 
 ## Jacobian-Vector-Product Implementation
 
@@ -272,7 +272,7 @@ Besides GradOperation, Mindspore has developed forward mode automatic differenti
 
 Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. Mindspore forward mode AD is developed based on reversed mode GradOperation function.  
 
-![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
+![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
 
 The network in black is the origin function. After the first derivative based on one input $x$, we get the network in blue. The second is the blue plot for the $v$ derivative, resulting in a yellow plot.
 
