@@ -18,7 +18,7 @@
 
 ![img](../../images/lite_runtime.png)
 
-快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/cloud_infer/quick_start_java.html)。
+快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/quick_start_java.html)。
 
 ## 引用MindSpore Lite Java库
 
