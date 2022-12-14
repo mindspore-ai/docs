@@ -4,7 +4,7 @@
 
 ## torch.cos
 
-``` text
+```text
 torch.cos(input, *, out=None) -> Tensor
 ```
 

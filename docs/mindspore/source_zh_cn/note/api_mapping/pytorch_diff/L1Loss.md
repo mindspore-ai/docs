@@ -4,7 +4,7 @@
 
 ## torch.nn.L1Loss
 
-``` text
+```text
 torch.nn.L1Loss(size_average=None, reduce=None, reduction='mean')(input, target) -> Tensor
 ```
 

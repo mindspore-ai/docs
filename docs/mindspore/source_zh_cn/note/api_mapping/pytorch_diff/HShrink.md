@@ -12,7 +12,7 @@ torch.nn.Hardshrink(lambd=0.5)(input) -> Tensor
 
 ## mindspore.nn.HShrink
 
-``` text
+```text
 mindspore.nn.HShrink(lambd=0.5)(input_x) -> Tensor
 ```
 

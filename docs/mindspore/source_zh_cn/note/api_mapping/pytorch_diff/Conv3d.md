@@ -4,7 +4,7 @@
 
 ## torch.nn.Conv3d
 
-``` text
+```text
 class torch.nn.Conv3d(
     in_channels,
     out_channels,
@@ -22,7 +22,7 @@ class torch.nn.Conv3d(
 
 ## mindspore.nn.Conv3d
 
-``` text
+```text
 class mindspore.nn.Conv3d(
     in_channels,
     out_channels,
