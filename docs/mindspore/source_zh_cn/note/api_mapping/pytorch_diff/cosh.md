@@ -4,7 +4,7 @@
 
 ## torch.cosh
 
-``` text
+```text
 torch.cosh(input, *, out=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ torch.cosh(input, *, out=None) -> Tensor
 
 ## mindspore.ops.cosh
 
-``` text
+```text
 mindspore.ops.cosh(x) -> Tensor
 ```
 

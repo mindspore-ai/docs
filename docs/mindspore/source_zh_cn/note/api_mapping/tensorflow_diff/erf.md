@@ -4,7 +4,7 @@
 
 ## tf.math.erf
 
-``` text
+```text
 tf.math.erf(x, name=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ tf.math.erf(x, name=None) -> Tensor
 
 ## mindspore.ops.erf
 
-``` text
+```text
 mindspore.ops.erf(x) -> Tensor
 ```
 

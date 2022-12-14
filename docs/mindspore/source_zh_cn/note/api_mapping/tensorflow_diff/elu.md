@@ -4,7 +4,7 @@
 
 ## tf.nn.elu
 
-``` text
+```text
 tf.nn.elu(features, name=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ tf.nn.elu(features, name=None) -> Tensor
 
 ## mindspore.ops.elu
 
-``` text
+```text
 mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 ```
 

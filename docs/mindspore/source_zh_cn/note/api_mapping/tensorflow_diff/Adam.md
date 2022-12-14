@@ -4,7 +4,7 @@
 
 ## tf.keras.optimizers.Adam
 
-``` text
+```text
 tf.keras.optimizers.Adam(
     learning_rate=0.001,
     beta_1=0.9,
@@ -20,7 +20,7 @@ tf.keras.optimizers.Adam(
 
 ## mindspore.nn.Adam
 
-``` text
+```text
 class mindspore.nn.Adam(
     params,
     learning_rate=1e-3,

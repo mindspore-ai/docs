@@ -12,7 +12,7 @@ torch.nn.functional.elu(input, alpha=1.0, inplace=False) -> Tensor
 
 ## mindspore.ops.elu
 
-``` text
+```text
 mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 ```
 

@@ -4,7 +4,7 @@
 
 ## torch.erfc
 
-``` text
+```text
 torch.erfc(input, * , out=None) -> Tensor
 ```
 
@@ -12,7 +12,7 @@ torch.erfc(input, * , out=None) -> Tensor
 
 ## mindspore.ops.erfc
 
-``` text
+```text
 mindspore.ops.erfc(x) -> Tensor
 ```
 
