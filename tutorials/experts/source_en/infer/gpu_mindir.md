@@ -1,6 +1,6 @@
-# Inference on a GPU/CPU
+# Inference on a GPU
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Use C++ Interface to Load a MindIR File for Inferencing
 
