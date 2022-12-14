@@ -49,7 +49,7 @@ MindElec进行天线S参数仿真的具体流程如下：
 
 ### 导入依赖
 
-导入本教程所依赖模块与接口:
+导入本教程所依赖模块与接口：
 
 ```python
 import os
@@ -180,7 +180,7 @@ def get_invert_f_antenna(air_buffers, npml):
 
 ### 导入依赖
 
-导入本教程所依赖模块与接口:
+导入本教程所依赖模块与接口：
 
 ```python
 import os
