@@ -42,7 +42,7 @@ import tensorflow as tf
 x = tf.constant([-1, -2, 0, 2, 1], dtype=tf.float16)
 output = tf.nn.softmax(x)
 print(output.numpy())
-#[0.03168 0.01165 0.0861  0.636   0.2341 ]
+# [0.03168 0.01165 0.0861  0.636   0.2341 ]
 
 # MindSpore
 import mindspore
@@ -53,7 +53,7 @@ x = Tensor(np.array([-1, -2, 0, 2, 1]), mindspore.float16)
 softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)
-#[0.03168 0.01165 0.0861  0.636   0.2341 ]
+# [0.03168 0.01165 0.0861  0.636   0.2341 ]
 ```
 
 ### 代码示例2
@@ -68,7 +68,7 @@ import tensorflow as tf
 x = tf.constant([-1, 0., 1.], dtype=tf.float16)
 output = tf.nn.softmax(x)
 print(output.numpy())
-#[0.09   0.2446 0.665 ]
+# [0.09   0.2446 0.665 ]
 
 # MindSpore
 import mindspore
@@ -79,5 +79,5 @@ x = Tensor(np.array([-1, 0., 1.]), mindspore.float16)
 softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)
-#[0.0901 0.2448 0.665 ]
+# [0.0901 0.2448 0.665 ]
 ```

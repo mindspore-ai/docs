@@ -55,9 +55,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但MindSpore中�
 import torch
 import torch.nn as nn
 
-input = torch.ones([20, 5, 10, 10])
-m = nn.LayerNorm(input.size()[1:])
-output = m(input)
+inputs = torch.ones([20, 5, 10, 10])
+m = nn.LayerNorm(inputs.size()[1:])
+output = m(inputs)
 print(output.detach().numpy().shape)
 # (20, 5, 10, 10)
 

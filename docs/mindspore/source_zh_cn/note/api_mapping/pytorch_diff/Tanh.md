@@ -28,14 +28,12 @@ MindSpore：MindSpore此API实现功能与PyTorch一致。
 | ---- | ----- | ------- | --------- | ---- |
 | 参数 | 参数1 | input      | x         | 功能一致，参数名不同  |
 
-## 差异分析与示例
-
 ### 代码示例1
 
 > 计算输入`x`的tanh函数，MindSpore此API功能与PyTorch一致。
 
 ```python
-# pytoch
+# PyTorch
 import numpy as np
 import torch
 from torch import tensor, nn
