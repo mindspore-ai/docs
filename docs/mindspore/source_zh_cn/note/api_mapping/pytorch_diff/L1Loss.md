@@ -42,8 +42,8 @@ import torch
 import torch.nn as nn
 
 loss = nn.L1Loss()
-input = torch.tensor([2,2,3], dtype=torch.float32)
-target = torch.tensor([1,2,2], dtype=torch.float32)
+input = torch.tensor([2, 2, 3], dtype=torch.float32)
+target = torch.tensor([1, 2, 2], dtype=torch.float32)
 output = loss(input, target)
 output = output.detach().numpy()
 print(output)

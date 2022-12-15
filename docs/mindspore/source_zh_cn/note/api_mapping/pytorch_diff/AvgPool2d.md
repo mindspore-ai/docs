@@ -6,12 +6,12 @@
 
 ```text
 torch.nn.AvgPool2d(
-         kernel_size,
-         stride=None,
-         padding=0,
-         ceil_mode=False,
-         count_include_pad=True,
-         divisor_override=None
+    kernel_size,
+    stride=None,
+    padding=0,
+    ceil_mode=False,
+    count_include_pad=True,
+    divisor_override=None
 )(input) -> Tensor
 ```
 
@@ -21,10 +21,10 @@ torch.nn.AvgPool2d(
 
 ```text
 mindspore.nn.AvgPool2d(
-        kernel_size=1,
-        stride=1,
-        pad_mode='valid',
-        data_format='NCHW'
+    kernel_size=1,
+    stride=1,
+    pad_mode='valid',
+    data_format='NCHW'
 )(x) -> Tensor
 ```
 
@@ -38,15 +38,15 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类  | PyTorch               | MindSpore   | 差异                                                         |
 | ---- | ----- | --------------------- | ----------- | ------------------------------------------------------------ |
-| 参数 | 参数1 | kernel_size           | kernel_size | -                                                            |
-|      | 参数2 | stride                | stride      | -                                                            |
+| 参数 | 参数1 | kernel_size           | kernel_size | 功能一致，PyTorch无默认值                                                            |
+|      | 参数2 | stride                | stride      | 功能一致，参数默认值不同                                                          |
 |      | 参数3 | padding               | -           | PyTorch中此参数用于添加隐式零填充，MindSpore中无此参数       |
 |      | 参数4 | ceil_mode             | -           | PyTorch中此参数用于决定输出shape: (N, C, Hout, Wout)中Hout、Wout为小数时，是取上界ceil值还是舍弃小数部分取floor值；MindSpore中无此参数，默认取floor值 |
 |      | 参数5 | count_include_pad     | -           | PyTorch中此参数用于决定是否在平均计算中包括零填充，MindSpore中无此参数 |
 |      | 参数6 | divisor_override=None | -           | PyTorch中如果指定，它将被用作除数，否则将使用kernel_size，MindSpore中无此参数 |
-|      | 参数7 | -                     | pad_mode    | MindSpore中指定池化填充模式，可选值为"same"或"valid"，PyTorch中无此参数 |
-|      | 参数8 | -                     | data_format | MindSpore中指定输入数据格式，值可为"NHWC"或"NCHW"，PyTorch中无此参数 |
-|      | 参数9 | input                 | x       | 功能一致，参数名不同                                                            |
+|      | 参数7 | input                 | x           | 功能一致，参数名不同                                         |
+|      | 参数8 | -                     | pad_mode    | MindSpore中指定池化填充模式，可选值为"same"或"valid"，PyTorch中无此参数 |
+|      | 参数9 | -                     | data_format | MindSpore中指定输入数据格式，值可为"NHWC"或"NCHW"，PyTorch中无此参数 |
 
 ### 代码示例1
 

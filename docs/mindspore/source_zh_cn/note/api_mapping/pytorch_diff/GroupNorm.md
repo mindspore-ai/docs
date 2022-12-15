@@ -34,7 +34,7 @@ class mindspore.nn.GroupNorm(
 
 PyTorch：在mini-batch输入上进行组归一化，把通道划分为组，然后计算每一组之内的均值和方差，以进行归一化。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore还可以额外对需要学习的放射参数进行额外的初始化。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore还可以对需要学习的放射参数进行额外的初始化。
 
 | 分类 | 子类  | PyTorch      | MindSpore    | 差异                                                         |
 | ---- | ----- | ------------ | ------------ | ------------------------------------------------------------ |

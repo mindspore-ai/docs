@@ -87,11 +87,10 @@ inputx = [[[[1, 2],
          [[[5, 6],
            [6, 5]],
           [[7, 8],
-           [8, 7]]
-         ]]
+           [8, 7]]]]
 input_tf = tf.constant(inputx, dtype=tf.float32)
-output_tf = tf.keras.layers.BatchNormalization(axis=3,momentum=0.1,epsilon=1e-5)
-output = output_tf(input_tf,training=False)
+output_tf = tf.keras.layers.BatchNormalization(axis=3, momentum=0.1, epsilon=1e-5)
+output = output_tf(input_tf, training=False)
 print(output.numpy())
 # [[[[0.999995  1.99999  ]
 #    [1.99999   0.999995 ]]
@@ -107,14 +106,15 @@ print(output.numpy())
 #    [7.99996   6.9999647]]]]
 
 # MindSpore
-from mindspore import Tensor,nn
+from mindspore import Tensor, nn
 import numpy as np
 
-m = nn.BatchNorm2d(num_features=2,momentum=0.9)
-inputx = Tensor(np.array([[[[1, 2],[2,1]],
-                          [[3, 4],[4,3]]],
-                          [[[5, 6],[6,5]],[[7,8],[8,7]]]]).astype(np.float32))
-output = m(inputx)
+m = nn.BatchNorm2d(num_features=2, momentum=0.9)
+input_x = Tensor(np.array([[[[1, 2], [2, 1]],
+                          [[3, 4], [4, 3]]],
+                          [[[5, 6], [6, 5]],
+                          [[7, 8], [8, 7]]]]).astype(np.float32))
+output = m(input_x)
 print(output)
 # [[[[0.99999493 1.9999899 ]
 #    [1.9999899  0.99999493]]

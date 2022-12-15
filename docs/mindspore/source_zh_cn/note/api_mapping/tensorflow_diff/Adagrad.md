@@ -10,7 +10,8 @@ tf.keras.optimizers.Adagrad(
     initial_accumulator_value=0.1,
     epsilon=1e-07,
     name='Adagrad',
-    **kwargs) -> Tensor
+    **kwargs
+) -> Tensor
 ```
 
 更多内容详见[tf.keras.optimizers.Adagrad](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Adagrad)。
@@ -24,7 +25,8 @@ class mindspore.nn.Adagrad(
     learning_rate=0.001,
     update_slots=True,
     loss_scale=1.0,
-    weight_decay=0.0)(grads) -> Tensor
+    weight_decay=0.0
+)(grads) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.Adagrad](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html)。
