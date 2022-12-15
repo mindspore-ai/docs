@@ -1,4 +1,4 @@
-# Molecular Basic Model
+# Molecular Foundation Model
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/user/basic.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -8,4 +8,4 @@ Molecular basic model is to perform some pre-training tasks for proteins, amino 
 
 | Function            | Model                  | Training | Inferring | Back-end       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| Molecular Graph Pre-training Model | [GROVER](https://gitee.com/mindspore/mindscience/blob/f906bf284918ff2bdcd462e1c2bbf06b9af5d06a/MindSPONGE/applications/research/grover/README.md#) | ×    | √   | GPU/Ascend |
+| Molecular Graph Pre-training Model | [GROVER](https://gitee.com/mindspore/mindscience/pulls/441/files#) | ×    | √   | GPU/Ascend |

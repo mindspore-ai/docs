@@ -8,4 +8,4 @@
 
 | 功能          | 模型                            | 训练 | 推理 | 后端       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| 分子图预训练模型 | [GROVER](https://gitee.com/mindspore/mindscience/blob/f906bf284918ff2bdcd462e1c2bbf06b9af5d06a/MindSPONGE/applications/research/grover/README.md#) | ×    | √   | GPU/Ascend |
+| 分子图预训练模型 | [GROVER](https://gitee.com/mindspore/mindscience/pulls/441/files#) | ×    | √   | GPU/Ascend |
