@@ -386,37 +386,11 @@ def download_dataset(dataset_url, path):
                 f.write(chunk)
     print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
 
-def train_func_sink(model, dataset, loss_fn, opt, input_signature=None):
-    def forward_fn(data, label):
-        logits = model(data)
-        loss = loss_fn(logits, label)
-        return loss, logits
-
-    grad_fn = ops.value_and_grad(forward_fn, None, opt.parameters, has_aux=True)
-    model.set_train()
-
-    def train_step(data, label):
-        (loss, _), grads = grad_fn(data, label)
-        loss = ops.Depend(loss, opt(grads))
-        return loss
-
-    data_size = dataset.get_dataset_size()
-    epochs = 5
-    steps = data_size * epochs
-    sink_size = data_size
-    jit = ms.JitConfig()
-
-    sink_process = ms.data_sink(train_step, dataset, sink_size=sink_size, jit_config=jit, input_signature=input_signature)
-    for _ in range(steps):
-        loss = sink_process()
-        print("loss: ", loss)
-
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", ds_train_path)
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", ds_train_path)
-    ds_train = create_dataset(ds_train_path, 32)
 
     network = LeNet5(10)
     network.set_train()
@@ -432,31 +406,42 @@ if __name__ == "__main__":
 
     def train_step(data, label):
         loss, grads = grad_fn(data, label)
-        loss = ops.Depend(loss, net_opt(grads))
+        loss = ops.depend(loss, net_opt(grads))
         return loss
 
     print("============== Different calling methods train 10 epochs ==============")
     jit = ms.JitConfig()
-    # 1. Default, execute one step data each per sink
+    print("1. Default, execute one step data each per sink")
+    ds_train = create_dataset(ds_train_path, 32)
     data_size = ds_train.get_dataset_size()
     epochs = 10
     sink_process = ms.data_sink(train_step, ds_train, jit_config=jit)
     for _ in range(data_size * epochs):
         loss = sink_process()
-        print("loss: ", loss)
+        print(f"step {_ + 1}, loss is {loss}")
 
-    # 2. Execute one epoch data per sink
+    print("2. Execute one epoch data per sink")
+    ds_train = create_dataset(ds_train_path, 32)
     data_size = ds_train.get_dataset_size()
     epochs = 10
     sink_process = ms.data_sink(train_step, ds_train, sink_size=data_size, jit_config=jit)
     for _ in range(epochs):
         loss = sink_process()
-        print("loss: ", loss)
+        print(f"epoch {_ + 1}, loss is {loss}")
 
-    # 3. Execute multiple epoch data per sink
+    print("3. Execute multiple epoch data per sink")
+    ds_train = create_dataset(ds_train_path, 32)
     data_size = ds_train.get_dataset_size()
     epochs = 10
     sink_process = ms.data_sink(train_step, ds_train, sink_size=epochs*data_size, jit_config=jit)
     loss = sink_process()
-    print("loss: ", loss)
+    print(f"loss is {loss}")
 ```
+
+The code uses 3 calls to train 10 epochs separately.
+
+1. Default behavior, sink 1 step of data at a time, and return loss at the end of each step. Training 10 epochs needs to call `ds_train.get_dataset_size() * 10` times in loop on Host side;
+2. Sink 1 epoch of data at a time, and return loss at the end of each epoch. Training 10 epochs needs to call for 10 times in loop on Host side;
+3. Sink 10 epochs of data at a time, and return loss at the end of 10 epochs. No need to loop on Host side.
+
+Among the above methods, method 1 interacts with Device once at the end of each step, which is less efficient. Method 3 does not need to interact with Device during training and has the most efficient execution, but can only return the loss of the last step.
