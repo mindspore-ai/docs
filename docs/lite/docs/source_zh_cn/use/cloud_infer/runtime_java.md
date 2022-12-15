@@ -1,4 +1,4 @@
-# 使用Java接口执行推理 - 云侧
+# 使用Java接口执行云侧推理
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/cloud_infer/runtime_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -8,7 +8,7 @@
 
 相比C++ API，Java API可以直接在Java Class中调用，用户无需实现JNI层的相关代码，具有更好的便捷性。运行MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型路径：获取文件系统中由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.mindir`模型的路径。
+1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换获得MindIR模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存需要的一些基本配置参数，用于指导模型编译和模型执行，包括设备类型、线程数、绑核模式和使能fp16混合精度推理。
 3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。
 4. 输入数据：模型执行之前需要向输入Tensor中填充数据。
@@ -107,7 +107,7 @@ MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方
     inputTensor.setData(inputData);
     ```
 
-2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113)演示如何调用`getInputs`获得输入Tensor并填充数据。
+2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113)演示如何调用`getInputs`获得输入Tensor并填充数据。
 
     ```java
     List<MSTensor> inputs = model.getInputs();
@@ -169,7 +169,7 @@ model.free();
 
 > 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164)演示如何对MindSpore Lite的输入Tensor进行[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#resize)：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164)演示如何对MindSpore Lite的输入Tensor进行[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#resize)：
 
 ```java
 List<MSTensor> inputs = model.getInputs();

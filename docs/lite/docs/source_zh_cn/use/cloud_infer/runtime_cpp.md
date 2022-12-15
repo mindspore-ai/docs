@@ -20,8 +20,6 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 ![img](../../images/lite_runtime.png)
 
-> 快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite C++极简云侧推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/cloud_infer/quick_start_cpp.html)。
-
 ## 准备工作
 
 1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/runtime_cpp)。
@@ -71,31 +69,31 @@ device_list.push_back(cpu_device_info);
 
 1. 配置线程数
 
-  [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadnum)配置线程数：
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadnum)配置线程数：
 
-  ```c++
-  // Configure the number of worker threads in the thread pool to 2, including the main thread.
-  context->SetThreadNum(2);
-  ```
+    ```c++
+    // Configure the number of worker threads in the thread pool to 2, including the main thread.
+    context->SetThreadNum(2);
+    ```
 
 2. 配置线程亲和性
 
-  [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadAffinity](hhttps://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
-  通过参数`const std::vector<int> &core_list`设置绑核列表。
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadAffinity](hhttps://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
+    通过参数`const std::vector<int> &core_list`设置绑核列表。
 
-  ```c++
-  // Configure the thread to be bound to the core list.
-  context->SetThreadAffinity({0,1});
-  ```
+    ```c++
+    // Configure the thread to be bound to the core list.
+    context->SetThreadAffinity({0,1});
+    ```
 
 3. 配置并行策略
 
-  [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetInterOpParallelNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setinteropparallelnum)设置运行时的算子并行推理数目。
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetInterOpParallelNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setinteropparallelnum)设置运行时的算子并行推理数目。
 
-  ```c++
-  // Configure the inference supports parallel.
-  context->SetInterOpParallelNum(2);
-  ```
+    ```c++
+    // Configure the inference supports parallel.
+    context->SetInterOpParallelNum(2);
+    ```
 
 ### 配置使用GPU后端
 
@@ -206,60 +204,60 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 
 1. 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)设置输入数据，可以避免host之间的拷贝，输入数据将最终直接拷贝到推理设备上。
 
-  ```c++
-  int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
-    if (!tensors || !buffers) {
-      std::cerr << "Argument tensors or buffers cannot be nullptr" << std::endl;
-      return -1;
-    }
-    if (tensors->size() != buffers->size()) {
-      std::cerr << "tensors size " << tensors->size() << " != "
-                << " buffers size " << buffers->size() << std::endl;
-      return -1;
-    }
-    for (size_t i = 0; i < tensors->size(); i++) {
-      auto &tensor = (*tensors)[i];
-      auto &buffer = (*buffers)[i];
-      if (tensor.DataSize() != buffer.size()) {
-        std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
+    ```c++
+    int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
+      if (!tensors || !buffers) {
+        std::cerr << "Argument tensors or buffers cannot be nullptr" << std::endl;
         return -1;
       }
-      // set tensor data, and the memory should be freed by user
-      tensor.SetData(buffer.data(), false);
-      tensor.SetDeviceData(nullptr);
+      if (tensors->size() != buffers->size()) {
+        std::cerr << "tensors size " << tensors->size() << " != "
+                  << " buffers size " << buffers->size() << std::endl;
+        return -1;
+      }
+      for (size_t i = 0; i < tensors->size(); i++) {
+        auto &tensor = (*tensors)[i];
+        auto &buffer = (*buffers)[i];
+        if (tensor.DataSize() != buffer.size()) {
+          std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
+          return -1;
+        }
+        // set tensor data, and the memory should be freed by user
+        tensor.SetData(buffer.data(), false);
+        tensor.SetDeviceData(nullptr);
+      }
+      return 0;
     }
-    return 0;
-  }
 
-    auto inputs = model->GetInputs();
-    // Set the input data of the model, this inference input will be copied directly to the device.
-    SetTensorHostData(&inputs, &input_buffer);
-  ```
+      auto inputs = model->GetInputs();
+      // Set the input data of the model, this inference input will be copied directly to the device.
+      SetTensorHostData(&inputs, &input_buffer);
+    ```
 
 2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将时`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
 
-  ```c++
-  int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
-    for (size_t i = 0; i < tensors->size(); i++) {
-      auto &tensor = (*tensors)[i];
-      auto &buffer = (*buffers)[i];
-      if (tensor.DataSize() != buffer.size()) {
-        std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
-        return -1;
+    ```c++
+    int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
+      for (size_t i = 0; i < tensors->size(); i++) {
+        auto &tensor = (*tensors)[i];
+        auto &buffer = (*buffers)[i];
+        if (tensor.DataSize() != buffer.size()) {
+          std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
+          return -1;
+        }
+        auto dst_mem = tensor.MutableData();
+        if (dst_mem == nullptr) {
+          std::cerr << "Tensor MutableData return nullptr" << std::endl;
+          return -1;
+        }
+        memcpy(tensor.MutableData(), buffer.data(), buffer.size());
       }
-      auto dst_mem = tensor.MutableData();
-      if (dst_mem == nullptr) {
-        std::cerr << "Tensor MutableData return nullptr" << std::endl;
-        return -1;
-      }
-      memcpy(tensor.MutableData(), buffer.data(), buffer.size());
+      return 0;
     }
-    return 0;
-  }
-    auto inputs = model->GetInputs();
-    // Set the input data of the model, copy data to the tensor buffer of Model.GetInputs.
-    CopyTensorHostData(&inputs, &input_buffer);
-  ```
+      auto inputs = model->GetInputs();
+      // Set the input data of the model, copy data to the tensor buffer of Model.GetInputs.
+      CopyTensorHostData(&inputs, &input_buffer);
+    ```
 
 ## 执行推理
 
@@ -386,140 +384,140 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 1. 指定输入host内存
 
-  输入host内存的值，一般来源于host侧的C++、Python等预处理的结果。
+    输入host内存的值，一般来源于host侧的C++、Python等预处理的结果。
 
-  ```c++
-    std::vector<void *> host_buffers;
-    // ... get host buffer from preprocessing etc.
-    // Get Input
-    auto inputs = model->GetInputs();
-    for (size_t i = 0; i < tensors.size(); i++) {
-      auto &tensor = tensors[i];
-      auto host_data = host_buffers[i];
-      tensor.SetData(host_data, false);
-      tensor.SetDeviceData(nullptr);
-    }
+    ```c++
+      std::vector<void *> host_buffers;
+      // ... get host buffer from preprocessing etc.
+      // Get Input
+      auto inputs = model->GetInputs();
+      for (size_t i = 0; i < tensors.size(); i++) {
+        auto &tensor = tensors[i];
+        auto host_data = host_buffers[i];
+        tensor.SetData(host_data, false);
+        tensor.SetDeviceData(nullptr);
+      }
 
-    std::vector<mindspore::MSTensor> outputs;
-    if (Predict(model, inputs, &outputs) != 0) {
-      return -1;
-    }
-  ```
+      std::vector<mindspore::MSTensor> outputs;
+      if (Predict(model, inputs, &outputs) != 0) {
+        return -1;
+      }
+    ```
 
 2. 指定输出host内存
 
-  ```c++
-    // Get Output from model
-    auto outputs = model->GetOutputs();
-    std::vector<void *> output_buffers;
-    ResourceGuard output_device_rel([&output_buffers]() {
-      for (auto &item : output_buffers) {
-        free(item);
+    ```c++
+      // Get Output from model
+      auto outputs = model->GetOutputs();
+      std::vector<void *> output_buffers;
+      ResourceGuard output_device_rel([&output_buffers]() {
+        for (auto &item : output_buffers) {
+          free(item);
+        }
+      });
+      for (auto &tensor : outputs) {
+        auto buffer = malloc(tensor.DataSize());
+        tensor.SetData(buffer, false);
+        tensor.SetDeviceData(nullptr);
+        output_buffers.push_back(buffer); // for free
       }
-    });
-    for (auto &tensor : outputs) {
-      auto buffer = malloc(tensor.DataSize());
-      tensor.SetData(buffer, false);
-      tensor.SetDeviceData(nullptr);
-      output_buffers.push_back(buffer); // for free
-    }
-    if (Predict(model, inputs, &outputs) != 0) {
-      return -1;
-    }
-  ```
+      if (Predict(model, inputs, &outputs) != 0) {
+        return -1;
+      }
+    ```
 
 ### 指定输入输出设备（device）内存
 
 指定设备内存支持Asend和GPU硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
 
-指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/device_example_cpp)。
+指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/device_example_cpp)。
 
 通过[SetDeviceData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdevicedata)可单独或者同时指定输入和输出设备内存。用户需要维护设备内存的生命周期，负责设备内存的申请和释放。
 
 1. 指定输入设备内存
 
-  样例中，输入设备内存的值拷贝自host，一般设备内存的值来自于芯片预处理的结果或另一个模型的输出。
+    样例中，输入设备内存的值拷贝自host，一般设备内存的值来自于芯片预处理的结果或另一个模型的输出。
 
-  ```c++
-  int SetDeviceData(std::vector<mindspore::MSTensor> tensors, const std::vector<uint8_t *> &host_data_buffer,
-                    std::vector<void *> *device_buffers) {
-    for (size_t i = 0; i < tensors.size(); i++) {
-      auto &tensor = tensors[i];
-      auto host_data = host_data_buffer[i];
-      auto data_size = tensor.DataSize();
-      if (data_size == 0) {
-        std::cerr << "Data size cannot be 0, tensor shape: " << ShapeToString(tensor.Shape()) << std::endl;
-        return -1;
+    ```c++
+    int SetDeviceData(std::vector<mindspore::MSTensor> tensors, const std::vector<uint8_t *> &host_data_buffer,
+                      std::vector<void *> *device_buffers) {
+      for (size_t i = 0; i < tensors.size(); i++) {
+        auto &tensor = tensors[i];
+        auto host_data = host_data_buffer[i];
+        auto data_size = tensor.DataSize();
+        if (data_size == 0) {
+          std::cerr << "Data size cannot be 0, tensor shape: " << ShapeToString(tensor.Shape()) << std::endl;
+          return -1;
+        }
+        auto device_data = MallocDeviceMemory(data_size);
+        if (device_data == nullptr) {
+          std::cerr << "Failed to alloc device data, data size " << data_size << std::endl;
+          return -1;
+        }
+        device_buffers->push_back(device_data);
+        if (CopyMemoryHost2Device(device_data, data_size, host_data, data_size) != 0) {
+          std::cerr << "Failed to copy data to device, data size " << data_size << std::endl;
+          return -1;
+        }
+        tensor.SetDeviceData(device_data);
+        tensor.SetData(nullptr, false);
       }
-      auto device_data = MallocDeviceMemory(data_size);
-      if (device_data == nullptr) {
-        std::cerr << "Failed to alloc device data, data size " << data_size << std::endl;
-        return -1;
-      }
-      device_buffers->push_back(device_data);
-      if (CopyMemoryHost2Device(device_data, data_size, host_data, data_size) != 0) {
-        std::cerr << "Failed to copy data to device, data size " << data_size << std::endl;
-        return -1;
-      }
-      tensor.SetDeviceData(device_data);
-      tensor.SetData(nullptr, false);
+      return 0;
     }
-    return 0;
-  }
 
-    // Get Input
-    auto inputs = model->GetInputs();
-    std::vector<void *> device_buffers;
-    ResourceGuard device_rel([&device_buffers]() {
-      for (auto &item : device_buffers) {
-        FreeDeviceMemory(item);
+      // Get Input
+      auto inputs = model->GetInputs();
+      std::vector<void *> device_buffers;
+      ResourceGuard device_rel([&device_buffers]() {
+        for (auto &item : device_buffers) {
+          FreeDeviceMemory(item);
+        }
+      });
+      SetDeviceData(inputs, host_buffers, &device_buffers);
+      std::vector<mindspore::MSTensor> outputs;
+      if (Predict(model, inputs, &outputs) != 0) {
+        return -1;
       }
-    });
-    SetDeviceData(inputs, host_buffers, &device_buffers);
-    std::vector<mindspore::MSTensor> outputs;
-    if (Predict(model, inputs, &outputs) != 0) {
-      return -1;
-    }
-  ```
+    ```
 
 2. 指定输出设备内存
 
-  样例中，输出设备内存拷贝到host打印输出，一般输出设备内存可作为其他模型的输入。
+    样例中，输出设备内存拷贝到host打印输出，一般输出设备内存可作为其他模型的输入。
 
-  ```c++
-  int SetOutputDeviceData(std::vector<mindspore::MSTensor> tensors, std::vector<void *> *device_buffers) {
-    for (size_t i = 0; i < tensors.size(); i++) {
-      auto &tensor = tensors[i];
-      auto data_size = tensor.DataSize();
-      if (data_size == 0) {
-        std::cerr << "Data size cannot be 0, tensor shape: " << ShapeToString(tensor.Shape()) << std::endl;
+    ```c++
+    int SetOutputDeviceData(std::vector<mindspore::MSTensor> tensors, std::vector<void *> *device_buffers) {
+      for (size_t i = 0; i < tensors.size(); i++) {
+        auto &tensor = tensors[i];
+        auto data_size = tensor.DataSize();
+        if (data_size == 0) {
+          std::cerr << "Data size cannot be 0, tensor shape: " << ShapeToString(tensor.Shape()) << std::endl;
+          return -1;
+        }
+        auto device_data = MallocDeviceMemory(data_size);
+        if (device_data == nullptr) {
+          std::cerr << "Failed to alloc device data, data size " << data_size << std::endl;
+          return -1;
+        }
+        device_buffers->push_back(device_data);
+        tensor.SetDeviceData(device_data);
+        tensor.SetData(nullptr, false);
+      }
+      return 0;
+    }
+
+      // Get Output from model
+      auto outputs = model->GetOutputs();
+      std::vector<void *> output_device_buffers;
+      ResourceGuard output_device_rel([&output_device_buffers]() {
+        for (auto &item : output_device_buffers) {
+          FreeDeviceMemory(item);
+        }
+      });
+      if (SetOutputDeviceData(outputs, &output_device_buffers) != 0) {
+        std::cerr << "Failed to set output device data" << std::endl;
         return -1;
       }
-      auto device_data = MallocDeviceMemory(data_size);
-      if (device_data == nullptr) {
-        std::cerr << "Failed to alloc device data, data size " << data_size << std::endl;
+      if (Predict(model, inputs, &outputs) != 0) {
         return -1;
       }
-      device_buffers->push_back(device_data);
-      tensor.SetDeviceData(device_data);
-      tensor.SetData(nullptr, false);
-    }
-    return 0;
-  }
-
-    // Get Output from model
-    auto outputs = model->GetOutputs();
-    std::vector<void *> output_device_buffers;
-    ResourceGuard output_device_rel([&output_device_buffers]() {
-      for (auto &item : output_device_buffers) {
-        FreeDeviceMemory(item);
-      }
-    });
-    if (SetOutputDeviceData(outputs, &output_device_buffers) != 0) {
-      std::cerr << "Failed to set output device data" << std::endl;
-      return -1;
-    }
-    if (Predict(model, inputs, &outputs) != 0) {
-      return -1;
-    }
-  ```
+    ```

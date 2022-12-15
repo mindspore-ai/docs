@@ -23,6 +23,7 @@ MindSpore Lite文档
    :hidden:
 
    quick_start/one_hour_introduction
+   quick_start/one_hour_introduction_cloud
 
 .. toctree::
    :glob:
@@ -73,14 +74,8 @@ MindSpore Lite文档
    :caption: 云侧推理
    :hidden:
 
-   cloud_infer/quick_start_java
-   cloud_infer/quick_start_python
-   cloud_infer/runtime_cpp
-   cloud_infer/runtime_java
-   quick_start/quick_start_server_inference_cpp
-   quick_start/quick_start_server_inference_java
-   quick_start/quick_start_server_inference_python
-   use/runtime_server_inference
+   use/cloud_infer/runtime
+   use/cloud_infer/runtime_parallel
 
 .. toctree::
    :glob:
@@ -88,9 +83,9 @@ MindSpore Lite文档
    :caption: 云侧工具
    :hidden:
    
-   cloud_infer/converter_tool
-   cloud_infer/converter_python
-   cloud_infer/benchmark_tool
+   use/cloud_infer/converter
+   use/cloud_infer/benchmark
+   
 
 .. toctree::
    :glob:
