@@ -65,7 +65,8 @@ The total amount of data sinking is controlled by the variables `epoch` and `sin
 When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if `dataset_sink_mode` is set to False, there is one interaction per `step` between the Host side and the Device side, so one result will be returned per `step`. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, one data interaction per `epoch` between the Host side and the Device side, so only one result is returned per `epoch`.
 
 > The current CPU does not support data sinking.
->
+> When set to GRAPH mode, the shape of each batch of data must be the same, while when set to PYNATIVE mode, the size of each batch of data is required to be the same.
+> Since the traversal of the dataset by data sinking is continuous, non-continuous traversal is not currently supported.
 > If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
 
 Code samples are as follows:
@@ -257,6 +258,11 @@ In MindSpore functional programming paradigm, it is also possible to use the [da
 - `sink_size`: Used to adjust the amount of data executed per sink, and specified as any positive number. Default value is 1, i.e. only one step of data is executed per sink. If you want to sink the data of an entire epoch in a single execution, you can use the `get_datasize_size()` method of `dataset` to specify its value. You can also sink multiple epochs at once and set the value to `epoch * get_datasize_size()`. (Multiple calls to `data_sink` traverse the dataset consecutively, with the next call continuing from the end of the previous call)
 - `jit_config`: The JitConfig configuration item used suring compilation. For details, please refer to [mindspore.JitConfig](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig). Default value: None, which means run in PyNative mode.
 - `input_signature`: Used to represent the Tensor of input parameters. The Tensor's shape and dtype will be used as the input shape and dtype of the function. Default value: None.
+
+> The current CPU does not support data sinking.
+> When set to GRAPH mode, the shape of each batch of data must be the same, while when set to PYNATIVE mode, the size of each batch of data is required to be the same.
+> Since the traversal of the dataset by data sinking is continuous, non-continuous traversal is not currently supported.
+> If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
 
 The code samples are as follows:
 
