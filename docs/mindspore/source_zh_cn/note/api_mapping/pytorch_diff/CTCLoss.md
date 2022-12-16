@@ -67,7 +67,6 @@ target_lengths = torch.randint(low=S_min, high=S, size=(N,), dtype=torch.long)
 ctc_loss = torch.nn.CTCLoss(reduction='none')
 loss = ctc_loss(input, target, input_lengths, target_lengths)
 print(loss.detach().numpy().shape)
-# Out:
 # (2,)
 
 
@@ -85,7 +84,6 @@ sequence_length = Tensor(np.array([2, 2]), mindspore.int32)
 ctc_loss = ops.CTCLoss()
 loss, gradient = ctc_loss(x, labels_indices, labels_values, sequence_length)
 print(loss.shape)
-# Out:
 # (2,)
 
 ```

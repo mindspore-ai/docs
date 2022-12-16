@@ -39,7 +39,7 @@ import torch
 import torch.nn as nn
 
 m = nn.Hardshrink()
-input = torch.tensor([[ 0.5,  1,  2.0], [0.0533,0.0776,-2.1233]],dtype=torch.float32)
+input = torch.tensor([[0.5, 1, 2.0], [0.0533, 0.0776, -2.1233]], dtype=torch.float32)
 output = m(input)
 output = output.detach().numpy()
 print(output)
@@ -51,7 +51,7 @@ import mindspore
 from mindspore import Tensor, nn
 import numpy as np
 
-input_x = Tensor(np.array([[ 0.5,  1,  2.0], [0.0533,0.0776,-2.1233]]), mindspore.float32)
+input_x = Tensor(np.array([[0.5, 1, 2.0], [0.0533, 0.0776, -2.1233]]), mindspore.float32)
 hshrink = nn.HShrink()
 output = hshrink(input_x)
 print(output)
