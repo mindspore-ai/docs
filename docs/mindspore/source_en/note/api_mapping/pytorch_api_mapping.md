@@ -69,6 +69,8 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.numel](https://pytorch.org/docs/1.8.1/generated/torch.numel.html) | [mindspore.ops.numel](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.numel.html) | The functions are consistent, but the parameter names are inconsistent.|
 | [torch.repeat_interleave](https://pytorch.org/docs/1.8.1/generated/torch.repeat_interleave.html) | [mindspore.ops.repeat_interleave](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.repeat_interleave.html) | Difference comparison is under development.|
 | [torch.roll](https://pytorch.org/docs/1.8.1/generated/torch.roll.html)                           | [mindspore.ops.roll](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.roll.html)                           | Difference comparison is under development.|
+| [torch.split](https://pytorch.org/docs/1.8.1/generated/torch.split.html)                         | [mindspore.ops.split](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.split.html)                         | The functions are consistent, but the parameter names are inconsistent.|
+| [torch.tensor_split](https://pytorch.org/docs/1.8.1/generated/torch.tensor_split.html)           | [mindspore.ops.tensor_split](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_split.html)           | The functions are consistent, but the parameter names are inconsistent.|
 | [torch.unsqueeze](https://pytorch.org/docs/1.8.1/generated/torch.unsqueeze.html) | [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.expand_dims.html) |Difference comparison is under development. |
 
 ### torch.distributed
@@ -169,6 +171,8 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.Tensor.roll](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.roll)                           | [mindspore.Tensor.roll](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.roll.html)                           | Difference comparison is under development. |
 | [torch.Tensor.rot90](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.rot90)                         | [mindspore.Tensor.rot90](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.rot90.html)                         | Difference comparison is under development. |
 | [torch.Tensor.short](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.short)                         | [mindspore.Tensor.short](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.short.html)                         | Difference comparison is under development. |
+| [torch.Tensor.split](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.split)                         | [mindspore.Tensor.split](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.split.html)                         | The functions are consistent, but the parameter names are inconsistent. The split_size parameter is split_size_or_sections in MindSpore. |
+| [torch.Tensor.tensor_split](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.tensor_split)           | [mindspore.Tensor.tensor_split](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.tensor_split.html)           | The functions are consistent, but the parameter names are inconsistent. |
 
 ### torch.optim
 

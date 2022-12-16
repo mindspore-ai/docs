@@ -69,6 +69,8 @@
 | [torch.numel](https://pytorch.org/docs/1.8.1/generated/torch.numel.html) | [mindspore.ops.numel](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.numel.html) | 功能一致，参数名不一致|
 | [torch.repeat_interleave](https://pytorch.org/docs/1.8.1/generated/torch.repeat_interleave.html) | [mindspore.ops.repeat_interleave](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.repeat_interleave.html) | 功能一致，参数名不一致|
 | [torch.roll](https://pytorch.org/docs/1.8.1/generated/torch.roll.html)                           | [mindspore.ops.roll](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.roll.html)                           | 功能一致，参数名不一致|
+| [torch.split](https://pytorch.org/docs/1.8.1/generated/torch.split.html)                         | [mindspore.ops.split](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.split.html)                         | 功能一致，参数名不一致|
+| [torch.tensor_split](https://pytorch.org/docs/1.8.1/generated/torch.tensor_split.html)           | [mindspore.ops.tensor_split](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_split.html)           | 功能一致，参数名不一致|
 | [torch.unsqueeze](https://pytorch.org/docs/1.8.1/generated/torch.unsqueeze.html)                 | [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html)                            |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/expand_dims.html)                                                                                                                        |
 
 ### torch.distributed
@@ -189,6 +191,8 @@
 | [torch.Tensor.roll](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.roll)                           | [mindspore.Tensor.roll](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.roll.html)                           | 功能一致                                       |
 | [torch.Tensor.rot90](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.rot90)                         | [mindspore.Tensor.rot90](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.rot90.html)                         | 功能一致                                       |
 | [torch.Tensor.short](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.short)                         | [mindspore.Tensor.short](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.short.html)                         | 功能一致，MindSpore未定义代表内存格式的 `memory_format` 参数 |
+| [torch.Tensor.split](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.split)                         | [mindspore.Tensor.split](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.split.html)                         | 功能一致，参数名不一致，参数split_size，在MindSpore中为split_size_or_sections。|
+| [torch.Tensor.tensor_split](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.tensor_split)           | [mindspore.Tensor.tensor_split](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.tensor_split.html)                  | 功能一致，参数名不一致|
 
 ### torch.optim
 
