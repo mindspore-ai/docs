@@ -1,17 +1,17 @@
-# 端到端可微分FDTD求解电磁逆散射问题
+# Device-to-device Differentiable FDTD for Solving Electromagnetic Inverse Scattering
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/AD_FDTD_inverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/AD_FDTD_inverse.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-## 概述
+## Overview
 
-本教程介绍MindElec提供的基于端到端可微分FDTD求解电磁逆问题的方法。时域有限差分（FDTD）方法求解麦克斯韦方程组的过程等价于一个循环卷积网络（RCNN）。利用MindSpore的可微分算子重写更新流程，便可得到端到端可微分FDTD。相比于数据驱动的黑盒模型，可微分FDTD方法的求解流程严格满足麦克斯韦方程组的约束。利用MindSpore的基于梯度的优化器，可微分FDTD可求解各种电磁逆问题。
+This tutorial introduces the method for solving electromagnetic inverse problems provided by MindElec   based on device-to-device differentiable FDTD. The process of solving Maxwell's equations by the finite-difference time-domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). The device-to-device differentiable FDTD can be obtained by rewriting the update process with the differentiable operator of MindSpore. Compared with the data-driven black-box model, the solution process of the differentiable FDTD method strictly satisfies the constraints of Maxwell's equations. Using MindSpore gradient-ased optimizer, differentiable FDTD can solve various EM inverse problems.
 
-> 本例面向GPU处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/AD_FDTD/fdtd_inverse>
+> This example is for GPU processors and you can download the full sample code here:
+> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/AD_FDTD/fdtd_forward>
 
-## 麦克斯韦方程组
+## Maxwell's Equations
 
-有源麦克斯韦方程是电磁仿真的经典控制方程，它是一组描述电场、磁场与电荷密度、电流密度之间关系的偏微分方程组，具体形式如下：
+Active Maxwell's equations are the classical control equations for electromagnetic simulation, which are a set of partial differential equations describing the relationship between electric and magnetic fields and charge density and current density, in the following form:
 
 $$
 \nabla\times E=-\mu \dfrac{\partial H}{\partial t},
@@ -21,35 +21,35 @@ $$
 \nabla\times H=\epsilon \dfrac{\partial E}{\partial t} + J(x, t)
 $$
 
-其中$\epsilon,\mu$分别是介质的绝对介电常数、绝对磁导率。$J(x, t)$是电磁仿真过程中的激励源，通常表现为端口脉冲的形式。这在数学意义上近似为狄拉克函数形式所表示的点源，可以表示为：
+where $\epsilon,\mu$ are the absolute permittivity and absolute magnetic permeability respectively. $J(x, t)$ is the excitation source in the electromagnetic simulation process, which is usually expressed in the form of a port pulse. This is approximated in a mathematical sense as the point source expressed in Dirac functional form, which can be expressed as:
 
 $$
 J(x, t)=\delta(x - x_0)g(t)
 $$
 
-其中$x_0$为激励源位置，$g(t)$为脉冲信号的函数表达形式。
+where $x_0$ is the excitation source position and $g(t)$ is the functional expression of the pulse signal.
 
-## 问题描述
+## Problem Description
 
-本案例求解二维TM模式的电磁逆散射问题。两个介质体位于矩形区域内。在求解区域外侧设置4个激励源（红色三角）和8个观察点（绿色圆点），具体情况如下图所示：
+This case solves the electromagnetic inverse scattering in two-dimensional TM mode. The two plastids are located inside the rectangular area. Four excitation sources (red triangles) and eight observation points (green dots) are set on the outside of the solution area, as shown in the following figure:
 
-![求解区域设置](./images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
+![Solution Area Setting](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
 
-MindElec求解该问题的具体流程如下：
+The process that MindElec solves the problem is as follows:
 
-1. 用传统数值方法获得观察点处的时域电场值，创建训练数据集和评估数据。
+1. Obtain the time domain electric field values at the observation points with traditional numerical methods to create training datasets and evaluation data.
 
-2. 定义激励源位置、观察点位置以及求解区域。
+2. Define the excitation source location, the observation point location and the solution area.
 
-3. 定义激励源的时域波形。
+3. Define the time domain waveform of the excitation source.
 
-4. 构建可微分FDTD网络。
+4. Construct differentiable FDTD networks.
 
-5. 网络训练并评估求解结果。
+5. Train the network and evaluate the solution results.
 
-## 导入依赖
+## Import Dependencies
 
-导入本教程所依赖模块与接口：
+Import the modules and interfaces that this tutorial depends on:
 
 ```python
 import os
@@ -63,9 +63,9 @@ from src import Gaussian, CFSParameters, estimate_time_interval
 from src import BaseTopologyDesigner
 ```
 
-## 加载数据集
+## Loading the Dataset
 
-加载用传统数值方法（如FDTD）计算得到的各个观察点处的时域电场值，以及相对介电常数真值。
+Load the time-domain electric field values at each observation point calculated by conventional numerical methods (e.g., FDTD), as well as the true value of the relative dielectric constant.
 
 ```python
 def load_labels(nt, dataset_dir):
@@ -90,9 +90,9 @@ def load_labels(nt, dataset_dir):
     return field_labels, epsr_labels
 ```
 
-## 定义激励源位置、观察点位置以及求解区域
+## Defining the Excitation Source Location, Observation Point Location and Solution Area
 
-继承`BaseTopologyDesiger`类，用户可以快速定义电磁逆散射问题。用户可在成员函数`generate_object`、`update_sources`和`get_outputs_at_each_step`中分别设置求解区域、激励源位置和观察点位置。以该问题为例，我们定义的电磁逆散射问题如下。
+Inheriting the `BaseTopologyDesiger` class, users can quickly define electromagnetic inverse scattering problems. Users can set the solution area, excitation source location and observation point location in the member functions `generate_object`, `update_sources` and `get_outputs_at_each_step`, respectively. Taking this problem as an example, we define the electromagnetic inverse scattering problem as follows.
 
 ```python
 class InverseDomain(BaseTopologyDesigner):
@@ -160,11 +160,11 @@ class InverseDomain(BaseTopologyDesigner):
         return vstack(rx)
 ```
 
-值得注意的是，在`generate_object`中将待优化变量`rho`映射为相对介电常数`epsr`时，选取合适的映射关系可以大大加快求解器收敛速度。本案例采用的映射关系为`background_epsr + elu(rho, alpha=1e-2)`，保证求解过程中不会出现非物理的介电常数。
+It should be noted that when mapping the variable to be optimized `rho`, to the relative permittivity `epsr` in `generate_object`, choosing the right mapping relationship can greatly speed up the solver convergence. The mapping relationship used in this case is `background_epsr + elu(rho, alpha=1e-2)`, which guarantees that no unphysical dielectric constant will appear during the solution.
 
-## 定义激励源时域波形
+## Defining the Excitation Source Time Domain Waveform
 
-本案例的激励源时域波形为高斯脉冲。FDTD采用蛙跳格式分别更新电场和磁场，而本案例的激励源为电流源，因此应计算半时间步上的激励源时域波形值。
+The time domain waveform of the excitation source in this case is a Gaussian pulse. FDTD uses the leap-frog scheme to update the electric and magnetic fields separately, and the excitation source in this case is a voltage source, so the time domain waveform value of the excitation source on the half time step should be calculated.
 
 ```python
 def get_waveform_t(nt, dt, fmax):
@@ -185,13 +185,13 @@ def get_waveform_t(nt, dt, fmax):
     return waveform_t
 ```
 
-## 构建可微分FDTD网络
+## Constructing the Differentiable FDTD Network
 
-本案例求解二维TM模式的电磁逆散射问题。时域有限差分（FDTD）方法求解麦克斯韦方程组的过程等价于一个循环卷积网络（RCNN）。当采用CFS-PML对无限大区域进行截断时，TM模式的二维FDTD的第$n$个时间步的更新过程如下：
+This case solves the electromagnetic inverse scattering problem in two-dimensional TM mode. The process of solving Maxwell's equations by the finite-difference in time domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). When the CFS-PML is used to truncate the infinite region, the update process of the $n$th time step of the two-dimensional FDTD in TM mode is as follows:
 
-![FDTD时间步更新流程](./images/AD_FDTD/fdtd_inverse/FDTD_RCNN_Update_TM_Mode.png)
+![FDTD Time-step Update Process](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/FDTD_RCNN_Update_TM_Mode.png)
 
-利用MindSpore的可微分算子重写FDTD的更新流程，便可得到端到端可微分FDTD。每个时间步内的计算过程如下：
+The device-to-device differentiable FDTD is obtained by rewriting the update process of the FDTD with the differentiable operator of MindSpore. The computation process within each time step is as follows:
 
 ```python
 class FDTDLayer(nn.Cell):
@@ -274,7 +274,7 @@ class FDTDLayer(nn.Cell):
         return hidden_states
 ```
 
-端到端可微分FDTD网络如下：
+The device-to-device differentiable FDTD network is as follows:
 
 ```python
 class ADFDTD(nn.Cell):
@@ -428,9 +428,9 @@ class ADFDTD(nn.Cell):
         return outputs
 ```
 
-## 模型训练
+## Model Training
 
-定义可微分FDTD网络、损失函数、优化器、迭代步数和学习率，然后定义电磁逆散射求解器对象`solver`，调用`solve`接口进行求解。
+Define the differentiable FDTD network, loss function, optimizer, iteration steps and learning rate, then define the electromagnetic inverse scattering solver object `solver` and call the `solve` interface for solving.
 
 ```python
 # define fdtd network
@@ -449,20 +449,20 @@ solver = EMInverseSolver(fdtd_net, loss_fn, optimizer)
 solver.solve(epochs, waveform_t, field_labels)
 ```
 
-## 评估求解结果
+## Evaluating the Solution Results
 
-求解结束后，调用`eval`接口评估反演结果的`PSNR`和`SSIM`。
+After the solution is finished, the `eval` interface is called to evaluate the `PSNR` and `SSIM` of the inversion results.
 
 ```python
 epsr, _ = solver.eval(epsr_labels)
 ```
 
-基于上述方法反演得到的相对介电常数的`PSNR`和`SSIM`分别为：
+The relative permittivity of `PSNR` and `SSIM` obtained by inversion based on the above method are:
 
 ```log
 [epsr] PSNR: 27.835317 dB, SSIM: 0.963564
 ```
 
-反演得到的相对介电常数分布如下图所示。
+The relative permittivity distribution obtained by the inversion is shown in the figure below:
 
-![反演结果](./images/AD_FDTD/fdtd_inverse/epsr_reconstructed.png)
+![inversion result](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/epsr_reconstructed.png)
