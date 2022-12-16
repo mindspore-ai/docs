@@ -39,9 +39,9 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | input | x |功能一致，参数名不同 |
-| | 参数2 | ksize | kernel_size | 功能一致，参数名不同 |
-| | 参数3 | strides | stride | 功能一致，参数名不同 |
-| | 参数4 | padding | pad_mode | 功能一致，参数名不同 |
+| | 参数2 | ksize | kernel_size | 功能一致，参数名不同，TensorFlow无默认值 |
+| | 参数3 | strides | stride | 功能一致，参数名不同，TensorFlow无默认值 |
+| | 参数4 | padding | pad_mode | 功能一致，参数名不同，TensorFlow无默认值 |
 | | 参数5 | data_format | data_format | - |
 | | 参数6 | name | - | 不涉及 |
 

@@ -20,7 +20,7 @@ class mindspore.nn.MSELoss(reduction='mean')(logits, labels) -> Tensor
 
 ## 差异对比
 
-PyTorch：用于计算输入x和y每一个元素的均方误差。reduction参数指定应用于loss的规约类型。
+PyTorch：用于计算输入x和y每一个元素的均方误差，reduction参数指定应用于loss的规约类型。
 
 MindSpore：实现与PyTorch一致的功能。
 
@@ -32,23 +32,21 @@ MindSpore：实现与PyTorch一致的功能。
 | | 参数4 | reduce | - | 被reduction替代，MindSpore无此参数 |
 | | 参数5 | reduction | reduction | - |
 
-## 差异分析与示例
-
 ### 代码示例1
 
 > 计算input和target的均方误差。
 
 ```python
-# pytoch
+# PyTorch
 import torch
 from torch.nn.functional import mse_loss
 from torch import tensor
 import numpy as np
 
 # 默认情况，reduction='mean'
-input_ = np.array([1,1,1,1]).reshape((2,2))
+input_ = np.array([1, 1, 1, 1]).reshape((2, 2))
 input = tensor(input_, dtype=torch.float32)
-target_ = np.array([1,2,2,1]).reshape((2,2))
+target_ = np.array([1, 2, 2, 1]).reshape((2, 2))
 target = tensor(target_, dtype=torch.float32)
 output = mse_loss(input, target)
 print(output.numpy())
@@ -61,30 +59,30 @@ import mindspore.nn as nn
 import numpy as np
 
 loss = nn.MSELoss()
-input_ = np.array([1,1,1,1]).reshape((2,2))
+input_ = np.array([1, 1, 1, 1]).reshape((2, 2))
 input = Tensor(input_, dtype=mindspore.float32)
-target_ = np.array([1,2,2,1]).reshape((2,2))
+target_ = np.array([1, 2, 2, 1]).reshape((2, 2))
 target = Tensor(target_, dtype=mindspore.float32)
 output = loss(input, target)
 print(output)
 # 0.5
 ```
 
-### 代码实例2
+### 代码示例2
 
 > 计算`input`和`target`的均方误差，以求和方式规约。
 
 ```python
-# pytoch
+# PyTorch
 import torch
 from torch.nn.functional import mse_loss
 from torch import tensor
 import numpy as np
 
 # redcution='sum'
-input_ = np.array([1,1,1,1]).reshape((2,2))
+input_ = np.array([1, 1, 1, 1]).reshape((2, 2))
 input = tensor(input_, dtype=torch.float32)
-target_ = np.array([1,2,2,1]).reshape((2,2))
+target_ = np.array([1, 2, 2, 1]).reshape((2, 2))
 target = tensor(target_, dtype=torch.float32)
 print(target)
 output = mse_loss(input, target, reduction='sum')
@@ -99,9 +97,9 @@ import mindspore.nn as nn
 import numpy as np
 
 loss = nn.MSELoss(reduction='sum')
-input_ = np.array([1,1,1,1]).reshape((2,2))
+input_ = np.array([1, 1, 1, 1]).reshape((2, 2))
 input = Tensor(input_, dtype=mindspore.float32)
-target_ = np.array([1,2,2,1]).reshape((2,2))
+target_ = np.array([1, 2, 2, 1]).reshape((2, 2))
 target = Tensor(target_, dtype=mindspore.float32)
 output = loss(input, target)
 print(output)
