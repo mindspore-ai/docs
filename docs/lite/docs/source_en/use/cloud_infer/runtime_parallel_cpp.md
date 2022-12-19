@@ -1,14 +1,12 @@
 # Using C++ Interface to Parallel Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_server_inference_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_ModelParallelRunner.html). Multi model concurrent inference now supports CPU and GPU backend.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html). Multi model concurrent inference now supports Ascend310, Ascend310P, Nvidia GPU and CPU backends.
 
-> For a quick understanding of the complete calling process of MindSpore Lite executing concurrent reasoning, please refer to [Experience C++ Minimalist Concurrent Reasoning Demo](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_cpp.html).
-
-After the model is converted into a `.ms` model by using the MindSpore Lite model [conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html), the inference process can be performed in Runtime. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). This tutorial describes how to use the [C++ API](https://www.mindspore.cn/lite/api/en/master/index.html) to perform inference.
+After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
 To use the MindSpore Lite parallel inference framework, perform the following steps:
 
@@ -16,6 +14,14 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 2. Initialization: initialization before multi-model concurrent inference.
 3. Execute concurrent inference: Use the Predict interface of ModelParallelRunner to perform concurrent inference on multiple models.
 4. Release memory: When you do not need to use the MindSpore Lite concurrent inference framework, you need to release the ModelParallelRunner and related Tensors you created.
+
+## Preparation
+
+1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp).
+
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
+
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
 
 ## Create configuration
 
@@ -55,7 +61,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 > For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
 >
-> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html) and [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html) two different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
+> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
 > Multi-model concurrent inference does not support FP32-type data inference. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
 
@@ -63,7 +69,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 When using MindSpore Lite to execute concurrent inference, ModelParallelRunner is the main entry of concurrent reasoning. Through ModelParallelRunner, you can initialize and execute concurrent reasoning. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L155) demonstrates how to call `Predict` to execute reasoning:
+The following [sample code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_cpp/main.cc#L74) demonstrates the initialization process of ModelParallelRunner:
 
 ```cpp
 // Build model
@@ -81,7 +87,7 @@ delete model_runner;
 
 MindSpore Lite calls the Predict interface of ModelParallelRunner for model concurrent inference.
 
-The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L189) demonstrates how to call `Predict` to execute inference.
+The following [sample code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L189) demonstrates how to call `Predict` to execute inference.
 
 ```cpp
 // Model Predict
@@ -97,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Memory release
 
-When you do not need to use the MindSpore Lite reasoning framework, you need to release the created ModelParallelRunner. The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L220) demonstrates how to free memory before the end of the program.
+When you do not need to use the MindSpore Lite reasoning framework, you need to release the created ModelParallelRunner. The following [sample code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L220) demonstrates how to free memory before the end of the program.
 
 ```cpp
 // Delete model runner.
