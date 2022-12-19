@@ -7,13 +7,14 @@ MindSpore Lite Documentation
 =======================================
 
 .. toctree::
-	:glob:
-	:maxdepth: 1
-	:caption: Obtain MindSpore Lite
-	:hidden:
+   :glob:
+   :maxdepth: 1
+   :caption: Obtain MindSpore Lite
+   :hidden:
  
-	use/downloads
-	use/build
+   use/downloads
+   use/build
+   use/cloud_infer/build
 
 .. toctree::
    :glob:
@@ -22,17 +23,6 @@ MindSpore Lite Documentation
    :hidden:
 
    quick_start/one_hour_introduction
-   quick_start/quick_start_cpp
-   quick_start/quick_start_server_inference_cpp
-   quick_start/quick_start_java
-   quick_start/quick_start_server_inference_java
-   quick_start/quick_start_python
-   quick_start/quick_start_server_inference_python
-   quick_start/quick_start_c
-   quick_start/quick_start
-   quick_start/image_segmentation
-   quick_start/train_lenet
-   quick_start/train_lenet_java
 
 .. toctree::
    :glob:
@@ -40,6 +30,7 @@ MindSpore Lite Documentation
    :caption: Inference on Devices
    :hidden:
 
+   device_infer_example
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -52,15 +43,8 @@ MindSpore Lite Documentation
    :caption: Training on Devices
    :hidden:
 
+   device_train_example
    use/runtime_train
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Server Inference
-   :hidden:
-
-   use/runtime_server_inference
 
 .. toctree::
    :glob:
@@ -74,7 +58,7 @@ MindSpore Lite Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Other Tools
+   :caption: Device-side Tools
    :hidden:
 
    use/converter
@@ -82,6 +66,24 @@ MindSpore Lite Documentation
    use/cropper_tool
    use/visual_tool
    use/obfuscator_tool
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Cloud-side Inference
+   :hidden:
+
+   use/cloud_infer/runtime
+   use/cloud_infer/runtime_parallel
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Cloud-side Tools
+   :hidden:
+   
+   use/cloud_infer/converter
+   use/cloud_infer/benchmark
 
 .. toctree::
    :glob:
