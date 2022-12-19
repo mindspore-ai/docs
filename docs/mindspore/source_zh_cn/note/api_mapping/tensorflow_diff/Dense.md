@@ -52,12 +52,12 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数3  | use_bias             | has_bias     | 功能一致，参数名称不同                                       |
 |      | 参数4  | kernel_initializer   | weight_init  | 功能一致，参数名称不同                                       |
 |      | 参数5  | bias_initializer     | bias_init    | 功能一致，参数名称不同                                       |
-|      | 参数6  | kernel_regularizer   |    -          | 权重矩阵的正则函数。MindsSpore无此参数                       |
-|      | 参数7  | bias_regularizer     |    -          | 偏差的正则化函数。MindsSpore无此参数                         |
-|      | 参数8  | activity_regularizer |    -          | 输出的正则化函数。MindsSpore无此参数                         |
-|      | 参数9  | kernel_constraint    |    -          | 在 `Optimizer` 程序更新后将应用于内核的可选投影函数（例如，用于实现规范约束或层权重的值约束）。该函数必须将未投影的变量作为输入，并且必须返回投影变量（形状必须相同）。在进行异步分布式训练时，使用约束并不安全。MindsSpore无此参数 |
-|      | 参数10 | bias_constraint      |     -         | 由 `Optimizer`更新后要应用于偏差的可选投影函数。MindsSpore无此参数 |
-|      | 参数11 | trainable            |     -         | 布尔值，如果为 `True` ，则还将变量添加到图形集合 `GraphKeys.TRAINABLE_VARIABLES`。MindsSpore无此参数 |
+|      | 参数6  | kernel_regularizer   |    -          | 权重矩阵的正则函数。MindSpore无此参数                       |
+|      | 参数7  | bias_regularizer     |    -          | 偏差的正则化函数。MindSpore无此参数                         |
+|      | 参数8  | activity_regularizer |    -          | 输出的正则化函数。MindSpore无此参数                         |
+|      | 参数9  | kernel_constraint    |    -          | 在 `Optimizer` 程序更新后将应用于内核的可选投影函数（例如，用于实现规范约束或层权重的值约束）。该函数必须将未投影的变量作为输入，并且必须返回投影变量（形状必须相同）。在进行异步分布式训练时，使用约束并不安全。MindSpore无此参数 |
+|      | 参数10 | bias_constraint      |     -         | 由 `Optimizer`更新后要应用于偏差的可选投影函数。MindSpore无此参数 |
+|      | 参数11 | trainable            |     -         | 布尔值，如果为 `True` ，则还将变量添加到图形集合 `GraphKeys.TRAINABLE_VARIABLES`。MindSpore无此参数 |
 |      | 参数12 | name                 |     -         | 不涉及    |
 |      | 参数13 | **kwargs                 |     -         | 不涉及    |
 |      | 参数14 | -                 |     in_channels         | 输入的空间维度，TensorFlow无此参数    |
