@@ -49,6 +49,14 @@ path = "./"
 path = download(dataset_url, path, kind="zip", replace=True)
 ```
 
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vit_imagenet_dataset.zip (489.1 MB)
+
+file_sizes: 100%|████████████████████████████| 513M/513M [00:09<00:00, 52.3MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
+```
+
 ```python
 import os
 
@@ -415,7 +423,7 @@ class ViT(nn.Cell):
         """ViT construct."""
         x = self.patch_embedding(x)
         cls_tokens = ops.tile(self.cls_token, (x.shape[0], 1, 1))
-        x = ops.concat((cls_tokens, x), axis=1)
+        x = ops.concat((cls_tokens.astype(ms.float16), x), axis=1)
         x += self.pos_embedding
 
         x = self.pos_dropout(x)
@@ -429,6 +437,10 @@ class ViT(nn.Cell):
         return x
 ```
 
+The overall flow diagram is shown below:
+
+![data-process](https://gitee.com/mindspore/docs/raw/master/tutorials/application/source_en/cv/images/data_process.png)
+
 ## Model Training and Inference
 
 ### Model Training
@@ -440,7 +452,7 @@ It takes a long time to train the ViT model completely, and it is recommended to
 ```python
 import mindspore.nn as nn
 from mindspore.nn import LossBase
-from mindspore import LossMonitor, train
+from mindspore import LossMonitor, TimeMonitor
 
 # define super parameter
 epoch_size = 10
@@ -453,19 +465,19 @@ step_size = dataset_train.get_dataset_size()
 network = ViT()
 
 # load ckpt
-vit_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/application/vit_b_16_224.ckpt"
+vit_url = "https://download.mindspore.cn/vision/classification/vit_b_16_224.ckpt"
 path = "./ckpt/vit_b_16_224.ckpt"
 
-vit_path = download(dataset_url, path, replace=True)
+vit_path = download(vit_url, path, replace=True)
 param_dict = ms.load_checkpoint(vit_path)
 ms.load_param_into_net(network, param_dict)
 
 # define learning rate
 lr = nn.cosine_decay_lr(min_lr=float(0),
-                        max_lr=0.003,
+                        max_lr=0.00005,
                         total_step=epoch_size * step_size,
                         step_per_epoch=step_size,
-                        decay_epoch=90)
+                        decay_epoch=10)
 
 # define optimizer
 network_opt = nn.Adam(network.trainable_params(), lr, momentum)
@@ -500,26 +512,18 @@ ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoi
 ckpt_callback = ms.ModelCheckpoint(prefix='vit_b_16', directory='./ViT', config=ckpt_config)
 
 # initialize model
-model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"})
+# "Ascend + mixed precision" can improve performance
+ascend_target = (ms.get_context("device_target") == "Ascend")
+if ascend_target:
+    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O2")
+else:
+    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O0")
 
 # train model
 model.train(epoch_size,
             dataset_train,
-            callbacks=[ckpt_callback, LossMonitor(125)],
-            dataset_sink_mode=False)
-```
-
-```text
-epoch: 1 step: 125, loss is 6.486334800720215
-epoch: 2 step: 125, loss is 6.982427597045898
-epoch: 3 step: 125, loss is 7.116015434265137
-epoch: 4 step: 125, loss is 6.9209675788879395
-epoch: 5 step: 125, loss is 7.068521499633789
-epoch: 6 step: 125, loss is 6.8899030685424805
-epoch: 7 step: 125, loss is 6.973553657531738
-epoch: 8 step: 125, loss is 6.621445655822754
-epoch: 9 step: 125, loss is 6.701656341552734
-epoch: 10 step: 125, loss is 6.880570411682129
+            callbacks=[ckpt_callback, LossMonitor(125), TimeMonitor(125)],
+            dataset_sink_mode=False,)
 ```
 
 ### Model Validation
@@ -563,18 +567,17 @@ network_loss = CrossEntropySmooth(sparse=True,
                                   num_classes=num_classes)
 
 # define metric
-eval_metrics = {'Top_1_Accuracy': train.Top1CategoricalAccuracy(),
-                'Top_5_Accuracy': train.Top5CategoricalAccuracy()}
+eval_metrics = {'Top_1_Accuracy': nn.Top1CategoricalAccuracy(),
+                'Top_5_Accuracy': nn.Top5CategoricalAccuracy()}
 
-model = ms.Model(network, network_loss, metrics=eval_metrics)
+if ascend_target:
+    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O2")
+else:
+    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O0")
 
 # evaluate model
 result = model.eval(dataset_val)
 print(result)
-```
-
-```text
-{'Top_1_Accuracy': 0.75, 'Top_5_Accuracy': 0.928}
 ```
 
 From the results, we can see that the Top_1_Accuracy and Top_5_Accuracy of the model reach a high level due to our loading of pre-trained model parameters, and this accuracy can be used as the standard in the actual project. If the pre-trained model parameters are not used, more epochs are needed for training.
