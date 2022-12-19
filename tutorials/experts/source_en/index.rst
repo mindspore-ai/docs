@@ -59,9 +59,6 @@ For Experts
    :caption: Model Inference
 
    infer/inference
-   infer/gpu_mindir
-   infer/ascend_910_mindir
-   infer/ascend_310_mindir
    infer/ascend_310_air
    infer/model_compression
 

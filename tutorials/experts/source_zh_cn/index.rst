@@ -59,9 +59,6 @@
    :caption: 模型推理
 
    infer/inference
-   infer/gpu_mindir
-   infer/ascend_910_mindir
-   infer/ascend_310_mindir
    infer/ascend_310_air
    infer/model_compression
 
