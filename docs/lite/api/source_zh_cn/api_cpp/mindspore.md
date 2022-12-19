@@ -12,9 +12,8 @@
 | [DeviceInfoContext](#deviceinfocontext)          | 不同硬件设备的环境信息。                                      |
 | [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置，仅MindSpore Lite支持。                   |
 | [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     |
-| [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置，仅MindSpore Lite支持。                   |
-| [Ascend910DeviceInfo](#ascend910deviceinfo)      | 模型运行在Ascend910上的配置，MindSpore Lite不支持。             |
-| [Ascend310DeviceInfo](#ascend310deviceinfo)      | 模型运行在Ascend310上的配置。                               |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置，仅MindSpore Lite支持。                   |             |
+| [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Ascend 310/310P上的配置。                               |
 | [Serialization](#serialization)                  | 汇总了模型文件读写的方法。                                     |
 | [Buffer](#buffer)                                | Buff数据类。                                          |
 | [Model](#model)                                  | MindSpore中的模型，便于计算图管理。                            |
@@ -57,29 +56,6 @@
 | --- | --- |
 | [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 |
 | [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 |
-
-### 全局方法
-
-| 方法名 | 描述 |
-| --- | --- |
-| StringToChar | 将std::string转换成std::vector<char\>。 |
-| CharToString | 将std::vector<char\>转换成std::string。 |
-| PairStringToChar | 将std::pair<std::string, int32_t\>转换成std::pair<std::vector<char\>, int32_t\>。 |
-| PairCharToString | 将std::pair<std::vector<char\>, int32_t\>转换成std::pair<std::string, int32_t\>。 |
-| VectorStringToChar | 将std::vector<std::string\>转换成std::vector<std::vector<char\>\>。 |
-| VectorCharToString | 将std::vector<std::vector<char\>\>转换成std::vector<std::string\>。 |
-| SetStringToChar | 将std::set<std::string\>转换成std::set<std::vector<char\>\>。 |
-| SetCharToString | 将std::set<std::vector<char\>\>转换成std::set<std::string\>。 |
-| MapStringToChar | 将std::map<std::string, int32_t\>转换成std::map<std::vector<char\>, int32_t\>。 |
-| MapCharToString | 将std::map<std::vector<char\>, int32_t\>转换成std::map<std::string, int32_t\>。 |
-| UnorderedMapStringToChar | 将std::unordered_map<std::string, std::string\>转换成std::map<std::vector<char\>, std::vector<char\>\>。 |
-| UnorderedMapCharToString | 将std::map<std::vector<char\>, std::vector<char\>\>转换成std::unordered_map<std::string, std::string\>。 |
-| ClassIndexStringToChar | 将std::vector<std::pair<std::string, std::vector<int32_t\>\>\>转换成std::vector<std::pair<std::vector<char\>, std::vector<int32_t\>\>\>。 |
-| ClassIndexCharToString | 将std::vector<std::pair<std::vector<char\>, std::vector<int32_t\>\>\>转换成std::vector<std::pair<std::string, std::vector<int32_t\>\>\>。 |
-| PairStringInt64ToPairCharInt64 | 将std::vector<std::pair<std::string, int64_t\>\>转换成std::vector<std::pair<std::vector<char\>, int64_t\>\>。 |
-| PadInfoStringToChar | 将std::map<std::string, T\>转换成std::map<std::vector<char\>, T\>。 |
-| PadInfoCharToString | 将std::map<std::vector<char\>, T\>转换成std::map<std::string, T\>。 |
-| TensorMapCharToString | 将std::map<std::vector<char\>, T\>转换成std::unordered_map<std::string, T\>。 |
 
 ## Context
 
@@ -414,20 +390,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 | `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 |
 | `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 |
 
-## Ascend910DeviceInfo
-
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
-
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend910上的配置，MindSpore Lite不支持该选项。
-
-### 公有成员函数
-
-| 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `void SetDeviceID(uint32_t device_id)`                   | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                            |
-| `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                                                                                                                                                               |
-
-## Ascend310DeviceInfo
+## AscendDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
@@ -1224,11 +1187,11 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
 #### CreateDevTensor
 
 ```cpp
-static inline MSTensor *CreateDevTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
-                                        const void *data, size_t data_len) noexcept;
+static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
+                                          void *data, size_t data_len) noexcept;
 ```
 
-创建一个`MSTensor`对象，其device数据可以直接由`Model`访问，必须与`DestroyTensorPtr`成对使用。
+创建一个`MSTensor`对象，其device数据可以直接由`Model`访问，不需要与`DestroyTensorPtr`成对使用。
 
 - 参数
 
@@ -1240,7 +1203,7 @@ static inline MSTensor *CreateDevTensor(const std::string &name, DataType type, 
 
 - 返回值
 
-  `MStensor`指针。
+  `MStensor`对象。
 
 #### StringsToTensor
 
@@ -1500,10 +1463,23 @@ mindspore::Format format() const;
 #### SetData
 
 ```cpp
-void SetData(void *data);
+void SetData(void *data, bool own_data = true);
 ```
 
 设置指向`MSTensor`数据的指针。
+
+- 参数
+
+    - `data`: 新的数据的地址。
+    - `own_data`: 是否在`MSTensor`析构时释放数据内存。如果为true，将在`MSTensor`析构时释放数据内存，如果重复调用`SetData`，将仅释放新的数据内存，老的数据内存需要用户释放；如果为false，需要用户释放数据内存。由于向前兼容，默认为true，建议用户设置为false。
+
+#### SetDeviceData
+
+```cpp
+void SetDeviceData(void *data);
+```
+
+设置数据的设备地址，由用户负责设备内存的申请和释放。仅适用于Ascend和GPU硬件后端。
 
 #### QuantParams
 

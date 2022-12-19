@@ -44,7 +44,7 @@ A: While Ascend 310 AI Processor software packages relied by MindSpore is instal
 
 <font size=3>**Q: How to set high-precision or high-performance mode when performing inference on Ascend 310 AI Processor?**</font>
 
-A: Set in the inference code through the SetPrecisionMode interface of Ascend310DeviceInfo. Optional: force_fp16, allow_fp32_to_fp16, must_keep_origin_dtype, and allow_mix_precision. The default value is force_fp16, which refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype.
+A: Set in the inference code through the SetPrecisionMode interface of AscendDeviceInfo. Optional: force_fp16, allow_fp32_to_fp16, must_keep_origin_dtype, and allow_mix_precision. The default value is force_fp16, which refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype.
 <br/>
 
 <font size=3>**Q: How to configure AIPP files?**</font>

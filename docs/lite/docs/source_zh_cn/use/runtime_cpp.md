@@ -60,7 +60,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)、[Ascend310DeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascend310deviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
+> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
 >
 > Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
 >
@@ -187,7 +187,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Ascend310)，需要设置[Ascend310DeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascend310deviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在Ascend后，以保证泛化模型的推理。其中Ascend310DeviceInfo通过`SetDeviceID`来设置设备ID。
+当需要执行的后端为Ascend时(目前支持Ascend310)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在Ascend后，以保证泛化模型的推理。其中Ascend310DeviceInfo通过`SetDeviceID`来设置设备ID。
 
 下面[示例代码]如何创建CPU与Ascend异构推理后端，同时设备ID设置为0：
 
@@ -199,9 +199,9 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 
 // Set Ascend310 device first, make Ascend310 preferred backend.
-auto ascend_device_info = std::make_shared<mindspore::Ascend310DeviceInfo>();
+auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
-  std::cerr << "New Ascend310DeviceInfo failed." << std::endl;
+  std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
 // Ascend310 set device id to be 0.
 ascend_device_info->SetDeviceID(0);

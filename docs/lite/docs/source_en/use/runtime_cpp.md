@@ -188,7 +188,7 @@ When the backend that needs to be executed is the heterogeneous inference based 
 
 ### Configuring the ASCEND Backend
 
-If the backend to be executed is Ascend(only support ASCEND310), you need to set [Ascend310DeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
+If the backend to be executed is Ascend(only support ASCEND310), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
 
 The following sample code shows how to create the CPU and ASCEND heterogeneous inference backend and set ascend device id to 0.
 
@@ -200,9 +200,9 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 
 // Set Ascend310 device first, make Ascend310 preferred backend.
-auto ascend_device_info = std::make_shared<mindspore::Ascend310DeviceInfo>();
+auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
-  std::cerr << "New Ascend310DeviceInfo failed." << std::endl;
+  std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
 // Ascend310 set device id to be 0.
 ascend_device_info->SetDeviceId(0);

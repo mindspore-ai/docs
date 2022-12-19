@@ -26,7 +26,7 @@ static const std::vector<float> input_data_2 = {2, 3, 4, 5};
 int main() {
   // set context
   auto context = std::make_shared<ms::Context>();
-  auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+  auto ascend310_info = std::make_shared<ms::AscendDeviceInfo>();
   ascend310_info->SetDeviceID(0);
   context->MutableDeviceInfo().push_back(ascend310_info);
 
