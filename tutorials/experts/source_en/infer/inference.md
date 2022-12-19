@@ -6,7 +6,7 @@ MindSpore can execute inference tasks on different hardware platforms based on t
 
 Ascend 310 is an energy-efficient, highly integrated AI processor for edge scenarios that supports inference in Both MindIR and AIR format models.
 
-MindIR format can be exported by MindSpore CPU, GPU, Ascend 910, can be run on GPU, Ascend 910, Ascend 310, no need to manually perform model conversion before inference. Inference needs to install MindSpore, and call MindSpore C++ API.
+MindIR format can be exported by MindSpore CPU, GPU, Ascend 910, can be run on GPU, Ascend 910, Ascend 310, no need to manually perform model conversion before inference. Inference needs to install MindSpore Lite, and call MindSpore Lite C++ API.
 
 Only MindSpore Ascend 910 can export AIR format, and only Ascend 310 can be inferred. Before inference, you need to use the atc tool in Ascend CANN for model conversion. Inference does not rely on MindSpore, but only require the Ascend CANN package.
 
@@ -28,7 +28,7 @@ Basic concepts and application scenarios of these formats are as follows:
 - ONNX
     - Open Neural Network Exchange is an open format built to represent machine learning models.
     - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/python_api/index.html)).
-    - At present, MindSpore only supports the export of ONNX model, and does not support loading ONNX model for inference. Currently, the models supported for export are Resnet50, YOLOv3_darknet53, YOLOv4 and BERT. These models can be used on [ONNX Runtime](https://onnxruntime.ai/).
+    - Currently, the models supported for export are Resnet50, YOLOv3_darknet53, YOLOv4 and BERT. These models can be used on [ONNX Runtime](https://onnxruntime.ai/).
 - AIR
     - Ascend Intermediate Representation is an open file format defined by Huawei for machine learning.
     - It adapts to Huawei AI processors well and is generally used to execute inference tasks on Ascend 310.
@@ -51,16 +51,16 @@ MindSpore defines logical network structures and operator attributes through a u
 
 1. Overview
 
-    As a unified model file of MindSpore, MindIR stores network structures and weight parameter values. In addition, it can be deployed on the on-cloud Serving and the on-device Lite platforms to execute inference tasks.
+    As a unified model file of MindSpore, MindIR stores network structures and weight parameter values. In addition, it can be deployed on the on-cloud Serving and the MindSpore Lite platforms to execute inference tasks.
 
     A MindIR file supports the deployment of multiple hardware forms.
 
     - On-cloud deployment and inference on Serving: After MindSpore trains and generates a MindIR model file, the file can be directly sent to MindSpore Serving for loading and inference. No additional model conversion is required. This ensures that models on different hardware such as Ascend, GPU, and CPU are unified.
-    - On-device inference and deployment on Lite: MindIR can be directly used for Lite deployment. In addition, to meet the lightweight requirements on devices, the model miniaturization and conversion functions are provided. An original MindIR model file can be converted from the Protocol Buffers format to the FlatBuffers format for storage, and the network structure is lightweight to better meet the performance and memory requirements on devices.
+    - Use MindSpore Lite for inference and deployment: MindIR models can be deployed by directly using Lite. Support deployment on on-cloud servers such as Ascend, Nvidia GPUs, CPUs, as well as on resource-constrained on-device hardware such as cell phones.
 
 2. Application Scenarios
 
-    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorials/experts/en/master/infer/ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en/master/index.html).
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html) and [Lite Inference](https://www.mindspore.cn/lite/docs/en/master/index.html).
 
 ## model.eval Model Validation
 
