@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
 import os
 import shutil
 import IPython
@@ -18,6 +19,14 @@ import sys
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 sys.path.append(os.path.abspath('../_ext'))
+
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
 
 # -- Project information -----------------------------------------------------
 
@@ -126,6 +135,10 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
 # Copy source files of chinese python api from mindscience repository.
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
@@ -155,10 +168,13 @@ import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsCnPlatformAutoSummary, MsCnAutoSummary
+
+rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('rst_files', set(), False)
