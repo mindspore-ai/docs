@@ -53,13 +53,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且目标值�
 ```python
 # PyTorch
 import torch
-from torch import nn
 import numpy as np
 
 inpu = np.array([[1.62434536, -0.61175641, -0.52817175, -1.07296862, 0.86540763], [-2.3015387, 1.74481176, -0.7612069, 0.3190391, -0.24937038], [1.46210794, -2.06014071, -0.3224172, -0.38405435, 1.13376944]])
 targe = np.array([1, 0, 4])
 
-loss = nn.CrossEntropyLoss()
+loss = torch.nn.CrossEntropyLoss()
 input = torch.tensor(inpu, requires_grad=True)
 target = torch.tensor(targe, dtype=torch.long)
 output = loss(input, target)
@@ -69,11 +68,10 @@ print(output.detach().numpy())
 # MindSpore
 import mindspore
 import numpy as np
-from mindspore import nn
 
 inputs = mindspore.Tensor(inpu, mindspore.float32)
 target = mindspore.Tensor(targe, mindspore.int32)
-loss = nn.CrossEntropyLoss()
+loss = mindspore.nn.CrossEntropyLoss()
 output = loss(inputs, target)
 print(output)
 # 2.7648222

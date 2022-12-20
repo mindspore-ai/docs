@@ -67,7 +67,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，MindSpore的A
 # TensorFlow
 import tensorflow as tf
 import numpy as np
-input_n =2
+input_n = 2
 output_c = 2
 input_channels = 2
 output_channels = 2
@@ -85,11 +85,21 @@ label_np_onehot[np.arange(input_n), label_np] = 1.0
 tf.compat.v1.disable_eager_execution()
 input_tf = tf.constant(input_np, dtype=np.float32)
 label = tf.constant(label_np_onehot)
-net = tf.compat.v1.layers.dense(inputs=input_tf, units=output_channels, use_bias=True,kernel_initializer=tf.compat.v1.constant_initializer(
-                                weight_np.transpose(1, 0), dtype=np.float32),bias_initializer=tf.compat.v1.constant_initializer(bias_np,dtype=np.float32))
-criterion = tf.compat.v1.losses.softmax_cross_entropy(onehot_labels=label,
-                                                      logits=net,
-                                                      reduction=tf.compat.v1.losses.Reduction.MEAN)
+net = tf.compat.v1.layers.dense(
+    inputs=input_tf,
+    units=output_channels,
+    use_bias=True,
+    kernel_initializer=tf.compat.v1.constant_initializer(
+        weight_np.transpose(1, 0),
+        dtype=np.float32
+    ),
+    bias_initializer=tf.compat.v1.constant_initializer(bias_np,dtype=np.float32)
+)
+criterion = tf.compat.v1.losses.softmax_cross_entropy(
+    onehot_labels=label,
+    logits=net,
+    reduction=tf.compat.v1.losses.Reduction.MEAN
+)
 opt = tf.compat.v1.train.AdamOptimizer(learning_rate=lr, epsilon=1e-8).minimize(criterion)
 init = tf.compat.v1.global_variables_initializer()
 with tf.compat.v1.Session() as ss:
@@ -131,10 +141,15 @@ input_me = Tensor(input_np.copy())
 weight = Tensor(weight_np.copy())
 label = Tensor(label_np_onehot.copy())
 bias = Tensor(bias_np.copy())
-net = Dense(in_channels=input_channels, out_channels=output_channels,
-            weight_init=weight, bias_init=bias, has_bias=True)
+net = Dense(
+    in_channels=input_channels,
+    out_channels=output_channels,
+    weight_init=weight,
+    bias_init=bias,
+    has_bias=True
+)
 criterion = SoftmaxCrossEntropyWithLogits(reduction='mean')
-optimizer = Adam(params=net.trainable_params(), eps=1e-8,learning_rate=lr)
+optimizer = Adam(params=net.trainable_params(), eps=1e-8, learning_rate=lr)
 net_with_criterion = WithLossCell(net, criterion)
 train_network = TrainOneStepCell(net_with_criterion, optimizer)
 train_network.set_train()

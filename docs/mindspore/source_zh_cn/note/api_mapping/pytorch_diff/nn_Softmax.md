@@ -20,7 +20,7 @@ class mindspore.nn.Softmax(axis=-1)(x) -> Tensor
 
 ## 差异对比
 
-PyTorch：它是二分类函数，在多分类上的推广，目的是将多分类的结果以概率的形式展现出来
+PyTorch：它是二分类函数，在多分类上的推广，目的是将多分类的结果以概率的形式展现出来。
 
 MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 

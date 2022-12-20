@@ -10,7 +10,8 @@ tf.keras.optimizers.Adagrad(
     initial_accumulator_value=0.1,
     epsilon=1e-07,
     name='Adagrad',
-    **kwargs) -> Tensor
+    **kwargs
+) -> Tensor
 ```
 
 更多内容详见[tf.keras.optimizers.Adagrad](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Adagrad)。
@@ -24,7 +25,8 @@ class mindspore.nn.Adagrad(
     learning_rate=0.001,
     update_slots=True,
     loss_scale=1.0,
-    weight_decay=0.0)(grads) -> Tensor
+    weight_decay=0.0
+)(grads) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.Adagrad](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html)。
@@ -39,7 +41,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数�
 | ---- | ------ | ------------------------- | ------------- | ------------------------------------------------------------ |
 | 参数 | 参数1  | learning_rate             | learning_rate | -                                                            |
 |      | 参数2  | initial_accumulator_value | accum         | 功能一致，参数名不同                                         |
-|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore中无此参数  |
+|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore无此参数  |
 |      | 参数4  | name                      | -             | 不涉及                                                       |
 |      | 参数5  | **kwargs                  | -             | 不涉及                                                       |
 |      | 参数6  | -                         | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数    |

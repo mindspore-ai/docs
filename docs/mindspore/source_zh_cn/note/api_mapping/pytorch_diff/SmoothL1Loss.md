@@ -48,7 +48,7 @@ logits = torch.FloatTensor([1, 2, 3])
 labels = torch.FloatTensor([1, 2, 2])
 output = loss(logits, labels)
 print(output.numpy())
-#[0.  0.  0.5]
+# [0.  0.  0.5]
 
 # MindSpore
 import mindspore
@@ -60,7 +60,7 @@ logits = Tensor(np.array([1, 2, 3]), mindspore.float32)
 labels = Tensor(np.array([1, 2, 2]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
-#[0.  0.  0.5]
+# [0.  0.  0.5]
 ```
 
 ### 代码示例2
@@ -77,7 +77,7 @@ logits = torch.FloatTensor([1, 1, 1, 1])
 labels = torch.FloatTensor([0, 2, 3, 4])
 output = loss(logits, labels)
 print(output.numpy())
-#[0.5 0.5 1.5 2.5]
+# [0.5 0.5 1.5 2.5]
 
 # MindSpore
 import mindspore
@@ -89,5 +89,5 @@ logits = mindspore.Tensor(np.array([1, 1, 1, 1]), mindspore.float32)
 labels = mindspore.Tensor(np.array([0, 2, 3, 4]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
-#[0.5 0.5 1.5 2.5]
+# [0.5 0.5 1.5 2.5]
 ```

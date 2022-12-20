@@ -5,9 +5,7 @@
 ## tf.nn.softmax_cross_entropy_with_logits
 
 ```text
-tf.nn.softmax_cross_entropy_with_logits(
-    labels, logits, axis=-1, name=None
-) -> Tensor
+tf.nn.softmax_cross_entropy_with_logits(labels, logits, axis=-1, name=None) -> Tensor
 ```
 
 更多内容详见[tf.nn.softmax_cross_entropy_with_logits](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)。
@@ -22,9 +20,9 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(sparse=False, reduction='none')
 
 ## 差异对比
 
-TensorFlow：TensorFlow中该算子是函数式，可以直接调用算子接受`logits`和`labels`输入，并返回输出结果。参数`labels`和`logits`的shape需一致。可指定`axis`参数指定‘类’所在的维度。
+TensorFlow：TensorFlow中该算子是函数式，可以直接调用算子接受`logits`和`labels`输入，并返回输出结果。参数`labels`和`logits`的shape需一致，可指定`axis`参数指定‘类’所在的维度。
 
-MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`参数表示输入的`labels`是否是稀疏表示，默认为`False`；可接受`reduction`参数表示输入结果的规约方式，取值为`mean`,`sum`或`none`,默认为`none`。
+MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`参数表示输入的`labels`是否是稀疏表示，默认为`False`；可接受`reduction`参数表示输入结果的规约方式，取值为`mean`、`sum`或`none`，默认为`none`。
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                                                         |
 | ---- | ----- | ---------- | --------- | ------------------------------------------------------------ |
@@ -35,14 +33,12 @@ MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`
 |      | 参数5 | -          | sparse    | MindSpore实例化时可以接受`sparse`指定输入的`labels`是否为稀疏表示，TensorFlow无此参数 |
 |      | 参数6 | -          | reduction | MindSpore可对输出结果进行规约，TensorFlow无此参数                              |
 
-## 差异分析与示例
-
 ### 代码示例1
 
 > 两API实现功能一致，但是TensorFlow该算子是函数式的，直接接受输入。MindSpore中需要先实例化。
 
 ```python
-# tensorflow
+# TensorFlow
 import tensorflow as tf
 from tensorflow import nn
 
@@ -53,7 +49,7 @@ out = nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
 print(out.numpy())
 # [0.16984604 0.82474494]
 
-# mindspore
+# MindSpore
 import numpy as np
 import mindspore
 from mindspore import Tensor, nn
@@ -72,7 +68,7 @@ print(out)
 > TensorFlow中可接受`axis`参数指定'类'所在维度。MindSpore默认最后一维，因为接受的`logits`的`shape`为`[batch_size, num_classes]`，MindSpore可以通过调用Transpose算子交换`axis`实现相同的功能。
 
 ```python
-# tensorflow
+# TensorFlow
 import tensorflow as tf
 from tensorflow import nn
 logits = tf.constant([[4.0, 0.0],[2.0, 5.0],[1.0, 1.0]])
@@ -96,4 +92,3 @@ out = loss(logits, labels)
 print(out)
 # [0.16984606 0.82474494]
 ```
-

@@ -39,12 +39,12 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但MindSpore中�
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | normalized_shape | normalized_shape |功能一致，参数名相同 |
 | | 参数2 | eps | epsilon | 功能一致，参数名不同，默认值不同 |
-| | 参数3 | elementwise_affine | - | PyTorch中此参数用于控制是否采用可学习参数，MindSpore中无此参数|
+| | 参数3 | elementwise_affine | - | PyTorch中此参数用于控制是否采用可学习参数，MindSpore无此参数|
 | | 参数4 | input | x | 接口输入，功能一致，参数名不同|
-| | 参数5 | - | begin_norm_axis | MindSpore中的此参数控制归一化开始计算的轴，PyTorch中无此参数|
-| | 参数6 | - | begin_params_axis | MindSpore中的此参数控制第一个参数(beta, gamma)的维度，PyTorch中无此参数|
-| | 参数7 | - | gamma_init | MindSpore中的此参数控制`γ`参数的初始化方法，PyTorch中无此参数|
-| | 参数8 | - | beta_init | MindSpore中的此参数控制`β`参数的初始化方法，PyTorch中无此参数|
+| | 参数5 | - | begin_norm_axis | MindSpore中的此参数控制归一化开始计算的轴，PyTorch无此参数|
+| | 参数6 | - | begin_params_axis | MindSpore中的此参数控制第一个参数(beta, gamma)的维度，PyTorch无此参数|
+| | 参数7 | - | gamma_init | MindSpore中的此参数控制`γ`参数的初始化方法，PyTorch无此参数|
+| | 参数8 | - | beta_init | MindSpore中的此参数控制`β`参数的初始化方法，PyTorch无此参数|
 
 ### 代码示例
 
@@ -55,9 +55,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但MindSpore中�
 import torch
 import torch.nn as nn
 
-input = torch.ones([20, 5, 10, 10])
-m = nn.LayerNorm(input.size()[1:])
-output = m(input)
+inputs = torch.ones([20, 5, 10, 10])
+m = nn.LayerNorm(inputs.size()[1:])
+output = m(inputs)
 print(output.detach().numpy().shape)
 # (20, 5, 10, 10)
 

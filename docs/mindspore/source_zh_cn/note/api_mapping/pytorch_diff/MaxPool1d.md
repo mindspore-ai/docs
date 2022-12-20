@@ -37,8 +37,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但参数设定�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | kernel_size | kernel_size |- |
-| | 参数2 | stride | stride | - |
+|参数 | 参数1 | kernel_size | kernel_size | 功能一致，PyTorch无默认值 |
+| | 参数2 | stride | stride | 功能一致，默认值不同  |
 | | 参数3 | padding | - | 填充元素个数。默认值为0（不填充），值不能超过kernel_size/2（向下取值） |
 | | 参数4 | dilation | - | 窗口内元素间跨步长度：默认值为1，此时窗口内的元素是连续的。若值>1，窗口中的元素是间隔的 |
 | | 参数5 | return_indices | - | 返回索引：若值为True，会在返回最大池化结果的同时返回对应元素的索引。对于后续调用torch.nn.MaxUnpool1d的时候很有用|
@@ -106,7 +106,7 @@ print(output)
 
 ### 代码示例3
 
-> PyTorch中设置padding=1时，在MindSpore中将输入张量x的shape(1，2，10)中的的10换成PyTorch中padding的值，构造shape为(1，2，1)的负无穷张量，在原输入张量x的两侧通过concat函数在axis=2进行拼接，用新的x张量计算最大池化的结果，使两API实现相同的功能。
+> PyTorch中设置padding=1时，在MindSpore中将输入张量x的shape(1，2，10)中的10换成PyTorch中padding的值，构造shape为(1，2，1)的负无穷张量，在原输入张量x的两侧通过concat函数在axis=2进行拼接，用新的x张量计算最大池化的结果，使两API实现相同的功能。
 
 ```python
 # PyTorch

@@ -28,7 +28,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，其中参数`alp
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | negative_slope | alpha |功能一致，参数名不同 |
 | | 参数2 | inplace | - | PyTorch中此参数用于控制是否选择就地执行激活函数的操作，MindSpore无此参数|
-| | 参数3 | input | x | 功能一致，参数名不同|
+| | 参数3 | input | x | 接口输入，功能一致，参数名不同|
 
 ### 代码示例1
 
@@ -40,8 +40,8 @@ import torch
 import torch.nn as nn
 
 m = nn.LeakyReLU(0.2)
-input = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=float)
-output = m(input).to(torch.float32).detach().numpy()
+inputs = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=float)
+output = m(inputs).to(torch.float32).detach().numpy()
 print(output)
 # [[-0.2  4.  -1.6]
 #  [ 2.  -1.   9. ]]
@@ -69,9 +69,9 @@ import torch
 import torch.nn as nn
 
 m = nn.LeakyReLU(0.2, inplace=True)
-input = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=torch.float32)
-output = m(input)
-print(output.detach().numpy())
+inputs = torch.tensor([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]], dtype=torch.float32)
+output = m(inputs)
+print(inputs.detach().numpy())
 # [[-0.2  4.  -1.6]
 #  [ 2.  -1.   9. ]]
 

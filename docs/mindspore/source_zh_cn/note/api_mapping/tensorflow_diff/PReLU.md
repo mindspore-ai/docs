@@ -31,12 +31,12 @@ MindSpore：MindSpore此接口功能与TensorFlow基本一致。
 
 | 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | :-- | --- |---|
-|参数 | 参数1 | - | channel | 输入张量的通道数，默认值为1。TensorFlow无此参数 |
-| | 参数2 | alpha_initializer | w | 权重的初始化函数，参数功能一致，默认值不同，参数名不同 |
-| | 参数3 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
-| | 参数4 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
-| | 参数5 | shared_axes | - | 共享激活函数的可学习参数的轴。MindSpore无此参数 |
-| | 参数6 | x | x | - |
+|参数 | 参数1 | alpha_initializer | w | 权重的初始化函数，参数功能一致，默认值不同，参数名不同 |
+| | 参数2 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
+| | 参数3 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
+| | 参数4 | shared_axes | - | 共享激活函数的可学习参数的轴。MindSpore无此参数 |
+| | 参数5 | x | x | - |
+| | 参数6 | - | channel | 输入张量的通道数，默认值为1。TensorFlow无此参数 |
 
 ### 代码示例1
 

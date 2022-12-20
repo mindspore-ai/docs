@@ -57,7 +57,7 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | | 参数13 | kernel_constraint     | -             | 应用于kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                              |
 | | 参数14 | recurrent_constraint  | -             | 应用于recurrent_kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                    |
 | | 参数15 | bias_constraint       | -             | 应用于偏置向量的约束函数，默认值：None。MindSpore无此参数                                                                                                   |
-| | 参数16 | dropout               | dropout       |  |
+| | 参数16 | dropout               | dropout       | -  |
 | | 参数17 | recurrent_dropout     | -       | 递变状态下使用的丢弃概率，MindSpore使用dropout|
 | | 参数18 | return_sequences      | -             | 是否返回在输出序列或完整序列中的最后一次输出，默认值：False。MindSpore无此参数，但默认为True                                                                                   |
 | | 参数19 | return_state          | -             | 是否返回最后的状态，默认值：False。MindSpore无此参数，但默认为True                                                                                                |
