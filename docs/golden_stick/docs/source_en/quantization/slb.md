@@ -123,7 +123,7 @@ A quantization network is a network with pseudo quantization nodes generated aft
 
 ```python
 from mindspore_gs import SlbQuantAwareTraining as SlbQAT
-from mindspore_gs.quantization.constant import QuantDtype
+from mindspore import QuantDtype
 
 ...
 algo = SlbQAT()
