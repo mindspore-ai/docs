@@ -34,7 +34,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回值类�
 |输入 | 单输入 | input | x |都是输入Tensor，二者均不支持0维张量，TensorFlow支持Tensor类型和Numpy.ndarray类型的输入，MindSpore只支持Tensor类型的输入 |
 |参数 | 参数1 | axis | axis |功能一致，参数名不同，默认值不同 |
 |     | 参数2 | output_type | -| 指定输出类型，MindSpore无此参数 |
-|     | 参数3 | name | - | 功能一致，MindSpore无此参数，行为与TensorFlow算子参数name设为None时一致 |
+|     | 参数3 | name | - | 不涉及 |
 | | 参数4 | - | keepdims | PyTorch无此参数，MindSpore的参数keepdims为True时将进行聚合的维度保留，并设定为1 |
 
 ### 代码示例1

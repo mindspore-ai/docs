@@ -28,7 +28,7 @@ MindSpore：MindSpore的此API实现的功能与PyTorch一致。
 | 参数| 参数1 | input         | input         | -                                 |
 | | 参数2 | other         | other        | -                                 |
 | | 参数3 | rounding_mode | rounding_mode | -                                 |
-| | 参数4 | out           | -         | PyTorch中表示结果Tensor，MindSpore中无此参数 |
+| | 参数4 | out           | -         |不涉及 |
 
 ### 代码示例1
 

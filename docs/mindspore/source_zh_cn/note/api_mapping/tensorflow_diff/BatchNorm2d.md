@@ -20,7 +20,7 @@ tf.keras.layers.BatchNormalization(
     beta_constraint=None,
     gamma_constraint=None,
     **kwargs
-)(x) -> Tensor
+)(inputs, training) -> Tensor
 ```
 
 更多内容详见[tf.keras.layers.BatchNormalization](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/BatchNormalization)。
@@ -52,7 +52,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | x | x | - |
+|参数 | 参数1 | x | inputs | 功能一致，参数名不同 |
 | | 参数2 | axis | - | 应规范化的轴（通常是特征轴），MindSpore无此参数 |
 | | 参数3 | momentum | momentum | - |
 | | 参数4 | epsilon | eps | 功能相同，参数名不同 |
@@ -71,6 +71,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 | | 参数17 | - | affine | bool类型。设置为True时，可学习 γ 和 β 值。默认值：True |
 | | 参数18 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False。默认值：None |
 | | 参数19 | - | data_format | MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。TensorFlow无此参数 |
+| | 参数20 | training | - | 不涉及 |
 
 ### 代码示例1
 

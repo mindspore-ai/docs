@@ -41,7 +41,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数�
 | ---- | ------ | ------------------------- | ------------- | ------------------------------------------------------------ |
 | 参数 | 参数1  | learning_rate             | learning_rate | -                                                            |
 |      | 参数2  | initial_accumulator_value | accum         | 功能一致，参数名不同                                         |
-|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore中无此参数  |
+|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore无此参数  |
 |      | 参数4  | name                      | -             | 不涉及                                                       |
 |      | 参数5  | **kwargs                  | -             | 不涉及                                                       |
 |      | 参数6  | -                         | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数    |
