@@ -1,11 +1,11 @@
-# Function Differences with tf.train.MomentumOptimizer
+# Function Differences with tf.compat.v1.train.MomentumOptimizer
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Momentum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## tf.train.MomentumOptimizer
+## tf.compat.v1.train.MomentumOptimizer
 
-```python
-class tf.train.MomentumOptimizer(
+```text
+tf.compat.v1.train.MomentumOptimizer(
     learning_rate,
     momentum,
     use_locking=False,
@@ -14,7 +14,7 @@ class tf.train.MomentumOptimizer(
 )
 ```
 
-For more information, see [tf.train.MomentumOptimizer](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/MomentumOptimizer).
+For more information, see [tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer).
 
 ## mindspore.nn.Momentum
 
