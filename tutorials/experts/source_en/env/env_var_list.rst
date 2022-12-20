@@ -103,6 +103,14 @@ Parallel Training
      - String
      - File path, which can be a relative path or an absolute path.
      - This variable is used together with RANK_SIZE.
+   * - MS_COMM_COMPILER_OPT
+     - Specifies the maximum number of communication operators that can be replaced by corresponding communication subgraph during Ascend backend compilation in graph mode.
+
+       Note: When the Ascend AI Processor is used, specified by user when a distributed case is executed.
+     - Integer
+     - -1 or an positive integer: communication subgraph extraction and reuse is enabled. -1 means that default value will be used. A positive integer means that the user specified value will be used.
+
+       if not set: communication subgraph extraction and reuse is turned off.
 
 For more information, see `Distributed Parallel Training Example <https://mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script>`_.
 
