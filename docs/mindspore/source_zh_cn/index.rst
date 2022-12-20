@@ -98,7 +98,7 @@ MindSpore 文档
    faq/usage_migrate_3rd
    faq/performance_tuning
    faq/precision_tuning
-   faq/distributed_configure
+   faq/distributed_parallel
    faq/inference
    faq/feature_advice
 

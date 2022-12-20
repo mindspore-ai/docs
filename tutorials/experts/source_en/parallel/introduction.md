@@ -298,3 +298,5 @@ In parallel training, three types of data import are supported.
     ```
 
 Therefore, after the user sets the above configuration, it is necessary to **manually** set the obtaining order of the dataset to ensure that the data is expected for each card.
+
+> The inputs for a network must all be of type Tensor.
