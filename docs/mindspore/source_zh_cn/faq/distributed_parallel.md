@@ -1,6 +1,6 @@
-# 分布式配置
+# 分布式并行
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/distributed_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`？**</font>
 
@@ -168,3 +168,11 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 
 A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，因此每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
 可以设置`context`中的`variable_memory_max_size`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
+
+<font size=3>**Q: 在自动并行下执行分布式网络时，报张量无法被当前策略完整切分的错误如下，该怎么解决？:**</font>
+
+```text
+np_tensor can not be split by strategy!
+```
+
+A: 该报错表明网络中有对参数配置了切分策略，但是参数的某个维度无法被切分策略整除。可能的问题有两个：1、该参数作为某个算子的输入，脚本中调用了shard接口对该算子设置了非法策略；2、在`auto_parallel_context`中设置了`dataset_strategy`="data_parallel"或`full_batch`=False时，框架会自动为网络输入设置数据并行策略，如果网络输入含有参数且其形状恰好不能被数据并行策略整除，也会报该错误。目前自动并行下仅支持网络输入为Tensor，需要对脚本进行调整。
