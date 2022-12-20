@@ -12,7 +12,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换获得MindIR模型。
+1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型。
 2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
 3. 模型加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-3)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要填充输入数据。
@@ -24,7 +24,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/runtime_cpp)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
 3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore/lite/examples/cloud_infer/runtime_cpp`目录。
 
@@ -78,7 +78,7 @@ device_list.push_back(cpu_device_info);
 
 2. 配置线程亲和性
 
-    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadAffinity](hhttps://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadAffinity](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
     通过参数`const std::vector<int> &core_list`设置绑核列表。
 
     ```c++
@@ -320,15 +320,15 @@ opt_dims=[1]
 
 `[ascend_context]`和`[gpu_context]`分别作用于Ascend和GPU硬件后端。
 
-> Ascend和GPU硬件后端需要通过动态输入信息进行图的编译和优化，CPU硬件后端不需要配置动态维度信息。
->
-> `input_shape`用于指示输入shape信息，格式为`input_name1:[shape1];input_name2:[shape2]`，如果有动态输入，则需要将相应的维度设定为-1,多个输入通过英文分号`;`隔开。
->
-> `dynamic_dims`用于指示动态维度的值范围，多个非连续的值范围通过英文逗号`,`隔开。上例子中，Ascend的batch维度值范围为`1,2,3,4,8,16`，GPU的batch维度值范围为1到16。Ascend硬件后端，动态输入为多档模式，动态输入范围越大，模型编译时间越长。
->
-> 对于GPU硬件后端，需要额外配置`opt_dims`用于指示`dynamic_dims`范围中最优的值。
->
-> 如果`input_shape`配置的为静态shape，则不需要配置`dynamic_dims`和`opt_dims`。
+1. Ascend和GPU硬件后端需要通过动态输入信息进行图的编译和优化，CPU硬件后端不需要配置动态维度信息。
+
+2. `input_shape`用于指示输入shape信息，格式为`input_name1:[shape1];input_name2:[shape2]`，如果有动态输入，则需要将相应的维度设定为-1,多个输入通过英文分号`;`隔开。
+
+3. `dynamic_dims`用于指示动态维度的值范围，多个非连续的值范围通过英文逗号`,`隔开。上例子中，Ascend的batch维度值范围为`1,2,3,4,8,16`，GPU的batch维度值范围为1到16。Ascend硬件后端，动态输入为多档模式，动态输入范围越大，模型编译时间越长。
+
+4. 对于GPU硬件后端，需要额外配置`opt_dims`用于指示`dynamic_dims`范围中最优的值。
+
+5. 如果`input_shape`配置的为静态shape，则不需要配置`dynamic_dims`和`opt_dims`。
 
 在模型`Build`前，通过`LoadConfig`加载配置文件信息：
 

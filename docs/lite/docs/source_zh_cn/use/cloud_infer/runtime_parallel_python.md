@@ -20,7 +20,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
 
 3. 通过pip安装Python3.7版本的MindSpore Lite云侧推理Python包。
 
@@ -80,12 +80,10 @@ parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKER
 
 使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化以及执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
 
-下面示例代码演示了ModelParallelRunner的初始化过程：
-
 ```python
 # Build ModelParallelRunner from file
 model_parallel_runner = mslite.ModelParallelRunner()
-model_parallel_runner.init(model_path="./model/mobilenetv2.ms", runner_config=parallel_runner_config)
+model_parallel_runner.init(model_path="./model/mobilenetv2.mindir", runner_config=parallel_runner_config)
 ```
 
 > ModelParallelRunner的初始化，可以不设置RunnerConfig配置参数，则会使用默认参数进行多model的并发推理。

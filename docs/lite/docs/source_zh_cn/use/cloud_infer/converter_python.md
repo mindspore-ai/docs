@@ -66,7 +66,7 @@ MindSpore Lite云测推理的Python接口模型转换提供了多种参数设置
 
 使用场景：将第三方模型转换生成MindSpore模型。
 
-下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)中参数的对应关系。
+下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)中参数的对应关系。
 
 | Python接口模型转换参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 | 备注 |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- | ---- |
