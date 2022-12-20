@@ -26,10 +26,10 @@ MindSpore：实现与PyTorch一致的功能。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input        | logits       | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
-|      | 参数2 | target       | labels      | torch.nn.functional.mse_loss调用时直接输入参数，MindSpore无此参数 |
-|      | 参数3 | size_average | -        | 被reduction替代，MindSpore无此参数 |
-| | 参数4 | reduce | - | 被reduction替代，MindSpore无此参数 |
+|参数 | 参数1 | input        | logits       | 功能一致，参数名不同 |
+|      | 参数2 | target       | labels      | 功能一致，参数名不同 |
+|      | 参数3 | size_average | -        | 被reduction替代|
+| | 参数4 | reduce | - | 被reduction替代 |
 | | 参数5 | reduction | reduction | - |
 
 ### 代码示例1
@@ -87,7 +87,7 @@ target = tensor(target_, dtype=torch.float32)
 print(target)
 output = mse_loss(input, target, reduction='sum')
 print(output.numpy())
-# 2
+# 2.0
 
 
 # MindSpore
@@ -103,5 +103,5 @@ target_ = np.array([1, 2, 2, 1]).reshape((2, 2))
 target = Tensor(target_, dtype=mindspore.float32)
 output = loss(input, target)
 print(output)
-# 2
+# 2.0
 ```

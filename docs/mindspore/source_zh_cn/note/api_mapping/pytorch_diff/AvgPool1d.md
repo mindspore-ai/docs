@@ -38,11 +38,11 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore不存�
 | ---- | ----- | ----------------- | ----------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | kernel_size       | kernel_size | 功能一致，PyTorch无默认值                                                            |
 |      | 参数2 | stride            | stride      | 功能一致，参数无默认值不同                                                            |
-|      | 参数3 | padding           | -           | PyTorch中此参数用于说明输入的每一条边补充0的层数，MindSpore中无此参数 |
-|      | 参数4 | ceil_mode         | -           | PyTorch中此参数用于决定输出shape: (N, C, L{out})中L{out}为小数时，是取上界ceil值还是舍弃小数部分取floor值；MindSpore中无此参数，默认取floor值 |
-|      | 参数5 | count_include_pad | -           | PyTorch中此参数用于决定是否在平均计算中包括padding，MindSpore中无此参数 |
+|      | 参数3 | padding           | -           | PyTorch中此参数用于说明输入的每一条边补充0的层数，MindSpore无此参数 |
+|      | 参数4 | ceil_mode         | -           | PyTorch中此参数用于决定输出shape: (N, C, L{out})中L{out}为小数时，是取上界ceil值还是舍弃小数部分取floor值；MindSpore无此参数，默认取floor值 |
+|      | 参数5 | count_include_pad | -           | PyTorch中此参数用于决定是否在平均计算中包括padding，MindSpore无此参数 |
 |      | 参数6 | input             | x           | 功能一致，参数名不同                                         |
-|      | 参数7 | -                 | pad_mode    | MindSpore指定池化的填充方式，可选值为"same"或"valid"，PyTorch中无此参数 |
+|      | 参数7 | -                 | pad_mode    | MindSpore指定池化的填充方式，可选值为"same"或"valid"，PyTorch无此参数 |
 
 ### 代码示例1
 

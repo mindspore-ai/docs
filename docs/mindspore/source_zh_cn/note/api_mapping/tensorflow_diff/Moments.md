@@ -28,7 +28,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 | --- |-----|------------|-----------|-----------------------------------------------|
 |参数 | 参数1 | x          | x         | -                                             |
 | | 参数2 | axes        | axis      | 功能一致，参数名不同                                   |
-| | 参数3 |   shift            | -         | TensorFlow的该参数在当前实现中未使用，是无用参数。MindSpore中无此参数 |
+| | 参数3 |   shift            | -         | TensorFlow的该参数在当前实现中未使用，是无用参数。MindSpore无此参数 |
 | | 参数4 | keepdims      | keep_dims | 功能一致，参数名不同                                   |
 | | 参数5 |   name            | -         | 不涉及 |
 

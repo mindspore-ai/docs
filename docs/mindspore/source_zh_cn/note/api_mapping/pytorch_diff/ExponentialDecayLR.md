@@ -51,27 +51,27 @@ MindSpore（mindspore.nn.exponential_decay_lr）：计算方式为 :math:`lr * d
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
-| 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
+| 参数 | 参数1 | optimizer   |     -   | PyTorch应用的优化器，MindSpore无此参数 |
 |      | 参数2 | gamma |   decay_rate   | 衰减学习率的参数，功能一致，参数名不同 |
-|      | 参数3 | last_epoch |   | MindSpore无此参数 |
-|      | 参数4 | verbose |        | PyTorch `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
+|      | 参数3 | last_epoch |  - | MindSpore无此参数 |
+|      | 参数4 | verbose |   -     | PyTorch `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
 |      | 参数5 |  | learning_rate | MindSpore设置学习率的初始值 |
 |      | 参数6 |  | total_step | MindSpore的step总数 |
 |      | 参数7 |  | step_per_epoch | MindSpore每个epoch的step数 |
-|      | 参数8 |       |  decay_steps   | MindSpore进行衰减的step数 |
-|      | 参数9 |       |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
+|      | 参数8 |    -   |  decay_steps   | MindSpore进行衰减的step数 |
+|      | 参数9 |  -     |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
 
 MindSpore（mindspore.nn.ExponentialDecayLR）：计算方式为 :math:`lr * decay\_rate^{p}` ， `ExponentialDecayLR` 是通过计算图的方式传入优化器中参与训练。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
-| 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
+| 参数 | 参数1 | optimizer   |   -     | PyTorch应用的优化器，MindSpore无此参数 |
 |      | 参数2 | gamma |   decay_rate   | 衰减学习率的参数，功能一致，参数名不同 |
-|      | 参数3 | last_epoch |   | MindSpore无此参数 |
-|      | 参数4 | verbose |        | PyTorch的 `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
+|      | 参数3 | last_epoch |  - | MindSpore无此参数 |
+|      | 参数4 | verbose |   -     | PyTorch的 `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
 |      | 参数5 |  | learning_rate | MindSpore设置学习率的初始值 |
-|      | 参数6 |       |  decay_steps   | MindSpore进行衰减的step数 |
-|      | 参数7 |       |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
+|      | 参数6 |    -   |  decay_steps   | MindSpore进行衰减的step数 |
+|      | 参数7 |    -   |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
 
 ## 代码示例
 
