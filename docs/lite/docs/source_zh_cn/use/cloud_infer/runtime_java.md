@@ -107,7 +107,7 @@ MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方
     inputTensor.setData(inputData);
     ```
 
-2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113)演示如何调用`getInputs`获得输入Tensor并填充数据。
+2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面演示如何调用`getInputs`获得输入Tensor并填充数据。
 
     ```java
     List<MSTensor> inputs = model.getInputs();
@@ -169,7 +169,7 @@ model.free();
 
 > 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164)演示如何对MindSpore Lite的输入Tensor进行[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#resize)：
+下面演示如何对MindSpore Lite的输入Tensor进行[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#resize)：
 
 ```java
 List<MSTensor> inputs = model.getInputs();
