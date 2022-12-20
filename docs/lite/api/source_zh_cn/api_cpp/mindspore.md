@@ -394,7 +394,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend 310、Ascend 310P上的配置。
 
 ### 公有成员函数
 

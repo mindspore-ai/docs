@@ -4,11 +4,11 @@
 
 ## 概述
 
-通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换成`.mindir`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行云侧推理。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换成`.mindir`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行云侧推理。
 
 相比C++ API，Java API可以直接在Java Class中调用，用户无需实现JNI层的相关代码，具有更好的便捷性。运行MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换获得MindIR模型。
+1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存需要的一些基本配置参数，用于指导模型编译和模型执行，包括设备类型、线程数、绑核模式和使能fp16混合精度推理。
 3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。
 4. 输入数据：模型执行之前需要向输入Tensor中填充数据。
@@ -17,8 +17,6 @@
 7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)。
 
 ![img](../../images/lite_runtime.png)
-
-快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/quick_start_java.html)。
 
 ## 引用MindSpore Lite Java库
 
@@ -40,7 +38,7 @@
 
 ## 模型路径
 
-通过MindSpore Lite进行模型推理时，需要获取文件系统中由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.mindir`模型文件的路径。
+通过MindSpore Lite进行模型推理时，需要获取文件系统中由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换得到的`.mindir`模型文件的路径。
 
 ## 创建配置上下文
 
