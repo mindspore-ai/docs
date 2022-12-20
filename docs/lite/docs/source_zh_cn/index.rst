@@ -638,7 +638,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_server_inference_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验C++极简并发推理Demo</span>
@@ -651,7 +651,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_server_inference_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验Java极简并发推理Demo</span>
@@ -664,7 +664,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_server_inference_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验Python极简并发推理Demo</span>
@@ -677,7 +677,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/use/runtime_server_inference_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用C++接口执行并发推理</span>
@@ -690,7 +690,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/use/runtime_server_inference_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Java接口执行并发推理</span>
