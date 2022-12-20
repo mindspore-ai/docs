@@ -8,11 +8,15 @@
 torch.Tensor.stride(dim)
 ```
 
+For more information, see [torch.Tensor.stride](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.stride).
+
 ## mindspore.Tensor.strides
 
 ```python
 mindspore.Tensor.strides()
 ```
+
+For more information, see [mindspore.Tensor.strides](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.strides.html#mindspore.Tensor.strides).
 
 ## Differences
 

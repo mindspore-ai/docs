@@ -5,7 +5,7 @@
 ## torch.nn.functional.pad
 
 ```python
-def torch.nn.functional.pad(
+torch.nn.functional.pad(
     input,
     pad,
     mode='constant',
@@ -18,7 +18,7 @@ For more information, see [torch.nn.functional.pad](https://pytorch.org/docs/1.8
 ## mindspore.ops.pad
 
 ```python
-def mindspore.ops.pad(
+mindspore.ops.pad(
     input_x,
     padding,
     mode='constant',
