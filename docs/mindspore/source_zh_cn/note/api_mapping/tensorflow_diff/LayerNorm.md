@@ -47,14 +47,14 @@ MindSpore：TensorFlow的此API中各参数均为默认时，MindSpore此API实�
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | axis | begin_norm_axis | 功能一致，参数名不同|
 | | 参数2 | epsilon | epsilon | 功能一致，参数名相同，默认值不同 |
-| | 参数3 | center | - | TensorFlow中此参数用于控制是否使用beta偏移量，MindSpore中无此参数|
-| | 参数4 | scale | - | TensorFlow中此参数用于控制是否使用gamma，MindSpore中无此参数|
+| | 参数3 | center | - | TensorFlow中此参数用于控制是否使用beta偏移量，MindSpore无此参数|
+| | 参数4 | scale | - | TensorFlow中此参数用于控制是否使用gamma，MindSpore无此参数|
 | | 参数5 | beta_initializer | beta_init | 功能一致，参数名不同|
 | | 参数6 | gamma_initializer | gamma_init | 功能一致，参数名不同|
-| | 参数7 | beta_regularizer | - | TensorFlow中此参数用于控制是否采用beta权重的可选正则化器，MindSpore中无此参数|
-| | 参数8 | gamma_regularizer | - | TensorFlow中此参数用于控制是否采用gamma权重的可选正则化器，MindSpore中无此参数|
-| | 参数9 | beta_constraint | - | TensorFlow中此参数用于控制是否采用beta权重的可选约束，MindSpore中无此参数|
-| | 参数10 | gamma_constraint | - | TensorFlow中此参数用于控制是否采用gamma权重的可选约束，MindSpore中无此参数|
+| | 参数7 | beta_regularizer | - | TensorFlow中此参数用于控制是否采用beta权重的可选正则化器，MindSpore无此参数|
+| | 参数8 | gamma_regularizer | - | TensorFlow中此参数用于控制是否采用gamma权重的可选正则化器，MindSpore无此参数|
+| | 参数9 | beta_constraint | - | TensorFlow中此参数用于控制是否采用beta权重的可选约束，MindSpore无此参数|
+| | 参数10 | gamma_constraint | - | TensorFlow中此参数用于控制是否采用gamma权重的可选约束，MindSpore无此参数|
 | | 参数11 | **kwargs | - | 不涉及|
 | | 参数12 | x | x | - |
 | | 参数13 | - | normalized_shape | TensorFlow中无此参数，MindSpore中的此参数控制平均值和标准差计算的特定维度|

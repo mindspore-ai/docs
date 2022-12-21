@@ -61,14 +61,14 @@ MindSpore：与PyTorch实现同样的功能。
 
 ```python
 # PyTorch
-from torch import nn,Tensor
+from torch import nn, Tensor
 import numpy as np
 
-m = nn.BatchNorm2d(num_features=3,momentum=0.1)
-inputx = Tensor(np.array([[[[0.1, 0.2],[0.3,0.4]],
-                          [[0.5, 0.6],[0.7,0.8]],
-                          [[0.9, 1],[1.1,1.2]]]]).astype(np.float32))
-output = m(inputx)
+m = nn.BatchNorm2d(num_features=3, momentum=0.1)
+input_x = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+                          [[0.5, 0.6], [0.7, 0.8]],
+                          [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
+output = m(input_x)
 print(output.detach().numpy())
 # [[[[-1.3411044  -0.44703478]
 #    [ 0.4470349   1.3411044 ]]
@@ -80,15 +80,15 @@ print(output.detach().numpy())
 #    [ 0.44703534  1.341105  ]]]]
 
 # MindSpore
-from mindspore import Tensor,nn
+from mindspore import Tensor, nn
 import numpy as np
 
-m = nn.BatchNorm2d(num_features=3,momentum=0.9)
+m = nn.BatchNorm2d(num_features=3, momentum=0.9)
 m.set_train()
-inputx = Tensor(np.array([[[[0.1, 0.2],[0.3,0.4]],
-                          [[0.5, 0.6],[0.7,0.8]],
-                          [[0.9, 1],[1.1,1.2]]]]).astype(np.float32))
-output = m(inputx)
+input_x = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+                          [[0.5, 0.6], [0.7, 0.8]],
+                          [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
+output = m(input_x)
 print(output)
 # [[[[-1.3411045  -0.4470348 ]
 #    [ 0.44703496  1.3411045 ]]

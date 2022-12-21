@@ -26,7 +26,7 @@ MindSpore：MindSpore此算子实现功能与TensorFlow一致，仅参数名不�
 
 | 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | features | x | 输入Tensor |
+|参数 | 参数1 | features | x | 功能一致，参数名不同 |
 | | 参数2 | name | - | 不涉及 |
 
 ### 代码示例1

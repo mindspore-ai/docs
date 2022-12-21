@@ -50,10 +50,10 @@ from torch import tensor
 import numpy as np
 
 rnn = torch.nn.LSTM(10, 16, 2, bias=True, batch_first=True, bidirectional=False)
-input = tensor(np.ones([3, 5, 10]), dtype=torch.float32)
+input1 = tensor(np.ones([3, 5, 10]), dtype=torch.float32)
 h0 = tensor(np.ones([1 * 2, 3, 16]), dtype=torch.float32)
 c0 = tensor(np.ones([1 * 2, 3, 16]), dtype=torch.float32)
-output, (hn, cn) = rnn(input, (h0, c0))
+output, (hn, cn) = rnn(input1, (h0, c0))
 print(output.detach().numpy().shape)
 # (3, 5, 16)
 print(hn.detach().numpy().shape)

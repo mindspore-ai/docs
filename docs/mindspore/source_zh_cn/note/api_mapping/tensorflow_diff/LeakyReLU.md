@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，仅参数名�
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | features | x |功能一致，参数名不同 |
+|参数 | 参数1 | features | x | 接口输入，功能一致，参数名不同 |
 | | 参数2 | alpha | alpha | - |
 | | 参数3 | name | - | 不涉及 |
 

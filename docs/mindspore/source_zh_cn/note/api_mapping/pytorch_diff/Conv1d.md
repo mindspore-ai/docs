@@ -34,7 +34,8 @@ class mindspore.nn.Conv1d(
     group=1,
     has_bias=False,
     weight_init='normal',
-    bias_init='zeros')(x) -> Tensor
+    bias_init='zeros'
+)(x) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.Conv1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1d.html)。

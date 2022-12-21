@@ -20,7 +20,7 @@ tf.keras.layers.BatchNormalization(
     beta_constraint=None,
     gamma_constraint=None,
     **kwargs
-)(x) -> Tensor
+)(inputs, training) -> Tensor
 ```
 
 更多内容详见[tf.keras.layers.BatchNormalization](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/BatchNormalization)。
@@ -52,7 +52,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | x | x | - |
+|参数 | 参数1 | x | inputs | 功能一致，参数名不同 |
 | | 参数2 | axis | - | 应规范化的轴（通常是特征轴），MindSpore无此参数 |
 | | 参数3 | momentum | momentum | - |
 | | 参数4 | epsilon | eps | 功能相同，参数名不同 |
@@ -71,6 +71,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 | | 参数17 | - | affine | bool类型。设置为True时，可学习 γ 和 β 值。默认值：True |
 | | 参数18 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False。默认值：None |
 | | 参数19 | - | data_format | MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。TensorFlow无此参数 |
+| | 参数20 | training | - | 不涉及 |
 
 ### 代码示例1
 
@@ -87,11 +88,10 @@ inputx = [[[[1, 2],
          [[[5, 6],
            [6, 5]],
           [[7, 8],
-           [8, 7]]
-         ]]
+           [8, 7]]]]
 input_tf = tf.constant(inputx, dtype=tf.float32)
-output_tf = tf.keras.layers.BatchNormalization(axis=3,momentum=0.1,epsilon=1e-5)
-output = output_tf(input_tf,training=False)
+output_tf = tf.keras.layers.BatchNormalization(axis=3, momentum=0.1, epsilon=1e-5)
+output = output_tf(input_tf, training=False)
 print(output.numpy())
 # [[[[0.999995  1.99999  ]
 #    [1.99999   0.999995 ]]
@@ -107,14 +107,15 @@ print(output.numpy())
 #    [7.99996   6.9999647]]]]
 
 # MindSpore
-from mindspore import Tensor,nn
+from mindspore import Tensor, nn
 import numpy as np
 
-m = nn.BatchNorm2d(num_features=2,momentum=0.9)
-inputx = Tensor(np.array([[[[1, 2],[2,1]],
-                          [[3, 4],[4,3]]],
-                          [[[5, 6],[6,5]],[[7,8],[8,7]]]]).astype(np.float32))
-output = m(inputx)
+m = nn.BatchNorm2d(num_features=2, momentum=0.9)
+input_x = Tensor(np.array([[[[1, 2], [2, 1]],
+                          [[3, 4], [4, 3]]],
+                          [[[5, 6], [6, 5]],
+                          [[7, 8], [8, 7]]]]).astype(np.float32))
+output = m(input_x)
 print(output)
 # [[[[0.99999493 1.9999899 ]
 #    [1.9999899  0.99999493]]

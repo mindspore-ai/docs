@@ -47,7 +47,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，momentum参数�
 |      | 参数2  | eps                 | eps                  | -                                                            |
 |      | 参数3  | momentum            | momentum             | 功能一致，但PyTorch里的默认值是0.1，MindSpore里是0.9         |
 |      | 参数4  | affine              | affine               | -                                                            |
-|      | 参数5  | track_running_stats              | -               | -                            不涉及                                |
+|      | 参数5  | track_running_stats              | -               | 不涉及                                |
 |      | 参数6  | input               | x                    | 功能基本一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
 |      | 参数7  | -                   | gamma_init           |    PyTorch无此参数，MindSpore可以初始化参数gamma的值    |
 |      | 参数8  | -                   | beta_init            |    PyTorch无此参数，MindSpore可以初始化参数beta的值     |
