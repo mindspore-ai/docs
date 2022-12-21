@@ -23,6 +23,7 @@ MindSpore Lite Documentation
    :hidden:
 
    quick_start/one_hour_introduction
+   quick_start/one_hour_introduction_cloud
 
 .. toctree::
    :glob:
