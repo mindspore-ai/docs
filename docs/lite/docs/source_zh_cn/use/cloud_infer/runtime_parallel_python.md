@@ -30,7 +30,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 ### 创建并发推理配置
 
-配置项[RunnerConfig](https://gitee.com/mindspore/mindspore/blob/master/https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.RunnerConfig.html)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
+配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.RunnerConfig.html)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
 
 下面示例代码演示了如何创建RunnerConfig，并配置并发推理的worker数量。
 
