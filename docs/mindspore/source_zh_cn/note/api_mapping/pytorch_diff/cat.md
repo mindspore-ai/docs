@@ -1,6 +1,6 @@
 # 比较与torch.cat的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/concat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.cat
 
@@ -15,13 +15,13 @@ torch.cat(
 
 更多内容详见[torch.cat](https://pytorch.org/docs/1.8.1/generated/torch.cat.html)。
 
-## mindspore.ops.concat
+## mindspore.ops.cat
 
 ```text
-mindspore.ops.concat(input_x, axis=0) -> Tensor
+mindspore.ops.cat(tensors, axis=0) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.concat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)。
+更多内容详见[mindspore.ops.cat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cat.html)。
 
 ## 差异对比
 
@@ -31,7 +31,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。当前要求输�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | tensors  | input_x | 功能一致，参数名不同 |
+| 输入 | 单输入 | tensors  | tensors | 功能一致 |
 |参数 | 参数1 | dim | axis |功能一致，参数名不同 |
 |  | 参数2  | out | - | 不涉及          |
 
@@ -61,13 +61,13 @@ import mindspore
 import numpy as np
 from mindspore import Tensor
 
-# In MindSpore，converting low precision to high precision is needed before concat.
+# In MindSpore，converting low precision to high precision is needed before cat.
 ms_x1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 ms_x2 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 ms_x3 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float16))
 
 ms_x3 = mindspore.ops.cast(ms_x2, mindspore.float32)
-output = mindspore.ops.concat((ms_x1, ms_x2, ms_x3))
+output = mindspore.ops.cat((ms_x1, ms_x2, ms_x3))
 print(output)
 # [[0. 1.]
 #  [2. 3.]
