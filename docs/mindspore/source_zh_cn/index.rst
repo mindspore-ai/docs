@@ -13,6 +13,7 @@ MindSpore 文档
    :hidden:
 
    design/overview
+   design/programming_paradigm
    design/auto_gradient
    design/mindir
    design/all_scenarios
