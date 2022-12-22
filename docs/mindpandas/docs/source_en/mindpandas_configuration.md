@@ -91,7 +91,7 @@ Commands:
 To use the distributed compute engine, we need to start the service through the command line to deploy a single-machine cluster. An example command to deploy a cluster is as follows:
 
 ```shell
-yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <mem>
+yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <mem> --tmp-dir <tmp-dir> --tmp-file-size-limit <tmp-file-size-limit>
 ```
 
 Common parameters of the `yrctl start` command are:
@@ -101,6 +101,8 @@ Common parameters of the `yrctl start` command are:
 - `--cpu`: The number of CPU cores used on this node. The weight of each CPU is 1000 (for example: if you want to use two cores, this parameter value should be set to 2000). Optional, use all available cores by default.
 - `--datamem`: The size of the shared memory, in MB. Optional, uses 25% of current free memory by default.
 - `--mem`: The total memory (including shared memory) used by MindPandas, in MB. Optional, use 75% of current free memory by default.
+- `--tmp-dir`: The storage directory for temporary files. Optional, '/tmp/mindpandas/' is the default directory for temporary file storage by default.
+- `--tmp-file-size-limit`: The size limitations of the temporary files, in MB. Optional, uses up to 95% of current free disk memory by default.
 
 To view the parameter usage instructions of `yrctl start`, you can view it through `yrctl start --help`.
 Before starting the cluster, check the following:
