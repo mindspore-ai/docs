@@ -114,7 +114,7 @@ Performing concurrent inference with MindSpore Lite consists of the following ma
 
 For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
 
-![img](../images/server_inference.png)
+![img](../../images/server_inference.png)
 
 ### Key Variable Description
 
