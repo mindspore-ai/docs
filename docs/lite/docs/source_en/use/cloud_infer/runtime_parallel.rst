@@ -6,3 +6,4 @@ Performing Concurrent Inference
 
   runtime_parallel_cpp
   runtime_parallel_java
+  runtime_parallel_python
