@@ -91,7 +91,7 @@ Commands:
 要使用分布式计算引擎，我们需要通过命令行启动服务部署单机集群。部署集群的命令示例如下：
 
 ```shell
-yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <mem>
+yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <mem> --tmp-dir <tmp-dir> --tmp-file-size-limit <tmp-file-size-limit>
 ```
 
 `yrctl start`命令常用参数有：
@@ -101,6 +101,8 @@ yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <
 - `--cpu`：该节点上使用的CPU核数，每个CPU的权重为1000（例：若希望使用两个核，此参数值应设置为2000）。可选，默认使用所有可用核。
 - `--datamem`：共享内存的大小，单位是MB。可选，默认使用当前空闲内存的25%。
 - `--mem`：MindPandas使用的总内存（包含共享内存），单位是MB。可选，默认使用当前空闲内存的75%。
+- `--tmp-dir`：临时文件的存放路径。可选，默认使用'/tmp/mindpandas/'作为临时文件的存放路径。
+- `--tmp-file-size-limit`：临时文件的大小限制，单位是MB。可选，默认上限为当前空闲磁盘空间的95%。
 
 如需查看`yrctl start`的参数使用说明，可以通过`yrctl start --help`查看。  
 在启动集群前，请检查下列事项：
