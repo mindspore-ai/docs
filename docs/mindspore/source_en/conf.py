@@ -222,7 +222,9 @@ except:
 
 # replace py_files that have too many errors.
 try:
-    decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py")]
+    decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py"),
+                      ("mindspore/dataset/text/__init__.py","mindspore/python/mindspore/dataset/text/__init__.py"),
+                      ("mindspore/dataset/vision/__init__.py","mindspore/python/mindspore/dataset/vision/__init__.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
