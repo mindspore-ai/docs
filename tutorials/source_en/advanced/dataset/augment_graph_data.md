@@ -18,7 +18,15 @@ The following figure shows a simple graph.
 
 The graph includes nodes V = {a, b, c, d} and edges E = {(a, b), (b, c), (c, d), (d, b)}. A connection relationship in the graph usually needs to be described in a mathematical manner. For example, in an adjacency matrix, a matrix C used to describe the connection relationship in the graph is as follows, where a, b, c and d correspond to nodes 1, 2, 3, and 4.
 
-$$C=\\begin{bmatrix} 1\&1\&0\&0\\ 1\&1\&1\&1\\ 0\&1\&1\&1\\ 0\&1\&1\&1\\ \\end{bmatrix}$$
+$$
+C=
+\begin{bmatrix}
+1&1&0&0\\
+1&1&1&1\\
+0&1&1&1\\
+0&1&1&1\\
+\end{bmatrix}
+$$
 
 ## Preparing a Dataset
 
