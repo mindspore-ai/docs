@@ -11,6 +11,7 @@ Other Features
   sharding_propagation
   parameter_server_training
   comm_fusion
+  comm_subgraph
   dataset_slice
   pynative_shard_function_parallel
   ms_operator
@@ -55,6 +56,11 @@ accelerate the efficiency of data transmission, which packages the
 communication operators of the same source node and the destination node
 and executes them at the same time to avoid the additional overhead
 caused by multiple single operator execution.
+
+`Communication Subgraph Extraction and Reuse <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_subgraph.html>`__
+--------------------------------------------------------------------------------------------------------------------------------
+
+In distributed training, as the model size increases, the number of communication operators required also rises significantly. On one hand, it will boost the communication time in model compilation; on the other hand, it will consume a large amount of streams, and when the required number of streams exceeds the hardware limit, the model cannot scale even more, thus becoming a bottleneck in the development of large models. By classifying communication operators, extracting communication subgraphs for operators of the same class and reusing these extracted subgraphs, we can reduce the number of communication operators in the graph compilation. It will decrease communication time and require less streams so that the model size can further expand.
 
 `Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dataset_slice.html>`__
 --------------------------------------------------------------------------------------------------------
@@ -291,4 +297,16 @@ Description of the Interface Related to the Feature
 |             |                      | the default is    |                   |
 |             |                      | False.            |                   |
 +-------------+----------------------+-------------------+-------------------+
-
+| Communicati\| export MS_COMM_COMPI\| Specify the maxim\| This can decrease\|
+| on Subgraph\| LER_OPT=integer_value| um number of comm\|  the number of co\|
+|  Extraction\|                      | unication operato\| mmucation operato\|
+|  and Reuse  |                      | rs that can be re\| rs in the graph c\|
+|             |                      | placed by corresp\| ompilation, hence\|
+|             |                      | onding communicat\|  require less str\|
+|             |                      | ion subgraph. It \| eams and decrease\|
+|             |                      | can be set to -1 \|  the communicatio\|
+|             |                      | or a positive val\| n time, improving\|
+|             |                      | ue. -1 means that\| compilation perfo\|
+|             |                      |  the default valu\| rmance.           |
+|             |                      | e will be used.   |                   |
++-------------+----------------------+-------------------+-------------------+
