@@ -27,16 +27,16 @@ class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 
 TensorFlow：PReLU激活函数。
 
-MindSpore：MindSpore此接口功能与TensorFlow基本一致。
+MindSpore：MindSpore此接口功能与TensorFlow基本一致，但参数设置不同。
 
 | 分类 | 子类 | TensorFlow | MindSpore | 差异 |
-| --- | --- | :-- | --- |---|
+| --- | --- | --- | --- |---|
 |参数 | 参数1 | alpha_initializer | w | 权重的初始化函数，参数功能一致，默认值不同，参数名不同 |
 | | 参数2 | alpha_regularizer | - | 权重的正则化器。MindSpore无此参数 |
 | | 参数3 | alpha_constraint | - | 权重的约束。MindSpore无此参数 |
 | | 参数4 | shared_axes | - | 共享激活函数的可学习参数的轴。MindSpore无此参数 |
-| | 参数5 | x | x | - |
-| | 参数6 | - | channel | 输入张量的通道数，默认值为1。TensorFlow无此参数 |
+| | 参数5  | -                 | channel   | 输入张量的通道数，默认值为1。TensorFlow无此参数        |
+| 输入 | 单输入 | x | x | - |
 
 ### 代码示例1
 
@@ -48,7 +48,7 @@ import tensorflow as tf
 from keras.layers import PReLU
 import numpy as np
 
-x = tf.constant([[-1.0, 2.2], [3.3, -4.0]])
+x = tf.constant([[-1.0, 2.2], [3.3, -4.0]], dtype=tf.float32)
 m = PReLU()
 out = m(x)
 print(out.numpy())
@@ -65,8 +65,8 @@ x = Tensor(np.array([[-1.0, 2.2], [3.3, -4.0]]), mindspore.float32)
 prelu = nn.PReLU(w=0.0)
 output = prelu(x)
 print(output)
-# [[0.   2.2]
-#  [ 3.3 0. ]]
+# [[0.  2.2]
+#  [3.3 0. ]]
 ```
 
 ### 代码示例2
@@ -78,7 +78,7 @@ print(output)
 import tensorflow as tf
 from keras.layers import PReLU
 import numpy as np
-x = tf.constant([[-1.0, 2.2], [3.3, -4.0]])
+x = tf.constant([[-1.0, 2.2], [3.3, -4.0]], dtype=tf.float32)
 m = PReLU(alpha_initializer=tf.constant_initializer(0.5))
 out = m(x)
 print(out.numpy())

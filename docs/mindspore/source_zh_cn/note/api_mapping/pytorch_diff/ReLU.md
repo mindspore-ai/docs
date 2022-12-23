@@ -27,9 +27,9 @@ MindSpore：MindSpore此算子实现功能与PyTorch一致，仅参数设置不�
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | inplace | - | 是否就地执行，默认值：False。MindSpore无此参数 |
-| | 参数2 | input | x | 功能一致，参数名不同 |
+| 输入 | 单输入 | input | x | 功能一致，参数名不同 |
 
-### 代码示例1
+### 代码示例
 
 > 两API实现功能一致，用法相同。
 
