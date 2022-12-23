@@ -41,7 +41,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |参数 | 参数1 | input | x |功能一致，参数名不同 |
 | | 参数2 | ksize | kernel_size | 功能一致，参数名不同，TensorFlow无默认值 |
 | | 参数3 | strides | stride | 功能一致，参数名不同，TensorFlow无默认值 |
-| | 参数4 | padding | pad_mode | 功能一致，参数名不同，TensorFlow无默认值 |
+| | 参数4 | padding | pad_mode | 功能一致，参数名不同，TensorFlow无默认值。更多内容详见[Conv 和 Pooling](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#conv-%E5%92%8C-pooling) |
 | | 参数5 | data_format | data_format | - |
 | | 参数6 | name | - | 不涉及 |
 
@@ -53,7 +53,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 # TensorFlow
 import tensorflow as tf
 
-x = tf.constant([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]])
+x = tf.constant([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]], dtype=tf.float32)
 output = tf.nn.max_pool2d(x, ksize=3, strides=2, padding="SAME")
 print(output.shape)
 # (1, 1, 1, 10)
