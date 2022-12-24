@@ -158,6 +158,98 @@ if __name__ == '__main__':
 
 其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)。
 
+此外，可以使用函数式的方法构造训练流程，这个过程更加的灵活：
+
+```python
+import mindspore as ms
+from mindspore import ops, nn
+from mindspore.amp import StaticLossScaler, all_finite
+from mindspore.parallel._utils import _get_device_num, _get_gradients_mean,\
+    _get_parallel_mode, _is_pynative_parallel
+
+class Trainer:
+    """一个有两个loss的训练示例"""
+    def __init__(self, net, loss1, loss2, optimizer, train_dataset, loss_scale=1.0, eval_dataset=None, metric=None):
+        self.net = net
+        self.loss1 = loss1
+        self.loss2 = loss2
+        self.opt = optimizer
+        self.train_dataset = train_dataset
+        self.train_data_size = self.train_dataset.get_dataset_size()    # 获取训练集batch数
+        self.weights = self.opt.parameters
+        # 注意value_and_grad的第一个参数需要是需要做梯度求导的图，一般包含网络和loss。这里可以是一个函数，也可以是Cell
+        self.value_and_grad = ops.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
+
+        # 分布式场景使用
+        self.grad_reducer = self.get_grad_reducer()
+        self.loss_scale = StaticLossScaler(loss_scale)
+        self.run_eval = eval_dataset is not None
+        if self.run_eval:
+            self.eval_dataset = eval_dataset
+            self.metric = metric
+            self.best_acc = 0
+
+    def get_grad_reducer(self):
+        grad_reducer = ops.identity
+        parallel_mode = _get_parallel_mode()
+        # 判断是否是分布式场景，分布式场景的设置参考上面通用运行环境设置
+        reducer_flag = (parallel_mode in (ms.ParallelMode.DATA_PARALLEL, ms.ParallelMode.HYBRID_PARALLEL)) or \
+                       _is_pynative_parallel()
+        if reducer_flag:
+            mean = _get_gradients_mean()
+            degree = _get_device_num()
+            grad_reducer = nn.DistributedGradReducer(self.weights, mean, degree)
+        return grad_reducer
+
+    def forward_fn(self, inputs, labels):
+        """正向网络构建，注意第一个输出必须是最后需要求梯度的那个输出"""
+        logits = self.net(inputs)
+        loss1 = self.loss1(logits, labels)
+        loss2 = self.loss2(logits, labels)
+        loss = loss1 + loss2
+        loss = self.loss_scale.scale(loss)
+        return loss, loss1, loss2
+
+    @ms.jit    # jit加速，需要满足图模式构建的要求，否则会报错
+    def train_single(self, inputs, labels):
+        (loss, loss1, loss2), grads = self.value_and_grad(inputs, labels)
+        loss = self.loss_scale.unscale(loss)
+        grads = self.loss_scale.unscale(grads)
+        grads = self.grad_reducer(grads)
+        state = all_finite(grads)
+        if state:
+            self.opt(grads)
+
+        return loss, loss1, loss2
+
+    def train(self, epochs):
+        train_dataset = self.train_dataset.create_dict_iterator()
+        self.net.set_train(True)
+        for epoch in range(epochs):
+            # 训练一个epoch
+            for batch, data in enumerate(train_dataset):
+                loss, loss1, loss2 = self.train_single(data["image"], data["label"])
+                if batch % 100 == 0:
+                    print(f"step: [{batch} /{self.train_data_size}] "
+                          f"loss: {loss}, loss1: {loss1}, loss2: {loss2}", flush=True)
+            # 推理并保存最好的那个checkpoint
+            if self.run_eval:
+                eval_dataset = self.eval_dataset.create_dict_iterator(num_epochs=1)
+                self.net.set_train(False)
+                self.metric.clear()
+                for batch, data in enumerate(eval_dataset):
+                    output = self.net(data["image"])
+                    self.metric.update(output, data["label"])
+                accuracy = self.metric.eval()
+                print(f"epoch {epoch}, accuracy: {accuracy}", flush=True)
+                if accuracy >= self.best_acc:
+                    # 保存最好的那个checkpoint
+                    self.best_acc = accuracy
+                    ms.save_checkpoint(self.net, "best.ckpt")
+                    print(f"Updata best acc: {accuracy}")
+                self.net.set_train(True)
+```
+
 ### 分布式训练
 
 多卡分布式训练除了分布式相关的配置项和梯度聚合外，其他部分和单卡的训练流程是一样的。需要注意的是多卡并行其实在MindSpore上是起多个python的进程执行的，在MindSpore1.8版本以前，在Ascend环境上，需要手动起多个进程：
