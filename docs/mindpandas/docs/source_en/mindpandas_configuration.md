@@ -97,17 +97,16 @@ yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <
 Common parameters of the `yrctl start` command are:
 
 - `--master`: Flag bit, set the current node as the master node. There is only one master node in the cluster. This flag must be set when deploying a single-machine cluster.
-- `--address`: The IP address of the master node. you can fill in 127.0.0.1 when running locally. Required.
-- `--cpu`: The number of CPU cores used on this node. The weight of each CPU is 1000 (for example: if you want to use two cores, this parameter value should be set to 2000). Optional, use all available cores by default.
-- `--datamem`: The size of the shared memory, in MB. Optional, uses 25% of current free memory by default.
-- `--mem`: The total memory (including shared memory) used by MindPandas, in MB. Optional, use 75% of current free memory by default.
-- `--tmp-dir`: The storage directory for temporary files. Optional, '/tmp/mindpandas/' is the default directory for temporary file storage by default.
-- `--tmp-file-size-limit`: The size limitations of the temporary files, in MB. Optional, uses up to 95% of current free disk memory by default.
+- `--address`: The ip address of the master node. Optional, uses "127.0.0.1" by default.
+- `--cpu`: The number of CPU cores to use. Optional, uses all CPU cores by default.
+- `--datamem`: The amount of memory used by datasystem (MB). Optional, uses 30% of total memory by default.
+- `--mem`: The total memory (including datamem) used by MindPandas (MB). Optional, uses 90% of total memory by default.
+- `--tmp-dir`: The temporary directory for the mindpandas process. Optional, uses "/tmp/mindpandas" by default.
+- `--tmp-file-size-limit`: The temporary file size limit (MB). Optional, the default value is "None" which uses up to 95% of current free disk space.
 
 To view the parameter usage instructions of `yrctl start`, you can view it through `yrctl start --help`.
 Before starting the cluster, check the following:
 
-- This machine is not configured with an http proxy for the IP address of the master node. If this, machine is configured, please cancel the proxy or add the IP address of the master node to the `$no_proxy` environment variable.
 - No other redis service on this machine occupies port 6379, otherwise it will cause port conflict. If there is a conflict between redis or other ports, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/master/faq.html) to solve it.
 
 If the cluster deployment is successful, the end of the console echo should show:
@@ -116,13 +115,13 @@ If the cluster deployment is successful, the end of the console echo should show
 Succeeded to start!
 ````
 
-After the cluster is deployed, you need to set a multi-process backend to run in the Python script. The method is to call the `set_concurrency_mode` interface, set the `mode` to `"multiprocess"`, and set the IP address of the master node to the `address` parameter.
+After the cluster is deployed, you need to set a multi-process backend to run in the Python script. The method is to call the `set_concurrency_mode` interface, set the `mode` to `"multiprocess"`.
 
 > Note: We recommend calling `set_concurrency_mode` immediately after `import mindpandas` to set the concurrency mode. Switching the parallel mode while the script is running may cause the program failure.
 
 ```python
 import mindpandas as pd
-pd.set_concurrency_mode(mode="multiprocess", address="127.0.0.1")
+pd.set_concurrency_mode(mode="multiprocess")
 ```
 
 To stop the distributed compute engine, use the `yrctl stop` command:
@@ -163,11 +162,11 @@ yrctl start --address=<address>
 
 The `address` is the IP address of the master node. If the deployment fails during startup, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/master/faq.html).
 
-After the cluster is deployed, in the Python script, use the `"multiprocess"` backend as shown in the following code, where `address` is the IP address of the master node in the cluster.
+After the cluster is deployed, in the Python script, use the `"multiprocess"` backend as shown in the following code.
 
 ```python
 import mindpandas as pd
-pd.set_concurrency_mode("multiprocess", address="<master_ip>")
+pd.set_concurrency_mode("multiprocess")
 ```
 
 The command to stop the cluster is as follows, which needs to be executed on the master node and each worker node separately:

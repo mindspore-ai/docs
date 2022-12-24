@@ -107,7 +107,6 @@ yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <
 如需查看`yrctl start`的参数使用说明，可以通过`yrctl start --help`查看。  
 在启动集群前，请检查下列事项：
 
-- 本机没有为master节点的IP地址配置http代理。如果有，请取消代理或将master节点的IP地址加入`$no_proxy`环境变量中。
 - 本机没有其他的redis服务占用6379端口，否则会引起端口冲突。如有redis或其他端口冲突问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/faq.html)解决。
 
 若集群部署成功，控制台回显的末尾应显示：
@@ -116,13 +115,13 @@ yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <
 Succeeded to start!
 ```
 
-集群部署完成后，在Python脚本中需要设置使用多进程后端运行。方法是调用`set_concurrency_mode`接口，设置`mode`为`"multiprocess"`，`address`参数填写master节点的IP地址。
+集群部署完成后，在Python脚本中需要设置使用多进程后端运行。方法是调用`set_concurrency_mode`接口，设置`mode`为`"multiprocess"`。
 
 > 注意：我们建议在`import mindpandas`之后马上调用`set_concurrency_mode`进行并行模式的设置。在脚本运行过程中切换并行模式将可能导致程序出错。
 
 ```python
 import mindpandas as pd
-pd.set_concurrency_mode(mode="multiprocess", address="127.0.0.1")
+pd.set_concurrency_mode(mode="multiprocess")
 ```
 
 要停止分布式计算引擎，请使用`yrctl stop`命令：
@@ -167,7 +166,7 @@ yrctl start --address=<address>
 
 ```python
 import mindpandas as pd
-pd.set_concurrency_mode("multiprocess", address="<master_ip>")
+pd.set_concurrency_mode("multiprocess")
 ```
 
 停止集群的命令如下，需要在master节点和每个worker节点上分别执行：
