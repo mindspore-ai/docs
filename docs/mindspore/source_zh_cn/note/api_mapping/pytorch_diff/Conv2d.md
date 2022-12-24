@@ -50,7 +50,7 @@ $\operatorname{out}\left(N_{i}, C_{\text {out }_{j}}\right)=\operatorname{bias}\
 MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填充差异。
 
 1. 偏置差异：MindSpore默认不添加偏置参数，与PyTorch相反。
-2. 填充差异: MindSpore默认对输入进行填充，而PyTorch则默认不填充。同时MindSpore填充模式可选项和行为与PyTorch不同，填充行为具体差异如下。
+2. 填充差异：MindSpore默认对输入进行填充，而PyTorch则默认不填充。同时MindSpore填充模式可选项和行为与PyTorch不同，填充行为具体差异如下。
 
 ### 填充行为差异
 
@@ -64,13 +64,13 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 
     - circular：循环填充。
 
-    由padding_mode决定填充方式后，padding参数则用于控制填充的数量与位置。针对Conv1d，padding指定为int的时候，会在输入的左右上下进行padding次的填充(若为默认值0则代表不进行填充)；padding指定为tuple的时候，会按照tuple的输入在左右上下进行指定次数的填充；padding设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；padding设置为‘same’ 模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，PyTorch则会优先填充特征图的左侧和上侧。
+    由padding_mode决定填充方式后，padding参数则用于控制填充的数量与位置。针对Conv2d，padding指定为int的时候，会在输入的左右上下进行padding次的填充(若为默认值0则代表不进行填充)；padding指定为tuple的时候，会按照tuple的输入在左右上下进行指定次数的填充；padding设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；padding设置为‘same’ 模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，PyTorch则会优先填充特征图的左侧和上侧。
 
 2. MindSpore的参数pad_mode可选项有‘same’， ‘valid’， ‘pad’， 参数padding只能输入int， 填充参数的详细意义如下：
 
     pad_mode设置为‘pad’的时候，MindSpore可以设置padding参数为大于等于0的正整数，会在输入的左右上下进行padding次的0填充(若为默认值0则代表不进行填充)；pad_mode为另外两种模式时，padding参数必须只能设置为0，pad_mode设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；pad_mode设置为‘same’模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，MindSpore则会优先填充特征图的右侧和下侧(与PyTorch不同，类似TensorFlow)。
 
-    因此MindSpore若想实现与torch一致的填充模式，需要先手动使用nn.Pad或者ops.pad接口对输入进行手动填充。
+    因此MindSpore若想实现与PyTorch一致的填充模式，需要先手动使用nn.Pad或者ops.pad接口对输入进行手动填充。
 
 ### 权重初始化差异：
 
@@ -79,19 +79,19 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|输入 | 单输入 | input | x |接口输入，功能一致，仅参数名不同 |
 |参数 | 参数1 | in_channels | in_channels |- |
 | | 参数2 | out_channels | out_channels |- |
 | | 参数3 | kernel_size | kernel_size |- |
 | | 参数4 | stride | stride |- |
 | | 参数5 | padding | padding |具体差异参考上文|
-| | 参数6 | padding_mode | pad_mode |具体差异参考上文|
-| | 参数7 | dilation | dilation |-|
-| | 参数8 | groups | group |功能一致，参数名不同|
-| | 参数9 | bias | has_bias |功能一致，参数名不同，默认值不同|
+| | 参数6 | dilation | dilation |-|
+| | 参数7 | groups | group |功能一致，参数名不同|
+| | 参数8 | bias | has_bias |功能一致，参数名不同，默认值不同|
+| | 参数9 | padding_mode | pad_mode |具体差异参考上文|
 | | 参数10 | - | weight_init |权重参数的初始化方法， 具体差异参考上文|
 | | 参数11 | - | bias_init |偏置参数的初始化方法， 具体差异参考上文|
 | | 参数12 | - | data_format |指定输入数据格式，PyTorch无此参数|
+| 输入 | 单输入 | input  | x | 功能一致，参数名不同 |
 
 ### 代码示例1
 
