@@ -36,15 +36,15 @@ TensorFlow：对输入的Tensor执行平均池化。
 
 MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同以及使用输入Tensor的方式不同。
 
-| 分类 | 子类  | TensorFlow  | MindSpore   | 差异                              |
-| ---- | ----- | ----------- | ----------- | --------------------------------- |
-| 参数 | 参数1 | input       | x           | TensorFlow用于输入一个4-D的Tensor |
+| 分类 | 子类  | TensorFlow  | MindSpore   | 差异                                                  |
+| ---- | ----- | ----------- | ----------- | ----------------------------------------------------- |
+| 参数 | 参数1 | input       | x           | 功能一致，用于输入一个4维的Tensor，数据的输入格式不同 |
 |      | 参数2 | ksize       | kernel_size | 功能一致，参数名不同，TensorFlow无默认值              |
 |      | 参数3 | strides     | stride      | 功能一致，参数名不同，TensorFlow无默认值              |
 |      | 参数4 | padding     | pad_mode    | 功能一致，参数名不同，TensorFlow无默认值              |
-|      | 参数5 | data_format | data_format | 功能一致，参数名默认值不同                                 |
+|      | 参数5 | data_format | data_format | 功能一致，参数默认值不同                                 |
 
-### 代码示例1
+### 代码示例
 
 > 两API实现功能一致，用法相同。
 
@@ -53,20 +53,21 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 import tensorflow as tf
 import numpy as np
 
-y = tf.constant(10*np.random.random(size=(2,3,4,4)), dtype=tf.float16)
-out = tf.nn.avg_pool2d(input=y, ksize=3, strides=1, padding='SAME')
-print(out.shape)
-# (2, 3, 4, 4)
+y = tf.constant([[[[1, 0, 1], [0, 1, 1]]]], dtype=tf.float32)
+out = tf.nn.avg_pool2d(input=y, ksize=1, strides=1, padding='SAME')
+print(out.numpy())
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 
 # MindSpore
 import mindspore
 import mindspore.nn as nn
-import numpy as np
 from mindspore import Tensor
 
-pool = nn.AvgPool2d(kernel_size=3, stride=1, pad_mode='SAME')
-x = Tensor(10*np.random.random(size=(2,3,4,4)), dtype=mindspore.float16)
+pool = nn.AvgPool2d(kernel_size=1, stride=1, pad_mode='SAME')
+x = Tensor([[[[1, 0, 1], [0, 1, 1]]]], dtype=mindspore.float32)
 output = pool(x)
-print(output.shape)
-# (2, 3, 4, 4)
+print(output)
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 ```
