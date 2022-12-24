@@ -111,6 +111,7 @@ Parallel Training
      - -1 or an positive integer: communication subgraph extraction and reuse is enabled. -1 means that default value will be used. A positive integer means that the user specified value will be used.
 
        if not set: communication subgraph extraction and reuse is turned off.
+     - 
 
 For more information, see `Distributed Parallel Training Example <https://mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script>`_.
 
