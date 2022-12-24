@@ -5,7 +5,7 @@
 ## tf.keras.optimizers.SGD
 
 ```text
-class tf.keras.optimizers.SGD(
+tf.keras.optimizers.SGD(
     learning_rate=0.01,
     momentum=0.0,
     nesterov=False,
@@ -34,22 +34,22 @@ class mindspore.nn.SGD(
 
 ## 差异对比
 
-TensorFlow：实现的是梯度下降（带动量）优化器的功能。
+TensorFlow：实现的是随机梯度下降（带动量）的优化器功能。
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致。除了`learning_rate`设置的默认值不同外，MindSpore提供了参数分组`params`、动量的抑制因子`dampening`、权重衰减`weight_decay`、混合精度`loss_scale`等入参配置，TensorFlow无这些参数。而TensorFlow中的kwargs参数可以设置为`clipvalue`，`clipnorm`，梯度截断Clip可以将梯度约束在某一个区间之内，MindSpore无此功能。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | learning_rate | learning_rate |功能一致，参数默认值不同 |
+|参数 | 参数1 | learning_rate | learning_rate |功能一致，默认值不同 |
 | | 参数2 | momentum | momentum |- |
 | | 参数3 | nesterov | nesterov |- |
 | | 参数4 | name | - |不涉及 |
 | | 参数5 | **kwargs | - | 不涉及 |
-| | 参数6 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参params传入参数组字典实现，TensorFlow没有此入参配置 |
-| | 参数7 | - | dampening |动量的抑制因子，TensorFlow无此参数 |
-| | 参数8 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
-| | 参数9 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
-| | 参数10 | - | gradients  |反向输入，TensorFlow无此参数 |
+| | 参数6 | - | params |由Parameter类组成的列表或由字典组成的列表，TensorFlow中无此参数 |
+| | 参数7 | - | dampening |浮点动量阻尼值，默认值：0.0，TensorFlow中无此参数 |
+| | 参数8 | - | weight_decay |权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数 |
+| | 参数9 | - | loss_scale |梯度缩放系数，默认值：1.0，TensorFlow中无此参数 |
+| | 参数10 | - | gradients  |优化器中`params` 的梯度，TensorFlow中无此参数 |
 
 ### 代码示例
 

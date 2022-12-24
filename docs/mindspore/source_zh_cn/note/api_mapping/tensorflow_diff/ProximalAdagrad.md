@@ -36,9 +36,9 @@ class mindspore.nn.ProximalAdagrad(
 
 ## 差异对比
 
-TensorFlow：实现Proximal Adagrad算法的优化器功能。
+TensorFlow：实现ProximalAdagrad算法的优化器功能。
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致，用法稍有不同。MindSpore支持参数分组`params`、梯度缩放系数`loss_scale`、权重衰减`weight_decay`等参数配置来增加相应的功能，TensorFlow无此参数功能。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类 |         TensorFlow         |   MindSpore   | 差异 |
 | :-- | :-- | :-- | :-- |:--|
@@ -48,14 +48,14 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，用法稍有�
 | | 参数4 | l2_regularization_strength | l2 |功能一致，参数名不同 |
 | | 参数5 | use_locking | use_locking |- |
 | | 参数6 | name | - |不涉及 |
-| | 参数7 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，TensorFlow没有此入参配置 |
-| | 参数8 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
-| | 参数9 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
-| | 参数10 | - | grads  |反向输入，TensorFlow无此参数 |
+| | 参数7 | - | params |由Parameter类组成的列表或由字典组成的列表，TensorFlow中无此参数 |
+| | 参数8 | - | loss_scale |梯度缩放系数，默认值：1.0，TensorFlow中无此参数 |
+| | 参数9 | - | weight_decay |权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数 |
+| | 参数10 | - | grads  |优化器中 `params` 的梯度，TensorFlow中无此参数 |
 
 ### 代码示例
 
-> 实现功能一致。
+> 两API实现功能一致。
 
 ```python
 # TensorFlow
