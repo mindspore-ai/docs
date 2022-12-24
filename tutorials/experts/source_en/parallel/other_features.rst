@@ -16,7 +16,7 @@ Other Features
   pynative_shard_function_parallel
   ms_operator
 
-`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html>`__
+`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html>`_
 ------------------------------------------------------------------------------------------------------------------
 
 In operator-level parallelism, the user is required to configure a
@@ -27,7 +27,7 @@ automatically generate a feasible sharding strategy for operators
 without a sharding strategy, and achieve the effect of minimizing
 communication overhead.
 
-`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`__
+`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`_
 ----------------------------------------------------------------------------------------------------------------------------
 
 Parameter Server is a widely used architecture in distributed training,
@@ -45,7 +45,7 @@ some node abnormalities, and under the architecture of parameter
 servers, such failures can be easily handled without affecting the tasks
 in training.
 
-`Communication Operator Fusion <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_fusion.html>`__
+`Communication Operator Fusion <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_fusion.html>`_
 ---------------------------------------------------------------------------------------------------------------------
 
 In the distributed training scenario, cross-device or even cross-node
@@ -57,12 +57,12 @@ communication operators of the same source node and the destination node
 and executes them at the same time to avoid the additional overhead
 caused by multiple single operator execution.
 
-`Communication Subgraph Extraction and Reuse <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_subgraph.html>`__
---------------------------------------------------------------------------------------------------------------------------------
+`Communication Subgraph Extraction and Reuse <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_subgraph.html>`_
+-----------------------------------------------------------------------------------------------------------------------------------
 
 In distributed training, as the model size increases, the number of communication operators required also rises significantly. On one hand, it will boost the communication time in model compilation; on the other hand, it will consume a large amount of streams, and when the required number of streams exceeds the hardware limit, the model cannot scale even more, thus becoming a bottleneck in the development of large models. By classifying communication operators, extracting communication subgraphs for operators of the same class and reusing these extracted subgraphs, we can reduce the number of communication operators in the graph compilation. It will decrease communication time and require less streams so that the model size can further expand.
 
-`Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dataset_slice.html>`__
+`Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dataset_slice.html>`_
 --------------------------------------------------------------------------------------------------------
 
 When doing distributed training, you need to import the training dataset
@@ -77,14 +77,14 @@ dimension, and each device reads a part of the picture. This special
 performance supports splitting datasets into specific dimensions to meet
 training requirements in the field of large-format image processing.
 
-`Functional Operator Splitting <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html>`__
+`Functional Operator Splitting <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html>`_
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 In dynamic graph mode, you specify that a part of the network structure
 executes in graph mode and performs various parallel operations.
 
-`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/master/parallel/ms_operator.html>`__
-------------------------------------------------------------------------------------------------------------------------------------
+`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/master/parallel/ms_operator.html>`_
+-------------------------------------------------------------------------------------------------------------------------------------
 
 MindSpore Operator is a plugin that follows Kubernetes’ Operator pattern
 (based on the CRD-Custom Resource Definition feature) and implements
@@ -92,7 +92,7 @@ distributed training on Kubernetes. MindSpore Operator defines
 Scheduler, PS, worker three roles in CRD, and users can easily use
 MindSpore on K8S for distributed training through simple YAML file
 configuration. The code repository of mindSpore Operator is described
-in: `ms-operator <https://gitee.com/mindspore/ms-operator/>`__.
+in: `ms-operator <https://gitee.com/mindspore/ms-operator/>`_.
 
 Description of the Interface Related to the Feature
 ---------------------------------------------------
@@ -298,15 +298,15 @@ Description of the Interface Related to the Feature
 |             |                      | False.            |                   |
 +-------------+----------------------+-------------------+-------------------+
 | Communicati\| export MS_COMM_COMPI\| Specify the maxim\| This can decrease\|
-| on Subgraph\| LER_OPT=integer_value| um number of comm\|  the number of co\|
-|  Extraction\|                      | unication operato\| mmucation operato\|
-|  and Reuse  |                      | rs that can be re\| rs in the graph c\|
+| on Subgraph\| LER_OPT=integer_value| um number of comm\| the number of co\ |
+| Extraction \|                      | unication operato\| mmucation operato\|
+| and Reuse   |                      | rs that can be re\| rs in the graph c\|
 |             |                      | placed by corresp\| ompilation, hence\|
-|             |                      | onding communicat\|  require less str\|
+|             |                      | onding communicat\| require less str\ |
 |             |                      | ion subgraph. It \| eams and decrease\|
-|             |                      | can be set to -1 \|  the communicatio\|
+|             |                      | can be set to -1 \| the communicatio\ |
 |             |                      | or a positive val\| n time, improving\|
 |             |                      | ue. -1 means that\| compilation perfo\|
-|             |                      |  the default valu\| rmance.           |
+|             |                      | the default valu\ | rmance.           |
 |             |                      | e will be used.   |                   |
 +-------------+----------------------+-------------------+-------------------+

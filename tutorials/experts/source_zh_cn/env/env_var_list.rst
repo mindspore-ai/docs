@@ -109,6 +109,7 @@
      - -1或正整数：使能通信子图复用，-1表示使用框架默认值，其他正整数表示用户指定值
 
        不设置或其他值：关闭通信子图复用
+     - 
 
 具体用法详见 `分布式并行训练基础样例 <https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本>`_ 。
 
