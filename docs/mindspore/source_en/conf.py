@@ -224,7 +224,14 @@ except:
 try:
     decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py"),
                       ("mindspore/dataset/text/__init__.py","mindspore/python/mindspore/dataset/text/__init__.py"),
-                      ("mindspore/dataset/vision/__init__.py","mindspore/python/mindspore/dataset/vision/__init__.py")]
+                      ("mindspore/dataset/vision/__init__.py","mindspore/python/mindspore/dataset/vision/__init__.py"),
+                      ("mindspore/dataset/engine/datasets_user_defined.py","mindspore/python/mindspore/dataset/engine/datasets_user_defined.py"),
+                      ("mindspore/dataset/engine/graphdata.py","mindspore/python/mindspore/dataset/engine/graphdata.py"),
+                      ("mindspore/dataset/transforms/__init__.py","mindspore/python/mindspore/dataset/transforms/__init__.py"),
+                      ("mindspore/mindrecord/tools/cifar100_to_mr.py","mindspore/python/mindspore/mindrecord/tools/cifar100_to_mr.py"),
+                      ("mindspore/mindrecord/tools/cifar10_to_mr.py","mindspore/python/mindspore/mindrecord/tools/cifar10_to_mr.py"),
+                      ("mindspore/mindrecord/tools/csv_to_mr.py","mindspore/python/mindspore/mindrecord/tools/csv_to_mr.py"),
+                      ("mindspore/mindrecord/tools/tfrecord_to_mr.py","mindspore/python/mindspore/mindrecord/tools/tfrecord_to_mr.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
