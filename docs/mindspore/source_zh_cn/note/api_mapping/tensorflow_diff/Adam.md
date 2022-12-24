@@ -31,7 +31,8 @@ class mindspore.nn.Adam(
     use_nesterov=False,
     weight_decay=0.0,
     loss_scale=1.0,
-    use_amsgrad=False
+    use_amsgrad=False,
+    **kwargs
 )(gradients) -> Tensor
 ```
 
@@ -39,29 +40,29 @@ class mindspore.nn.Adam(
 
 ## 差异对比
 
-TensorFlow：对所有参数采用Adam方法进行梯度下降。
+TensorFlow：实现Adam算法的优化器功能。
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致，MindSpore的API还可以根据params里的设置，对不同参数采用不同的学习率进行更新。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类   | TensorFlow    | MindSpore     | 差异                                                                                                       |
 | ---- | ------ | ------------- | ------------- | ---------------------------------------------------------------------------------------------------------- |
 | 参数 | 参数1  | learning_rate | learning_rate | -                                                                                                          |
 |      | 参数2  | beta_1        | beta1         | 功能一致，参数名不同                                                                                      |
 |      | 参数3  | beta_2        | beta2         | 功能一致，参数名不同                                                                                      |
-|      | 参数4  | epsilon       | eps           | 功能一致，参数名不同，但是TensorFlow上的默认值是1e-8，而MindSpore上的默认值是1e-7                         |
+|      | 参数4  | epsilon       | eps           | 功能一致，参数名和默认值不同                         |
 |      | 参数5  | amsgrad       | use_amsgrad   | 功能一致，参数名不同                                                                                      |
 |      | 参数6 | name                   | -             | 不涉及 |
-|      | 参数7 |  **kwargs                   | -             | 不涉及 |
-|      | 参数8  | -             | params        | MindSpore中可以根据该参数，可以给不同参数设置不同的学习率、权重衰减值等。TensorFlow无此参数                |
+|      | 参数7 |  **kwargs                   | **kwargs       | 不涉及 |
+|      | 参数8  | -             | params        | 由Parameter类组成的列表或字典组成的列表，TensorFlow中无此参数                |
 |      | 参数9  | -             | use_locking   | MindSpore中可以根据该参数，决定是否对参数更新加锁保护。TensorFlow无此参数                                   |
 |      | 参数10  | -             | use_nesterov  | MindSpore中可以根据该参数，决定是否使用Nesterov Accelerated Gradient(NAG)算法更新梯度。TensorFlow无此参数  |
-|      | 参数11  | -             | weight_decay  | MindSpore中可以根据该参数，设定权重衰减的值。TensorFlow无此参数                                            |
-|      | 参数12 | -             | loss_scale    | MindSpore中可以根据该参数，设定梯度缩放系数。TensorFlow无此参数                                             |
-|      | 参数13 | -             | gradients    | MindSpore中的输入梯度，TensorFlow无此参数                                       |
+|      | 参数11  | -             | weight_decay  | 权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数                                            |
+|      | 参数12 | -             | loss_scale    | 梯度缩放系数，默认值：1.0，TensorFlow中无此参数                                             |
+| 输入 | 单输入 | -             | gradients    | params的梯度，TensorFlow中无此输入                                       |
 
 ### 代码示例
 
-> 实现功能一致。
+> 两API实现功能一致。
 
 ```python
 # TensorFlow
@@ -110,8 +111,8 @@ with tf.compat.v1.Session() as ss:
         ss.run(opt)
     output = net.eval()
 print(output.astype(dtype))
-# [[ 5.8998876 11.100113 ]
-#  [12.299808  24.700195 ]]
+# [[ 5.898781 11.101219]
+#  [12.297218 24.702782]]
 
 # MindSpore
 from mindspore import Tensor
