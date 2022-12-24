@@ -6,11 +6,9 @@
 
 A: There are many possibilities for the engine failure to start. Some common reasons are listed below:
 
-- Reason 1: The IP address of the master node is forwarded by the system's proxy.
-   Solution: You can enter `echo $http_proxy` on the command line to check if the system has set an http proxy. If so, you need to cancel the proxy, or add the IP address of the master node to the `$no_proxy` variable.
-- Reason 2: Redis port conflict.
+- Reason 1: Redis port conflict.
    Solution: You can enter `ps -ef|grep redis` on the command line to check whether other redis services are running in the system, resulting in port conflicts. MindPandas' redis runs on port 6379 by default. If you need to modify it, you can modify the `redis_port` field in `mindpandas/dist_executor/modules/config/config.xml` in the MindPandas installation directory to other non-conflicting ports.
-- Reason 3: etcd port conflict.
+- Reason 2: etcd port conflict.
    Solution: You can enter `netstat -tunpl|grep -E "32379|32380"` in the command line to check whether the etcd port is occupied. If there is a conflict, please try to release the corresponding port.
 
 <br/>
@@ -40,7 +38,6 @@ A: The MindPandas compute engine will start multiple processes, and each process
 - To check whether the port that is reporting the error is occupied, you can use the shell command `netstat -tunpl|grep <port>` to check the port occupancy. If the port conflicts, there are two solutions:
      - Method 1: Release the occupation of the conflicting port.
      - Method 2: Modify the port used by the compute engine. In the MindPandas installation directory `dist_executor/modules/config/config.xml`, search for the conflicting port number and change it to another available port.
-- If there is no conflict between the ports, you need to check whether the proxy is set. If so, please remove the `$http_proxy` environment variable.
 - To check whether there is a residual process from the last startup, you can use `ps -ef |grep mindpandas/dist_executor` to check the PID of the residual process, and then manually clean up the process.
 
 <br/>

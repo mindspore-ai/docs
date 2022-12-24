@@ -6,11 +6,9 @@
 
 A：引擎启动失败有多种可能性，下面列举了一些常见的原因，请参照检查。
 
-- 原因1：master节点的IP地址被系统的代理转发了。  
-  解决方案：可以在命令行中输入`echo $http_proxy`，查看系统是否设置了http代理。如果有则需要取消代理，或将master节点的IP地址加入`$no_proxy`变量。
-- 原因2：redis端口冲突。  
+- 原因1：redis端口冲突。  
   解决方案：可以在命令行中输入`ps -ef|grep redis`，查看系统中是否已经有其它redis服务正在运行，导致端口冲突。MindPandas的redis默认运行在6379端口，如需修改，可以在MindPandas的安装目录下修改`mindpandas/dist_executor/modules/config/config.xml`中的`redis_port`字段为其它不冲突的端口。
-- 原因3：etcd端口冲突。  
+- 原因2：etcd端口冲突。  
   解决方案：可以在命令行中输入`netstat -tunpl|grep -E "32379|32380"`，查看etcd的端口是否已被占用，如果发生冲突，请尝试解除相应端口的占用。
 
 <br/>
@@ -40,7 +38,6 @@ A：MindPandas计算引擎会启动多个进程，每个进程都有对应的端
 - 查看报错的端口是否被占用，可以通过shell指令`netstat -tunpl|grep <port>`查看端口占用情况，若端口冲突，有两种解决方案：
     - 方法1：解除冲突端口的占用。
     - 方法2：修改计算引擎使用的端口。在MindPandas安装目录下`dist_executor/modules/config/config.xml`里，搜索发生冲突的端口号，将其修改为其他空闲端口。
-- 若端口无冲突，需要查看是否设置了代理，如有请移除`$http_proxy`环境变量。
 - 查看是否有上次启动残留的进程，可以使用`ps -ef |grep mindpandas/dist_executor`查看残留进程PID，然后手动清理进程。
 
 <br/>
