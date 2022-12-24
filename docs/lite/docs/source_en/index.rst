@@ -627,7 +627,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_cpp.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experience C++ Minimalist Concurrent Reasoning Demo</span>
@@ -640,7 +640,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_java.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experience Java Minimalist Concurrent Reasoning Demo</span>
@@ -653,7 +653,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_python.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing the Python Simplified Concurrent Inference Demo</span>
