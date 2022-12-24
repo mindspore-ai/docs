@@ -300,6 +300,22 @@ highlight_words_source = """if (start === 0) {
     var number = Math.max(start - 120, 0);
     start = number;"""
 
+words_pre_target = """var excerpt = ((start > 0) ? '...' : '') +
+      $.trim(text.substr(start, 240)) +
+      ((start + 240 - text.length) ? '...' : '');
+    if (excerpt.indexOf('unset; } ') > 0){
+      excerpt = excerpt.split("unset; } ")[1]
+    }
+    var rv = $('<div class="context"></div>').text(excerpt);"""
+
+words_pre_source = """var excerpt = ((start > 0) ? '...' : '') +
+      $.trim(text.substr(start, 240)) +
+      ((start + 240 - text.length) ? '...' : '');
+    if (excerpt.indexOf('unset;') > 0){
+      excerpt = excerpt.split("unset;")[1].split("}")[1]
+    }
+    var rv = $('<div class="context"></div>').text(excerpt);"""
+
 with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
     code_str = f.read()
     if dict_target in code_str:
@@ -334,6 +350,12 @@ with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
 
     if highlight_words_target in code_str:
         code_str = code_str.replace(highlight_words_target, highlight_words_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if words_pre_target in code_str:
+        code_str = code_str.replace(words_pre_target, words_pre_source)
         f.seek(0)
         f.truncate()
         f.write(code_str)
