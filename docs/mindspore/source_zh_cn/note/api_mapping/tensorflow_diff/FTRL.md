@@ -14,11 +14,10 @@ tf.keras.optimizers.Ftrl(
     name='Ftrl',
     l2_shrinkage_regularization_strength=0.0,
     beta=0.0,
-    **kwargs
-) -> Tensor
+    **kwargs) -> Tensor
 ```
 
-更多内容详见[tf.keras.optimizers.Ftrl](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)。
+更多内容详见[tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)。
 
 ## mindspore.nn.FTRL
 
@@ -32,8 +31,7 @@ class mindspore.nn.FTRL(
     l2=0.0,
     use_locking=False,
     loss_scale=1.0,
-    weight_decay=0.0
-)(grads) -> Tensor
+    weight_decay=0.0)(grads) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
@@ -55,10 +53,10 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数7 | l2_shrinkage_regularization_strength | weight_decay | 功能一致，参数名不同 |
 |      | 参数8 | beta |      -     | 一个浮点值，默认值为0.0。MindSpore无此参数                 |
 |      | 参数9 | **kwargs | - | 不涉及 |
-|      | 参数10 | - | params | Parameter组成的列表或字典组成的列表。TensorFlow无此参数 |
-|      | 参数11 | - | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow无此参数 |
-|      | 参数12 | - | loss_scale | 梯度缩放稀疏，必须大于0。如果 loss_scale 是整数，它将被转换为浮点数。通常使用默认值，仅当训练时使用了 FixedLossScaleManager，且 FixedLossScaleManager 的 drop_overflow_update 属性配置为False时，此值需要与 FixedLossScaleManager 中的 loss_scale 相同。默认值为1.0。TensorFlow无此参数 |
-|      | 参数13 | - | grads | 反向输入，TensorFlow无此参数 |
+|      | 参数10 | - | params | 由Parameter类组成的列表或由字典组成的列表，TensorFlow中无此参数 |
+|      | 参数11 | - | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow中无此参数 |
+|      | 参数12 | - | loss_scale | 梯度缩放系数，默认值：1.0，TensorFlow中无此参数 |
+|      | 参数13 | - | grads | 优化器中 `params` 的梯度，TensorFlow中无此参数 |
 
 ### 代码示例1
 
@@ -112,10 +110,10 @@ y0 = net(input_x)
 model.train(1, data)
 y1 = net(input_x)
 print(y1)
+# [0.6031424]
 model.train(1, data)
 y2 = net(input_x)
 print(y2)
-# [0.6031424]
 # [0.5532904]
 ```
 
@@ -171,9 +169,9 @@ y0 = net(input_x)
 model.train(1, data)
 y1 = net(input_x)
 print(y1)
+# [0.688954]
 model.train(1, data)
 y2 = net(input_x)
 print(y2)
-# [0.688954]
 # [0.6834637]
 ```
