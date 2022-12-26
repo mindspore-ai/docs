@@ -6,11 +6,11 @@
 
 The following table lists the environment required for installing, compiling and running MindPandas:
 
-| software |  version   |
-| :------: | :-----: |
-|  Linux-x86_64 |  Ubuntu \>=18.04<br/>Euler \>=2.9 |
-|  Python  | 3.8 |
-|  glibc  |  \>=2.25   |
+| software |             version              |
+| :------: |:--------------------------------:|
+|  Linux-x86_64 | Ubuntu \>=18.04<br/>Euler \>=2.9 |
+|  Python  |             3.8-3.9              |
+|  glibc  |             \>=2.25              |
 
 - Make sure libxml2-utils is installed in your environment.
 - Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt) for other third party dependencies.
@@ -33,10 +33,10 @@ cd mindpandas
 bash build.sh
 ```
 
-The package is in output directory after compiled and you can install with pip.
+The package is in output directory after compiled and you can install with pip. Taking Python3.8 for example, the command is as follows:
 
 ```shell
-pip install output/mindpandas-0.1.0-cp38-cp38-linux_x86_64.whl
+pip install output/mindpandas-0.2.0-cp38-cp38-linux_x86_64.whl
 ```
 
 ## Verification

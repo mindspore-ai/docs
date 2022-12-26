@@ -6,11 +6,11 @@
 
 下表列出了安装、编译和运行MindPandas所需的系统环境：
 
-| 软件名称 |  版本   |
-| :------: | :-----: |
-|  Linux-x86_64操作系统 |  Ubuntu \>=18.04<br/>Euler \>=2.9 |
-|  Python  | 3.8 |
-|  glibc  |  \>=2.25   |
+| 软件名称 |                版本                |
+| :------: |:--------------------------------:|
+|  Linux-x86_64操作系统 | Ubuntu \>=18.04<br/>Euler \>=2.9 |
+|  Python  |             3.8-3.9              |
+|  glibc  |             \>=2.25              |
 
 - 请确保环境中安装了libxml2-utils。
 - 其他的第三方依赖请参考[requirements文件](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt)。
@@ -33,10 +33,10 @@ cd mindpandas
 bash build.sh
 ```
 
-编译完成后，whl包在output目录下，使用pip安装：
+编译完成后，whl包在output目录下，使用pip安装，以Python3.8为例，安装命令如下所示：
 
 ```shell
-pip install output/mindpandas-0.1.0-cp38-cp38-linux_x86_64.whl
+pip install output/mindpandas-0.2.0-cp38-cp38-linux_x86_64.whl
 ```
 
 ## 验证安装是否成功
