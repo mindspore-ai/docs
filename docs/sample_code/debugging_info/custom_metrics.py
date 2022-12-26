@@ -37,9 +37,9 @@ if __name__ == "__main__":
         'Recall': train.Recall(),
         'F1_score': train.F1()
     }
-    config_ck = ms.CheckpointConfig(save_checkpoint_steps=1000, keep_checkpoint_max=10)
-    ckpoint = ms.ModelCheckpoint(prefix="CKPT", config=config_ck)
+    config_ck = train.CheckpointConfig(save_checkpoint_steps=1000, keep_checkpoint_max=10)
+    ckpoint = train.ModelCheckpoint(prefix="CKPT", config=config_ck)
     model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
-    model.train(epoch=2, train_dataset=ds_train, callbacks=[ckpoint, ms.LossMonitor()])
+    model.train(epoch=2, train_dataset=ds_train, callbacks=[ckpoint, train.LossMonitor()])
     result = model.eval(ds_eval)
     print(result)

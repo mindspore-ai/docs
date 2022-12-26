@@ -274,6 +274,7 @@ Therefore, for the pipelined parallel dimensions, compared to the conversion of 
 First, execute an 8-card pipeline parallel training, where the pipeline parallel dimension is 2, the operator-level model parallel dimension is 4, and the data parallel dimension is 1.
 
 ```python
+from mindspore import train
 import mindspore as ms
 import mindspore.communication as D
 D.init()
@@ -285,12 +286,12 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, p
 ms.set_auto_parallel_context(strategy_ckpt_save_file="../src_pipeline_strategys/src_strategy{}.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 model = ms.Model(net, optimizer=opt)
-ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
+ckpt_config = train.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
                                   integrated_save=False)
-ckpoint_cb = ms.ModelCheckpoint(prefix="src_checkpoint",
+ckpoint_cb = train.ModelCheckpoint(prefix="src_checkpoint",
                                 directory = "../src_checkpoints/rank_{}".format(rank_id),
                                 config=ckpt_config)
-callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+callback = [train.TimeMonitor(callback_size), train.LossMonitor(callback_size), ckpoint_cb]
 model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
 

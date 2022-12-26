@@ -208,7 +208,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, g
 ```python
 import argparse
 import mindspore as ms
-from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, TimeMonitor
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, TimeMonitor, LossMonitor
 from mindspore.nn.transformer import TransformerOpParallelConfig
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
@@ -311,7 +311,7 @@ def main():
                                       integrated_save=False)
     ckpoint_cb = ModelCheckpoint(prefix="test",
                                     config=ckpt_config)
-    callback = [TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+    callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
     model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 
 if __name__ == "__main__":

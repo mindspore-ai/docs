@@ -28,8 +28,7 @@ import mindspore.dataset.vision as vision
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
-
-from mindspore.train import Accuracy
+from mindspore.train import Accuracy, TimeMonitor, LossMonitor
 import numpy as np
 
 
@@ -249,14 +248,14 @@ def train(ds_train):
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     lr = ms.Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = nn.Momentum(network.trainable_params(), learning_rate=lr, momentum=0.9)
-    time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
+    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
     model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a specified callback instance, and use it in model.train or model.eval
     specified_callback = MyCallback(summary_dir='./summary_dir/summary_03')
 
     print("============== Starting Training ==============")
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, ms.LossMonitor(), specified_callback],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), specified_callback],
                 dataset_sink_mode=False)
 
 

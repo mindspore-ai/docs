@@ -301,7 +301,7 @@ In the following sample code, the automatic parallel mode is specified. To switc
 
 ```python
 import mindspore as ms
-from mindspore.train import Model
+from mindspore.train import Model, LossMonitor
 from mindspore.nn import Momentum
 from resnet import resnet50
 
@@ -311,7 +311,7 @@ ms.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
@@ -587,11 +587,11 @@ It is convenient to save and load the model parameters in auto parallel mode. Ju
 
 ```python
 import mindspore as ms
-from mindspore.train import Model, ModelCheckpoint, CheckpointConfig
+from mindspore.train import Model, ModelCheckpoint, CheckpointConfig, LossMonitor
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10

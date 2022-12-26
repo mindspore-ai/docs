@@ -25,12 +25,11 @@ import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
-
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.train import Accuracy
+from mindspore.train import Accuracy, TimeMonitor, LossMonitor
 import numpy as np
 
 
@@ -243,7 +242,7 @@ def train(ds_train):
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     lr = ms.Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = MyOptimizer(network.trainable_params(), learning_rate=lr, momentum=0.9)
-    time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
+    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
     model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -251,7 +250,7 @@ def train(ds_train):
                                             collect_freq=200, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, ms.LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 
 

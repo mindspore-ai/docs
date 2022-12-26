@@ -263,7 +263,7 @@ In the example below, we specify the parallel mode as automatic parallelism, and
 
 ```python
 import mindspore as ms
-from mindspore.train import Model
+from mindspore.train import Model, LossMonitor
 from mindspore.nn import Momentum
 from mindspore.communication import init
 from resnet import resnet50
@@ -274,7 +274,7 @@ init("nccl")
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10

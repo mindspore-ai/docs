@@ -22,6 +22,7 @@ import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
+from mindspore import train
 from mindspore.communication import init, get_rank, get_group_size
 from resnet import resnet50
 
@@ -105,7 +106,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 def train_resnet50_with_cifar10(epoch_size=10):
     """Start the training"""
-    loss_cb = ms.LossMonitor()
+    loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
