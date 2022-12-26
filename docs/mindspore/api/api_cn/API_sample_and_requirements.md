@@ -203,7 +203,7 @@
 
     ```
 
-    a. 引用其他类的内容，类的全称类似于mindspore.nn.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
+    a. 引用其他类的内容，类的全称类似于mindspore.train.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
 

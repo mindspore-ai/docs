@@ -45,6 +45,7 @@ The simulation results, such as the S parameters or electromagnetic fields, can 
 
    physics_driven
    data_driven
+   AD_FDTD
    visualization
 
 .. toctree::

@@ -44,7 +44,7 @@ MindSpore网络搭建
 -  metrics；当训练任务结束，常常需要评价指标（Metrics）评估函数来评估模型的好坏。常用的评价指标有混淆矩阵、准确率
    Accuracy、精确率 Precision、召回率
    Recall等。mindspore.nn模块提供了常见的\ `评估函数 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#评价指标>`__
-   ，用户也可以根据需要自行定义评估指标。自定义Metrics函数需要继承nn.Metric父类，并重新实现父类中的clear方法、update方法和eval方法。
+   ，用户也可以根据需要自行定义评估指标。自定义Metrics函数需要继承train.Metric父类，并重新实现父类中的clear方法、update方法和eval方法。
 
 网络搭建
 --------
