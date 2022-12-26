@@ -30,7 +30,7 @@ class mindspore.nn.SSIM(
 )(img1, img2) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.SSIM](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.SSIM.html)。
+更多内容详见[mindspore.nn.SSIM](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.SSIM.html)。
 
 ## 差异对比
 
@@ -50,15 +50,15 @@ MindSpore：在MindSpore中，算子需要先实例化，然后接收输入返�
 
 ### 代码示例1
 
-> TensorFlow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`。
+> TensorFlow中参数`max_val`是必须的，MindSpore中可以缺省，默认值为`1.0`。注意在此示例中，TensorFlow与MindSpore输入图片`img1`，`img2`的图片格式不同，对于TensorFlow图片输入格式为"NHWC"，输入的img1、img2的shape为`[1, 16, 16, 3]`。为保证MindSpore在逻辑上有等价的输入，本示例中MindSpore输入的图片shape为`[1, 3, 16, 16]`。
 
 ```python
 # TensorFlow
 import numpy as np
 import tensorflow as tf
 
-img1 = tf.ones([1, 16, 16, 3])
-img2 = tf.ones([1, 16, 16, 3])
+img1 = tf.ones([1, 16, 16, 3], dtype=tf.float32)
+img2 = tf.ones([1, 16, 16, 3], dtype=tf.float32)
 output = tf.image.ssim(img1, img2, max_val=1.0)
 print(output.numpy())
 # [1.]

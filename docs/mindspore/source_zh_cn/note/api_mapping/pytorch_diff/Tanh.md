@@ -26,9 +26,9 @@ MindSpore：MindSpore此API实现功能与PyTorch一致。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
-| 参数 | 参数1 | input      | x         | 功能一致，参数名不同  |
+| 输入 | 单输入 | input      | x         | 功能一致，参数名不同  |
 
-### 代码示例1
+### 代码示例
 
 > 计算输入`x`的tanh函数，MindSpore此API功能与PyTorch一致。
 
@@ -39,11 +39,11 @@ import torch
 from torch import tensor, nn
 
 m = nn.Tanh()
-x_ = np.array([0.7713, 0.0208, 0.6336])
+x_ = np.array([0.7713, 0.0208, 0.6336], dtype=np.float32)
 x = tensor(x_)
 output = m(x)
 print(output.numpy())
-# [0.64768474 0.020797   0.56052611]
+# [0.64768475 0.020797   0.56052613]
 
 # MindSpore
 import numpy as np
@@ -51,7 +51,7 @@ import mindspore
 from mindspore import Tensor, nn
 
 m = nn.Tanh()
-x_ = np.array([0.7713, 0.0208, 0.6336])
+x_ = np.array([0.7713, 0.0208, 0.6336], dtype=np.float32)
 x = Tensor(x_, mindspore.float32)
 output = m(x)
 print(output)
