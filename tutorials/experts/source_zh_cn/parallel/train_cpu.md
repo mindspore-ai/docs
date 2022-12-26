@@ -136,12 +136,13 @@ def create_dataset(data_path, repeat_num=1, batch_size=32):
 import os
 import mindspore as ms
 import mindspore.nn as nn
+from mindspore import train
 from mindspore.communication import init
 from resnet import resnet50
 
 def train_resnet50_with_cifar10(epoch_size=10):
     """Start the training"""
-    loss_cb = ms.LossMonitor()
+    loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32

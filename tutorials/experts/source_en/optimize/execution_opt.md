@@ -80,6 +80,7 @@ import mindspore.dataset.vision as vision
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
+from mindspore import train
 import mindspore.ops as ops
 
 requests.packages.urllib3.disable_warnings()
@@ -210,7 +211,7 @@ if __name__ == "__main__":
     model = ms.Model(network, net_loss, net_opt)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()], dataset_sink_mode=True, sink_size=1000)
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[train.LossMonitor()], dataset_sink_mode=True, sink_size=1000)
 ```
 
 ```text

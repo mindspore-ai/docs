@@ -19,6 +19,7 @@ import numpy as np
 import mindspore as ms
 from mindspore.nn import Cell, Momentum
 import mindspore.ops as ops
+from mindspore import train
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 import mindspore.dataset as ds
 import mindspore.communication as D
@@ -79,7 +80,7 @@ if __name__ == "__main__":
     momentum = 0.1
     epoch_size = 1
 
-    callback = [ms.LossMonitor(), ms.ModelCheckpoint(directory="{}".format(rank))]
+    callback = [train.LossMonitor(), train.ModelCheckpoint(directory="{}".format(rank))]
 
     dataset = ds.GeneratorDataset(fake_dataset, ["input", "label"])
     loss = SoftmaxCrossEntropyWithLogits()

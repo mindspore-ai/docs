@@ -24,6 +24,7 @@ from mindspore.nn import TrainOneStepCell
 from mindspore.train import Accuracy
 from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
+from mindspore import train
 
 from models.official.cv.lenet.src.dataset import create_dataset
 from models.official.cv.lenet.src.lenet import LeNet5
@@ -57,14 +58,14 @@ if __name__ == "__main__":
     net = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
-    time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
+    time_cb = train.TimeMonitor(data_size=ds_train.get_dataset_size())
 
     train_net = nn.WithLossCell(net, net_loss)
     train_net = TrainGradAccumulationStepsCell(train_net, net_opt, 1.0, 5)
     model = ms.Model(train_net)
 
     print("============== Starting Training ==============")
-    model.train(10, ds_train, callbacks=[time_cb, ms.LossMonitor()])
+    model.train(10, ds_train, callbacks=[time_cb, train.LossMonitor()])
 
     print("============== Starting Testing ==============")
     model = ms.Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})

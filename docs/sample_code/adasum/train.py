@@ -20,7 +20,7 @@ import os
 from mindspore.nn import Momentum
 import mindspore as ms
 from mindspore.communication import init
-from mindspore import nn
+from mindspore import nn, train
 from mindspore.common import initializer as weight_init
 from models.official.cv.resnet.src.lr_generator import get_lr
 from models.official.cv.resnet.src.CrossEntropySmooth import CrossEntropySmooth
@@ -114,7 +114,7 @@ if __name__ == '__main__':
                      keep_batchnorm_fp32=False, boost_config_dict=boost_dict, eval_network=dist_eval_network)
 
     # define callback
-    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
+    cb = [train.TimeMonitor(data_size=step_size), train.LossMonitor()]
 
     print("============== Starting Training ==============")
     model.train(90, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=True)

@@ -21,6 +21,7 @@ import mindspore as ms
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
 from mindspore.nn import AdamWeightDecay
+from mindspore import train
 from dataset import ToyDataset, Tokenzier
 from model import Net
 
@@ -173,11 +174,11 @@ def main():
 
     callback_size = 1
     # single vs pipeline (save a slice of the model)
-    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
-                                      integrated_save=False)
-    ckpoint_cb = ms.ModelCheckpoint(prefix="test",
-                                    config=ckpt_config)
-    callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+    ckpt_config = train.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
+                                         integrated_save=False)
+    ckpoint_cb = train.ModelCheckpoint(prefix="test",
+                                       config=ckpt_config)
+    callback = [train.TimeMonitor(callback_size), train.LossMonitor(callback_size), ckpoint_cb]
     model.train(4, dataset, callbacks=callback, dataset_sink_mode=True)
 
 

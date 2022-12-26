@@ -22,6 +22,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank
+from mindspore import train
 import mindspore as ms
 from mindspore.nn import Momentum
 from resnet import resnet50
@@ -117,7 +118,7 @@ def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
     slice_w_num = 8
     batch_size = 256
     ms.set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
-    loss_cb = ms.LossMonitor()
+    loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_num, slice_w_num=slice_w_num)
     num_classes = 10

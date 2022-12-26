@@ -452,7 +452,7 @@ It takes a long time to train the ViT model completely, and it is recommended to
 ```python
 import mindspore.nn as nn
 from mindspore.nn import LossBase
-from mindspore import LossMonitor, TimeMonitor
+from mindspore.train import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
 
 # define super parameter
 epoch_size = 10
@@ -508,8 +508,8 @@ network_loss = CrossEntropySmooth(sparse=True,
                                   num_classes=num_classes)
 
 # set checkpoint
-ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=100)
-ckpt_callback = ms.ModelCheckpoint(prefix='vit_b_16', directory='./ViT', config=ckpt_config)
+ckpt_config = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=100)
+ckpt_callback = ModelCheckpoint(prefix='vit_b_16', directory='./ViT', config=ckpt_config)
 
 # initialize model
 # "Ascend + mixed precision" can improve performance
