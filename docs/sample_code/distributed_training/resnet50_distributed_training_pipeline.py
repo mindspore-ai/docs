@@ -24,6 +24,7 @@ import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank, get_group_size
 from mindspore.nn import Momentum
+from mindspore import train
 from resnet import resnet50
 
 device_target = os.getenv('DEVICE_TARGET')
@@ -116,7 +117,7 @@ def test_train_cifar(epoch_size=10):
     """train net"""
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
     ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32

@@ -302,7 +302,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ```python
 import mindspore as ms
-from mindspore.train import Model
+from mindspore.train import Model, LossMonitor
 from mindspore.nn import Momentum
 from resnet import resnet50
 
@@ -312,7 +312,7 @@ ms.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
@@ -590,11 +590,11 @@ OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参
 
 ```python
 import mindspore as ms
-from mindspore.train import Model, CheckpointConfig, ModelCheckpoint
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonitor
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = ms.LossMonitor()
+    loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32

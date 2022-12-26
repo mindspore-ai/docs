@@ -165,10 +165,10 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 Define network parameters:
 
 ```python
-import mindspore as ms
+from mindspore import train
 
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-ckpoint = ms.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+config_ck = train.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+ckpoint = train.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
 ```
 
 Train LeNet:

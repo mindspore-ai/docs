@@ -25,6 +25,7 @@ import mindspore.dataset.transforms as transforms
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.communication import init
 from mindspore.nn import Momentum
+from mindspore import train
 from resnet import resnet50
 
 random.seed(1)
@@ -114,9 +115,9 @@ if __name__ == '__main__':
     if args_opt.do_train:
         dataset = create_dataset()
         batch_num = dataset.get_dataset_size()
-        config_ck = ms.CheckpointConfig(save_checkpoint_steps=batch_num, keep_checkpoint_max=35)
-        ckpoint_cb = ms.ModelCheckpoint(prefix="train_resnet_cifar10", directory="./", config=config_ck)
-        loss_cb = ms.LossMonitor()
+        config_ck = train.CheckpointConfig(save_checkpoint_steps=batch_num, keep_checkpoint_max=35)
+        ckpoint_cb = train.ModelCheckpoint(prefix="train_resnet_cifar10", directory="./", config=config_ck)
+        loss_cb = train.LossMonitor()
         model.train(epoch_size, dataset, callbacks=[ckpoint_cb, loss_cb])
 
     # as for evaluation, users could use model.eval

@@ -19,6 +19,7 @@ import os
 from dataset import FakeData
 from net import Net
 import mindspore as ms
+from mindspore import train
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 
 
@@ -34,9 +35,9 @@ def test_train():
     net_opt = Momentum(network.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
     model = ms.Model(network=network, loss_fn=net_loss, optimizer=net_opt)
-    ckpt_config = ms.CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+    ckpt_config = train.CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
     global_rank_id = int(os.getenv("RANK_ID"))
     ckpt_path = './rank_{}_ckpt'.format(global_rank_id)
-    ckpt_callback = ms.ModelCheckpoint(prefix='parallel', directory=ckpt_path, config=ckpt_config)
+    ckpt_callback = train.ModelCheckpoint(prefix='parallel', directory=ckpt_path, config=ckpt_config)
     model.train(epoch=2, train_dataset=parallel_dataset, callbacks=[ckpt_callback], dataset_sink_mode=False)
     ms.reset_auto_parallel_context()

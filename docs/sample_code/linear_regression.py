@@ -4,7 +4,7 @@ This sample code is applicable to CPU, GPU and Ascend.
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn
+from mindspore import nn, train
 import mindspore as ms
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
@@ -47,6 +47,6 @@ if __name__ == "__main__":
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
     model = ms.Model(net, net_loss, opt)
     ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
-    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=train.LossMonitor(), dataset_sink_mode=False)
     for param in net.trainable_params():
         print(param, param.asnumpy())

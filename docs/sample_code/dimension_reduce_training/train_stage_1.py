@@ -19,7 +19,7 @@ import os
 import mindspore as ms
 from mindspore.nn import Momentum
 from mindspore.communication import init
-from mindspore import nn
+from mindspore import nn, train
 from mindspore.common import initializer as weight_init
 
 from models.official.cv.resnet.src.lr_generator import get_lr
@@ -104,17 +104,18 @@ if __name__ == '__main__':
                      boost_level="O0", keep_batchnorm_fp32=False)
 
     # define callback_1
-    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
+    cb = [train.TimeMonitor(data_size=step_size), train.LossMonitor()]
     if get_rank_id() == 0:
-        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
-        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
+        config_ck = train.CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
+        ck_cb = train.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
         cb += [ck_cb]
 
     # define callback_2: save weights for stage 2
     if get_rank_id() == 0:
-        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
-                                        saved_network=net)
-        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca", config=config_ck)
+        config_ck = train.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
+                                           saved_network=net)
+        ck_cb = train.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca",
+                                      config=config_ck)
         cb += [ck_cb]
 
     print("============== Starting Training ==============")

@@ -21,7 +21,7 @@ import mindspore.dataset.transforms as transforms
 import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
 import mindspore as ms
-
+from mindspore import train
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.train import Accuracy
 from mindspore.common.initializer import Normal
@@ -122,10 +122,10 @@ if __name__ == "__main__":
     print("========== The Training Model is Defined. ==========")
 
     # train the model and export the encrypted CheckPoint file through Callback
-    config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF',
-                                    enc_mode='AES-GCM')
-    ckpoint_cb = ms.ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
-    model.train(10, train_dataset, dataset_sink_mode=False, callbacks=[ckpoint_cb, ms.LossMonitor(1875)])
+    config_ck = train.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF',
+                                       enc_mode='AES-GCM')
+    ckpoint_cb = train.ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
+    model.train(10, train_dataset, dataset_sink_mode=False, callbacks=[ckpoint_cb, train.LossMonitor(1875)])
     acc = model.eval(eval_dataset, dataset_sink_mode=False)
     print("Accuracy: {}".format(acc["Accuracy"]))
 
