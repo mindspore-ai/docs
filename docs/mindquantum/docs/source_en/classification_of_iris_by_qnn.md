@@ -352,7 +352,8 @@ Next, we need to define the loss function, set the parameters to be optimized, a
 
 ```python
 from mindspore.nn import SoftmaxCrossEntropyWithLogits                         # Import the SoftmaxCrossEntropyWithLogits module to define the loss function
-from mindspore.nn import Adam, Accuracy                                        # Import the Adam module and the Accuracy module, which are used to define optimization parameters and evaluate the prediction accuracy respectively.
+from mindspore.nn import Adam                                                  # Import the Adam module, which is used to define optimization parameters.
+from mindspore.train import Accuracy                                           # Import the Accuracy module, which is used to evaluate the prediction accuracy respectively.
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset                               # Import the NumpySlicesDataset module for creating datasets that the model can recognize
 
@@ -413,7 +414,7 @@ Note:
 
 (3) mindspore.train.Model is a high-level API for training or testing. The model groups layers into objects with training and inference features. The general format is as follows: mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics= None, eval_network=None, eval_indexes=None, amp_level="O0", acc_level="O0"), where network is the network we want to train, namely Quantumnet; loss_fn is the objective function, here is the defined loss function; optimizer is the optimizer, used to update the weight, here is the defined opti; metrics is the dictionary or a set of metrics that the model needs to evaluate during training and testing, and here is the evaluation accuracy;
 
-(4) Accuracy is used to calculate the accuracy of classification and multi-label data. The general format is as follows: mindspore.nn.Accuracy(eval_type="classification"), used for classification (single label) and multi-label (multi-label classification)) The metric for calculating accuracy on the dataset, default: "classification";
+(4) Accuracy is used to calculate the accuracy of classification and multi-label data. The general format is as follows: mindspore.train.Accuracy(eval_type="classification"), used for classification (single label) and multi-label (multi-label classification)) The metric for calculating accuracy on the dataset, default: "classification";
 
 (5) NumpySlicesDataset uses a given data slice to create a dataset, which is mainly used to load Python data into the dataset. The general format is as follows: mindspore.dataset.NumpySlicesDataset(data, column_names=None, num_samples=None, num_parallel_workers=1, shuffle =None, sampler=None, num_shards=None, shard_id=None);
 

@@ -160,7 +160,7 @@ Therefore, for the same input vector, multiple attention mechanisms can process 
 The following Multi-Head Attention code, combined with the explanation above, clearly shows the process.
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn, ops, train
 
 
 class Attention(nn.Cell):
@@ -567,8 +567,8 @@ network_loss = CrossEntropySmooth(sparse=True,
                                   num_classes=num_classes)
 
 # define metric
-eval_metrics = {'Top_1_Accuracy': nn.Top1CategoricalAccuracy(),
-                'Top_5_Accuracy': nn.Top5CategoricalAccuracy()}
+eval_metrics = {'Top_1_Accuracy': train.Top1CategoricalAccuracy(),
+                'Top_5_Accuracy': train.Top5CategoricalAccuracy()}
 
 if ascend_target:
     model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O2")

@@ -16,7 +16,7 @@
 
    import mindspore_hub as mshub
    import mindspore
-   from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE
+   from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE, train
    from mindspore import dtype as mstype
    import mindspore.dataset.vision as vision
 
@@ -50,7 +50,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/
    import os
    import mindspore_hub as mshub
    import mindspore
-   from mindspore import Tensor, nn, set_context, GRAPH_MODE
+   from mindspore import Tensor, nn, set_context, GRAPH_MODE, train
    from mindspore.nn import Momentum
    from mindspore import save_checkpoint, load_checkpoint,load_param_into_net
    from mindspore import ops
@@ -197,9 +197,9 @@ We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/
 
    # Define loss and create model.
    eval_dataset = create_cifar10dataset(dataset_path, batch_size=32, do_train=False)
-   eval_metrics = {'Loss': nn.Loss(),
-                    'Top1-Acc': nn.Top1CategoricalAccuracy(),
-                    'Top5-Acc': nn.Top5CategoricalAccuracy()}
+   eval_metrics = {'Loss': train.Loss(),
+                    'Top1-Acc': train.Top1CategoricalAccuracy(),
+                    'Top5-Acc': train.Top5CategoricalAccuracy()}
    model = Model(network, loss_fn=loss, optimizer=None, metrics=eval_metrics)
    metrics = model.eval(eval_dataset)
    print("metric: ", metrics)

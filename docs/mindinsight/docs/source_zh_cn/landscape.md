@@ -166,7 +166,7 @@
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
-   from mindspore.nn import Loss
+   from mindspore.train import Loss
 
    def create_dataset(data_path, batch_size=32, repeat_size=1,
                       num_parallel_workers=1):
@@ -270,7 +270,7 @@
                                                            device_ids=[1, 2])
    ```
 
-   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
+   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.train.Metrics)` 。
    - `collect_landscape`: 参数定义与`SummaryCollector`一致，这里用户可以自由修改绘图参数。
    - `device_ids`: 指定地形图绘制所需要`device_ids`，支持单机多卡计算。
 

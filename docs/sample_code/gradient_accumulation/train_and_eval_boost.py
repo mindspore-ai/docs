@@ -20,7 +20,8 @@ import os
 
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore.nn import TrainOneStepCell, Accuracy
+from mindspore.nn import TrainOneStepCell
+from mindspore.train import Accuracy
 from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
 
