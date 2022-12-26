@@ -19,7 +19,7 @@ import os
 import time
 import json
 import mindspore as ms
-import mindspore.nn as nn
+import mindspore.nn as train
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import log as logger
 
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     net = Net()
     net_opt = Momentum(net.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
-    model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': nn.Accuracy()})
+    model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': train.Accuracy()})
     model.train(epoch=100,
                 train_dataset=train_dataset,
                 callbacks=[ms.LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)
