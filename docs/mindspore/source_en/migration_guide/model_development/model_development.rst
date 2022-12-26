@@ -89,7 +89,7 @@ The training process of the whole network consists of 3 modules:
    common `evaluation
    functions <https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics>`__,
    and users can also define their own evaluation metrics as needed.
-   Customized Metrics functions need to inherit nn.Metric parent class
+   Customized Metrics functions need to inherit train.Metric parent class
    and reimplement the clear method, update method and eval method of
    the parent class.
 

@@ -15,7 +15,7 @@
 """use metrics
 This sample code is applicable to Ascend, CPU and GPU.
 """
-import mindspore.nn as nn
+import mindspore.train as train
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 import mindspore as ms
 
@@ -31,11 +31,11 @@ if __name__ == "__main__":
     net_opt = Momentum(net.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
     metrics = {
-        'Accuracy': nn.Accuracy(),
-        'Loss': nn.Loss(),
-        'Precision': nn.Precision(),
-        'Recall': nn.Recall(),
-        'F1_score': nn.F1()
+        'Accuracy': train.Accuracy(),
+        'Loss': train.Loss(),
+        'Precision': train.Precision(),
+        'Recall': train.Recall(),
+        'F1_score': train.F1()
     }
     config_ck = ms.CheckpointConfig(save_checkpoint_steps=1000, keep_checkpoint_max=10)
     ckpoint = ms.ModelCheckpoint(prefix="CKPT", config=config_ck)
