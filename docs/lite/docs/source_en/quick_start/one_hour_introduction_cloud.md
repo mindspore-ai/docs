@@ -306,7 +306,7 @@ The code function is parsed as follows:
 1. Initialize the Context configuration
 
     Context holds the relevant configurations needed for model inference, including operator preferences, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For more details about Context, please refer to [API interface description](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) of Context.
+    For more details about Context, please refer to [API interface description](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) of Context.
     When loading the model in MindSpore Lite, an object of class `Context` must be provided, so in this example, an object `context` of class `Context` is first requested.
 
     ```cpp
@@ -334,7 +334,7 @@ The code function is parsed as follows:
 2. Load models
 
     First create the object `model` of a `Model` class, and the `Model` class defines the model in MindSpore for computational graph management.
-    For a detailed description of the `Model` class, please refer to the [API documentation](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#model).
+    For a detailed description of the `Model` class, please refer to the [API documentation](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html).
 
     ```cpp
     mindspore::Model model;
@@ -350,7 +350,7 @@ The code function is parsed as follows:
 
     Before performing model inference, you need to set the input data for inference.
     In this example, all the input tensor of the model is obtained through the `Model.GetInputs` interface. The format of the individual tensor is `MSTensor`.
-    For a detailed description of the `MSTensor` tensor, please refer to the [API description](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#mstensor) of `MSTensor`.
+    For a detailed description of the `MSTensor` tensor, please refer to the [API description](https://mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) of `MSTensor`.
 
     ```cpp
     auto inputs = model.GetInputs();
