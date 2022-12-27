@@ -9,8 +9,8 @@ MindSpore Lite包含模块：
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
 | converter          | Linux, Windows          | 模型转换工具                      |
-| runtime(cpp、java) | Linux, Windows, Android, iOS | 模型推理框架（Windows平台不支持java版runtime） |
-| benchmark          | Linux, Windows, Android | 基准测试工具                      |
+| runtime(cpp、java) | Linux, Windows, Android, iOS, OpenHarmony(OHOS) | 模型推理框架（Windows平台不支持java版runtime） |
+| benchmark          | Linux, Windows, Android, OpenHarmony(OHOS) | 基准测试工具                      |
 | benchmark_train    | Linux, Android          | 性能测试和精度校验工具              |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
@@ -28,6 +28,9 @@ MindSpore Lite包含模块：
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
+    - [OpenHarmony_NDK](http://ci.openharmony.cn/dailys/dailybuilds)
+        - 下载OpenHarmony NDK：前往OpenHarmony的每日构建，选择"形态组件"为"ohos-sdk"，任选一个成功构建的包进行下载。下载之后解压压缩包，其中以native开头的文件即为OpenHarmony NDK。
+        - 配置环境变量：`export OHOS_NDK=NDK路径`, `export TOOLCHAIN_NAME=ohos`
 - Java API模块的编译依赖（可选），未设置JAVA_HOME环境变量则不编译该模块。
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - 配置环境变量：`export GRADLE_HOME=GRADLE路径`和`export GRADLE_USER_HOME=GRADLE路径`
@@ -82,8 +85,8 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | 设置GPU后端，在`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
-| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | off |
+| MSLITE_GPU_BACKEND | 设置GPU后端，在非OpenHarmony系统且`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
+| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在非OpenHarmony系统且`-I arm64`或`-I arm32`时有效 | on、off | off |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
@@ -100,6 +103,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
 > - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>。此外，还需要将libcrypto.so.1.1文件的路径加入到LD_LIBRARY_PATH中。
 > - 当启用模型编译时预推理时，对于非加密模型，用户调用Build接口时，推理框架会创建一个子进程进行预推理，子进程成功返回之后，主进程会正式执行图编译的流程。
+> - 目前OpenHarmony系统仅支持CPU推理，不支持GPU推理。
 
 - runtime功能裁剪编译选项
 
@@ -150,6 +154,24 @@ git clone https://gitee.com/mindspore/mindspore.git
 
     ```bash
     bash build.sh -A on -j32
+    ```
+
+- 编译OpenHarmony系统的aarch32或aarch64的包：
+
+   编译aarch32
+
+    ```bash
+    export OHOS_NDK=NDK路径
+    export TOOLCHAIN_NAME=ohos
+    bash build.sh -I arm32 -j32
+    ```
+
+    编译aarch64
+
+    ```bash
+    export OHOS_NDK=NDK路径
+    export TOOLCHAIN_NAME=ohos
+    bash build.sh -I arm64 -j32
     ```
 
 最后，会在`output/`目录中生成如下文件：
@@ -239,6 +261,19 @@ python -c "import mindspore_lite"
         └── mindspore-lite
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
+    ```
+
+- 当编译选项为`-I arm64`或`-I arm32`，并且指定`TOOLCHAIN_NAME=ohos`时：
+
+    ```text
+    mindspore-lite-{version}-ohos-{arch}
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
+    │       └── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    └── tools
+        └── benchmark                # 基准测试工具
     ```
 
 ## Windows环境编译
