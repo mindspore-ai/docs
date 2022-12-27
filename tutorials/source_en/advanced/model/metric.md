@@ -27,9 +27,8 @@ The following uses the simple MAE algorithm as an example to describe the `clear
 ```python
 import numpy as np
 import mindspore as ms
-import mindspore.nn as nn
 
-class MyMAE(nn.Metric):
+class MyMAE(ms.train.Metric):
     def __init__(self):
         super(MyMAE, self).__init__()
         self.clear()
@@ -80,8 +79,6 @@ $$f(x)=w*x+b \tag{2}$$
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
 from mindspore import dataset as ds
 
 def get_data(num, w=2.0, b=3.0):
@@ -105,7 +102,6 @@ When the built-in metrics of MindSpore are transferred to `Model` as parameters,
 
 ```python
 import mindspore.nn as nn
-import mindspore as ms
 from mindspore.train import Model, MAE, LossMonitor
 
 net = nn.Dense(1, 1)
