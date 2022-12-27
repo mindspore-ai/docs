@@ -23,6 +23,7 @@ import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank, get_group_size
 import mindspore as ms
+from mindspore import train
 from mindspore.nn import Momentum
 from resnet import resnet50
 
@@ -106,7 +107,7 @@ def test_train_cifar(epoch_size=30):        # pylint: disable=missing-docstring
     init("nccl")
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
-    loss_cb = ms.LossMonitor()
+    loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -117,9 +118,9 @@ def test_train_cifar(epoch_size=30):        # pylint: disable=missing-docstring
     model = ms.Model(net, loss_fn=loss, optimizer=opt)
 
     ckpt_interval = 100
-    ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=ckpt_interval, keep_checkpoint_max=5)
-    ckpt_cb = ms.ModelCheckpoint(prefix='resnet_train',
-                                 directory='./ckpt_' + str(get_rank()) + '/',
-                                 config=ckpt_config)
+    ckpt_config = train.CheckpointConfig(save_checkpoint_steps=ckpt_interval, keep_checkpoint_max=5)
+    ckpt_cb = train.ModelCheckpoint(prefix='resnet_train',
+                                    directory='./ckpt_' + str(get_rank()) + '/',
+                                    config=ckpt_config)
 
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_cb], dataset_sink_mode=True, sink_size=ckpt_interval)

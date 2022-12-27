@@ -19,7 +19,8 @@ import os
 import time
 import json
 import mindspore as ms
-import mindspore.nn as train
+from mindspore.train import LossMonitor, Accuracy
+from mindspore import train
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import log as logger
 
@@ -27,7 +28,7 @@ from src.dataset import create_train_dataset, create_eval_dataset
 from src.net import Net
 
 
-class StopAtTime(ms.Callback):
+class StopAtTime(train.Callback):
     """StopAtTime"""
     def __init__(self, run_time):
         """init"""
@@ -52,7 +53,7 @@ class StopAtTime(ms.Callback):
             run_context.request_stop()
 
 
-class SaveCallback(ms.Callback):
+class SaveCallback(train.Callback):
     """SaveCallback"""
     def __init__(self, eval_model, ds_eval):
         """init"""
@@ -112,7 +113,7 @@ if __name__ == "__main__":
     net = Net()
     net_opt = Momentum(net.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
-    model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': train.Accuracy()})
+    model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': Accuracy()})
     model.train(epoch=100,
                 train_dataset=train_dataset,
-                callbacks=[ms.LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)
+                callbacks=[LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)

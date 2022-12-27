@@ -280,6 +280,7 @@ epoch: 1 step: 73, loss is 6.13733
 首先，执行8卡的流水线并行训练，其中pipeline并行维度为2，算子级模型并行维度为4，数据并行维度为1。
 
 ```python
+from mindspore import train
 import mindspore as ms
 import mindspore.communication as D
 D.init()
@@ -291,12 +292,12 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, p
 ms.set_auto_parallel_context(strategy_ckpt_save_file="../src_pipeline_strategys/src_strategy{}.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 model = ms.Model(net, optimizer=opt)
-ckpt_config = ms.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
+ckpt_config = train.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
                                   integrated_save=False)
-ckpoint_cb = ms.ModelCheckpoint(prefix="src_checkpoint",
+ckpoint_cb = train.ModelCheckpoint(prefix="src_checkpoint",
                                 directory = "../src_checkpoints/rank_{}".format(rank_id),
                                 config=ckpt_config)
-callback = [ms.TimeMonitor(callback_size), ms.LossMonitor(callback_size), ckpoint_cb]
+callback = [train.TimeMonitor(callback_size), train.LossMonitor(callback_size), ckpoint_cb]
 model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
 

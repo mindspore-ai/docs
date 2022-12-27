@@ -18,6 +18,7 @@ import os
 
 import mindspore as ms
 from mindspore.nn import SGD
+from mindspore import train
 from mindspore.communication import init
 
 from models.official.cv.resnet.src.CrossEntropySmooth import CrossEntropySmooth
@@ -106,10 +107,10 @@ if __name__ == '__main__':
     model = ms.Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, boost_level="O1", boost_config_dict=boost_dict)
 
     # define callback
-    cb = [ms.TimeMonitor(data_size=step_size), ms.LossMonitor()]
+    cb = [train.TimeMonitor(data_size=step_size), train.LossMonitor()]
     if get_rank_id() == 0:
-        config_ck = ms.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=2)
-        ck_cb = ms.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_2", config=config_ck)
+        config_ck = train.CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=2)
+        ck_cb = train.ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_2", config=config_ck)
         cb += [ck_cb]
 
     print("============== Starting Training ==============")
