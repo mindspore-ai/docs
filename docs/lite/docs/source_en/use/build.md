@@ -9,8 +9,8 @@ Modules in MindSpore Lite:
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter          | Linux, Windows               | Model Conversion Tool    |
-| runtime(cpp, java) | Linux, Windows, Android, iOS | Model Inference Framework(Windows platform does not support java version runtime) |
-| benchmark          | Linux, Windows, Android      | Benchmarking Tool        |
+| runtime(cpp, java) | Linux, Windows, Android, iOS, OpenHarmony(OHOS) | Model Inference Framework(Windows platform does not support java version runtime) |
+| benchmark          | Linux, Windows, Android, OpenHarmony(OHOS)      | Benchmarking Tool        |
 | benchmark_train    | Linux, Android               | Performance and Accuracy Validation              |
 | cropper            | Linux                        | Static library crop tool for libmindspore-lite.a |
 | minddata           | Linux, Android               | Image Processing Library |
@@ -28,6 +28,9 @@ Modules in MindSpore Lite:
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
+    - [OpenHarmony_NDK](http://ci.openharmony.cn/dailys/dailybuilds)
+        - Download OpenHarmony NDK：Go to OpenHarmony daily build web site，select "modality" as "ohos-sdk"，then select any successfully built package to download. After downloading, the files in the unzipped package that begin with 'native' are OpenHarmony NDK.
+        - Configure environment variables: `export OHOS_NDK=OHOS NDK path`, `export TOOLCHAIN_NAME=ohos`.
 - Compilation dependency of the Java API module (optional). If the JAVA_HOME environment variable is not set, this module will not be compiled:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - Configure environment variables: `export GRADLE_HOME=GRADLE path` and `export GRADLE_USER_HOME=GRADLE path`.
@@ -82,8 +85,8 @@ The construction of modules is controlled by environment variables. Users can co
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
-| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | off |
+| MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when the target OS is not OpenHarmony and `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
+| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when the target OS is not OpenHarmony  `-I arm64` or `-I arm32` | on, off | off |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
@@ -100,6 +103,7 @@ The construction of modules is controlled by environment variables. Users can co
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
 > - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
 > - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main precess will formally execute the process of graph compilation.
+> - At present, OpenHarmony only supports CPU reasoning, not GPU reasoning.
 
 - Runtime feature compilation options
 
@@ -150,6 +154,24 @@ Then, run the following commands in the root directory of the source code to com
 
     ```bash
     bash build.sh -A on -j32
+    ```
+
+- Compile the aarch32 or aarch64 package of the OpenHarmony OS:
+
+    Compile aarch32 package
+
+    ```bash
+    export OHOS_NDK=OHOS NDK path
+    export TOOLCHAIN_NAME=ohos
+    bash build.sh -I arm32 -j32
+    ```
+
+    Compile aarch64 package
+
+    ```bash
+    export OHOS_NDK=OHOS NDK path
+    export TOOLCHAIN_NAME=ohos
+    bash build.sh -I arm64 -j32
     ```
 
 Finally, the following files will be generated in the `output/` directory:
@@ -239,6 +261,19 @@ After successful installation, you can use the command of `pip show mindspore_li
         └── mindspore-lite
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
+    ```
+
+- When the compilation option is `-I arm64` or `-I arm32`，and specifies`TOOLCHAIN_NAME=ohos`：
+
+    ```text
+    mindspore-lite-{version}-ohos-{arch}
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libmindspore-lite.a  # Static library of inference framework in MindSpore Lite
+    │       └── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+    └── tools
+        └── benchmark                # Benchmarking tool
     ```
 
 ## Windows Environment Compilation

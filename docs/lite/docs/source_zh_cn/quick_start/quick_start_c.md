@@ -1,4 +1,4 @@
-# 体验C语言极简推理Demo
+# 体验C语言接口极简推理Demo
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
