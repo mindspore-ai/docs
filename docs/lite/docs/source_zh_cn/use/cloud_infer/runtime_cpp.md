@@ -234,7 +234,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
       SetTensorHostData(&inputs, &input_buffer);
     ```
 
-2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将时`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
+2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将是`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
 
     ```c++
     int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -322,7 +322,7 @@ opt_dims=[1]
 
 1. Ascend和GPU硬件后端需要通过动态输入信息进行图的编译和优化，CPU硬件后端不需要配置动态维度信息。
 
-2. `input_shape`用于指示输入shape信息，格式为`input_name1:[shape1];input_name2:[shape2]`，如果有动态输入，则需要将相应的维度设定为-1,多个输入通过英文分号`;`隔开。
+2. `input_shape`用于指示输入shape信息，格式为`input_name1:[shape1];input_name2:[shape2]`，如果有动态输入，则需要将相应的维度设定为-1，多个输入通过英文分号`;`隔开。
 
 3. `dynamic_dims`用于指示动态维度的值范围，多个非连续的值范围通过英文逗号`,`隔开。上例子中，Ascend的batch维度值范围为`1,2,3,4,8,16`，GPU的batch维度值范围为1到16。Ascend硬件后端，动态输入为多档模式，动态输入范围越大，模型编译时间越长。
 
