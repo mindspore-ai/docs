@@ -1,154 +1,66 @@
-# Experiencing the Python Simplified Concurrent Inference Demo
+# Using Python Interface to Perform Cloud-side Inference
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform concurrent inference. By creating concurrent inference configuration, loading and compiling concurrent Runner, setting concurrent inference task, and executing concurrent inference, it demonstrates the basic process of [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) for server-side concurrent inference, so that users can quickly understand the use of MindSpore Lite to perform concurrent inference-related APIs. The related code is located in [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_server_inference_python) directory.
+MindSpore Lite provides a multi-model concurrent inference interface [ModelParallelRunner](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html), multi-model concurrent inference now supports Ascend310, Ascend310P, Nvidia GPU, CPU backends.
 
-The usage scenario simulated by this tutorial: When the server receives inference tasks requested by multiple clients at the same time, it uses the [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html) interface that supports concurrent inference. Multiple inference tasks are performed at the same time and the results are returned to the client.
+After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the ` mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to use the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform concurrent inference with multiple models.
 
-The following is an example of how to use the Python simplified concurrent inference demo on a Linux X86 operating system and a CPU hardware platform, taking Ubuntu 18.04 as an example.
+Concurrent inference with MindSpore Lite consists of the following main steps:
 
-- One-click installation of inference-related model files, MindSpore Lite and its required dependencies. See the [One-click installation](#one-click-installation) section for details.
+1. Install the MindSpore Lite cloud-side inference Python package.
+2. Create configuration items: Create a multi-model concurrent inference configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.RunnerConfig.html) to configure multi-model concurrency.
+3. Initialization: Initialization before multi-model concurrent inference.
+4. Perform concurrent inference: Use Predict interface of ModelParallelRunner for multi-model concurrent inference.
+5. Free memory: when there is no need to use the MindSpore Lite concurrent inference framework, you need to release the ModelParallelRunner you created and the associated Tensor.
 
-- Execute the Python Simplified Inference Demo. See the [Execute Demo](#executing-demo) section for details.
+## Preparation
 
-- For a description of the Python Simplified Inference Demo content, see the [Demo Content Description](#demo-content-description) section for details.
+1. The following code samples are from [Using Python interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python).
 
-## One-click Installation
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
 
-This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
+3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.7 via pip.
 
-Go to [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_server_inference_python) directory, and execute the `lite-server-cpu-pip.sh` script to install in one click, taking MindSpore Lite version 1.9.0 as an example. The installation script downloads the model and input data files required for concurrent inference, installs the dependencies required for MindSpore_Lite, and downloads and installs MindSpore Lite that supports concurrent inference.
-
-Note: This command sets the installed version of MindSpore Lite. Since the Python interface is supported from MindSpore Lite version 1.8.0, the version cannot be set lower than 1.8.0. For the versions that can be set, see the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) for details.
-
-  ```bash
-  MINDSPORE_LITE_VERSION=1.9.0 bash ./lite-server-cpu-pip.sh
-  ```
-
-> If the MobileNetV2 model download fails, please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_server_inference_python/model` directory.
->
-> If the input.bin input data files download fails, please manually download the relevant model file [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin) and copy it to the `mindspore/lite/examples/quick_start_server_inference_python/model` directory.
->
-> If you fail to download MindSpore Lite Concurrent Inference Framework by using the script, please manually download [MindSpore Lite Concurrent Model Inference Framework](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0/MindSpore/lite/release/linux/x86_64/server/mindspore_lite-1.9.0-cp37-cp37m-linux_x86_64.whl) for the corresponding hardware platform of CPU and operating system of Linux-x86_64 or [MindSpore Lite Concurrent Model Inference Framework](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0/MindSpore/lite/release/linux/aarch64/server/mindspore_lite-1.9.0-cp37-cp37m-linux_aarch64.whl) for the corresponding hardware platform of CPU and operating system of Linux-aarch64. Users can use the `uname -m` command to query the operating system on the terminal, and copy it to `mindspore/lite/examples/quick_start_server_inference_python` directory.
->
-> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) locally, noting that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. It should be noted that to generate a MindSpore Lite installation package that supports concurrent inference, and you need to configure the environment variable before compiling: export MSLITE_ENABLE_SERVER_INFERENCE=on. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/quick_start_server_inference_python` directory.
->
-> If the MindSpore Lite installation package does not exist in the `mindspore/lite/examples/quick_start_server_inference_python` directory, the one-click installation script will uninstall the currently installed MindSpore Lite and then download and install MindSpore Lite from the Huawei image. Otherwise, if the MindSpore Lite installation package exists in the directory, it will install it first.
->
-> After manually downloading and placing the files in the specified directory, you need to execute the lite-server-cpu-pip.sh script again to complete the one-click installation.
-
-A successful execution will show the following results. The model files and input data files can be found in the `mindspore/lite/examples/quick_start_server_inference_python/model` directory.
-
-```text
-Successfully installed mindspore-lite-1.9.0
-```
-
-## Executing Demo
-
-After one-click installation, go to the [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ lite/examples/quick_start_server_inference_python) directory and execute the following command to experience the MindSpore Lite concurrent inference MobileNetV2 model.
-
-```bash
-python quick_start_server_inferece_python.py
-```
-
-The following results will be obtained when the execution is completed. During the execution of concurrent inference tasks in multiple threads, the single time-consuming inference and inference results in concurrent inference are printed, and the total concurrent inference time-consuming is printed after ending the thread.
-
-Description of inference results:
-
-- Simulates 5 clients and sends concurrent inference task requests to the server at the same time, with `parallel id` denoting the client id.
-
-- Simulates each client to send 2 requests for inference tasks to the server, and `task index` denotes the serial number of the task.
-
-- `run once time` indicates the inference time for a single requested inference task per client.
-
-- Next, the inference results of each client for single requested inference task are displayed, including the name of the output Tensor, the data size of the output Tensor, the number of elements of the output Tensor, and the first 5 pieces of data.
-
-- `total run time` indicates the total time taken by the server to complete all concurrent inference tasks.
-
-    ```text
-    parallel id:  0  | task index:  1  | run once time:  0.024082660675048828  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  2  | task index:  1  | run once time:  0.029989957809448242  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  1  | task index:  1  | run once time:  0.03409552574157715  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  3  | task index:  1  | run once time:  0.04005265235900879  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  4  | task index:  1  | run once time:  0.04981422424316406  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  0  | task index:  2  | run once time:  0.028667926788330078  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  2  | task index:  2  | run once time:  0.03010392189025879  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  3  | task index:  2  | run once time:  0.030695676803588867  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  1  | task index:  2  | run once time:  0.04117941856384277  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    parallel id:  4  | task index:  2  | run once time:  0.028671741485595703  s
-    tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
-    output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e-05
-    total run time:  0.08787751197814941  s
+    ```bash
+    python -m pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MINDSPORE_LITE_VERSION}/MindSpore/lite/release/centos_x86/cloud_fusion/mindspore_lite-${MINDSPORE_LITE_VERSION}-cp37-cp37m-linux_x86.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-## Demo Content Description
+### Creating Concurrent Inference Configurations
 
-Performing concurrent inference with MindSpore Lite consists of the following main steps:
+The configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.RunnerConfig.html) will hold some basic configuration parameters required for concurrent inference to guide the number of concurrent models as well as model compilation and model execution.
 
-1. [key variable description](#key-variable-description): Description of the key variables used in concurrent inference.
-2. [Create concurrent inference configuration](#creating-concurrent-inference-configuration): Create the concurrent inference configuration option [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.RunnerConfig.html) to save some basic configuration parameters used to perform the initialization of concurrent inference.
-3. [Concurrent Runner loading and compilation](#concurrent-runner-loading-and-compilation): Before performing concurrent inference, you need to call [init](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
-4. [Set concurrent inference task](#setting-concurrent-inference-task): Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
-5. [perform concurrent inference](#performing-concurrent-inference): Start multiple threads and execute the configured concurrent inference tasks. During execution, the single inference time consumption and inference result in concurrent inference are printed, and the total concurrent inference time consumption is printed after the end of the thread.
+The following sample code demonstrates how to create RunnerConfig and configure the number of workers for concurrent inference.
 
-For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
+```python
+import time
+from threading import Thread
+import numpy as np
+import mindspore_lite as mslite
 
-![img](../../images/server_inference.png)
+# the number of threads of one worker.
+# WORKERS_NUM * THREAD_NUM should not exceed the number of cores of the machine.
+THREAD_NUM = 1
 
-### Key Variable Description
+# In parallel inference, the number of workers in one `ModelParallelRunner` in server.
+# If you prepare to compare the time difference between parallel inference and serial inference,
+# you can set WORKERS_NUM = 1 as serial inference.
+WORKERS_NUM = 3
 
-- `THREAD_NUM`: the number of threads in a single worker. `WORKERS_NUM * THREAD_NUM` should be less than the number of machine cores.
+# Simulate 5 clients, and each client sends 2 inference tasks to the server at the same time.
+PARALLEL_NUM = 5
+TASK_NUM = 2
+```
+
+- `THREAD_NUM`: The number of threads in a single worker. `WORKERS_NUM * THREAD_NUM` should be less than the number of machine cores.
 
 - `WORKERS_NUM`: On the server side, specify the number of workers in a `ModelParallelRunner`, i.e., the units that perform concurrent inference. If you want to compare the difference in inference time between concurrent inference and non-concurrent inference, you can set `WORKERS_NUM` to 1 for comparison.
 
 - `PARALLEL_NUM`: The number of concurrent, i.e., the number of clients that are sending inference task requests at the same time.
 
 - `TASK_NUM`: The number of tasks, i.e., the number of inference task requests sent by a single client.
-
-    ```python
-    import time
-    from threading import Thread
-    import numpy as np
-    import mindspore_lite as mslite
-
-    # the number of threads of one worker.
-    # WORKERS_NUM * THREAD_NUM should not exceed the number of cores of the machine.
-    THREAD_NUM = 1
-
-    # In parallel inference, the number of workers in one `ModelParallelRunner` in server.
-    # If you prepare to compare the time difference between parallel inference and serial inference,
-    # you can set WORKERS_NUM = 1 as serial inference.
-    WORKERS_NUM = 3
-
-    # Simulate 5 clients, and each client sends 2 inference tasks to the server at the same time.
-    PARALLEL_NUM = 5
-    TASK_NUM = 2
-    ```
-
-### Creating Concurrent Inference Configuration
-
-Create concurrent inference configuration `RunnerConfig`. Since this tutorial demonstrates a scenario where inference is performed on a CPU device, it is necessary to add the created CPU device hardware information to the context `Conterxt` and then add `Conterxt` to `RunnerConfig`.
 
 ```python
 # Init RunnerConfig and context, and add CPU device info
@@ -158,19 +70,27 @@ context.append_device_info(cpu_device_info)
 parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKERS_NUM)
 ```
 
-### Concurrent Runner Loading and Compilation
+> The configuration method of the Context is detailed in [Context](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html#creating-configuration-context).
+>
+> Multi-model concurrent inference currently supports [CPUDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.CPUDeviceInfo.html#mindspore_lite.CPUDeviceInfo), [GPUDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.GPUDeviceInfo.html#mindspore_lite.GPUDeviceInfo), [AscendDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.AscendDeviceInfo.html#mindspore_lite.AscendDeviceInfo) different hardware backends. When setting the GPU backend, you need to set the GPU backend before setting the CPU backend, otherwise it will report an error and exit.
+>
+> Multi-model concurrent inference does not support FP32 type data inference. CPU pinning only supports unbinding or binding large cores, does not support the parameter setting of binding middle cores, and does not support the configuration of binding core list.
 
-Call [init](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `Model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
+## Initialization
+
+When using MindSpore Lite to perform concurrent inference, ModelParallelRunner is the main entry point for concurrent inference, through which concurrent inference can be initialized and executed. Using the RunnerConfig created in the previous step, call the Init interface of ModelParallelRunner to initialize ModelParallelRunner.
 
 ```python
 # Build ModelParallelRunner from file
 model_parallel_runner = mslite.ModelParallelRunner()
-model_parallel_runner.init(model_path="./model/mobilenetv2.ms", runner_config=parallel_runner_config)
+model_parallel_runner.init(model_path="./model/mobilenetv2.mindir", runner_config=parallel_runner_config)
 ```
 
-### Setting Concurrent Inference Task
+> The initialization of ModelParallelRunner can be done without setting the RunnerConfig configuration parameters, and then the default parameters will be used for concurrent inference of multiple models.
 
-Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
+### Setting Concurrent Inference Tasks
+
+Create multiple threads and bind concurrent inference tasks. The inference tasks include padding data into `input Tensor`, using [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
 
 ```python
 def parallel_runner_predict(parallel_runner, parallel_id):
@@ -222,7 +142,7 @@ for i in range(PARALLEL_NUM):
 
 ### Performing Concurrent Inference
 
-Start multiple threads and execute the configured concurrent inference tasks. During execution, the single inference time consumption and inference result in concurrent inference are printed, and the total concurrent inference time consumption is printed after the end of the thread.
+Start a multi-thread and execute the configured concurrent inference task. During the execution, the single inference time and inference result in concurrent inference are printed, and the total concurrent inference time is printed after the end of the thread.
 
 ```python
 # Start threads to perform parallel inference.
