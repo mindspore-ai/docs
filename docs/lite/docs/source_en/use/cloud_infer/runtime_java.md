@@ -60,7 +60,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring to Use the GPU Backend
 
-When the backend to be executed is GPU, after `MSContext` is created, you need to add [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#gpudeviceinfo) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). If Float16 inference is enabled, the GPU will use the Float16 operator in preference.
+When the backend to be executed is GPU, after `MSContext` is created, you need to add [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). If Float16 inference is enabled, the GPU will use the Float16 operator in preference.
 
 The following code demonstrates how to create a GPU inference backend:
 
