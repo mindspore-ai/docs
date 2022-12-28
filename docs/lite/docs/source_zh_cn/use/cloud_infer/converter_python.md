@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite云测推理支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的mindir模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
+MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的mindir模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
 
 目前支持的输入模型类型有：MindSpore、TensorFlow Lite、Caffe、TensorFlow、ONNX。
 
@@ -18,9 +18,9 @@ MindSpore Lite云测推理支持通过Python接口进行模型转换，支持多
 
 ### 环境准备
 
-使用MindSpore Lite云测推理的Python接口进行模型转换，需要进行如下环境准备工作。
+使用MindSpore Lite云侧推理的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云测推理的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
 
     > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -32,18 +32,18 @@ MindSpore Lite云测推理支持通过Python接口进行模型转换，支持多
 
 ### 目录结构
 
-安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite云测推理的Python模块的安装位置。
+安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite云侧推理的Python模块的安装位置。
 
 ```text
 mindspore_lite
 ├── __pycache__
 ├── include
 ├── lib
-│   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite 云测推理python模块封装C++接口的框架的动态库
+│   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite 云侧推理python模块封装C++接口的框架的动态库
 │   ├── libmindspore_converter.so                               # 模型转换动态库
 │   ├── libmindspore_core.so                                    # MindSpore Core动态库
 │   ├── libmindspore_glog.so.0                                  # Glog的动态库
-│   ├── libmindspore-lite.so                                    # MindSpore Lite云测推理的动态库
+│   ├── libmindspore-lite.so                                    # MindSpore Lite云侧推理的动态库
 │   ├── libmslite_converter_plugin.so                           # 模型转换插件
 │   ├── libascend_pass_plugin.so                                # 注册昇腾后端图优化插件动态库
 │   ├── libmindspore_shared_lib.so                              # 适配昇腾后端的动态库
@@ -57,12 +57,12 @@ mindspore_lite
 ├── converter.py       # converter接口相关代码，转换入口
 ├── model.py           # model接口相关代码，推理入口
 ├── tensor.py          # tensor接口相关代码
-└── version.py         # MindSpore Lite云测推理版本号
+└── version.py         # MindSpore Lite云侧推理版本号
 ```
 
 ### 参数说明
 
-MindSpore Lite云测推理的Python接口模型转换提供了多种参数设置，用户可根据需要来选择使用。
+MindSpore Lite云侧推理的Python接口模型转换提供了多种参数设置，用户可根据需要来选择使用。
 
 使用场景：将第三方模型转换生成MindSpore模型。
 
@@ -76,7 +76,7 @@ MindSpore Lite云测推理的Python接口模型转换提供了多种参数设置
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 否 | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | None，None等同于{} |
-| export_mindir | ModelType | `--exportMindIR=<EXPORTMINDIR>` | 是 | 设置导出模型文件的类型。| ModelType.MINDIR、ModelType.MINDIR_LITE | ModelType.MINDIR | MINDIR模型使用MindSpore Lite云测推理安装包，MINDIR_LITE使用MindSpore Lite端侧推理安装包|
+| export_mindir | ModelType | `--exportMindIR=<EXPORTMINDIR>` | 是 | 设置导出模型文件的类型。| ModelType.MINDIR、ModelType.MINDIR_LITE | ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包，MINDIR_LITE使用MindSpore Lite端侧推理安装包|
 | no_fusion | bool | `--NoFusion=<NOFUSION>` | 否 | 是否避免融合优化，默认允许融合优化。 | True、False | False |
 | weight_fp16 | bool | `--fp16=<FP16>` | 否 | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | False | 暂不支持 |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对4维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC | 暂不支持 |
@@ -123,7 +123,7 @@ MindSpore Lite云测推理的Python接口模型转换提供了多种参数设置
     CONVERT RESULT SUCCESS:0
     ```
 
-    这表示已经成功将Caffe模型转化为MindSpore Lite云测推理模型，获得新文件`lenet.mindir`。
+    这表示已经成功将Caffe模型转化为MindSpore Lite云侧推理模型，获得新文件`lenet.mindir`。
 
 - 以MindSpore、TensorFlow Lite、TensorFlow和ONNX模型为例，执行转换命令。
 

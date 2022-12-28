@@ -5,3 +5,4 @@ Model Converter
   :maxdepth: 1
 
   converter_tool
+  converter_python
