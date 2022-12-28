@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite云测推理提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。命令行参数包含多种个性化选项，为用户提供方便的转换途径。
+MindSpore Lite云侧推理提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。命令行参数包含多种个性化选项，为用户提供方便的转换途径。
 
 目前支持的输入格式有：MindSpore、TensorFlow Lite、Caffe、TensorFlow和ONNX。
 
@@ -14,7 +14,7 @@ MindSpore Lite云测推理提供离线转换模型功能的工具，支持多种
 
 ### 环境准备
 
-使用MindSpore Lite云测推理模型转换工具，需要进行如下环境准备工作。
+使用MindSpore Lite云侧推理模型转换工具，需要进行如下环境准备工作。
 
 - [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
@@ -49,7 +49,7 @@ mindspore-lite-{version}-linux-x64
 
 ### 参数说明
 
-MindSpore Lite云测推理模型转换工具提供了多种参数设置，用户可根据需要来选择使用。此外，用户可输入`./converter_lite --help`获取实时帮助。
+MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户可根据需要来选择使用。此外，用户可输入`./converter_lite --help`获取实时帮助。
 
 下面提供详细的参数说明。
 
@@ -81,11 +81,11 @@ MindSpore Lite云测推理模型转换工具提供了多种参数设置，用户
 - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 - `configFile`配置文件采用`key=value`的方式定义相关参数。
 - `--NoFusion`该参数是用来设定在离线转换的过程中是否完成图的优化操作。如果该参数设置为true，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。
-- 针对MindSpore模型，由于已经是`mindir`模型，建议两种做法:
+- 针对MindSpore模型，由于已经是`mindir`模型，建议两种做法：
 
     不需要经过离线转换，直接进行推理执行。
 
-    使用离线转换并设置--NoFusion为false,在离线阶段完成相关优化，减少推理执行的初始化时间。
+    使用离线转换并设置--NoFusion为false，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ### 使用示例
 
@@ -105,7 +105,7 @@ MindSpore Lite云测推理模型转换工具提供了多种参数设置，用户
     CONVERT RESULT SUCCESS:0
     ```
 
-    这表示已经成功将Caffe模型转化为MindSpore Lite云测推理模型，获得新文件`lenet.mindir`。
+    这表示已经成功将Caffe模型转化为MindSpore Lite云侧推理模型，获得新文件`lenet.mindir`。
 
 - 以MindSpore、TensorFlow Lite、TensorFlow和ONNX模型为例，执行转换命令。
 

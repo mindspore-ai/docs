@@ -14,9 +14,9 @@ Using the MindSpore Lite inference framework consists of the following main step
 
 1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html).
 2. Create a Configuration Context: Create a configuration context [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Converter.html) and save some basic configuration parameters used to guide model compilation and model execution.
-3. Model loading and compilation: Before executing inference, you need to call [Build](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#build-3) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time so it is recommended that the model be created once, compiled once and perform inference about multiple times.
+3. Model loading and compilation: Before executing inference, you need to call Build interface of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time so it is recommended that the model be created once, compiled once and perform inference about multiple times.
 4. Input data: The input data needs to be padded before the model can be executed.
-5. Execute inference: Use [Predict](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#model) for model inference.
+5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model inference.
 
 ![img](../../images/lite_runtime.png)
 
@@ -42,7 +42,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#mutabledeviceinfo). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
+Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#mutabledeviceinfo). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
 
 ### Configuring to Use the CPU Backend
 
@@ -69,7 +69,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 1. Configure the number of threads
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setthreadnum):
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setthreadnum):
 
     ```c++
     // Configure the number of worker threads in the thread pool to 2, including the main thread.
@@ -78,7 +78,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 2. Configure thread affinity
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setthreadaffinity-1).
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setthreadaffinity-1).
     Set the CPU binding list with the parameter `const std::vector<int> &core_list`.
 
     ```c++
@@ -88,7 +88,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 3. Configure parallelism strategy
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setinteropparallelnum).
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setinteropparallelnum).
 
     ```c++
     // Configure the inference supports parallel.
@@ -97,7 +97,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 ### Configuring Using GPU Backend
 
-When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables Float16 inference by `SetEnableFP16`.
+When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables Float16 inference by `SetEnableFP16`.
 
 The following sample code demonstrates how to create a GPU inference backend while the device ID is set to 0:
 
@@ -126,7 +126,7 @@ device_list.push_back(gpu_device_info);
 
 ### Configuring Using Ascend Backend
 
-When the backend to be executed is Ascend (Ascend 310 and Ascend 310P are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables Float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
+When the backend to be executed is Ascend (Ascend 310 and Ascend 310P are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables Float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
 The following sample code demonstrates how to create Ascend inference backend while the device ID is set to 0:
 
@@ -152,7 +152,7 @@ device_list.push_back(gpu_device_info);
 
 ## Model Creation Loading and Compilation
 
-When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#model) is the main entry point for inference. Model loading, model compilation and model execution is implemented through model. Using the [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) created in the previous step, call the compound [Build](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#build-3) interface of Model to implement model loading and model compilation.
+When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is the main entry point for inference. Model loading, model compilation and model execution is implemented through model. Using the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step, call the compound Build interface of Model to implement model loading and model compilation.
 
 The following sample code demonstrates the process of model creation, loading and compilation:
 
@@ -198,7 +198,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 
 ## Inputting the Data
 
-Before the model execution, the input data needs to be set, using the [GetInputs](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#getinputs) method, which directly gets all vectors of the model input Tensor. You can get the size of the data that the Tensor should fill in by the [DataSize](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#datasize) method of the MSTensor. The data type of the Tensor can be obtained by the [DataType](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#datatype). The input host data is set by [SetData](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setdata) method.
+Before the model execution, the input data needs to be set, using the [GetInputs](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) method, which directly gets all vectors of the model input Tensor. You can get the size of the data that the Tensor should fill in by the DataSize method of the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). The data type of the Tensor can be obtained by the DataType. The input host data is set by SetData method.
 
 There are currently two ways to specify input data:
 
@@ -261,7 +261,7 @@ There are currently two ways to specify input data:
 
 ## Executing Inference
 
-The [Model.Predict](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#predict) interface is called to perform inference and subsequent processing of the returned output.
+The Model.Predict interface is called to perform inference and subsequent processing of the returned output.
 
 ```c++
 int SpecifyInputDataExample(const std::string &model_path, const std::string &device_type, int32_t device_id,
@@ -353,7 +353,7 @@ Load the configuration file information via `LoadConfig` before the model `Build
   }
 ```
 
-In model inference, if the input to the model is dynamic and the input and output shape returned via `GetInputs` and `GetOutputs` may include -1, i.e., it is a dynamic shape,  the input shape needs to be specified via the [Resize](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#resize) interface. If the input Shape needs to change, for example, the `batch` dimension changes, the `Resize` interface needs to be called again to adjust the input Shape.
+In model inference, if the input to the model is dynamic and the input and output shape returned via `GetInputs` and `GetOutputs` may include -1, i.e., it is a dynamic shape,  the input shape needs to be specified via the [Resize](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface. If the input Shape needs to change, for example, the `batch` dimension changes, the `Resize` interface needs to be called again to adjust the input Shape.
 
 After calling the `Resize` interface, the shape of the Tensor in the called and subsequently called `GetInputs` and `GetOutputs` will be changed.
 

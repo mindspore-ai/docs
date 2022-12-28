@@ -27,7 +27,7 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 
 The [configuration item](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html) will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
 
-The following [sample code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L83) demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
+The following sample code demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 
 ```java
 // use default param init context
