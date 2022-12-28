@@ -506,7 +506,7 @@ static Status SetParameters(const std::map<std::string, Buffer> &parameters, Mod
 
 #### ExportModel
 
-导出训练模型，MindSpore Lite未提供此功能。
+导出训练模型，MindSpore Lite训练使用。
 
 ```cpp
 static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data);
@@ -926,6 +926,18 @@ Status SetOptimizerParams(const std::vector<MSTensor> &params);
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetTrainableParams
+
+```cpp
+std::vector<MSTensor> GetTrainableParams() const;
+```
+
+获取optimizer中所有参与权重更新的MSTensor。
+
+- 返回值
+
+  optimizer中所有参与权重更新的MSTensor。
 
 #### GetOutputs
 
