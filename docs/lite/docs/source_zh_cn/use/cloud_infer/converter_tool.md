@@ -73,7 +73,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | `--encryptKey=<ENCRYPTKEY>` | 否 | 设定导出加密`mindir`模型的密钥，密钥用十六进制表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | - | - | 暂不支持 |
 | `--encryption=<ENCRYPTION>` | 否 | 设定导出`mindir`模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | true、false | true | 暂不支持 |
 | `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false | 暂不支持 |
-| `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对4维输入有效。 | NHWC、NCHW | NHWC | 暂不支持 |
+| `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对四维输入有效。 | NHWC、NCHW | NHWC | 暂不支持 |
 
 注意事项：
 

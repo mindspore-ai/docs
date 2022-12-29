@@ -23,9 +23,9 @@ class mindspore.nn.Flatten()(input)
 
 ## 使用方式
 
-PyTorch：支持指定维度对元素进行展开，默认保留第0维，对其余维度的元素进行展开；需要同`torch.nn.Sequential`一起使用。
+PyTorch：支持指定维度对元素进行展开，默认保留第零维，对其余维度的元素进行展开；需要同`torch.nn.Sequential`一起使用。
 
-MindSpore：仅支持保留第0维元素，对其余维度的元素进行展开。
+MindSpore：仅支持保留第零维元素，对其余维度的元素进行展开。
 
 ## 代码示例
 

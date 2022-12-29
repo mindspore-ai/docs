@@ -96,7 +96,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
         [ERROR]Check StridedSliceInfo1414: When there is a mask, the input is not supported to be split
         ```
 
-        可能的错误代码如下，网络的输入是一个[2, 4]的Tensor。网络中是一个slice操作，取输入Tensor中第0维度的前一半。等价的操作类似于numpy中的x[:1, :]其中x就是我们的输入Tensor。在网络中，我们给stridedslice算子配置了(2,1)的策略。表示在第0维度进行了切分。
+        可能的错误代码如下，网络的输入是一个[2, 4]的Tensor。网络中是一个slice操作，取输入Tensor中第零维度的前一半。等价的操作类似于numpy中的x[:1, :]其中x就是我们的输入Tensor。在网络中，我们给stridedslice算子配置了(2,1)的策略。表示在第零维度进行了切分。
 
         ```python
         tensor = Tensor(ones((2, 4)))
@@ -114,13 +114,13 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
         错误原因：
 
-        这段代码在第0维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第0维度和第1维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_parallel.html)中对算子切分的说明，
+        这段代码在第零维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第零维度和第一维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_parallel.html)中对算子切分的说明，
 
         > 仅支持值为全0的mask；需要切分的维度必须全部提取；输入在strides不为1对应的维度不支持切分
 
         被切分的维度不允许进行取切片的操作，因此需要修改策略如下：
 
-        将第0维度的策略从2改成了1。表示第0维度将会被切分成1份，也就是表明不会切分，因此策略满足算子的限制，策略检查成功。
+        将第零维度的策略从2改成了1。表示第零维度将会被切分成1份，也就是表明不会切分，因此策略满足算子的限制，策略检查成功。
 
         ```python
         class MyStridedSlice(nn.Cell):
@@ -196,7 +196,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
                 return self.sub(x, 1)
         ```
 
-        其中，切分策略(2, 1)表示对第一个输入Tensor的第0维切分2份，第1维切分成1份即不切分。由于`ops.Sub`第二个输入是一个标量无法切分，所以设置切分策略维空()。
+        其中，切分策略(2, 1)表示对第一个输入Tensor的第零维切分2份，第一维切分成1份即不切分。由于`ops.Sub`第二个输入是一个标量无法切分，所以设置切分策略维空()。
 
 - 并行脚本错误
 

@@ -70,7 +70,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 | config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 | weight_fp16 | bool | `--fp16=<FP16>` | 否 | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | False |
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 否 | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | None，None等同于{} |
-| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对4维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC |
+| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对四维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC |
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 否 | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 |
 | export_mindir | ModelType | `--exportMindIR=<EXPORTMINDIR>` | 否 | 设置导出模型文件的类型。 | ModelType.MINDIR、ModelType.MINDIR_LITE | ModelType.MINDIR_LITE |

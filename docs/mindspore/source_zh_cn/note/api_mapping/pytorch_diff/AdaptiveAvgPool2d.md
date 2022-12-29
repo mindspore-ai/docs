@@ -20,18 +20,18 @@ class mindspore.nn.AdaptiveAvgPool2d(output_size)(x) -> Tensor
 
 ## 差异对比
 
-PyTorch：对输入3维或4维的Tensor，使用2维的自适应平均池化操作，指定输出的尺寸为H x W，输出的特征数目等于输入的特征数目。output_size可以是int类型的H和W组成的元组(H, W)，或者代表相同H和W的一个int值，或者None则表示输出大小将与输入相同。输入和输出数据格式可以是"NCHW"和"CHW"，N表示批处理大小、C是通道数、H是特征高度和W是特征宽度。
+PyTorch：对输入三维或四维的Tensor，使用二维的自适应平均池化操作，指定输出的尺寸为H x W，输出的特征数目等于输入的特征数目。output_size可以是int类型的H和W组成的元组(H, W)，或者代表相同H和W的一个int值，或者None则表示输出大小将与输入相同。输入和输出数据格式可以是"NCHW"和"CHW"，N表示批处理大小、C是通道数、H是特征高度和W是特征宽度。
 
 MindSpore：MindSpore此API实现功能与PyTorch一致，参数名也相同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 都是输入3维或4维的Tensor |
+| 输入 | 单输入 | input | x | 都是输入三维或四维的Tensor |
 | 参数 | 参数1 | output_size | output_size | - |
 
 ### 代码示例1
 
-> 两API实现功能一致，用法相同。输入为3维Tensor，数据尺寸为(C, H, W)，output_size=(None, new_W)，则PyTorch和MindSpore的AdaptiveAvgPool2D输出一致，数据尺寸为(C, H, new_W)。
+> 两API实现功能一致，用法相同。输入为三维Tensor，数据尺寸为(C, H, W)，output_size=(None, new_W)，则PyTorch和MindSpore的AdaptiveAvgPool2D输出一致，数据尺寸为(C, H, new_W)。
 
 ```python
 # case 1: output_size = (None, 2)

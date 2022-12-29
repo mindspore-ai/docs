@@ -176,11 +176,11 @@ class SemiAutoParallelNet(nn.Cell):
         # 在__init__中我们对fc的第二个输入配置为(1,2)
         # 所以经过fc的输出的tensor在输出第二维度上被切成了两份，从128变成了64，所以它的输出shape为 [batch, 64]，
         x = self.fc(x, self.weight)
-        # 在__init__中我们通过shard的方式，对fc2第0个输入配置了(8,1)，表示要求此输入的第0维度切分成了8份
-        # 而上一个算子fc的输出还是[batch,64]，第0维度并没有发生切分，因此存在一个tensor shape不一致的问题
+        # 在__init__中我们通过shard的方式，对fc2第0个输入配置了(8,1)，表示要求此输入的第零维度切分成了8份
+        # 而上一个算子fc的输出还是[batch,64]，第零维度并没有发生切分，因此存在一个tensor shape不一致的问题
         # 所以自动并行框架会在此处插入用户脚本中没有声明的StrideSlice算子，将x进行取切片操作
         # 以保证前后tensor shape的一致性。
-        # 另外，fc的输出第1维度切分成了2份，但是fc2第0个输入的第1维度切分成了1份，因此还会插入allgather算子
+        # 另外，fc的输出第一维度切分成了2份，但是fc2第0个输入的第一维度切分成了1份，因此还会插入allgather算子
         x = self.fc2(x, self.weight2)
         # 框架在此自动会插入一个AllGather算子和StridedSlice操作
         x = self.reduce(x, -1)
@@ -289,7 +289,7 @@ model.train(*args, **kwargs)
 
   ```python
   import mindspore as ms
-  # 设置输入在第1维度上进行切分，此时要求用户确保dataset返回的输入在第1维度上进行切分
+  # 设置输入在第一维度上进行切分，此时要求用户确保dataset返回的输入在第一维度上进行切分
   ms.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
   ms.set_auto_parallel_context(dataset_strategy="data_parallel")

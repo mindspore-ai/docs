@@ -12,7 +12,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层和多层`int`索引取值，单层`int`索引取值：`tensor_x[int_index]`，多层`int`索引取值：`tensor_x[int_index0][int_index1]...`。
 
-    `int`索引取值操作的是第0维，索引值小于第0维长度，在取出第0维对应位置数据后，会消除第0维。
+    `int`索引取值操作的是第零维，索引值小于第零维长度，在取出第零维对应位置数据后，会消除第零维。
 
     例如，如果对一个`shape`为`(3, 4, 5)`的tensor进行单层`int`索引取值，取得结果的`shape`是`(4, 5)`。
 
@@ -39,7 +39,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层和多层`bool`索引取值，单层`bool`索引取值：`tensor_x[True]`，多层`bool`索引取值：`tensor_x[True][True]...`。
 
-    `bool`索引取值操作的是第0维，在取出所有数据后，会在`axis=0`轴上扩展一维，对应`True`/`False`，该维长度分别为1/0。`False`将会在`shape`中引入`0`，因此暂只支持`True`。
+    `bool`索引取值操作的是第零维，在取出所有数据后，会在`axis=0`轴上扩展一维，对应`True`/`False`，该维长度分别为1/0。`False`将会在`shape`中引入`0`，因此暂只支持`True`。
 
     例如，对一个`shape`为`(3, 4, 5)`的tensor进行单层`True`索引取值，取得结果的`shape`是`(1, 3, 4, 5)`。
 
@@ -91,7 +91,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层和多层`slice`索引取值，单层`slice`索引取值：`tensor_x[slice_index]`，多层`slice`索引取值：`tensor_x[slice_index0][slice_index1]...`。
 
-    `slice`索引取值操作的是第0维，取出第0维所切到位置的元素，`slice`不会降维，即使切到长度为1，区别于`int`索引取值。
+    `slice`索引取值操作的是第零维，取出第零维所切到位置的元素，`slice`不会降维，即使切到长度为1，区别于`int`索引取值。
 
     例如，`tensor_x[0:1:1] != tensor_x[0]`，因为`shape_former = (1,) + shape_latter`。
 
@@ -120,9 +120,9 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层和多层`Tensor`索引取值，单层`Tensor`索引取值：`tensor_x[tensor_index]`，多层`Tensor`索引取值：`tensor_x[tensor_index0][tensor_index1]...`。
 
-    `Tensor`索引取值操作的是第0维，取出第0维对应位置的元素。
+    `Tensor`索引取值操作的是第零维，取出第零维对应位置的元素。
 
-    索引`Tensor`数据类型必须是int型，可以是(int8, int16, int32, int64)，值必须为非负数，且小于第0维长度。
+    索引`Tensor`数据类型必须是int型，可以是(int8, int16, int32, int64)，值必须为非负数，且小于第零维长度。
 
     `Tensor`索引取值得到结果的`data_shape = tensor_index.shape + tensor_x.shape[1:]`。
 
@@ -151,7 +151,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层和多层`List`索引取值，单层`List`索引取值：`tensor_x[list_index]`，多层`List`索引取值：`tensor_x[list_index0][list_index1]...`。
 
-    `List`索引取值操作的是第0维，取出第0维对应位置的元素。
+    `List`索引取值操作的是第零维，取出第零维对应位置的元素。
 
     索引`List`数据类型必须是int、bool或两者混合。若数据类型为int，则取值在[`-dimension_shape`, `dimension_shape-1`]之间；若数据类型为bool， 则限制bool个数为对应维度长度，筛选对应维度上值为`True`的元素；若值为前两者混合，则bool类型的`True/False`将转为int类型的`1/0`。
 
@@ -184,11 +184,11 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     索引`Tuple`中元素按照最终索引Broadcast规则，分为`Basic Index`、`Advanced Index`两类。`Basic Index`包含`slice`、`ellipsis`、`int`与`None`四种类型，`Advanced Index`包含`bool`、`Tensor`、`List`、`Tuple`等类型。索引过程中，所有的`Advanced Index`将会做Broadcast，若`Advaned Index`连续，最终broadcast shape将插入在第一个`Advanced Index`位置；若不连续，则broadcast shape插入在`0`位置。
 
-    索引里除`None`扩展对应维度，`bool`扩展对应维度后与`Advanced Index`做Broadcast。除`ellipsis`、`bool`、`None`外每个元素操作对应位置维度，即`Tuple`中第0个元素操作第0维，第1个元素操作第1维，以此类推。每个元素的索引规则与该元素类型索引取值规则一致。
+    索引里除`None`扩展对应维度，`bool`扩展对应维度后与`Advanced Index`做Broadcast。除`ellipsis`、`bool`、`None`外每个元素操作对应位置维度，即`Tuple`中第0个元素操作第零维，第1个元素操作第一维，以此类推。每个元素的索引规则与该元素类型索引取值规则一致。
 
-    `Tuple`索引里最多只有一个`ellipsis`，`ellipsis`前半部分索引元素从前往后对应`Tensor`第0维往后，后半部分索引元素从后往前对应`Tensor`最后一维往前，其他未指定的维度，代表全取。
+    `Tuple`索引里最多只有一个`ellipsis`，`ellipsis`前半部分索引元素从前往后对应`Tensor`第零维往后，后半部分索引元素从后往前对应`Tensor`最后一维往前，其他未指定的维度，代表全取。
 
-    元素里包含的`Tensor`数据类型必须是int型，可以是(int8, int16, int32, int64)，值必须为非负数，且小于第0维长度。
+    元素里包含的`Tensor`数据类型必须是int型，可以是(int8, int16, int32, int64)，值必须为非负数，且小于第零维长度。
 
     例如，`tensor_x[0:3, 1, tensor_index] == tensor_x[(0:3, 1, tensor_index)]`，因为`0:3, 1, tensor_index`就是一个`Tuple`。
 
@@ -218,7 +218,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 当`value`为数组，即只包含`Number`的`Tuple`、`List`或`Tensor`时，`value.shape`需要可以与`tensor_x[index].shape`做广播，将`value`广播到`tensor_x[index].shape`后，更新`tensor_x[index]`对应的值。
 
-当`value`为`Tuple`或`List`时，若`value`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型，该`Tuple` 和 `List` 目前只支持1维。
+当`value`为`Tuple`或`List`时，若`value`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型，该`Tuple` 和 `List` 目前只支持一维。
 
 当`value`为`Tuple`或`List`，且存在`Tensor`时，非`Tensor`的元素会首先被转换为`Tensor`，然后这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`value`为`Tensor`的规则进行赋值。所有`Tensor`的数据类型必须保持一致。
 

@@ -34,7 +34,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值类型�
 
 ### 代码示例1
 
-> 对于0维的Tensor，PyTorch支持dim参数为None/-1/0及keepdim参数为True/False的任意组合，且计算结果都是一致的，都是一个0维Tensor。MindSpore 1.8.1版本暂时不支持处理0维Tensor，需要先使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ExpandDims.html)将Tensor扩充为1维，然后再按照mindspore.ops.argmax算子的默认参数计算。
+> 对于零维的Tensor，PyTorch支持dim参数为None/-1/0及keepdim参数为True/False的任意组合，且计算结果都是一致的，都是一个零维Tensor。MindSpore 1.8.1版本暂时不支持处理零维Tensor，需要先使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ExpandDims.html)将Tensor扩充为一维，然后再按照mindspore.ops.argmax算子的默认参数计算。
 
 ```python
 # PyTorch
@@ -71,7 +71,7 @@ print(ms_out_np)
 
 ### 代码示例2
 
-> PyTorch的argmax算子在不显式给出dim参数时，计算结果是将原数组flatten后，作为1维张量做argmax操作的结果，而MindSpore仅支持对单个维度进行计算。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.argmax算子传入flatten的Tensor即可。
+> PyTorch的argmax算子在不显式给出dim参数时，计算结果是将原数组flatten后，作为一维张量做argmax操作的结果，而MindSpore仅支持对单个维度进行计算。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.argmax算子传入flatten的Tensor即可。
 
 ```python
 # PyTorch
