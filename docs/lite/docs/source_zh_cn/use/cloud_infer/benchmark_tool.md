@@ -4,7 +4,7 @@
 
 ## 概述
 
-转换模型后执行推理前，可以使用Benchmark工具对MindSpore Lite云测推理模型进行基准测试。它不仅可以对MindSpore Lite云测推理模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
+转换模型后执行推理前，可以使用Benchmark工具对MindSpore Lite云侧推理模型进行基准测试。它不仅可以对MindSpore Lite云侧推理模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
 
 ## Linux环境使用说明
 
@@ -65,7 +65,7 @@
 
 ### 使用示例
 
-对于不同的MindSpore Lite云测推理模型，在使用Benchmark工具对其进行基准测试时，可通过设置不同的参数，实现对其不同的测试功能。主要分为性能测试和精度测试。
+对于不同的MindSpore Lite云侧推理模型，在使用Benchmark工具对其进行基准测试时，可通过设置不同的参数，实现对其不同的测试功能。主要分为性能测试和精度测试。
 
 #### 性能测试
 
@@ -83,7 +83,7 @@ Model = model.mindir, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73
 
 #### 精度测试
 
-Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite云测推理模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
+Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite云侧推理模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
 
 ```bash
 ./benchmark --modelFile=/path/to/model.mindir --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
