@@ -42,7 +42,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#mutabledeviceinfo). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
+Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
 
 ### Configuring to Use the CPU Backend
 
@@ -69,7 +69,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 1. Configure the number of threads
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setthreadnum):
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html):
 
     ```c++
     // Configure the number of worker threads in the thread pool to 2, including the main thread.
@@ -78,7 +78,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 2. Configure thread affinity
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setthreadaffinity-1).
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
     Set the CPU binding list with the parameter `const std::vector<int> &core_list`.
 
     ```c++
@@ -88,7 +88,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 3. Configure parallelism strategy
 
-    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#setinteropparallelnum).
+    [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
 
     ```c++
     // Configure the inference supports parallel.
@@ -202,7 +202,7 @@ Before the model execution, the input data needs to be set, using the [GetInputs
 
 There are currently two ways to specify input data:
 
-1. By setting the input data via [SetData](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setdata-1), copying between hosts can be avoided and the input data will eventually be copied directly to the inference device.
+1. By setting the input data via [SetData](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html), copying between hosts can be avoided and the input data will eventually be copied directly to the inference device.
 
     ```c++
     int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -234,7 +234,7 @@ There are currently two ways to specify input data:
       SetTensorHostData(&inputs, &input_buffer);
     ```
 
-2. Copy the input data to the Tensor cache returned by [MutableData](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#mutabledata). It should be noted that if the data address has been set by `SetData`, `MutableData` will return the data address of `SetData`, and you need to call `SetData(nullptr)` first.
+2. Copy the input data to the Tensor cache returned by [MutableData](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). It should be noted that if the data address has been set by `SetData`, `MutableData` will return the data address of `SetData`, and you need to call `SetData(nullptr)` first.
 
     ```c++
     int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -380,7 +380,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 Specifies that device memory supports CPU, Ascend, and GPU hardware backends. The specified input host memory and the data in the cache will be copied directly to the device memory, and the data in the device memory will be copied directly to this cache for the specified output host memory. It avoids additional data copying between hosts and improves inference performance.
 
-Input and output host memory can be specified separately or simultaneously by [SetData](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setdata). It is recommended that the parameter `own_data` be false. When `own_data` is false, the user needs to maintain the life cycle of host memory and is responsible for the request and release of host memory. When the parameter `own_data` is true, the specified memory is freed at the MSTensor destruct.
+Input and output host memory can be specified separately or simultaneously by [SetData](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). It is recommended that the parameter `own_data` be false. When `own_data` is false, the user needs to maintain the life cycle of host memory and is responsible for the request and release of host memory. When the parameter `own_data` is true, the specified memory is freed at the MSTensor destruct.
 
 1. Specify input host memory
 
@@ -432,7 +432,7 @@ Specifying device memory supports Ascend and GPU hardware backends. Specifying i
 
 Sample memory for specified input and output devices can be found in [sample device memory](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/device_example_cpp).
 
-Input and output device memory can be specified separately or simultaneously by [SetDeviceData](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#setdevicedata). The user needs to maintain the device memory lifecycle and is responsible for device memory requests and releases.
+Input and output device memory can be specified separately or simultaneously by [SetDeviceData](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). The user needs to maintain the device memory lifecycle and is responsible for device memory requests and releases.
 
 1. Specify the input device memory
 
