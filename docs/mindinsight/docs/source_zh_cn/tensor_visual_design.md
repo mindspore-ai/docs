@@ -12,9 +12,9 @@ Tensor可视主要是解析由MindSpore的`TensorSummary` API记录的Tensor数�
 
 MindInsight解析时会遵循proto文件（Google Protocol Buffer，是一种高效便捷的结构化数据存储方式）来解析Tensor数据，然后把数据缓存起来，在前端查询特定数据时将其返回供前端展示。
 
-Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0维的Tensor，需要通过`ScalarSummary`来记录并在标量可视中展示。
+Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于零维的Tensor，需要通过`ScalarSummary`来记录并在标量可视中展示。
 
-在表格视图中，可以查询当前缓存中特定step的Tensor数据，后台通过切片操作使得用户单次可以查询任意0-2维的Tensor数据。
+在表格视图中，可以查询当前缓存中特定step的Tensor数据，后台通过切片操作使得用户单次可以查询任意零到二维的Tensor数据。
 
 在直方图视图中，可以查询当前缓存中所有step的直方图数据。
 

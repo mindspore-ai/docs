@@ -79,7 +79,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种参数设置
 | export_mindir | ModelType | `--exportMindIR=<EXPORTMINDIR>` | 是 | 设置导出模型文件的类型。| ModelType.MINDIR、ModelType.MINDIR_LITE | ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包，MINDIR_LITE使用MindSpore Lite端侧推理安装包|
 | no_fusion | bool | `--NoFusion=<NOFUSION>` | 否 | 是否避免融合优化，默认允许融合优化。 | True、False | False |
 | weight_fp16 | bool | `--fp16=<FP16>` | 否 | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | False | 暂不支持 |
-| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对4维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC | 暂不支持 |
+| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设置导出模型的输入format，只对四维输入有效。 | Format.NCHW、Format.NHWC | Format.NHWC | 暂不支持 |
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 否 | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 | 暂不支持 |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | DataType.FLOAT32 | 暂不支持 |
 | decrypt_key | str | `--decryptKey=<DECRYPTKEY>` | 否 | 设置用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk_type`为MINDIR时有效。 | - | "" | 暂不支持 |

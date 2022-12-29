@@ -74,7 +74,7 @@ Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部�
 - `model_parallel`：设置模型并行数，默认值为1。
 - `vocab_emb_dp`：是否配置Embedding为数据并行，默认值为True。
 
-`vocab_emb_dp`用来区分`embedding_lookup`操作的两种并行模式`数据并行`和`行切分并行`。当`vocab_emb_dp`为`True`时，embedding查找的过程将会被设置为并行度为`data_parallel`的数据并行。当`vocab_emb_dp`为`False`时，embedding的权重将会在第0维度按`model_parallel`进行均分，可以减少变量的存储。
+`vocab_emb_dp`用来区分`embedding_lookup`操作的两种并行模式`数据并行`和`行切分并行`。当`vocab_emb_dp`为`True`时，embedding查找的过程将会被设置为并行度为`data_parallel`的数据并行。当`vocab_emb_dp`为`False`时，embedding的权重将会在第零维度按`model_parallel`进行均分，可以减少变量的存储。
 
 在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dropout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_size]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。对应的代码如下所示：
 

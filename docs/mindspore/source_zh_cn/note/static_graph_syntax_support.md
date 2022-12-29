@@ -1556,7 +1556,7 @@ b: False
 
 入参：`sequence` -- `Tuple`、`List`、`Dictionary`、`Tensor`以及第三方对象（例如numpy.ndarray）。
 
-返回值：序列的长度，类型为`int`。当入参是`Tensor`时，返回的是`Tensor`第0维的长度。
+返回值：序列的长度，类型为`int`。当入参是`Tensor`时，返回的是`Tensor`第零维的长度。
 
 示例如下：
 
