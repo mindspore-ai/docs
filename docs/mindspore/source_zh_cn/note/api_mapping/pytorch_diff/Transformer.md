@@ -49,7 +49,7 @@ mindspore.nn.transformer.Transformer在初始化参数和torch.nn.Transformer并
 |                                   | custom_encoder       | 用户自定义的encoder。                                        |
 |                                   | custom_decoder       | 用户自定义的decoder。                                        |
 |                                   | layer_norm_eps       | layernorm计算时防止初零的数值。                              |
-|                                   | batch_first          | 输入输出Tensor中batch是否为第0维度。MindSpore以第0个维度为batch维度，对应于torch.nn.transformer中设置bathc_first=True。 |
+|                                   | batch_first          | 输入输出Tensor中batch是否为第零维度。MindSpore以第0个维度为batch维度，对应于torch.nn.transformer中设置bathc_first=True。 |
 
 除了以上初始化参数不同之外，还有一些前向执行的输入和输出差异如下：
 

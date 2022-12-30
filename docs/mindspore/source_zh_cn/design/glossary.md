@@ -58,7 +58,7 @@
 |  Rank_id  |  分布式并行中，卡的逻辑ID。  |
 |  Scalar  |  标量Tensor，其shape为（）。  |
 |  Schema  |  数据集结构定义文件，用于定义数据集包含哪些字段以及字段的类型。  |
-|  Shape  |  张量在各种维度中包含的元素数，如Tensor[2,3]，shape为{2,3}，表示是一个2维张量，第一维有2行，第二维有3列，共2*3=6个元素。  |
+|  Shape  |  张量在各种维度中包含的元素数，如Tensor[2,3]，shape为{2,3}，表示是一个二维张量，第一维有2行，第二维有3列，共2*3=6个元素。  |
 |  Step或Iteration  |  完成一次前向计算和反向传播。  |
 |  Summary  |  是对网络中Tensor取值进行监测的一种算子，在图中是“外围”操作，不影响数据流本身。  |
 |  TBE  |  Tensor Boost Engine，华为自研的NPU算子开发工具，在TVM（ Tensor Virtual Machine ）框架基础上扩展，提供了一套Python API来实施开发活动，进行自定义算子开发。 |

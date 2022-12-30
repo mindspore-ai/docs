@@ -277,7 +277,7 @@ pred_cb = PredictCallback(model=model,
 
 ### 模型训练与推理
 
-Solver类是模型训练和推理的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成1维Burgers'方程求解。代码中optimizer_params、model_params对应各项参数均在配置文件中修改。
+Solver类是模型训练和推理的接口。输入优化器、网络模型、损失函数、损失缩放策略等，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成一维Burgers'方程求解。代码中optimizer_params、model_params对应各项参数均在配置文件中修改。
 
 ```python
 # optimizer
