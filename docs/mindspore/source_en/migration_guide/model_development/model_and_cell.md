@@ -1,6 +1,6 @@
-# Network Entity and Loss Construction
+# Network Construction
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_cell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html) on the MindSpore official website first.
 
@@ -281,6 +281,13 @@ As shown in the preceding figure, the `requires_grad=False` does not update some
 The `stop_gradient` directly performs backward gradient. When there is no parameter to be trained before the parameter to be frozen, the two parameters are equivalent in function.
 However, `stop_gradient` is faster (with less backward gradient calculations).
 If there are parameters to be trained before the frozen parameters, only `requires_grad=False` can be used.
+In addition, `stop_gradient` needs to be added to the computational link of the network, acting on the Tensor.
+
+```python
+a = A(x)
+a = ops.stop_gradient(a)
+y = B(a)
+```
 
 #### Saving and Loading Parameters
 
@@ -325,7 +332,7 @@ For `Cell`, MindSpore provides two image modes: `GRAPH_MODE` (static image) and 
 
 The **inference** behavior of the model in `PyNative` mode is the same as that of common Python code. However, during training, **once a tensor is converted into NumPy for other operations, the gradient of the network is truncated, which is equivalent to detach of PyTorch**.
 
-When `GRAPH_MODE` is used or `PYNATIVE_MODE` is used for **training**, syntax restrictions usually occur. In these two cases, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
 #### Common Restrictions
 
@@ -726,30 +733,4 @@ print(y)
      0.         0.         0.         0.53881675]
 ```
 
-Note that if y is involved in other computations, the mask needs to be transferred together to filter the valid positions.
-
-## Loss Construction
-
-The loss function is essentially a part of network construction and can be constructed using `Cell`. For details, see [Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html).
-
-Note that loss generally involves operations such as feature combination, cross entropy, and specification, which are prone to overflow. Therefore, the float16 type is not recommended for loss. A basic network with loss is constructed as follows:
-
-```python
-# 1. Build a network.
-net = Net()
-# 2. Build a loss.
-loss = Loss()
-# 3. Perform mixed precision on the network.
-net = apply_amp(net)
-# 4. Use float32 for the loss part.
-loss = loss.to_float(ms.float32)
-# 5. Combine the network with loss.
-net_with_loss = WithLossCell(net, loss)
-net_with_loss.set_train()
-# 6. Set a backward flag in PYNATIVE mode.
-net_with_loss.set_grad()
-```
-
-You can also use the [Model](https://mindspore.cn/tutorials/en/master/advanced/model.html) interface to encapsulate the network and loss in step 5.
-
-Note that you do not need to set `set_train` and `set_grad` when using `Model` to package the network. The framework sets `set_train` and `set_grad` when executing `model.train`.
+Note that if y is subsequently involved in other calculations, it needs to be passed in mask to do filtering on the valid positions.

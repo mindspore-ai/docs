@@ -100,7 +100,7 @@ Constructing Network
   :maxdepth: 1
 
   dataset
-  model_and_loss
+  model_and_cell
   learning_rate_and_optimizer
   training_and_gradient
   training_and_evaluation_procession
@@ -141,7 +141,7 @@ for the following situations:
 3. Slicing operation. When it comes to slicing a Tensor, note that
    whether subscript of the slice is a variable. When it is a variable,
    there will be restrictions. Please refer to `network body and loss
-   building <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html>`__
+   building <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html>`__
    for dynamic shape mitigation.
 4. Customized mixed precision conflicts with ``amp_level`` in Model, so
    don’t set ``amp_level`` in Model if you use customized mixed

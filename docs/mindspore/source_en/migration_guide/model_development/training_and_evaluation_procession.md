@@ -158,6 +158,98 @@ if __name__ == '__main__':
 
 Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) for checkpoint saving.
 
+In addition, the training process can be constructed through a functional approach, which is more flexible:
+
+```python
+import mindspore as ms
+from mindspore import ops, nn
+from mindspore.amp import StaticLossScaler, all_finite
+from mindspore.parallel._utils import _get_device_num, _get_gradients_mean,\
+    _get_parallel_mode, _is_pynative_parallel
+
+class Trainer:
+    """A training example with two losses"""
+    def __init__(self, net, loss1, loss2, optimizer, train_dataset, loss_scale=1.0, eval_dataset=None, metric=None):
+        self.net = net
+        self.loss1 = loss1
+        self.loss2 = loss2
+        self.opt = optimizer
+        self.train_dataset = train_dataset
+        self.train_data_size = self.train_dataset.get_dataset_size()    # Get the number of training set batches
+        self.weights = self.opt.parameters
+        # Note that the first parameter of value_and_grad needs to be a graph that needs to be gradient-derived, typically containing a network and a loss. Here it can be a function, or a Cell
+        self.value_and_grad = ops.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
+
+        # Use in the distributed scenario
+        self.grad_reducer = self.get_grad_reducer()
+        self.loss_scale = StaticLossScaler(loss_scale)
+        self.run_eval = eval_dataset is not None
+        if self.run_eval:
+            self.eval_dataset = eval_dataset
+            self.metric = metric
+            self.best_acc = 0
+
+    def get_grad_reducer(self):
+        grad_reducer = ops.identity
+        parallel_mode = _get_parallel_mode()
+        # Determine whether it is a distributed scenario, and refer to the above generic runtime environment settings for the distributed scenario settings
+        reducer_flag = (parallel_mode in (ms.ParallelMode.DATA_PARALLEL, ms.ParallelMode.HYBRID_PARALLEL)) or \
+                       _is_pynative_parallel()
+        if reducer_flag:
+            mean = _get_gradients_mean()
+            degree = _get_device_num()
+            grad_reducer = nn.DistributedGradReducer(self.weights, mean, degree)
+        return grad_reducer
+
+    def forward_fn(self, inputs, labels):
+        """Positive network construction. Note that the first output must be the one that requires the gradient at the end"""
+        logits = self.net(inputs)
+        loss1 = self.loss1(logits, labels)
+        loss2 = self.loss2(logits, labels)
+        loss = loss1 + loss2
+        loss = self.loss_scale.scale(loss)
+        return loss, loss1, loss2
+
+    @ms.jit    # jit acceleration, need to meet the requirements of graph mode build, otherwise it will report an error
+    def train_single(self, inputs, labels):
+        (loss, loss1, loss2), grads = self.value_and_grad(inputs, labels)
+        loss = self.loss_scale.unscale(loss)
+        grads = self.loss_scale.unscale(grads)
+        grads = self.grad_reducer(grads)
+        state = all_finite(grads)
+        if state:
+            self.opt(grads)
+
+        return loss, loss1, loss2
+
+    def train(self, epochs):
+        train_dataset = self.train_dataset.create_dict_iterator()
+        self.net.set_train(True)
+        for epoch in range(epochs):
+            # Training an epoch
+            for batch, data in enumerate(train_dataset):
+                loss, loss1, loss2 = self.train_single(data["image"], data["label"])
+                if batch % 100 == 0:
+                    print(f"step: [{batch} /{self.train_data_size}] "
+                          f"loss: {loss}, loss1: {loss1}, loss2: {loss2}", flush=True)
+            # Reason and save the best checkpoint
+            if self.run_eval:
+                eval_dataset = self.eval_dataset.create_dict_iterator(num_epochs=1)
+                self.net.set_train(False)
+                self.metric.clear()
+                for batch, data in enumerate(eval_dataset):
+                    output = self.net(data["image"])
+                    self.metric.update(output, data["label"])
+                accuracy = self.metric.eval()
+                print(f"epoch {epoch}, accuracy: {accuracy}", flush=True)
+                if accuracy >= self.best_acc:
+                    # Save the best checkpoint
+                    self.best_acc = accuracy
+                    ms.save_checkpoint(self.net, "best.ckpt")
+                    print(f"Updata best acc: {accuracy}")
+                self.net.set_train(True)
+```
+
 ### Distributed Training
 
 The multi-card distributed training process is the same as the single-card training process, except for the distributed-related configuration items and gradient aggregation. It should be noted that multi-card parallelism actually starts multiple python processes on MindSpore, and before MindSpore version 1.8, on Ascend environment, multiple processes need to be started manually.
