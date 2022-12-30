@@ -51,7 +51,7 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 `out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
 
-`parameter_plan(None, dict)`：指定各参数的切分策略，传入字典时，键是str类型的参数名，值是1维整数tuple表示相应的切分策略，如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
+`parameter_plan(None, dict)`：指定各参数的切分策略，传入字典时，键是str类型的参数名，值是一维整数tuple表示相应的切分策略，如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
 
 `device(string)`：指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
 

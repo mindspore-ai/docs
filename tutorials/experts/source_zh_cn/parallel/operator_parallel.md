@@ -51,7 +51,7 @@ class DenseMatMulNet(nn.Cell):
 
 在以上例子中，用户在4个卡上计算两个连续的二维矩阵乘：`Z = (X * W) * V` 。第一个矩阵乘`Y = X * W`，用户想把X按行切4份（即数据并行）；而第二个矩阵乘`Z = Y * V`，用户想把V按列切4份（即模型并行）：
 
-由于第一个算子输出的Tensor Layout是第0维切分到集群，而第二个算子要求第一个输入Tensor在集群上复制。所以在图编译阶段，会自动识别两个算子输出/输入之间Tensor Layout的不同，从而自动推导出Tensor重排布的算法。而这个例子所需要的Tensor重排布是一个AllGather算子（注：MindSpore的AllGather算子会自动把多个输入Tensor在第0维进行合并）
+由于第一个算子输出的Tensor Layout是第零维切分到集群，而第二个算子要求第一个输入Tensor在集群上复制。所以在图编译阶段，会自动识别两个算子输出/输入之间Tensor Layout的不同，从而自动推导出Tensor重排布的算法。而这个例子所需要的Tensor重排布是一个AllGather算子（注：MindSpore的AllGather算子会自动把多个输入Tensor在第零维进行合并）
 
 ![image](images/operator_parallel_image_4_zh.png)
 
@@ -59,7 +59,7 @@ class DenseMatMulNet(nn.Cell):
 
 在算子级并行中，为满足不同场景诉求，部分算子能通过add_prim_attr()接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用：
 
-- Gather算子：add_prim_attr("manual_split", split_tuple)。该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第0维的长度，元组个数须等于Gather算子第一个输入的第0维切分份数。
+- Gather算子：add_prim_attr("manual_split", split_tuple)。该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
 - Gather算子：add_prim_attr("primitive_target", "CPU")。该接口配置Gather算子在CPU上执行，用于异构场景。
 
 ## 操作实践

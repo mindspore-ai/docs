@@ -127,7 +127,7 @@ resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", m
 
 1. `declare_model`入参`model_file`指示模型的文件名称。
 2. `model_format`指示模型的模型格式。
-3. 如果模型输入和输出第1维度不是`batch`维度，需要设置参数`with_batch_dim=False`，`with_batch_dim`默认为`True`。
+3. 如果模型输入和输出第一维度不是`batch`维度，需要设置参数`with_batch_dim=False`，`with_batch_dim`默认为`True`。
 
     设置`with_batch_dim`为`True`，主要针对处理图片、文本等包含`batch`维度的模型。假设`batch_size=2`，当前请求有3个实例，共3张图片，会拆分为2次模型推理，第1次处理2张图片返回2个结果，第2次对剩余的1张图片进行拷贝做一次推理并返回1个结果，最终返回3个结果。
 

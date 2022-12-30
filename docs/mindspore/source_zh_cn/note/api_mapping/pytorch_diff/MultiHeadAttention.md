@@ -40,8 +40,8 @@ mindspore.nn.transformer.MultiHeadAttention在初始化参数和torch.nn.Multihe
 | use_past                                 |                             | 是否使用增量推理。                                           |
 | parallel_config                          |                             | 并行设置的配置参数。                                         |
 |                                          | bias                        | 是否在projection层添加bias。MindSpore默认行为是添加的。      |
-|                                          | add_bias_kv                 | 是否在第0维度的key和value序列上面添加bias。MindSpore未实现此功能。 |
-|                                          | add_zero_attn               | 是否在第1维度的key和value序列上面添加全零的数据。MindSpore未实现此功能。 |
+|                                          | add_bias_kv                 | 是否在第零维度的key和value序列上面添加bias。MindSpore未实现此功能。 |
+|                                          | add_zero_attn               | 是否在第一维度的key和value序列上面添加全零的数据。MindSpore未实现此功能。 |
 |                                          | kdims                       | key维度的feature数量。MindSpore未实现此功能。                |
 |                                          | vdims                       | value维度的feature数量。MindSpore未实现此功能。              |
 |                                          | batch_first                 | MindSpore默认配置为(batch,seq, feature)，即PyTorch的batch_first=True |
@@ -53,7 +53,7 @@ mindspore.nn.transformer.MultiHeadAttention在初始化参数和torch.nn.Multihe
 - mindspore.nn.transformer.MultiHeadAttention会返回attention的key和value的历史值，而torch.nn.MultiheadAttention可以控制是否返回attention中计算的key和query之间的得分。
 - mindspore.nn.transformer.MultiHeadAttention提供了静态图的增量推理功能。
 - mindspore.nn.transformer.MultiHeadAttention默认采用fp16进行矩阵运算。
-- mindspore.nn.transformer.MultiHeadAttention的返回tensor的第0维是batch维度，而pytorch默认是第0维度为seq_length。
+- mindspore.nn.transformer.MultiHeadAttention的返回tensor的第零维是batch维度，而PyTorch默认是第零维度为seq_length。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 

@@ -45,7 +45,7 @@ mindspore.nn.transformer.TransformerDecoderLayer在初始化参数和torch.nn.Tr
 | moe_config                                    |                                  | MoE并行的配置参数。                                          |
 | parallel_config                               |                                  | 并行设置的配置参数。                                         |
 |                                               | layer_norm_eps                   | layernorm计算时防止初零的数值。                              |
-|                                               | batch_first                      | 输入输出Tensor中batch是否为第0维度。MindSpore以第0个维度为batch维度，对应于torch.nn.TransformerDecoderLayer中设置bathc_first=True。 |
+|                                               | batch_first                      | 输入输出Tensor中batch是否为第零维度。MindSpore以第0个维度为batch维度，对应于torch.nn.TransformerDecoderLayer中设置bathc_first=True。 |
 
 - mindspore.nn.transformer.TransformerDecoderLayer缺少tgt_key_padding_mask和emory_key_padding_mask的输入。
 - mindspore.nn.transformer.TransformerDecoderLayer提供了静态图的增量推理功能。

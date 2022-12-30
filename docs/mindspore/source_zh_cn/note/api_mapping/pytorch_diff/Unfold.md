@@ -20,13 +20,13 @@ class mindspore.nn.Unfold(ksizes, strides, rates, padding='valid')(x) -> Tensor
 
 ## 差异对比
 
-PyTorch：从批处理输入张量中提取出滑动的局部区域块。输入张量的shape为(N, C, H, W)，其中N为批处理大小，C为通道数，H表示高度，W表示宽度。输出是3维的Tensor。
+PyTorch：从批处理输入张量中提取出滑动的局部区域块。输入张量的shape为(N, C, H, W)，其中N为批处理大小，C为通道数，H表示高度，W表示宽度。输出是三维的Tensor。
 
-MindSpore：MindSpore此API实现功能与PyTorch功能有差异。PyTorch的kernel_size、stride和dilation支持int和tuple输入，padding支持在输入的两侧添加的隐式零填充。而MindSpore的ksizes、strides和rates三个参数的格式必须是(1, row, col, 1)，padding参数支持两种格式same和valid。MindSpore输入是4维张量，shape为(in_batch, in_depth, in_row, int_col)，输出是shape为(out_batch, out_depth, out_row, out_col)的4维Tensor，其中out_batch和in_batch相同。
+MindSpore：MindSpore此API实现功能与PyTorch功能有差异。PyTorch的kernel_size、stride和dilation支持int和tuple输入，padding支持在输入的两侧添加的隐式零填充。而MindSpore的ksizes、strides和rates三个参数的格式必须是(1, row, col, 1)，padding参数支持两种格式same和valid。MindSpore输入是四维张量，shape为(in_batch, in_depth, in_row, int_col)，输出是shape为(out_batch, out_depth, out_row, out_col)的四维Tensor，其中out_batch和in_batch相同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 都是输入4维的Tensor，数据格式为NCHW |
+| 输入 | 单输入 | input | x | 都是输入四维的Tensor，数据格式为NCHW |
 | 参数 | 参数1 | kernel_size | ksizes | 功能一致，但输入格式不一致。都表示滑动窗口的大小，PyTorch支持int和tuple输入，如果kernel_size是一个int，其值将在所有维度上进行复制；MindSpore支持格式为(1, ksize_row, ksize_col, 1)的tuple或list |
 | | 参数2 | dilation | rates | 功能一致，但输入格式不一致。dilation表示控制滑动过程中所跨越元素的个数，支持int和tuple输入，默认值是1，如果dilation是一个int，其值将在所有维度上进行复制；rates表示滑窗元素之间的空洞个数，支持格式为(1, rate_row, rate_col, 1)的tuple或list |
 | | 参数3 | padding | padding | 功能不一致。都表示填充模式，PyTorch是在输入的两侧进行零填充，支持int和tuple输入，默认值是0，如果padding是一个int，其值将在所有维度上进行复制；MindSpore支持str输入，可选值有"same"或"valid"，默认值是"valid"，表示所提取的区域块被原始输入所覆盖，取值为"same"时表示所提取的区域块的部分区域可以在原始输入之外进行零填充 |
@@ -34,7 +34,7 @@ MindSpore：MindSpore此API实现功能与PyTorch功能有差异。PyTorch的ker
 
 ### 代码示例1
 
-> PyTorch的stride默认值是1，dilation默认值是1，padding默认值是0，由于是输入是4维Tensor且这三个参数默认值都是int，将在所有维度上进行复制。为了得到与PyTorch相同的结果，MindSpore首先分别将Unfold算子的strides、rates和padding分别设置为(1, 1, 1, 1)、(1, 1, 1, 1)和"valid"，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1);若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)，其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
+> PyTorch的stride默认值是1，dilation默认值是1，padding默认值是0，由于是输入是四维Tensor且这三个参数默认值都是int，将在所有维度上进行复制。为了得到与PyTorch相同的结果，MindSpore首先分别将Unfold算子的strides、rates和padding分别设置为(1, 1, 1, 1)、(1, 1, 1, 1)和"valid"，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1);若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)，其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
 
 ```python
 # PyTorch
