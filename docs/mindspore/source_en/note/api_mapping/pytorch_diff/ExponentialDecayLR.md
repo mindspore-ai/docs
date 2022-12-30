@@ -45,9 +45,9 @@ For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspor
 
 ## Differences
 
-PyTorch (torch.optim.lr_scheduler.ExponentialLR): The calculating method is :math:`lr * gamma^{epoch}`. When used, the optimizer is used as input and the learning rate is updated by calling the `step` method. When `verbose` is True, the relevant information is printed for each update.
+PyTorch (torch.optim.lr_scheduler.ExponentialLR): The calculating method is $lr * gamma^{epoch}$ . When used, the optimizer is used as input and the learning rate is updated by calling the `step` method. When `verbose` is True, the relevant information is printed for each update.
 
-MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is :math:`lr * decay\_rate^{p}`. `exponential_decay_lr` pre-generates the learning rate list and passes the list into the optimizer.
+MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is $lr * decay\_rate^{p}$ . `exponential_decay_lr` pre-generates the learning rate list and passes the list into the optimizer.
 
 | Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
 | ---- | ----- | ------- | --------- | -------------------- |
@@ -61,7 +61,7 @@ MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is :math:`
 |      | Parameter 8 |       |  decay_steps   | The number of decay steps performed by MindSpore |
 |      | Parameter 9 |       |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
 
-MindSpore (mindspore.nn.ExponentialDecayLR): The calculating method is :math:`lr * decay\_rate^{p}`. `ExponentialDecayLR` is passed in the optimizer for training in the way of the computational graph.
+MindSpore (mindspore.nn.ExponentialDecayLR): The calculating method is $lr * decay\_rate^{p}$ . `ExponentialDecayLR` is passed in the optimizer for training in the way of the computational graph.
 
 | Categories | Subcategories  | PyTorch | MindSpore | Differences                |
 | ---- | ----- | ------- | --------- | -------------------- |
