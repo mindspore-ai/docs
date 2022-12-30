@@ -16,7 +16,7 @@ torch.nn.functional.mse_loss(input, target, size_average=None, reduce=None, redu
 class mindspore.nn.MSELoss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.MSELoss.html)。
+更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MSELoss.html)。
 
 ## 差异对比
 
