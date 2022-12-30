@@ -30,7 +30,7 @@ class mindspore.nn.SSIM(
 )(img1, img2) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.SSIM](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/nn/mindspore.nn.SSIM.html)。
+更多内容详见[mindspore.nn.SSIM](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.SSIM.html)。
 
 ## 差异对比
 
