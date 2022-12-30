@@ -45,9 +45,9 @@ mindspore.nn.ExponentialDecayLR(
 
 ## 差异对比
 
-PyTorch（torch.optim.lr_scheduler.ExponentialLR）：计算方式为 :math:`lr * gamma^{epoch}` 。使用时，优化器作为输入，通过调用 `step` 方法进行学习率的更新。 `verbose` 为True时，每一次更新打印相关信息。
+PyTorch（torch.optim.lr_scheduler.ExponentialLR）：计算方式为 $lr * gamma^{epoch}$ 。使用时，优化器作为输入，通过调用 `step` 方法进行学习率的更新。 `verbose` 为True时，每一次更新打印相关信息。
 
-MindSpore（mindspore.nn.exponential_decay_lr）：计算方式为 :math:`lr * decay\_rate^{p}` ， `exponential_decay_lr` 预生成学习率列表，将列表传入优化器。
+MindSpore（mindspore.nn.exponential_decay_lr）：计算方式为 $lr * decay\_rate^{p}$ ， `exponential_decay_lr` 预生成学习率列表，将列表传入优化器。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
@@ -61,7 +61,7 @@ MindSpore（mindspore.nn.exponential_decay_lr）：计算方式为 :math:`lr * d
 |      | 参数8 |    -   |  decay_steps   | MindSpore进行衰减的step数 |
 |      | 参数9 |  -     |  is_stair   | MindSpore `is_stair` 为True时，学习率每 `decay_steps` 衰减一次 |
 
-MindSpore（mindspore.nn.ExponentialDecayLR）：计算方式为 :math:`lr * decay\_rate^{p}` ， `ExponentialDecayLR` 是通过计算图的方式传入优化器中参与训练。
+MindSpore（mindspore.nn.ExponentialDecayLR）：计算方式为 $lr * decay\_rate^{p}$ ， `ExponentialDecayLR` 是通过计算图的方式传入优化器中参与训练。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
