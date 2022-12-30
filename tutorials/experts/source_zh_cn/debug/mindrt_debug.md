@@ -80,7 +80,7 @@ ValueError: For 'set_context', package type mindspore-gpu support 'device_target
 
 算子编译错误主要是由于输入参数不符合要求，算子功能不支持等问题。
 
-例如，使用ReduceSum算子时，输入数据超过8维时报错信息如下：
+例如，使用ReduceSum算子时，输入数据超过八维时报错信息如下：
 
 ```c++
 RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x', 'min_value': 0, 'max_value': 8, 'real_value': 10}, 'In op, the num of dimensions of input/output[x] should be in the range of [0, 8], but actually is [10].')
@@ -88,7 +88,7 @@ RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x
 
 参考实例链接：
 
-[MindSpore 算子编译问题 - ReduceSum算子不支持8维以上输入](https://bbs.huaweicloud.com/forum/thread-182168-1-1.html)
+[MindSpore 算子编译问题 - ReduceSum算子不支持八维以上输入](https://bbs.huaweicloud.com/forum/thread-182168-1-1.html)
 
 例如，Parameter参数不支持类型自动转换，使用Parameter算子时，进行数据类型转换时报错，报错信息如下：
 
