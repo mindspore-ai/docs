@@ -102,7 +102,7 @@ Constructing Network
   dataset
   model_and_cell
   learning_rate_and_optimizer
-  training_and_gradient
+  gradient
   training_and_evaluation_procession
 
 .. note::

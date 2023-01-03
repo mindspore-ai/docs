@@ -10,11 +10,11 @@ MindSpore provides a [FAQ](https://mindspore.cn/docs/en/master/faq/installation.
 
     [API Mapping and Handling Strategy of Missing API](https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#analyzing-api-compliance)
 
-    [Dynamic Shape Analysis](https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#dynamic-shape) and [Mitigation Program](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html#dynamic-shape-workarounds)
+    [Dynamic Shape Analysis](https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#dynamic-shape) and [Mitigation Program](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#dynamic-shape-workarounds)
 
     [Mitigation Program for Sparse Characteristic](https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#sparsity)
 
-    [Common Syntax Restrictions and Handling Strategies for Static Graphs](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html#common-restrictions)
+    [Common Syntax Restrictions and Handling Strategies for Static Graphs](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#common-restrictions)
 
     [Notes for MindSpore Web Authoring](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html#considerations-for-mindspore-network-authoring)
 

@@ -416,7 +416,7 @@ print(y)
 
 In this process, there are two dynamic shapes. One is that the shape of the `masked_select` result is dynamic if `cond=True`. The other is the control flow. Because `cond` is uncertain, the shape output of the two branches of the control flow is different, which also causes the dynamic shape.
 
-Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html).
+Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html).
 
 #### Sparsity
 
