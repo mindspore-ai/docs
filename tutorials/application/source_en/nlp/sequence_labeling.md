@@ -373,7 +373,7 @@ grad_fn = ms.value_and_grad(model, None, optimizer.parameters)
 
 def train_step(data, seq_length, label):
     loss, grads = grad_fn(data, seq_length, label)
-    loss = ops.depend(loss, optimizer(grads))
+    optimizer(grads)
     return loss
 ```
 

@@ -318,9 +318,9 @@ def train_step(imgs):
     fake = ops.zeros((imgs.shape[0], 1), mindspore.float32)
 
     (g_loss, gen_imgs), g_grads = grad_generator_fn(imgs, valid)
-    g_loss = ops.depend(g_loss, optimizer_G(g_grads))
+    optimizer_G(g_grads)
     d_loss, d_grads = grad_discriminator_fn(imgs, gen_imgs, valid, fake)
-    d_loss = ops.depend(d_loss, optimizer_D(d_grads))
+    optimizer_D(d_grads)
 
     return g_loss, d_loss, gen_imgs
 ```
