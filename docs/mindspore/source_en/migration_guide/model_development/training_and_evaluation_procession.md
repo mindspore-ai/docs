@@ -122,9 +122,8 @@ A general training process is as follows:
 
 ```python
 import mindspore as ms
-from mindspore.train import Model
+from mindspore.train import Model, LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore import nn
-from mindspore import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
 from src.model import Net
 from src.dataset import create_dataset
 from src.utils import init_env
