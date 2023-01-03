@@ -3,27 +3,7 @@ Preparing the Training Script
 
 There are two ways to collect neural network performance data. You can enable Profiler in either of the following ways.
 
-- Method 1: Enable environment variables
-
-  Before running the network script, configure Profiler configuration items.
-
-  .. code-block:: shell
-
-      export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
-
-  - `start` (bool) - Set to "true" to enable Profiler. Set to "false" to disable performance data collection. Default value: "false".
-
-  - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
-
-  - `memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is "true". Default value: "false".
-
-  - `hccl` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is "true". In single-device training, this parameter is not set correctly. Default value: "false".
-
-  - `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
-
-  - `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: "false".
-
-- Method 2: Modify the training script
+- Method 1: Modify the training script
 
   Add the MindSpore Profiler interface to the training script.
 
@@ -156,3 +136,29 @@ There are two ways to collect neural network performance data. You can enable Pr
                profiler.stop()
 
        profiler.analyse()
+
+- Method 2: Enable environment variables
+
+  Before running the network script, configure Profiler configuration items.
+
+  .. code-block:: shell
+
+      export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
+
+  - `start` (bool, mandatory) - Set to true to enable Profiler. Set to false to disable performance data collection. Default value: false.
+
+  - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
+
+  - `memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is true. Default value: false.
+
+  - `hccl` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is true. In single-device training, this parameter is not set correctly. Default value: false.
+
+  - `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
+
+  - `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: false.
+
+  - `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). Default value: 500.
+
+  - `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
+
+  - `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.

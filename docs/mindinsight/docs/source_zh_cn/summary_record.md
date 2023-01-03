@@ -97,7 +97,7 @@ class AlexNet(nn.Cell):
 ```
 
 > 1. 同一种Summary API中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。比如使用两个 `ScalarSummary` API收集标量数据，给两个标量设置的名字不能是相同的。
-> 2. summary API仅支持图模式，需要在`nn.Cell`的`construct`中使用。暂不支持PyNative模式。
+> 2. summary API需要在`nn.Cell`的`construct`中使用。
 
 步骤二：在训练脚本中，实例化 `SummaryCollector`，并将其应用到 `model.train`。
 
@@ -373,7 +373,7 @@ mindinsight stop
 
 5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
-6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary API。
+6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图。
 
 7. 使用Summary时，需要把要执行的代码放在 `if __name__ == '__main__':` 中，否则可能会发生未知错误。
 

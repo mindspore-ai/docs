@@ -22,61 +22,63 @@
 
 收集神经网络性能数据有两种方式，可以使用以下任意一种方式使能Profiler。
 
-- 方式一：环境变量使能
+- 方式一：修改训练脚本
 
-  在运行网络脚本前，配置Profiler相关配置项。
+    在训练脚本中添加MindSpore Profiler相关接口。  
 
-  例如：`export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
-
-    - `start`：设置为"True"，表示使能Profiler；设置成"False"，表示关闭性能数据收集，默认值："False"。
-    - `output_path`（可选）：需要设置为绝对路径，不设置则默认在当前路径创建data目录存储性能数据。
-    - `sync_enable`（可选）：Profiler是否用同步的方式收集算子耗时，默认值："True"。
-
-- 方式二：修改训练脚本
-
-  在训练脚本中添加MindSpore Profiler相关接口。  
-
-  - `set_context`之后，初始化MindSpore `Profiler`对象，Profiler开启收集性能数据。
+    - `set_context`之后，初始化MindSpore `Profiler`对象，Profiler开启收集性能数据。
 
       > GPU多卡场景需要在`set_auto_parallel_context`之后初始化`Profiler`对象。
       >
       > Profiler支持的参数可以参考： [Profiler API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
 
-  - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
+    - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
-  启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本)。
+    启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本)。
 
-  GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
+    GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
-  示例如下：
+    示例如下：
 
-  ```python
-  import mindspore as ms
+    ```python
+    import mindspore as ms
 
-  class StopAtStep(ms.Callback):
-      def __init__(self, start_step, stop_step):
-          super(StopAtStep, self).__init__()
-          self.start_step = start_step
-          self.stop_step = stop_step
-          self.profiler = Profiler(start_profile=False)
+    class StopAtStep(ms.Callback):
+        def __init__(self, start_step, stop_step):
+            super(StopAtStep, self).__init__()
+            self.start_step = start_step
+            self.stop_step = stop_step
+            self.profiler = Profiler(start_profile=False)
 
-      def step_begin(self, run_context):
-          cb_params = run_context.original_args()
-          step_num = cb_params.cur_step_num
-          if step_num == self.start_step:
-              self.profiler.start()
+        def step_begin(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.start_step:
+                self.profiler.start()
 
-      def step_end(self, run_context):
-          cb_params = run_context.original_args()
-          step_num = cb_params.cur_step_num
-          if step_num == self.stop_step:
-              self.profiler.stop()
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.stop_step:
+                self.profiler.stop()
 
-      def end(self, run_context):
-          self.profiler.analyse()
-  ```
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
 
-  以上代码仅供参考，用户可根据所需场景自由实现。
+    以上代码仅供参考，用户可根据所需场景自由实现。
+
+- 方式二：环境变量使能
+
+    在运行网络脚本前，配置Profiler相关配置项。
+
+    例如：`export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
+
+    - `start`（bool, 必选）- 设置为true，表示使能Profiler；设置成false，表示关闭性能数据收集，默认值：false。
+    - `output_path`（str, 可选）- 需要设置为绝对路径，不设置则默认在当前路径创建data目录存储性能数据。
+    - `sync_enable`（bool, 可选）- Profiler是否用同步的方式收集算子耗时，默认值：true。
+    - `timeline_limit`（int, 可选) - 设置限制timeline文件存储上限大小（单位M），默认值：500。
+    - `data_process`（bool, 可选）- 表示是否收集数据准备性能数据，默认值：true。
 
 ## 启动MindInsight
 
