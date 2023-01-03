@@ -1,6 +1,6 @@
 # Function Differences with torch.distributed.all_reduce
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_reduce.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_reduce.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.distributed.all_reduce
 
@@ -24,7 +24,7 @@ mindspore.ops.AllReduce(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
+For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
 
 ## Differences
 

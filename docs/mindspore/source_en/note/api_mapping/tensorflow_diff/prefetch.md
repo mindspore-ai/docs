@@ -1,6 +1,6 @@
 # Function Differences with tf.data.Dataset.prefetch
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/prefetch.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/prefetch.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.data.Dataset.prefetch
 
@@ -20,7 +20,7 @@ mindspore.dataset.config.set_prefetch_size(
 )
 ```
 
-For more information, see [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size).
+For more information, see [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size).
 
 ## Differences
 

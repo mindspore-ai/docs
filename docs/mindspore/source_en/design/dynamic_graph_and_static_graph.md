@@ -1,6 +1,6 @@
 # Combination of Dynamic and Static Graphs
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/dynamic_graph_and_static_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/dynamic_graph_and_static_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## The Concept of Static and Dynamic Graphs
 
@@ -12,7 +12,7 @@ In dynamic graph mode, the program is executed in the order in which the code is
 
 ## MindSpore Static Graph
 
-In MindSpore, the static graph mode, also known as Graph mode, can be set to static graph mode by `set_context(mode=GRAPH_MODE)`. Static graph mode is more suitable for scenarios where the network is fixed and high performance is required. In static graph mode, the compiler can perform global optimization for the graph based on techniques such as graph optimization, whole graph offloading of computational graph. Therefore, better performance can be obtained under static graph, but the execution graph is converted from the source code. Not all Python syntax is supported under static graphs. For the detailed information, please refer to [Syntax Support](https://www.mindspore.cn/docs/en/master/note/syntax_list.html).
+In MindSpore, the static graph mode, also known as Graph mode, can be set to static graph mode by `set_context(mode=GRAPH_MODE)`. Static graph mode is more suitable for scenarios where the network is fixed and high performance is required. In static graph mode, the compiler can perform global optimization for the graph based on techniques such as graph optimization, whole graph offloading of computational graph. Therefore, better performance can be obtained under static graph, but the execution graph is converted from the source code. Not all Python syntax is supported under static graphs. For the detailed information, please refer to [Syntax Support](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/syntax_list.html).
 
 ### Graph Mode Execution Principle
 
@@ -49,7 +49,7 @@ print(net(x, y))
 
 ### Graph Mode Auto-differentiation Principle
 
-In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html).
+In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html).
 
 ## MindSpore Dynamic Graph
 
@@ -179,11 +179,11 @@ In MindSpore, we can switch the execution between using dynamic or static graphs
 ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
-Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html).
 
 ### Combination of Static and Dynamic
 
-MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html#just-in-time-compilation).
+MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/compute_graph.html#just-in-time-compilation).
 
 For example:
 
@@ -236,9 +236,9 @@ print(out)
 
 JIT Fallback is a functional feature proposed to realize the unification of dynamic and static. With features such as JIT Fallback, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax usage experience close to that of dynamic graphs.
 
-JIT Fallback achieves the unification of static and dynamic graphs from the perspective of static graphs. In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax. In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs. The JIT Fallback feature allows static graphs to support as many dynamic diagram syntaxes as possible, allowing users to switch between static and dynamic graphs in a flexible manner.
+JIT Fallback achieves the unification of static and dynamic graphs from the perspective of static graphs. In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax. In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs. The JIT Fallback feature allows static graphs to support as many dynamic diagram syntaxes as possible, allowing users to switch between static and dynamic graphs in a flexible manner.
 
-The current JIT Fallback supports some constant scenarios of static graph mode, including calling third-party libraries, creating and using Tensor, and calling Python's print printing. For more instructions and use of JIT Fallback, please refer to [JIT Fallback documentation](https://www.mindspore.cn/docs/en/master/design/jit_fallback.html).
+The current JIT Fallback supports some constant scenarios of static graph mode, including calling third-party libraries, creating and using Tensor, and calling Python's print printing. For more instructions and use of JIT Fallback, please refer to [JIT Fallback documentation](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/jit_fallback.html).
 
 The code example is as follows, where the MindSpore static graph mode does not support calling NumPy third-party libraries and creating Tensor objects in construct, so `x = np.array([1, 2, 3])` and `y = Tensor(x)` in the use case will be supported by the JIT Fallback feature.
 

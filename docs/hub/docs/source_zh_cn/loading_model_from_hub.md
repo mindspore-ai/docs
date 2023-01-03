@@ -1,6 +1,6 @@
 # 从Hub加载模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,13 +39,13 @@
 
     ```
 
-3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
+3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/infer/inference.html)。
 
 ## 用于迁移学习
 
 通过`mindspore_hub.load`完成模型加载后，可以增加一个额外的参数项只加载神经网络的特征提取部分，这样我们就能很容易地在之后增加一些新的层进行迁移学习。当模型开发者将额外的参数（例如 `include_top`）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top`取值为True或者False，表示是否保留顶层的全连接网络。*
 
-下面我们以[MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/centerface)为例，说明如何加载一个基于OpenImage的预训练模型，并在特定的子任务数据集上进行迁移学习（重训练）。主要的步骤如下：
+下面我们以[MobileNetV2](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/centerface)为例，说明如何加载一个基于OpenImage的预训练模型，并在特定的子任务数据集上进行迁移学习（重训练）。主要的步骤如下：
 
 1. 在[MindSpore Hub官网](https://www.mindspore.cn/resources/hub/)上搜索感兴趣的模型，查看对应的`Usage`。
 

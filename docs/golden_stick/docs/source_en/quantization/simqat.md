@@ -1,6 +1,6 @@
 # Applying the SimQAT Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_en/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/golden_stick/docs/source_en/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -55,7 +55,7 @@ The procedure of quantization aware training is basically the same as that of co
 
 The following uses the LeNet5 as an example to describe these steps.
 
-> For the complete code, see the [LeNet model repository](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/README.md#apply-algorithm-in-mindspore-golden-stick).The [train.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/train.py) is the complete training code, and the [eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/eval.py) is the accuracy verification code.
+> For the complete code, see the [LeNet model repository](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/README.md#apply-algorithm-in-mindspore-golden-stick).The [train.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/train.py) is the complete training code, and the [eval.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/eval.py) is the accuracy verification code.
 
 ### Loading a Dataset
 
@@ -65,8 +65,8 @@ Load MNIST dataset using MindData:
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
 
-In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py).
- `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
+In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/src/dataset.py).
+ `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
 
 ### Defining the Original Network
 
@@ -94,7 +94,7 @@ LeNet5<
   >
 ```
 
-For details about the ResNet-5 definition, see [lenet.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/lenet.py).
+For details about the ResNet-5 definition, see [lenet.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/src/lenet.py).
 
 ### Applying the Quantization Algorithm
 
@@ -109,7 +109,7 @@ quanted_network = algo.apply(network)
 print(quanted_network)
 ```
 
-The quantized network structure is as follows. QuantizerWrapperCell is the encapsulation class of perceptual quantization training for the original Conv2d or Dense, including the original operator and pseudo-quantization nodes of input, output and weight.  Users can refer to [API](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/mindspore_gs.quantization.SimulatedQuantizationAwareTraining.html#mindspore_gs.quantization.SimulatedQuantizationAwareTraining) to modify the algorithm configuration, and verify that the algorithm is configured successfully by checking the QuantizeWrapperCell properties.
+The quantized network structure is as follows. QuantizerWrapperCell is the encapsulation class of perceptual quantization training for the original Conv2d or Dense, including the original operator and pseudo-quantization nodes of input, output and weight.  Users can refer to [API](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/quantization/mindspore_gs.quantization.SimulatedQuantizationAwareTraining.html#mindspore_gs.quantization.SimulatedQuantizationAwareTraining) to modify the algorithm configuration, and verify that the algorithm is configured successfully by checking the QuantizeWrapperCell properties.
 
 ```text
 LeNet5Opt<
@@ -207,7 +207,7 @@ Train epoch time: 8544.641 ms, per step time: 4.552 ms
 
 ### Evaluate network and comparing the accuracy
 
-Obtain the accuracy of the common training network according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/research/cv/lenet).
+Obtain the accuracy of the common training network according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet).
 
 ```text
 'Accuracy':0.9842

@@ -1,6 +1,6 @@
 # 比较与torch.optim.Optimizer.step的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TrainOneStepCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TrainOneStepCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.optim.Optimizer.step
 
@@ -20,7 +20,7 @@ class mindspore.nn.TrainOneStepCell(
 )((*inputs))
 ```
 
-更多内容详见[mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell)。
+更多内容详见[mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell)。
 
 ## 使用方式
 

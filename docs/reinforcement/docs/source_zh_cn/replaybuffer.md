@@ -1,6 +1,6 @@
 # ReplayBuffer 使用说明
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/reinforcement/docs/source_zh_cn/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## ReplayBuffer 简介
 
@@ -65,7 +65,7 @@
 
 ### UniformReplayBuffer的创建
 
-MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API。用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/algorithm/dqn/config.py)的配置文件：
+MindSpore Reinforcement Learning 提供了标准的ReplayBuffer API。用户可以使用配置文件的方式使用框架创建的ReplayBuffer，形如[dqn](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/algorithm/dqn/config.py)的配置文件：
 
 ```python
 'replay_buffer':
@@ -91,7 +91,7 @@ replaybuffer = UniformReplayBuffer(sample_size, capacity, shapes, types)
 
 ### 使用创建的UniformReplayBuffer
 
-以API形式创建的[UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/core/uniform_replay_buffer.py)进行数据操作为例：
+以API形式创建的[UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/core/uniform_replay_buffer.py)进行数据操作为例：
 
 * 插入操作
 

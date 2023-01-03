@@ -1,10 +1,10 @@
 # Using Python Interface for Model Conversion
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_en/use/converter_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-MindSpore Lite supports model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference. The interface contains a variety of personalized parameters to provide a convenient conversion path for users. This tutorial describes how to use the [Python interface](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Converter.html) for model conversion.
+MindSpore Lite supports model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference. The interface contains a variety of personalized parameters to provide a convenient conversion path for users. This tutorial describes how to use the [Python interface](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.Converter.html) for model conversion.
 
 The currently supported input model types are MindSpore, TensorFlow Lite, Caffe, TensorFlow, ONNX, and PyTorch.
 
@@ -16,7 +16,7 @@ Convert to MindSpore Lite or MindSpore model by conversion tool when the input m
 
 To use Python interface of MindSpore Lite for model conversion, the following environment preparation is required.
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) Whl installation package of MindSpore Lite with the Converter component.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/downloads.html) Whl installation package of MindSpore Lite with the Converter component.
 
   > Currently, the installation package corresponding to Python 3.7 is available for download. If you need other Python versions, please use the compilation function to generate the installation package.
 
@@ -59,7 +59,7 @@ Python interface model conversion of MindSpore Lite provides a variety of parame
 
 Usage Scenarios: 1. Converting third-party models to generate MindSpore models or MindSpore Lite models, 2. Convert MindSpore models to generate MindSpore Lite models.
 
-Detailed descriptions of the parameters and their correspondence to the parameters in [Inference Model Offline Conversion](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) are provided below.
+Detailed descriptions of the parameters and their correspondence to the parameters in [Inference Model Offline Conversion](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/converter_tool.html) are provided below.
 
 | Python interface model conversion parameters | Parameter types  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Parameters descriptions  | Range of values | Default Values |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
@@ -82,7 +82,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | train_model | bool | `--trainModel=<TRAINMODEL>` | Not required | Whether the model will be trained on the device. | True, False | False |
 | no_fusion | bool | `--NoFusion=<NOFUSION>` | Not required | Whether to avoid fusion optimization, the default allows fusion optimization. | True, False | False |
 
-> For more information about the `fmk_type` parameter, see [FmkType](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.FmkType.html).
+> For more information about the `fmk_type` parameter, see [FmkType](https://mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.FmkType.html).
 >
 > The download installeration package does not support converting PyTorch models because the compilation option that supports converting PyTorch models is turned off by default. You need to turn on the specified compilation options locally to compile the installation package that supports converting PyTorch models. Converting the PyTorch model has the following prerequisites: before compiling, export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on is needed, and add libtorch environment variable: export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch" before conversion. Users can download the [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip) and extract it to the /home/user/libtorch path.
 >
@@ -92,7 +92,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 >
 > Caffe models are generally divided into two files: `*.prototxt` is the model structure, corresponding to the `model_file` parameter, and `model.caffemodel` is the model weights, corresponding to the `weight_file` parameter.
 >
-> The `config_file` configuration file uses `key = value` to define the relevant parameters. The quantization-related configuration parameters are detailed in [quantization after training](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html). The configuration parameters related to the extended functions are detailed in [Extended Configuration](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#extension-configuration).
+> The `config_file` configuration file uses `key = value` to define the relevant parameters. The quantization-related configuration parameters are detailed in [quantization after training](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/post_training_quantization.html). The configuration parameters related to the extended functions are detailed in [Extended Configuration](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/nnie.html#extension-configuration).
 >
 > The priority of `weight_fp16` is very low, for example if quantization is turned on, `weight_fp16` will not take effect again for weights that have already been quantized. In summary, this parameter will only take effect on serialization for the weights of Float32 in the model.
 >
@@ -102,9 +102,9 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 > - Usage 2: Regardless of whether the original input of the model to be transformed is a dynamic shape or not, use fixed-shape inference and make the performance of the model to be optimized as much as possible, set this parameter to fixed-shape. After setting, the model structure will be further optimized, but the transformed model may lose the characteristics of the dynamic shape (some operators strongly related to the shape will be fused).
 > - Usage 3: When using the Converter function to generate code for Micro inference execution, it is recommended to configure this parameter to reduce the probability of errors during deployment. When the model contains a Shape operator or the model input to be transformed is a dynamic shape, this parameter must be configured to set a fixed shape, to support the associated shape optimization and code generation.
 >
-> `input_format`: Generally in three-way hardware scenarios with integrated NCHW specifications (e.g., [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#usage-description-of-the-integrated-nnie)), setting to NCHW will result in more significant performance improvement than setting to NHWC. In other scenarios, users can also set up on-demand.
+> `input_format`: Generally in three-way hardware scenarios with integrated NCHW specifications (e.g., [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/nnie.html#usage-description-of-the-integrated-nnie)), setting to NCHW will result in more significant performance improvement than setting to NHWC. In other scenarios, users can also set up on-demand.
 >
-> The encryption and decryption function is only effective when set to `MSLITE_ENABLE_MODEL_ENCRYPTION=on` at [compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), and is only supported on Linux x86 platform, where the key is a hexadecimal representation of the string, such as the key is defined as `b'0123456789ABCDEF'` corresponding to the hexadecimal representation of `30313233343536373839414243444546`, and Linux platform users can use the `xxd` tool to convert the byte representation of the key to hexadecimal expression.
+> The encryption and decryption function is only effective when set to `MSLITE_ENABLE_MODEL_ENCRYPTION=on` at [compilation](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/build.html), and is only supported on Linux x86 platform, where the key is a hexadecimal representation of the string, such as the key is defined as `b'0123456789ABCDEF'` corresponding to the hexadecimal representation of `30313233343536373839414243444546`, and Linux platform users can use the `xxd` tool to convert the byte representation of the key to hexadecimal expression.
 > Note that the encryption and decryption algorithms were updated in version 1.7, resulting in the new version of the Python interface not supporting the conversion of models exported from MindSpore encryption in version 1.6 and earlier.
 
 ### Usage Examples

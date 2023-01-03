@@ -1,6 +1,6 @@
 # 比较与tf.math.argmax的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/argmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/argmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.math.argmax
 
@@ -21,7 +21,7 @@ tf.math.argmax(
 mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html)。
+更多内容详见[mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.argmax.html)。
 
 ## 差异对比
 
@@ -39,7 +39,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回值类�
 
 ### 代码示例1
 
-> TensorFlow的argmax算子在不显式给出axis参数时，计算结果是axis按默认值为0时最大值的索引，而MindSpore默认是返回axis为-1时最大值的索引。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.argmax算子参数axis赋值为0，同时为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。
+> TensorFlow的argmax算子在不显式给出axis参数时，计算结果是axis按默认值为0时最大值的索引，而MindSpore默认是返回axis为-1时最大值的索引。因此，为了得到相同的计算结果，在计算前，将mindspore.ops.argmax算子参数axis赋值为0，同时为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。
 
 ```python
 # TensorFlow
@@ -110,7 +110,7 @@ print(ms_out_np)
 
 ### 代码示例3
 
-> TensorFlow参数output_type用于指定输出数据类型，默认是tf.int64。而MindSpore的参数output_type默认值是mindspore.int32，为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。TensorFlow参数name用于定义执行操作的名称，不影响结果，MindSpore无此参数。
+> TensorFlow参数output_type用于指定输出数据类型，默认是tf.int64。而MindSpore的参数output_type默认值是mindspore.int32，为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64。TensorFlow参数name用于定义执行操作的名称，不影响结果，MindSpore无此参数。
 
 ```python
 # TensorFlow

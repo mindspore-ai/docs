@@ -1,12 +1,12 @@
 # 安装MindFlow
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindflow/docs/source_zh_cn/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindflow/docs/source_zh_cn/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 确认系统环境信息
 
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindFlow/requirements.txt)。
 
 ## 安装方式
 

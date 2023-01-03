@@ -1,6 +1,6 @@
 # Horizontal Federated Cloud-based Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The following uses LeNet as an example to describe how to use MindSpore Federated to deploy a horizontal federated learning cluster.
 
@@ -46,7 +46,7 @@ The MindSpore horizontal federated learning cloud cluster supports deployment on
 Compile and install with [source code](https://gitee.com/mindspore/federated).
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r2.0.0-alpha
 cd federated
 bash build.sh
 ```
@@ -85,13 +85,13 @@ redis-server --port 23456 --save ""
 
 ## Starting a Cluster
 
-1. [examples](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/).
+1. [examples](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_device_lenet_femnist/).
 
     ```bash
     cd tests/st/cross_device_lenet_femnist
     ```
 
-2. Modify the yaml configuration file according to the actual running: `default_yaml_config.yaml`. [sample configuration of Lenet](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml) is as follows:
+2. Modify the yaml configuration file according to the actual running: `default_yaml_config.yaml`. [sample configuration of Lenet](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml) is as follows:
 
     ```yaml
     fl_name: Lenet

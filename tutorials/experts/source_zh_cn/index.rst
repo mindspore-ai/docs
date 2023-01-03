@@ -73,7 +73,7 @@
 
    debug/function_debug
    debug/performance_optimization
-   精度调优↗ <https://mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html>
+   精度调优↗ <https://mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/accuracy_problem_preliminary_location.html>
 
 .. toctree::
    :glob:

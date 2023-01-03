@@ -1,6 +1,6 @@
 # Model Analysis and Preparation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Obtaining Sample Code
 
@@ -13,7 +13,7 @@ When you obtain a paper to implement migration on MindSpore, you need to find th
 
 If the results are not reproducible in the reference project or the version information is missing, check the project issue for information.
 
-If a new paper has no reference implementation, you can refer to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html).
+If a new paper has no reference implementation, you can refer to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/model_development/model_development.html).
 
 ## Analyzing Algorithm and Network Structure
 
@@ -81,23 +81,23 @@ After obtaining the reference code, you need to reproduce the accuracy of the re
 3. Obtain some reference data for the MindSpore migration process.
 
     - Obtain the loss decrease trend to check whether the training convergence trend on MindSpore is normal.
-    - Obtain the parameter file for conversion and inference verification. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation_procession.html).
-    - Obtain the performance baseline for performance tuning. For details, see [Debugging and Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html).
+    - Obtain the parameter file for conversion and inference verification. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/model_development/training_and_evaluation_procession.html).
+    - Obtain the performance baseline for performance tuning. For details, see [Debugging and Tuning](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/debug_and_tune.html).
 
 ## Analyzing API Compliance
 
-The API missing analysis here refers to APIs in the network execution diagram, including MindSpore [operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) and advanced encapsulated APIs, and excluding the APIs used in data processing. You are advised to use third-party APIs, such as NumPy, OpenCV, Pandas, and PIL, to replace APIs used in data processing.
+The API missing analysis here refers to APIs in the network execution diagram, including MindSpore [operators](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.ops.primitive.html) and advanced encapsulated APIs, and excluding the APIs used in data processing. You are advised to use third-party APIs, such as NumPy, OpenCV, Pandas, and PIL, to replace APIs used in data processing.
 
 ### Querying the API Mapping Table
 
-Take the PyTorch code migration as an example. After obtaining the reference code implementation, you can filter keywords such as `torch`, `nn`, and `ops` to obtain the used APIs. If the method of another repository is invoked, you need to manually analyze the API. Then, check the [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
-Alternatively, the [API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) searches for the corresponding API implementation.
+Take the PyTorch code migration as an example. After obtaining the reference code implementation, you can filter keywords such as `torch`, `nn`, and `ops` to obtain the used APIs. If the method of another repository is invoked, you need to manually analyze the API. Then, check the [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_api_mapping.html).
+Alternatively, the [API](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.ops.primitive.html) searches for the corresponding API implementation.
 
-Generally the training process of a network contains forward calculation, backward gradient calculation and parameter update. In some special scenarios, another gradient calculation is needed for the gradient, such as [Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf), and this kind of scenario uses the second order gradient calculation. For scenarios where second-order gradient calculations are used in the network requires additional analysis of the second-order support of the APIs, the derivative links of the network need to be analyzed by code walk-through, and all APIs within the second-order derivative links need to support second order. The second-order support case can be viewed in [MindSpore gradient section source code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad) to see if its first-order Grad has a corresponding of the bprop function definition.
+Generally the training process of a network contains forward calculation, backward gradient calculation and parameter update. In some special scenarios, another gradient calculation is needed for the gradient, such as [Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf), and this kind of scenario uses the second order gradient calculation. For scenarios where second-order gradient calculations are used in the network requires additional analysis of the second-order support of the APIs, the derivative links of the network need to be analyzed by code walk-through, and all APIs within the second-order derivative links need to support second order. The second-order support case can be viewed in [MindSpore gradient section source code](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/python/mindspore/ops/_grad) to see if its first-order Grad has a corresponding of the bprop function definition.
 
-For example, if the network second-order derivative links contain StridedSlice slicing operation, you can look up [array_ops gradient definition file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py) in the [reverse registration code of StridedSliceGrad](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867). If it exists, the current version of MindSpore StridedSlice slicing operation supports second-order gradient calculation.
+For example, if the network second-order derivative links contain StridedSlice slicing operation, you can look up [array_ops gradient definition file](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/ops/_grad/grad_array_ops.py) in the [reverse registration code of StridedSliceGrad](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867). If it exists, the current version of MindSpore StridedSlice slicing operation supports second-order gradient calculation.
 
-For details about the mapping of other framework APIs, see the [API naming and function description](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html). For APIs with the same function, the names of MindSpore may be different from those of other frameworks. The parameters and functions of APIs with the same name may also be different from those of other frameworks. For details, see the official description.
+For details about the mapping of other framework APIs, see the [API naming and function description](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.html). For APIs with the same function, the names of MindSpore may be different from those of other frameworks. The parameters and functions of APIs with the same name may also be different from those of other frameworks. For details, see the official description.
 
 If the corresponding API is not found, see specific missing API processing policy.
 
@@ -319,9 +319,9 @@ The final error is less than 1e-5, which is a reasonable accuracy error.
 
 #### 3. Customize operators
 
-When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
+When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/operation/op_custom.html).
 
-In addition to migrating APIs, you can also use the `aot` development mode of the `Custom` operator to call the PyTorch Aten operator for quick verification. For details, see [Using Third-party Operator Libraries Based on Customized Interfaces](https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html).
+In addition to migrating APIs, you can also use the `aot` development mode of the `Custom` operator to call the PyTorch Aten operator for quick verification. For details, see [Using Third-party Operator Libraries Based on Customized Interfaces](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/use_third_party_op.html).
 
 **Note that it is convenient to migrate operators implemented by PyTorch to the GPU and CPU. Most of the operators displayed here are GPU and CPU operators. Ascend operators need to use the TBE for operator development, which has high requirements. Therefore, you are advised to use officially implemented operators for packaging.**
 
@@ -416,7 +416,7 @@ print(y)
 
 In this process, there are two dynamic shapes. One is that the shape of the `masked_select` result is dynamic if `cond=True`. The other is the control flow. Because `cond` is uncertain, the shape output of the two branches of the control flow is different, which also causes the dynamic shape.
 
-Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html).
+Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/model_development/model_and_loss.html).
 
 #### Sparsity
 
@@ -424,12 +424,12 @@ A [sparse tensor](https://matteding.github.io/2019/04/25/sparse-matrices/) is a 
 
 In some scenarios (such as recommendation systems, molecular dynamics, graph neural networks), the data is sparse. If you use common dense tensors to represent the data, you may introduce many unnecessary calculations, storage, and communication costs. In this case, it is better to use sparse tensor to represent the data.
 
-MindSpore now supports the most commonly used [CSR and COO data formats](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html#sparse-tensor). Currently, only a limited number of sparse operators are supported, and most sparse features are restricted. In this case, you are advised to check whether the corresponding operator supports sparse computing. If the operator does not support sparse computing, convert it into a common operator.
-After the operator is converted into a dense operator, the video memory used increases. Therefore, the batch size implemented by referring to may not be used for training. In this case, you can use [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html) to simulate large batch training.
+MindSpore now supports the most commonly used [CSR and COO data formats](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html#sparse-tensor). Currently, only a limited number of sparse operators are supported, and most sparse features are restricted. In this case, you are advised to check whether the corresponding operator supports sparse computing. If the operator does not support sparse computing, convert it into a common operator.
+After the operator is converted into a dense operator, the video memory used increases. Therefore, the batch size implemented by referring to may not be used for training. In this case, you can use [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/optimize/gradient_accumulation.html) to simulate large batch training.
 
 ## MindSpore Function/Feature Recommendation
 
-### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html)
+### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/compute_graph.html)
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (Graph) and a dynamic graph mode (PyNative).
 
@@ -437,46 +437,46 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 - In dynamic graph mode, the program is executed line by line according to the code writing sequence. In the forward execution process, the backward execution graph is dynamically generated according to the backward propagation principle. In this mode, the compiler delivers the operators in the neural network to the device one by one for computing, facilitating users to build and debug the neural network model.
 
-### [Calling the Custom Class](https://www.mindspore.cn/tutorials/experts/en/master/network/jit_class.html)
+### [Calling the Custom Class](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/network/jit_class.html)
 
 In static graph mode, you can use `ms_class` to modify a custom class. You can create and call an instance of the custom class, and obtain its attributes and methods.
 
 `ms_class` is applied to the static graph mode to expand the support scope of static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of `ms_class` does not affect the execution logic of PyNative mode.
 
-### [Automatic Differential](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html)
+### [Automatic Differential](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html)
 
 Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backward propagation algorithms. The main problem solved by automatic differential is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
 
-### [Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)
+### [Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/mixed_precision.html)
 
 Generally, when a neural network model is trained, the default data type is FP32. In recent years, to accelerate training time, reduce memory occupied during network training, and store a trained model with same precision, more and more mixed-precision training methods are proposed in the industry. The mixed-precision training herein means that both single precision (FP32) and half precision (FP16) are used in a training process.
 
-### [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html)
+### [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/dataset/augment.html)
 
 MindSpore not only allows you to customize data augmentation, but also provides an automatic data augmentation mode to automatically perform data augmentation on images based on specific policies.
 
-### [Multi Dimensional](https://www.mindspore.cn/tutorials/experts/en/master/parallel/multi_dimensional.html)
+### [Multi Dimensional](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/multi_dimensional.html)
 
 With the development of deep learning, the model scale becomes larger and larger. For example, in the NLP field, the number of parameters has increased from 100 million in BERT to 170 billion in GPT-3, and then to 200 billion in PanGu-Alpha. Currently, the industry even proposes millions of parameters. It can be seen that the parameter scale has an exponential growth trend in recent years. On the other hand, with the development of technologies in fields such as big data and the Internet, datasets that can be used for model training also increase rapidly. For example, the size of datasets in scenarios such as recommendation and natural language processing can reach TB level.
 
-### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
+### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
 
-### [Summary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html)
+### [Summary](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/summary_record.html)
 
 Scalars, images, computational graphs, training optimization processes, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
-### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html)
+### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/debugger.html)
 
 The MindSpore debugger is a debugging tool provided for graph mode training. It can be used to view and analyze the intermediate results of graph nodes.
 
-### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html)
+### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/index.html)
 
 MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah's team and Huawei MindSpore team. It contains basic quantization and pruning methods.
 
 ## Differences Between MindSpore and PyTorch APIs
 
-When migrating the network from PyTorch to MindSpore, pay attention to the differences between MindSpore and [typical PyTorch APIs](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html).
+When migrating the network from PyTorch to MindSpore, pay attention to the differences between MindSpore and [typical PyTorch APIs](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/typical_api_comparision.html).
 
 [1] Lin, T. Y. , et al. "Focal Loss for Dense Object Detection." IEEE Transactions on Pattern Analysis & Machine Intelligence PP.99(2017):2999-3007.

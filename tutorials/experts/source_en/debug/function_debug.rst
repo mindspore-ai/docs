@@ -2,7 +2,7 @@ Function Debug
 ===============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/function_debug.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/debug/function_debug.rst
 
 .. toctree::
   :maxdepth: 1
@@ -97,7 +97,7 @@ Based on the error message and the location of the error code, combined with the
 
    For example, in the network compilation error report scenario, when the error "Shape Join Failed" is reported.
 
-   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/master/faq/installation.html>`__\ .
+   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/r2.0.0-alpha/faq/installation.html>`__\ .
 
 -  Error reporting case
 
@@ -138,7 +138,7 @@ Strategy Selection
 
    Dynamic diagram mode uses asynchronous execution by default in order to improve the efficiency of dynamic diagram execution, and error information are displayed at the last stage of execution. In Figure 3, you can see that the asynchronous execution method of error reporting will have alarm messages that interfere with the error reporting analysis.
 
-   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html>`__\ .
+   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/compute_graph.html>`__\ .
 
 -  Dichotomy Strategy
 
@@ -151,7 +151,7 @@ Strategy Selection
 Problem Recurrence
 ^^^^^^^^^^^^^^^^^^^
 
-Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations. MindSpore provides ideas and methods for fixed randomness. Please refer to \ `Fixed Randomness <https://mindspore.cn/tutorials/experts/en/master/debug/fixing_randomness.html>`__\ for details.
+Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations. MindSpore provides ideas and methods for fixed randomness. Please refer to \ `Fixed Randomness <https://mindspore.cn/tutorials/experts/en/r2.0.0-alpha/debug/fixing_randomness.html>`__\ for details.
 
 Debugging Verification
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -199,7 +199,7 @@ Debugging Verification
 
       4. Check the correspondence between diagram nodes and source code.
 
-      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`__\ .
+      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/debugger.html>`__\ .
 
 Network Execution Debugging
 ----------------------------

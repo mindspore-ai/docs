@@ -3,7 +3,7 @@ MindSpore Dev Toolkit
 
 MindSpore Dev Toolkit is a development kit for MindSpore developers. It uses technologies such as deep learning, intelligent search, and intelligent recommendation to build the best intelligent computing experience, improve the usability of the MindSpore framework, and facilitate the promotion of the MindSpore ecosystem.
 
-MindSpore Dev Toolkit currently provides `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/master/mindspore_project_wizard.html>`_, `Code completion <https://www.mindspore.cn/devtoolkit/docs/en/master/smart_completion.html>`_, `API search <https://www.mindspore.cn/devtoolkit/docs/en/master/operator_search.html>`_, `Document search <https://www.mindspore.cn/devtoolkit/docs/en/master/knowledge_search.html>`_.
+MindSpore Dev Toolkit currently provides `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/mindspore_project_wizard.html>`_, `Code completion <https://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/smart_completion.html>`_, `API search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/operator_search.html>`_, `Document search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/knowledge_search.html>`_.
 
 System Requirements
 ------------------------------
@@ -53,7 +53,7 @@ Installation
 Source Code Build
 ----------------------------
 
-See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs/en/master/compiling.html>`_.
+See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/compiling.html>`_.
 
 .. toctree::
    :glob:

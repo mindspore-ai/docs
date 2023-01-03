@@ -1,12 +1,12 @@
 # Network Migration Debugging Example
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The following uses the classic network ResNet-50 as an example to describe the network migration method in detail based on the code.
 
 ## Model Analysis and Preparation
 
-Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
+Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
 
 First, analyze the algorithm and network structure.
 
@@ -14,7 +14,7 @@ The Residual Neural Network (ResNet) was proposed by Kaiming He et al. from Micr
 
 [Paper](https://arxiv.org/pdf/1512.03385.pdf): Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-The [sample code of PyTorch ResNet-50 CIFAR-10](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch) contains the PyTorch ResNet implementation, CIFAR-10 data processing, network training, and inference processes.
+The [sample code of PyTorch ResNet-50 CIFAR-10](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch) contains the PyTorch ResNet implementation, CIFAR-10 data processing, network training, and inference processes.
 
 ### Checklist
 
@@ -64,15 +64,15 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
 
 | PyTorch API      | MindSpore API| Different or Not|
 | ---------------------- | ------------------ | ------|
-| `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)|
-| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
+| `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_diff/nn_Conv2d.html)|
+| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
 | `nn.ReLU`              | `nn.ReLU`          | No|
-| `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/MaxPool2d.html)|
+| `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_diff/MaxPool2d.html)|
 | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  No |
-| `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Dense.html)|
+| `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_diff/Dense.html)|
 | `torch.flatten`        | `nn.Flatten`       | No|
 
-By checking [PyTorch API Mapping] (https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
+By checking [PyTorch API Mapping] (https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
 
 - Function analysis
 
@@ -174,7 +174,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
 
 ### Network Model Implementation
 
-By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
+By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
 
 ```python
 # Conv2d PyTorch
@@ -655,7 +655,7 @@ The inference accuracy is the same.
 
 ## Training Process
 
-For details about the PyTorch training process, see [PyToch ResNet-50 CIFAR-10 Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch). The log file and trained path are stored in [resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip).
+For details about the PyTorch training process, see [PyToch ResNet-50 CIFAR-10 Sample Code](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch). The log file and trained path are stored in [resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip).
 
 The corresponding MindSpore code is as follows:
 
@@ -753,7 +753,7 @@ else:
 
 Set `use_profilor=True`. The `data` directory is generated in the running directory. Rename the directory `profiler_v1` and run the `mindinsight start` command in the same directory.
 
-![resnet_profiler1](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler1.png)
+![resnet_profiler1](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler1.png)
 
 The following figure shows the MindInsight profiler page. (This analysis is performed in the Ascend environment, which is similar to that in the GPU. The CPU does not support profiler.) There are three parts on the page.
 
@@ -762,63 +762,63 @@ It can be seen that the step trace time and forward and backward execution time 
 
 The second part is the forward and backward network execution time, where you can view details.
 
-![resnet_profiler2](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler2.png)
+![resnet_profiler2](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler2.png)
 
 The upper part shows the proportion of each AI CORE operator to the total time, and the lower part shows the details of each operator.
 
-![resnet_profiler3](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler3.png)
+![resnet_profiler3](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler3.png)
 
 You can click an operator to obtain the execution time, scope, shape, and type of the operator.
 
 In addition to the AI CORE operators, there may be AI CPU and HOST CPU operators on the network. These operators take more time than the AI CORE operators. You can click the tabs to view the time.
 
-![resnet_profiler4](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler4.png)
+![resnet_profiler4](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler4.png)
 
 In addition to viewing the operator performance, you can also view the raw data for analysis.
 
-![resnet_profiler5](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler5.png)
+![resnet_profiler5](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler5.png)
 
 Go to the `profiler_v1/profiler/` directory and click the `aicore_intermediate_0_type.csv` file to view the statistics of each operator. There are 30 AI Core operators in total. The total execution time is 37.526 ms.
 
-![resnet_profiler6](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
+![resnet_profiler6](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
 
-In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
+In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/performance_profiling_ascend.html#timeline-analysis).
 
 The third part is the performance data during data processing. You can view the data queue status in this part.
 
-![resnet_profiler7](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler7.png)
+![resnet_profiler7](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler7.png)
 
 And a queue status of each data processing operation:
 
-![resnet_profiler8](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler8.png)
+![resnet_profiler8](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler8.png)
 
 Now, let's analyze the process and solve the problem.
 
-From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://mindspore.cn/docs/zh-CN/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 When `dataset_sink_mode=True` is set, the result of setting the profiler is as follows:
 
-![resnet_profiler9](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler9.png)
+![resnet_profiler9](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler9.png)
 
 The execution time is reduced by half.
 
-Let's go on with the analysis and optimization. According to the execution time of forward and backward operators, `Cast` and `BatchNorm` account for almost 50%. Why are there so many `Cast`? According to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html), Conv, Sort, and TopK in the Ascend environment can only be float16. Therefore, the `Cast` operator is added before and after Conv calculation. The most direct method is to change the network calculation to float16. Only `Cast` is added before the network input and loss computation. The consumption of the `Cast` operator can be ignored. This involves the mixed precision policy of MindSpore.
+Let's go on with the analysis and optimization. According to the execution time of forward and backward operators, `Cast` and `BatchNorm` account for almost 50%. Why are there so many `Cast`? According to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/model_development/model_development.html), Conv, Sort, and TopK in the Ascend environment can only be float16. Therefore, the `Cast` operator is added before and after Conv calculation. The most direct method is to change the network calculation to float16. Only `Cast` is added before the network input and loss computation. The consumption of the `Cast` operator can be ignored. This involves the mixed precision policy of MindSpore.
 
 MindSpore has three methods to use mixed precision:
 
 1. Use `Cast` to convert the network input `cast` into `float16` and the loss input `cast` into `float32`.
-2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_loss.html).
-3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html#automatic-mix-precision).
+2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/model_development/model_and_loss.html).
+3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/mixed_precision.html#automatic-mix-precision).
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 
-![resnet_profiler10](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler10.png)
+![resnet_profiler10](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler10.png)
 
 Each step takes only 23 ms.
 
 Finally, let's look at data processing.
 
-![resnet_profiler11](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler11.png)
+![resnet_profiler11](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler11.png)
 
 After the sink mode is added, there are two queues in total. The host queue is a queue in the memory. The dataset object continuously places the input data required by the network in the host queue.
 The other is a data queue on the device. The data in the host queue is cached to the data queue, and the network directly obtains the model input from the data queue.
@@ -827,11 +827,11 @@ The host queue is empty in many places, indicating that the dataset is quickly t
 
 If most of the data queues are empty, you need to optimize the data performance. For example:
 
-![resnet_profiler12](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
+![resnet_profiler12](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
 
-In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
+In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/dataset/optimize.html).
 
-The code required for ResNet migration can be obtained from [code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code).
+The code required for ResNet migration can be obtained from [code](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/code).
 
 You can click the following video to learn.
 

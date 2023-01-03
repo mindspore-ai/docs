@@ -1,6 +1,6 @@
 # Applying Second-Order Optimization Practices on the ResNet-50 Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -9,7 +9,7 @@ Common optimization algorithms can be divided into first-order optimization algo
 Based on the existing natural gradient algorithm, the MindSpore development team has developed a usable second-order optimizer THOR by using approximations, tiles and other optimization accelerations for the FIM matrix, which greatly reduces the computational complexity of the inverse matrix. Using eight Ascend 910 AI processors, THOR can complete training the ResNet50-v1.5 network and ImageNet dataset in 72min, nearly doubling the speed compared to SGD+Momentum.
 
 This tutorial will focus on how to train ResNet50-v1.5 network and ImageNet dataset on Ascend 910 and GPU using THOR, a second-order optimizer provided by MindSpore.
-> Download the complete sample code: [Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet).
+> Download the complete sample code: [Resnet](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet).
 
 The directory structure of sample code:
 
@@ -70,11 +70,11 @@ The directory structure is as follows:
 
 #### Ascend 910
 
-Refer to [Distributed Parallel Training (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables) for the configuration of distributed environment variables for the Ascend 910 AI processor.
+Refer to [Distributed Parallel Training (Ascend)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#configuring-distributed-environment-variables) for the configuration of distributed environment variables for the Ascend 910 AI processor.
 
 #### GPU
 
-Refer to [Distributed Parallel Training (GPU)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment) for the configuration of distributed environment variables for the GPU.
+Refer to [Distributed Parallel Training (GPU)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#configuring-distributed-environment) for the configuration of distributed environment variables for the GPU.
 
 ## Loading and Processing the Datasets
 
@@ -168,11 +168,11 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore supports a variety of data processing and augmentation operations, often in combination, as described in the [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html) and [Data Augmentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html) chapters.
+> MindSpore supports a variety of data processing and augmentation operations, often in combination, as described in the [Data Processing](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/dataset.html) and [Data Augmentation](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/dataset.html) chapters.
 
 ## Defining the Networks
 
-The network model used in this example is ResNet50-v1.5, defining the [ResNet50 network](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/resnet.py).
+The network model used in this example is ResNet50-v1.5, defining the [ResNet50 network](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/resnet.py).
 
 After the network is constructed, the defined ResNet50 is called in the `__main__` function.
 
@@ -247,7 +247,7 @@ As can be seen from the parameter update formula, what the THOR optimizer needs 
 
 For more detailed introduction to THOR optimizer, refer to [THOR article](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
 
-When calling the MindSpore-encapsulated second-order optimizer THOR, the optimizer automatically calls the transformation interface to convert the Conv2d layer and Dense layer in the previously defined ResNet50 network into the corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py).
+When calling the MindSpore-encapsulated second-order optimizer THOR, the optimizer automatically calls the transformation interface to convert the Conv2d layer and Dense layer in the previously defined ResNet50 network into the corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/nn/layer/thor_layer.py).
 And the computation and storage of the second-order information matrix can be done in Conv2dThor and DenseThor.
 
 > The network backbone is the same before and after the THOR optimizer conversion, and the network parameters remain unchanged.
@@ -300,7 +300,7 @@ if __name__ == "__main__":
 
 ### Configuring the Training Network
 
-Training of the network can be easily performed through the `model.train` interface provided by MindSpore. The THOR optimizer reduces the volume of computation and improves the computation speed by reducing the frequency of second-order matrix updates, so it redefines a [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/train/train_thor/model_thor.py) class and inherits the Model class provided by MindSpore. Obtaining the second-order matrix update frequency control parameter of THOR in the ModelThor class, users can optimize the overall performance by adjusting this parameter.
+Training of the network can be easily performed through the `model.train` interface provided by MindSpore. The THOR optimizer reduces the volume of computation and improves the computation speed by reducing the frequency of second-order matrix updates, so it redefines a [ModelThor](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/train/train_thor/model_thor.py) class and inherits the Model class provided by MindSpore. Obtaining the second-order matrix update frequency control parameter of THOR in the ModelThor class, users can optimize the overall performance by adjusting this parameter.
 MindSpore provides a one-click conversion interface from Model class to ModelThor class.
 
 ```python
@@ -337,7 +337,7 @@ bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> [CONFIG_PATH]
 
 The script needs to pass in the variables `RANK_TABLE_FILE`, `DATASET_PATH` and `CONFIG_PATH`, where:
 
-- `RANK_TABLE_FILE`: The path of networking information file. (For the generation of rank table files, refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).)
+- `RANK_TABLE_FILE`: The path of networking information file. (For the generation of rank table files, refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/hccl_tools).)
 - `DATASET_PATH`: The path of the training dataset.
 - `CONFIG_PATH`: The path of configuration file.
 

@@ -1,6 +1,6 @@
 # Installing MindPandas
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindpandas/docs/source_en/mindpandas_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Confirming System Environment Information
 
@@ -13,7 +13,7 @@ The following table lists the environment required for installing, compiling and
 |  glibc  |  \>=2.25   |
 
 - Make sure libxml2-utils is installed in your environment.
-- Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt) for other third party dependencies.
+- Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/r2.0.0-alpha/requirements.txt) for other third party dependencies.
 
 ## Version Dependency
 

@@ -1,12 +1,12 @@
 # Experiencing the Python Simplified Concurrent Inference Demo
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_server_inference_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_en/quick_start/quick_start_server_inference_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform concurrent inference. By creating concurrent inference configuration, loading and compiling concurrent Runner, setting concurrent inference task, and executing concurrent inference, it demonstrates the basic process of [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) for server-side concurrent inference, so that users can quickly understand the use of MindSpore Lite to perform concurrent inference-related APIs. The related code is located in [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_server_inference_python) directory.
+This tutorial provides a sample program for MindSpore Lite to perform concurrent inference. By creating concurrent inference configuration, loading and compiling concurrent Runner, setting concurrent inference task, and executing concurrent inference, it demonstrates the basic process of [Python interface](https://mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite.html) for server-side concurrent inference, so that users can quickly understand the use of MindSpore Lite to perform concurrent inference-related APIs. The related code is located in [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_server_inference_python) directory.
 
-The usage scenario simulated by this tutorial: When the server receives inference tasks requested by multiple clients at the same time, it uses the [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html) interface that supports concurrent inference. Multiple inference tasks are performed at the same time and the results are returned to the client.
+The usage scenario simulated by this tutorial: When the server receives inference tasks requested by multiple clients at the same time, it uses the [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.ModelParallelRunner.html) interface that supports concurrent inference. Multiple inference tasks are performed at the same time and the results are returned to the client.
 
 The following is an example of how to use the Python simplified concurrent inference demo on a Linux X86 operating system and a CPU hardware platform, taking Ubuntu 18.04 as an example.
 
@@ -20,9 +20,9 @@ The following is an example of how to use the Python simplified concurrent infer
 
 This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
 
-Go to [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_server_inference_python) directory, and execute the `lite-server-cpu-pip.sh` script to install in one click, taking MindSpore Lite version 1.9.0 as an example. The installation script downloads the model and input data files required for concurrent inference, installs the dependencies required for MindSpore_Lite, and downloads and installs MindSpore Lite that supports concurrent inference.
+Go to [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_server_inference_python) directory, and execute the `lite-server-cpu-pip.sh` script to install in one click, taking MindSpore Lite version 1.9.0 as an example. The installation script downloads the model and input data files required for concurrent inference, installs the dependencies required for MindSpore_Lite, and downloads and installs MindSpore Lite that supports concurrent inference.
 
-Note: This command sets the installed version of MindSpore Lite. Since the Python interface is supported from MindSpore Lite version 1.8.0, the version cannot be set lower than 1.8.0. For the versions that can be set, see the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) for details.
+Note: This command sets the installed version of MindSpore Lite. Since the Python interface is supported from MindSpore Lite version 1.8.0, the version cannot be set lower than 1.8.0. For the versions that can be set, see the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/downloads.html) for details.
 
   ```bash
   MINDSPORE_LITE_VERSION=1.9.0 bash ./lite-server-cpu-pip.sh
@@ -34,7 +34,7 @@ Note: This command sets the installed version of MindSpore Lite. Since the Pytho
 >
 > If you fail to download MindSpore Lite Concurrent Inference Framework by using the script, please manually download [MindSpore Lite Concurrent Model Inference Framework](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0/MindSpore/lite/release/linux/x86_64/server/mindspore_lite-1.9.0-cp37-cp37m-linux_x86_64.whl) for the corresponding hardware platform of CPU and operating system of Linux-x86_64 or [MindSpore Lite Concurrent Model Inference Framework](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0/MindSpore/lite/release/linux/aarch64/server/mindspore_lite-1.9.0-cp37-cp37m-linux_aarch64.whl) for the corresponding hardware platform of CPU and operating system of Linux-aarch64. Users can use the `uname -m` command to query the operating system on the terminal, and copy it to `mindspore/lite/examples/quick_start_server_inference_python` directory.
 >
-> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) locally, noting that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. It should be noted that to generate a MindSpore Lite installation package that supports concurrent inference, and you need to configure the environment variable before compiling: export MSLITE_ENABLE_SERVER_INFERENCE=on. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/quick_start_server_inference_python` directory.
+> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/build.html) locally, noting that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. It should be noted that to generate a MindSpore Lite installation package that supports concurrent inference, and you need to configure the environment variable before compiling: export MSLITE_ENABLE_SERVER_INFERENCE=on. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/quick_start_server_inference_python` directory.
 >
 > If the MindSpore Lite installation package does not exist in the `mindspore/lite/examples/quick_start_server_inference_python` directory, the one-click installation script will uninstall the currently installed MindSpore Lite and then download and install MindSpore Lite from the Huawei image. Otherwise, if the MindSpore Lite installation package exists in the directory, it will install it first.
 >
@@ -48,7 +48,7 @@ Successfully installed mindspore-lite-1.9.0
 
 ## Executing Demo
 
-After one-click installation, go to the [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ lite/examples/quick_start_server_inference_python) directory and execute the following command to experience the MindSpore Lite concurrent inference MobileNetV2 model.
+After one-click installation, go to the [mindspore/lite/examples/quick_start_server_inference_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/ lite/examples/quick_start_server_inference_python) directory and execute the following command to experience the MindSpore Lite concurrent inference MobileNetV2 model.
 
 ```bash
 python quick_start_server_inferece_python.py
@@ -107,12 +107,12 @@ Description of inference results:
 Performing concurrent inference with MindSpore Lite consists of the following main steps:
 
 1. [key variable description](#key-variable-description): Description of the key variables used in concurrent inference.
-2. [Create concurrent inference configuration](#creating-concurrent-inference-configuration): Create the concurrent inference configuration option [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.RunnerConfig.html) to save some basic configuration parameters used to perform the initialization of concurrent inference.
-3. [Concurrent Runner loading and compilation](#concurrent-runner-loading-and-compilation): Before performing concurrent inference, you need to call [init](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
-4. [Set concurrent inference task](#setting-concurrent-inference-task): Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
+2. [Create concurrent inference configuration](#creating-concurrent-inference-configuration): Create the concurrent inference configuration option [RunnerConfig](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.RunnerConfig.html) to save some basic configuration parameters used to perform the initialization of concurrent inference.
+3. [Concurrent Runner loading and compilation](#concurrent-runner-loading-and-compilation): Before performing concurrent inference, you need to call [init](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
+4. [Set concurrent inference task](#setting-concurrent-inference-task): Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
 5. [perform concurrent inference](#performing-concurrent-inference): Start multiple threads and execute the configured concurrent inference tasks. During execution, the single inference time consumption and inference result in concurrent inference are printed, and the total concurrent inference time consumption is printed after the end of the thread.
 
-For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
+For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite.html).
 
 ![img](../images/server_inference.png)
 
@@ -160,7 +160,7 @@ parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKER
 
 ### Concurrent Runner Loading and Compilation
 
-Call [init](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `Model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
+Call [init](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.init) interface of `ModelParallelRunner` for concurrent Runner initialization, mainly for model reading, loading `RunnerConfig` configuration, creating concurrency, and subgraph slicing and operator selection scheduling. The `ModelParallelRunner` can be understood as a `Model` that supports concurrent inference. This phase can take more time, so it is recommended that `ModelParallelRunner` be initialized once and perform concurrent inference multiple times.
 
 ```python
 # Build ModelParallelRunner from file
@@ -170,7 +170,7 @@ model_parallel_runner.init(model_path="./model/mobilenetv2.ms", runner_config=pa
 
 ### Setting Concurrent Inference Task
 
-Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
+Create multiple threads and bind concurrent inference tasks. The inference tasks include populating the `Input Tensor` with data, using the [predict](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict) interface of `ModelParallelRunner` for concurrent inference and getting inference results via the `output Tensor`.
 
 ```python
 def parallel_runner_predict(parallel_runner, parallel_id):

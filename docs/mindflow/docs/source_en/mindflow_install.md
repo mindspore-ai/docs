@@ -1,12 +1,12 @@
 # MindFlow Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindflow/docs/source_en/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindflow/docs/source_en/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## System Environment Information Confirmation
 
 - The hardware platform should be Ascend, GPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
-- All other dependencies are included in [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py).
+- All other dependencies are included in [setup.py](https://gitee.com/mindspore/mindarmour/blob/r2.0.0-alpha/setup.py).
 
 ## Installation
 

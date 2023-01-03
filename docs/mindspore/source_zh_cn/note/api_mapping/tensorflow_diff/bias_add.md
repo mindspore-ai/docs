@@ -1,6 +1,6 @@
 # 比较与tf.nn.bias_add的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/bias_add.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/bias_add.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.nn.bias_add
 
@@ -16,7 +16,7 @@ class tf.nn.bias_add(value, bias, data_format=None, name=None)
 mindspore.ops.bias_add(input_x, bias)
 ```
 
-更多内容详见[mindspore.ops.bias_add](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bias_add.html?highlight=bias_add)。
+更多内容详见[mindspore.ops.bias_add](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.bias_add.html?highlight=bias_add)。
 
 ## 差异对比
 

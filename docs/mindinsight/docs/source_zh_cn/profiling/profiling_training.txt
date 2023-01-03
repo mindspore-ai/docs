@@ -31,7 +31,7 @@
 
   .. note::
       Profiler支持的参数可以参考：
-      `Profiler API <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
+      `Profiler API <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
       Profiler初始化之前需要确定device_id。
 
   - 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
@@ -84,7 +84,7 @@
   用户可以通过设置初始化参数start_profile为False来决定暂时不开启Profiler，然后通过调用start函数来在适当的时机开启Profiler，再调用stop函数停止收集数据，最后调用analyse解析数据。
   用户可以借助Callback基于step、epoch开启关闭Profiler，只收集制定step或者epoch的数据；在数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
 
-  - 对于非数据下沉，需要基于step开启，`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
+  - 对于非数据下沉，需要基于step开启，`非数据下沉完整代码样例 <https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
 
     .. code:: python
 
@@ -138,7 +138,7 @@
             def end(self, run_context):
                 self.profiler.analyse()
 
-  - 自定义训练，`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_
+  - 自定义训练，`完整代码样例 <https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_
 
     .. code:: python
 

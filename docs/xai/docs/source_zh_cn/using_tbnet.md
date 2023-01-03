@@ -1,6 +1,6 @@
 # 使用 TB-Net 白盒推荐模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tbnet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/xai/docs/source_zh_cn/using_tbnet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 什么是 TB-Net
 
@@ -18,7 +18,7 @@ TB-Net是一个基于知识图谱的可解释推荐系统，它将用户和商�
 wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/tbnet_data.tar.gz
 tar -xf tbnet_data.tar.gz
 
-git clone https://gitee.com/mindspore/xai.git
+git clone https://gitee.com/mindspore/xai.git -b r2.0.0-alpha
 mv data xai/models/whitebox/tbnet
 ```
 
@@ -53,11 +53,11 @@ mv data xai/models/whitebox/tbnet
 
 ### 准备 Python 环境
 
-TB-Net 是 XAI 的一部份，用户在安装好 [MindSpore](https://mindspore.cn/install) 及 [XAI](https://www.mindspore.cn/xai/docs/zh-CN/master/installation.html) 后即可使用，支持 GPU。
+TB-Net 是 XAI 的一部份，用户在安装好 [MindSpore](https://mindspore.cn/install) 及 [XAI](https://www.mindspore.cn/xai/docs/zh-CN/r2.0.0-alpha/installation.html) 后即可使用，支持 GPU。
 
 ## 数据预处理
 
-本步骤的完整用例代码：[preprocess.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/preprocess.py) 。
+本步骤的完整用例代码：[preprocess.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/preprocess.py) 。
 
 在训练 TB-Net 前我们必须把原始数据转换为关系路径数据。
 
@@ -83,7 +83,7 @@ Steam 数据集的所有原始数据文件都拥有完全相同的 CSV 格式，
 
 - `src_train.csv`：训练用，在总体上，`p` 评级的商品行数要和 `c`、`x` 评级的商品行数之和大致持平，可以使用二次采样达致，无须为每个用户列出所有的商品。
 - `src_test.csv`：评估用，跟 `src_train.csv` 一样， 但数据量较少。
-- `src_infer.csv`：推理用，只能含有一个用户的数据，而且要把所有 `c`、`p` 及 `x` 评级的商品都列出。在 [preprocess.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/preprocess.py) 中，只有 `c` 或 `x` 评级的商品才会成为关系路径数据中的候选推荐商品。
+- `src_infer.csv`：推理用，只能含有一个用户的数据，而且要把所有 `c`、`p` 及 `x` 评级的商品都列出。在 [preprocess.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/preprocess.py) 中，只有 `c` 或 `x` 评级的商品才会成为关系路径数据中的候选推荐商品。
 
 ### 转换为关系路径数据
 
@@ -140,7 +140,7 @@ python preprocess.py
 
 ## 训练及评估
 
-本步骤的完整用例代码：[train.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/train.py) 。
+本步骤的完整用例代码：[train.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/train.py) 。
 
 ```python
 from src.tbnet import TBNet, NetWithLossCell, TrainStepWrapCell, EvalNet
@@ -174,7 +174,7 @@ for i in range(args.epochs):
     print(f'checkpoint saved: {ckpt_path}')
 ```
 
-从以上的 [train.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/train.py) 代码可见 `tbnet.py`、`dataset.py` 及 `metrics.py` 提供了所有训练TB-Net所需要的类。代码用 `./data/steam/train.csv` 及 `./data/steam/test.csv` 构造了 `Dataset` 对象以进行训练及评估。
+从以上的 [train.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/train.py) 代码可见 `tbnet.py`、`dataset.py` 及 `metrics.py` 提供了所有训练TB-Net所需要的类。代码用 `./data/steam/train.csv` 及 `./data/steam/test.csv` 构造了 `Dataset` 对象以进行训练及评估。
 
 ### 执行 train.py
 
@@ -188,7 +188,7 @@ python train.py
 
 ## 推理及解释
 
-本步骤的完整用例代码：[infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py) 。
+本步骤的完整用例代码：[infer.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/infer.py) 。
 
 ```python
 from src.tbnet import TBNet
@@ -231,7 +231,7 @@ for suggest in suggestions:
             break
 ```
 
-从以上的 [infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py) 代码可见 `Recommender` 收集 TB-Net 的推埋结果并给出top-k推荐商品，每个推荐商品都会伴随一个按重要性由高到低排列的关系路径序列作为解释。所有由 `Recommender` 返回的ID及关系名称均源自 `./data/steam/src_train.csv`，并且暂存于 `./data/steam/id_maps.json`。
+从以上的 [infer.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/infer.py) 代码可见 `Recommender` 收集 TB-Net 的推埋结果并给出top-k推荐商品，每个推荐商品都会伴随一个按重要性由高到低排列的关系路径序列作为解释。所有由 `Recommender` 返回的ID及关系名称均源自 `./data/steam/src_train.csv`，并且暂存于 `./data/steam/id_maps.json`。
 
 ### 执行 infer.py
 
@@ -245,7 +245,7 @@ python infer.py --checkpoint_id 19
 
 ## 导出已训练模型
 
-本步骤的完整用例代码：[export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 。
+本步骤的完整用例代码：[export.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/export.py) 。
 
 ```python
 import mindspore as ms
@@ -267,7 +267,7 @@ file_name = os.path.realpath(args.file_name)
 ms.export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-从以上的 [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export) 导出已训练模型是十分简单直接的。
+从以上的 [export.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.export.html#mindspore.export) 导出已训练模型是十分简单直接的。
 
 ### 执行 export.py
 
@@ -281,4 +281,4 @@ python export.py --config_path ./data/steam/config.json --checkpoint_path ./chec
 
 ## 用例脚本参数及模型性能指标
 
-请参考 [README_CN.md](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/README_CN.md#) 以了解各个用例脚本的详细参数及模型性能指标。
+请参考 [README_CN.md](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/models/whitebox/tbnet/README_CN.md#) 以了解各个用例脚本的详细参数及模型性能指标。

@@ -1,12 +1,12 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/tensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/tensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || **Tensor** || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html) || **Tensor** || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html)
 
 # Tensor
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 
-A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
+A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
 
 ```python
 import numpy as np
@@ -41,11 +41,11 @@ x_np = Tensor(np_array)
 
 When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-- `init`: supports the subclass of [initializer](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html).
+- `init`: supports the subclass of [initializer](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.common.initializer.html).
 
 - `shape`: supports `list`, `tuple`, and `int`.
 
-- `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
+- `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.html#mindspore.dtype).
 
 ```python
 from mindspore.common.initializer import One, Normal
@@ -287,7 +287,7 @@ The compressed sparse row (`CSR`) is efficient in both storage and computation. 
 
 - `shape`: indicates the shape of a compressed sparse tensor. The data type is `Tuple`. Currently, only 2-D `CSRTensor` is supported.
 
-> For details about `CSRTensor`, see [mindspore.CSRTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CSRTensor.html).
+> For details about `CSRTensor`, see [mindspore.CSRTensor](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.CSRTensor.html).
 
 The following are some examples of using the CSRTensor:
 
@@ -328,7 +328,7 @@ The `COO` (Coordinate Format) sparse tensor format is used to represent a collec
 
 - `shape`: indicates the shape of a compressed sparse tensor. Currently, only 2-D `COOTensor` is supported.
 
-> For details about `COOTensor`, see [mindspore.COOTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.COOTensor.html).
+> For details about `COOTensor`, see [mindspore.COOTensor](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.COOTensor.html).
 
 The following are some examples of using COOTensor:
 

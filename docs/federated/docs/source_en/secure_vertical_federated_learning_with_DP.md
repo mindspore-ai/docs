@@ -1,6 +1,6 @@
 # Vertical Federated - Label Protection Based on Differential Privacy
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -43,7 +43,7 @@ The implementation of this scheme is divided into the binary case and the onehot
 
 ## Quick Experience
 
-We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to add label dp to a vertical federated model protection.
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo) as an example of how to add label dp to a vertical federated model protection.
 
 ### Front-End Needs
 
@@ -55,7 +55,7 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
    python -m pip install -r requirements_test.txt
    ```
 
-3. Prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+3. Prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo).
 
 ### Starting the Script
 
@@ -112,7 +112,7 @@ INFO:root:epoch 0 step 2500/2582 loss: 0.545622
 
 ## Deep Experience
 
-We take the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example to introduce the specific operation method of adding label dp protection in the vertical federated model.
+We take the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo) as an example to introduce the specific operation method of adding label dp protection in the vertical federated model.
 
 ### Front-End Needs
 
@@ -120,9 +120,9 @@ Same as [Quick Experience](#quick-experience): Install MindSpore, Install MindSp
 
 ### Option 1: Call the integrated label dp function in the FLModel class
 
-MindSpore Federated uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
+MindSpore Federated uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/vertical/vertical_federated_FLModel.html) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
 
-We have integrated the label dp function in the `FLModel` class. After the normal completion of modeling the entire vertical federated learning training process (for detailed vFl training, see [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://www.mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html)), users can simply add the `label_dp` submodule under the `privacy` module in the yaml file of the label side (or add it by user if there is no `privacy` module), and set the `eps` parameter in the `label_dp` module (differential privacy parameter $\epsilon$, the user can set the value of this parameter according to the actual needs). Let the model enjoy label dp protection:
+We have integrated the label dp function in the `FLModel` class. After the normal completion of modeling the entire vertical federated learning training process (for detailed vFl training, see [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/split_pangu_alpha_application.html)), users can simply add the `label_dp` submodule under the `privacy` module in the yaml file of the label side (or add it by user if there is no `privacy` module), and set the `eps` parameter in the `label_dp` module (differential privacy parameter $\epsilon$, the user can set the value of this parameter according to the actual needs). Let the model enjoy label dp protection:
 
 ```yaml
 privacy:

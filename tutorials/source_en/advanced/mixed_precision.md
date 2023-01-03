@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 # Automatic Mix Precision
 
@@ -41,7 +41,7 @@ Based on the principles described above, a typical mixed precision computation p
 6. Dividing by the Loss scale value to restore the amplified gradient.
 7. Determine if there is an overflow in the gradient, and skip the update if there is an overflow, otherwise the optimizer updates the original parameters with FP32.
 
-In the following, we demonstrate the automatic mixed precision implementation of MindSpore by importing the handwritten digit recognition model and dataset from [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
+In the following, we demonstrate the automatic mixed precision implementation of MindSpore by importing the handwritten digit recognition model and dataset from [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html).
 
 ```python
 import mindspore as ms
@@ -264,7 +264,7 @@ It can be seen that the loss convergence is normal and there is no overflow prob
 
 MindSpore supports a programming paradigm that uses Cell to encapsulate the full computational graph. When the `mindspore.amp.build_train_network` interface can be used to automatically perform the type conversion and pass in the Loss Scale as part of the full graph computation. At this point, you only need to configure the mixed precision level and `LossScaleManager` to get the computational graph with the configured automatic mixed precision.
 
-`FixedLossScaleManager` and `DynamicLossScaleManager` are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/master/api_python/mindspore.amp.html).
+`FixedLossScaleManager` and `DynamicLossScaleManager` are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.amp.html).
 
 > Automated mixed precision training with `Cell` configuration supports only `GPU` and `Ascend`.
 

@@ -1,6 +1,6 @@
 # 比较与torch.index_select的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/examples/api_mapping_no_diffs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/examples/api_mapping_no_diffs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.index_select
 
@@ -16,7 +16,7 @@ torch.index_select(input, dim,index) -> Tensor
 mindspore.ops.gather(input_params, input_indices, axis) -> Tensor
 ```
 
-更多内容详见 [mindspore.ops.gather](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.gather.html)。
+更多内容详见 [mindspore.ops.gather](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.gather.html)。
 
 ## 差异对比
 

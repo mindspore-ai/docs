@@ -1,6 +1,6 @@
 # Distributed Parallel Training Mode
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 In deep learning, as the size of the dataset and the number of parameters grows, the time and hardware resources required for training increase, which eventually become a bottleneck that constrains training. Distributed parallel training, which can reduce the need for hardware such as memory and computational performance, is an important optimization tool for conducting training. According to the different principles and modes of parallelism, the following types of parallelism are mainstream in the industry:
 
@@ -15,7 +15,7 @@ Currently MindSpore also provides distributed parallel training, which supports 
 
     - `dynamic_programming`: Dynamic programming strategy search algorithm. Capable of searching the optimal strategy inscribed by the cost model, but time consuming in searching parallel strategy for huge network models. Its cost model models training time based on the memory-based computational overhead and communication overhead of the Ascend 910 chip.
     - `recursive_programming`: Double recursive strategy search algorithm. The optimal strategy can be generated instantaneously for huge networks and large-scale multi-card slicing. Its cost model based on symbolic operations can be freely adapted to different accelerator clusters.
-    - `sharding_propagation`: Sharding strategy propagation algorithm. The parallel strategy are propagated from operators configured with parallel strategy to operators that are not configured. When propagating, the algorithm tries to select the strategy that triggers the least amount of tensor rescheduling communication. For the parallel strategy configuration and tensor rescheduling of the operator, refer to this [design document](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#principle-of-automatic-parallelism).
+    - `sharding_propagation`: Sharding strategy propagation algorithm. The parallel strategy are propagated from operators configured with parallel strategy to operators that are not configured. When propagating, the algorithm tries to select the strategy that triggers the least amount of tensor rescheduling communication. For the parallel strategy configuration and tensor rescheduling of the operator, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/distributed_training_design.html#principle-of-automatic-parallelism).
 
 - `SEMI_AUTO_PARALLEL`: Semi-automatic parallel mode, compared to automatic parallel, requires the user to manually configure the shard strategy for the operator to achieve parallelism.
 - `HYBRID_PARALLEL`: In MindSpore, it refers specifically to scenarios where the user achieves hybrid parallel by manually slicing the model.
@@ -33,7 +33,7 @@ The usage and considerations of these four modes will be described in detail in 
 
 Currently MindSpore provides distributed parallel training. It supports multiple modes as mentioned above, and the corresponding parallel mode can be set via the `set_auto_parallel_context()` interface.
 
-When users invoke the distributed training process, they need to call the following code to initialize the communication and configure the corresponding rank_table_file, which can be found the **Multi-host Training** section in the [Distributed Training (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#multi-host-training).
+When users invoke the distributed training process, they need to call the following code to initialize the communication and configure the corresponding rank_table_file, which can be found the **Multi-host Training** section in the [Distributed Training (Ascend)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#multi-host-training).
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size
@@ -65,7 +65,7 @@ The following involves automatic parallel interfaces, such as the interface conf
 
 ### Data Parallelism
 
-In data parallelism, the way that the user defines the network is the same as a standalone script, but call [init()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.init) before the network definition to initialize the device communication state.
+In data parallelism, the way that the user defines the network is the same as a standalone script, but call [init()](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.communication.html#mindspore.communication.init) before the network definition to initialize the device communication state.
 
 ```python
 import numpy as np
@@ -98,7 +98,7 @@ model.train(*args, **kwargs)
 
 ### Semi-automatic Parallism
 
-Compared to automatic parallelism, the semi-automatic parallel mode requires the user to manually configure the shard **strategy** for the operator to achieve parallelism. For the operator parallel strategy definition, refer to this [design document](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#principle-of-automatic-parallelism).
+Compared to automatic parallelism, the semi-automatic parallel mode requires the user to manually configure the shard **strategy** for the operator to achieve parallelism. For the operator parallel strategy definition, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/distributed_training_design.html#principle-of-automatic-parallelism).
 
 - When starting semi-automatic and automatic modes for training, training **must** be performed via the `model.train(*args, **kwargs)` interface. Custom loops for network training are not supported.
 
@@ -154,7 +154,7 @@ Compared to automatic parallelism, the semi-automatic parallel mode requires the
     model.train(*args, **kwargs)
     ```
 
-In case the device matrices of the preceding and following operators do not match, a [rescheduling](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#principle-of-automatic-parallelism) is automatically inserted to ensure that the shard state of `tensor` matches the next operator input requirement. For example, the following example code is used in the training of single machine eight-card：
+In case the device matrices of the preceding and following operators do not match, a [rescheduling](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/distributed_training_design.html#principle-of-automatic-parallelism) is automatically inserted to ensure that the shard state of `tensor` matches the next operator input requirement. For example, the following example code is used in the training of single machine eight-card：
 
 ```python
 import numpy as np
@@ -187,13 +187,13 @@ class SemiAutoParallelNet(nn.Cell):
         return x
 ```
 
-Therefore, the inserted rescheduling operators may be `AllGather`, `Split`, `Concat` and `StridedSlice` operators if the operators before and after have different requirements for input slicing, which will increase the computation and communication time consuming of the network. The user can [save ir graph](https://www.mindspore.cn/docs/en/master/design/mindir.html) to view the operator status of the whole network. The automatic parallel process produces `ir` graphs named `step_parallel_begin_xxxx.ir` and `step_parallel_end_xxxx.ir`. The former indicates the graph state before entering the parallel process, and the latter indicates the graph state after the automatic parallel process. Users can view this latter one to find the operators inserted in automatic parallelism.
+Therefore, the inserted rescheduling operators may be `AllGather`, `Split`, `Concat` and `StridedSlice` operators if the operators before and after have different requirements for input slicing, which will increase the computation and communication time consuming of the network. The user can [save ir graph](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/mindir.html) to view the operator status of the whole network. The automatic parallel process produces `ir` graphs named `step_parallel_begin_xxxx.ir` and `step_parallel_end_xxxx.ir`. The former indicates the graph state before entering the parallel process, and the latter indicates the graph state after the automatic parallel process. Users can view this latter one to find the operators inserted in automatic parallelism.
 
 > - In semi-automatic parallel mode, the operators that are not configured with strategy is executed in data parallel by default, corresponding to the data parallelism of all cards.
 > - Automatic parallel mode supports automatic acquisition of efficient operator parallel strategy through strategy search algorithms, and also supports users manually configure specific parallel strategy for operators.
 > - If a `parameter` is used by more than one operator, the shard strategy of each operator for this `parameter` needs to be consistent, otherwise an error will be reported.
 
-Pipeline parallel is also possible in automatic and semi-automatic modes by configuring the `pipeline_stage` property on the `Cell`. The corresponding tutorial on pipeline parallelism can be found in [Applying Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html).
+Pipeline parallel is also possible in automatic and semi-automatic modes by configuring the `pipeline_stage` property on the `Cell`. The corresponding tutorial on pipeline parallelism can be found in [Applying Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html).
 
 ### Fully Automatic Parallelism
 
@@ -267,9 +267,9 @@ model.train(*args, **kwargs)
 
 Currently GPU, Ascend and CPU support multiple startup methods respectively. The three main methods are OpenMPI, dynamic networking and multi-process startup.
 
-- Multi-process startup method. The user needs to start the processes corresponding to the number of cards, as well as configure the rank_table table. You can visit [Running Script](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script) to learn how to start multi-card tasks by multi-processing.
-- OpenMPI. The user can start running the script with the mpirun command, at which point the user needs to provide the host file. Users can visit [Run Scripts via OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi) to learn how to use OpenMPI to start multi-card tasks.
-- Dynamic Networking. MindSpore uses built-in dynamic networking module and has no need to rely on external configuration files or modules to help implement multi-card tasks. Users can visit [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) to learn how to use dynamic networking to start multi-card tasks.
+- Multi-process startup method. The user needs to start the processes corresponding to the number of cards, as well as configure the rank_table table. You can visit [Running Script](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#running-the-script) to learn how to start multi-card tasks by multi-processing.
+- OpenMPI. The user can start running the script with the mpirun command, at which point the user needs to provide the host file. Users can visit [Run Scripts via OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#running-the-script-through-openmpi) to learn how to use OpenMPI to start multi-card tasks.
+- Dynamic Networking. MindSpore uses built-in dynamic networking module and has no need to rely on external configuration files or modules to help implement multi-card tasks. Users can visit [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#training-without-relying-on-openmpi) to learn how to use dynamic networking to start multi-card tasks.
 
 |              | GPU  |  Ascend| CPU |
 | ------------ | ---- | -----  | ------------ |

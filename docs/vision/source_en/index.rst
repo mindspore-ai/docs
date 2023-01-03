@@ -6,7 +6,7 @@ MindSpore Vision is an open source computer vision research toolboxbased on Mind
 Scenarios where MindSpore Vision is applied
 -------------------------------------------
 
-- `Classification <https://gitee.com/mindspore/vision/blob/master/mindvision/classification/README_en.md>`_
+- `Classification <https://gitee.com/mindspore/vision/blob/r2.0.0-alpha/mindvision/classification/README_en.md>`_
 
   Image classification toolbox and benchmark.
 

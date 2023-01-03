@@ -1,6 +1,6 @@
 # 算子级并行
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -68,7 +68,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel)。
+> 下载完整的样例代码：[operator_parallel](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/operator_parallel)。
 
 目录结构如下：
 
@@ -85,7 +85,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 配置分布式环境
 
-分布式环境的配置可参考：[配置分布式环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)教程。
+分布式环境的配置可参考：[配置分布式环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_ascend.html#配置分布式环境变量)教程。
 
 ### 定义网络
 

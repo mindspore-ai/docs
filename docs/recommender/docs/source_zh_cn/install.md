@@ -1,6 +1,6 @@
 # 安装MindSpore Recommender
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/recommender/docs/source_zh_cn/install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 MindSpore Recommender依赖MindSpore训练框架，安装完[MindSpore](https://gitee.com/mindspore/mindspore#安装)，再安装MindSpore Recommender。可以采用pip安装或者源码编译安装两种方式。
 

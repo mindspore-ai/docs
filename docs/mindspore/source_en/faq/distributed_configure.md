@@ -1,10 +1,10 @@
 # Distributed Configuration
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: What should I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?**</font>
 
-A: When the user starts distributed training on the Ascend and meets the error that HCCL fails to be initialized, the possible cause is that `rank_table.json` is incorrect. You can use the tool in [hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py) to generate new `rank_table.json`. Alternatively, set the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the ERROR log information.
+A: When the user starts distributed training on the Ascend and meets the error that HCCL fails to be initialized, the possible cause is that `rank_table.json` is incorrect. You can use the tool in [hccl_tools.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/utils/hccl_tools/hccl_tools.py) to generate new `rank_table.json`. Alternatively, set the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the ERROR log information.
 
 <br/>
 
@@ -69,7 +69,7 @@ Solution: Manually `kill` the training process. According to the error log, set 
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
 ```
 
-A: In the case where the user does not start the process using `mpirun` but still calls the `init()` method, MindSpore requires the user to configure several environment variables and verify according to [training and do not rely on OpenMPI for training]( https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练). If without configuring, MindSpore may display the above error message. Therefore, it is suggested that only when performing distributed training, `mindspore.communication.init` is called, and in the case of not using `mpirun`, it is configured the correct environment variables according to the documentation to start distributed training.
+A: In the case where the user does not start the process using `mpirun` but still calls the `init()` method, MindSpore requires the user to configure several environment variables and verify according to [training and do not rely on OpenMPI for training]( https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_gpu.html#不依赖openmpi进行训练). If without configuring, MindSpore may display the above error message. Therefore, it is suggested that only when performing distributed training, `mindspore.communication.init` is called, and in the case of not using `mpirun`, it is configured the correct environment variables according to the documentation to start distributed training.
 
 <br/>
 

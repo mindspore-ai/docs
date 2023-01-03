@@ -1,6 +1,6 @@
 # Static Graph Syntax Support
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -9,9 +9,9 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 Currently, the function, and class (including Cell, Cell subclass, `@jit_class` decorated class, and common user defined class) methods modified by the `@jit` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).
+For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
-For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html).
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted.
 
@@ -523,7 +523,7 @@ Currently, MindSpore supports the following user-defined data types: `Tensor`, `
 
 Currently, tensors can be constructed in the network.
 
-For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
+For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
 #### Primitive
 
@@ -565,7 +565,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the defined `Primitive`, click [Primitive API document](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
+For details about the defined `Primitive`, click [Primitive API document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
 
 #### Cell
 
@@ -575,13 +575,13 @@ However, during call, the parameter can be specified only in position parameter 
 
 Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `construct` of `Cell`.
 
-For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html).
 
 #### Parameter
 
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
 
-For details about the definition of `Parameter`, click [Parameter API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
+For details about the definition of `Parameter`, click [Parameter API document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
 
 ## Primaries
 
@@ -640,7 +640,7 @@ Index value of `List` refers to chapter [List](#list) of this page.
 
 Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
 
-Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/master/note/index_support.html#index-values).
+Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/index_support.html#index-values).
 
 ### Calls
 
@@ -681,7 +681,7 @@ ret:[[3. 3. 3. 3.]]
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`.
 
-For details about the rules, click [conversion-rules](https://www.mindspore.cn/docs/en/master/note/operator_list_implicit.html#conversion-rules).
+For details about the rules, click [conversion-rules](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/operator_list_implicit.html#conversion-rules).
 
 ### Unary Arithmetic Operators
 
@@ -743,7 +743,7 @@ Notes:
 
   Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
 
-  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#attribute-references).
+  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html#attribute-references).
 
 - If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
 
@@ -807,7 +807,7 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
+- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/network/control_flow.html#shapejoin-rules).
 
 Example 1:
 
@@ -960,7 +960,7 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
+- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/network/control_flow.html#shapejoin-rules).
 
 - The `while...else...` statement is not supported.
 
@@ -2434,20 +2434,20 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html) decorator.
+- Common Python function with the [@jit](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.jit.html) decorator.
 
-- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html).
 
 ### Network Construction Components
 
 | Category                             | Content                                                      |
 | :----------------------------------- | :----------------------------------------------------------- |
-| `Cell` instance                      | [mindspore/nn/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html). |
+| `Cell` instance                      | [mindspore/nn/*](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html). |
 | Member function of a `Cell` instance | Member functions of other classes in the construct function of Cell can be called. |
-| `jit_class` instance                 | Class decorated with [@jit_class](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit_class.html). |
-| `Composite` operator                 | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) |
-| `Composite` operator                 | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) |
-| `constexpr` generation operator      | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.constexpr.html). |
+| `jit_class` instance                 | Class decorated with [@jit_class](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.jit_class.html). |
+| `Composite` operator                 | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.ops.primitive.html) |
+| `Composite` operator                 | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.ops.primitive.html) |
+| `constexpr` generation operator      | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.constexpr.html). |
 | Function                             | User-defined Python functions and system functions listed in the preceding content. |
 
 ### Network Constraints

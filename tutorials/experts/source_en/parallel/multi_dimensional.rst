@@ -2,7 +2,7 @@ Multi Dimensional
 =================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/multi_dimensional.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/multi_dimensional.rst
 
 .. toctree::
   :maxdepth: 1
@@ -45,8 +45,8 @@ MindSpore provides the following advanced features to support
 distributed training of large models, and users can flexibly combine
 them according to their own needs.
 
-`Operator Parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/operator_parallel.html>`__
----------------------------------------------------------------------------------------------------------------
+`Operator Parallel <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/operator_parallel.html>`__
+--------------------------------------------------------------------------------------------------------------------
 
 Operator-level parallelism is a distributed computation of operators by
 splitting their input tensors into multiple devices in units. On the one
@@ -61,8 +61,8 @@ according to the sharding strategy of the operator, so that the
 computational logic of the operator remains mathematically equivalent
 before and after the sharding.
 
-`Pipeline Parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html>`__
-------------------------------------------------------------------------------------------------------------
+`Pipeline Parallel <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html>`__
+--------------------------------------------------------------------------------------------------------------------
 
 When there are a large number of cluster devices, if only the operator
 level is used in parallel, communication needs to be carried out on the
@@ -79,8 +79,8 @@ communication efficiency and easily handle layered neural network
 structures. The disadvantage is that some nodes may be idle at the same
 time.
 
-`Optimizer Parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html>`__
-----------------------------------------------------------------------------------------------------------------
+`Optimizer Parallel <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html>`__
+---------------------------------------------------------------------------------------------------------------------
 
 When training in parallel with data or operators, the parameters of the
 model may have the same copy on multiple devices. This allows the
@@ -91,8 +91,8 @@ has the advantage of reducing static memory consumption and reducing the
 amount of computation in the optimizer. The disadvantage is that it
 increases the communication overhead.
 
-`Host Device Training <https://www.mindspore.cn/tutorials/experts/en/master/parallel/host_device_training.html>`__
-------------------------------------------------------------------------------------------------------------------
+`Host Device Training <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/host_device_training.html>`__
+--------------------------------------------------------------------------------------------------------------------------
 
 When training large models, the overall size of the model that can be
 trained will be limited by the number of devices due to the limited
@@ -103,8 +103,8 @@ memory on the host side and the fast calculation on the accelerator
 side, and is an effective way to reduce the number of devices during the
 training of the super-large model.
 
-`Recompute <https://www.mindspore.cn/tutorials/experts/en/master/parallel/recompute.html>`__
---------------------------------------------------------------------------------------------
+`Recompute <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/recompute.html>`__
+----------------------------------------------------------------------------------------------------
 
 MindSpore automatically derives the reverse graph according to the
 forward graph calculation process, and the forward graph and the inverse
@@ -121,8 +121,8 @@ the calculation results of the forward activation layer, so that the
 memory can be reused, and then when calculating the reverse part,
 recalculate the results of the forward activation layer.
 
-`Distributed graph partition <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_graph_partition.html>`__
-----------------------------------------------------------------------------------------------------------------------------------
+`Distributed graph partition <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/distributed_graph_partition.html>`__
+----------------------------------------------------------------------------------------------------------------------------------------
 
 MindSpore supports user-defined slicing of a compute graph, and MindSpore can slice any operator in the compute graph to any process according to the user parameters, making full use of the compute resources on the nodes where different processes are located, to perform distributed training and other tasks. After distributed graph partition, the execution results of compute tasks remain the same as those of a single-machine and single-card copy.
 

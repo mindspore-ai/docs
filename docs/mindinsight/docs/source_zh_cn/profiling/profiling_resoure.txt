@@ -47,7 +47,7 @@ CPU利用率常用场景:
 
 .. note::
    默认采样间隔为1000ms，用户可以通过\ ``mindspore.dataset.config.get_monitor_sampling_interval()``\ 来改变采样间隔。详情参考：
-   `dataset API sampling interval <https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_monitor_sampling_interval.html#mindspore.dataset.config.set_monitor_sampling_interval>`_ 。
+   `dataset API sampling interval <https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/dataset/mindspore.dataset.config.set_monitor_sampling_interval.html#mindspore.dataset.config.set_monitor_sampling_interval>`_ 。
 
 内存使用情况分析
 ~~~~~~~~~~~~~~~~

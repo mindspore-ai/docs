@@ -1,6 +1,6 @@
 # Offline Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_en/offline_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/recommender/docs/source_en/offline_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,4 +14,4 @@ The training architecture for large-scale feature vectors in recommendation mode
 
 ## Example
 
-[Wide&Deep distributed training](https://gitee.com/mindspore/recommender/tree/master/models/wide_deep)
+[Wide&Deep distributed training](https://gitee.com/mindspore/recommender/tree/r2.0.0-alpha/models/wide_deep)

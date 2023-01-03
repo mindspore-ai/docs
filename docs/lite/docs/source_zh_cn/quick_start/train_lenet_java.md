@@ -1,6 +1,6 @@
 # 基于Java接口实现端侧训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_zh_cn/quick_start/train_lenet_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -25,12 +25,12 @@
 首先克隆源码，然后编译MindSpore Lite端侧训练Java包，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r2.0.0-alpha
 cd mindspore
 bash build.sh -I x86_64 -j8
 ```
 
-编译环境要求以及环境变量设置，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)章节。
+编译环境要求以及环境变量设置，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/build.html)章节。
 本教程使用的示例源码在`mindspore/lite/examples/train_lenet_java`目录。
 
 ### 下载数据集
@@ -64,7 +64,7 @@ MNIST_Data/
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 
-    > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)，自行转换出LeNet模型。
+    > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/converter_train.html)，自行转换出LeNet模型。
     >
     > /PATH/MNIST_Data/是MNIST数据集所在路径。
 
@@ -123,7 +123,7 @@ train_lenet_java
 
 ### 编写端侧推理代码
 
-详细的Java接口使用请参考<https://www.mindspore.cn/lite/api/zh-CN/master/index.html>。
+详细的Java接口使用请参考<https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/index.html>。
 
 1. 加载并编译MindSpore Lite模型文件，构建会话。
 

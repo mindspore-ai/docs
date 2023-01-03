@@ -1,6 +1,6 @@
 # Dataset Slicing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -12,7 +12,7 @@ When performing distributed training, taking image data as an example, when the 
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training>
 
 The directory structure is as follows:
 
@@ -31,7 +31,7 @@ The directory structure is as follows:
 
 > Dataset slicing is only supported in full/semi-automatic mode and is not involved in data parallel mode.
 
-When using dataset slicing, you need to call the [SlicePatches](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html) interface to construct the dataset at the same time. To ensure that the read-in data is consistent across cards, the dataset needs to be fixed with a random number seed.
+When using dataset slicing, you need to call the [SlicePatches](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html) interface to construct the dataset at the same time. To ensure that the read-in data is consistent across cards, the dataset needs to be fixed with a random number seed.
 
 The dataset definition section is as follows.
 
@@ -114,4 +114,4 @@ dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_n
 
 ### Running the Code
 
-The data, code and execution of the above process can be found at: <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#single-host-training>. The difference is that the execution script is changed to run_dataset_slice.sh.
+The data, code and execution of the above process can be found at: <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#single-host-training>. The difference is that the execution script is changed to run_dataset_slice.sh.

@@ -1,6 +1,6 @@
 # Vertical Federated Learning Model Training - Wide&Deep Recommendation Application
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/split_wnd_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/split_wnd_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -24,11 +24,11 @@ Vertical FL model inference scenario: similar to the forward propagation phase o
 
 This sample provides a federated learning training example for recommendation-oriented tasks by using Wide&Deep network and Criteo dataset as examples. As shown above, in this case, the vertical federated learning system consists of the Leader participant and the Follower participant. Among them, the Leader participant holds 20×2 dimensional feature information and label information, and the Follower participant holds 19×2 dimensional feature information. Leader participant and Follower participant deploy 1 set of Wide&Deep network respectively, and realize the collaborative training of the network model by exchanging embedding vectors and gradient vectors without disclosing the original features and label information.
 
-For a detailed description of the principle properties of Wide&Deep networks, see [MindSpore ModelZoo - Wide&Deep - Wide&Deep Overview](https://gitee.com/mindspore/models/blob/master/official/recommend/Wide_and_Deep/README.md#widedeep-description) and its [research paper](https://arxiv.org/pdf/1606.07792.pdf).
+For a detailed description of the principle properties of Wide&Deep networks, see [MindSpore ModelZoo - Wide&Deep - Wide&Deep Overview](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/recommend/Wide_and_Deep/README.md#widedeep-description) and its [research paper](https://arxiv.org/pdf/1606.07792.pdf).
 
 ## Dataset Preparation
 
-This sample is based on the Criteo dataset for training and testing. Before running the sample, you need to refer to [MindSpore ModelZoo - Wide&Deep - Quick Start](https://gitee.com/mindspore/models/blob/master/official/recommend/Wide_and_Deep/README.md#quick-start) to pre-process the Criteo dataset.
+This sample is based on the Criteo dataset for training and testing. Before running the sample, you need to refer to [MindSpore ModelZoo - Wide&Deep - Quick Start](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/recommend/Wide_and_Deep/README.md#quick-start) to pre-process the Criteo dataset.
 
 1. Clone MindSpore ModelZoo code.
 
@@ -125,7 +125,7 @@ Before starting the vertical federated learning training, users need to construc
 
 ### Building the Dataset
 
-The current simulation process is used, i.e., both participants read the same data source. But for training, both participants use only part of the feature or label data, as shown in [Network and Data](#network-and-data). Later, the [Data Access](https://www.mindspore.cn/federated/docs/en/master/data_join/data_join.html) method will be used for both participants to import the data individually.
+The current simulation process is used, i.e., both participants read the same data source. But for training, both participants use only part of the feature or label data, as shown in [Network and Data](#network-and-data). Later, the [Data Access](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/data_join/data_join.html) method will be used for both participants to import the data individually.
 
 ```python
 from run_vfl_train_local import construct_local_dataset
@@ -161,7 +161,7 @@ follower_train_net = FollowerLossNet(follower_base_net, config)
 
 ### Vertical Federated Communication Base
 
-Before training, we first have to start the communication base to make Leader and Follower participants group network. Detailed API documentation can be found in [Vertical Federated Communicator](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python_en/vertical/vertical_communicator.rst).
+Before training, we first have to start the communication base to make Leader and Follower participants group network. Detailed API documentation can be found in [Vertical Federated Communicator](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/docs/api/api_python_en/vertical/vertical_communicator.rst).
 
 Both parties need to import the vertical federated communicator:
 
@@ -191,7 +191,7 @@ vertical_communicator.launch()
 
 ### Building a Vertical Federated Network
 
-Users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. The detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst).
+Users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. The detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst).
 
 Both parties need to import the vertical federated training interface:
 

@@ -1,13 +1,13 @@
 # Distributed Fault Recovery
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/fault_recover.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/fault_recover.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 It is very common to encounter failures when performing distributed training, similar to single-card training, which can be continued by loading the saved weight information during training. Distinct from pure data parallel training, when model parallelism is applied, the weights are sliced and the weight information saved between cards may not be consistent.
-To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/tutorials/experts/en/master/parallel/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This one function has been introduced in [Distributed training model parameter saving and loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
+To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This one function has been introduced in [Distributed training model parameter saving and loading](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
 However, for large models, the overhead of using aggregated preservation is too large for all kinds of resources, so this document presents a recovery scheme where each card only saves its own weight information. For large models, both data parallelism and model parallelism are often applied, and the devices divided by the dimensions of data parallelism, which hold exactly the same weight information, provide a redundant backup for large models. This document will also point out how to go about obtaining this redundant information.
-For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For more information on the concepts of data parallelism and model parallelism, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/optimizer_parallel.html).
+For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For more information on the concepts of data parallelism and model parallelism, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/optimizer_parallel.html).
 
 - Data parallelism + keep optimizer parallelism off: The ranks in the parallel communication domain hold the same weight slice.
 - Model parallism: The ranks in the parallel communication domain hold different weight slices.
@@ -15,7 +15,7 @@ For the relationship between the parallel strategy and the slicing division of t
 
 Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in sink mode. This document will introduce the scheme as an example of distributed parallel training Transformer model. For detailed information of transformer, please refer to this tutorial.
 
-> Download the complete sample code here: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
+> Download the complete sample code here: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training_transformer)
 
 The directory structure is as follows:
 
@@ -85,7 +85,7 @@ rank_list = ms.restore_group_info_list("./ckpt_dir0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
-Distributed fault recovery requires prior access to the slicing scores, thus, it is necessary to first call [model.build](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) to compile and then perform the training.
+Distributed fault recovery requires prior access to the slicing scores, thus, it is necessary to first call [model.build](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) to compile and then perform the training.
 
 ```python
 import os
@@ -102,7 +102,7 @@ def recover_train():
 
 ## Running the Code
 
-First, please refer to the [Preparation Session](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial to prepare the dataset.
+First, please refer to the [Preparation Session](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial to prepare the dataset.
 After entering the code directory, execute the training script that saves the slice weights.
 
 ```bash

@@ -1,6 +1,6 @@
 # Function Differences with tf.image.random_flip_up_down
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_flip_up_down.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_flip_up_down.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.image.random_flip_up_down
 
@@ -21,7 +21,7 @@ class mindspore.dataset.vision.RandomVerticalFlip(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.RandomVerticalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomVerticalFlip.html#mindspore.dataset.vision.RandomVerticalFlip).
+For more information, see [mindspore.dataset.vision.RandomVerticalFlip](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/dataset_vision/mindspore.dataset.vision.RandomVerticalFlip.html#mindspore.dataset.vision.RandomVerticalFlip).
 
 ## Differences
 

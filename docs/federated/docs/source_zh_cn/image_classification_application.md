@@ -1,6 +1,6 @@
 # 实现一个端云联邦的图像分类应用(x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore端云联邦框架上使用网络LeNet实现一个图片分类应用，并提供在x86环境中模拟启动多客户端参与联邦学习的相关教程。
 
@@ -14,7 +14,7 @@
 
 1. 定义网络和训练过程。
 
-   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
+   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/beginner/quick_start.html#网络构建)。
 
 2. 将模型导出为MindIR格式文件。
 
@@ -108,7 +108,7 @@
 
 3. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html )。
+   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/converter_tool.html )。
 
    模型转换示例如下：
 
@@ -137,30 +137,30 @@
 ### 为客户端准备好模型文件。
 
 本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
-具体见[启动脚本](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
+具体见[启动脚本](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
 
 ### 启动云侧服务
 
-用户可先参考[横向云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
+用户可先参考[横向云侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_server.html)部署云侧环境，并启动云侧服务。
 
 ### 启动客户端
 
-启动客户端之前请先参照[横向端侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
+启动客户端之前请先参照[横向端侧部署教程](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)进行端侧环境部署。
 
-使用提供的[run_client_x86.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)脚本进行端侧联邦学习的启动，通过相关参数的设置，来启动不同的联邦学习接口。
-待云侧服务启动成功之后，使用提供run_client_x86.py的脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
+使用提供的[run_client_x86.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)脚本进行端侧联邦学习的启动，通过相关参数的设置，来启动不同的联邦学习接口。
+待云侧服务启动成功之后，使用提供run_client_x86.py的脚本，调用联邦学习框架jar包`mindspore-lite-java-flclient.jar` 和模型脚本对应的jar包`quick_start_flclient.jar`（可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)获取）来模拟启动多客户端参与联邦学习任务。
 
 以LeNet网络为例，`run_client_x86.py`脚本中部分入参含义如下，用户可根据实际情况进行设置：
 
 - `--fl_jar_path`
 
-    设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+    设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)。
 
     注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--jarPath`设置为`"libs/jarX86/mindspore-lite-java-flclient.jar"`，则需确保`jarX86`文件夹下仅包含一个jar包`mindspore-lite-java-flclient.jar`。
 
 - `--case_jar_path`
 
-    设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+    设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)。
 
     注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--case_jarPath`设置为`"case_jar/quick_start_flclient.jar"`，则需确保`case_jar`文件夹下仅包含一个jar包`quick_start_flclient.jar`。
 
@@ -170,7 +170,7 @@
 
 - `--fl_name`
 
-    联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
+    联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
 
 - `--train_model_dir`
 
@@ -290,7 +290,7 @@
 
 ### 关闭客户端进程
 
-可参考[finish.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/finish.py)脚本，具体如下：
+可参考[finish.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_device_lenet_femnist/simulate_x86/finish.py)脚本，具体如下：
 
 关闭客户端指令如下：
 

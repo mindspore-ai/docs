@@ -1,6 +1,6 @@
 # 比较与torch.nn.ConvTranspose2d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Conv2dTranspose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Conv2dTranspose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.ConvTranspose2d
 
@@ -39,7 +39,7 @@ class mindspore.nn.Conv2dTranspose(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2dTranspose.html)。
+更多内容详见[mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Conv2dTranspose.html)。
 
 ## 差异对比
 
@@ -47,7 +47,7 @@ PyTorch：计算二维转置卷积，可以视为Conv2d对输入求梯度，也�
 $H_{out}=(H_{in}−1)×stride[0]−2×padding[0]+dilation[0]×(kernel\underline{ }size[0]−1)+output\underline{ }padding[0]+1$
 $W_{out}=(W_{in}−1)×stride[1]−2×padding[1]+dilation[1]×(kernel\underline{ }size[1]−1)+output\underline{ }padding[1]+1$
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。此外，torch.nn.ConvTranspose2d有一个output_padding参数，其功能是指对反卷积后的特征图进行单侧补零（右侧和下侧），而mindspore.nn.Conv2dTranspose中目前没有该参数，可以对输出结果使用[nn.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)进行补维来代替。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init和bias_init参数可以配置初始化方式。此外，torch.nn.ConvTranspose2d有一个output_padding参数，其功能是指对反卷积后的特征图进行单侧补零（右侧和下侧），而mindspore.nn.Conv2dTranspose中目前没有该参数，可以对输出结果使用[nn.Pad](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)进行补维来代替。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
 | ---- | ----- | ------- | --------- | -------------------------------------- |
@@ -176,7 +176,7 @@ print(output.shape)
 
 ### 代码示例4
 
-> 下面的示例实现了对输入tensor进行反卷积，并且输出反卷积后的特征图尺寸，其中PyTorch可以通过设置output_padding的值来对反卷积后的输出图像进行右侧和下侧补维，用于弥补stride大于1带来的缺失。MindSpore暂时不支持output_padding参数，需要对输出结果再使用[nn.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)进行单侧补维。
+> 下面的示例实现了对输入tensor进行反卷积，并且输出反卷积后的特征图尺寸，其中PyTorch可以通过设置output_padding的值来对反卷积后的输出图像进行右侧和下侧补维，用于弥补stride大于1带来的缺失。MindSpore暂时不支持output_padding参数，需要对输出结果再使用[nn.Pad](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)进行单侧补维。
 
 ```python
 # PyTorch

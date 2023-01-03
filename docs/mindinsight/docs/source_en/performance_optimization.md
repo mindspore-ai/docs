@@ -1,6 +1,6 @@
 # Performance Debugging Cases
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindinsight/docs/source_en/performance_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
@@ -10,17 +10,17 @@ This chapter introduces the common methods and cases of performance tuning, as w
 
 Please refer to the tutorials for the function introduction and instructions of MindSpore Profiler.
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
+[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/performance_profiling_of_cluster.html)
 
 This section will introduce the common use of MindSpore Profiler through three typical cases.
 
 ### Case 1: Long Step Interval
 
-We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) with batch size set to 32, and we find that each step cost almost 90ms, with a poor performance.
+We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README.md#) with batch size set to 32, and we find that each step cost almost 90ms, with a poor performance.
 As we observed on the MindInsight UI page, the step interval in the step trace is too long, which may indicate that data is the performance bottleneck.
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
@@ -43,7 +43,7 @@ By observing the `queue relationship between operators` in the Data Processing t
 
 *Figure 3: Data Preparation Details -- Data Processing*
 
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
 
 We find that the num_parallel_workers parameter of map operation is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 
@@ -81,7 +81,7 @@ By observing the step trace on the MindInsight performance analysis page, you ca
 
 ### Case 2: Long Forward Propagation Interval
 
-We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , and each step cost almost 113.79ms, with a poor performance.
+We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README.md#) , and each step cost almost 113.79ms, with a poor performance.
 
 As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized. In a single card training or inference process, the forward time consumption is usually considered whether there is a operator that can be optimized for the time consumption.
 
@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 
@@ -113,7 +113,7 @@ After the float16 format is set, the inference script is run. From the MindInsig
 
 ### Case 3: Optimize The Step Tail
 
-We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
+We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README.md#) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
 
 As we observed the step trace on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
 

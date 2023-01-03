@@ -1,6 +1,6 @@
 # Horizontal Federated Device-side Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This document describes how to compile and deploy Federated-Client.
 
@@ -214,6 +214,6 @@ After running the above command, the path of generated jar package is federated/
     export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
     ```
 
-4. After setting up the dependency environment, you can simulate starting multiple clients in the x86 environment for federated learning by referring to the application practice tutorial [Implementing an end-cloud federation for image classification application (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
+4. After setting up the dependency environment, you can simulate starting multiple clients in the x86 environment for federated learning by referring to the application practice tutorial [Implementing an end-cloud federation for image classification application (x86)](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html).
 
 

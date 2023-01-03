@@ -3,7 +3,7 @@ MindSpore Dev Toolkit文档
 
 MindSpore Dev Toolkit是一款面向MindSpore开发者的开发套件。通过深度学习、智能搜索及智能推荐等技术，打造智能计算最佳体验，致力于全面提升MindSpore框架的易用性，助力MindSpore生态推广。
 
-MindSpore Dev Toolkit目前提供 `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/mindspore_project_wizard.html>`_ 、`智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/smart_completion.html>`_ 、`API互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/operator_search.html>`_ 和 `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/knowledge_search.html>`_ 四项功能。
+MindSpore Dev Toolkit目前提供 `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0.0-alpha/mindspore_project_wizard.html>`_ 、`智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0.0-alpha/smart_completion.html>`_ 、`API互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0.0-alpha/operator_search.html>`_ 和 `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0.0-alpha/knowledge_search.html>`_ 四项功能。
 
 系统需求
 ------------------------------
@@ -53,7 +53,7 @@ MindSpore Dev Toolkit 是一款 `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
 源码构建
 ----------------------------
 
-请阅读 `源码编译指导 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/compiling.html>`_ 。
+请阅读 `源码编译指导 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0.0-alpha/compiling.html>`_ 。
 
 .. toctree::
    :glob:

@@ -1,16 +1,16 @@
 # Quick Start Distributed Parallel Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial shows how to perform MindSpore distributed parallel training in a single 8-card **GPU** environment via **OpenMPI** with a simple example of a single hidden layer fully connected neural network.
 
-A tutorial on distributed parallel training of ResNet networks on a GPU platform is available at [Sample Distributed Parallel Training Basics (GPU)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html). In contrast: (1) the example uses a more complex ResNet network; (2) in addition to pull-up training by using OpenMPI, the example also introduces pull-up training by using a scripted approach.
+A tutorial on distributed parallel training of ResNet networks on a GPU platform is available at [Sample Distributed Parallel Training Basics (GPU)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html). In contrast: (1) the example uses a more complex ResNet network; (2) in addition to pull-up training by using OpenMPI, the example also introduces pull-up training by using a scripted approach.
 
 > You can download the complete sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_quickstart>
+> <https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training_quickstart>
 
 The directory structure is as follows:
 
@@ -24,7 +24,7 @@ The directory structure is as follows:
 
 where `net.py` is the network definition script and `run_with_mpi.sh` is the execution script.
 
-> In addition, tutorials for distributed parallel training on Ascend 910 platform are available in [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) and [Distributed Parallel Training of Transformer Models](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html).
+> In addition, tutorials for distributed parallel training on Ascend 910 platform are available in [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html) and [Distributed Parallel Training of Transformer Models](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/transformer.html).
 
 ## Preparation
 
@@ -78,16 +78,16 @@ where `in_dim` is the network input dimension, `out_dim` is the output dimension
 
 ### OpenMPI Environment Configuration
 
-[OpenMPI](https://www.open-mpi.org/) is a high-performance messaging library, a multi-process communication library adopted by MindSpore. For the related environment configuration, see [Running the Script through OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi).
+[OpenMPI](https://www.open-mpi.org/) is a high-performance messaging library, a multi-process communication library adopted by MindSpore. For the related environment configuration, see [Running the Script through OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#running-the-script-through-openmpi).
 
-> In addition, MindSpore also supports distributed training without relying on OpenMPI. For the details, see [Training without Relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi).
+> In addition, MindSpore also supports distributed training without relying on OpenMPI. For the details, see [Training without Relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#training-without-relying-on-openmpi).
 
 ### Semi-automatic Parallelism
 
-Currently MindSpore supports four parallel modes, and see [Distributed Parallel Training Modes](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#distributed-parallel-training-mode-1) for details.
+Currently MindSpore supports four parallel modes, and see [Distributed Parallel Training Modes](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/introduction.html#distributed-parallel-training-mode-1) for details.
 
 This example demonstrates fully automatic parallelism, which is achieved by configuring `parallel_mode=ms.ParallelMode.AUTO_PARALLEL` through the `set_auto_parallel_context()` interface.
-There are three configurable parallel strategy search algorithms under fully automatic parallelism, see: [Fully automatic parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#fully-automatic-parallelism) for details. In this example, the **sharding strategy propagation algorithm** is selected, which is implemented by configuring `search_mode="sharding_propagation"` through the `set_auto_parallel_context()` interface, and manually setting the `matmul` operator sharding strategy. The sharding strategy of other operators is given by the parallel strategy search algorithm automatically. The code is as follows:
+There are three configurable parallel strategy search algorithms under fully automatic parallelism, see: [Fully automatic parallelism](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/introduction.html#fully-automatic-parallelism) for details. In this example, the **sharding strategy propagation algorithm** is selected, which is implemented by configuring `search_mode="sharding_propagation"` through the `set_auto_parallel_context()` interface, and manually setting the `matmul` operator sharding strategy. The sharding strategy of other operators is given by the parallel strategy search algorithm automatically. The code is as follows:
 
 ```python
 class Net(Cell):
@@ -115,11 +115,11 @@ class Net(Cell):
         return out
 ```
 
-where the `shard()` method is described in detail in [Principles of Automatic Parallelism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#principle-of-automatic-parallelism). The inference introduction is in [functional operator sharding](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html)
+where the `shard()` method is described in detail in [Principles of Automatic Parallelism](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/distributed_training_design.html#principle-of-automatic-parallelism). The inference introduction is in [functional operator sharding](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pynative_shard_function_parallel.html)
 
 For the parallel sharding strategy set in the above example, the `matmul` operator computation process for the forward propagation process in a single-machine 8-card environment is schematically shown as follows:
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/matmul_shard.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/matmul_shard.png)
 
 The top half of the diagram shows the data sharding, and the bottom half shows the calculation and communication process performed by each GPU card at logical number (rank) 0-7.
 
@@ -169,7 +169,7 @@ Training can be performed with `mpirun` command of OpenMPI, as specified in the 
 
 After running, the script is performed in the background and the training log is saved in the `. /device` directory, and the model of the card with the logical number `rank_id` is saved in the `. /device/{rank_id}` directory.
 
-In addition, `save_graphs=True` is configured via the `ms.set_context()` interface to save the model intermediate representation `MindIR`, and the `MindIR` of the card with the logical number `rank_id` is saved in the `. /saved_graph/{rank_id}` directory. MindSpore IR (MindIR) is a program representation between the source language and the target language during the compilation of MindSpore framework programs to facilitate program analysis and optimization by the compiler, see [MindIR](https://www.mindspore.cn/docs/en/master/design/mindir.html).
+In addition, `save_graphs=True` is configured via the `ms.set_context()` interface to save the model intermediate representation `MindIR`, and the `MindIR` of the card with the logical number `rank_id` is saved in the `. /saved_graph/{rank_id}` directory. MindSpore IR (MindIR) is a program representation between the source language and the target language during the compilation of MindSpore framework programs to facilitate program analysis and optimization by the compiler, see [MindIR](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/mindir.html).
 
 #### Verification
 

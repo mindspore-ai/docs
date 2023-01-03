@@ -71,26 +71,26 @@ Vertical Federated Architecture:
 MindSpore Federated Working Process
 ------------------------------------
 
-1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#preparation>`_
+1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html#preparation>`_
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
-2. `Model Selection and Framework Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-side-model-file>`_
+2. `Model Selection and Framework Deployment <https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html#generating-a-device-side-model-file>`_
 
    Select or develop a model prototype and use a tool to generate a federated learning model that is easy to deploy.
 
-3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
+3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
 
    Deploy the corresponding components to the business application and set up federated configuration tasks and deployment scripts on the server.
 
 Common Application Scenarios
 ----------------------------
 
-1. `Image Classification <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html>`_
+1. `Image Classification <https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html>`_
 
    Use the federated learning to implement image classification applications.
 
-2. `Text Classification <https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html>`_
+2. `Text Classification <https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/sentiment_classification_application.html>`_
 
    Use the federated learning to implement text classification applications.
 

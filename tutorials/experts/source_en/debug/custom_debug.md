@@ -1,6 +1,6 @@
 # Custom Debugging Information
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -93,7 +93,7 @@ Here are two examples to further explain the usage of custom `Callback`.
 
 > custom `Callback` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/debugging_info/custom_callback.py>
 
 - Terminate training within the specified time.
 
@@ -158,7 +158,7 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 
 > `metrics` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 import mindspore as ms

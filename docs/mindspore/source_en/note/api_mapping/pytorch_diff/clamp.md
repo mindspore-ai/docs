@@ -1,6 +1,6 @@
 # Function Differences with torch.clamp
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 > `torch.clip` alias for `torch.clamp`，`torch.Tensor.clip` alias for `torch.Tensor.clamp`.
 >
@@ -22,7 +22,7 @@ For more information, see [torch.clamp](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.clamp(x, min=None, max=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.clamp](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clamp.html).
+For more information, see [mindspore.ops.clamp](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.clamp.html).
 
 ## Differences
 

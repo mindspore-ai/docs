@@ -1,13 +1,13 @@
 
 # MindSpore IR (MindIR)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 An intermediate representation (IR) is a representation of a program between the source and target languages, which facilitates program analysis and optimization for the compiler. Therefore, the IR design needs to consider the difficulty in converting the source language to the target language, as well as the ease-of-use and performance of program analysis and optimization.
 
-MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax).
+MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/mindir.html#syntax).
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are three IR files:
 
@@ -15,7 +15,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 - By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an IR file with a filename extension named .ir can be generated: It has the same format as default IR file, but with different graph printing order.  
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Syntax
 
@@ -79,7 +79,7 @@ lambda (x, y)
     c end
 ```
 
-The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/images/ir/ir.dot).
+The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/images/ir/ir.dot).
 
 ![image](./images/ir/ir.png)
 
@@ -107,7 +107,7 @@ def hof(x):
     return res
 ```
 
-The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/images/ir/hof.dot).
+The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/images/ir/hof.dot).
 ![image](./images/ir/hof.png)
 
 In the actual network training scripts, the automatic derivation generic function `grad` and `Partial` and `HyperMap` that are commonly used in the optimizer are typical high-order functions. Higher-order semantics greatly improve the flexibility and simplicity of MindSpore representations.
@@ -129,7 +129,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/images/ir/cf.dot).
+The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/images/ir/cf.dot).
 ![image](./images/ir/cf.png)
 
 `fibonacci` is a top-level function graph. Two function graphs at the top level are selected and called by `switch`. `✓fibonacci` is the True branch of the first `if`, and `✗fibonacci` is the False branch of the first `if`. `✓✗fibonacci` called in `✗fibonacci` is the True branch of `elif`, and `✗✗fibonacci` is the False branch of `elif`. The key is, in a MindIR, conditional jumps and recursion are represented in the form of higher-order control flows. For example, `✓✗fibonacci` and `✗fibonacci` are transferred in as parameters of the `switch` operator. `switch` selects a function as the return value based on the condition parameter. In this way, `switch` performs a binary selection operation on the input functions as common values and does not call the functions. The real function call is completed on CNode following `switch`.
@@ -155,7 +155,7 @@ def ms_closure():
     return out1, out2
 ```
 
-The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/images/ir/closure.dot).
+The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/images/ir/closure.dot).
 ![image](./images/ir/closure.png)
 
 In the example, `a` and `b` are free variables because the variables `a` and `b` in `func_inner` are parameters defined in the referenced parent graph `func_outer`. The variable `closure` is a closure, which is the combination of the function `func_inner` and its context `func_outer(1, 2)`. Therefore, the result of `out1` is 4, which is equivalent to `1+2+1`, and the result of `out2` is 5, which is equivalent to `1+2+2`.

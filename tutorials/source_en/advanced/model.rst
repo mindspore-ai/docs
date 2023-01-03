@@ -1,5 +1,5 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/model.rst
 
 Advanced Encapsulation: Model
 ==============================
@@ -39,7 +39,7 @@ The following describes MindSpore models and how to use ``Model`` for model trai
 Introduction to Model
 ---------------------
 
-`Model <https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__
+`Model <https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__
 is a high-level API provided by MindSpore for model training, evaluation, and inference. The common parameters of the API are as follows:
 
 -  ``network``: neural network used for training or inference.

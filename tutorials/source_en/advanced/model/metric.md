@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/metric.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/model/metric.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 # Evaluation Metrics
 
@@ -8,7 +8,7 @@ MindSpore provides evaluation functions for most common tasks, such as `Accuracy
 
 The following describes how to customize metrics and how to use metrics in `mindspore.train.Model`.
 
-> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics).
+> For details, see [Evaluation Metrics](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.train.html#evaluation-metrics).
 
 ## Customized Metrics
 
@@ -71,7 +71,7 @@ print(result)
 
 ## Using Metrics in Model Training
 
-[mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
+[mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model) is a high-level API used for training and evaluation. You can import customized or MindSpore existing metrics as parameters. Models can automatically call the imported metrics for evaluation.
 
 After network model training, metrics need to be used to evaluate the training effect of the network model. Therefore, before specific code is demonstrated, you need to prepare a dataset, load the dataset, and define a simple linear regression network model.
 
@@ -98,7 +98,7 @@ def create_dataset(num_data, batch_size=16):
 
 ### Using Built-in Evaluation Metrics
 
-When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `train.Accuracy` to compute the classification accuracy.
+When the built-in metrics of MindSpore are transferred to `Model` as parameters, the metrics can be defined as a dictionary type. The `key` of the dictionary is a character string, and the `value` of the dictionary is the built-in [evaluation metric](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.train.html#evaluation-metrics) of MindSpore. The following example uses `train.Accuracy` to compute the classification accuracy.
 
 ```python
 import mindspore.nn as nn

@@ -1,6 +1,6 @@
 # 源码编译方式安装MindSpore CPU版本（含第三方依赖）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/third_party/third_party_cpu_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/install/third_party/third_party_cpu_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 作者：[damon0626](https://gitee.com/damon0626)
 
@@ -339,7 +339,7 @@ ms-sd@mssd:~$ sudo apt-get install git
 （1）从代码仓库下载源码
 
 ```text
-ms-sd@mssd:~$ git clone https://gitee.com/mindspore/mindspore.git
+ms-sd@mssd:~$ git clone https://gitee.com/mindspore/mindspore.git -b r2.0.0-alpha
 ```
 
 （2）安装依赖（根据编译过程中报错，整理如下）

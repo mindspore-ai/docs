@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.mse_loss的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MSELoss_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MSELoss_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.mse_loss
 
@@ -16,7 +16,7 @@ torch.nn.functional.mse_loss(input, target, size_average=None, reduce=None, redu
 class mindspore.nn.MSELoss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MSELoss.html)。
+更多内容详见[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.MSELoss.html)。
 
 ## 差异对比
 

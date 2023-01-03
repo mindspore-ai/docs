@@ -1,6 +1,6 @@
 # Vertical Federated Learning Data Access
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/data_join.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/data_join.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Unlike horizontal federated learning, two participants (leader and follower) have the same sample space for training or inference in vertical federated learning. Therefore, the data intersection must be done collaboratively before both parties in vertical federated learning initiate training or inference. Both parties must read their respective original data and extract the ID (unique identifier of each data, and none of them is the same) corresponding to each data for intersection (i.e., finding the intersection). Then, both parties obtain features or tags from the original data based on the intersected IDs. Finally, each side exports the persistence file and reads the data in the reordering manner before subsequent training or inference.
 
@@ -34,7 +34,7 @@ Vertical federated requires that both participants have the same value and order
 
 ### Sample Data Preparation
 
-To use the data access method, the original data needs to be prepared first. The user can use [random data generation script](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py) to generate forged data for each participant as a sample.
+To use the data access method, the original data needs to be prepared first. The user can use [random data generation script](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/data_join/generate_random_data.py) to generate forged data for each participant as a sample.
 
 ```shell
 python generate_random_data.py \
@@ -83,7 +83,7 @@ leader_data_3.csv
 
 ### Sample of Data Export
 
-Users can use [script of finding data intersections](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/run_data_join.py) to implement data intersections between two parties and export it to MindRecord format file. The users need to start Leader and Follower processes separately.
+Users can use [script of finding data intersections](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/data_join/run_data_join.py) to implement data intersections between two parties and export it to MindRecord format file. The users need to start Leader and Follower processes separately.
 
 Start Leader:
 
@@ -134,7 +134,7 @@ The user can set the hyperparameter according to the actual situation.
 | join_type (Follower does not need to be configured)   | Algorithm of intersection finding, str type. Including: "psi".                                          |
 | thread_num                        | Calculate the number of threads required when using the PSI intersection algorithm, int type.                 |
 
-In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/leader_schema.yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
+In the above sample, the files corresponding data_schema_path can be referred to the corresponding files configuration of [leader_schema.yaml](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/data_join/vfl/leader_schema.yaml) and [follower_schema.yaml](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/data_join/vfl/follower_schema.yaml). The user needs to provide the column names and types of the data to be exported in this file.
 
 After running the data export, generate multiple MindRecord related files.
 
@@ -153,7 +153,7 @@ mindrecord_4.db
 
 ### Sample of Data Reading
 
-The user can use the [script of reading data](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/load_joined_data.py) to implement data reading after intersection.
+The user can use the [script of reading data](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/data_join/load_joined_data.py) to implement data reading after intersection.
 
 ```shell
 python load_joined_data.py \
@@ -202,7 +202,7 @@ Follower data export results:
 
 ## An Example for Deep Experience
 
-For detailed API documentation for the following code, see [Data Access Documentation](https://www.mindspore.cn/federated/docs/en/master/data_join/data_join.html).
+For detailed API documentation for the following code, see [Data Access Documentation](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/data_join/data_join.html).
 
 ### Data Export
 

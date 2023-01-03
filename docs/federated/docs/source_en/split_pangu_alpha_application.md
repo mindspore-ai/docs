@@ -1,6 +1,6 @@
 # Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/split_pangu_alpha_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/split_pangu_alpha_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -18,13 +18,13 @@ As shown in the figure above, in this case, the Pangaea α model is sliced into 
 
 The feature tensor and gradient tensor exchanged between participant A and participant B during the above forward inference and backward propagation are processed by using privacy security mechanisms and encryption algorithms, so that it is not necessary to transmit the data held by participant A to participant B for implementing the collaboration training of the network model by the two participants. Due to the small number of Embedding and Head subnetwork parameters and the huge number of Backbone subnetwork parameters, this sample application is suitable for the large model collaboration training or deployment between the service side (corresponding to participant A) and the computing center (corresponding to participant B).
 
-For a detailed introduction to the pangu α model principles, please refer to [MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha), [Introduction to Pengcheng -pangu α](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha), and its [research paper](https://arxiv.org/pdf/2104.12369.pdf).
+For a detailed introduction to the pangu α model principles, please refer to [MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/nlp/Pangu_alpha), [Introduction to Pengcheng -pangu α](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha), and its [research paper](https://arxiv.org/pdf/2104.12369.pdf).
 
 ## Preparation
 
 ### Environment Preparation
 
-1. Refer to [Obtaining MindSpore Federated](https://mindspore.cn/federated/docs/en/master/federated_install.html) to install MindSpore version 1.8.1 and above and MindSpore Federated.
+1. Refer to [Obtaining MindSpore Federated](https://mindspore.cn/federated/docs/en/r2.0.0-alpha/federated_install.html) to install MindSpore version 1.8.1 and above and MindSpore Federated.
 
 2. Download the MindSpore Federated code and install the Python packages that this sample application depends on.
 
@@ -36,15 +36,15 @@ For a detailed introduction to the pangu α model principles, please refer to [M
 
 ### Dataset Preparation
 
-Before running the sample, refer to [MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha#dataset-generation) and use the preprocess.py script to convert the raw text corpus for training into a dataset that can be used for model training.
+Before running the sample, refer to [MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/nlp/Pangu_alpha#dataset-generation) and use the preprocess.py script to convert the raw text corpus for training into a dataset that can be used for model training.
 
 ## Defining the Vertical Federated Learning Training Process
 
-MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Vertical Federated Learning Model Training Interface](https://mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html)) and yaml files (see [Yaml Configuration file for model training of vertical federated learning](https://mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)), to model vertical federated learning training process.
+MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Vertical Federated Learning Model Training Interface](https://mindspore.cn/federated/docs/en/r2.0.0-alpha/vertical/vertical_federated_FLModel.html)) and yaml files (see [Yaml Configuration file for model training of vertical federated learning](https://mindspore.cn/federated/docs/en/r2.0.0-alpha/vertical/vertical_federated_yaml.html)), to model vertical federated learning training process.
 
 ### Defining the Network Model
 
-1. Call the function components provided by MindSpore and take nn.Cell (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) as a base class to program the training network of this participant to be involved in vertical federated learning. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+1. Call the function components provided by MindSpore and take nn.Cell (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) as a base class to program the training network of this participant to be involved in vertical federated learning. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
 
    ```python
    class EmbeddingLossNet(nn.Cell):
@@ -76,7 +76,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
            return embedding_table, word_table, position_id, attention_mask
    ```
 
-2. In the yaml configuration file, describe the corresponding name, input, output and other information of the training network. Taking the Embedding subnetwork of Participant A in this application practice, [example code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml) is as follows:
+2. In the yaml configuration file, describe the corresponding name, input, output and other information of the training network. Taking the Embedding subnetwork of Participant A in this application practice, [example code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/embedding.yaml) is as follows:
 
    ```yaml
    train_net:
@@ -111,7 +111,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
 ### Defining the Optimizer
 
-1. Call the functional components provided by MindSpore, to program the optimizer for parameter updates of this participant training network. As an example of a custom optimizer used by Participant A for Embedding subnetwork training in this application practice, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/pangu_optim.py) is as follows:
+1. Call the functional components provided by MindSpore, to program the optimizer for parameter updates of this participant training network. As an example of a custom optimizer used by Participant A for Embedding subnetwork training in this application practice, [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/pangu_optim.py) is as follows:
 
     ```python
     class PanguAlphaAdam(TrainOneStepWithLossScaleCell):
@@ -129,7 +129,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
     Developers can customize the input and output of the `__init__` method in the optimizer class, but the input of the `__call__` method in the optimizer class needs to contain only `inputs` and `sens`. `inputs` is of type `list`, corresponding to the input tensor list of the training network, and its elements are of type `mindspore.Tensor`. `sens` is of type `dict`, which saves the weighting coefficients used to calculate the gradient values of the training network parameters, and its key is a gradient weighting coefficient identifier of type `str`. Value is of type `dict`, whose key is of type `str`, and it is the name of the output tensor of the training network. Value is of type `mindspore.Tensor`, which is the weighting coefficient of the training network parameter gradient values corresponding to this output tensor.
 
-2. In the yaml configuration file, describe the corresponding gradient calculation, parameter update, and other information of the optimizer. The [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml) is as follows:
+2. In the yaml configuration file, describe the corresponding gradient calculation, parameter update, and other information of the optimizer. The [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/embedding.yaml) is as follows:
 
     ```yaml
     opts:
@@ -160,7 +160,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
     The `type` field is of the optimizer type. Here is the developer-defined optimizer.
 
-    The `grads` field is a list of `GradOperation` associated with the optimizer, which will use the `GradOperation` operator in the list to compute the output gradient values and update the training network parameters. The `inputs` and `output` fields are input and output tensor lists of the `GradOperation` operator, whose elements are an input/output tensor name, respectively. The `sens` field is the gradient weighting coefficient or the sensitivity identifier of the `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)).
+    The `grads` field is a list of `GradOperation` associated with the optimizer, which will use the `GradOperation` operator in the list to compute the output gradient values and update the training network parameters. The `inputs` and `output` fields are input and output tensor lists of the `GradOperation` operator, whose elements are an input/output tensor name, respectively. The `sens` field is the gradient weighting coefficient or the sensitivity identifier of the `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)).
 
     The `params` field is a list of training network parameter names to be updated by the optimizer, whose elements are the names of one training network parameter each. In this example, the custom optimizer will update the network parameters with the `word_embedding` string and the `position_embedding` string in their names.
 
@@ -170,7 +170,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
 According to the chain rule of gradient calculation, the subnetwork located at the backstream of the global network needs to calculate the gradient value of its output tensor relative to the input tensor, i.e., the gradient weighting coefficient or sensitivity, to be passed to the sub-network located at the upstream of the global network for its training parameter update.
 
-MindSpore Federated uses the `GradOperation` operator to complete the above gradient weighting coefficient or sensitivity calculation process. The developer needs to describe the `GradOperation` operator used to calculate the gradient weighting coefficients in the yaml configuration file. Taking Head of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/head.yaml) is as follows:
+MindSpore Federated uses the `GradOperation` operator to complete the above gradient weighting coefficient or sensitivity calculation process. The developer needs to describe the `GradOperation` operator used to calculate the gradient weighting coefficients in the yaml configuration file. Taking Head of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/head.yaml) is as follows:
 
 ```yaml
 grad_scalers:
@@ -185,11 +185,11 @@ grad_scalers:
         sens: 1024.0
 ```
 
-The `inputs` and `output` fields are lists of input and output tensors of the `GradOperation` operator, whose elements are input/output tensor names, respectively. The `sens` field is the gradient weighting coefficient or sensitivity of this `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)). If it is a `float` or `int` type value, a constant tensor will be constructed as the gradient weighting coefficient. If it is a `str` type string, the tensor corresponding to the name will be parsed as a weighting coefficient from the weighting coefficients transmitted by the other participants via the network.
+The `inputs` and `output` fields are lists of input and output tensors of the `GradOperation` operator, whose elements are input/output tensor names, respectively. The `sens` field is the gradient weighting coefficient or sensitivity of this `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)). If it is a `float` or `int` type value, a constant tensor will be constructed as the gradient weighting coefficient. If it is a `str` type string, the tensor corresponding to the name will be parsed as a weighting coefficient from the weighting coefficients transmitted by the other participants via the network.
 
 ### Executing the Training
 
-1. After completing the above Python programming development and yaml configuration file, the `FLModel` class and `FLYamlData` class provided by MindSpore Federated are used to build the vertical federated learning process. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+1. After completing the above Python programming development and yaml configuration file, the `FLModel` class and `FLYamlData` class provided by MindSpore Federated are used to build the vertical federated learning process. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
 
     ```python
     embedding_yaml = FLYamlData('./embedding.yaml')
@@ -209,7 +209,7 @@ The `inputs` and `output` fields are lists of input and output tensors of the `G
 
     The `FLYamlData` class mainly completes the parsing and verification of yaml configuration files, and the `FLModel` class mainly provides the control interface for vertical federated learning training, inference and other processes.
 
-2. Call the interface methods of the `FLModel` class to perform vertical federated learning training. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+2. Call the interface methods of the `FLModel` class to perform vertical federated learning training. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
 
     ```python
     embedding_fl_model.load_ckpt()
@@ -290,7 +290,7 @@ Taking `run_pangu_train_local.sh` as an example, run the sample program as follo
 
     The corresponding visualization results are shown below, where the horizontal axis is the number of training steps, the vertical axis is the loss value, the red curve is the Pangu α training loss value, and the blue curve is the Pangu α training loss value based on splitting learning in this example. The trend of decreasing loss values is basically the same, and the correctness of the training process can be verified considering that the initialization of the network parameter values has randomness.
 
-    ![Cross-domain training results of the Pangu alpha large model](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/splitnn_pangu_alpha_result.png)
+    ![Cross-domain training results of the Pangu alpha large model](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/images/splitnn_pangu_alpha_result.png)
 
 ### Running a Multi-Process Example
 

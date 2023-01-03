@@ -1,6 +1,6 @@
 # Vertical Federated Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_vfl.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/deploy_vfl.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This document explains how to use and deploy the vertical federated learning framework.
 
@@ -41,7 +41,7 @@ MindSpore vertical federated supports deployment on x86 CPU, GPU CUDA and Ascend
 Compile and install via [source code](https://gitee.com/mindspore/federated).
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r2.0.0-alpha
 cd federated
 bash build.sh
 ```
@@ -64,6 +64,6 @@ from mindspore_federated import FLServerJob
 
 ## Running the Example
 
-A running sample of FLDataWorker can be found in [Vertical federated learning data access](https://www.mindspore.cn/federated/docs/en/master/data_join.html).
+A running sample of FLDataWorker can be found in [Vertical federated learning data access](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/data_join.html).
 
-A running sample of VFLTrainer can be found in [Vertical federated learning model training - Wide&Deep Recommended Application](https://www.mindspore.cn/federated/docs/en/master/split_wnd_application.html).
+A running sample of VFLTrainer can be found in [Vertical federated learning model training - Wide&Deep Recommended Application](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/split_wnd_application.html).

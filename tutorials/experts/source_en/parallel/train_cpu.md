@@ -1,11 +1,11 @@
 # Distributed Parallel Training Base Sample (CPU)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/train_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial focuses on how to use MindSpore for data parallel distributed training on CPU platforms to improve training efficiency.
-> The complete sample code: [distributed_training_cpu](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_cpu)
+> The complete sample code: [distributed_training_cpu](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training_cpu)
 
 The directory structure is as follows:
 
@@ -126,9 +126,9 @@ Unlike stand-alone, the `num_shards` and `shard_id` parameters need to be passed
 
 ## Defining the Model
 
-The network definition in data parallel mode is written in the same way with the stand-alone, which can be found in [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet.py).
+The network definition in data parallel mode is written in the same way with the stand-alone, which can be found in [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/distributed_training_cpu/resnet.py).
 
-The definitions of optimizer, loss function and training model can be found in [Training Model Definition](https://www.mindspore.cn/tutorials/en/master/beginner/train.html).
+The definitions of optimizer, loss function and training model can be found in [Training Model Definition](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html).
 
 The reference sample of the full training script code and the training startup code is listed below:
 
@@ -162,8 +162,8 @@ if __name__ == "__main__":
     train_resnet50_with_cifar10()
 ```
 
-> The interfaces `create_dataset` and `SoftmaxCrossEntropyExpand` in script are referenced from [distributed_training_cpu](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet50_distributed_training.py).
-> The interfaces `resnet50` is referenced from [ResNet network sample script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet.py).
+> The interfaces `create_dataset` and `SoftmaxCrossEntropyExpand` in script are referenced from [distributed_training_cpu](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/distributed_training_cpu/resnet50_distributed_training.py).
+> The interfaces `resnet50` is referenced from [ResNet network sample script](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/distributed_training_cpu/resnet.py).
 
 ## Starting the Training
 
@@ -225,4 +225,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## Security Authentication
 
-For CPU security authentication, refer to [GPU Distributed Training Security Authentication](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#security-authentication).
+For CPU security authentication, refer to [GPU Distributed Training Security Authentication](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#security-authentication).

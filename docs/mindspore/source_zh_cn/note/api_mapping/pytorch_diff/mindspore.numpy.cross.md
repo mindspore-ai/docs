@@ -1,6 +1,6 @@
 # 比较与torch.cross的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.numpy.cross.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.numpy.cross.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.cross
 
@@ -28,7 +28,7 @@ class mindspore.numpy.cross(
 )
 ```
 
-更多内容详见[mindspore.numpy.cross](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross)。
+更多内容详见[mindspore.numpy.cross](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross)。
 
 ## 使用方式
 

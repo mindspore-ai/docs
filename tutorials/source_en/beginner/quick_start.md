@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html)
 
 # Quick Start
 
@@ -16,7 +16,7 @@ from mindspore.dataset import MnistDataset
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
 > The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
 
@@ -102,11 +102,11 @@ Shape of image [N, C, H, W]: (64, 1, 28, 28) Float32
 Shape of label: (64,) Int32
 ```
 
-For more detailed information, see [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html).
+For more detailed information, see [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html).
 
 ## Building Network
 
-`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)) (i.e. the construction process of the [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html)).
+`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html)) (i.e. the construction process of the [computational graph](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/compute_graph.html)).
 
 ```python
 # Define model
@@ -144,7 +144,7 @@ Network<
   >
 ```
 
-For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html).
+For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html).
 
 ## Training Model
 
@@ -270,7 +270,7 @@ Test:
 Done!
 ```
 
-For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html).
+For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html).
 
 ## Saving a Model
 
@@ -323,4 +323,4 @@ for data, label in test_dataset:
 Predicted: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])", Actual: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])"
 ```
 
-For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html).
+For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html).

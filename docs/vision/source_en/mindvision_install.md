@@ -1,6 +1,6 @@
 # Install MindSpore Vision
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/vision/source_en/mindvision_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/vision/source_en/mindvision_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@
 To verify whether MindVision and the required environment are installed correctly, we can run sample Python code to
 initialize a classificer and run inference on a demo image.
 
-The [image](https://gitee.com/mindspore/vision/blob/master/tests/st/classification/dataset/mnist/mnist.jpg) used for inference is from the MNIST dataset. Users can use the parameter `device_target` to customize the platform for inference.
+The [image](https://gitee.com/mindspore/vision/blob/r2.0.0-alpha/tests/st/classification/dataset/mnist/mnist.jpg) used for inference is from the MNIST dataset. Users can use the parameter `device_target` to customize the platform for inference.
 
 ```shell
 python ./examples/classification/lenet/lenet_mnist_infer.py --data_url ./tests/st/classification/dataset/mnist/mnist.jpg --pretrained True --device_target CPU

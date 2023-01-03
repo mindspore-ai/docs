@@ -1,6 +1,6 @@
 # ReplayBuffer Usage Introduction
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/reinforcement/docs/source_en/replaybuffer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Brief Introduction of ReplayBuffer
 
@@ -40,7 +40,7 @@ To simulate the FIFO characteristics of a circular queue, we use two cursors to 
 3. After continuing to insert a batch_size of 4, the queue is full and the count is 6.
 4. After continuing to insert a batch_size of 2, overwrite updates the old data and adds 2 to the head.
 
-![insert schematic diagram](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/images/insert.png)
+![insert schematic diagram](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/reinforcement/docs/source_zh_cn/images/insert.png)
 
 #### 2 Search
 
@@ -49,7 +49,7 @@ The search method accepts an index as an input, indicating the specific location
 1. If the UniformReplayBuffer is just full or not full, the corresponding data is found directly according to the index.
 2. For data that has been overwritten, remap it by cursors.
 
-![get_item schematic diagram](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/images/get.png)
+![get_item schematic diagram](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/reinforcement/docs/source_zh_cn/images/get.png)
 
 #### 3 Sample
 
@@ -61,13 +61,13 @@ Assuming that batch_size is 3, a random set of indexes will be generated in the 
 
 Both approaches have a slight impact on randomness, and the default is to use no order preserving to get the best performance.
 
-![sample schematic diagram](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/images/sample.png)
+![sample schematic diagram](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/reinforcement/docs/source_zh_cn/images/sample.png)
 
 ## UniformReplayBuffer Introduction of MindSpore Reinforcement Learning
 
 ### Creation of UniformReplayBuffer
 
-MindSpore Reinforcement Learning provides a standard ReplayBuffer API. The user can use the ReplayBuffer created by the framework by means of a configuration file, shaped like the configuration file of [dqn](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/algorithm/dqn/config.py).
+MindSpore Reinforcement Learning provides a standard ReplayBuffer API. The user can use the ReplayBuffer created by the framework by means of a configuration file, shaped like the configuration file of [dqn](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/algorithm/dqn/config.py).
 
 ```python
 'replay_buffer':
@@ -93,7 +93,7 @@ replaybuffer = UniformReplayBuffer(sample_size, capacity, shapes, types)
 
 ### Using the Created UniformReplayBuffer
 
-Take [UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/core/uniform_replay_buffer.py) created in the form of an API to perform data manipulation as an example:
+Take [UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/core/uniform_replay_buffer.py) created in the form of an API to perform data manipulation as an example:
 
 * Insert operation
 

@@ -1,6 +1,6 @@
 # Loading the Model from Hub
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/loading_model_from_hub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/hub/docs/source_en/loading_model_from_hub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## For Inference Validation
 
@@ -34,13 +34,13 @@
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/infer/inference.html).
 
 ## For Transfer Training
 
 When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network.
 
-We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/centerface) as an example to illustrate how to load a model trained on the ImageNet dataset and then perform transfer learning (re-training) on a specific sub-task dataset. The main steps are listed below:
+We use [MobileNetV2](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/centerface) as an example to illustrate how to load a model trained on the ImageNet dataset and then perform transfer learning (re-training) on a specific sub-task dataset. The main steps are listed below:
 
 1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and find the corresponding `Usage`.
 

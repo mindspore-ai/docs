@@ -1,6 +1,6 @@
 # Dynamic Model Obfuscation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/dynamic_obfuscation_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindarmour/docs/source_en/dynamic_obfuscation_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -11,7 +11,7 @@ Currently, obfuscated models can be exported from the Linux platform using the n
 
 The following uses an example to describe how to export and load an obfuscated model.
 
-> You can download the complete sample code at <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dynamic_obfuscation/test_dynamic_obfuscation.py>.
+> You can download the complete sample code at <https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/dynamic_obfuscation/test_dynamic_obfuscation.py>.
 
 ## Using `export()` to Export Obfuscated Models and Deploying Inference
 

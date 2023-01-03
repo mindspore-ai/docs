@@ -1,6 +1,6 @@
 # MindPandas Execution Mode Introduction and Configuration Instructions
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_configuration.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindpandas/docs/source_en/mindpandas_configuration.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This article mainly introduces the principle and usage of MindPandas distributed parallel mode.
 
@@ -106,7 +106,7 @@ To view the parameter usage instructions of `yrctl start`, you can view it throu
 Before starting the cluster, check the following:
 
 - This machine is not configured with an http proxy for the IP address of the master node. If this, machine is configured, please cancel the proxy or add the IP address of the master node to the `$no_proxy` environment variable.
-- No other redis service on this machine occupies port 6379, otherwise it will cause port conflict. If there is a conflict between redis or other ports, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/master/faq.html) to solve it.
+- No other redis service on this machine occupies port 6379, otherwise it will cause port conflict. If there is a conflict between redis or other ports, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/r2.0.0-alpha/faq.html) to solve it.
 
 If the cluster deployment is successful, the end of the console echo should show:
 
@@ -159,7 +159,7 @@ Start the worker node:
 yrctl start --address=<address>
 ```
 
-The `address` is the IP address of the master node. If the deployment fails during startup, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/master/faq.html).
+The `address` is the IP address of the master node. If the deployment fails during startup, please refer to [FAQ](https://www.mindspore.cn/mindpandas/docs/en/r2.0.0-alpha/faq.html).
 
 After the cluster is deployed, in the Python script, use the `"multiprocess"` backend as shown in the following code, where `address` is the IP address of the master node in the cluster.
 

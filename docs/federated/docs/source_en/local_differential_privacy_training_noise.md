@@ -1,6 +1,6 @@
 # Horizontal FL-Local Differential Privacy Perturbation Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 During federated learning, user data is used only for local device training and does not need to be uploaded to the central server. This prevents personal data leakage.
 However, in the conventional federated learning framework, models are migrated to the cloud in plaintext. There is still a risk of indirect disclosure of user privacy.
@@ -32,7 +32,7 @@ The MindSpore Federated client uploads the noise-added model $W_p$ to the cloud 
 
 ## Usage
 
-Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to set the `encrypt_type` field to `DP_ENCRYPT` via [yaml](https://www.mindspore.cn/federated/docs/en/master/horizontal/federated_server_yaml.html#) when starting the cloud-side service.
+Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to set the `encrypt_type` field to `DP_ENCRYPT` via [yaml](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/horizontal/federated_server_yaml.html#) when starting the cloud-side service.
 
 In addition, to control the effect of privacy protection, three parameters are provided: `dp_eps`, `dp_delta`, and `dp_norm_clip`. They are also set through the yaml file.
 

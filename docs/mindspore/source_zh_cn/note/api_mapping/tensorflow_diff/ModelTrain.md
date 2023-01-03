@@ -1,6 +1,6 @@
 # 比较与tf.keras.Model.fit、tf.keras.Model.fit_generator的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelTrain.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelTrain.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.keras.Model.fit
 
@@ -35,7 +35,7 @@ tf.keras.Model.fit_generator(
 mindspore.train.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-更多内容详见[mindspore.train.Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html)。
+更多内容详见[mindspore.train.Model.train](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/train/mindspore.train.Model.html)。
 
 ## 使用方式
 

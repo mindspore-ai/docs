@@ -1,6 +1,6 @@
 # Inference and Training Process
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## General Operating Environment Settings
 
@@ -65,16 +65,16 @@ device_num: 1
 device_id: 0
 ```
 
-The above procedure is just a basic configuration of the operating environment. If you need to add some advanced features, please refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+The above procedure is just a basic configuration of the operating environment. If you need to add some advanced features, please refer to [set_context](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
 
 ## Generic Scripting Framework
 
-A generic [script rack](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding) provided by the models bin is used for:
+A generic [script rack](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/model_scaffolding) provided by the models bin is used for:
 
 1. yaml parameter file parsing, parameter obtaining
 2. ModelArts unified tool both on the cloud and on-premise
 
-The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils).
+The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet/src/model_utils).
 
 ## Inference Process
 
@@ -108,13 +108,13 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 Generally, the source code for network construction and data processing will be placed in the `src` directory, and the scripting framework will be placed in the `src.model_utils` directory. For example, you can refer to the implementation in [MindSpore models](https://gitee.com/mindspore/models).
 
-The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py).
+The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/SSD/eval.py).
 
 ### Inference Verification
 
-In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) and loaded into the network for inference verification.
+In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html) and loaded into the network for inference verification.
 
-Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html) for the whole process of inference verification.
+Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/r2.0.0-alpha/migration_guide/sample_code.html) for the whole process of inference verification.
 
 ## Training Process
 
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     train_net()
 ```
 
-Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) for checkpoint saving.
+Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html) for checkpoint saving.
 
 ### Distributed Training
 
@@ -250,8 +250,8 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 If on the GPU, you can set which cards to use by `export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`. Specifying the card number is not currently supported on Ascend.
 
-Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_case.html) for more details.
+Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/distributed_case.html) for more details.
 
 ## Offline Inference
 
-In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html) for details.
+In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/infer/inference.html) for details.

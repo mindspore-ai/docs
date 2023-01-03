@@ -1,6 +1,6 @@
 # 横向联邦-局部差分隐私SignDS训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/local_differential_privacy_training_signds.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/local_differential_privacy_training_signds.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 隐私保护背景
 
@@ -66,7 +66,7 @@ $$
 
 ## 准备工作
 
-若要使用该算法，首先需要成功完成任一端云联邦场景的训练聚合过程，[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)详细介绍了数据集、网络模型等准备工作，以及模拟启动多客户端参与联邦学习的流程。
+若要使用该算法，首先需要成功完成任一端云联邦场景的训练聚合过程，[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html)详细介绍了数据集、网络模型等准备工作，以及模拟启动多客户端参与联邦学习的流程。
 
 ## 算法开启脚本
 
@@ -84,7 +84,7 @@ encrypt:
     sign_dim_out: 0
 ```
 
-具体样例可参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)
+具体样例可参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html)
 云侧代码实现给出了各个参数的定义域，若不在定义域内的，Server会报错提示定义域。以下参数改动的前提是保持其余4个参数不变：
 
 - `sign_k`：(0,0.25]，k*inputDim>50. default=0.01，`inputDim`是模型或update的拉平长度，若不满足，端侧警告。排序update，占比前k（%）的组成`topk`集合。减少k，则意味着要从更重要的维度中以较大概率挑选，输出的维度会减少，但维度更重要，无法确定收敛性的变化，用户需观察模型update稀疏度来确定该值，当比较稀疏时（update有很多0），则应取小一点。
