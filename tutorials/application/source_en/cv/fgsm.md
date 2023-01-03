@@ -335,7 +335,7 @@ The following shows the actual form of the attacked image. It can be seen that t
 
 ```python
 import matplotlib.pyplot as plt
-% matplotlib inline
+%matplotlib inline
 
 adv_examples = np.transpose(advs[:10], [0, 2, 3, 1])
 ori_examples = np.transpose(test_images[:10], [0, 2, 3, 1])
