@@ -21,6 +21,7 @@
 {{ fullname | underline }}
 
 .. autofunction:: {{ fullname }}
+
 {% endif %}
 
 ..
