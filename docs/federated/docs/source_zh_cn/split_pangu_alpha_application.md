@@ -1,6 +1,6 @@
 # 纵向联邦学习模型训练 - 盘古α大模型跨域训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/split_pangu_alpha_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/split_pangu_alpha_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -18,13 +18,13 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 上述前向推理和反向传播过程中，参与方A和参与方B交换的特征张量和梯度张量，均采用隐私安全机制和加密算法进行处理，从而无需将参与方A所持有的数据传输给参与方B，即可实现两个参与方对网络模型的协同训练。由于Embedding子网络和Head子网络参数量较少，而Backbone子网络参数量巨大，该应用样例适用于业务方（对应参与方A）与计算中心（对应参与方B）的大模型协同训练或部署。
 
-盘古α模型原理的详细介绍，可参考[MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)、[鹏程·盘古α介绍](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha)，及其[研究论文](https://arxiv.org/pdf/2104.12369.pdf)。
+盘古α模型原理的详细介绍，可参考[MindSpore ModelZoo - pangu_alpha](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/nlp/Pangu_alpha)、[鹏程·盘古α介绍](https://git.openi.org.cn/PCL-Platform.Intelligence/PanGu-Alpha)，及其[研究论文](https://arxiv.org/pdf/2104.12369.pdf)。
 
 ## 准备环节
 
 ### 环境准备
 
-1. 参考[获取MindSpore Federated](https://mindspore.cn/federated/docs/zh-CN/master/federated_install.html)，安装MindSpore 1.8.1及以上版本和MindSpore Federated。
+1. 参考[获取MindSpore Federated](https://mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/federated_install.html)，安装MindSpore 1.8.1及以上版本和MindSpore Federated。
 
 2. 下载MindSpore Federated代码，安装本应用样例依赖的Python软件包。
 
@@ -36,15 +36,15 @@ MindSpore Federated提供基于拆分学习的纵向联邦学习基础功能组�
 
 ### 数据集准备
 
-在运行样例前，需参考[MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha#dataset-generation)，采用preprocess.py脚本将用于训练的原始文本语料，转换为可用于模型训练的数据集。
+在运行样例前，需参考[MindSpore ModelZoo - pangu_alpha - Dataset Generation](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/nlp/Pangu_alpha#dataset-generation)，采用preprocess.py脚本将用于训练的原始文本语料，转换为可用于模型训练的数据集。
 
 ## 定义纵向联邦学习训练过程
 
-MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦学习模型训练接口](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
+MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦学习模型训练接口](https://mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
 
 ### 定义网络模型
 
-1. 采用MindSpore提供的功能组件，以nn.Cell（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell)）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+1. 采用MindSpore提供的功能组件，以nn.Cell（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html?highlight=cell#mindspore-nn-cell)）为基类，编程开发本参与方待参与纵向联邦学习的训练网络。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
    ```python
    class EmbeddingLossNet(nn.Cell):
@@ -76,7 +76,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
            return embedding_table, word_table, position_id, attention_mask
    ```
 
-2. 在yaml配置文件中，描述训练网络对应的名称、输入、输出等信息。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
+2. 在yaml配置文件中，描述训练网络对应的名称、输入、输出等信息。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/embedding.yaml)如下：
 
    ```yaml
    train_net:
@@ -111,7 +111,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
 
 ### 定义优化器
 
-1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/pangu_optim.py)如下：
+1. 采用MindSpore提供的功能组件，编程开发用于本参与方训练网络参数更新的优化器。以本应用实践中参与方A用于Embedding子网络训练的自定义优化器为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/pangu_optim.py)如下：
 
     ```python
     class PanguAlphaAdam(TrainOneStepWithLossScaleCell):
@@ -129,7 +129,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
 
     开发者可自定义优化器类的`__init__`方法的输入输出，但优化器类的`__call__`方法的输入需仅包含`inputs`和`sens`。其中，`inputs`为`list`类型，对应训练网络的输入张量列表，其元素为`mindspore.Tensor`类型。`sens`为`dict`类型，保存用于计算训练网络参数梯度值的加权系数，其key为`str`类型的梯度加权系数标识符；value为`dict`类型，其key为`str`类型，是训练网络输出张量名称，value为`mindspore.Tensor`类型，是该输出张量对应的训练网络参数梯度值的加权系数。
 
-2. 在yaml配置文件中，描述优化器对应的梯度计算、参数更新等信息。[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/embedding.yaml)如下：
+2. 在yaml配置文件中，描述优化器对应的梯度计算、参数更新等信息。[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/embedding.yaml)如下：
 
     ```yaml
     opts:
@@ -160,7 +160,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
 
     其中，`type`字段为优化器类型，此处为开发者自定义优化器。
 
-    `grads`字段为优化器关联的`GradOperation`列表，优化器将使用列表中`GradOperation`算子计算输出的梯度值，更新训练网络参数。`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)）的标识符。
+    `grads`字段为优化器关联的`GradOperation`列表，优化器将使用列表中`GradOperation`算子计算输出的梯度值，更新训练网络参数。`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)）的标识符。
 
     `params`字段为优化器即将更新的训练网络参数名称列表，其元素分别为一个训练网络参数名称。本示例中，自定义优化器将更新名称中包含`word_embedding`字符串和`position_embedding`字符串的网络参数。
 
@@ -170,7 +170,7 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
 
 根据梯度计算的链式法则，位于全局网络后级的子网络，需要计算其输出张量相对于输入张量的梯度值，即梯度加权系数或灵敏度，传递给位于全局网络前级的子网络，用于其训练参数更新。
 
-MindSpore Federated采用`GradOperation`算子，完成上述梯度加权系数或灵敏度计算过程。开发者需在yaml配置文件中，描述用于计算梯度加权系数的`GradOperation`算子。以本应用实践中参与方A的Head为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/head.yaml)如下：
+MindSpore Federated采用`GradOperation`算子，完成上述梯度加权系数或灵敏度计算过程。开发者需在yaml配置文件中，描述用于计算梯度加权系数的`GradOperation`算子。以本应用实践中参与方A的Head为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/head.yaml)如下：
 
 ```yaml
 grad_scalers:
@@ -185,11 +185,11 @@ grad_scalers:
         sens: 1024.0
 ```
 
-其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其它参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
+其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其它参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
 
 ### 执行训练
 
-1. 完成上述Python编程开发和yaml配置文件编写后，采用MindSpore Federated提供的`FLModel`类和`FLYamlData`类，构建纵向联邦学习流程。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+1. 完成上述Python编程开发和yaml配置文件编写后，采用MindSpore Federated提供的`FLModel`类和`FLYamlData`类，构建纵向联邦学习流程。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
     ```python
     embedding_yaml = FLYamlData('./embedding.yaml')
@@ -209,7 +209,7 @@ grad_scalers:
 
     其中，`FLYamlData`类主要完成yaml配置文件的解析和校验，`FLModel`类主要提供纵向联邦学习训练、推理等流程的控制接口。
 
-2. 调用`FLModel`类的接口方法，执行纵向联邦学习训练。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
+2. 调用`FLModel`类的接口方法，执行纵向联邦学习训练。以本应用实践中参与方A的Embedding子网络为例，[示例代码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/splitnn_pangu_alpha/src/split_pangu_alpha.py)如下：
 
     ```python
     embedding_fl_model.load_ckpt()

@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/install/mindspore_cpu_mac_install_source.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在macOS系统上使用源码编译方式快速安装MindSpore。
 
@@ -42,7 +42,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r2.0.0-alpha
 ```
 
 ## 编译MindSpore

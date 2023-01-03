@@ -1,6 +1,6 @@
 # Vision Transformer Image Classification
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/vit.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/application/source_en/cv/vit.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction of ViT
 
@@ -439,7 +439,7 @@ class ViT(nn.Cell):
 
 The overall flow diagram is shown below:
 
-![data-process](https://gitee.com/mindspore/docs/raw/master/tutorials/application/source_en/cv/images/data_process.png)
+![data-process](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/application/source_en/cv/images/data_process.png)
 
 ## Model Training and Inference
 

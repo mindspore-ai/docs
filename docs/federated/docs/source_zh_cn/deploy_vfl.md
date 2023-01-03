@@ -1,6 +1,6 @@
 # 纵向联邦部署
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_vfl.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/deploy_vfl.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档讲解如何使用和部署纵向联邦学习框架。
 
@@ -41,7 +41,7 @@ MindSpore纵向联邦支持在x86 CPU、GPU CUDA和Ascend硬件平台上部署�
 通过[源码](https://gitee.com/mindspore/federated)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r2.0.0-alpha
 cd federated
 bash build.sh
 ```
@@ -64,6 +64,6 @@ from mindspore_federated import FLServerJob
 
 ## 运行样例
 
-FLDataWorker的运行样例可参考[纵向联邦学习数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join.html)。
+FLDataWorker的运行样例可参考[纵向联邦学习数据接入](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/data_join.html)。
 
-VFLTrainer的运行样例可参考[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html)。
+VFLTrainer的运行样例可参考[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/split_wnd_application.html)。

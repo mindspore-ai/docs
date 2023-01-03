@@ -1,6 +1,6 @@
 # mindpandas.DataFrame
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindpandas/docs/source_en/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 The DataFrame is a two-dimensional table data structure with row and column indexes, and is one of the main data structures of MindPandas.
 

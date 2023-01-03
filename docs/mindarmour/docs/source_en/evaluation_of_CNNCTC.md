@@ -1,12 +1,12 @@
 # Evaluating the Robustness of the OCR Model CNN-CTC
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/evaluation_of_CNNCTC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindarmour/docs/source_en/evaluation_of_CNNCTC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
 This tutorial uses natural perturbation serving to evaluate the robustness of the OCR model, CNN-CTC. Multiple natural perturbation sample datasets are generated based on serving, and then the robustness of the CNN-CTC model is evaluated based on the model performance on the natural perturbation sample datasets.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/tree/r2.0.0-alpha/examples/natural_robustness/ocr_evaluate>.
 
 ## Environment Requirements
 
@@ -38,7 +38,7 @@ This tutorial uses natural perturbation serving to evaluate the robustness of th
 
 ### Script Parameters
 
-You can configure training parameters, inference parameters, and robustness evaluation parameters in `default_config.yaml`. We focus on the parameters used in the evaluation and the parameters that need to be configured by users. For details about other parameters, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/research/cv/cnnctc).
+You can configure training parameters, inference parameters, and robustness evaluation parameters in `default_config.yaml`. We focus on the parameters used in the evaluation and the parameters that need to be configured by users. For details about other parameters, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/cnnctc).
 
 - `--TEST_DATASET_PATH`: indicates the path of the test dataset.
 - `--CHECKPOINT_PATH`: indicates the checkpoint path.
@@ -51,7 +51,7 @@ The model to be evaluated is the CNN-CTC model implemented based on MindSpore. T
 
 [Paper](https://arxiv.org/abs/1904.01906): J. Baek, G. Kim, J. Lee, S. Park, D. Han, S. Yun, S. J. Oh, and H. Lee, "What is wrong with scene text recognition model comparisons? dataset and model analysis," ArXiv, vol. abs/1904.01906, 2019.
 
-For details about data processing and model training, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/master/research/cv/cnnctc). You need to obtain the preprocessed dataset and checkpoint model file based on this tutorial for the following evaluation task.
+For details about data processing and model training, see the [CNN-CTC Tutorial](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/cnnctc). You need to obtain the preprocessed dataset and checkpoint model file based on this tutorial for the following evaluation task.
 
 The preprocessed dataset is in .lmdb format and stored in key-value pairs.
 
@@ -63,7 +63,7 @@ In the preceding information, `%09d` indicates a string of 9 digits. Example: la
 
 ### Generating an Evaluation Dataset based on Natural Perturbation Serving
 
-1. Start the serving server for generating natural perturbation samples. For details, see [Generating Natural Perturbation Samples Based on the Serving Server](https://gitee.com/mindspore/mindarmour/blob/master/examples/natural_robustness/serving/README.md#).
+1. Start the serving server for generating natural perturbation samples. For details, see [Generating Natural Perturbation Samples Based on the Serving Server](https://gitee.com/mindspore/mindarmour/blob/r2.0.0-alpha/examples/natural_robustness/serving/README.md#).
 
    ```bash
    cd serving/server/
@@ -81,7 +81,7 @@ In the preceding information, `%09d` indicates a string of 9 digits. Example: la
 
    2. The core code is described as follows:
 
-      1. Configure the perturbation method. For details about the available perturbation methods and parameter configurations, see [transform/image](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image). The following is a configuration example.
+      1. Configure the perturbation method. For details about the available perturbation methods and parameter configurations, see [transform/image](https://gitee.com/mindspore/mindarmour/tree/r2.0.0-alpha/mindarmour/natural_robustness/transform/image). The following is a configuration example.
 
          ```python
          PerturbConfig = [

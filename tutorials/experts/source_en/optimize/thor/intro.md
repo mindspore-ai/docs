@@ -1,6 +1,6 @@
 # Introduction to Second-order Optimizer THOR
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/thor/intro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/thor/intro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The deep learning training process can be viewed as a loss function loss value decreasing process, and the right optimizer can make deep learning training time significantly reduced. Optimizers can be divided into first-order optimizers and second-order optimizers. The industry is still the mainstream use of the first-order optimizers, while the second-order optimizers is widely used because the single-step training time is too long. In recent years, there have been theoretical breakthroughs in applying the second-order optimization to deep learning training, and good results have been achieved.
 
@@ -10,7 +10,7 @@ This article will introduce the background of the optimizers, and second-order o
 
 Suppose the training sample data set: $D = {(x_1,y_1),... ,(x_i,y_i),... ,(x_N,y_N)},x_i \in X,y_i\in Y$, the deep neural network model with parameter θ formulation is: $\hat{y} = f(x;\theta),x\in{X}$, the loss function defined between the model output and the true label y is: $L(y,\hat y),y \in Y$, the process of network parameter learning is the minimization the loss function: $\min\limits_{\theta}L(y,\hat{y})$. Given the dataset, model, and loss function, the deep learning training problem boils down to the optimization problem. The deep neural network training optimization problem has a huge parameter scale and requires a large amount of computation, making it difficult to compute an analytic solution. Therefore, the process is often compared to descending a mountain. As shown in Figure 1, how can a person find the fastest path down a mountain with limited sight distance while standing at the top?
 
-![The process of deeplearning training](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/deeplearning_train_process.png)
+![The process of deeplearning training](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/deeplearning_train_process.png)
 
 *Figure 1 Simulation of Deep Learning Training Process*
 
@@ -30,7 +30,7 @@ The second-order optimization algorithm uses the second-order derivative of the 
 
 For example, the Newton method of second-order optimization algorithms is to fit a local surface at your current location with a quadratic surface, while the gradient descent method uses a plane to fit the current local surface. Usually, the quadratic surface will be better fitted than the plane, so the descent path chosen by the Newton method will be more consistent with the true optimal descent path. As shown in Figure 2, the left descent path indicates the descent curve of Newton method, and the right indicates the descent curve of the first-order gradient. The second-order algorithm can go to the destination faster than the first-order algorithm, thus accelerating the convergence.
 
-![The different process of deeplearning training](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/different_train_process.png)
+![The different process of deeplearning training](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/different_train_process.png)
 
 *Figure 2 Descent Path of Different Optimizers*
 
@@ -82,7 +82,7 @@ So how can we determine the matrix tiling dimension? The specific method is:
 
 4. Based on the annotated matrix loss information and the normalized performance data graph, taking the ResNet50 as example, shown in Figure 3, the falling curve in the figure is the performance curve, and the rising curve indicates the matrix loss curve. The intersection point in the figure is 106, which is closest to 128, and finally the matrix slice dimension is determined to be 128.
 
-![The split dimension of matrix](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/split_dimension.png)
+![The split dimension of matrix](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/split_dimension.png)
 
 *Figure 3 Schematic Diagram of Slice Dimension Determination*
 
@@ -90,7 +90,7 @@ So how can we determine the matrix tiling dimension? The specific method is:
 
 Figure 4 shows the training line graph of THOR on ResNet50+ImageNet with a batchsize of 256 on first and second order, where train loss denotes training error, test accuracy denotes testing accuracy, epoch denotes the number of iterations, and wall-clock time denotes the time. The faster falling curve and the faster rising curve are the curves of this algorithm, and the other curve with more obvious gap is the training curve of momentum.
 
-![The result of ResNet50](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/thor_in_resnet.png)
+![The result of ResNet50](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/thor_in_resnet.png)
 
 *Figure 4 Results of THOR on ResNet50*
 
@@ -98,12 +98,12 @@ THOR, THOR_stop, and THOR_NT in Figure 4 indicate ($w_1$,$w_2$)=(0.01,0), ($w_1$
 
 THOR also tested the convergence results of ResNet50+ImageNet at different batchsize, and the results are shown in Figure 5 below, where Hardware denotes the hardware platform, Software is the used deep learning framework, Batch size is the number of images per training, Optimizer denotes the used optimizer, Time refers to the overall training time, and Accuracy is the final convergence accuracy. When the batchsize is 8192 and 256 Ascend 910 blocks are used, it only takes 2.7 minutes for the accuracy to converge to 75.9%.
 
-![The large batchsize result of ResNet50](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/thor_largebs_in_resnet.png)
+![The large batchsize result of ResNet50](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/thor_largebs_in_resnet.png)
 
 *Figure 5 Results of THOR on ResNet50 at Large Batchsize*
 
 In BERT+WIkipedia, THOR also has a good performance effect. Taking the MLPerf as a standard, the accuracy reaches to 71.2%, and an end-to-end improvement of 30% is implemented compared to the first order. The results are shown in Figure 6. The horizontal coordinate in the figure indicates the training time, and the vertical coordinate indicates the test accuracy. The curve that rises faster is the training curve of THOR, and the other one is the training curve of Lamb.
 
-![The result of BERT](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/optimize/thor/images/thor_in_bert.png)
+![The result of BERT](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/thor/images/thor_in_bert.png)
 
 *Figure 6 Results of THOR on BERT*

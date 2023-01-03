@@ -1,6 +1,6 @@
 # Performing Distributed Training on K8S Clusters
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/ms_operator.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore Operator is a plugin that follows Kubernetes' Operator pattern (based on the CRD-Custom Resource Definition feature) and implements distributed training on Kubernetes. MindSpore Operator defines Scheduler, PS, worker three roles in CRD, and users can easily use MindSpore on K8S for distributed training through simple YAML file configuration. The code repository of mindSpore Operator is described in: [ms-operator](https://gitee.com/mindspore/ms-operator/).
 
@@ -36,7 +36,7 @@ There are three installation methods:
 
 The current ms-operator supports ordinary single worker training, single worker training in PS mode, and Scheduler and Worker startups for automatic parallelism (such as data parallelism and model parallelism).
 
-There are running examples in [config/samples/](https://gitee.com/mindspore/ms-operator/tree/master/config/samples). Take the data-parallel Scheduler and Worker startup as an example, where the dataset and network scripts need to be prepared in advance:
+There are running examples in [config/samples/](https://gitee.com/mindspore/ms-operator/tree/r2.0.0-alpha/config/samples). Take the data-parallel Scheduler and Worker startup as an example, where the dataset and network scripts need to be prepared in advance:
 
 ```shell
 kubectl apply -f config/samples/ms_wide_deep_dataparallel.yaml

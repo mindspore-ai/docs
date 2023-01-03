@@ -1,6 +1,6 @@
 # Federated Learning Image Classification Dataset Process
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classfication_dataset_process.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/image_classfication_dataset_process.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This tutorial uses the federated learning dataset `FEMNIST` in the `leaf` dataset, which contains 62 different categories of handwritten digits and letters (digits 0 to 9, 26 lowercase letters, and 26 uppercase letters) with an image size of `28 x 28` pixels. The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805,263, the average data volume per user is 226.83, and the variance of the data volume for all users is 88.94.
 

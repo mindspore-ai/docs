@@ -1,16 +1,16 @@
 # 快速入门分布式并行训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本篇教程通过一个单隐藏层全连接神经网络的简单示例，展示如何通过**OpenMPI**，在单机8卡的**GPU**环境下，进行MindSpore分布式并行训练。
 
-在GPU平台上，对ResNet网络进行分布式并行训练的教程见[分布式并行训练基础样例（GPU）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。相比之下：（1）该示例使用更加复杂的ResNet网络；（2）除使用OpenMPI的方式拉起训练外，该示例还介绍使用脚本的方式拉起训练。
+在GPU平台上，对ResNet网络进行分布式并行训练的教程见[分布式并行训练基础样例（GPU）](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_gpu.html)。相比之下：（1）该示例使用更加复杂的ResNet网络；（2）除使用OpenMPI的方式拉起训练外，该示例还介绍使用脚本的方式拉起训练。
 
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_quickstart>
+> <https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training_quickstart>
 
 目录结构如下：
 
@@ -24,7 +24,7 @@
 
 其中，`net.py`为网络定义脚本，`run_with_mpi.sh`是执行脚本。
 
-> 此外，在Ascend 910平台上进行分布式并行训练的教程详见[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)与[分布式并行训练Transformer模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html)。
+> 此外，在Ascend 910平台上进行分布式并行训练的教程详见[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_ascend.html)与[分布式并行训练Transformer模型](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/transformer.html)。
 
 ## 准备环节
 
@@ -78,16 +78,16 @@ class Net(Cell):
 
 ### OpenMPI环境配置
 
-[OpenMPI](https://www.open-mpi.org/)是一种高性能消息传递库，是MindSpore采用的多进程通讯库，相关环境配置见：[通过OpenMPI运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本)。
+[OpenMPI](https://www.open-mpi.org/)是一种高性能消息传递库，是MindSpore采用的多进程通讯库，相关环境配置见：[通过OpenMPI运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_ascend.html#通过openmpi运行脚本)。
 
-> 此外，MindSpore还支持不依赖OpenMPI进行分布式训练，详见：[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练)。
+> 此外，MindSpore还支持不依赖OpenMPI进行分布式训练，详见：[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_gpu.html#不依赖openmpi进行训练)。
 
 ### 半自动并行
 
-目前MindSpore支持四种并行模式，详见：[分布式并行训练模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#分布式并行训练模式)。
+目前MindSpore支持四种并行模式，详见：[分布式并行训练模式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/introduction.html#分布式并行训练模式)。
 
 本例中演示全自动并行，通过`set_auto_parallel_context()`接口配置`parallel_mode=ms.ParallelMode.AUTO_PARALLEL`实现。
-全自动并行下共有三种可配置的并行策略搜索算法，详见：[全自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#全自动并行)。本例中，选择**切分策略传播算法**，通过`set_auto_parallel_context()`接口配置`search_mode="sharding_propagation"`实现，并手动设置`matmul`算子切分策略，其他算子的切分策略由并行策略搜索算法自动给出，代码如下：
+全自动并行下共有三种可配置的并行策略搜索算法，详见：[全自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/introduction.html#全自动并行)。本例中，选择**切分策略传播算法**，通过`set_auto_parallel_context()`接口配置`search_mode="sharding_propagation"`实现，并手动设置`matmul`算子切分策略，其他算子的切分策略由并行策略搜索算法自动给出，代码如下：
 
 ```python
 class Net(Cell):
@@ -115,7 +115,7 @@ class Net(Cell):
         return out
 ```
 
-其中，`shard()`方法的详细介绍见[自动并行原理](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)，接口介绍见[函数式算子切分](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pynative_shard_function_parallel.html)。
+其中，`shard()`方法的详细介绍见[自动并行原理](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/design/distributed_training_design.html#自动并行原理)，接口介绍见[函数式算子切分](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/pynative_shard_function_parallel.html)。
 
 对于上述例子中设置的并行切分策略，在单机8卡环境下，前向传播过程的`matmul`算子计算过程示意图如下：
 
@@ -169,7 +169,7 @@ model.train(epoch_size, dataset, callbacks=callback, dataset_sink_mode=False)
 
 运行后，该脚本在后台进行，训练日志保存在`./device`目录下，逻辑编号为`rank_id`的卡的模型保存在`./device/{rank_id}`目录下。
 
-此外，通过`ms.set_context()`接口配置`save_graphs=True`保存模型中间表示`MindIR`，逻辑编号为`rank_id`的卡的`MindIR`保存在`./saved_graph/{rank_id}`目录下。其中，MindSpore IR(MindIR)是MindSpore框架程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，详见[MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。
+此外，通过`ms.set_context()`接口配置`save_graphs=True`保存模型中间表示`MindIR`，逻辑编号为`rank_id`的卡的`MindIR`保存在`./saved_graph/{rank_id}`目录下。其中，MindSpore IR(MindIR)是MindSpore框架程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，详见[MindIR](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/design/mindir.html)。
 
 #### 验证
 

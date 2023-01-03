@@ -1,6 +1,6 @@
 # 纵向联邦-基于差分隐私的标签保护
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_DP.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -43,7 +43,7 @@ MindSpore Federated采用了一种轻量级的label dp实现方式：训练时�
 
 ## 快速体验
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，介绍如何在一个纵向联邦模型中加入label dp保护。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)中的单进程案例为例，介绍如何在一个纵向联邦模型中加入label dp保护。
 
 ### 前置需要
 
@@ -55,7 +55,7 @@ MindSpore Federated采用了一种轻量级的label dp实现方式：训练时�
    python -m pip install -r requirements_test.txt
    ```
 
-3. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+3. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)。
 
 ### 启动脚本
 
@@ -112,7 +112,7 @@ INFO:root:epoch 0 step 2500/2582 loss: 0.545622
 
 ## 深度体验
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，介绍在纵向联邦模型中加入label dp保护的具体操作方法。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)中的单进程案例为例，介绍在纵向联邦模型中加入label dp保护的具体操作方法。
 
 ### 前置需要
 
@@ -120,9 +120,9 @@ INFO:root:epoch 0 step 2500/2582 loss: 0.545622
 
 ### 方案一：调用FLModel类中集成的label dp功能
 
-MindSpore Federated采用`FLModel`（参见[纵向联邦学习模型训练接口](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
+MindSpore Federated采用`FLModel`（参见[纵向联邦学习模型训练接口](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/vertical/vertical_federated_FLModel.html)）和yaml文件（参见[纵向联邦学习yaml详细配置项](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/vertical/vertical_federated_yaml.html)），建模纵向联邦学习的训练过程。
 
-我们在`FLModel`类中集成了label dp功能。使用者在正常完成整个纵向联邦学习的训练过程建模后（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)），只需在标签方的yaml文件中，在`privacy`模块下加入`label_dp`子模块（若没有`privacy`模块则需使用者输入添加），并在`label_dp`模块内设定`eps`参数（差分隐私参数$\epsilon$，使用者可以根据实际需求设置此参数的值），即可让模型享受label dp保护：
+我们在`FLModel`类中集成了label dp功能。使用者在正常完成整个纵向联邦学习的训练过程建模后（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/split_pangu_alpha_application.html)），只需在标签方的yaml文件中，在`privacy`模块下加入`label_dp`子模块（若没有`privacy`模块则需使用者输入添加），并在`label_dp`模块内设定`eps`参数（差分隐私参数$\epsilon$，使用者可以根据实际需求设置此参数的值），即可让模型享受label dp保护：
 
 ```yaml
 privacy:

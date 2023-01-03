@@ -2,7 +2,7 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/function_debug.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/debug/function_debug.rst
 
 .. toctree::
   :maxdepth: 1
@@ -92,7 +92,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/error_analyze.html>`__\ 。
+具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/debug/error_analyze.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
@@ -110,7 +110,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    图 3
 
-   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html>`__\ 。
+   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/faq/installation.html>`__\ 。
 
 -  报错案例
 
@@ -153,7 +153,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
    MindSpore提供切换同步执行的方法，通过设置\ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``
-   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph.html>`__\ 。
+   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/compute_graph.html>`__\ 。
 
 -  二分法策略
 
@@ -166,7 +166,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 问题复现
 ^^^^^^^^
 
-问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考\ `固定随机性 <https://mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html>`__\ 。
+问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考\ `固定随机性 <https://mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/debug/fixing_randomness.html>`__\ 。
 
 调试验证
 ^^^^^^^^
@@ -180,7 +180,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    2. 正常运行.py文件，在终端会出现下面类似结果，在(Pdb)位置后输入相应的pdb命令进行调试；
    3. 在pdb交互模式下输入l、p等命令可以查看相应的代码、变量，进而排查相关的问题。
 
-   具体内容请参考\ `PyNative调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/pynative_debug.html>`__\ 。
+   具体内容请参考\ `PyNative调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/debug/pynative_debug.html>`__\ 。
 
 -  静态图调试
 
@@ -214,7 +214,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
       4. 查看图节点和源代码的对应关系。
 
-      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`__\ 。
+      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/debugger.html>`__\ 。
 
 网络执行调试
 ------------

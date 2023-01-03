@@ -1,6 +1,6 @@
 # Distributed Graph Partition
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_graph_partition.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/distributed_graph_partition.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,14 +8,14 @@ In large model training tasks, users often use various types of parallel algorit
 
 ## Basic Principle
 
-Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) sections.
+Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/parameter_server_training.html) sections.
 
 For `distributed graph partition`, each process represents a compute node (called `Worker`), and the scheduling node (called `Scheduler`) started by the `dynamic networking` module mentioned above allows discovering each compute node and thus forming a compute cluster.
 
-After `dynamic networking`, MindSpore assigns `role` and `rank`, the `role` and `id` of each process, based on the user startup configuration, both of which form a unique `tag` for each process and are input to the Python layer API `place`. With the correspondence, the user can set process labels for any operator by calling the `place` interface, and the MindSpore graph compiler module processes it to slice the computed graph into multiple subgraphs for distribution to different processes for execution. For the detailed use, please refer to [Primitive.place](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place) and [Cell.place](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place) interface document.
+After `dynamic networking`, MindSpore assigns `role` and `rank`, the `role` and `id` of each process, based on the user startup configuration, both of which form a unique `tag` for each process and are input to the Python layer API `place`. With the correspondence, the user can set process labels for any operator by calling the `place` interface, and the MindSpore graph compiler module processes it to slice the computed graph into multiple subgraphs for distribution to different processes for execution. For the detailed use, please refer to [Primitive.place](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place) and [Cell.place](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place) interface document.
 As an example, the compute topology after distributed graph partition might be as follows:
 
-![image](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
+![image](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
 
 As shown in the figure above, each `Worker` has a portion of subgraphs that have been sliced by the user, with their own weights and inputs, and each `Worker` interacts with each other through the built-in `Rpc communication operator` for data interaction.
 
@@ -23,7 +23,7 @@ To ensure ease of use and user-friendliness, MindSpore also supports users to st
 
 ## Operation Practice
 
-Taking LeNet training on GPU based on MNIST dataset as an example, different parts of the graph in the training task are split to different computational nodes for execution. You can download complete code here: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>.
+Taking LeNet training on GPU based on MNIST dataset as an example, different parts of the graph in the training task are split to different computational nodes for execution. You can download complete code here: <https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_graph_partition>.
 
 The directory structure is as follows:
 
@@ -38,7 +38,7 @@ distributed_graph_partition/
 
 ### Preparation for Training Python Script
 
-Refer to <https://gitee.com/mindspore/models/tree/master/research/cv/lenet>, using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/), to learn how to train a LeNet network. Sample code for each part of the training script is given below according to steps.
+Refer to <https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet>, using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/), to learn how to train a LeNet network. Sample code for each part of the training script is given below according to steps.
 
 #### Loading the Dataset
 
@@ -220,7 +220,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. This dynamic networking is also described in detail and used similarly in these two sections: [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). For the meaning and usage of environment variables in the script, you can refer to the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) section.
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. This dynamic networking is also described in detail and used similarly in these two sections: [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/parameter_server_training.html). For the meaning and usage of environment variables in the script, you can refer to the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/parameter_server_training.html) section.
 
 The run.sh execution script is as follows:
 

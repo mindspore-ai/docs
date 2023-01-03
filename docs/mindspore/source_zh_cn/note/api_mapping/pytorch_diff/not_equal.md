@@ -1,6 +1,6 @@
 # 比较与torch.not_equal的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/not_equal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/not_equal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.not_equal
 
@@ -16,7 +16,7 @@ torch.not_equal(input, other, *, out=None) -> Tensor
 mindspore.ops.not_equal(x, other) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.not_equal](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.not_equal.html)。
+更多内容详见[mindspore.ops.not_equal](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.not_equal.html)。
 
 ## 差异对比
 

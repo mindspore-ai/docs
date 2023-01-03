@@ -71,26 +71,26 @@ MindSpore Federated是一款开源联邦学习框架，提供样本联合的横�
 使用MindSpore Federated的工作流程
 -----------------------------------
 
-1. `识别场景、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#准备工作>`_
+1. `识别场景、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html#准备工作>`_
 
    识别出可使用联邦学习的业务场景，在客户端为联邦任务积累本地数据。
 
-2. `模型选型、框架部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html##生成端侧模型文件>`_
+2. `模型选型、框架部署 <https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html##生成端侧模型文件>`_
 
    进行模型原型的选型或开发，并使用工具生成方便部署的联邦学习模型。
 
-3. `应用部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#模拟启动多客户端参与联邦学习>`_
+3. `应用部署 <https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html#模拟启动多客户端参与联邦学习>`_
 
    将对应组件部署到业务应用中，并在服务器上设置联邦配置任务和部署脚本。
 
 常见应用场景
 -----------------
 
-1. `图像分类 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html>`_
+1. `图像分类 <https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html>`_
 
    使用联邦学习实现图像分类应用。
 
-2. `文本分类 <https://www.mindspore.cn/federated/docs/zh-CN/master/sentiment_classification_application.html>`_
+2. `文本分类 <https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/sentiment_classification_application.html>`_
 
    使用联邦学习实现文本分类应用。
 

@@ -1,6 +1,6 @@
 # 使用Mindtransformer中的BERT微调
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindtransformer/docs/source_zh_cn/mindtransformer_bert_finetune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindtransformer/docs/source_zh_cn/mindtransformer_bert_finetune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -35,8 +35,8 @@ python convert_bert_weight.py --layers 24 --torch_path pytorch_model.bin --minds
 - 框架
     - [MindSpore](https://gitee.com/mindspore/mindspore)
 - 更多关于Mindspore的信息，请查看以下资源：
-    - [MindSpore教程](https://www.mindspore.cn/tutorials/zh-CN/master/index.html)
-    - [MindSpore Python API](https://www.mindspore.cn/docs/zh-CN/master/index.html)
+    - [MindSpore教程](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/index.html)
+    - [MindSpore Python API](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/index.html)
 
 ## 运行流程
 

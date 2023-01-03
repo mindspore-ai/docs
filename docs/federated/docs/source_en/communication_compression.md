@@ -1,6 +1,6 @@
 # Device-Cloud Federated Learning Communication Compression
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/communication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/communication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 During the horizontal device-side federated learning training process, the traffic volume affects the user experience of the device-side (user traffic, communication latency, number of FL-Client participants) and is limited by the cloud-side performance constraints (memory, bandwidth, CPU usage). To improve user experience and reduce performance bottlenecks, MindSpore federated learning framework provides traffic compression for upload and download in device-cloud federated scenarios.
 
@@ -113,13 +113,13 @@ The quantization codec is the same as that in upload compression.
 
 ## Code Implementation Preparation
 
-To use the upload and download compression methods, first successfully complete the training aggregation process for either device or cloud federated scenario, e.g. [Implementing a Sentiment Classification Application (Android)](https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html). The preparation work including datasets and network models and the simulation of the process to initiate multi-client participation in federated learning are described in detail in this document.
+To use the upload and download compression methods, first successfully complete the training aggregation process for either device or cloud federated scenario, e.g. [Implementing a Sentiment Classification Application (Android)](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/sentiment_classification_application.html). The preparation work including datasets and network models and the simulation of the process to initiate multi-client participation in federated learning are described in detail in this document.
 
 ## Algorithm Open Script
 
 The upload and download compression methods are currently only supported in the device-cloud federated learning scenario. The open method requires setting `upload_compress_type='DIFF_SPARSE_QUANT'` and `download_compress_type='QUANT'` in the corresponding yaml in the server startup script when starting the cloud-side service.
 
-The relevant parameter configuration to start the algorithm is given in the cloud-side [full startup script](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/). After determining the parameter configuration, the user needs to configure the corresponding parameters before executing the training, as follows:
+The relevant parameter configuration to start the algorithm is given in the cloud-side [full startup script](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/tests/st/cross_device_cloud/). After determining the parameter configuration, the user needs to configure the corresponding parameters before executing the training, as follows:
 
 ```yaml
 compression:

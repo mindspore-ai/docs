@@ -1,6 +1,6 @@
 # 在线学习
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/recommender/docs/source_zh_cn/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ kafka-python v2.0.2
 
 ## 使用样例
 
-下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://gitee.com/mindspore/recommender/tree/master/examples/online_learning)。
+下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://gitee.com/mindspore/recommender/tree/r2.0.0-alpha/examples/online_learning)。
 
 MindSpore Recommender为在线学习提供了专门的算法模型`RecModel`，搭配实时数据源Kafka数据读取与特征处理的MindPandas即可实现一个简单的在线学习流程。
 首先自定义一个实时数据处理的数据集，其中的构造函数参数`receiver`是MindPands中的`DataReceiver`类型，用于接收实时数据，`__getitem__`表示一次读取一条数据。
@@ -155,11 +155,11 @@ python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --datase
 --map_dict： 稀疏特征列的字典
 ```
 
-consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
+consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/r2.0.0-alpha/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
 
 ### 启动在线训练
 
-config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore/recommender/blob/master/examples/online_learning/default_config.yaml)。
+config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore/recommender/blob/r2.0.0-alpha/examples/online_learning/default_config.yaml)。
 
 单卡训练：
 

@@ -1,6 +1,6 @@
 # 创建项目
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_zh_cn/mindspore_project_wizard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/devtoolkit/docs/source_zh_cn/mindspore_project_wizard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 技术背景
 

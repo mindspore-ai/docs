@@ -1,6 +1,6 @@
 # 纵向联邦-隐私集合求交
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/private_set_intersection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/private_set_intersection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 隐私保护背景
 
@@ -26,7 +26,7 @@ ECDH-PSI 的核心思想是：一条数据先经过 Alice 加密再经过 Bob �
 
 ### 启动脚本
 
-可从 [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/master/tests/st/psi/run_psi.py) 获取PSI双方启动脚本，开启两个进程分别模拟两方，下面给出本机与本机通讯的启动命令：
+可从 [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/psi/run_psi.py) 获取PSI双方启动脚本，开启两个进程分别模拟两方，下面给出本机与本机通讯的启动命令：
 
 ```python
 python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100

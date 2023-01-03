@@ -1,6 +1,6 @@
 # Function Differences with torch.Tensor.float
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Cast.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Cast.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.Tensor.float
 
@@ -19,7 +19,7 @@ class mindspore.ops.Cast(*args, **kwargs)(
 )
 ```
 
-For more information, see [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast).
+For more information, see [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast).
 
 ## Differences
 

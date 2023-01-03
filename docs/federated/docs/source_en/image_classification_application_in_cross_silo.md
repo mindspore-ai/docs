@@ -1,16 +1,16 @@
 # Implementing a Cloud-Slio Federated Image Classification Application (x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Based on the type of participating clients, federated learning can be classified into cross-silo federated learning and cross-device federated learning. In a cross-silo federated learning scenario, the clients involved in federated learning are different organizations (e.g., healthcare or finance) or geographically distributed data centers, i.e., training models on multiple data silos. In the cross-device federated learning scenario, the participating clients are a large number of mobile or IoT devices. This framework will describe how to implement an image classification application by using the network LeNet on the MindSpore Federated cross-silo federated framework.
 
-The full script to launch cross-silo federated image classification application can be found [here](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist).
+The full script to launch cross-silo federated image classification application can be found [here](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_femnist).
 
 ## Downloading the Dataset
 
 This example uses the federated learning dataset `FEMNIST` from [leaf dataset](https://github.com/TalwalkarLab/leaf), which contains 62 different categories of handwritten numbers and letters (numbers 0 to 9, 26 lowercase letters, 26 uppercase letters) with an image size of `28 x 28` pixels . The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805263, the average amount of data contained per user is 226.83, and the variance of the data volume for all users is 88.94.
 
-You can refer to [Image classfication dataset process](https://www.mindspore.cn/federated/docs/en/master/image_classfication_dataset_process.html ) in steps 1 to 7 to obtain the 3500 user datasets `3500_client_img` in the form of images.
+You can refer to [Image classfication dataset process](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classfication_dataset_process.html ) in steps 1 to 7 to obtain the 3500 user datasets `3500_client_img` in the form of images.
 
 Due to the relatively small amount of data per user in the original 3500 user dataset, it will converge too fast in the cross-silo federated task to obviously reflect the convergence effect of the cross-silo federated framework. The following provides a reference script to merge the specified number of user data into one user to increase the amount of individual user data participating in the cross-silo federated task and better simulate the cross-silo federated framework experiment.
 
@@ -141,25 +141,25 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
 
 We choose the relatively simple LeNet network, which has seven layers without the input layer: two convolutional layers, two downsampling layers (pooling layers), and three fully connected layers. Each layer contains a different number of training parameters, as shown in the following figure:
 
-![LeNet5](https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
+![LeNet5](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
 
 > More information about LeNet network is not described herein. For more details, please refer to <http://yann.lecun.com/exdb/lenet/>.
 
-The network used for this task can be found in the script [test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_femnist/test_cross_silo_femnist.py).
+The network used for this task can be found in the script [test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_femnist/test_cross_silo_femnist.py).
 
-For a specific understanding of the network definition process in MindSpore, please refer to [quick start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#building-network).
+For a specific understanding of the network definition process in MindSpore, please refer to [quick start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html#building-network).
 
 ## Launching the Cross-Silo Federated Task
 
 ### Installing MindSpore and Mindspore Federated
 
-Both source code and downloadable distribution are included. Support CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms. The installation steps can be found in [MindSpore Installation Guide](https://www.mindspore.cn/install), [Mindspore Federated Installation Guide](https://www.mindspore.cn/federated/docs/en/master/federated_install.html).
+Both source code and downloadable distribution are included. Support CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms. The installation steps can be found in [MindSpore Installation Guide](https://www.mindspore.cn/install), [Mindspore Federated Installation Guide](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/federated_install.html).
 
 Currently the federated learning framework is only supported for deployment in Linux environments. Cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 
 ### Launching the Task
 
-Refer to [Example](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist) to launch cluster. The reference example directory structure is as follows.
+Refer to [Example](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_femnist) to launch cluster. The reference example directory structure is as follows.
 
 ```text
 cross_silo_femnist/
@@ -212,7 +212,7 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 
 Then it means that cross-silo federated learning is started successfully and `worker_0` is training, other workers can be viewed in a similar way.
 
-Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
+Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
 
 ### Viewing Log
 

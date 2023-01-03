@@ -2,7 +2,7 @@ Other Features
 ==============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/other_features.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/other_features.rst
 
 .. toctree::
   :maxdepth: 1
@@ -15,8 +15,8 @@ Other Features
   pynative_shard_function_parallel
   ms_operator
 
-`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html>`__
-------------------------------------------------------------------------------------------------------------------
+`Sharding Propagation <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/sharding_propagation.html>`__
+--------------------------------------------------------------------------------------------------------------------------
 
 In operator-level parallelism, the user is required to configure a
 slicing strategy for each operator in the forward network (if not
@@ -26,8 +26,8 @@ automatically generate a feasible sharding strategy for operators
 without a sharding strategy, and achieve the effect of minimizing
 communication overhead.
 
-`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`__
-----------------------------------------------------------------------------------------------------------------------------
+`Parameter Server Training <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/parameter_server_training.html>`__
+-------------------------------------------------------------------------------------------------------------------------------------
 
 Parameter Server is a widely used architecture in distributed training,
 which has better flexibility, scalability, and node disaster tolerance
@@ -44,8 +44,8 @@ some node abnormalities, and under the architecture of parameter
 servers, such failures can be easily handled without affecting the tasks
 in training.
 
-`Communication Operator Fusion <https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_fusion.html>`__
----------------------------------------------------------------------------------------------------------------------
+`Communication Operator Fusion <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/comm_fusion.html>`__
+--------------------------------------------------------------------------------------------------------------------------
 
 In the distributed training scenario, cross-device or even cross-node
 data transmission is a bottleneck that restricts scalability and
@@ -56,8 +56,8 @@ communication operators of the same source node and the destination node
 and executes them at the same time to avoid the additional overhead
 caused by multiple single operator execution.
 
-`Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dataset_slice.html>`__
---------------------------------------------------------------------------------------------------------
+`Dataset Slicing <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/dataset_slice.html>`__
+--------------------------------------------------------------------------------------------------------------
 
 When doing distributed training, you need to import the training dataset
 to each device. There are two common ways to import: 1) Import in
@@ -71,14 +71,14 @@ dimension, and each device reads a part of the picture. This special
 performance supports splitting datasets into specific dimensions to meet
 training requirements in the field of large-format image processing.
 
-`Functional Operator Splitting <https://www.mindspore.cn/tutorials/experts/en/master/parallel/pynative_shard_function_parallel.html>`__
--------------------------------------------------------------------------------------------------------------------------------------------
+`Functional Operator Splitting <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pynative_shard_function_parallel.html>`__
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 In dynamic graph mode, you specify that a part of the network structure
 executes in graph mode and performs various parallel operations.
 
-`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/master/parallel/ms_operator.html>`__
-------------------------------------------------------------------------------------------------------------------------------------
+`Performing Distributed Training on K8S Clusters <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/ms_operator.html>`__
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 MindSpore Operator is a plugin that follows Kubernetes’ Operator pattern
 (based on the CRD-Custom Resource Definition feature) and implements

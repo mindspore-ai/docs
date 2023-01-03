@@ -1,6 +1,6 @@
 # 应用SLB算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -42,7 +42,7 @@ SLB量化算法的训练规格如下表所示。
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU |
-| 网络支持 | ResNet18，具体请参见<https://gitee.com/mindspore/models/tree/master/official/cv/ResNet#应用mindspore-golden-stick模型压缩算法>。 |
+| 网络支持 | ResNet18，具体请参见<https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet#应用mindspore-golden-stick模型压缩算法>。 |
 | 方案支持 | 支持1、2、4比特的权重量化方案，支持8比特的激活量化方案。 |
 | 数据类型支持 | GPU平台支持FP32。 |
 | 运行模式支持 | Graph模式和PyNative模式。 |
@@ -60,7 +60,7 @@ SLB量化训练与一般训练步骤一致，在定义量化网络和生成量�
 
 接下来以ResNet18网络为例，分别叙述这些步骤。
 
-> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/golden_stick/quantization/slb/eval.py)为精度验证代码。
+> 完整代码见[resnet模型仓](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/golden_stick/quantization/slb/train.py)为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/golden_stick/quantization/slb/eval.py)为精度验证代码。
 
 ### 加载数据集
 
@@ -71,7 +71,7 @@ dataset = create_dataset(dataset_path=config.data_path, do_train=True,
                          distribute=config.run_distribute)
 ```
 
-代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/dataset.py)，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml)中配置，下同。
+代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/dataset.py)，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/golden_stick/quantization/slb/resnet18_cifar10_config.yaml)中配置，下同。
 
 ### 定义原网络
 
@@ -115,7 +115,7 @@ ResNet<
   >
 ```
 
-ResNet18网络定义见[resnet.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/resnet.py)。
+ResNet18网络定义见[resnet.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/resnet.py)。
 
 ### 应用量化算法
 
@@ -148,7 +148,7 @@ print(quant_net)
 SlbQuantAwareTraining<weight_quant_dtype=INT1, act_quant_dtype=INT8, enable_act_quant=True, enable_bn_calibration=True, epoch_size=100, has_trained_epoch=0, t_start_val=1.0, t_start_time=0.2, t_end_time=0.6, t_factor=1.2>
 ```
 
-打印量化后的网络，会得到如下的网络结构，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/quantization/mindspore_gs.quantization.SlbQuantAwareTraining.html#mindspore_gs.quantization.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+打印量化后的网络，会得到如下的网络结构，其中QuantizeWrapperCell为SLB量化对原有Conv2d的封装类，包括了原有的算子和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/mindspore_gs.quantization.SlbQuantAwareTraining.html#mindspore_gs.quantization.SlbQuantAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 ResNetOpt<
@@ -276,7 +276,7 @@ ckpt_cb = ModelCheckpoint(prefix="resnet", directory="./ckpt", config=config_ck)
 cb += [ckpt_cb]
 ```
 
-代码中get_lr引用自[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/lr_generator.py)，init_group_params和init_loss_scale都引用自[train.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/golden_stick/quantization/slb/train.py)。
+代码中get_lr引用自[lr_generator.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/lr_generator.py)，init_group_params和init_loss_scale都引用自[train.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/golden_stick/quantization/slb/train.py)。
 
 ### 训练模型，保存模型文件
 
@@ -307,7 +307,7 @@ Train epoch time: 94106.722 ms, per step time: 60.248 ms
 
 ### 加载模型，对比精度
 
-按照[resnet模型仓](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet)步骤获得普通训练的模型精度：
+按照[resnet模型仓](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet)步骤获得普通训练的模型精度：
 
 ```text
 'top_1_accuracy': 0.9544270833333334, 'top_5_accuracy': 0.9969951923076923

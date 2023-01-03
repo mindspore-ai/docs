@@ -1,12 +1,12 @@
 # 模型压缩
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/infer/model_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/infer/model_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 MindSpore是一个全场景的AI框架。当模型部署到端侧或者其他轻量化设备上时，对于部署的内存、功耗、时延等有各种限制，所以往往在部署前需要对模型进行压缩。
 
-MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，如量化、剪枝等。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 查看。
+MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，如量化、剪枝等。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/index.html) 查看。
 
 ## 量化方法
 
@@ -22,8 +22,8 @@ MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore
 
 ### 量化方法示例
 
-- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/quantization/simqat.html)：一种基础的基于伪量化技术的感知量化算法
-- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/quantization/slb.html)：一种非线性的低比特感知量化算法
+- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/simqat.html)：一种基础的基于伪量化技术的感知量化算法
+- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/slb.html)：一种非线性的低比特感知量化算法
 
 ## 剪枝方法
 
@@ -41,4 +41,4 @@ MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore
 
 ### 剪枝方法示例
 
-- [SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/pruner/scop.html)：一个结构化权重剪枝算法
+- [SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/pruner/scop.html)：一个结构化权重剪枝算法

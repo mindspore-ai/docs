@@ -1,6 +1,6 @@
 # 比较与torch.asin的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/asin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/asin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.asin
 
@@ -16,7 +16,7 @@ torch.asin(input, *, out=None) -> Tensor
 mindspore.ops.asin(x) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.asin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.asin.html)。
+更多内容详见[mindspore.ops.asin](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.asin.html)。
 
 ## 差异对比
 

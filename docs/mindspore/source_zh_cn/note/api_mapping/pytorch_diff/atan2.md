@@ -1,6 +1,6 @@
 # 比较与torch.atan2的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/atan2.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/atan2.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.atan2
 
@@ -16,7 +16,7 @@ torch.atan2(input, other, *, out=None) -> Tensor
 mindspore.ops.atan2(x, y) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.atan2](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan2.html)。
+更多内容详见[mindspore.ops.atan2](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.atan2.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # Incremental Training for Solving a Family of Maxwell's Equation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindelec/docs/source_en/incremental_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -9,11 +9,11 @@ The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Parti
 This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindElec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
+> <https://gitee.com/mindspore/mindscience/tree/r2.0.0-alpha/MindElec/examples/physics_driven/incremental_learning>
 
 ## Problem Description
 
-This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindelec/docs/en/master/time_domain_maxwell.html).
+This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindelec/docs/en/r2.0.0-alpha/time_domain_maxwell.html).
 
 ## Physics-Informed Auto-Decoder
 

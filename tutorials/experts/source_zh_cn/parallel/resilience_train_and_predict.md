@@ -1,6 +1,6 @@
 # 分布式弹性训练与推理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -32,9 +32,9 @@
 
 需要注意，加载分布式的Checkpoint，要求对网络进行编译后才可以加载。
 
-> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html#准备环节)。
+> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/transformer.html#准备环节)。
 >
->下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training)。
+>下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_resilience_training)。
 
 ## 对分布式Checkpoint文件进行转换
 
@@ -48,8 +48,8 @@
 定义网络，进行分布式的初始化，获取设备数与卡号，对于非流水线并行的情况下，每张卡的切分策略文件内容均是一致的，因此只对0卡调用`set_auto_parallel_context(strategy_ckpt_save_file="../src_strategy.ckpt")`保存策略文件即可。
 添加保存Checkpoint的回调函数，首先定义Checkpoint存储相关的配置对象`CheckpointConfig`，注意`integrated_save`配置为`False`，意味着不对分布式训练的权重做聚合保存，以适应大模型下的内存开销。
 而后定义保存Checkpoint的回调函数`ModelCheckpoint`。最后，调用`model.train`执行训练。
-关于分布式训练的基本使用方法，请参考[分布式训练Ascend](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
-或者[分布式训练GPU](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。
+关于分布式训练的基本使用方法，请参考[分布式训练Ascend](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_ascend.html)。
+或者[分布式训练GPU](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/train_gpu.html)。
 
 ```python
 import mindspore as ms
@@ -274,8 +274,8 @@ epoch: 1 step: 73, loss is 6.13733
 
 ## 流水线并行维度转换
 
-[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
-因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前一个章节[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 没有差异。
+[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
+因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前一个章节[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 没有差异。
 
 首先，执行8卡的流水线并行训练，其中pipeline并行维度为2，算子级模型并行维度为4，数据并行维度为1。
 
@@ -318,7 +318,7 @@ src_checkpoints_pipeline/
 src_pipeline_strategys/
 ```
 
-参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的“对目标网络执行编译”模块，同样编译目标网络以得到目标网络的切分策略文件。
+参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的“对目标网络执行编译”模块，同样编译目标网络以得到目标网络的切分策略文件。
 
 示例中执行4卡目标网络编译的脚本执行命令为：
 
@@ -334,7 +334,7 @@ dst_strategy.ckpt
 
 下一步展开包含pipeline并行维度的分布式Checkpoint维度转换，首先使用接口`merge_pipeline_strategys`对pipline训练得到的切分策略文件进行合并，而后使用接口`transform_checkpoints`或者`transform_checkpoint_by_rank`进行分布式Checkpoint转换。
 
-示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的介绍。
+示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[切分策略转换](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/resilience_train_and_predict.html#%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8Fcheckpoint%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2) 章节的介绍。
 
 ```python
 import mindspore as ms
@@ -351,7 +351,7 @@ ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir,
 python transform_checkpoint_dir_pipeline.py --src_strategy_dir=./src_pipeline_strategys --dst_strategy_file=dst_strategy.ckpt --src_checkpoints_dir=./src_checkpoints --dst_checkpoints_dir=./dst_checkpoints
 ```
 
-转换完成后，参照[执行目标网络章节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6) ，加载转换得到的分布式Checkpoint，执行没有pipeline维度的分布式网络。
+转换完成后，参照[执行目标网络章节](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/parallel/resilience_train_and_predict.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6) ，加载转换得到的分布式Checkpoint，执行没有pipeline维度的分布式网络。
 
 示例中，加载转换后的Checkpoint进行二阶段微调训练的脚本执行命令为：
 

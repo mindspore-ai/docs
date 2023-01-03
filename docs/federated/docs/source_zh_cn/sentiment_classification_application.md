@@ -1,6 +1,6 @@
 # 实现一个端云情感分类应用(Android)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上传云侧。由于用户在使用输入法时，十分重视所输入文字的隐私，且输入法的智慧功能对提升用户体验非常需要。因此，联邦学习天然适用于输入法应用场景。
 
@@ -10,7 +10,7 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_server.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)。
 
 ### 数据
 
@@ -49,7 +49,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/federated/blob/master/tests/st/network/albert.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/network/albert.py)。
 
 ### 生成端侧模型文件
 
@@ -159,12 +159,12 @@ if __name__ == '__main__':
 
 #### 将MindIR文件转化为联邦学习端侧框架可用的ms文件
 
-参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)中生成端侧模型文件部分。
+参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html)中生成端侧模型文件部分。
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本，参考[横向云端部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)。
-对应云侧配置和模型权重文件参考[albert example](https://gitee.com/mindspore/federated/tree/master/example/cross_device_albert)
+首先在服务端启动脚本，参考[横向云端部署](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_server.html)。
+对应云侧配置和模型权重文件参考[albert example](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_device_albert)
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
 1. 获取MindSpore Lite AAR包
 
-   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/downloads.html)。
 
    ```text
    mindspore-lite-full-{version}.aar
@@ -198,7 +198,7 @@ if __name__ == '__main__':
 
 2. 获取Mindspore Federated 端侧jar包。
 
-   参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+   参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/deploy_federated_client.html)。
 
    ```text
    mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
@@ -297,7 +297,7 @@ app
     }
     ```
 
-2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/docs/zh-CN/master/interface_description_federated_client.html)。
+2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/interface_description_federated_client.html)。
 
    ```java
    import android.annotation.SuppressLint;

@@ -1,10 +1,10 @@
 # Distributed Set Communication Primitives
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/communicate_ops.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/communicate_ops.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Distributed training involves communication operations such as `AllReduce`, `ReduceScatter`, `AllGather` and `Broadcast` for data transfer, and we will explain their meaning and sample code in the following sections.
 
-Examples of different communication operations by using 4 GPUs are given in each of the following sections. The output in the example comes from the results of the `rank0` program on card 0. The user needs to save each section code below as a separate communication.py. Because it involves a multi-card program, the user needs to go through the `mpirun` command to start communication.py. The `mpirun` commands requires the installation of OpenMPI as well as NCCL, and please refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html) for the corresponding installation.
+Examples of different communication operations by using 4 GPUs are given in each of the following sections. The output in the example comes from the results of the `rank0` program on card 0. The user needs to save each section code below as a separate communication.py. Because it involves a multi-card program, the user needs to go through the `mpirun` command to start communication.py. The `mpirun` commands requires the installation of OpenMPI as well as NCCL, and please refer to [here](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html) for the corresponding installation.
 
 ```bash
 mpirun -output-filename log -merge-stderr-to-stdout -np 4 python communication.py
@@ -14,7 +14,7 @@ The `-np` in the above code means that 4 process tasks will be started, occupyin
 
 ## AllReduce
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/allreduce.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/allreduce.png)
 
 The `AllReduce` operation sums the input Tensor of the `AllReduce` operator in each card. Finally, the output of the `AllReduce` operator in each card is the same value. For example, as shown in the figure above, the input to the AllReduce operator for each card is `0, 1, 2, 3`. After `AllReduce`, the output of each card is the sum of all card inputs as 6(0+1+2+3).
 
@@ -51,7 +51,7 @@ The card 0 runs as follows, and the output log path is `log/1/rank.0`:
 
 ## AllGather
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/allgather.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/allgather.png)
 
 The `AllGather` operation will stitch the 0th dimension of the input Tensor on each card, and the final output of each card is the same value. For example, as shown above, the input of each card is a Tensor of size 1x1. After the `AllGather` operation, the output shape of the `AllGather` operator of each card is [4,1]. The element values with index [0,0] are from the input [[0.0]] of card 0 `AllGather`, and the element values with index [1,0] are from the input [[1.0]] of card 1 `AllGather`.
 
@@ -127,7 +127,7 @@ The running result is as follows, with the output log path `log/1/rank.0`:
 
 ## Broadcast
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/broadcast.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/broadcast.png)
 
 The sample code is as follows: we set the root node of the `Broadcast` operator to card 0, indicating that data will be broadcast from card 0 to other cards. We request an input of size 1x1 with a value of 0. Then call the `Broadcast` operator to communicate among the cards with communication domain `0-1-2-3` (communication range of all cards i.e. nccl_world_group). Finally, the output value of each card is from card 0.
 
@@ -162,7 +162,7 @@ The result of the run is as follows, with the output log path `log/1/rank.0`:
 
 ## NeighborExchange
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/NeighborExchange.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/NeighborExchange.png)
 
 The `NeighborExchange` operation will provide a set of data to be sent to each of the other specific cards while receiving data from the specific card. For example, in the above figure, rank 0 sends a Tensor with shape [16,16] to rank 1 and receives a Tensor with shape [32,32] from rank 1. rank 1 sends a Tensor with shape [32,32] to rank 0 and receives a Tensor with shape [16,16] from rank 0. Finally, the rank 0 outputs the received Tensor with shape [32,32], and rank 1 outputs the received Tensor with [16,16].
 
@@ -244,7 +244,7 @@ The results of rank1 are:
 
 ## NeighborExchangeV2
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/neighborexchangev2.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/neighborexchangev2.png)
 
 The `NeighborExchangeV2` operation sends part of the data in the Tensor to the surrounding 8 cards according to the attribute settings, and receives data from the surrounding 8 cards and stitches them into a new Tensor, which is often used in scenarios where a large Tensor is sliced on multiple cards for distributed convolutional operations. Attributes send_rank_ids and recv_rank_ids are 8 numbers, respectively, indicating sending/receiving rank_id in 8 directions, and filling -1 means no send/no receive. As shown above, figure 2 indicates the order corresponding to the 8 directions. The attributes send_lens and recv_lens are four numbers that represent the send/receive lengths in the four directions [top, bottom, left, right], respectively. For example, in Figure 1 above, a 16-card example is shown, taking rank 10 as an example, setting send_rank_ids=[6,7,11,15,14,13,9,5], the data of rank 10 is sliced and sent to rank 5, 6, 7, 11, 15, 14, 13, 9 respectively, for example, red in Figure is sent to rank 5, red, yellow and blue to rank 6, blue to rank 7, etc. Setting recv_rank_ids=[6,7,11,15,14,13,9,5], at the same time rank10 receives some data from each of these cards stitched into the corresponding direction to form a new Tensor output, as shown in the figure with rank10 and the light green part.
 
@@ -327,7 +327,7 @@ The results of rank1 are:
 
 ## AlltoAll
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/alltoall.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/alltoall.png)
 
 The `AlltoAll` operation will slice the input data into a specific number of chunks in a specific dimension and send them to other ranks in order, while receiving input from other ranks and stitching the data together in a specific dimension in order. For example, in the above figure, the Tensor is sliced into 5 pieces in dimension 0, while receiving data from other ranks and stitching them in dimension 1, and finally outputting the stitched data.
 

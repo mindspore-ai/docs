@@ -1,6 +1,6 @@
 # 性能调试案例
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindinsight/docs/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处理性能等提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
 
@@ -10,17 +10,17 @@ Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处
 
 Profiler的功能介绍及使用说明请参见教程：
 
-[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)
+[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/performance_profiling_ascend.html)
 
-[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
+[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/performance_profiling_gpu.html)
 
-[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)
+[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/performance_profiling_of_cluster.html)
 
 本节将通过三个典型案例介绍Profiler工具的常见使用方式。
 
 ### 案例一：迭代间隙过长
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#)中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
 通过MindInsight性能分析页面观察到迭代轨迹中的迭代间隙过长，这通常说明数据是性能瓶颈点。
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
@@ -41,7 +41,7 @@ Profiler的功能介绍及使用说明请参见教程：
 
 *图3：数据准备详情页面——数据处理*
 
-针对数据处理操作的性能优化，可以参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)页面。
+针对数据处理操作的性能优化，可以参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/dataset/optimize.html)页面。
 查看ResNet50网络中数据处理的代码部分，发现map操作的num_parallel_workers参数没有设置，默认为1，代码如下：
 
 ```python
@@ -78,7 +78,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 ### 案例二：前向运行时间长
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#)中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
 通过MindInsight性能分析页面观察到迭代轨迹中的前向运行时间很长。在单卡训练或推理过程中，前向耗时长通常考虑是否有算子的耗时时长可以优化。
 
 ![long_fp_bp](images/profiler_case2_long_fpbp.png)
@@ -91,7 +91,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 *图6：通过算子耗时详情页面寻找可优化算子*
 
-对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html )页面。
+对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/mixed_precision.html )页面。
 
 优化参考代码如下：
 
@@ -109,7 +109,7 @@ network.add_flags_recursive(fp16=True)
 
 ### 案例三： 优化迭代拖尾
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#)中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
 通过MindInsight性能分析页面观察迭代轨迹，发现迭代间隙与前反向已经没有多少优化的空间，考虑迭代拖尾是否可以优化。
 
 ![long_tail](images/profiler_case3_long_tail.png)

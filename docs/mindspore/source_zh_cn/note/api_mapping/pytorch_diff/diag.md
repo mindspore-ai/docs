@@ -14,7 +14,7 @@ torch.diag(input, diagonal=0, *, out=None) -> Tensor
 mindspore.ops.diag(input_x) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diag.html)。
+更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.diag.html)。
 
 ## 差异对比
 

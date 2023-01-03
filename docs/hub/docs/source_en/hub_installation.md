@@ -7,7 +7,7 @@
         - [Installation by Source Code](#installation-by-source-code)
     - [Installation Verification](#installation-verification)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## System Environment Information Confirmation
 
@@ -38,7 +38,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Hub/an
 1. Download source code from Gitee.
 
    ```bash
-   git clone https://gitee.com/mindspore/hub.git
+   git clone https://gitee.com/mindspore/hub.git -b r2.0.0-alpha
    ```
 
 2. Compile and install in MindSpore Hub directory.
@@ -61,7 +61,7 @@ model = mshub.load("mindspore/1.6/lenet_mnist", num_class=10)
 If it prompts the following information, the installation is successful:
 
 ```text
-Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/1.6/lenet_mnist.md
+Downloading data from url https://gitee.com/mindspore/hub/raw/r2.0.0-alpha/mshub_res/assets/mindspore/1.6/lenet_mnist.md
 
 Download finished!
 File size = 0.00 Mb

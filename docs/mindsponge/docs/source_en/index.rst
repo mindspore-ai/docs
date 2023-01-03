@@ -177,7 +177,7 @@ Contribution Guide
 ------------------
 
 -  Please click here to see how to contribute your code:\ `Contribution
-   Guide <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__
+   Guide <https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/CONTRIBUTION.md#>`__
 
 .. toctree::
    :glob:

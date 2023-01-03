@@ -1,6 +1,6 @@
 # 比较与 torch.Tensor.cuda 的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cuda.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cuda.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.Tensor.cuda
 
@@ -16,7 +16,7 @@ torch.Tensor.cuda()
 mindspore.set_context(**kwargs)
 ```
 
-更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
 
 ## Differences
 

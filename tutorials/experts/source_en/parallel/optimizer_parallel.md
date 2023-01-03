@@ -1,6 +1,6 @@
 # Optimizer Parallel
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -25,7 +25,7 @@ In a training iteration, the data parallelism introduces a communication operati
 
 If you want to implement parallel computing for the optimizer, there are two implementation ideas, weights grouping and weights sharding. One of the weights grouping is to do inter-layer division of the parameters and gradients within the optimizer, and the general training flow is shown in Figure 1. The parameters and gradients are grouped onto different cards to be updated, and then the updated weights are shared among devices through a communication broadcast operation. The memory and performance gains of the solution depend on the group with the largest proportion of parameters. When the parameters are divided evenly, the theoretical positive gains are N-1/N of optimizer runtime and dynamic memory, and N-1/N of memory size for optimizer state parameters, where N denotes the number of devices. And the negative gain introduced is the communication time that comes when sharing network weights.
 
-![images](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_0_zh.png)
+![images](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_0_zh.png)
 
 *Figure 1: Schematic diagram of the parameter grouping training process*
 
@@ -33,7 +33,7 @@ Another way to implement parameter slicing is to do intra-layer division of para
 
 First, slice the weights in the network can further reduce static memory. However, this also requires performing the shared weight operation at the end of the iteration before the forward start of the next iteration, ensuring that the original tensor shape remains the same after going into the forward and backward operations. In addition, the main negative gain from the parallel operation of the optimizer is the communication time of the shared weights, which can bring a performance gain if we can reduce or hide it. One advantage of communication cross-iteration execution is that communication operations can be executed interleaved with the forward network by fusing the communication operators in appropriate groups, thus hiding the communication time consumption as much as possible. The communication time consumption is also related to the communication volume. For the network involving mixed precision, if we can use fp16 communication, the communication volume will be reduced by half compared to fp32. Combining the above characteristics, the implementation scheme of parameter slicing is shown in Figure 2.
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_1_zh.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0.0-alpha/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_1_zh.png)
 
 *Figure 2: Schematic diagram of the parameter slicing training process*
 
@@ -47,7 +47,7 @@ Optimizer parameter slicing implemented by MindSpore also has the advantage of b
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel>.
+> <https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_optimizer_parallel>.
 
 The directory structure is as follows:
 
@@ -180,11 +180,11 @@ To avoid these problems, the network parameters can be grouped and fused: the co
 
 ### Running the Code
 
-The above code needs to be configured with distributed variables before it can run. The Ascend environment needs to be configured with RANK_TABLE_FILE, RANK_ID and DEVICE_ID. For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables). GPU environment needs to configure [OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#multi-host-training). For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment).
+The above code needs to be configured with distributed variables before it can run. The Ascend environment needs to be configured with RANK_TABLE_FILE, RANK_ID and DEVICE_ID. For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#configuring-distributed-environment-variables). GPU environment needs to configure [OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#configuring-distributed-environment)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#multi-host-training). For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html#configuring-distributed-environment).
 
 Environment variables related to ascend distributed are:
 
-- RANK_TABLE_FILE: Path to the network information file. The rank_table_file file can be generated by using hccl_tools.py in the models code repository, which can be obtained from [here](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
+- RANK_TABLE_FILE: Path to the network information file. The rank_table_file file can be generated by using hccl_tools.py in the models code repository, which can be obtained from [here](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/hccl_tools).
 - DEVICE_ID: The actual serial number of the current card on the machine.
 - RANK_ID: The logical serial number of the current card.
 
@@ -192,7 +192,7 @@ The environment variable related to GPU distributed is:
 
 - HOST_FILE: Describes the IP and number of devices for multi-card training. Each line of the file has the format [hostname] slots=[slotnum], and hostname can be an ip or hostname. Note that the username needs to be the same on different machines, but the hostname cannot be the same.
 
-The user can access the above script in this document via [here](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel). Execute the following `bash` script to run the program and output the log in the device0/train.log0 file.
+The user can access the above script in this document via [here](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_optimizer_parallel). Execute the following `bash` script to run the program and output the log in the device0/train.log0 file.
 
 ```bash
 #!/bin/bash

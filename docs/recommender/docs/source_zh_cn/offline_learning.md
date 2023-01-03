@@ -1,6 +1,6 @@
 # 离线训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/offline_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/recommender/docs/source_zh_cn/offline_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -14,4 +14,4 @@
 
 ## 使用样例
 
-[Wide&Deep 分布式训练](https://gitee.com/mindspore/recommender/tree/master/models/wide_deep)
+[Wide&Deep 分布式训练](https://gitee.com/mindspore/recommender/tree/r2.0.0-alpha/models/wide_deep)

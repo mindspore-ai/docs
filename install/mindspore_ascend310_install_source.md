@@ -18,11 +18,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/install/mindspore_ascend310_install_source.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用源码编译方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
-- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r2.0.0-alpha/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
 - 如果您的系统是Ubuntu 18.04/CentOS 7.6其中之一，或者已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
@@ -33,7 +33,7 @@
 使用以下命令获取自动安装脚本并执行。通过自动安装脚本配置的环境，仅支持编译MindSpore>=1.6.0。
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+wget https://gitee.com/mindspore/mindspore/raw/r2.0.0-alpha/scripts/install/euleros-ascend-source.sh
 # 默认安装Python 3.7
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 bash -i ./euleros-ascend-source.sh
@@ -218,7 +218,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r2.0.0-alpha
 ```
 
 ## 编译MindSpore

@@ -1,6 +1,6 @@
 # Function Differences with tf.data.Dataset.shuffle
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/shuffle.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/shuffle.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.data.Dataset.shuffle
 
@@ -22,7 +22,7 @@ mindspore.dataset.GeneratorDataset.shuffle(
 )
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset.shuffle](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle).
+For more information, see [mindspore.dataset.GeneratorDataset.shuffle](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle).
 
 ## Differences
 

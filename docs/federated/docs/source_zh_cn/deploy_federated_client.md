@@ -1,6 +1,6 @@
 # 横向联邦端侧部署
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档介绍如何编译，部署Federated-Client。
 
@@ -214,4 +214,4 @@ sudo apt-get install cmake -y
     export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
     ```
 
-4. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。
+4. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。

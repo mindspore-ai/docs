@@ -20,7 +20,7 @@ MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/
 
 #### 新增文档
 
-如果您需要新增文档，请在合适目录新建Markdown或reStructuredText文件，MindSpore docs仓目录结构说明可参考[README](https://gitee.com/mindspore/docs/blob/master/README_CN.md#目录结构说明)。
+如果您需要新增文档，请在合适目录新建Markdown或reStructuredText文件，MindSpore docs仓目录结构说明可参考[README](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/README_CN.md#目录结构说明)。
 
 1. 新建文件
 
@@ -33,7 +33,7 @@ MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/
 
     完成写作后，需在网页目录中添加新建的文件。
 
-    以训练教程为例，先在`source_zh_cn`目录下找到[index.rst](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
+    以训练教程为例，先在`source_zh_cn`目录下找到[index.rst](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
 
     在对应的分类中添加新建的文件，也可新建分类后再添加。以《实现一个图片分类应用》文档为例，该文档存放在`quick_start`目录，命名为`quick_start.md`，需将`quick_start/quick_start`添加至“快速入门”分类下，如下所示。
 
@@ -77,7 +77,7 @@ PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文
 
 ![master_doc](./resource/_static/master_doc.png)
 
-以《初学入门》文档为例，该文档的链接为<https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html>。
+以《初学入门》文档为例，该文档的链接为<https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/beginner/quick_start.html>。
 
 ## API
 
@@ -91,7 +91,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 如果不清楚所在文件，可点击“source”，并参考跳转的链接地址中`_modules`后的内容，找到该文件。
 
-以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/en/master/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>。
+以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/en/r2.0.0-alpha/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/python/mindspore/common/tensor.py>。
 
 ![API Source](./resource/_static/api_source.png)
 
@@ -99,20 +99,20 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 #### 新增Python API
 
-如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/docs/zh-CN/master/index.html>。
+如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/index.html>。
 
 - 如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保能通过导入“mindspore.模块名.API名”使用该API。
 
     如果属于以下模块，还需更新MindSpore docs仓的接口列表，请按字母序添加API。
 
-    - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
-    - `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
-    - `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
-    - `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
-    - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
-    - `mindspore.ops.primitive`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.primitive.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.primitive.rst)
+    - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.dataset.rst)
+    - `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.dataset.transforms.rst)
+    - `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.nn.rst)
+    - `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.nn.probability.rst)
+    - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.ops.rst)
+    - `mindspore.ops.primitive`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.ops.primitive.rst) | [英文页面列表](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python_en/mindspore.ops.primitive.rst)
 
-- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.mindrecord.rst](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
+- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.mindrecord.rst](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
 
     ```rst
     .. toctree::
@@ -136,7 +136,7 @@ MindSpore CI采用了Pylint检查工具。
 
 ### 确认内容
 
-PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/docs/zh-CN/master/index.html)中查看到新增内容。
+PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/index.html)中查看到新增内容。
 
 官网API默认展示最新发布版本，如需查看新合入的内容，如下图所示切换至master分支版本。
 

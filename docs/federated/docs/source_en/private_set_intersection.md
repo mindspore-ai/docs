@@ -1,6 +1,6 @@
 # Vertical Federated-Privacy Set Intersection
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/private_set_intersection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/private_set_intersection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Privacy Protection Background
 
@@ -14,7 +14,7 @@ The core idea of ECDH-PSI is that a piece of data is first encrypted by Alice an
 
 The core optimization point of the inverse ECDH-PSI is to minimize the encryption computation based on the set of large amount of data when facing the scenario of intersection between two parties with unbalanced amount of data (Bob is the party with less data, $a$ and $b$ are the private keys of Alice and Bob respectively, the original data of both parties are mapped to the elliptic curve as $P_1$ and $P_2$ respectively, the point multiplication encryption of the elliptic curve with the private key $k$ is $P^k$ or $kP$, and the inverse of the private key $k$ is $k^{-1}$). Then after Alice executes $p_1^a$ and sends it to Bob, Bob no longer performs the encryption calculation based on it, but sends $p_2^b$ to Alice. After Alice sends $P_2^{ba}$, Bob completes the offset operation by point multiplying the inverse of its private key, i.e., calculating $P_2^{bab^{-1}}$ and comparing it with the $P_1^a$ sent by Alice. If the encryption result is the same, it means $P_1=P_2$. The flowchart of the inverse ECDH-PSI is shown in the figure, and the red letters indicate the received data from the other side.
 
-![](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/images/inverse_ecdh_psi_flow.png)
+![](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/images/inverse_ecdh_psi_flow.png)
 
 The $bf$ in the figure stands for Bloom filter (bf). If you want to query whether an element exists in a collection, the basic method is to iterate through the collection to query, or sort the collection and use dichotomous lookup to query, but when the amount of data is too large, sorting does not support parallelism, which is very time-consuming. If a bloom filter is used, the elements of the set are mapped to a number of bits in an initial all-0 bit string by a number of hash functions, and all the elements of the sets share a single bit string. When querying, simply use the same number of hash functions to process the data to be queried, and directly access all the corresponding bits to see if they are activated to 1. If all of them are 1, it means that the data exists. Otherwise, it does not exist. The probability of collision can be achieved by controlling the number of hash functions. The communication overhead of the latter is lower compared to sending the entire set and sending a single bit string from the output of the Bloom filter. The computation can also be accelerated by parallelism during the creation of the bloom filter and the use of the filter for large-scale data queries.
 
@@ -26,7 +26,7 @@ Finish installing the `mindspore-federated` library in the Python environment.
 
 ### Starting the Script
 
-You can get the PSI start script for both sides from [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/master/tests/st/psi/run_psi.py) and open two processes to simulate both sides. The start command of local device and local communication:
+You can get the PSI start script for both sides from [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/psi/run_psi.py) and open two processes to simulate both sides. The start command of local device and local communication:
 
 ```python
 python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100

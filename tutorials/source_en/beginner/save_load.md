@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || **Save and Load**
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html) || **Save and Load**
 
 # Saving and Loading the Model
 
@@ -51,7 +51,7 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/mindir.html) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
+In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/r2.0.0-alpha/design/mindir.html) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
 
 ```python
 model = network()

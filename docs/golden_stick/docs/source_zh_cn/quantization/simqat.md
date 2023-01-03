@@ -1,6 +1,6 @@
 # 应用SimQAT算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/golden_stick/docs/source_zh_cn/quantization/simqat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -55,7 +55,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 接下来以LeNet5网络为例，分别叙述这些步骤。
 
-> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
+> 完整代码见[lenet模型仓](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/README_CN.md#应用mindspore-golden-stick模型压缩算法)，其中[train.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/train.py) 为完整的训练代码，[eval.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/eval.py) 为精度验证代码。
 
 ### 加载数据集
 
@@ -65,8 +65,8 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
 
-代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py)
- ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
+代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/src/dataset.py)
+ ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
 
 ### 定义原网络
 
@@ -94,7 +94,7 @@ LeNet5<
   >
 ```
 
-LeNet5网络定义见[lenet.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/lenet.py) 。
+LeNet5网络定义见[lenet.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/lenet/src/lenet.py) 。
 
 ### 应用量化算法
 
@@ -109,7 +109,7 @@ quanted_network = algo.apply(network)
 print(quanted_network)
 ```
 
-量化网络结构如下，其中QuantizerWrapperCell为感知量化训练对原有Conv2d或者Dense的封装类，包括了原有的算子以及输入输出和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/quantization/mindspore_gs.quantization.SimulatedQuantizationAwareTraining.html#mindspore_gs.quantization.SimulatedQuantizationAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
+量化网络结构如下，其中QuantizerWrapperCell为感知量化训练对原有Conv2d或者Dense的封装类，包括了原有的算子以及输入输出和权重的伪量化节点，用户可以参考[API](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/mindspore_gs.quantization.SimulatedQuantizationAwareTraining.html#mindspore_gs.quantization.SimulatedQuantizationAwareTraining) 修改算法配置，并通过检查QuantizeWrapperCell的属性确认算法是否配置成功。
 
 ```text
 LeNet5Opt<
@@ -207,7 +207,7 @@ Train epoch time: 8544.641 ms, per step time: 4.552 ms
 
 ### 评估网络，对比精度
 
-按照[lenet模型仓](https://gitee.com/mindspore/models/tree/master/research/cv/lenet) 步骤获得普通训练的模型精度：
+按照[lenet模型仓](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet) 步骤获得普通训练的模型精度：
 
 ```text
 'Accuracy':0.9842

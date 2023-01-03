@@ -20,7 +20,7 @@ MindSpore Documentation
    design/mindir
    design/all_scenarios
    design/thor
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r2.0.0-alpha/training_visual_design.html>
    design/data_engine
    design/glossary
 
@@ -31,7 +31,7 @@ MindSpore Documentation
    :hidden:
 
    note/benchmark
-   Network List↗ <https://gitee.com/mindspore/models/blob/master/README.md#table-of-contents>
+   Network List↗ <https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README.md#table-of-contents>
    note/operator_list
    note/syntax_list
 
@@ -58,7 +58,7 @@ MindSpore Documentation
    api_python/mindspore.boost
    api_python/mindspore.numpy
    api_python/mindspore.scipy
-   C++ API↗ <https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

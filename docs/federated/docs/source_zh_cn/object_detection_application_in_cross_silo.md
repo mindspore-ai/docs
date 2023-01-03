@@ -1,18 +1,18 @@
 # 实现一个云云联邦的目标检测应用(x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/object_detection_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/object_detection_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore Federated云云联邦框架上使用网络Fast R-CNN实现一个目标检测应用。
 
-启动云云联邦的目标检测应用的完整脚本可参考[这里](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn)。
+启动云云联邦的目标检测应用的完整脚本可参考[这里](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_faster_rcnn)。
 
 ## 任务前准备
 
-本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请参照其[官网](https://cocodataset.org/#home)指引自行下载好数据集，并进行数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个客户端所持有的数据）。
+本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/FasterRCNN)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请参照其[官网](https://cocodataset.org/#home)指引自行下载好数据集，并进行数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个客户端所持有的数据）。
 
 由于原始COCO数据集为json文件格式，云云联邦学习框架提供的目标检测脚本暂时只支持MindRecord格式输入数据，可根据以下步骤将json文件转换为MindRecord格式文件。
 
-- 首先在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
+- 首先在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
 
     - 参数`mindrecord_dir`
 
@@ -30,19 +30,19 @@
         instance_set: "./datasets/coco_split/split_100/train_0.json"
         ```
 
-- 运行脚本[generate_mindrecord.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/generate_mindrecord.py)即可生成`train_0.json`对应的MindRecord文件，保存在路径`mindrecord_dir`中。
+- 运行脚本[generate_mindrecord.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/generate_mindrecord.py)即可生成`train_0.json`对应的MindRecord文件，保存在路径`mindrecord_dir`中。
 
 ## 启动云云联邦任务
 
 ### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU、Ascend硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/index.html)。
+包括源码和下载发布版两种方式，支持CPU、GPU、Ascend硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/index.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 
 ### 启动任务
 
-参考[示例](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn)，启动集群。参考示例目录结构如下：
+参考[示例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_faster_rcnn)，启动集群。参考示例目录结构如下：
 
 ```text
 cross_silo_faster_rcnn
@@ -89,13 +89,13 @@ cross_silo_faster_rcnn
    model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=False)   # 设置dataset_sink_mode=False代表记录每个step的loss值
    ```
 
-2. 在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
+2. 在配置文件[default_config.yaml](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/default_config.yaml)中设置以下参数：
 
    - 参数`pre_trained`
 
      用于设置预训练模型路径（.ckpt 格式）。
 
-     本教程中实验的预训练模型是在ImageNet2012上训练的ResNet-50检查点。你可以使用ModelZoo中 [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) 脚本来训练，然后使用src/convert_checkpoint.py把训练好的resnet50的权重文件转换为可加载的权重文件。
+     本教程中实验的预训练模型是在ImageNet2012上训练的ResNet-50检查点。你可以使用ModelZoo中 [resnet50](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet) 脚本来训练，然后使用src/convert_checkpoint.py把训练好的resnet50的权重文件转换为可加载的权重文件。
 
 3. 启动redis
 
@@ -111,7 +111,7 @@ cross_silo_faster_rcnn
    python run_cross_silo_fasterrcnn_sched.py --yaml_config="default_yaml_config.yaml" --scheduler_manage_address="127.0.0.1:18019"
    ```
 
-   具体实现详见[run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py)。
+   具体实现详见[run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py)。
 
    打印如下代表启动成功：
 
@@ -128,7 +128,7 @@ cross_silo_faster_rcnn
    python run_cross_silo_fasterrcnn_server.py --yaml_config="default_yaml_config.yaml" --tcp_server_ip="127.0.0.1" --checkpoint_dir="/path/to/fl_ckpt" --local_server_num=4 --http_server_address="127.0.0.1:6668"
    ```
 
-   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py)。其中checkpoint_dir需要输入checkpoint所在的目录路径，server会从该路径下读取checkpoint初始化权重，checkpoint的前缀格式需要是`{fl_name}_recovery_iteration_`。
+   以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py)。其中checkpoint_dir需要输入checkpoint所在的目录路径，server会从该路径下读取checkpoint初始化权重，checkpoint的前缀格式需要是`{fl_name}_recovery_iteration_`。
 
    打印如下代表启动成功：
 
@@ -147,7 +147,7 @@ cross_silo_faster_rcnn
     python run_cross_silo_fasterrcnn_worker.py --local_worker_num=2 --yaml_config="default_yaml_config.yaml" --pre_trained="/path/to/pre_trained" --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
     ```
 
-   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py)。在数据下沉模式下，云云联邦的同步频率以epoch为单位，否则同步频率以step为单位。
+   具体实现详见[run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py)。在数据下沉模式下，云云联邦的同步频率以epoch为单位，否则同步频率以step为单位。
 
     如上指令，`--local_worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
 
@@ -159,7 +159,7 @@ cross_silo_faster_rcnn
 
     则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-    以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
+    以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/horizontal/federated_server_yaml.html)。
 
 ### 日志查看
 
@@ -209,7 +209,7 @@ cross_silo_faster_rcnn
 python finish_cross_silo_fasterrcnn.py --redis_port=2345
 ```
 
-具体实现详见[finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/finish_cloud.py)。
+具体实现详见[finish_cloud.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/tests/st/cross_device_cloud/finish_cloud.py)。
 
 或者等待训练任务结束之后集群会自动退出，不需要手动关闭。
 

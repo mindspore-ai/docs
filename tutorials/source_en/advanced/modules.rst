@@ -1,5 +1,5 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/modules.rst
 
 Model Module Customization
 ===========================
@@ -82,7 +82,7 @@ structure, such as conditional, looping, and other control flow
 statements. However, when compiling Just In Time, the syntax needs to
 be parsed by the compiler. For a syntax restriction, refer to:
 `Static diagram syntax
-support <https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html>`_ .
+support <https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html>`_ .
 
 After completing the model construction, we construct a single sample of
 data and send it to the instantiated AlexNet to find the positive
@@ -116,10 +116,10 @@ layer and the construction of its initialization method (Initializer),
 and other scenarios respectively in detail.
 
 -  `Cell and
-   Parameters <https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html>`__
+   Parameters <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/modules/layer.html>`__
 -  `Parameter
-   initialization <https://www.mindspore.cn/tutorials/en/master/advanced/modules/initializer.html>`__
+   initialization <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/modules/initializer.html>`__
 -  `Loss
-   function <https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html>`__
--  `Optimizer <https://www.mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html>`__
+   function <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/modules/loss.html>`__
+-  `Optimizer <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/modules/optimizer.html>`__
 

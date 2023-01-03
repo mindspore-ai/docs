@@ -1,6 +1,6 @@
 # Distributed Parallel Training of Transformer Models
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/transformer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/transformer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ In recent years, the number of Transformer-based pre-trained model parameters ha
 
 - `Transformer` provides a simple parallel configuration to achieve both operator-level parallelism and pipeline parallelism.
 
-> Download complete sample code: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
+> Download complete sample code: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_training_transformer)
 
 The directory structure is as follows:
 
@@ -201,9 +201,9 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, g
 The description of `stage_num` is as follows. MindSpore uses `stage_num` to determine whether to enter pipeline parallel training.
 
 - Perform operator-level parallelism by setting `stage_num=1`. Users can configure the parallel policy by setting the `model_parallel` and `data_parallel` attributes in `TransformerOpParallelConfig`.
-- In case `stage_num>1` is set, it will enter pipeline parallel mode. In the pipeline parallel mode, you need to set the `pipeline_stage` attribute of each `cell` to assign the `cell` to the corresponding device for execution. In addition, after instantiating the network, we need to call `PipelineCell` again to encapsulate the defined network. The role of this `Cell` is to slice the input of the network into `mirco_batch_num` numbers of small data in order to maximize the use of computational resources. Note that we need to call `net.infer_param_pipeline_stage()` instead of `net.trainable_params()` to get the training weights corresponding to the current device `stage` and the number of cards within the stage of the pipeline is at least 8. A detailed tutorial of the pipeline can be found [here](https://mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html).
+- In case `stage_num>1` is set, it will enter pipeline parallel mode. In the pipeline parallel mode, you need to set the `pipeline_stage` attribute of each `cell` to assign the `cell` to the corresponding device for execution. In addition, after instantiating the network, we need to call `PipelineCell` again to encapsulate the defined network. The role of this `Cell` is to slice the input of the network into `mirco_batch_num` numbers of small data in order to maximize the use of computational resources. Note that we need to call `net.infer_param_pipeline_stage()` instead of `net.trainable_params()` to get the training weights corresponding to the current device `stage` and the number of cards within the stage of the pipeline is at least 8. A detailed tutorial of the pipeline can be found [here](https://mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html).
 
-The code of the integrated master file is as follows. Note that the definitions of some parameters are omitted here, and the complete list of parameters can be found in the [use case source code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_transformer/train.py). The code address of which is given in the beginning of this article.
+The code of the integrated master file is as follows. Note that the definitions of some parameters are omitted here, and the complete list of parameters can be found in the [use case source code](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/distributed_training_transformer/train.py). The code address of which is given in the beginning of this article.
 
 ```python
 import argparse

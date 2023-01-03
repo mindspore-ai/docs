@@ -1,10 +1,10 @@
 # JIT Fallback
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/jit_fallback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/jit_fallback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-MindSpore framework supports both static graph mode and dynamic graph mode. In static graph mode, the Python code is first compiled into a static computational graph, and then the static computational graph is executed. Due to the limitations of syntax parsing, users need to follow MindSpore [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs, and there are constraints on syntax usage restrictions. In the dynamic graph mode, Python code is executed through the Python interpreter and the user can use any Python syntax. As you can see, the compilation process is not the same for static and dynamic graphs, and the syntax constraints are different. For more information about static and dynamic graphs, please refer to [Static and Dynamic Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html).
+MindSpore framework supports both static graph mode and dynamic graph mode. In static graph mode, the Python code is first compiled into a static computational graph, and then the static computational graph is executed. Due to the limitations of syntax parsing, users need to follow MindSpore [static graph syntax support](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html) when writing programs, and there are constraints on syntax usage restrictions. In the dynamic graph mode, Python code is executed through the Python interpreter and the user can use any Python syntax. As you can see, the compilation process is not the same for static and dynamic graphs, and the syntax constraints are different. For more information about static and dynamic graphs, please refer to [Static and Dynamic Graphs](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/compute_graph.html).
 
 JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose whether to use the JIT Fallback feature, the switch `MS_DEV_ENABLE_FALLBACK` is provided and is currently turned on by default. If you need to turn it off, you can use the command: `export MS_DEV_ENABLE_FALLBACK=0`.
 
@@ -16,7 +16,7 @@ The current JIT Fallback feature is applied to constant scenarios, which require
 
 ### Creating and Using Tensor
 
-JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) in static graph mode, and does not support Tensor.asnumpy().
+JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.Tensor.html) in static graph mode, and does not support Tensor.asnumpy().
 
 The code case is as follows, and `Tensor(1, dtype=mstype.int32)` is supported by JIT Fallback.
 
@@ -78,9 +78,9 @@ Output the result:
 
 ### Using Native Print Printing of Python
 
-JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
+JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
 
-For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
+For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
 
 ```python
 import numpy as np
@@ -201,7 +201,7 @@ The output appears normally: `AssertionError`.
 
 ### Calling Python Built-in Functions
 
-MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
+MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.0.0-alpha/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
 
 #### dict()
 
@@ -388,7 +388,7 @@ When using JIT Fallback, please note the following points:
     res: 3.0
     ```
 
-5. The NumPy third-party library supported by JIT Fallback and differs from the [mindspore.numpy](https://mindspore.cn/docs/en/master/api_python/mindspore.numpy.html) provided by MindSpore.
+5. The NumPy third-party library supported by JIT Fallback and differs from the [mindspore.numpy](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.numpy.html) provided by MindSpore.
 
     mindspore.numpy is implemented through the operator capabilities of the MindSpore framework and involves operator computation in the runtime phase and cannot derive its results in the compile-time phase (the derivation of variables results in None). The sample code is as follows, using the Tensor() method on the result of `mnp.average(x)`, which does not meet the conditions of the constant scenario, will raise an error.
 

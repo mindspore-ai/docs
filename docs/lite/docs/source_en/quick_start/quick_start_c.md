@@ -1,20 +1,20 @@
 # Expriencing Simpcified Inference Demo with C-language
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_en/quick_start/quick_start_c.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related APIs. This tutorial performs the inference of MobileNetV2 model by taking randomly generated data as input data and prints obtained output data. The related code is in the [mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_c) directory.
+This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related APIs. This tutorial performs the inference of MobileNetV2 model by taking randomly generated data as input data and prints obtained output data. The related code is in the [mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_c) directory.
 
 Performing inference with MindSpore Lite consists of the following main steps:
 
-1. Read model: Read the `.ms` model converted by [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
-2. Create configuration context: Create a Configuration [Context](https://www.mindspore.cn/lite/api/en/master/api_c/context_c.html) that holds some basic configuration parameters needed, to guide model compilation and model execution.
-3. Create, load and compile Model: Before executing inference, you need to call [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) for model loading and compilation, and configure the Context obtained in the previous step into the Model. The model loading phase parses the file cache into a runtime model. The model compilation phase mainly carries out the process of operator selection scheduling, subgraph slicing, etc, which will consume more time, so it is recommended that the Model be created once, compiled once, and reasoned several times.
+1. Read model: Read the `.ms` model converted by [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/converter_tool.html) from the file system.
+2. Create configuration context: Create a Configuration [Context](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_c/context_c.html) that holds some basic configuration parameters needed, to guide model compilation and model execution.
+3. Create, load and compile Model: Before executing inference, you need to call [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/api_c/model_c.html#msmodelbuildfromfile) interface of [Model](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_c/model_c.html) for model loading and compilation, and configure the Context obtained in the previous step into the Model. The model loading phase parses the file cache into a runtime model. The model compilation phase mainly carries out the process of operator selection scheduling, subgraph slicing, etc, which will consume more time, so it is recommended that the Model be created once, compiled once, and reasoned several times.
 4. Input data: The data needs to be padded in the `Input Tensor` before model execution.
-5. Execute inference: Use [MSModelPredict](https://www.mindspore.cn/lite/api/en/master/generate/function_model_c.h_MSModelPredict-1.html) inferene of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) for model inference.
+5. Execute inference: Use [MSModelPredict](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/generate/function_model_c.h_MSModelPredict-1.html) inferene of [Model](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_c/model_c.html) for model inference.
 6. Obtain output: After the model execution, the inference result can be obtained by `output Tensor`.
-7. Free memory: When do not need to use MindSpore Lite inference framework, you need to free the created [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html).
+7. Free memory: When do not need to use MindSpore Lite inference framework, you need to free the created [Model](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_c/model_c.html).
 
 ![img](../images/lite_runtime.png)
 
@@ -29,13 +29,13 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Compiling and building
 
-  Execute the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_c/build.sh) in `mindspore/lite/examples/quick_start_c` directory, which will automatically download the MindSpore Lite inference framework library and the model file and compile the Demo.
+  Execute the [build script](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/lite/examples/quick_start_c/build.sh) in `mindspore/lite/examples/quick_start_c` directory, which will automatically download the MindSpore Lite inference framework library and the model file and compile the Demo.
 
   ```bash
   bash build.sh
   ```
 
-  > If the build script fails to download the MindSpore Lite inference framework, please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) for the CPU hardware platform and Ubuntu-x64 operating system, after decompression copy the `libmindspore-lite.so` file from the unpacked `runtime/lib` directory to `mindspore/ lite/examples/quick_start_c/lib` directory, and the files in `runtime/include` directory to `mindspore/lite/examples/quick_start_c/include` directory.
+  > If the build script fails to download the MindSpore Lite inference framework, please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/downloads.html) for the CPU hardware platform and Ubuntu-x64 operating system, after decompression copy the `libmindspore-lite.so` file from the unpacked `runtime/lib` directory to `mindspore/ lite/examples/quick_start_c/lib` directory, and the files in `runtime/include` directory to `mindspore/lite/examples/quick_start_c/include` directory.
   >
   > If the build script fails to download the MobileNetV2 model, please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_c/model` directory.
   >
@@ -68,11 +68,11 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Compiling and building
 
-    - Library downloading: Please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) with CPU as the hardware platform and Windows-x64 as the operating system, after decompression copy all files in the `runtime\lib` directory to the `mindspore\lite\examples\quick_start_clib\` project directory, and the files in the `runtime\include` directory to the `mindspore\lite\examples\quick_start_c\include` project directory. (Note: the `lib` and `include` directories under the project need to be created manually)
+    - Library downloading: Please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/r2.0.0-alpha/use/downloads.html) with CPU as the hardware platform and Windows-x64 as the operating system, after decompression copy all files in the `runtime\lib` directory to the `mindspore\lite\examples\quick_start_clib\` project directory, and the files in the `runtime\include` directory to the `mindspore\lite\examples\quick_start_c\include` project directory. (Note: the `lib` and `include` directories under the project need to be created manually)
 
     - Model downloading: Please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore\ lite\examples\quick_start_c\model` directory.
 
-    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_c/build.bat) in the `mindspore\lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
+    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/lite/examples/quick_start_c/build.bat) in the `mindspore\lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
 
   ```bash
   call build.bat
@@ -168,7 +168,7 @@ endif()
 
 ## Creating, Loading and Compiling Model
 
-Model loading and compilation can be done by calling [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile)  interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) to load and compile from the file path to get the runtime model. In this case, `argv[1]` corresponds to the model file path inputted from the console.
+Model loading and compilation can be done by calling [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/api_c/model_c.html#msmodelbuildfromfile)  interface of [Model](https://www.mindspore.cn/lite/api/en/r2.0.0-alpha/api_c/model_c.html) to load and compile from the file path to get the runtime model. In this case, `argv[1]` corresponds to the model file path inputted from the console.
 
 ```c
   // Create model

@@ -1,6 +1,6 @@
 # 安装 MindSpore XAI
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 系統要求
 
@@ -22,7 +22,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. 从gitee.com下载源码：
 
     ```bash
-    git clone https://gitee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git -b r2.0.0-alpha
     ```
 
 2. 安装所有依赖的Python包：

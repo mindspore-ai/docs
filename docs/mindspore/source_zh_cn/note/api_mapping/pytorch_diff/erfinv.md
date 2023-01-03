@@ -1,6 +1,6 @@
 # 比较与torch.erfinv的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/erfinv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/erfinv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.erfinv
 
@@ -16,7 +16,7 @@ torch.erfinv(input, *, out=None) -> Tensor
 mindspore.ops.erfinv(input) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.erfinv](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erfinv.html)。
+更多内容详见[mindspore.ops.erfinv](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.erfinv.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # 横向联邦-局部差分隐私加噪训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 联邦学习过程中，用户数据仅用于客户端设备的本地训练，不需要上传至中心服务器，可以避免泄露用户个人数据。然而，传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。攻击者获取到客户端上传的明文模型后，可以通过重构、模型逆向等攻击方式，恢复参与学习的用户个人数据，导致用户隐私泄露。
 
@@ -30,7 +30,7 @@ MindSpore Federated客户端将加噪后的模型$W_p$上传至云侧服务器�
 
 ## 使用方式
 
-本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，通过[yaml](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html#)设置`encrypt_type`字段为`DP_ENCRYPT`即可。
+本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，通过[yaml](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/horizontal/federated_server_yaml.html#)设置`encrypt_type`字段为`DP_ENCRYPT`即可。
 
 此外，为了控制隐私保护的效果，我们还提供了3个参数：`dp_eps`，`dp_delta`以及`dp_norm_clip`，它们也是通过yaml文件进行设置。
 

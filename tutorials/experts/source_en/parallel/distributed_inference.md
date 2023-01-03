@@ -1,10 +1,10 @@
 # Distributed Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, each card has a complete weight and infers its own input data, in this case, the inference method is the same as that of [single card inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#model-eval-model-validation). It is noted that each device should load one same checkpoint file.
+Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, each card has a complete weight and infers its own input data, in this case, the inference method is the same as that of [single card inference](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/infer/inference.html#model-eval-model-validation). It is noted that each device should load one same checkpoint file.
 
 This tutorial would focus on the process that the model slices are saved on each device in the distributed training process, and the model is reloaded according to the predication strategy in the inference stage. In view of the problem that there are too many parameters in the super large scale neural network model, the model can not be fully loaded into a single device for inference, so multiple devices can be used for distributed inference.
 
@@ -12,17 +12,17 @@ This tutorial would focus on the process that the model slices are saved on each
 
 ### Sample Code Description
 
->Download [Distributed inference](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference) sample code.
+>Download [Distributed inference](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_inference) sample code.
 
 ## Process of Distributed Inference
 
 1. Execute training, and generate the checkpoint file and the model strategy file.
 
-    > - The distributed training tutorial and sample code can be referred to [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
+    > - The distributed training tutorial and sample code can be referred to [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html).
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`. The parallel mode is either auto parallel or semi-automatic parallelism.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.
-    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to call `PipelineCell`. Please refer to [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html).
+    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to call `PipelineCell`. Please refer to [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html).
 
 2. Set context and infer inference strategy according to the inference data.
 
@@ -56,7 +56,7 @@ This tutorial would focus on the process that the model slices are saved on each
 
     > For pipeline inference, each `stage` only needs to load the checkpoint file of self_stage.
     >
-    > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the [reference link](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html#mindspore.load_distributed_checkpoint).
+    > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the [reference link](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.load_distributed_checkpoint.html#mindspore.load_distributed_checkpoint).
 
 4. Execute inference and get the inference result.
 
@@ -70,7 +70,7 @@ When the super-large-scale neural network model has too many parameters, the Min
 
 First, you need to prepare checkpoint files and training strategy files.
 
-The checkpoint file is generated during the training process. For the detailed use of checkpoint, refer to [Use CheckPoint](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#saving-and-loading-the-model)
+The checkpoint file is generated during the training process. For the detailed use of checkpoint, refer to [Use CheckPoint](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html#saving-and-loading-the-model)
 
 The training strategy file needs to be generated by setting the context during training. The context configuration items are as follows:
 
@@ -110,4 +110,4 @@ export(net, Tensor(input), file_name='net', file_format='MINDIR')
 
 In the case of multi-card training and single-card inference, the usage of exporting MindIR is the same as that of single host.
 
-> Distributed scenario exports MindIR file sample code: [distributed_export](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_export)
+> Distributed scenario exports MindIR file sample code: [distributed_export](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_export)

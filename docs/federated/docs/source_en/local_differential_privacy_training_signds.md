@@ -1,6 +1,6 @@
 # Horizontal FL-Local Differential Privacy SignDS training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_training_signds.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_en/local_differential_privacy_training_signds.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Privacy Protection Background
 
@@ -66,7 +66,7 @@ It is proved that the algorithm satisfies local differential privacy.
 
 ## Preparation
 
-To use the algorithm, one first needs to successfully complete the training aggregation process for either cross-device federated scenario. [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html) describes the preparation work such as datasets, network models, and simulations to initiate the process of multi-client participation in federated learning in detail.
+To use the algorithm, one first needs to successfully complete the training aggregation process for either cross-device federated scenario. [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html) describes the preparation work such as datasets, network models, and simulations to initiate the process of multi-client participation in federated learning in detail.
 
 ## Algorithm Opening Script
 
@@ -84,7 +84,7 @@ encrypt:
     sign_dim_out: 0
 ```
 
-For the detailed example, refer to [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html). The cloud-side code implementation gives the definition domain of each parameter. If it is not in the definition domain, Server will report an error prompting the definition domain. The following parameter changes are subject to keeping the remaining 4 parameters unchanged.
+For the detailed example, refer to [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](https://www.mindspore.cn/federated/docs/en/r2.0.0-alpha/image_classification_application.html). The cloud-side code implementation gives the definition domain of each parameter. If it is not in the definition domain, Server will report an error prompting the definition domain. The following parameter changes are subject to keeping the remaining 4 parameters unchanged.
 
 - `sign_k`: (0,0.25], k*inputDim>50. default=0.01. `inputDim` is the pulling length of the model or update. If not satisfied, there is a device-side warning. Sort update, and the `topk` set is composed of the first k (%) of it. Decreasing k means to pick from more important dimensions with greater probability. The output will have fewer dimensions, but the dimensions are more important and the change in convergence cannot be determined. The user needs to observe the sparsity of model update to determine the value. When it is quite sparse (update has many zeros), it should be taken smaller.
 - `sign_eps`: (0,100], default=100. Privacy-preserving budget. The number sequence symbol is $\epsilon$, abbreviated as eps. When eps decreases, the probability of picking unimportant dimensions increases. When privacy protection is enhanced, output dimensions decrease, the percentage remains the same, and precision decreases.

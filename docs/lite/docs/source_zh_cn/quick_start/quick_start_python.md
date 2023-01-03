@@ -1,10 +1,10 @@
 # 体验Python极简推理Demo
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_zh_cn/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关代码放置在[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关代码放置在[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_python)目录。
 
 下面以Ubuntu 18.04为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python极简推理Demo：
 
@@ -18,9 +18,9 @@
 
 本环节以全新的Ubuntu 18.04为例，介绍在CPU环境的Linux-x86_64系统上，通过pip安装Python3.7版本的MindSpore Lite。
 
-进入到[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录下，以安装1.9.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
+进入到[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_python)目录下，以安装1.9.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
 
-注：此命令可设置安装的MindSpore Lite版本，由于从MindSpore Lite 1.8.0版本开始支持Python接口，因此版本不能设置低于1.8.0，可设置的版本详情参见[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)提供的版本。
+注：此命令可设置安装的MindSpore Lite版本，由于从MindSpore Lite 1.8.0版本开始支持Python接口，因此版本不能设置低于1.8.0，可设置的版本详情参见[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/downloads.html)提供的版本。
 
 ```bash
 MINDSPORE_LITE_VERSION=1.9.0 bash ./lite-cpu-pip.sh
@@ -30,9 +30,9 @@ MINDSPORE_LITE_VERSION=1.9.0 bash ./lite-cpu-pip.sh
 >
 > 若input.bin输入数据文件下载失败，请手动下载相关输入数据文件[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)，并将其拷贝到`mindspore/lite/examples/quick_start_python/model`目录。
 >
-> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore/lite/examples/quick_start_python`目录下。
+> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型推理框架](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore/lite/examples/quick_start_python`目录下。
 >
-> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/quick_start_python`目录下。
+> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/quick_start_python`目录下。
 >
 > 若`mindspore/lite/examples/quick_start_python`目录下不存在MindSpore Lite安装包，则一键安装脚本将会卸载当前已安装的MindSpore Lite后，从华为镜像下载并安装MindSpore Lite。否则，若目录下存在MindSpore Lite安装包，则会优先安装该安装包。
 >
@@ -46,7 +46,7 @@ Successfully installed mindspore-lite-1.9.0
 
 ## 执行Demo
 
-一键安装后，进入[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+一键安装后，进入[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
 ```bash
 python quick_start_python.py
@@ -63,13 +63,13 @@ output data is: 1.02271215e-05 9.92699e-06 1.6968432e-05 6.8573616e-05 9.731416e
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. [创建配置上下文](#创建配置上下文)：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html)，保存需要的一些基本配置参数，用于指导模型编译和模型推理。
-2. [模型加载与编译](#模型加载与编译)：执行推理之前，需要调用`Model`的[build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议`Model`加载一次，编译一次，多次推理。
+1. [创建配置上下文](#创建配置上下文)：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Context.html)，保存需要的一些基本配置参数，用于指导模型编译和模型推理。
+2. [模型加载与编译](#模型加载与编译)：执行推理之前，需要调用`Model`的[build_from_file](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议`Model`加载一次，编译一次，多次推理。
 3. [输入数据](#输入数据)：模型执行推理之前需要向`输入Tensor`中填充数据。
-4. [执行推理](#执行推理)：使用`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口进行模型推理。
+4. [执行推理](#执行推理)：使用`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口进行模型推理。
 5. [获得输出](#获得输出)：模型执行推理结束之后，可以通过`输出Tensor`得到推理结果。
 
-更多Python接口的高级用法与示例，请参考[Python API](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)。
+更多Python接口的高级用法与示例，请参考[Python API](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite.html)。
 
 ![img](../images/lite_runtime.png)
 
@@ -107,7 +107,7 @@ context.append_device_info(cpu_device_info)
 
 ### 模型加载与编译
 
-模型加载与编译可以调用`Model`的[build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口，直接从文件缓存加载、编译得到运行时的模型。
+模型加载与编译可以调用`Model`的[build_from_file](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口，直接从文件缓存加载、编译得到运行时的模型。
 
 ```python
 # build model from file
@@ -119,7 +119,7 @@ model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR_LITE, context)
 
 ### 输入数据
 
-本教程设置输入数据的方式是从文件导入。其他设置输入数据的方式，请参考`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口。
+本教程设置输入数据的方式是从文件导入。其他设置输入数据的方式，请参考`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口。
 
 ```python
 # set model input
@@ -130,7 +130,7 @@ inputs[0].set_data_from_numpy(in_data)
 
 ### 执行推理
 
-调用`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行推理，推理结果输出给`output`。
+调用`Model`的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行推理，推理结果输出给`output`。
 
 ```python
 # execute inference

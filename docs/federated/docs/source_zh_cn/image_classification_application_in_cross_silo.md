@@ -1,16 +1,16 @@
 # 实现一个云云联邦的图像分类应用(x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore Federated云云联邦框架上，使用网络LeNet实现一个图片分类应用。
 
-启动云云联邦的图像分类应用的完整脚本可参考[这里](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist)。
+启动云云联邦的图像分类应用的完整脚本可参考[这里](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_femnist)。
 
 ## 下载数据集
 
 本示例采用[leaf数据集](https://github.com/TalwalkarLab/leaf)中的联邦学习数据集`FEMNIST`，该数据集包含62个不同类别的手写数字和字母（数字0~9、26个小写字母、26个大写字母），图像大小为`28 x 28`像素，数据集包含3500个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
 
-可参考文档[端云联邦学习图像分类数据集处理](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classfication_dataset_process.html)中步骤1~7获取图片形式的3500个用户数据集`3500_client_img`。
+可参考文档[端云联邦学习图像分类数据集处理](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/image_classfication_dataset_process.html)中步骤1~7获取图片形式的3500个用户数据集`3500_client_img`。
 
 由于原始3500个用户数据集中每个用户数据量比较少，在云云联邦任务中会收敛太快，无法明显体现云云联邦框架的收敛效果，下面提供一个参考脚本，将指定数量的用户数据集合并为一个用户，以增加参与云云联邦任务的单个用户数据量，更好地模拟云云联邦框架实验。
 
@@ -145,21 +145,21 @@ if __name__ == "__main__":
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_femnist/test_cross_silo_femnist.py)。
+本任务使用的网络可参考脚本[test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_silo_femnist/test_cross_silo_femnist.py)。
 
-若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
+若想具体了解MindSpore中网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/beginner/quick_start.html#网络构建)。
 
 ## 启动云云联邦任务
 
 ### 安装MindSpore和Mindspore Federated
 
-包括源码和下载发布版两种方式，支持CPU、GPU、Ascend硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_install.html)。
+包括源码和下载发布版两种方式，支持CPU、GPU、Ascend硬件平台，根据硬件平台选择安装即可。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)，[Mindspore Federated安装指南](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/federated_install.html)。
 
 目前联邦学习框架只支持Linux环境中部署，cross-silo联邦学习框架需要MindSpore版本号>=1.5.0。
 
 ### 启动任务
 
-参考[示例](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_femnist)，启动集群。参考示例目录结构如下：
+参考[示例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_silo_femnist)，启动集群。参考示例目录结构如下：
 
 ```text
 cross_silo_femnist/
@@ -212,7 +212,7 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
+以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/horizontal/federated_server_yaml.html)。
 
 ### 日志查看
 

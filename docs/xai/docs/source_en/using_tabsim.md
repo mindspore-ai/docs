@@ -1,16 +1,16 @@
 # Using TabSim Data Simulator
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_tabsim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/xai/docs/source_en/using_tabsim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction
 
 Sometimes, it is impossible to get sufficient amount of data for modeling or algorithm development, TabSim can be used for capturing the distribution of the tabular data and generating simulated data afterward.
 
-The complete code of the tutorial below is [using_tabsim.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabsim.py).
+The complete code of the tutorial below is [using_tabsim.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/examples/using_tabsim.py).
 
 ## Installation
 
-TabSim is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html).
+TabSim is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/r2.0.0-alpha/installation.html).
 
 ## User Flow
 

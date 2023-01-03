@@ -1,6 +1,6 @@
 # 横向联邦云侧部署
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档以LeNet网络为例，讲解如何使用MindSpore Federated部署横向联邦学习集群。
 
@@ -46,7 +46,7 @@ MindSpore横向联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台�
 通过[源码](https://gitee.com/mindspore/federated)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r2.0.0-alpha
 cd federated
 bash build.sh
 ```
@@ -85,13 +85,13 @@ redis-server --port 23456 --save ""
 
 ## 启动集群
 
-1. [样例路径](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/)。
+1. [样例路径](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/cross_device_lenet_femnist/)。
 
     ```bash
     cd example/cross_device_lenet_femnist
     ```
 
-2. 据实际运行需要修改yaml配置文件：`default_yaml_config.yaml`，如下为[Lenet的相关配置样例](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml)。
+2. 据实际运行需要修改yaml配置文件：`default_yaml_config.yaml`，如下为[Lenet的相关配置样例](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml)。
 
     ```yaml
     fl_name: Lenet

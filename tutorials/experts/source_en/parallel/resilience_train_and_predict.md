@@ -1,6 +1,6 @@
 # Distributed Resilience Training and Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -32,9 +32,9 @@ Using the example of training on 8 cards and fine-tuning on 4 cards, the overall
 
 Note that loading a distributed Checkpoint requires that the network be compiled before it can be loaded.
 
-> For dataset download, please refer to the [Preparation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial.
+> For dataset download, please refer to the [Preparation](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial.
 >
-> Download the complete sample code: [Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training).
+> Download the complete sample code: [Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/distributed_resilience_training).
 
 ## Converting Distributed Checkpoint Files
 
@@ -49,7 +49,7 @@ Define the network, perform distributed initialization, and get the number of de
 
 Add a callback function to save Checkpoint, first define configuration object `CheckpointConfig` related to the Checkpoint storage. Note that `integrated_save` is configured to `False`, which means that aggregated saving is not performed on distributed training weights to accommodate the memory overhead under large models.
 And then define the callback function `ModelCheckpoint` that saves the checkpoint. Finally, call `model.train` to perform the training.
-For the basic usage of distributed training, please refer to [Distributed Training Ascend](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) or [Distributed Training GPU](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html).
+For the basic usage of distributed training, please refer to [Distributed Training Ascend](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html) or [Distributed Training GPU](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_gpu.html).
 
 ```python
 import mindspore as ms
@@ -268,8 +268,8 @@ epoch: 1 step: 73, loss is 6.13733
 
 ## Pipeline Parallel Dimension Conversion
 
-[Pipeline Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html) is to slice the linear network to get multiple sub-networks, which are pipelined between multiple cards. Therefore the sharding strategy file stored down for each subgraph is inconsistent, and all sharding strategies are aggregated to get the complete sharding information of the network.
-Therefore, for the pipelined parallel dimensions, compared to the conversion of other dimensions, it is necessary to perform an aggregated shardig strategy file operation in advance to obtain the aggregated sharding strategy file, and use this file as the strategy file for the distributed Checkpoint conversion dependency. In addition, there is no difference from the previous section [Sharding Strategy Conversion](https://www.mindspore.cn/tutorials/experts/en/master/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint).
+[Pipeline Parallelism](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/pipeline_parallel.html) is to slice the linear network to get multiple sub-networks, which are pipelined between multiple cards. Therefore the sharding strategy file stored down for each subgraph is inconsistent, and all sharding strategies are aggregated to get the complete sharding information of the network.
+Therefore, for the pipelined parallel dimensions, compared to the conversion of other dimensions, it is necessary to perform an aggregated shardig strategy file operation in advance to obtain the aggregated sharding strategy file, and use this file as the strategy file for the distributed Checkpoint conversion dependency. In addition, there is no difference from the previous section [Sharding Strategy Conversion](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint).
 
 First, execute an 8-card pipeline parallel training, where the pipeline parallel dimension is 2, the operator-level model parallel dimension is 4, and the data parallel dimension is 1.
 
@@ -310,7 +310,7 @@ src_checkpoints_pipeline/
 src_pipeline_strategys/
 ```
 
-Refer to "performing compilation on target network module" of [Sharding Strategy Conversion](https://www.mindspore.cn/tutorials/experts/en/master/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint) section to also compile the target network to get the sharding strategy file for the target network.
+Refer to "performing compilation on target network module" of [Sharding Strategy Conversion](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint) section to also compile the target network to get the sharding strategy file for the target network.
 
 The 4-card target network compilation command executed in the example is as follows:
 
@@ -326,7 +326,7 @@ dst_strategy.ckpt
 
 The next step unfolds the distributed Checkpoint dimension conversion that contains the pipeline parallel dimension. First, the `merge_pipeline_strategys` interface is used to merge the sharding strategy files obtained from pipeline training, and then the distributed checkpoint conversion is performed by using the interface `transform_checkpoints` or `transform_checkpoint_by_rank`.
 
-The example gives the interface using `transform_checkpoints`. For the interface using `transform_checkpoint_by_rank` please refer to introduction in [sharding strategy conversion](https://www.mindspore.cn/tutorials/experts/en/master/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint).
+The example gives the interface using `transform_checkpoints`. For the interface using `transform_checkpoint_by_rank` please refer to introduction in [sharding strategy conversion](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/resilience_train_and_predict.html#converting-the-distributed-checkpoint).
 
 ```python
 import mindspore as ms
@@ -343,7 +343,7 @@ In the example, the script execution command for the entire Checkpoint directory
 python transform_checkpoint_dir_pipeline.py --src_strategy_dir=./src_pipeline_strategys --dst_strategy_file=dst_strategy.ckpt --src_checkpoints_dir=./src_checkpoints --dst_checkpoints_dir=./dst_checkpoints
 ```
 
-After the conversion is complete, refer to the [Execute Target Network Chapter](https://www.mindspore.cn/tutorials/experts/en/master/parallel/resilience_train_and_predict.html#loading-the-checkpoint-files-obtained-from-conversion). Load the distributed checkpoint obtained from the conversion and execute the distributed network without the pipeline dimension.
+After the conversion is complete, refer to the [Execute Target Network Chapter](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/resilience_train_and_predict.html#loading-the-checkpoint-files-obtained-from-conversion). Load the distributed checkpoint obtained from the conversion and execute the distributed network without the pipeline dimension.
 
 In the example, the script execution command to load the converted Checkpoint for two-stage fine-tuning training is:
 

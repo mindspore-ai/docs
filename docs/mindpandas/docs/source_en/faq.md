@@ -1,6 +1,6 @@
 # FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindpandas/docs/source_en/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: What should I check when I encounter an error with the message "Error: exit status 1" or "Failed to deploy basic model" when deploying a multi-process compute engine? **</font>
 

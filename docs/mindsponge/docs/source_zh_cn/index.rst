@@ -134,7 +134,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
 贡献指南
 --------
 
--  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__\ 。
+-  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/CONTRIBUTION.md#>`__\ 。
 
 .. toctree::
    :glob:

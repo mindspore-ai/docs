@@ -1,6 +1,6 @@
 # 图像分类模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/image_classification_lite.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_zh_cn/image_classification_lite.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 图像分类介绍
 
@@ -15,7 +15,7 @@
 | 花瓣       | 0.7893 |
 | 花盆       | 0.6171 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/vision/tree/master/android)。
+使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/vision/tree/r2.0.0-alpha/android)。
 
 ## 图像分类模型列表
 

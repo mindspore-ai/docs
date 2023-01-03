@@ -1,6 +1,6 @@
 # 纵向联邦-基于可信执行环境的特征保护
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 注：这是一个实验特性，未来有可能被修改或删除。
 
@@ -24,7 +24,7 @@
 
 ## 快速体验
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，给出一个配置TEE保护的范例脚本。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)中的单进程案例为例，给出一个配置TEE保护的范例脚本。
 
 ### 前置需要&环境配置
 
@@ -51,7 +51,7 @@
    git clone https://gitee.com/mindspore/federated.git
    ```
 
-5. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+5. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)。
 
 6. 为TEE编译安装MindSpore Federated（需要加入额外编译选项，表示是否使用SGX）：
 
@@ -60,7 +60,7 @@
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
-7. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+7. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)。
 
 ### 启动脚本
 
@@ -118,7 +118,7 @@ TEE层的正向传播、反向传播都需要调用它自己的函数而非通�
 
 目前在MindSpore Federated中，上述功能是通过在`mindspore_federated.vfl_model.FLModel()`定义时传入`grad_network`来实现自定义的反向传播流程的。因此，要实现含有TEE的网络，用户可以在`grad_network`中定义好Top Model和Cut Layer的反向传播流程并传入`FLModel`即可，在反向传播时`FLModel`就会走用户自定义的训练流程。
 
-我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)中的单进程案例为例，介绍在纵向联邦模型中配置TEE保护的具体操作方法。介绍的内容主要针对使用TEE时配置上和通常情况下的不同点，相同点则会略过（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html)）。
+我们以[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r2.0.0-alpha/example/splitnn_criteo)中的单进程案例为例，介绍在纵向联邦模型中配置TEE保护的具体操作方法。介绍的内容主要针对使用TEE时配置上和通常情况下的不同点，相同点则会略过（关于vFL训练的详细介绍可以参见[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://www.mindspore.cn/federated/docs/zh-CN/r2.0.0-alpha/split_pangu_alpha_application.html)）。
 
 ### 前置需要&环境配置
 
@@ -128,7 +128,7 @@ TEE层的正向传播、反向传播都需要调用它自己的函数而非通�
 
 #### 正向传播
 
-和通常的vFL训练相同，使用者需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
+和通常的vFL训练相同，使用者需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
 
 ```python
 from mindspore_federated._mindspore_federated import init_tee_cut_layer, backward_tee_cut_layer, \
@@ -257,7 +257,7 @@ def construct(self, local_data_batch, remote_data_batch):
 
 #### 构建网络
 
-与通常的vFL训练相同，用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。不同点则在于：构建leader方网络时，需要加上`grad_network`：
+与通常的vFL训练相同，用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/r2.0.0-alpha/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。不同点则在于：构建leader方网络时，需要加上`grad_network`：
 
 ```python
 from mindspore_federated import FLModel, FLYamlData

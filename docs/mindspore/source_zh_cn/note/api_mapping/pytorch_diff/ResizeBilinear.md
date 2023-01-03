@@ -1,6 +1,6 @@
 # 比较与torch.nn.Upsample的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Upsample
 
@@ -25,13 +25,13 @@ class mindspore.nn.ResizeBilinear(half_pixel_centers=False)(
     align_corners=False)
 ```
 
-更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
+更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
 
 ## 使用方式
 
 PyTorch：对数据进行上采样，有多种模式可以选择。
 
-MindSpore：仅当前仅支持`bilinear`模式对数据进行采样，如果想要实现其他模式的采样，请参考[mindspore.ops.interpolate](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.interpolate.html)。
+MindSpore：仅当前仅支持`bilinear`模式对数据进行采样，如果想要实现其他模式的采样，请参考[mindspore.ops.interpolate](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.interpolate.html)。
 half_pixel_centers默认值为False，设为True后和PyTorch实现功能一致。
 
 ## 代码示例

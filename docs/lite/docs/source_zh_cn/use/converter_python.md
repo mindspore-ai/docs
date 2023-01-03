@@ -1,10 +1,10 @@
 # 使用Python接口模型转换
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/lite/docs/source_zh_cn/use/converter_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
+MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
 
 目前支持的输入模型类型有：MindSpore、TensorFlow Lite、Caffe、TensorFlow、ONNX和PyTorch。
 
@@ -16,7 +16,7 @@ MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的
 
 使用MindSpore Lite的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/downloads.html)含Converter组件的MindSpore Lite的Whl安装包。
 
   > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -59,7 +59,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 
 使用场景：1、将第三方模型转换生成MindSpore模型或MindSpore Lite模型；2、将MindSpore模型转换生成MindSpore Lite模型。
 
-下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)中参数的对应关系。
+下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/converter_tool.html)中参数的对应关系。
 
 | Python接口模型转换参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
@@ -82,7 +82,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 | train_model | bool | `--trainModel=<TRAINMODEL>` | 否 | 模型是否将在设备上进行训练。 | True、False | False |
 | no_fusion | bool | `--NoFusion=<NOFUSION>` | 否 | 是否避免融合优化，默认允许融合优化。 | True、False | False |
 
-> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)。
+> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/mindspore_lite/mindspore_lite.FmkType.html)。
 >
 > 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要本地打开指定编译选项，编译生成支持转换PyTorch模型的安装包。转换PyTorch模型有以下前提：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on；转换前加入libtorch的环境变量：export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 >
@@ -92,7 +92,7 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 >
 > Caffe模型一般分为两个文件：`*.prototxt`是模型结构，对应`model_file`参数；`model.caffemodel`是模型权值，对应`weight_file`参数。
 >
-> `config_file`配置文件采用`key = value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#扩展配置)。
+> `config_file`配置文件采用`key = value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/nnie.html#扩展配置)。
 >
 > `weight_fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`weight_fp16`不会再次生效。总而言之，该参数只会在序列化时对模型中的Float32的权重生效。
 >
@@ -102,9 +102,9 @@ MindSpore Lite的Python接口模型转换提供了多种参数设置，用户可
 > - 用法2：无论待转换模型的原始输入是否为动态shape，准备采用固定shape推理，并希望模型的性能尽可能优化，则设置该参数为固定shape。设置之后，将对模型结构进一步优化，但转换后的模型可能会失去动态shape的特征（部分跟shape强相关的算子会被融合）。
 > - 用法3：使用Converter功能来生成用于Micro推理执行代码时，推荐配置该参数，以减少部署过程中出错的概率。当模型含有Shape算子或者待转换模型输入为动态shape时，则必须配置该参数，设置固定shape，以支持相关shape优化和代码生成。
 >
-> `input_format`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#集成nnie使用说明))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
+> `input_format`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/nnie.html#集成nnie使用说明))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
 >
-> 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
+> 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
 > 需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore加密导出的模型进行转换。
 
 ### 使用示例

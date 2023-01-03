@@ -1,6 +1,6 @@
 # Function Differences with tf.gradients
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/grad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.gradients
 
@@ -31,7 +31,7 @@ mindspore.grad(
 )
 ```
 
-For more information, see [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html).
+For more information, see [mindspore.grad](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore/mindspore.grad.html).
 
 ## Differences
 

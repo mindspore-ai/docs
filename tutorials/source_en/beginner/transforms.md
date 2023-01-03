@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/transforms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/transforms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || **Transforms** || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || **Transforms** || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html)
 
 # Transforms
 
@@ -71,7 +71,7 @@ print(image.shape)
 (1, 28, 28)
 ```
 
-For more common Transforms, see [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html).
+For more common Transforms, see [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html).
 
 ## Vision Transforms
 
@@ -104,7 +104,7 @@ print(random_np)
  [  0 108 141 ... 145 159  11]]
 ```
 
-To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/tutorials/en/master/advanced/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
+To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
 
 ```python
 rescale = vision.Rescale(1.0 / 255.0, 0)
@@ -173,7 +173,7 @@ print(hwc_image.shape, chw_image.shape)
 (48, 48, 1) (1, 48, 48)
 ```
 
-For more Vision Transforms, see [mindspore.dataset.vision](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
+For more Vision Transforms, see [mindspore.dataset.vision](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
 
 ## Text Transforms
 
@@ -235,7 +235,7 @@ print(next(test_dataset.create_tuple_iterator()))
 [Tensor(shape=[3], dtype=Int32, value= [4, 5, 2])]
 ```
 
-For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
+For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
 
 ## Lambda Transforms
 

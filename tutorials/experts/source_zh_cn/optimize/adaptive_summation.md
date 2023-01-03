@@ -1,6 +1,6 @@
 # 自适应梯度求和算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ $$
 
 ## 准备环节
 
-> 下载完整的样例代码：[Adasum Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum)。
+> 下载完整的样例代码：[Adasum Sample Code](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/docs/sample_code/adasum)。
 >
 > 代码中引用到的[models](https://gitee.com/mindspore/models)库链接。
 
@@ -91,7 +91,7 @@ $$
 }
 ```
 
-rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/README.md#)。
+rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/utils/hccl_tools/README.md#)。
 
 ### 数据集准备
 
@@ -123,7 +123,7 @@ init()
 
 ## 数据并行模式加载数据集
 
-分布式训练时，数据以数据并行的方式导入。利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/src/dataset.py)导入。
+分布式训练时，数据以数据并行的方式导入。利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/dataset.py)导入。
 
 ```python
 # define train dataset
@@ -135,7 +135,7 @@ step_size = ds_train.get_dataset_size()
 
 ## 定义网络
 
-ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/adasum/resnet.py)导入。
+ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/sample_code/adasum/resnet.py)导入。
 
 ```python
 # define net

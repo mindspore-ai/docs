@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model/callback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/model/callback.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 # Callback Mechanism
 
@@ -6,7 +6,7 @@ During deep learning training, MindSpore provides the callback mechanism to prom
 
 The callback mechanism is generally used in the network model training process `model.train`. The MindSpore `model` executes callback functions based on the sequence in the callback list. You can set different callback classes to implement functions executed during or after training.
 
-> For more information about built-in callback classes and how to use them, see [API](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Callback.html#mindspore.train.Callback).
+> For more information about built-in callback classes and how to use them, see [API](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.Callback.html#mindspore.train.Callback).
 
 ## Callback Introduction
 
@@ -90,7 +90,7 @@ MindSpore provides the `callback` capability to allow users to insert customized
 
 ### ModelCheckpoint
 
-To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html#mindspore.train.CheckpointConfig) API.
+To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.CheckpointConfig.html#mindspore.train.CheckpointConfig) API.
 
 ```python
 from mindspore.train import ModelCheckpoint, CheckpointConfig

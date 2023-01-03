@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || **Train** || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/autograd.html) || **Train** || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html)
 
 # Model Training
 
@@ -15,7 +15,7 @@ After we have the dataset and the model, we can train and evaluate the model.
 
 ## Necessary Prerequisites
 
-First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to load the previous code.
+First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) and [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) to load the previous code.
 
 ```python
 import mindspore

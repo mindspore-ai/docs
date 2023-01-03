@@ -1,13 +1,13 @@
 # Using Tabular Explainers
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/xai/docs/source_en/using_tabular_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction
 
 In this tutorial we explain the tabular data classification using 4 different explainers, including `LIMETabular`,
 `SHAPKernel`, `SHAPGradient`, and `PseudoLinearCoef`.
 
-The complete code of the tutorial below is [using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_tabular_explainers.py).
+The complete code of the tutorial below is [using_tabular_explainers.py](https://gitee.com/mindspore/xai/blob/r2.0.0-alpha/examples/using_tabular_explainers.py).
 
 ## Import Dataset
 

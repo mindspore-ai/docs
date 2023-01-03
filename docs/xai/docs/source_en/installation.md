@@ -1,6 +1,6 @@
 # MindSpore XAI Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/xai/docs/source_en/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## System Requirements
 
@@ -22,7 +22,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. Download source code from gitee.com:
 
     ```bash
-    git clone https://gitee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git -b r2.0.0-alpha
     ```
 
 2. Install the dependency python modules:

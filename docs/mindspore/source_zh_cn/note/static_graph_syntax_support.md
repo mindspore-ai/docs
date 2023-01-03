@@ -1,6 +1,6 @@
 # 静态图语法支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -9,9 +9,9 @@
 当前支持`@jit`装饰器修饰函数，Cell及其子类、`@jit_class`修饰的类或者自定义普通类的成员方法。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 
-`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
@@ -294,7 +294,7 @@ x: ((1, 2, 3), 4, 5)
   索引值仅支持`int`和`slice`。
   `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。
   赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
-  当前切片赋值右值为`Tensor`时，需要将`Tensor`转换为`List`，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/jit_fallback.html?highlight=Fallback)实现，所以暂时不能支持变量场景。
+  当前切片赋值右值为`Tensor`时，需要将`Tensor`转换为`List`，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/design/jit_fallback.html?highlight=Fallback)实现，所以暂时不能支持变量场景。
 
   示例如下：
 
@@ -519,7 +519,7 @@ x: ((1, 2, 3), 4, 5)
 
 目前已支持在网络里构造Tensor。
 
-Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
+Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
 #### Primitive
 
@@ -561,7 +561,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
+当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
 #### Cell
 
@@ -571,13 +571,13 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html)。
 
 #### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
+`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ## 原型
 
@@ -635,7 +635,7 @@ ret:1
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值)。
+`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/note/index_support.html#索引取值)。
 
 ### 调用
 
@@ -676,7 +676,7 @@ ret:[[3. 3. 3. 3.]]
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。
 
-规则可参考：[隐式类型转换规则](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_implicit.html#转换规则)。
+规则可参考：[隐式类型转换规则](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/note/operator_list_implicit.html#转换规则)。
 
 ### 单目算术运算符
 
@@ -738,7 +738,7 @@ ret:[[3. 3. 3. 3.]]
 
   在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
 
-  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#属性引用)。
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/note/static_graph_syntax_support.html#属性引用)。
 
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 
@@ -802,7 +802,7 @@ ret:[[3. 3. 3. 3.]]
 
 限制：
 
-- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/network/control_flow.html#shapejoin规则)。
 
 示例1：
 
@@ -952,7 +952,7 @@ ret:[[7. 7. 7.]
 
 限制：
 
-- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/network/control_flow.html#shapejoin规则)。
 
 - 不支持`while...else...`语句
 
@@ -2424,20 +2424,20 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### 网络实例类型
 
-- 带[@jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)装饰器的普通Python函数。
+- 带[@jit](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.jit.html)装饰器的普通Python函数。
 
-- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络构造组件
 
 | 类别                 | 内容                                                                                                                                                                                                         |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。 |
+| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Cell.html)。 |
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。                                                                                                                                                                    |
-| `jit_class`实例      | 使用[@jit_class](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit_class.html)装饰的类。                                                                                                                                                                                     |
-| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)                                                                                              |
-| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)                                                                                               |
-| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
+| `jit_class`实例      | 使用[@jit_class](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.jit_class.html)装饰的类。                                                                                                                                                                                     |
+| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.ops.primitive.html)                                                                                              |
+| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.ops.primitive.html)                                                                                               |
+| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
 | 函数                 | 自定义Python函数、前文中列举的系统函数。                                                                                                                                                                     |
 
 ### 网络使用约束

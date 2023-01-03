@@ -1,6 +1,6 @@
 # Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/faq/installation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Installing by Using Pip
 
@@ -211,7 +211,7 @@ If you want to run on a GPU+Windows environment, you can try to use WSL+docker, 
 
 >Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
 
-3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
+3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
 
 ```docker
 docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
@@ -247,7 +247,7 @@ A: Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpore
 
 <font size=3>**Q: What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorials/experts/en/master/infer/ascend_310_mindir.html#building-inference-code) for environment variable settings.
+A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/infer/ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <br/>
 
