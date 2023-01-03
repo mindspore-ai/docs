@@ -174,7 +174,8 @@ ckpoint = train.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
 Train LeNet:
 
 ```python
-from mindspore import LossMonitor
+from mindspore.train import LossMonitor
+import mindspore as ms
 
 model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(1875)])
