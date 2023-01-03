@@ -85,7 +85,6 @@ Next, we verify the effect of gradient accumulation by using the handwritten dig
 
 ```python
 from mindspore import nn
-from mindspore import ops
 from mindspore import value_and_grad
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
@@ -165,7 +164,7 @@ grad_fn = value_and_grad(forward_fn, None, model.trainable_params())
 @ms.jit
 def train_step(data, label):
     loss, grads = grad_fn(data, label)
-    loss = ops.depend(loss, accumulator(grads))
+    accumulator(grads)
     return loss
 ```
 

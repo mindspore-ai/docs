@@ -46,7 +46,6 @@ In the following, we demonstrate the automatic mixed precision implementation of
 ```python
 import mindspore as ms
 from mindspore import nn
-from mindspore import ops
 from mindspore import value_and_grad
 ```
 
@@ -226,7 +225,7 @@ def train_step(data, label):
     is_finite = all_finite(grads)
     if is_finite:
         grads = loss_scaler.unscale(grads)
-        loss = ops.depend(loss, optimizer(grads))
+        optimizer(grads)
     loss_scaler.adjust(is_finite)
 
     return loss

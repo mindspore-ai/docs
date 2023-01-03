@@ -413,7 +413,7 @@ if __name__ == "__main__":
 
     def train_step(data, label):
         loss, grads = grad_fn(data, label)
-        loss = ops.depend(loss, net_opt(grads))
+        net_opt(grads)
         return loss
 
     print("============== Different calling methods train 10 epochs ==============")

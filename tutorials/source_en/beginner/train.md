@@ -20,7 +20,6 @@ First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/e
 ```python
 import mindspore
 from mindspore import nn
-from mindspore import ops
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
 
@@ -137,22 +136,22 @@ Next, we define the `train_loop` function for training and the `test_loop` funct
 To use functional automatic differentiation, we need to define the forward function `forward_fn` and use `mindspore.value_and_grad` to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
 
 ```python
-def train_loop(model, dataset, loss_fn, optimizer):
-    # Define forward function
-    def forward_fn(data, label):
-        logits = model(data)
-        loss = loss_fn(logits, label)
-        return loss, logits
+# Define forward function
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
 
-    # Get gradient function
-    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+# Get gradient function
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
-    # Define function of one-step training
-    def train_step(data, label):
-        (loss, _), grads = grad_fn(data, label)
-        loss = ops.depend(loss, optimizer(grads))
-        return loss
+# Define function of one-step training
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
+def train_loop(model, dataset):
     size = dataset.get_dataset_size()
     model.set_train()
     for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
@@ -189,7 +188,7 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 epochs = 3
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
-    train_loop(model, train_dataset, loss_fn, optimizer)
+    train_loop(model, train_dataset)
     test_loop(model, test_dataset, loss_fn)
 print("Done!")
 ```
