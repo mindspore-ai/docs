@@ -86,7 +86,7 @@ There are two ways to collect neural network performance data. You can enable Pr
   The user can use Callback to turn on and off the Profiler based on step or epoch, and only collect the data of step or epoch. For the data sinking mode, CANN can only be told to turn on and off after each epoch, so for the data sinking mode, it needs to turn on and off based on the epoch.
 
   - When dataset_sink_mode is set to False, it needs to be enabled based
-    on step, `Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
+    on step, `Non-data sinking Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
 
     .. code:: python
 
