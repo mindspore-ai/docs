@@ -56,7 +56,7 @@ Used dataset: [ImageNet 2012](http://www.image-net.org/)
 - Data format: JPEG
 - Download the dataset, and the directory structure is as follows:
 
-```text
+```{container} highlight
 └─dataset
     ├─train                 # Training the dataset
     └─validation_preprocess # Evaluating the dataset
@@ -183,7 +183,7 @@ After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
    The output is as follows, and you can see that the loss value gradually decreases with the training:
 
-   ```text
+   ```{container} highlight
    ============== Starting Training ==============
    epoch: 1 step: 625 loss is  5.2477064
    ...
@@ -197,7 +197,7 @@ After 70 rounds of epoch, the accuracy on the test set is about 66.05%.
 
 2. View the inference precision.
 
-   ```text
+   ```{container} highlight
    ============== Starting Testing ==============
    ============== {'Accuracy': 0.6604992988782051} ==============
    ```
@@ -296,14 +296,14 @@ After 2 rounds of epoch, the accuracy on the test set is about 74.31%.
 
    The output is as follows, and you can see that the loss value gradually decreases with the training:
 
-   ```text
+   ```{container} highlight
    epoch: 1 step: 625 loss is  2.3422508
    epoch: 2 step: 625 loss is  2.1641185
    ```
 
 2. Look at the inference precision, and the code saves the checkpoint to the current directory, and then loads the checkpoint to perform the inference.
 
-   ```text
+   ```{container} highlight
    ============== Starting Testing ==============
    ============== {'Accuracy': 0.7430964543269231} ==============
    ```
