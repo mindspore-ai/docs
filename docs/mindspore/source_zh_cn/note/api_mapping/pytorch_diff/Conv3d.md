@@ -43,11 +43,13 @@ class mindspore.nn.Conv3d(
 
 ## 差异对比
 
-PyTorch：对输入Tensor计算三维卷积，通常情况下，输入大小为 $\left(N, C_{i n}, D, H, W\right)$ 、输出大小为 $\left(N, C_{\text {out }}, D_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$ 的输出值可以描述为：
+PyTorch：对输入Tensor计算三维卷积，通常情况下，输入大小为$\left(N, C_{i n}, D, H, W\right)$、输出大小为$\left(N, C_{\text {out }}, D_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$的输出值可以描述为：
+
 $$
 \operatorname{out}\left(N_{i}, C_{\text {out }_{j}}\right)=\operatorname{bias}\left(C_{\text {out }_{j}}\right)+\sum_{k=0}^{C_{i n}-1} \text { weight }\left(C_{\text {out }_{j}}, k\right) \star \operatorname{input}\left(N_{i}, k\right)
 $$
-其中，$\star$ 为3d cross-correlation 算子，$N$ 是batch size，$C$ 是通道数量，$D$、$H$、$W$ 分别是特征层的深度、高度和宽度。
+
+其中，$\star$为3d cross-correlation 算子，$N$是batch size，$C$是通道数量，$D$、$H$、$W$分别是特征层的深度、高度和宽度。
 
 MindSpore：与PyTorch实现的功能基本一致，但默认不添加偏置参数，与PyTorch相反。且MindSpore默认对输入进行填充，而PyTorch则默认不填充。同时MindSpore填充模式可选项与PyTorch不同，PyTorch的参数padding_mode可选项有'zeros'、'reflect'、'replicate'、'circular'，含义如下：
 
