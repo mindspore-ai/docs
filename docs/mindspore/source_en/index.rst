@@ -13,6 +13,7 @@ MindSpore Documentation
    :hidden:
 
    design/overview
+   design/programming_paradigm
    design/auto_gradient
    design/distributed_training_design
    design/dynamic_graph_and_static_graph

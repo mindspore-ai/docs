@@ -39,7 +39,7 @@ Typical MindSpore Graph Learning Application Scenarios
    :maxdepth: 1
    :caption: Guide
 
-   full_training_of_gcn
+   full_training_of_GCN
 
 .. toctree::
    :maxdepth: 1
