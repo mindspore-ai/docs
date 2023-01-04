@@ -24,7 +24,7 @@ MindSpore AI Fluid Simulation Suite
    :maxdepth: 1
    :caption: Physics-driven
 
-   physics_driven/burgers
+   physics_driven/burgers1D
    physics_driven/cylinder_flow
 
 .. toctree::
