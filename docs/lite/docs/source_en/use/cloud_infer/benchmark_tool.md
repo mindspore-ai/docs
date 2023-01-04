@@ -12,7 +12,7 @@ Before performing inference after converting the model, you can use the Benchmar
 
 To use the Benchmark tool, you need to do the following environment preparation work.
 
-- Compile: The Benchmark tool code is in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-examples) in the build documentation to perform the compilation.
+- Compile: The Benchmark tool code is in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build documentation to perform the compilation.
 
 - Run: Refer to [compilation output](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
 
