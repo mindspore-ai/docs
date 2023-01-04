@@ -231,7 +231,8 @@ try:
                       ("mindspore/mindrecord/tools/cifar100_to_mr.py","mindspore/python/mindspore/mindrecord/tools/cifar100_to_mr.py"),
                       ("mindspore/mindrecord/tools/cifar10_to_mr.py","mindspore/python/mindspore/mindrecord/tools/cifar10_to_mr.py"),
                       ("mindspore/mindrecord/tools/csv_to_mr.py","mindspore/python/mindspore/mindrecord/tools/csv_to_mr.py"),
-                      ("mindspore/mindrecord/tools/tfrecord_to_mr.py","mindspore/python/mindspore/mindrecord/tools/tfrecord_to_mr.py")]
+                      ("mindspore/mindrecord/tools/tfrecord_to_mr.py","mindspore/python/mindspore/mindrecord/tools/tfrecord_to_mr.py"),
+                      ("mindspore/mindrecord/tools/imagenet_to_mr.py","mindspore/python/mindspore/mindrecord/tools/imagenet_to_mr.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
