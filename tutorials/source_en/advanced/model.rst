@@ -152,7 +152,7 @@ during the training process. Therefore, ``ModelCheckpoint`` is used to save the 
     
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 
-.. code:: text
+.. container:: highlight
 
        epoch: 1 step: 938, loss is 0.602992594242096
        Eval result: epoch 1, metrics: {'accuracy': 0.8435}
@@ -189,7 +189,7 @@ The results obtained by running the test data set of the model verify the genera
     acc = trainer.eval(test_dataset)
     acc
 
-.. code:: text
+.. container:: highlight
 
        {'accuracy': 0.9632}
 

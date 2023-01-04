@@ -102,7 +102,7 @@ results.
     logits = network(x)
     print(logits.shape)
 
-.. parsed-literal::
+.. container:: highlight
 
    (1, 1000)
 
