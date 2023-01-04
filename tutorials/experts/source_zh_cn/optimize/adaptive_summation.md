@@ -39,7 +39,7 @@ $$
 
 目录结构如下：
 
-```text
+```{container} highlight
 └─sample_code
     ├─adasum
     │      rank_table_16pcs.json
@@ -103,7 +103,7 @@ rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore
 - 数据格式：JPEG
 - 下载数据集，目录结构如下：
 
-```text
+```{container} highlight
 └─dataset
     ├─train                 # 训练数据集
     └─validation_preprocess # 评估数据集
@@ -219,7 +219,7 @@ rank_start=$((DEVICE_NUM * SERVER_ID))
 
 输出如下，可以看到loss值随着训练逐步降低：
 
-```text
+```{container} highlight
 ============== Starting Training ==============
 epoch: 1 step: 312 loss is  5.5303826
 ...

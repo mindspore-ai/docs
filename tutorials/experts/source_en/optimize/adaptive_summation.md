@@ -35,7 +35,7 @@ It should be noted that after experimental verification, in small distributed tr
 
 The directory structure is as follows:
 
-```text
+```{container} highlight
 └─sample_code
     ├─adasum
     │      rank_table_16pcs.json
@@ -102,7 +102,7 @@ Used dataset: [ImageNet 2012](http://www.image-net.org/)
 - Data format: JPEG
 - Download the dataset, and the directory structure is as follows:
 
-```text
+```{container} highlight
 └─dataset
     ├─train                 # Training the dataset
     └─validation_preprocess # Evaluating the dataset
@@ -218,7 +218,7 @@ rank_start=$((DEVICE_NUM * SERVER_ID))
 
 The output is as follows, and you can see that the loss value gradually decreases with the training:
 
-```text
+```{container} highlight
 ============== Starting Training ==============
 epoch: 1 step: 312 loss is  5.5303826
 ...
