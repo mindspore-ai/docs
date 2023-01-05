@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> `torch.clip` alias for `torch.clamp`，`torch.Tensor.clip` alias for `torch.Tensor.clamp`.
+> `torch.clip` alias for `torch.clamp`, `torch.Tensor.clip` alias for `torch.Tensor.clamp`.
 >
-> `mindspore.ops.clip` alias for `mindspore.ops.clamp`，`mindspore.Tensor.clip` alias for `mindspore.Tensor.clamp`.
+> `mindspore.ops.clip` alias for `mindspore.ops.clamp`, `mindspore.Tensor.clip` alias for `mindspore.Tensor.clamp`.
 >
-> The functional differences between `mindspore.ops.clip` and `torch.clip`, `mindspore.Tensor.clamp` and `torch.Tensor.clamp`, `mindspore.Tensor.clip` and `torch.Tensor.clip`, can refer to the functional differences between `mindspore.ops.clamp` and `torch.clamp`.
+> For the functional differences between `mindspore.ops.clip` and `torch.clip`, `mindspore.Tensor.clamp` and `torch.Tensor.clamp`, `mindspore.Tensor.clip` and `torch.Tensor.clip`, refer to the functional differences between `mindspore.ops.clamp` and `torch.clamp`.
 
 ## torch.clamp
 

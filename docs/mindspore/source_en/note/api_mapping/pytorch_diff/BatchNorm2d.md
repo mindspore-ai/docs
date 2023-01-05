@@ -11,66 +11,91 @@ class torch.nn.BatchNorm2d(
     momentum=0.1,
     affine=True,
     track_running_stats=True
-)
+)(input) -> Tensor
 ```
 
-For more information, see [torch.nn.BatchNorm2d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.BatchNorm2d).
+For more information, see [torch.nn.BatchNorm2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.BatchNorm2d.html).
 
 ## mindspore.nn.BatchNorm2d
 
 ```python
 class mindspore.nn.BatchNorm2d(
     num_features,
-    eps=1e-05,
+    eps=1e-5,
     momentum=0.9,
     affine=True,
-    gamma_init="ones",
-    beta_init="zeros",
-    moving_mean_init="zeros",
-    moving_var_init="ones",
+    gamma_init='ones',
+    beta_init='zeros',
+    moving_mean_init='zeros',
+    moving_var_init='ones',
     use_batch_statistics=None,
-    data_format="NCHW")
-)
+    data_format='NCHW'
+)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.BatchNorm2d](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d).
+For more information, see [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html).
 
 ## Differences
 
-PyTorch：The default value of the momentum parameter used for running_mean and running_var calculation is 0.1.
+PyTorch：Apply batch normalization on four-dimensional inputs (small batches of two-dimensional inputs with additional channel dimensionality) to avoid internal covariate bias.
 
-MindSpore：The default value of the momentum parameter is 0.9, and the momentum relationship with Pytorch is 1-momentum, that is, when Pytorch’s momentum value is 0.2, MindSpore’s momemtum should be 0.8. Parameter beta, gamma, moving_mean and moving_variance correspond to Pytorch's bias, weight, running_mean and running_var parameters respectively.
+MindSpore：Implement the same function as PyTorch.
+
+| Categories | Subcategories   |PyTorch | MindSpore | Differences |
+| --- | --- | --- | --- |---|
+| Parameters | Parameter 1 | input | x | Interface input, same function, only different parameter names |
+| | Parameter 2 | num_features | num_features | - |
+| | Parameter 3 | eps | eps | - |
+| | Parameter 4 | momentum | momentum |Same function, different calculation method |
+| | Parameter 5 | affine | affine |- |
+| | Parameter 6 | track_running_stats | use_batch_statistics | The function is the same, and different values correspond to different default methods |
+| | Parameter 7 | - | gamma_init |The initialization method of the γ parameter, default value: "ones" |
+| | Parameter 8 | - | beta_init |The initialization method of the βparameter, default value: "ones" |
+| | Parameter 9 | - | moving_mean_init |Initialization method of dynamic average, default value: "ones" |
+| | Parameter 10 | - | moving_var_init |Initialization method of dynamic variance, default value: "ones" |
+| | Parameter 11 | - | data_format |MindSpore can specify the input data format as "NHWC" or "NCHW", default value: "NCHW", PyTorch does not have this parameter|
 
 ## Code Example
 
+> In PyTorch, the value after 1-momentum is equal to the momentum of MindSpore, both trained by using mini-batch data and learning parameters.
+
 ```python
-# The following implements BatchNorm2d with MindSpore.
+# PyTorch
+from torch import nn, Tensor
 import numpy as np
-import torch
-import mindspore.nn as nn
-import mindspore as ms
 
-net = nn.BatchNorm2d(num_features=2, momentum=0.8)
-x = ms.Tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
-output = net(x)
-print(output)
-# Out:
-# [[[[0.999995   1.99999]
-#    [0.999995   1.99999]]
+m = nn.BatchNorm2d(num_features=3, momentum=0.1)
+input_x = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+                          [[0.5, 0.6], [0.7, 0.8]],
+                          [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
+output = m(input_x)
+print(output.detach().numpy())
+# [[[[-1.3411044  -0.44703478]
+#    [ 0.4470349   1.3411044 ]]
 #
-#   [[2.999985   3.99998]
-#    [2.999985   3.99998]]]]
+#   [[-1.3411043  -0.44703442]
+#    [ 0.44703496  1.3411049 ]]
+#
+#   [[-1.3411039  -0.44703427]
+#    [ 0.44703534  1.341105  ]]]]
 
+# MindSpore
+from mindspore import Tensor, nn
+import numpy as np
 
-# The following implements BatchNorm2d with torch.
-input_x = torch.tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
-m = torch.nn.BatchNorm2d(2, momentum=0.2)
+m = nn.BatchNorm2d(num_features=3, momentum=0.9)
+m.set_train()
+input_x = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+                          [[0.5, 0.6], [0.7, 0.8]],
+                          [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
 output = m(input_x)
 print(output)
-# Out:
-# tensor([[[[-1.0000,  1.0000],
-#           [-1.0000,  1.0000]],
+# [[[[-1.3411045  -0.4470348 ]
+#    [ 0.44703496  1.3411045 ]]
 #
-#          [[-1.0000,  1.0000],
-#           [-1.0000,  1.0000]]]], grad_fn=<NativeBatchNormBackward>)
+#   [[-1.341105   -0.4470351 ]
+#    [ 0.44703424  1.3411041 ]]
+#
+#   [[-1.3411034  -0.44703388]
+#    [ 0.44703573  1.3411053 ]]]
 ```

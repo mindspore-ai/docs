@@ -22,8 +22,7 @@ For more information, see [mindspore.ops.BroadcastTo](https://mindspore.cn/docs/
 
 ## Differences
 
-PyTorch: Broadcasts given tensors according to [Broadcasting-semantics](https://pytorch.org/docs/stable/notes/broadcasting.html#broadcasting-semantics)
-.
+PyTorch: Follow [certain rules](https://pytorch.org/docs/stable/notes/broadcasting.html#broadcasting-semantics) to broadcast several tensors of the input into 1 tensor.
 
 MindSpore：Broadcasts a given Tensor to a specified shape Tensor.
 

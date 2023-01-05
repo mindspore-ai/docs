@@ -48,7 +48,6 @@ import mindspore.nn as nn
 import mindspore as ms
 from mindspore.train import Model
 
-
 net = Net()
 #1) All parameters use the same learning rate and weight decay
 optim = nn.Adagrad(params=net.trainable_params())

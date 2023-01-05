@@ -4,7 +4,7 @@
 
 ## torch.cat
 
-```text
+```python
 torch.cat(
     tensors,
     dim=0,
@@ -17,7 +17,7 @@ torch.cat(
 
 ## mindspore.ops.cat
 
-```text
+```python
 mindspore.ops.cat(tensors, axis=0) -> Tensor
 ```
 

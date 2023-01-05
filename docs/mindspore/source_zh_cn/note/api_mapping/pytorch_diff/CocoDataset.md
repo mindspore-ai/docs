@@ -92,7 +92,7 @@ print(iscrowd[0])
 root = "/path/to/coco_dataset_directory/images"
 annFile = "/path/to/coco_dataset_directory/annotation_file"
 
-#Convert a PIL Image or numpy.ndarray to tensor.
+# Convert a PIL Image or numpy.ndarray to tensor.
 dataset = datasets.CocoDetection(root, annFile, transform=T.ToTensor())
 for item in dataset:
     print("item:", item[0])

@@ -39,9 +39,9 @@ For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/d
 
 ## Differences
 
-PyTorch: Enter the COCO dataset, return the transformed version with standard interfaces.
+PyTorch: Input the COCO dataset, and return the created dataset object, which can be traversed to obtain data.
 
-MindSpore: Enter the COCO dataset, return the transformed version for four kinds of tasks with standard interfaces.
+MindSpore: Input the COCO dataset and a specified task type (target detection, panorama segmentation, etc.), and return a dataset object with the given task type, which can be obtained by creating an iterator.
 
 ## Code Example
 
