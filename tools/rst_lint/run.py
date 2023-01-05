@@ -8,6 +8,7 @@ from docutils.parsers.rst.roles import register_generic_role
 from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.domains.python import PyCurrentModule
 from sphinx.directives.other import TocTree
+from sphinx.directives.code import LiteralInclude
 from restructuredtext_lint.cli import main
 
 
@@ -70,6 +71,21 @@ class Toctree(TocTree):
         self.state.nested_parse(self.content, self.content_offset, node)
         return [node]
 
+class CustomLiteralInclude(LiteralInclude):
+    """Customizing toctree."""
+
+    def run(self):
+        """run method."""
+        text = '\n'.join(self.content)
+        if self.arguments:
+            classes = directives.class_option(self.arguments[0])
+        else:
+            classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
 
 class CurrentModule(PyCurrentModule):
     """Customizing currentmodule."""
@@ -101,6 +117,7 @@ register_directive('mscnautosummary', CustomDirectiveNoNested)
 register_directive('mscnplatformautosummary', CustomDirectiveNoNested)
 register_directive('mscnnoteautosummary', CustomDirectiveNoNested)
 register_directive('currentmodule', CurrentModule)
+register_directive('literalinclude', CustomLiteralInclude)
 
 # Register roles.
 register_generic_role('class', nodes.literal)
