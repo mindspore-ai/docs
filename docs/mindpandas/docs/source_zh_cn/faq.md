@@ -69,7 +69,7 @@ $ ulimit -n 4096
 
 <br/>
 
-<font size=3>**Q：使用多进程后端时报“ImportError: /lib/libc.so.6: version \`GLIBC_2.25\` not found”如何解决？**</font>
+<font size=3>**Q：使用多进程后端时报“ImportError: /lib/libc.so.6: version 'GLIBC_2.25' not found”如何解决？**</font>
 
 A：请升级环境中的glibc版本到2.25或以上。
 

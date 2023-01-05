@@ -138,7 +138,7 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably cause memory issue.
 You can set `variable_memory_max_size` in `context`to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
 
-<font size=3>**Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can I solve it? **</font>
+<font size=3>**Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can I solve it?**</font>
 
 ```text
 np_tensor can not be split by strategy!

@@ -80,6 +80,12 @@ autosummary_generate = True
 
 # -- Options for HTML output -------------------------------------------------
 
+# Reconstruction of sphinx auto generated document translation.
+
+language = 'zh_CN'
+locale_dirs = ['../../../../resource/locale/']
+gettext_compact = False
+
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
