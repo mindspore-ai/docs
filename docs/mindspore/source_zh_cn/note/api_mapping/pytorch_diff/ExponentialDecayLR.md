@@ -99,7 +99,7 @@ global_step = ms.Tensor(2, ms.int32)
 exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 result = exponential_decay_lr(global_step)
 print(result)
-#  out
+# out
 # 0.09486833
 
 # In torch:
@@ -122,7 +122,7 @@ for epoch in range(5):
         optimizer.step()
     exponential_decay_lr.step()
     print(exponential_decay_lr.get_last_lr())
-#  out
+# out
 # [0.09000000000000001]
 # [0.08100000000000002]
 # [0.07290000000000002]
