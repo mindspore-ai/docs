@@ -2070,7 +2070,7 @@ ret: (5, 7, 9)
 
 调用：`zip(sequence, ...)`
 
-入参：`sequence` -- 一个或多个序列(`Tuple`或`List`)`。
+入参：`sequence` -- 一个或多个序列(`Tuple`或`List`)。
 
 返回值：返回一个`Tuple`。
 

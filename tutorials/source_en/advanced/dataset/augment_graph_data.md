@@ -81,7 +81,7 @@ $$
 
 3. Convert the dataset format.
 
-    Use the conversion script provided by the \`models\` repository to convert the dataset to the MindSpore Record format. The generated MindSpore Record file is stored in `./cora_mindrecord`.
+    Use the conversion script provided by the `models` repository to convert the dataset to the MindSpore Record format. The generated MindSpore Record file is stored in `./cora_mindrecord`.
 
     ```python
     if not os.path.exists("./cora_mindrecord"):

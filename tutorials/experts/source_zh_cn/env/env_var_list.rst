@@ -136,7 +136,7 @@
      - 配置程序运行数据记录器（RDR）的文件导出的根目录路径
      - String
      - 目录路径，仅支持绝对路径
-     - 配合 `MS_RDR_ENABLE=1` 使用，最终RDR文件将 `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`目录下。
+     - 配合 `MS_RDR_ENABLE=1` 使用，最终RDR文件将 `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/` 目录下。
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
 
 具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/debug/custom_debug.html#running-data-recorder>`_ 。

@@ -289,7 +289,7 @@ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out s
     - `ssl_config`表示客户端的`SSL`配置。该参数默认为`None`，表示不开启`SSL/TLS`。开启`SSL/TLS`则需要传入`mindspore_serving.client.SSLConfig`对象。
     - `certificate`为客户端证书文件的路径。
     - `private_key`为客户端私钥文件的路径。
-    - `custom_ca`为客户端的根证书文件的路径，用来验证服务器的身份。该参数可以为`None`，这个时候gRPC会通过gRPC安装路径下的`grpc/_cython/_credentials/roots.pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。
+    - `custom_ca`为客户端的根证书文件的路径，用来验证服务器的身份。该参数可以为`None`，这个时候gRPC会通过gRPC安装路径下的`grpc/_cython/_credentials/roots.pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。`pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。
 
   由于仅客户端验证服务器证书，所以只需要将`custom_ca`设置为签发服务器证书的`ca.crt`。
 
