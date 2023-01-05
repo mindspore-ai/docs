@@ -88,6 +88,7 @@ step_per_epoch = 2
 decay_epoch = 1
 output = nn.exponential_decay_lr(learning_rate, decay_rate, total_step, step_per_epoch, decay_epoch)
 print(output)
+# out
 # [0.1, 0.1, 0.09000000000000001, 0.09000000000000001, 0.08100000000000002, 0.08100000000000002]
 
 # In MindSpore：ExponentialDecayLR
@@ -98,6 +99,7 @@ global_step = ms.Tensor(2, ms.int32)
 exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 result = exponential_decay_lr(global_step)
 print(result)
+# out
 # 0.09486833
 
 # In torch:

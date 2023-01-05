@@ -4,7 +4,7 @@
 
 ## torch.nn.BatchNorm2d
 
-```python
+```text
 class torch.nn.BatchNorm2d(
     num_features,
     eps=1e-05,
@@ -18,7 +18,7 @@ class torch.nn.BatchNorm2d(
 
 ## mindspore.nn.BatchNorm2d
 
-```python
+```text
 class mindspore.nn.BatchNorm2d(
     num_features,
     eps=1e-5,
