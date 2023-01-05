@@ -152,28 +152,30 @@ during the training process. Therefore, ``ModelCheckpoint`` is used to save the 
     
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 
-.. container:: highlight
+.. raw:: html
 
-       epoch: 1 step: 938, loss is 0.602992594242096
-       Eval result: epoch 1, metrics: {'accuracy': 0.8435}
-       epoch: 2 step: 938, loss is 0.2797124981880188
-       Eval result: epoch 2, metrics: {'accuracy': 0.9003}
-       epoch: 3 step: 938, loss is 0.32015785574913025
-       Eval result: epoch 3, metrics: {'accuracy': 0.9179}
-       epoch: 4 step: 938, loss is 0.17153620719909668
-       Eval result: epoch 4, metrics: {'accuracy': 0.9308}
-       epoch: 5 step: 938, loss is 0.18772485852241516
-       Eval result: epoch 5, metrics: {'accuracy': 0.9382}
-       epoch: 6 step: 938, loss is 0.45641791820526123
-       Eval result: epoch 6, metrics: {'accuracy': 0.946}
-       epoch: 7 step: 938, loss is 0.11519066989421844
-       Eval result: epoch 7, metrics: {'accuracy': 0.9506}
-       epoch: 8 step: 938, loss is 0.43486487865448
-       Eval result: epoch 8, metrics: {'accuracy': 0.9555}
-       epoch: 9 step: 938, loss is 0.1941455900669098
-       Eval result: epoch 9, metrics: {'accuracy': 0.9588}
-       epoch: 10 step: 938, loss is 0.13441434502601624
-       Eval result: epoch 10, metrics: {'accuracy': 0.9632}
+    <div class="highlight"><pre>
+    epoch: 1 step: 938, loss is 0.602992594242096
+    Eval result: epoch 1, metrics: {'accuracy': 0.8435}
+    epoch: 2 step: 938, loss is 0.2797124981880188
+    Eval result: epoch 2, metrics: {'accuracy': 0.9003}
+    epoch: 3 step: 938, loss is 0.32015785574913025
+    Eval result: epoch 3, metrics: {'accuracy': 0.9179}
+    epoch: 4 step: 938, loss is 0.17153620719909668
+    Eval result: epoch 4, metrics: {'accuracy': 0.9308}
+    epoch: 5 step: 938, loss is 0.18772485852241516
+    Eval result: epoch 5, metrics: {'accuracy': 0.9382}
+    epoch: 6 step: 938, loss is 0.45641791820526123
+    Eval result: epoch 6, metrics: {'accuracy': 0.946}
+    epoch: 7 step: 938, loss is 0.11519066989421844
+    Eval result: epoch 7, metrics: {'accuracy': 0.9506}
+    epoch: 8 step: 938, loss is 0.43486487865448
+    Eval result: epoch 8, metrics: {'accuracy': 0.9555}
+    epoch: 9 step: 938, loss is 0.1941455900669098
+    Eval result: epoch 9, metrics: {'accuracy': 0.9588}
+    epoch: 10 step: 938, loss is 0.13441434502601624
+    Eval result: epoch 10, metrics: {'accuracy': 0.9632}
+    </pre></div>
 
 During training, the loss value will be printed, and the loss value will fluctuate, but in general, the loss value will gradually decrease and
 the accuracy will gradually improve. The loss values run by each person are random and not necessarily identical.
@@ -189,9 +191,11 @@ The results obtained by running the test data set of the model verify the genera
     acc = trainer.eval(test_dataset)
     acc
 
-.. container:: highlight
+.. raw:: html
 
-       {'accuracy': 0.9632}
+    <div class="highlight"><pre>
+    {'accuracy': 0.9632}
+    </pre></div>
 
 The model precision data can be seen from the print information. In the example, the precision data reaches more than 95%, and the model quality
 is good. As the number of network iterations increases, the accuracy of the model will be further improved.

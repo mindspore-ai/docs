@@ -102,9 +102,11 @@ results.
     logits = network(x)
     print(logits.shape)
 
-.. container:: highlight
+.. raw:: html
 
-   (1, 1000)
+    <div class="highlight"><pre>
+    (1, 1000)
+    </pre></div>
 
 More Usage Scenarios
 ---------------------

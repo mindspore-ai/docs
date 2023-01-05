@@ -152,8 +152,9 @@ Model基本介绍
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 
 
-.. code:: none
+.. raw:: html
 
+    <div class="highlight"><pre>
     epoch: 1 step: 938, loss is 0.602992594242096
     Eval result: epoch 1, metrics: {'accuracy': 0.8435}
     epoch: 2 step: 938, loss is 0.2797124981880188
@@ -174,6 +175,7 @@ Model基本介绍
     Eval result: epoch 9, metrics: {'accuracy': 0.9588}
     epoch: 10 step: 938, loss is 0.13441434502601624
     Eval result: epoch 10, metrics: {'accuracy': 0.9632}
+    </pre></div>
 
 
 训练过程中会打印loss值，loss值会波动，但总体来说loss值会逐步减小，精度逐步提高。每个人运行的loss值有一定随机性，不一定完全相同。
@@ -188,9 +190,11 @@ Model基本介绍
     acc = trainer.eval(test_dataset)
     acc
 
-.. code:: none
+.. raw:: html
 
+    <div class="highlight"><pre>
     {'accuracy': 0.9632}
+    </pre></div>
 
 
 
