@@ -152,7 +152,7 @@ Model基本介绍
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 
 
-.. container:: highlight
+.. code:: none
 
     epoch: 1 step: 938, loss is 0.602992594242096
     Eval result: epoch 1, metrics: {'accuracy': 0.8435}
@@ -188,7 +188,7 @@ Model基本介绍
     acc = trainer.eval(test_dataset)
     acc
 
-.. container:: highlight
+.. code:: none
 
     {'accuracy': 0.9632}
 
