@@ -339,7 +339,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Post Training Quantization</span>
 										</div>
 										<div class="doc-article-desc">
-											Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance.
+											Converting a trained 'float32' model into an 'int8' model through quantization after training can reduce the model size and improve the inference performance.
 											This tutorial introduces how to use the function.
 										</div>
 									</div>

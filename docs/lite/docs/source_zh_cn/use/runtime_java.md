@@ -157,7 +157,7 @@ MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方
 
 MindSpore Lite在模型编译以后，即可调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#predict)执行模型推理。
 
-下面示例代码演示调用``执行推理。
+下面示例代码演示调用`Model`执行推理。
 
 ```java
 // Run graph to infer results.
