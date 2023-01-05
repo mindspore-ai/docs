@@ -6,7 +6,7 @@
 >
 > `mindspore.ops.clip`别名`mindspore.ops.clamp`，`mindspore.Tensor.clip`别名`mindspore.Tensor.clamp`。
 >
-> `mindspore.ops.clip`与`torch.clip`，`mindspore.Tensor.clamp`与`torch.Tensor.clamp`,`mindspore.Tensor.clip`与`torch.Tensor.clip`的功能差异，均参考`mindspore.ops.clamp`与`torch.clamp`的功能差异比较。
+> `mindspore.ops.clip`与`torch.clip`，`mindspore.Tensor.clamp`与`torch.Tensor.clamp`，`mindspore.Tensor.clip`与`torch.Tensor.clip`的功能差异，均参考`mindspore.ops.clamp`与`torch.clamp`的功能差异比较。
 
 ## torch.clamp
 

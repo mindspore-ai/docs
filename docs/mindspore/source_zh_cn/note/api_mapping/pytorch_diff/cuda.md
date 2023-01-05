@@ -8,7 +8,7 @@
 torch.Tensor.cuda()
 ```
 
-更多内容详见[torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.cuda).
+更多内容详见[torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.cuda)。
 
 ## mindspore.set_context
 
@@ -16,10 +16,10 @@ torch.Tensor.cuda()
 mindspore.set_context(**kwargs)
 ```
 
-更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
 ## Differences
 
-PyTorch：将Tenosr 拷贝到 cuda 内存.
+PyTorch：将Tenosr 拷贝到 cuda 内存。
 
-MindSpore：将变量设置为 `device_target='GPU'` 或 `device_target='Ascend'` 时, 网络和Tensor都将自动拷贝到 GPU/Ascend 设备.
+MindSpore：将变量设置为 `device_target='GPU'` 或 `device_target='Ascend'` 时，网络和Tensor都将自动拷贝到 GPU/Ascend 设备。

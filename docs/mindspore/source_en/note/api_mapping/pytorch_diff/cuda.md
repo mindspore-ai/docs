@@ -20,6 +20,6 @@ For more information, see [mindspore.set_context](https://mindspore.cn/docs/en/m
 
 ## Differences
 
-PyTorch: It is used to copy object in CUDA memory.
+PyTorch: Copy Tenosr to cuda memory.
 
-MindSpore：When set parameter `device_target='GPU'` or `device_target='Ascend'`, Network and Tensor are copied to GPU/Ascend device automatically.
+MindSpore：When setting the variable to `device_target='GPU'` or `device_target='Ascend'`, both the network and Tensor will be automatically copied to the GPU/Ascend device.
