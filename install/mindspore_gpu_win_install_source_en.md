@@ -22,7 +22,7 @@ This document describes how to quickly install MindSpore by source code in a Win
 - Ensure that [Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes) is installed.
 - Ensure that [git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe) tool is installed. Meanwhile, put Git insitall directory into `Path` environment variable. If git is installed in `D:\Program Files\Git`,then add `D:\Program Files\Git\usr\bin` into `Path` variable.
 - Ensure that [CMake 3.18.3](https://github.com/Kitware/Cmake/releases/tag/v3.18.3) is installed.
-- Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path of `cmake.exe` to the environment variable `Path`.
+- Ensure that path of source code does not include special characters (Chinese characters etc.). After installing, add the path of `cmake.exe` to the environment variable `Path`.
 - Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 - Ensure that [wheel 0.32.0 and later](https://pypi.org/project/wheel/) is installed.
 - Ensure that [CUDA 11.1/11.6](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) is installed. Nvidia [cuDNN official installation guide](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html) is a good place to follow, and make sure put cuDNN install path into `CUDNN_HOME` environment variable.
