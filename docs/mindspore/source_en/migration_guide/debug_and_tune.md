@@ -200,7 +200,7 @@ for i, data in enumerate(iterator):
 ```
 
 - Check the optimizer, loss, and parameter initialization. In addition to the model and dataset, only the optimizer, loss, and parameter initialization are added in the entire training process. If the training is abnormal, check the optimizer, loss, and parameter initialization. Especially for loss and parameter initialization, there is a high probability that the problem occurs.
-- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_gradient.html#customizing-training-cell).
+- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation_procession.html#training-process).
 
 ```python
 import mindspore as ms
