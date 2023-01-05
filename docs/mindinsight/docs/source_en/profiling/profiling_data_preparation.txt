@@ -76,3 +76,6 @@ suggestions:
   the training script.
 - If the BatchOp Operation is the bottleneck, try to adjust the size
   of ``prefetch_size``.
+
+.. note::
+   To obtain data to prepare performance data, using the module of MindSpore Dataset to define data process pipeline.

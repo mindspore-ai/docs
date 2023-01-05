@@ -38,3 +38,6 @@
 - 如果GeneratorOp操作是性能瓶颈，建议增加\ ``num_parallel_workers``\ ，并尝试将其替换为\ ``MindRecordDataset``\ 。
 - 如果MapOp操作是性能瓶颈，建议增加\ ``num_parallel_workers``\ ，如果其映射的是Python数据处理操作，可以尝试优化脚本。
 - 如果BatchOp操作是性能瓶颈，建议调整\ ``prefetch_size``\ 的大小。
+
+.. note::
+   获取数据准备性能数据，需要使用MindSpore Dataset模块定义数据预处理pipeline。

@@ -95,7 +95,7 @@ class AlexNet(nn.Cell):
 
 > 1. In the same Summary API, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
 > For example, if two `ScalarSummary` APIs are used to collect scalar data, two scalars cannot be given the same name.
-> 2. Summary API only supports Graph mode and needs to be used in `construct` of `nn.Cell`. The PyNative mode is not supported yet.
+> 2. Summary API needs to be used in `construct` of `nn.Cell`.
 
 Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
 
@@ -371,7 +371,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 
-6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary API can not be used.
+6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded.
 
 7. When using summary, the code lines to be executed need to be put into `if __name__ == '__main__':`, otherwise the unknown error may occur.
 
