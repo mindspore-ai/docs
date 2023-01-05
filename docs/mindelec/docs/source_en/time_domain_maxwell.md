@@ -20,6 +20,7 @@ $$
 $$
 
 where $\epsilon$ and $\mu$ are the absolute dielectric constant and the absolute magnetic permeability of the medium, respectively. $J(x, t)$ is the excitation source in the electromagnetic simulation process, and is usually represented in a form of a port pulse. This is mathematically approximated to the point source represented in the form of a Dirac delta function, and may be expressed as:
+
 $$
 J(x, t)=\delta(x - x_0)g(t)
 $$

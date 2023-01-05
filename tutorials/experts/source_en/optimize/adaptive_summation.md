@@ -11,16 +11,20 @@ In traditional distributed training, after each compute node calculates the loss
 Unlike gradient renewal in traditional distributed training, adaptive gradient summation takes the direction of the gradient into account. In the early stage of network training, the gradient update direction obtained by different batches is basically parallel, but as the training progresses, the gradient update direction tends to be orthogonal. Moreover, the difference in orthogonality of gradient updates at different layers of the network is also relatively large.
 
 Taking two training nodes as an example, the update principle of the gradient is as follows:
+
 $$
 \begin{aligned}
 w^{’} &= w_0 - \alpha \cdot [(1 - \frac{g^T_2 \cdot g_1}{2 \cdot ||g_1||^2}) \cdot g_1 + (1 - \frac{g^T_2 \cdot g_1}{2 \cdot ||g_2||^2}) \cdot g_2] \\
 &= w_0 - \alpha \cdot Adasum(g_1,g_2)
 \end{aligned}
 $$
+
 where $g_1$ is the gradient of training node 1, and $g_2$ is the gradient of training node 2. When the training node expands to $n$($n = 2^x, x = 1,2,3 cdots$), the problem is decomposed recursively as follows:
+
 $$
 Adasum(g_{|0,n|}) = Adasum(Adasum(g_{|0, n/2|}), Adasum(g_{|n/2, n|}))
 $$
+
 As can be seen from the above formulas, the paper is an update to the gradient. Considering that the optimizer's operation on the gradient does not necessarily satisfy the linear conversion, the optimization is to do adasum operation on the network weight difference (delta weights) after the optimizeizer.
 
 This tutorial will show you how to implement adaptive gradient summation in Boost mode, taking the ttraining process of ResNet-50 on the ImageNet 2012 dataset on Ascend910 as an example. `mindspore.boost` integrates various algorithms for network training acceleration, and provides a configuration interface to start the acceleration algorithm.

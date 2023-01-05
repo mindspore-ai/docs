@@ -66,7 +66,7 @@ Traceback processing, including Python stack information, error types and error 
 
 -  Error messages related to networkdevelopers
 
-   As shown in figure ③, it contains \ ``The Traceback of Net Construct Code``\ and other error messages related to network developers. \ ``The Traceback of Net Construct Code``\ is the C++ back-end compilation error location mapped to the Python front-end code call stack, printed in reverse order, corresponding to the \ ``construct``\ function or \``@ms_function``\ decorator-modified function in the neural network.
+   As shown in figure ③, it contains \ ``The Traceback of Net Construct Code``\ and other error messages related to network developers. \ ``The Traceback of Net Construct Code``\ is the C++ back-end compilation error location mapped to the Python front-end code call stack, printed in reverse order, corresponding to the \ ``construct``\ function or \ ``@ms_function``\ decorator-modified function in the neural network.
 
 -  Error messages related to framework developers
 
