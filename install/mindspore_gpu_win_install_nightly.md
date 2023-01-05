@@ -27,11 +27,12 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 执行如下命令安装MindSpore：
 
 ```bash
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-cuda11-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
 
+- MindSpore GPU Nightly for Windows当前仅提供CUDA11.6版本。
 - 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 - pip会自动安装当前最新版本的Nightly版本MindSpore，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
 
@@ -55,9 +56,11 @@ The result of multiplication calculation is correct, MindSpore has been installe
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-dev=={version}
+pip install --upgrade mindspore-cuda11-dev=={version}
 ```
 
 其中：
 
 - 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.0.0rc1.dev20211125；如果希望自动升级到最新版本，`=={version}`字段可以缺省。
+
+注意：当前MindSpore GPU Nightly for Windows仅提供CUDA11.6版本，若仍希望使用CUDA10.1或者CUDA11.1版本，请参考源码编译指导在对应环境上自行编译。
