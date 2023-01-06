@@ -1,6 +1,6 @@
 # Differences between torch.nn.Dropout and mindspore.nn.Dropout
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/mindspore.nn.Dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Dropout
 
@@ -26,13 +26,9 @@ For more information, see[mindspore.nn.Dropout](https://mindspore.cn/docs/en/mas
 
 ## Use Pattern
 
-PyTorch：**p** - Probability of an element to be zeroed. Default: 0.5.
+The probability of P parameter in PyTorch is the dropping parameter.
 
-PyTorch: The parameter P is the probability of discarding the parameter.
-
-MindSpore：**keep_prob** ([*float*](https://docs.python.org/library/functions.html#float)) - The keep rate, greater than 0 and less equal than 1. E.g. rate=0.9, dropping out 10% of input units. Default: 0.5.
-
-MindSpore：The parameter keep_prob is the probability of carding the parameter.
+The probability of keep_prob parameter in MindSpore is the retention parameter.
 
 ## Code Example
 
@@ -45,26 +41,15 @@ import numpy as np
 m = torch.nn.Dropout(p=0.9)
 input = torch.tensor(np.ones([5,5]),dtype=float)
 output = m(input)
-print(output)
-
+print(tuple(output.shape))
 # out:
-#   [[0 10 0 0 0]
-#   [0 0 0 0 0]
-#   [0 0 10 0 0]
-#   [0 10 0 0 0]
-#   [0 0 0 0 10]]
+# (5, 5)
 
 input = mindspore.Tensor(np.ones([5,5]),mindspore.float32)
 net = mindspore.nn.Dropout(keep_prob=0.1)
 net.set_train()
 output = net(input)
-print(output)
-
+print(output.shape)
 # out:
-#   [[0 10 0 0 0]
-#   [0 0 0 10 0]
-#   [0 0 0 0 0]
-#   [0 10 10 0 0]
-#   [0 0 10 0 0]]
-
+# (5, 5)
 ```

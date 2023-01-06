@@ -20,7 +20,7 @@ For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.c
 
 ## Differences
 
-In PyTorch, the network has three concepts: `parameter`, `buffer`, and `state`, where `state` is the collection of `parameter` and `buffer`. `parameter` can use the `requires_grad` attribute to distinguish whether the `parameter` in the network needs to be optimized; `buffer` is mostly defined as an invariant in the network, for example, when defining the network, the `running_mean` and `running_var` in BN will be automatically register as buffer; users can also register `parameter` and `buffer` through related interfaces.
+In PyTorch, the network has three concepts: `parameter`, `buffer`, and `state`, where `state` is the collection of `parameter` and `buffer`. `parameter` can use the `requires_grad` attribute to distinguish whether the `parameter` in the network needs to be optimized. `buffer` is mostly defined as an invariant in the network, for example, when defining the network, the `running_mean` and `running_var` in BN will be automatically registered as buffer. Users can also register `parameter` and `buffer` through related interfaces.
 
 -`torch.nn.Module.parameters`: Get the `parameter` in the network, and return a generator.
 

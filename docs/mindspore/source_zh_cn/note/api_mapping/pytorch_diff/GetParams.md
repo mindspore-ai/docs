@@ -22,13 +22,13 @@ mindspore.nn.Cell.get_parameters(expand=True)
 
 PyTorch中，网络有`parameter`, `buffer`, `state`三种概念，其中`state`为`parameter`和`buffer`的合集。`parameter`可以通过`requires_grad`属性来区分网络中的参数是否需要优化；`buffer`多定义为网络中的不变量，例如在定义网络时，BN中的`running_mean`和`running_var`会被自动注册为buffer；用户也可以通过相关接口自行注册`parameter`和`buffer`。
 
-- `torch.nn.Module.parameters`： 获取网络中的`parameter`，返回类型为迭代器。
+- `torch.nn.Module.parameters`：获取网络中的`parameter`，返回类型为迭代器。
 
 - `torch.nn.Module.named_parameters`：获取网络中`parameter`的名称和`parameter`本身，返回类型为迭代器。
 
 MindSpore中目前只有`parameter`的概念，通过`requires_grad`属性来区分网络中的参数是否需要优化，例如在定义网络时，BN中的`moving_mean`和`moving_var`会被定义为`requires_grad=False`的`parameter`。
 
-- `mindspore.nn.Cell.get_parameters`： 获取网络中的`parameter`，返回类型为迭代器。
+- `mindspore.nn.Cell.get_parameters`：获取网络中的`parameter`，返回类型为迭代器。
 
 - `mindspore.nn.Cell.trainable_paramters`：获取网络中需要被优化的`parameter`（即`requires_grad=True`），返回类型为列表。
 

@@ -88,7 +88,6 @@ class GetDatasetGenerator1(Dataset):
     def __len__(self):
         return len(self.__data)
 
-
 dataset = GetDatasetGenerator1()
 for item in dataset:
     print("item:", item)

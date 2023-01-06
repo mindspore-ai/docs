@@ -27,4 +27,4 @@ MindSpore: The input of this interface is the communication group `group`. The o
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-| Param  | Param 1 | group | group |No difference|
+| Parameter  | Parameter 1 | group | group |No difference|
