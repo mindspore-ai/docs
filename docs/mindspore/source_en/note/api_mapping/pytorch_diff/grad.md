@@ -49,7 +49,7 @@ For more information, see [mindspore.grad](https://www.mindspore.cn/docs/en/mast
 
 PyTorch: Use `torch.autograd.backward` to compute the sum of gradients of given Tensors with respect to graph leaves. When calculating the gradient of the Tensor with backpropagation, only the gradient of graph leaves with `requires_grad=True` will be calculated. Use `torch.autograd.grad` to compute and return the sum of gradients of outputs with respect to the inputs. If `only_inputs` is True, the function will only return a list of gradients with respect to the specified inputs.
 
-MindSpore: Compute the first derivative. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. if `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True,  only the first output of `fn` participates in the computation, in this case, the `fn` should has at least two outputs.
+MindSpore: Compute the gradient. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. If `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True, only the first output of `fn` participates in the computation, and in this case, the `fn` should has at least two outputs.
 
 ## Code Example
 

@@ -33,9 +33,9 @@ For more information, see  [mindspore.dataset.GeneratorDataset](https://mindspor
 
 ## Differences
 
-PyTorch: An abstract class representing a Dataset. All datasets that represent a map from keys to data samples should subclass it. All subclasses should overwrite `__getitem__()`, supporting fetching a data sample for a given key. Subclasses could also optionally overwrite `__len__()`, which is expected to return the size of the dataset by many Sampler implementations and the default options of DataLoader.
+PyTorch: Abstract class for custom data sets. Custom data subclasses can inherit from this abstract class by calling the methods `__len__()` and `__getitem__()`.
 
-MindSpore：A source dataset that generates data from Python by invoking Python data source each epoch. The column names and column types of generated dataset depend on Python data defined by users.
+MindSpore：Generate datasets by calling the custom Dataset of the Python layer at a time.
 
 ## Code Example
 

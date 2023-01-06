@@ -27,9 +27,9 @@ For more information, see [mindspore.ops.FloorDiv](https://mindspore.cn/docs/en/
 
 ## Differences
 
-PyTorch: The output will be rounded toward 0 rather than the floor.
+PyTorch: The result is rounded toward 0, not rounded down to the nearest integer. For example, if the division is -0.9, the result will be 0 after rounding.
 
-MindSpore: The output will be rounded exactly toward floor.
+MindSpore: The result is rounded down by floor. For example, if the division is -0.9, the result will be -1 after rounding.
 
 ## Code Example
 

@@ -15,6 +15,10 @@ torch.norm(
 )
 ```
 
+For more information, see [torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm).
+
+## torch.Tensor.norm
+
 ```python
 torch.Tensor.norm(
     p='fro',
@@ -24,7 +28,7 @@ torch.Tensor.norm(
 )
 ```
 
-For more information, see [torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm).
+For more information, see [torch.Tensor.norm](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.norm).
 
 ## mindspore.ops.LpNorm
 
@@ -41,7 +45,7 @@ For more information, see [mindspore.ops.LpNorm](https://mindspore.cn/docs/en/ma
 
 ## Differences
 
-PyTorch: The p parameter can support types or values such as int, float, inf, -inf, 'fro', 'nuc' to calculate different types of normalization.
+PyTorch: The p parameter can support types or values such as int, float, inf, -inf, 'fro', 'nuc' to calculate normalization of different types.
 
 MindSpore: Currently only normalization for integer p-normal form is supported.
 

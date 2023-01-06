@@ -20,9 +20,9 @@ For more information, see [mindspore.common.initializer.Normal](https://mindspor
 
 ## Differences
 
-PyTorch: Obtain values N(std, mean) from the normal distribution. Default: std=1., mean=0.0.
+PyTorch: The default output is a normal distribution with a mean of 0 and a standard deviation of 1. Pass in the mean and standard deviation when using.
 
-MindSpore: Obtain values N(sigma, mean) from the normal distribution. Default: sigma=0.01, mean=0.0.
+MindSpore: The default output is a normal distribution with a mean of 0 and a standard deviation of 0.01. Pass in the mean and standard deviation when using.
 
 ## Code Example
 

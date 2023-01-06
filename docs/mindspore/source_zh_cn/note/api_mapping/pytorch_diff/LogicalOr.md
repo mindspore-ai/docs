@@ -30,6 +30,7 @@ MindSpore：按元素计算两个输入张量的逻辑或。输入可以是bool�
 import numpy as np
 import torch
 import mindspore as ms
+from mindspore import ops
 
 # MindSpore
 x = ms.Tensor(np.array([True, False, True]), ms.bool_)

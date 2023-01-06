@@ -49,7 +49,7 @@ mindspore.grad(
 
 PyTorch：使用`torch.autograd.backward`计算给定Tensor关于叶子节点的梯度总和，反向传播计算Tensor的梯度时，只计算`requires_grad=True`的叶子节点的梯度。使用`torch.autograd.grad`计算并返回输出关于输入的梯度总和，如果`only_inputs`为True，仅返回与指定输入相关的梯度列表。
 
-MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`, 将会计算网络的变量的参数。当`has_aux`设置为True时， 只有`fn`的第一个输出参与梯度计算， 此时`fn`至少具备两个输出。
+MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`，将会计算网络的变量的参数。当`has_aux`设置为True时，只有`fn`的第一个输出参与梯度计算，此时`fn`至少具备两个输出。
 
 ## 代码示例
 
