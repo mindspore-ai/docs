@@ -19,9 +19,9 @@
 ## 确认系统环境信息
 
 - 当前支持Windows 10/11，x86架构64位的操作系统。
-- 确认安装[Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes)。安装时保证勾选`使用C++的桌面开发`和`通用Windows平台开发`选项。
+- 确认安装[Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes)。安装时保证工作负荷勾选`使用C++的桌面开发`和`通用Windows平台开发`选项，单个组件勾选`用于Windows的C++CMake工具`。
 - 确认安装了[git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe)工具。同时将Git目录加到`Path`环境变量中，如果git安装在`D:\Program Files\Git`时，那么需要把`D:\Program Files\Git\usr\bin`加入到`Path`环境变量中。
-- 确认安装[CMake 3.18.3版本](https://github.com/Kitware/Cmake/releases/tag/v3.18.3)。并将安装路径（不能出现中文等特殊字符）添加到系统环境变量`Path`中。
+- 确认安装[CMake 3.18.3版本](https://cmake.org/files/v3.18/cmake-3.18.3-win64-x64.msi)。并将安装路径（不能出现中文等特殊字符）添加到系统环境变量`Path`中。
 - 确认安装Python（>=3.7.5）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 - 确认安装[CUDA 11.1/11.6](https://developer.nvidia.com/cuda-11.1.1-download-archive)以及[cuDNN](https://developer.nvidia.com/cudnn)，cuDNN的安装可以参考Nvidia[官方文档](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)，同时需要将cuDNN的安装目录加入到`CUDNN_HOME`环境变量。
