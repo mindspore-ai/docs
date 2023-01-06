@@ -52,7 +52,7 @@ after = """\
             rep_symbol = "._:"
             for s in rep_symbol:
                 origin_id = origin_id.replace(s,'-')
-            node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-"))
+            node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-").replace('(','').replace(')',''))
         else:
             node['ids'].append(id)"""
 
