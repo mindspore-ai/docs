@@ -123,7 +123,7 @@ ResNet18网络定义见[resnet.py](https://gitee.com/mindspore/models/blob/maste
 
 ```python
 from mindspore_gs import SlbQuantAwareTraining as SlbQAT
-from mindspore_gs.quantization.constant import QuantDtype
+from mindspore import QuantDtype
 
 ...
 algo = SlbQAT()
