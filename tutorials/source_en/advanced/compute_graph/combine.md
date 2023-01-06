@@ -87,6 +87,7 @@ When using the `ms_function` modifier, you can modify an independently defined f
 ```python
 import numpy as np
 import mindspore.ops as ops
+import mindspore as ms
 from mindspore import ms_function
 
 # Set the running mode to dynamic graph mode.
