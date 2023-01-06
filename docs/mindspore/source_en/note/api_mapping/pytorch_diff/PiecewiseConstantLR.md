@@ -20,14 +20,15 @@ For more information, see [torch.optim.lr_scheduler.StepLR](https://pytorch.org/
 
 ```python
 torch.optim.lr_scheduler.MultiStepLR(
-     optimizer,
-     milestones,
-     gamma=0.1,
-     last_epoch=-1
+    optimizer,
+    milestones,
+    gamma=0.1,
+    last_epoch=-1,
+    verbose=False
 )
 ```
 
-For more information, see [torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.MultiStepLR).
+For more information, see [torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.MultiStepLR).
 
 ## mindspore.nn.piecewise_constant_lr
 
@@ -89,6 +90,7 @@ from torch import optim
 
 model = torch.nn.Sequential(torch.nn.Linear(20, 1))
 optimizer = optim.SGD(model.parameters(), 0.1)
+
 # step_lr
 step_lr = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.9)
 # multi_step_lr

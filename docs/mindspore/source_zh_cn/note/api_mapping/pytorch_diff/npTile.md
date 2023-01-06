@@ -32,7 +32,7 @@ mindspore.numpy.tile(a, reps)
 
 ## 代码示例
 
-MindSpore:
+MindSpore：
 
 ```python
 import mindspore.numpy as np

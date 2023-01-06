@@ -30,9 +30,9 @@ For more information, see [mindspore.ops.pad](https://www.mindspore.cn/docs/en/m
 
 ## Differences
 
-PyTorch：The pad parameter is a tuple with m values, m/2 is less than or equal to the dimension of the input data, and m is even. Negative dimensions are supported. Assuming pad=(k1, k2, ..., kl, km), the shape of the input x is (d1, d2..., dg), then the two sides of the dg dimension are filled with the values of lengths k1 and k2 respectively. Similarly, the two sides of the d1 dimension are filled with the values of length kl and km respectively.
+PyTorch: The pad parameter is a tuple with m values, m/2 is less than or equal to the dimension of the input data, and m is even. Negative dimensions are supported. Assuming pad=(k1, k2, ..., kl, km), the shape of the input x is (d1, d2..., dg), then the two sides of the dg dimension are filled with the values of lengths k1 and k2 respectively. Similarly, the two sides of the d1 dimension are filled with the values of length kl and km respectively.
 
-MindSpore：The function and usage of the padding parameter of MindSpore is completely consistent with that of the pad parameter of PyTorch. In addition, MindSpore supports the input form of Tensor type in addition to PyTorch.
+MindSpore: The function and usage of the padding parameter of MindSpore is completely consistent with that of the pad parameter of PyTorch. In addition, MindSpore supports the input form of Tensor type in addition to PyTorch.
 
 | Classification | Subclass  | PyTorch | MindSpore | difference |
 | ---- | ----- | ------- | --------- | -------------------- |

@@ -20,9 +20,9 @@ For more information, see [mindspore.nn.Cell.name_cells](https://mindspore.cn/do
 
 ## Differences
 
-PyTorch: The function returns a Generator over immediate children modules, yielding both the names of the modules as well as the modules themselves.
+PyTorch: Gets the name and module of the outer submodule in the network, with a return type of iterator.
 
-MindSpore：The function returns OrderedDict over immediate cells, containing both the names of the cells as well as the cells themselves.
+MindSpore：Gets the name and module of the outer submodule in the network, with a return type of odict_values.
 
 ## Code Example
 

@@ -184,7 +184,7 @@ for epoch in range(5):
 
 PyTorch和MindSpore都支持对分组的参数设置不同的值，基本用法相似。但mindspore只支持'params'，'weight_decay'，'lr'，'grad_centralizaiton'分组；pytorch支持优化器的所有参数分组。
 
->当前MindSpore和pytorch都存在个别优化器不支持参数分组，详情参考各优化器的说明。
+> 当前MindSpore和pytorch都存在个别优化器不支持参数分组，详情参考各优化器的说明。
 
 MindSpore：
 
@@ -209,7 +209,7 @@ group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': fix_lr},
 optim_sgd = nn.SGD(group_params, learning_rate=0.1)
 ```
 
-PyTorch:
+PyTorch：
 
 ```python
 from torch import optim

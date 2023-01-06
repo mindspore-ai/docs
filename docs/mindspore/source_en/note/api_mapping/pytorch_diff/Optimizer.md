@@ -32,7 +32,7 @@ For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/en/
 
 - **Default function interface**
 
-MindSpore： `params` can be passed by interface `trainable_params`.
+MindSpore: The parameter `params` of the optimizer is configured by directly using the `trainable_params` method.
 
 ```python
 from mindspore import nn
@@ -53,7 +53,7 @@ net = Net()
 optim_sgd = nn.SGD(params=net.trainable_params())
 ```
 
-PyTorch： `params` can be passed by interface `parameters`.
+PyTorch: The parameter `params` of the optimizer is configured by directly using the `parameters` method.
 
 ```python
 from torch import optim
@@ -78,7 +78,7 @@ optim_sgd = optim.SGD(params=net.parameters(), lr=0.01)
 
 - **User-defined input parameters**
 
-MindSpore：Firstly, get all the parameters in the network by `get_parameters` method, then filter parameters under certain conditions, like names of them, and pass it to the optimizer.
+MindSpore: Firstly, get all the parameters in the network by `get_parameters` method, then filter parameters under certain conditions, like names of them, and pass it to the optimizer.
 
 ```python
 from mindspore import nn
@@ -89,7 +89,7 @@ no_conv_params = list(filter(lambda x: "conv" not in x.name, all_params))
 optim_sgd = nn.SGD(no_conv_params)
 ```
 
-PyTorch：Firstly, get all the parameters in the network by `named_parameters` method, then filter parameters under certain conditions, like names of them, and pass it to the optimizer.
+PyTorch: Firstly, get all the parameters in the network by `named_parameters` method, then filter parameters under certain conditions, like names of them, and pass it to the optimizer.
 
 ```python
 from torch import optim
@@ -105,11 +105,11 @@ optim_sgd = optim.SGD(no_conv_params, lr=0.01)
 
 ## learning_rate setting
 
-fix learning rate：same.
+fix learning rate: same.
 
 dynamic learning rate:
 
-- mindspore：
+mindspore:
 
 ```python
 import mindspore as ms
@@ -141,7 +141,7 @@ optimizer2 = nn.Momentum(net.trainable_params(), learning_rate=lr_schedule, mome
 0.0736396
 ```
 
-- pytorch：
+pytorch：
 
 ```python
 from torch import optim
@@ -177,16 +177,16 @@ Same.
 
 ## loss_scale setting
 
-- mindspore：As an input parameter of the optimizer, it should be used with FixedLossScaleManager.
-- pytorch：Do not set the mixed precision separately for the optimizer.
+- mindspore: As an input parameter of the optimizer, it should be used with FixedLossScaleManager.
+- pytorch: Do not set the mixed precision separately for the optimizer.
 
 ## Groups of parameters
 
-Both PyTorch and MindSpore support grouping parameters and can be used in similar ways. But mindspore only support groups  for 'params'，'weight_decay'，'lr'，'grad_centralizaiton'; pytorch support groups for all optimizer inputs.
+Both PyTorch and MindSpore support grouping parameters and can be used in similar ways. But mindspore only supports groups for 'params', 'weight_decay', 'lr', 'grad_centralizaiton', while pytorch supports groups for all optimizer inputs.
 
->Currently, there are individual optimizers in Mindspore and pytorch that do not support grouping parameters. For details, refer to the instructions of each optimizer.
+> Currently, there are individual optimizers in Mindspore and pytorch that do not support grouping parameters. For details, refer to the instructions of each optimizer.
 
-MindSpore：
+MindSpore:
 
 ```python
 from mindspore import nn

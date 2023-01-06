@@ -23,7 +23,7 @@ For more information, see [mindspore.nn.Flatten](https://mindspore.cn/docs/en/ma
 
 ## Differences
 
-PyTorch: Supports the flatten of elements by specified dimensions. This should be used together with `torch.nn.Sequential`
+PyTorch: Support the flat of elements in specified dimensions, keeping the zeroth dimension by default and expanding the elements in the remaining dimensions This should be used together with `torch.nn.Sequential`
 
 MindSpore：Only the 0th dimension element is reserved and the elements of the remaining dimensions are flattened.
 
