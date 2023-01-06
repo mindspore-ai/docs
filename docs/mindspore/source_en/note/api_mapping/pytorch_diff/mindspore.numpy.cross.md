@@ -13,7 +13,7 @@ class torch.cross(
 )
 ```
 
-For more information, see  [torch.cross](https://pytorch.org/docs/1.5.0/torch.html#torch.cross).
+For more information, see [torch.cross](https://pytorch.org/docs/1.5.0/torch.html#torch.cross).
 
 ## mindspore.numpy.cross
 

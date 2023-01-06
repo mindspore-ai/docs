@@ -32,7 +32,7 @@ PyTorch: Supports both 2-dimensional (N, C) input data and n-dimensional (N, C, 
 
 MindSpore: Supports only 2-dimensional (N, C) input data.
 
-Migration advice: If you need MindSpore NLLLoss operator to calculate on input of higher dimensions, separate data in dimensions higher than 2, calculate each piece of data with NLLLoss operator, then pack the outputs together.
+Migration advice: If you need to handle high-dimensional input data, you can encapsulate your own NLLLoss interface that splits d1, d2, ... , dK dimensions split to calculate the loss and then stitch the NLLLoss interface.
 
 ## Code Example
 

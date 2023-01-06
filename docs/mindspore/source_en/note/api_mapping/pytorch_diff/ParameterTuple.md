@@ -22,4 +22,4 @@ For more information, see [mindspore.ParameterTuple](https://mindspore.cn/docs/e
 
 PyTorch: Stores parameters of network into a list.
 
-MindSpore：Stores parameters of network into a tuple.
+MindSpore: Stores parameters of network into a tuple.

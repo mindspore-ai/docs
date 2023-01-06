@@ -11,7 +11,7 @@ class torchvision.transforms.RandomSolarize(
     )
 ```
 
-For more information, see  [torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize).
+For more information, see [torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize).
 
 ## mindspore.dataset.vision.RandomSolarize
 
@@ -21,13 +21,13 @@ class mindspore.dataset.vision.RandomSolarize(
     )
 ```
 
-For more information, see  [mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize).
+For more information, see [mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize).
 
 ## Differences
 
-PyTorch：Solarize the image randomly with a given probability by inverting all pixel values above a threshold. If img is a Tensor, it is expected to be in […, 1 or 3, H, W] format, where … means it can have an arbitrary number of leading dimensions. If img is PIL Image, it is expected to be in mode “L” or “RGB”.
+PyTorch: Randomly expose the image with a given probability by inverting all pixel values above the threshold.
 
-MindSpore：Randomly selects a subrange within the specified threshold range and sets the pixel value within the subrange to (255 - pixel).
+MindSpore: Select a random subrange from the specified threshold range and adjust the image pixel values within the subrange.
 
 ## Code Example
 
