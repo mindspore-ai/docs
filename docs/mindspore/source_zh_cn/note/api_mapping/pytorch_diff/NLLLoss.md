@@ -30,14 +30,14 @@ class mindspore.nn.NLLLoss(
 
 ## 差异对比
 
-PyTorch: 计算预测值和目标值之间的负对数似然损失。
+PyTorch：计算预测值和目标值之间的负对数似然损失。
 
-MindSpore: 除两个在PyTorch已弃用的参数不同外，功能上无差异。
+MindSpore：除两个在PyTorch已弃用的参数不同外，功能上无差异。
 
 | 分类 | 子类  | PyTorch      | MindSpore | 差异                                                         |
 | ---- | ----- | ------------ | --------- | ------------------------------------------------------------ |
 | 参数| 参数1 | weight | weight    | 指定各类别的权重 |
-| 参数| 参数2 | size_average | -         | 已弃用，被reduction取代，MindSpore无此参数 |
+| | 参数2 | size_average | -         | 已弃用，被reduction取代，MindSpore无此参数 |
 | | 参数3 | ignore_index | ignore_index | 指定labels中需要忽略的值(一般为填充值)，使其不对梯度产生影响 |
 | | 参数4 | reduce | - | 已弃用，被reduction取代，MindSpore无此参数 |
 | | 参数5 | reduction         | reduction      | 指定应用于输出结果的计算方式 |
