@@ -27,9 +27,9 @@ For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/e
 
 ## Differences
 
-PyTorch: Calculates the dot product(inner product) of two tensors of the same shape, only 1D is supported.
+PyTorch: Calculates the dot product (inner product) of two tensors of the same shape, only 1D is supported.
 
-MindSpore：Calculates the dot product of two tensors on any axis. Support tensor of any dimension, but the shape corresponding to the specified axis should be equal. The function of the PyTorch is the same when the input is 1D and the axis is set to 0.
+MindSpore: Calculates the dot product of two tensors on any axis. Support tensor of any dimension, but the shape corresponding to the specified axis should be equal. The function of the PyTorch is the same when the input is 1D and the axis is set to 0.
 
 ## Code Example
 
@@ -45,7 +45,7 @@ input_x1 = ms.Tensor(np.array([2, 3, 4]), ms.float32)
 input_x2 = ms.Tensor(np.array([2, 1, 3]), ms.float32)
 output = ops.tensor_dot(input_x1, input_x2, 1)
 print(output)
-# Out：
+# Out:
 # 19.0
 
 # In torch, only 1D tensor's computation will be supported.
@@ -53,6 +53,6 @@ input_x1 = torch.tensor([2, 3, 4])
 input_x2 = torch.tensor([2, 1, 3])
 output = torch.dot(input_x1, input_x2)
 print(output)
-# Out：
+# Out:
 # tensor(19)
 ```

@@ -26,7 +26,7 @@ For more information, see [mindspore.common.initializer.Uniform](https://mindspo
 
 PyTorch: The upper and lower bounds of uniform distribution are specified by parameters `a` and `b`, i.e. U(-a, b).
 
-MindSpore：It only uses one parameter to specify a uniformly distributed range, i.e. U(-scale, scale) and update-in-place for the input.
+MindSpore: It only uses one parameter `scale` to specify a uniformly distributed range, i.e. U(-scale, scale) and update-in-place for the input.
 
 ## Code Example
 

@@ -30,13 +30,13 @@ For more information, see [mindspore.ops.ReduceMean](https://mindspore.cn/docs/e
 
 PyTorch: Computes standard-deviation and mean of the given axis.
 
-MindSpore：Computes mean of the given axis.
+MindSpore: Computes mean of the given axis.
 
 ## Code Example
 
 ```python
 import mindspore as ms
-from mindspore import ops
+import mindspore.ops as ops
 import torch
 import numpy as np
 

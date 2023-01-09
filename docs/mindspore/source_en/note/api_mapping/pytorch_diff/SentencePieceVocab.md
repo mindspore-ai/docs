@@ -22,9 +22,9 @@ For more information, see [mindspore.dataset.text.SentencePieceVocab](https://ww
 
 ## Differences
 
-PyTorch: Load a sentencepiece model for file.
+PyTorch: Load a sentencepiece model for file. Input the path of the sentence fragment model and output the sentence fragment model.
 
-MindSpore: SentencePiece object that is used to perform words segmentation.
+MindSpore: SentencePiece object that is used to perform words segmentation. The input can be a dataset object or a glossary file.
 
 ## Code Example
 

@@ -43,7 +43,7 @@ import numpy as np
 
 # In MindSpore, no parameter for specifying dimension.
 input_x = ms.Parameter(ms.Tensor(np.array([1, 2, 3, 4, 5, 6, 7, 8]), ms.float32), name="x")
-indices = ms.Tensor(np.array([[2], [4], [1], [7]]), mindspore.int32)
+indices = ms.Tensor(np.array([[2], [4], [1], [7]]), ms.int32)
 updates = ms.Tensor(np.array([6, 7, 8, 9]), ms.float32)
 scatter_nd_add = ops.ScatterNdAdd()
 output = scatter_nd_add(input_x, indices, updates)

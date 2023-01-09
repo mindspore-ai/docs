@@ -31,7 +31,7 @@ For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/en/mast
 
 PyTorch: Support to obtain the maximum or minimum value of the first k entries of a specified dimension.
 
-MindSpore：Currently, only the maximum value of the first k entries of the last dimension is supported.
+MindSpore: Currently, only the maximum value of the first k entries of the last dimension is supported.
 
 ## Code Example
 

@@ -22,4 +22,4 @@ For more information, see [mindspore.set_context](https://mindspore.cn/docs/en/m
 
 PyTorch: It is used to set the current `device`.
 
-MindSpore：It is not only used to set the current `device`, but also set the `mode`, `device_target`, `save_graphs`, etc.
+MindSpore: It is not only used to set the current `device`, but also set the `mode`, running environment `device_target`, whether to save graphs `save_graphs`.

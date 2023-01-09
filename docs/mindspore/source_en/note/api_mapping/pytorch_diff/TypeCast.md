@@ -68,6 +68,7 @@ coco_annotation_file = "/path/to/coco_dataset_directory/annotation_file"
 #Convert a PIL Image or numpy.ndarray to tensor. This transform does not support torchscript.
 dataset = datasets.CocoDetection(coco_dataset_dir, coco_annotation_file, transform=T.ToTensor())
 dataloader = DataLoader(dataset=dataset, num_workers=8, batch_size=1, shuffle=True)
+
 for epoch in range(1):
     for i, batch in enumerate(dataloader):
         transformers = T.Compose([T.ConvertImageDtype(torch.float)])
