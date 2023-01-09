@@ -5,13 +5,13 @@
 ## Overview
 
 MindSpore provides a computing load balancing technology which can distribute the MindSpore Tensor computing to
-different heterogeneous hardware. On one hand, it balances the computing overhead between different hardware, on the
-other, it uses the advantages of heterogeneous hardware to accelerate the computing.
+different heterogeneous hardware. On one hand, it balances the computing overhead between different hardware. On the
+other hand, it uses the advantages of heterogeneous hardware to accelerate the computing.
 
 Currently this heterogeneous hardware acceleration technology (introduced as the offload feature in the following
 sections) only supports moving dataset operations from the dataset pipeline to the computation graph, which balances the
 computation overhead between the data processing and the model training. To be specific, the dataset operations are
-currently executed on CPU, by using the offload feature, some dataset operations can be moved to the network in order to
+currently executed on CPU. Thus, by using the offload feature, some dataset operations can be moved to the network in order to
 fully use GPU or Ascend for a better computation performance.
 
 The offload feature will move only the supported dataset operations applied on the specific input column at the end of
@@ -38,11 +38,11 @@ pipeline.
 
 ![offload](images/offload_process.PNG)
 
-Heterogeneous acceleration has two new API changes to let users enable this functionality:
+Heterogeneous acceleration has two APIs to allow users enable this functionality:
 
-1. Map operation adds offload input parameter.
+1. Map operation has offload input parameter.
 
-2. Dataset global configuration of mindspore.dataset.config added set_auto_offload interface.
+2. Dataset global configuration of mindspore.dataset.config has set_auto_offload interface.
 
 To check if the data augmentation operations are moved to the accelerator, users can save and check the computation
 graph IR files which will have the related operators written before the model structure. The heterogeneous acceleration
@@ -55,9 +55,9 @@ There are two options provided by MindSpore to enable heterogeneous acceleration
 
 ### Option 1
 
-Use the global config to set automatic heterogeneous acceleration. In this case, the offload argument for all map
-operations will be set to True (see Option 2). It should be noted that the offload argument is given for a specific map
-operation, it will have priority over the global config option.
+Use the global configuration to set automatic heterogeneous acceleration. In this case, the offload argument for all map
+operations will be set to True (see Option 2). It should be noted that if the offload argument is set for a specific map
+operation, it will have priority over the global configuration option.
 
 ```python
 import mindspore.dataset as ds
@@ -98,7 +98,7 @@ dataset = dataset.map(operations=image_ops, input_columns=["image2"], offload=Tr
 
 ## Constraints
 
-The heterogeneous acceleration feature is still under development. The current usage is limited under the following
+The heterogeneous acceleration feature is still under development. The current usage is subject to the following
 constraints:
 
 1. The feature does not support concatenated or zipped datasets currently.
