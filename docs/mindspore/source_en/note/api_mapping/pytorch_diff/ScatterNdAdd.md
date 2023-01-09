@@ -30,7 +30,8 @@ For more information, see [mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs
 
 PyTorch: Given an input tensor, updates the tensor and index tensor; adds the updated tensor to the input tensor based on the index tensor along the given axis.
 
-MindSpore: Given an input tensor, updates the tensor and index tensor; adds the updated tensor to the input tensor based on the index tensor. Setting axis is not supported.
+MindSpore: Given an input tensor, updates the tensor and index tensor; adds the updated tensor to the input tensor based on the index tensor.
+Customizing the axes by parameters is not supported, but the axes can be specified by adjusting the shape of the index tensor.
 
 ## Code Example
 

@@ -27,19 +27,19 @@ class mindspore.ops.Randperm(
 )(n)
 ```
 
-For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
+For more information, see [mindspore.ops.Randperm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
 
 ## Differences
 
 PyTorch: Returns a random permutation of integers from 0 to n - 1.
 
-MindSpore: Generates n random samples from 0 to n-1 without repeating. If the max_length greater than n, the last max_length-n element will be filled with pad.
+MindSpore: Generates n random samples from 0 to n-1 without repeating. If the max_length is greater than n, the last max_length-n element will be filled with pad.
 
 ## Code Example
 
 ```python
 import torch
-from mindspore import ops
+import mindspore.ops as ops
 import mindspore as ms
 
 # MindSpore

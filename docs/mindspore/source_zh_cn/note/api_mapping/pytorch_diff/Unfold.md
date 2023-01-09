@@ -34,7 +34,7 @@ MindSpore：MindSpore此API实现功能与PyTorch功能有差异。PyTorch的ker
 
 ### 代码示例1
 
-> PyTorch的stride默认值是1，dilation默认值是1，padding默认值是0，由于是输入是四维Tensor且这三个参数默认值都是int，将在所有维度上进行复制。为了得到与PyTorch相同的结果，MindSpore首先分别将Unfold算子的strides、rates和padding分别设置为(1, 1, 1, 1)、(1, 1, 1, 1)和"valid"，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1);若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)，其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
+> PyTorch的stride默认值是1，dilation默认值是1，padding默认值是0，由于是输入是四维Tensor且这三个参数默认值都是int，将在所有维度上进行复制。为了得到与PyTorch相同的结果，MindSpore首先分别将Unfold算子的strides、rates和padding分别设置为(1, 1, 1, 1)、(1, 1, 1, 1)和"valid"，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1)；若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)，其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
 
 ```python
 # PyTorch
@@ -148,7 +148,7 @@ print(ms_output.asnumpy())
 
 ### 代码示例2
 
-> 在PyTorch的padding参数取默认值0，MindSpore的padding取默认值"valid"前提下，当其余三个参数相对应设置时，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1);若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)；若stride为一个int时即stride=a时，将strides设置为(1, a, a, 1);若stride为一个tuple时即stride=(a,b)时，将strides设置为(1, a, b, 1)；若dilation为一个int时即dilation=a时，将rates设置为(1, a, a, 1)；若dilation为一个tuple时即dilation=(a,b)时，将rates设置为(1, a, b, 1)。其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
+> 在PyTorch的padding参数取默认值0，MindSpore的padding取默认值"valid"前提下，当其余三个参数相对应设置时，若kernel_size为一个int时即kernel_size=a时，将ksizes设置为(1, a, a, 1)；若kernel_size为一个tuple时即kernel_size=(a,b)时，将ksizes设置为(1, a, b, 1)；若stride为一个int时即stride=a时，将strides设置为(1, a, a, 1)；若stride为一个tuple时即stride=(a,b)时，将strides设置为(1, a, b, 1)；若dilation为一个int时即dilation=a时，将rates设置为(1, a, a, 1)；若dilation为一个tuple时即dilation=(a,b)时，将rates设置为(1, a, b, 1)。其次为了输出结果完全一致，首先将MindSpore输出结果进行Reshape操作，然后通过下面的操作进行Concat得到最终结果。
 
 ```python
 # PyTorch

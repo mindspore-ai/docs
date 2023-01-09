@@ -18,7 +18,11 @@ For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.
 ## mindspore.nn.ResizeBilinear
 
 ```python
-class mindspore.nn.ResizeBilinear(half_pixel_centers=False)(x, size=None, scale_factor=None, align_corners=False)
+class mindspore.nn.ResizeBilinear(half_pixel_centers=False)(
+    x,
+    size=None,
+    scale_factor=None,
+    align_corners=False)
 ```
 
 For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
@@ -27,7 +31,7 @@ For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/doc
 
 PyTorch: Multiple modes can be chosen when upsampling data.
 
-MindSpore：Currently only supports `bilinear` mode to sample data. To apply other modes sampling data, please refer to [mindspore.ops.interpolate](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.interpolate.html). `half_pixel_centers` defaults to False, to achieve the same result as PyTorch, it should be set to True.
+MindSpore: Currently only supports `bilinear` mode to sample data. To apply other modes sampling data, please refer to [mindspore.ops.interpolate](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.interpolate.html). `half_pixel_centers` defaults to False. To achieve the same result as PyTorch, it should be set to True.
 
 ## Code Example
 

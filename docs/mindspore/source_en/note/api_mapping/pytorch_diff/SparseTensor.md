@@ -33,7 +33,7 @@ For more information, see [mindspore.SparseTensor](https://mindspore.cn/docs/en/
 
 PyTorch: Constructs a sparse tensors in `COO(rdinate)` format.
 
-MindSpore：Constructs a sparse tensors. It can only be used in the `Cell` construct method. PyNative mode does not support sparse tensor.
+MindSpore: Constructs a sparse tensors. It can only be used in the `Cell` construct method. PyNative mode does not support sparse tensor.
 
 ## Code Example
 

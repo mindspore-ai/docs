@@ -41,6 +41,7 @@ MindSpore：构造稀疏张量，只能在`Cell`的构造方法中使用，PyNat
 # In MindSpore：
 import mindspore as ms
 import mindspore.nn as nn
+
 class Net(nn.Cell):
     def __init__(self, shape):
         super(Net, self).__init__()

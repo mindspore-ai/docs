@@ -22,7 +22,7 @@ class mindspore.dataset.vision.ToPIL
 
 ## 使用方式
 
-PyTorch：将torch中的Tensor或numpy数组转换为PIL类型的图像。输入可以是<C, H, W> 格式的torch Tensor, 或者<H, W, C> 格式的numpy数组。
+PyTorch：将torch中的Tensor或numpy数组转换为PIL类型的图像。输入可以是<C, H, W> 格式的torch Tensor，或者<H, W, C> 格式的numpy数组。
 
 MindSpore：输入为解码后的numpy数组，将其转换为PIL类型的图像。
 

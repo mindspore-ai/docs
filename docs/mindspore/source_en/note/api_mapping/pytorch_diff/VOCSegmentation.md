@@ -55,10 +55,13 @@ import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 
 # In MindSpore, the generated dataset with different task setting has different output columns.
+
 voc_dataset_dir = "/path/to/voc_dataset_directory/"
 
 # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
-dataset = ds.VOCDataset(dataset_dir=voc_dataset_dir, task="Segmentation", usage="train")
+dataset = ds.VOCDataset(dataset_dir=voc_dataset_dir,
+                                                    task="Segmentation",
+                                                    usage="train")
 for item in dataset:
     print("item:", item[0])
     print(len(item[0]))
