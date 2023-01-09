@@ -236,3 +236,49 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
     参考实例：
 
     [MindSpore 分布式并行问题 - Distribute Task Failed](https://bbs.huaweicloud.com/forum/thread-181820-1-1.html)。
+
+## CANN错误分析
+
+> - 本章节只适用于Ascend平台。CANN（Compute Architecture for Neural Networks）是华为针对AI场景推出的异构计算架构，Ascend平台的MindSpore运行在CANN之上。
+
+在Ascend平台上运行MindSpore时，某些场景下会遇到底层CANN的报错，这类报错一般在日志中会有`Ascend error occurred`关键字，报错消息由错误码和错误内容组成，如下所示：
+
+```c++
+[ERROR] PROFILER(138694,ffffaa6c8480,python):2022-01-10-14:19:56.741.053 [mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:51] ReportErrorMessage] Ascend error occurred, error message:
+EK0001: Path [/ms_test/csj/csj/user_scene/profiler_chinese_中文/resnet/scripts/train/data/profiler] for [profilerResultPath] is invalid or does not exist. The Path name can only contain A-Za-z0-9-_.
+```
+
+其中CANN错误码由6位字符组成，如上述的`EK0001`，其包含三个字段：
+
+| 字段1 | 字段2 | 字段3 |
+|:------|:------|:------ |
+| 级别（1位） | 模块（1位） | 错误码（4位） |
+
+其中，级别分为E、W、I三类，分别表示错误、告警、提示类；模块表示报错的CANN模块，具体如下表所示：
+
+| Err错误码 | CANN模块 | Err错误码 | CANN模块 |
+|:------|:------|:------ |:------ |
+| E10000-E19999 | GE | EE0000-EE9999 | runtime |
+| E20000-E29999 | FE | EF0000-EF9999 | LxFusion |
+| E30000-E39999 | AICPU算子 | EG0000-EG9999 | mstune |
+| E40000-E49999 | TEFusion | EH0000-EH9999 | ACL |
+| E50000-E89999 | AICORE算子 | EI0000-EJ9999 | HCCL&HCCP |
+| E90000-EB9999 | TBE编译前后端 | EK0000-EK9999 | Profiling |
+| EC0000-EC9999 | Autotune | EL0000-EL9999 | Driver |
+| ED0000-ED9999 | RLTune | EZ0000-EZ9999 | 算子公共错误 |
+
+> AICORE算子：AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。
+> AICPU算子：AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。
+
+在4位错误码中0000~8999为用户类错误，9000~9999为内部错误码。一般情况下，用户类错误用户可以根据报错消息自行修正错误，而内部错误码需要联系华为进行故障排查，可以到[MindSpore社区](https://gitee.com/mindspore)或者[昇腾社区](https://gitee.com/ascend)提交issue获取帮助。常见的一些报错场景如下表所示：
+
+| 常见错误类型   | 错误说明 | 案例分析 |
+| - | - | - |
+| AICORE算子编译问题 | AICORE算子编译时的错误 | [AICORE算子编译问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicore算子编译问题)|
+| AICORE算子执行问题  | AICORE算子执行时的错误 | [AICORE算子执行问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicore算子执行问题) |
+| AICPU算子执行问题   | AICPU算子执行时的错误 | [AICPU算子执行问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicpu算子执行问题) |
+| runtime常见问题   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [runtime常见问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#runtime常见问题) |
+| HCCL&HCCP常见问题   | 多机多卡训练时的通信常见问题，包括socket建链超时、notify wait超时、ranktable配置错误等 | [HCCL&HCCP常见问题](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#hccl&hccp常见问题) |
+| profiling常见问题    | 性能调优运行profiling时的错误 | [profiling常见问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#profiling常见问题) |
+
+更多有关CANN错误的信息可前往[昇腾CANN开发者文档](https://www.hiascend.com/document/moreVersion/zh/CANNCommunityEdition/)，查询对应CANN版本的故障处理章节。

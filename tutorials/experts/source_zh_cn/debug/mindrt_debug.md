@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/mindrt_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
-静态图模式下，网络构建与训练过程的常见的报错类型如下表所示：
+静态图模式下，网络构建与训练过程的常见的报错类型如下所示：
 
 ## context配置问题
 
@@ -100,6 +100,28 @@ RuntimeError: Data type conversion of 'Parameter' is not supported, so data type
 
 [MindSpore 算子编译问题 - ScatterNdUpdate算子参数类型不一致报错](https://bbs.huaweicloud.com/forum/thread-182175-1-1.html)
 
+另外，有时候在算子编译过程中会出现`response is empty`的报错，如下所示：
+
+```c++
+>       result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+E       RuntimeError: Response is empty
+E
+E       ----------------------------------------------------
+E       - C++ Call Stack: (For framework developers)
+E       ----------------------------------------------------
+E       mindspore/ccsrc/backend/common/session/kernel_build_client.h:100 Response
+```
+
+这个问题的直接原因一般是算子编译的子进程挂了或者调用阻塞卡住导致的超时，可以从以下几个方面进行排查：
+
+1. 检查日志，在这个错误前是否有其他错误日志，如果有请先解决前面的错误，一些算子相关的问题（比如昇腾上TBE包没装好，GPU上没有nvcc）会导致后续的`Response is empty`报错；
+
+2. 如果有使用图算融合特性，有可能是图算的AKG算子编译卡死超时导致，可以尝试关闭图算特性；
+
+3. 在昇腾上可以尝试减少算子并行编译的进程数，可以通过环境变量MS_BUILD_PROCESS_NUM设置，取值范围为1~24；
+
+4. 如果是在云上的训练环境遇到这个问题，可以尝试重启内核。
+
 ## 算子执行错误
 
 算子执行问题，发生的原因主要包括输入数据问题、算子实现问题以及算子初始化问题等场景。算子执行错误的分析方法一般可采用类比法。
@@ -113,4 +135,3 @@ RuntimeError: Data type conversion of 'Parameter' is not supported, so data type
 在调试网络的时候，经常会遇到`Out Of Memory`报错，MindSpore在Ascend设备上对内存分成4层进行管理。包括Runtime，Context，双游标和内存复用。
 
 关于MindSpore在昇腾后端（Ascend）上的内存管理及常见问题的具体内容，请参考[MindSpore Ascend 内存管理](https://bbs.huaweicloud.com/forum/thread-171161-1-1.html)。
-
