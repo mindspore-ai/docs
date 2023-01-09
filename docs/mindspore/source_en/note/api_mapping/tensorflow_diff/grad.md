@@ -37,7 +37,7 @@ For more information, see [mindspore.grad](https://www.mindspore.cn/docs/en/mast
 
 TensorFlow: Compute the gradient of `ys` with respect to `xs`, and return a list of the same length as `xs`.
 
-MindSpore: Compute the first derivative. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. if `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True,  only the first output of `fn` participates in the computation, in this case, the `fn` should has at least two outputs.
+MindSpore: Compute the first derivative. When `grad_position` is set to int or tuple of int, the corresponding input derivatives are computed. If `weights` is set, the network parameters derivatives will be computed. If `has_aux` is True, only the first output of `fn` participates in the computation, in this case, the `fn` should has at least two outputs.
 
 ## Code Example
 

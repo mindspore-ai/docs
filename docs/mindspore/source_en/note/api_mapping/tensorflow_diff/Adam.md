@@ -4,8 +4,8 @@
 
 ## tf.keras.optimizers.Adam
 
-```python
-class tf.keras.optimizers.Adam(
+```text
+tf.keras.optimizers.Adam(
     learning_rate=0.001,
     beta_1=0.9,
     beta_2=0.999,
@@ -13,68 +13,151 @@ class tf.keras.optimizers.Adam(
     amsgrad=False,
     name='Adam',
     **kwargs
-)
+) -> Tensor
 ```
 
-For more information, see [tf.keras.optimizers.Adam](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam).
+For more information, see [tf.keras.optimizers.Adam](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Adam).
 
 ## mindspore.nn.Adam
 
-```python
+```text
 class mindspore.nn.Adam(
     params,
     learning_rate=1e-3,
     beta1=0.9,
     beta2=0.999,
     eps=1e-8,
-    update_locking=False,
+    use_locking=False,
     use_nesterov=False,
     weight_decay=0.0,
-    loss_scale=1.0
-)(grads)
+    loss_scale=1.0,
+    use_amsgrad=False
+)(gradients) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Adam](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html).
+For more information, see [mindspore.nn.Adam](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html).
 
 ## Differences
 
-TensorFlow: Using the same learning rate for all parameters and it is impossible to use different learning rates for different parameter groups.
+TensorFlow: Gradient descent is performed by using Adam's method for all parameters.
 
-MindSpore: Using the same learning rate for all parameters and different values for different parameter groups is supported.
+MindSpore: The implementation function of API in MindSpore is basically the same as that of TensorFlow. MindSpore API can also be updated with different learning rates for different parameters based on the settings in params.
 
-## Code Example
+| Categories | Subcategories |TensorFlow | MindSpore | Differences |
+| --- | --- | --- | --- |---|
+| Parameters | Parameter 1  | learning_rate | learning_rate | -    |
+|      | Parameter 2  | beta_1 | beta1 | Same function, different parameter names                  |
+|      | Parameter 3  | beta_2        | beta2  | Same function, different parameter names             |
+|      | Parameter 4  | epsilon       | eps           | Same function, different parameter names. The default value on TensorFlow is 1e-8, while the default value on MindSpore is 1e-7.             |
+|      | Parameter 5  | amsgrad       | use_amsgrad   | Same function, different parameter names    |
+|      | Parameter 6 | name                   | -             | Not involved |
+|      | Parameter 7 |  **kwargs    | -      | Not involved |
+|      | Parameter 8  | -             | params        | MindSpore can set different learning rates, weight decay values, etc. for different parameters based on this parameter, which is not available in TensorFlow.                |
+|      | Parameter 9  | -             | use_locking   | This parameter can be used in MindSpore to determine whether parameter updates are protected by locking, which is not available in TensorFlow.         |
+|      | Parameter 10  | -             | use_nesterov  | MindSpore can decide whether to update the gradient by using the Nesterov Accelerated Gradient (NAG) algorithm based on this parameter, which is not available in TensorFlow.  |
+|      | Parameter 11  | -             | weight_decay  | The value of the weight decay can be set in MindSpore based on this parameter, which is not available in TensorFlow.     |
+|      | Parameter 12 | -             | loss_scale    | The gradient scaling factor can be set in MindSpore based on this parameter, which is not available in TensorFlow.                |
+|      | Parameter 13 | -             | gradients    | Input gradient in MindSpore, which is not available in TensorFlow. |
+
+### Code Example
+
+> Achieve functional consistency.
 
 ```python
-# The following implements Adam with MindSpore.
+# TensorFlow
 import tensorflow as tf
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model
+import numpy as np
+input_n = 2
+output_c = 2
+input_channels = 2
+output_channels = 2
+dtype = np.float32
+lr = 0.001
+epoch = 100
+initial_accumulator_value = 0.1
+eps = 1e-7
+input_np = np.array([[1, 2], [3, 4]]).astype(dtype)
+weight_np = np.array([[1, 2], [3, 4]]).astype(dtype)
+bias_np = np.array([0.5, 0.5]).astype(dtype)
+label_np = np.array([1,0]).astype(int)
+label_np_onehot = np.zeros(shape=(input_n, output_c)).astype(dtype)
+label_np_onehot[np.arange(input_n), label_np] = 1.0
+tf.compat.v1.disable_eager_execution()
+input_tf = tf.constant(input_np, dtype=np.float32)
+label = tf.constant(label_np_onehot)
+net = tf.compat.v1.layers.dense(
+    inputs=input_tf,
+    units=output_channels,
+    use_bias=True,
+    kernel_initializer=tf.compat.v1.constant_initializer(
+        weight_np.transpose(1, 0),
+        dtype=np.float32
+    ),
+    bias_initializer=tf.compat.v1.constant_initializer(bias_np,dtype=np.float32)
+)
+criterion = tf.compat.v1.losses.softmax_cross_entropy(
+    onehot_labels=label,
+    logits=net,
+    reduction=tf.compat.v1.losses.Reduction.MEAN
+)
+opt = tf.compat.v1.train.AdamOptimizer(learning_rate=lr, epsilon=1e-8).minimize(criterion)
+init = tf.compat.v1.global_variables_initializer()
+with tf.compat.v1.Session() as ss:
+    ss.run(init)
+    num = epoch
+    for _ in range(0, num):
+        criterion.eval()
+        ss.run(opt)
+    output = net.eval()
+print(output.astype(dtype))
+# [[ 5.8998876 11.100113 ]
+#  [12.299808  24.700195 ]]
 
-net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.Adam(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.Adam(group_params, learning_rate=0.1, weight_decay=0.0)
-# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
-# centralization of True.
-# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
-# centralization of False.
-# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements Adam with TensorFlow.
-image = tf.keras.layers.Input(shape=(28, 28, 1))
-model = tf.keras.models.Model(image, net)
-optim = tf.keras.optimizers.Adam()
-loss = tf.keras.losses.BinaryCrossentropy()
-model.compile(optimizer=optim, loss=loss, metrics=['accuracy'])
+# MindSpore
+from mindspore import Tensor
+from mindspore.nn import Dense
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+from mindspore.nn import TrainOneStepCell
+from mindspore.nn import WithLossCell
+from mindspore.nn import Adam
+import numpy as np
+input_n = 2
+output_c = 2
+input_channels = 2
+output_channels = 2
+dtype = np.float32
+lr = 0.001
+epoch = 100
+accum = 0.1
+loss_scale = 1.0
+weight_decay = 0
+input_np = np.array([[1, 2], [3, 4]]).astype(dtype)
+weight_np = np.array([[1, 2], [3, 4]]).astype(dtype)
+bias_np = np.array([0.5, 0.5]).astype(dtype)
+label_np = np.array([1, 0]).astype(int)
+label_np_onehot = np.zeros(shape=(input_n, output_c)).astype(dtype)
+label_np_onehot[np.arange(input_n), label_np] = 1.0
+input_me = Tensor(input_np.copy())
+weight = Tensor(weight_np.copy())
+label = Tensor(label_np_onehot.copy())
+bias = Tensor(bias_np.copy())
+net = Dense(
+    in_channels=input_channels,
+    out_channels=output_channels,
+    weight_init=weight,
+    bias_init=bias,
+    has_bias=True
+)
+criterion = SoftmaxCrossEntropyWithLogits(reduction='mean')
+optimizer = Adam(params=net.trainable_params(), eps=1e-8, learning_rate=lr)
+net_with_criterion = WithLossCell(net, criterion)
+train_network = TrainOneStepCell(net_with_criterion, optimizer)
+train_network.set_train()
+num = epoch
+for _ in range(0, num):
+    train_network(input_me, label)
+output = net(input_me)
+print(output.asnumpy())
+# [[ 5.8998876 11.100113 ]
+#  [12.299808  24.700195 ]]
 ```

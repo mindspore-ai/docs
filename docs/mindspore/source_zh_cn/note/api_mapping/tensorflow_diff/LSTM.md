@@ -43,8 +43,8 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | 分类 | 子类   | TensorFlow            | MindSpore     | 差异                                                                                                                                                   |
 | --- |------|:----------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 |参数 | 参数1  | units                 | hidden_size   | 功能一致，参数名不同                                                                                                                                           |
-| | 参数2  | activation            | -             | 指定要使用的激活函数，默认值:tanh。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                                   |
-| | 参数3  | recurrent_activation  | -             | 指定递归步骤中使用的激活函数，默认值:sigmoid。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                            |
+| | 参数2  | activation            | -             | 指定要使用的激活函数，默认值：tanh。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                                   |
+| | 参数3  | recurrent_activation  | -             | 指定递归步骤中使用的激活函数，默认值：sigmoid。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                            |
 | | 参数4  | use_bias              | has_bias      | 功能一致，参数名不同                                                                                                                                          |
 | | 参数5  | kernel_initializer    | -             | 初始化kernel的权重矩阵，用于输入的线性变换。默认值：glorot_uniform。MindSpore无此参数                                                                              |
 | | 参数6  | recurrent_initializer | -             | 初始化recurrent_kernel的权重矩阵，用于递归状态的线性变换。默认值：orthogonal。MindSpore无此参数                                                                     |
