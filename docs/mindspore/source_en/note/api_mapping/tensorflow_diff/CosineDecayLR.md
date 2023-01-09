@@ -4,8 +4,8 @@
 
 ## tf.train.linear_cosine_decay
 
-```python
-class tf.train.linear_cosine_decay(
+```text
+tf.compat.v1.train.linear_cosine_decay(
     learning_rate,
     global_step,
     decay_steps,
@@ -13,63 +13,68 @@ class tf.train.linear_cosine_decay(
     alpha=0.0,
     beta=0.001,
     name=None
-)
+) -> Tensor
 ```
 
-For more information, see [tf.train.linear_cosine_decay](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay).
+For more information, see [tf.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay).
 
 ## mindspore.nn.CosineDecayLR
 
-```python
+```text
 class mindspore.nn.CosineDecayLR(
     min_lr,
     max_lr,
     decay_steps
-)(global_step)
+)(global_step) -> Tensor
 ```
 
 For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html).
 
 ## Differences
 
-TensorFlow: The formulas are as follows:
-`global_step = min(global_step, decay_steps)
-linear_decay = (decay_steps - global_step) / decay_steps
-cosine_decay = 0.5 \* (1 + cos(pi \* 2 \* num_periods \* global_step / decay_steps))
-decayed = (alpha + linear_decay) \* cosine_decay + beta
-decayed_learning_rate = learning_rate \* decayed`
+TensorFlow: The learning rate is calculated based on the cosine decay function.
 
-MindSpore: The calculation logic is different from Tensorflow, the formulas are as follows:
-`current_step = min(global_step, decay_step)
-decayed_learning_rate = min_lr + 0.5 \* (max_lr - min_lr) \*
-        (1 + cos(pi \* current_step / decay_steps))`
+MindSpore: The same function as TensorFlow now, based on a different calculation formula.
 
-## Code Example
+| Categories | Subcategories |TensorFlow | MindSpore | Differences |
+| --- | --- | --- | --- |---|
+|Parameters | Parameter 1 | learning_rate | - |Initial learning rate. MindSpore does not have this parameter |
+| | Parameter 2 | global_step | global_step |- |
+| | Parameter 3 | decay_steps | decay_steps |- |
+| | Parameter 4 | num_periods | - | The number of periods of cosine decay. MindSpore does not have this parameter |
+| | Parameter 5 | alpha | - |Calculate the α parameter in the formula. MindSpore does not have this parameter |
+| | Parameter 6 | beta | - |Calculate the β parameter in the formula. MindSpore does not have this parameter |
+| | Parameter 7 | name | - | Not involved |
+| | Parameter 8 | - | min_lr |The minimum value of learning rate |
+| | Parameter 9 | - | max_lr |The maximum value of learning rate |
+
+### Code Example 1
+
+> The two APIs implement the same function with different calculation logic.
 
 ```python
-# The following implements CosineDecayLR with MindSpore.
-import numpy as np
+# TensorFlow
 import tensorflow as tf
-import mindspore as ms
-import mindspore.nn as nn
+
+tf.compat.v1.disable_eager_execution()
+learning_rate = 0.01
+global_steps = 2
+decay_steps = 4
+output = tf.compat.v1.train.linear_cosine_decay(learning_rate, global_steps, decay_steps)
+ss = tf.compat.v1.Session()
+print(ss.run(output))
+#0.0025099998
+
+# MindSpore
+import mindspore
+from mindspore import Tensor, nn
 
 min_lr = 0.01
 max_lr = 0.1
 decay_steps = 4
-global_steps = ms.Tensor(2, ms.int32)
+global_steps = Tensor(2, mindspore.int32)
 cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
-result = cosine_decay_lr(global_steps)
-print(result)
-# Out:
-# 0.055
-
-
-# The following implements linear_cosine_decay with TensorFlow.
-learging_rate = 0.01
-global_steps = 2
-output = tf.train.linear_cosine_decay(learging_rate, global_steps, decay_steps)
-ss = tf.Session()
-ss.run(output)
-# out
-# 0.0025099998
+output = cosine_decay_lr(global_steps)
+print(output)
+#0.055
 ```

@@ -37,7 +37,7 @@ mindspore.grad(
 
 TensorFlow：计算`ys`关于`xs`的梯度，返回一个与`xs`长度相同的列表。
 
-MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`, 将会计算网络的变量的参数。当`has_aux`设置为True时， 只有`fn`的第一个输出参与梯度计算， 此时`fn`至少具备两个输出。
+MindSpore：计算梯度，当`grad_position`设置为int或者tuple int类型，将会计算对应输入位置的梯度。如果设置了`weights`，将会计算网络的变量的参数。当`has_aux`设置为True时，只有`fn`的第一个输出参与梯度计算，此时`fn`至少具备两个输出。
 
 ## 代码示例
 

@@ -30,7 +30,7 @@ For more information, see [mindspore.dataset.vision.Decode](https://mindspore.cn
 
 TensorFlow: Decode the raw image bytes into an image with the specified number of channels and data type. It supports decoding GIF images.
 
-MindSpore: Decode the raw image bytes into a RGB image, `to_pil` decides that whether output in PIL format or NumPy Format.
+MindSpore: Decode the raw image bytes into a RGB image.
 
 ## Code Example
 
