@@ -1,6 +1,6 @@
 # 比较与torch.full的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.numpy.full.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/full.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.full
 
@@ -19,13 +19,13 @@ torch.full(
 
 更多内容详见[torch.full](https://pytorch.org/docs/1.8.1/generated/torch.full.html)。
 
-## mindspore.numpy.full
+## mindspore.ops.full
 
 ```text
-mindspore.numpy.full(shape, fill_value, dtype=None) -> Tensor
+mindspore.ops.full(size, fill_value, *, dtype=None) -> Tensor
 ```
 
-更多内容详见[mindspore.numpy.full](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.full.html)。
+更多内容详见[mindspore.ops.full](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.full.html)。
 
 ## 差异对比
 
@@ -35,7 +35,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但参数名不�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | size | shape |功能一致，参数名不同 |
+|参数 | 参数1 | size | size |功能一致 |
 | | 参数2 | fill_value | fill_value | 功能一致 |
 |  | 参数3 | dtype         | dtype     | 功能一致       |
 | | 参数4 | out           | -         | 不涉及 |
@@ -45,7 +45,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但参数名不�
 
 ### 代码示例1
 
-> 对于参数fill_value，PyTorch的full算子支持类型为number，MindSpore支持类型包括int，float，bool，list，tuple。当MindSpore的full算子输入类型为list或tuple时，注意其shape要符合广播规则。
+> 对于参数fill_value，PyTorch的full算子支持类型为number，MindSpore不支持复数类型。
 
 ```python
 # PyTorch
@@ -60,7 +60,7 @@ print(torch_output.numpy())
 import mindspore
 
 full_value = [[1, 1, 1],[1, 1, 1]]
-ms_tensor_output = mindspore.numpy.full((2, 3), full_value)
+ms_tensor_output = mindspore.ops.full((2, 3), full_value)
 print(ms_tensor_output)
 # [[1 1 1]
 #  [1 1 1]]
