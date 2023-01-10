@@ -396,8 +396,8 @@ EI0002: The wait execution of the Notify register times out. Reason: The Notify 
 there are(is) 1 abnormal device(s):
         serverId[10.90.55.95], deviceId[0], Heartbeat Lost Occurred, Possible Reason: 1. Process has exited, 2. Network Disconnected
 ]
-        Possible Cause: 1. An exception occurs during the execution on some NPUs in the cluster. As a result, collective communication operation failed.2. The execution speed on some NPU in the cluster is too slow to complete a communication operation within the timeout interval. (default 600s, You can set the interval by using HCCL_EXEC_TIMEOUT.)3. The number of training samples of each NPU is inconsistent.4. Packet loss or other connectivity problems occur on the communication link.
-        Solution: 1. If this error is reported on part of these ranks, check other ranks to see whether other errors have been reported earlier.2. If this error is reported for all ranks, check whether the error reporting time is consistent (the maximum difference must not exceed 600s). If not, locate the cause or adjust the locate the cause or set the HCCL_EXEC_TIMEOUT environment variable to a larger value.3. Check whether the completion queue element (CQE) of the error exists in the plog(grep -rn 'error cqe'). If so, check the network connection status. (For details, see the TLS command and HCCN connectivity check examples.)4. Ensure that the number of training samples of each NPU is consistent.
+        Possible Cause: 1. An exception occurs during the execution on some NPUs in the cluster. As a result, collective communication operation failed.2. The execution speed on some NPU in the cluster is too slow to complete a communication operation within the timeout interval. (default 1800s, You can set the interval by using HCCL_EXEC_TIMEOUT.)3. The number of training samples of each NPU is inconsistent.4. Packet loss or other connectivity problems occur on the communication link.
+        Solution: 1. If this error is reported on part of these ranks, check other ranks to see whether other errors have been reported earlier.2. If this error is reported for all ranks, check whether the error reporting time is consistent (the maximum difference must not exceed 1800s). If not, locate the cause or adjust the locate the cause or set the HCCL_EXEC_TIMEOUT environment variable to a larger value.3. Check whether the completion queue element (CQE) of the error exists in the plog(grep -rn 'error cqe'). If so, check the network connection status. (For details, see the TLS command and HCCN connectivity check examples.)4. Ensure that the number of training samples of each NPU is consistent.
         TraceBack (most recent call last):
         Notify wait execute failed, device_id=1, stream_id=27, task_id=10, flip_num=0, notify_id=0[FUNC:GetError][FILE:stream.cc][LINE:921]
         rtStreamSynchronize execute failed, reason=[the model stream execute failed][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:49]
@@ -414,7 +414,7 @@ mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240 R
 
 1. 部分卡未能成功执行到notify同步阶段，在之前已出错；
 
-2. 部分卡被某些耗时较长的任务阻塞，在超过600秒（可通过HCCL_EXEC_TIMEOUT配置）后才执行到对应阶段；
+2. 部分卡被某些耗时较长的任务阻塞，在超过1800秒（可通过HCCL_EXEC_TIMEOUT配置）后才执行到对应阶段；
 
 3. 网络模型等原因导致某些卡间的task执行序列不一致；
 
@@ -424,7 +424,7 @@ mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240 R
 
 1. 检查所有卡的报错日志，若有卡未报notify wait超时错误，可以通过日志时间检查判断此卡是否存在业务进程报错退出、卡死或core宕机的情况导致集群notify wait超时，然后转单卡问题定位；
 
-2. 若所有卡均上报notify wait超时错误，则检查各卡的错误日志中最早和最晚的时间差异是否超过超时阈值，若超过阈值请定位报错时间最晚的rank执行阻塞原因（如save checkpoint）或者调整超时阈值（默认为600秒，通过环境变量HCCL_EXEC_TIMEOUT设置）；
+2. 若所有卡均上报notify wait超时错误，则检查各卡的错误日志中最早和最晚的时间差异是否超过超时阈值，若超过阈值请定位报错时间最晚的rank执行阻塞原因（如save checkpoint）或者调整超时阈值（默认为1800秒，通过环境变量HCCL_EXEC_TIMEOUT设置）；
 
 3. 检查集群中是否存在Device网口通信链路不稳定的情况，排查所有卡的Device侧日志，若存在error cqe的打印且时间位于业务区间内，则请定位网络丢包的原因。
 
