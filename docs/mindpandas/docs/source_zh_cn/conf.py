@@ -156,7 +156,7 @@ from rename_include import rename_include
 
 rename_include(present_path)
 
-import mindpandas
+#import mindpandas
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
