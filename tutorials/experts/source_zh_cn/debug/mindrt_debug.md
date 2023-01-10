@@ -22,59 +22,59 @@ ValueError: For 'set_context', package type mindspore-gpu support 'device_target
 
 ## 语法问题
 
-- construct函数参数错误
+### construct函数参数错误
 
-    MindSpore中神经网络的基本构成单元为`nn.Cell`。模型或神经网络层应当继承该基类。基类的成员函数`construct`是定义要执行的计算逻辑，所有继承类都必须重写此方法。`construct`函数的定义原型为：
+MindSpore中神经网络的基本构成单元为`nn.Cell`。模型或神经网络层应当继承该基类。基类的成员函数`construct`是定义要执行的计算逻辑，所有继承类都必须重写此方法。`construct`函数的定义原型为：
 
-    ```python
-    def construct(self, *inputs, **kwargs):
-    ```
+```python
+def construct(self, *inputs, **kwargs):
+```
 
-    在重写该函数时，有时会出现下面的错误信息：
+在重写该函数时，有时会出现下面的错误信息：
 
-    ```python
-    TypeError: The function construct needs 0 positional argument and 0 default argument, but provided 1
-    ```
+```python
+TypeError: The function construct needs 0 positional argument and 0 default argument, but provided 1
+```
 
-    这是因为，用户自定义实现`construct`函数时，函数参数列表错误，缺少`self`，例如`"def construct(*inputs, **kwargs):"`。此时，MindSpore在进行语法解析时发生报错。
+这是因为，用户自定义实现`construct`函数时，函数参数列表错误，缺少`self`，例如`"def construct(*inputs, **kwargs):"`。此时，MindSpore在进行语法解析时发生报错。
 
-    参考实例链接：
+参考实例链接：
 
-    [MindSpore 语法问题 - 'construct' 函数定义报错](https://bbs.huaweicloud.com/forum/thread-178902-1-1.html)。
+[MindSpore 语法问题 - 'construct' 函数定义报错](https://bbs.huaweicloud.com/forum/thread-178902-1-1.html)。
 
-- 控制流语法错误
+### 控制流语法错误
 
-    静态图模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。MindSpore支持的控制流语法涉及if语句、for语句以及while语句。if语句可能存在不同分支返回对象的属性不一致，导致报错。报错信息如下所示：
+静态图模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。MindSpore支持的控制流语法涉及if语句、for语句以及while语句。if语句可能存在不同分支返回对象的属性不一致，导致报错。报错信息如下所示：
 
-    ```c++
-    TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
-    Type Join Failed: dtype1 = Float32, dtype2 = Float16.
-    ```
+```c++
+TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
+Type Join Failed: dtype1 = Float32, dtype2 = Float16.
+```
 
-    此时由报错信息可知，报错原因是if语句不同分支返回值的类型不一致:一个是float32，另一个是float16，导致编译报错。
+此时由报错信息可知，报错原因是if语句不同分支返回值的类型不一致:一个是float32，另一个是float16，导致编译报错。
 
-    ```c++
-    ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
-    Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
-    ```
+```c++
+ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
+Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
+```
 
-    由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致:一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
+由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致:一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
 
-    参考实例链接：
+参考实例链接：
 
-    [MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/master/faq/network_compilation.html?highlight=type%20join%20failed)
+[MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/master/faq/network_compilation.html?highlight=type%20join%20failed)
 
-    for语句以及while语句可能存在循环次数过大，导致函数调用栈超限的问题。报错信息如下所示：
+for语句以及while语句可能存在循环次数过大，导致函数调用栈超限的问题。报错信息如下所示：
 
-    ```c++
-    RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
-    ```
+```c++
+RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
+```
 
-    超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`set_context(max_call_depth=value)`调大函数调用栈的阈值。
+超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`set_context(max_call_depth=value)`调大函数调用栈的阈值。
 
-    参考实例链接：
+参考实例链接：
 
-    [MindSpore 语法问题 - Exceed function call depth limit](https://bbs.huaweicloud.com/forum/thread-182165-1-1.html)。
+[MindSpore 语法问题 - Exceed function call depth limit](https://bbs.huaweicloud.com/forum/thread-182165-1-1.html)。
 
 ## 算子编译错误
 
