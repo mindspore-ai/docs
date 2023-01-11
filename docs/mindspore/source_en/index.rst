@@ -217,4 +217,4 @@ MindSpore Documentation
 		   </div>
 	</div>
 
-`Click to download the API documentation <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/pdf/mindspore.pdf>`_
+`Click to download the API documentation <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.9/en/mindspore.pdf>`_
