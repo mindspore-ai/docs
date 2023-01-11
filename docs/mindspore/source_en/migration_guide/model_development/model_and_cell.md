@@ -88,7 +88,7 @@ print(diff)
 
 The output of MindSpore is different from that of PyTorch. Why?
 
-According to the [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/nn_Conv2d.html), the default parameters of `Conv2d` are different in MindSpore and PyTorch.
+According to the [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html), the default parameters of `Conv2d` are different in MindSpore and PyTorch.
 By default, MindSpore uses the `same` mode, and PyTorch uses the `pad` mode. During migration, you need to modify the `pad_mode` of MindSpore `Conv2d`.
 
 ```python
