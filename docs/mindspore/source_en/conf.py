@@ -187,7 +187,9 @@ try:
                        "    @check_bucket_batch_by_length","    # The decorator has been deleted."),
                        ("mindspore/train/summary/summary_record.py", "summary_record",
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
-                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n")]
+                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
+                       ("mindspore/nn/cell.py","generate api",
+                       "    @jit_forbidden_register","    # generate api by del decorator.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
