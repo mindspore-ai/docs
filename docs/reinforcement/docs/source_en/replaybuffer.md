@@ -67,7 +67,7 @@ Both approaches have a slight impact on randomness, and the default is to use no
 
 ### Creation of UniformReplayBuffer
 
-MindSpore Reinforcement Learning provides a standard ReplayBuffer API. The user can use the ReplayBuffer created by the framework by means of a configuration file, shaped like the configuration file of [dqn](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/algorithm/dqn/config.py).
+MindSpore Reinforcement Learning provides a standard ReplayBuffer API. The user can use the ReplayBuffer created by the framework by means of a configuration file, shaped like the configuration file of [dqn](https://gitee.com/mindspore/reinforcement/blob/r0.6.0-alpha/mindspore_rl/algorithm/dqn/config.py).
 
 ```python
 'replay_buffer':
@@ -93,7 +93,7 @@ replaybuffer = UniformReplayBuffer(sample_size, capacity, shapes, types)
 
 ### Using the Created UniformReplayBuffer
 
-Take [UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/r2.0.0-alpha/mindspore_rl/core/uniform_replay_buffer.py) created in the form of an API to perform data manipulation as an example:
+Take [UniformReplayBuffer](https://gitee.com/mindspore/reinforcement/blob/r0.6.0-alpha/mindspore_rl/core/uniform_replay_buffer.py) created in the form of an API to perform data manipulation as an example:
 
 * Insert operation
 

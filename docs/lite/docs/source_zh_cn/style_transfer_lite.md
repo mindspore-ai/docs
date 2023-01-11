@@ -14,4 +14,4 @@
 
 ![image_after_transfer](images/after_transfer.png)
 
-使用MindSpore Lite实现风格迁移的[示例代码](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/lite/style_transfer)。
+使用MindSpore Lite实现风格迁移的[示例代码](https://gitee.com/mindspore/models/tree/r2.0/official/lite/style_transfer)。

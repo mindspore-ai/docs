@@ -221,7 +221,7 @@ MindSPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (HDF5 M
 
 ## 使用教程
 
-使用MindSPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://gitee.com/mindspore/mindscience/tree/r2.0.0-alpha/MindSPONGE/tutorials/basic)进行查看。
+使用MindSPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindSPONGE/tutorials/basic)进行查看。
 
 ## 参考文献
 

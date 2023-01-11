@@ -9,11 +9,11 @@
 本教程重点介绍基于MindElec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/r2.0.0-alpha/MindElec/examples/physics_driven/incremental_learning>
+> <https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindElec/examples/physics_driven/incremental_learning>
 
 ## 问题描述
 
-本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindelec/docs/zh-CN/r2.0.0-alpha/time_domain_maxwell.html)。
+本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindelec/docs/zh-CN/r0.2.0-alpha/time_domain_maxwell.html)。
 
 ## 基于物理信息的自解码器
 

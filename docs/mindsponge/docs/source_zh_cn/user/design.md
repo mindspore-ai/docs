@@ -10,7 +10,7 @@ MindSPONGE生物计算工具包提供一系列基于深度生成模型的分子�
 
 | 功能          | 模型                            | 训练 | 推理 | 后端       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| 蛋白质序列设计 | [ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/ProteinMPNN/README.md#) | ×    | √   | GPU/Ascend |
-| 蛋白质序列设计 | [ESM-IF1](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/esm/README.md#)          | ×    | √   | GPU/Ascend |
+| 蛋白质序列设计 | [ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/ProteinMPNN/README.md#) | ×    | √   | GPU/Ascend |
+| 蛋白质序列设计 | [ESM-IF1](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/esm/README.md#)          | ×    | √   | GPU/Ascend |
 
 未来我们还将提供抗体序列设计，分子生成等工具，敬请期待。

@@ -9,7 +9,7 @@ Recent years, deep reinforcement learning is developing by leaps and bounds, new
 
 This instruction uses DQN algorithm as an example to introduce how to use this configuration API, and help users customize their algorithms.
 
-You can obtain the code of DQN algorithm from [https://gitee.com/mindspore/reinforcement/tree/r2.0.0-alpha/example/dqn](https://gitee.com/mindspore/reinforcement/tree/r2.0.0-alpha/example/dqn).
+You can obtain the code of DQN algorithm from [https://gitee.com/mindspore/reinforcement/tree/r0.6.0-alpha/example/dqn](https://gitee.com/mindspore/reinforcement/tree/r0.6.0-alpha/example/dqn).
 
 ## Configuration Details
 

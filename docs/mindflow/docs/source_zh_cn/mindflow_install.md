@@ -6,7 +6,7 @@
 
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindFlow/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindFlow/requirements.txt)。
 
 ## 安装方式
 
@@ -23,7 +23,7 @@ pip install mindflow_[gpu|ascend]
 1. 从Gitee下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindscience.git
+   git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0-alpha
    cd {PATH}/mindscience/MindFlow
    ```
 

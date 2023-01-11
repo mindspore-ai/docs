@@ -8,8 +8,8 @@ Molecular property prediction is one of the most important tasks in the computer
 
 | Function            | Model                  | Training | Inferring | Back-end       |
 | :------------- | :-------------------- | :--- | :--- | :-------- |
-| Drug Interaction Prediction | [KGNN](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/KGNN/README.md#)     | √    | √   | GPU/Ascend |
-| Drug Disease Association Prediction | [DeepDR](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/DeepDR/README.en.md#) | √    | √   | GPU/Ascend |
-| Protein-Ligand Affinity Prediction | [pafnucy](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/pafnucy/README.md#) | √   | √   | GPU/Ascend |
+| Drug Interaction Prediction | [KGNN](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/KGNN/README.md#)     | √    | √   | GPU/Ascend |
+| Drug Disease Association Prediction | [DeepDR](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/DeepDR/README.en.md#) | √    | √   | GPU/Ascend |
+| Protein-Ligand Affinity Prediction | [pafnucy](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/pafnucy/README.md#) | √   | √   | GPU/Ascend |
 
 Molecular docking, ADMET and other molecular property prediction networks will be provided in the future, please stay tuned.

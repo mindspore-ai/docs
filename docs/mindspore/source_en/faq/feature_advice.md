@@ -96,7 +96,7 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/nlp/Transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/r2.0/official/nlp/Transformer/src/transformer_for_train.py#L35).
 
 <br/>
 
@@ -142,7 +142,7 @@ A: PyNative mode is compatible with transfer learning.
 
 <br/>
 
-<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README.md#) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
+<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README.md#) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
 
 A: `MindSpore ModelZoo` contains models mainly implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and Mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
 

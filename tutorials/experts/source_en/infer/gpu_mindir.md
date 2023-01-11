@@ -164,7 +164,7 @@ infer finished.
 
 ### Notices
 
-- During the training process, some networks set operator precision to FP16 artificially. For example, the [Bert mode](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/nlp/Bert/src/bert_model.py) set the Dense and LayerNorm to FP16:
+- During the training process, some networks set operator precision to FP16 artificially. For example, the [Bert mode](https://gitee.com/mindspore/models/blob/r2.0/official/nlp/Bert/src/bert_model.py) set the Dense and LayerNorm to FP16:
 
 ```python
 class BertOutput(nn.Cell):

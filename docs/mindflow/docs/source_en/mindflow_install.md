@@ -6,7 +6,7 @@
 
 - The hardware platform should be Ascend, GPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
-- All other dependencies are included in [setup.py](https://gitee.com/mindspore/mindarmour/blob/r2.0.0-alpha/setup.py).
+- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindFlow/requirements.txt).
 
 ## Installation
 
@@ -23,7 +23,7 @@ pip install mindflow_[gpu|ascend]
 1. Download source code from Gitee.
 
    ```bash
-   git clone https://gitee.com/mindspore/mindscience.git
+   git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0-alpha
    cd {PATH}/mindscience/MindFlow
    ```
 

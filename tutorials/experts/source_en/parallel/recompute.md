@@ -32,7 +32,7 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 ### Sample code description
 
-1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
+1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
 
 2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/parallel/train_ascend.html#downloading-the-dataset>.
 

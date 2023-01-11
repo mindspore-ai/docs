@@ -6,7 +6,7 @@
 
 In the PengCheng·PanGu model [1] published by MindSpore, we see that distributed training of very large Transformer networks can be achieved with the help of multi-dimensional automatic hybrid parallelism. This article will explain the sharding method of each component in the model in detail, starting from the network script.
 
-> For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/nlp/Pangu_alpha)
+> For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/r2.0/official/nlp/Pangu_alpha)
 
 In the training entry script train.py, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
 
