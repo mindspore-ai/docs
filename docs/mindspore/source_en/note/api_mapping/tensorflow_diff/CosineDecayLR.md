@@ -1,8 +1,8 @@
-# Function Differences with tf.train.linear_cosine_decay
+# Function Differences with tf.compat.v1.train.linear_cosine_decay
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/CosineDecayLR.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## tf.train.linear_cosine_decay
+## tf.compat.v1.train.linear_cosine_decay
 
 ```text
 tf.compat.v1.train.linear_cosine_decay(
@@ -16,7 +16,7 @@ tf.compat.v1.train.linear_cosine_decay(
 ) -> Tensor
 ```
 
-For more information, see [tf.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay).
+For more information, see [tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay).
 
 ## mindspore.nn.CosineDecayLR
 
