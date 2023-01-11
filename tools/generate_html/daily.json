@@ -1,0 +1,193 @@
+[
+{
+    "id" : 1 ,
+    "name" : "mindspore",
+    "branch" : "master",
+    "whl_path" : "/mindspore/website/cpu/x86_64",
+    "whl_name" : "mindspore-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MS_PATH",
+    "uninstall_name" : "mindspore"
+},
+{
+   "id" : 2 ,
+   "name" : "hub",
+   "branch" : "master",
+   "whl_path" : "/hub/website/any",
+   "whl_name" : "mindspore_hub-.*-py3-none-any.whl$",
+   "environ" : "HB_PATH",
+   "uninstall_name" : "mindspore_hub"
+},
+{
+   "id" : 3 ,
+   "name" : "mindarmour",
+   "branch" : "master",
+   "whl_path" : "/mindarmour/website/any",
+   "whl_name" : "mindarmour-.*-py3-none-any.whl$",
+   "environ" : "MA_PATH",
+   "uninstall_name" : "mindarmour"
+},
+{
+   "id" : 4 ,
+   "name" : "xai",
+   "branch" : "master",
+   "whl_path" : "/xai/website/any",
+   "whl_name" : "mindspore_xai-.*-py3-none-any.whl$",
+   "environ" : "XA_PATH",
+   "uninstall_name" : "mindspore_xai"
+},
+{
+   "id" : 5 ,
+   "name" : "reinforcement",
+   "branch" : "master",
+   "whl_path" : "/reinforcement/website/any",
+   "whl_name" : "mindspore_rl-.*-py3-none-any.whl$",
+   "environ" : "RM_PATH",
+   "uninstall_name" : "mindspore_rl"
+},
+{
+   "id" : 6 ,
+   "name" : "lite",
+   "branch" : "master",
+   "whl_path" : "/mindspore/website/lite/centos_x86",
+   "whl_name" : "mindspore_lite-.*-cp37-cp37m-linux_x86_64.whl$",
+   "environ" : "MS_PATH",
+   "uninstall_name" : "mindspore_lite",
+   "tar_path" : "/mindspore/website/lite/centos_x86",
+   "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$"
+},
+{
+    "id" : 7 ,
+    "name" : "mindscience",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : ""
+},
+{
+    "id" : 8 ,
+    "name" : "mindquantum",
+    "branch" : "master",
+    "whl_path" : "/mindquantum/website/x86_64/",
+    "whl_name" : "mindquantum-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MQ_PATH",
+    "uninstall_name" : "mindquantum"
+},
+{
+    "id" : 9 ,
+    "name" : "serving",
+    "branch" : "master",
+    "whl_path" : "serving/website/x86_64",
+    "whl_name" : "mindspore_serving-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "SV_PATH",
+    "uninstall_name" : "mindspore_serving"
+},
+{
+    "id" : 10 ,
+    "name" : "mindelec",
+    "branch" : "master",
+    "whl_path" : "/mindscience/website/x86_64",
+    "whl_name" : "mindscience_mindelec_ascend-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindscience_mindelec_ascend"
+},
+{
+    "id" : 11 ,
+    "name" : "mindsponge",
+    "branch" : "master",
+    "whl_path" : "/mindscience/website/gpu/x86_64/cuda-10.1/",
+    "whl_name" : "mindsponge_gpu-.*-py3-none-any.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindsponge_gpu"
+},
+{
+    "id" : 12 ,
+    "name" : "mindflow",
+    "branch" : "master",
+    "whl_path" : "mindscience/website/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindflow_gpu-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindflow_gpu"
+},
+{
+    "id" : 13 ,
+    "name" : "mindpandas",
+    "branch" : "master",
+    "whl_path" : "/mindpandas/website/any/",
+    "whl_name" : "mindpandas-.*-cp38-cp38-linux_x86_64.whl$",
+    "environ" : "MP_PATH",
+    "uninstall_name" : "mindpandas"
+},
+{
+    "id" : 14 ,
+    "name" : "devtoolkit",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "DT_PATH",
+    "uninstall_name" : ""
+},
+{
+    "id" : 15 ,
+    "name" : "golden_stick",
+    "branch" : "master",
+    "whl_path" : "/golden-stick/website/any/",
+    "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
+    "environ" : "GS_PATH",
+    "uninstall_name" : "mindspore_gs"
+},
+{
+    "id" : 16 ,
+    "name" : "mindinsight",
+    "branch" : "master",
+    "whl_path" : "/mindinsight/website/any",
+    "whl_name" : "mindinsight-.*.whl$",
+    "environ" : "MI_PATH",
+    "uninstall_name" : "mindinsight"
+},
+{
+    "id" : 17 ,
+    "name" : "tutorials",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "",
+    "uninstall_name" : ""
+},
+{
+    "id" : 18 ,
+    "name" : "federated",
+    "branch" : "master",
+    "whl_path" : "/federated/website/x86_64/",
+    "whl_name" : "mindspore_federated-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MF_PATH",
+    "uninstall_name" : "mindspore_federated"
+},
+{
+    "id" : 19 ,
+    "name" : "recommender",
+    "branch" : "master",
+    "whl_path" : "/recommender/website/any/",
+    "whl_name" : "mindspore_rec-.*-py3-none-any.whl$",
+    "environ" : "RD_PATH",
+    "uninstall_name" : "mindspore_rec"
+},
+{
+    "id" : 20 ,
+    "name" : "probability",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "MS_PATH",
+    "uninstall_name" : ""
+},
+{
+    "id" : 21 ,
+    "name" : "graphlearning",
+    "branch" : "master",
+    "whl_path" : "/graphlearning/website/gpu/x86_64/cuda-10.1/",
+    "whl_name" : "mindspore_gl-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "GL_PATH",
+    "uninstall_name" : "mindspore_gl"
+}
+]
