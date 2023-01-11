@@ -1,0 +1,40 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.10",
+      "whl_path" : "/MindSpore/cpu/x86_64/",
+      "whl_name" : "mindspore-1.10.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore"
+   }, 
+   {
+      "id" : 2 ,
+      "name" : "mindquantum",
+      "branch" : "r0.8",
+      "whl_path" : "/mindquantum/x86_64/",
+      "whl_name" : "mindquantum-0.8.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MQ_PATH",
+      "uninstall_name" : "mindquantum"
+   },
+   {
+      "id" : 3 ,
+      "name" : "tutorials",
+      "branch" : "r1.10",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "",
+      "uninstall_name" : ""
+   },
+   {
+      "id" : 4 ,
+      "name" : "lite",
+      "branch" : "r1.10",
+      "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
+      "whl_name" : "mindspore_lite-1.10.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore_lite",
+      "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
+      "tar_name" : "mindspore-lite-1.10.0-linux-x64.tar.gz"
+   }
+]
