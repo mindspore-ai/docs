@@ -16,7 +16,7 @@ torch.nn.NLLLoss(
 
 For more information, see [torch.nn.NLLLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.NLLLoss.html).
 
-## mindspore.ops.NLLLoss
+## mindspore.nn.NLLLoss
 
 ```python
 class mindspore.nn.NLLLoss(
@@ -26,7 +26,7 @@ class mindspore.nn.NLLLoss(
 )(logits, labels)
 ```
 
-For more information, see [mindspore.ops.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html).
+For more information, see [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html).
 
 ## Differences
 
