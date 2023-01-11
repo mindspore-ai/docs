@@ -1,9 +1,11 @@
 MindSpore Probability Documents
 ===================================
 
-A deep learning model has a strong fitting capability, and the Bayesian theory has a good explainability. MindSpore probabilistic programming provides a framework that seamlessly integrates Bayesian learning and deep learning. It aims to provide users with a complete probability learning library for establishing probabilistic models and applying Bayesian inference.
+MindSpore Probability is a fusion suite seamlessly integrating Bayesian learning and deep learning, which provides a comprehensive probability learning library for building probability models and applying Bayesian inference.
 
-Probabilistic programming provides the following functions:
+A deep learning model has a strong fitting capability, and the Bayesian theory has a good explainability.
+
+MindSpore Probability provides the following functions:
 
 - Abundant statistical distribution and common probabilistic inference algorithms
 - Combinable probabilistic programming modules for developers to use the logic of the deep learning model to build a deep probabilistic model
