@@ -1,9 +1,11 @@
 MindPandas Documentation
 ==============================
 
+MindPandas is a data analysis framework, which is compatible with Pandas interfaces and provides distributed processing capabilities.
+
 Data processing and analysis is an important part of the AI training process, in which tabular data type is a common form of data representation. The most commonly used data analysis framework in the industry is Pandas, which provides easy-to-use and rich interfaces. However, due to its single-threaded execution mode, Pandas performs poorly when handling large amounts of data. Moreover, because it does not support distribution, it is unable to handle large amounts of data beyond the memory of a single machine. In addition, as the commonly used data analysis framework in the industry is independent of the AI framework such as MindSpore, data needs to go through steps such as disk dropping and format conversion before it can be trained, which greatly affects the use efficiency.
 
-MindPandas is a data analysis framework that is compatible with the Pandas interface and provides a data analysis framework with distributed processing capabilities. MindPandas is dedicated to providing high performance tabular data processing capabilities for large volumes of data. MindPandas can be seamlessly integrated into the training process, enabling MindSpore to support the entire training process of a complete AI model.
+MindPandas is dedicated to providing high performance tabular data processing capabilities for large volumes of data. MindPandas can be seamlessly integrated into the training process, enabling MindSpore to support the entire training process of a complete AI model.
 
 The architecture diagram of MindPandas is shown below:
 

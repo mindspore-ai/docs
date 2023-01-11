@@ -1,6 +1,8 @@
 MindArmour Documents
 ====================
 
+MindArmour is an AI security and privacy protection tool, which provides AI model security assessment, model obfuscation, and privacy data protection capabilities.
+
 AI is the catalyst for change but also faces challengs in security and privacy protection. MindArmour provides adversarial robustness, model security tests, differential privacy training, privacy risk assessment, and data drift detection.
 
 .. raw:: html

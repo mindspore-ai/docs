@@ -1,7 +1,9 @@
 MindSpore Serving Documents
 ===========================
 
-MindSpore Serving is a lightweight and high-performance module that helps developers efficiently deploy inference services in production. Simply train your model on MindSpore, export it and then use MindSpore Serving to create inference services for the models.
+MindSpore Serving is a lightweight and high-performance service tool, which helps users efficiently deploy online inference services in production environments.
+
+Simply train your model on MindSpore, export it and then use MindSpore Serving to create inference services for the models.
 
 MindSpore Serving supports:
 

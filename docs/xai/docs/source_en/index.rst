@@ -1,7 +1,9 @@
 MindSpore XAI Documents
 ===========================
 
-Currently, most deep learning models are black-box models with good performance but poor explainability. The MindSpore XAI - a MindSpore-based explainable AI toolbox - provides a variety of explanation and decision methods to help you better understand, trust, and improve models. It also evaluates the explanation methods from various dimensions, enabling you to compare and select methods best suited to your environment.
+MindSpore XAI is an interpretable AI tools, for comparing and selecting interpretation methods that are most appropriate for a specific scenario.
+
+Currently, most deep learning models are black-box models with good performance but poor explainability. MindSpore XAI provides a variety of explanation and decision methods to help you better understand, trust, and improve models. It also evaluates the explanation methods from various dimensions.
 
 .. raw:: html
 
