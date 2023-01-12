@@ -12,15 +12,15 @@ MindQuantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量�
 使用MindQuantum的典型场景
 ------------------------------
 
-1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r1.10/qnn_for_nlp.html>`_
+1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/qnn_for_nlp.html>`_
 
    将量子神经网络加入训练过程，提高收敛精度。
 
-2. `量子化学模拟 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r1.10/vqe_for_quantum_chemistry.html>`_
+2. `量子化学模拟 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/vqe_for_quantum_chemistry.html>`_
 
    使用量子变分求解器，求解分子体系基态能量。
 
-3. `量子组合优化 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r1.10/quantum_approximate_optimization_algorithm.html>`_
+3. `量子组合优化 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/quantum_approximate_optimization_algorithm.html>`_
 
    利用QAOA算法来解决最大割问题。
 
