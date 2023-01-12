@@ -1,5 +1,6 @@
 # 比较与torch.diag的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 ## torch.diag
 
 ```text
@@ -30,7 +31,7 @@ MindSpore：MindSpore此API，若输入为一维张量，则实现与PyTorch相�
 
 ### 代码示例1
 
-> PyTorch的此API参数`x`支持多维张量和一维张量，且存在`diagonal`参数用于控制要考虑的对角线的位置，而MindSpore此API不存在`diagonal`参数；当输入参数x为一维张量且`diagonal`为0时,两API实现相同的功能。
+> PyTorch的此API参数`x`支持多维张量和一维张量，且存在`diagonal`参数用于控制要考虑的对角线的位置，而MindSpore此API不存在`diagonal`参数；当输入参数x为一维张量且`diagonal`为0时，两API实现相同的功能。
 
 ```python
 # PyTorch
@@ -59,7 +60,7 @@ print(output)
 
 ### 代码示例2
 
-> 当输入参数`x`为一维张量且`diagonal`不为0时,PyTorch的此API可控制要考虑的对角线的位置，而MindSpore的此API没有`diagonal`参数，可以将此API得到的输出使用mindspore.ops.pad进行处理，从而实现相同功能。
+> 当输入参数`x`为一维张量且`diagonal`不为0时，PyTorch的此API可控制要考虑的对角线的位置，而MindSpore的此API没有`diagonal`参数，可以将此API得到的输出使用mindspore.ops.pad进行处理，从而实现相同功能。
 
 ```python
 # PyTorch
@@ -100,7 +101,7 @@ print(a)
 #  [0 0 0 0 4]
 #  [0 0 0 0 0]]
 
-# MindSpore对应于diagonal大于0时的此API功能实现
+# MindSpore对应于diagonal小于0时的此API功能实现
 padding = ((1, 0), (0, 1))
 a = ops.pad(output, padding)
 print(a)
@@ -113,7 +114,7 @@ print(a)
 
 ### 代码示例3
 
-> PyTorch的此API输入为矩阵且使用`diagonal`时用于提取对角线组成的一维张量,MindSpore此API不支持此功能，使用mindspore.numpy.diag算子可实现此功能。
+> PyTorch的此API输入为矩阵且使用`diagonal`时用于提取对角线组成的一维张量，MindSpore此API不支持此功能，使用mindspore.numpy.diag算子可实现此功能。
 
 ```python
 # PyTorch
@@ -142,17 +143,17 @@ from mindspore import Tensor
 import mindspore.ops as ops
 import mindspore.numpy as np
 input_x = Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]]).astype('int32')
-#对应于diagonal大于0时的mindspore.numpy.diag的此功能实现
+# 对应于diagonal大于0时的mindspore.numpy.diag的此功能实现
 output = np.diag(input_x, k=1)
 print(output)
 # [2 6]
 
-#对应于diagonal默认为0时的mindspore.numpy.diag的此功能实现
+# 对应于diagonal默认为0时的mindspore.numpy.diag的此功能实现
 output = np.diag(input_x)
 print(output)
 # [1 5 9]
 
-#对应于diagonal小于0时的mindspore.numpy.diag的此功能实现
+# 对应于diagonal小于0时的mindspore.numpy.diag的此功能实现
 output = np.diag(input_x, k=-1)
 print(output)
 # [4 8]
