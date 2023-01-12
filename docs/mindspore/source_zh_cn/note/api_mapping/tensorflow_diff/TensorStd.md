@@ -13,7 +13,7 @@ tf.math.reduce_std(input_tensor, axis=None, keepdims=False, name=None)
 ## mindspore.Tensor.std
 
 ```python
- mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
+mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
 ```
 
 更多内容详见[mindspore.Tensor.std](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std)。

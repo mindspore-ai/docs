@@ -16,7 +16,7 @@ tf.math.reduce_sum(
 ## mindspore.Tensor.sum
 
 ```python
- mindspore.Tensor.sum(self, axis=None, dtype=None, keepdims=False, initial=None)
+mindspore.Tensor.sum(self, axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
 更多内容详见[mindspore.Tensor.sum](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum)。

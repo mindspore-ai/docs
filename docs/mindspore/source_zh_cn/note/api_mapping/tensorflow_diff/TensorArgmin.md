@@ -13,7 +13,7 @@ tf.arg_min(input, dimension, output_type=tf.dtypes.int64, name=None)
 ## mindspore.Tensor.argmin
 
 ```python
- mindspore.Tensor.argmin(axis=None)
+mindspore.Tensor.argmin(axis=None)
 ```
 
 更多内容详见[mindspore.Tensor.argmin](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.argmin.html#mindspore.Tensor.argmin)。
