@@ -45,38 +45,50 @@ For more information, see [mindspore.nn.Conv1d](https://www.mindspore.cn/docs/en
 PyTorch: To compute a one-dimensional convolution on the input Tensor. The output values of input size $\left(N, C_{\text {in }}, L\right)$ and output size $\left(N, C_{\text {out }}, L_{\text {out }}\right)$ can be described as
 $\operatorname{out}\left(N_{i}, C_{\text {out }_{j}}\right)=\operatorname{bias}\left(C_{\text {out }_{j}}\right)+\sum_{k=0}^{C_{i n}-1} \ text { weight }\left(C_{\text {out }_{j}}, k\right) \star \operatorname{input}\left(N_{i}, k\right)$, where $\star$ is the cross-correlation operator, $N$ is the batch size, $C$ is the number of channels, and $L$ is sequence length, respectively.
 
-MindSpore: Implement basically the same function as PyTorch, but does not add bias parameters by default, in contrast to PyTorch. MindSpore pads the input by default, while PyTorch does not by default. Also MindSpore padding mode options are different from PyTorch. The padding_mode options of PyTorch are 'zeros', 'reflect', 'replicate', and 'circular', with the following meanings:
+MindSpore: It is basically the same as the functions implemented by PyTorch, but there are bias differences and filling differences.
 
-zero: Constant padding (default zero padding).
+1. Offset difference: MindSpore does not add offset parameters by default, contrary to PyTorch.
+2. Fill difference: MindSpore fills the input by default, while PyTorch does not fill by default. At the same time, MindSpore filling mode options and behavior are different from PyTorch. The specific differences in filling behavior are as follows.
 
-reflect: Reflection padding.
+### Filling Behavior Difference
 
-replicate: replicate padding.
+1. The parameter "padding_mode" of PyTorch can be selected as 'zero', 'reflect', 'replicate', and 'circular'. The default is 'zero'. The parameter "padding" can be selected as 'int', 'tuple of ints', 'valid', and 'same'. The default is 0. The four padding mode of the parameter "padding_mode" is consistent with that of the "torch.nn.functional.pad" interface. After setting, the convolution input will be filled according to the specified filling mode, as follows:
 
-circular: Circular padding
+    - zero: constant fill (default zero fill).
 
-MindSpore parameter pad_mode can be optionally 'same', 'valid', 'pad', with the following meanings:
+    - reflect: reflection fill.
 
-same: The width of the output is the same as the value after dividing stride by the input.
+    - replicate: Edge replication fill.
 
-valid: No padding
+    - circular: circular fill.
 
-pad: Zero padding.
+    After the filling method is determined by "padding _mode", the "padding" parameter is used to control the number and position of filling. For "Conv1d", when "padding" is specified as 'int', "padding" times will be filled in the left and right sides of the input (if the default value is 0, it means no filling). When "padding" is specified as tuple, the specified number of filling will be filled in the left and right sides according to the input of tuple. When "padding" is set to the 'valid' mode, it will not be filled, but will only be convolved within the range of the feature map. When "padding" is set to the 'same' mode, if the number of elements requiring "padding" is even, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. If the number of elements requiring "padding" is odd, PyTorch will fill the left and upper sides of the feature map first.
+
+2. The parameter "pad_mode" of MindSpore can be selected as 'same','valid', and 'pad'. The parameter "padding" can only be input as "int". The detailed meaning of the filling parameter is as follows:
+
+    When "pad_mode" is set to 'pad', "MindSpore" can set the "padding" parameter to a positive integer greater than or equal to 0. Zero filling will be carried out "padding" times around the input(if it is the default value of 0, it will not fill). When "pad_mode" is the other two modes, the "padding" parameter must be set to 0 only. When "pad_mode" is set to 'valid' mode, it will not fill, and the convolution will only be carried out within the range of the feature map. If "pad_mode" is set to 'same' mode, when the padding element is an even number, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. If the number of elements requiring "padding" is odd, "MindSpore" will preferentially fill the right and lower sides of the feature map (different from PyTorch, similar to TensorFlow).
+
+    Therefore, if "MindSpore" wants to achieve the same filling mode as "PyTorch", it needs to manually fill the input with "nn.Pad" or "ops.pad" interface.
+
+### Weight Initialization Difference
+
+1. mindspore.nn.Conv1d (weight：$\mathcal{N}(0, 1)$，bias：zeros)
+2. torch.nn.Conv1d (weight：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
+|input | Single input | input | x |Interface input, with the same functions, but different parameter names |
 |Parameters | Parameter 1 | in_channels | in_channels |- |
 | | Parameter 2 | out_channels | out_channels |- |
 | | Parameter 3 | kernel_size | kernel_size |- |
 | | Parameter 4 | stride | stride |- |
-| | Parameter 5 | padding | padding |-|
+| | Parameter 5 | padding | padding |Refer to the above for specific differences|
 | | Parameter 6 | dilation | dilation |-|
 | | Parameter 7 | groups | group |Same function, different parameter names|
 | | Parameter 8 | bias | has_bias |Same function, different parameter names, different default value |
-| | Parameter 9 | padding_mode | pad_mode |PyTorch and MindSpore have different options and different default values|
+| | Parameter 9 | padding_mode | pad_mode |Refer to the above for specific differences|
 | | Parameter 10 | - | weight_init |Initialization method for weight parameters|
 | | Parameter 11 | - | bias_init |Initialization method for bias parameters|
-| | Parameter 12  | input  | x | Interface input, same function, only different parameter names|
 
 ### Code Example 1
 
