@@ -35,12 +35,12 @@ MindSpore：与PyTorch实现同样的功能。
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | margin    | margin | - |
-| | 参数5 | size_average | - | 已弃用，功能由reduction接替 |
-| | 参数5 | reduce | - | 已弃用，功能由reduction接替 |
-| | 参数2 | reduction | reduction | - |
-| | 参数3 | x1 | logits_x1 |  功能一致，参数名不同  |
-| | 参数4 | x2 | logits_x2 |  功能一致，参数名不同  |
-| | 参数5 | target | labels |  功能一致，参数名不同  |
+| | 参数2 | size_average | - | 已弃用，功能由reduction接替 |
+| | 参数3 | reduce | - | 已弃用，功能由reduction接替 |
+| | 参数4 | reduction | reduction | - |
+| | 参数5 | x1 | logits_x1 |  功能一致，参数名不同  |
+| | 参数6 | x2 | logits_x2 |  功能一致，参数名不同  |
+| | 参数7 | target | labels |  功能一致，参数名不同  |
 
 ### 代码示例1
 
