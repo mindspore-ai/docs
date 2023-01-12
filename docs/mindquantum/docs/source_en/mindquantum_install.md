@@ -25,7 +25,7 @@ pip install mindquantum
 
 ```bash
 cd ~
-git clone https://gitee.com/mindspore/mindquantum.git
+git clone https://gitee.com/mindspore/mindquantum.git -b r0.8
 ```
 
 2.Compiling MindQuantum
