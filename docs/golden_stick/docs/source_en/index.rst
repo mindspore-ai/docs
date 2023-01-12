@@ -1,7 +1,9 @@
 MindSpore Golden Stick
 =============================
 
-MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei's Noah team and Huawei's MindSpore team. The architecture diagram of MindSpore Golden Stick is shown in the figure below, which is divided into five parts:
+MindSpore Golden Stick is a model compression algorithm tool, which reduces computing power, memory, and power consumption during AI deployment and enables AI deployment in all scenarios.
+
+MindSpore Golden jointly designed and developed by Huawei's Noah team and Huawei's MindSpore team. The architecture diagram is shown in the figure below, which is divided into five parts:
 
 .. raw:: html
 
