@@ -3,6 +3,8 @@ MindSpore Vision Documents
 
 MindSpore Vision is an open source computer vision research toolboxbased on MindSpore framework, which includes classification, detection (to do), video (to do) and 3D (to do). MindSpore Vision is designed to serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods. We also hope to invite you to participate in our development of MindSpore Vision.
 
+.. warning:: MindSpore Vision is about to be abandoned, and mindvision in Pypi only supports MindSpore >=1.7.0 <=1.8.1. If you want to reimplement existing methods and develop your own new methods or to participate in our development of Computer Vision research of MindSpore, please use `MindCV <https://github.com/mindspore-lab/mindcv>`_.
+
 Scenarios where MindSpore Vision is applied
 ----------------------------
 
