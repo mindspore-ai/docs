@@ -16,7 +16,7 @@ For more information, see  [torch.Tensor.item](https://pytorch.org/docs/1.5.0/te
 mindspore.Tensor.item(index=None)
 ```
 
-For more information, see  [torch.Tensor.item](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.item.html#mindspore.Tensor.item).
+For more information, see  [mindspore.Tensor.item](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.item.html#mindspore.Tensor.item).
 
 ## Differences
 

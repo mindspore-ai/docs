@@ -12,13 +12,13 @@ torchtext.data.functional.load_sp_model(
 
 更多内容详见[torchtext.data.functional.load_sp_model](https://pytorch.org/text/0.10.0/data_functional.html#load-sp-model)。
 
-## mindspore.dataset.text.utils.SentencePieceVocab
+## mindspore.dataset.text.SentencePieceVocab
 
 ```python
-classmindspore.dataset.text.utils.SentencePieceVocab
+classmindspore.dataset.text.SentencePieceVocab
 ```
 
-更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.SentencePieceVocab)。
+更多内容详见[mindspore.dataset.text.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.SentencePieceVocab)。
 
 ## 使用方式
 
