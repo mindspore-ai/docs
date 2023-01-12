@@ -248,7 +248,7 @@ cd -
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b r1.9
+git clone https://gitee.com/mindspore/mindspore.git -b r1.10
 ```
 
 ## 编译MindSpore

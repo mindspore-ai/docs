@@ -12,7 +12,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/u
 模型解析扩展：用户自定义模型的整个解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_converter.html#modelparser)、[ModelParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#modelparserregistry)。
 图优化扩展：模型解析之后，将获得MindSpore定义的图结构，用户可基于此结构自定义图的优化过程。接口可参考[PassBase](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#passbase)、[PassPosition](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#passposition)、[PassRegistry](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#passregistry)。
 
-> 节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件，并且flatbuffers和protobuf需要与发布件采用的版本一致，序列化文件需保证兼容发布件采用的序列化文件。发布件中不提供flatbuffers、protobuf及序列化文件，用户需自行编译，并生成序列化文件。用户可以从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/flatbuffers.cmake)、[probobuf](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/protobuf.cmake)、[ONNX原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/onnx)、[CAFFE原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/caffe)、[TF原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/tensorflow)和[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/tools/converter/parser/tflite/schema.fbs)。
+> 节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件，并且flatbuffers和protobuf需要与发布件采用的版本一致，序列化文件需保证兼容发布件采用的序列化文件。发布件中不提供flatbuffers、protobuf及序列化文件，用户需自行编译，并生成序列化文件。用户可以从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/r1.10)中获取[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/flatbuffers.cmake)、[probobuf](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/protobuf.cmake)、[ONNX原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/onnx)、[CAFFE原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/caffe)、[TF原型文件](https://gitee.com/mindspore/mindspore/tree/r1.10/third_party/proto/tensorflow)和[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/tools/converter/parser/tflite/schema.fbs)。
 >
 > MindSpore Lite还提供了一系列的注册宏，以便于用户侧的扩展接入转换工具。注册宏包括节点解析注册[REG_NODE_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#reg-node-parser)、模型解析注册[REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#reg-model-parser)、图优化注册[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#reg-pass)、图优化调度注册[REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/zh-CN/r1.10/api_cpp/mindspore_registry.html#reg-scheduled-pass)。
 
@@ -49,7 +49,7 @@ REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());    
 
 ## 模型扩展
 
-示例代码请参考[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)的模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
+示例代码请参考[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/r1.10)的模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
 
 ### 优化扩展
 
@@ -94,7 +94,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
   MindSpore Lite的发布件不会提供其他框架下的序列化文件，因此，用户需自行编译获得，请参考[概述](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/use/converter_register.html#概述)。
 
-  本示例采用的是tflite模型，用户需编译[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/flatbuffers.cmake)，从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
+  本示例采用的是tflite模型，用户需编译[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r1.10/cmake/external_libs/flatbuffers.cmake)，从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/r1.10)中获取[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r1.10/mindspore/lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
 
   在`mindspore/lite/examples/converter_extend`目录下创建`schema`文件目录，继而将生成的序列化文件置于`schema`目录下。
 
