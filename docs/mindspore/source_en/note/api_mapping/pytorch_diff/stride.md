@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.stride](https://pytorch.org/docs/1.5.0/t
 mindspore.Tensor.strides()
 ```
 
-For more information, see [mindspore.Tensor.strides](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.strides.html#mindspore.Tensor.strides).
+For more information, see [mindspore.Tensor.strides](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/Tensor/mindspore.Tensor.strides.html#mindspore.Tensor.strides).
 
 ## Differences
 
