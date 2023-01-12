@@ -29,11 +29,11 @@ MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的Tenso
 
 ![offload](./images/offload_process.PNG)
 
-异构加速功能对两个API进行了相关更新以允许用户启用此功能：
+异构加速功能提供了两个API以允许用户启用此功能：
 
-1. map操作新增offload入参，
+1. map操作中提供offload入参，
 
-2. 数据集全局配置mindspore.dataset.config中新增set_auto_offload接口。
+2. 数据集全局配置mindspore.dataset.config中提供set_auto_offload接口。
 
 如需检查数据增强操作是否移动至加速器，用户可以保存并检查计算图IR文件。在异构加速功能被启动后，相关计算算子会被写入IR文件中。异构加速功能同时适用于数据集下沉模式（dataset_sink_mode=True）和数据集非下沉模式（dataset_sink_mode=False）。
 
