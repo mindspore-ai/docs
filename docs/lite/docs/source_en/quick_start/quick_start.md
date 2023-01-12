@@ -78,7 +78,7 @@ The following section describes how to build and execute an on-device image clas
 
     ![install](../images/app1.png)
 
-    By default, the MindSpore Vision classification module has a built-in general AI network model to identify and classify images. You can also [custom model](https://mindspore.cn/tutorials/en/r1.10/beginner/infer.html) for debugging on the APP.
+    By default, the MindSpore Vision classification module has a built-in general AI network model to identify and classify images.
 
    ![result](../images/app2.png)
 
