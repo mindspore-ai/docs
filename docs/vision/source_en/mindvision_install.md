@@ -7,7 +7,7 @@
 - numpy 1.17+
 - opencv-python 4.1+
 - pytest 4.3+
-- [mindspore](https://www.mindspore.cn/install) 1.5+
+- [MindSpore](https://www.mindspore.cn/install) >=1.7.0 <=1.8.1
 - ml_collection
 - tqdm
 - pillow
@@ -31,33 +31,8 @@
 
 ### Install MindSpore Vision
 
-- Installing MindSpore Vision by Source Code
-
-    ```shell
-    git clone https://gitee.com/mindspore/vision.git
-    cd vision
-    python setup.py install
-    ```
-
 - Installing MindSpore Vision by pip
 
     ```shell
     pip install mindvision
     ```
-
-### Verification
-
-To verify whether MindVision and the required environment are installed correctly, we can run sample Python code to
-initialize a classificer and run inference on a demo image.
-
-The [image](https://gitee.com/mindspore/vision/blob/r0.1/tests/st/classification/dataset/mnist/mnist.jpg) used for inference is from the MNIST dataset. Users can use the parameter `device_target` to customize the platform for inference.
-
-```shell
-python ./examples/classification/lenet/lenet_mnist_infer.py --data_url ./tests/st/classification/dataset/mnist/mnist.jpg --pretrained True --device_target CPU
-```
-
-```text
-{4: 'four'}
-```
-
-The above code is supposed to run successfully upon you finish the installation.

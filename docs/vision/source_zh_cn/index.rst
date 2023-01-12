@@ -3,6 +3,8 @@ MindSpore Vision 文档
 
 MindSpore Vision是一个开源的基于MindSpore框架的计算机视觉研究工具箱，工具所涉及的任务主要包括分类、检测(开发中)、视频(开发中)和3D(开发中)。MindSpore Vision旨在通过提供易用的接口来帮助您复现现有的经典模型并开发自己的新模型。同时也邀请您参与到我们的开发中。
 
+.. warning:: MindSpore Vision仓库即将废弃，Pypi中的mindvision库仅支持MindSpore >=1.7.0 <=1.8.1版本。如果您需要复现现有的经典模型并开发自己的新模型或者希望参与到MindSpore机器视觉套件的开发，请使用 `MindCV套件 <https://github.com/mindspore-lab/mindcv>`_。
+
 使用MindSpore Vision的典型场景
 -----------------------------
 

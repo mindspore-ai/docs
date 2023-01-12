@@ -7,7 +7,7 @@
 - numpy 1.17+
 - opencv-python 4.1+
 - pytest 4.3+
-- [MindSpore](https://www.mindspore.cn/install) 1.5+
+- [MindSpore](https://www.mindspore.cn/install) >=1.7.0 <=1.8.1
 - ml_collection
 - tqdm
 - pillow
@@ -31,32 +31,8 @@
 
 ### 安装MindSpore Vision
 
-- 源码安装
-
-    ```shell
-    git clone https://gitee.com/mindspore/vision.git
-    cd vision
-    python setup.py install
-    ```
-
 - 使用pip安装
 
     ```shell
     pip install mindvision
     ```
-
-### 验证
-
-为了验证MindVision和所需的环境是否正确安装，我们可以运行示例代码来初始化一个分类器然后推理一张图片。
-
-推理所用的[图片](https://gitee.com/mindspore/vision/blob/r0.1/tests/st/classification/dataset/mnist/mnist.jpg) 来自MNIST数据集，用户可以通过参数`device_target`来自定义推理所用的平台。
-
-```shell
-python ./examples/classification/lenet/lenet_mnist_infer.py --data_url ./tests/st/classification/dataset/mnist/mnist.jpg --pretrained True --device_target CPU
-```
-
-```text
-{4: 'four'}
-```
-
-如果您成功安装，以上代码应该会成功运行。
