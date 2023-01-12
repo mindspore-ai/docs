@@ -39,6 +39,16 @@ MindSpore AI Fluid Simulation Suite
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: CFD-solver
+
+   cfd/lax_tube
+   cfd/sod_tube
+   cfd/couette
+   cfd/riemann2d
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Data Mechanism Fusion
 
    physics_plus_data_driven/pdenet
