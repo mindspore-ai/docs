@@ -33,17 +33,17 @@ class mindspore.nn.Dense(
 
 PyTorch：全连接层，实现矩阵相乘的运算。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且可以在全连接层后添加激活函数。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且可以在全连接层后添加激活函数。MindSpore和PyTorch的对于权重和偏置参数的初始化方式不同，在模型训练时可能会导致差异，开发者应注意权重初始化带来的影响，详情请参考[与PyTorch典型区别-默认权重初始化不同](https://mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#默认权重初始化不同)
 
 | 分类 | 子类  | PyTorch      | MindSpore    | 差异                         |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
+| 输入 | 单输入 | input | x | 接口输入，功能一致，仅参数名不同 |
 | 参数 | 参数1 | in_features  | in_channels  | 功能一致，参数名不同                          |
 |      | 参数2 | out_features | out_channels | 功能一致，参数名不同                        |
 |      | 参数3 | bias         | has_bias     | 功能一致，参数名不同        |
-|      | 参数4 | input | x | 接口输入，功能一致，参数名不同|
-|      | 参数5 | -             | weight_init  | 权重参数的初始化方法，PyTorch无此参数         |
-|      | 参数6 | -             | bias_init    | 偏置参数的初始化方法，PyTorch无此参数           |
-|      | 参数7 | -             | activation   | 应用于全连接层输出的激活函数，PyTorch无此参数   |
+|      | 参数4 | -             | weight_init  | 权重参数的初始化方法，PyTorch无此参数         |
+|      | 参数5 | -             | bias_init    | 偏置参数的初始化方法，PyTorch无此参数           |
+|      | 参数6 | -             | activation   | 应用于全连接层输出的激活函数，PyTorch无此参数   |
 
 ### 代码示例
 

@@ -37,25 +37,25 @@ class mindspore.nn.BatchNorm2d(
 
 ## 差异对比
 
-PyTorch：‎在四维输入(具有额外通道维度的小批量二维输入)上应用批归一化处理，以避免内部协变量偏移。
+PyTorch：在四维输入(具有额外通道维度的小批量二维输入)上应用批归一化处理，以避免内部协变量偏移。
 
-MindSpore：与PyTorch实现同样的功能。
+MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 | input | x | 接口输入，功能一致，仅参数名不同 |
-| | 参数2 | num_features | num_features | - |
-| | 参数3 | eps | eps | - |
-| | 参数4 | momentum | momentum |功能相同，计算方式不同 |
-| | 参数5 | affine | affine |- |
-| | 参数6 | track_running_stats | use_batch_statistics | 功能相同，不同值对应的默认方式不同 |
-| | 参数7 | - | gamma_init |γ 参数的初始化方法，默认值："ones" |
-| | 参数8 | - | beta_init |β 参数的初始化方法，默认值："zeros" |
-| | 参数9 | - | moving_mean_init |动态平均值的初始化方法，默认值："zeros" |
-| | 参数10 | - | moving_var_init |动态方差的初始化方法，默认值："ones" |
-| | 参数11 | - | data_format |MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。PyTorch无此参数|
+| 输入 | 单输入 | input | x | 接口输入，功能一致，仅参数名不同 |
+| 参数 | 参数1 | num_features | num_features | - |
+| | 参数2 | eps | eps | - |
+| | 参数3 | momentum | momentum | 功能一致，但PyTorch中的默认值是0.1，MindSpore中是0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同 |
+| | 参数4 | affine | affine |- |
+| | 参数5 | track_running_stats | use_batch_statistics | 功能一致，不同值对应的默认方式不同，详细区别请参考[与PyTorch典型区别-nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)  |
+| | 参数6 | - | gamma_init |γ 参数的初始化方法，默认值："ones" |
+| | 参数7 | - | beta_init |β 参数的初始化方法，默认值："zeros" |
+| | 参数8 | - | moving_mean_init |动态平均值的初始化方法，默认值："zeros" |
+| | 参数9 | - | moving_var_init |动态方差的初始化方法，默认值："ones" |
+| | 参数10 | - | data_format |MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。PyTorch无此参数|
 
-### 代码示例1
+### 代码示例
 
 > PyTorch中，1-momentum后的值等于MindSpore的momentum，都使用mini-batch数据和学习参数进行训练。
 
