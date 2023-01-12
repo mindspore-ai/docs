@@ -13,7 +13,7 @@ tf.math.reduce_variance(input_tensor, axis=None, keepdims=False, name=None)
 ## mindspore.Tensor.var
 
 ```python
- mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)
+mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)
 ```
 
 更多内容详见[mindspore.Tensor.var](https://mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var)。
