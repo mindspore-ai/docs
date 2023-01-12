@@ -1,21 +1,21 @@
-# CANN常见错误分析
+# CANN Common Error Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/cann_error_cases.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/cann_error_cases.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-本文主要介绍用户常见的CANN错误处理方法。在遇到CANN错误时，MindSpore的日志可能不足以分析相关错误，可以通过设置以下两个环境变量来打印CANN的日志以更好地分析错误：
+This article focuses on the handling of common CANN errors by users. When encountering CANN errors, MindSpore logs may not be sufficient to analyze the related errors. You can print CANN logs to better analyze the errors by setting the following two environment variables:
 
 ```bash
-export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN日志级别，0为debug，1为info，2为warning，3为error
-export ASCEND_SLOG_PRINT_TO_STDOUT=1    # 配置开启日志打屏
+export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN log level, 0 for debug, 1 for info, 2 for warning, 3 for error
+export ASCEND_SLOG_PRINT_TO_STDOUT=1    # Configure to enable log displaying
 ```
 
-另外，如果需要知道图编译过程中的网络结构和算子信息，可以[查看中间文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html)，保存IR图等中间文件进行查看。
+In addition, if you need to know the network structure and operator information during graph compilation, you can [View Intermediate File](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html) to save intermediate files such as IR graphs for viewing.
 
-## AICORE算子编译问题
+## AICORE Operator Compilation Problem
 
-AICORE算子编译错误根据不同模块会以`E5`~`EB`开头，其中`E5`~`E8`错误码AICORE算子编译过程中一些校验报错，用户可以根据报错信息先尝试自行检查修正，而`E9`~`EB`错误码是TBE编译前后端报的错，一般来说报错就意味着算子规格TBE还不支持，可以从报错日志中获取具体信息。下面可以看一些具体的AICORE算子编译失败问题：
+AICORE operator compilation errors will start with `E5`~`EB` according to different modules, where some checksum errors occur in the `E5`~`E8` error codes AICORE operator compilation process, and the `E9`~`EB` error code is the error reported by TBE before and after compilation. Generally speaking an error report means that the operator specification TBE is not yet supported, and specific information can be obtained from the error report log. Some specific AICORE operator compilation failure problems can be seen below:
 
-### E80000: StridedSliceGradD输入值非法
+### E80000: StridedSliceGradD Illegal Input Value
 
 ```c++
 [WARNING] CORE(51545,ffff8ba74480,python):2019-07-25-19:17:35.411.770 [mindspore/core/ir/anf_extends.cc:66] fullname_with_scope] Input 0 of cnode is not a value node, its type is CNode.
@@ -44,31 +44,31 @@ The function call stack:
 In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/_grad/grad_array_ops.py(700)/        dx = input_grad(dout, x_shape, begin, end, strides)/
 Corresponding forward node candidate:
 - In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/_compile_utils.py(306)/        return P.StridedSlice(begin_mask, end_mask, 0, 0, 0)(data, begin_strides, end_strides, step_strides)/
-  In file /home/jenkins/models/official/cv/lenet/src/lenet.py(61)/        y = x[0::2] #切分操作，x.shape=(32,10) y.shape=(32)，导致降维/
+  In file /home/jenkins/models/official/cv/lenet/src/lenet.py(61)/        y = x[0::2] #Splitting operation, x.shape=(32,10) y.shape=(32), leading to dimensionality reduction/
   In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/amp.py(126)/            out = self._backbone(data)/
   In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/wrap/loss_scale.py(332)/        loss = self.network(*inputs)/
   In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py(95)/        return self.network(*outputs)/
 ```
 
-从上述错误码的报错信息中可以看到，StridedSliceGradD算子的参数strides中的第一个数据预期应该是1，但是实际得到的是2，故而报错。用户可以根据IR图来确认出错的算子信息，并修正strides参数。
+From the error message of the above error code, we can see that the first data in the parameter strides of StridedSliceGradD operator is expected to be 1, but the actual one obtained is 2, so the error is reported. Users can confirm the information of the wrong operator and correct the strides parameter according to the IR diagram.
 
-### E80012: ReduceSum算子输入维度过高
+### E80012: ReduceSum Operator Input Dimension Is Too High
 
 ```c++
 RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x', 'min_value': 0, 'max_value': 8, 'real_value': 10}, 'In op, the num of dimensions of input/output[x] should be in the range of [0, 8], but actually is [10].')
 ```
 
-从上述错误码的报错信息中可以看到，ReduceSum算子的输入和输出最高只支持8维的数据，但是实际遇到了10维的数据，故而报错。用户可以通过修改网络脚本来避免对ReduceSum输入10维的数据，从而规避这个错误。
+As you can see from the error message in the error code above, the input and output of the ReduceSum operator only supports 8 dimensions of data, but it actually encounters 10 dimensions of data, hence the error occurs. The user can circumvent this error by modifying the network script to avoid inputting 10-dimensional data to ReduceSum.
 
-### E80029: Assign算子shape不一致问题
+### E80029: Assign Operator Shape Inconsistency
 
 ```c++
 RuntimeError: ({'errCode': 'E80029', 'op_name': 'assign', 'param_name1': 'ref', 'param_name2': 'value', 'error_detail': 'Shape of ref and value should be same'}, 'In op[assign], the shape of inputs[ref][value] are invalid, [Shape of ref and value should be same].')
 ```
 
-Assign算子的逻辑是使用第二个输入（即value）对第一个输入的parameter（即ref）进行赋值操作，从上述错误码的报错信息中可以看到，这两个输入预期shape应该一致，但是实际并不一致，故而报错。用户可以根据IR图来确认出错的算子，并修正Assign算子的输入。
+The logic of the Assign operator is to use the second input (i.e. value) to assign a value to the parameter (i.e. ref) of the first input. From the error message of the above error code, we can see that the two inputs are expected to have the same shape, but they do not, so the error is reported. The user can identify the operator in error and correct the input of the Assign operator based on the IR graph.
 
-### EB0000: Transpose规格不支持
+### EB0000: Transpose Specifications Are Not Supported
 
 ```c++
 [ERROR] KERNEL(1062,fffe557fa160,python):2021-10-11-22:37:53.881.210 [mindspore/ccsrc/backend/kernel_compiler/tbe/tbe_kernel_parallel_build.cc:99] TbeOpParallelBuild] task compile Failed, task id:3, cause:TBEException:ERROR:
@@ -119,13 +119,13 @@ In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(56
 In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(635)/        image_features = self.encode_image(image)/
 ```
 
-从上述错误码的报错信息中可以看到，这个transpose算子的规格不支持，其做内存拷贝指令时数据超过了限制。针对此类问题，用户可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+From the error message reported in the above error code, we can see that the specification of this transpose operator is not supported and its data exceeds the limit when doing memory copy instructions. For such problems, users can submit issues to [MindSpore Community](https://gitee.com/mindspore) for help.
 
-## AICORE算子执行问题
+## AICORE Operator Execution Problem
 
-### EZ9999: AICORE算子执行失败
+### EZ9999: AICORE Operator Execution Failure
 
-一般AICORE算子执行失败会报`EZ9999`错误，同时MindSpore侧会有`Call rt api rtStreamSynchronize failed`的报错日志，根据错误码日志可能明确执行失败的算子，如下述报错场景是Add算子执行失败：
+Generally AICORE operator execution failure will report `EZ9999` error, while MindSpore side will have `Call rt api rtStreamSynchronize failed` error log. According to the error code log, it may be possible to specify the operator that failed to execute, such as the following error reporting scenario where the execution of the Add operator failed:
 
 ```c++
 [EXCEPTION] GE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.063 [mindspore/ccsrc/runtime/device/ascend/ge_runtime/runtime_model.cc:233] Run] Call rt api rtStreamSynchronize failed, ret: 507011
@@ -161,15 +161,15 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-AICORE算子执行失败，可能是数据输入不匹配、访问越界、计算溢出等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+AICORE operator execution failure may be due to data input mismatch, access out-of-bounds, computation overflow, or it may be a code problem with the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://gitee.com/mindspore) for help.
 
-## AICPU算子执行问题
+## AICPU Operator Execution Problem
 
-AICPU算子问题错误以`E3`开头。
+The AICPU operator problem error starts with `E3`.
 
-### E39999: AICPU算子执行失败
+### E39999: AICPU Operator Execution Failure
 
-一般AICPU算子执行失败会报`E39999`错误，同时MindSpore侧会有`Call rt api rtStreamSynchronize failed`的报错日志，根据错误码日志可能明确执行失败的算子，如下述报错场景：
+Generally the AICPU operator will report `E39999` error during operator execution failure, while there will be `Call rt api rtStreamSynchronize failed` error log on MindSpore side. According to the error code log, it is possible to specify the operator that failed to execute, such as the following error reporting scenario:
 
 ```c++
 [ERROR] RUNTIME(150840,python):2021-09-14-09:26:01.014.355 [engine.cc:914]150900 ReportExceptProc:Task exception! device_id=0, stream_id=117, task_id=23, type=13, retCode=0x91.
@@ -196,15 +196,15 @@ E39999: Inner Error!
 INFO 2021-09-14 09:26:01 - root - test_ms_cifar10_tdt_consume_beyond_produce_more_RDR.py:test_run:50 - when dataset batch num is less than train loop, error msg is mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-AICPU算子执行失败，可能是数据输入不匹配、访问越界、AICPU线程挂死等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+The AICPU operator execution failure may be due to data input mismatch, access out-of-bounds, AICPU thread hang, or caused by the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://gitee.com/mindspore) for help.
 
-## runtime常见问题
+## runtime FAQ
 
-Runtime模块对上承接MindSpore、ACL、GE、HCCL的调用，对下通过Driver模块对NPU上的各个模块进行调度，Runtime模块的错误码以`EE`开头。
+The Runtime module takes over the calls of MindSpore, ACL, GE, HCCL and schedules each module on the NPU through the Driver module. The error code of the Runtime module starts with `EE`.
 
-### EE9999: HBM显存分配失败
+### EE9999: HBM Video Memory Allocation Failure
 
-当框架申请的HBM显存超过Device剩余显存时，就会报`halMemAlloc failed`错误，如下述错误场景所示：
+When the HBM memory requested by the framework exceeds the remaining memory of the Device, a `halMemAlloc failed` error is reported, as shown in the following error scenario:
 
 ```c++
 [EXCEPTION] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.465.388 [mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62] MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
@@ -244,13 +244,13 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62 MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
 ```
 
-遇到此类报错，可以先排查跑程序的卡是否已经被其他程序占用。目前MindSpore在Ascend环境上同一Device只支持同时跑一个程序，在910训练服务器上执行程序时会一次性申请32212254720KB（即30GB）的显存，故若报错信息中显示申请失败的显存大小为32212254720，则很有可能是该卡已经被其他程序占用，导致新程序申请显存失败。遇到这个问题只需确认卡未被其他程序占用后重新启动程序即可。
+When encounter such an error, you can first check whether the card running the program is already occupied by another program. At present, MindSpore only supports one program running on the same Device in Ascend environment, and the program will apply for 32212254720KB (i.e. 30GB) of video memory at one time when it is executed on the 910 training server, so if the error message shows that the size of video memory in the failed application is 32212254720, it is likely that the card is already occupied by other programs, resulting in the failed application of video memory for the new program. When you encounter this problem just make sure the card is not occupied by another program and restart the program.
 
-若报错信息中显示申请失败的显存大小不为32212254720，而是其他任意数字，则可能是网络模型太大，超过了Device的显存（910服务器为32GB），可以考虑改小batchsize、对网络模型进行优化或者使用模型并行等手段来作训练。
+If the error message shows that the size of video memory in the failed application is not 32212254720, but any other number, the network model may be too large and exceed the Device memory (32GB for 910 servers), consider changing the batchsize, optimizing the network model or using model parallelism for training.
 
-### EE8888: device id设置错误
+### EE8888: Device ID Setting Error
 
-用户可以通过环境变量DEVICE_ID或者在context中设置device_id来指定自己的程序跑在哪张卡上，如果device id设置不合理，则有可能会报`EE8888`错误，如下述错误场景，服务器中一共只有8张卡，可供选择的device id范围为[0, 8)，而用户错误设置了device_id=8：
+Users can specify which card their application runs on by using the environment variable DEVICE_ID or by setting the device_id in the context. If the device id is not set correctly, it may report `EE8888` error, such as the following error scenario. There are only 8 cards in the server, the available device id range is [0, 8), and the user incorrectly set the device_id=8.
 
 ```c++
 [ERROR] DEVICE(127804,ffff964f1480,python):2022-05-28-15:32:37.021.254 [mindspore/ccsrc/runtime/device/context_extends.cc:103] OpenTsd] Ascend error occurred, error message:
@@ -273,23 +273,23 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/runtime/device/context_extends.cc:105 OpenTsd] Device 8 call rtSetDevice failed, ret[107001]
 ```
 
-遇到此类问题，根据错误日志排查device id的设置即可。
+When you encounter such problem, just check the device id setting according to the error log.
 
-## HCCL&HCCP常见问题
+## HCCL & HCCP FAQ
 
-HCCL(Huawei Collective Communication Library)是华为集合通信库，提供了深度学习训练场景中服务器间高性能集合通信功能，其通信过程分为如下三个阶段：
+HCCL is the Huawei Collective Communication Library, which provides high-performance collective communication functions between servers in deep learning training scenarios, and its communication process is divided into the following three stages:
 
-1. 通信初始化：获取必要的集合通信参数配置并初始化网络设备。初始化阶段不涉及不同设备之前的交互。
+1. Communication initialization: Obtain the necessary configuration of the aggregate communication parameters and initialize the network devices. The initialization phase does not involve any previous interaction between different devices.
 
-2. 建立通信连接：建立socket连接并交换通信两端的通信参数和内存信息。建立通信连接阶段，HCCL会根据用户提供的集群信息结合网络拓扑与其他卡进行建链并交换用于通信的参数信息。如果在建链超时时间阈值（MindSpore默认设置600s，可通过环境变量HCCL_CONNECT_TIMEOUT配置）内未得到其他卡的及时响应，会上报建链超时错误并退出训练。
+2. Establish communication connections: Establishing a socket connection and exchanging communication parameters and memory information between the two communication ends. During the establishment of the communication connection phase, HCCL builds a link with other cards in combination with the network topology and exchanges information about the parameters used for communication based on the cluster information provided by the user. If no timely response is received from other cards within the build timeout threshold (MindSpore default setting of 600s, configurable via the environment variable HCCL_CONNECT_TIMEOUT), a build timeout error is reported and training is exited.
 
-3. 执行通信操作：通过Notify同步设备执行状态，传递内存数据。通信操作执行阶段，HCCL会根据通信算法编排NOTIFY/SDMA等task并通过runtime下发给昇腾设备task调度器，设备根据编排信息调度并执行task。其中Notify类task用于卡间同步，Notify wait会阻塞task流执行直到对应的Notify record到达，以确保后续的通信操作执行时彼此的内存处于ready状态。
+3. Perform communication operations: Synchronize device execution state and pass memory data via Notify. In the communication operation execution stage, HCCL will schedule NOTIFY/SDMA and other tasks according to the communication algorithm and send them to the task scheduler of the Ascend device through runtime, and the device will schedule and execute the task according to the scheduling information. The Notify class task is used for inter-card synchronization. Notify wait blocks the task stream until the corresponding Notify record arrives, to ensure that each other's memory is in a ready state when subsequent communication operations are performed.
 
-HCCL&HCCP的错误码以`EI`和`EJ`开头，在整个通信过程中，集群中出现的单卡问题、通信链路问题均可能会导致集群出现大量的超时错误，因此在定位集群通信问题时需要收集整个集群的日志信息，锁定问题出现的位置。
+The error codes for HCCL & HCCP start with `EI` and `EJ`. Throughout the communication process, single card problems and communication link problems in the cluster may lead to a large number of timeout errors, so when locating cluster communication problems, we need to collect the log information of the whole cluster and lock the location where the problems occur.
 
-### socket建链超时
+### Socket Build Timeout
 
-当socker建链超时时，MindSpore日志会出现`Distribute Task Failed`的报错，若同时打印CANN的日志发现HCCL模块的日志中出现`get socket timeout`的报错，则说明集群出现socket建链超时错误，如下述日志所示：
+When the socker build timeout occurs, the MindSpore log will show a `Distribute Task Failed` error. If you also print the CANN log and find a `get socket timeout` error in the HCCL module log, the cluster has a socket build timeout error, as shown in the following log:
 
 ```c++
 [ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.375 [exchanger_network.cc:232][130250][138166][Wait][AllClientSocketEstab]errNo[0x000000000500000b] client : device[1] rank[1] get socket timeout, total[4] remain[3]
@@ -328,33 +328,33 @@ HCCL&HCCP的错误码以`EI`和`EJ`开头，在整个通信过程中，集群中
 [EXCEPTION] DEVICE(130250,fffe49ffb1e0,python):2021-10-14-00:50:58.410.094 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:547] LoadTask] Distribute Task Failed, error: mindspore/ccsrc/runtime/device/ascend/ge_runtime/task/hccl_task.cc:99 Distribute] davinci_model : load task fail, return ret: 1343225860
 ```
 
-如日志中所说，socket建链超时常见的的原因有：
+As stated in the log, the common reasons for socket build timeouts are:
 
-1. 部分卡未执行到正确的建链阶段，在之前已出错；
+1. Some cards were not executed to the correct building stage, and the error has occurred before the stage.
 
-2. 部分卡被某些耗时较长的任务阻塞，在超过600秒（可通过HCCL_CONNECT_TIMEOUT配置）后才执行到对应阶段；
+2. Some cards are blocked by certain tasks that take longer than 600 seconds (configurable via HCCL_CONNECT_TIMEOUT) before the corresponding phase is executed.
 
-3. 网络模型等原因导致某些卡间的通信算子数量或者排序不一致；
+3. Inconsistent number or ordering of communication operators between some cards due to network models, etc.
 
-4. 节点间通信链路不通或者不稳定。
+4. The communication link between nodes is not working or is unstable.
 
-在收集了集群所有卡的INFO日志（包括CANN日志）后，可以按照以下步骤进行排查：
+After collecting INFO logs (including CANN logs) for all cards in the cluster, the following steps can be followed to troubleshoot:
 
-1. 检查所有卡的报错日志，若有卡未报socket建链超时错误，可以通过日志时间检查判断此卡是否存在业务进程报错退出、卡死或core宕机的情况导致集群socket建链超时，然后转单卡问题定位；
+1. Check the error logs of all cards. If a card does not report a socket build timeout error, you can use the log time check to determine whether there is a business process error exit, jamming or core downtime that causes the cluster socket build timeout, and then turn to a single card to locate the problem.
 
-2. 若所有卡均上报socket建链超时错误，则检查各卡的错误日志中最早和最晚的时间差异是否超过超时阈值，若超过阈值请定位报错时间最晚的rank执行阻塞原因或者调整超时阈值（默认为600秒，通过环境变量HCCL_CONNECT_TIMEOUT设置）；
+2. If all cards report socket build timeout errors, check whether the difference between the earliest and latest time in the error log of each card exceeds the timeout threshold. If the threshold is exceeded, please locate the latest rank execution blocking cause or adjust the timeout threshold (default is 600 seconds, set by environment variable HCCL_CONNECT_TIMEOUT)
 
-3. 检查集群中是否存在Device网口通信链路不通的情况，比较常见的原因：
+3. Check whether a Device network port communication link in the cluster works. The common reasons are:
 
-    a. IP不在同一网段或子网掩码配置存在问题；
+    a. IP is not in the same network segment or there is a problem with the subnet mask configuration.
 
-    b. IP冲突，集群中存在IP相同的两个rank；
+    b. IP conflict. There are two ranks with the same IP in the cluster.
 
-    c. 各rank的TLS(安全增强)设置不一致。
+    c. The TLS (security enhancement) settings are inconsistent across ranks.
 
-### EI0002: notify wait超时
+### EI0002: notify wait timeout
 
-常见于执行阶段，HCCL算子的task会在指定集群的每个Device上执行，并通过notify进行状态同步，若任何一张卡或者通信链路在执行前/中发生异常，则会导致集群同步失败，剩余卡会出现notify wait超时，报`EI0002`错误，如下所示：
+Commonly used in the execution phase. The task of the HCCL operator is executed on each Device of the specified cluster, and the state is synchronized via notify. If an exception occurs on any card or communication link before/during the execution, the cluster synchronization will fail and the remaining cards will have a notify wait timeout and report an `EI0002` error as follows:
 
 ```c++
 [ERROR] DEVICE(105395,fffdda7fc0f0,python):2022-11-29-10:20:42.200.963 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:744] DumpTaskExceptionInfo] Task fail infos task_id: 10, stream_id: 27, tid: 105395, device_id: 1, retcode: 507011 ( model execute failed)
@@ -410,27 +410,27 @@ there are(is) 1 abnormal device(s):
 mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240 RunGraph
 ```
 
-如日志中所说，notify wait超时常见的的原因有：
+As stated in the log, common reasons for notify wait timeouts are:
 
-1. 部分卡未能成功执行到notify同步阶段，在之前已出错；
+1. Some cards were not executed to the notify synchronization stage, and the error has occurred before the stage.
 
-2. 部分卡被某些耗时较长的任务阻塞，在超过1800秒（可通过HCCL_EXEC_TIMEOUT配置）后才执行到对应阶段；
+2. Some cards are blocked by certain tasks that take longer than 1800 seconds (configurable via HCCL_EXEC_TIMEOUT) before the corresponding phase is executed.
 
-3. 网络模型等原因导致某些卡间的task执行序列不一致；
+3. Inconsistent sequence of task execution between some cards due to network models, etc.
 
-4. 节点间通信链路不稳定。
+4. The communication link between nodes is unstable.
 
-在收集了集群所有卡的INFO日志（包括CANN日志）后，可以按照以下步骤进行排查：
+After collecting INFO logs (including CANN logs) for all cards in the cluster, the following steps can be followed to troubleshoot:
 
-1. 检查所有卡的报错日志，若有卡未报notify wait超时错误，可以通过日志时间检查判断此卡是否存在业务进程报错退出、卡死或core宕机的情况导致集群notify wait超时，然后转单卡问题定位；
+1. Check the error logs of all cards. If a card does not report a notify wait timeout error, you can check the log time to determine whether there is a business process error exit, stuck or core downtime of the cluster notify wait timeout, and then turn to a single card problem location.
 
-2. 若所有卡均上报notify wait超时错误，则检查各卡的错误日志中最早和最晚的时间差异是否超过超时阈值，若超过阈值请定位报错时间最晚的rank执行阻塞原因（如save checkpoint）或者调整超时阈值（默认为1800秒，通过环境变量HCCL_EXEC_TIMEOUT设置）；
+2. If all cards report notify wait timeout errors, check whether the difference between the earliest and latest time in the error log of each card exceeds the timeout threshold. If the threshold is exceeded, please locate the latest rank execution blocking cause (e.g. save checkpoint) or adjust the timeout threshold (default is 1800 seconds, set via the environment variable HCCL_EXEC_TIMEOUT).
 
-3. 检查集群中是否存在Device网口通信链路不稳定的情况，排查所有卡的Device侧日志，若存在error cqe的打印且时间位于业务区间内，则请定位网络丢包的原因。
+3. Check whether there is Device network port communication link instability in the cluster, troubleshoot the Device side logs of all cards, and locate the cause of network packet loss if there is an error cqe print and the time is within the business interval.
 
-### EI0004: 非法ranktable配置
+### EI0004: Illegal ranktable configuration
 
-用户需要通过ranktable文件来配置分布式训练需要的多机多卡信息以供HCCL初始化，若相关ranktable配置非法，则会报`EI0004`错误，如下述报错场景，ranktable中重复设置了两个device_id为1，导致配置非法：
+The user needs to configure the multi-machine multi-card information needed for distributed training through the ranktable file for HCCL initialization. If the relevant ranktable configuration is illegal, an `EI0004` error will be reported, such as the following error scenario, where two device_id are repeatedly set to 1 in the ranktable, resulting in an illegal configuration.
 
 ```c++
 [WARNING] HCCL_ADPT(86172,ffffb4d8e480,python):2019-07-25-19:41:56.313.202 [mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:58] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
@@ -456,11 +456,11 @@ RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:357
 First error scene API: mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:391 InitKernelInfoStore] Init hccl graph adapter failed.
 ```
 
-遇到此类报错，根据报错日志对ranktable配置文件进行修正即可。
+When you encounter such an error, just fix the ranktable configuration file according to the error log.
 
-### EI0005: 卡间通信参数不一致
+### EI0005: Inconsistent Communication Parameters Between Cards
 
-当卡间通信参数不一致，比如卡间用于AllReduce的输入shape大小不一致时，就会报`EI0005`错误，如下述报错场景，有个名为count的parameter在卡间通信时大小不一致：
+The `EI0005` error is reported when there are inconsistencies in the communication parameters between cards, such as inconsistencies in the size of the input shape used for AllReduce between cards, as in the following error reporting scenario, where there is a parameter named count that is inconsistent in size when communicating between cards.
 
 ```c++
 [CRITICAL] GE(98494,ffff9c51e480,python):2022-04-28-10:56:52.072.619 [mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100] Distribute] davinci_model : load task fail, return ret: 1343225860
@@ -493,11 +493,11 @@ error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime
 error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100 Distribute] davinci_model : load task fail, return ret: 1343225860
 ```
 
-遇到此类报错，可通过日志和IR图确认出错的通信参数，并在网络脚本中予以修正。
+When such errors are occurred, the communication parameters in error can be identified through logs and IR diagrams and corrected in the network script.
 
-### EJ0001: HCCP初始化失败
+### EJ0001: HCCP Initialization Failure
 
-HCCP进程负责实现通信功能，HCCL可以调用HCCP的接口进行通信。HCCP初始化失败会报`EJ0001`错误，比如以下场景，当上一个八卡训练任务还未结束时就在同一服务器启动新的八卡训练任务就会导致初始化失败，需要等之前的八卡训练任务结束后才能启动新的八卡训练任务。
+The HCCP process is responsible for implementing the communication function, and HCCL can call the HCCP interface for communication. HCCP initialization failure will report `EJ0001` error, such as the following scenario. When the previous eight-card training task has not yet finished in the same server to start a new eight-card training task, initialization failure will occur. You need to wait for the previous eight-card training task to finish before starting a new eight-card training task.
 
 ```c++
 [WARNING] HCCL_ADPT(57647,ffff89ae7010,python):2022-07-28-18:56:01.822.555 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
@@ -526,15 +526,15 @@ mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:363 Ini
 mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:408 InitKernelInfoStore
 ```
 
-遇到此类报错，根据日志的初始化错误原因及解决方案进行解决即可。
+When you encounter such an error, just solve it according to the initialization error cause and solution of the log.
 
-## profiling常见问题
+## profiling FAQ
 
-profiling问题错误码以`EK`开头。
+The profiling issue error code starts with `EK`.
 
-### EK0001: 非法参数问题
+### EK0001: Illegal Parameter Problem
 
-当CANN的profiling模块接口遇到非法参数时会报`EK0001`错误。对用户来说，最常见的非法参数错误就是profiling的路径设置不对，比如下述报错：
+The `EK0001` error is reported when CANN's profiling module interface encounters an illegal parameter. The most common illegal parameter error for users is the incorrect path setting for profiling, such as the following error:
 
 ```c++
 [ERROR] PROFILER(138694,ffffaa6c8480,python):2022-01-10-14:19:56.741.053 [mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:51] ReportErrorMessage] Ascend error occurred, error message:
@@ -554,4 +554,4 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:79 InitProfiling] Failed to call aclprofInit function.
 ```
 
-从ERROR日志的CANN报错信息中可以获知，profiling的路径字符只能包含`A-Za-z0-9-_`，而上述报错中的profiling路径中含有`中文`两字，导致路径非法报错，从而导致profiling初始化失败。遇到此类问题，根据报错信息改正profiling路径或者其他参数即可。
+From the error message of CANN in ERROR log, we can know that the path character of profiling can only contain `A-Za-z0-9-_`, and the path of profiling in the above error contains `Chinese` characters, which leads to illegal path error, thus causing profiling initialization failure. If you encounter such problem, you can correct the profiling path or other parameters according to the error message.

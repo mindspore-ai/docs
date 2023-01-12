@@ -236,3 +236,49 @@ In parallel scenarios, you may encounter the `Distribute Task Failed` error. In 
 For details, visit the following website:
 
 For more information about distributed parallel errors in MindSpore, see [Distributed Task Failed](https://bbs.huaweicloud.com/forum/thread-181820-1-1.html).
+
+## CANN Error Analysis
+
+> - This section is only applicable to Ascend platform, CANN (Compute Architecture for Neural Networks) is Huawei heterogeneous computing architecture for AI scenarios, and MindSpore of Ascend platform runs on top of CANN.
+
+When running MindSpore on the Ascend platform, certain scenarios will encounter errors from the underlying CANN. Such errors are generally reported in the log with the `Ascend error occurred` keyword, and the error message consists of the error code and the error content, as follows:
+
+```c++
+[ERROR] PROFILER(138694,ffffaa6c8480,python):2022-01-10-14:19:56.741.053 [mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:51] ReportErrorMessage] Ascend error occurred, error message:
+EK0001: Path [/ms_test/csj/csj/user_scene/profiler_chinese_中文/resnet/scripts/train/data/profiler] for [profilerResultPath] is invalid or does not exist. The Path name can only contain A-Za-z0-9-_.
+```
+
+One of the CANN error codes consists of 6 characters, such as `EK0001` above, which contains three fields:
+
+| Field 1 | Field 2 | Field 3 |
+|:------|:------|:------ |
+| Level (1 position) | Module (1 position) | Error code (4 positions) |
+
+Among them, the level is divided into E, W, I, respectively, indicating error, alarm, prompt class. Module indicates the CANN module that reports errors, as shown in the following table:
+
+| Err error code | CANN module | Err error code | CANN module |
+|:------|:------|:------ |:------ |
+| E10000-E19999 | GE | EE0000-EE9999 | runtime |
+| E20000-E29999 | FE | EF0000-EF9999 | LxFusion |
+| E30000-E39999 | AICPU | EG0000-EG9999 | mstune |
+| E40000-E49999 | TEFusion | EH0000-EH9999 | ACL |
+| E50000-E89999 | AICORE | EI0000-EJ9999 | HCCL&HCCP |
+| E90000-EB9999 | TBE Compiling front and back ends | EK0000-EK9999 | Profiling |
+| EC0000-EC9999 | Autotune | EL0000-EL9999 | Driver |
+| ED0000-ED9999 | RLTune | EZ0000-EZ9999 | Operator public error |
+
+> AICORE operator: The AI Core operator is the main component of the computational core of the Ascend AI processor and is responsible for performing computationally intensive operator related to vector and tensor.
+> AICPU operator: AI CPU operator is the AI CPU responsible for executing CPU-like operator (including control operator, scalar and vector, and other general-purpose computations) in the Hayes SoC of the Ascend processor.
+
+Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are internal error codes. Generally, user-class error users can correct the error by themselves according to the error message, while internal error codes need to contact Huawei for troubleshooting. You can go to [MindSpore Community](https://gitee.com/mindspore) or [Ascend Community](https://gitee.com/ascend) to submit issue to get help. Some common error reporting scenarios are shown in the following table:
+
+| Common Error Types   | Error Description | Case Analysis |
+| - | - | - |
+| AICORE Operator Compilation Problem | AICORE Operator Error During Compilation | [AICORE Operator Compilation Problem](https://www.mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-compilation-problem)|
+| AICORE Operator Execution Problem  | AICORE Operator Error During Execution| [AICORE Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-execution-problem) |
+| AICPU Operator Execution Problem   | AICPU Operator Error During Execution | [AICPU Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicpu-operator-execution-problem) |
+| runtime FAQ   | Including input data exceptions, operator implementation errors, functional limitations, resource limitations, etc. | [runtime FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#runtime-faq) |
+| HCCL & HCCP FAQ   | Common communication problems during multi-machine multi-card training, including socket build timeout, notify wait timeout, ranktable configuration error, etc. | [HCCL & HCCP FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#hcclhccp-faq) |
+| profiling FAQ    | Errors when running profiling for performance tuning | [profiling FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#profiling-faq) |
+
+For more information about CANN errors, refer to the [Ascend CANN Developer Documentation](https://www.hiascend.com/document/moreVersion/zh/CANNCommunityEdition/) to check the troubleshooting section of the corresponding CANN version.
