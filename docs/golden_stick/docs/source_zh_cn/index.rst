@@ -1,7 +1,9 @@
 MindSpore Golden Stick 文档
 =============================
 
-MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集。MindSpore Golden Stick的架构图如下图所示，分为五个部分：
+MindSpore Golden Stick是一款模型压缩算法工具，降低AI部署时算力、内存和电量的消耗，使能全场景AI部署。
+
+MindSpore Golden Stick由华为诺亚团队和华为MindSpore团队联合设计开发。架构如下图所示，分为五个部分：
 
 .. raw:: html
 

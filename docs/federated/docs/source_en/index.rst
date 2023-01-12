@@ -6,9 +6,11 @@
 MindSpore Federated Documents
 ================================
 
-MindSpore Federated is a cryptographically distributed machine learning technique for solving data silos and performing efficient, secure and reliable machine learning across multiple parties or multiple resource computing nodes. Support the various participants of machine learning to build AI models together without directly sharing local data, including but not limited to mainstream deep learning models such as ad recommendation, classification, and detection, mainly applied in finance, medical, recommendation and other fields.
+MindSpore Federated is an open source federated learning component for MindSpore, and it enables all-scenario intelligent applications when user data is stored locally.
 
-MindSpore Federated is an open source federation learning framework that provides a horizontal federated model with sample federation and a vertical federation model with feature federation. Support commercial deployment for millions of stateless terminal devices, as well as cloud federated between data centers across trusted zones, enabling full-scene intelligent applications without taking user data out of the local context.
+Federated learning is a cryptographically distributed machine learning technique for solving data silos and performing efficient, secure and reliable machine learning across multiple parties or multiple resource computing nodes. Support the various participants of machine learning to build AI models together without directly sharing local data, including but not limited to mainstream deep learning models such as ad recommendation, classification, and detection, mainly applied in finance, medical, recommendation and other fields.
+
+MindSpore Federated provides a horizontal federated model with sample federation and a vertical federation model with feature federation. Support commercial deployment for millions of stateless terminal devices, as well as cloud federated between data centers across trusted zones.
 
 Advantages of the MindSpore Federated Horizontal Framework
 -----------------------------------------------------------

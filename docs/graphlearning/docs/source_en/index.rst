@@ -1,7 +1,9 @@
 MindSpore Graph Learning Documents
 ===================================
 
-MindSpore Graph Learning is an efficient and easy-to-use graph learning framework. Thanks to the MindSpore graph kernel fusion, MindSpore Graph Learning can optimize the build of execution patterns specific to graph models, helping developers shorten the training time. MindSpore Graph Learning also proposes an innovative vertex-centric programming paradigm, which provides native graph neural network expressions and built-in models covering most application scenarios, enabling developers to easily build graph neural networks.
+MindSpore Graph Learning is a graph learning suite, which supports point-centered programming for graph neural networks and efficient training inference.
+
+Thanks to the MindSpore graph kernel fusion, MindSpore Graph Learning can optimize the build of execution patterns specific to graph models, helping developers shorten the training time. MindSpore Graph Learning also proposes an innovative vertex-centric programming paradigm, which provides native graph neural network expressions and built-in models covering most application scenarios, enabling developers to easily build graph neural networks.
 
 .. image:: ./images/graphlearning_en.png
   :width: 700px

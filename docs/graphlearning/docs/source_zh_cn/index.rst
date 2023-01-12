@@ -1,7 +1,9 @@
 MindSpore Graph Learning文档
 ==============================
 
-MindSpore Graph Learning是一个基于MindSpore的高效易用的图学习框架。得益于MindSpore的图算融合能力，MindSpore Graph Learning能够针对图模型特有的执行模式进行编译优化，帮助开发者缩短训练时间。MindSpore Graph Learning还创新提出以点为中心编程范式，提供更原生的图神经网络表达方式，并内置覆盖大部分应用场景的模型，使开发者能够轻松搭建图神经网络。
+MindSpore Graph Learning是一款图学习套件，支持以点为中心编程实现图神经网络和高效的训练推理。
+
+得益于MindSpore的图算融合能力，MindSpore Graph Learning能够针对图模型特有的执行模式进行编译优化，帮助开发者缩短训练时间。MindSpore Graph Learning还创新性地提出以点为中心编程范式，提供更原生的图神经网络表达方式，并内置覆盖大部分应用场景的模型，使开发者能够轻松搭建图神经网络。
 
 .. image:: ./images/graphlearning_cn.png
   :width: 700px

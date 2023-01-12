@@ -1,7 +1,9 @@
 MindSpore Serving 文档
 =========================
 
-MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助昇思MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用昇思MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。
+MindSpore Serving是一款轻量级、高性能的服务工具，帮助用户在生产环境中高效部署在线推理服务。
+
+当用户使用昇思MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。
 
 MindSpore Serving包含以下功能：
 
