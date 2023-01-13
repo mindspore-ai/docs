@@ -21,7 +21,7 @@ class tf.keras.layers.LSTM(
 ## mindspore.nn.LSTM
 
 ```python
-class mindspore.nn.LSTM(*args, **kwargs)
+class mindspore.nn.LSTM(*args, **kwargs)(x, hx, seq_length)
 ```
 
 更多内容详见[mindspore.nn.LSTM](https://mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.LSTM.html)。

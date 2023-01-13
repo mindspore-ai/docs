@@ -18,7 +18,7 @@ tf.train.ProximalAdagradOptimizer(
 ```python
 mindspore.nn.ProximalAdagrad(
     params, accum=0.1, learning_rate=0.001, l1=0.0, l2=0.0,
-    use_locking=False, loss_scale=1.0, weight_decay=0.0)
+    use_locking=False, loss_scale=1.0, weight_decay=0.0)(grads)
 ```
 
 更多内容详见[mindspore.nn.ProximalAdagrad](https://mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.ProximalAdagrad.html#mindspore.nn.ProximalAdagrad)。

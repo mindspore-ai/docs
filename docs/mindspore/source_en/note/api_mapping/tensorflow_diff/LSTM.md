@@ -21,7 +21,7 @@ For more information, see [tf.keras.layers.LSTM](https://www.tensorflow.org/vers
 ## mindspore.nn.LSTM
 
 ```python
-class mindspore.nn.LSTM(*args, **kwargs)
+class mindspore.nn.LSTM(*args, **kwargs)(x, hx, seq_length)
 ```
 
 For more information, see [mindspore.nn.LSTM](https://mindspore.cn/docs/en/r1.9/api_python/nn/mindspore.nn.LSTM.html).
