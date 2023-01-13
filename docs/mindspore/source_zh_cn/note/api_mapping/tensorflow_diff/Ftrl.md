@@ -19,7 +19,7 @@ tf.keras.optimizers.Ftrl(
 ```python
 mindspore.nn.FTRL(params, initial_accum=0.1, learning_rate=0.001,
     lr_power=-0.5, l1=0.0, l2=0.0, use_locking=False,
-    loss_scale=1.0, weight_decay=0.0)
+    loss_scale=1.0, weight_decay=0.0)(grads)
 ```
 
 更多内容详见[mindspore.nn.FTRL](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.FTRL.html)。

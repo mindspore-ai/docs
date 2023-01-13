@@ -31,7 +31,7 @@ class mindspore.nn.Adam(
     use_nesterov=False,
     weight_decay=0.0,
     loss_scale=1.0
-)(grads)
+)(gradients)
 ```
 
 更多内容详见[mindspore.nn.Adam](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Adam.html)。

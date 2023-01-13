@@ -26,7 +26,7 @@ class mindspore.nn.Momentum(
     weight_decay=0.0,
     loss_scale=1.0,
     use_nesterov=False
-)(grads)
+)(gradients)
 ```
 
 更多内容详见[mindspore.nn.Momentum](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.Momentum.html)。

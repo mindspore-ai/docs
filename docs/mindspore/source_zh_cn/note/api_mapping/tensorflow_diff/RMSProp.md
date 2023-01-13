@@ -18,7 +18,7 @@ tf.keras.optimizers.RMSprop(
 ```python
 mindspore.nn.RMSProp(
     params, learning_rate=0.1, decay=0.9, momentum=0.0, epsilon=1e-10, use_locking=False,
-    centered=False, loss_scale=1.0, weight_decay=0.0)
+    centered=False, loss_scale=1.0, weight_decay=0.0)(gradients)
 ```
 
 更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。

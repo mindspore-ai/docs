@@ -1,8 +1,8 @@
-# The differences of inputs setting with torch.optim.optimizer
+# The differences of inputs setting with torch.optim.Optimizer
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
-## torch.optim.optimizer
+## torch.optim.Optimizer
 
 ```python
 class torch.optim.Optimizer(
