@@ -42,6 +42,16 @@ MindSpore AI 流体仿真套件
    :caption: 数据机理融合
 
    physics_plus_data_driven/pdenet
+   
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 可微分CFD求解器
+
+   cfd/lax_tube
+   cfd/sod_tube
+   cfd/couette
+   cfd/riemann2d
 
 .. toctree::
    :maxdepth: 1
