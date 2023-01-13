@@ -23,8 +23,9 @@ MindSpore AI 流体仿真套件
    :maxdepth: 1
    :caption: 物理驱动
 
-   physics_driven/burgers
-   physics_driven/cylinder_flow
+   physics_driven/burgers1D
+   physics_driven/navier_stokes2D
+   physics_driven/poisson_ring
 
 .. toctree::
    :glob:
@@ -32,8 +33,8 @@ MindSpore AI 流体仿真套件
    :caption: 数据驱动
 
    data_driven/dfyf
-   data_driven/fno1d
-   data_driven/fno2d
+   data_driven/FNO1D
+   data_driven/FNO2D
 
 .. toctree::
    :glob:
