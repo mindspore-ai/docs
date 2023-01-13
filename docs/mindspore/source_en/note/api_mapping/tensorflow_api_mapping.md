@@ -241,7 +241,7 @@ Many data processing operations in MindSpore are shared by each dataset class. T
 | TensorFlow  1.15 APIs                                        | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [tf.train.exponential_decay](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/exponential_decay) | [mindspore.nn.ExponentialDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html) |                                                              |
-| [tf.compat.v1.train.linear_cosine_decay](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay) | [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/CosineDecayLR.html) |
+| [tf.compat.v1.train.linear_cosine_decay](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/linear_cosine_decay)  | [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/CosineDecayLR.html) |
 
 ## tfp
 
