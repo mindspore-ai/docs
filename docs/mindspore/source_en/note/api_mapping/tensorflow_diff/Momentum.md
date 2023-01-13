@@ -26,7 +26,7 @@ class mindspore.nn.Momentum(
     weight_decay=0.0,
     loss_scale=1.0,
     use_nesterov=False
-)(grads)
+)(gradients) -> Tensor
 ```
 
 For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Momentum.html).
