@@ -1,6 +1,6 @@
-# 比较与torch.div的功能差异
+# Function Differences with torch.div
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.div
 
@@ -8,7 +8,7 @@
 torch.div(input, other, *, rounding_mode=None, out=None) -> Tensor
 ```
 
-更多内容详见[torch.div](https://pytorch.org/docs/1.8.1/generated/torch.div.html)。
+For more information, see [torch.div](https://pytorch.org/docs/1.8.1/generated/torch.div.html).
 
 ## mindspore.ops.div
 
@@ -16,24 +16,24 @@ torch.div(input, other, *, rounding_mode=None, out=None) -> Tensor
 mindspore.ops.div(input, other, rounding_mode=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.div](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.div.html)。
+For more information, see [mindspore.ops.div](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.div.html).
 
-## 差异对比
+## Differences
 
-PyTorch：计算第一个输入除以第二个输入得到的商，其中商的取值方式取决于参数rounding_mode。
+PyTorch: Calculate the quotient of the first input divided by the second input, where the quotient depends on the rounding_mode parameter.
 
-MindSpore：MindSpore的此API实现的功能与PyTorch一致。
+MindSpore: MindSpore API achieves the same function as PyTorch.
 
-| 分类 | 子类  | PyTorch       | MindSpore | 差异                                |
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
 |:----|-----|:--------------|-----------|-----------------------------------|
-| 参数| 参数1 | input         | input         | -                                 |
-| | 参数2 | other         | other        | -                                 |
-| | 参数3 | rounding_mode | rounding_mode | -                                 |
-| | 参数4 | out           | -         |不涉及 |
+| Parameters | Parameter 1 | input    | input  | -   |
+| | Parameter 2 | other         | other  | -  |
+| | Parameter 3 | rounding_mode | rounding_mode | -   |
+| | Parameter 4 | out           | -    |Not involved |
 
-### 代码示例1
+### Code Example 1
 
-> 当两个API的参数rounding_mode均为trunc时，两API均将除法得到的结果舍入到零。
+> When the parameter rounding_mode of both APIs is trunc, both APIs round the result obtained by division to zero.
 
 ```python
 # PyTorch
@@ -60,9 +60,9 @@ print(output)
 # [ 0.  1. -1.  1.]
 ```
 
-### 代码示例2
+### Code Example 2
 
-> 当两个API的参数rounding_mode均为floor时，两API均将除法得到的结果向下舍入。
+> When the parameter rounding_mode of both APIs is floor, both APIs round down the result obtained by dividing.
 
 ```python
 # PyTorch
@@ -89,9 +89,9 @@ print(output)
 # [ 0.  1. -2.  1.]
 ```
 
-### 代码示例3
+### Code Example 3
 
-> 当两个API的参数rounding_mode均为默认值None时，两API不对除法得到的结果做任何舍入操作。
+> When the parameter rounding_mode of both APIs is None by default, both APIs do not perform any rounding operation on the result obtained by division.
 
 ```python
 # PyTorch
