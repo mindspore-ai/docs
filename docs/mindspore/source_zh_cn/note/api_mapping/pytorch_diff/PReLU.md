@@ -22,13 +22,13 @@ class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 
 PyTorch：PReLU激活函数。
 
-MindSpore：MindSpore此算子功能与PyTorch一致。
+MindSpore：MindSpore此算子功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | num_parameters | channel | 功能一致，参数名不同，默认值相同 |
-| | 参数2 | init | w | 功能一致，参数名不同，默认值相同 |
-| | 参数3 | input | x | 功能一致，参数名不同|
+|参数 | 参数1 | num_parameters | channel | 功能一致，参数名不同 |
+| | 参数2 | init | w | 功能一致，参数名不同 |
+| 输入 | 单输入 | input | x | 功能一致，参数名不同 |
 
 ### 代码示例1
 
