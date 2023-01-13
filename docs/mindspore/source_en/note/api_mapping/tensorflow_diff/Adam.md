@@ -31,7 +31,7 @@ class mindspore.nn.Adam(
     use_nesterov=False,
     weight_decay=0.0,
     loss_scale=1.0
-)(grads)
+)(gradients) -> Tensor
 ```
 
 For more information, see [mindspore.nn.Adam](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.Adam.html).

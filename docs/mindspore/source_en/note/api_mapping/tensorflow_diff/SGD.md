@@ -27,7 +27,7 @@ class mindspore.nn.SGD(
     weight_decay=0.0,
     nesterov=False,
     loss_scale=1.0
-)(grads)
+)(gradients) -> Tensor
 ```
 
 For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/nn/mindspore.nn.SGD.html).
