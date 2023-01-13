@@ -33,17 +33,17 @@ For more information, see [mindspore.nn.Dense](https://www.mindspore.cn/docs/en/
 
 Pytorch: Fully connected layer that implements the matrix multiplication operation.
 
-MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch, and it is possible to add activation functions after the fully connected layer.
+MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch, and it is possible to add activation functions after the fully connected layer. MindSpore and PyTorch have different initialization methods for weight and bias parameters, which may cause differences during model training. Developers should pay attention to the impact of weight initialization. For details, please refer to [Differences Between MindSpore and PyTorch - Different Default Weight Initialization](https://mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#different-default-weight-initialization)
 
 | Categories | Subcategories   | PyTorch             | MindSpore   | Differences    |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
+| Input | Single input | input | x | Interface input, same function, only different parameter names |
 | Parameters | Parameter 1 | in_features  | in_channels  | Same function, different parameter names              |
 |      | Parameter 2 | out_features | out_channels | Same function, different parameter names       |
 |      | Parameter 3 | bias         | has_bias     | Same function, different parameter names         |
-|      | Parameter 4 | input | x | Interface input, same function, different parameter names |
-|      | Parameter 5 | -             | weight_init  | Initialization method for the weight parameter, which is not available for PyTorch         |
-|      | Parameter 6 | -             | bias_init    | Initialization method for the bias parameter, which is not available for PyTorch           |
-|      | Parameter 7 | -             | activation   | Activation function applied to the output of the fully connected layer, which is not available for PyTorch   |
+|      | Parameter 4 | -             | weight_init  | Initialization method for the weight parameter, which is not available for PyTorch         |
+|      | Parameter 5 | -             | bias_init    | Initialization method for the bias parameter, which is not available for PyTorch           |
+|      | Parameter 6 | -             | activation   | Activation function applied to the output of the fully connected layer, which is not available for PyTorch   |
 
 ### Code Example
 

@@ -39,21 +39,21 @@ For more information, see [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/do
 
 PyTorch：Apply batch normalization on four-dimensional inputs (small batches of two-dimensional inputs with additional channel dimensionality) to avoid internal covariate bias.
 
-MindSpore：Implement the same function as PyTorch.
+MindSpore：The function of this API is basically the same as that of PyTorch, with two typical differences. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch; The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories   |PyTorch | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-| Parameters | Parameter 1 | input | x | Interface input, same function, only different parameter names |
-| | Parameter 2 | num_features | num_features | - |
-| | Parameter 3 | eps | eps | - |
-| | Parameter 4 | momentum | momentum |Same function, different calculation method |
-| | Parameter 5 | affine | affine |- |
-| | Parameter 6 | track_running_stats | use_batch_statistics | The function is the same, and different values correspond to different default methods |
-| | Parameter 7 | - | gamma_init |The initialization method of the γ parameter, default value: "ones" |
-| | Parameter 8 | - | beta_init |The initialization method of the βparameter, default value: "ones" |
-| | Parameter 9 | - | moving_mean_init |Initialization method of dynamic average, default value: "ones" |
-| | Parameter 10 | - | moving_var_init |Initialization method of dynamic variance, default value: "ones" |
-| | Parameter 11 | - | data_format |MindSpore can specify the input data format as "NHWC" or "NCHW", default value: "NCHW", PyTorch does not have this parameter|
+| Input | Single input | input | x | Interface input, same function, only different parameter names |
+| Parameters | Parameter 1 | num_features | num_features | - |
+| | Parameter 2 | eps | eps | - |
+| | Parameter 3 | momentum | momentum | The function is the same, but the default value in PyTorch is 0.1, and in MindSpore is 0.9, the conversion relationship with PyTorch's momentum is 1-momentum, and the default value behavior is the same as PyTorch |
+| | Parameter 4 | affine | affine | - |
+| | Parameter 5 | track_running_stats | use_batch_statistics | The function is the same, and different values correspond to different default methods. For details, please refer to [Typical differences with PyTorch - BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d) |
+| | Parameter 6 | - | gamma_init |The initialization method of the γ parameter, default value: "ones" |
+| | Parameter 7 | - | beta_init |The initialization method of the βparameter, default value: "zeros" |
+| | Parameter 8 | - | moving_mean_init |Initialization method of dynamic average, default value: "zeros" |
+| | Parameter 9 | - | moving_var_init |Initialization method of dynamic variance, default value: "ones" |
+| | Parameter 10 | - | data_format |MindSpore can specify the input data format as "NHWC" or "NCHW", default value: "NCHW", PyTorch does not have this parameter|
 
 ## Code Example
 
