@@ -27,7 +27,7 @@ class mindspore.nn.SGD(
     weight_decay=0.0,
     nesterov=False,
     loss_scale=1.0
-)(grads)
+)(gradients)
 ```
 
 更多内容详见[mindspore.nn.SGD](https://mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.SGD.html)。
