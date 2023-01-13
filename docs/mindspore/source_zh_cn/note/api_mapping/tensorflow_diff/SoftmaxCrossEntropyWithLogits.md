@@ -42,8 +42,8 @@ MindSpore：MindSpore中该算子需要实例化，实例化时可接受`sparse`
 import tensorflow as tf
 from tensorflow import nn
 
-logits = tf.constant([[4.0, 2.0, 1.0], [0.0, 5.0, 1.0]])
-labels = tf.constant([[1.0, 0.0, 0.0], [0.0, 0.8, 0.2]])
+logits = tf.constant([[4.0, 2.0, 1.0], [0.0, 5.0, 1.0]], dtype=tf.float32)
+labels = tf.constant([[1.0, 0.0, 0.0], [0.0, 0.8, 0.2]], dtype=tf.float32)
 
 out = nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
 print(out.numpy())
@@ -71,8 +71,8 @@ print(out)
 # TensorFlow
 import tensorflow as tf
 from tensorflow import nn
-logits = tf.constant([[4.0, 0.0],[2.0, 5.0],[1.0, 1.0]])
-labels = tf.constant([[1.0, 0.0],[0.0, 0.8],[0.0, 0.2]])
+logits = tf.constant([[4.0, 0.0], [2.0, 5.0], [1.0, 1.0]], dtype=tf.float32)
+labels = tf.constant([[1.0, 0.0], [0.0, 0.8], [0.0, 0.2]], dtype=tf.float32)
 out = nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits, axis=0)
 print(out.numpy())
 # [0.16984604 0.82474494]
@@ -82,11 +82,11 @@ import numpy as np
 import mindspore
 from mindspore import Tensor, nn, ops
 
-logits_ = Tensor(np.array([[4.0, 0.0],[2.0, 5.0],[1.0, 1.0]]), mindspore.float32)
-labels_ = Tensor(np.array([[1.0, 0.0],[0.0, 0.8],[0.0, 0.2]]), mindspore.float32)
+logits_ = Tensor(np.array([[4.0, 0.0], [2.0, 5.0], [1.0, 1.0]]), mindspore.float32)
+labels_ = Tensor(np.array([[1.0, 0.0], [0.0, 0.8], [0.0, 0.2]]), mindspore.float32)
 transpose = ops.Transpose()
-logits = transpose(logits_, (1,0))
-labels = transpose(labels_, (1,0))
+logits = transpose(logits_, (1, 0))
+labels = transpose(labels_, (1, 0))
 loss = nn.SoftmaxCrossEntropyWithLogits()
 out = loss(logits, labels)
 print(out)
