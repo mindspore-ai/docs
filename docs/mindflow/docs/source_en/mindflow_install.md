@@ -6,7 +6,7 @@
 
 - The hardware platform should be Ascend, GPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
-- All other dependencies are included in [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py).
+- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/requirements.txt).
 
 ## Installation
 
