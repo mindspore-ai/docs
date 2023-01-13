@@ -26,6 +26,8 @@ MindSpore AI Fluid Simulation Suite
 
    physics_driven/burgers1D
    physics_driven/navier_stokes2D
+   physics_driven/poisson_ring
+   physics_driven/sympy_pde_definition
 
 .. toctree::
    :glob:
