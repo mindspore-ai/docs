@@ -42,11 +42,11 @@ SCOP training consists of the knockoff and fine-tuning phases. In the knockoff p
 
 Then, ResNet-50 is used as an example to describe steps related to SCOP training in detail.
 
-> You can find the complete executable sample code here: <https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet/golden_stick/pruner/scop>.
+> You can find the complete executable sample code here: <https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet/golden_stick/pruner/scop>.
 
 ### Knockoff Data
 
-Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r2.0.0-alpha/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network.（Note: dataset_sink_mode in Knockoff Data phase must be set to False, because SCOP will modify dataset in Knockoff Data phase）
+Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r0.3/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network.（Note: dataset_sink_mode in Knockoff Data phase must be set to False, because SCOP will modify dataset in Knockoff Data phase）
 
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
@@ -95,7 +95,7 @@ step_5: loss=4.715785
 
 ### Fine-tuning
 
-Determine the redundant convolution kernels in the knockoff phase. Use PrunerFtCompressAlgo to replace nodes (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r2.0.0-alpha/mindspore_gs/pruner/scop/scop_pruner.py)) and delete redundant convolution kernels. Perform the complete training and save the model.
+Determine the redundant convolution kernels in the knockoff phase. Use PrunerFtCompressAlgo to replace nodes (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/r0.3/mindspore_gs/pruner/scop/scop_pruner.py)) and delete redundant convolution kernels. Perform the complete training and save the model.
 
 ```python
 from mindspore_gs import PrunerFtCompressAlgo

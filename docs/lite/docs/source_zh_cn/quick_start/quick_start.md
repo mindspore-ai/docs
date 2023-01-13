@@ -14,7 +14,7 @@
 
 > 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5)和[图像分类示例代码](https://gitee.com/mindspore/vision/tree/r2.0.0-alpha/android)。
 >
-> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/lite/image_segmentation)。
+> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/r2.0/official/lite/image_segmentation)。
 >
 > 本应用开发环境为Windows。
 

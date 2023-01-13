@@ -10,8 +10,8 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
 使用MindScience的典型场景
 ------------------------------
 
-1. `计算生物 <https://www.mindspore.cn/mindsponge/docs/zh-CN/r2.0.0-alpha/index.html>`_
+1. `计算生物 <https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-alpha/index.html>`_
 
-2. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/r2.0.0-alpha/index.html>`_
+2. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/r0.2.0-alpha/index.html>`_
 
-3. `流体仿真 <https://www.mindspore.cn/mindflow/docs/zh-CN/r2.0.0-alpha/index.html>`_
+3. `流体仿真 <https://www.mindspore.cn/mindflow/docs/zh-CN/r0.1.0-alpha/index.html>`_

@@ -150,7 +150,7 @@ print(dataset.get_dataset_size())
 32
 ```
 
-The batch operation can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/YOLOv3/src/yolo_dataset.py#L177).
+The batch operation can also use some augmentation operations within batch. For details, see [YOLOv3](https://gitee.com/mindspore/models/blob/r2.0/official/cv/YOLOv3/src/yolo_dataset.py#L177).
 
 ## Data Iteration
 

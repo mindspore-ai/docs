@@ -62,7 +62,7 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 
 .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0-alpha
     cd mindscience/MindSPONGE
 
 - 安装依赖
@@ -136,7 +136,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
 贡献指南
 --------
 
--  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/CONTRIBUTION.md#>`__\ 。
+-  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/CONTRIBUTION.md#>`__\ 。
 
 .. toctree::
    :glob:

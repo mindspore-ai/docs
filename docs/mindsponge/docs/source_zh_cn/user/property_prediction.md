@@ -8,8 +8,8 @@
 
 | 功能            | 模型                  | 训练 | 推理 | 后端       |
 | :------------- | :-------------------- | :--- | :--- | :-------- |
-| 药物相互作用预测 | [KGNN](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/KGNN/README.md#)     | √    | √   | GPU/Ascend |
-| 药物疾病关联预测 | [DeepDR](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/DeepDR/README.md#) | √    | √   | GPU/Ascend |
-| 蛋白质-配体亲和力预测 | [pafnucy](https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/MindSPONGE/applications/research/pafnucy/README.md#) | √   | √   | GPU/Ascend |
+| 药物相互作用预测 | [KGNN](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/KGNN/README.md#)     | √    | √   | GPU/Ascend |
+| 药物疾病关联预测 | [DeepDR](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/DeepDR/README.md#) | √    | √   | GPU/Ascend |
+| 蛋白质-配体亲和力预测 | [pafnucy](https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/MindSPONGE/applications/research/pafnucy/README.md#) | √   | √   | GPU/Ascend |
 
 后续将提供分子对接，ADMET等分子性质预测网络，敬请期待。

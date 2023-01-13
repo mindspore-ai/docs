@@ -4,7 +4,7 @@
 
 <font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
 
-A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/YOLOv3)的多尺度训练实现。
+A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/r2.0/official/cv/YOLOv3)的多尺度训练实现。
 
 <br/>
 
@@ -94,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/models/blob/r2.0/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -243,7 +243,7 @@ A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成�
 
 <font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#)。
+A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#)。
 
 <br/>
 

@@ -69,12 +69,12 @@ The above procedure is just a basic configuration of the operating environment. 
 
 ## Generic Scripting Framework
 
-A generic [script rack](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/model_scaffolding) provided by the models bin is used for:
+A generic [script rack](https://gitee.com/mindspore/models/tree/r2.0/utils/model_scaffolding) provided by the models bin is used for:
 
 1. yaml parameter file parsing, parameter obtaining
 2. ModelArts unified tool both on the cloud and on-premise
 
-The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet/src/model_utils).
+The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet/src/model_utils).
 
 ## Inference Process
 
@@ -108,7 +108,7 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 Generally, the source code for network construction and data processing will be placed in the `src` directory, and the scripting framework will be placed in the `src.model_utils` directory. For example, you can refer to the implementation in [MindSpore models](https://gitee.com/mindspore/models).
 
-The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/SSD/eval.py).
+The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/r2.0/official/cv/SSD/eval.py).
 
 ### Inference Verification
 

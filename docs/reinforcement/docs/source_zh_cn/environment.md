@@ -73,7 +73,7 @@ class Environment(nn.Cell):
         pass
 ```
 
-`Environment`除了提供`reset`和`step`等与环境交互的接口之外，还需要提供`action_space`、`observation_space`等方法，这些接口返回[Space](https://mindspore.cn/reinforcement/docs/zh-CN/r2.0.0-alpha/reinforcement.html#mindspore_rl.environment.Space)类型。算法可以根据`Space`信息：
+`Environment`除了提供`reset`和`step`等与环境交互的接口之外，还需要提供`action_space`、`observation_space`等方法，这些接口返回[Space](https://mindspore.cn/reinforcement/docs/zh-CN/r0.6.0-alpha/reinforcement.html#mindspore_rl.environment.Space)类型。算法可以根据`Space`信息：
 
 - 获取环境的状态空间和动作空间的维度，用于构建神经网络。
 - 读取合法的动作范围，对策略网络给出的动作进行缩放和裁剪。

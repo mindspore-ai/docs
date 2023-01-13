@@ -6,7 +6,7 @@
 
 图像分割是用于检测目标在图片中的位置或者图片中某一像素是输入何种对象的。
 
-使用MindSpore Lite实现图像分割的[示例代码](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/lite/image_segmentation)。
+使用MindSpore Lite实现图像分割的[示例代码](https://gitee.com/mindspore/models/tree/r2.0/official/lite/image_segmentation)。
 
 ## 图像分割模型列表
 

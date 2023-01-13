@@ -32,7 +32,7 @@ MindSpore Reinforcement为编写强化学习算法提供了简洁的API抽象，
 使用MindSpore Reinforcement的典型场景
 --------------------------------------
 
-- `训练深度Q网络 <https://www.mindspore.cn/reinforcement/docs/zh-CN/r2.0.0-alpha/dqn.html>`_
+- `训练深度Q网络 <https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6.0-alpha/dqn.html>`_
 
   DQN算法使用经验回放技术来维护先前的观察结果，进行off-policy学习。
 

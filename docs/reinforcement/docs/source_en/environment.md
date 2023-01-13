@@ -73,7 +73,7 @@ class Environment(nn.Cell):
         pass
 ```
 
-`Environment` needs to provide methods such as `action_space` and `observation_space`, in addition to interfaces for interacting with the environment, such as `reset` and `step`, which return [Space](https://mindspore.cn/reinforcement/docs/en/r2.0.0-alpha/reinforcement.html#mindspore_rl.environment.Space) type. The algorithm can achieve the following operations based on the `Space` information:
+`Environment` needs to provide methods such as `action_space` and `observation_space`, in addition to interfaces for interacting with the environment, such as `reset` and `step`, which return [Space](https://mindspore.cn/reinforcement/docs/en/r0.6.0-alpha/reinforcement.html#mindspore_rl.environment.Space) type. The algorithm can achieve the following operations based on the `Space` information:
 
 - obtain the dimensions of the state space and action space in the environment, which used to construct the neural network.
 - read the range of legal actions, and scale and crop the actions given by the policy network.

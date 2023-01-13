@@ -82,7 +82,7 @@ source code install
 
 .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0-alpha
     cd mindscience/MindSPONGE
 
 -  dependency install
@@ -178,7 +178,7 @@ Contribution Guide
 ------------------
 
 -  Please click here to see how to contribute your code:\ `Contribution
-   Guide <https://gitee.com/mindspore/mindscience/blob/r2.0.0-alpha/CONTRIBUTION.md#>`__
+   Guide <https://gitee.com/mindspore/mindscience/blob/r0.2.0-alpha/CONTRIBUTION.md#>`__
 
 .. toctree::
    :glob:

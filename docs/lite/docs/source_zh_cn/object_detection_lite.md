@@ -12,7 +12,7 @@
 | ----- | ---- | ---------------- |
 | mouse | 0.78 | [10, 25, 35, 43] |
 
-使用MindSpore Lite实现目标检测的[示例代码](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/lite/object_detection)。
+使用MindSpore Lite实现目标检测的[示例代码](https://gitee.com/mindspore/models/tree/r2.0/official/lite/object_detection)。
 
 ## 目标检测模型列表
 

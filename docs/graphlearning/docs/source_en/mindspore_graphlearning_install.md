@@ -15,7 +15,7 @@
 
 - Ensure that the hardware platform is GPU under the Linux system.
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to complete the installation of MindSpore, which requires at least version 1.6.0.
-- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r2.0.0-alpha/requirements.txt).
+- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2.0-alpha/requirements.txt).
 
 ### Installation Methods
 
@@ -27,14 +27,14 @@ You can install MindSpore Graph Learning either by pip or by source code.
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/GraphLearning/any/mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r2.0.0-alpha/requirements.txt). In other cases, you need to manually install dependency items.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2.0-alpha/requirements.txt). In other cases, you need to manually install dependency items.
 
 #### Installation by Source Code
 
 1. Download source code from Gitee.
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.2.0-alpha
     ```
 
 2. Compile and install in MindSpore Graph Learning directory.
