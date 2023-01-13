@@ -1,6 +1,6 @@
 # 比较与torch.max的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ArgMaxWithValue.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/max.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.max
 
@@ -13,18 +13,19 @@ torch.max(
 )
 ```
 
-更多内容详见[torch.max](https://pytorch.org/docs/1.5.0/torch.html#torch.max)。
+更多内容详见[torch.max](https://pytorch.org/docs/1.8.1/torch.html#torch.max)。
 
-## mindspore.ops.ArgMaxWithValue
+## mindspore.ops.max
 
 ```python
-class mindspore.ops.ArgMaxWithValue(
+class mindspore.ops.max(
+    x,
     axis=0,
     keep_dims=False
-)(input_x)
+)
 ```
 
-更多内容详见[mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue)。
+更多内容详见[mindspore.ops.max](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.max.html)。
 
 ## 使用方式
 
@@ -42,8 +43,7 @@ import numpy as np
 
 # Output tuple(index of max, max).
 input_x = ms.Tensor(np.array([0.0, 0.4, 0.6, 0.7, 0.1]), ms.float32)
-argmax = ops.ArgMaxWithValue()
-index, output = argmax(input_x)
+index, output = ops.max(input_x)
 print(index)
 print(output)
 # Out：
