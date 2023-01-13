@@ -6,7 +6,7 @@
 
 本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行MindSpore Lite云侧推理。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310、Ascend310P、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[使用Python接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_python.html)。
 

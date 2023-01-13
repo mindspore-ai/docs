@@ -6,7 +6,7 @@
 
 本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧推理。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310、Ascend310P、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
 
@@ -38,6 +38,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 auto context = std::make_shared<mindspore::Context>();
 if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
+    return nullptr;
 }
 auto &device_list = context->MutableDeviceInfo();
 ```
@@ -126,7 +127,7 @@ device_list.push_back(gpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Ascend 310和Ascend 310P)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
+当需要执行的后端为Ascend时(目前支持Ascend 310/310P/910)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
 
 下面示例代码演示如何创建Ascend推理后端，同时设备ID设置为0：
 
@@ -138,13 +139,13 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// for Ascend 310, 310P
+// for Ascend 310/310P/910
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Ascend 310/310P device id.
+// Set Ascend 310/310P/910 device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
@@ -198,7 +199,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 
 ## 输入数据
 
-在模型执行前，需要设置输入数据，使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。可以通过MSTensor的[DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize)方法来获取Tensor应该填入的数据大小，通过[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype)方法来获取Tensor的数据类型，通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata)方法设置输入host数据。
+在模型执行前，需要设置输入数据，使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。可以通过MSTensor的[DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize)方法来获取Tensor应该填入的数据大小，通过[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype)方法来获取Tensor的数据类型，通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)方法设置输入host数据。
 
 当前有两种指定输入数据的方式：
 
@@ -295,13 +296,27 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 }
 ```
 
+## 编译和执行
+
+按照[快速入门环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction_cloud.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)一节所述，设置环境变量。接着按如下方式编译程序：
+
+```bash
+mkdir build && cd build
+cmake ../
+make
+```
+
+在编译成功后，可以在`build`目录下得到`runtime_cpp`可执行程序。执行程序`runtime_cpp`运行样例：
+
+./runtime_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+
 ## 高级用法
 
 ### 动态shape输入
 
 Lite云侧推理框架支持动态shape输入的模型，GPU和Ascend硬件后端，需要在模型转换和模型推理时配置动态输入信息。
 
-动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--NoFusion=false`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如模型转换工具指定`--device=Ascend310`，则产生的模型仅支持在Ascend310上运行，如果未指定`--device`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--NoFusion=true`，或MindSpore导出的MindIR模型没有经过转换工具处理。
+动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--NoFusion=false`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Ascend 310环境上，模型转换工具指定`--device=Ascend`，则产生的模型仅支持在Ascend 310上运行，如果未指定`--device`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--NoFusion=true`，或MindSpore导出的MindIR模型没有经过转换工具处理。
 
 Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
 
@@ -380,7 +395,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 指定设备内存支持CPU、Asend和GPU硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
 
-通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
+通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
 
 1. 指定输入host内存
 
