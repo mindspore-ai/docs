@@ -6,7 +6,7 @@
 
 This article introduces you to the basic functions and usage of MindSpore Lite by using MindSpore Lite to perform cloud-side inference as an example.
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend310, Ascend310P, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend 310/310P/910, Nvidia GPU and CPU hardware backends are supported.
 
 Before starting using MindSpore Lite in this chapter, users should have a Linux (e.g. Ubuntu/CentOS/EulerOS) environment ready to operate the verification.
 
@@ -20,33 +20,32 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 1. Environment requirements
     - System environment: Linux x86_64, Ubuntu 18.04.02LTS recommended
-    - C++ compilation dependencies
-        - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-        - [CMake](https://cmake.org/download/) >= 3.12
 
 2. Download distributions
 
     Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of MindSpore official website, `{arch}` for `x86` or `aarch64`. `x86` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
 
+    The following is the contents of the `x86` tar package.
+
     ```text
     mindspore-lite-{version}-linux-x64
     ├── runtime
-    │   ├── include                        # API header files for MindSpore Lite integrated development
+    │   ├── include                          # API header files for MindSpore Lite integrated development
     │   ├── lib
-    │   │   ├── libascend_ge_plugin.so     # Ascend Hardware Backend Remote Mode Plugin
-    │   │   ├── libascend_kernel_plugin.so # Ascend Hardware Backend Plugin
-    │   │   ├── libdvpp_utils.so           # Ascend Hardware Backend DVPP Plugin
-    │   │   ├── libminddata-lite.a         # Image processing static library
-    │   │   ├── libminddata-lite.so        # Image processing dynamic library
-    │   │   ├── libmindspore_core.so       # Dynamic library for MindSpore Lite inference framework
-    │   │   ├── libmindspore_glog.so.0     # MindSpore Lite Logging Dynamic Library
-    │   │   ├── libmindspore-lite-jni.so   # JNI dynamic library for MindSpore Lite inference framework
-    │   │   ├── libmindspore-lite.so       # Dynamic library for MindSpore Lite inference framework
-    │   │   ├── libmsplugin-ge-litert.so
-    │   │   ├── libruntime_convert_plugin.so
-    │   │   ├── libtensorrt_plugin.so      # Nvidia GPU Hardware Backend Plugin
-    │   │   ├── libtransformer-shared.so   # Transformer Dynamic Library
-    │   │   └── mindspore-lite-java.jar    # MindSpore Lite inference framework jar package
+    │   │   ├── libascend_ge_plugin.so       # Ascend Hardware Backend Remote Mode Plugin
+    │   │   ├── libascend_kernel_plugin.so   # Ascend Hardware Backend Plugin
+    │   │   ├── libdvpp_utils.so             # Ascend Hardware Backend DVPP Plugin
+    │   │   ├── libminddata-lite.a           # Image processing static library
+    │   │   ├── libminddata-lite.so          # Image processing dynamic library
+    │   │   ├── libmindspore_core.so         # Dynamic library for MindSpore Lite inference framework
+    │   │   ├── libmindspore_glog.so.0       # MindSpore Lite Logging Dynamic Library
+    │   │   ├── libmindspore-lite-jni.so     # JNI dynamic library for MindSpore Lite inference framework
+    │   │   ├── libmindspore-lite.so         # Dynamic library for MindSpore Lite inference framework
+    │   │   ├── libmsplugin-ge-litert.so     # CPU Hardware Backend Plugin
+    │   │   ├── libruntime_convert_plugin.so # Online Converter Plugin
+    │   │   ├── libtensorrt_plugin.so        # Nvidia GPU Hardware Backend Plugin
+    │   │   ├── libtransformer-shared.so     # Transformer Dynamic Library
+    │   │   └── mindspore-lite-java.jar      # MindSpore Lite inference framework jar package
     │   └── third_party
     │       └── libjpeg-turbo
     └── tools
@@ -56,7 +55,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 3. Obtain model
 
-    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert models in Tensorflow, Onnx, Caffe.
+    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to convert models in Tensorflow, Onnx, Caffe.
 
     The model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) can be downloaded as a sample model.
 

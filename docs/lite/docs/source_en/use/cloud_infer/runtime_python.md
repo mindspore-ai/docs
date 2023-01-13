@@ -6,7 +6,7 @@
 
 This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html).
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend310, Ascend310P, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend 310/310P/910, Nvidia GPU and CPU hardware backends are supported.
 
 To experience the MindSpore Lite device-side inference process, please refer to the document [Using the Python interface to perform device-side inference](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_python.html).
 

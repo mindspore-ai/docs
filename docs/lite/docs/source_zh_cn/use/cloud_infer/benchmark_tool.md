@@ -12,9 +12,9 @@
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#编译示例)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html#环境准备)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html#编译示例)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#目录结构)，从编译出来的包中获得`benchmark`工具。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html#目录结构)，从编译出来的包中获得`benchmark`工具。
 
 - 将推理需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 

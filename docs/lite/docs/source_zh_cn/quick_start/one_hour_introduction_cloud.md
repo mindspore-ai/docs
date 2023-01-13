@@ -6,7 +6,7 @@
 
 本文通过使用MindSpore Lite执行云侧推理为例，向大家介绍MindSpore Lite的基础功能和用法。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310、Ascend310P、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 在开始本章的MindSpore Lite使用之旅之前，用户需拥有一个Linux（如Ubuntu/CentOS/EulerOS）的环境，以便随时操作验证。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html)。
@@ -19,33 +19,32 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 1. 环境要求
     - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
-    - C++编译依赖
-        - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-        - [CMake](https://cmake.org/download/) >= 3.12
 
 2. 下载发布件
 
     用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，`{arch}`为`x86`或者`aarch64`，`x86`版本支持Ascend、Nvidia GPU、CPU三个硬件后端，`aarch64`仅支持Ascend、CPU硬件后端。
 
+    以下为`x86`云侧推理包内容。
+
     ```text
     mindspore-lite-{version}-linux-x64
     ├── runtime
-    │   ├── include                        # MindSpore Lite集成开发的API头文件
+    │   ├── include                          # MindSpore Lite集成开发的API头文件
     │   ├── lib
-    │   │   ├── libascend_ge_plugin.so     # Ascend硬件后端拉远模式插件
-    │   │   ├── libascend_kernel_plugin.so # Ascend硬件后端插件
-    │   │   ├── libdvpp_utils.so           # Ascend硬件后端DVPP插件
-    │   │   ├── libminddata-lite.a         # 图像处理静态库
-    │   │   ├── libminddata-lite.so        # 图像处理动态库
-    │   │   ├── libmindspore_core.so       # MindSpore Lite推理框架的动态库
-    │   │   ├── libmindspore_glog.so.0     # MindSpore Lite日志动态库
-    │   │   ├── libmindspore-lite-jni.so   # MindSpore Lite推理框架的JNI动态库
-    │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
-    │   │   ├── libmsplugin-ge-litert.so
-    │   │   ├── libruntime_convert_plugin.so
-    │   │   ├── libtensorrt_plugin.so      # Nvidia GPU硬件后端插件
-    │   │   ├── libtransformer-shared.so   # Transformer动态库
-    │   │   └── mindspore-lite-java.jar    # MindSpore Lite推理框架jar包
+    │   │   ├── libascend_ge_plugin.so       # Ascend硬件后端拉远模式插件
+    │   │   ├── libascend_kernel_plugin.so   # Ascend硬件后端插件
+    │   │   ├── libdvpp_utils.so             # Ascend硬件后端DVPP插件
+    │   │   ├── libminddata-lite.a           # 图像处理静态库
+    │   │   ├── libminddata-lite.so          # 图像处理动态库
+    │   │   ├── libmindspore_core.so         # MindSpore Lite推理框架的动态库
+    │   │   ├── libmindspore_glog.so.0       # MindSpore Lite日志动态库
+    │   │   ├── libmindspore-lite-jni.so     # MindSpore Lite推理框架的JNI动态库
+    │   │   ├── libmindspore-lite.so         # MindSpore Lite推理框架的动态库
+    │   │   ├── libmsplugin-ge-litert.so     # CPU硬件后端插件
+    │   │   ├── libruntime_convert_plugin.so # 在线转换插件
+    │   │   ├── libtensorrt_plugin.so        # Nvidia GPU硬件后端插件
+    │   │   ├── libtransformer-shared.so     # Transformer动态库
+    │   │   └── mindspore-lite-java.jar      # MindSpore Lite推理框架jar包
     │   └── third_party
     │       └── libjpeg-turbo
     └── tools
@@ -55,7 +54,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310�
 
 3. 获取模型
 
-    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换Tensorflow、Onnx、Caffe等格式的模型获得MindIR模型。
+    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换Tensorflow、Onnx、Caffe等格式的模型获得MindIR模型。
 
     可下载模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)作为样例模型。
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Ascend310, Ascend310P, Nvidia GPU and CPU backends.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Ascend 310/310P/910, Nvidia GPU and CPU backends.
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [Java interface](https://www.mindspore.cn/lite/api/en/master/api_java/class_list.html).
 
