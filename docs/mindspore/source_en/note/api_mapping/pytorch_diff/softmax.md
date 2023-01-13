@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.softmax
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Softmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/softmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.softmax
 
@@ -13,23 +13,30 @@ torch.nn.functional.softmax(
 )
 ```
 
-For more information, see [torch.nn.functional.softmax](https://pytorch.org/docs/1.5.0/nn.functional.html#torch.nn.functional.softmax).
+For more information, see [torch.nn.functional.softmax](https://pytorch.org/docs/1.8.0/nn.functional.html#torch.nn.functional.softmax).
 
-## mindspore.ops.Softmax
+## mindspore.ops.softmax
 
 ```python
 class mindspore.ops.Softmax(
+    x,
     axis=-1,
-)(logits)
+)
 ```
 
-For more information, see [mindspore.ops.Softmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax).
+For more information, see [mindspore.ops.softmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax).
 
 ## Differences
 
 PyTorch: Supports to implement the function with the `dim` parameter and `input`, scaling the specified dimension elements between [0, 1] and the total to 1.
 
-MindSpore: Supports to initialize the Softmax with the `axis` attribute, scaling the specified dimension elements between [0, 1] and the total to 1.
+MindSpore: Supports to implement the function with the `axis` parameter and `x`, scaling the specified dimension elements between [0, 1] and the total to 1.
+
+| Classification | Subclass  | PyTorch | MindSpore | difference |
+| ---- | ----- | ------- | --------- | -------------------- |
+| parameter | parameter1 | input   | x   | Same functions, different parameter names |
+|      | parameter2 | dim     | axis   | Same functions, different parameter names |
+|      | parameter3 | dtype    | -   | Uesd to specify the type of data for the output Tensor in PyTorch. This parameter does not exist in MindSpore |
 
 ## Code Example
 
@@ -41,14 +48,12 @@ import numpy as np
 
 # In MindSpore, we can define an instance of this class first, and the default value of the parameter axis is -1.
 logits = ms.Tensor(np.array([1, 2, 3, 4, 5]), ms.float32)
-softmax = ops.Softmax()
-output1 = softmax(logits)
+output1 = ops.softmax(logits)
 print(output1)
 # Out:
 # [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086 ]
 logits = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
-softmax = ops.Softmax(axis=0)
-output2 = softmax(logits)
+output2 = ops.softmax(logits, axis=0)
 print(output2)
 # out:
 # [[0.01798621 0.11920292 0.5        0.880797   0.98201376]
