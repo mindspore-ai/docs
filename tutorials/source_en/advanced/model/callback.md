@@ -23,40 +23,82 @@ The following uses the LeNet-5 model training based on the MNIST dataset as an e
 Download and process MNIST data to build a LeNet-5 model. The sample code is as follows:
 
 ```python
-import mindspore.nn as nn
-import mindspore as ms
-from mindvision.classification.dataset import Mnist
-from mindvision.classification.models import lenet
+from download import download
+from mindspore import nn, Model
+from mindspore.dataset import vision, transforms, MnistDataset
+from mindspore.common.initializer import Normal
+from mindspore import dtype as mstype
 
-download_train = Mnist(path="./mnist", split="train", download=True)
-dataset_train = download_train.run()
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
 
-network = lenet(num_classes=10, pretrained=False)
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
+# download dataset
+download(url, "./", kind="zip", replace=True)
 
-# Define a network model.
-model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": nn.Accuracy()})
-```
+# process dataset
+def proc_dataset(data_path, batch_size=32):
+    mnist_ds = MnistDataset(data_path, shuffle=True)
 
-To use the callback mechanism, transfer the `callback` object to the `model.train` method. The `callback` object can be a callback list. The sample code is as follows, where [ModelCheckpoint](https://mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) and [LossMonitor](https://www.mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.LossMonitor.html#mindspore.LossMonitor) are callback classes provided by MindSpore:
+    # define map operations
+    image_transforms = [
+        vision.Resize(32),
+        vision.Rescale(1.0 / 255.0, 0),
+        vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        vision.HWC2CHW()
+    ]
 
-```python
-import mindspore as ms
+    label_transform = transforms.TypeCast(mstype.int32)
 
-# Define callback classes.
-ckpt_cb = ms.ModelCheckpoint()
-loss_cb = ms.LossMonitor(1875)
+    mnist_ds = mnist_ds.map(operations=label_transform, input_columns="label")
+    mnist_ds = mnist_ds.map(operations=image_transforms, input_columns="image")
+    mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+    return mnist_ds
 
-model.train(5, dataset_train, callbacks=[ckpt_cb, loss_cb])
+train_dataset = proc_dataset('MNIST_Data/train')
+
+# define LeNet-5 model
+class LeNet5(nn.Cell):
+
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+def create_model():
+    model = LeNet5()
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    net_opt = nn.Momentum(model.trainable_params(), learning_rate=0.01, momentum=0.9)
+    trainer = Model(model, loss_fn=net_loss, optimizer=net_opt, metrics={"Accuracy": nn.Accuracy()})
+    return trainer
+
+trainer = create_model()
 ```
 
 ```text
-    epoch: 1 step: 1875, loss is 0.257398396730423
-    epoch: 2 step: 1875, loss is 0.04801357910037041
-    epoch: 3 step: 1875, loss is 0.028765171766281128
-    epoch: 4 step: 1875, loss is 0.008372672833502293
-    epoch: 5 step: 1875, loss is 0.0016194271156564355
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:01<00:00, 10.0MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
 ```
 
 ## Common Built-in Callback Functions
@@ -67,100 +109,74 @@ MindSpore provides the `callback` capability to allow users to insert customized
 
 To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/r1.9/api_python/mindspore/mindspore.CheckpointConfig.html#mindspore.CheckpointConfig) API.
 
-The following uses a sample code to describe how to save the trained network model and parameters.
-
 ```python
-import mindspore as ms
+from mindspore import CheckpointConfig, ModelCheckpoint
 
 # Set the configuration information of the saved model.
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+config = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+
 # Instantiate the saved model callback API and define the storage path and prefix.
-ckpoint = ms.ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
+ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
 
 # Start training and load the saved model and parameter callback function.
-model.train(1, dataset_train, callbacks=[ckpoint])
+trainer.train(1, train_dataset, callbacks=[ckpt_callback])
 ```
 
 After the preceding code is executed, the generated checkpoint file directory structure is as follows:
 
 ```text
-./lenet/
-├── lenet-1_1875.ckpt # Parameter file.
-└── lenet-graph.meta # Computational graph after compiled.
+./checkpoint/
+├── mnist-1_1875.ckpt # file to save parameters
+└── mnist-graph.meta # grapg after compiled
 ```
 
 ### LossMonitor
 
-To monitor the change of the loss function value during training and observe the running time of each epoch and step during training, [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) provides the `LossMonitor` API (different from the `LossMonitor` API provided by MindSpore).
-
-The following uses sample code as an example:
+To monitor the change of the loss function value during training, set `per_print_times` to control the interval of printing loss.
 
 ```python
-from mindvision.engine.callback import LossMonitor
+from mindspore import LossMonitor
 
-# Start training and load the saved model and parameter callback function. The input parameters of LossMonitor are learning rate (0.01) and stride (375).
-model.train(5, dataset_train, callbacks=[LossMonitor(0.01, 375)])
-```
-
-```text
-    Epoch:[  0/  5], step:[  375/ 1875], loss:[0.041/0.023], time:0.670 ms, lr:0.01000
-    Epoch:[  0/  5], step:[  750/ 1875], loss:[0.002/0.023], time:0.723 ms, lr:0.01000
-    Epoch:[  0/  5], step:[ 1125/ 1875], loss:[0.006/0.023], time:0.662 ms, lr:0.01000
-    Epoch:[  0/  5], step:[ 1500/ 1875], loss:[0.000/0.024], time:0.664 ms, lr:0.01000
-    Epoch:[  0/  5], step:[ 1875/ 1875], loss:[0.009/0.024], time:0.661 ms, lr:0.01000
-    Epoch time: 1759.622 ms, per step time: 0.938 ms, avg loss: 0.024
-    Epoch:[  1/  5], step:[  375/ 1875], loss:[0.001/0.020], time:0.658 ms, lr:0.01000
-    Epoch:[  1/  5], step:[  750/ 1875], loss:[0.002/0.021], time:0.661 ms, lr:0.01000
-    Epoch:[  1/  5], step:[ 1125/ 1875], loss:[0.000/0.021], time:0.663 ms, lr:0.01000
-    Epoch:[  1/  5], step:[ 1500/ 1875], loss:[0.048/0.022], time:0.655 ms, lr:0.01000
-    Epoch:[  1/  5], step:[ 1875/ 1875], loss:[0.018/0.022], time:0.646 ms, lr:0.01000
-    Epoch time: 1551.506 ms, per step time: 0.827 ms, avg loss: 0.022
-    Epoch:[  2/  5], step:[  375/ 1875], loss:[0.001/0.017], time:0.674 ms, lr:0.01000
-    Epoch:[  2/  5], step:[  750/ 1875], loss:[0.001/0.018], time:0.669 ms, lr:0.01000
-    Epoch:[  2/  5], step:[ 1125/ 1875], loss:[0.004/0.019], time:0.683 ms, lr:0.01000
-    Epoch:[  2/  5], step:[ 1500/ 1875], loss:[0.003/0.020], time:0.657 ms, lr:0.01000
-    Epoch:[  2/  5], step:[ 1875/ 1875], loss:[0.041/0.019], time:1.447 ms, lr:0.01000
-    Epoch time: 1616.589 ms, per step time: 0.862 ms, avg loss: 0.019
-    Epoch:[  3/  5], step:[  375/ 1875], loss:[0.000/0.011], time:0.672 ms, lr:0.01000
-    Epoch:[  3/  5], step:[  750/ 1875], loss:[0.001/0.013], time:0.687 ms, lr:0.01000
-    Epoch:[  3/  5], step:[ 1125/ 1875], loss:[0.016/0.014], time:0.665 ms, lr:0.01000
-    Epoch:[  3/  5], step:[ 1500/ 1875], loss:[0.001/0.015], time:0.674 ms, lr:0.01000
-    Epoch:[  3/  5], step:[ 1875/ 1875], loss:[0.001/0.015], time:0.666 ms, lr:0.01000
-    Epoch time: 1586.809 ms, per step time: 0.846 ms, avg loss: 0.015
-    Epoch:[  4/  5], step:[  375/ 1875], loss:[0.000/0.008], time:0.671 ms, lr:0.01000
-    Epoch:[  4/  5], step:[  750/ 1875], loss:[0.000/0.013], time:0.701 ms, lr:0.01000
-    Epoch:[  4/  5], step:[ 1125/ 1875], loss:[0.009/0.015], time:0.666 ms, lr:0.01000
-    Epoch:[  4/  5], step:[ 1500/ 1875], loss:[0.008/0.015], time:0.941 ms, lr:0.01000
-    Epoch:[  4/  5], step:[ 1875/ 1875], loss:[0.008/0.015], time:0.661 ms, lr:0.01000
-    Epoch time: 1584.785 ms, per step time: 0.845 ms, avg loss: 0.015
-```
-
-According to the preceding information, the information printed by the `LossMonitor` API provided by the [MindSpore Vision toolkit](https://mindspore.cn/vision/docs/en/master/index.html) is more detailed. The stride is set to 375. Therefore, one record is printed every 375 steps, and the loss value fluctuates. However, in general, the loss value decreases gradually and the accuracy increases gradually.
-
-### ValAccMonitor
-
-To save the network model and parameters with the optimal accuracy during training, you need to validate them while training. MindSpore Vision provides the `ValAccMonitor` API.
-
-The following uses an example to describe the process.
-
-```python
-from mindvision.engine.callback import ValAccMonitor
-
-download_eval = Mnist(path="./mnist", split="test", download=True)
-dataset_eval = download_eval.run()
-
+loss_monitor = LossMonitor(1875)
 # Start training and load the saved model and parameter callback function.
-model.train(1, dataset_train, callbacks=[ValAccMonitor(model, dataset_eval, num_epochs=1)])
+trainer.train(3, train_dataset, callbacks=[loss_monitor])
 ```
 
 ```text
-    --------------------
-    Epoch: [  1 /   1], Train Loss: [0.000], Accuracy:  0.988
-    ================================================================================
-    End of validation the best Accuracy is:  0.988, save the best ckpt file in ./best.ckpt
+epoch: 1 step: 1875, loss is 0.008795851841568947
+epoch: 2 step: 1875, loss is 0.007240554317831993
+epoch: 3 step: 1875, loss is 0.0036914246156811714
 ```
 
-After the preceding code is executed, the network model and parameters with the optimal accuracy are saved as the `best.ckpt` file in the current directory.
+During training, LossMonitor monitors the loss value of training. And when you train and infer at the same time, LossMonitor monitors the loss value of training and the Metrics value of inferring.
+
+```python
+test_dataset = proc_dataset('MNIST_Data/test')
+
+trainer.fit(2, train_dataset, test_dataset, callbacks=[loss_monitor])
+```
+
+```text
+epoch: 1 step: 1875, loss is 0.0026960039976984262
+Eval result: epoch 1, metrics: {'Accuracy': 0.9888822115384616}
+epoch: 2 step: 1875, loss is 0.00038617433165200055
+Eval result: epoch 2, metrics: {'Accuracy': 0.9877804487179487}
+```
+
+### TimeMonitor
+
+To monitor the execution time of training or testing, set `data_size` to control the interval of printing the execution time.
+
+```python
+from mindspore import TimeMonitor
+
+time_monitor = TimeMonitor(1875)
+trainer.train(1, train_dataset, callbacks=[time_monitor])
+```
+
+```text
+Train epoch time: 3876.302 ms, per step time: 2.067 ms
+```
 
 ## Customized Callback Mechanism
 
@@ -171,29 +187,23 @@ You can customize callbacks based on the `Callback` base class as required. The 
 ```python
 class Callback():
     """Callback base class"""
-    def begin(self, run_context):
+    def on_train_begin(self, run_context):
         """Called once before the network executing."""
-        pass # pylint: disable=W0107
 
-    def epoch_begin(self, run_context):
+    def on_train_epoch_begin(self, run_context):
         """Called before each epoch beginning."""
-        pass # pylint: disable=W0107
 
-    def epoch_end(self, run_context):
+    def on_train_epoch_end(self, run_context):
         """Called after each epoch finished."""
-        pass # pylint: disable=W0107
 
-    def step_begin(self, run_context):
+    def on_train_step_begin(self, run_context):
         """Called before each step beginning."""
-        pass # pylint: disable=W0107
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         """Called after each step finished."""
-        pass # pylint: disable=W0107
 
-    def end(self, run_context):
+    def on_train_end(self, run_context):
         """Called once after network training."""
-        pass # pylint: disable=W0107
 ```
 
 The callback mechanism can record important information during training and transfer a dictionary variable `RunContext.original_args()` to the callback object so that users can obtain related attributes from each customized callback, perform customized operations, and customize other variables and transfer them to the `RunContext.original_args()` object.
@@ -226,23 +236,23 @@ In addition, you can modify and add values in the dictionary. Define an `init_ti
 
 ```python
 import time
-import mindspore as ms
+from mindspore import Callback
 
-class StopTimeMonitor(ms.Callback):
+class StopTimeMonitor(Callback):
 
     def __init__(self, run_time):
         """Define the initialization process."""
         super(StopTimeMonitor, self).__init__()
-        self.run_time = run_time            # Define the execution time.
+        self.run_time = run_time             # Define the execution time.
 
-    def begin(self, run_context):
-        """Operations when training is started.""
+    def on_train_begin(self, run_context):
+        """Operations when training is started."""
         cb_params = run_context.original_args()
         cb_params.init_time = time.time()   # Obtain the current timestamp as the training start time.
-        print("Begin training, time is:", cb_params.init_time)
+        print(f"Begin training, time is: {cb_params.init_time}")
 
-    def step_end(self, run_context):
-        """Operations after each step ends."""
+    def on_train_step_end(self, run_context):
+       """Operations after each step ends."""
         cb_params = run_context.original_args()
         epoch_num = cb_params.cur_epoch_num  # Obtain the epoch value.
         step_num = cb_params.cur_step_num    # Obtain the step value.
@@ -250,25 +260,20 @@ class StopTimeMonitor(ms.Callback):
         cur_time = time.time()               # Obtain the current timestamp.
 
         if (cur_time - cb_params.init_time) > self.run_time:
-            print("End training, time:", cur_time, ",epoch:", epoch_num, ",step:", step_num, ",loss:", loss)
+            print(f"End training, time: {cur_time}, epoch: {epoch_num}, step: {step_num}, loss:{loss}")
             run_context.request_stop()       # Stop training.
 
-download_train = Mnist(path="./mnist", split="train", download=True)
-dataset = download_train.run()
-model.train(5, dataset, callbacks=[LossMonitor(0.01, 1875), StopTimeMonitor(4)])
+train_dataset = proc_dataset('MNIST_Data/train')
+trainer.train(10, train_dataset, callbacks=[LossMonitor(), StopTimeMonitor(4)])
 ```
 
 ```text
-    Begin training, time is: 1648452437.2004516
-    Epoch:[  0/  5], step:[ 1875/ 1875], loss:[0.011/0.012], time:0.678 ms, lr:0.01000
-    Epoch time: 1603.104 ms, per step time: 0.855 ms, avg loss: 0.012
-    Epoch:[  1/  5], step:[ 1875/ 1875], loss:[0.000/0.011], time:0.688 ms, lr:0.01000
-    Epoch time: 1602.716 ms, per step time: 0.855 ms, avg loss: 0.011
-    End training, time: 1648452441.20081 ,epoch: 3 ,step: 4673 ,loss: 0.014888153
-    Epoch time: 792.901 ms, per step time: 0.423 ms, avg loss: 0.010
+Begin training, time is: 1673515004.6783535
+epoch: 1 step: 1875, loss is 0.0006050781812518835
+End training, time: 1673515009.1824663, epoch: 1, step: 1875, loss:0.0006050782
 ```
 
-According to the preceding information, when step 4673 of the third epoch is complete, the running time reaches the threshold and the training ends.
+According to the preceding information, the progrem stopped immediately the running time reaches the threshold.
 
 ### Customized Model Saving Threshold
 
@@ -277,17 +282,17 @@ This callback mechanism is used to save the network model weight CKPT file when 
 The sample code is as follows:
 
 ```python
-import mindspore as ms
+from mindspore import save_checkpoint
 
 # Define the callback API for saving the CKPT file.
-class SaveCkptMonitor(ms.Callback):
+class SaveCkptMonitor(Callback):
     """Define the initialization process."""
 
     def __init__(self, loss):
         super(SaveCkptMonitor, self).__init__()
-        self.loss = loss # Defines the loss threshold.
+        self.loss = loss  # Defines the loss threshold.
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         """Define the operation to be performed when a step ends."""
         cb_params = run_context.original_args()
         cur_loss = cb_params.net_outputs.asnumpy() # Obtain the current loss value.
@@ -295,39 +300,24 @@ class SaveCkptMonitor(ms.Callback):
         # If the current loss value is less than the preset threshold, the training stops.
         if cur_loss < self.loss:
             # Name the file to be saved.
-            file_name = str(cb_params.cur_epoch_num) + "_" + str(cb_params.cur_step_num) + ".ckpt"
+            file_name = f"./checkpoint/{cb_params.cur_epoch_num}_{cb_params.cur_step_num}.ckpt"
             # Save the network model.
-            ms.save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
+            save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
             print("Saved checkpoint, loss:{:8.7f}, current step num:{:4}.".format(cur_loss, cb_params.cur_step_num))
 
-model.train(1, dataset_train, callbacks=[SaveCkptMonitor(5e-7)])
+trainer = create_model()
+train_dataset = proc_dataset('MNIST_Data/train')
+trainer.train(5, train_dataset, callbacks=[LossMonitor(), SaveCkptMonitor(0.01)])
 ```
 
 ```text
-    Saved checkpoint, loss:0.0000001, current step num: 253.
-    Saved checkpoint, loss:0.0000005, current step num: 258.
-    Saved checkpoint, loss:0.0000001, current step num: 265.
-    Saved checkpoint, loss:0.0000000, current step num: 332.
-    Saved checkpoint, loss:0.0000003, current step num: 358.
-    Saved checkpoint, loss:0.0000003, current step num: 380.
-    Saved checkpoint, loss:0.0000003, current step num: 395.
-    Saved checkpoint, loss:0.0000005, current step num:1151.
-    Saved checkpoint, loss:0.0000005, current step num:1358.
-    Saved checkpoint, loss:0.0000002, current step num:1524.
+epoch: 1 step: 1875, loss is 0.15191984176635742
+epoch: 2 step: 1875, loss is 0.14701086282730103
+epoch: 3 step: 1875, loss is 0.0020134493242949247
+Saved checkpoint, loss:0.0020134, current step num:5625.
+epoch: 4 step: 1875, loss is 0.018305214121937752
+epoch: 5 step: 1875, loss is 0.00019801077723968774
+Saved checkpoint, loss:0.0001980, current step num:9375.
 ```
 
-The directory structure is as follows:
-
-```text
-./
-├── 1_253.ckpt
-├── 1_258.ckpt
-├── 1_265.ckpt
-├── 1_332.ckpt
-├── 1_358.ckpt
-├── 1_380.ckpt
-├── 1_395.ckpt
-├── 1_1151.ckpt
-├── 1_1358.ckpt
-├── 1_1524.ckpt
-```
+Finally, the network weights whose loss value is less than the threshold is saved in `./checkpoint/` directory.

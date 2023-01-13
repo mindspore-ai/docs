@@ -14,19 +14,16 @@ The following uses the CIFAR-10 dataset as an example to describe how to use sev
 
 ![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
 
-You need to download the dataset used in the example through the APIs provided by the [MindSpore Vision suite](https://mindspore.cn/vision/docs/en/master/index.html) and decompress the dataset to the specified location.
+You need to download the dataset used in the example and decompress the dataset to the specified location.
 
-> The sample code depends on `matplotlib` and `mindvision`, which can be installed using commands `pip install matplotlib` and `pip install mindvision`, respectively. If the code is run in Notebook, you need to restart the kernel after the installation to execute the subsequent code.
+> The sample code depends on `matplotlib` and `download`, which can be installed using commands `pip install matplotlib` and `pip install download`, respectively. If the code is run in Notebook, you need to restart the kernel after the installation to execute the subsequent code.
 
 ```python
-from mindvision import dataset
+from download import download
 
-dl_path = "./datasets"
-data_dir = "./datasets/cifar-10-batches-bin/"
-dl_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
 
-dl = dataset.DownLoad()  # Download the CIFAR-10 dataset.
-dl.download_and_extract_archive(url=dl_url, download_path=dl_path)
+download(url, "./", kind="tar.gz", replace=True)
 ```
 
 The directory structure of the dataset file is as follows:
@@ -51,32 +48,30 @@ Randomly samples a specified amount of data from the index sequence.
 The following example uses RandomSampler to randomly sample five pieces of data from the dataset with and without replacement, and displays the data result. To observe the effect of samplers with and without replacement, a dataset with a small amount of data is customized.
 
 ```python
-import mindspore.dataset as ds
-
-ds.config.set_seed(0)
+from mindspore.dataset import RandomSampler, NumpySlicesDataset
 
 np_data = [1, 2, 3, 4, 5, 6, 7, 8]  # Dataset
 
 # Define a sampler with replacement to sample five pieces of data.
-sampler1 = ds.RandomSampler(replacement=True, num_samples=5)
-dataset1 = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler1)
+sampler1 = RandomSampler(replacement=True, num_samples=5)
+dataset1 = NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler1)
 
 print("With Replacement:    ", end='')
-for data in dataset1.create_tuple_iterator():
+for data in dataset1.create_tuple_iterator(output_numpy=True):
     print(data[0], end=' ')
 
 # Define a sampler without replacement to sample five pieces of data.
-sampler2 = ds.RandomSampler(replacement=False, num_samples=5)
-dataset2 = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler2)
+sampler2 = RandomSampler(replacement=False, num_samples=5)
+dataset2 = NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler2)
 
 print("\nWithout Replacement: ", end='')
-for data in dataset2.create_tuple_iterator():
+for data in dataset2.create_tuple_iterator(output_numpy=True):
     print(data[0], end=' ')
 ```
 
 ```text
-    With Replacement:    5 5 6 7 5
-    Without Replacement: 1 3 2 6 4
+With Replacement:    5 7 1 7 7
+Without Replacement: 1 5 7 2 4
 ```
 
 According to the preceding result, when the sampler with replacement is used, the same piece of data may be obtained for multiple times. When the sampler without replacement is used, the same piece of data can be obtained only once.
@@ -90,17 +85,15 @@ The following example uses WeightedRandomSampler to obtain six samples by probab
 ```python
 import math
 import matplotlib.pyplot as plt
-import mindspore.dataset as ds
+from mindspore.dataset import WeightedRandomSampler, Cifar10Dataset
 %matplotlib inline
 
-ds.config.set_seed(1)  # Set a random seed.
-
-DATA_DIR = "./datasets/cifar-10-batches-bin/"
+DATA_DIR = "./cifar-10-batches-bin/"
 
 # Specify the sampling probability of the first 10 samples and sample them.
 weights = [0.8, 0.5, 0, 0, 0, 0, 0, 0, 0, 0]
-sampler = ds.WeightedRandomSampler(weights, num_samples=6)
-dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)  # Load data.
+sampler = WeightedRandomSampler(weights, num_samples=6)
+dataset = Cifar10Dataset(DATA_DIR, sampler=sampler)  # Load data.
 
 def plt_result(dataset, row):
     """Display the sampling result."""
@@ -135,17 +128,13 @@ Randomly samples a specified amount of data from the specified index subset.
 The following example uses SubsetRandomSampler to obtain three samples from the specified subset in the CIFAR-10 dataset, and displays shapes and labels of the read data.
 
 ```python
-import mindspore.dataset as ds
-
-ds.config.set_seed(2)  # Set a random seed.
-
-DATA_DIR = "./datasets/cifar-10-batches-bin/"  # Path for storing the CIFAR-10 dataset.
+from mindspore.dataset import SubsetRandomSampler
 
 # Specify a sample index subset.
 indices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-sampler = ds.SubsetRandomSampler(indices, num_samples=6)
+sampler = SubsetRandomSampler(indices, num_samples=6)
 # Load data.
-dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
+dataset = Cifar10Dataset(DATA_DIR, sampler=sampler)
 
 plt_result(dataset, 2)
 ```
@@ -170,14 +159,11 @@ Samples K pieces of data from each category in the specified dataset P.
 The following example uses PKSampler to obtain 2 samples (up to 20 samples) from each category in the CIFAR-10 dataset, and displays shapes and labels of the read data.
 
 ```python
-import mindspore.dataset as ds
-
-ds.config.set_seed(3)  # Set a random seed.
-DATA_DIR = "./datasets/cifar-10-batches-bin/"  # Path for storing the CIFAR-10 dataset.
+from mindspore.dataset import PKSampler
 
 # 2 samples for each category, up to 10 samples.
-sampler = ds.PKSampler(num_val=2, class_column='label', num_samples=10)
-dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
+sampler = PKSampler(num_val=2, class_column='label', num_samples=10)
+dataset = Cifar10Dataset(DATA_DIR, sampler=sampler)
 
 plt_result(dataset, 3)
 ```
@@ -206,14 +192,14 @@ Samples dataset shards in distributed training.
 The following example uses DistributedSampler to divide the built dataset into four shards, extract three samples from each shard, and display the read data.
 
 ```python
-import mindspore.dataset as ds
+from mindspore.dataset import DistributedSampler
 
 # Customize the dataset.
 data_source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 # Divide the built dataset into four shards, and extract three samples from each shard.
-sampler = ds.DistributedSampler(num_shards=4, shard_id=0, shuffle=False, num_samples=3)
-dataset = ds.NumpySlicesDataset(data_source, column_names=["data"], sampler=sampler)
+sampler = DistributedSampler(num_shards=4, shard_id=0, shuffle=False, num_samples=3)
+dataset = NumpySlicesDataset(data_source, column_names=["data"], sampler=sampler)
 
 # Print the dataset.
 for data in dataset.create_dict_iterator():
@@ -230,9 +216,13 @@ According to the preceding result, the dataset is divided into four shards, and 
 
 ## Customized Sampler
 
+Users can define a sampler and apply it to a dataset.
+
+### \_\_iter\_\_ mode
+
 Users can inherit the `Sampler` base class and customize the sampling mode of the sampler by implementing the `__iter__` method.
 
-The following example defines a sampler with an interval of 2 samples from subscript 0 to subscript 9, applies the sampler to the customized dataset, and displays the read data.
+The following example defines a sampler with an interval of 2 samples from subscript 0 to subscript 9, takes the sampler as the customized dataset, and displays the read data.
 
 ```python
 import mindspore.dataset as ds
@@ -249,7 +239,8 @@ np_data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
 # Load data.
 sampler = ds.IterSampler(sampler=MySampler())
 dataset = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=sampler)
-for data in dataset.create_tuple_iterator():
+
+for data in dataset.create_tuple_iterator(output_numpy=True):
     print(data[0], end=' ')
 ```
 
@@ -258,3 +249,36 @@ for data in dataset.create_tuple_iterator():
 ```
 
 According to the preceding information, the customized sampler reads the sample data whose subscripts are 0, 2, 4, 6, and 8, which is the same as the sampling purpose of the customized sampler.
+
+### \_\_getitem\_\_ mode
+
+Users can define a sampler class, which contains `__init__`, `__getitem__` and `__len__` methods.
+
+The following example defines a sampler with index ids `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` which will be applied to a custom dataset and display the read data.
+
+```python
+import mindspore.dataset as ds
+
+# Customize a sampler.
+class MySampler():
+    def __init__(self):
+        self.index_ids = [3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]
+    def __getitem__(self, index):
+        return self.index_ids[index]
+    def __len__(self):
+        return len(self.index_ids)
+
+# Customize a dataset.
+np_data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
+
+# Load data.
+dataset = ds.NumpySlicesDataset(np_data, column_names=["data"], sampler=MySampler())
+for data in dataset.create_tuple_iterator(output_numpy=True):
+    print(data[0], end=' ')
+```
+
+```text
+    d e d c a l f f f j b l l l l i
+```
+
+According to the preceding information, the customized sampler reads the sample data which index is `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` , which is the same as the sampling purpose of the customized sampler.
