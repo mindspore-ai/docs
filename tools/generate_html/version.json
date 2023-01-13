@@ -29,36 +29,36 @@
    {
       "id" : 3 ,
       "name" : "mindelec",
-      "branch" : "r0.2-alpha",
+      "branch" : "r0.2.0-alpha",
       "whl_path" : "/MindScience/x86_64/",
-      "whl_name" : "mindscience_mindelec_ascend-0.2.alpha-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindscience_mindelec_ascend-0.2.0.alpha-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindscience_mindelec_ascend"
    },
    {
       "id" : 4 ,
       "name" : "mindsponge",
-      "branch" : "r1.0-alpha",
+      "branch" : "r1.0.0-alpha",
       "whl_path" : "/MindScience/gpu/x86_64/",
-      "whl_name" : "mindsponge_gpu-1.0.alpha-py3-none-any.whl",
+      "whl_name" : "mindsponge_gpu-1.0.0.alpha-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindsponge_gpu"
    },
    {
       "id" : 5 ,
       "name" : "mindflow",
-      "branch" : "r0.1-alpha",
+      "branch" : "r0.1.0-alpha",
       "whl_path" : "/MindScience/gpu/x86_64/",
-      "whl_name" : "mindflow_gpu-0.1.alpha-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindflow_gpu-0.1.0.alpha-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindflow_gpu"
    },
    {
       "id" : 6 ,
       "name" : "reinforcement",
-      "branch" : "r0.6-alpha",
+      "branch" : "r0.6.0-alpha",
       "whl_path" : "/Reinforcement/any",
-      "whl_name" : "mindspore_rl-0.6.alpha-py3-none-any.whl",
+      "whl_name" : "mindspore_rl-0.6.0.alpha-py3-none-any.whl",
       "environ" : "RM_PATH",
       "uninstall_name" : "mindspore_rl"
    },
@@ -74,9 +74,9 @@
    {
       "id" : 8 ,
       "name" : "graphlearning",
-      "branch" : "r0.2-alpha",
+      "branch" : "r0.2.0-alpha",
       "whl_path" : "/GraphLearning/gpu/x86_64/",
-      "whl_name" : "mindspore_gl-0.2.alpha-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindspore_gl-0.2.0.alpha-cp37-cp37m-linux_x86_64.whl",
       "environ" : "GL_PATH",
       "uninstall_name" : "mindspore_gl"
    },

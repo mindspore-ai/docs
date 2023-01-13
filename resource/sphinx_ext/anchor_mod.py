@@ -50,8 +50,11 @@ after = """\
                     flag = 1
         if flag==1:
             rep_symbol = "._:"
+            empty_symbol = "()&"
             for s in rep_symbol:
                 origin_id = origin_id.replace(s,'-')
+            for s in empty_symbol:
+                origin_id = origin_id.replace(s,'')
             node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-"))
         else:
             node['ids'].append(id)"""
