@@ -112,7 +112,6 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    | MindQuantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
    | Reinforcement | RM_PATH | <https://gitee.com/mindspore/reinforcement.git> | reinforcement |
    | Serving | SV_PATH | <https://gitee.com/mindspore/serving.git> | serving |
-   | Vision | VS_PATH | <https://gitee.com/mindspore/vision.git> | vision |
    | Hub | HB_PATH | <https://gitee.com/mindspore/hub.git> | hub |
    | XAI | XA_PATH | <https://gitee.com/mindspore/xai.git> | xai |
    | Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
