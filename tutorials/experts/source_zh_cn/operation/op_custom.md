@@ -951,7 +951,7 @@ def serial_test(a, b):
     row = a.shape[0]
     col = a.shape[1]
     for i in serial(row):
-        for j in serial(j):
+        for j in serial(i):
             b[i] = b[i] - a[i, j] * b[j]
     return b
 ```
