@@ -26,9 +26,7 @@ The following describes MindSpore models and how to use ``Model`` for model trai
 .. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/model/images/model.png
    :alt: model
 
-   model
-
-.. code:: 
+.. code:: python 
 
     import mindspore
     from mindspore import nn
@@ -50,6 +48,7 @@ is a high-level API provided by MindSpore for model training, evaluation, and in
 
 ``Model`` provides the following APIs for model training, evaluation, and inference:
 
+- ``fit``: Evaluate the model while training.
 -  ``train``: used for model training on the training set.
 -  ``eval``: used to evaluate the model on the evaluation set.
 -  ``predict``: performs inference on a group of input data and outputs the prediction result.
@@ -63,7 +62,7 @@ and evaluation function ``metrics`` when defining ``Model``.
 Download and Process Dataset
 ----------------------------
 
-.. code:: 
+.. code:: python
 
     # Download data from open datasets
     from download import download
@@ -80,7 +79,7 @@ Download and Process Dataset
             vision.HWC2CHW()
         ]
         label_transform = transforms.TypeCast(mindspore.int32)
-    
+        
         dataset = MnistDataset(path)
         dataset = dataset.map(image_transforms, 'image')
         dataset = dataset.map(label_transform, 'label')
@@ -93,7 +92,7 @@ Download and Process Dataset
 Define Model
 ------------
 
-.. code:: 
+.. code:: python
 
     # Define model
     class Network(nn.Cell):
@@ -122,9 +121,9 @@ To train neural network model, loss function and optimizer function need to be d
 
 -  The loss function here uses ``CrossEntropy Loss`` .
 
--  The optimizer uses SGD here.
+-  The optimizer uses ``SGD`` here.
 
-.. code:: 
+.. code:: python
 
     # Instantiate loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
@@ -133,10 +132,10 @@ To train neural network model, loss function and optimizer function need to be d
 Train and Save Model
 --------------------
 
-Before starting the training, MindSpot needs to state in advance whether the network model needs to save the intermediate process and results
+Before starting the training, MindSpore needs to state in advance whether the network model needs to save the intermediate process and results
 during the training process. Therefore, ``ModelCheckpoint`` is used to save the network model and parameters for subsequent fine tuning.
 
-.. code:: 
+.. code:: python
 
     steps_per_epoch = train_dataset.get_dataset_size()
     config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch)
@@ -144,13 +143,14 @@ during the training process. Therefore, ``ModelCheckpoint`` is used to save the 
     ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
     loss_callback = LossMonitor(steps_per_epoch)
 
-``model.train`` provided by MindSpore can facilitate network training, and ``LossMonitor`` can monitor the change of loss value during training.
+The ``model.fit`` interface provided by MindSpore makes it easy to train and evaluate the network, and ``LossMonitor`` can monitor the changes of ``loss`` values during the training process.
 
-.. code:: 
+.. code:: python
 
     trainer = Model(model, loss_fn=loss_fn, optimizer=optimizer, metrics={'accuracy'})
     
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
+
 
 .. raw:: html
 
@@ -180,13 +180,12 @@ during the training process. Therefore, ``ModelCheckpoint`` is used to save the 
 During training, the loss value will be printed, and the loss value will fluctuate, but in general, the loss value will gradually decrease and
 the accuracy will gradually improve. The loss values run by each person are random and not necessarily identical.
 
-The results obtained by running the test data set of the model verify the generalization ability of the model:
+The results obtained by running the test dataset of the model verify the generalization ability of the model:
 
--  Use ``model.eval`` to read in the test data set.
+1. Use ``model.eval`` to read in the test dataset.
+2. Use the saved model parameters for reasoning.
 
--  Use the saved model parameters for reasoning.
-
-.. code:: 
+.. code:: python
 
     acc = trainer.eval(test_dataset)
     acc
@@ -197,5 +196,5 @@ The results obtained by running the test data set of the model verify the genera
     {'accuracy': 0.9632}
     </pre></div>
 
-The model precision data can be seen from the print information. In the example, the precision data reaches more than 95%, and the model quality
+The model accuracy data can be seen from the print information. In the example, the accuracy data reaches more than 95%, and the model quality
 is good. As the number of network iterations increases, the accuracy of the model will be further improved.
