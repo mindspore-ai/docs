@@ -205,9 +205,11 @@ MindSpore supports some Python built-in functions in static graph mode, includin
 
 #### dict()
 
-Function: Used to create a dictionary. In addition, dict can also return a list of valid properties of the object, and custom classes are not supported yet.
+Function: Used to create a dictionary.
 
-Valid input: The Key of the dictionary supports only String type.
+Valid input: The Key of the dictionary supports only String type. The Value supports only constants, and does not support custom classes.
+
+Looping over dictionaries created by `dict()` is not supported yet, including `dict.keys()`, `dict.values()` and `dict.items()`.
 
 Examples of code usage are as follows:
 
