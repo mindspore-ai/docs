@@ -46,7 +46,7 @@ call build.bat ms_vs_gpu
 ## Installing MindSpore
 
 ```bash
-for %x in (output\mindspore_gpu*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
+for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
