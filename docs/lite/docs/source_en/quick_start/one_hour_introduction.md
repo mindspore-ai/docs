@@ -796,7 +796,7 @@ In the previous section, the official inference test tool is used to perform the
 
     For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_java.html).
 
-    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/master/model_lite.html).
+    For details about Android integration and development, see [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/master/model_lite.html).
 
 ## For Windows
 
@@ -1510,4 +1510,4 @@ In the previous section, the official inference test tool is used to perform the
 
     For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_java.html).
 
-    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/master/model_lite.html).
+    For details about Android integration and development, see [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/master/model_lite.html).

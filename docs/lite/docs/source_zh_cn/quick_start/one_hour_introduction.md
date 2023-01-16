@@ -796,7 +796,7 @@ mindspore-lite-{version}-linux-x64
 
     关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
 
-    关于Android上的集成开发，请查看[基于JNI接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html)、[基于Java接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html)及[模型支持](https://www.mindspore.cn/lite/docs/zh-CN/master/model_lite.html)。
+    关于Android上的集成开发，请查看[基于Java接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html)及[模型支持](https://www.mindspore.cn/lite/docs/zh-CN/master/model_lite.html)。
 
 ## Windows篇
 
@@ -1511,4 +1511,4 @@ mindspore-lite-{version}-win-x64
 
     关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
 
-    关于Android上的集成开发，请查看[基于JNI接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html)、[基于Java接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html)及[模型支持](https://www.mindspore.cn/lite/docs/zh-CN/master/model_lite.html)。
+    关于Android上的集成开发，请查看[基于Java接口的Android应用开发](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html)及[模型支持](https://www.mindspore.cn/lite/docs/zh-CN/master/model_lite.html)。
