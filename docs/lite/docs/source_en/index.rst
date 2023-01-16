@@ -27,7 +27,6 @@ MindSpore Lite Documentation
    quick_start/quick_start_java
    quick_start/quick_start_server_inference_java
    quick_start/quick_start_c
-   quick_start/quick_start
    quick_start/image_segmentation
    quick_start/train_lenet
    quick_start/train_lenet_java
@@ -257,19 +256,6 @@ MindSpore Lite Documentation
 							
 										<div class="doc-article-desc">
 										This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using MindSpore Lite Java API by random inputting data, executing inference, and printing the inference result. 
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/r1.9/quick_start/quick_start.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Android Application Development Based on JNI Interface</span>
-										</div>
-							
-										<div class="doc-article-desc">
-											It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
 										</div>
 									</div>
 								</a>

@@ -315,7 +315,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
    // Users need to free input_buf.
    ```
 
-> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`. For more information about data pre-processing, see step 2 in [Writing On-Device Inference Code](https://www.mindspore.cn/lite/docs/en/r1.9/quick_start/quick_start.html#writing-on-device-inference-code) in Android Application Development Based on JNI Interface to convert the input image into the Tensor format of the MindSpore model.
+> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`.
 >
 > [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_cpp/mindspore.html#getinputs) and [GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r1.9/api_cpp/mindspore.html#getinputbytensorname) methods return data that do not need to be released by users.
 
@@ -501,7 +501,7 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     gpu_device_info->SetGLDisplay(gl_display);
     ```
 
- 2. Bind OpenGL Texture Data
+2. Bind OpenGL Texture Data
 
     After the model is compiled and before the model runs, the user needs to call BindGLTexture2DMemory(const std::map<std::string, GLuint> &inputGlTexture, std::map<std::string, GLuint> *outputGLTexture;) function to bind the input Output texture, instead of the original input data step. Because MindSpore Lite itself does not allocate OpenGL memory, the user is required to create the input and output texture memory in advance according to the tensor size of the model input and output, and the texture memory corresponding to the texture ID Bind to the input and output of the model, the sample code is as follows:
 

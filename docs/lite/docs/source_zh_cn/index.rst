@@ -27,7 +27,6 @@ MindSpore Lite文档
    quick_start/quick_start_java
    quick_start/quick_start_server_inference_java
    quick_start/quick_start_c
-   quick_start/quick_start
    quick_start/image_segmentation
    quick_start/train_lenet
    quick_start/train_lenet_java
@@ -281,19 +280,6 @@ MindSpore Lite文档
 							
 										<div class="doc-article-desc">
 										本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用MindSpore Lite Java API进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.9/quick_start/quick_start.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">基于JNI接口的Android应用开发</span>
-										</div>
-							
-										<div class="doc-article-desc">
-											本教程从端侧Android图像分类demo入手，帮助用户了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
 										</div>
 									</div>
 								</a>
