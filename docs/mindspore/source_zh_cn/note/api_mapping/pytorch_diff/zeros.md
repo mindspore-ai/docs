@@ -10,7 +10,7 @@ torch.zeros(*size, *, out=None, dtype=None, layout=torch.strided, device=None, r
 
 更多内容详见[torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html)。
 
-## mindspore.ops.abs
+## mindspore.ops.zeros
 
 ```text
 mindspore.ops.zeros(size, dtype=dtype) -> Tensor

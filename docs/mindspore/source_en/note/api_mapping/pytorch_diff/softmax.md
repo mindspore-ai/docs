@@ -18,7 +18,7 @@ For more information, see [torch.nn.functional.softmax](https://pytorch.org/docs
 ## mindspore.ops.softmax
 
 ```python
-class mindspore.ops.Softmax(
+class mindspore.ops.softmax(
     x,
     axis=-1,
 )
