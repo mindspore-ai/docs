@@ -46,7 +46,7 @@ call build.bat ms_vs_gpu
 ## 安装MindSpore
 
 ```bash
-for %x in (output\mindspore_gpu*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
+for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ## 验证是否成功安装
