@@ -16,7 +16,7 @@ For more information, see [torch.expm1](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.expm1(x) -> Tensor
 ```
 
-For more information, see [mindspore.ops.expm1](https://www.mindspore.cn/docs/enmaster/api_python/ops/mindspore.ops.expm1.html).
+For more information, see [mindspore.ops.expm1](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.expm1.html).
 
 ## Differences
 
