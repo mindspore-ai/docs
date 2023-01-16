@@ -26,9 +26,7 @@ The following describes MindSpore models and how to use ``Model`` for model trai
 .. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/model/images/model.png
    :alt: model
 
-   model
-
-.. code:: 
+.. code:: python
 
     import mindspore
     from mindspore import nn
@@ -50,6 +48,7 @@ is a high-level API provided by MindSpore for model training, evaluation, and in
 
 ``Model`` provides the following APIs for model training, evaluation, and inference:
 
+- ``fit``: Evaluate the model while training.
 -  ``train``: used for model training on the training set.
 -  ``eval``: used to evaluate the model on the evaluation set.
 -  ``predict``: performs inference on a group of input data and outputs the prediction result.
@@ -63,7 +62,7 @@ and evaluation function ``metrics`` when defining ``Model``.
 Download and Process Dataset
 ----------------------------
 
-.. code:: 
+.. code:: python
 
     # Download data from open datasets
     from download import download
@@ -80,7 +79,7 @@ Download and Process Dataset
             vision.HWC2CHW()
         ]
         label_transform = transforms.TypeCast(mindspore.int32)
-    
+        
         dataset = MnistDataset(path)
         dataset = dataset.map(image_transforms, 'image')
         dataset = dataset.map(label_transform, 'label')
@@ -93,7 +92,7 @@ Download and Process Dataset
 Define Model
 ------------
 
-.. code:: 
+.. code:: python
 
     # Define model
     class Network(nn.Cell):
@@ -122,9 +121,9 @@ To train neural network model, loss function and optimizer function need to be d
 
 -  The loss function here uses ``CrossEntropy Loss`` .
 
--  The optimizer uses SGD here.
+-  The optimizer uses ``SGD`` here.
 
-.. code:: 
+.. code:: python
 
     # Instantiate loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
@@ -133,10 +132,10 @@ To train neural network model, loss function and optimizer function need to be d
 Train and Save Model
 --------------------
 
-Before starting the training, MindSpot needs to state in advance whether the network model needs to save the intermediate process and results
+Before starting the training, MindSpore needs to state in advance whether the network model needs to save the intermediate process and results
 during the training process. Therefore, ``ModelCheckpoint`` is used to save the network model and parameters for subsequent fine tuning.
 
-.. code:: 
+.. code:: python
 
     steps_per_epoch = train_dataset.get_dataset_size()
     config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch)
@@ -144,54 +143,53 @@ during the training process. Therefore, ``ModelCheckpoint`` is used to save the 
     ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
     loss_callback = LossMonitor(steps_per_epoch)
 
-``model.train`` provided by MindSpore can facilitate network training, and ``LossMonitor`` can monitor the change of loss value during training.
+The ``model.fit`` interface provided by MindSpore makes it easy to train and evaluate the network, and ``LossMonitor`` can monitor the changes of ``loss`` values during the training process.
 
-.. code:: 
+.. code:: python
 
     trainer = Model(model, loss_fn=loss_fn, optimizer=optimizer, metrics={'accuracy'})
     
     trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 
-.. code:: text
+.. parsed-literal::
 
-       epoch: 1 step: 938, loss is 0.602992594242096
-       Eval result: epoch 1, metrics: {'accuracy': 0.8435}
-       epoch: 2 step: 938, loss is 0.2797124981880188
-       Eval result: epoch 2, metrics: {'accuracy': 0.9003}
-       epoch: 3 step: 938, loss is 0.32015785574913025
-       Eval result: epoch 3, metrics: {'accuracy': 0.9179}
-       epoch: 4 step: 938, loss is 0.17153620719909668
-       Eval result: epoch 4, metrics: {'accuracy': 0.9308}
-       epoch: 5 step: 938, loss is 0.18772485852241516
-       Eval result: epoch 5, metrics: {'accuracy': 0.9382}
-       epoch: 6 step: 938, loss is 0.45641791820526123
-       Eval result: epoch 6, metrics: {'accuracy': 0.946}
-       epoch: 7 step: 938, loss is 0.11519066989421844
-       Eval result: epoch 7, metrics: {'accuracy': 0.9506}
-       epoch: 8 step: 938, loss is 0.43486487865448
-       Eval result: epoch 8, metrics: {'accuracy': 0.9555}
-       epoch: 9 step: 938, loss is 0.1941455900669098
-       Eval result: epoch 9, metrics: {'accuracy': 0.9588}
-       epoch: 10 step: 938, loss is 0.13441434502601624
-       Eval result: epoch 10, metrics: {'accuracy': 0.9632}
+    epoch: 1 step: 938, loss is 0.602992594242096
+    Eval result: epoch 1, metrics: {'accuracy': 0.8435}
+    epoch: 2 step: 938, loss is 0.2797124981880188
+    Eval result: epoch 2, metrics: {'accuracy': 0.9003}
+    epoch: 3 step: 938, loss is 0.32015785574913025
+    Eval result: epoch 3, metrics: {'accuracy': 0.9179}
+    epoch: 4 step: 938, loss is 0.17153620719909668
+    Eval result: epoch 4, metrics: {'accuracy': 0.9308}
+    epoch: 5 step: 938, loss is 0.18772485852241516
+    Eval result: epoch 5, metrics: {'accuracy': 0.9382}
+    epoch: 6 step: 938, loss is 0.45641791820526123
+    Eval result: epoch 6, metrics: {'accuracy': 0.946}
+    epoch: 7 step: 938, loss is 0.11519066989421844
+    Eval result: epoch 7, metrics: {'accuracy': 0.9506}
+    epoch: 8 step: 938, loss is 0.43486487865448
+    Eval result: epoch 8, metrics: {'accuracy': 0.9555}
+    epoch: 9 step: 938, loss is 0.1941455900669098
+    Eval result: epoch 9, metrics: {'accuracy': 0.9588}
+    epoch: 10 step: 938, loss is 0.13441434502601624
+    Eval result: epoch 10, metrics: {'accuracy': 0.9632}
 
 During training, the loss value will be printed, and the loss value will fluctuate, but in general, the loss value will gradually decrease and
 the accuracy will gradually improve. The loss values run by each person are random and not necessarily identical.
 
-The results obtained by running the test data set of the model verify the generalization ability of the model:
+The results obtained by running the test dataset of the model verify the generalization ability of the model:
 
--  Use ``model.eval`` to read in the test data set.
+1. Use ``model.eval`` to read in the test dataset.
+2. Use the saved model parameters for reasoning.
 
--  Use the saved model parameters for reasoning.
-
-.. code:: 
+.. code:: python
 
     acc = trainer.eval(test_dataset)
     acc
 
-.. code:: text
+.. parsed-literal::
 
-       {'accuracy': 0.9632}
+    {'accuracy': 0.9632}
 
-The model precision data can be seen from the print information. In the example, the precision data reaches more than 95%, and the model quality
+The model accuracy data can be seen from the print information. In the example, the accuracy data reaches more than 95%, and the model quality
 is good. As the number of network iterations increases, the accuracy of the model will be further improved.
