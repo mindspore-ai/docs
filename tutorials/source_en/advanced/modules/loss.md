@@ -262,7 +262,7 @@ class MAELossForMultiLabel(nn.LossBase):
     def train(model, dataset, loss_fn, optimizer):
     # Define forward function
     def forward_fn(data, label1, label2):
-        output = model(data)
+        output = network(data)
         return loss_fn(output, label1, label2)
 
     # Get gradient function
