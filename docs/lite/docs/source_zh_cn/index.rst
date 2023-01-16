@@ -316,19 +316,6 @@ MindSpore Lite文档
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">基于JNI接口的Android应用开发</span>
-										</div>
-							
-										<div class="doc-article-desc">
-											本教程从端侧Android图像分类demo入手，帮助用户了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
 									<div>
@@ -737,19 +724,6 @@ MindSpore Lite文档
 							
 										<div class="doc-article-desc">
 										本文列举MindSpore Lite Codegen支持的算子。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/image_classification_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">图像分类模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										图像分类模型可以预测图片中出现哪些物体，识别出图片中出现物体列表及其概率。
 										</div>
 									</div>
 								</a>

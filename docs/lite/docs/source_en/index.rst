@@ -306,19 +306,6 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Android Application Development Based on JNI Interface</span>
-										</div>
-							
-										<div class="doc-article-desc">
-											It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html" class="article-link">
 									<div>
@@ -726,19 +713,6 @@ MindSpore Lite Documentation
 							
 										<div class="doc-article-desc">
 										This article lists the operators supported by MindSpore Lite Codegen.
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/image_classification_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Image Classification Model</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										Image classification is to identity what an image represents, to predict the object list and the probabilities.
 										</div>
 									</div>
 								</a>
