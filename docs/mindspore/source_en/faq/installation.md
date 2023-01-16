@@ -94,6 +94,12 @@ For detailed reasons, please refer to [this post on stackoverflow](https://stack
 
 <br/>
 
+<font size=3>**Q: What should I do if error message `error: metadata-generation-failed` is generated pypi installs dependency scipy when I install MindSpore on MacOS for ARM?**</font>
+
+A: The later versions of scipy released on pypi only supports MacOS for ARM version 12 or above. For lower versions of MacOS for ARM, pypi downloads scipy source code package and attempts to compile it on spot, which is highly likely running into troubles. If you are using Conda, you may run `pip uninstall scipy; conda install scipy`, usage of Conda is strongly advised for users of MacOS for ARM version 11 and below to prevent such compatibility issues.
+
+<br/>
+
 ## Installing by Using Conda
 
 <font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
