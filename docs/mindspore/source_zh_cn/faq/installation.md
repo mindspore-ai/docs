@@ -94,6 +94,12 @@ A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架
 
 <br/>
 
+<font size=3>**Q: ARM版macOS在安装MindSpore时，安装依赖库scipy报错 `error: metadata-generation-failed` 怎么办？**</font>
+
+A: 对应ARM版macOS的scipy在pypi源的版本仅适配MacOS 12以上版本的操作系统，低版本操作系统会自动下载scipy源码包进行编译，大概率会遇到编译失败问题。如果使用Conda环境，建议执行`pip uninstall scipy; conda install scipy`，MacOS 11系统强烈建议使用Conda以规避类似的兼容性问题。
+
+<br/>
+
 ## Conda安装
 
 <font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
