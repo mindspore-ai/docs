@@ -144,7 +144,7 @@ In `Model`, the feedforward network and loss function are associated through [nn
 import mindspore as ms
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindvision.engine.callback import LossMonitor
+from mindspore import LossMonitor
 
 def get_data(num, w=2.0, b=3.0):
     """Generate data and corresponding labels."""
@@ -161,7 +161,7 @@ def create_dataset(num_data, batch_size=16):
     return dataset
 
 class LinearNet(nn.Cell):
-    """Define the linear regression network.""
+    """Define the linear regression network."""
     def __init__(self):
         super(LinearNet, self).__init__()
         self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
@@ -176,21 +176,15 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 
 # Use the model API to associate the network, loss function, and optimizer.
 model = ms.Model(net, loss, opt)
-model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
+model.train(epoch=5, train_dataset=ds_train, callbacks=[LossMonitor()])
 ```
 
 ```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[9.169/9.169], time:365.966 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[5.861/7.515], time:0.806 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[8.759/7.930], time:0.768 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[9.503/8.323], time:1.080 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[8.541/8.367], time:0.762 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[9.158/8.499], time:0.707 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[9.168/8.594], time:0.900 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[6.828/8.373], time:1.184 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[7.149/8.237], time:0.962 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[6.342/8.048], time:1.273 ms, lr:0.00500
-    Epoch time: 390.358 ms, per step time: 39.036 ms, avg loss: 8.048
+epoch: 1 step: 10, loss is 7.047606468200684
+epoch: 2 step: 10, loss is 2.6299655437469482
+epoch: 3 step: 10, loss is 3.130779266357422
+epoch: 4 step: 10, loss is 2.1852657794952393
+epoch: 5 step: 10, loss is 1.413834571838379
 ```
 
 ## Multi-label Loss Function and Model Training
@@ -255,7 +249,7 @@ class MAELossForMultiLabel(nn.LossBase):
     def construct(self, base, target1, target2):
         x1 = self.abs(base - target1)
         x2 = self.abs(base - target2)
-        return (self.get_loss(x1) + self.get_loss(x2))/2
+        return (self.get_loss(x1) + self.get_loss(x2)) / 2
 ```
 
 ### Multi-label Model Training
@@ -302,21 +296,15 @@ In the multi-label scenario, if you want to use a `Model` for model training, yo
     # Define a Model. In the multi-label scenario, the loss function does not need to be specified for the Model.
     model = ms.Model(network=loss_net, optimizer=opt)
 
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor(0.005)])
+    model.train(epoch=5, train_dataset=ds_train, callbacks=[LossMonitor()])
     ```
 
     ```text
-        Epoch:[  0/  1], step:[    1/   10], loss:[10.329/10.329], time:290.788 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    2/   10], loss:[10.134/10.231], time:0.813 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    3/   10], loss:[9.862/10.108], time:2.410 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    4/   10], loss:[11.182/10.377], time:1.154 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    5/   10], loss:[8.571/10.015], time:1.137 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    6/   10], loss:[7.763/9.640], time:0.928 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    7/   10], loss:[7.542/9.340], time:1.001 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    8/   10], loss:[8.644/9.253], time:1.156 ms, lr:0.00500
-        Epoch:[  0/  1], step:[    9/   10], loss:[5.815/8.871], time:1.908 ms, lr:0.00500
-        Epoch:[  0/  1], step:[   10/   10], loss:[5.086/8.493], time:1.575 ms, lr:0.00500
-        Epoch time: 323.467 ms, per step time: 32.347 ms, avg loss: 8.493
+    epoch: 1 step: 10, loss is 7.504277229309082
+    epoch: 2 step: 10, loss is 3.1470584869384766
+    epoch: 3 step: 10, loss is 2.810225486755371
+    epoch: 4 step: 10, loss is 2.774254322052002
+    epoch: 5 step: 10, loss is 1.572474718093872
     ```
 
 The preceding describes how to define a loss function and use a Model for model training in the multi-label dataset scenario. In many other scenarios, this method may also be used for model training.
