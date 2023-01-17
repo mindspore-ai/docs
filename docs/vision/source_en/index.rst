@@ -41,10 +41,3 @@ MindSpore Vision is a MindSpore-based Python package that provides high-level fe
    classification
    engine
    utils
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-
-   RELEASE
