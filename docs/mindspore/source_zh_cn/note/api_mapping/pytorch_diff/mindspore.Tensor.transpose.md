@@ -34,7 +34,7 @@ MindSpore：MindSpore上不光可以在两个维度之间进行转置，还可�
 ### 代码示例1
 
 说明：在使用torch.transpose(input, dim0, dim1)的时候，通过设置dim0和dim1实现input这两个维度之间的转置。MindSpore中虽然不能直接指定要进行转置的两个维度，但是可以通过调整axes参数实现同样的目的。假设input的shape为(3, 2, 1, 4)，dim0，dim1分别0，2，则会在第一和第三维之间进行转置，运算后的shape为(1, 2, 3, 4)；若要在MindSpore上实现这一操作，仅需要将axes设置为(2, 1, 0, 3)，即在默认维度(0, 1, 2, 3)基础上调换0和2的位置。
-一般情况下，对于任意的n维input和有效的dim0，dim1，设置axes的时候，只需要在(0, ..., n-1)基础上将dim0, dim1对应的值交换位置即可。
+一般情况下，对于任意的n维input和有效的dim0，dim1，设置axes的时候，只需要在(0, ..., n-1)基础上将dim0，dim1对应的值交换位置即可。
 
 ```python
 #PyTorch
