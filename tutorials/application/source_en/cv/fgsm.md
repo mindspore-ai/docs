@@ -70,20 +70,39 @@ In this case, MNIST is used to train LeNet with the qualified accuracy, and then
 Use the following sample code to download and decompress a dataset to a specified location.
 
 ```python
-from mindvision.dataset import Mnist
+import mindspore.dataset.vision as transforms
+from mindspore.dataset.vision import Inter
+from mindspore.dataset import MnistDataset
+from download import download
 
-# Download and process the MNIST dataset.
-download_train = Mnist(path="./mnist", split="train", shuffle=True, download=True)
-download_eval = Mnist(path="./mnist", split="test", download=True)
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
 
-dataset_train = download_train.run()
-dataset_eval = download_eval.run()
+# Data preprocessing
+dataset_train = MnistDataset(dataset_dir="./MNIST_Data/train", usage="train", shuffle=True)
+dataset_eval = MnistDataset(dataset_dir="./MNIST_Data/test", usage="test", shuffle=True)
+
+trans_transform = [
+    transforms.Resize(size=32, interpolation=Inter.LINEAR),
+    transforms.Rescale(1.0 / 255.0, 0.0),
+    transforms.Rescale(1 / 0.3081, -1 * 0.1307 / 0.3081),
+    transforms.HWC2CHW(),
+]
+
+dataset_train = dataset_train.map(operations=trans_transform, input_columns=["image"])
+dataset_train = dataset_train.map(operations=lambda x: x.astype("int32"), input_columns=["label"])
+dataset_train = dataset_train.batch(batch_size=32, drop_remainder=True)
+
+dataset_eval = dataset_eval.map(operations=trans_transform, input_columns=["image"])
+dataset_eval = dataset_eval.map(operations=lambda x: x.astype("int32"), input_columns=["label"])
+dataset_eval = dataset_eval.batch(batch_size=32, drop_remainder=True)
 ```
 
 The directory structure of the downloaded dataset files is as follows:
 
 ```text
-./mnist
+./MNIST_Data
 ├── test
 │   ├── t10k-images-idx3-ubyte
 │   └── t10k-labels-idx1-ubyte
@@ -99,9 +118,46 @@ In the experiment, LeNet is used to complete image classification. You need to d
 Define LeNet.
 
 ```python
-from mindvision.classification.models import lenet
+from mindspore import nn
+from mindspore.common.initializer import Normal
 
-network = lenet(num_classes=10, pretrained=False)
+
+class LeNet5(nn.Cell):
+    """LeNet5"""
+    def __init__(self, num_classes=10, num_channel=1, include_top=True):
+        super(LeNet5, self).__init__()
+        self.include_top = include_top
+
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        if self.include_top:
+            self.flatten = nn.Flatten()
+            self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+            self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+            self.fc3 = nn.Dense(84, num_classes, weight_init=Normal(0.02))
+
+    def construct(self, x):
+        """
+        LeNet5 construct.
+        """
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        if self.include_top:
+            x = self.flatten(x)
+            x = self.relu(self.fc1(x))
+            x = self.relu(self.fc2(x))
+            x = self.fc3(x)
+        return x
+
+
+network = LeNet5()
 ```
 
 Define an optimizer and a loss function.
@@ -116,33 +172,28 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 Define network parameters.
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import train
 
-config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+config_ck = train.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+ckpoint = train.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
 ```
 
 Train LeNet.
 
 ```python
-from mindspore.train import Model
-from mindvision.engine.callback import LossMonitor
+from mindspore.train import LossMonitor
+import mindspore as ms
 
-model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
-model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(0.01, 1875)])
+model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
+model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(1875)])
 ```
 
 ```python
-    Epoch:[  0/  5], step:[ 1875/ 1875], loss:[0.094/0.094], time:2345.947 ms, lr:0.01000
-    Epoch time: 3680.524 ms, per step time: 1.963 ms, avg loss: 0.094
-    Epoch:[  1/  5], step:[ 1875/ 1875], loss:[0.323/0.323], time:1250.154 ms, lr:0.01000
-    Epoch time: 1250.843 ms, per step time: 0.667 ms, avg loss: 0.323
-    Epoch:[  2/  5], step:[ 1875/ 1875], loss:[0.014/0.014], time:1408.945 ms, lr:0.01000
-    Epoch time: 1409.764 ms, per step time: 0.752 ms, avg loss: 0.014
-    Epoch:[  3/  5], step:[ 1875/ 1875], loss:[0.198/0.198], time:1332.741 ms, lr:0.01000
-    Epoch time: 1333.454 ms, per step time: 0.711 ms, avg loss: 0.198
-    Epoch:[  4/  5], step:[ 1875/ 1875], loss:[0.001/0.001], time:1436.917 ms, lr:0.01000
-    Epoch time: 1437.587 ms, per step time: 0.767 ms, avg loss: 0.001
+epoch: 1 step: 1875, loss is 0.14561422169208527
+epoch: 2 step: 1875, loss is 0.032565318048000336
+epoch: 3 step: 1875, loss is 0.004271362908184528
+epoch: 4 step: 1875, loss is 0.0025547388941049576
+epoch: 5 step: 1875, loss is 0.386110782623291
 ```
 
 Test the current network. You can see that LeNet has reached a high accuracy.
@@ -159,8 +210,6 @@ print("{}".format(acc))
 Load the trained LeNet model.
 
 ```python
-import mindspore as ms
-
 param_dict = ms.load_checkpoint("checkpoint_lenet-5_1875.ckpt")
 ms.load_param_into_net(network, param_dict)
 ```
@@ -172,82 +221,53 @@ After the accurate LeNet is obtained, the FGSM attack is used to load noise in t
 Compute a backward gradient using the loss function:
 
 ```python
-class WithLossCell(nn.Cell):
-    """Package a network and a loss function."""
-
-    def __init__(self, network, loss_fn):
-        super(WithLossCell, self).__init__()
-        self._network = network
-        self._loss_fn = loss_fn
-
-    def construct(self, data, label):
-        out = self._network(data)
-        return self._loss_fn(out, label)
-
-
-class GradWrapWithLoss(nn.Cell):
-    """Compute the backward gradient based on the loss."""
-
-    def __init__(self, network):
-        super(GradWrapWithLoss, self).__init__()
-        self._grad_all = ops.composite.GradOperation(get_all=True, sens_param=False)
-        self._network = network
-
-    def construct(self, inputs, labels):
-        gout = self._grad_all(self._network)(inputs, labels)
-        return gout[0]
+def forward_fn(inputs, targets):
+    out = network(inputs)
+    loss = net_loss(out, targets)
+    return loss
 ```
 
 Then, implement the FGSM attack according to formula (2):
 
 ```python
 import numpy as np
-import mindspore as ms
-
-class FastGradientSignMethod:
-    """Implement the FGSM attack."""
-
-    def __init__(self, network, eps=0.07, loss_fn=None):
-        # Initialize the variables.
-        self._network = network
-        self._eps = eps
-        with_loss_cell = WithLossCell(self._network, loss_fn)
-        self._grad_all = GradWrapWithLoss(with_loss_cell)
-        self._grad_all.set_train()
 
 
-    def _gradient(self, inputs, labels):
-        # Compute the gradient.
-        out_grad = self._grad_all(inputs, labels)
-        gradient = out_grad.asnumpy()
-        gradient = np.sign(gradient)
-        return gradient
+def gradient_func(inputs, labels):
+    _grad_all = ops.composite.GradOperation(get_all=True, sens_param=False)
+    # Find gradient
+    out_grad = _grad_all(forward_fn)(inputs, labels)[0]
+    gradient = out_grad.asnumpy()
+    gradient = np.sign(gradient)
+    return gradient
 
-    def generate(self, inputs, labels):
-        # Implement FGSM.
-        inputs_tensor = ms.Tensor(inputs)
-        labels_tensor = ms.Tensor(labels)
-        gradient = self._gradient(inputs_tensor, labels_tensor)
-        # Generate perturbations.
-        perturbation = self._eps*gradient
-        # Generate the perturbed image.
-        adv_x = inputs + perturbation
-        return adv_x
 
-    def batch_generate(self, inputs, labels, batch_size=32):
-        # Process the dataset.
-        arr_x = inputs
-        arr_y = labels
-        len_x = len(inputs)
-        batches = int(len_x / batch_size)
-        res = []
-        for i in range(batches):
-            x_batch = arr_x[i*batch_size: (i + 1)*batch_size]
-            y_batch = arr_y[i*batch_size: (i + 1)*batch_size]
-            adv_x = self.generate(x_batch, y_batch)
-            res.append(adv_x)
-        adv_x = np.concatenate(res, axis=0)
-        return adv_x
+def generate(inputs, labels, eps):
+    # Realize FGSM
+    inputs_tensor = ms.Tensor(inputs)
+    labels_tensor = ms.Tensor(labels)
+    gradient = gradient_func(inputs_tensor, labels_tensor)
+    # Produce disturbance
+    perturbation = eps * gradient
+    # Generate disturbed images
+    adv_x = inputs + perturbation
+    return adv_x
+
+
+def batch_generate(inputs, labels, eps, batch_size):
+    # Processing data sets
+    arr_x = inputs
+    arr_y = labels
+    len_x = len(inputs)
+    batches = int(len_x / batch_size)
+    res = []
+    for i in range(batches):
+        x_batch = arr_x[i * batch_size: (i + 1) * batch_size]
+        y_batch = arr_y[i * batch_size: (i + 1) * batch_size]
+        adv_x = generate(x_batch, y_batch, eps=eps)
+        res.append(adv_x)
+    adv_x = np.concatenate(res, axis=0)
+    return adv_x
 ```
 
 Process images in the test set in the MNIST dataset again.
@@ -285,8 +305,7 @@ Observe the attack effect when $\varepsilon$ is **0**.
 ```python
 import mindspore.ops as ops
 
-fgsm = FastGradientSignMethod(network, eps=0.0, loss_fn=net_loss)
-advs = fgsm.batch_generate(test_images, true_labels, batch_size=32)
+advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.0)
 
 adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
 adv_predicts = np.argmax(adv_predicts, axis=1)
@@ -301,8 +320,7 @@ print(accuracy)
 Set **$\varepsilon$** to **0.5** and try to run the attack.
 
 ```python
-fgsm = FastGradientSignMethod(network, eps=0.5, loss_fn=net_loss)
-advs = fgsm.batch_generate(test_images, true_labels, batch_size=32)
+advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.5)
 
 adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
 adv_predicts = np.argmax(adv_predicts, axis=1)
@@ -327,10 +345,10 @@ ori_examples = np.transpose(test_images[:10], [0, 2, 3, 1])
 
 plt.figure(figsize=(10, 3), dpi=120)
 for i in range(10):
-    plt.subplot(3, 10, i+1)
+    plt.subplot(3, 10, i + 1)
     plt.axis("off")
     plt.imshow(np.squeeze(ori_examples[i]))
-    plt.subplot(3, 10, i+11)
+    plt.subplot(3, 10, i + 11)
     plt.axis("off")
     plt.imshow(np.squeeze(adv_examples[i]))
 plt.show()
