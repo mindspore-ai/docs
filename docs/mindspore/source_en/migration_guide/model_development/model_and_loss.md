@@ -135,21 +135,47 @@ However, sometimes the hybrid precision policy is expected to be more flexible d
 
 `to_float(dst_type)`: adds type conversion to the input of the `Cell` and all child `Cell` to run with a specific floating-point type.
 
-If `dst_type` is `ms.float16`, all inputs of `Cell` (including input, `Parameter`, and `Tensor` used as constants) will be converted to `float16`. For example, if you want to change all BNs and losses in ResNet to the `float32` type and other operations to the `float16` type, run the following command:
+If `dst_type` is `ms.float16`, all inputs of `Cell` (including input, `Parameter`, and `Tensor` used as constants) will be converted to `float16`. For example, if you want to change all BNs and losses in a network to the `float32` type and other operations to the `float16` type, run the following command:
 
 ```python
 import mindspore as ms
 from mindspore import nn
-from mindvision.classification.models import resnet50
 
-resnet = resnet50(pretrained=False)
-resnet.to_float(ms.float16)  #Add the float16 flag to all operations in the net. The framework adds the cast method to the input during compilation.
-for _, cell in resnet.cells_and_names():
+# Define model
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = nn.SequentialCell([
+            nn.Conv2d(3, 12, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(12),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.layer2 = nn.SequentialCell([
+            nn.Conv2d(12, 4, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.pool = nn.AdaptiveMaxPool2d((5, 5))
+        self.fc = nn.Dense(100, 10)
+
+    def construct(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.pool(x)
+        x = x.view((-1, 100))
+        out = nn.Dense(x)
+        return out
+
+net = Network()
+net.to_float(ms.float16)  #Add the float16 flag to all operations in the net. The framework adds the cast method to the input during compilation.
+for _, cell in net.cells_and_names():
     if isinstance(cell, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
         cell.to_float(ms.float32)
 
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean').to_float(ms.float32)
-net_with_loss = nn.WithLossCell(resnet, loss_fn=loss)
+net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 ```
 
 The customized `to_float` conflicts with the `amp_level` in the model. If the customized mixing precision is used, do not set the `amp_level` in the model.
@@ -170,10 +196,37 @@ For details about the parameter initialization methods supported by MindSpore, s
 import math
 import mindspore as ms
 from mindspore import nn
-from mindvision.classification.models import resnet50
 
-resnet = resnet50(pretrained=False)
-for _, cell in resnet.cells_and_names():
+# Define model
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = nn.SequentialCell([
+            nn.Conv2d(3, 12, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(12),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.layer2 = nn.SequentialCell([
+            nn.Conv2d(12, 4, kernel_size=3, pad_mode="pad", padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        ])
+        self.pool = nn.AdaptiveMaxPool2d((5, 5))
+        self.fc = nn.Dense(100, 10)
+
+    def construct(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.pool(x)
+        x = x.view((-1, 100))
+        out = nn.Dense(x)
+        return out
+
+net = Network()
+
+for _, cell in net.cells_and_names():
     if isinstance(cell, nn.Conv2d):
         cell.weight.set_data(ms.common.initializer.initializer(
             ms.common.initializer.HeNormal(negative_slope=0, mode='fan_out', nonlinearity='relu'),
