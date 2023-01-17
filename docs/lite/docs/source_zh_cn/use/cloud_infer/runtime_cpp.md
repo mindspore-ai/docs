@@ -308,7 +308,9 @@ make
 
 在编译成功后，可以在`build`目录下得到`runtime_cpp`可执行程序。执行程序`runtime_cpp`运行样例：
 
+```bash
 ./runtime_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+```
 
 ## 高级用法
 
