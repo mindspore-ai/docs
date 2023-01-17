@@ -62,9 +62,8 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - | - |
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为扩展功能配置文件路径。  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
-| `--device=<DEVICE>` | 否 | 设定特定硬件后端 | Ascend310、Ascend310P | - | - |
-| `--exportMindIR=<EXPORTMINDIR>` | 是 | 设定导出的模型为`mindir`模型或者`ms`模型。 | MINDIR、MINDIR_LITE | MINDIR | 该版本只有设置为MINDIR转出的模型才可以推理 |
-| `--NoFusion=<NOFUSION>` | 否 | 设定转换模型的过程是否完成相关图优化。 | true、false | ture | - |
+| `--saveType=<SAVETYPE>` | 是 | 设定导出的模型为`mindir`模型或者`ms`模型。 | MINDIR、MINDIR_LITE | MINDIR | 云侧推理版本只有设置为MINDIR转出的模型才可以推理 |
+| `--optimize=<OPTIMIZE>` | 否 | 设定转换模型的过程所完成的优化。 | none、general、ascend_oriented | general | 当saveType设置为MINDIR的情况下，该参数的默认值为none。 |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | on、off | off | 暂不支持 |
 | `--decryptKey=<DECRYPTKEY>` | 否 | 设定用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk`为MINDIR时有效。 | - | - | 暂不支持 |
 | `--decryptMode=<DECRYPTMODE>` | 否 | 设定加载密文MindIR的模式，只在指定了decryptKey时有效。 | AES-GCM、AES-CBC | AES-GCM | 暂不支持 |
@@ -80,12 +79,12 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 - 参数名和参数值之间用等号连接，中间不能有空格。
 - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 - `configFile`配置文件采用`key=value`的方式定义相关参数。
-- `--NoFusion`该参数是用来设定在离线转换的过程中是否完成图的优化操作。如果该参数设置为true，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。
+- `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
 - 针对MindSpore模型，由于已经是`mindir`模型，建议两种做法：
 
     不需要经过离线转换，直接进行推理执行。
 
-    使用离线转换并设置--NoFusion为false，在离线阶段完成相关优化，减少推理执行的初始化时间。
+    使用离线转换并设置--optimize为general，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ### 使用示例
 
@@ -94,7 +93,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 - 以Caffe模型LeNet为例，执行转换命令。
 
     ```bash
-    ./converter_lite --fmk=CAFFE --exportMindIR=MINDIR --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
+    ./converter_lite --fmk=CAFFE --saveType=MINDIR --optimize=none --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
     ```
 
     本例中，因为采用了Caffe模型，所以需要模型结构、模型权值两个输入文件。再加上其他必需的fmk类型和输出路径两个参数，即可成功执行。
@@ -112,25 +111,25 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
     - MindSpore模型`model.mindir`
 
     ```bash
-    ./converter_lite --fmk=MINDIR --NoFusion=false --modelFile=model.mindir --outputFile=model
+    ./converter_lite --fmk=MINDIR --saveType=MINDIR --optimize=general --modelFile=model.mindir --outputFile=model
     ```
 
     - TensorFlow Lite模型`model.tflite`
 
     ```bash
-    ./converter_lite --fmk=TFLITE --exportMindIR=MINDIR --modelFile=model.tflite --outputFile=model
+    ./converter_lite --fmk=TFLITE --saveType=MINDIR --optimize=none --modelFile=model.tflite --outputFile=model
     ```
 
     - TensorFlow模型`model.pb`
 
     ```bash
-    ./converter_lite --fmk=TF --exportMindIR=MINDIR --modelFile=model.pb --outputFile=model
+    ./converter_lite --fmk=TF --saveType=MINDIR --optimize=none --modelFile=model.pb --outputFile=model
     ```
 
     - ONNX模型`model.onnx`
 
     ```bash
-    ./converter_lite --fmk=ONNX --exportMindIR=MINDIR --modelFile=model.onnx --outputFile=model
+    ./converter_lite --fmk=ONNX --saveType=MINDIR --optimize=none --modelFile=model.onnx --outputFile=model
     ```
 
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.mindir`目标文件。

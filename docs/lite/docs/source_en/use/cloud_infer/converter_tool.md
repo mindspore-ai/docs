@@ -62,9 +62,8 @@ Detailed parameter descriptions are provided below.
 | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weight file. | - | - | - |
 | `--configFile=<CONFIGFILE>` | Not | 1. can be used as a post-training quantization profile path; 2. can be used as an extended function profile path.  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model inputs, and keep the order of the input dimensions the same as the original model. The model structure can be further optimized for some specific models, but the converted model will probably lose the dynamic shape properties. Multiple inputs are split by `;`, along with double quotes `""`. | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
-| `--device=<DEVICE>` | Not | Set specific hardware backend | Ascend310, Ascend310P | - | - |
-| `--exportMindIR=<EXPORTMINDIR>` | Required | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
-| `--NoFusion=<NOFUSION>` | Not | Set whether the process of converting the model is completed with correlation graph optimization. | true, false | ture | - |
+| `--saveType=<SAVETYPE>` | Required | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
+| `--optimize=<OPTIMIZE>` | Not | Set the mode of optimization in the process of converting model. | none, general, ascend_oriented | general | The default value is none when saveType is set to MINDIR |
 | `--fp16=<FP16>` | Not | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | on, off | off | Not supported at the moment|
 | `--decryptKey=<DECRYPTKEY>` | Not | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk` is MINDIR. | - | - | Not supported at the moment |
 | `--decryptMode=<DECRYPTMODE>` | Not | Set the mode to load the cipher MindIR, valid only when decryptKey is specified. | AES-GCM, AES-CBC | AES-GCM | Not supported at the moment |
@@ -80,12 +79,12 @@ Notes:
 - The parameter name and the parameter value are connected by an equal sign without any space between them.
 - Caffe models are generally divided into two files: `*.prototxt` model structure, corresponding to the `--modelFile` parameter, and `*.caffemodel` model weights, corresponding to the `--weightFile` parameter.
 - The `configFile` configuration file uses the `key=value` approach to define the relevant parameters.
-- `--NoFusion` parameter is used to set whether the graph optimization operation is completed during the offline conversion. If this parameter is set to true, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution.
+- `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
 - For the MindSpore model, since it is already a `mindir` model, two approaches are suggested:
 
     Inference is performed directly without offline conversion.
 
-    Using offline conversion and setting --NoFusion to false. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
+    Using offline conversion and setting --optimize to general. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
 
 ### Usage Examples
 
@@ -94,7 +93,7 @@ The following selects common examples to illustrate the use of the conversion co
 - Take the Caffe model LeNet as an example and execute the conversion command.
 
     ```bash
-    ./converter_lite --fmk=CAFFE --exportMindIR=MINDIR --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
+    ./converter_lite --fmk=CAFFE --saveType=MINDIR --optimize=none --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
     ```
 
     In this example, because the Caffe model is used, two input files, model structure and model weights, are required. Together with the other two required parameters, fmk type and output path, it can be executed successfully.
@@ -112,25 +111,25 @@ The following selects common examples to illustrate the use of the conversion co
     - MindSpore model `model.mindir`
 
     ```bash
-    ./converter_lite --fmk=MINDIR --NoFusion=false --modelFile=model.mindir --outputFile=model
+    ./converter_lite --fmk=MINDIR --saveType=MINDIR --optimize=general --modelFile=model.mindir --outputFile=model
     ```
 
     - TensorFlow Lite model `model.tflite`
 
     ```bash
-    ./converter_lite --fmk=TFLITE --exportMindIR=MINDIR --modelFile=model.tflite --outputFile=model
+    ./converter_lite --fmk=TFLITE --saveType=MINDIR --optimize=none --modelFile=model.tflite --outputFile=model
     ```
 
     - TensorFlow model `model.pb`
 
     ```bash
-    ./converter_lite --fmk=TF --exportMindIR=MINDIR --modelFile=model.pb --outputFile=model
+    ./converter_lite --fmk=TF --saveType=MINDIR --optimize=none --modelFile=model.pb --outputFile=model
     ```
 
     - ONNX model `model.onnx`
 
     ```bash
-    ./converter_lite --fmk=ONNX --exportMindIR=MINDIR --modelFile=model.onnx --outputFile=model
+    ./converter_lite --fmk=ONNX --saveType=MINDIR --optimize=none --modelFile=model.onnx --outputFile=model
     ```
 
     In all of the above cases, the following conversion success message is displayed and the `model.mindir` target file is obtained at the same time.
