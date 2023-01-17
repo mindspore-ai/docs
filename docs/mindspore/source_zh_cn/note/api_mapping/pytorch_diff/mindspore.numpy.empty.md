@@ -47,7 +47,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但dtype参数�
 
 ### 代码示例1
 
-> 对于参数dtype，PyTorch默认值为None，输出类型为torch.float32，MindSpore默认值为mstype.float32
+> 对于参数dtype，PyTorch默认值为None，输出类型为torch.float32，MindSpore默认值为mstype.float32。
 
 ```python
 # PyTorch
