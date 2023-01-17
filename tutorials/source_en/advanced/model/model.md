@@ -12,6 +12,13 @@ The following describes MindSpore models and how to use `Model` for model traini
 
 ![model](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_en/advanced/model/images/model.png)
 
+```python
+import mindspore
+from mindspore import nn
+from mindspore.dataset import MnistDataset, vision, transforms
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonitor
+```
+
 ## Introduction to Model
 
 [Model](https://www.mindspore.cn/docs/en/r1.10/api_python/mindspore/mindspore.Model.html#mindspore.Model) is a high-level API provided by MindSpore for model training, evaluation, and inference. The common parameters of the API are as follows:
@@ -24,6 +31,7 @@ The following describes MindSpore models and how to use `Model` for model traini
 
 `Model` provides the following APIs for model training, evaluation, and inference:
 
+- `fit`: used to evaluate the model during training.
 - `train`: used for model training on the training set.
 - `eval`: used to evaluate the model on the evaluation set.
 - `predict`: performs inference on a group of input data and outputs the prediction result.
@@ -32,357 +40,129 @@ The following describes MindSpore models and how to use `Model` for model traini
 
 For a neural network in a simple scenario, you can specify the feedforward network `network`, loss function `loss_fn`, optimizer `optimizer`, and evaluation function `metrics` when defining `Model`.
 
-In this case, `Model` uses `network` as the feedforward network, uses `nn.WithLossCell` and `nn.TrainOneStepCell` to build a training network, and uses `nn.WithEvalCell` to build an evaluation network.
+## Download and Process Dataset
 
 ```python
-import numpy as np
-import mindspore.dataset as ds
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.common.initializer import Normal
+# Download data from open datasets
+from download import download
 
-def get_data(num, w=2.0, b=3.0):
-    """Generate sample data and corresponding labels."""
-    for _ in range(num):
-        x = np.random.uniform(-10.0, 10.0)
-        noise = np.random.normal(0, 1)
-        y = x * w + b + noise
-        yield np.array([x]).astype(np.float32), np.array([y]).astype(np.float32)
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip")
 
-def create_dataset(num_data, batch_size=16):
-    """Generate a dataset."""
-    dataset = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
-    dataset = dataset.batch(batch_size)
+
+def datapipe(path, batch_size):
+    image_transforms = [
+        vision.Rescale(1.0 / 255.0, 0),
+        vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        vision.HWC2CHW()
+    ]
+    label_transform = transforms.TypeCast(mindspore.int32)
+
+    dataset = MnistDataset(path)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size, drop_remainder=True)
     return dataset
 
-class LinearNet(nn.Cell):
-    """Define the linear regression network.""
+train_dataset = datapipe('MNIST_Data/train', 64)
+test_dataset = datapipe('MNIST_Data/test', 64)
+```
+
+## Define Model
+
+```python
+# Define model
+class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
     def construct(self, x):
-        return self.fc(x)
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
-train_dataset = create_dataset(num_data=160)
-net = LinearNet()
-crit = nn.MSELoss()
-opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
-
-# Use a model to build a training network.
-model = ms.Model(network=net, loss_fn=crit, optimizer=opt, metrics={"mae"})
+model = Network()
 ```
 
-### Model Training
+## Define loss function and optimizer
 
-Use the `train` API to perform model training. The common parameters of the `train` API are as follows:
+To train neural network model, loss function and optimizer function need to be defined.
 
-- `epoch`: number of training epoch. Generally, each epoch uses the full dataset for training.
-- `train_dataset`: Iterator of a training dataset.
-- `callbacks`: callback object or callback object list to be executed during training.
-
-Interestingly, if `loss_fn` is defined in the network model, the data and label are transferred to `network` and `loss_fn` respectively. In this case, a tuple (data, label) needs to be returned for the dataset. If a dataset contains multiple pieces of data or labels, you can set `loss_fn` to None and implement a customized loss function in the `network`. In this case, tuples (data1, data2, data3, ...) consisting of all data returned by the dataset are transferred to the `network`.
-
-The following example uses the `train` API to perform model training and uses the `LossMonitor` callback function to view the loss function value during training.
+- The loss function here uses ``CrossEntropy Loss`` .
+- The optimizer uses SGD here.
 
 ```python
-from mindvision.engine.callback import LossMonitor
+# Instantiate loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = nn.SGD(model.trainable_params(), 1e-2)
+```
 
-# Model training. The input parameter 0.005 of LossMonitor indicates the learning rate.
-model.train(1, train_dataset, callbacks=[LossMonitor(0.005)])
+## Train and Save Model
+
+Before starting the training, MindSpot needs to state in advance whether the network model needs to save the intermediate process and results during the training process. Therefore, `ModelCheckpoint` is used to save the network model and parameters for subsequent fine tuning.
+
+```python
+steps_per_epoch = train_dataset.get_dataset_size()
+config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch)
+
+ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
+loss_callback = LossMonitor(steps_per_epoch)
+```
+
+`model.fit` provided by MindSpore can facilitate network training, and `LossMonitor` can monitor the change of loss value during training.
+
+```python
+trainer = Model(model, loss_fn=loss_fn, optimizer=optimizer, metrics={'accuracy'})
+
+trainer.fit(10, train_dataset, test_dataset, callbacks=[ckpt_callback, loss_callback])
 ```
 
 ```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[115.354/115.354], time:242.467 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[86.149/100.751], time:0.650 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[17.299/72.934], time:0.712 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[21.070/59.968], time:0.744 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[42.781/56.530], time:0.645 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[52.374/55.838], time:0.577 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[53.629/55.522], time:0.588 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[16.356/50.626], time:0.624 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[5.504/45.613], time:0.730 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[5.396/41.591], time:0.766 ms, lr:0.00500
-    Epoch time: 259.696 ms, per step time: 25.970 ms, avg loss: 41.591
+epoch: 1 step: 938, loss is 0.6975755095481873
+Eval result: epoch 1, metrics: {'accuracy': 0.8532}
+epoch: 2 step: 938, loss is 0.1599598079919815
+Eval result: epoch 2, metrics: {'accuracy': 0.9017}
+epoch: 3 step: 938, loss is 0.14920133352279663
+Eval result: epoch 3, metrics: {'accuracy': 0.9158}
+epoch: 4 step: 938, loss is 0.3977105915546417
+Eval result: epoch 4, metrics: {'accuracy': 0.9298}
+epoch: 5 step: 938, loss is 0.34486162662506104
+Eval result: epoch 5, metrics: {'accuracy': 0.9387}
+epoch: 6 step: 938, loss is 0.13669437170028687
+Eval result: epoch 6, metrics: {'accuracy': 0.9446}
+epoch: 7 step: 938, loss is 0.12039510905742645
+Eval result: epoch 7, metrics: {'accuracy': 0.9493}
+epoch: 8 step: 938, loss is 0.151673823595047
+Eval result: epoch 8, metrics: {'accuracy': 0.9553}
+epoch: 9 step: 938, loss is 0.07572777569293976
+Eval result: epoch 9, metrics: {'accuracy': 0.9584}
+epoch: 10 step: 938, loss is 0.21154701709747314
+Eval result: epoch 10, metrics: {'accuracy': 0.9612}
 ```
 
-### Model Evaluation
+During training, the loss value will be printed, and the loss value will fluctuate, but in general, the loss value will gradually decrease and the accuracy will gradually improve. The loss values run by each person are random and not necessarily identical.
 
-The `eval` API is used for evaluation. The parameters of the `eval` API are as follows:
+The results obtained by running the test data set of the model verify the generalization ability of the model:
 
-- `valid_dataset`: dataset of the evaluation model.
-- `callbacks`: callback object or callback object list to be executed during evaluation.
-- `dataset_sink_mode`: determines whether data is directly offloaded to the processor for processing.
+- Use `model.eval` to read in the test data set.
+- Use the saved model parameters for reasoning.
 
 ```python
-eval_dataset = create_dataset(num_data=80)  # Create an evaluation dataset.
-eval_result = model.eval(eval_dataset)      # Execute model evaluation.
-print(eval_result)
+acc = trainer.eval(test_dataset)
+acc
 ```
 
 ```text
-    {'mae': 4.2325128555297855}
+{'accuracy': 0.9612}
 ```
 
-### Model Inference
-
-The `predict` API is used for prediction. The parameters of the `predict` API are as follows:
-
-- `predict_data`: prediction sample. The data can be a single tensor, tensor list, or tensor tuple.
-
-```python
-eval_data = eval_dataset.create_dict_iterator()
-data = next(eval_data)
-# Perform model prediction.
-output = model.predict(data["data"])
-print(output)
-```
-
-```text
-    [[-6.9463778 ]
-     [ 1.3816066 ]
-     [13.233659  ]
-     [11.863918  ]
-     [ 0.73616135]
-     [-0.1280173 ]
-     [ 7.579297  ]
-     [-4.9149694 ]
-     [ 7.416003  ]
-     [10.491856  ]
-     [-5.7275047 ]
-     [ 9.984399  ]
-     [-7.156473  ]
-     [ 2.7091386 ]
-     [-6.3339615 ]
-     [-6.0259247 ]]
-```
-
-Generally, you need to post-process the inference result to obtain an intuitive inference result.
-
-## Customized Scenarios
-
-The network encapsulation functions `nn.WithLossCell`, `nn.TrainOneStepCell`, and `nn.WithEvalCell` provided by MindSpore are not applicable to all scenarios. In actual scenarios, you need to customize network encapsulation functions. In this case, it is unreasonable for `Model` to use these encapsulation functions to automatically encapsulate packets.
-
-Next, let's look at how to correctly use `Model` when customizing network encapsulation functions.
-
-### Customized Loss Network
-
-If there are multiple data records or labels, you can use a customized loss network to link the feedforward network and the customized loss function as the `network` of `Model`. The default value of `loss_fn` is `None`.
-
-In this case, `Model` does not pass through `nn.WithLossCell`, `nn.TrainOneStepCell` is directly used to form a training network with the `optimizer`.
-
-```python
-import numpy as np
-import mindspore.dataset as ds
-import mindspore.ops as ops
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.nn import LossBase
-from mindvision.engine.callback import LossMonitor
-
-def get_multilabel_data(num, w=2.0, b=3.0):
-    """Generate multi-label data. A group of data x corresponds to two labels: y1 and y2."""
-    for _ in range(num):
-        x = np.random.uniform(-10.0, 10.0)
-        noise1 = np.random.normal(0, 1)
-        noise2 = np.random.normal(-1, 1)
-        y1 = x * w + b + noise1
-        y2 = x * w + b + noise2
-        yield np.array([x]).astype(np.float32), np.array([y1]).astype(np.float32), np.array([y2]).astype(np.float32)
-
-def create_multilabel_dataset(num_data, batch_size=16):
-    """Generate a multi-label dataset. One piece of data corresponds to two labels: label1 and label2."""
-    dataset = ds.GeneratorDataset(list(get_multilabel_data(num_data)), column_names=['data', 'label1', 'label2'])
-    dataset = dataset.batch(batch_size)
-    return dataset
-
-class L1LossForMultiLabel(LossBase):
-    """Customize a multi-label loss function."""
-
-    def __init__(self, reduction="mean"):
-        super(L1LossForMultiLabel, self).__init__(reduction)
-        self.abs = ops.Abs()
-
-    def construct(self, base, target1, target2):
-        """There are three inputs: predicted value 'base', actual values 'target1' and 'target2'."""
-        x1 = self.abs(base - target1)
-        x2 = self.abs(base - target2)
-        return self.get_loss(x1) / 2 + self.get_loss(x2) / 2
-
-class CustomWithLossCell(nn.Cell):
-    """Connect the feedforward network and loss function."""
-
-    def __init__(self, backbone, loss_fn):
-        """There are two inputs: feedforward network 'backbone' and loss function 'loss_fn'."""
-        super(CustomWithLossCell, self).__init__(auto_prefix=False)
-        self._backbone = backbone
-        self._loss_fn = loss_fn
-
-    def construct(self, data, label1, label2):
-        output = self._backbone(data)                 # Network output obtained through forward computation
-        return self._loss_fn(output, label1, label2)  # Obtain the multi-label loss value.
-
-multi_train_dataset = create_multilabel_dataset(num_data=160)
-
-# Build a linear regression network.
-net = LinearNet()
-# Multi-label loss function
-loss = L1LossForMultiLabel()
-
-# Connect linear regression networks and multi-label loss functions.
-loss_net = CustomWithLossCell(net, loss)
-opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
-
-# Use the model to connect the network and optimizer. In this case, the model does not pass through nn.WithLossCell.
-model = ms.Model(network=loss_net, optimizer=opt)
-# Use the train API for model training.
-model.train(epoch=1, train_dataset=multi_train_dataset, callbacks=[LossMonitor(0.005)])
-```
-
-```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[11.036/11.036], time:212.864 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    2/   10], loss:[9.984/10.510], time:0.592 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    3/   10], loss:[9.300/10.107], time:0.660 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    4/   10], loss:[7.526/9.462], time:0.787 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    5/   10], loss:[6.959/8.961], time:0.715 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    6/   10], loss:[10.290/9.183], time:0.716 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    7/   10], loss:[10.067/9.309], time:0.770 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    8/   10], loss:[8.924/9.261], time:0.909 ms, lr:0.00500
-    Epoch:[  0/  1], step:[    9/   10], loss:[7.257/9.038], time:0.884 ms, lr:0.00500
-    Epoch:[  0/  1], step:[   10/   10], loss:[6.138/8.748], time:0.955 ms, lr:0.00500
-    Epoch time: 232.046 ms, per step time: 23.205 ms, avg loss: 8.748
-```
-
-### Customized Training Network
-
-When customizing a training network, you need to manually build a training network as the `network` of `Model`. The default values of `loss_fn` and `optimizer` are None. In this case, `Model` uses the `network` as the training network without any encapsulation.
-
-The following example describes how to customize a training network `CustomTrainOneStepCell` and build a training network through the `Model` API.
-
-```python
-import mindspore.ops as ops
-import mindspore as ms
-from mindvision.engine.callback import LossMonitor
-
-class CustomTrainOneStepCell(nn.Cell):
-    """Customize a training network.""
-
-    def __init__(self, network, optimizer, sens=1.0):
-        """There are three input parameters: training network, optimizer, and backward propagation scaling ratio."""
-        super(CustomTrainOneStepCell, self).__init__(auto_prefix=False)
-        self.network = network                    #Define the feedforward network.
-        self.network.set_grad()                   # Build a backward network.
-        self.optimizer = optimizer                #Define the optimizer.
-        self.weights = self.optimizer.parameters  # Parameters to be updated.
-        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)  #Obtain the gradient by backward propagation.
-
-    def construct(self, *inputs):
-        loss = self.network(*inputs)                    # Execute the feedforward network and compute the loss function value of the current input.
-        grads = self.grad(self.network, self.weights)(*inputs, loss)  # Perform backward propagation and compute the gradient.
-        loss = ops.depend(loss, self.optimizer(grads))  # Use the optimizer to update gradients.
-        return loss
-
-multi_train_ds = create_multilabel_dataset(num_data=160)
-
-# Manually build a training network.
-train_net = CustomTrainOneStepCell(loss_net, opt)
-# Build a training network.
-model = ms.Model(train_net)
-# Perform model training.
-model.train(epoch=1, train_dataset=multi_train_ds, callbacks=[LossMonitor(0.01)])
-```
-
-```text
-    Epoch:[  0/  1], step:[    1/   10], loss:[5.165/5.165], time:183.006 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    2/   10], loss:[4.042/4.603], time:0.800 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    3/   10], loss:[3.385/4.197], time:0.886 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    4/   10], loss:[2.438/3.758], time:0.896 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    5/   10], loss:[2.457/3.498], time:0.819 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    6/   10], loss:[2.546/3.339], time:0.921 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    7/   10], loss:[4.569/3.515], time:0.973 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    8/   10], loss:[4.031/3.579], time:1.271 ms, lr:0.01000
-    Epoch:[  0/  1], step:[    9/   10], loss:[6.138/3.864], time:1.035 ms, lr:0.01000
-    Epoch:[  0/  1], step:[   10/   10], loss:[3.055/3.783], time:1.263 ms, lr:0.01000
-    Epoch time: 203.473 ms, per step time: 20.347 ms, avg loss: 3.783
-```
-
-### Customized Evaluation Network
-
-By default, the `Model` uses `nn.WithEvalCell` to build the evaluation network. If the requirements are not met, you need to manually build the evaluation network, for example, in the multi-data and multi-label scenarios.
-
-The following example shows how to customize an evaluation network `CustomWithEvalCell` and use the `Model` API to build an evaluation network.
-
-```python
-import mindspore.nn as nn
-import mindspore as ms
-
-
-class CustomWithEvalCell(nn.Cell):
-    """Customize multi-label evaluation network."""
-
-    def __init__(self, network):
-        super(CustomWithEvalCell, self).__init__(auto_prefix=False)
-        self.network = network
-
-    def construct(self, data, label1, label2):
-        output = self.network(data)
-        return output, label1, label2
-
-# Build a multi-label evaluation dataset.
-multi_eval_dataset = create_multilabel_dataset(num_data=80)
-
-# Build an evaluation network.
-eval_net = CustomWithEvalCell(net)
-
-# Evaluation function
-mae1 = nn.MAE()
-mae2 = nn.MAE()
-mae1.set_indexes([0, 1])
-mae2.set_indexes([0, 2])
-
-# Use a model to build an evaluation network.
-model = ms.Model(network=loss_net, optimizer=opt, eval_network=eval_net,
-                 metrics={"mae1": mae1, "mae2": mae2})
-result = model.eval(multi_eval_dataset)
-print(result)
-```
-
-```text
-    {'mae1': 2.5686439752578734, 'mae2': 2.4921266555786135}
-```
-
-When the preceding code is used for model evaluation, the output of the evaluation network is transparently transmitted to the `update` function of the evaluation metric. The `update` function receives three inputs: `logits`, `label1`, and `label2`.
-
-`nn.MAE` allows evaluation metrics to be computed only on two inputs. Therefore, `set_indexes` is used to specify `mae1` to use inputs whose subscripts are 0 and 1, that is, `logits` and `label1`, to compute the evaluation result. Specify `mae2` to use the inputs whose subscripts are 0 and 2, that is, `logits` and `label2`, to compute the evaluation result.
-
-### Network Inference
-
-   The `Model` does not provide parameters for specifying a customized inference network. In this case, you can directly run the feedforward network to obtain the inference result.
-
-```python
-for d in multi_eval_dataset.create_dict_iterator():
-    data = d["data"]
-    break
-
-output = net(data)
-print(output)
-```
-
-```text
-    [[-21.598358 ]
-     [ -1.0123782]
-     [ 10.457726 ]
-     [ 12.409237 ]
-     [ 19.666183 ]
-     [ -5.846529 ]
-     [  9.387393 ]
-     [  2.6558673]
-     [-15.15129  ]
-     [-14.876989 ]
-     [ 19.112661 ]
-     [ 22.647848 ]
-     [  4.9035554]
-     [ 20.119627 ]
-     [ -8.339532 ]
-     [ -2.7513359]]
-```
+The model precision data can be seen from the print information. In the example, the precision data reaches more than 95%, and the model quality is good. As the number of network iterations increases, the accuracy of the model will be further improved.
