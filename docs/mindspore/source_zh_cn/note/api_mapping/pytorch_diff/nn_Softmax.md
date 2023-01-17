@@ -16,7 +16,7 @@ class torch.nn.Softmax(dim=None)(input) -> Tensor
 class mindspore.nn.Softmax(axis=-1)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Softmax]( https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Softmax.html)。
+更多内容详见[mindspore.nn.Softmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Softmax.html)。
 
 ## 差异对比
 
