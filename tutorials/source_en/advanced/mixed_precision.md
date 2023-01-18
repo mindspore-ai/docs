@@ -287,6 +287,8 @@ model = build_train_network(model, optimizer, loss_fn, level="O2", loss_scale_ma
 from mindspore.train import Model, LossMonitor
 # Initialize network
 model = Network()
+loss_fn = nn.CrossEntropyLoss()
+optimizer = nn.SGD(model.trainable_params(), 1e-2)
 
 loss_scale_manager = FixedLossScaleManager()
 trainer = Model(model, loss_fn=loss_fn, optimizer=optimizer, metrics={'accuracy'}, amp_level="O2", loss_scale_manager=loss_scale_manager)
