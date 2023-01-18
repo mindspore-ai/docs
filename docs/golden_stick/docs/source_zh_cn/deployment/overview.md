@@ -13,7 +13,7 @@
 ## 模型部署的三个步骤
 
 1. [模型转换](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/deployment/convert.html)：将经过算法优化的模型进一步转换成标准的MindSpore网络；
-2. 模型导出：将模型导出为MindIR格式。MindSpore Golden Stick模型导出使用MindSpore已有能力，详情请见 [`mindspore.export` 文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.export.html)；
+2. 模型导出：将模型导出为MindIR格式。MindSpore Golden Stick模型导出使用MindSpore已有能力，详情请见 [mindspore.export 文档](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore/mindspore.export.html)；
 3. 模型推理：使用MindIR在端侧、GPU或者Ascend上进行部署推理。此特性敬请期待。
 
 ![](../images/deployment/arc.png)
