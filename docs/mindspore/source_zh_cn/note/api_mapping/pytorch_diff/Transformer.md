@@ -55,9 +55,9 @@ mindspore.nn.transformer.Transformer在初始化参数和torch.nn.Transformer并
 
 - mindspore.nn.transformer.Transformer缺少src_key_padding_mask、tgt_key_padding_mask和memory_key_padding_mask输入。
 
-- mindspore.nn.transformer.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
+- mindspore.nn.transformer.Transformer的输入中encoder_mask、decoder_mask是必须输入的。
 
-- mindspore.nn.transformer.Transformer会额外返回encoder和decoder中每层attention的key,value的历史值。
+- mindspore.nn.transformer.Transformer会额外返回encoder和decoder中每层attention的key、value的历史值。
 
 - mindspore.nn.transformer.Transformer中的post_layernorm_residual和torch.nn.transformer中的norm_first的参数对比如下：
 

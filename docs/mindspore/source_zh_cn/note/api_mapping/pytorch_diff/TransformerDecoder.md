@@ -53,7 +53,7 @@ mindspore.nn.transformer.TransformerDecoder在初始化参数和torch.nn.Transfo
 - mindspore.nn.transformer.TransformerDecoder提供了静态图的增量推理功能。
 - mindspore.nn.transformer.TransformerDecoder默认采用fp16进行矩阵运算。
 - mindspore.nn.transformer.TransformerDecoder的输入中attention_mask是必须输入的。
-- mindspore.nn.transformer.TransformerDecoder会返回以及encoder、decoder中每层attention的key,value的历史值。
+- mindspore.nn.transformer.TransformerDecoder会返回encoder和decoder中每层attention的key、value的历史值。
 - mindspore.nn.transformer.TransformerDecoder的初始化参数中缺少torch.nn.Transformer中的norm入参。
 - mindspore.nn.transformer.TransformerDecoder提供了并行配置parallel_config入参，可以实现混合并行和流水线并行。
 

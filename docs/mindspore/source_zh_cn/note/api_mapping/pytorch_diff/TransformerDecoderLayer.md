@@ -51,7 +51,7 @@ mindspore.nn.transformer.TransformerDecoderLayer在初始化参数和torch.nn.Tr
 - mindspore.nn.transformer.TransformerDecoderLayer提供了静态图的增量推理功能。
 - mindspore.nn.transformer.TransformerDecoderLayer默认采用fp16进行矩阵运算。
 - mindspore.nn.transformer.TransformerDecoderLayer的输入中attention_mask是必须输入的。
-- mindspore.nn.transformer.TransformerDecoderLayer会返回以及encoder, decoder中每层attention的key,value的历史值。
+- mindspore.nn.transformer.TransformerDecoderLayer会返回encoder和decoder中每层attention的key、value的历史值。
 - mindspore.nn.transformer.TransformerDecoderLayer提供了并行配置parallel_config入参，可以实现混合并行。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
