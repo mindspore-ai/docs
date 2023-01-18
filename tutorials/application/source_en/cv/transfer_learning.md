@@ -107,7 +107,7 @@ def create_dataset_canidae(dataset_path, usage):
 
 
     # Batch operation
-    data_set = data_set.batch(batch_size)
+    data_set = data_set.batch(batch_size, drop_remainder=True)
 
     return data_set
 
