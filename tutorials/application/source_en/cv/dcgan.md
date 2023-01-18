@@ -57,13 +57,10 @@ This tutorial uses the anime face dataset to train a GAN, which is then used to 
 First, download the dataset to the specified directory and decompress it. The sample code is as follows:
 
 ```python
-from mindvision import dataset
+from download import download
 
-dl_path = "./datasets"
 dl_url = "https://download.mindspore.cn/dataset/Faces/faces.zip"
-
-dl = dataset.DownLoad() # Download the dataset.
-dl.download_and_extract_archive(url=dl_url, download_path=dl_path)
+path = download(dl_url, "./datasets", kind="zip")
 ```
 
 The directory structure of the downloaded dataset is as follows:
@@ -87,9 +84,6 @@ First, define some inputs for the execution process:
 ```python
 import mindspore as ms
 
-# Use the graph execution mode and specify the training platform to GPU. If the Ascend platform is required, replace it with Ascend.
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
-
 data_root = "./datasets"  # Dataset root directory
 batch_size = 128 # Batch size
 image_size = 64 # Size of the training image.
@@ -106,54 +100,51 @@ Define the `create_dataset_imagenet` function to process and augment data.
 
 ```python
 import numpy as np
-import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-from mindspore import nn, ops
-
 def create_dataset_imagenet(dataset_path):
-    """Data loading"""
-    data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=4, shuffle=True,
-                                     decode=True)
+    """download datasets"""
+    dataset = ds.ImageFolderDataset(dataset_path,
+                         num_parallel_workers=4,
+                         shuffle=True,
+                         decode=True)
 
-    # Data augmentation
-    transform_img = [
+    # Data enhancement operation
+    transforms = [
         vision.Resize(image_size),
         vision.CenterCrop(image_size),
         vision.HWC2CHW(),
-        lambda x: ((x / 255).astype("float32"), np.random.normal(size=(nz, 1, 1)).astype("float32"))
+        lambda x: ((x / 255).astype("float32"))
     ]
 
-    # Data mapping
-    data_set = data_set.map(input_columns="image", num_parallel_workers=4, operations=transform_img, column_order=[\"image\", \"latent_code\"])
+    # Data mapping operation
+    dataset = dataset.project('image')
+    dataset = dataset.map(transforms, 'image')
 
     # Batch operation
-    data_set = data_set.batch(batch_size)
-    return data_set
+    dataset = dataset.batch(batch_size)
+    return dataset
 
-# Obtain the processed dataset.
-data = create_dataset_imagenet(data_root)
-
-# Obtain the dataset size.
-size = data.get_dataset_size()
+dataset = create_dataset_imagenet('./datasets')
 ```
 
 Use the `create_dict_iterator` function to convert data into a dictionary iterator, and then use the `matplotlib` module to visualize some training data.
 
 ```python
 import matplotlib.pyplot as plt
-%matplotlib inline
 
-data_iter = next(data.create_dict_iterator(output_numpy=True))
+def plot_data(data):
+    # Visualize some training data
+    plt.figure(figsize=(10, 3), dpi=140)
+    for i, image in enumerate(data[0][:30], 1):
+        plt.subplot(3, 10, i)
+        plt.axis("off")
+        plt.imshow(image.transpose(1, 2, 0))
+    plt.show()
 
-# Visualize some training data.
-plt.figure(figsize=(10, 3), dpi=140)
-for i, image in enumerate(data_iter['image'][:30], 1):
-    plt.subplot(3, 10, i)
-    plt.axis("off")
-    plt.imshow(image.transpose(1, 2, 0))
-plt.show()
+sample_data = next(dataset.create_tuple_iterator(output_numpy=True))
+plot_data(sample_data)
 ```
 
 ![png](images/output_81_0.png)
@@ -177,46 +168,39 @@ The generator structure in the code is determined by `nz`, `ngf`, and `nc` set i
 The code implementation of the generator is as follows:
 
 ```python
-from mindspore.common import initializer as init
+import mindspore as ms
+from mindspore import nn, ops
+from mindspore.common.initializer import Normal
 
-def conv_t(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="pad"):
-    """Define the transposed convolutional layer."""
-    weight_init = init.Normal(mean=0, sigma=0.02)
-    return nn.Conv2dTranspose(in_channels, out_channels,
-                              kernel_size=kernel_size, stride=stride, padding=padding,
-                              weight_init=weight_init, has_bias=False, pad_mode=pad_mode)
-
-def bn(num_features):
-    """Define the BatchNorm2d layer."""
-    gamma_init = init.Normal(mean=1, sigma=0.02)
-    return nn.BatchNorm2d(num_features=num_features, gamma_init=gamma_init)
+weight_init = Normal(mean=0, sigma=0.02)
+gamma_init = Normal(mean=1, sigma=0.02)
 
 class Generator(nn.Cell):
-    """DCGAN generator"""
+    """Visualize partial training data DCGAN network generator"""
 
     def __init__(self):
         super(Generator, self).__init__()
-        self.generator = nn.SequentialCell()
-        self.generator.append(conv_t(nz, ngf * 8, 4, 1, 0))
-        self.generator.append(bn(ngf * 8))
-        self.generator.append(nn.ReLU())
-        self.generator.append(conv_t(ngf * 8, ngf * 4, 4, 2, 1))
-        self.generator.append(bn(ngf * 4))
-        self.generator.append(nn.ReLU())
-        self.generator.append(conv_t(ngf * 4, ngf * 2, 4, 2, 1))
-        self.generator.append(bn(ngf * 2))
-        self.generator.append(nn.ReLU())
-        self.generator.append(conv_t(ngf * 2, ngf, 4, 2, 1))
-        self.generator.append(bn(ngf))
-        self.generator.append(nn.ReLU())
-        self.generator.append(conv_t(ngf, nc, 4, 2, 1))
-        self.generator.append(nn.Tanh())
+        self.generator = nn.SequentialCell(
+            nn.Conv2dTranspose(nz, ngf * 8, 4, 1, 'valid', weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 8, gamma_init=gamma_init),
+            nn.ReLU(),
+            nn.Conv2dTranspose(ngf * 8, ngf * 4, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 4, gamma_init=gamma_init),
+            nn.ReLU(),
+            nn.Conv2dTranspose(ngf * 4, ngf * 2, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 2, gamma_init=gamma_init),
+            nn.ReLU(),
+            nn.Conv2dTranspose(ngf * 2, ngf, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf, gamma_init=gamma_init),
+            nn.ReLU(),
+            nn.Conv2dTranspose(ngf, nc, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.Tanh()
+            )
 
     def construct(self, x):
         return self.generator(x)
 
-# Instantiate the generator.
-netG = Generator()
+generator = Generator()
 ```
 
 ### Discriminator
@@ -228,38 +212,33 @@ The DCGAN paper mentions that using convolution instead of pooling for downsampl
 The code implementation of the discriminator is as follows:
 
 ```python
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="pad"):
-    """Define the convolutional layers."""
-    weight_init = init.Normal(mean=0, sigma=0.02)
-    return nn.Conv2d(in_channels, out_channels,
-                     kernel_size=kernel_size, stride=stride, padding=padding,
-                     weight_init=weight_init, has_bias=False, pad_mode=pad_mode)
-
 class Discriminator(nn.Cell):
-    """DCGAN discriminator"""
+    """DCGAN network discriminator"""
 
     def __init__(self):
         super(Discriminator, self).__init__()
-        self.discriminator = nn.SequentialCell()
-        self.discriminator.append(conv(nc, ndf, 4, 2, 1))
-        self.discriminator.append(nn.LeakyReLU(0.2))
-        self.discriminator.append(conv(ndf, ndf * 2, 4, 2, 1))
-        self.discriminator.append(bn(ndf * 2))
-        self.discriminator.append(nn.LeakyReLU(0.2))
-        self.discriminator.append(conv(ndf * 2, ndf * 4, 4, 2, 1))
-        self.discriminator.append(bn(ndf * 4))
-        self.discriminator.append(nn.LeakyReLU(0.2))
-        self.discriminator.append(conv(ndf * 4, ndf * 8, 4, 2, 1))
-        self.discriminator.append(bn(ndf * 8))
-        self.discriminator.append(nn.LeakyReLU(0.2))
-        self.discriminator.append(conv(ndf * 8, 1, 4, 1))
-        self.discriminator.append(nn.Sigmoid())
+        self.discriminator = nn.SequentialCell(
+            nn.Conv2d(nc, ndf, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.LeakyReLU(0.2),
+            nn.Conv2d(ndf, ndf * 2, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 2, gamma_init=gamma_init),
+            nn.LeakyReLU(0.2),
+            nn.Conv2d(ndf * 2, ndf * 4, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 4, gamma_init=gamma_init),
+            nn.LeakyReLU(0.2),
+            nn.Conv2d(ndf * 4, ndf * 8, 4, 2, 'pad', 1, weight_init=weight_init),
+            nn.BatchNorm2d(ngf * 8, gamma_init=gamma_init),
+            nn.LeakyReLU(0.2),
+            nn.Conv2d(ndf * 8, 1, 4, 1, 'valid', weight_init=weight_init),
+            )
+        self.adv_layer = nn.Sigmoid()
 
     def construct(self, x):
-        return self.discriminator(x)
+        out = self.discriminator(x)
+        out = out.reshape(out.shape[0], -1)
+        return self.adv_layer(out)
 
-# Instantiate the discriminator.
-netD = Discriminator()
+discriminator = Discriminator()
 ```
 
 ### Loss and Optimizer
@@ -270,54 +249,9 @@ MindSpore encapsulates the loss function and optimizer into cells. Due to the pa
 
 When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used to add the loss function and optimizer to `D` and `G`.
 
-- Connect the generator and loss function. The code is as follows:
-
 ```python
 # define loss function
 loss = nn.BCELoss(reduction='mean')
-
-class WithLossCellG(nn.Cell):
-    """Connect the generator and loss function."""
-
-    def __init__(self, netD, netG, loss_fn):
-        super(WithLossCellG, self).__init__(auto_prefix=True)
-        self.netD = netD
-        self.netG = netG
-        self.loss_fn = loss_fn
-
-    def construct(self, latent_code):
-        """Construct the loss calculation structure of the generator."""
-        fake_data = self.netG(latent_code)
-        out = self.netD(fake_data)
-        label_real = ops.OnesLike()(out)
-        loss = self.loss_fn(out, label_real)
-        return loss
-```
-
-- Connect the discriminator and loss function. The code is as follows:
-
-```python
-class WithLossCellD(nn.Cell):
-    """Connect the discriminator and loss function."""
-
-    def __init__(self, netD, netG, loss_fn):
-        super(WithLossCellD, self).__init__(auto_prefix=True)
-        self.netD = netD
-        self.netG = netG
-        self.loss_fn = loss_fn
-
-    def construct(self, real_data, latent_code):
-        """Construct the loss calculation structure of the discriminator."""
-        out_real = self.netD(real_data)
-        label_real = ops.OnesLike()(out_real)
-        loss_real = self.loss_fn(out_real, label_real)
-
-        fake_data = self.netG(latent_code)
-        fake_data = ops.stop_gradient(fake_data)
-        out_fake = self.netD(fake_data)
-        label_fake = ops.ZerosLike()(out_fake)
-        loss_fake = self.loss_fn(out_fake, label_fake)
-        return loss_real + loss_fake
 ```
 
 ### Optimizer
@@ -327,13 +261,11 @@ Two separate optimizers are set up here, one for `D` and the other for `G`. Both
 To trace the learning progress of the generator, during the training process, a batch of fixed implicit vectors `fixed_noise` that comply with Gaussian distribution are periodically input to `G`. We can see the images generated by the implicit vector.
 
 ```python
-# Create a batch of implicit vectors to observe G.
-np.random.seed(1)
-fixed_noise = ms.Tensor(np.random.randn(64, nz, 1, 1), dtype=ms.float32)
-
-# Set optimizers for the generator and discriminator, respectively.
-optimizerD = nn.Adam(netD.trainable_params(), learning_rate=lr, beta1=beta1)
-optimizerG = nn.Adam(netG.trainable_params(), learning_rate=lr, beta1=beta1)
+# Set optimizers for the generator and discriminator.
+optimizer_D = nn.Adam(discriminator.trainable_params(), learning_rate=lr, beta1=beta1)
+optimizer_G = nn.Adam(generator.trainable_params(), learning_rate=lr, beta1=beta1)
+optimizer_G.update_parameters_name('optim_g.')
+optimizer_D.update_parameters_name('optim_d.')
 ```
 
 ## Training Mode
@@ -353,72 +285,76 @@ In the preceding two processes, the training loss is obtained, and statistics ar
 The training process is as follows:
 
 ```python
-class DCGAN(nn.Cell):
-    """Define the DCGAN."""
+def generator_forward(real_imgs, valid):
+    # Sampling noise as input of generator
+    z = ops.standard_normal((real_imgs.shape[0], nz, 1, 1))
 
-    def __init__(self, myTrainOneStepCellForD, myTrainOneStepCellForG):
-        super(DCGAN, self).__init__(auto_prefix=True)
-        self.myTrainOneStepCellForD = myTrainOneStepCellForD
-        self.myTrainOneStepCellForG = myTrainOneStepCellForG
+    # Generate a batch of images
+    gen_imgs = generator(z)
 
-    def construct(self, real_data, latent_code):
-        output_D = self.myTrainOneStepCellForD(real_data, latent_code).view(-1)
-        netD_loss = output_D.mean()
-        output_G = self.myTrainOneStepCellForG(latent_code).view(-1)
-        netG_loss = output_G.mean()
-        return netD_loss, netG_loss
-```
+    # Loss measurement generator's ability to bypass the discriminator
+    g_loss = adversarial_loss(discriminator(gen_imgs), valid)
 
-Instantiate `WithLossCell` and `TrainOneStepCell` of the generator and discriminator.
+    return g_loss, gen_imgs
 
-```python
-# Instantiate `WithLossCell`.
-netD_with_criterion = WithLossCellD(netD, netG, loss)
-netG_with_criterion = WithLossCellG(netD, netG, loss)
+def discriminator_forward(real_imgs, gen_imgs, valid, fake):
+    # Measure the discriminator's ability to classify real samples from generated samples
+    real_loss = adversarial_loss(discriminator(real_imgs), valid)
+    fake_loss = adversarial_loss(discriminator(gen_imgs), fake)
+    d_loss = (real_loss + fake_loss) / 2
+    return d_loss
 
-# Instantiate `TrainOneStepCell`.
-myTrainOneStepCellForD = nn.TrainOneStepCell(netD_with_criterion, optimizerD)
-myTrainOneStepCellForG = nn.TrainOneStepCell(netG_with_criterion, optimizerG)
+grad_generator_fn = ops.value_and_grad(generator_forward, None,
+                                      optimizer_G.parameters,
+                                      has_aux=True)
+grad_discriminator_fn = ops.value_and_grad(discriminator_forward, None,
+                                          optimizer_D.parameters)
+
+@ms.ms_function
+def train_step(imgs):
+    valid = ops.ones((imgs.shape[0], 1), mindspore.float32)
+    fake = ops.zeros((imgs.shape[0], 1), mindspore.float32)
+
+    (g_loss, gen_imgs), g_grads = grad_generator_fn(imgs, valid)
+    optimizer_G(g_grads)
+    d_loss, d_grads = grad_discriminator_fn(imgs, gen_imgs, valid, fake)
+    optimizer_D(d_grads)
+
+    return g_loss, d_loss, gen_imgs
 ```
 
 Train the DCGAN cyclically, and collect the loss of the generator and discriminator every 50 iterations to facilitate subsequent drawing of the image of the loss function during the training process.
 
 ```python
-import mindspore as ms
+import mindspore
 
-# Instantiate the DCGAN.
-dcgan = DCGAN(myTrainOneStepCellForD, myTrainOneStepCellForG)
-dcgan.set_train()
-
-# Create an iterator.
-data_loader = data.create_dict_iterator(output_numpy=True, num_epochs=num_epochs)
 G_losses = []
 D_losses = []
 image_list = []
 
-# Start cyclic training.
-print("Starting Training Loop...")
-
+total = dataset.get_dataset_size()
 for epoch in range(num_epochs):
-    # Read data for each epoch of training.
-    for i, d in enumerate(data_loader):
-        real_data = ms.Tensor(d['image'])
-        latent_code = ms.Tensor(d["latent_code"])
-        netD_loss, netG_loss = dcgan(real_data, latent_code)
-        if i % 50 == 0 or i == size - 1:
-            # Output training records.
+    generator.set_train()
+    discriminator.set_train()
+    # Read data for each training round
+    for i, (imgs, ) in enumerate(dataset.create_tuple_iterator()):
+        g_loss, d_loss, gen_imgs = train_step(imgs)
+        if i % 100 == 0 or i == total - 1:
+            # Output training records
             print('[%2d/%d][%3d/%d]   Loss_D:%7.4f  Loss_G:%7.4f' % (
-                epoch + 1, num_epochs, i + 1, size, netD_loss.asnumpy(), netG_loss.asnumpy()))
-        D_losses.append(netD_loss.asnumpy())
-        G_losses.append(netG_loss.asnumpy())
+                epoch + 1, num_epochs, i + 1, total, d_loss.asnumpy(), g_loss.asnumpy()))
+        D_losses.append(d_loss.asnumpy())
+        G_losses.append(g_loss.asnumpy())
 
-    # After each epoch ends, use the generator to generate a group of images.
-    img = netG(fixed_noise)
+    # After each epoch, use the generator to generate a group of pictures
+    generator.set_train(False)
+    fixed_noise = ops.standard_normal((batch_size, nz, 1, 1))
+    img = generator(fixed_noise)
     image_list.append(img.transpose(0, 2, 3, 1).asnumpy())
 
-    # Save the network model parameters as a CKPT file.
-    ms.save_checkpoint(netG, "Generator.ckpt")
-    ms.save_checkpoint(netD, "Discriminator.ckpt")
+    # Save network model parameters as ckpt file
+    mindspore.save_checkpoint(generator, "./generator.ckpt")
+    mindspore.save_checkpoint(discriminator, "./discriminator.ckpt")
 ```
 
 ```python
@@ -482,19 +418,11 @@ showGif(image_list)
 As shown in the preceding figure, the image quality becomes better as the number of training iterations increases. If the number of training epochs increases and the value of `num_epochs` is greater than 50, the generated anime avatar face image is similar to that in the dataset. The following describes how to load the GAN parameter file [Generator.ckpt](https://download.mindspore.cn/vision/classification/Generator.ckpt) in which the number of training epochs is 50 to generate an image. The code is as follows:
 
 ```python
-import mindspore as ms
-from mindvision import dataset
+# Get model parameters from the file and load them into the network
+mindspore.load_checkpoint("./generator.ckpt", generator)
 
-dl_path = "./netG"
-dl_url = "https://download.mindspore.cn/vision/classification/Generator.ckpt"
-
-dl = dataset.DownLoad()  # Download the `Generator.ckpt` file.
-dl.download_url(url=dl_url, path=dl_path)
-
-# Obtain model parameters from the file and load them to the network.
-param_dict = ms.load_checkpoint("./netG/Generator.ckpt", netG)
-
-img64 = netG(fixed_noise).transpose(0, 2, 3, 1).asnumpy()
+fixed_noise = ops.standard_normal((batch_size, nz, 1, 1))
+img64 = generator(fixed_noise).transpose(0, 2, 3, 1).asnumpy()
 
 fig = plt.figure(figsize=(8, 3), dpi=120)
 images = []
