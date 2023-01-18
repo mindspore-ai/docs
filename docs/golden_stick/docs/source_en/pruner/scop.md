@@ -212,11 +212,19 @@ if __name__ == "__main__":
 
 After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
 
-## SCOP Effect
+## Summary
 
-In graph mode, apply SCOP to ResNet-50 and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. It can be found that in the current task, compared with the original model, when the pruning rate is 45%, the model after SCOP greatly reduces the parameters of the model, and the accuracy loss is within 0.5%.
+> - indicates not test yet, NS indicates not supported yet.
 
-| Model            | Pruning Rate     | Parameters (M)  | Accuracy     |
-| ------------     | ----------  | --------   | -----      |
-| ResNet-50        | -           | 24         |  93.2%     |
-| ResNet-50 pruned by SCOP| **45%**     | **11**     |  **92.7%** |
+### Summary of Training
+
+Training in graph mode based on [MindSpore](), [MindSpore Golden Stick](), [MindSpore Models]().
+
+| algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc | pruning rate | parameter size(MB) |
+| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- | ------------ | ------------------ |
+| baseline | resnet50 | CIFAR10      |     91.44%      |       -        |        -          |        -          |      NA      |         24         |
+| SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%     |         11         |
+| baseline | resnet50 | Imagenet2012 |     76.71%      |       -        |        -          |        -          |      NA      |         -          |
+| SCOP     | resnet50 | Imagenet2012 |       NS        |       NS       |        NS         |        NS         |      NS      |         NS         |
+
+It can be found that in the current task, compared with the original model, when the pruning rate is 45%, the model after SCOP greatly reduces the parameters of the model, and the accuracy loss is within 0.5%.

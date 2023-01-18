@@ -231,9 +231,39 @@ LeNet5应用感知量化训练后精度未下降。
 
 > 感知量化算法的一个效果是压缩模型大小，但这里提到的模型大小是指部署模型的大小。此处的网络并非最终的部署模型，又由于网络中增加了伪量化节点，所以量化网络的checkpoint文件大小反而相较原始网路的略有增加。
 
-## 总结
+## 算法效果汇总
 
-本文主要介绍了量化的作用、常用量化算法的原理，并给出了示例介绍如何应用MindSpore Golden Stick中的感知量化算法。量化算法可以在精度不下降或者下降较少的前提下大幅降低模型尺寸，提升模型推理性能，欢迎使用MindSpore Golden Stick的感知量化训练功能！
+> -表示尚未测试，NS表示尚未支持
+
+### 训练效果
+
+使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/commit/3c0557371204036ae82404d48c875e905be1ac69)，[MindSpore Models](973057252f353fa63828d8749d53bbe779e07bf9)。
+
+| 算法     | 网络      | 数据集        | CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
+| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
+| baseline | lenet    | MNIST        |        -        |        -       |       98.42%      |        -          |
+| SimQAT   | lenet    | MNIST        |     99.08%      |        -       |        NS         |        -          |
+| baseline | resnet50 | CIFAR10      |     91.44%      |        -       |        -          |        -          |
+| SimQAT   | resnet50 | CIFAR10      |     93.54%      |     99.82%     |        NS         |       NS          |
+| baseline | resnet50 | Imagenet2012 |     76.71%      |        -       |        -          |        -          |
+| SimQAT   | resnet50 | Imagenet2012 |     72.54%      |     93.13%     |        NS         |       NS          |
+
+### 部署效果
+
+使用CUDA11环境训练得到的网络，在不同的后端进行部署并测试。
+
+ARMCPU指Arm64架构的CPU。ARMCPU部署测试使用的代码为：[MindSpore Lite](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa)。
+
+| 算法     | 网络      | 数据集       | ARMCPU模型大小 | ARMCPU Top1Acc | ARMCPU性能 | CUDA11模型大小 | CUDA11 Top1Acc | CUDA11性能 | Ascend310模型大小 | Ascend310 Top1Acc | Ascend310性能 |
+| -------- | -------- | ------------ | ------------- | -------------- | ---------- | ------------- | -------------- | ---------- | ---------------- | ----------------- | ------------- |
+| baseline | lenet    | MNIST        |       -       |        -       |      -     |        -      |       -        |     -      |         -        |          -        |        -      |
+| SimQAT   | lenet    | MNIST        |       -       |        -       |      -     |       NS      |       NS       |     NS     |        NS        |         NS        |       NS      |
+| baseline | resnet50 | CIFAR10      |       -       |        -       |      -     |        -      |       -        |     -      |         -        |          -        |        -      |
+| SimQAT   | resnet50 | CIFAR10      |       -       |        -       |      -     |       NS      |       NS       |     NS     |        NS        |         NS        |       NS      |
+| baseline | resnet50 | Imagenet2012 |       -       |        -       |      -     |        -      |       -        |     -      |         -        |          -        |        -      |
+| SimQAT   | resnet50 | Imagenet2012 |       -       |        -       |      -     |       NS      |       NS       |     NS     |        NS        |         NS        |       NS      |
+
+可以看到，SimQAT量化算法可以在精度不下降或者下降较少的前提下降低模型尺寸，提升模型推理性能，降低推理功耗。
 
 ## 参考文献
 
