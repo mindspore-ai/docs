@@ -244,33 +244,82 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62 MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
 ```
 
-When encounter such an error, you can first check whether the card running the program is already occupied by another program. At present, MindSpore only supports one program running on the same Device in Ascend environment, and the program will apply for 32212254720KB (i.e. 30GB) of video memory at one time when it is executed on the 910 training server, so if the error message shows that the size of video memory in the failed application is 32212254720, it is likely that the card is already occupied by other programs, resulting in the failed application of video memory for the new program. When you encounter this problem just make sure the card is not occupied by another program and restart the program.
+When encounter such an error, you can first check whether the card running the program is already occupied by another program. At present, MindSpore only supports one program running on the same Device in Ascend environment, and the program will apply for 32212254720KB (i.e. 30GB) of video memory at one time when it is executed on the 910 training server, so if the error message shows that the size of video memory in the failed application is 32212254720, it is likely that the card is already occupied by other programs, resulting in the failed application of video memory for the new program. When you encounter this problem just make sure the card is not occupied by another program and restart the program.If the error message shows that the size of video memory in the failed application is not 32212254720, but any other number, the network model may be too large and exceed the Device memory (32GB for 910 servers), consider changing the batchsize, optimizing the network model or using model parallelism for training.
 
-If the error message shows that the size of video memory in the failed application is not 32212254720, but any other number, the network model may be too large and exceed the Device memory (32GB for 910 servers), consider changing the batchsize, optimizing the network model or using model parallelism for training.
-
-### EE8888: Device ID Setting Error
-
-Users can specify which card their application runs on by using the environment variable DEVICE_ID or by setting the device_id in the context. If the device id is not set correctly, it may report `EE8888` error, such as the following error scenario. There are only 8 cards in the server, the available device id range is [0, 8), and the user incorrectly set the device_id=8.
+In addition, currently MindSpore will verify the remaining Device memory of the device during program initialization. If the remaining Device memory is less than half of the total, the following error will be reported to indicate that the device is occupied:
 
 ```c++
-[ERROR] DEVICE(127804,ffff964f1480,python):2022-05-28-15:32:37.021.254 [mindspore/ccsrc/runtime/device/context_extends.cc:103] OpenTsd] Ascend error occurred, error message:
-EE8888: Inner Error!
-        Set device failed, invalid device, current device=8, valid device range is [0, 8)[FUNC:SetDevice][FILE:api_error.cc][LINE:822]
-        rtSetDevice execute failed, reason=[error device id][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:45]
+[CRITICAL] DEVICE(164104,ffff841795d0,python):2022-12-01-03:58:52.033.238 [mindspore/ccsrc/runtime/device/kernel_runtime.cc:124] LockRuntime] The pointer[stream] is null.
+[ERROR] DEVICE(164104,ffff841795d0,python):2022-12-01-03:58:52.033.355 [mindspore/ccsrc/runtime/device/kernel_runtime_manager.cc:138] WaitTaskFinishOnDevice] SyncStream failed, exception:The pointer[stream] is null.
 
-[CRITICAL] DEVICE(127804,ffff964f1480,python):2022-05-28-15:32:37.021.316 [mindspore/ccsrc/runtime/device/context_extends.cc:105] OpenTsd] Device 8 call rtSetDevice failed, ret[107001]
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/runtime/device/kernel_runtime.cc:124 LockRuntime
+
 Traceback (most recent call last):
-  File "/home/jenkins/models/official/cv/lenet/scripts/../train.py", line 68, in <module>
-    train_lenet()
-  File "/home/jenkins/models/official/cv/lenet/src/model_utils/moxing_adapter.py", line 108, in wrapped_func
+  File "train.py", line 377, in <module>
+    train_net()
+  File "/home/jenkins/workspace/TDT_deployment/solution_test/remaining/test_scripts/mindspore/reliability/fmea/business/process/multitask/test_ms_fmea_multi_task_1p_1p_0001_2_GRAPH_MODE/scripts/train/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
     run_func(*args, **kwargs)
-  File "/home/jenkins/models/official/cv/lenet/scripts/../train.py", line 48, in train_lenet
-    network = LeNet5(config.num_classes)
-  File "/home/jenkins/models/official/cv/lenet/src/lenet.py", line 35, in __init__
-    super(LeNet5, self).__init__()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 117, in __init__
+  File "train.py", line 370, in train_net
+    sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 1052, in train
+    initial_epoch=initial_epoch)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
+    func(self, *args, **kwargs)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 614, in _train
+    cb_params, sink_size, initial_epoch, valid_infos)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 673, in _train_dataset_sink_process
+    dataset_helper=dataset_helper)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 427, in _exec_preprocess
+    dataset_helper = DatasetHelper(dataset, dataset_sink_mode, sink_size, epoch_num)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 335, in __init__
+    self.iter = iterclass(dataset, sink_size, epoch_num)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 530, in __init__
+    super().__init__(dataset, sink_size, epoch_num)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 429, in __init__
+    create_data_info_queue=create_data_info_queue)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/_utils.py", line 74, in _exec_datagraph
+    phase=phase)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1264, in init_dataset
+    need_run=need_run):
+RuntimeError: Ascend kernel runtime initialization failed. The details refer to 'Ascend Error Message'.
+
+----------------------------------------------------
+- Framework Error Message:
+----------------------------------------------------
+Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:34359738368 Device HBM free size:2140602368 may be other processes occupying this card, check as: ps -ef|grep python
+```
+
+### EE1001: Device ID Setting Error
+
+Users can specify which card their application runs on by using the environment variable DEVICE_ID or by setting the device_id in the context. If the device id is not set correctly, it may report `EE1001` error, such as the following error scenario. There are only 8 cards in the server, the available device id range is [0, 8), and the user incorrectly set the device_id=8.
+
+```c++
+Traceback (most recent call last):
+  File "train.py", line 379, in <module>
+    train_net()
+  File "/home/jenkins/ResNet/scripts/train/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+    run_func(*args, **kwargs)
+  File "train.py", line 312, in train_net
+    net = resnet(class_num=config.class_num)
+  File "/home/jenkins/ResNet/scripts/train/src/resnet.py", line 561, in resnet50
+    class_num)
+  File "/home/jenkins/ResNet/scripts/train/src/resnet.py", line 381, in __init__
+    super(ResNet, self).__init__()
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 118, in __init__
     init_pipeline()
-RuntimeError: mindspore/ccsrc/runtime/device/context_extends.cc:105 OpenTsd] Device 8 call rtSetDevice failed, ret[107001]
+RuntimeError: Device 8 call rtSetDevice failed, ret[107001]. The details refer to 'Ascend Error Message'.
+
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EE1001: The argument is invalid.Reason: Set device failed, invalid device, set device=8, valid device range is [0, 8)
+        TraceBack (most recent call last):
+        rtSetDevice execute failed, reason=[device id error][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:49]
+
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
 ```
 
 When you encounter such problem, just check the device id setting according to the error log.
@@ -287,45 +336,53 @@ HCCL is the Huawei Collective Communication Library, which provides high-perform
 
 The error codes for HCCL & HCCP start with `EI` and `EJ`. Throughout the communication process, single card problems and communication link problems in the cluster may lead to a large number of timeout errors, so when locating cluster communication problems, we need to collect the log information of the whole cluster and lock the location where the problems occur.
 
-### Socket Build Timeout
+### EI0006: Socket Build Timeout
 
-When the socker build timeout occurs, the MindSpore log will show a `Distribute Task Failed` error. If you also print the CANN log and find a `get socket timeout` error in the HCCL module log, the cluster has a socket build timeout error, as shown in the following log:
+When the socker build timeout occurs, it will report an `EI0006` error, and the MindSpore log will show a `Distribute Task Failed` error. This means the cluster has a socket build timeout error, as shown in the following log:
 
 ```c++
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.375 [exchanger_network.cc:232][130250][138166][Wait][AllClientSocketEstab]errNo[0x000000000500000b] client : device[1] rank[1] get socket timeout, total[4] remain[3]
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.435 [exchanger_network.cc:378][130250][138166]call trace: ret -> 4
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.446 [exchanger_network.cc:104][130250][138166][ExchangerNetwork][Init]rank[1] device[1] wait all socket establish 120 second failed
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.509 [exchanger_network.cc:760][130250][138166]   _____________________________________________________
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.519 [exchanger_network.cc:761][130250][138166]   |device[1] userrank[1] exchanger Status: run_step[1]|
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.526 [exchanger_network.cc:762][130250][138166]   |  dest_dev  |  userrank  |    Role    | connStatus |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.533 [exchanger_network.cc:763][130250][138166]   |------------|------------|------------|------------|
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.543 [exchanger_network.cc:782][130250][138166]   |         0  |         0  |   client   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.550 [exchanger_network.cc:782][130250][138166]   |         1  |         1  |     NA     |     NA     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.557 [exchanger_network.cc:782][130250][138166]   |         2  |         2  |   server   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.588 [exchanger_network.cc:782][130250][138166]   |         3  |         3  |   client   |     YES     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.594 [exchanger_network.cc:782][130250][138166]   |         4  |         4  |   server   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.601 [exchanger_network.cc:782][130250][138166]   |         5  |         5  |   client   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.607 [exchanger_network.cc:782][130250][138166]   |         6  |         6  |   server   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.612 [exchanger_network.cc:782][130250][138166]   |         7  |         7  |   client   |     NO     |
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.619 [exchanger_network.cc:787][130250][138166]   ___________________________________________________________________
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.625 [exchanger_network.cc:788][130250][138166]the connection failure between this device and the target device may be due to the following reasons:
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.631 [exchanger_network.cc:789][130250][138166]1. the connection between this device and the target device is abnormal.
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.637 [exchanger_network.cc:790][130250][138166]2. an exception occurred at the target devices.
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.644 [exchanger_network.cc:792][130250][138166]3. the time difference between the execution of hcom on this device and the target device exceeds the timeout threshold. make sure this by keyworld [Entry-]
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.650 [exchanger_network.cc:794][130250][138166]4. the behavior of executing the calculation graph on this device and the target device is inconsistent.
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.787.658 [comm_factory.cc:1102][130250][138166][Get][ExchangerNetwork]exchanger init failed
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.177 [comm_factory.cc:244][130250][138166][Create][CommOuter]exchangerNetwork create failed
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.192 [hccl_impl.cc:2105][130250][138166][Create][OuterComm]errNo[0x0000000005000006] tag[HcomAllReduce_6629421139219749105_0], created commOuter fail. commOuter[0] is null
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.276 [hccl_impl.cc:1878][130250][130825][Create][CommByAlg]CreateInnerComm [0] or CreateOuterComm[6] failed. commType[2]
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.311 [hccl_impl.cc:1975][130250][130825]call trace: ret -> 4
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.331 [hccl_impl.cc:896][130250][130825][HcclImpl][AllReduce]errNo[0x0000000005000004]  tag[HcomAllReduce_6629421139219749105_0],all reduce create comm failed
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.340 [hccl_comm.cc:240][130250][130825]call trace: ret -> 4
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.351 [hcom.cc:251][130250][130825][AllReduce][Result]errNo[0x0000000005010004] hcclComm all reduce error, tag[HcomAllReduce_6629421139219749105_0],input_ptr[0x108a39a06400], output_ptr[0x108a02805200], count[22348800], data_type[4], op[0], stream[0xfffeb6a2ccd0]
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.363 [hcom_ops_kernel_info_store.cc:357][130250][130825]call trace: ret -> 4
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.386 [hcom_ops_kernel_info_store.cc:191][130250][130825]call trace: ret -> 4
-[ERROR] HCCL(130250,python):2021-10-14-00:50:50.830.394 [hcom_ops_kernel_info_store.cc:854][130250][130825][Load][Task]errNo[0x0000000005010004] load task failed. (load op[HcomAllReduce] fail)
-[EXCEPTION] GE(130250,fffe49ffb1e0,python):2021-10-14-00:50:50.830.457 [mindspore/ccsrc/runtime/device/ascend/ge_runtime/task/hccl_task.cc:99] Distribute] davinci_model : load task fail, return ret: 1343225860
-[EXCEPTION] DEVICE(130250,fffe49ffb1e0,python):2021-10-14-00:50:58.410.094 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:547] LoadTask] Distribute Task Failed, error: mindspore/ccsrc/runtime/device/ascend/ge_runtime/task/hccl_task.cc:99 Distribute] davinci_model : load task fail, return ret: 1343225860
+[ERROR] ASCENDCL(83434,python):2022-11-30-23:31:08.729.325 [tensor_data_transfer.cpp:899]89062 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 62576f78-70c2-11ed-b633-000132214e48
+[WARNING] DEVICE(83434,fffcf1ffb1e0,python):2022-11-30-23:31:08.986.720 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:257] Push] Device queue thread had been interrupted by TdtHandle::DestroyHandle, you can ignore the above error: 'failed to send...'. In this scenario, the training ends first without using all epoch(s) data, and the data preprocessing is blocked by the data transmission channel on the device side. So we force the data transmission channel to stop.
+[WARNING] MD(83434,ffff852cf5d0,python):2022-11-30-23:31:08.999.090 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:93] ~DataQueueOp] preprocess_batch: 49; batch_queue: 0, 0, 0, 0, 0, 0, 0, 0, 0, 64; push_start_time: 2022-11-30-23:19:41.234.869, 2022-11-30-23:19:41.273.919, 2022-11-30-23:19:41.333.753, 2022-11-30-23:19:41.415.529, 2022-11-30-23:19:41.479.177, 2022-11-30-23:19:41.557.576, 2022-11-30-23:19:41.605.967, 2022-11-30-23:19:41.682.957, 2022-11-30-23:19:41.719.645, 2022-11-30-23:19:41.785.832; push_end_time: 2022-11-30-23:19:41.245.668, 2022-11-30-23:19:41.284.989, 2022-11-30-23:19:41.344.248, 2022-11-30-23:19:41.430.124, 2022-11-30-23:19:41.491.263, 2022-11-30-23:19:41.569.235, 2022-11-30-23:19:41.624.471, 2022-11-30-23:19:41.700.708, 2022-11-30-23:19:41.735.413, 2022-11-30-23:31:08.986.853.
+[TRACE] HCCL(83434,python):2022-11-30-23:31:10.455.138 [status:stop] [hcom.cc:264][hccl-83434-0-1669821563-hccl_world_group][1]hcom destroy complete,take time [323391]us, rankNum[8], rank[1]
+Traceback (most recent call last):
+  File "train.py", line 377, in <module>
+    train_net()
+  File "/home/jenkins/solution_test/remaining/test_scripts/process/train_parallel1/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+    run_func(*args, **kwargs)
+  File "train.py", line 370, in train_net
+    sink_size=100, dataset_sink_mode=dataset_sink_mode)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 1052, in train
+    initial_epoch=initial_epoch)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
+    func(self, *args, **kwargs)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 614, in _train
+    cb_params, sink_size, initial_epoch, valid_infos)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 692, in _train_dataset_sink_process
+    outputs = train_network(*inputs)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 627, in __call__
+    out = self.compile_and_run(*args)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
+    self.compile(*inputs)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
+    jit_config_dict=self._jit_config_dict)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1347, in compile
+    result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+RuntimeError: Preprocess failed before run graph 1. The details refer to 'Ascend Error Message'.
+
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EI0006: Getting socket times out. Reason: 1. The remote does not initiate a connect request. some NPUs in the cluster are abnormal.    2. The remote does not initiate a connect request because the collective communication operator is started too late or is not started by some NPU in the cluster.    3. The communication link is disconnected. (For example, the IP addresses are not on the same network segment or the TLS configurations are inconsistent.)
+        Solution: 1. Check the rank service processes with other errors or no errors in the cluster.2. If this error is reported for all NPUs, check whether the time difference between the earliest and latest errors is greater than the connect timeout interval (120s by default). If so, adjust the timeout interval by using the HCCL_CONNECT_TIMEOUT environment variable.3. Check the connectivity of the communication link between nodes. (For details, see the TLS command and HCCN connectivity check examples.)
+
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
+
+----------------------------------------------------
+- Framework Error Message: (For framework developers)
+----------------------------------------------------
+Distribute Task Failed,
+error msg: davinci_model : load task fail, return ret: 1343225860
 ```
 
 As stated in the log, the common reasons for socket build timeouts are:
@@ -334,15 +391,13 @@ As stated in the log, the common reasons for socket build timeouts are:
 
 2. Some cards are blocked by certain tasks that take longer than 600 seconds (configurable via HCCL_CONNECT_TIMEOUT) before the corresponding phase is executed.
 
-3. Inconsistent number or ordering of communication operators between some cards due to network models, etc.
-
-4. The communication link between nodes is not working or is unstable.
+3. The communication link between nodes is not working or is unstable.
 
 After collecting INFO logs (including CANN logs) for all cards in the cluster, the following steps can be followed to troubleshoot:
 
 1. Check the error logs of all cards. If a card does not report a socket build timeout error, you can use the log time check to determine whether there is a business process error exit, jamming or core downtime that causes the cluster socket build timeout, and then turn to a single card to locate the problem.
 
-2. If all cards report socket build timeout errors, check whether the difference between the earliest and latest time in the error log of each card exceeds the timeout threshold. If the threshold is exceeded, please locate the latest rank execution blocking cause or adjust the timeout threshold (default is 600 seconds, set by environment variable HCCL_CONNECT_TIMEOUT)
+2. If all cards report socket build timeout errors, check whether the difference between the earliest and latest time in the error log of each card exceeds the timeout threshold. If the threshold is exceeded, please locate the latest rank execution blocking cause or adjust the timeout threshold (default is 600 seconds in MindSpore, set by environment variable HCCL_CONNECT_TIMEOUT)
 
 3. Check whether a Device network port communication link in the cluster works. The common reasons are:
 
@@ -357,57 +412,21 @@ After collecting INFO logs (including CANN logs) for all cards in the cluster, t
 Commonly used in the execution phase. The task of the HCCL operator is executed on each Device of the specified cluster, and the state is synchronized via notify. If an exception occurs on any card or communication link before/during the execution, the cluster synchronization will fail and the remaining cards will have a notify wait timeout and report an `EI0002` error as follows:
 
 ```c++
-[ERROR] DEVICE(105395,fffdda7fc0f0,python):2022-11-29-10:20:42.200.963 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:744] DumpTaskExceptionInfo] Task fail infos task_id: 10, stream_id: 27, tid: 105395, device_id: 1, retcode: 507011 ( model execute failed)
-[WARNING] DEVICE(105395,fffd3d7fa0f0,python):2022-11-29-10:20:42.340.685 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:257] Push] Device queue thread had been interrupted by TdtHandle::DestroyHandle, you can ignore the above error: 'failed to send...'. In this scenario, the training ends first without using all epoch(s) data, and the data preprocessing is blocked by the data transmission channel on the device side. So we force the data transmission channel to stop.
-[WARNING] MD(105395,fffd3d7fa0f0,python):2022-11-29-10:20:42.340.894 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:257] SendDataToAscend] Thread has already been terminated.
-Traceback (most recent call last):
-  File "train.py", line 377, in <module>
-    train_net()
-  File "/home/jenkins/ResNet/scripts/train_parallel1/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
-    run_func(*args, **kwargs)
-  File "train.py", line 370, in train_net
-    sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 1052, in train
-    initial_epoch=initial_epoch)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
-    func(self, *args, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 614, in _train
-    cb_params, sink_size, initial_epoch, valid_infos)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 692, in _train_dataset_sink_process
-    outputs = train_network(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 627, in __call__
-    out = self.compile_and_run(*args)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 946, in compile_and_run
-    return _cell_graph_executor(self, *new_inputs, phase=self.phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1371, in __call__
-    return self.run(obj, *args, phase=phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1408, in run
-    return self._exec_pip(obj, *args, phase=phase_real)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 98, in wrapper
-    results = fn(*arg, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1390, in _exec_pip
-    return self._graph_executor(args, phase)
-RuntimeError: Run task for graph:kernel_graph_1 error! The details refer to 'Ascend Error Message'.
-
-----------------------------------------------------
-- Ascend Error Message:
-----------------------------------------------------
-EI0002: The wait execution of the Notify register times out. Reason: The Notify register has not received the Notify record from remote rank [0].base information: [streamID:[27], taskID[10], taskType[Notify Wait], tag[HcomAllReduce_6629421139219749105_0].] task information: [notify id:[0x0000000100000000], stage:[ffffffff], remote rank:[0].
+[ERROR] ASCENDCL(162844,python):2022-12-01-00:26:58.086.834 [tensor_data_transfer.cpp:899]168498 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 1393be34-70ca-11ed-9be5-000132214e48
+[WARNING] DEVICE(162844,fffce77fe1e0,python):2022-12-01-00:26:58.388.563 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:257] Push] Device queue thread had been interrupted by TdtHandle::DestroyHandle, you can ignore the above error: 'failed to send...'. In this scenario, the training ends first without using all epoch(s) data, and the data preprocessing is blocked by the data transmission channel on the device side. So we force the data transmission channel to stop.
+[CRITICAL] DEVICE(162844,fffd6cff91e0,python):2022-12-01-00:26:58.399.787 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240] RunGraph] Run task for graph:kernel_graph_1 error! The details refer to 'Ascend Error Message'.Ascend Error Message:EI0002: The wait execution of the Notify register times out. Reason: The Notify register has not received the Notify record from remote rank [0].base information: [streamID:[14], taskID[4], taskType[Notify Wait], tag[HcomAllReduce_6629421139219749105_0].] task information: [notify id:[0x0000000100000058], stage:[ffffffff], remote rank:[0].
 there are(is) 1 abnormal device(s):
-        serverId[10.90.55.95], deviceId[0], Heartbeat Lost Occurred, Possible Reason: 1. Process has exited, 2. Network Disconnected
+        serverId[10.136.180.60], deviceId[0], Heartbeat Lost Occurred, Possible Reason: 1. Process has exited, 2. Network Disconnected
 ]
         Possible Cause: 1. An exception occurs during the execution on some NPUs in the cluster. As a result, collective communication operation failed.2. The execution speed on some NPU in the cluster is too slow to complete a communication operation within the timeout interval. (default 1800s, You can set the interval by using HCCL_EXEC_TIMEOUT.)3. The number of training samples of each NPU is inconsistent.4. Packet loss or other connectivity problems occur on the communication link.
         Solution: 1. If this error is reported on part of these ranks, check other ranks to see whether other errors have been reported earlier.2. If this error is reported for all ranks, check whether the error reporting time is consistent (the maximum difference must not exceed 1800s). If not, locate the cause or adjust the locate the cause or set the HCCL_EXEC_TIMEOUT environment variable to a larger value.3. Check whether the completion queue element (CQE) of the error exists in the plog(grep -rn 'error cqe'). If so, check the network connection status. (For details, see the TLS command and HCCN connectivity check examples.)4. Ensure that the number of training samples of each NPU is consistent.
         TraceBack (most recent call last):
-        Notify wait execute failed, device_id=1, stream_id=27, task_id=10, flip_num=0, notify_id=0[FUNC:GetError][FILE:stream.cc][LINE:921]
+        Notify wait execute failed, device_id=1, stream_id=14, task_id=4, flip_num=0, notify_id=11[FUNC:GetError][FILE:stream.cc][LINE:921]
         rtStreamSynchronize execute failed, reason=[the model stream execute failed][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:49]
 
 (Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
-
-----------------------------------------------------
-- C++ Call Stack: (For framework developers)
-----------------------------------------------------
-mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240 RunGraph
+[WARNING] MD(162844,fffce77fe1e0,python):2022-12-01-00:26:58.399.793 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:257] SendDataToAscend] Thread has already been terminated.
+malloc_consolidate(): invalid chunk size
 ```
 
 As stated in the log, common reasons for notify wait timeouts are:
@@ -433,27 +452,39 @@ After collecting INFO logs (including CANN logs) for all cards in the cluster, t
 The user needs to configure the multi-machine multi-card information needed for distributed training through the ranktable file for HCCL initialization. If the relevant ranktable configuration is illegal, an `EI0004` error will be reported, such as the following error scenario, where two device_id are repeatedly set to 1 in the ranktable, resulting in an illegal configuration.
 
 ```c++
-[WARNING] HCCL_ADPT(86172,ffffb4d8e480,python):2019-07-25-19:41:56.313.202 [mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:58] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
-[CRITICAL] HCCL_ADPT(86172,ffffb4d8e480,python):2019-07-25-19:41:56.314.843 [mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:391] InitKernelInfoStore] Init hccl graph adapter failed.
-[CRITICAL] DEVICE(86172,ffffb4d8e480,python):2019-07-25-19:41:56.315.092 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:357] Init] Ascend error occurred, error message: EI0004: Invalid ranktable, with rank_id [0] and local device_id [0]. Check that ranktable [{"server_count":"1","server_list":[{"device":[{"device_id":"0","device_ip":"192.168.100.101","rank_id":"0"},{"device_id":"1","device_ip":"192.168.101.101","rank_id":"1"},{"device_id":"1","device_ip":"192.168.102.101","rank_id":"2"},{"device_id":"3","device_ip":"192.168.103.101","rank_id":"3"},{"device_id":"4","device_ip":"192.168.100.102","rank_id":"4"},{"device_id":"5","device_ip":"192.168.101.102","rank_id":"5"},{"device_id":"6","device_ip":"192.168.102.102","rank_id":"6"},{"device_id":"7","device_ip":"192.168.103.102","rank_id":"7"}],"host_nic_ip":"reserve","server_id":"10.174.229.253"}],"status":"completed","version":"1.0"}] is valid and the environment setup matches the ranktable.
-
-First error scene API: mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:391 InitKernelInfoStore] Init hccl graph adapter failed.
-[WARNING] DEBUG(86172,ffffb4d8e480,python):2019-07-25-19:41:56.316.394 [mindspore/ccsrc/debug/rdr/recorder_manager.cc:108] TriggerAll] There is no recorder to export.
+[WARNING] HCCL_ADPT(89999,ffffa5a47010,python):2023-01-16-20:43:48.480.465 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
 
 Traceback (most recent call last):
-  File "train.py", line 392, in <module>
+  File "train.py", line 379, in <module>
     train_net()
-  File "/home/jenkins/models/official/cv/resnet/scripts/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+  File "/home/jenkins/ResNet/scripts/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
     run_func(*args, **kwargs)
-  File "train.py", line 315, in train_net
+  File "train.py", line 305, in train_net
     set_parameter()
-  File "train.py", line 162, in set_parameter
+  File "train.py", line 151, in set_parameter
     init()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 142, in init
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 161, in init
     init_hccl()
-RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:357 Init] Ascend error occurred, error message: EI0004: Invalid ranktable, with rank_id [0] and local device_id [0]. Check that ranktable [{"server_count":"1","server_list":[{"device":[{"device_id":"0","device_ip":"192.168.100.101","rank_id":"0"},{"device_id":"1","device_ip":"192.168.101.101","rank_id":"1"},{"device_id":"1","device_ip":"192.168.102.101","rank_id":"2"},{"device_id":"3","device_ip":"192.168.103.101","rank_id":"3"},{"device_id":"4","device_ip":"192.168.100.102","rank_id":"4"},{"device_id":"5","device_ip":"192.168.101.102","rank_id":"5"},{"device_id":"6","device_ip":"192.168.102.102","rank_id":"6"},{"device_id":"7","device_ip":"192.168.103.102","rank_id":"7"}],"host_nic_ip":"reserve","server_id":"10.174.229.253"}],"status":"completed","version":"1.0"}] is valid and the environment setup matches the ranktable.
+RuntimeError: Ascend collective communication initialization failed.
 
-First error scene API: mindspore/ccsrc/runtime/hccl_adapter/hccl_adapter.cc:391 InitKernelInfoStore] Init hccl graph adapter failed.
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EI0004: The ranktable is invalid,Reason:[The ranktable config devId is inconsistent with the local devId.]. Please check the configured ranktable. [{"server_count":"1","server_list":[{"device":[{"device_id":"1","device_ip":"192.168.100.101","rank_id":"0"},{"device_id":"1","device_ip":"192.168.101.101","rank_id":"1"},{"device_id":"2","device_ip":"192.168.102.101","rank_id":"2"},{"device_id":"3","device_ip":"192.168.103.101","rank_id":"3"},{"device_id":"4","device_ip":"192.168.100.102","rank_id":"4"},{"device_id":"5","device_ip":"192.168.101.102","rank_id":"5"},{"device_id":"6","device_ip":"192.168.102.102","rank_id":"6"},{"device_id":"7","device_ip":"192.168.103.102","rank_id":"7"}],"host_nic_ip":"reserve","server_id":"10.90.55.94"}],"status":"completed","version":"1.0"}]
+        Solution: Try again with a valid cluster configuration in the ranktable file. Ensure that the configuration matches the operating environment.
+
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
+
+----------------------------------------------------
+- Framework Error Message: (For framework developers)
+----------------------------------------------------
+Init hccl graph adapter failed.
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_collective_comm_lib.cc:112 Initialize
+mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:402 InitKernelInfoStore
 ```
 
 When you encounter such an error, just fix the ranktable configuration file according to the error log.
@@ -463,34 +494,46 @@ When you encounter such an error, just fix the ranktable configuration file acco
 The `EI0005` error is reported when there are inconsistencies in the communication parameters between cards, such as inconsistencies in the size of the input shape used for AllReduce between cards, as in the following error reporting scenario, where there is a parameter named count that is inconsistent in size when communicating between cards.
 
 ```c++
-[CRITICAL] GE(98494,ffff9c51e480,python):2022-04-28-10:56:52.072.619 [mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100] Distribute] davinci_model : load task fail, return ret: 1343225860
-[CRITICAL] DEVICE(98494,ffff9c51e480,python):2022-04-28-10:56:52.072.964 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:567] LoadTask] Distribute Task Failed,
-error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100 Distribute] davinci_model : load task fail, return ret: 1343225860
-[ERROR] DEVICE(98494,ffff9c51e480,python):2022-04-28-10:56:52.073.054 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_device_context.cc:660] ReportErrorMessage] Ascend error occurred, error message:
-EI0005: The arguments for collective communication are inconsistent between ranks: tag [HcomAllReduce_6629421139219749105_0], parameter [count], local [9556480], remote [9555712]
-
-[CRITICAL] DEVICE(98494,ffff9c51e480,python):2022-04-28-10:56:52.073.078 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_device_context.cc:422] PreprocessBeforeRunGraph] Preprocess failed before run graph 0,
-error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:567 LoadTask] Distribute Task Failed,
-error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100 Distribute] davinci_model : load task fail, return ret: 1343225860
+[WARNING] HCCL_ADPT(50288,ffff8fec4010,python):2023-01-16-20:37:22.585.027 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
+[WARNING] MD(50288,fffe35f4b0f0,python):2023-01-16-20:38:57.747.318 [mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc:198] operator()] Bad performance attention, it takes more than 25 seconds to generator.__next__ new row, which might cause `GetNext` timeout problem when sink_mode=True. You can increase the parameter num_parallel_workers in GeneratorDataset / optimize the efficiency of obtaining samples in the user-defined generator function.
 dataset length:  848
-data pre-process time is 0.04648423194885254
+data pre-process time is 0.2904245853424072
 
 Traceback (most recent call last):
   File "e2e_feed_dev.py", line 294, in <module>
     run()
   File "e2e_feed_dev.py", line 277, in run
     label_indices, label_values)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 586, in __call__
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 626, in __call__
     out = self.compile_and_run(*args)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 964, in compile_and_run
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
     self.compile(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 937, in compile
-    _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1006, in compile
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
+    jit_config_dict=self._jit_config_dict)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1337, in compile
     result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
-RuntimeError: mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_device_context.cc:422 PreprocessBeforeRunGraph] Preprocess failed before run graph 0,
-error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:567 LoadTask] Distribute Task Failed,
-error msg: mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:100 Distribute] davinci_model : load task fail, return ret: 1343225860
+RuntimeError: Preprocess failed before run graph 0. The details refer to 'Ascend Error Message'.
+
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EI0005: The arguments for collective communication are inconsistent between ranks: tag [HcomAllReduce_6629421139219749105_0], parameter [count], local [9556480], remote [9555712]
+        Solution: Check whether the training script and ranktable of each NPU are consistent.
+
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
+
+----------------------------------------------------
+- Framework Error Message: (For framework developers)
+----------------------------------------------------
+Distribute Task Failed,
+error msg: davinci_model : load task fail, return ret: 1343225860
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_kernel_executor.cc:206 PreprocessBeforeRunGraph
+mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:578 LoadTask
+mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:104 Distribute
 ```
 
 When such errors are occurred, the communication parameters in error can be identified through logs and IR diagrams and corrected in the network script.
@@ -500,30 +543,73 @@ When such errors are occurred, the communication parameters in error can be iden
 The HCCP process is responsible for implementing the communication function, and HCCL can call the HCCP interface for communication. HCCP initialization failure will report `EJ0001` error, such as the following scenario. When the previous eight-card training task has not yet finished in the same server to start a new eight-card training task, initialization failure will occur. You need to wait for the previous eight-card training task to finish before starting a new eight-card training task.
 
 ```c++
-[WARNING] HCCL_ADPT(57647,ffff89ae7010,python):2022-07-28-18:56:01.822.555 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
-
-Traceback (most recent call last):
-  File "train.py", line 380, in <module>
-    train_net()
-  File "/home/jenkins/models/official/cv/resnet/scripts2/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
-    run_func(*args, **kwargs)
-  File "train.py", line 307, in train_net
-    set_parameter()
-  File "train.py", line 154, in set_parameter
-    init()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 146, in init
-    init_hccl()
-RuntimeError: Ascend error occurred, error message: EJ0001: Failed to initialize the HCCP process. Reason: The last training process is running.
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.054 [network_manager.cc:64][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.066 [hccl_impl_base.cc:239][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.076 [hccl_impl.cc:731][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.104 [hccl_comm.cc:100][hccl-17381-0-1669834948-hccl_world_group][0][HcclComm][Init]errNo[0x0000000005000007] hccl initialize failed
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.116 [hcom.cc:80][hccl-17381-0-1669834948-hccl_world_group][0][Init][Result]errNo[0x0000000005010007] hcclComm init error
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.129 [hcom.cc:94][hccl-17381-0-1669834948-hccl_world_group][0][Init][Result]hcom init failed, rankNum[8], rank[0], server[10.136.180.60], device[0], return[83951623]
+[TRACE] HCCL(17381,python):2022-12-01-03:02:29.001.628 [status:stop] [hcom.cc:264][hccl-17381-0-1669834948-hccl_world_group][0]hcom destroy complete,take time [486]us, rankNum[8], rank[0]
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.645 [hcom.cc:190][hccl-17381-0-1669834948-hccl_world_group][0][HcomInitByFile]errNo[0x0000000005000007] rankTablePath[/ms_test/workspace/config/hccl_8p.json] identify[0] hcom init failed.
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.662 [hcom_plugin.cc:202][hccl-17381-0-1669834948-hccl_world_group][0][Init][HcomPlugin]errNo[0x0000000005010007] Initialize: HcomInitByFile failed.
+[ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.675 [hcom_plugin.cc:61][hccl-17381-0-1669834948-hccl_world_group][0][Initialize][Plugin]Initialize Hcom failed
+[CRITICAL] HCCL_ADPT(17381,ffff890145d0,python):2022-12-01-03:02:29.001.753 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:402] InitKernelInfoStore] Init hccl graph adapter failed.
+[CRITICAL] DEVICE(17381,ffff890145d0,python):2022-12-01-03:02:29.002.576 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_collective_comm_lib.cc:112] Initialize] Ascend collective communication initialization failed.Ascend Error Message:EJ0001: Failed to initialize the HCCP process. Reason: Maybe the last training process is running.
         Solution: Wait for 10s after killing the last training process and try again.
-        tsd client wait response fail, device response code[1]. unknown device error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:229]
+        TraceBack (most recent call last):
+        tsd client wait response fail, device response code[1]. unknown device error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
 
-First error scene API: Init hccl graph adapter failed.
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)Framework Error Message:Init hccl graph adapter failed.
 
 ----------------------------------------------------
 - C++ Call Stack: (For framework developers)
 ----------------------------------------------------
-mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:363 Init
-mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:408 InitKernelInfoStore
+mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:402 InitKernelInfoStore
+
+[CRITICAL] DEVICE(17381,ffff890145d0,python):2022-12-01-03:02:29.011.280 [mindspore/ccsrc/runtime/device/kernel_runtime.cc:124] LockRuntime] The pointer[stream] is null.
+[ERROR] DEVICE(17381,ffff890145d0,python):2022-12-01-03:02:29.011.608 [mindspore/ccsrc/runtime/device/kernel_runtime_manager.cc:138] WaitTaskFinishOnDevice] SyncStream failed, exception:The pointer[stream] is null.
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/runtime/device/kernel_runtime.cc:124 LockRuntime
+
+
+[ERROR] RUNTIME(17381,python):2022-12-01-03:02:29.091.105 [engine.cc:1044]17901 ReportStatusFailProc:Device status failure, ret=118554641,start exception CallBack.
+[ERROR] DRV(17381,python):2022-12-01-03:02:29.391.021 [ascend][curpid: 17381, 17381][drv][tsdrv][share_log_read 552]hdc connect down, devid(0) fid(0) tsid(0) hdc connect down, devid(0) fid(0) tsid(0)
+Traceback (most recent call last):
+  File "train.py", line 377, in <module>
+    train_net()
+  File "/home/jenkins/workspace/TDT_deployment/solution_test/remaining/test_scripts/mindspore/reliability/fmea/business/process/multitask/test_ms_fmea_multi_task_two_8p_0001_2_GRAPH_MODE/scripts/train_parallel0/src/model_utils/moxing_adapter.py", line 104, in wrapped_func
+    run_func(*args, **kwargs)
+  File "train.py", line 304, in train_net
+    set_parameter()
+  File "train.py", line 151, in set_parameter
+    init()
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 152, in init
+    init_hccl()
+RuntimeError: Ascend collective communication initialization failed.
+
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EJ0001: Failed to initialize the HCCP process. Reason: Maybe the last training process is running.
+        Solution: Wait for 10s after killing the last training process and try again.
+        TraceBack (most recent call last):
+        tsd client wait response fail, device response code[1]. unknown device error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
+
+(Please search "Ascend Error Message" at https://www.mindspore.cn for error code description)
+
+----------------------------------------------------
+- Framework Error Message: (For framework developers)
+----------------------------------------------------
+Init hccl graph adapter failed.
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_collective_comm_lib.cc:112 Initialize
+mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:402 InitKernelInfoStore
 ```
 
 When you encounter such an error, just solve it according to the initialization error cause and solution of the log.
