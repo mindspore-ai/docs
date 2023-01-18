@@ -1,6 +1,6 @@
-# 比较与torch.nn.Sequential的功能差异
+# Function Differences with torch.nn.SequentialCell
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SequentialCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SequentialCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Sequential
 
@@ -10,7 +10,7 @@ torch.nn.Sequential(
 )
 ```
 
-更多内容详见[torch.nn.Sequential](https://pytorch.org/docs/1.8.1/generated/torch.nn.Sequential.html)。
+For more information, see [torch.nn.Sequential](https://pytorch.org/docs/1.8.1/generated/torch.nn.Sequential.html).
 
 ## mindspore.nn.SequentialCell
 
@@ -20,19 +20,19 @@ mindspore.nn.SequentialCell(
 )
 ```
 
-更多内容详见[mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html)。
+For more information, see [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html).
 
-## 差异对比
+## Differences
 
-PyTorch：构造Cell顺序容器。Sequential按照传入List的顺序依次将Cell添加。此外，也支持OrderedDict作为构造器传入。
+PyTorch: Construct the Cell order container. Sequential adds the Cells in the order of the incoming List. In addition, OrderedDict is also supported as a constructor.
 
-MindSpore：构造Cell顺序容器。入参类型和PyTorch一致。和PyTorch相比，MindSpore支持append()，在容器末尾添加Cell。
+MindSpore: Construct the Cell order container. The input types are the same as PyTorch. In contrast to PyTorch, MindSpore supports append(), which adds the Cell at the end of the container.
 
-| 分类 | 子类  | PyTorch      | MindSpore | 差异                                                         |
-| ---- | ----- | ------------ | --------- | ------------------------------------------------------------ |
-| 参数| 参数1 | args |  args  | 传入容器的参数，支持List和OrderedDict类型。 |
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| ---- | ----- | ------- | --------- | ------------- |
+| Parameter | Parameter 1 | args |  args  | Parameters of the incoming container, supporting List and OrderedDict types. |
 
-## 代码示例
+## Code Example
 
 ```python
 import collections
