@@ -104,4 +104,4 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
 
    RELEASE
 
-`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.9/en/mindinsight.pdf>`_
+`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.9/zh/mindarmour.pdf>`_

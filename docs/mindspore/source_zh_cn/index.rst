@@ -220,4 +220,4 @@ MindSpore 文档
 		   </div>
 	</div>
 
-`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.9/en/mindspore.pdf>`_
+`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.9/zh/mindspore.pdf>`_
