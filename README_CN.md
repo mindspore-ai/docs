@@ -54,8 +54,6 @@ docs
 |    |
 |    ├───serving // MindSpore Serving文档
 |    |
-|    ├───vision // MindSpore Vision文档
-|    |
 |    └───xai // MindSpore XAI文档
 |
 │───install // 安装指南
