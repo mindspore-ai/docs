@@ -124,14 +124,20 @@ Note that both examples need to create a cache instance according to the method 
 CIFAR-10 dataset is used in the following two examples.
 
 ```python
-from mindvision import dataset
+from download import download
+import os
+import shutil
 
-dl_path = "./datasets"
-data_dir = "./datasets/cifar-10-batches-bin/"
-dl_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
+path = download(url, "./datasets", kind="tar.gz")
 
-dl = dataset.DownLoad()  # download CIFAR-10 dataset
-dl.download_and_extract_archive(url=dl_url, download_path=dl_path)
+test_path = "./datasets/cifar-10-batches-bin/test"
+train_path = "./datasets/cifar-10-batches-bin/train"
+os.makedirs(test_path, exist_ok=True)
+os.makedirs(train_path, exist_ok=True)
+if not os.path.exists(os.path.join(test_path, "test_batch.bin")):
+    shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
+[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html") and not os.path.exists(os.path.join(train_path, i))]
 ```
 
 The directory structure of the extracted dataset file is as follows:
