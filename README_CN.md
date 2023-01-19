@@ -36,17 +36,27 @@ docs
 |    |
 |    ├───mindarmour // MindArmour文档
 |    |
+|    ├───mindflow // MindFlow文档
+|    |
+|    ├───mindelec // MindElec文档
+|    |
 |    ├───mindinsight // MindInsight文档
+|    |
+|    ├───mindpandas // MindPandas文档
 |    |
 |    ├───mindquantum // MindQuantum文档
 |    |
 |    ├───mindscience // MindScience文档
 |    |
+|    ├───mindsponge // MindSPONGE文档
+|    |
 |    ├───mindspore // MindSpore文档
 |    |
-|    ├───notebook // 体验式文档
+|    ├───mindtransformer // MindTransformer文档
 |    |
 |    ├───probability // MindSpore Probability文档
+|    |
+|    ├───recommender // MindSpore Recmmender文档
 |    |
 |    ├───reinforcement // MindSpore Reinforcement文档
 |    |
@@ -57,6 +67,8 @@ docs
 |    └───xai // MindSpore XAI文档
 |
 │───install // 安装指南
+|
+│───examples // 文档模板和样例
 |
 │───resource // 资源相关文档
 |

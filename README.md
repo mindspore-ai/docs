@@ -36,17 +36,27 @@ docs
 |    |
 |    ├───mindarmour // MindArmour Documents
 |    |
+|    ├───mindflow // MindFlow Documents
+|    |
+|    ├───mindelec // MindElec Documents
+|    |
 |    ├───mindinsight // MindInsight Documents
+|    |
+|    ├───mindpandas // MindPandas Documents
 |    |
 |    ├───mindquantum // MindQuantum Documents
 |    |
 |    ├───mindscience // MindScience Documents
 |    |
+|    ├───mindsponge // MindSPONGE Documents
+|    |
 |    ├───mindspore // MindSpore Documents
 |    |
-|    ├───notebook // Experiential Documents
+|    ├───mindtransformer // MindSpore Transformer Documents
 |    |
 |    ├───probability // MindSpore Probability Documents
+|    |
+|    ├───recommender // MindSpore Recmmender Documents
 |    |
 |    ├───reinforcement // MindSpore Reinforcement Documents
 |    |
@@ -57,6 +67,8 @@ docs
 |    └───xai // MindSpore XAI Documents
 |
 │───install // Installation instruction
+|
+│───examples // Document templates and examples
 |
 │───resource // Resource related documents
 |
