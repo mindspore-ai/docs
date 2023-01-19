@@ -54,8 +54,6 @@ docs
 |    |
 |    ├───serving // MindSpore Serving Documents
 |    |
-|    ├───vision // MindSpore Vision Documents
-|    |
 |    └───xai // MindSpore XAI Documents
 |
 │───install // Installation instruction
