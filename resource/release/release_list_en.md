@@ -60,7 +60,7 @@
 | |MindScience(MindElec and MindSPONGE)  | [0.1.0](https://www.mindspore.cn/mindscience/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindscience/docs/en/r2.0.0-alpha/index.html) |
 | |MindSpore Reinforcement | [0.5.0](https://www.mindspore.cn/reinforcement/docs/en/r0.5/index.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/reinforcement/docs/en/r0.3/index.html) &nbsp;&nbsp; [0.2.1](https://www.mindspore.cn/reinforcement/docs/en/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/reinforcement/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/reinforcement/docs/en/r2.0.0-alpha/index.html) |
 | |MindSpore Graph Learning | [0.1.0](https://www.mindspore.cn/graphlearning/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/graphlearning/docs/en/r2.0.0-alpha/index.html) |
-| |MindSpore Vision | [0.1.0](http://www.mindspore.cn/vision/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/vision/docs/en/r2.0.0-alpha/index.html)|
+| |MindSpore Vision | [0.1.0](http://www.mindspore.cn/vision/docs/en/r0.1/index.html) |
 | |MindSpore Golden Stick | [0.2.0](http://www.mindspore.cn/golden_stick/docs/en/r0.2/index.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/index.html)|
 | |MindSpore Dev Toolkit(IDE_PLUGING_VERSION_URL) | [1.8.0](http://www.mindspore.cn/devtoolkit/docs/en/r1.8/index.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/devtoolkit/docs/en/r2.0.0-alpha/index.html)|
 | |MindPandas | [0.1.0](https://www.mindspore.cn/mindpandas/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn//mindpandas/docs/en/r2.0.0-alpha/index.html) |
@@ -77,7 +77,7 @@
 | |MindScience(MindElec and MindSPONGE)  | [0.1.0](https://www.mindspore.cn/mindscience/api/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindsponge/docs/en/r2.0.0-alpha/mindsponge.cell.html) |
 | |MindSpore Reinforcement | [0.5.0](https://www.mindspore.cn/reinforcement/docs/en/r0.5/reinforcement.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/reinforcement/docs/en/r0.3/reinforcement.html) &nbsp;&nbsp; [0.2.1](https://www.mindspore.cn/reinforcement/docs/en/r0.2/reinforcement.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/reinforcement/api/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/reinforcement/docs/en/r2.0.0-alpha/reinforcement.html) |
 | |MindSpore Graph Learning | [0.1.0](https://www.mindspore.cn/graphlearning/docs/en/r0.1/mindspore_gl.dataset.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/graphlearning/docs/en/r2.0.0-alpha/mindspore_gl.dataset.html) |
-| |MindSpore Vision | [0.1.0](https://www.mindspore.cn/vision/docs/en/r0.1/classification.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/vision/docs/en/r2.0.0-alpha/classification.html) |
+| |MindSpore Vision | [0.1.0](https://www.mindspore.cn/vision/docs/en/r0.1/classification.html) |
 | |MindSpore Golden Stick | [0.2.0](http://www.mindspore.cn/golden_stick/docs/en/r0.2/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/en/r0.1/mindspore_gs.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/mindspore_gs.html)|
 | |MindPandas | [0.1.0](https://www.mindspore.cn/mindpandas/docs/en/r0.1/mindpandas.config.html) &nbsp;&nbsp; [master](https://www.mindspore.cn//mindpandas/docs/en/r2.0.0-alpha/mindpandas.config.html) |
 
