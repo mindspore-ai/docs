@@ -233,7 +233,37 @@ The accuracy of LeNet5 does not decrease after quantization aware training.
 
 ## Summary
 
-This document describes the functions of quantization and principles of common quantization algorithms, and provides examples to describe how to use the quantization aware algorithm of MindSpore Golden Stick. The quantization algorithm can greatly reduce the model size and improve the model inference performance without decreasing the accuracy. Try it out yourself.
+> - indicates not test yet, NS indicates not supported yet.
+
+### Summary of Training
+
+Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa), [MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/commit/3c0557371204036ae82404d48c875e905be1ac69), [MindSpore Models](https://gitee.com/mindspore/models/commit/973057252f353fa63828d8749d53bbe779e07bf9).
+
+| algorithm| network  | dataset      | CUDA11 Top1Acc  | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
+| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
+| baseline | lenet    | MNIST        |        -        |        -       |       98.42%      |        -          |
+| SimQAT   | lenet    | MNIST        |     99.08%      |        -       |        NS         |        -          |
+| baseline | resnet50 | CIFAR10      |     91.44%      |        -       |        -          |        -          |
+| SimQAT   | resnet50 | CIFAR10      |     93.54%      |     99.82%     |        NS         |       NS          |
+| baseline | resnet50 | Imagenet2012 |     76.71%      |        -       |        -          |        -          |
+| SimQAT   | resnet50 | Imagenet2012 |     72.54%      |     93.13%     |        NS         |       NS          |
+
+### Summary of Deployment
+
+Use the network trained on the CUDA11 for deployment test on different backends.
+
+ARMCPU means the CPU of the Arm64 architecture. ARMCPU deployment test based on [MindSpore Lite](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa).
+
+| algorithm| network  | dataset      |ARMCPU model size|ARMCPU Top1Acc|ARMCPU Performance|CUDA11 model size|CUDA11 Top1Acc|CUDA11 Performance|Ascend310 model size|Ascend310 Top1Acc|Ascend310 Performance|
+| -------- | -------- | ------------ | --------------- | ------------ | ---------------- | --------------- | ------------ | ---------------- | ------------------ | --------------- | ------------------- |
+| baseline | lenet    | MNIST        |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |
+| SimQAT   | lenet    | MNIST        |        -        |      -       |         -        |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
+| baseline | resnet50 | CIFAR10      |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |
+| SimQAT   | resnet50 | CIFAR10      |        -        |      -       |         -        |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
+| baseline | resnet50 | Imagenet2012 |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |
+| SimQAT   | resnet50 | Imagenet2012 |        -        |      -       |         -        |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
+
+The SimQAT quantization algorithm can reduce the model size, improve the model inference performance and reduce the inference power consumption without or less accuracy degradation.
 
 ## References
 

@@ -329,17 +329,34 @@ print(acc)
 'top_1_accuracy': 0.9466145833333334, 'top_5_accuracy': 0.9964050320512820.
 ```
 
-In graph mode, apply SLB quantization to ResNet-18, enable BatchNorm calibration and use the CIFAR-10 dataset for evaluation. The following table lists the experiment results. W32 indicates a full-precision model. W4 indicates that the weight is 4 bits, W2 indicates that the weight is 2 bits, W1 indicates that the weight is 1 bit, and A8 indicates that the activation is 8 bit. It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. After the weight was quantified, the accuracy loss of 8bit activation was less than 0.4%. SLB quantization greatly reduces model parameters and computations, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits. The final quantization model, that is, the final deployment model, is obtained by selecting the preset quantization weights according to the weight probability matrix.
+## Summary
 
-| Quantization Type| Top 1 Accuracy| Top 5 Accuracy|
-| --- | --- | --- |
-| W32 | 0.9544 | 0.9970 |
-| W4 | 0.9537 | 0.9970 |
-| W2 | 0.9509 | 0.9967 |
-| W1 | 0.9491 | 0.9966 |
-| W4A8 | 0.9502 | 0.9968 |
-| W2A8 | 0.9473 | 0.9965 |
-| W1A8 | 0.9466 | 0.9964 |
+> - indicates not test yet, NS indicates not supported yet.
+
+### Summary of Training
+
+Training in graph mode based on [MindSpore](), [MindSpore Golden Stick](), [MindSpore Models]().
+
+W4 indicates that the weight is quant to 4 bits, W2 indicates that the weight is quant to 2 bits, W1 indicates that the weight is quant to 1 bit, and A8 indicates that the activation is quant to 8 bit.
+
+| algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
+| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
+| baseline | resnet18 | CIFAR10      |     95.44%      |     99.70%     |        -          |        -          |
+| SLB W4   | resnet18 | CIFAR10      |     95.37%      |     99.70%     |        NS         |        NS         |
+| SLB W2   | resnet18 | CIFAR10      |     95.09%      |     99.67%     |        NS         |        NS         |
+| SLB W1   | resnet18 | CIFAR10      |     94.91%      |     99.66%     |        NS         |        NS         |
+| SLB W4A8 | resnet18 | CIFAR10      |     95.02%      |     99.68%     |        NS         |        NS         |
+| SLB W2A8 | resnet18 | CIFAR10      |     94.73%      |     99.65%     |        NS         |        NS         |
+| SLB W1A8 | resnet18 | CIFAR10      |     94.66%      |     99.64%     |        NS         |        NS         |
+| baseline | resnet18 | Imagenet2012 |     70.54%      |       -        |        -          |        -          |
+| SLB W4   | resnet18 | Imagenet2012 |     68.65%      |     88.57%     |        NS         |        NS         |
+| SLB W2   | resnet18 | Imagenet2012 |     68.42%      |     88.40%     |        NS         |        NS         |
+| SLB W1   | resnet18 | Imagenet2012 |     66.75%      |     87.08%     |        NS         |        NS         |
+| SLB W4A8 | resnet18 | Imagenet2012 |     68.17%      |     88.26%     |        NS         |        NS         |
+| SLB W2A8 | resnet18 | Imagenet2012 |     68.05%      |     88.15%     |        NS         |        NS         |
+| SLB W1A8 | resnet18 | Imagenet2012 |     66.09%      |     86.71%     |        NS         |        NS         |
+
+It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. After the weight was quantified, the accuracy loss of 8bit activation was less than 0.4%. SLB quantization greatly reduces model parameters and computations, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits.
 
 ## References
 

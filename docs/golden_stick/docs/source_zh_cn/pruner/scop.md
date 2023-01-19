@@ -212,11 +212,19 @@ if __name__ == "__main__":
 
 导出剪枝模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
 
-## SCOP剪枝效果
+## 算法效果汇总
 
-在Graph模式下，对ResNet50网络应用SCOP剪枝，并使用CIFAR-10数据集评估，实验结果如下表所示。可以发现，在当前任务中，与原始模型相比，在剪枝率45%的情况下，SCOP剪枝后的模型大幅降低了模型的参数量，精度损失在0.5%以内。
+> -表示尚未测试，NS表示尚未支持。
 
-| Model            | 剪枝率      | 参数量(M)   | 准确率      |
-| ------------     | ----------  | --------   | -----      |
-| ResNet50         | -           | 24         |  93.2%     |
-| SCOP剪枝ResNet50 | **45%**     | **11**     |  **92.7%** |
+### 训练效果
+
+使用图模式进行训练，使用的代码为：[MindSpore]()，[MindSpore Golden Stick]()，[MindSpore Models]()。
+
+| 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |    剪枝率    |  参数量(MB)  |
+| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- | ----------- | ------------ |
+| baseline | resnet50 | CIFAR10      |     91.44%      |       -        |        -          |        -          |      NA     |     24       |
+| SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%    |     11       |
+| baseline | resnet50 | Imagenet2012 |     76.71%      |       -        |        -          |        -          |      NA     |      -       |
+| SCOP     | resnet50 | Imagenet2012 |       NS        |       NS       |        NS         |        NS         |      NS     |      NS      |
+
+可以发现，在当前任务中，与原始模型相比，在剪枝率45%的情况下，SCOP剪枝后的模型大幅降低了模型的参数量，精度损失在0.5%以内。
