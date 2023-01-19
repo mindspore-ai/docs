@@ -14,8 +14,6 @@ The following uses the CIFAR-10 dataset as an example to describe how to use sev
 
 ![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
 
-Before introducing the sampler, we first download the dataset used in the example through the interface provided by [MindSpore Vision Suite](https://mindspore.cn/vision/docs/zh-CN/master/index.html) and unzip it to the specified location.
-
 > The sample code in this section relies on `matplotlib`, which can be installed with the command `pip install matplotlib`. If the code is run in Notebook, you need to restart the kernel after the installation to execute the subsequent code.
 
 ```python
