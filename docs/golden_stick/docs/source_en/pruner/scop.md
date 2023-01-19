@@ -222,9 +222,9 @@ Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspor
 
 | algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc | pruning rate | parameter size(MB) |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- | ------------ | ------------------ |
-| baseline | resnet50 | CIFAR10      |     91.44%      |       -        |        -          |        -          |      NA      |         24         |
+| baseline | resnet50 | CIFAR10      |     94.20%      |     99.88%     |        -          |        -          |      NA      |         24         |
 | SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%     |         11         |
-| baseline | resnet50 | Imagenet2012 |     76.71%      |       -        |        -          |        -          |      NA      |         -          |
+| baseline | resnet50 | Imagenet2012 |     77.16%      |     93.47%     |        -          |        -          |      NA      |         -          |
 | SCOP     | resnet50 | Imagenet2012 |       NS        |       NS       |        NS         |        NS         |      NS      |         NS         |
 
 It can be found that in the current task, compared with the original model, when the pruning rate is 45%, the model after SCOP greatly reduces the parameters of the model, and the accuracy loss is within 0.5%.

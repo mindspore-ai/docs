@@ -335,26 +335,20 @@ print(acc)
 
 ### Summary of Training
 
-Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/).
+Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/commit/f20d3d46ea48a465b26462ef5c62a7d381a34828).
 
 W4 indicates that the weight is quant to 4 bits, W2 indicates that the weight is quant to 2 bits, W1 indicates that the weight is quant to 1 bit, and A8 indicates that the activation is quant to 8 bit.
 
 | algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- |
-| baseline | resnet18 | CIFAR10      |     95.44%      |     99.70%     |        -          |        -          |
-| SLB W4   | resnet18 | CIFAR10      |     95.37%      |     99.70%     |        NS         |        NS         |
-| SLB W2   | resnet18 | CIFAR10      |     95.09%      |     99.67%     |        NS         |        NS         |
-| SLB W1   | resnet18 | CIFAR10      |     94.91%      |     99.66%     |        NS         |        NS         |
-| SLB W4A8 | resnet18 | CIFAR10      |     95.02%      |     99.68%     |        NS         |        NS         |
-| SLB W2A8 | resnet18 | CIFAR10      |     94.73%      |     99.65%     |        NS         |        NS         |
-| SLB W1A8 | resnet18 | CIFAR10      |     94.66%      |     99.64%     |        NS         |        NS         |
-| baseline | resnet18 | Imagenet2012 |     70.54%      |       -        |        -          |        -          |
+| baseline | resnet18 | CIFAR10      |     94.25%      |     99.93%     |        -          |        -          |
+| SLB W4   | resnet18 | CIFAR10      |     95.18%      |     99.67%     |        NS         |        NS         |
+| SLB W2   | resnet18 | CIFAR10      |     95.12%      |     99.68%     |        NS         |        NS         |
+| SLB W1   | resnet18 | CIFAR10      |     95.23%      |     99.87%     |        NS         |        NS         |
+| baseline | resnet18 | Imagenet2012 |     70.14%      |     89.71%     |        -          |        -          |
 | SLB W4   | resnet18 | Imagenet2012 |     68.65%      |     88.57%     |        NS         |        NS         |
 | SLB W2   | resnet18 | Imagenet2012 |     68.42%      |     88.40%     |        NS         |        NS         |
 | SLB W1   | resnet18 | Imagenet2012 |     66.75%      |     87.08%     |        NS         |        NS         |
-| SLB W4A8 | resnet18 | Imagenet2012 |     68.17%      |     88.26%     |        NS         |        NS         |
-| SLB W2A8 | resnet18 | Imagenet2012 |     68.05%      |     88.15%     |        NS         |        NS         |
-| SLB W1A8 | resnet18 | Imagenet2012 |     66.09%      |     86.71%     |        NS         |        NS         |
 
 It can be found that, in the current task, compared with the full-precision model, the top 1 accuracy of the model after 4-bit weight quantization has no loss, and the top 1 accuracy loss of the model after 1-bit weight quantization is within 0.6%. After the weight was quantified, the accuracy loss of 8bit activation was less than 0.4%. SLB quantization greatly reduces model parameters and computations, making it easier to deploy models on devices with limited resources. The model here is not the final deployment model. Due to the addition of pseudo-quantization nodes and weight probability matrix, the checkpoint size increases compared with the original model. The increase amplitude is affected by the weight quantization bits.
 
