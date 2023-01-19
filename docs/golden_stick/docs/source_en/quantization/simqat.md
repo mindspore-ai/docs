@@ -241,8 +241,8 @@ Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspor
 
 | algorithm| network  | dataset      | CUDA11 Top1Acc  | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
 | -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
-| baseline | lenet    | MNIST        |        -        |        -       |       98.42%      |        -          |
-| SimQAT   | lenet    | MNIST        |     99.08%      |        -       |        NS         |        -          |
+| baseline | lenet    | MNIST        |     98.82%      |        -       |        -          |        -          |
+| SimQAT   | lenet    | MNIST        |     98.94%      |        -       |        NS         |        -          |
 | baseline | resnet50 | CIFAR10      |     91.44%      |        -       |        -          |        -          |
 | SimQAT   | resnet50 | CIFAR10      |     93.54%      |     99.82%     |        NS         |       NS          |
 | baseline | resnet50 | Imagenet2012 |     76.71%      |        -       |        -          |        -          |
@@ -256,8 +256,8 @@ ARMCPU means the CPU of the Arm64 architecture. ARMCPU deployment test based on 
 
 | algorithm| network  | dataset      |ARMCPU model size|ARMCPU Top1Acc|ARMCPU Performance|CUDA11 model size|CUDA11 Top1Acc|CUDA11 Performance|Ascend310 model size|Ascend310 Top1Acc|Ascend310 Performance|
 | -------- | -------- | ------------ | --------------- | ------------ | ---------------- | --------------- | ------------ | ---------------- | ------------------ | --------------- | ------------------- |
-| baseline | lenet    | MNIST        |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |
-| SimQAT   | lenet    | MNIST        |        -        |      -       |         -        |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
+| baseline | lenet    | MNIST        |      245kB      |    98.83%    |       87us       |         -       |      -       |        -         |          -         |        -        |          -          |
+| SimQAT   | lenet    | MNIST        |      241kB      |    98.95%    |       89us       |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
 | baseline | resnet50 | CIFAR10      |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |
 | SimQAT   | resnet50 | CIFAR10      |        -        |      -       |         -        |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |
 | baseline | resnet50 | Imagenet2012 |        -        |      -       |         -        |         -       |      -       |        -         |          -         |        -        |          -          |

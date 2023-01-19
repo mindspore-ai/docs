@@ -335,7 +335,7 @@ print(acc)
 
 ### Summary of Training
 
-Training in graph mode based on [MindSpore](), [MindSpore Golden Stick](), [MindSpore Models]().
+Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/).
 
 W4 indicates that the weight is quant to 4 bits, W2 indicates that the weight is quant to 2 bits, W1 indicates that the weight is quant to 1 bit, and A8 indicates that the activation is quant to 8 bit.
 
