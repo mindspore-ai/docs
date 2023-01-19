@@ -10,17 +10,22 @@ More MindSpore developers are also welcome to participate in improving the mappi
 
 ### tf
 
-| TensorFlow  2.6 APIs                                                                                                              | MindSpore APIs                                                                                                                                                                                                                                                | Descriptions                                                                                                                              |
+| TensorFlow  2.6 APIs                                     | MindSpore APIs     | Descriptions               |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer)               | [mindspore.nn.Momentum](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html)                                            | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/Momentum.html)        |
-| [tf.compat.v1.train.ProximalAdagradOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer) | [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ProximalAdagrad.html) | Difference comparison is under development. |
-| [tf.compat.v1.train.RMSPropOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/RMSPropOptimizer) | [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RMSProp.html) |Difference comparison is under development. |
-| [tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=en) | [mindspore.ops.Argmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Argmax.html) | Difference comparison is under development. |
+| [tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=en) | [mindspore.ops.Argmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Argmax.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/argmax.html) |
 | [tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=en) | [mindspore.ops.Argmin](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Argmin.html) | Difference comparison is under development. |
 | [tf.clip_by_value](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/clip_by_value) | [mindspore.ops.clip_by_value](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html) | Difference comparison is under development. |
 | [tf.expand_dims](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/expand_dims) | [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.expand_dims.html) | Difference comparison is under development. |
 | [tf.eye](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/eye) | [mindspore.ops.eye](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.eye.html) | Difference comparison is under development. |
 | [tf.fill](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/fill) | [mindspore.ops.fill](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.fill.html) | Difference comparison is under development. |
+
+### tf.compat.v1
+
+| TensorFlow  2.6 APIs                | MindSpore APIs   | Descriptions     |
+| -------------------------------------------------------------- | ------------ | -------- |
+| [tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer)               | [mindspore.nn.Momentum](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html)                                            | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/Momentum.html)        |
+| [tf.compat.v1.train.ProximalAdagradOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer) | [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ProximalAdagrad.html) | Difference comparison is under development. |
+| [tf.compat.v1.train.RMSPropOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/RMSPropOptimizer) | [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RMSProp.html) |Difference comparison is under development. |
 
 ### tf.data
 
@@ -51,7 +56,7 @@ Many data processing operations in MindSpore are shared by each dataset class. T
 
 | TensorFlow 2.6 APIs                                          | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [tf.math.add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/add?hl=en%3B) | [mindspore.ops.add](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.add.html) | Difference comparison is under development.                                                             |
+| [tf.math.add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/add?hl=en%3B) | [mindspore.ops.add](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.add.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/tensorflow_diff/add.html)  |
 | [tf.math.cumsum](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/cumsum) | [mindspore.ops.CumSum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CumSum.html) | Difference comparison is under development. |
 | [tf.math.divide](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/divide) | [mindspore.ops.Div](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Div.html) | Difference comparison is under development. |
 | [tf.math.erf](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/erf) | [mindspore.ops.erf](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.erf.html) | Difference comparison is under development. |
