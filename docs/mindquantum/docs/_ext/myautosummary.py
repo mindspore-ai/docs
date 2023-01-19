@@ -225,6 +225,37 @@ class MsNoteAutoSummary(MsAutosummary):
                 env_sum = piece[10:]
         return env_sum
 
+class MsMathAutoSummary(MsAutosummary):
+    """
+    Inherited from MsAutosummary. Add a third column about `Math` to the table.
+    """
+
+    def init(self):
+        """
+        init method
+        """
+        self.find_doc_name = ".. math::"
+        self.third_title = "**Math**"
+        self.default_doc = "None"
+
+    def extract_env_summary(self, doc: List[str]) -> str:
+        """Extract env summary from docstring."""
+        env_sum = ""
+        is_math = 0
+        for piece in doc:
+            if is_math:
+                if piece:
+                    env_sum += piece.lstrip()
+                elif env_sum:
+                    is_math = 0
+                else:
+                    continue
+            if piece.startswith(self.find_doc_name):
+                is_math = 1
+        if env_sum:
+            env_sum = ':math:`' + env_sum + '`'
+        return env_sum
+
 class MsPlatformAutoSummary(MsAutosummary):
     """
     Inherited from MsAutosummary. Add a third column about `Supported Platforms` to the table.
@@ -274,27 +305,28 @@ class MsCnAutoSummary(Autosummary):
         #pylint: disable=redefined-outer-name
         nodes = self.get_table(items)
 
-        dirname = posixpath.dirname(self.env.docname)
+        if 'toctree' in self.options:
+            dirname = posixpath.dirname(self.env.docname)
 
-        tree_prefix = self.options['toctree'].strip()
-        docnames = []
-        names = [i[0] for i in items]
-        for name in names:
-            docname = posixpath.join(tree_prefix, name)
-            docname = posixpath.normpath(posixpath.join(dirname, docname))
-            if docname not in self.env.found_docs:
-                continue
+            tree_prefix = self.options['toctree'].strip()
+            docnames = []
+            names = [i[0] for i in items]
+            for name in names:
+                docname = posixpath.join(tree_prefix, name)
+                docname = posixpath.normpath(posixpath.join(dirname, docname))
+                if docname not in self.env.found_docs:
+                    continue
 
-            docnames.append(docname)
+                docnames.append(docname)
 
-        if docnames:
-            tocnode = addnodes.toctree()
-            tocnode['includefiles'] = docnames
-            tocnode['entries'] = [(None, docn) for docn in docnames]
-            tocnode['maxdepth'] = -1
-            tocnode['glob'] = None
+            if docnames:
+                tocnode = addnodes.toctree()
+                tocnode['includefiles'] = docnames
+                tocnode['entries'] = [(None, docn) for docn in docnames]
+                tocnode['maxdepth'] = -1
+                tocnode['glob'] = None
 
-            nodes.append(autosummary_toc('', '', tocnode))
+                nodes.append(autosummary_toc('', '', tocnode))
 
         return nodes
 
@@ -316,7 +348,10 @@ class MsCnAutoSummary(Autosummary):
                 name = name[1:]
                 display_name = name.split('.')[-1]
 
-            dir_name = self.options['toctree']
+            if 'toctree' in self.options:
+                dir_name = self.options['toctree']
+            else:
+                dir_name = './'
             spec_path = os.path.join('api_python', dir_name, display_name)
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
             if os.path.exists(file_path) and spec_path not in generated_files:
@@ -514,4 +549,22 @@ class MsCnNoteAutoSummary(MsCnAutoSummary):
     def get_third_column(self, name=None, content=''):
         note_re = re.compile(r'\.\. note::\n{,2}\s+(.*?)[。\n]')
         third_str = note_re.findall(content)
+        return third_str
+
+class MsCnMathAutoSummary(MsCnAutoSummary):
+    """definition of mscnmathautosummary."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.table_head = ('接口名', '概述', '数学表示')
+        self.third_name_en = ".. math::"
+
+    def get_third_column(self, name=None, content=''):
+        note_re = re.compile(r'\.\. math::\n{,2}((?:[\x20\t]+.*?\n)+)\n')
+        third_str = note_re.findall(content)
+        for i in range(len(third_str)):
+            str_list = third_str[i].split("\n")
+            math_str = ""
+            for j in str_list:
+                math_str += j.strip()
+            third_str[i] = ':math:`' + math_str + '`'
         return third_str

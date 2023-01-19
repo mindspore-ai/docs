@@ -183,7 +183,7 @@ import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnMathAutoSummary
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
@@ -192,6 +192,7 @@ def setup(app):
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
+    app.add_directive('mscnmathautosummary', MsCnMathAutoSummary)
     app.add_config_value('rst_files', set(), False)
 
 src_release = os.path.join(os.getenv("MQ_PATH"), 'RELEASE_CN.md')

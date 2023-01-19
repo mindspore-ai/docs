@@ -69,6 +69,7 @@ MindQuantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量�
    :maxdepth: 1
    :caption: API参考
 
+   overview
    mindquantum.core
    mindquantum.simulator
    mindquantum.framework
