@@ -335,7 +335,7 @@ print(acc)
 
 ### 训练效果
 
-使用图模式进行训练，使用的代码为：[MindSpore]()，[MindSpore Golden Stick]()，[MindSpore Models]()。
+使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/)。
 
 W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit，A8表示激活量化为8bit。
 
