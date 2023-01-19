@@ -13,7 +13,7 @@ tf.math.argmax(
 ) -> Tensor
 ```
 
-更多内容详见[tf.math.argmax](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmax?hl=zh-cn)。
+更多内容详见[tf.math.argmax](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/argmax?hl=zh-cn)。
 
 ## mindspore.ops.argmax
 
@@ -29,7 +29,7 @@ TensorFlow：返回Tensor沿着给定的维度上最大值的索引，返回值�
 
 MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回值类型默认为ms.int32，默认是返回axis为-1时最大值的索引。
 
-| 分类 | 子类 | PyTorch | MindSpore | 差异 |
+| 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |输入 | 单输入 | input | x |都是输入Tensor，二者均不支持零维张量，TensorFlow支持Tensor类型和Numpy.ndarray类型的输入，MindSpore只支持Tensor类型的输入 |
 |参数 | 参数1 | axis | axis |功能一致，参数名相同，默认值不同 |

@@ -8,7 +8,7 @@
 tf.math.add(x, y, name=None) -> Tensor
 ```
 
-更多内容详见[tf.math.add](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/add?hl=zh-cn%3B)。
+更多内容详见[tf.math.add](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/add?hl=zh-cn%3B)。
 
 ## mindspore.ops.add
 
@@ -22,9 +22,9 @@ mindspore.ops.add(x, y) -> Tensor
 
 TensorFlow：计算输入x和输入y的元素和，返回一个与x具有相同类型的Tensor。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
 
-| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | x | x        | -                                 |
 |  | 参数2 | y       | y         | - |
@@ -61,7 +61,7 @@ print(output.asnumpy())
 
 ### 代码示例2
 
-TensorFlow支持标量相加，且x和y数据类型必须保持一致，MindSpore 1.8.1版本暂不支持标量相加,，但x和y数据类型可以不同。为了得到相同的结果，将标量转化为Tensor进行计算。
+TensorFlow支持标量相加，且x和y数据类型必须保持一致，MindSpore 1.8.1版本暂不支持标量相加，但x和y数据类型可以不同。为了得到相同的结果，将标量转化为Tensor进行计算。
 
 ```python
 # TensorFlow
