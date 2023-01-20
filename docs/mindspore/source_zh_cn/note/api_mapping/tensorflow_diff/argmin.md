@@ -13,7 +13,7 @@ tf.math.argmin(
 ) -> Tensor
 ```
 
-更多内容详见[tf.math.argmin](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn)。
+更多内容详见[tf.math.argmin](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/argmin?hl=zh-cn)。
 
 ## mindspore.ops.argmin
 

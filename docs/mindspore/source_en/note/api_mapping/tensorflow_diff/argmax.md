@@ -39,7 +39,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow. T
 
 ### Code Example 1
 
-> Whne TensorFlow argmax operator does not explicitly give the axis parameter, the computation result is the index of the maximum value when axis is 0 by default, while MindSpore returns the index of the maximum value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmax operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/Cast.html) operator to convert the result of MindSpore to mindspore.int64.
+> Whne TensorFlow argmax operator does not explicitly give the axis parameter, the computation result is the index of the maximum value when axis is 0 by default, while MindSpore returns the index of the maximum value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmax operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64.
 
 ```python
 # TensorFlow
