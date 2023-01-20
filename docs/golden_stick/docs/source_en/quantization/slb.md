@@ -340,7 +340,7 @@ Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspor
 W4 indicates that the weight is quant to 4 bits, W2 indicates that the weight is quant to 2 bits, W1 indicates that the weight is quant to 1 bit, and A8 indicates that the activation is quant to 8 bit.
 
 | algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
-| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
+| -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- |
 | baseline | resnet18 | CIFAR10      |     95.44%      |     99.70%     |        -          |        -          |
 | SLB W4   | resnet18 | CIFAR10      |     95.37%      |     99.70%     |        NS         |        NS         |
 | SLB W2   | resnet18 | CIFAR10      |     95.09%      |     99.67%     |        NS         |        NS         |
