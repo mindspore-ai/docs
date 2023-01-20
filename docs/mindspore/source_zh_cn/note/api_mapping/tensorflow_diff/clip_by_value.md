@@ -20,7 +20,7 @@ mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None) -> Tens
 
 ## 差异对比
 
-TensorFlow：给定一个张量t，此操作返回一个类型和形状与t相同的张量。t中任何小于clip_value_min的都设置为clip_value_min，任何大于的值clip_value_max都设置为clip_value_max。当clip_value_min大于clip_value_max时，张量的值会被设置为**clip_value_min**。
+TensorFlow：给定一个张量t，此操作返回一个类型和形状与t相同的张量。t中任何小于clip_value_min的都设置为clip_value_min，任何大于clip_value_max的值都设置为clip_value_max。当clip_value_min大于clip_value_max时，张量的值会被设置为**clip_value_min**。
 
 MindSpore：当clip_value_min小于等于clip_value_max时，MindSpore此API实现功能与TensorFlow基本一致。当clip_value_min大于clip_value_max时，张量元素的值会被设置为**clip_value_max**。
 
