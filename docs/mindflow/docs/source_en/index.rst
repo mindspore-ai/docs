@@ -60,6 +60,7 @@ MindSpore AI Fluid Simulation Suite
    :caption: API Reference
 
    mindflow.cell
+   mindflow.cfd
    mindflow.common
    mindflow.data
    mindflow.geometry

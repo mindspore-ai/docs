@@ -59,6 +59,7 @@ MindSpore AI 流体仿真套件
    :caption: API参考
 
    mindflow.cell
+   mindflow.cfd
    mindflow.common
    mindflow.data
    mindflow.geometry
