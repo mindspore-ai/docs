@@ -42,7 +42,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 |      | 参数2 | ksize       | kernel_size | 功能一致，参数名不同，TensorFlow无默认值              |
 |      | 参数3 | strides     | stride      | 功能一致，参数名不同，TensorFlow无默认值              |
 |      | 参数4 | padding     | pad_mode    | 功能一致，参数名不同，TensorFlow无默认值              |
-|      | 参数5 | data_format | data_format | 功能一致，参数名默认值不同                                 |
+|      | 参数5 | data_format | data_format | 功能一致，参数默认值不同                                 |
 
 ### 代码示例1
 
