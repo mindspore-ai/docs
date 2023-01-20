@@ -22,9 +22,9 @@ mindspore.ops.add(x, y) -> Tensor
 
 TensorFlow：计算输入x和输入y的元素和，返回一个与x具有相同类型的Tensor。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
 
-| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| 分类 | 子类 |TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | x | x        | -                                 |
 |  | 参数2 | y       | y         | - |

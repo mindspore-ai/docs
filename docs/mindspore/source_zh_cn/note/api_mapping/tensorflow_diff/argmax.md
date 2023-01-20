@@ -29,13 +29,13 @@ TensorFlow：返回Tensor沿着给定的维度上最大值的索引，返回值�
 
 MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回值类型默认为ms.int32，默认是返回axis为-1时最大值的索引。
 
-| 分类 | 子类 | PyTorch | MindSpore | 差异 |
+| 分类 | 子类 | TensorFlow | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |输入 | 单输入 | input | x |都是输入Tensor，二者均不支持零维张量，TensorFlow支持Tensor类型和Numpy.ndarray类型的输入，MindSpore只支持Tensor类型的输入 |
 |参数 | 参数1 | axis | axis |功能一致，参数名相同，默认值不同 |
 | | 参数2 | output_type | - | 指定输出类型，MindSpore无此参数 |
 | | 参数3 | name | - | 不涉及 |
-| | 参数4 | - | keepdims | PyTorch无此参数，MindSpore的参数keepdims为True时将进行聚合的维度保留，并设定为1 |
+| | 参数4 | - | keepdims | TensorFlow无此参数，MindSpore的参数keepdims为True时将进行聚合的维度保留，并设定为1 |
 
 ### 代码示例1
 
