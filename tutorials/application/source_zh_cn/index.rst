@@ -14,7 +14,6 @@
    cv/resnet50
    cv/transfer_learning
    cv/fgsm
-   cv/dcgan
    cv/vit
    
 .. toctree::
@@ -24,5 +23,13 @@
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 生成式
+
+   generative/dcgan
+
    
    
