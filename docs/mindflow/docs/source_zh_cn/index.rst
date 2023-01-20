@@ -7,7 +7,7 @@ MindFlow是基于昇思MindSpore开发的流体仿真领域套件，支持航空
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="600px" alt="" >
 
 MindSpore AI 流体仿真套件
 
@@ -26,6 +26,7 @@ MindSpore AI 流体仿真套件
    physics_driven/burgers1D
    physics_driven/navier_stokes2D
    physics_driven/poisson_ring
+   physics_driven/sympy_pde_definition
 
 .. toctree::
    :glob:
@@ -39,19 +40,19 @@ MindSpore AI 流体仿真套件
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 数据机理融合
-
-   physics_plus_data_driven/pdenet
-   
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: 可微分CFD求解器
 
    cfd/lax_tube
    cfd/sod_tube
    cfd/couette
    cfd/riemann2d
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 数据机理融合
+
+   physics_plus_data_driven/pdenet
 
 .. toctree::
    :maxdepth: 1

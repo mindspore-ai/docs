@@ -7,7 +7,7 @@ MindSpore Flow is a flow simulation suite developed based on MindSpore. It suppo
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="600px" alt="" >
 
 
 MindSpore AI Fluid Simulation Suite
@@ -27,6 +27,7 @@ MindSpore AI Fluid Simulation Suite
    physics_driven/burgers1D
    physics_driven/navier_stokes2D
    physics_driven/poisson_ring
+   physics_driven/sympy_pde_definition
 
 .. toctree::
    :glob:
@@ -36,6 +37,16 @@ MindSpore AI Fluid Simulation Suite
    data_driven/dfyf
    data_driven/FNO1D
    data_driven/FNO2D
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: CFD-solver
+
+   cfd/lax_tube
+   cfd/sod_tube
+   cfd/couette
+   cfd/riemann2d
 
 .. toctree::
    :glob:
