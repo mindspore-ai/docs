@@ -16,6 +16,7 @@
    cv/fgsm
    cv/vit
    cv/cnnctc
+   cv/fcn8s
    
 .. toctree::
    :glob:
