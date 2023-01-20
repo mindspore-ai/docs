@@ -292,6 +292,94 @@ RuntimeError: Ascend kernel runtime initialization failed. The details refer to 
 Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:34359738368 Device HBM free size:2140602368 may be other processes occupying this card, check as: ps -ef|grep python
 ```
 
+### EE9999: Runtime task执行失败
+
+runtime的算子或者task一般和控制流有关，比如event wait、send、recv等。当runtime的task执行失败时，就会报`EE9999 Task execute failed`错误，如下所示：
+
+```c++
+[CRITICAL] DEVICE(160186,fffd5affd0f0,python):2023-01-10-09:15:46.798.038 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:291] ParseType] Got unsupported acl datatype: -1
+[ERROR] MD(160186,fffd5affd0f0,python):2023-01-10-09:15:46.798.688 [mindspore/ccsrc/minddata/dataset/util/task.cc:75] operator()] Unexpected error. Got unsupported acl datatype: -1
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:291 ParseType
+
+Line of code : 74
+File         : mindspore/ccsrc/minddata/dataset/util/task.cc
+
+[ERROR] MD(160186,fffd5affd0f0,python):2023-01-10-09:15:46.798.741 [mindspore/ccsrc/minddata/dataset/util/task_manager.cc:222] InterruptMaster] Task is terminated with err msg (more details are in info level logs): Unexpected error. Got unsupported acl datatype: -1
+
+INFO 2023-01-10 09:15:46 - train - dataset_func.py:op_network_with_create_dict_iterator:302 - Iter Num : 0
+INFO 2023-01-10 09:15:46 - train - dataset_func.py:op_network_with_create_dict_iterator:302 - Iter Num : 0
+INFO 2023-01-10 09:15:46 - train - dataset_func.py:op_network_with_create_dict_iterator:302 - Iter Num : 0
+INFO 2023-01-10 09:15:46 - train - dataset_func.py:op_network_with_create_dict_iterator:302 - Iter Num : 0
+INFO 2023-01-10 09:15:46 - train - dataset_func.py:op_network_with_create_dict_iterator:302 - Iter Num : 0
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.322.063 [engine.cc:1263]163618 ReportExceptProc:Task exception! device_id=0, stream_id=17, task_id=43, type=13, retCode=0x91, [the model stream execute failed].
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.323.519 [task.cc:92]163618 PrintErrorInfo:Task execute failed, base info: device_id=0, stream_id=2, task_id=3, flip_num=0, task_type=3.
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.323.542 [task.cc:3239]163618 ReportErrorInfo:model execute error, retCode=0x91, [the model stream execute failed].
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.323.553 [task.cc:3210]163618 PrintErrorInfo:model execute task failed, device_id=0, model stream_id=17, model task_id=43, flip_num=0, model_id=6, first_task_id=65535
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.323.578 [callback.cc:91]163618 Notify:notify [HCCL] task fail start.notify taskid:3 streamid:2 retcode:507011
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.653 [callback.cc:91]163618 Notify:notify [MindSpore] task fail start.notify taskid:3 streamid:2 retcode:507011
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.699 [stream.cc:1041]163618 GetError:Stream Synchronize failed, stream_id=17, retCode=0x91, [the model stream execute failed].
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.711 [stream.cc:1044]163618 GetError:report error module_type=7, module_name=EE9999
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.720 [stream.cc:1044]163618 GetError:Task execute failed, base info: device_id=0, stream_id=2, task_id=3, flip_num=0, task_type=3.
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.788 [logger.cc:314]163618 StreamSynchronize:Stream synchronize failed
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.830 [api_c.cc:721]163618 rtStreamSynchronize:ErrCode=507011, desc=[the model stream execute failed], InnerCode=0x7150050
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.841 [error_message_manage.cc:49]163618 FuncErrorReason:report error module_type=3, module_name=EE8888
+[ERROR] RUNTIME(160186,python):2023-01-10-09:25:45.324.855 [error_message_manage.cc:49]163618 FuncErrorReason:rtStreamSynchronize execute failed, reason=[the model stream execute failed]
+[CRITICAL] GE(160186,fffdf7fff0f0,python):2023-01-10-09:25:45.337.038 [mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/runtime_model.cc:241] Run] Call rt api rtStreamSynchronize failed, ret: 507011
+[ERROR] DEVICE(160186,fffdf7fff0f0,python):2023-01-10-09:25:45.337.259 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:761] DumpTaskExceptionInfo] Task fail infos task_id: 3, stream_id: 2, tid: 160186, device_id: 0, retcode: 507011 ( model execute failed)
+[CRITICAL] DEVICE(160186,fffdf7fff0f0,python):2023-01-10-09:25:45.337.775 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:214] RunGraph] Run task error!Ascend Error Message:EE9999: Inner Error, Please contact support engineer!
+EE9999  Task execute failed, base info: device_id=0, stream_id=2, task_id=3, flip_num=0, task_type=3.[FUNC:GetError][FILE:stream.cc][LINE:1044]
+        TraceBack (most recent call last):
+        rtStreamSynchronize execute failed, reason=[the model stream execute failed][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:49]
+
+[WARNING] MD(160186,ffff9339d010,python):2023-01-10-09:25:45.342.881 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:93] ~DataQueueOp] preprocess_batch: 10; batch_queue: 0, 0, 0, 0, 0, 0, 0, 0, 2, 2; push_start_time: 2023-01-10-09:15:46.739.740, 2023-01-10-09:15:46.748.507, 2023-01-10-09:15:46.772.387, 2023-01-10-09:15:46.772.965, 2023-01-10-09:15:46.775.373, 2023-01-10-09:15:46.779.644, 2023-01-10-09:15:46.787.036, 2023-01-10-09:15:46.791.382, 2023-01-10-09:15:46.795.615, 2023-01-10-09:15:46.797.560; push_end_time: 2023-01-10-09:15:46.742.372, 2023-01-10-09:15:46.749.065, 2023-01-10-09:15:46.772.929, 2023-01-10-09:15:46.773.347, 2023-01-10-09:15:46.775.811, 2023-01-10-09:15:46.780.110, 2023-01-10-09:15:46.787.544, 2023-01-10-09:15:46.791.876, 2023-01-10-09:15:46.796.089, 2023-01-10-09:15:46.797.952.
+[TRACE] HCCL(160186,python):2023-01-10-09:25:45.806.979 [status:stop] [hcom.cc:336][hccl-160186-0-1673313336-hccl_world_group][0]hcom destroy complete,take time [86560]us, rankNum[8], rank[0]
+Traceback (most recent call last):
+  File "train.py", line 36, in <module>
+    dataset_base.op_network_with_tdt(ds, epoch_num=beyond_epoch_num)
+  File "/home/jenkins/solution_test/common/ms_aw/function/data_processing/dataset_func.py", line 375, in op_network_with_tdt
+    assert_iter_num=assert_iter_num)
+  File "/home/jenkins/solution_test/common/ms_aw/function/data_processing/dataset_func.py", line 301, in op_network_with_create_dict_iterator
+    _ = network()[0]
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 618, in __call__
+    out = self.compile_and_run(*args)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 1007, in compile_and_run
+    return _cell_graph_executor(self, *new_inputs, phase=self.phase)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1192, in __call__
+    return self.run(obj, *args, phase=phase)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1229, in run
+    return self._exec_pip(obj, *args, phase=phase_real)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 98, in wrapper
+    results = fn(*arg, **kwargs)
+  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1211, in _exec_pip
+    return self._graph_executor(args, phase)
+RuntimeError: Run task error!
+
+----------------------------------------------------
+- Ascend Error Message:
+----------------------------------------------------
+EE9999: Inner Error, Please contact support engineer!
+EE9999  Task execute failed, base info: device_id=0, stream_id=2, task_id=3, flip_num=0, task_type=3.[FUNC:GetError][FILE:stream.cc][LINE:1044]
+        TraceBack (most recent call last):
+        rtStreamSynchronize execute failed, reason=[the model stream execute failed][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:49]
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:214 RunGraph
+```
+
+一般此类错误有可能是GetNext取数据超时或者控制流、流分配等框架问题。用户可以先自行排查一下是否是GetNext取数据超时导致的问题，以下一些原因可能会导致GetNext取数据超时：
+
+1. 用户脚本中消费数据量大于生产数据量。
+
+2. 在执行多卡分布式程序时，其中某张卡的进程挂了可能会导致其他卡取数据超时。
+
+如果排查后不是GetNext取数据超时的问题，用户可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+
 ### EE1001: device id设置错误
 
 用户可以通过环境变量DEVICE_ID或者在context中设置device_id来指定自己的程序跑在哪张卡上，如果device id设置不合理，则有可能会报`EE1001`错误，如下述错误场景，服务器中一共只有8张卡，可供选择的device id范围为[0, 8)，而用户错误设置了device_id=8：
