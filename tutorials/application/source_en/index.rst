@@ -14,7 +14,6 @@ Application
    cv/resnet50
    cv/transfer_learning
    cv/fgsm
-   cv/dcgan
    cv/vit
    
 .. toctree::
@@ -24,4 +23,11 @@ Application
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Generative
+
+   generative/dcgan
 
