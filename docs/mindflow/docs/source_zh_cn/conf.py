@@ -186,7 +186,7 @@ from custom_directives import IncludeCodeDirective
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
-src_release = os.path.join(os.getenv("MF_PATH"), 'MindFlow/RELEASE_CN.md')
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
