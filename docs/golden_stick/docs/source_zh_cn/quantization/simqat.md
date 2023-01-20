@@ -240,7 +240,7 @@ LeNet5应用感知量化训练后精度未下降。
 使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/commit/3c0557371204036ae82404d48c875e905be1ac69)，[MindSpore Models](973057252f353fa63828d8749d53bbe779e07bf9)。
 
 | 算法     | 网络      | 数据集        | CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
-| -------- | ----------------------- | --------------- | -------------- | ----------------- | ----------------- |
+| -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- |
 | baseline | lenet    | MNIST        |     98.82%      |        -       |        -          |        -          |
 | SimQAT   | lenet    | MNIST        |     98.94%      |        -       |        NS         |        -          |
 | baseline | resnet50 | CIFAR10      |     91.44%      |        -       |        -          |        -          |
