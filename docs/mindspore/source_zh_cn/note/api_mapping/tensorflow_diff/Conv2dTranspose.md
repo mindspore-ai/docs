@@ -50,7 +50,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数�
 | 参数 | 参数1 | input| x | 功能一致，参数名不同 |
 |      | 参数2 | filters  |  kernel_size  | 描述卷积核的尺寸。TensorFlow为[height,width, output_channels, in_channels]分别表示卷积核的高度、宽度和个数，in_channels必须与input的一致，MindSpore为int型或tuple(int，int)，一个整数表示卷积核的高度和宽度均为该值。两个整数的tuple分别表示卷积核的高度和宽度 |
 |      | 参数3 | output_shape | - | TensorFlow为长度为4的一维Tensor[N,H,W,C]，指定输出shape（尺寸错误则会发生报错），MindSpore输出维度需要计算得出 |
-|      | 参数4 | strides   |  stride           | 转置卷积每一维的步长。TensorFlow若为一个int则代表宽度和高度上的步长，N和C上默认为0，若为长度为1,2或4的int型list，顺序与data_format一致。MindSpore为int型或tuple(int，int)，一个整数表示在高度和宽度方向移动步长均为该值。两个整数的tuple分别表示在高度和宽度的移动步长  |
+|      | 参数4 | strides   |  stride           | 转置卷积每一维的步长。TensorFlow若为一个int则代表宽度和高度上的步长，N和C上默认为0，若为长度为1、2或4的int型list，顺序与data_format一致。MindSpore为int型或tuple(int，int)，一个整数表示在高度和宽度方向移动步长均为该值。两个整数的tuple分别表示在高度和宽度的移动步长  |
 |      | 参数5 | padding   |  padding           | TensorFlow表示填充模式，可选值为"SAME"，"VALID"，[[0, 0], [pad_top,pad_bottom], [pad_left, pad_right], [0, 0]] (NHWC)或[[0, 0], [0, 0],[pad_top, pad_bottom], [pad_left, pad_right]] (NCHW)。MindSpore中若padding是一个整数，那么上、下、左、右的填充都等于padding。如果padding是tuple(int,int,int,int)，那么上、下、左、右的填充分别等于padding[0]、padding[1]、padding[2]和padding[3]。值应该要大于等于0，默认为0 |
 |      | 参数6 | data_format   |    | 设置格式，可选"NHWC"和"NCHW"，默认为"NHWC"  |
 |      | 参数7 | dilations   |  dilation           | 二维卷积核膨胀尺寸，TensorFlow中若为长度为4的list，D和C维度上必须为1(格式与data_format一致)  |
