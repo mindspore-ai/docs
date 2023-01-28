@@ -39,18 +39,18 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致，返回`loss`�
 
 | 分类 | 子类   | TensorFlow      | MindSpore    | 差异          |
 | ---- | ----- | --------------------------------- | ------ | ------ |
-|      | 参数1  | labels | labels_values  | 功能一致，参数名称不同，但是在MindSpore中秩必须为1 |
+|  参数   | 参数1  | labels | labels_values  | 功能一致，参数名称不同，但是在MindSpore中秩必须为1 |
 |      | 参数2  | logits  | x    | 功能一致，参数名称不同    |
 |      | 参数3  | label_length  | sequence_length  | 功能一致，参数名称不同    |
-|      | 参数6  | logit_length  |    -   | MindSpore无此参数     |
-|      | 参数6  | logits_time_major  |    -   |  控制logits的排布方式，MindSpore无此参数     |
-|      | 参数8  | unique   |     -      | MindSpore无此参数     |
+|      | 参数4  | logit_length  |    -   | MindSpore无此参数     |
+|      | 参数5  | logits_time_major  |    -   |  控制logits的排布方式，MindSpore无此参数     |
+|      | 参数6  | unique   |     -      | MindSpore无此参数     |
 |      | 参数7  | blank_index  |    -    | MindSpore无此参数，为-1时，blank用num_classes-1表示，此时与MindSpore一致 |
-|      | 参数9  | name     |     -     | 不涉及                                |
-|      | 参数1  | -      | preprocess_collapse_repeated | 在CTC计算之前将折叠重复标签，TensorFlow无此参数     |
-|      | 参数2  | -             | ctc_merge_repeated           | 是否合并非空白标签，TensorFlow无此参数  |
+|      | 参数8  | name     |     -     | 不涉及                                |
+|      | 参数9  | -      | preprocess_collapse_repeated | 在CTC计算之前将折叠重复标签，TensorFlow无此参数     |
+|      | 参数10  | -             | ctc_merge_repeated           | 是否合并非空白标签，TensorFlow无此参数  |
 |      | 参数11 | - |     ignore_longer_outputs_than_inputs   | 是否忽略输出比输入长的序列，TensorFlow无此参数      |
-|      | 参数10 |    -   | labels_indices   | labels_indices[i, :] = [b, t] 表示 labels_values[i] 存储 (batch b, time t) 的ID，保证了labels_values的秩为1 |
+|      | 参数12 |    -   | labels_indices   | labels_indices[i, :] = [b, t] 表示 labels_values[i] 存储 (batch b, time t) 的ID，保证了labels_values的秩为1 |
 
 ### 代码示例
 
