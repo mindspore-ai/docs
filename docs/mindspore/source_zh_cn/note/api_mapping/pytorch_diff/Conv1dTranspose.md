@@ -60,7 +60,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 |      | 参数9 | dilation   |  dilation           | -  |
 |      | 参数10 |  padding_mode   |   -      | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
 |      | 参数11 |  -   | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same" |
-|      | 参数12 |   -  | weight_init        | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal" |
+|      | 参数12 |   -  | weight_init        | 权重参数的初始化方法。可为Tensor、str、Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"、"Normal"、"Uniform"、"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal" |
 |      | 参数13 |   -  | bias_init        | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为"zeros" |
 |      | 参数14  | input               | x                    | 接口输入，功能一致，仅参数名不同 |
 

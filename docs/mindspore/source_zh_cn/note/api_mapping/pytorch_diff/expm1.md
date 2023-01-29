@@ -20,9 +20,9 @@ mindspore.ops.expm1(x) -> Tensor
 
 ## 差异对比
 
-PyTorch：逐元素计算输入张量的指数减1的值
+PyTorch：逐元素计算输入张量的指数减1的值。
 
-MindSpore：与PyTorch实现同样的功能，仅参数名不同
+MindSpore：与PyTorch实现同样的功能，仅参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|

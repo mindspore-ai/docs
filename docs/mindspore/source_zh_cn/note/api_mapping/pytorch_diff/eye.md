@@ -28,7 +28,7 @@ mindspore.ops.eye(n, m, t) -> Tensor
 
 ## 差异对比
 
-PyTorch： PyTorch中可以在参数中指定一个接受输出的张量、返回的张量的layout、requires_grad以及指定设备。
+PyTorch：PyTorch中可以在参数中指定一个接受输出的张量、返回的张量的layout、requires_grad以及指定设备。
 
 MindSpore：
 
@@ -52,7 +52,7 @@ PyTorch中`dtype`是可选的，如果没有该参数，默认为`torch.float32`
 
 ### 代码示例1
 
-> PyTorch，可以缺省`m`参数。其他功能一致。
+> PyTorch可以缺省`m`参数。其他功能一致。
 
 ```python
 # PyTorch
