@@ -73,6 +73,11 @@ Use the following sample code to download and decompress a dataset to a specifie
 import mindspore.dataset.vision as transforms
 from mindspore.dataset.vision import Inter
 from mindspore.dataset import MnistDataset
+from download import download
+
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
 
 dataset_train = MnistDataset(dataset_dir="./mnist_dataset", usage="train", shuffle=True)
 dataset_eval = MnistDataset(dataset_dir="./mnist_dataset", usage="test", shuffle=True)
