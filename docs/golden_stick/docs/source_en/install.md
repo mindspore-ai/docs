@@ -11,7 +11,7 @@ The following table lists the environment required for installing, compiling and
 | Ubuntu  |  18.04  |
 | Python  |  3.7-3.9 |
 
-> Please refer to [requirements](https://gitee.com/mindspore/golden-stick/blob/r0.3/requirements.txt) for other third party dependencies.
+> Please refer to [requirements](https://gitee.com/mindspore/golden-stick/blob/r0.3.0-alpha/requirements.txt) for other third party dependencies.
 > MindSpore Golden Stick can only run on Ubuntu18.04.
 
 ## Version dependency
@@ -20,7 +20,7 @@ The MindSpore Golden Stick depends on the MindSpore training and inference frame
 
 | MindSpore Golden Stick Version |                            Branch                            | MindSpore version |
 | :-----------------------------: | :----------------------------------------------------------: | :-------: |
-|          0.3.0          | [r0.3](https://gitee.com/mindspore/golden-stick/tree/r0.3/) |   2.0.0   |
+|          0.3.0          | [r0.3.0-alpha](https://gitee.com/mindspore/golden-stick/tree/r0.3.0-alpha/) |   2.0.0   |
 |          0.2.0          | [r0.2](https://gitee.com/mindspore/golden-stick/tree/r0.2/) |   1.9.0   |
 |          0.1.0          | [r0.1](https://gitee.com/mindspore/golden-stick/tree/r0.1/) |   1.8.0   |
 
