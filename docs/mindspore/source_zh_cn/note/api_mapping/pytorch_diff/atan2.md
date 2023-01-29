@@ -32,7 +32,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过也支持x
 
 ### 代码示例1
 
-当输入的x和y均为Tenor的时候，两API实现相同的功能。
+当输入的x和y均为Tensor的时候，两API实现相同的功能。
 
 ```python
 # PyTorch

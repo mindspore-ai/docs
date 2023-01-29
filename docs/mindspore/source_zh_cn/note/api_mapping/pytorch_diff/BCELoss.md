@@ -43,7 +43,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 |      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
 |      | 参数6 | reduction | reduction | 功能一致，指定输出结果的计算方式，PyTorch默认值是"mean"，MindSpore默认值是None |
 
-## 代码示例1
+### 代码示例1
 
 > 两API实现功能一致，用法相同。
 

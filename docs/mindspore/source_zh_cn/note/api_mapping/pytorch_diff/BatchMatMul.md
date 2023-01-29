@@ -68,7 +68,7 @@ print(output)
 
 ### 代码示例2
 
-pytorch只支持3D的tensor，MindSpore支持3D以及更高维度的矩阵乘法计算。
+PyTorch只支持3D的tensor，MindSpore支持3D以及更高维度的矩阵乘法计算。
 
 ```python
 import numpy as np

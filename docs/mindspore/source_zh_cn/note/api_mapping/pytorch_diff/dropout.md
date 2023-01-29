@@ -1,13 +1,14 @@
 # 比较与torch.nn.Dropout的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png"></a>
+
 ## torch.nn.Dropout
 
 ```python
 torch.nn.Dropout(p=0.5, inplace=False) -> Tensor
 ```
 
-更多内容详见[torch.nn.Dropout](https://pytorch.org/docs/1.8.1/generated/torch.nn.Dropout.html?highlight=torch%20nn%20dropout#torch.nn.Dropout)
+更多内容详见[torch.nn.Dropout](https://pytorch.org/docs/1.8.1/generated/torch.nn.Dropout.html?highlight=torch%20nn%20dropout#torch.nn.Dropout)。
 
 ## mindspore.ops.dropout
 
@@ -15,7 +16,7 @@ torch.nn.Dropout(p=0.5, inplace=False) -> Tensor
 mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.dropout.html)
+更多内容详见[mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.dropout.html)。
 
 ## 差异对比
 
