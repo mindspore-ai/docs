@@ -11,7 +11,7 @@
 | Ubuntu  |  18.04  |
 | Python  |  3.7-3.9 |
 
-> 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/golden-stick/blob/r0.3/requirements.txt)。
+> 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/golden-stick/blob/r0.3.0-alpha/requirements.txt)。
 > 当前MindSpore Golden Stick仅能在Ubuntu18.04上运行。
 
 ## MindSpore版本依赖关系
@@ -20,7 +20,7 @@ MindSpore Golden Stick依赖MindSpore训练推理框架，请按照根据下表�
 
 | MindSpore Golden Stick版本 |                             分支                             | MindSpore版本 |
 | :---------------------: | :----------------------------------------------------------: | :-------: |
-|          0.3.0          | [r0.3](https://gitee.com/mindspore/golden-stick/tree/r0.3/) |   2.0.0   |
+|          0.3.0          | [r0.3.0-alpha](https://gitee.com/mindspore/golden-stick/tree/r0.3.0-alpha/) |   2.0.0   |
 |          0.2.0          | [r0.2](https://gitee.com/mindspore/golden-stick/tree/r0.2/) |   1.9.0   |
 |          0.1.0          | [r0.1](https://gitee.com/mindspore/golden-stick/tree/r0.1/) |   1.8.0   |
 
