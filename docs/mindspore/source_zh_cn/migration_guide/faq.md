@@ -1,6 +1,6 @@
 # 常见问题
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png"></a>
 
 MindSpore官网提供了一份在使用MindSpore过程中的[FAQ](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/faq/installation.html)，本章也整理了一下在迁移文档中提及的常见问题集解决方法。
 

@@ -1,6 +1,6 @@
 # ResNet50 Transfer Learning
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/application/source_en/cv/transfer_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/application/source_en/cv/transfer_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 In practical application scenarios, the training dataset is insufficient, so few people will train the whole network from scratch. It is common practice to train on a very large underlying dataset to obtain a pre-trained model, which is then used to initialize the weight parameters of the network or applied as a fixed feature extractor for a specific task. In this chapter, the wolf and dog images in the ImageNet dataset will be classified by using transfer learning.
 

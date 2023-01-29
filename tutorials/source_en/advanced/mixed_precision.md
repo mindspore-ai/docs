@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 # Automatic Mix Precision
 
@@ -14,7 +14,7 @@ Floating-point data types include double-precision (FP64), single-precision (FP3
 
 According to [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point data types are classified into double-precision (FP64), single-precision (FP32), and half-precision (FP16). Each type is represented by three different bits. FP64 indicates a data type that uses 8 bytes (64 bits in total) for encoding and storage. FP32 indicates a data type that uses 4 bytes (32 bits in total) and FP16 indicates a data type that uses 2 bytes (16 bits in total). As shown in the following figure:
 
-![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/images/fp16_vs_fp32.png)
+![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_en/advanced/images/fp16_vs_fp32.png)
 
 As shown in the figure, the storage space of FP16 is half that of FP32, and the storage space of FP32 is half that of FP64. Therefore, using FP16 for computing has the following advantages:
 
@@ -31,7 +31,7 @@ Therefore, the solution of the FP16 introduction problem needs to be considered 
 
 Based on the principles described above, a typical mixed precision computation process is shown in the following figure:
 
-![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/optimize/images/mix_precision_fp16.png)
+![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/experts/source_zh_cn/optimize/images/mix_precision_fp16.png)
 
 1. Parameters stored in FP32.
 2. During forward computation, when it comes to FP16 operators, the operator inputs and parameters need to be cast from FP32 to FP16 for computation.

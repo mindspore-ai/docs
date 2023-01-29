@@ -1,8 +1,8 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_notebook.png
     :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r2.0.0-alpha/tutorials/zh_cn/advanced/model/mindspore_cell.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_download_code.png
     :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r2.0.0-alpha/tutorials/zh_cn/advanced/model/mindspore_cell.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png
     :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_zh_cn/advanced/modules/cell.ipynb
 
 模型模块自定义
@@ -22,7 +22,7 @@
 
 神经网络模型由各种层(Layer)构成，MindSpore提供构造神经网络层的基础单元Cell，基于Cell进行神经网络封装。下面使用Cell构造经典模型AlexNet。
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
 如图所示，AlexNet由5个卷积层与3个全连接层串联构成，我们使用\ ``mindspore.nn``\ 提供的神经网络层接口进行构造。

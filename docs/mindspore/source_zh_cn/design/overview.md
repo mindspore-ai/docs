@@ -1,7 +1,7 @@
 # MindSpore设计概览
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/design/overview.md" target="_blank">
-<img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png">
+<img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png">
 </a>
 
 ## 概述
@@ -26,7 +26,7 @@ MindSpore整体架构分为四层：
 3. 编译优化（MindCompiler），作为AI框架的核心，以全场景统一中间表达（MindIR）为媒介，将前端表达编译成执行效率更高的底层语言，同时进行全局性能优化，包括自动微分、代数化简等硬件无关优化，以及图算融合、算子生成等硬件相关优化；
 4. 运行时，按照上层编译优化的结果对接并调用底层硬件算子，同时通过“端-边-云”统一的运行时架构，支持包括联邦学习在内的“端-边-云”AI协同。
 
-![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/introduction2.png)
+![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/beginner/images/introduction2.png)
 
 ## 设计理念
 

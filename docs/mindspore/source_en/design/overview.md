@@ -1,7 +1,7 @@
 # MindSpore Design Overview
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/design/overview.md" target="_blank">
-<img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png">
+<img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png">
 </a>
 
 ## Overview
@@ -26,7 +26,7 @@ The overall MindSpore architecture is divided into four layers:
 3. MindCompiler, as the core of the AI framework, compiles front-end expressions into a more efficient underlying language for execution, using the full-scenario unified MindIR as the medium, and performs simultaneous global performance optimization, including hardware-independent optimization such as automatic differentiation and algebraic simplification, as well as hardware-related optimization such as graph-kernel fusion and operator generation.
 4. At runtime, the underlying hardware operator is docked and called according to the compiled and optimized results of the upper layer, while the "device-edge-cloud" unified runtime architecture supports "device-edge-cloud" AI collaboration, including federated learning.
 
-![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/beginner/images/introduction2.png)
+![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_en/beginner/images/introduction2.png)
 
 ## Design Concept
 

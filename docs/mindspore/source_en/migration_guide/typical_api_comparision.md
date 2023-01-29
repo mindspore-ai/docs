@@ -1,6 +1,6 @@
 # Differences Between MindSpore and PyTorch
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 ## Differences Between MindSpore and PyTorch APIs
 
@@ -179,17 +179,17 @@ For operators similar to convolution and pooling, the size of the output feature
 
 If `pad_mode` is set to `valid`, the height and width of the output feature map are calculated as follows:
 
-![conv-formula](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/model_development/images/conv_formula.png)
+![conv-formula](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/model_development/images/conv_formula.png)
 
 If pad_mode (corresponding to the padding attribute in PyTorch, which has a different meaning from pad_mode) is set to `same`, automatic padding needs to be performed on the input feature map sometimes. When the padding element is an even number, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. In this case, the behavior of this type of operators in MindSpore, PyTorch, and TensorFlow is the same.
 
 However, when the padding element is an odd number, PyTorch is preferentially filled on the left and upper sides of the input feature map.
 
-![padding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern1.png)
+![padding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern1.png)
 
 MindSpore and TensorFlow are preferentially filled on the right and bottom of the feature map.
 
-![padding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern2.png)
+![padding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern2.png)
 
 The following is an example:
 

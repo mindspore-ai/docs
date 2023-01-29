@@ -1,8 +1,8 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_notebook.png
     :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r2.0.0-alpha/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_download_code.png
     :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r2.0.0-alpha/tutorials/zh_cn/advanced/model/mindspore_model.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png
     :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model
@@ -23,7 +23,7 @@
 
 本文档首先对MindSpore的Model进行基本介绍，然后重点讲解如何使用\ ``Model``\ 进行模型训练、评估和推理。
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/model/images/model.png
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/advanced/model/images/model.png
    :alt: model
 
 

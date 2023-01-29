@@ -1,6 +1,6 @@
 # Distributed Parallel Training Mode
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/parallel/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 In deep learning, as the size of the dataset and the number of parameters grows, the time and hardware resources required for training increase, which eventually become a bottleneck that constrains training. Distributed parallel training, which can reduce the need for hardware such as memory and computational performance, is an important optimization tool for conducting training. According to the different principles and modes of parallelism, the following types of parallelism are mainstream in the industry:
 

@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/autograd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/beginner/autograd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 [Introduction](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/save_load.html)
 
@@ -20,7 +20,7 @@ from mindspore import Tensor, Parameter
 
 Computing graphs are a way to represent mathematical functions in a graph-theoretic language and a unified way to represent neural network models in a deep learning framework. We will construct computing functions and neural networks based on the following computing graphs.
 
-![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/comp-graph.png)
+![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/beginner/images/comp-graph.png)
 
 In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters we need to optimize.
 

@@ -7,7 +7,7 @@ MindSpore Golden jointly designed and developed by Huawei's Noah team and Huawei
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_en/images/golden-stick-arch.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/golden_stick/docs/source_en/images/golden-stick-arch.png" width="700px" alt="" >
 
 1. The underlying MindSpore Rewrite module provides the ability to modify the front-end network. Based on the interface provided by this module, algorithm developers can add, delete, query and modify the nodes and topology relationships of the MindSpore front-end network according to specific rules;
 
@@ -40,7 +40,7 @@ General Process of Applying the MindSpore Golden Stick
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_en/images/workflow.png" width="800px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/golden_stick/docs/source_en/images/workflow.png" width="800px" alt="" >
 
 1. Training
 

@@ -16,7 +16,7 @@ MindInsight包括以下内容：
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindinsight/docs/source_zh_cn/images/mindinsight.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindinsight/docs/source_zh_cn/images/mindinsight.png" width="700px" alt="" >
 
 使用MindInsight可视化训练过程
 ------------------------------

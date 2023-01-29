@@ -1,6 +1,6 @@
 # Network Entity and Loss Construction
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/model_development/model_and_loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/advanced/modules/loss.html) on the MindSpore official website first.
 
@@ -275,7 +275,7 @@ When defining an optimizer, use `net.trainable_params()` to obtain the list of p
 
 In addition to setting the parameter `requires_grad=False` not to update the parameter, you can also use `stop_gradient` to block gradient calculation to freeze the parameter. When will `requires_grad=False` and `stop_gradient` be used?
 
-![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
+![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
 
 As shown in the preceding figure, the `requires_grad=False` does not update some parameters, but the backward gradient calculation is normal.
 The `stop_gradient` directly performs backward gradient. When there is no parameter to be trained before the parameter to be frozen, the two parameters are equivalent in function.

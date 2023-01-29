@@ -7,7 +7,7 @@ MindSpore Golden Stick由华为诺亚团队和华为MindSpore团队联合设计�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_zh_cn/images/golden-stick-arch.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/golden_stick/docs/source_zh_cn/images/golden-stick-arch.png" width="700px" alt="" >
 
 1. 底层的MindSpore Rewrite模块提供修改前端网络的能力，基于此模块提供的接口，算法开发者可以按照特定的规则对MindSpore的前端网络做节点和拓扑关系的增删查改；
 
@@ -40,7 +40,7 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/golden_stick/docs/source_zh_cn/images/workflow.png" width="800px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/docs/golden_stick/docs/source_zh_cn/images/workflow.png" width="800px" alt="" >
 
 1. 训练阶段
 
