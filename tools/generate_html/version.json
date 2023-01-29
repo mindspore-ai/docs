@@ -10,15 +10,6 @@
    }, 
    {
       "id" : 2 ,
-      "name" : "mindquantum",
-      "branch" : "r0.8",
-      "whl_path" : "/mindquantum/x86_64/",
-      "whl_name" : "mindquantum-0.8.0-cp37-cp37m-linux_x86_64.whl",
-      "environ" : "MQ_PATH",
-      "uninstall_name" : "mindquantum"
-   },
-   {
-      "id" : 3 ,
       "name" : "tutorials",
       "branch" : "r1.10",
       "whl_path" : "",
@@ -27,7 +18,7 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 4 ,
+      "id" : 3 ,
       "name" : "lite",
       "branch" : "r1.10",
       "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
