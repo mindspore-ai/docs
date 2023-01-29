@@ -11,9 +11,9 @@
    {
       "id" : 2 ,
       "name" : "golden_stick",
-      "branch" : "r0.3",
+      "branch" : "r0.3.0-alpha",
       "whl_path" : "/GoldenStick/any/",
-      "whl_name" : "mindspore_gs-0.3.0-py3-none-any.whl",
+      "whl_name" : "mindspore_gs-0.3.0.alpha-py3-none-any.whl",
       "environ" : "GS_PATH",
       "uninstall_name" : "mindspore_gs"
    },
@@ -81,16 +81,7 @@
       "uninstall_name" : "mindspore_gl"
    },
    {
-       "id" : 9 ,
-       "name" : "recommender",
-       "branch" : "r0.2",
-       "whl_path" : "/Recommender/any/",
-       "whl_name" : "mindspore_rec-0.2-py3-none-any.whl",
-       "environ" : "RD_PATH",
-       "uninstall_name" : "mindspore_rec"
-   },
-   {
-      "id" : 10 ,
+      "id" : 9 ,
       "name" : "tutorials",
       "branch" : "r2.0.0-alpha",
       "whl_path" : "",
@@ -99,7 +90,7 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 11 ,
+      "id" : 10 ,
       "name" : "lite",
       "branch" : "r2.0.0-alpha",
       "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
@@ -108,5 +99,14 @@
       "uninstall_name" : "mindspore_lite",
       "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
       "tar_name" : "mindspore-lite-2.0.0.alpha-linux-x64.tar.gz"
+   },
+   {
+      "id" : 11 ,
+      "name" : "mindquantum",
+      "branch" : "r0.8",
+      "whl_path" : "/Mindquantum/x86_64/",
+      "whl_name" : "mindquantum-0.8.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MQ_PATH",
+      "uninstall_name" : "mindquantum"
    }
 ]

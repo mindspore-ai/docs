@@ -1,4 +1,4 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png
     :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/modules.rst
 
 Model Module Customization
@@ -21,7 +21,7 @@ provides Cell, the base unit for constructing neural network layers, and
 performs neural network encapsulation based on Cell. In the following,
 the classical model AlexNet is constructed by using Cell.
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
 As shown in the figure, AlexNet consists of five convolutional layers in

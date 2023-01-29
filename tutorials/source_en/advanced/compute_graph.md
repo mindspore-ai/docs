@@ -1,8 +1,8 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/compute_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/compute_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 # Computational Graph
 
-![comp-graph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/images/comp-graph.png)
+![comp-graph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/source_zh_cn/advanced/images/comp-graph.png)
 
 A computational graph is a form of representing mathematical expressions by using directed graphs. As shown in the figure, the neural network structure can be regarded as a computational graph consisting of Tensor data and Tensor operations as nodes, so constructing a neural network and training it by using a deep learning framework is the process of constructing a computational graph and executing it. The current support for computational graphs in the industry framework is divided into two modes: dynamic graphs are executed by interpretation, with dynamic syntax affinity and flexible expression, and static graphs are executed by using JIT (just in time) compilation optimization. There are more restrictions on the syntax for using static syntax.
 

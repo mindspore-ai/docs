@@ -1,7 +1,7 @@
 Function Debug
 ===============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png
     :target: https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/debug/function_debug.rst
 
 .. toctree::
@@ -54,7 +54,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png
 
 -  Python stack information:
 
