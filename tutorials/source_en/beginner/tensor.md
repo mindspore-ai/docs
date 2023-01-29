@@ -21,74 +21,72 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
 - **Generating a tensor based on data**
 
-You can create a tensor based on data. The data type can be set or automatically inferred by the framework.
+    You can create a tensor based on data. The data type can be set or automatically inferred by the framework.
 
-```python
-data = [1, 0, 1, 0]
-x_data = Tensor(data)
-```
+    ```python
+    data = [1, 0, 1, 0]
+    x_data = Tensor(data)
+    ```
 
 - **Generating a tensor from the NumPy array**
 
-You can create a tensor from the NumPy array.
+    You can create a tensor from the NumPy array.
 
-```python
-np_array = np.array(data)
-x_np = Tensor(np_array)
-```
+    ```python
+    np_array = np.array(data)
+    x_np = Tensor(np_array)
+    ```
 
 - **Generating a tensor by using init**
 
-When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
+    When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-- `init`: supports the subclass of [initializer](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html).
+    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html).
+    - `shape`: supports `list`, `tuple`, and `int`.
+    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
 
-- `shape`: supports `list`, `tuple`, and `int`.
+    ```python
+    from mindspore.common.initializer import One, Normal
 
-- `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
+    # Initialize a tensor with ones
+    tensor1 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
+    # Initialize a tensor from normal distribution
+    tensor2 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
 
-```python
-from mindspore.common.initializer import One, Normal
+    print("tensor1:\n", tensor1)
+    print("tensor2:\n", tensor2)
+    ```
 
-# Initialize a tensor with ones
-tensor1 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
-# Initialize a tensor from normal distribution
-tensor2 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
+    ```text
+    tensor1:
+    [[1. 1.]
+    [1. 1.]]
+    tensor2:
+    [[-0.00063482 -0.00916224]
+    [ 0.01324238 -0.0171206 ]]
+    ```
 
-print("tensor1:\n", tensor1)
-print("tensor2:\n", tensor2)
-```
-
-```text
-tensor1:
- [[1. 1.]
- [1. 1.]]
-tensor2:
- [[-0.00063482 -0.00916224]
- [ 0.01324238 -0.0171206 ]]
-```
-
-The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
+    The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
 
 - **Inheriting attributes of another tensor to form a new tensor**
 
-```python
-from mindspore import ops
+    ```python
+    from mindspore import ops
 
-x_ones = ops.ones_like(x_data)
-print(f"Ones Tensor: \n {x_ones} \n")
+    x_ones = ops.ones_like(x_data)
+    print(f"Ones Tensor: \n {x_ones} \n")
 
-x_zeros = ops.zeros_like(x_data)
-print(f"Zeros Tensor: \n {x_zeros} \n")
-```
+    x_zeros = ops.zeros_like(x_data)
+    print(f"Zeros Tensor: \n {x_zeros} \n")
+    ```
 
-```text
-Ones Tensor:
- [1 1 1 1]
+    ```text
+    Ones Tensor:
+    [1 1 1 1]
 
-Zeros Tensor:
- [0 0 0 0]
-```
+    Zeros Tensor:
+    [0 0 0 0]
+    ```
 
 ## Tensor Attributes
 
