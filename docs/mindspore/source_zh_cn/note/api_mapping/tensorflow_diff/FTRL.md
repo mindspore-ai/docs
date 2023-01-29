@@ -18,7 +18,7 @@ tf.keras.optimizers.Ftrl(
 ) -> Tensor
 ```
 
-更多内容详见[tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)
+更多内容详见[tf.keras.optimizers.Ftrl](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl)。
 
 ## mindspore.nn.FTRL
 
@@ -36,7 +36,7 @@ class mindspore.nn.FTRL(
 )(grads) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)
+更多内容详见[mindspore.nn.FTRL](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
 
 ## 差异对比
 
@@ -51,14 +51,14 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数3 | initial_accumulator_value  | initial_accum | 功能一致，参数名不同 |
 |      | 参数4 | l1_regularization_strength | l1 | 功能一致，参数名不同 |
 |      | 参数5 | l2_regularization_strength | l2 | 功能一致，参数名不同 |
-|      | 参数5 | name | - | 不涉及 |
-|      | 参数6 | l2_shrinkage_regularization_strength | weight_decay | 功能一致，参数名不同 |
-|      | 参数7 | beta |      -     | 一个浮点值，默认值为0.0。MindSpore无此参数                 |
-|      | 参数8 | **kwargs | - | 不涉及 |
-|      | 参数9 | - | params | Parameter组成的列表或字典组成的列表。TensorFlow无此参数 |
-|      | 参数10 | - | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow无此参数 |
-|      | 参数11 | - | loss_scale | 梯度缩放稀疏，必须大于0。如果 loss_scale 是整数，它将被转换为浮点数。通常使用默认值，仅当训练时使用了 FixedLossScaleManager，且 FixedLossScaleManager 的 drop_overflow_update 属性配置为False时，此值需要与 FixedLossScaleManager 中的 loss_scale 相同。默认值为1.0。TensorFlow无此参数 |
-|      | 参数12 | - | grads | 反向输入，TensorFlow无此参数 |
+|      | 参数6 | name | - | 不涉及 |
+|      | 参数7 | l2_shrinkage_regularization_strength | weight_decay | 功能一致，参数名不同 |
+|      | 参数8 | beta |      -     | 一个浮点值，默认值为0.0。MindSpore无此参数                 |
+|      | 参数9 | **kwargs | - | 不涉及 |
+|      | 参数10 | - | params | Parameter组成的列表或字典组成的列表。TensorFlow无此参数 |
+|      | 参数11 | - | use_locking | 如果为True，则更新操作使用锁保护，默认值为False。TensorFlow无此参数 |
+|      | 参数12 | - | loss_scale | 梯度缩放稀疏，必须大于0。如果 loss_scale 是整数，它将被转换为浮点数。通常使用默认值，仅当训练时使用了 FixedLossScaleManager，且 FixedLossScaleManager 的 drop_overflow_update 属性配置为False时，此值需要与 FixedLossScaleManager 中的 loss_scale 相同。默认值为1.0。TensorFlow无此参数 |
+|      | 参数13 | - | grads | 反向输入，TensorFlow无此参数 |
 
 ### 代码示例1
 
