@@ -245,88 +245,86 @@ class MAELossForMultiLabel(nn.LossBase):
 
 ### Multi-label Model Training
 
-- Define and train the network model.
+When `Model` is used to connect the feedforward network, multi-label loss function, and optimizer, the `network` of `Model` is specified as the customized loss network `loss_net`, the loss function `loss_fn` is not specified, and the optimizer is still `Momentum`.
 
-    When `Model` is used to connect the feedforward network, multi-label loss function, and optimizer, the `network` of `Model` is specified as the customized loss network `loss_net`, the loss function `loss_fn` is not specified, and the optimizer is still `Momentum`.
+If `loss_fn` is not specified, the `Model` considers that the logic of the loss function has been implemented in the `network` by default, and does not use `nn.WithLossCell` to associate the feedforward network with the loss function.
 
-    If `loss_fn` is not specified, the `Model` considers that the logic of the loss function has been implemented in the `network` by default, and does not use `nn.WithLossCell` to associate the feedforward network with the loss function.
+```python
+train_dataset = create_multilabel_dataset(num_data=160)
 
-    ```python
-    train_dataset = create_multilabel_dataset(num_data=160)
+# Define a multi-label loss function.
+loss_fn = MAELossForMultiLabel()
+# Define the optimizer.
+opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-    # Define a multi-label loss function.
-    loss_fn = MAELossForMultiLabel()
-    # Define the optimizer.
-    opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
+def train(model, dataset, loss_fn, optimizer):
+# Define forward function
+def forward_fn(data, label1, label2):
+    output = network(data)
+    return loss_fn(output, label1, label2)
 
-    def train(model, dataset, loss_fn, optimizer):
-    # Define forward function
-    def forward_fn(data, label1, label2):
-        output = network(data)
-        return loss_fn(output, label1, label2)
+# Get gradient function
+grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
-    # Get gradient function
-    grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
+# Define function of one-step training
+def train_step(data, label1, label2):
+    loss, grads = grad_fn(data, label1, label2)
+    loss = ops.depend(loss, optimizer(grads))
+    return loss
 
-    # Define function of one-step training
-    def train_step(data, label1, label2):
-        loss, grads = grad_fn(data, label1, label2)
-        loss = ops.depend(loss, optimizer(grads))
-        return loss
+size = dataset.get_dataset_size()
+model.set_train()
+for batch, (data, label1, label2) in enumerate(dataset.create_tuple_iterator()):
+    loss = train_step(data, label1, label2)
 
-    size = dataset.get_dataset_size()
-    model.set_train()
-    for batch, (data, label1, label2) in enumerate(dataset.create_tuple_iterator()):
-        loss = train_step(data, label1, label2)
+    if batch % 2 == 0:
+        loss, current = loss.asnumpy(), batch
+        print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
 
-        if batch % 2 == 0:
-            loss, current = loss.asnumpy(), batch
-            print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
+epochs = 5
+for t in range(epochs):
+    print(f"Epoch {t+1}\n-------------------------------")
+    train(network, train_dataset, loss_fn, optimizer)
+print("Done!")
+```
 
-    epochs = 5
-    for t in range(epochs):
-        print(f"Epoch {t+1}\n-------------------------------")
-        train(network, train_dataset, loss_fn, optimizer)
-    print("Done!")
-    ```
-
-    ```text
-        Epoch 1
-        -------------------------------
-        loss: 0.739832  [  0/ 10]
-        loss: 0.949316  [  2/ 10]
-        loss: 1.052085  [  4/ 10]
-        loss: 0.982260  [  6/ 10]
-        loss: 0.784400  [  8/ 10]
-        Epoch 2
-        -------------------------------
-        loss: 0.963160  [  0/ 10]
-        loss: 0.899232  [  2/ 10]
-        loss: 0.934914  [  4/ 10]
-        loss: 0.757601  [  6/ 10]
-        loss: 0.965961  [  8/ 10]
-        Epoch 3
-        -------------------------------
-        loss: 0.815042  [  0/ 10]
-        loss: 0.999898  [  2/ 10]
-        loss: 1.008266  [  4/ 10]
-        loss: 1.024307  [  6/ 10]
-        loss: 0.798073  [  8/ 10]
-        Epoch 4
-        -------------------------------
-        loss: 0.844747  [  0/ 10]
-        loss: 0.958094  [  2/ 10]
-        loss: 0.898447  [  4/ 10]
-        loss: 0.879910  [  6/ 10]
-        loss: 0.969592  [  8/ 10]
-        Epoch 5
-        -------------------------------
-        loss: 0.917983  [  0/ 10]
-        loss: 0.862990  [  2/ 10]
-        loss: 0.947069  [  4/ 10]
-        loss: 0.854086  [  6/ 10]
-        loss: 0.910622  [  8/ 10]
-        Done!
-    ```
+```text
+    Epoch 1
+    -------------------------------
+    loss: 0.739832  [  0/ 10]
+    loss: 0.949316  [  2/ 10]
+    loss: 1.052085  [  4/ 10]
+    loss: 0.982260  [  6/ 10]
+    loss: 0.784400  [  8/ 10]
+    Epoch 2
+    -------------------------------
+    loss: 0.963160  [  0/ 10]
+    loss: 0.899232  [  2/ 10]
+    loss: 0.934914  [  4/ 10]
+    loss: 0.757601  [  6/ 10]
+    loss: 0.965961  [  8/ 10]
+    Epoch 3
+    -------------------------------
+    loss: 0.815042  [  0/ 10]
+    loss: 0.999898  [  2/ 10]
+    loss: 1.008266  [  4/ 10]
+    loss: 1.024307  [  6/ 10]
+    loss: 0.798073  [  8/ 10]
+    Epoch 4
+    -------------------------------
+    loss: 0.844747  [  0/ 10]
+    loss: 0.958094  [  2/ 10]
+    loss: 0.898447  [  4/ 10]
+    loss: 0.879910  [  6/ 10]
+    loss: 0.969592  [  8/ 10]
+    Epoch 5
+    -------------------------------
+    loss: 0.917983  [  0/ 10]
+    loss: 0.862990  [  2/ 10]
+    loss: 0.947069  [  4/ 10]
+    loss: 0.854086  [  6/ 10]
+    loss: 0.910622  [  8/ 10]
+    Done!
+```
 
 The preceding describes how to define a loss function and use a Model for model training in the multi-label dataset scenario. In many other scenarios, this method may also be used for model training.
