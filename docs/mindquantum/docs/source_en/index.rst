@@ -64,6 +64,7 @@ Typical Application Scenarios
    :maxdepth: 1
    :caption: API References
 
+   overview
    mindquantum.core
    mindquantum.simulator
    mindquantum.framework

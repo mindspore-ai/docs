@@ -6,7 +6,7 @@ from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import register_directive
 from docutils.parsers.rst.roles import register_generic_role
 from sphinx.ext.autodoc.directive import AutodocDirective
-from sphinx.domains.python import PyCurrentModule
+from sphinx.domains.python import PyCurrentModule, PyModule
 from sphinx.directives.other import TocTree
 from sphinx.directives.code import LiteralInclude
 from restructuredtext_lint.cli import main
@@ -98,6 +98,16 @@ class CurrentModule(PyCurrentModule):
         """run method."""
         return []
 
+class CustomPyModule(PyModule):
+    """Customizing currentmodule."""
+    has_content = False
+    required_arguments = 1
+    optional_arguments = 0
+    final_argument_whitespace = False
+
+    def run(self):
+        """run method."""
+        return []
 
 # Register directive.
 register_directive('py:class', CustomDirective)
@@ -106,6 +116,7 @@ register_directive('py:function', CustomDirective)
 register_directive('py:property', CustomDirective)
 register_directive('py:data', CustomDirective)
 register_directive('py:obj', CustomDirective)
+register_directive('py:module', CustomPyModule)
 register_directive('automodule', Autoclass)
 register_directive('autoclass', Autoclass)
 register_directive('autofunction', Autoclass)
@@ -113,9 +124,11 @@ register_directive('toctree', Toctree)
 register_directive('autosummary', CustomDirectiveNoNested)
 register_directive('msplatformautosummary', CustomDirectiveNoNested)
 register_directive('msnoteautosummary', CustomDirectiveNoNested)
+register_directive('msmathautosummary', CustomDirectiveNoNested)
 register_directive('mscnautosummary', CustomDirectiveNoNested)
 register_directive('mscnplatformautosummary', CustomDirectiveNoNested)
 register_directive('mscnnoteautosummary', CustomDirectiveNoNested)
+register_directive('mscnmathautosummary', CustomDirectiveNoNested)
 register_directive('currentmodule', CurrentModule)
 register_directive('literalinclude', CustomLiteralInclude)
 
