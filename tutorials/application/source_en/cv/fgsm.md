@@ -73,9 +73,14 @@ Use the following sample code to download and decompress a dataset to a specifie
 import mindspore.dataset.vision as transforms
 from mindspore.dataset.vision import Inter
 from mindspore.dataset import MnistDataset
+from download import download
 
-dataset_train = MnistDataset(dataset_dir="./mnist_dataset", usage="train", shuffle=True)
-dataset_eval = MnistDataset(dataset_dir="./mnist_dataset", usage="test", shuffle=True)
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
+
+dataset_train = MnistDataset(dataset_dir="./MNIST_Data/train", usage="train", shuffle=True)
+dataset_eval = MnistDataset(dataset_dir="./MNIST_Data/test", usage="test", shuffle=True)
 
 trans_transform = [
     transforms.Resize(size=32, interpolation=Inter.LINEAR),
@@ -96,10 +101,11 @@ dataset_eval = dataset_eval.batch(batch_size=32, drop_remainder=True)
 The directory structure of the downloaded dataset files is as follows:
 
 ```text
-.
-└── mnist_dataset
-    ├── t10k-images-idx3-ubyte
-    ├── t10k-labels-idx1-ubyte
+./MNIST_Data
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
     ├── train-images-idx3-ubyte
     └── train-labels-idx1-ubyte
 ```
