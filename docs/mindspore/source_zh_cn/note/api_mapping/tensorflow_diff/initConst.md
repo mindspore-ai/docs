@@ -8,7 +8,7 @@
 tf.keras.initializers.Constant(value=0)
 ```
 
-更多内容详见[tf.keras.initializers.Constant](https://www.tensorflow.org/api_docs/python/tf/keras/initializers/Constant)。
+更多内容详见[tf.keras.initializers.Constant](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/initializers/Constant)。
 
 ## mindspore.common.initializer.Constant
 
