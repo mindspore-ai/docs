@@ -42,9 +42,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且目标值�
 |      | 参数3 | ignore_index | ignore_index    | -                                                            |
 |      | 参数4 | reduce | - | 已弃用，功能由reduction接替 |
 |      | 参数5 | reduction    | reduction       | -                                                            |
-|      | 参数6 | input    | logits       | 功能一致，参数名不同                                                           |
-|      | 参数7 | target    | labels       | 功能一致，参数名不同                                                               |
-|      | 参数8 |    -     | label_smoothing | 标签平滑值，用于计算Loss时防止模型过拟合的正则化手段。取值范围为[0.0, 1.0]。 默认值: 0.0 |
+|      | 参数6 |    -     | label_smoothing | 标签平滑值，用于计算Loss时防止模型过拟合的正则化手段。取值范围为[0.0, 1.0]。 默认值: 0.0 |
+| 输入 | 输入1 | input    | logits       | 功能一致，参数名不同    |
+|      | 输入2| target    | labels       | 功能一致，参数名不同   |
 
 ### 代码示例1
 
@@ -55,24 +55,25 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且目标值�
 import torch
 import numpy as np
 
-inpu = np.array([[1.62434536, -0.61175641, -0.52817175, -1.07296862, 0.86540763], [-2.3015387, 1.74481176, -0.7612069, 0.3190391, -0.24937038], [1.46210794, -2.06014071, -0.3224172, -0.38405435, 1.13376944]])
-targe = np.array([1, 0, 4])
-
+input_torch = np.array([[1.624, -0.611, -0.528, -1.072, 0.865], [-2.301, 1.744, -0.761, 0.319, -0.249], [1.462, -2.060, -0.322, -0.384, 1.133]])
+target_torch = np.array([1, 0, 4])
 loss = torch.nn.CrossEntropyLoss()
-input = torch.tensor(inpu, requires_grad=True)
-target = torch.tensor(targe, dtype=torch.long)
-output = loss(input, target)
-print(output.detach().numpy())
-# 2.7648239812294704
+input_torch = torch.tensor(input_torch, requires_grad=True)
+target_torch = torch.tensor(target_torch, dtype=torch.long)
+output = loss(input_torch, target_torch)
+print(round(float(output.detach().numpy()), 3))
+# 2.764
 
 # MindSpore
 import mindspore
 import numpy as np
 
-inputs = mindspore.Tensor(inpu, mindspore.float32)
-target = mindspore.Tensor(targe, mindspore.int32)
+input_ms = np.array([[1.624, -0.611, -0.528, -1.072, 0.865], [-2.301, 1.744, -0.761, 0.319, -0.249], [1.462, -2.060, -0.322, -0.384, 1.133]])
+target_ms = np.array([1, 0, 4])
+input_ms = mindspore.Tensor(input_ms, mindspore.float32)
+target_ms = mindspore.Tensor(target_ms, mindspore.int32)
 loss = mindspore.nn.CrossEntropyLoss()
-output = loss(inputs, target)
-print(output)
-# 2.7648222
+output = loss(input_ms, target_ms)
+print(round(float(output), 3))
+# 2.764
 ```
