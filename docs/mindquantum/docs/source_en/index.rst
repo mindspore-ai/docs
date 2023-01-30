@@ -1,7 +1,7 @@
 MindQuantum Documents
 ======================
 
-MindQuantum is a new-generation quantum computing framework based on MindSpore, supporting training and inference of multiple quantum neural networks.
+MindQuantum is a new-generation quantum computing suite based on MindSpore, supporting training and inference of multiple quantum neural networks.
 
 MindQuantum focuses on the implementation of NISQ algorithms. It combines the HiQ high-performance quantum computing simulator with the parallel automatic differentiation capability of MindSpore. MindQuantum is easy-to-use with ultra-high performance. It can efficiently handle problems like quantum machine learning, quantum chemistry simulation, and quantum optimization. MindQuantum provides an efficient platform for researchers, teachers and students to quickly design and verify quantum algorithms, making quantum computing at your fingertips.
 

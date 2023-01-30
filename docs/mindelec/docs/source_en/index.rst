@@ -1,7 +1,7 @@
 Introduction to MindElec
 =========================
 
-MindElec is an end-to-end supported AI electromagnetic simulation tool package, consisting of data construction and conversion, simulation calculation, and result visualization.
+MindElec is an end-to-end supported AI electromagnetic simulation suite, consisting of data construction and conversion, simulation calculation, and result visualization.
 
 Electromagnetic simulation refers to simulating the propagation characteristics of electromagnetic waves in objects or space through computation. It is widely used in scenarios such as mobile phone tolerance simulation, antenna optimization, and chip design. Conventional numerical methods, such as finite difference and finite element, require mesh segmentation and iterative computation. The simulation process is complex and the computation time is long, which cannot meet the product design requirements. With the universal approximation theorem and efficient inference capability, the AI method can improve the simulation efficiency.
 

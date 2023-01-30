@@ -6,7 +6,7 @@
 MindSpore Federated Documents
 ================================
 
-MindSpore Federated is an open source federated learning component for MindSpore, and it enables all-scenario intelligent applications when user data is stored locally.
+MindSpore Federated is an open source federated learning tool for MindSpore, and it enables all-scenario intelligent applications when user data is stored locally.
 
 Federated learning is a cryptographically distributed machine learning technique for solving data silos and performing efficient, secure and reliable machine learning across multiple parties or multiple resource computing nodes. Support the various participants of machine learning to build AI models together without directly sharing local data, including but not limited to mainstream deep learning models such as ad recommendation, classification, and detection, mainly applied in finance, medical, recommendation and other fields.
 
