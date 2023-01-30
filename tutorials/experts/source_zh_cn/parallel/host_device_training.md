@@ -56,7 +56,7 @@
 
 ### 训练模型
 
-为了保存足够的日志信息，需在执行脚本前使用命令`export GLOG_v=1`将日志级别设置为INFO，且在MindSpore编译时添加-p on选项。如需了解MindSpore编译流程，可参考[编译MindSpore](https://www.mindspore.cn/install/detail?path=install/master/mindspore_ascend_install_source.md&highlight=%E7%BC%96%E8%AF%91mindspore)。
+为了保存足够的日志信息，需在执行脚本前使用命令`export GLOG_v=1`将日志级别设置为INFO，且在MindSpore编译时添加-p on选项。如需了解MindSpore编译流程，可参考[编译MindSpore](https://www.mindspore.cn/install/detail?path=install/r2.0.0-alpha/mindspore_ascend_install_source.md&highlight=%E7%BC%96%E8%AF%91mindspore)。
 
 使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`。
 其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET_PATH`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
