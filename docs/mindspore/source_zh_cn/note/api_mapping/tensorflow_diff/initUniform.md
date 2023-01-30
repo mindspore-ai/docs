@@ -22,7 +22,7 @@ class mindspore.common.initializer.Uniform(scale=0.07)
 
 ## 使用方式
 
-TensorFlow：通过入参`minval`和`maxval`分别指定均匀分布的上下界，即U(-minval, maxval)。默认值：minval=-0.05, maxval=0.05。
+TensorFlow：通过入参`minval`和`maxval`分别指定均匀分布的上下界，即U(-minval, maxval)。默认值：minval=-0.05，maxval=0.05。
 
 MindSpore：仅通过一个入参`scale`指定均匀分布的范围，即U(-scale, scale)。默认值：scale=0.7。
 
