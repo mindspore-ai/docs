@@ -423,7 +423,7 @@ class ViT(nn.Cell):
         """ViT construct."""
         x = self.patch_embedding(x)
         cls_tokens = ops.tile(self.cls_token, (x.shape[0], 1, 1))
-        x = ops.concat((cls_tokens.astype(ms.float16), x), axis=1)
+        x = ops.concat((cls_tokens, x), axis=1)
         x += self.pos_embedding
 
         x = self.pos_dropout(x)
