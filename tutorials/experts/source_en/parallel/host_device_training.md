@@ -58,7 +58,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ## Training the Model
 
-In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/master/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
+In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/r1.10/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
 
 Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`, where the first `1` is the number of cards used in the case, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset, and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 

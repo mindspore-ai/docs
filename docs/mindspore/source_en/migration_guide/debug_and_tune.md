@@ -197,8 +197,6 @@ ms.set_seed(1) # The random seeds of MindSpore, NumPy, and dataset are fixed. Th
 
 - Check whether the data processing meets the expectation through visualization. Focus on data shuffle and check whether data mismatch occurs.
 
-For details about more accuracy debugging policies, see [Accuracy Debugging](https://mindspore.cn/mindinsight/docs/en/r1.10/accuracy_problem_preliminary_location.html).
-
 ## Performance Tuning
 
 The performance tuning directions are as follows:
