@@ -10,7 +10,7 @@ tf.keras.metrics.Accuracy(
 )
 ```
 
-更多内容详见[tf.keras.metrics.Accuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/Accuracy)。
+更多内容详见[tf.keras.metrics.Accuracy](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/Accuracy)。
 
 ## tf.keras.metrics.BinaryAccuracy
 
@@ -20,7 +20,7 @@ tf.keras.metrics.BinaryAccuracy(
 )
 ```
 
-更多内容详见[tf.keras.metrics.BinaryAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/BinaryAccuracy)。
+更多内容详见[tf.keras.metrics.BinaryAccuracy](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/BinaryAccuracy)。
 
 ## tf.keras.metrics.CategoricalAccuracy
 
@@ -30,7 +30,7 @@ tf.keras.metrics.CategoricalAccuracy(
 )
 ```
 
-更多内容详见[tf.keras.metrics.CategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/CategoricalAccuracy)。
+更多内容详见[tf.keras.metrics.CategoricalAccuracy](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/CategoricalAccuracy)。
 
 ## tf.keras.metrics.SparseCategoricalAccuracy
 
@@ -40,7 +40,7 @@ tf.keras.metrics.SparseCategoricalAccuracy(
 )
 ```
 
-更多内容详见[tf.keras.metrics.SparseCategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/SparseCategoricalAccuracy)。
+更多内容详见[tf.keras.metrics.SparseCategoricalAccuracy](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/SparseCategoricalAccuracy)。
 
 ## mindspore.train.Accuracy
 
@@ -56,7 +56,7 @@ Accuracy通常用于二分类和多分类场景下准确率的计算。MindSpore
 
 在两框架中，评估函数接口分别使用`update`方法和`update_state`方法对当前batch样本的准确率进行计算和更新，需要传入y_pred和y_true，假设当前batch数据为N，类别为C，接口大致区别如下：
 
-MindSpore：`mindspore.train.Accuracy`支持常规单标签场景和多标签场景，通过接口入参`eval_type`设置'classification'和'multilabel'区分。mindspore的`update`方法中，y_pred默认为[0,1]范围内的概率值， shape为(N,C) ；y_true需要依据场景区分：单标签时，y的shape可以为 (N,C) 和(N,)，多标签时，需要shape为 (N,C)，详情请参考官网API注释。
+MindSpore：`mindspore.train.Accuracy`支持常规单标签场景和多标签场景，通过接口入参`eval_type`设置'classification'和'multilabel'区分。mindspore的`update`方法中，y_pred默认为[0,1]范围内的概率值，shape为(N,C) ；y_true需要依据场景区分：单标签时，y的shape可以为 (N,C) 和(N,)，多标签时，需要shape为 (N,C)，详情请参考官网API注释。
 
 TensorFlow1.15版本提供了众多计算Accuracy的接口，且此版本的这些接口都不支持多标签场景。下述接口都可以通过`sample_weight`配置样本权重，大致区别如下：
 
@@ -72,7 +72,7 @@ TensorFlow1.15版本提供了众多计算Accuracy的接口，且此版本的这�
 
 **TensorFlow**：
 
- tf.keras.metrics.Accuracy：
+tf.keras.metrics.Accuracy：
 
 ```python
 import tensorflow as tf
