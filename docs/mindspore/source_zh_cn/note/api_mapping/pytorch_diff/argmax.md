@@ -22,9 +22,7 @@ mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 
 PyTorch：沿着给定的维度返回Tensor最大值所在的下标，返回值类型为torch.int64。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值类型为int32.
-
-为保证二者输出类型是一致的，需使用[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子将MindSpore的计算结果转换成mindspore.int64，以下每个示例均会有此步类型转换。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -56,14 +54,12 @@ from mindspore import Tensor
 x = np.arange(1).reshape(()).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 if not ms_tensor.shape:
     ms_tensor_tmp = ms_expanddims(ms_tensor, 0)
     ms_output = ms_argmax(ms_tensor_tmp)
 
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # 0
@@ -94,13 +90,11 @@ dim = None
 x = np.arange(2*3*4).reshape(2,3,4).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 ms_output = ms_argmax(ms_tensor, axis=dim) if dim is not None else ms_argmax(
     ms_tensor.flatten())
 
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # 23
@@ -135,11 +129,9 @@ keepdims = True
 x = np.arange(2*4).reshape(2, 4).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 ms_output = ms_argmax(ms_tensor, axis=dim, keepdims=keepdims)
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # [[3]
