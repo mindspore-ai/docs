@@ -10,7 +10,7 @@ tf.keras.metrics.CosineSimilarity(
 )
 ```
 
-更多内容详见[tf.keras.metrics.CosineSimilarity](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/CosineSimilarity)。
+更多内容详见[tf.keras.metrics.CosineSimilarity](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/CosineSimilarity)。
 
 ## mindspore.train.CosineSimilarity
 
@@ -22,7 +22,7 @@ mindspore.train.CosineSimilarity(similarity="cosine", reduction="none", zero_dia
 
 ## 使用方式
 
-MindSpore： 输入为矩阵，矩阵每行可看做一条样本，返回值为相似度矩阵。若`similarity="cosine"`，则为cosine相似度计算逻辑，与`tf.keras.metrics.CosineSimilarity`计算逻辑相同，若`similarity="dot"`，则为矩阵点乘转置矩阵。`reduction`可设置"none"、'sum'、 'mean'，分别对应原始结果矩阵，求和和求平均计算。
+MindSpore：输入为矩阵，矩阵每行可看做一条样本，返回值为相似度矩阵。若`similarity="cosine"`，则为cosine相似度计算逻辑，与`tf.keras.metrics.CosineSimilarity`计算逻辑相同，若`similarity="dot"`，则为矩阵点乘转置矩阵。`reduction`可设置"none"、'sum'、 'mean'，分别对应原始结果矩阵，求和和求平均计算。
 
 TensorFlow：输入为预测值和真实值，通过cosine similarity = (a . b) / ||a|| ||b||进行计算，返回结果为所有数据流的cosine相似度均值。
 

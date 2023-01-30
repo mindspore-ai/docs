@@ -11,7 +11,7 @@ tf.keras.metrics.AUC(
 )
 ```
 
-更多内容详见[tf.keras.metrics.AUC](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/AUC)。
+更多内容详见[tf.keras.metrics.AUC](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/metrics/AUC)。
 
 ## mindspore.train.auc
 
