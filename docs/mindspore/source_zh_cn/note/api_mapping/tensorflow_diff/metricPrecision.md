@@ -22,7 +22,7 @@ mindspore.train.Precision(eval_type="classification")
 
 ## 使用方式
 
-计算公式相同，都为precision = true_positives / (true_positives + false_positives)，但对输入处理逻辑不同，假设输入真实值为y_true，预测值为y_pred,差异如下：
+计算公式相同，都为precision = true_positives / (true_positives + false_positives)，但对输入处理逻辑不同，假设输入真实值为y_true，预测值为y_pred，差异如下：
 
 TensorFlow：TensorFlow1.15版本此接口仅支持二分类的单标签场景，最终返回precision的均值。y_true被映射到布尔型变量(除0外都被映射为1)；y_pred>`thresholds`被认为预测为正类，y_pred<=`thresholds`被认为预测为负类。入参大致情况如下：
 
