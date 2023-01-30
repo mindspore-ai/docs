@@ -60,9 +60,11 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
 
    支持高性能隐私集合求交协议（PSI），可防止联邦参与方获得交集外的ID信息，可应对数据不均衡场景。
 
-   支持基于差分隐私的Label的加密方案，防止泄漏用户标签数据。
+   支持结合量化与差分隐私的特征保护软件方案，防止攻击者从中间特征重构出原始隐私数据。
 
-   支持软硬结合的隐私保护方案，和同态加密方式相比，可降低通信轮数和通信量。
+   支持基于可信执行环境的特征保护硬件方案，提供高强度且高效的特征保护能力。
+
+   支持基于差分隐私的标签保护方案，防止泄漏用户标签数据。
 
 2. 联邦训练
 
@@ -131,6 +133,7 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
    local_differential_privacy_training_signds
    pairwise_encryption_training
    private_set_intersection
+   secure_vertical_federated_learning_with_EmbeddingDP
    secure_vertical_federated_learning_with_TEE
    secure_vertical_federated_learning_with_DP
 
