@@ -2,6 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/acos.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+> `torch.arccos`别名`torch.acos`，`torch.Tensor.arccos`别名`torch.Tensor.acos`。
+>
+> `mindspore.ops.arccos`别名`mindspore.ops.acos`，`mindspore.Tensor.arccos`别名`mindspore.Tensor.acos`。
+>
+> `mindspore.ops.arccos`与`torch.arccos`，`mindspore.Tensor.acos`与`torch.Tensor.acos`，`mindspore.Tensor.arccos`与`torch.Tensor.arccos`的功能差异，均参考`mindspore.ops.acos`与`torch.acos`的功能差异比较。
+
 ## torch.acos
 
 ```text
