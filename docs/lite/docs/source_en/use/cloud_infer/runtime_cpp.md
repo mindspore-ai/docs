@@ -197,6 +197,8 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 }
 ```
 
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_ File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+
 ## Inputting the Data
 
 Before the model execution, the input data needs to be set, using the [GetInputs](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) method, which directly gets all vectors of the model input Tensor. You can get the size of the data that the Tensor should fill in by the DataSize method of the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). The data type of the Tensor can be obtained by the DataType. The input host data is set by SetData method.

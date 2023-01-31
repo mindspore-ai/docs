@@ -64,6 +64,8 @@ runner_config->SetWorkersNum(kNumWorkers);
 > 多model并发推理现阶段支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)几种不同的硬件后端。在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
+>
+> 针对大模型，使用model buffer进行加载编译的时候需要单独设置权重文件的路径，通过[SetConfigInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setconfiginfo)接口设置模型路径，其中`section`为`model_file`，`key`为`mindir_path`；使用model path进行加载编译的时候不需要设置其他参数，会自动读取权重参数。
 
 ## 初始化
 
