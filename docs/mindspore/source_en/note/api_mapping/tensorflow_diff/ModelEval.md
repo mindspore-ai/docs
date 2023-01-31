@@ -1,6 +1,6 @@
-# 比较与tf.keras.Model.predict、tf.keras.Model.predict_generator的功能差异
+# Function Differences with tf.keras.Model.predict and tf.keras.Model.predict_generator
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelEval.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ModelEval.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.Model.predict
 
@@ -11,7 +11,7 @@ tf.keras.Model.predict(
 )
 ```
 
-更多内容详见[tf.keras.Model.predict](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#predict)。
+For more information, see [tf.keras.Model.predict](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#predict).
 
 ## tf.keras.Model.predict_generator
 
@@ -22,7 +22,7 @@ tf.keras.Model.predict_generator(
 )
 ```
 
-更多内容详见[tf.keras.Model.predict_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#predict_generator)。
+For more information, see [tf.keras.Model.predict_generator](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#predict_generator).
 
 ## mindspore.train.Model.eval
 
@@ -30,15 +30,15 @@ tf.keras.Model.predict_generator(
 mindspore.train.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 ```
 
-更多内容详见[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
+For more information, see [mindspore.train.Model.eval](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval).
 
-## 使用方式
+## Usage
 
-`tf.keras.Model.predict`和`tf.keras.Model.predict_generator`分别支持数据集的不同载入方式，除基本的`callbacks`等，还可通过`workers`、`use_multiprocessing`配置多线程场景下的进程数等。
+`tf.keras.Model.predict` and `tf.keras.Model.predict_generator` support different ways of loading datasets, in addition to the basic `callbacks`. You can also configure the number of processes in multi-threaded scenarios through `workers` and `use_multiprocessing`.
 
-`mindspore.train.Model.train`除了可配置基本的参数`valid_dataset`、`callbacks`，还可以配置`dataset_sink_mode`设置是否下沉。
+`mindspore.train.Model.train` can be configured with the basic parameters `valid_dataset`, `callbacks`, and also `dataset_sink_mode` to set whether to sink.
 
-## 代码示例
+## Code Example
 
 ```python
 import tensorflow as tf

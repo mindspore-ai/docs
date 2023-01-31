@@ -1,6 +1,6 @@
-# 比较与tf.keras.Model的功能差异
+# Function Differences with tf.keras.Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/Model.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.Model
 
@@ -8,7 +8,7 @@
 tf.keras.Model(*args, **kwargs)
 ```
 
-更多内容详见[tf.keras.Model](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model)。
+For more information, see [tf.keras.Model](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model).
 
 ## mindspore.train.Model
 
@@ -16,19 +16,19 @@ tf.keras.Model(*args, **kwargs)
 mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model)。
+For more information, see [mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
-## 使用方式
+## Usage
 
-框架提供的模型训练和推理的高阶API，实例化一个Model的常见场景可参考代码示例。
+The framework provides a high-level API for model training and inference, and common scenarios for instantiating a Model can be found in the code examples.
 
-## 代码示例
+## Code Example
 
-TensorFlow：
+TensorFlow:
 
-1. 实例化Model的两种方法：
+1. Two ways to instantiate a Model:
 
-  创建一个前向传递，根据输入输出创建一个Model实例：
+  Create a forward pass that creates a Model instance based on the input and output.
 
   ```python
   import tensorflow as tf
@@ -39,7 +39,7 @@ TensorFlow：
   model = tf.keras.Model(inputs=inputs, outputs=outputs)
   ```
 
-  继承Model类，在__init__中定义模型层，在call中明确执行逻辑。
+  Inherit the Model class, define the model layer in __init__, and explicitly execute the logic in the call.
 
   ```python
   import tensorflow as tf
@@ -58,7 +58,7 @@ TensorFlow：
   model = MyModel()
   ```
 
-2. 使用compile方法进行模型配置：
+2. Use the compile method for model configuration
 
   ```python
   model.compile(loss='mae', optimizer='adam')
