@@ -14,7 +14,7 @@ tf.keras.Model.fit(
 )
 ```
 
-更多内容详见[tf.keras.Model.fit](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#fit)。
+更多内容详见[tf.keras.Model.fit](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit)。
 
 ## tf.keras.Model.fit_generator
 
@@ -27,7 +27,7 @@ tf.keras.Model.fit_generator(
 )
 ```
 
-更多内容详见[tf.keras.Model.fit_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#fit_generator)。
+更多内容详见[tf.keras.Model.fit_generator](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit_generator)。
 
 ## mindspore.train.Model.train
 

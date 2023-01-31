@@ -8,7 +8,7 @@
 tf.keras.Model(*args, **kwargs)
 ```
 
-更多内容详见[tf.keras.Model](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model)。
+更多内容详见[tf.keras.Model](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model)。
 
 ## mindspore.train.Model
 
@@ -16,7 +16,7 @@ tf.keras.Model(*args, **kwargs)
 mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model)。
+更多内容详见[mindspore.train.Model](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model)。
 
 ## 使用方式
 
@@ -60,9 +60,9 @@ TensorFlow：
 
 2. 使用compile方法进行模型配置：
 
- ```python
- model.compile(loss='mae', optimizer='adam')
- ```
+  ```python
+  model.compile(loss='mae', optimizer='adam')
+  ```
 
 MindSpore：
 
