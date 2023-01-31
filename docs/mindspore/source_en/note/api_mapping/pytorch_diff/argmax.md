@@ -22,9 +22,7 @@ For more information, see [mindspore.ops.argmax](https://www.mindspore.cn/docs/e
 
 PyTorch: Return the subscript along the given dimension where the maximum value of the Tensor is located, and the return value is of type torch.int64.
 
-MindSpore: The implementation function of API in MindSpore is basically the same as that of PyTorch, and the return value type is int32.
-
-To ensure that the two output types are identical, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64, which is done in each of the following examples.
+MindSpore: The implementation function of API in MindSpore is basically the same as that of PyTorch。
 
 | Categories | Subcategories   | PyTorch     | MindSpore   | Differences   |
 | ---- | ----- | ------- | --------- | --------------------- |
@@ -56,14 +54,12 @@ from mindspore import Tensor
 x = np.arange(1).reshape(()).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 if not ms_tensor.shape:
     ms_tensor_tmp = ms_expanddims(ms_tensor, 0)
     ms_output = ms_argmax(ms_tensor_tmp)
 
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # 0
@@ -94,13 +90,11 @@ dim = None
 x = np.arange(2*3*4).reshape(2,3,4).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 ms_output = ms_argmax(ms_tensor, axis=dim) if dim is not None else ms_argmax(
     ms_tensor.flatten())
 
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # 23
@@ -135,11 +129,9 @@ keepdims = True
 x = np.arange(2*4).reshape(2, 4).astype(np.float32)
 ms_argmax = mindspore.ops.argmax
 ms_expanddims = mindspore.ops.ExpandDims()
-ms_cast = mindspore.ops.Cast()
 ms_tensor = Tensor(x)
 
 ms_output = ms_argmax(ms_tensor, axis=dim, keepdims=keepdims)
-ms_output = ms_cast(ms_output, mindspore.int64)
 ms_out_np = ms_output.asnumpy()
 print(ms_out_np)
 # [[3]
