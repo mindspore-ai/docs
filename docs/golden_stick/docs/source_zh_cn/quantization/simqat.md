@@ -36,7 +36,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU |
-| 网络支持 | LeNet、ResNet50，具体请参见<https://gitee.com/mindspore/models/tree/master>。 |
+| 网络支持 | LeNet、ResNet50，具体请参见<https://gitee.com/mindspore/models/tree/r2.0>。 |
 | 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
 | 方案支持 | 支持8比特的量化方案。 |
 | 数据类型支持 | GPU平台支持FP32。 |

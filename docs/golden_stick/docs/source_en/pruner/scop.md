@@ -25,7 +25,7 @@ Table 1: SCOP training specifications
 | Specifications        | Description                                                    |
 | ------------ | ------------------------------------------------------------ |
 | Hardware    | GPU and Ascend AI 910 Processor hardware platforms                          |
-| Networks    | ResNet series networks. For details, see <https://gitee.com/mindspore/models/tree/master>.|
+| Networks    | ResNet series networks. For details, see <https://gitee.com/mindspore/models/tree/r2.0>.|
 | Algorithms    | Structured pruning algorithms                                          |
 | Data types| The Ascend and the GPU platforms support pruning training on FP32 networks.|
 | Running modes| Graph mode and PyNative mode                                     |
