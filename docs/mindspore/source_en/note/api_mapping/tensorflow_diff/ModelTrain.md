@@ -1,6 +1,6 @@
-# 比较与tf.keras.Model.fit、tf.keras.Model.fit_generator的功能差异
+# Function Differences with tf.keras.Model.fit and tf.keras.Model.fit_generator
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ModelTrain.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ModelTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.Model.fit
 
@@ -14,7 +14,7 @@ tf.keras.Model.fit(
 )
 ```
 
-更多内容详见[tf.keras.Model.fit](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit)。
+For more information, see [tf.keras.Model.fit](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit).
 
 ## tf.keras.Model.fit_generator
 
@@ -27,7 +27,7 @@ tf.keras.Model.fit_generator(
 )
 ```
 
-更多内容详见[tf.keras.Model.fit_generator](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit_generator)。
+For more information, see [tf.keras.Model.fit_generator](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#fit_generator).
 
 ## mindspore.train.Model.train
 
@@ -35,17 +35,17 @@ tf.keras.Model.fit_generator(
 mindspore.train.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-更多内容详见[mindspore.train.Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html)。
+For more information, see [mindspore.train.Model.train](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html).
 
-## 使用方式
+## Usage
 
-`tf.keras.Model.fit`和`tf.keras.Model.fit_generator`分别支持数据集的不同载入方式，除基本的`epoch`、`callbacks`外；通过`verbose`设置训练过程中的输出信息格式；通过`validation*`等参数配置验证集，用于训练时的同步验证；通过`workers`、 `use_multiprocessing`配置多线程场景下的进程数；通过`shuffle`设置训练时数据集是否混洗；其他入参不做详细说明，具体请参考官网API文档。
+`tf.keras.Model.fit` and `tf.keras.Model.fit_generator` support different methods for loading datasets, in addition to the basic `epoch` and `callbacks` respectively. Set the output information format during training by `verbose` and configure the validation set by `validation*` and other parameters for simultaneous validation during training. The number of processes in multi-threaded scenarios is configured by `workers` and `use_multiprocessing`. Whether the data set is shuffled during training is set by `shuffle`. Other inputs are not detailed, and please refer to the official API documentation for details.
 
-`mindspore.train.Model.train`除了基本的训练参数`epoch`、`train_dataset`、`callback`，还可以通过`dataset_sink_mode`，`sink_size`进行下沉配置。其他功能暂未提供。
+`mindspore.train.Model.train` can be configured with `dataset_sink_mode`, `sink_size` for sinking in addition to the basic training parameters `epoch`, `train_dataset`, `callback`. Other functions are not provided yet.
 
-## 代码示例
+## Code Example
 
-> 以下代码结果具有随机性。
+> The following code results are random.
 
 ```python
 import tensorflow as tf
