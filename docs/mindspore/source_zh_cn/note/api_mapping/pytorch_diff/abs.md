@@ -2,6 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/abs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+> `torch.absolute`别名`torch.abs`，`torch.Tensor.absolute`别名`torch.Tensor.abs`。
+>
+> `mindspore.ops.absolute`别名`mindspore.ops.abs`，`mindspore.Tensor.absolute`别名`mindspore.Tensor.abs`。
+>
+> `mindspore.ops.absolute`与`torch.absolute`，`mindspore.Tensor.abs`与`torch.Tensor.abs`，`mindspore.Tensor.absolute`与`torch.Tensor.absolute`的功能差异，均参考`mindspore.ops.abs`与`torch.abs`的功能差异比较。
+
 ## torch.abs
 
 ```text
