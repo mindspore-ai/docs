@@ -45,12 +45,12 @@ MindSpore：与TensorFlow现同样的功能，依据的计算公式不同。
 | | 参数5 | alpha | - |计算公式中的α参数，MindSpore无此参数 |
 | | 参数6 | beta | - |计算公式中的β参数，MindSpore无此参数 |
 | | 参数7 | name | - | 不涉及 |
-| | 参数8 | - | min_lr |学习率的最小值 |
-| | 参数9 | - | max_lr |学习率的最大值 |
+| | 参数8 | - | min_lr |学习率的最小值，TensorFlow无此参数 |
+| | 参数9 | - | max_lr |学习率的最大值，TensorFlow无此参数 |
 
-### 代码示例1
+### 代码示例
 
-> 两API实现功能相同，计算逻辑不同。
+> 两API实现功能相同，依据的计算公式不同。
 
 ```python
 # TensorFlow
