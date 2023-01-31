@@ -56,13 +56,13 @@ MindSpore：TensorFlow的此API中各参数均为默认时，MindSpore此API实�
 | | 参数9 | beta_constraint | - | TensorFlow中此参数用于控制是否采用beta权重的可选约束，MindSpore无此参数|
 | | 参数10 | gamma_constraint | - | TensorFlow中此参数用于控制是否采用gamma权重的可选约束，MindSpore无此参数|
 | | 参数11 | **kwargs | - | 不涉及|
-| | 参数12 | x | x | - |
-| | 参数13 | - | normalized_shape | TensorFlow中无此参数，MindSpore中的此参数控制平均值和标准差计算的特定维度|
-| | 参数14 | - | begin_params_axis | TensorFlow中无此参数，MindSpore中的此参数确定第一个参数(beta, gamma)的维度，用于内置参数scale和centering的广播|
+| | 参数12 | - | normalized_shape | TensorFlow中无此参数，MindSpore中的此参数控制平均值和标准差计算的特定维度|
+| | 参数13 | - | begin_params_axis | TensorFlow中无此参数，MindSpore中的此参数确定第一个参数(beta, gamma)的维度，用于内置参数scale和centering的广播|
+|输入 | 单输入 | x | x | - |
 
 ### 代码示例
 
-> TensorFlow的此API中各参数均为默认时，MindSpore和TensorFlow实现功能基本一致。
+> TensorFlow的此API中各参数均为默认时，两API功能一致，用法相同。
 
 ```python
 # TensorFlow
