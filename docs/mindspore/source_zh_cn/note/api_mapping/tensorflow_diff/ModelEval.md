@@ -11,7 +11,7 @@ tf.keras.Model.predict(
 )
 ```
 
-更多内容详见[tf.keras.Model.predict](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#predict)。
+更多内容详见[tf.keras.Model.predict](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#predict)。
 
 ## tf.keras.Model.predict_generator
 
@@ -22,7 +22,7 @@ tf.keras.Model.predict_generator(
 )
 ```
 
-更多内容详见[tf.keras.Model.predict_generator](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/Model#predict_generator)。
+更多内容详见[tf.keras.Model.predict_generator](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/keras/Model#predict_generator)。
 
 ## mindspore.train.Model.eval
 
