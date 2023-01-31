@@ -83,6 +83,7 @@
 | [torch.isposinf](https://pytorch.org/docs/1.8.1/generated/torch.isposinf.html) | [mindspore.ops.isposinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isposinf.html) | 功能一致，参数名不一致 |
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isreal.html) | 功能一致，参数名不一致 |
 | [torch.linalg.norm](https://pytorch.org/docs/1.8.1/linalg.html#torch.linalg.norm) | [mindspore.ops.norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.norm.html) | 功能一致 |
+| [torch.linspace](https://pytorch.org/docs/1.8.1/generated/torch.linspace.html) | [mindspore.ops.linspace](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.linspace.html) | 功能一致，参数名不一致 |
 | [torch.log](https://pytorch.org/docs/1.8.1/generated/torch.log.html#torch.log) | [mindspore.ops.log](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.log.html) |   功能一致，参数名不一致                    |
 | [torch.max](https://pytorch.org/docs/1.8.1/torch.html#torch.max) | [mindspore.ops.max](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.max.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/max.html) |
 | [torch.mean](https://pytorch.org/docs/1.8.1/generated/torch.mean.html) | [mindspore.ops.mean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.mean.html) | 功能一致，参数名不一致 |
