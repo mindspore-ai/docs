@@ -36,7 +36,7 @@ Table 1: Quantization aware training specifications
 | Specifications| Description|
 | --- | --- |
 | Hardware| GPU |
-| Networks| The supported networks include LeNet and ResNet-50. For details, see <https://gitee.com/mindspore/models/tree/master>.|
+| Networks| The supported networks include LeNet and ResNet-50. For details, see <https://gitee.com/mindspore/models/tree/r2.0>.|
 | Algorithms| Asymmetric, symmetric, layer-by-layer, and channel-by-channel quantization algorithms.|
 | Solutions| 8-bit quantization solution|
 | Data types| The GPU platform supports FP32.|
