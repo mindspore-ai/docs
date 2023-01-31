@@ -1,11 +1,11 @@
-# Function Differences with torch.nn.MaxPool3D
+# Function Differences with torch.nn.MaxPool3d
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MaxPool3D.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## torch.nn.MaxPool3D
+## torch.nn.MaxPool3d
 
 ```python
-torch.nn.MaxPool3D(
+torch.nn.MaxPool3d(
     kernel_size=1,
     stride=None,
     padding=0,
@@ -15,7 +15,7 @@ torch.nn.MaxPool3D(
 )
 ```
 
-For more information, see [torch.nn.MaxPool3D](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.MaxPool3d).
+For more information, see [torch.nn.MaxPool3d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.MaxPool3d).
 
 ## mindspore.ops.MaxPool3D
 
