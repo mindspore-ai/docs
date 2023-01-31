@@ -220,6 +220,12 @@
 | [torch.nn.functional.soft_margin_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#soft-margin-loss)           | [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftMarginLoss.html)                                              | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/SoftMarginLoss.html)                                                                                                                       |
 | [torch.nn.functional.softmax](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.softmax) | [mindspore.ops.softmax](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/softmax.html) |
 
+### torch.nn.utils
+
+| PyTorch 1.8.1 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                    | 说明                                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+|[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)                   |[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)                           |             [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/clip_by_value.html)        |
+
 ### torch.Tensor
 
 | PyTorch 1.8.1 APIs                                                                                           | MindSpore APIs                                                                                                                                       | 说明                                         |
