@@ -270,6 +270,8 @@ if (build_ret != mindspore::kSuccess) {
 ```
 
 > After the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is loaded and built, the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step can be released.
+>
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_ File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 
 ## Inputting Data
 

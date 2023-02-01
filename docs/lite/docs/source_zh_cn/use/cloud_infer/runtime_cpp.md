@@ -197,6 +197,8 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 }
 ```
 
+> 针对大模型，使用model buffer进行加载编译的时候需要单独设置权重文件的路径，通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#updateconfig)接口设置模型路径，其中`section`为`model_file`，`key`为`mindir_path`；使用model path进行加载编译的时候不需要设置其他参数，会自动读取权重参数。
+
 ## 输入数据
 
 在模型执行前，需要设置输入数据，使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。可以通过MSTensor的[DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize)方法来获取Tensor应该填入的数据大小，通过[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype)方法来获取Tensor的数据类型，通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)方法设置输入host数据。

@@ -64,6 +64,8 @@ runner_config->SetWorkersNum(kNumWorkers);
 > Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
 > Multi-model concurrent inference does not support FP32-type data inference. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
+>
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [SetConfigInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) interface, where `section` is `model_File` , `key` is `mindir_path`; When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 
 ## Initialization
 
