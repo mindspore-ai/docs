@@ -39,7 +39,7 @@ MindSpore：The implementation function of API in MindSpore is basically the sam
 | --- | --- | --- | --- |---|
 |Parameters | Parameter 1 | kernel_size | kernel_size | Consistent function, no default values for PyTorch |
 | | Parameter 2 | stride | stride | Consistent function, different default value  |
-| | Parameter 3 | padding | - | The number of elements to fill. The default value is 0 (no padding), and the value cannot exceed kernel_size/2 (rounded down) |
+| | Parameter 3 | padding | - | The number of elements to fill. The default value is 0 (no padding), and the value cannot exceed kernel_size/2 (rounded down). For more details, refer to [Conv and Pooling](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#conv-and-pooling). |
 | | Parameter 4 | dilation | - | Span length between elements in the window: the default value is 1, when the elements in the window are contiguous. If the value > 1, the elements in the window are spaced |
 | | Parameter 5 | return_indices | - | Return index: If the value is True, the index of the corresponding element will be returned along with the maximum pooling result. Useful for subsequent calls to torch.nn.MaxUnpool1d |
 | | Parameter 6 | ceil_mode | - | Control the output shape(N, C, L_{out}) in L_{out} to round up or down. In MindSpore, default: round down |
@@ -83,10 +83,9 @@ print(result)
 ```python
 # PyTorch
 import torch
-from torch import tensor
 
 max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]])
+x = torch.tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], dtype=torch.float32)
 output = max_pool(x)
 print(output.numpy())
 # [[[ 3.  5.  7.  9. 10.]
@@ -106,14 +105,14 @@ print(output)
 
 ### Code Example 3
 
-> When padding=1 is set in PyTorch, the negative infinite tensor with shape (1, 2, 1) is constructed by replacing 10 in the shape (1, 2, 10) of the input tensor x with the value of padding in PyTorch in MindSpore. Both sides of the original input tensor x are spliced at axis=2 by the concat function, and the new x tensor is used to calculate the result of the maximum pooling so that the two APIs achieve the same function.
+> In PyTorch, when ceil_mode=False, set padding=1, and in MindSpore pad_mode='valid', first padding x by ops.pad(), then calculating the result of max pooling, so that both APIs achieve the same function.
 
 ```python
 # PyTorch
 import torch
 
 max_pool = torch.nn.MaxPool1d(kernel_size=4, stride=2, padding=1)
-x = torch.Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]])
+x = torch.tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], dtype=torch.float32)
 output = max_pool(x)
 result = output.shape
 print(output.numpy())
@@ -129,8 +128,7 @@ import mindspore.ops as ops
 
 max_pool = mindspore.nn.MaxPool1d(kernel_size=4, stride=2)
 x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
-pad = ops.Pad(((0, 0), (0, 0), (1, 1)))
-data = pad(Tensor(x))
+data = ops.pad(x, ((0, 0), (0, 0), (1, 1)))
 output = max_pool(data)
 result = output.shape
 print(output)

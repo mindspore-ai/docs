@@ -32,9 +32,9 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 |Parameters | Parameter 1 | input_size | input_size |- |
 | | Parameter 2 | hidden_size | hidden_size | - |
 | | Parameter 3 | bias | has_bias | Same function, different parameter names |
-| | Parameter 4 | input | x | Same function, different parameter names |
-| | Parameter 5 | h_0 | hx | In MindSpore, hx represents a tuple of two Tensor(h_0, c_0), corresponding to parameters 10 and 11 in PyTorch, with the same function  |
-| | Parameter 5 | c_0 | hx | In MindSpore, hx represents a tuple of two Tensor(h_0, c_0), corresponding to parameters 10 and 11 in PyTorch, with the same function  |
+|Inputs | Input 1 | input | x | Same function, different parameter names |
+| | Input 2 | h_0 | hx | In MindSpore hx represents a tuple of two Tensor(h_0, c_0), corresponding to inputs 2 and 3 in PyTorch, with the same function  |
+| | Input 3 | c_0 | hx | In MindSpore hx represents a tuple of two Tensor(h_0, c_0), corresponding to inputs 2 and 3 in PyTorch, with the same function  |
 
 ### Code Example 1
 
@@ -55,7 +55,7 @@ for i in range(input.size()[0]):
     hx, cx = rnn(input[i], (hx, cx))
     output.append(hx)
 print(tuple(output[0].shape))
-#(3, 16)
+# (3, 16)
 
 # MindSpore
 import mindspore.nn as nn
@@ -71,7 +71,7 @@ for i in range(5):
     hx = net(x[i], (h, c))
     output.append(hx)
 print(output[0][0].shape)
-#(3, 16)
+# (3, 16)
 ```
 
 ### Code Example 2
@@ -93,7 +93,7 @@ for i in range(input.size()[0]):
     hx, cx = rnn(input[i], (hx, cx))
     output.append(hx)
 print(tuple(output[0].shape))
-#(3, 16)
+# (3, 16)
 
 # MindSpore
 import mindspore.nn as nn
@@ -109,5 +109,5 @@ for i in range(5):
     hx = net(x[i], (h, c))
     output.append(hx)
 print(output[0][0].shape)
-#(3, 16)
+# (3, 16)
 ```
