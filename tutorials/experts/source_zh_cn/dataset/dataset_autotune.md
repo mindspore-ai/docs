@@ -1,6 +1,6 @@
 # 自动数据加速
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/dataset/dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_zh_cn/dataset/dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -56,7 +56,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## 约束
 
 - Profiling性能分析和自动数据加速无法同时开启，否则会导致Profiling或Dataset AutoTune不生效。如果这样同时开启此两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
-- 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
+- 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
 - 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
 - 在分布式多卡训练启动自动数据加速时，`set_enable_autotune()` 需要在集群初始化完成后才能执行（mindspore.communication.management.init()），否则自动数据加速只会识别到ID为0的设备，且只会生成单个调优文件（预期生成文件数量应与设备数量相等），见以下样例：
 
@@ -115,7 +115,7 @@ def create_dataset(...)
 
 ### 开始训练
 
-根据[resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README_CN.md#)所描述的步骤
+根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/README_CN.md#)所描述的步骤
 启动CIFAR10数据集的训练，随后自动数据加速模块会通过LOG的形式展示其对于性能瓶颈的分析情况：
 
 ```text
@@ -253,7 +253,7 @@ new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，
 以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
-另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html#配置):
+另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.dataset.html#配置):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
