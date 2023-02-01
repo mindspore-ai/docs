@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/source_en/advanced/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
 # Lightweight Data Processing
 
@@ -20,15 +20,15 @@ In the Eager mode, the execution of Transforms will not rely on constructing the
 
 MindSpore currently supports executing various Transforms in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
+- [vision module](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
 
     - Submodule transforms, data transform implemented based on OpenCV/Pillow.
 
-- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
+- [text module](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
 
     - Submodule transforms, data transform implemented based on Jieba, ICU4C, etc.
 
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
+- [transforms module](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/mindspore.dataset.transforms.html)
 
     - Submodule transforms, general-purpose data transform implemented based on C++/Python/NumPy.
 
