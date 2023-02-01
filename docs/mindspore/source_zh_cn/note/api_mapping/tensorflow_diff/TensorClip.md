@@ -10,7 +10,7 @@ tf.clip_by_value(
 )
 ```
 
-更多内容详见[tf.clip_by_value](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/clip_by_value)。
+更多内容详见[tf.clip_by_value](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/clip_by_value)。
 
 ## mindspore.Tensor.clip
 
@@ -18,7 +18,7 @@ tf.clip_by_value(
 mindspore.Tensor.clip(xmin, xmax, dtype=None)
 ```
 
-更多内容详见[mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip)。
+更多内容详见[mindspore.Tensor.clip](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip)。
 
 ## 使用方式
 

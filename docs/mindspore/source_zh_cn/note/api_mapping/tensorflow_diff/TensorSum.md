@@ -11,7 +11,7 @@ tf.math.reduce_sum(
 )
 ```
 
-更多内容详见[tf.math.reduce_sum](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/math/reduce_sum)。
+更多内容详见[tf.math.reduce_sum](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/math/reduce_sum)。
 
 ## mindspore.Tensor.sum
 
