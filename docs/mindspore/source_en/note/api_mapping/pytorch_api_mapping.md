@@ -200,6 +200,12 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.nn.Tanh](https://pytorch.org/docs/1.8.1/generated/torch.nn.Tanh.html) | [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanh.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Tanh.html) |
 | [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html) | [mindspore.nn.Unfold](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unfold.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Unfold.html) |
 
+### torch.nn.utils
+
+| PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+|[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)                   |[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html)                           |             Difference comparison is under development.        |
+
 ### torch.nn.functional
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
