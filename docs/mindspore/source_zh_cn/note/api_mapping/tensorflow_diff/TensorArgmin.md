@@ -8,7 +8,7 @@
 tf.arg_min(input, dimension, output_type=tf.dtypes.int64, name=None)
 ```
 
-更多内容详见[tf.arg_min](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/arg_min)。
+更多内容详见[tf.arg_min](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/arg_min)。
 
 ## mindspore.Tensor.argmin
 
@@ -20,7 +20,7 @@ mindspore.Tensor.argmin(axis=None)
 
 ## 使用方式
 
-功能相同，MindSpore和TensorFlow的两接口分别通过参数`axis`和`dimension`入参决定基于哪个维度返回最大值的索引。
+功能相同，MindSpore和TensorFlow的两接口分别通过参数`axis`和`dimension`入参决定基于哪个维度返回最小值的索引。
 
 不同点在于，默认状态下，MindSpore的`axis=None`，返回最小值的全局索引；TensorFlow的`dimension`不传入数值时，默认返回`dimension=0`的最小值索引。
 

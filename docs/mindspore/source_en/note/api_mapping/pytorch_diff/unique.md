@@ -13,13 +13,13 @@ torch.unique(
 
 For more information, see [torch.unique](https://pytorch.org/docs/1.8.1/generated/torch.unique.html#torch.unique).
 
-## mindspore.ops.Unique
+## mindspore.ops.unique
 
 ```python
 mindspore.ops.unique(x)
 ```
 
-For more information, see [mindspore.ops.Unique](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique).
+For more information, see [mindspore.ops.unique](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique).
 
 ## Differences
 
