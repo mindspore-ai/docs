@@ -40,7 +40,7 @@ MindSpore：The implementation function of API in MindSpore is basically the sam
 | --- | --- | --- | --- |---|
 |Parameters | Parameter 1 | kernel_size | kernel_size |Consistent function, no default values for PyTorch |
 | | Parameter 2 | stride | stride |Consistent function, different default value |
-| | Parameter 3 | padding | - | Implicit zero-padding added.When pad_mode='same', if the elements of padding are even, the elements of padding will be evenly distributed on the top and bottom of the feature map; while when the elements of padding are odd, PyTorch will preferentially padding on the left and top side of the input feature map, and MindSpore will preferentially padding on the right and bottom side of the feature map. For more details, see [Conv and Pooling](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#conv-and-pooling) |
+| | Parameter 3 | padding | - | Implicit zero-padding added.When pad_mode='same', if the elements of padding are even, the elements of padding will be evenly distributed on the top and bottom of the feature map; while when the elements of padding are odd, PyTorch will preferentially padding on the left and top side of the input feature map, and MindSpore will preferentially padding on the right and bottom side of the feature map. For more information, see [Conv and Pooling](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#conv-and-pooling) |
 | | Parameter 4 | dilation | - | Span length between elements in the window: the default value is 1, when the elements in the window are contiguous. If the value > 1, the elements in the window are spaced |
 | | Parameter 5 | return_indices | - | Return index: If the value is True, the index of the corresponding element will be returned along with the maximum pooling result. Useful for subsequent calls to torch.nn.MaxUnpool2d|
 | | Parameter 6 | ceil_mode | - | Control the output shape(N, C, L_{out}) in L_{out} to round up or down, and MindSpore defaults to round down |
@@ -85,13 +85,9 @@ print(result)
 ```python
 # PyTorch
 import torch
-from torch import tensor
-import numpy as np
 
 max_pool = torch.nn.MaxPool2d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.Tensor([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]])
-print(x.dtype)
-# torch.float32
+x = torch.tensor([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]], dtype=torch.float32)
 output = max_pool(x)
 print(output.numpy())
 # [[[[ 3.  5.  7.  9. 10.]]]]
