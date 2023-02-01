@@ -1,6 +1,6 @@
 # Graph Data Loading and Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/augment_graph_data.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.10/tutorials/source_en/advanced/dataset/augment_graph_data.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
 
 The `mindspore.dataset` module provided by MindSpore helps users build dataset objects and read text data in batches. In addition, data processing and tokenization operators are built in each dataset class. In this way, data can continuously flow to the training system during training, improving the data training effect.
 
@@ -14,7 +14,7 @@ $$G = F(V, E)$$
 
 The following figure shows a simple graph.
 
-![basicGraph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/dataset/images/basic_graph.png)
+![basicGraph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/advanced/dataset/images/basic_graph.png)
 
 The graph includes nodes V = {a, b, c, d} and edges E = {(a, b), (b, c), (c, d), (d, b)}. A connection relationship in the graph usually needs to be described in a mathematical manner. For example, in an adjacency matrix, a matrix C used to describe the connection relationship in the graph is as follows, where a, b, c and d correspond to nodes 1, 2, 3, and 4.
 
@@ -190,7 +190,7 @@ The following demonstrates how to build a pipeline and perform operations such a
 
     Figure (a) shows the multi-hop neighborhood-based node neighbor sampling. A sampled node is used as the start point of the next sampling. Figure (b) shows the random walk-based node neighbor sampling. A path is randomly selected to traverse neighboring nodes in sequence. In the corresponding figure, a walk path from V<sub>i</sub> to V<sub>j</sub> is selected.
 
-    ![graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/tutorials/source_zh_cn/advanced/dataset/images/graph_sample.png)
+    ![graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/tutorials/source_zh_cn/advanced/dataset/images/graph_sample.png)
 
     ```python
     # Multi-hop neighborhood-based node neighbor sampling
