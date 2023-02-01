@@ -254,7 +254,8 @@ class MsMathAutoSummary(MsAutosummary):
                 is_math = 1
         if env_sum:
             env_sum = ':math:`' + env_sum + '`'
-        return env_sum
+            return env_sum
+        return "No formula yet."
 
 class MsPlatformAutoSummary(MsAutosummary):
     """
@@ -559,6 +560,7 @@ class MsCnMathAutoSummary(MsCnAutoSummary):
         self.third_name_en = ".. math::"
 
     def get_third_column(self, name=None, content=''):
+        """Get math in api comment."""
         note_re = re.compile(r'\.\. math::\n{,2}((?:[\x20\t]+.*?\n)+)\n')
         third_str = note_re.findall(content)
         for i in range(len(third_str)):
@@ -567,4 +569,6 @@ class MsCnMathAutoSummary(MsCnAutoSummary):
             for j in str_list:
                 math_str += j.strip()
             third_str[i] = ':math:`' + math_str + '`'
-        return third_str
+        if third_str:
+            return third_str
+        return ["暂无表达式"]
