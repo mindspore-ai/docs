@@ -85,13 +85,9 @@ print(result)
 ```python
 # PyTorch
 import torch
-from torch import tensor
-import numpy as np
 
 max_pool = torch.nn.MaxPool2d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.Tensor([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]])
-print(x.dtype)
-# torch.float32
+x = torch.tensor([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]], dtype=torch.float32)
 output = max_pool(x)
 print(output.numpy())
 # [[[[ 3.  5.  7.  9. 10.]]]]

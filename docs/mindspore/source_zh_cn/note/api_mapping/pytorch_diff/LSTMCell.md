@@ -32,9 +32,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值在形�
 |参数 | 参数1 | input_size | input_size |- |
 | | 参数2 | hidden_size | hidden_size | - |
 | | 参数3 | bias | has_bias | 功能一致，参数名不同 |
-| | 参数4 | input | x | 功能一致，参数名不同 |
-| | 参数5 | h_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的参数10和11，功能相同  |
-| | 参数5 | c_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的参数10和11，功能相同  |
+|输入 | 输入1 | input | x | 功能一致，参数名不同 |
+| | 输入2 | h_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的输入2和3，功能相同  |
+| | 输入3 | c_0 | hx | 在MindSpore中hx表示两个Tensor(h_0, c_0)组成的元组，分别对应PyTorch中的输入2和3，功能相同  |
 
 ### 代码示例1
 
@@ -55,7 +55,7 @@ for i in range(input.size()[0]):
     hx, cx = rnn(input[i], (hx, cx))
     output.append(hx)
 print(tuple(output[0].shape))
-#(3, 16)
+# (3, 16)
 
 # MindSpore
 import mindspore.nn as nn
@@ -71,7 +71,7 @@ for i in range(5):
     hx = net(x[i], (h, c))
     output.append(hx)
 print(output[0][0].shape)
-#(3, 16)
+# (3, 16)
 ```
 
 ### 代码示例2
@@ -93,7 +93,7 @@ for i in range(input.size()[0]):
     hx, cx = rnn(input[i], (hx, cx))
     output.append(hx)
 print(tuple(output[0].shape))
-#(3, 16)
+# (3, 16)
 
 # MindSpore
 import mindspore.nn as nn
@@ -109,5 +109,5 @@ for i in range(5):
     hx = net(x[i], (h, c))
     output.append(hx)
 print(output[0][0].shape)
-#(3, 16)
+# (3, 16)
 ```
