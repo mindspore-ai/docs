@@ -8,7 +8,7 @@
 tf.math.reduce_variance(input_tensor, axis=None, keepdims=False, name=None)
 ```
 
-更多内容详见[tf.math.reduce_variance](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/math/reduce_variance)。
+更多内容详见[tf.math.reduce_variance](https://tensorflow.google.cn/versions/r1.15/api_docs/python/tf/math/reduce_variance)。
 
 ## mindspore.Tensor.var
 
@@ -20,9 +20,9 @@ mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)
 
 ## 使用方式
 
-两接口基本功能相同，都是计算某个维度上Tensor的方差，计算公式为：var = mean(x), 其中x =  abs(a - a.mean())**2。
+两接口基本功能相同，都是计算某个维度上Tensor的方差，计算公式为：var = mean(x)，其中x = abs(a - a.mean())**2。
 
-不同点在于，`mindspore.Tensor.var`多一个入参`ddof`。一般情况下，均值为x.sum() / N, 其中N=len(x)，如果`ddof`被配置，分母将由N变为N-ddof。
+不同点在于，`mindspore.Tensor.var`多一个入参`ddof`。一般情况下，均值为x.sum() / N，其中N=len(x)，如果`ddof`被配置，分母将由N变为N-ddof。
 
 ## 代码示例
 
