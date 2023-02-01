@@ -87,7 +87,7 @@ print(grads)
 
 ## Stop Gradient
 
-Generally, the derivative of the parameter with respect to loss is found, so that the output of function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of the parameter with respect to all output terms. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
+Generally, the derivative is obtained by taking the derivative of loss with respect to the parameter, so that the output of function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of all output terms with respect to the parameter. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
 
 Here we change `function` to `function_with_logits` that outputs both loss and z to obtain the differentiation function and execute it.
 
