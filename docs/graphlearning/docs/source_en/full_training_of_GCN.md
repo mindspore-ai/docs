@@ -1,23 +1,15 @@
-# Entire Graph Training Using Graph Convolutional Network (GCN)
+# Semi-Supervised Classification with Graph Convolutional Networks in Cora Dataset
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/full_training_of_GCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 
 ## Overview
 
-MindSpore Graph Learning provides abundant dataset read, graph operation, and network module APIs. To train graph neural networks, perform the following steps:
+Graph Convolutional Networks (GCN) was proposed in 2016 and designed to do semi-supervised learning on graph-structured data. A scalable approach based on an efficient variant of convolutional neural networks which operate directly on graphs was presented. The model scales linearly in the number of graph edges and learns hidden layer representations that encode both local graph structure and features of nodes.
 
-1. Define a network model. You can directly call the API provided by mindspore_gl.nn or define your own graph learning model by referring to the implementation of mindspore_gl.nn.
-2. Define a loss function.
-3. Construct a dataset. mindspore_gl.dataset provides the function of reading and constructing some public datasets for research.
-4. Train and validate the network.
+The Cora dataset consists of 2708 scientific publications classified into one of seven classes. The citation network consists of 10556 links. Each publication in the dataset is described by a 0/1-valued word vector indicating the absence/presence of the corresponding word from the dictionary. The dictionary consists of 1433 unique words.
 
-In addition, MindSpore Graph Learning provides a point-centric GNN programming paradigm. Its built-in code parsing functions translate point-centric computing expressions into graph data computing operations. To facilitate debugging, a translation comparison between the user input code and the calculation code is printed during the parsing process.
-
-This document describes how to use MindSpore Graph Learning to train and verify GCN. If graph nodes and edge features can be stored in a GPU, you do not need to sample the entire graph for training.
-For details about the code, see <https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gcn_datanet.py>.
-
-The following is an example of graph training using GCN:
+The classification of Cora's literature is taken as the label,the word vector of the literature is taken as the node feature of GCN,and the reference of the literature is taken as the edge. The GCN is used to train the cora graph to predict which category the literature belongs to.
 
 ## GCN Principles
 
@@ -96,7 +88,7 @@ from mindspore_gl.dataset import CoraV2
 ds = CoraV2(args.data_path)
 ```
 
-The CORA data can be downloaded at <https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz> and decompressed to args.data_path.
+The CORA data can be downloaded at <https://data.dgl.ai/dataset/cora_v2.zip> and decompressed to args.data_path.
 
 ## Network Training and Validation
 
@@ -105,9 +97,16 @@ The CORA data can be downloaded at <https://linqs-data.soe.ucsc.edu/public/lbc/c
 The settings of environment variables are the same as those for other MindSpore network training. Especially, if enable_graph_kernel is set to True, the graph kernel build optimization is enabled to accelerate the graph model training.
 
 ```python
-import mindspore as ms
+import mindspore.context as context
 
-ms.set_context(device_target="GPU", mode=ms.GRAPH_MODE, enable_graph_kernel=True)
+if train_args.fuse:
+    context.set_context(device_target="GPU", save_graphs=True, save_graphs_path="./computational_graph/",
+                        mode=context.GRAPH_MODE, enable_graph_kernel=True,
+                        graph_kernel_flags="--enable_expand_ops=Gather --enable_cluster_ops=TensorScatterAdd,"
+                                           "UnsortedSegmentSum, GatherNd --enable_recompute_fusion=false "
+                                           "--enable_parallel_fusion=true ")
+else:
+    context.set_context(device_target="GPU", mode=context.PYNATIVE_MODE)
 ```
 
 ### Defining a Training Network
@@ -119,13 +118,13 @@ Input the LossNet instance and optimizer to mindspore.nn.TrainOneStepCell to con
 import mindspore.nn as nn
 
 net = GCNNet(data_feat_size=feature_size,
-             hidden_dim_size=args.num_hidden,
+             hidden_dim_size=train_args.num_hidden,
              n_classes=ds.n_classes,
-             dropout=args.dropout,
+             dropout=train_args.dropout,
              activation=ms.nn.ELU)
-optimizer = nn.optim.Adam(net.trainable_params(), learning_rate=args.lr, weight_decay=args.weight_decay)
-loss = LossNet(net)
-train_net = nn.TrainOneStepCell(loss, optimizer)
+    optimizer = nn.optim.Adam(net.trainable_params(), learning_rate=train_args.lr, weight_decay=train_args.weight_decay)
+    loss = LossNet(net)
+    train_net = nn.TrainOneStepCell(loss, optimizer)
 ```
 
 ### Network Training and Validation
@@ -134,21 +133,25 @@ Because the entire graph is trained, one training step covers the entire dataset
 If the predicted value is consistent with the actual value, the verification is correct. The ratio of the number of correct nodes (count) to the total number of verification nodes is the verification accuracy.
 
 ```python
-for e in range(epochs):
+for e in range(train_args.epochs):
+    beg = time.time()
     train_net.set_train()
-    # input Graph with * because graph is a name tuple
-    train_loss = train_net(ds.x, ds.in_deg, ds.out_deg, ms.Tensor(ds.train_mask, ms.float32), ds.y, *ds.g)
+    train_loss = train_net()
+    end = time.time()
+    dur = end - beg
+    if e >= warm_up:
+        total = total + dur
 
-    net.set_train(False)
-    out = net(ds.x, ds.in_deg, ds.out_deg, *ds.g).asnumpy()
-    # validation
     test_mask = ds.test_mask
-    labels = ds.y.asnumpy()
-    predict = np.argmax(out[test_mask], axis=1)
-    label = labels[test_mask]
-    count = np.equal(predict, label)
-    test_acc = np.sum(count) / label.shape[0]
-    print('Epoch {}, Train loss {}, Test acc {:.3f}'.format(e, train_loss, np.sum(count) / label.shape[0]))
+    if test_mask is not None:
+        net.set_train(False)
+        out = net(ds.x, ds.in_deg, ds.out_deg, ds.g.src_idx, ds.g.dst_idx, ds.g.n_nodes, ds.g.n_edges).asnumpy()
+        labels = ds.y.asnumpy()
+        predict = np.argmax(out[test_mask], axis=1)
+        label = labels[test_mask]
+        count = np.equal(predict, label)
+        print('Epoch time:{} ms Train loss {} Test acc:{}'.format(dur * 1000, train_loss,
+                                                                  np.sum(count) / label.shape[0]))
 ```
 
 ## Executing Jobs and Viewing Results
@@ -210,6 +213,22 @@ It can be seen that the node-centric programming paradigm greatly reduces the am
 
 ```
 
+### Enabling or Disabling Translation Display
+
+The translation comparison show is displayed by default setting during code execution. To disable the comparison show is as follows:
+
+```python
+from mindspore_gl.nn import GNNCell
+GNNCell.disable_display()
+```
+
+To change the display width (default: 200), code is as follows:
+
+```python
+from mindspore_gl.nn import GNNCell
+GNNCell.enable_display(screen_width=350)
+```
+
 ### Execution Results
 
 Run the vc_gcn_datanet.py script to start training.
@@ -234,4 +253,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 Accuracy verified on CORA: 0.82 (thesis: 0.815)
 
-The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](<https://gitee.com/mindspore/graphlearning/tree/master/examples>).
+The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](https://gitee.com/mindspore/graphlearning/blob/master/examples/).
