@@ -5,7 +5,14 @@
 ## torch.nn.GRU
 
 ```text
-torch.nn.GRU(*args, **kwargs)(input, h_0) -> Tensor
+class torch.nn.GRU(
+    input_size,
+    hidden_size,
+    num_layers=1,
+    bias=True,
+    batch_first=False,
+    dropout=0,
+    bidirectional=False)(input, h_0) -> Tensor
 ```
 
 For more information, see [torch.nn.GRU](https://pytorch.org/docs/1.8.1/generated/torch.nn.GRU.html#torch.nn.GRU).
@@ -13,7 +20,14 @@ For more information, see [torch.nn.GRU](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.nn.GRU
 
 ```text
-mindspore.nn.GRU(*args, **kwargs)(x, hx, seq_length)  -> Tensor
+class mindspore.nn.GRU(
+    input_size,
+    hidden_size,
+    num_layers=1,
+    has_bias=True,
+    batch_first=False,
+    dropout=0.0,
+    bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
 For more information, see [mindspore.nn.GRU](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GRU.html).
