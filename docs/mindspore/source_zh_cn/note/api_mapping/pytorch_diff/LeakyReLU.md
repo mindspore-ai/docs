@@ -26,9 +26,9 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，其中参数`alp
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | negative_slope | alpha |功能一致，参数名不同 |
+|参数 | 参数1 | negative_slope | alpha |功能一致，参数名不同，默认值不同 |
 | | 参数2 | inplace | - | PyTorch中此参数用于控制是否选择就地执行激活函数的操作，MindSpore无此参数|
-| | 参数3 | input | x | 接口输入，功能一致，参数名不同|
+|输入 | 单输入 | input | x | 功能一致，参数名不同|
 
 ### 代码示例1
 
