@@ -10,7 +10,8 @@ tf.compat.v1.train.MomentumOptimizer(
     momentum,
     use_locking=False,
     name='Momentum',
-    use_nesterov=False) -> Tensor
+    use_nesterov=False
+) -> Tensor
 ```
 
 更多内容详见[tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer)。
@@ -24,7 +25,8 @@ class mindspore.nn.Momentum(
     momentum,
     weight_decay=0.0,
     loss_scale=1.0,
-    use_nesterov=False)(gradients) -> Tensor
+    use_nesterov=False
+)(gradients) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.Momentum](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.Momentum.html)。
@@ -33,7 +35,7 @@ class mindspore.nn.Momentum(
 
 TensorFlow：实现Momentum算法的优化器。
 
-MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类  | TensorFlow    | MindSpore     | 差异                                                  |
 | --- |-----|---------------|---------------|-----------------------------------------------------|
@@ -42,14 +44,14 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 | | 参数3 | use_locking   | -             | TensorFlow中为是否在更新操作中使用锁，默认值：False。MindSpore无此参数    |
 | | 参数4 | name  | -  | 不涉及                                                 |
 | | 参数5 | use_nesterov  | use_nesterov  | -                                                   |
-| | 参数6 | -             | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数  |
+| | 参数6 | -             | params        | 由Parameter组成的列表或字典组成的列表，TensorFlow中无此参数  |
 | | 参数7 | -             | weight_decay  | 权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数|
-| | 参数8 | -             | loss_scale    | 梯度缩放系数，TensorFlow中无此参数                   |
+| | 参数8 | -             | loss_scale    | 梯度缩放系数，默认值：1.0，TensorFlow中无此参数                   |
 | | 参数9 | -             |  gradients    | 参数params的梯度，TensorFlow中无此参数              |
 
 ### 代码示例
 
-> 两API实现的功能一致，用法相同。
+> 两API实现的功能基本一致。
 
 ```python
 # TensorFlow
