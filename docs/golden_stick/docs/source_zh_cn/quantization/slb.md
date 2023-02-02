@@ -335,26 +335,20 @@ print(acc)
 
 ### 训练效果
 
-使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/)。
+使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/commit/f20d3d46ea48a465b26462ef5c62a7d381a34828)。
 
 W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit，A8表示激活量化为8bit。
 
 | 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- |
-| baseline | resnet18 | CIFAR10      |     95.44%      |     99.70%     |        -          |        -          |
-| SLB W4   | resnet18 | CIFAR10      |     95.37%      |     99.70%     |        NS         |        NS         |
-| SLB W2   | resnet18 | CIFAR10      |     95.09%      |     99.67%     |        NS         |        NS         |
-| SLB W1   | resnet18 | CIFAR10      |     94.91%      |     99.66%     |        NS         |        NS         |
-| SLB W4A8 | resnet18 | CIFAR10      |     95.02%      |     99.68%     |        NS         |        NS         |
-| SLB W2A8 | resnet18 | CIFAR10      |     94.73%      |     99.65%     |        NS         |        NS         |
-| SLB W1A8 | resnet18 | CIFAR10      |     94.66%      |     99.64%     |        NS         |        NS         |
-| baseline | resnet18 | Imagenet2012 |     70.54%      |       -        |        -          |        -          |
+| baseline | resnet18 | CIFAR10      |     94.25%      |     99.93%     |        -          |        -          |
+| SLB W4   | resnet18 | CIFAR10      |     95.18%      |     99.67%     |        NS         |        NS         |
+| SLB W2   | resnet18 | CIFAR10      |     95.12%      |     99.68%     |        NS         |        NS         |
+| SLB W1   | resnet18 | CIFAR10      |     95.23%      |     99.87%     |        NS         |        NS         |
+| baseline | resnet18 | Imagenet2012 |     70.14%      |     89.71%     |        -          |        -          |
 | SLB W4   | resnet18 | Imagenet2012 |     68.65%      |     88.57%     |        NS         |        NS         |
 | SLB W2   | resnet18 | Imagenet2012 |     68.42%      |     88.40%     |        NS         |        NS         |
 | SLB W1   | resnet18 | Imagenet2012 |     66.75%      |     87.08%     |        NS         |        NS         |
-| SLB W4A8 | resnet18 | Imagenet2012 |     68.17%      |     88.26%     |        NS         |        NS         |
-| SLB W2A8 | resnet18 | Imagenet2012 |     68.05%      |     88.15%     |        NS         |        NS         |
-| SLB W1A8 | resnet18 | Imagenet2012 |     66.09%      |     86.71%     |        NS         |        NS         |
 
 可以发现，与全精度模型相比，4bit权重量化后的模型top1精度没有损失，1bit权重量化的top1精度损失在0.6%以内。在做了权重量化后，再做8bit激活量化，top1精度损失在0.4%以内。SLB量化大幅降低了模型的参数量和计算量，使得在资源受限的环境部署AI能力变得更加便利。需要注意的是，此处量化网络并非最终部署网络，由于增加了伪量化节点和权值概率矩阵，ckpt大小相较原始网络有较大程度的增加，增幅受权重量化比特影响，量化的比特数越大增幅越大。
 

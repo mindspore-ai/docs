@@ -222,9 +222,9 @@ if __name__ == "__main__":
 
 | 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |    剪枝率    |  参数量(MB)  |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- | ----------- | ------------ |
-| baseline | resnet50 | CIFAR10      |     91.44%      |       -        |        -          |        -          |      NA     |     24       |
+| baseline | resnet50 | CIFAR10      |     94.20%      |     99.88%     |        -          |        -          |      NA     |     24       |
 | SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%    |     11       |
-| baseline | resnet50 | Imagenet2012 |     76.71%      |       -        |        -          |        -          |      NA     |      -       |
+| baseline | resnet50 | Imagenet2012 |     77.16%      |     93.47%     |        -          |        -          |      NA     |      -       |
 | SCOP     | resnet50 | Imagenet2012 |       NS        |       NS       |        NS         |        NS         |      NS     |      NS      |
 
 可以发现，在当前任务中，与原始模型相比，在剪枝率45%的情况下，SCOP剪枝后的模型大幅降低了模型的参数量，精度损失在0.5%以内。
