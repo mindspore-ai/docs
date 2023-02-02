@@ -22,12 +22,12 @@ class mindspore.nn.Moments(axis=None, keep_dims=None)(x) -> Tensor
 
 TensorFlow：沿指定轴axes计算输入x的均值和方差。
 
-MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
+MindSpore：MindSpore此API实现功能与TensorFlow一致。
 
 | 分类 | 子类  | TensorFlow | MindSpore | 差异                                            |
 | --- |-----|------------|-----------|-----------------------------------------------|
 |参数 | 参数1 | x          | x         | -                                             |
-| | 参数2 | axes        | axis      | 功能一致，参数名不同                                   |
+| | 参数2 | axes        | axis      | 功能一致，参数名不同，TensorFlow中该参数无默认值，MindSpore中该参数默认值为None   |
 | | 参数3 |   shift            | -         | TensorFlow的该参数在当前实现中未使用，是无用参数。MindSpore无此参数 |
 | | 参数4 | keepdims      | keep_dims | 功能一致，参数名不同                                   |
 | | 参数5 |   name            | -         | 不涉及 |

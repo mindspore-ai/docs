@@ -14,7 +14,8 @@ class tf.keras.layers.LSTM(
     activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None,
     bias_constraint=None, dropout=0.0, recurrent_dropout=0.0,
     return_sequences=False, return_state=False, go_backwards=False, stateful=False,
-    time_major=False, unroll=False)(inputs, mask, training, initial_state) -> Tensor
+    time_major=False, unroll=False, **kwargs
+)(inputs, mask, training, initial_state) -> Tensor
 ```
 
 更多内容详见[tf.keras.layers.LSTM](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LSTM)。
@@ -43,19 +44,19 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | 分类 | 子类   | TensorFlow            | MindSpore     | 差异                                                                                                                                                   |
 | --- |------|:----------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 |参数 | 参数1  | units                 | hidden_size   | 功能一致，参数名不同                                                                                                                                           |
-| | 参数2  | activation            | -             | 指定要使用的激活函数，默认值:tanh。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                                   |
-| | 参数3  | recurrent_activation  | -             | 指定递归步骤中使用的激活函数，默认值:sigmoid。MindSpore无此参数，但在计算过程中默认使用同样的激活函数                                                                            |
-| | 参数4  | use_bias              | has_bias      | 功能一致，参数名不同                                                                                                                                          |
-| | 参数5  | kernel_initializer    | -             | 初始化kernel的权重矩阵，用于输入的线性变换。默认值：glorot_uniform。MindSpore无此参数                                                                              |
-| | 参数6  | recurrent_initializer | -             | 初始化recurrent_kernel的权重矩阵，用于递归状态的线性变换。默认值：orthogonal。MindSpore无此参数                                                                     |
-| | 参数7  | bias_initializer      | -             | 初始化偏置向量，默认值：zeros。MindSpore无此参数                                                                                                        |
-| | 参数8  | unit_forget_bias      | -             | 选择是否在初始化时将遗忘门的偏置加1，默认值：True。MindSpore无此参数                                                                                              |
-| | 参数9  | kernel_regularizer    | -             | 应用于kernel权重矩阵的正则化函数，默认值：None。MindSpore无此参数                                                                                             |
-| | 参数10 | recurrent_regularizer | -             | 应用于recurrent_kernel权重矩阵的正则化函数，默认值：None。MindSpore无此参数                                                                                  |
-| | 参数11 | bias_regularizer      | -             | 应用于偏置向量的正则化函数，默认值：None。MindSpore无此参数                                                                                                  |
-| | 参数12 | activity_regularizer  | -             | 应用于激活后的层输出的正则化函数，默认值：None。MindSpore无此参数                                                                                               |
-| | 参数13 | kernel_constraint     | -             | 应用于kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                              |
-| | 参数14 | recurrent_constraint  | -             | 应用于recurrent_kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数                                                                                    |
+| | 参数2  | activation            | -             | 指定要使用的激活函数，默认值：tanh。MindSpore无此参数，但在计算过程中默认使用同样的激活函数          |
+| | 参数3  | recurrent_activation  | -             | 指定递归步骤中使用的激活函数，默认值:sigmoid。MindSpore无此参数，但在计算过程中默认使用同样的激活函数         |
+| | 参数4  | use_bias              | has_bias      | 功能一致，参数名不同       |
+| | 参数5  | kernel_initializer    | -             | 初始化kernel的权重矩阵，用于输入的线性变换。默认值：glorot_uniform。MindSpore无此参数        |
+| | 参数6  | recurrent_initializer | -             | 初始化recurrent_kernel的权重矩阵，用于递归状态的线性变换。默认值：orthogonal。MindSpore无此参数    |
+| | 参数7  | bias_initializer      | -             | 初始化偏置向量，默认值：zeros。MindSpore无此参数         |
+| | 参数8  | unit_forget_bias      | -             | 选择是否在初始化时将遗忘门的偏置加1，默认值：True。MindSpore无此参数           |
+| | 参数9  | kernel_regularizer    | -             | 应用于kernel权重矩阵的正则化函数，默认值：None。MindSpore无此参数      |
+| | 参数10 | recurrent_regularizer | -             | 应用于recurrent_kernel权重矩阵的正则化函数，默认值：None。MindSpore无此参数     |
+| | 参数11 | bias_regularizer      | -             | 应用于偏置向量的正则化函数，默认值：None。MindSpore无此参数              |
+| | 参数12 | activity_regularizer  | -             | 应用于激活后的层输出的正则化函数，默认值：None。MindSpore无此参数     |
+| | 参数13 | kernel_constraint     | -             | 应用于kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数     |
+| | 参数14 | recurrent_constraint  | -             | 应用于recurrent_kernel权重矩阵的约束函数，默认值：None。MindSpore无此参数     |
 | | 参数15 | bias_constraint       | -             | 应用于偏置向量的约束函数，默认值：None。MindSpore无此参数                                                                                                   |
 | | 参数16 | dropout               | dropout       | -  |
 | | 参数17 | recurrent_dropout     | -       | 递变状态下使用的丢弃概率，MindSpore使用dropout|
@@ -65,15 +66,16 @@ MindSpore：MindSpore可以根据输入序列和给定的初始状态计算输�
 | | 参数21 | stateful              | -             | 是否将批次中索引i处每个样本的最后状态用作下一批次中索引i处样本的初始状态，默认值：False。MindSpore无此参数                                                                         |
 | | 参数22 | time_major            | -             | 选择输入和输出张量的形状格式。如果为True，输入和输出将为[timesteps, batch, feature]，而在False的情况下，将为[batch, timesteps, feature]。默认值：False。MindSpore无此参数，但默认两种形状均可以 |
 | | 参数23 | unroll                | -             | 如果为True，网络将被展开，否则将使用符号循环，默认值：False。MindSpore无此参数                                                                                      |
-| | 参数24 | inputs                | x             | 功能一致，参数名不同                                                                                                                                          |
-| | 参数25 | mask                  | -             | 形状为[batch，timesteps]的二进制张量，指示是否应屏蔽给定的时间步长(可选，默认为None)。单个True条目指示应该利用相应的时间步长，而False条目指示应该忽略相应的时间步长。MindSpore无此参数                        |
-| | 参数26 | training              | -             | Python布尔值，指示layer应在训练模式还是推理模式下运行。调用cell时，该参数被传递给单元格。这仅在使用dropout或recurrent_dropout时才有意义(可选，默认为None)。MindSpore无此参数                      |
-| | 参数27 | initial_state         | hx            | 要传递给cell第一次调用的初始状态张量列表(可选，默认为None，这将导致创建零填充的初始状态张量)。MindSpore中作用是给定初始状态张量                                                               |
-| | 参数28 | -                     | input_size    | 自动判断输入大小，TensorFlow无此参数|
-| | 参数29 | -                     | num_layers    | 设置网络层数，默认值：1。TensorFlow无此参数|
-| | 参数30 | -                     | batch_first   | 默认输入的第一个维度为batch_size，TensorFlow无此参数|
-| | 参数31 | -                     | bidirectional | 功能为设置双向LSTM，TensorFlow无此参数|
-| | 参数32 | -                     | seq_length    | 指定输入batch的序列长度，TensorFlow无此参数|
+| | 参数24 | **kwargs | - | 不涉及 |
+| | 参数25 | -                     | input_size    | 自动判断输入大小，TensorFlow无此参数|
+| | 参数26 | -                     | num_layers    | 设置网络层数，默认值：1。TensorFlow无此参数|
+| | 参数27 | -                     | batch_first   | 默认输入的第一个维度为batch_size，TensorFlow无此参数|
+| | 参数28 | -                     | bidirectional | 功能为设置双向LSTM，TensorFlow无此参数|
+| 输入 | 输入1 | inputs                | x             | 功能一致，参数名不同    |
+| | 输入2 | mask                  | -             | 形状为[batch, timesteps]的二进制张量，指示是否应屏蔽给定的时间步长(可选，默认为None)。单个True条目指示应该利用相应的时间步长，而False条目指示应该忽略相应的时间步长。MindSpore无此参数         |
+| | 输入3 | training              | -             | Python布尔值，指示layer应在训练模式还是推理模式下运行。调用cell时，该参数被传递给单元格。这仅在使用dropout或recurrent_dropout时才有意义(可选，默认为None)。MindSpore无此参数                      |
+| | 输入4 | initial_state         | hx            | 要传递给cell第一次调用的初始状态张量列表(可选，默认为None，这将导致创建零填充的初始状态张量)。MindSpore中作用是给定初始状态张量  |
+| | 输入5 | -                     | seq_length    | 指定输入batch的序列长度，TensorFlow无此参数|
 
 ### 代码示例
 
