@@ -36,9 +36,9 @@ For more information, see [mindspore.nn.ProximalAdagrad](https://www.mindspore.c
 
 ## Differences
 
-TensorFlow: Implement the optimizer function of the Proximal Adagrad algorithm.
+TensorFlow: Implement the optimizer function of the ProximalAdagrad algorithm.
 
-MindSpore: MindSpore API basically implements the same function as TensorFlow, with slightly different usage. MindSpore supports parameter grouping `params`, gradient scaling factor `loss_scale`, weight decay `weight_decay` and other parameter configurations to add the corresponding functions, and TensorFlow does not have this parameter function.
+MindSpore: MindSpore API basically implements the same function as TensorFlow.
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | :-- | :-- | :-- | :-- |:--|
@@ -48,14 +48,14 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow, w
 | | parameter 4 | l2_regularization_strength | l2 |Same function, different parameter names |
 | | parameter 5 | use_locking | use_locking |- |
 | | parameter 6 | name | - |Not involved |
-| | parameter 7 | - | params |MindSpore provides parameter grouping, and supports setting different configuration values for different parameter groups, which is implemented by passing the parameter group dictionary through the parameter `params`, which is not available in TensorFlow. |
-| | parameter 8 | - | loss_scale |Gradient scaling factor. TensorFlow does not have this parameter |
-| | parameter 9 | - | weight_decay |Implement a strategy of using weight decay for parameters that need to be optimized to avoid model overfitting problems. TensorFlow does not have this parameter |
-| | parameter 10 | - | grads  |Reverse input. TensorFlow does not have this parameter |
+| | parameter 7 | - | params |A list composed of Parameter classes or a list composed of dictionaries, which are not available in TensorFlow. |
+| | parameter 8 | - | loss_scale |Gradient scaling factor. Default value: 1.0. TensorFlow does not have this parameter |
+| | parameter 9 | - | weight_decay |Weight decay (L2 penalty). Default value: 0.0. TensorFlow does not have this parameter |
+| | parameter 10 | - | grads  |Gradient of `params` in the optimizer. TensorFlow does not have this parameter |
 
 ### Code Example
 
-> The two APIs achieve functional consistency.
+> The two APIs achieve the same function.
 
 ```python
 # TensorFlow
