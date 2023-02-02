@@ -42,6 +42,8 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
    :caption: 使用指南
 
    full_training_of_GCN
+   batched_graph_training_GIN
+   spatio_temporal_graph_training_STGCN
 
 .. toctree::
    :maxdepth: 1

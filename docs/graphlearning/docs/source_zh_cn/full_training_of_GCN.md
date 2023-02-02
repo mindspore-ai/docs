@@ -11,9 +11,11 @@ Cora数据集包括2708份科学出版物，分为七类之一。引文网络由
 
 将Cora的文献的分类作为标签，文献的单词向量作为GCN的节点特征，文献的引用作为边，构图后利用GCN进行训练，判断文献应该属于哪个类。
 
+> 下载完整的样例[GCN](https://gitee.com/mindspore/graphlearning/blob/master/examples/)代码。
+
 ## GCN原理
 
-论文链接： <https://arxiv.org/abs/1609.02907>
+论文链接：[Semi-Supervised Classification with Graph Convolutional Networks](https://arxiv.org/abs/1609.02907)
 
 ## 定义网络结构
 
@@ -89,7 +91,7 @@ from mindspore_gl.dataset import CoraV2
 ds = CoraV2(args.data_path)
 ```
 
-其中cora数据可通过：<https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz>链接下载，解压路径即为args.data_path。
+其中[Cora](https://data.dgl.ai/dataset/cora_v2.zip)数据下载后，解压路径即为args.data_path。
 
 ## 网络训练和验证
 
@@ -232,7 +234,7 @@ GNNCell.enable_display(screen_width=350)
 
 ### 执行结果
 
-执行脚本vc_gcn_datanet.py启动训练。
+执行脚本[vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gcn_datanet.py)启动训练。
 
 ```bash
 cd examples

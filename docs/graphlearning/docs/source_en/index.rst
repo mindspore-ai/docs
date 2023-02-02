@@ -42,6 +42,8 @@ Typical MindSpore Graph Learning Application Scenarios
    :caption: Guide
 
    full_training_of_GCN
+   batched_graph_training_GIN
+   spatio_temporal_graph_training_STGCN
 
 .. toctree::
    :maxdepth: 1
