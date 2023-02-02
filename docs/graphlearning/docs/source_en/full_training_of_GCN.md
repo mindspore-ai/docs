@@ -11,9 +11,11 @@ The Cora dataset consists of 2708 scientific publications classified into one of
 
 The classification of Cora's literature is taken as the label,the word vector of the literature is taken as the node feature of GCN,and the reference of the literature is taken as the edge. The GCN is used to train the cora graph to predict which category the literature belongs to.
 
+> Download the complete sample code here: [GCN](https://gitee.com/mindspore/graphlearning/blob/master/examples/).
+
 ## GCN Principles
 
-Paper: <https://arxiv.org/abs/1609.02907>
+Paper: [Semi-Supervised Classification with Graph Convolutional Networks](https://arxiv.org/abs/1609.02907)
 
 ## Defining a Network Model
 
@@ -46,7 +48,7 @@ class GCNNet(GNNCell):
 GCNNet is inherited from GNNCell. The last input of the construct function in GNNCell must be a graph or BatchedGraph, that is, the graph structure class supported by MindSpore Graph Learning. In addition, you must import mindspore at the header of the file to identify the execution backend when the code is translated.
 
 In GCNConv, data_feat_size indicates the feature dimension of the input node, hidden_dim_size indicates the feature dimension of the hidden layer, n_classes indicates the dimension of the output classification, and in_deg and out_deg indicate the indegree and outdegree of the node in the graph data, respectively.
-For details about GCN implementation, see the API code of mindspore_gl.nn.GCNConv: <https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/gcnconv.py>.
+For details about GCN implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/gcnconv.py) code of mindspore_gl.nn.GCNConv.
 
 ## Defining a Loss Function
 
@@ -88,7 +90,7 @@ from mindspore_gl.dataset import CoraV2
 ds = CoraV2(args.data_path)
 ```
 
-The CORA data can be downloaded at <https://data.dgl.ai/dataset/cora_v2.zip> and decompressed to args.data_path.
+The [Cora](https://data.dgl.ai/dataset/cora_v2.zip) data can be downloaded and decompressed to args.data_path.
 
 ## Network Training and Validation
 
@@ -231,7 +233,7 @@ GNNCell.enable_display(screen_width=350)
 
 ### Execution Results
 
-Run the vc_gcn_datanet.py script to start training.
+Run the [vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gcn_datanet.py) script to start training.
 
 ```bash
 cd examples
