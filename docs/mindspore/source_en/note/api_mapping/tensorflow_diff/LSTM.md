@@ -28,7 +28,7 @@ class mindspore.nn.LSTM(
     num_layers=1,
     has_bias=True,
     batch_first=False,
-    dropout=0.0,
+    dropout=0,
     bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 

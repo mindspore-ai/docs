@@ -5,7 +5,15 @@
 ## torch.nn.LSTM
 
 ```text
-class torch.nn.LSTM(*args, **kwargs) -> Tensor
+class torch.nn.LSTM(
+    input_size,
+    hidden_size,
+    num_layers=1,
+    has_bias=True,
+    batch_first=False,
+    dropout=0,
+    bidirectional=False,
+    proj_size=0)(input, (h0, c0)) -> Tensor
 ```
 
 For more information, see [torch.nn.LSTM](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTM.html).
@@ -13,7 +21,14 @@ For more information, see [torch.nn.LSTM](https://pytorch.org/docs/1.8.1/generat
 ## mindspore.nn.LSTM
 
 ```text
-class mindspore.nn.LSTM(*args, **kwargs) -> Tensor
+class mindspore.nn.LSTM(
+    input_size,
+    hidden_size,
+    num_layers=1,
+    has_bias=True,
+    batch_first=False,
+    dropout=0,
+    bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
 For more information, see [mindspore.nn.LSTM](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LSTM.html).
