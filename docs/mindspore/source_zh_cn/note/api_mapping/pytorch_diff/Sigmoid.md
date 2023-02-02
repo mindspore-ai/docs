@@ -20,17 +20,17 @@ class mindspore.nn.Sigmoid()(input_x) -> Tensor
 
 ## 差异对比
 
-PyTorch：Sigmoid激活函数，将输入映射到0-1之间。
+PyTorch：按元素计算Sigmoid激活函数，将输入映射到0-1之间。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致，仅实例化后的参数名不同。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅实例化后输入的参数名不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | :-: | :-: | :-: | :-: |:-:|
-|参数 | 参数1 | input | input_x |功能一致，参数名不同 |
+|输入 | 单输入 | input | input_x |功能一致，参数名不同 |
 
 ### 代码示例
 
-> 实现功能一致，用法相同。
+> 两API实现功能一致，用法相同。
 
 ```python
 # PyTorch
