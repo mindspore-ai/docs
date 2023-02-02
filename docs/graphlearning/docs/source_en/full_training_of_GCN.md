@@ -253,4 +253,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 Accuracy verified on CORA: 0.82 (thesis: 0.815)
 
-The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](https://gitee.com/mindspore/graphlearning/blob/master/examples/).
+The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](https://gitee.com/mindspore/graphlearning/tree/master/examples/).

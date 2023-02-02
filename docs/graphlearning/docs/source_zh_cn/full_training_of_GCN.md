@@ -254,4 +254,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 在cora上验证精度：0.82 (论文：0.815)
 
-以上就是整图训练的使用指南。更多样例可参考[examples directory](https://gitee.com/mindspore/graphlearning/blob/master/examples/).
+以上就是整图训练的使用指南。更多样例可参考[examples directory](https://gitee.com/mindspore/graphlearning/tree/master/examples/)。
