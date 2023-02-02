@@ -5,7 +5,7 @@
 ## tf.keras.optimizers.SGD
 
 ```text
-class tf.keras.optimizers.SGD(
+tf.keras.optimizers.SGD(
     learning_rate=0.01,
     momentum=0.0,
     nesterov=False,
@@ -34,22 +34,22 @@ For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/en/master
 
 ## Differences
 
-TensorFlow: Implement the function of a gradient descent (driven volume) optimizer.
+TensorFlow: Implement optimizer function of stochastic gradient descent (driven volume).
 
-MindSpore: MindSpore API implements the same functions as TensorFlow. In addition to the different default values set by `learning_rate`, MindSpore provides incoming configurations for parameter grouping `params`, momentum suppression factor `dampening`, weight decay `weight_decay`, and mixed precision `loss_scale`, which are not available in TensorFlow. While the kwargs parameter in TensorFlow can be set to `clipvalue`, `clipnorm`, and gradient truncation Clip can constrain the gradient within a certain interval, MindSpore does not have this function.
+MindSpore: MindSpore API implements the same functions as TensorFlow.
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | learning_rate | learning_rate |Same function, different default values of parameters |
+|Parameters | Parameter 1 | learning_rate | learning_rate |Same function, different default values |
 | | Parameter 2 | momentum | momentum |- |
 | | Parameter 3 | nesterov | nesterov |- |
 | | Parameter 4 | name | - |Not involved |
 | | Parameter 5 | **kwargs | - | Not involved |
-| | Parameter 6 | - | params |MindSpore provides parameter grouping, and supports setting different configuration values for different parameter groups, which is achieved by passing in the parameter group dictionary through the parameter params, which is not available in TensorFlow. |
-| | Parameter 7 | - | dampening |Suppression factor for momentum, no parameter for TensorFlow |
-| | Parameter 8 | - | weight_decay |Implement a strategy of using weight decay for parameters that need to be optimized, to avoid model overfitting problems. TensorFlow does not have this parameter |
-| | Parameter 9 | - | loss_scale |Gradient scaling factor. TensorFlow does not have this parameter |
-| | Parameter 10 | - | gradients  |Reverse input. TensorFlow does not have this parameter |
+| | parameter 6 | - | params |A list composed of Parameter classes or a list composed of dictionaries, which are not available in TensorFlow. |
+| | parameter 7 | - | dampening |Floating-point momentum damping value. Default value: 0.0. TensorFlow does not have this parameter. |
+| | parameter 8| - | weight_decay |Weight decay (L2 penalty). Default value: 0.0. TensorFlow does not have this parameter |
+| | parameter 9 | - | loss_scale |Gradient scaling factor. Default value: 1.0. TensorFlow does not have this parameter |
+| | parameter 10 | - | gradients  |Gradient of `params` in the optimizer. TensorFlow does not have this parameter |
 
 ### Code Example
 

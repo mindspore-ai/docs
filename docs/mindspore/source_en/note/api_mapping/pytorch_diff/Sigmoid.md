@@ -20,17 +20,17 @@ For more information, see [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/e
 
 ## Differences
 
-PyTorch: Sigmoid activation function that maps the input to between 0 and 1.
+PyTorch: Compute Sigmoid activation function element-wise, which maps the input to between 0 and 1.
 
-MindSpore: MindSpore API implements the same functionality as PyTorch, and only the parameter names after instantiation are different.
+MindSpore: MindSpore API implements the same functionality as PyTorch, and only the input parameter names after instantiation are different.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | :-: | :-: | :-: | :-: |:-:|
-|Parameter | Parameter 1 | input | input_x |Same function, different parameter names |
+|Input | Single input | input | input_x |Same function, different parameter names |
 
 ### Code Example
 
-> Achieve the same function and usage.
+> The two APIs achieve the same function and have the same usage.
 
 ```python
 # PyTorch
