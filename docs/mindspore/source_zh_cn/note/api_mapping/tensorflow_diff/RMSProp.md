@@ -38,9 +38,9 @@ class mindspore.nn.RMSProp(
 
 ## 差异对比
 
-TensorFlow：实现的是均方根传播算法（RMSProp）优化器的功能。
+TensorFlow：实现均方根传播算法（RMSProp）的优化器功能。
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致。MindSpore支持参数分组`params`、梯度缩放系数`loss_scale`、权重衰减`weight_decay`等参数配置来增加相应的功能，TensorFlow无这些参数功能。
+MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 
 | 分类 | 子类 |         TensorFlow         |   MindSpore   | 差异 |
 | --- | --- | --- | --- |---|
@@ -51,14 +51,14 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。MindSpore支�
 | | 参数5 | use_locking | use_locking |- |
 | | 参数6 | centered | centered |- |
 | | 参数7 | name | - |不涉及 |
-| | 参数8 | - | params |MindSpore提供参数分组功能，且支持为不同参数组设置不同配置值，通过入参`params`传入参数组字典实现，TensorFlow没有此入参配置 |
-| | 参数9 | - | loss_scale |梯度缩放系数，TensorFlow无此参数 |
-| | 参数10 | - | weight_decay |实现对需要优化的参数使用权重衰减的策略，以避免模型过拟合问题，TensorFlow无此参数 |
-| | 参数11 | - | gradients  |反向输入，TensorFlow无此参数 |
+| | 参数8 | - | params |由Parameter类组成的列表或由字典组成的列表，TensorFlow中无此参数 |
+| | 参数9 | - | loss_scale |梯度缩放系数，默认值：1.0，TensorFlow中无此参数 |
+| | 参数10 | - | weight_decay |权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数 |
+| | 参数11 | - | gradients  |优化器中 `params` 的梯度，TensorFlow中无此参数 |
 
 ### 代码示例
 
-> 实现功能一致。
+> 两API实现功能一致。
 
 ```python
 # TensorFlow
