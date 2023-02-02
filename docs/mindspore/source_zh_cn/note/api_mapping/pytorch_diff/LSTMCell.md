@@ -16,7 +16,10 @@ class torch.nn.LSTMCell(
 ## mindspore.nn.LSTMCell
 
 ```text
-class mindspore.nn.LSTMCell(*args, **kwargs)(x, hx) -> Tensor
+class mindspore.nn.LSTMCell(
+    input_size,
+    hidden_size,
+    has_bias=True)(x, hx) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.LSTMCell.html)。
