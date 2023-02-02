@@ -29,7 +29,7 @@ class mindspore.nn.LSTM(
     has_bias=True,
     batch_first=False,
     dropout=0.0,
-    bidirectional=False)(x, hx, seq_length=None) -> Tensor
+    bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/nn/mindspore.nn.LSTM.html)。

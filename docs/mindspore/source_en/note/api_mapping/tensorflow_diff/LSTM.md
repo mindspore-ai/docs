@@ -4,23 +4,24 @@
 
 ## tf.keras.layers.LSTM
 
-```python
+```text
 class tf.keras.layers.LSTM(
-    units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True,
-    kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal',
-    bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None,
-    recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None,
-    kernel_constraint=None, recurrent_constraint=None, bias_constraint=None,
-    dropout=0.0, recurrent_dropout=0.0, implementation=1, return_sequences=False,
-    return_state=False, go_backwards=False, stateful=False, unroll=False, **kwargs
-)
+    units, activation='tanh', recurrent_activation='sigmoid',
+    use_bias=True, kernel_initializer='glorot_uniform',
+    recurrent_initializer='orthogonal',
+    bias_initializer='zeros', unit_forget_bias=True,
+    kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None,
+    activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None,
+    bias_constraint=None, dropout=0.0, recurrent_dropout=0.0,
+    return_sequences=False, return_state=False, go_backwards=False, stateful=False,
+    time_major=False, unroll=False)(inputs, mask, training, initial_state) -> Tensor
 ```
 
 For more information, see [tf.keras.layers.LSTM](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/layers/LSTM).
 
 ## mindspore.nn.LSTM
 
-```python
+```text
 class mindspore.nn.LSTM(
     input_size,
     hidden_size,
