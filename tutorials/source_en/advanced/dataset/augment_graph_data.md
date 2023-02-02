@@ -43,13 +43,15 @@ $$
     The following sample code is used to download and decompress the Cora dataset to a specified location:
 
     ```python
+    from download import download
     import os
     import shutil
 
     if not os.path.exists("./cora"):
         os.mkdir("./cora")
         if not os.path.exists("./planetoid"):
-            os.system("git clone https://github.com/kimiyoung/planetoid")
+            url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/planetoid.tar.gz"
+            download(url, "./", kind="tar.gz", replace=True)
         content = os.listdir("./planetoid/data")
         new_content = []
         for name in content:
@@ -86,8 +88,9 @@ $$
     ```python
     if not os.path.exists("./cora_mindrecord"):
         os.mkdir("./cora_mindrecord")
-        os.system('git clone https://gitee.com/mindspore/models.git')
-        os.system('python models/utils/graph_to_mindrecord/writer.py --mindrecord_script cora --mindrecord_file "./cora_mindrecord/cora_mr" --mindrecord_partitions 1 --mindrecord_header_size_by_bit 18 --mindrecord_page_size_by_bit 20 --graph_api_args "./cora"')
+        url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/graph_to_mindrecord.tar.gz"
+        download(url, "./", kind="tar.gz", replace=True)
+        os.system('python graph_to_mindrecord/writer.py --mindrecord_script cora --mindrecord_file "./cora_mindrecord/cora_mr" --mindrecord_partitions 1 --mindrecord_header_size_by_bit 18 --mindrecord_page_size_by_bit 20 --graph_api_args "./cora"')
     ```
 
 ## Loading the Dataset

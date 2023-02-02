@@ -41,7 +41,7 @@ Successfully downloaded / unzipped to ./
 After the compressed file is deleted and loaded directly, you can see that its data type is MnistDataset.
 
 ```python
-train_dataset = MnistDataset(train_path, shuffle=False)
+train_dataset = MnistDataset("MNIST_Data/train", shuffle=False)
 print(type(train_dataset))
 ```
 
