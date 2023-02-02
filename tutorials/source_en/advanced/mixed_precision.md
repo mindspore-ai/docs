@@ -46,7 +46,6 @@ In the following, we demonstrate the automatic mixed precision implementation of
 ```python
 import mindspore as ms
 from mindspore import nn
-from mindspore import ops
 from mindspore import value_and_grad
 ```
 
@@ -216,17 +215,18 @@ grad_fn = value_and_grad(forward_fn, None, model.trainable_params())
 Define the training step: Calculates the current gradient value and recovers the loss. Use `all_finite` to determine if there is a gradient underflow problem. If there is no overflow, restore the gradient and update the network weight, while if there is overflow, skip this step.
 
 ```python
-from mindspore.amp import all_finite
+from mindspore.amp import init_status, all_finite
 
 @ms.jit
 def train_step(data, label):
+    status = init_status()
     (loss, _), grads = grad_fn(data, label)
     loss = loss_scaler.unscale(loss)
 
-    is_finite = all_finite(grads)
+    is_finite = all_finite(grads, status)
     if is_finite:
         grads = loss_scaler.unscale(grads)
-        loss = ops.depend(loss, optimizer(grads))
+        optimizer(grads)
     loss_scaler.adjust(is_finite)
 
     return loss
