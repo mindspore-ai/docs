@@ -402,9 +402,9 @@ dropout = 0.5
 lr = 0.001
 pad_idx = vocab.tokens_to_ids('<pad>')
 
-net = RNN(embeddings, hidden_size, output_size, num_layers, bidirectional, dropout, pad_idx)
-loss = nn.BCEWithLogitsLoss(reduction='mean')
-optimizer = nn.Adam(net.trainable_params(), learning_rate=lr)
+model = RNN(embeddings, hidden_size, output_size, num_layers, bidirectional, dropout, pad_idx)
+loss_fn = nn.BCEWithLogitsLoss(reduction='mean')
+optimizer = nn.Adam(model.trainable_params(), learning_rate=lr)
 ```
 
 ### Training Logic
@@ -418,19 +418,19 @@ After the model is built, design the training logic. Generally, the training log
 Based on this logic, use the `tqdm` library to design an epoch training function for visualization of the training process and loss.
 
 ```python
-def train_one_epoch(model, loss_fn, optimizer, train_dataset, epoch=0):
-    def forward_fn(data, label):
-        logits = model(data)
-        loss = loss_fn(logits, label)
-        return loss
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss
 
-    grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
-    def train_step(data, label):
-        loss, grads = grad_fn(data, label)
-        loss = ops.depend(loss, optimizer(grads))
-        return loss
+def train_step(data, label):
+    loss, grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
+def train_one_epoch(model, train_dataset, epoch=0):
     model.set_train()
     total = train_dataset.get_dataset_size()
     loss_total = 0
@@ -510,12 +510,12 @@ best_valid_loss = float('inf')
 ckpt_file_name = os.path.join(cache_dir, 'sentiment-analysis.ckpt')
 
 for epoch in range(num_epochs):
-    train_one_epoch(net, loss, optimizer, imdb_train, epoch)
-    valid_loss = evaluate(net, imdb_valid, loss, epoch)
+    train_one_epoch(model, imdb_train, epoch)
+    valid_loss = evaluate(model, imdb_valid, loss_fn, epoch)
 
     if valid_loss < best_valid_loss:
         best_valid_loss = valid_loss
-        ms.save_checkpoint(net, ckpt_file_name)
+        ms.save_checkpoint(model, ckpt_file_name)
 ```
 
 ```text
@@ -543,7 +543,7 @@ After model training is complete, you need to test or deploy the model. In this 
 import mindspore as ms
 
 param_dict = ms.load_checkpoint(ckpt_file_name)
-ms.load_param_into_net(net, param_dict)
+ms.load_param_into_net(model, param_dict)
 ```
 
 ```text
@@ -554,7 +554,7 @@ Batch the test set, and then use the evaluation method to evaluate the effect of
 
 ```python
 imdb_test = imdb_test.batch(64)
-evaluate(net, imdb_test, loss)
+evaluate(model, imdb_test, loss_fn)
 ```
 
 ```text
@@ -594,7 +594,7 @@ def predict_sentiment(model, vocab, sentence):
 Finally, predict the examples in the preceding section. It shows that the model can classify the sentiments of the statements.
 
 ```python
-predict_sentiment(net, vocab, "This film is terrible")
+predict_sentiment(model, vocab, "This film is terrible")
 ```
 
 ```text
@@ -602,7 +602,7 @@ predict_sentiment(net, vocab, "This film is terrible")
 ```
 
 ```python
-predict_sentiment(net, vocab, "This film is great")
+predict_sentiment(model, vocab, "This film is great")
 ```
 
 ```text

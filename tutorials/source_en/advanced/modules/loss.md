@@ -257,7 +257,6 @@ loss_fn = MAELossForMultiLabel()
 # Define the optimizer.
 opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-def train(model, dataset, loss_fn, optimizer):
 # Define forward function
 def forward_fn(data, label1, label2):
     output = network(data)
@@ -269,22 +268,23 @@ grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 # Define function of one-step training
 def train_step(data, label1, label2):
     loss, grads = grad_fn(data, label1, label2)
-    loss = ops.depend(loss, optimizer(grads))
+    optimizer(grads)
     return loss
 
-size = dataset.get_dataset_size()
-model.set_train()
-for batch, (data, label1, label2) in enumerate(dataset.create_tuple_iterator()):
-    loss = train_step(data, label1, label2)
+def train(model, dataset):
+    size = dataset.get_dataset_size()
+    model.set_train()
+    for batch, (data, label1, label2) in enumerate(dataset.create_tuple_iterator()):
+        loss = train_step(data, label1, label2)
 
-    if batch % 2 == 0:
-        loss, current = loss.asnumpy(), batch
-        print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
+        if batch % 2 == 0:
+            loss, current = loss.asnumpy(), batch
+            print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
 
 epochs = 5
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
-    train(network, train_dataset, loss_fn, optimizer)
+    train(network, train_dataset)
 print("Done!")
 ```
 

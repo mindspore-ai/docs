@@ -9,7 +9,6 @@ This section quickly implements a simple deep learning model through MindSpore A
 ```python
 import mindspore
 from mindspore import nn
-from mindspore import ops
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
 ```
@@ -167,22 +166,22 @@ MindSpore uses a functional automatic differentiation mechanism, implemented thr
 3. Define training functions, and perform forward computation, back propagation and parameter optimization.
 
 ```python
-def train(model, dataset, loss_fn, optimizer):
-    # Define forward function
-    def forward_fn(data, label):
-        logits = model(data)
-        loss = loss_fn(logits, label)
-        return loss, logits
+# Define forward function
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
 
-    # Get gradient function
-    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+# Get gradient function
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
-    # Define function of one-step training
-    def train_step(data, label):
-        (loss, _), grads = grad_fn(data, label)
-        loss = ops.depend(loss, optimizer(grads))
-        return loss
+# Define function of one-step training
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
+def train(model, dataset):
     size = dataset.get_dataset_size()
     model.set_train()
     for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
@@ -216,7 +215,7 @@ The training process requires several iterations of the dataset, and one complet
 epochs = 3
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
-    train(model, train_dataset, loss_fn, optimizer)
+    train(model, train_dataset)
     test(model, test_dataset, loss_fn)
 print("Done!")
 ```
