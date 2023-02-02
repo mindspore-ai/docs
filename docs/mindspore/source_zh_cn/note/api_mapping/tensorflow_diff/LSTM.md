@@ -14,8 +14,7 @@ class tf.keras.layers.LSTM(
     activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None,
     bias_constraint=None, dropout=0.0, recurrent_dropout=0.0,
     return_sequences=False, return_state=False, go_backwards=False, stateful=False,
-    time_major=False, unroll=False, **kwargs
-)(inputs, mask, training, initial_state) -> Tensor
+    time_major=False, unroll=False)(inputs, mask, training, initial_state) -> Tensor
 ```
 
 更多内容详见[tf.keras.layers.LSTM](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/layers/LSTM)。
@@ -23,7 +22,14 @@ class tf.keras.layers.LSTM(
 ## mindspore.nn.LSTM
 
 ```text
-class mindspore.nn.LSTM(*args, **kwargs)(x, h_x, seq_length) -> Tensor
+class mindspore.nn.LSTM(
+    input_size,
+    hidden_size,
+    num_layers=1,
+    has_bias=True,
+    batch_first=False,
+    dropout=0.0,
+    bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
