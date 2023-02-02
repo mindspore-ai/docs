@@ -56,13 +56,13 @@ MindSpore: When all the parameters in this API of TensorFlow are default, MindSp
 | | Parameter 9 | beta_constraint | - | This parameter is used in TensorFlow to control whether the optional constraint of beta weights is used. MindSpore does not have this parameter|
 | | Parameter 10 | gamma_constraint | - | This parameter is used in TensorFlow to control whether the optional constraint of gamma weights is used. MindSpore does not have this parameter|
 | | Parameter 11 | **kwargs | - | Not involved|
-| | Parameter 12 | x | x | - |
-| | Parameter 13 | - | normalized_shape | This parameter is not available in TensorFlow, and this parameter in MindSpore controls the specific dimension of the mean and standard deviation calculation|
-| | Parameter 14 | - | begin_params_axis | No such parameter in TensorFlow. This parameter in MindSpore determines the dimension of the first parameter (beta, gamma) and is used to broadcast the built-in parameters scale and centering |
+| | Parameter 12 | - | normalized_shape | This parameter is not available in TensorFlow, and this parameter in MindSpore controls the specific dimension of the mean and standard deviation calculation|
+| | Parameter 13 | - | begin_params_axis | No such parameter in TensorFlow. This parameter in MindSpore determines the dimension of the first parameter (beta, gamma) and is used to broadcast the built-in parameters scale and centering |
+| Input | Single input | x | x | - |
 
 ### Code Example
 
-> When all parameters in this API of TensorFlow are default, MindSpore and TensorFlow achieve basically the same function.
+> When all parameters in this API of TensorFlow are default, the two APIs achieve the same function and have the same usage.
 
 ```python
 # TensorFlow

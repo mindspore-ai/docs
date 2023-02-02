@@ -37,18 +37,18 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Input | Single input | input | x | Interface input, same function, different parameter names|
-|Parameters | Parameter 1 | normalized_shape | normalized_shape |Same function, same parameter name |
+|Parameters | Parameter 1 | normalized_shape | normalized_shape |- |
 | | Parameter 2 | eps | epsilon | Same function, different parameter names, different default values |
 | | Parameter 3 | elementwise_affine | - | This parameter is used in PyTorch to control whether the learnable parameters are used. MindSpore does not have this parameter|
 | | Parameter 4 | - | begin_norm_axis | This parameter in MindSpore controls the axis on which the normalization begins. PyTorch does not have this parameter|
 | | Parameter 5 | - | begin_params_axis | This parameter in MindSpore controls the dimensionality of the first parameter (beta, gamma). PyTorch does not have this parameter |
 | | Parameter 6 | - | gamma_init | This parameter in MindSpore controls how the `γ` parameter is initialized. PyTorch does not have this parameter|
 | | Parameter 7 | - | beta_init | This parameter in MindSpore controls how the `β` parameter is initialized. PyTorch does not have this parameter |
+|Input | Single input | input | x | Same function, different parameter names|
 
 ### Code Example
 
-> When the parameter `elementwise_affine` is True in this API of PyTorch, MindSpore and PyTorch implement basically the same function.
+> When PyTorch's parameter elementwise_affine is True, the two APIs achieve the same function and have the same usage.
 
 ```python
 # PyTorch
