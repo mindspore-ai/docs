@@ -22,11 +22,11 @@ For more information, see [mindspore.nn.LeakyReLU](https://mindspore.cn/docs/en/
 
 TensorFlow: Apply the Leaky ReLU activation function, where the parameter `alpha` is used to control the slope of the activation function.
 
-MindSpore: MindSpore API basically implements the same function as TensorFlow, and only the parameter names are different.
+MindSpore: MindSpore API basically implements the same function as TensorFlow.
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | features | x | Interface input, same function, different parameter names |
+|Parameters | Parameter 1 | features | x | Same function, different parameter names |
 | | Parameter 2 | alpha | alpha | - |
 | | Parameter 3 | name | - | Not involved |
 

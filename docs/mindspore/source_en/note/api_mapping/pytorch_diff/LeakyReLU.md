@@ -26,9 +26,9 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, wher
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameters | Parameter 1 | negative_slope | alpha |Same function, different parameter names |
+|Parameters | Parameter 1 | negative_slope | alpha |Same function, different parameter names, different default values |
 | | Parameter 2 | inplace | - | This parameter is used in PyTorch to control whether to choose to perform the activation function in-place. MindSpore does not have this parameter|
-| | Parameter 3 | input | x | Interface input, same function, different parameter names|
+|Input | Single input | input | x | Same function, different parameter names|
 
 ### Code Example 1
 
