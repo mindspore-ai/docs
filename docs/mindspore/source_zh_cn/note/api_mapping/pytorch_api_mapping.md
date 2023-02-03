@@ -140,7 +140,7 @@
 | [torch.unique](https://pytorch.org/docs/1.8.1/generated/torch.unique.html#torch.unique) | [mindspore.ops.unique](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/unique.html) |
 | [torch.unsqueeze](https://pytorch.org/docs/1.8.1/generated/torch.unsqueeze.html)                 | [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html)                            |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/expand_dims.html)                                                                                                                        |
 | [torch.view_as_real](https://pytorch.org/docs/1.8.1/generated/torch.view_as_real.html)                           | [mindspore.ops.view_as_real](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.view_as_real.html)                            | 功能一致，参数名不一致|
-| [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/zeros.html)
+| [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/zeros.html)|
 
 ### torch.distributed
 

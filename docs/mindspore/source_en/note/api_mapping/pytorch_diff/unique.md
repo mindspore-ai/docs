@@ -27,7 +27,7 @@ PyTorch: Deduplicate the elements in the Tensor. The parameter `sorted` can be s
 
 MindSpore: Deduplicate the elements in the Tensor, as well as return the position index of each element of the input Tensor in the output Tensor.
 
- Categories | Subcategories |PyTorch | MindSpore | Difference |
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
 | Parameters | Parameter1 | input   | x | Input Tensor with different parameter names |
 |  | Parameter2 | sorted | - | When sorted is True, the output Tensor is sorted in ascending order; when sorted is False, it is sorted in the original order |

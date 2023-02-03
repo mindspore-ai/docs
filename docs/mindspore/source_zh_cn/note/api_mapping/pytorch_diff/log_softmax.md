@@ -30,7 +30,7 @@ class mindspore.ops.log_softmax(
 
 PyTorch：支持使用`dim`参数和`input`输入实现函数，对softmax的结果取对数。
 
-MindSpore：支持使用 `axis`参数和`logits`输入实现函数，对softmax的结果取对数。
+MindSpore：支持使用`axis`参数和`logits`输入实现函数，对softmax的结果取对数。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                    |
 | ---- | ----- | ------ | --------- | ----------------------- |
