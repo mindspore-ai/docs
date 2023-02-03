@@ -38,13 +38,13 @@ MindSpore: MindSpore API implements the same function as TensorFlow, and only th
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-| Parameters | Parameter 1 | input       | x           | TensorFlow is used to input a 4-D Tensor |
+| Parameters | Parameter 1 | input       | x           | Same function, used to input a 4-dimensional Tensor. The data input format is different |
 |      | Parameter 2 | ksize       | kernel_size | Same function, different parameter names, no default values for TensorFlow              |
 |      | Parameter 3 | strides     | stride      | Same function, different parameter names, no default values for TensorFlow              |
 |      | Parameter 4 | padding     | pad_mode    | Same function, different parameter names, no default values for TensorFlow              |
 |      | Parameter 5 | data_format | data_format | Same function, different default values of parameters                                 |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -53,20 +53,21 @@ MindSpore: MindSpore API implements the same function as TensorFlow, and only th
 import tensorflow as tf
 import numpy as np
 
-y = tf.constant(10*np.random.random(size=(2,3,4,4)), dtype=tf.float16)
-out = tf.nn.avg_pool2d(input=y, ksize=3, strides=1, padding='SAME')
-print(out.shape)
-# (2, 3, 4, 4)
+y = tf.constant([[[[1, 0, 1], [0, 1, 1]]]], dtype=tf.float32)
+out = tf.nn.avg_pool2d(input=y, ksize=1, strides=1, padding='SAME')
+print(out.numpy())
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 
 # MindSpore
 import mindspore
 import mindspore.nn as nn
-import numpy as np
 from mindspore import Tensor
 
-pool = nn.AvgPool2d(kernel_size=3, stride=1, pad_mode='SAME')
-x = Tensor(10*np.random.random(size=(2,3,4,4)), dtype=mindspore.float16)
+pool = nn.AvgPool2d(kernel_size=1, stride=1, pad_mode='SAME')
+x = Tensor([[[[1, 0, 1], [0, 1, 1]]]], dtype=mindspore.float32)
 output = pool(x)
-print(output.shape)
-# (2, 3, 4, 4)
+print(output)
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 ```
