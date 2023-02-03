@@ -22,12 +22,12 @@ For more information, see [mindspore.nn.Moments](https://www.mindspore.cn/docs/e
 
 TensorFlow: Calculates the mean and variance of the input x along the specified axis axes.
 
-MindSpore: MindSpore API implements the same function as TensorFlow, and only the parameter names are different.
+MindSpore: MindSpore API implements the same function as TensorFlow.
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
 |Parameters | parameter 1 | x          | x         | -                                             |
-| | parameter 2 | axes        | axis      | Same function, different parameter names                                   |
+| | parameter 2 | axes        | axis      | Same function, different parameter names. There is no default value for this parameter in TensorFlow, and the default value for this parameter in MindSpore is None              |
 | | parameter 3 |   shift            | -         | This parameter is not used in the current implementation of TensorFlow and is useless; MindSpore does not have this parameter |
 | | parameter 4 | keepdims      | keep_dims | Same function, different parameter names                                   |
 | | parameter 5 |   name            | -         | Not involved |

@@ -11,7 +11,7 @@ The Cora dataset consists of 2708 scientific publications classified into one of
 
 The classification of Cora's literature is taken as the label,the word vector of the literature is taken as the node feature of GCN,and the reference of the literature is taken as the edge. The GCN is used to train the cora graph to predict which category the literature belongs to.
 
-> Download the complete sample code here: [GCN](https://gitee.com/mindspore/graphlearning/blob/master/examples/).
+> Download the complete sample code here: [GCN](https://gitee.com/mindspore/graphlearning/tree/master/examples/).
 
 ## GCN Principles
 
