@@ -38,48 +38,76 @@ PyTorch: Parameters to be optimized should be put into an iterable parameter the
 
 MindSpore: The ways of the same learning rate for all parameters and different values for different parameter groups are supported.
 
-## Code Example
+| Categories | Subcategories |TensorFlow | MindSpore | Differences |
+| --- | --- | --- | --- |---|
+| Parameters | Parameter 1  | learning_rate         | learning_rate | -    |
+|      | Parameter 2  | initial_accumulator_value | accum    | Same function, different parameter names             |
+|      | Parameter 3  | epsilon                   | -             | TensorFlow is used to maintain numerical stability of small floating point values. MindSpore does not have this parameter |
+|      | Parameter 4  | name     | -   | Not involved           |
+|      | Parameter 5  | **kwargs      | -  | Not involved      |
+|      | Parameter 6  | -       | params        | A list of parameters or a list of dictionaries, not available in TensorFlow |
+|      | Parameter 7  | -      | update_slots  | If the value is True, the accumulator is updated. TensorFlow does not have this parameter          |
+|      | Parameter 8  | -       | loss_scale    | gradient scaling factor, default value: 1.0. TensorFlow does not have this parameter           |
+|      | Parameter 9  | -        | weight_decay  | weight decay (L2 penalty), default value: 0.0. TensorFlow does not have this parameter |
+| Input | Single input | -   | grads         | The gradient of `params` in the optimizer. TensorFlow does not have this parameter       |
+
+### Code Example
+
+> The two APIs basically achieve the same function.
 
 ```python
-# The following implements Adagrad with MindSpore.
+# TensorFlow
+import tensorflow as tf
+
+opt = tf.keras.optimizers.Adagrad(initial_accumulator_value=0.1, learning_rate=0.1)
+var = tf.Variable(1.0)
+val0 = var.value()
+loss = lambda: (var ** 2)/2.0
+step_count = opt.minimize(loss, [var]).numpy()
+val1 = var.value()
+print([val1.numpy()])
+# [0.9046537]
+step_count = opt.minimize(loss, [var]).numpy()
+val2 = var.value()
+print([val2.numpy()])
+# [0.8393387]
+
+# MindSpore
 import numpy as np
-import torch
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore.train import Model
+from mindspore.dataset import NumpySlicesDataset
 
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.w = ms.Parameter(ms.Tensor(np.array([1.0], np.float32)), name='w')
 
+    def construct(self, x):
+        f = self.w * x
+        return f
+
+class MyLoss(nn.LossBase):
+    def __init__(self, reduction='none'):
+        super(MyLoss, self).__init__()
+
+    def construct(self, y, y_pred):
+        return (y - y_pred) ** 2 / 2.0
 net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.Adagrad(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
-# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
-# centralization of True.
-# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
-# centralization of False.
-# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements Adagrad with torch.
-input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))
-input_y = torch.tensor([1.])
-net = torch.nn.Sequential(torch.nn.Linear(input_x.shape[-1], 1))
-loss = torch.nn.MSELoss()
-optimizer = torch.optim.Adagrad(net.parameters())
-l = loss(net(input_x).view(-1), input_y) / 2
-optimizer.zero_grad()
-l.backward()
-optimizer.step()
-print(loss(net(input_x).view(-1), input_y).item() / 2)
-# Out:
-# 0.1830
+loss = MyLoss()
+optim = nn.Adagrad(params=net.trainable_params(), accum=0.1, learning_rate=0.1)
+model = ms.Model(net, loss_fn=loss, optimizer=optim)
+data_x = np.array([1.0], dtype=np.float32)
+data_y = np.array([0.0], dtype=np.float32)
+data = NumpySlicesDataset((data_x, data_y), ["x", "y"])
+input_x = ms.Tensor(np.array([1.0], np.float32))
+y0 = net(input_x)
+model.train(1, data)
+y1 = net(input_x)
+print(y1)
+# [0.9046537]
+model.train(1, data)
+y2 = net(input_x)
+print(y2)
+# [0.8393387]
 ```
