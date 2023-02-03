@@ -46,13 +46,13 @@ MindSpore: The implementation function of API in MindSpore is basically the same
 |   | Parameter 5  | **kwargs | -| Not involved                            |
 |      | Parameter 6  | -  | params        | A list of parameters or a list of dictionaries, not available in TensorFlow    |
 |      | Parameter 7  | -      | update_slots  | If the value is True, the accumulator is updated, and there is no such parameter in TensorFlow             |
-|      | Parameter 8  | -     | loss_scale    | Gradient scaling factor, no such parameter in TensorFlow                           |
-|      | Parameter 9  | -     | weight_decay  | The weight decay value to be multiplied by the weights, no such parameter in TensorFlow                 |
-|      | Parameter 10 | -   | grads         | Gradient of params in the optimizer, same shape as params, no such parameter in TensorFlow |
+|      | Parameter 8  | -                         | loss_scale    | Gradient scaling factor, default value: 1.0. TensorFlow does not have this parameter          |
+|      | Parameter 9  | -                         | weight_decay  | Weight decay (L2 penalty), default value: 0.0, no such parameter in TensorFlow |
+| Input | Single input | -                         | grads         | Gradient of `params` in the optimizer, no such parameter in TensorFlow            |
 
-### Code Example 1
+### Code Example
 
-> The learning_rate is set to 0.1, and the initial value of the accumulator is set to 0.1. Both APIs have the same function and the same usage.
+> Both APIs have the same function.
 
 ```python
 # TensorFlow
