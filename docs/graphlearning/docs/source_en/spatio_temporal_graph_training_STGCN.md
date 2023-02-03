@@ -1,9 +1,11 @@
-# Spatio-temporal Graph Convolutional Networks for Traffic Forecasting
+# Spatio-Temporal Graph Training Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/spatio_temporal_grph_training_STGCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/spatio_temporal_graph_training_STGCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 
 ## Overview
+
+In this example, it will show how to forecast the traffic by Spatio-temporal Graph Convolutional Networks.
 
 Spatio-Temporal Graph Convolutional Networks (STGCN) can tackle the time series prediction problem in traffic domain. Experiments show that STGCN effectively captures comprehensive spatio-temporal correlations through modeling multi-scale traffic networks.
 
@@ -147,7 +149,7 @@ cd model_zoo/stgcn
 python trainval_metr.py --data-path={path} --fuse=True
 ```
 
-{path} indicates the dataset storage path.
+`{path}` indicates the dataset storage path.
 
 The training result is as follows:
 

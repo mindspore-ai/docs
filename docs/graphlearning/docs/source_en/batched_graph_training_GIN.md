@@ -1,9 +1,11 @@
-# Social Network Classification with Graph Isomorphism Network
+# Batched Graph Training Network
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/batched_graph_training_GIN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 
 ## Overview
+
+In this example, it will show how to classify the social network with Graph Isomorphism Network.
 
 GIN is inspired by the close connection between GNNs and the Weisfeiler-Lehman (WL) graph isomorphism test, a powerful test known to distinguish a broad class of graphs. GNN can have as large discriminative power as the WL test if the GNN’s aggregation scheme is highly expressive and can model injective functions.
 
@@ -88,21 +90,44 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/ginconv.py) code of mindspore_gl.nn.GINConv.
+For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/ginconv.py) code of mindspore_gl.nn.GINConv.
 
 ## Constructing a Dataset
 
-The mindspore_gl.dataset provides the IMDB-BINARY API. The invoking method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#constructing-a-dataset).
+From mindspore_gl.dataset calls the dataset of IMDB-BINARY,the method can refer to [GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86). Then use mindpoint_gl.dataloader.RandomBatchSampler defines a sampler and returns the sampling index.
+MultiHomeGraphDataset obtains data from the dataset according to the sampling index, packages the data into a batch, and generates the dataset generator.
+After building a generator, invoke the API of mindspore.dataset.GeneratorDataset to construct a dataloader.
 
-[IMDB-BINARY](https://ls11-www.cs.tu-dortmund.de/people/morris/graphkerneldatasets/IMDB-BINARY.zip) dataset can download.
+```python
+dataset = IMDBBinary(arguments.data_path)
+train_batch_sampler = RandomBatchSampler(dataset.train_graphs, batch_size=arguments.batch_size)
+train_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(train_batch_sampler)))
+test_batch_sampler = RandomBatchSampler(dataset.val_graphs, batch_size=arguments.batch_size)
+test_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(test_batch_sampler)))
 
-Make dataset generator. To reduce the generation of calculation graphs and speed up calculation, the generator unifies the data of each batch to the same shape during returning data.
+train_dataloader = ds.GeneratorDataset(train_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
+                                                                   'node_map_idx', 'edge_map_idx', 'graph_mask',
+                                                                   'batched_label', 'batched_node_feat',
+                                                                   'batched_edge_feat'],
+                                       sampler=train_batch_sampler)
 
-Assume that the number of nodes and the number of edges are fixed, and the sum of nodes and edges in the batch is less than or equal to the fixed value of nodes and the fixed value of edges.
-Pad nodes and edges to ensure that the sum of nodes and edges in the batch is equal to the fixed values of nodes and edges.
-Create a virtual graph and treats the padding nodes and edges as virtual graph. When calculating the loss, this graph is not involved in the calculation.
+test_dataloader = ds.GeneratorDataset(test_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
+                                                                 'node_map_idx', 'edge_map_idx', 'graph_mask',
+                                                                 'batched_label', 'batched_node_feat',
+                                                                 'batched_edge_feat'],
+                                      sampler=test_batch_sampler)
+```
 
-Invoke the mindspore_gl.graph.PadArray2d to pad the node and edge feature with zeros. Invoke the mindspore_gl.graph.PadHomoGraph to pad the node and edge in batched graph.
+Use mindspore_gl.graph.BatchHomeGraph merges multiple sub-graphs into one whole graph. During model training, all graphs in the batch will be calculated in the form of whole graph.
+
+To reduce the generation of calculation graphs and speed up calculation, the generator unifies the data of each batch to the same size during returning data.
+
+Assume number of nodes is `node_size`and number of edges is `edge_size`, which is  satisfies that the sum of nodes and edges for all graph data in batch is less than or equal to `node_size * batch` and `edge_size * batch`.
+Create a new virtual graph in the batch, so that the sum of nodes and edges in the batch is equal to `node_size * batch` and `edge_size * batch`.
+When calculating loss, this graph will not participate in the calculation.
+
+Call mindspore_gl.graph.PadArray2d to define the operation of node feature filling and edge feature filling, and set the node feature and edge feature on the virtual graph to 0.
+Call mindspore_gl.graph.PadHomoGraph to define the operation of filling the nodes and edges on the graph structure, so that the number of nodes in the batch is equal to `node_size * batch`, and the number of edges is equal to `edge_size * batch`.
 
 ```python
 class MultiHomoGraphDataset(Dataset):
@@ -173,20 +198,6 @@ class MultiHomoGraphDataset(Dataset):
                batched_node_feat, self.batched_edge_feat[:batch_graph.edge_count, :]
 ```
 
-After building a generator, invoke the API of mindspore.dataset.GeneratorDataset to construct a dataloader. The returned data is in Tensor.
-
-```python
-import mindspore.dataset as ds
-
-train_batch_sampler = RandomBatchSampler(dataset.train_graphs, batch_size=arguments.batch_size)
-train_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(train_batch_sampler)))
-train_dataloader = ds.GeneratorDataset(train_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
-                                                                   'node_map_idx', 'edge_map_idx', 'graph_mask',
-                                                                   'batched_label', 'batched_node_feat',
-                                                                   'batched_edge_feat'],
-                                       sampler=train_batch_sampler)
-```
-
 ## Defining a Loss Function
 
 Since this is a classification task, the cross entropy can be used as the loss function, and the implementation method is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#defining-a-loss-function).
@@ -252,7 +263,7 @@ cd model_zoo/gin
 python trainval_imdb_binary.py --data_path={path}
 ```
 
-{path} indicates the dataset storage path.
+`{path}` indicates the dataset storage path.
 
 The training result is as follows:
 

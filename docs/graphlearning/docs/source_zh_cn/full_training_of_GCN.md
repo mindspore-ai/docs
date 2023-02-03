@@ -1,9 +1,11 @@
-# 在Cora数据集上基于图卷积网络的半监督分类
+# 整图训练网络
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/full_training_of_GCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
+
+在本例中将展示如何在Cora数据集上进行图卷积网络的半监督分类。
 
 图卷积网络(GCN)于2016年提出，旨在对图结构数据进行半监督学习。提出了一种基于卷积神经网络的有效变体的可扩展方法，该方法直接在图上操作。该模型在图边的数量上线性缩放，并学习编码本地图结构和节点特征的隐藏层表示。
 
@@ -241,7 +243,7 @@ cd examples
 python vc_gcn_datanet.py --data-path={path} --fuse=True
 ```
 
-其中{path}为数据集存放路径。
+其中`{path}`为数据集存放路径。
 
 可以看到训练的结果（截取最后五个epoch）如下：
 
