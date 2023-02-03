@@ -163,8 +163,6 @@ In addition, the training process can be constructed through a functional approa
 import mindspore as ms
 from mindspore import ops, nn
 from mindspore.amp import StaticLossScaler, all_finite
-from mindspore.parallel._utils import _get_device_num, _get_gradients_mean,\
-    _get_parallel_mode, _is_pynative_parallel
 
 class Trainer:
     """A training example with two losses"""
@@ -190,14 +188,11 @@ class Trainer:
 
     def get_grad_reducer(self):
         grad_reducer = ops.identity
-        parallel_mode = _get_parallel_mode()
+        parallel_mode = ms.get_auto_parallel_context("parallel_mode")
         # Determine whether it is a distributed scenario, and refer to the above generic runtime environment settings for the distributed scenario settings
-        reducer_flag = (parallel_mode in (ms.ParallelMode.DATA_PARALLEL, ms.ParallelMode.HYBRID_PARALLEL)) or \
-                       _is_pynative_parallel()
+        reducer_flag = (parallel_mode != ms.ParallelMode.STAND_ALONE)
         if reducer_flag:
-            mean = _get_gradients_mean()
-            degree = _get_device_num()
-            grad_reducer = nn.DistributedGradReducer(self.weights, mean, degree)
+            grad_reducer = nn.DistributedGradReducer(self.weights)
         return grad_reducer
 
     def forward_fn(self, inputs, labels):
