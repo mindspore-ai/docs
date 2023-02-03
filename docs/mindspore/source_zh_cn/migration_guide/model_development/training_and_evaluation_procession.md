@@ -163,8 +163,6 @@ if __name__ == '__main__':
 import mindspore as ms
 from mindspore import ops, nn
 from mindspore.amp import StaticLossScaler, all_finite
-from mindspore.parallel._utils import _get_device_num, _get_gradients_mean,\
-    _get_parallel_mode, _is_pynative_parallel
 
 class Trainer:
     """一个有两个loss的训练示例"""
@@ -190,14 +188,11 @@ class Trainer:
 
     def get_grad_reducer(self):
         grad_reducer = ops.identity
-        parallel_mode = _get_parallel_mode()
+        parallel_mode = ms.get_auto_parallel_context("parallel_mode")
         # 判断是否是分布式场景，分布式场景的设置参考上面通用运行环境设置
-        reducer_flag = (parallel_mode in (ms.ParallelMode.DATA_PARALLEL, ms.ParallelMode.HYBRID_PARALLEL)) or \
-                       _is_pynative_parallel()
+        reducer_flag = (parallel_mode != ms.ParallelMode.STAND_ALONE)
         if reducer_flag:
-            mean = _get_gradients_mean()
-            degree = _get_device_num()
-            grad_reducer = nn.DistributedGradReducer(self.weights, mean, degree)
+            grad_reducer = nn.DistributedGradReducer(self.weights)
         return grad_reducer
 
     def forward_fn(self, inputs, labels):
