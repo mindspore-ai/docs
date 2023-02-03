@@ -782,7 +782,7 @@ Go to the `profiler_v1/profiler/` directory and click the `aicore_intermediate_0
 
 ![resnet_profiler6](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
 
-In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_ascend.html#timeline-analysis).
+In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r1.9/performance_profiling_ascend.html#timeline-analysis).
 
 The third part is the performance data during data processing. You can view the data queue status in this part.
 

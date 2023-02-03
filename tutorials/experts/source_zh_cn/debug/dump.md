@@ -27,7 +27,7 @@
 
 #### 数据分析
 
-如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/debugger_offline.html) 。
+如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger_offline.html) 。
 
 如果没有安装MindInsight，需要通过以下步骤来分析数据。
 
@@ -504,7 +504,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r1.10/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
+Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r1.9/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
 若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
 

@@ -327,7 +327,7 @@ Dump功能
      - 1~65536，连接MindInsight Debugger Server的端口
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
 
-具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/debugger.html>`_ 。
+具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger.html>`_ 。
 
 其他
 ----

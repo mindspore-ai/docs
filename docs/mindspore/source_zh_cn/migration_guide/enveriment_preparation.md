@@ -32,7 +32,7 @@
 
 目前有300+的模型实现，其中official目录下的网络是官方提供的网络，针对模型实现有一些优化；research目录下大多是众智的模型，精度和性能都有一定的保证；community目录是开发者贡献的代码，目前还没有进行维护，仅供参考。
 
-[MindSpore Hub](https://www.mindspore.cn/resources/hub) 是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤 [发布模型](https://www.mindspore.cn/hub/docs/zh-CN/r1.10/publish_model.html) 到MindSpore Hub中，供其他用户下载和使用。
+[MindSpore Hub](https://www.mindspore.cn/resources/hub) 是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤 [发布模型](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/publish_model.html) 到MindSpore Hub中，供其他用户下载和使用。
 
 [下载中心](https://download.mindspore.cn/model_zoo/) 保存了目前models仓里模型训练好的参数文件，用户可以在这里下载到对应的参数文件进行开发。
 

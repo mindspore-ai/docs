@@ -457,11 +457,11 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/summary_record.html)
+### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/summary_record.html)
 
 训练过程中的标量、图像、计算图、训练优化过程以及模型超参等信息记录到文件中，通过可视化界面供用户查看。
 
-### [调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/debugger.html)
+### [调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger.html)
 
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。
 

@@ -8,7 +8,7 @@
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
-- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
 
@@ -276,7 +276,7 @@ dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/dashboard.html#计算图可视化)对计算图进行可视化。
+对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何根据analyze_fail.dat文件分析图推导失败的原因
 

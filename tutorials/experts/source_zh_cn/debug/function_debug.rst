@@ -214,7 +214,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
       4. 查看图节点和源代码的对应关系。
 
-      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/debugger.html>`__\ 。
+      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/debugger.html>`__\ 。
 
 网络执行调试
 ------------
