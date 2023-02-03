@@ -84,7 +84,7 @@ class MyTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
     def __init__(self, network, optimizer, scale_sense=1, grad_clip=False):
         if isinstance(scale_sense, (int, float)):
-            scale_sense = ms.FixedLossScaleUpdateCell(scale_sense)
+            scale_sense = nn.FixedLossScaleUpdateCell(scale_sense)
         super(MyTrainOneStepCell, self).__init__(network, optimizer, scale_sense)
         self.grad_clip = grad_clip
 
