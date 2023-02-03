@@ -10,7 +10,8 @@ tf.compat.v1.train.MomentumOptimizer(
     momentum,
     use_locking=False,
     name='Momentum',
-    use_nesterov=False) -> Tensor
+    use_nesterov=False
+) -> Tensor
 ```
 
 For more information, see [tf.compat.v1.train.MomentumOptimizer](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/compat/v1/train/MomentumOptimizer).
@@ -24,7 +25,8 @@ class mindspore.nn.Momentum(
     momentum,
     weight_decay=0.0,
     loss_scale=1.0,
-    use_nesterov=False)(gradients) -> Tensor
+    use_nesterov=False
+)(gradients) -> Tensor
 ```
 
 For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html).
@@ -33,7 +35,7 @@ For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/m
 
 TensorFlow: Optimizer that implements the Momentum algorithm.
 
-MindSpore: MindSpore API implements the same functions as TensorFlow, and only the parameter names are different.
+MindSpore: MindSpore API basically implements the same functions as TensorFlow.
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
@@ -42,14 +44,14 @@ MindSpore: MindSpore API implements the same functions as TensorFlow, and only t
 | | Parameter3 | use_locking   | -             | In TensorFlow, whether to use locks in update operations. Default value: False. MindSpore does not have this parameter |
 | | Parameter4 | name  | -  | Not involved     |
 | | Parameter5 | use_nesterov  | use_nesterov  | -           |
-| | Parameter6 | -             | params        | Parameter list or dictionary list, no parameter in TensorFlow  |
+| | Parameter6 | -             | params        | A list consisting of a Parameter or a dictionary, which is not available in TensorFlow  |
 | | Parameter7 | -             | weight_decay  | Weight decay (L2 penalty), default value: 0.0. No parameter in TensorFlow |
-| | Parameter8 | -             | loss_scale    | Gradient scaling factor, no parameter in TensorFlow |
+| | Parameter8 | -             | loss_scale    | Gradient scaling factor, default value: 0.0. No parameter in TensorFlow |
 | | Parameter9 | -             |  gradients    | The gradient of the parameter params, no parameter in TensorFlow              |
 
 ### Code Example
 
-> The two APIs achieve the same function and have the same usage.
+> The two APIs basically achieve the same function.
 
 ```python
 # TensorFlow

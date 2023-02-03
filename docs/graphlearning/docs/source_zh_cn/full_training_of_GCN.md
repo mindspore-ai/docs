@@ -11,7 +11,7 @@ Cora数据集包括2708份科学出版物，分为七类之一。引文网络由
 
 将Cora的文献的分类作为标签，文献的单词向量作为GCN的节点特征，文献的引用作为边，构图后利用GCN进行训练，判断文献应该属于哪个类。
 
-> 下载完整的样例[GCN](https://gitee.com/mindspore/graphlearning/blob/master/examples/)代码。
+> 下载完整的样例[GCN](https://gitee.com/mindspore/graphlearning/tree/master/examples/)代码。
 
 ## GCN原理
 

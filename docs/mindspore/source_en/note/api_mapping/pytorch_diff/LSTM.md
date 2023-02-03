@@ -49,10 +49,10 @@ MindSpore: If the proj_size parameter in PyTorch is not specified, the MindSpore
 | | Parameter 6  | dropout       | dropout       | -      |
 | | Parameter 7  | bidirectional | bidirectional | -      |
 | | Parameter 8  | proj_size     | -             | In PyTorch, if proj_size>0, the hidden_size in the output shape will become proj_size, and the default value is 0. MindSpore does not have this parameter |
-| | Parameter 9  | input         | x             | Same function, different parameter names    |
-| | Parameter 10 | h_0           | hx            | In MindSpore, hx represents a tuple of two Tensor(h_0, c_0), corresponding to parameters 10 and 11 in PyTorch, with the same function             |
-| | Parameter 11 | c_0           | hx             | In MindSpore, hx represents a tuple of two Tensor(h_0, c_0), corresponding to parameters 10 and 11 in PyTorch, with the same function       |
-| | Parameter 12 | -             | seq_length    | This parameter in MindSpore specifies the sequence length of the input batch. PyTorch does not have this parameter       |
+| Inputs | Input 1 | input         | x             | Same function, different parameter names   |
+| | Input 2 | h_0           | hx            | In MindSpore hx represents a tuple of two Tensor(h_0, c_0), corresponding to inputs 2 and 3 in PyTorch, with the same function          |
+| | Input 3 | c_0           | hx             | In MindSpore hx represents a tuple of two Tensor(h_0, c_0), corresponding to inputs 2 and 3 in PyTorch, with the same function     |
+| | Input 4 | -             | seq_length    | This parameter in MindSpore specifies the sequence length of the input batch. PyTorch does not have this parameter               |
 
 ### Code Example
 
