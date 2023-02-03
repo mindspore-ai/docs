@@ -1,6 +1,6 @@
-# 比较与torch.nn.utils.clip_grad_value_的功能差异
+# Function Differences with torch.nn.utils.clip_grad_value_
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clip_by_value.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clip_by_value.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.utils.clip_grad_value_
 
@@ -8,7 +8,7 @@
 torch.nn.utils.clip_grad_value_(parameters, clip_value)
 ```
 
-更多内容详见[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)。
+For more information, see [torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html).
 
 ## mindspore.ops.clip_by_value
 
@@ -16,25 +16,25 @@ torch.nn.utils.clip_grad_value_(parameters, clip_value)
 mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None)
 ```
 
-更多内容详见[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)。
+For more information, see [mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html).
 
-## 差异对比
+## Differences
 
-PyTorch中梯度是Tensor的属性，可以通过设置`requires_grad=True`使Tensor带有梯度。由于框架机制的不同，在MindSpore中，梯度和权重是互相独立的Tensor。因此在梯度裁剪时，MindSpore需要先获取梯度Tensor再进行裁剪。
+The gradient in PyTorch is a property of the Tensor and can be made to have a gradient by setting `requires_grad=True`. Due to the difference of framework mechanism, the gradient and weight are Tensor independent of each other in MindSpore. Therefore, when gradient cropping, MindSpore needs to obtain the gradient Tensor before cropping.
 
-PyTorch：实现梯度裁剪可以直接传入带有梯度的Tensor。
+PyTorch: Gradient cropping can be implemented by directly passing in a Tensor with a gradient.
 
-MindSpore：由于框架机制不同，实现梯度裁剪，需要先获取梯度，再对梯度进行裁剪。可以使用`mindspore.grad`等方法获取梯度，详情请参考[梯度求导](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#梯度求导)。
+MindSpore: Due to the different framework mechanism, to implement gradient cropping, it is necessary to obtain the gradient first and then cropping the gradient. You can use methods such as `mindspore.grad` to obtain the gradient. For details, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation).
 
-| 分类 |  子类  |   PyTorch   | MindSpore | 差异                 |
-| ---- | ----- | ----------- | --------- | -------------------- |
-| 参数 | 参数1 | parameters   | x        | 梯度机制不同，PyTorch传入Tensor即可对梯度裁剪，MindSpore需要传入梯度Tensor，如何获取梯度请参考[梯度求导](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#梯度求导)。 |
-|      | 参数2 | clip_value   | clip_value_min        | PyTorch裁剪范围为[-clip_value, clip_value]，MindSpore裁剪范围为[clip_value_min, clip_value_max] |
-|      | 参数3 | -            | clip_value_max   |  PyTorch裁剪范围为[-clip_value, clip_value]，MindSpore裁剪范围为[clip_value_min, clip_value_max] |
+| Categories | Subcategories | PyTorch | MindSpore | Differences   |
+| ---- | ----- | ------- | --------- | -------------- |
+| Parameters | Parameter 1 | parameters   | x        | The gradient mechanism is different. PyTorch can crop the gradient by passing in the Tensor, while MindSpore needs to pass in the gradient Tensor. Please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation) for how to obtain the gradient. |
+|      | Parameter 2 | clip_value   | clip_value_min        | PyTorch cropping range is [-clip_value, clip_value], while MindSpore cropping range is [clip_value_min, clip_value_max] |
+|      | Parameter 3 | -            | clip_value_max   |  PyTorch cropping range is [-clip_value, clip_value], while MindSpore cropping range is [clip_value_min, clip_value_max] |
 
-### 代码示例
+### Code Example
 
-> 由于机制不同，MindSpore实现梯度裁剪需要先使用[mindspore.grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html)等方法获取梯度（更多获取梯度的方法，请参考[梯度求导](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#梯度求导)），再对梯度进行裁剪，示例代码如下。
+> Due to the different mechanism, MindSpore needs to implement gradient cropping first using [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html) and other method to obtain the gradient, (For more methods to obtain the gradient, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation)), and then crop the gradient. The example code is as follows.
 
 ```python
 import numpy as np
