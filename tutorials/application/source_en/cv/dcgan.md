@@ -251,7 +251,7 @@ When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](h
 
 ```python
 # define loss function
-loss = nn.BCELoss(reduction='mean')
+adversarial_loss = nn.BCELoss(reduction='mean')
 ```
 
 ### Optimizer
