@@ -457,11 +457,11 @@ With the development of deep learning, the model scale becomes larger and larger
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
 
-### [Summary](https://www.mindspore.cn/mindinsight/docs/en/r1.10/summary_record.html)
+### [Summary](https://www.mindspore.cn/mindinsight/docs/en/r1.9/summary_record.html)
 
 Scalars, images, computational graphs, training optimization processes, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
-### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.10/debugger.html)
+### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.9/debugger.html)
 
 The MindSpore debugger is a debugging tool provided for graph mode training. It can be used to view and analyze the intermediate results of graph nodes.
 

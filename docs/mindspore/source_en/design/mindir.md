@@ -15,7 +15,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 - .dat file: An IR file that describes the model structure more strictly than the .ir file. It contains more contents and can be directly viewed using any text editors.
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.10/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.9/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Syntax
 

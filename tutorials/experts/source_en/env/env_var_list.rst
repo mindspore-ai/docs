@@ -329,7 +329,7 @@ Debugger
      - Port number ranges from 1 to 65536.
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
 
-For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/r1.10/debugger.html>`_.
+For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/r1.9/debugger.html>`_.
 
 Other
 -----

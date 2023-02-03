@@ -84,7 +84,7 @@ class MyTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
     def __init__(self, network, optimizer, scale_sense=1, grad_clip=False):
         if isinstance(scale_sense, (int, float)):
-            scale_sense = ms.FixedLossScaleManager(scale_sense)
+            scale_sense = ms.FixedLossScaleUpdateCell(scale_sense)
         super(MyTrainOneStepCell, self).__init__(network, optimizer, scale_sense)
         self.grad_clip = grad_clip
 
@@ -113,7 +113,7 @@ class MyTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
         # If there is no overflow, execute the optimizer to update the parameters
         if not overflow:
             self.optimizer(grads)
-        return loss, cond, scaling_sens
+        return loss, cond, scaling_sens.value()
 ```
 
 #### Gradient Accumulation

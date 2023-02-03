@@ -8,7 +8,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 - .dat file: An IR file that describes the model structure more strictly than the .ir file. It contains more contents and can be directly viewed using any text editors.
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.10/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.9/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
 
@@ -273,7 +273,7 @@ The transformed image is shown below, and we can visually see the model structur
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.10/dashboard.html#computational-graph-visualization) to visualize compute graphs.
+For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.9/dashboard.html#computational-graph-visualization) to visualize compute graphs.
 
 ## How to derive the cause of the failure based on the analyze_fail.dat file analysis graph
 
