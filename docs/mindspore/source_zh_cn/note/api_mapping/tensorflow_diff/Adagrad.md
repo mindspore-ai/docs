@@ -37,22 +37,22 @@ TensorFlow：Adagrad是一个具有特定参数学习率的优化器，用来实
 
 MindSpore：MindSpore此API实现功能与TensorFlow基本一致，部分参数名不一样，并且比TensorFlow多出update_slots、loss_scale、weight_decay参数。
 
-| 分类 | 子类   | TensorFlow                | MindSpore     | 差异                                                         |
-| ---- | ------ | ------------------------- | ------------- | ------------------------------------------------------------ |
-| 参数 | 参数1  | learning_rate             | learning_rate | -                                                            |
-|      | 参数2  | initial_accumulator_value | accum         | 功能一致，参数名不同                                         |
-|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore无此参数  |
-|      | 参数4  | name                      | -             | 不涉及                                                       |
-|      | 参数5  | **kwargs                  | -             | 不涉及                                                       |
-|      | 参数6  | -                         | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数    |
-|      | 参数7  | -                         | update_slots  | 值如果为True，则更新累加器，TensorFlow中无此参数             |
-|      | 参数8  | -                         | loss_scale    | 梯度缩放系数，TensorFlow中无此参数                           |
-|      | 参数9  | -                         | weight_decay  | 要乘以权重的权重衰减值，TensorFlow中无此参数                 |
-|      | 参数10 | -                         | grads         | 优化器中params的梯度，形状与params相同，TensorFlow中无此参数 |
+| 分类 | 子类   | TensorFlow                | MindSpore     | 差异                                                      |
+| ---- | ------ | ------------------------- | ------------- | --------------------------------------------------------- |
+| 参数 | 参数1  | learning_rate             | learning_rate | -                                                         |
+|      | 参数2  | initial_accumulator_value | accum         | 功能一致，参数名不同                                      |
+|      | 参数3  | epsilon                   | -             | TensorFlow用于保持数值稳定性的小浮点值，MindSpore无此参数 |
+|      | 参数4  | name                      | -             | 不涉及                                                    |
+|      | 参数5  | **kwargs                  | -             | 不涉及                                                    |
+|      | 参数6  | -                         | params        | Parameter组成的列表或字典组成的列表，TensorFlow中无此参数 |
+|      | 参数7  | -                         | update_slots  | 值如果为True，则更新累加器，TensorFlow中无此参数          |
+|      | 参数8  | -                         | loss_scale    | 梯度缩放系数，默认值：1.0，TensorFlow中无此参数           |
+|      | 参数9  | -                         | weight_decay  | 权重衰减（L2 penalty），默认值：0.0，TensorFlow中无此参数 |
+| 输入 | 单输入 | -                         | grads         | 优化器中 `params` 的梯度，TensorFlow中无此参数            |
 
-### 代码示例1
+### 代码示例
 
-> learning_rate均设置为0.1，累加器的初始值均设置为0.1，两API功能一致，用法相同。
+> 两API实现功能基本一致。
 
 ```python
 # TensorFlow
