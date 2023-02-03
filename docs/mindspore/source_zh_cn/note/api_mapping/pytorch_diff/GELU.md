@@ -26,8 +26,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类  | PyTorch | MindSpore   | 差异                                                         |
 | ---- | ----- | ------- | ----------- | ------------------------------------------------------------ |
-| 参数 | 参数1 | input      | x           | 接口输入，功能一致，仅参数名不同               |
-|      | 参数2 |    -     | approximate | 决定是否启用approximation，默认值为True，如果approximate的值为True，高斯误差线性激活函数为：$0.5\times x\times (1+tanh(aqrt(2/pi)\times (x+0.044715 \times x^{3})))$，否则为：$x \times P(X\leqslant x)=0.5\times x \times (1+erf(x/sqrt(2)))$，其中$P(X)\sim N(0,1)$ |
+|      | 参数1 |    -     | approximate | 决定是否启用approximation，默认值为True。经测试，approximate为False后，输出结果与Pytorch更加相似。 |
+| 输入 | 单输入 | input      | x           | 功能一致，参数名不同               |
 
 ### 代码示例1
 
@@ -36,8 +36,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 ```python
 # PyTorch
 import torch
-input = torch.Tensor([[2, 4], [1, 2]])
-output = torch.nn.GELU()(input)
+input_x = torch.Tensor([[2, 4], [1, 2]])
+output = torch.nn.GELU()(input_x)
 print(output.detach().numpy())
 # [[1.9544997 3.9998734]
 #  [0.8413447 1.9544997]]
@@ -46,8 +46,8 @@ print(output.detach().numpy())
 import mindspore
 import numpy as np
 x = mindspore.Tensor(np.array([[2, 4], [1, 2]]), mindspore.float32)
-output = mindspore.nn.GELU()(x)
+output = mindspore.nn.GELU(approximate=False)(x)
 print(output)
-# [[1.9545977 3.99993 ]
-#  [0.841192 1.9545977]]
+# [[1.9544997 3.9998732]
+#  [0.8413447 1.9544997]]
 ```
