@@ -222,7 +222,22 @@ except:
 
 # replace py_files that have too many errors.
 try:
-    decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py")]
+    decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py"),
+                      ("mindspore/dataset/audio/transforms.py","mindspore/python/mindspore/dataset/audio/transforms.py"),
+                      ("mindspore/ops/composite/base.py","mindspore/python/mindspore/ops/composite/base.py"),
+                      ("mindspore/ops/composite/math_ops.py","mindspore/python/mindspore/ops/composite/math_ops.py"),
+                      ("mindspore/ops/composite/random_ops.py","mindspore/python/mindspore/ops/composite/random_ops.py"),
+                      ("mindspore/ops/function/array_func.py","mindspore/python/mindspore/ops/function/array_func.py"),
+                      ("mindspore/ops/function/debug_func.py","mindspore/python/mindspore/ops/function/debug_func.py"),
+                      ("mindspore/ops/function/grad/grad_func.py","mindspore/python/mindspore/ops/function/grad/grad_func.py"),
+                      ("mindspore/ops/function/math_func.py","mindspore/python/mindspore/ops/function/math_func.py"),
+                      ("mindspore/ops/functional.py","mindspore/python/mindspore/ops/functional.py"),
+                      ("mindspore/ops/op_info_register.py","mindspore/python/mindspore/ops/op_info_register.py"),
+                      ("mindspore/ops/operations/array_ops.py","mindspore/python/mindspore/ops/operations/array_ops.py"),
+                      ("mindspore/ops/operations/comm_ops.py","mindspore/python/mindspore/ops/operations/comm_ops.py"),
+                      ("mindspore/ops/operations/custom_ops.py","mindspore/python/mindspore/ops/operations/custom_ops.py"),
+                      ("mindspore/train/callback/_summary_collector.py","mindspore/python/mindspore/train/callback/_summary_collector.py"),
+                      ("mindspore/train/serialization.py","mindspore/python/mindspore/train/serialization.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
