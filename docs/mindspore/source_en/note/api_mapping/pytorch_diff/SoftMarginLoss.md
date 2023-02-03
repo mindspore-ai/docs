@@ -20,19 +20,19 @@ For more information, see [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn
 
 ## Differences
 
-PyTorch: Adds an extra dimension to the input input on the given axis.
+PyTorch: Loss function for the binary classification problem, used to calculate the binary loss value for the input Tensor x and the target value Tensor y (containing 1 or -1).
 
 MindSpore: There are no functional differences except for two parameters that have been deprecated in PyTorch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | size_average | -         | Deprecated, replaced by reduction. MindSpore does not have this parameter |
-| | Parameter 2 | reduce | - | Deprecated, replaced by reduction. MindSpore does not have this parameter |
-| | Parameter 3 | reduction | reduction | - |
-| | Parameter 4 | input | logits | Same function, different parameter names|
-| | Parameter 5 | target | labels | Same function, different parameter names|
+| Parameters | Parameter 1 | input | logits | Same function, different parameter names|
+| | Parameter 2 | target | labels | Same function, different parameter names|
+| | Parameter 3 | size_average | -         | Deprecated, replaced by reduction. MindSpore does not have this parameter  |
+| | Parameter 4 | reduce | - | Deprecated, replaced by reduction. MindSpore does not have this Parameter |
+| | Parameter 5 | reduction | reduction | - |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -61,31 +61,3 @@ print(output)
 # 0.6764238
 ```
 
-### Code Example 2
-
-> The two APIs achieve the same function and have the same usage.
-
-```python
-# PyTorch
-import torch
-from torch import tensor
-import torch.nn as nn
-
-logits = torch.FloatTensor([1, 1, 1, 1])
-labels = torch.FloatTensor([2, 2, 2 ,2])
-output = torch.nn.functional.soft_margin_loss(logits, labels)
-print(output.numpy())
-# 0.12692805
-
-# MindSpore
-import mindspore
-import numpy as np
-from mindspore import Tensor
-
-loss = mindspore.nn.SoftMarginLoss()
-logits = Tensor(np.array([1, 1, 1, 1]), mindspore.float32)
-labels = Tensor(np.array([2, 2, 2, 2]), mindspore.float32)
-output = loss(logits, labels)
-print(output)
-# 0.12692805
-```
