@@ -20,16 +20,16 @@ For more information, see [mindspore.nn.Softmax](https://www.mindspore.cn/docs/e
 
 ## Differences
 
-PyTorch: a binary classification function, a generalization on multiclassification, which aims to present the results of multiclassification in the form of probabilities.
+PyTorch: a generalization of the binary classification function on multiclassification, which aims to present the results of multiclassification in the form of probabilities.
 
 MindSpore: MindSpore API implements the same function as PyTorch, but the parameter names are different.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | dim     | axis      | Same function, different parameter names |
-|      | Parameter 2 | input  | x   | Same function, different parameter names |
+| Parameters | Parameter 1 | dim     | axis      | Same function, different parameter names, different default values |
+|   Input   | Single input | input  | x   | Same function, different parameter names |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -41,7 +41,7 @@ from torch import tensor
 import torch.nn as nn
 
 x = torch.FloatTensor([1, 1])
-softmax = nn.Softmax(dim=0)(x)
+softmax = nn.Softmax(dim=-1)(x)
 print(softmax.numpy())
 # [0.5 0.5]
 
@@ -55,32 +55,4 @@ softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)
 # [0.5 0.5]
-```
-
-### Code Example 2
-
-> The two APIs achieve the same function and have the same usage.
-
-```python
-# PyTorch
-import torch
-import numpy
-from torch import tensor
-import torch.nn as nn
-
-x = torch.FloatTensor([1, 1, 1, 1])
-softmax = nn.Softmax(dim=0)(x)
-print(softmax.numpy())
-# [0.25 0.25 0.25 0.25]
-
-# MindSpore
-import mindspore
-import numpy as np
-from mindspore import Tensor
-
-x = Tensor(np.array([1, 1, 1, 1]), mindspore.float16)
-softmax = mindspore.nn.Softmax()
-output = softmax(x)
-print(output)
-# [0.25 0.25 0.25 0.25]
 ```

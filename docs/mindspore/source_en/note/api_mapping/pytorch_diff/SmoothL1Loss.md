@@ -5,7 +5,7 @@
 ## torch.nn.SmoothL1Loss
 
 ```text
-class torch.nn.SmoothL1Loss(size_average=None, reduce=None, reduction='mean', beta=1.0)(input, target) -> Tensor/Scalar
+class torch.nn.SmoothL1Loss(size_average=None, reduce=None, reduction='mean', beta=1.0)(input, target) -> Tensor
 ```
 
 For more information, see [torch.nn.SmoothL1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.SmoothL1Loss.html).
@@ -13,7 +13,7 @@ For more information, see [torch.nn.SmoothL1Loss](https://pytorch.org/docs/1.8.1
 ## mindspore.nn.SmoothL1Loss
 
 ```text
-class mindspore.nn.SmoothL1Loss(beta=1.0, reduction='none')(logits, labels) -> Tensor/Scalar
+class mindspore.nn.SmoothL1Loss(beta=1.0, reduction='none')(logits, labels) -> Tensor
 ```
 
 For more information, see [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SmoothL1Loss.html).
@@ -28,12 +28,12 @@ MindSpore: There are no functional differences except for two parameters that ha
 | ---- | ----- | ------- | --------- | ------------- |
 | Parameters| Parameter 1 | size_average | -         | Deprecated, replaced by reduction. MindSpore does not have this parameter |
 | | Parameter 2 | reduce | - | Deprecated, replaced by reduction. MindSpore does not have this parameter |
-| | Parameter 3 | reduction | reduction | - |
+| | Parameter 3 | reduction | reduction | Same function, different parameter names |
 | | Parameter 4 | beta         | beta      | -                                        |
-| | Parameter 5 | input | logits | Same function, different parameter names|
-| | Parameter 6 | target | labels | Same function, different parameter names|
+|Input | Input 1 | input | logits | Same function, different parameter names|
+| | Input 2 | target | labels | Same function, different parameter names|
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -61,33 +61,4 @@ labels = Tensor(np.array([1, 2, 2]), mindspore.float32)
 output = loss(logits, labels)
 print(output)
 # [0.  0.  0.5]
-```
-
-### Code Example 2
-
-> The two APIs achieve the same function and have the same usage.
-
-```python
-import torch
-import torch.nn as nn
-
-beta = 1
-loss = nn.SmoothL1Loss(reduction="none", beta=beta)
-logits = torch.FloatTensor([1, 1, 1, 1])
-labels = torch.FloatTensor([0, 2, 3, 4])
-output = loss(logits, labels)
-print(output.numpy())
-# [0.5 0.5 1.5 2.5]
-
-# MindSpore
-import mindspore
-import numpy as np
-from mindspore import Tensor
-
-loss = mindspore.nn.SmoothL1Loss()
-logits = mindspore.Tensor(np.array([1, 1, 1, 1]), mindspore.float32)
-labels = mindspore.Tensor(np.array([0, 2, 3, 4]), mindspore.float32)
-output = loss(logits, labels)
-print(output)
-# [0.5 0.5 1.5 2.5]
 ```

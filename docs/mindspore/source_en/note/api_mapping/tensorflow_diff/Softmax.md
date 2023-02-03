@@ -20,7 +20,7 @@ For more information, see [mindspore.nn.Softmax](https://www.mindspore.cn/docs/e
 
 ## Differences
 
-TensorFlow: A binary classification function. A generalization on multiclassification, which aims to present the results of multiclassification in the form of probabilities.
+TensorFlow: a generalization of the binary classification function on multiclassification, which aims to present the results of multiclassification in the form of probabilities.
 
 MindSpore: MindSpore API implements the same function as TensorFlow, and only the parameter names are different.
 
@@ -30,7 +30,7 @@ MindSpore: MindSpore API implements the same function as TensorFlow, and only th
 |      | parameter 2 | axis       | axis      | -        |
 |      | parameter 3 | name       | -      | Not involved       |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -54,30 +54,4 @@ softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)
 # [0.03168 0.01165 0.0861  0.636   0.2341 ]
-```
-
-### Code Example 2
-
-> The two APIs achieve the same function and have the same usage.
-
-```python
-# TensorFlow
-import numpy as np
-import tensorflow as tf
-
-x = tf.constant([-1, 0., 1.], dtype=tf.float16)
-output = tf.nn.softmax(x)
-print(output.numpy())
-# [0.09   0.2446 0.665 ]
-
-# MindSpore
-import mindspore
-import numpy as np
-from mindspore import Tensor
-
-x = Tensor(np.array([-1, 0., 1.]), mindspore.float16)
-softmax = mindspore.nn.Softmax()
-output = softmax(x)
-print(output)
-# [0.0901 0.2448 0.665 ]
 ```
