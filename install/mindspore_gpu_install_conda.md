@@ -221,19 +221,19 @@ conda activate mindspore_py37
 CUDA 10.1版本：
 
 ```bash
-conda install mindspore cudatoolkit=10.1 -c mindspore -c conda-forge
+conda install mindspore -c mindspore -c conda-forge
 ```
 
 CUDA 11.1版本：
 
 ```bash
-conda install mindspore cudatoolkit=11.1 -c mindspore -c conda-forge
+conda install mindspore -c mindspore -c conda-forge
 ```
 
 CUDA 11.6版本：
 
 ```bash
-conda install mindspore cudatoolkit=11.6 -c mindspore -c conda-forge
+conda install mindspore -c mindspore -c conda-forge
 ```
 
 在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
@@ -294,3 +294,11 @@ print(ops.add(x, y))
 ```
 
 说明MindSpore安装成功了。
+
+## 升级MindSpore版本
+
+当需要升级MindSpore版本时，可执行如下命令：
+
+```bash
+conda update mindspore -c mindspore -c conda-forge
+```

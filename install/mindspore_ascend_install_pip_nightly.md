@@ -1,8 +1,8 @@
-# pip方式安装MindSpore Ascend 910 2.0.0 Nightly版本
+# pip方式安装MindSpore Ascend 910 Nightly版本
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore Ascend 910 2.0.0 Nightly版本](#pip方式安装mindspore-ascend-910-200-nightly版本)
+- [pip方式安装MindSpore Ascend 910 Nightly版本](#pip方式安装mindspore-ascend-910-200-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
@@ -213,7 +213,7 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
-从旧版本升级到MindSpore r2.0时，需要先手动卸载旧版本：
+从旧版本升级到MindSpore 2.0时，需要先手动卸载旧版本：
 
 ```bash
 pip uninstall mindspore-ascend-dev

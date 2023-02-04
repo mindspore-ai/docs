@@ -1,8 +1,8 @@
-# Installing MindSpore 2.0.0 Nightly in Ascend 910 by pip
+# Installing MindSpore Nightly in Ascend 910 by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore 2.0.0 Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
+- [Installing MindSpore Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
@@ -213,7 +213,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+When upgrading from an older version to MindSpore 2.0, you need to manually uninstall the old version first:
 
 ```bash
 pip uninstall mindspore-ascend-dev
