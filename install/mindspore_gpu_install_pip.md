@@ -46,8 +46,8 @@ sudo ubuntu-drivers autoinstall
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r2.0.0-alpha/scripts/install/ubuntu-gpu-pip.sh
-# 安装MindSpore 1.9.0，Python 3.7和CUDA 11.1。
-MINDSPORE_VERSION=1.9.0 bash -i ./ubuntu-gpu-pip.sh
+# 安装MindSpore 2.0.0-alpha，Python 3.7和CUDA 11.1。
+MINDSPORE_VERSION=2.0.0a0 bash -i ./ubuntu-gpu-pip.sh
 # 如需指定安装Python 3.9，CUDA 10.1以及MindSpore 1.6.0，使用以下方式
 # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
 ```
@@ -225,10 +225,10 @@ cd -
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.9.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.0.0-alpha版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=1.9.0
+export MS_VERSION=2.0.0a0
 ```
 
 然后根据CUDA版本及Python版本执行如下命令安装最新版本的MindSpore。

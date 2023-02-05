@@ -1,8 +1,8 @@
-# Installing MindSpore 2.0.0 Nightly in Ascend 910 by pip
+# Installing MindSpore Nightly in Ascend 910 by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore 2.0.0 Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
+- [Installing MindSpore Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)

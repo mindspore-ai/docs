@@ -46,8 +46,8 @@ The root permission is required because the automatic installation script needs 
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r2.0.0-alpha/scripts/install/ubuntu-gpu-pip.sh
-# install MindSpore 1.9.0, Python 3.7 and CUDA 11.1
-MINDSPORE_VERSION=1.9.0 bash -i ./ubuntu-gpu-pip.sh
+# install MindSpore 2.0.0-alpha, Python 3.7 and CUDA 11.1
+MINDSPORE_VERSION=2.0.0a0 bash -i ./ubuntu-gpu-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
 # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
 ```
@@ -225,10 +225,10 @@ cd -
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.9.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.0.0-alpha as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.9.0
+export MS_VERSION=2.0.0a0
 ```
 
 Then install the latest version of MindSpore according to the CUDA version and Python version by following the following command.
