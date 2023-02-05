@@ -37,7 +37,7 @@ class mindspore.nn.BatchNorm2d(
 
 ## 差异对比
 
-PyTorch：‎在四维输入(具有额外通道维度的小批量二维输入)上应用批归一化处理，以避免内部协变量偏移。
+PyTorch：在四维输入(具有额外mini-batch和channel通道的二维输入)上应用批归一化处理，以避免内部协变量偏移。
 
 MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
 
@@ -61,11 +61,11 @@ MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。M
 
 ```python
 # PyTorch
-from torch import nn, Tensor
+from torch import nn, tensor
 import numpy as np
 
 m = nn.BatchNorm2d(num_features=3, momentum=0.1)
-input_py = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+input_py = tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
                           [[0.5, 0.6], [0.7, 0.8]],
                           [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
 output = m(input_py)

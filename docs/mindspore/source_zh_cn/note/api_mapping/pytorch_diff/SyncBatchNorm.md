@@ -1,38 +1,44 @@
-# 比较与torch.nn.GroupNorm的功能差异
+# 比较与torch.nn.SyncBatchNorm的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GroupNorm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SyncBatchNorm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## torch.nn.GroupNorm
+## torch.nn.SyncBatchNorm
 
 ```text
-class torch.nn.GroupNorm(
-    num_groups,
-    num_channels,
+class torch.nn.SyncBatchNorm(
+    num_features,
     eps=1e-05,
-    affine=True
+    momentum=0.1,
+    affine=True,
+    track_running_stats=True,
+    process_group=None
 )(input) -> Tensor
 ```
 
-更多内容详见[torch.nn.GroupNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.GroupNorm.html)。
+更多内容详见[torch.nn.SyncBatchNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.SyncBatchNorm.html)。
 
-## mindspore.nn.GroupNorm
+## mindspore.nn.SyncBatchNorm
 
 ```text
-class mindspore.nn.GroupNorm(
+class mindspore.nn.SyncBatchNorm(
     num_groups,
-    num_channels,
     eps=1e-05,
+    momentum=0.9,
     affine=True,
     gamma_init='ones',
     beta_init='zeros'
+    moving_mean_init='zeros',
+    moving_var_init='ones',
+    use_batch_statistics=None,
+    process_groups=None
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.GroupNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GroupNorm.html)。
+更多内容详见[mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SyncBatchNorm.html)。
 
 ## 差异对比
 
-PyTorch：在mini-batch输入上进行组归一化，把通道划分为组，然后计算每一组之内的均值和方差，以进行归一化。
+PyTorch：。
 
 MindSpore：MindSpore此API实现功能与PyTorch基本一致，MindSpore还可以对需要学习的放射参数进行额外的初始化。
 
@@ -57,7 +63,7 @@ import numpy as np
 from torch import tensor, nn
 
 x = tensor(np.ones([1, 2, 4, 4], np.float32))
-net = nn.GroupNorm(2, 2)
+net = nn.SyncBatchNorm(2, 2)
 output = net(x).detach().numpy()
 print(output)
 # [[[[0. 0. 0. 0.]
@@ -76,7 +82,7 @@ import numpy as np
 from mindspore import Tensor, nn
 
 x = Tensor(np.ones([1, 2, 4, 4], np.float32))
-net = nn.GroupNorm(2, 2)
+net = nn.SyncBatchNorm(2, 2)
 output = net(x)
 print(output)
 # [[[[0. 0. 0. 0.]
