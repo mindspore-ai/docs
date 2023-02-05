@@ -246,7 +246,7 @@ The preceding information indicates that MindSpore is successfully installed.
 
 ## Version Update
 
-When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+When upgrading from an older version to MindSpore 2.0, you need to manually uninstall the old version first:
 
 ```bash
 conda remove mindspore-ascend

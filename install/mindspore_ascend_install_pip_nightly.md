@@ -213,7 +213,7 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
-从旧版本升级到MindSpore r2.0时，需要先手动卸载旧版本：
+从旧版本升级到MindSpore 2.0时，需要先手动卸载旧版本：
 
 ```bash
 pip uninstall mindspore-ascend-dev
