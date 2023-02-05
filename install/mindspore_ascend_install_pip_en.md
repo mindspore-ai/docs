@@ -271,7 +271,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-When upgrading from an older version to MindSpore r2.0, you need to manually uninstall the old version first:
+When upgrading from an older version to MindSpore 2.0, you need to manually uninstall the old version first:
 
 ```bash
 pip uninstall mindspore-ascend
