@@ -1,8 +1,8 @@
-# pip方式安装MindSpore CPU 2.0.0 Nightly版本
+# pip方式安装MindSpore CPU Nightly版本
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU 2.0.0 Nightly版本](#pip方式安装mindspore-cpu-200-nightly版本)
+- [pip方式安装MindSpore CPU Nightly版本](#pip方式安装mindspore-cpu-200-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
         - [安装GCC](#安装gcc)

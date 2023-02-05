@@ -22,10 +22,10 @@ This document describes how to quickly install MindSpore by pip in a Windows sys
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.9.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.0.0-alpha as an example, execute the following commands.
 
 ```bash
-set MS_VERSION=1.9.0
+set MS_VERSION=2.0.0a0
 ```
 
 Then run the following commands to install MindSpore according to Python version.

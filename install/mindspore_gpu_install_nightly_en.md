@@ -1,8 +1,8 @@
-# Installing MindSpore GPU 2.0.0 Nightly by pip
+# Installing MindSpore GPU Nightly by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore GPU 2.0.0 Nightly by pip](#installing-mindspore-gpu-200-nightly-by-pip)
+- [Installing MindSpore GPU Nightly by pip](#installing-mindspore-gpu-200-nightly-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)

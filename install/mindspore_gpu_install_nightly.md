@@ -1,8 +1,8 @@
-# pip方式安装MindSpore GPU 2.0.0 Nightly版本
+# pip方式安装MindSpore GPU Nightly版本
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore GPU 2.0.0 Nightly版本](#pip方式安装mindspore-gpu-200-nightly版本)
+- [pip方式安装MindSpore GPU Nightly版本](#pip方式安装mindspore-gpu-200-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
