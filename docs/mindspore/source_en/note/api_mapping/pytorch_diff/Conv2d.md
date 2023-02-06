@@ -43,7 +43,9 @@ For more information, see [mindspore.nn.Conv2d](https://www.mindspore.cn/docs/en
 
 ## Differences
 
-PyTorch: To compute a two-dimensional convolution on the input Tensor. Typically the output values with input size $\left(N, C_{\mathrm{in}}, H, W\right)$ and output size $\left(N, C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$ can be described as $\operatorname{out}\left(N_{i}, C_{\text {out }_{j}}\right)=\operatorname{bias}\left(C_{\text {out }_{j}}\right)+\sum_{k=0}^{C_{i n}-1} \text { weight }\left(C_{\text {out }_{j}}, k\right) \star \operatorname{input}\left(N_{i}, k\right)$, where $\star$ is the 2D cross-correlation operator, $N$ is the batch size, $C$ is the number of channels, and $H$ and $W$ are the height and width of the feature layer, respectively.
+PyTorch: To compute a two-dimensional convolution on the input Tensor. Typically the output values with input size $\left(N, C_{\mathrm{in}}, H, W\right)$ and output size $\left(N, C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$ can be described as
+$\operatorname{out}\left(N_{i}, C_{\text {out }_{j}}\right)=\operatorname{bias}\left(C_{\text {out }_{j}}\right)+\sum_{k=0}^{C_{i n}-1} \text { weight }\left(C_{\text {out }_{j}}, k\right) \star \operatorname{input}\left(N_{i}, k\right)$,
+where $\star$ is the 2D cross-correlation operator, $N$ is the batch size, $C$ is the number of channels, and $H$ and $W$ are the height and width of the feature layer, respectively.
 
 MindSpore: It is basically the same as the functions implemented by PyTorch, but there are bias differences and filling differences.
 
@@ -62,7 +64,7 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 
     - circular: circular fill.
 
-    After the filling method is determined by "padding _mode", the "padding" parameter is used to control the number and position of filling. For "Conv1d", when "padding" is specified as 'int', "padding" times will be filled in the top, bottom, left, and right sides of the input (if the default value is 0, it means no filling). When "padding" is specified as tuple, the specified number of filling will be filled in the top, bottom, left, and right sides according to the input of tuple. When "padding" is set to the 'valid' mode, it will not be filled, but will only be convolved within the range of the feature map. When "padding" is set to the 'same' mode, if the number of elements requiring "padding" is even, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. If the number of elements requiring "padding" is odd, PyTorch will fill the left and upper sides of the feature map first.
+    After the filling method is determined by "padding _mode", the "padding" parameter is used to control the number and position of filling. For "Conv2d", when "padding" is specified as 'int', "padding" times will be filled in the top, bottom, left, and right sides of the input (if the default value is 0, it means no filling). When "padding" is specified as tuple, the specified number of filling will be filled in the top, bottom, left, and right sides according to the input of tuple. When "padding" is set to the 'valid' mode, it will not be filled, but will only be convolved within the range of the feature map. When "padding" is set to the 'same' mode, if the number of elements requiring "padding" is even, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. If the number of elements requiring "padding" is odd, PyTorch will fill the left and upper sides of the feature map first.
 
 2. The parameter "pad_mode" of MindSpore can be selected as 'same', 'valid', and 'pad'. The parameter "padding" can only be input as "int". The detailed meaning of the filling parameter is as follows:
 
@@ -77,19 +79,19 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-|input | Single input | input | x |Interface input, with the same functions, but different parameter names |
 |Parameters | Parameter 1 | in_channels | in_channels |- |
 | | Parameter 2 | out_channels | out_channels |- |
 | | Parameter 3 | kernel_size | kernel_size |- |
 | | Parameter 4 | stride | stride |- |
 | | Parameter 5 | padding | padding |Refer to the above for specific differences|
-| | Parameter 6 | padding_mode | pad_mode |Refer to the above for specific differences|
-| | Parameter 7 | dilation | dilation |-|
-| | Parameter 8 | groups | group |Same function, different parameter names|
-| | Parameter 9 | bias | has_bias |Same function, different parameter names, different default values|
-| | Parameter 10 | - | weight_init |The initialization method for the weight parameter. PyTorch can use the init function to initialize the weights|
-| | Parameter 11 | - | bias_init |Initialization method for the bias parameter, which is not available for PyTorch|
+| | Parameter 6 | dilation | dilation |-|
+| | Parameter 7 | groups | group |Same function, different parameter names|
+| | Parameter 8 | bias | has_bias |Same function, different parameter names, different default values|
+| | Parameter 9 | padding_mode | pad_mode |Refer to the above for specific differences|
+| | Parameter 10 | - | weight_init |The initialization method for the weight parameter. Refer to the above for specific differences|
+| | Parameter 11 | - | bias_init |Initialization method for the bias parameter. Refer to the above for specific differences|
 | | Parameter 12 | - | data_format |Specifies the input data format. PyTorch does not have this parameter|
+|Input | Single input | input | x | Same function, different parameter names |
 
 ### Code Example 1
 

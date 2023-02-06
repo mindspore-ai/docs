@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类  | PyTorch | MindSpore   | 差异                                                         |
 | ---- | ----- | ------- | ----------- | ------------------------------------------------------------ |
-|      | 参数1 |    -     | approximate | 决定是否启用approximation，默认值为True。经测试，approximate为False后，输出结果与Pytorch更加相似。 |
+|   参数   | 参数1 |    -     | approximate | 决定是否启用approximation，默认值为True。经测试，approximate为False后，输出结果与Pytorch更加相似。 |
 | 输入 | 单输入 | input      | x           | 功能一致，参数名不同               |
 
 ### 代码示例1
