@@ -253,15 +253,31 @@ In some networks where large Embedding tables need to be checked, the Embedding 
 1. Configure EmbeddingLookup operator to CPU execution
 
    ```python
-   ops.EmbeddingLookup().set_device('CPU')
+   import mindspore.nn as nn
+   import mindspore.ops as ops
+   import mindspore as ms
+   from mindspore.common.initializer import initializer
+
+   class EmbeddingLookupNet(nn.Cell):
+       def __init__(self, vocab_size, embedding_size, param_init='normal'):
+           super(EmbeddingLookupNet, self).__init__()
+           self.embeddinglookup = ops.EmbeddingLookup().set_device('CPU')
+           self.embedding_table = ms.Parameter(initializer(param_init, [vocab_size, embedding_size]),
+                                  name='embedding_table')
+
+       def construct(self, indices):
+           out = self.embeddinglookup(self.embedding_table, indices, 0)
+           return out
    ```
 
-2. Configure related optimizers of EmbeddingLookup to CPU execution
+2. Configure related sparse optimizer of EmbeddingLookup to CPU execution
 
    ```python
-   use_locking = False
-   use_nesterov = False
-   ops.FusedSparseLazyAdam(use_locking, use_nesterov).set_device("CPU")
+   from mindspore.nn.optim import LazyAdam
+   net = EmbeddingLookupNet(1000, 100)
+   params = net.trainable_params()
+   optimizer = LazyAdam(params)
+   optimizer.target = "CPU"
    ```
 
 A sample code for setting up the EmbeddingLookup operator is as follows:
