@@ -38,6 +38,7 @@ MindSpore: MindSpore API implements basically the same function as PyTorch. Mind
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
+| Input | Single input | input | x | Interface input, same function, only different parameter names |
 | Parameters | Parameter 1 | num_groups | num_groups   | - |
 |      | Parameter 2 | num_channels | num_channels | - |
 |      | Parameter 3 | eps          | eps          | -|
