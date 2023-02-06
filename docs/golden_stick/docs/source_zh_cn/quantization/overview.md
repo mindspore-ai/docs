@@ -30,6 +30,6 @@
 
 ## 示例
 
-- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/simqat.html)：一种基础的基于伪量化技术的感知量化算法
-- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/slb.html)：一种非线性的低比特感知量化算法
+- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3.0-alpha/quantization/simqat.html)：一种基础的基于伪量化技术的感知量化算法
+- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3.0-alpha/quantization/slb.html)：一种非线性的低比特感知量化算法
 

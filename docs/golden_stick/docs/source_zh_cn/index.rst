@@ -46,7 +46,7 @@ MindSpore Golden Stick除了提供丰富的模型压缩算法外，一个重要�
 
    在训练网络时应用MindSpore Golden Stick算法不会对原有的训练脚本逻辑产生很大的影响，如上图中黄色部分所示，仅需要增加额外两步：
 
-   - **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的 `apply` 接口实现的，可以参考 `应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/r2.0.0-alpha/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
+   - **应用MindSpore Golden Stick算法优化网络：** 在原训练流程中，在定义原始网络之后，网络训练之前，应用MindSpore Golden Stick算法优化网络结构。一般这个步骤是调用MindSpore Golden Stick的 `apply` 接口实现的，可以参考 `应用SimQAT算法 <https://mindspore.cn/golden_stick/docs/zh-CN/r0.3.0-alpha/quantization/simqat.html#%E5%BA%94%E7%94%A8%E9%87%8F%E5%8C%96%E7%AE%97%E6%B3%95>`_。
 
    - **注册MindSpore Golden Stick回调逻辑：** 将MindSpore Golden Stick算法的回调逻辑注册到要训练的model中。一般这个步骤是调用MindSpore Golden Stick的 `callback` 获取相应的callback对象， `注册到model <https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/model/callback.html>`_ 中。
 

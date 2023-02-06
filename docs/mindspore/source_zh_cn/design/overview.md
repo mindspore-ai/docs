@@ -120,7 +120,7 @@ Host侧CPU负责将图或算子下发到昇腾芯片。昇腾芯片由于具备�
 
 算法优化包括二阶优化、boost优化等。
 
-### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0.0-alpha/design.html)
+### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/design.html)
 
 MindSpore考虑到企业部署使用时，对安全可信的丰富需求。在不断演进和完善各种面向安全可信方向的技术，并内置框架：
 

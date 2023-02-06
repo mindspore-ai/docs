@@ -34,7 +34,7 @@ Attacks on models can be classified from the following aspects:
 
 The Fast Gradient Sign Method (FGSM) attack used in this case is a white-box attack method, which can be either a targeted or untargeted attack.
 
-> For more model security functions, see [MindArmour](https://www.mindspore.cn/mindarmour/docs/en/r2.0.0-alpha/index.html). Currently, MindArmour supports multiple adversarial example generation methods, such as FGSM, LLC, and Substitute Attack, and provides adversarial example robustness, fuzz testing, and privacy protection and evaluation modules to enhance model security.
+> For more model security functions, see [MindArmour](https://www.mindspore.cn/mindarmour/docs/en/r1.9/index.html). Currently, MindArmour supports multiple adversarial example generation methods, such as FGSM, LLC, and Substitute Attack, and provides adversarial example robustness, fuzz testing, and privacy protection and evaluation modules to enhance model security.
 
 ### FGSM Attack
 
