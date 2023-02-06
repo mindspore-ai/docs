@@ -61,11 +61,11 @@ MindSpore：与PyTorch实现同样的功能。
 
 ```python
 # PyTorch
-from torch import nn, Tensor
+from torch import nn, tensor
 import numpy as np
 
 m = nn.BatchNorm2d(num_features=3, momentum=0.1)
-input_x = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
+input_x = tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
                           [[0.5, 0.6], [0.7, 0.8]],
                           [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
 output = m(input_x)

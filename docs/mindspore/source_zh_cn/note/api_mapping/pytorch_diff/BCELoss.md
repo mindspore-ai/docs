@@ -41,7 +41,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 |      | 参数3 | weight    | weight    | -                                                            |
 |      | 参数4 | size_average    | -    | PyTorch的已弃用参数，功能由reduction参数取代          |
 |      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
-|      | 参数6 | reduction | reduction | 功能一致，指定输出结果的计算方式，PyTorch默认值是"mean"，MindSpore默认值是None |
+|      | 参数6 | reduction | reduction | 功能一致，默认值不同 |
 
 ### 代码示例1
 
@@ -53,9 +53,9 @@ import torch
 import torch.nn.functional as F
 from torch import tensor
 
-input = tensor([0.1, 0.2, 0.3], requires_grad=True)
-target = tensor([1., 1., 1.])
-loss = F.binary_cross_entropy(input, target)
+logits = tensor([0.1, 0.2, 0.3], requires_grad=True)
+labels = tensor([1., 1., 1.])
+loss = F.binary_cross_entropy(logits, labels)
 print(loss.detach().numpy())
 # 1.7053319
 
