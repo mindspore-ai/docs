@@ -8,8 +8,6 @@
 
 ## 2.0.0a0
 
-### 端侧推理
-
 |  组件 | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
  |   ---   |   ---   |     ---     |   ---   |     ---     |
 | 推理和训练runtime库、推理和训练aar包、Micro库、benchmark工具 | CPU | Android-aarch32 | [mindspore-lite-2.0.0a0-android-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/android/cpu/mindspore-lite-2.0.0a0-android-aarch32.tar.gz) | 267a665e80a894c784915901c8f6e8ecd3fead84e1a440e84d6af36359ccf7a6 |
@@ -35,19 +33,6 @@ Python 接口 Wheel安装包
 | converter及推理runtime | CPU     | Linux-aarch64 | [mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/aarch64/mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl)        | e1ab7f8ede94e2378490510bfe05b0c861312ee7bd70e939c8c9187b7e0883ba |
 | Ascend converter及推理runtime | Ascend  | Linux-x86_64 | [mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/x86_64/ascend/mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl)      | bdc11da01a18f887c69ceb465a66fe9cba02b039f888ebee894e4cce7eedc1d1 |
 | Ascend converter及推理runtime | Ascend  |  Linux-aarch64 | [mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/aarch64/ascend/mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl) | d7ed914dbbd91e6ea5eb548c6757d22b0cfcc391aaedaa10d1bd5e4246d2da77 |
-
-### 云侧推理
-
-|  组件 | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
- |   ---   |   ---   |     ---     |   ---   |     ---     |
-| 推理runtime库、benchmark工具、converter工具 | CPU/Nvidia GPU/Ascend310/Ascend310P/Ascend910 | Linux-x86_64 | [mindspore-lite-2.0.0a0-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/x86_64/cloud_fusion/mindspore-lite-2.0.0a0-linux-x64.tar.gz) | b2b8f74d1eb843ebc3cd83db949c6781d4ca7ebac428c29ea5f030910f3a1c1b |
-| 推理runtime库、benchmark工具、converter工具 | CPU/Ascend310/Ascend310P/Ascend910     | Linux-aarch64 | [mindspore-lite-2.0.0a0-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/aarch64/cloud_fusion/mindspore-lite-2.0.0a0-linux-aarch64.tar.gz) | 14d1e60eaaf798626053c15fd9ceb8fcf15757d72755e5d35f18965a52bc7917 |
-
-Python 接口 Wheel安装包
-|   组件   | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
-|   ---   |   ---   |     ---     |   ---   |     ---     |
-| converter及推理runtime | CPU/Nvidia GPU/Ascend310/Ascend310P/Ascend910     | Linux-x86_64 | [mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/x86_64/cloud_fusion/mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl)          | 8e9e4c4215e19edd10b36c5def144acb6cb5c36a4511ff9706aa32e8c30337ae |
-| converter及推理runtime | CPU/Ascend310/Ascend310P/Ascend910     | Linux-aarch64 | [mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindSpore/lite/release/linux/aarch64/cloud_fusion/mindspore_lite-2.0.0a0-cp37-cp37m-linux_aarch64.whl)        | 29f9ca08d7370c4c0095a7c3c55b0f634969bab1c7c2ff85710818fe746e57e3 |
 
 ## 1.10.0
 
