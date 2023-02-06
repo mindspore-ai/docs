@@ -54,6 +54,7 @@ MindSpore：The implementation function of the API in MindSpore is basically the
 |      | Parameter 8  | -                   | moving_mean_init     |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter moving_mean   |
 |      | Parameter 9  | -                   | moving_var_init      |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter moving_var     |
 |      | Parameter 10  | -                   | data_format      |    PyTorch does not have this parameter    |
+| Input | Single input | input    | x     | Interface input. The function is basically the same, but PyTorch allows input to be 2D or 3D, while input in MindSpore can only be 2D |
 
 ## Code Example
 
@@ -65,9 +66,9 @@ import torch
 import numpy as np
 from torch import nn, tensor
 
-m = nn.BatchNorm1d(4, affine=False, momentum=0.1)
-input = tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
-output = m(input)
+net = nn.BatchNorm1d(4, affine=False, momentum=0.1)
+x = tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
+output = net(x)
 print(output.detach().numpy())
 # [[ 0.9995001   0.9980063  -0.998006   -0.99977785]
 #  [-0.9995007  -0.9980057   0.998006    0.99977785]]
@@ -79,8 +80,8 @@ from mindspore import Tensor
 
 net = nn.BatchNorm1d(num_features=4, affine=False, momentum=0.9)
 net.set_train()
-input = Tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
-output = net(input)
+x = Tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
+output = net(x)
 print(output.asnumpy())
 # [[ 0.9995001  0.9980063 -0.998006  -0.9997778]
 #  [-0.9995007 -0.9980057  0.998006   0.9997778]]

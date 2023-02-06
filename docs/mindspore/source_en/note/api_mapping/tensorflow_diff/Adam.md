@@ -31,7 +31,8 @@ class mindspore.nn.Adam(
     use_nesterov=False,
     weight_decay=0.0,
     loss_scale=1.0,
-    use_amsgrad=False
+    use_amsgrad=False,
+    **kwargs
 )(gradients) -> Tensor
 ```
 
@@ -39,29 +40,29 @@ For more information, see [mindspore.nn.Adam](https://www.mindspore.cn/docs/en/m
 
 ## Differences
 
-TensorFlow: Gradient descent is performed by using Adam's method for all parameters.
+TensorFlow: Implement the optimizer function of Adam algorithm.
 
-MindSpore: The implementation function of API in MindSpore is basically the same as that of TensorFlow. MindSpore API can also be updated with different learning rates for different parameters based on the settings in params.
+MindSpore: MindSpore API basically implements the same function as TensorFlow.
 
-| Categories | Subcategories |TensorFlow | MindSpore | Differences |
-| --- | --- | --- | --- |---|
-| Parameters | Parameter 1  | learning_rate | learning_rate | -    |
-|      | Parameter 2  | beta_1 | beta1 | Same function, different parameter names                  |
-|      | Parameter 3  | beta_2        | beta2  | Same function, different parameter names             |
-|      | Parameter 4  | epsilon       | eps           | Same function, different parameter names. The default value on TensorFlow is 1e-8, while the default value on MindSpore is 1e-7.             |
-|      | Parameter 5  | amsgrad       | use_amsgrad   | Same function, different parameter names    |
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| ---- | ----- | ------- | --------- | ------------- |
+| Parameters | Parameter 1  | learning_rate | learning_rate | -                                                                                                          |
+|      | Parameter 2  | beta_1        | beta1         | Same function, different parameter names                                                                                      |
+|      | Parameter 3  | beta_2        | beta2         | Same function, different parameter names                                                                                      |
+|      | Parameter 4  | epsilon       | eps           | Same function, different parameter names and default values                         |
+|      | Parameter 5  | amsgrad       | use_amsgrad   | Same function, different parameter names                                                                                      |
 |      | Parameter 6 | name                   | -             | Not involved |
-|      | Parameter 7 |  **kwargs    | -      | Not involved |
-|      | Parameter 8  | -             | params        | MindSpore can set different learning rates, weight decay values, etc. for different parameters based on this parameter, which is not available in TensorFlow.                |
-|      | Parameter 9  | -             | use_locking   | This parameter can be used in MindSpore to determine whether parameter updates are protected by locking, which is not available in TensorFlow.         |
-|      | Parameter 10  | -             | use_nesterov  | MindSpore can decide whether to update the gradient by using the Nesterov Accelerated Gradient (NAG) algorithm based on this parameter, which is not available in TensorFlow.  |
-|      | Parameter 11  | -             | weight_decay  | The value of the weight decay can be set in MindSpore based on this parameter, which is not available in TensorFlow.     |
-|      | Parameter 12 | -             | loss_scale    | The gradient scaling factor can be set in MindSpore based on this parameter, which is not available in TensorFlow.                |
-|      | Parameter 13 | -             | gradients    | Input gradient in MindSpore, which is not available in TensorFlow. |
+|      | Parameter 7 |  **kwargs                   | **kwargs       | Not involved |
+|      | Parameter 8  | -             | params        | A list of Parameter classes or a list of dictionaries. TensorFlow does not have this parameter.               |
+|      | Parameter 9  | -             | use_locking   | Based on this parameter, MindSpore can decide whether to lock protection for parameter updates. TensorFlow does not have this parameter.                                   |
+|      | Parameter 10  | -             | use_nesterov  | Based on this parameter, MindSpore can decide whether to update the gradient using the Nesterov Accelerated Gradient (NAG) algorithm. TensorFlow does not have this parameter.  |
+|      | Parameter 11  | -             | weight_decay  | weight decay (L2 penalty), default value: 0.0. TensorFlow does not have this parameter.         |
+|      | Parameter 12 | -             | loss_scale    | gradient scaling factor, default value: 1.0. TensorFlow does not have this parameter.        |
+| Input | Single input | -             | gradients    | The gradient of params. TensorFlow does not have this parameter.                                      |
 
 ### Code Example
 
-> Achieve functional consistency.
+> The two APIs achieve the same function.
 
 ```python
 # TensorFlow
@@ -110,8 +111,8 @@ with tf.compat.v1.Session() as ss:
         ss.run(opt)
     output = net.eval()
 print(output.astype(dtype))
-# [[ 5.8998876 11.100113 ]
-#  [12.299808  24.700195 ]]
+# [[ 5.898781 11.101219]
+#  [12.297218 24.702782]]
 
 # MindSpore
 from mindspore import Tensor
