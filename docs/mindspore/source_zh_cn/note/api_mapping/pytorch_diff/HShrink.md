@@ -8,7 +8,7 @@
 torch.nn.Hardshrink(lambd=0.5)(input) -> Tensor
 ```
 
-更多内容详见[torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Hardshrink.html#torch.nn.Hardshrink)。
+更多内容详见[torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Hardshrink.html)。
 
 ## mindspore.nn.HShrink
 
@@ -22,14 +22,14 @@ mindspore.nn.HShrink(lambd=0.5)(input_x) -> Tensor
 
 PyTorch：激活函数，按输入元素计算输出。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致。
+MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
 | 参数 | 参数1 | lambd   | lambd     | -    |
-|      | 参数2 | input   | input_x     | 功能一致，参数名不同    |
+| 输入 | 单输入 | input   | input_x     | 功能一致，参数名不同 |
 
-### 代码示例1
+### 代码示例
 
 > 两API功能一致，用法相同。
 

@@ -50,30 +50,28 @@ TensorFlow：对输入的数据进行批归一化。
 
 MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer)。在四维输入（具有额外通道维度的小批量二维输入）上应用批归一化处理，以避免内部协变量偏移。
 
-| 分类 | 子类 |TensorFlow | MindSpore | 差异 |
-| --- | --- | --- | --- |---|
-|参数 | 参数1 | x | inputs | 功能一致，参数名不同 |
-| | 参数2 | axis | - | 应规范化的轴（通常是特征轴），MindSpore无此参数 |
-| | 参数3 | momentum | momentum | - |
-| | 参数4 | epsilon | eps | 功能相同，参数名不同 |
-| | 参数5 | center | - | 如果为True，则将偏移量beta添加到归一化张量。如果为False，则beta被忽略。MindSpore无此参数 |
-| | 参数6 | scale | - | 如果为True，则乘以gamma。如果为False，则不使用gamma。MindSpore无此参数 |
-| | 参数7 | beta_initializer | beta_init | 功能相同，参数名不同 |
-| | 参数8 | gamma_initializer | gamma_init | 功能相同，参数名不同 |
-| | 参数9 | moving_mean_initializer | moving_mean_init | 功能相同，参数名不同 |
-| | 参数10 | moving_variance_initializer | moving_var_init | 功能相同，参数名不同 |
-| | 参数11 | beta_regularizer | - | beta权重的可选正则器。MindSpore无此参数 |
-| | 参数12 | gamma_regularizer | - | gamma权重的可选正则器。MindSpore无此参数 |
-| | 参数13 | beta_constraint | - | beta权重的可选约束。MindSpore无此参数 |
-| | 参数14 | gamma_constraint | - | gamma权重的可选约束。MindSpore无此参数 |
-| | 参数15 | **kwargs | - | 不涉及 |
-| | 参数16 | - | num_features | 通道数量，输入Tensor shape (N,C,H,W)(N,C,H,W) 中的C |
-| | 参数17 | - | affine | bool类型。设置为True时，可学习 γ 和 β 值。默认值：True |
-| | 参数18 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False。默认值：None |
-| | 参数19 | - | data_format | MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。TensorFlow无此参数 |
-| | 参数20 | training | - | 不涉及 |
+| 参数 | 参数1 | axis | - | 应规范化的轴（通常是特征轴），MindSpore无此参数 |
+| | 参数2 | momentum | momentum | - |
+| | 参数3 | epsilon | eps | 功能一致，参数名不同 |
+| | 参数4 | center | - | 如果为True，则将偏移量beta添加到归一化张量，如果为False，则忽略beta。MindSpore无此参数 |
+| | 参数5 | scale | - | 如果为True，则乘以gamma，如果为False，则不使用gamma。MindSpore无此参数 |
+| | 参数6 | beta_initializer | beta_init | 功能一致，参数名不同 |
+| | 参数7 | gamma_initializer | gamma_init | 功能一致，参数名不同 |
+| | 参数8 | moving_mean_initializer | moving_mean_init | 功能一致，参数名不同 |
+| | 参数9 | moving_variance_initializer | moving_var_init | 功能一致，参数名不同 |
+| | 参数10 | beta_regularizer | - | beta权重的可选正则器。MindSpore无此参数 |
+| | 参数11 | gamma_regularizer | - | gamma权重的可选正则器。MindSpore无此参数 |
+| | 参数12 | beta_constraint | - | beta权重的可选约束。MindSpore无此参数 |
+| | 参数13 | gamma_constraint | - | gamma权重的可选约束。MindSpore无此参数 |
+| | 参数14 | **kwargs | - | 不涉及 |
+| | 参数15 | - | num_features | 通道数量，输入Tensor shape (N,C,H,W)中的C，TensorFlow无此参数 |
+| | 参数16 | - | affine | bool类型，设置为True时，可学习 γ 和 β 值，默认值：True。TensorFlow无此参数 |
+| | 参数17 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False，默认值：None。TensorFlow无此参数 |
+| | 参数18 | - | data_format | MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。TensorFlow无此参数 |
+| 输入 | 输入1 | inputs | x | 功能一致，参数名不同 |
+| | 输入2 | training | - | 不涉及 |
 
-### 代码示例1
+### 代码示例
 
 > 两API功能相同，使用方法相同。
 
@@ -111,11 +109,11 @@ from mindspore import Tensor, nn
 import numpy as np
 
 m = nn.BatchNorm2d(num_features=2, momentum=0.9)
-input_x = Tensor(np.array([[[[1, 2], [2, 1]],
+input_ms = Tensor(np.array([[[[1, 2], [2, 1]],
                           [[3, 4], [4, 3]]],
                           [[[5, 6], [6, 5]],
                           [[7, 8], [8, 7]]]]).astype(np.float32))
-output = m(input_x)
+output = m(input_ms)
 print(output)
 # [[[[0.99999493 1.9999899 ]
 #    [1.9999899  0.99999493]]

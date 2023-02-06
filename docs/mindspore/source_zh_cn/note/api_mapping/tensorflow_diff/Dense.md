@@ -61,7 +61,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |      | 参数12 | name                 |     -         | 不涉及    |
 |      | 参数13 | **kwargs                 |     -         | 不涉及    |
 |      | 参数14 | -                 |     in_channels         | 输入的空间维度，TensorFlow无此参数    |
-|      | 参数15 | x                 |     x         | -    |
+|  输入   | 单输入 | x                 |     x         | -    |
 
 ### 代码示例
 
@@ -85,7 +85,7 @@ from mindspore import Tensor, nn
 import numpy as np
 
 x = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
-net = nn.Dense(3, 4, activation=nn.ReLU())
+net = nn.Dense(3, 4)
 output = net(x)
 print(output.shape)
 # (2, 4)

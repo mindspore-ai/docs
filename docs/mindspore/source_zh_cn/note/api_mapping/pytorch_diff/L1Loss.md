@@ -8,7 +8,7 @@
 torch.nn.L1Loss(size_average=None, reduce=None, reduction='mean')(input, target) -> Tensor
 ```
 
-更多内容详见[torch.nn.L1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.L1Loss.html#torch.nn.L1Loss)。
+更多内容详见[torch.nn.L1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.L1Loss.html)。
 
 ## mindspore.nn.L1Loss
 
@@ -22,17 +22,17 @@ mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 
 PyTorch：L1Loss用于计算预测值和目标值之间的平均绝对误差。
 
-MindSpore：包含PyTorch功能，当logits和labels的shape不同但可以互相传播时，仍可运行，PyTorch不可以。
+MindSpore：包含PyTorch功能，当logits和labels的shape不同但可以互相广播时，仍可运行，PyTorch不可以。
 
 | 分类 | 子类  | PyTorch   | MindSpore | 差异                 |
 | ---- | ----- | --------- | --------- | -------------------- |
 | 参数 | 参数1 | size_average     | -    | 已弃用，功能由reduction接替 |
 |      | 参数2 | reduce    | -    | 已弃用，功能由reduction接替|
 |      | 参数3 | reduction | reduction | - |
-|      | 参数4 | input     | logits    | 功能一致，参数名不同 |
-|      | 参数5 | target    | labels    | 功能一致，参数名不同 |
+| 输入 | 输入1 | input     | logits    | 功能一致，参数名不同        |
+|      | 输入2 | target    | labels    | 功能一致，参数名不同        |
 
-### 代码示例1
+### 代码示例
 
 > 两API功能一致，用法相同。
 

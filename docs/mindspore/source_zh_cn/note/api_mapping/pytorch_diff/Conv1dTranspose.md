@@ -35,7 +35,7 @@ class mindspore.nn.Conv1dTranspose(
     group=1,
     has_bias=False,
     weight_init='normal',
-    bias_init='zeros')
+    bias_init='zeros'
 )(x) -> Tensor
 ```
 
@@ -47,22 +47,22 @@ PyTorch：计算一维转置卷积，可以视为Conv1d对输入求梯度，也�
 
 MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
 
-| 分类 | 子类  | PyTorch | MindSpore | 差异                                   |
-| ---- | ----- | ------- | --------- | -------------------------------------- |
-| 参数 | 参数1 | in_channels    | in_channels          | -  |
-|      | 参数2 | out_channels    | out_channels      | - |
-|      | 参数3 | kernel_size  |  kernel_size          | -  |
-|      | 参数4 | stride   |  stride           | -  |
-|      | 参数5 | padding   |  padding           | -  |
-|      | 参数6 | output_padding   |     -       | 通常在stride > 1的前提下使用，用来调整output shapes。例如，通常将padding设置为(kernel_size - 1)/2，此时设置output_padding = (stride - 1)可确保input shapes/output shapes = stride，MindSpore无此参数  |
-|      | 参数7 | groups   |  group           | 功能一致，参数名不同  |
-|      | 参数8 | bias   |  has_bias           | PyTorch默认为True，MindSpore默认为False |
-|      | 参数9 | dilation   |  dilation           | -  |
-|      | 参数10 |  padding_mode   |   -      | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0|
-|      | 参数11 |  -   | pad_mode       | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same" |
-|      | 参数12 |   -  | weight_init        | 权重参数的初始化方法。可为Tensor、str、Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"、"Normal"、"Uniform"、"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值。默认为"normal" |
-|      | 参数13 |   -  | bias_init        | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为"zeros" |
-|      | 参数14  | input               | x                    | 接口输入，功能一致，仅参数名不同 |
+| 分类 | 子类   | PyTorch        | MindSpore    | 差异                                                         |
+| ---- | ------ | -------------- | ------------ | ------------------------------------------------------------ |
+| 参数 | 参数1  | in_channels    | in_channels  | -                                                            |
+|      | 参数2  | out_channels   | out_channels | -                                                            |
+|      | 参数3  | kernel_size    | kernel_size  | -                                                            |
+|      | 参数4  | stride         | stride       | -                                                            |
+|      | 参数5  | padding        | padding      | -                                                            |
+|      | 参数6  | output_padding | -            | 通常在stride > 1的前提下使用，用来调整output shapes。例如，通常将padding设置为(kernel_size - 1)/2，此时设置output_padding = (stride - 1)可确保input shapes/output shapes = stride，MindSpore无此参数 |
+|      | 参数7  | groups         | group        | 功能一致，参数名不同                                         |
+|      | 参数8  | bias           | has_bias     | PyTorch默认为True，MindSpore默认为False                      |
+|      | 参数9  | dilation       | dilation     | -                                                            |
+|      | 参数10 | padding_mode   | -            | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0 |
+|      | 参数11 | -              | pad_mode     | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same"，PyTorch无此参数 |
+|      | 参数12 | -              | weight_init  | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值，默认为"normal"，PyTorch无此参数 |
+|      | 参数13 | -              | bias_init    | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为"zeros"，PyTorch无此参数 |
+| 输入 | 单输入 | input          | x            | 功能一致，参数名不同                                         |
 
 ### 代码示例1
 

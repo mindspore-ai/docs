@@ -77,7 +77,7 @@ pad：零填充。
 | | 参数9 | padding_mode | pad_mode |PyTorch与MindSpore可选项不同，默认值不同|
 | | 参数10 | - | weight_init |权重参数的初始化方法|
 | | 参数11 | - | bias_init |偏置参数的初始化方法|
-| | 参数12  | input  | x | 接口输入，功能一致，仅参数名不同|
+| 输入 | 单输入 | input  | x | 功能一致，参数名不同 |
 
 ### 代码示例1
 
