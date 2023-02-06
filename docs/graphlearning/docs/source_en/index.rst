@@ -19,6 +19,29 @@ Design Features
 
    MindSpore Graph Learning combines the features of MindSpore graph kernel fusion and auto kernel generator (AKG) to automatically identify the specific execution pattern of graph neural network tasks for fusion and kernel-level optimization, covering the fusion of existing operators and new combined operators in the existing framework. The performance is improved by 3 to 4 times compared with that of the existing popular frameworks.
 
+Training Process
+------------------
+
+MindSpore Graph Learning provides abundant dataset read, graph operation, and network module APIs. To train graph neural networks, perform the following steps:
+
+1. Define a network model. You can directly call the API provided by mindspore_gl.nn or define your own graph learning model by referring to the implementation of mindspore_gl.nn.
+
+2. Define a loss function.
+
+3. Construct a dataset. mindspore_gl.dataset provides the function of reading and constructing some public datasets for research.
+
+4. Train and validate the network.
+
+Feature Introduction
+---------------------
+
+MindSpore Graph Learning provides a node-centric GNN programming paradigm. Its built-in code parsing functions translate node-centric computing expressions into graph data computing operations. To facilitate debugging, a translation comparison between the user input code and the calculation code is printed during the parsing process.
+
+The following figure shows the implementation of the classic GAT network based on the node-centric programming model. A user defines a function that uses node `v` as the input parameter. In the function, the user obtains the neighboring node list through `v.innbs()`. Traverse each neighboring node `u` to obtain node features, and calculate feature interaction between the neighboring node and the central node to obtain a weight list of neighboring edges. Then, the weights of neighboring edges and neighboring nodes are weighted averaged, and the updated central node features are returned.
+
+.. image:: ./images/gat_example.PNG
+  :width: 700px
+
 Future Roadmap
 ---------------
 
@@ -26,10 +49,6 @@ The initial version of MindSpore Graph Learning includes the point-centric progr
 
 Typical MindSpore Graph Learning Application Scenarios
 -------------------------------------------------------
-
-- Graph convolutional neural network (GCN) for entire graph training
-
-  Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
 
 .. toctree::
    :maxdepth: 1
@@ -44,6 +63,7 @@ Typical MindSpore Graph Learning Application Scenarios
    full_training_of_GCN
    batched_graph_training_GIN
    spatio_temporal_graph_training_STGCN
+   single_host_distributed_Graphsage
 
 .. toctree::
    :maxdepth: 1

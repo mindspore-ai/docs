@@ -1,9 +1,11 @@
-# 基于图同构网络的社会关系网络分类
+# 批次图训练网络
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/batched_graph_training_GIN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
+
+在本例中将展示如何基于图同构网络的进行社会关系网络分类。
 
 GIN的灵感来自GNN和Weisfeiler-Lehman (WL)图同构测试。WL测试是一个强大的测试，可以区分广泛的图类。如果GNN的聚合方案具有高度的表达能力，并且可以建模内射函数，GNN可以具有与WL测试一样大的鉴别力。
 
@@ -88,20 +90,42 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/ginconv.py)代码。
+GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/ginconv.py)代码。
 
 ## 构造数据集
 
-mindspore_gl.dataset提供了IMDB-BINARY的API，调用方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。
+从mindspore_gl.dataset调用了IMDB-BINARY的数据集，调用方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。然后利用mindspore_gl.dataloader.RandomBatchSampler定义了一个采样器，来生成采样索引。
+MultiHomoGraphDataset根据采样索引从数据集里获取数据，将返回数据打包成batch，做出数据集的生成器。构建生成器后，调用mindspore.dataset.GeneratorDataset的API，完成数据加载器构建。
 
-其中[IMDB-BINARY](https://ls11-www.cs.tu-dortmund.de/people/morris/graphkerneldatasets/IMDB-BINARY.zip)数据可通过链接下载。
+```python
+dataset = IMDBBinary(arguments.data_path)
+train_batch_sampler = RandomBatchSampler(dataset.train_graphs, batch_size=arguments.batch_size)
+train_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(train_batch_sampler)))
+test_batch_sampler = RandomBatchSampler(dataset.val_graphs, batch_size=arguments.batch_size)
+test_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(test_batch_sampler)))
 
-将数据集做为生成器。为了减少计算图的生成，加快计算速度，生成器在返回数据时，将每个batch中的数据统一到相同的形状。
+train_dataloader = ds.GeneratorDataset(train_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
+                                                                   'node_map_idx', 'edge_map_idx', 'graph_mask',
+                                                                   'batched_label', 'batched_node_feat',
+                                                                   'batched_edge_feat'],
+                                       sampler=train_batch_sampler)
 
-假设节点数与边数设为定值，满足batch内所有节点之和与所有边之和都小于等于节点定值与边定值。将batch内所有数据进行补齐到节点和边的定值。
-新建张虚拟图，将填补的数据都算作这张虚拟图的节点、边等。在计算loss时，这张图将不参与计算。
+test_dataloader = ds.GeneratorDataset(test_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
+                                                                 'node_map_idx', 'edge_map_idx', 'graph_mask',
+                                                                 'batched_label', 'batched_node_feat',
+                                                                 'batched_edge_feat'],
+                                      sampler=test_batch_sampler)
+```
 
-调用mindspore_gl.graph.PadArray2d节点和边特征进行补0。调用mindspore_gl.graph.PadHomoGraph对图结构上的节点和边进行补齐。
+利用mindspore_gl.graph.BatchHomoGraph将多张子图合并成一张整图。在模型训练时，batch内所有图将以一张整图的形式进行计算。
+
+为了减少计算图的生成，加快计算速度，生成器在返回数据时，将每个batch中的数据统一到相同的尺寸。
+
+假设节点数`node_size`与边数`edge_size`，并满足batch内所有图数据的节点数之和与边数之和都要都小于等于`node_size * batch`和`edge_size * batch`。
+在batch内新建张虚拟图，使得batch内图节点数和、边数和等于`node_size * batch`和`edge_size * batch`。在计算loss时，这张图将不参与计算。
+
+调用mindspore_gl.graph.PadArray2d定义节点和边特征填充的操作，将虚拟图上的节点特征和边特征都设置为0。
+调用mindspore_gl.graph.PadHomoGraph定义对图结构上的节点和边进行填充的操作，使得batch内节点数等于`node_size * batch`，边数等于`edge_size * batch`。
 
 ```python
 class MultiHomoGraphDataset(Dataset):
@@ -172,20 +196,6 @@ class MultiHomoGraphDataset(Dataset):
                batched_node_feat, self.batched_edge_feat[:batch_graph.edge_count, :]
 ```
 
-构建生成器后，调用mindspore.dataset.GeneratorDataset的API，构造成数据加载器，返回的数据为Tensor格式。
-
-```python
-import mindspore.dataset as ds
-
-train_batch_sampler = RandomBatchSampler(dataset.train_graphs, batch_size=arguments.batch_size)
-train_multi_graph_dataset = MultiHomoGraphDataset(dataset, arguments.batch_size, len(list(train_batch_sampler)))
-train_dataloader = ds.GeneratorDataset(train_multi_graph_dataset, ['row', 'col', 'node_count', 'edge_count',
-                                                                   'node_map_idx', 'edge_map_idx', 'graph_mask',
-                                                                   'batched_label', 'batched_node_feat',
-                                                                   'batched_edge_feat'],
-                                       sampler=train_batch_sampler)
-```
-
 ## 定义loss函数
 
 由于本次任务为分类任务，可以采用交叉熵来作为损失函数，实现方法与[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89loss%E5%87%BD%E6%95%B0)类似。
@@ -251,7 +261,7 @@ cd model_zoo/gin
 python trainval_imdb_binary.py --data_path={path}
 ```
 
-其中{path}为数据集存放路径。
+其中`{path}`为数据集存放路径。
 
 可以看到训练的结果如下：
 

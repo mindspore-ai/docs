@@ -1,9 +1,11 @@
-# Semi-Supervised Classification with Graph Convolutional Networks in Cora Dataset
+# Entire Graph Training Network
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/full_training_of_GCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 
 ## Overview
+
+In this example, it will show how to do the semi-supervised classification with Graph Convolutional Networks in Cora Dataset.
 
 Graph Convolutional Networks (GCN) was proposed in 2016 and designed to do semi-supervised learning on graph-structured data. A scalable approach based on an efficient variant of convolutional neural networks which operate directly on graphs was presented. The model scales linearly in the number of graph edges and learns hidden layer representations that encode both local graph structure and features of nodes.
 
@@ -240,7 +242,7 @@ cd examples
 python vc_gcn_datanet.py --data-path={path} --fuse=True
 ```
 
-{path} indicates the dataset storage path.
+`{path}` indicates the dataset storage path.
 
 The training result (of the last five epochs) is as follows:
 

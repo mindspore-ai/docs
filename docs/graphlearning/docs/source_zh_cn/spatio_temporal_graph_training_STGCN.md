@@ -1,9 +1,11 @@
-# 利用时空图卷积网络进行交通预测
+# 时空图训练网络
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/spatio_temporal_grph_training_STGCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/spatio_temporal_graph_training_STGCN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
+
+在本例中将展示如何利用时空图卷积网络进行交通预测。
 
 时空图卷积网络（STGCN）可以解决交通域的时间序列预测问题。实验表明，STGCN通过建模多尺度交通网络，有效地捕获了综合的时空相关性。
 
@@ -146,7 +148,7 @@ cd model_zoo/stgcn
 python trainval_metr.py --data-path={path} --fuse=True
 ```
 
-其中{path}为数据集存放路径。
+其中`{path}`为数据集存放路径。
 
 可以看到训练的结果如下：
 
