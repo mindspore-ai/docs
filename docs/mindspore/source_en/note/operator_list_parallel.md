@@ -130,7 +130,6 @@
 | [mindspore.ops.SoftShrink](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.SoftShrink.html) | None |
 | [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.SparseGatherV2.html) | The same as Gather.                                          |
 | [mindspore.ops.Split](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Split.html) | The input_x can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic. |
-| [mindspore.ops.SplitV](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.SplitV.html) | The `split_dim` dimension of `input_x` can't be split. |
 | [mindspore.ops.Sqrt](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Sqrt.html) | None                                                         |
 | [mindspore.ops.Square](https://www.mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.Square.html) | None                                                         |
 | [mindspore.ops.SquaredDifference](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.SquaredDifference.html) | None |

@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行云侧推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.0.0-alpha/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
+本教程提供了MindSpore Lite执行云侧推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend310、Ascend310P、Nvidia GPU和CPU硬件后端。
 
@@ -35,7 +35,7 @@ MindSpore Lite云侧统一推理包仅支持在Linux环境部署运行。
 
 - 编译构建
 
-  在`mindspore/lite/examples/cloud_infer/quick_start_cpp`目录下执行[build.sh脚本](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/mindspore/lite/examples/cloud_infer/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore/lite/examples/cloud_infer/quick_start_cpp`目录下执行[build.sh脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
