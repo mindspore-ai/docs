@@ -20,7 +20,7 @@ class mindspore.nn.Softmax(axis=-1)(x) -> Tensor
 
 ## 差异对比
 
-TensorFlow：它是二分类函数，在多分类上的推广，目的是将多分类的结果以概率的形式展现出来。
+TensorFlow：它是二分类函数在多分类上的推广，目的是将多分类的结果以概率的形式展现出来。
 
 MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同。
 
@@ -30,7 +30,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，仅参数名不同�
 |      | 参数2 | axis       | axis      | -                                    |
 |      | 参数3 | name       | -      | 不涉及                               |
 
-### 代码示例1
+### 代码示例
 
 > 两API实现功能一致，用法相同。
 
@@ -54,30 +54,4 @@ softmax = mindspore.nn.Softmax()
 output = softmax(x)
 print(output)
 # [0.03168 0.01165 0.0861  0.636   0.2341 ]
-```
-
-### 代码示例2
-
-> 两API实现功能一致，用法相同。
-
-```python
-# TensorFlow
-import numpy as np
-import tensorflow as tf
-
-x = tf.constant([-1, 0., 1.], dtype=tf.float16)
-output = tf.nn.softmax(x)
-print(output.numpy())
-# [0.09   0.2446 0.665 ]
-
-# MindSpore
-import mindspore
-import numpy as np
-from mindspore import Tensor
-
-x = Tensor(np.array([-1, 0., 1.]), mindspore.float16)
-softmax = mindspore.nn.Softmax()
-output = softmax(x)
-print(output)
-# [0.0901 0.2448 0.665 ]
 ```
