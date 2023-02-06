@@ -16,7 +16,7 @@ Several important features of MindSpore full scenarios:
 2. Model unification. The device and cloud use the same model format and definition, and the software architecture is consistent. MindSpore supports the execution of Ascend, GPU, CPU (x86, Arm) and other hardware, and is used in multiple deployments for one training.
 3. Diversified arithmetic support. Provide a unified southbound interface to support the quick addition of new hardware for use.
 4. Model miniaturization techniques, adapted to the requirements of different hardware environments and business scenarios, such as quantization compression.
-5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/r2.0.0-alpha/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.0.0-alpha/use/runtime_train.html) and other new technologies.
+5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/r1.7/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.0.0-alpha/use/runtime_train.html) and other new technologies.
 
 ## Full-scenarios Support Mode
 

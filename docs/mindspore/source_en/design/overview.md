@@ -120,7 +120,7 @@ Data sink means that the data is transferred directly to the Device through the 
 
 The algorithm optimization includes second-order optimization, boost optimization, etc.
 
-### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/r2.0.0-alpha/design.html)
+### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/r1.9/design.html)
 
 MindSpore takes into account the rich need for security and trustworthiness when deployed by enterprises. In the continuous evolution and refinement of various technologies geared towards secure and trustworthy directions, with built-in frameworks:
 

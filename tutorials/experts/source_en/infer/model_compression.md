@@ -6,7 +6,7 @@
 
 MindSpore is a full-scenario AI framework. When the model is deployed to the end-side or other lightweight devices, there are various restrictions on the memory, power consumption, latency, etc. of the deployment, so the model often needs to be compressed before deployment.
 
-MindSpore model compression is supported by [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/index.html). MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah team and Huawei MindSpore team, providing a series of model compression algorithms for MindSpore, such as quantization and pruning. Details of MindSpore Golden Stick can be found in the [MindSpore Golden Stick Official Profile](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/index.html).
+MindSpore model compression is supported by [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/index.html). MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah team and Huawei MindSpore team, providing a series of model compression algorithms for MindSpore, such as quantization and pruning. Details of MindSpore Golden Stick can be found in the [MindSpore Golden Stick Official Profile](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/index.html).
 
 ## Quantization Algorithm
 
@@ -22,8 +22,8 @@ Currently, there are two types of quantization solutions in the industry: **quan
 
 ### Quantization Examples
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
-- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/quantization/slb.html): A non-linear low-bit quantization aware algorithm
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
+- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/quantization/slb.html): A non-linear low-bit quantization aware algorithm
 
 ## Pruning Algorithm
 
@@ -41,4 +41,4 @@ Neural network inference can be regarded as the process of activation and weight
 
 ### Pruning Examples
 
-- [SCOP pruning algorithm](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/pruner/scop.html)：A structured weight pruning algorithm
+- [SCOP pruning algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/pruner/scop.html)：A structured weight pruning algorithm

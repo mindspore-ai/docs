@@ -60,7 +60,7 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 2. 使用场景
 
-    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/infer/ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r2.0.0-alpha/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/index.html)。
+    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/infer/ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/index.html)。
 
 ## model.eval模型验证
 
@@ -105,7 +105,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明[mindspore_hub.load](https://www.mindspore.cn/hub/docs/zh-CN/r2.0.0-alpha/hub.html#mindspore_hub.load)。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明[mindspore_hub.load](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/hub.html#mindspore_hub.load)。
 
 ## 使用`model.predict`接口进行推理操作
 
