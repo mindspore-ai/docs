@@ -140,7 +140,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [trainval_metr.py]((https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/stgcn/trainval_metr.py)) script to start training.
+Run the [trainval_metr.py](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/stgcn/trainval_metr.py) script to start training.
 
 ```bash
 cd model_zoo/stgcn
