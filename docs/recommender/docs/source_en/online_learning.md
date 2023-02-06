@@ -122,9 +122,9 @@ python kafka_client.py
 ```bash
 yrctl start --master  --address $MASTER_HOST_IP  
 
-#Parameter description
---master： indicates that the current host is the master node. Non-master nodes do not need to specify the '--master' parameter
---address： ip of master node
+# Parameter description
+# --master： indicates that the current host is the master node. Non-master nodes do not need to specify the '--master' parameter
+# --address： ip of master node
 ```
 
 ### Starting Data producer
@@ -143,19 +143,19 @@ python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_F
 
 ```bash
 python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --dataset_name=$DATASET_NAME
-  --max_dict=$PATH_TO_VAL_MAX_DICT  --min_dict=$PATH_TO_CAT_TO_ID_DICT  --map_dict=$PATH_TO_VAL_MAP_DICT
+  --max_dict=$PATH_TO_VAL_MAX_DICT  --min_dict=$PATH_TO_VAL_MIN_DICT  --map_dict=$PATH_TO_CAT_TO_ID_DICT
 
-#Parameter description
---num_shards： The number of device cards on the corresponding training side is set to 1 for single-card training and 8 for 8-card training.
---address： address of current sender
---dataset_name： dataset name
---namespace： channel name
---max_dict： Maximum dictionary of dense feature columns
---min_dict： Minimum dictionary of dense feature columns
---map_dict： Dictionary of sparse feature columns
+# Parameter description
+# --num_shards： The number of device cards on the corresponding training side is set to 1 for single-card training and 8 for 8-card training.
+# --address： address of current sender
+# --dataset_name： dataset name
+# --namespace： channel name
+# --max_dict： Maximum dictionary of dense feature columns
+# --min_dict： Minimum dictionary of dense feature columns
+# --map_dict： Dictionary of sparse feature columns
 ```
 
-The consumer needs 3 dataset-related files for feature engineering of criteo dataset: `all_val_max_dict.pkl`, `all_val_min_dict.pkl`, `cat2id_dict.pkl`, `$PATH_TO_VAL_MAX_DICT`, `$PATH _TO_CAT_TO_ID_DICT`, `$PATH_TO_VAL_MAP_DICT`, which are the absolute paths to these files on the environment, respectively. The specific production method of these 3 PKL files can be found in [process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py), switching the original criteo dataset to produce the corresponding .pkl files.
+The consumer needs 3 dataset-related files for feature engineering of criteo dataset: `all_val_max_dict.pkl`, `all_val_min_dict.pkl` and `cat2id_dict.pkl`. `$PATH_TO_VAL_MAX_DICT`, `$PATH_TO_VAL_MIN_DICT` and `$PATH_TO_CAT_TO_ID_DICT`, which are the absolute paths to these files on the environment, respectively. The specific production method of these 3 PKL files can be found in [process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py), switching the original criteo dataset to produce the corresponding .pkl files.
 
 ### Starting Online Training
 
@@ -166,9 +166,9 @@ Single-card traininf:
 ```bash
 python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
 
-#Parameter description:
---address： Local host ip. Receiving training data from MindPandas requires configuration
---dataset_name： Dataset name, consistent with the consumer module
+# Parameter description:
+# --address： Local host ip. Receiving training data from MindPandas requires configuration
+# --dataset_name： Dataset name, consistent with the consumer module
 ```
 
 Start with multi-card training MPI mode:
@@ -176,9 +176,9 @@ Start with multi-card training MPI mode:
 ```bash
 bash mpirun_dist_online_train.sh [$RANK_SIZE] [$LOCAL_HOST_IP]
 
-#Parameter description:
-RANK_SIZE：Number of multi-card training cards
-LOCAL_HOST_IP：Local host ip for MindPandas to receive training data
+# Parameter description:
+# RANK_SIZE：Number of multi-card training cards
+# LOCAL_HOST_IP：Local host ip for MindPandas to receive training data
 ```
 
 Dynamic networking method to start multi-card training:
@@ -186,11 +186,11 @@ Dynamic networking method to start multi-card training:
 ```bash
 bash run_dist_online_train.sh [$WORKER_NUM] [$SHED_HOST] [$SCHED_PORT] [$LOCAL_HOST_IP]
 
-#Parameter description:
-WORKER_NUM：Number of multi-card training cards
-SHED_HOST：IP of the Scheduler role required for MindSpore dynamic networking
-SCHED_PORT：Port of the Scheduler role required for MindSpore dynamic networking
-LOCAL_HOST_IP：Local host ip. Receiving training data from MindPandas requires configuration
+# Parameter description:
+# WORKER_NUM：Number of multi-card training cards
+# SHED_HOST：IP of the Scheduler role required for MindSpore dynamic networking
+# SCHED_PORT：Port of the Scheduler role required for MindSpore dynamic networking
+# LOCAL_HOST_IP：Local host ip. Receiving training data from MindPandas requires configuration
 ```
 
 When training is successfully started, the following log is output:

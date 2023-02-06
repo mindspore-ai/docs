@@ -122,9 +122,9 @@ python kafka_client.py
 ```bash
 yrctl start --master  --address $MASTER_HOST_IP  
 
-#参数说明
---master： 表示当前host为master节点，非master节点不用指定‘--master’参数
---address： master节点的ip
+# 参数说明
+# --master： 表示当前host为master节点，非master节点不用指定‘--master’参数
+# --address： master节点的ip
 ```
 
 ### 启动数据producer
@@ -133,6 +133,7 @@ producer用于模拟在线学习场景，将本地的criteo数据集写入到Kaf
 
 ```bash
 python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_FILE_PATH
+
 # 参数说明
 # --file1： criteo数据集在本地磁盘的存放路径
 # --file2： criteo数据集在本地磁盘的存放路径
@@ -143,19 +144,19 @@ python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_F
 
 ```bash
 python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --dataset_name=$DATASET_NAME
-  --max_dict=$PATH_TO_VAL_MAX_DICT  --min_dict=$PATH_TO_CAT_TO_ID_DICT  --map_dict=$PATH_TO_VAL_MAP_DICT
+  --max_dict=$PATH_TO_VAL_MAX_DICT  --min_dict=$PATH_TO_VAL_MIN_DICT  --map_dict=$PATH_TO_CAT_TO_ID_DICT
 
-#参数说明
---num_shards： 对应训练侧的device 卡数，单卡训练则设置为1，8卡训练设置为8
---address： 当前sender的地址
---dataset_name： 数据集名称
---namespace： channel名称
---max_dict： 稠密特征列的最大值字典
---min_dict： 稠密特征列的最小值字典
---map_dict： 稀疏特征列的字典
+# 参数说明
+# --num_shards： 对应训练侧的device 卡数，单卡训练则设置为1，8卡训练设置为8
+# --address： 当前sender的地址
+# --dataset_name： 数据集名称
+# --namespace： channel名称
+# --max_dict： 稠密特征列的最大值字典
+# --min_dict： 稠密特征列的最小值字典
+# --map_dict： 稀疏特征列的字典
 ```
 
-consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`、`cat2id_dict.pkl`、`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_CAT_TO_ID_DICT`、`$PATH_TO_VAL_MAP_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
+consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`和`cat2id_dict.pkl`。`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_VAL_MIN_DICT`和`$PATH_TO_CAT_TO_ID_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
 
 ### 启动在线训练
 
@@ -166,9 +167,9 @@ config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore
 ```bash
 python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
 
-#参数说明：
---address： 本机host ip，从MindPandas接收训练数据需要配置
---dataset_name： 数据集名字，和consumer模块保持一致
+# 参数说明：
+# --address： 本机host ip，从MindPandas接收训练数据需要配置
+# --dataset_name： 数据集名字，和consumer模块保持一致
 ```
 
 多卡训练MPI方式启动：
@@ -176,9 +177,9 @@ python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
 ```bash
 bash mpirun_dist_online_train.sh [$RANK_SIZE] [$LOCAL_HOST_IP]
 
-#参数说明：
-RANK_SIZE：多卡训练卡数量
-LOCAL_HOST_IP：本机host ip，用于MindPandas接收训练数据
+# 参数说明：
+# RANK_SIZE：多卡训练卡数量
+# LOCAL_HOST_IP：本机host ip，用于MindPandas接收训练数据
 ```
 
 动态组网方式启动多卡训练：
@@ -186,11 +187,11 @@ LOCAL_HOST_IP：本机host ip，用于MindPandas接收训练数据
 ```bash
 bash run_dist_online_train.sh [$WORKER_NUM] [$SHED_HOST] [$SCHED_PORT] [$LOCAL_HOST_IP]
 
-#参数说明：
-WORKER_NUM：多卡训练卡数量
-SHED_HOST：MindSpore动态组网需要的Scheduler 角色的IP
-SCHED_PORT：MindSpore动态组网需要的Scheduler 角色的Port
-LOCAL_HOST_IP：本机host ip，从MindPandas接收训练数据需要配置
+# 参数说明：
+# WORKER_NUM：多卡训练卡数量
+# SHED_HOST：MindSpore动态组网需要的Scheduler 角色的IP
+# SCHED_PORT：MindSpore动态组网需要的Scheduler 角色的Port
+# LOCAL_HOST_IP：本机host ip，从MindPandas接收训练数据需要配置
 ```
 
 成功启动训练后，会输出如下日志：
