@@ -35,14 +35,14 @@ MindSpore：与PyTorch实现同样的功能。
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | margin    | margin | - |
-| | 参数5 | size_average | - | 已弃用，功能由reduction接替 |
-| | 参数5 | reduce | - | 已弃用，功能由reduction接替 |
-| | 参数2 | reduction | reduction | - |
-| | 参数3 | x1 | logits_x1 |  功能一致，参数名不同  |
-| | 参数4 | x2 | logits_x2 |  功能一致，参数名不同  |
-| | 参数5 | target | labels |  功能一致，参数名不同  |
+| | 参数2 | size_average | - | 已弃用，功能由reduction接替 |
+| | 参数3 | reduce | - | 已弃用，功能由reduction接替 |
+| | 参数4 | reduction | reduction | - |
+| 输入 | 输入1 | x1 | logits_x1 |  功能一致，参数名不同  |
+| | 输入2 | x2 | logits_x2 |  功能一致，参数名不同  |
+| | 输入3 | target | labels |  功能一致，参数名不同  |
 
-### 代码示例1
+### 代码示例
 
 > 两API实现功能相同，使用方法相同。
 
@@ -52,13 +52,13 @@ import torch
 from torch import tensor, nn
 import numpy as np
 
-input1 = tensor(np.array([[0.3, 0.8], [0.4, 0.3]]))
-input2 = tensor(np.array([[0.4, 1.2], [-0.4, -0.9]]))
-target = tensor(np.array([1, -1]))
+input1 = tensor(np.array([[0.3, 0.8], [0.4, 0.3]]), dtype=torch.float32)
+input2 = tensor(np.array([[0.4, 1.2], [-0.4, -0.9]]), dtype=torch.float32)
+target = tensor(np.array([1, -1]), dtype=torch.int32)
 cosine_embedding_loss = nn.CosineEmbeddingLoss()
 output = cosine_embedding_loss(input1, input2, target)
 print(output.detach().numpy())
-# 0.00034258311711488076
+# 0.0003426075
 
 # MindSpore
 import mindspore

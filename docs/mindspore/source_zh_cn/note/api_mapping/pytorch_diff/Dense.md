@@ -40,10 +40,10 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且可以在�
 | 参数 | 参数1 | in_features  | in_channels  | 功能一致，参数名不同                          |
 |      | 参数2 | out_features | out_channels | 功能一致，参数名不同                        |
 |      | 参数3 | bias         | has_bias     | 功能一致，参数名不同        |
-|      | 参数4 | input | x | 接口输入，功能一致，参数名不同|
-|      | 参数5 | -             | weight_init  | 权重参数的初始化方法，PyTorch无此参数         |
-|      | 参数6 | -             | bias_init    | 偏置参数的初始化方法，PyTorch无此参数           |
-|      | 参数7 | -             | activation   | 应用于全连接层输出的激活函数，PyTorch无此参数   |
+|      | 参数4 | -             | weight_init  | 权重参数的初始化方法，PyTorch无此参数         |
+|      | 参数5 | -             | bias_init    | 偏置参数的初始化方法，PyTorch无此参数           |
+|      | 参数6 | -             | activation   | 应用于全连接层输出的激活函数，PyTorch无此参数   |
+|  输入   | 单输入 | input | x | 功能一致，参数名不同|
 
 ### 代码示例
 
@@ -67,7 +67,7 @@ from mindspore import Tensor, nn
 import numpy as np
 
 x = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
-net = nn.Dense(3, 4, activation=nn.ReLU())
+net = nn.Dense(3, 4)
 output = net(x)
 print(output.shape)
 # (2, 4)
