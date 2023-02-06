@@ -53,7 +53,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但目前只能�
 |      | 参数7  | -                   | beta_init            |    PyTorch无此参数，MindSpore可以初始化参数beta的值     |
 |      | 参数8  | -                   | moving_mean_init     |    PyTorch无此参数，MindSpore可以初始化参数moving_mean的值    |
 |      | 参数9  | -                   | moving_var_init      |    PyTorch无此参数，MindSpore可以初始化参数moving_var的值     |
-|      | 参数11  | -                   | data_format      |    PyTorch无此参数    |
+|      | 参数10  | -                   | data_format      |    PyTorch无此参数    |
 | 输入 | 单输入 | input               | x                    | 接口输入，功能基本一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
 
 ### 代码示例

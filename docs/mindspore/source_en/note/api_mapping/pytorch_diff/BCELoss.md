@@ -41,7 +41,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch.
 |      | Parameter 3 | weight    | weight    | -  |
 |      | Parameter 4 | size_average    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter          |
 |      | Parameter 5 | reduce    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter        |
-|      | Parameter 6 | reduction | reduction | Same function, specifying how the output result is calculated. PyTorch defaults to "mean" and MindSpore defaults to None. |
+|      | Parameter 6 | reduction | reduction | Same function, different default values. |
 
 ### Code Example 1
 
@@ -53,9 +53,9 @@ import torch
 import torch.nn.functional as F
 from torch import tensor
 
-input = tensor([0.1, 0.2, 0.3], requires_grad=True)
-target = tensor([1., 1., 1.])
-loss = F.binary_cross_entropy(input, target)
+logits = tensor([0.1, 0.2, 0.3], requires_grad=True)
+labels = tensor([1., 1., 1.])
+loss = F.binary_cross_entropy(logits, labels)
 print(loss.detach().numpy())
 # 1.7053319
 

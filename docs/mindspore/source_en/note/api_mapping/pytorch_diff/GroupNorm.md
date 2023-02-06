@@ -42,13 +42,13 @@ MindSpore: MindSpore API implements basically the same function as PyTorch. Mind
 |      | Parameter 2 | num_channels | num_channels | - |
 |      | Parameter 3 | eps          | eps          | -|
 |      | Parameter 4 | affine       | affine       | -|
-|      | Parameter 5 | input | x | Same function, different parameter names   |
-|      | Parameter 6 | -            | gamma_init   | Initialize the radial transform parameter gamma used for learning in the formula. The default is 'ones', while PyTorch cannot be set additionally, and it can only be 'ones' |
-|      | Parameter 7 | -           | beta_init    | Initialize the radial transform parameter beta used for learning in the formula. The default is 'zeros', while PyTorch cannot be set additionally, and it can only be 'zeros' |
+|      | Parameter 5 | -            | gamma_init   | Initialize the radial transform parameter gamma used for learning in the formula. The default is 'ones', while PyTorch cannot be set additionally, can only be 'ones'. |
+|      | Parameter 6 | -           | beta_init    | Initialize the radial transform parameter beta used for learning in the formula. The default is 'ones', while PyTorch cannot be set additionally, can only be 'ones'. |
+| Input | Single input | input        | x            | Interface input, same function, different parameter names          |
 
 ## Code Example 1
 
-> The two APIs function basically the same, and MindSpore can also perform additional initialization of the two learning parameters.
+> MindSpore API basically implements the same function as TensorFlow, and MindSpore can also perform additional initialization of the two learning parameters.
 
 ```python
 # PyTorch
@@ -56,9 +56,9 @@ import torch
 import numpy as np
 from torch import tensor, nn
 
-input = tensor(np.ones([1, 2, 4, 4], np.float32))
-m = nn.GroupNorm(2, 2)
-output = m(input).detach().numpy()
+x = tensor(np.ones([1, 2, 4, 4], np.float32))
+net = nn.GroupNorm(2, 2)
+output = net(x).detach().numpy()
 print(output)
 # [[[[0. 0. 0. 0.]
 #    [0. 0. 0. 0.]
@@ -72,11 +72,12 @@ print(output)
 
 # MindSpore
 import mindspore as ms
+import numpy as np
 from mindspore import Tensor, nn
 
-input = Tensor(np.ones([1, 2, 4, 4], np.float32))
-m = nn.GroupNorm(2, 2)
-output = m(input)
+x = Tensor(np.ones([1, 2, 4, 4], np.float32))
+net = nn.GroupNorm(2, 2)
+output = net(x)
 print(output)
 # [[[[0. 0. 0. 0.]
 #    [0. 0. 0. 0.]
