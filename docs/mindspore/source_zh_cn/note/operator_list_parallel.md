@@ -130,7 +130,6 @@
 | [mindspore.ops.SoftShrink](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.SoftShrink.html) | 无 |
 | [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.SparseGatherV2.html) | 同Gather                                                     |
 | [mindspore.ops.Split](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Split.html) | 轴（axis）所对应的维度不能切分，切分后，在数学逻辑上和单机不等价 |
-| [mindspore.ops.SplitV](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.SplitV.html) | `input_x`的`split_dim`维度不支持切分 |
 | [mindspore.ops.Sqrt](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Sqrt.html) | 无                                                           |
 | [mindspore.ops.Square](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.Square.html) | 无                                                           |
 | [mindspore.ops.SquaredDifference](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.SquaredDifference.html) | 无 |

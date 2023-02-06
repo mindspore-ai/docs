@@ -31,8 +31,7 @@ class mindspore.nn.ResizeBilinear(half_pixel_centers=False)(
 
 PyTorch：对数据进行上采样，有多种模式可以选择。
 
-MindSpore：仅当前仅支持`bilinear`模式对数据进行采样，如果想要实现其他模式的采样，请参考[mindspore.ops.interpolate](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.interpolate.html)。
-half_pixel_centers默认值为False，设为True后和PyTorch实现功能一致。
+MindSpore：仅当前仅支持`bilinear`模式对数据进行采样，half_pixel_centers默认值为False，设为True后和PyTorch实现功能一致。
 
 ## 代码示例
 
