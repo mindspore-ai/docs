@@ -268,6 +268,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.nn.Tanhshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Tanhshrink.html) | [mindspore.nn.Tanhshrink](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanhshrink.html) | The functions are consistent. |
 | [torch.nn.Threshold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Threshold.html) | [mindspore.nn.Threshold](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Threshold.html) | The functions are consistent. |
 | [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html) | [mindspore.nn.Unfold](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unfold.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Unfold.html) |
+| [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html#torch.nn.Upsample) | [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)| [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/ReduceBicubic.html) |
 
 ### torch.nn.utils
 
