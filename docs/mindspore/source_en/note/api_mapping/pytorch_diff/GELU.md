@@ -26,8 +26,8 @@ MindSpore:  MindSpore API implements basically the same function as PyTorch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | input      | x           | Interface input, same function, only different parameter names               |
-|      | Parameter 2 |    -     | approximate | Determines whether approximation is enabled or not, and the default value is True. If the value of approximimate is True, the Gaussian error linear activation function is: $0.5\times x\times (1+tanh(aqrt(2/pi)\times (x+0.044715 \times x^{3})))$, otherwise it is: $x \times P(X\leqslant x)= 0.5\times x \times (1+erf(x/sqrt(2)))$, where $P(X)\sim N(0,1)$. |
+| Parameter | Parameter 1 |    -     | approximate | Determines whether approximation is enabled or not, and the default value is True. After testing, the output is more similar to Pytorch when approximate is False |
+| Input | Single input| input      | x           | Same function, different parameter names               |
 
 ### Code Example 1
 
@@ -36,8 +36,8 @@ MindSpore:  MindSpore API implements basically the same function as PyTorch.
 ```python
 # PyTorch
 import torch
-input = torch.Tensor([[2, 4], [1, 2]])
-output = torch.nn.GELU()(input)
+input_x = torch.Tensor([[2, 4], [1, 2]])
+output = torch.nn.GELU()(input_x)
 print(output.detach().numpy())
 # [[1.9544997 3.9998734]
 #  [0.8413447 1.9544997]]
@@ -46,8 +46,8 @@ print(output.detach().numpy())
 import mindspore
 import numpy as np
 x = mindspore.Tensor(np.array([[2, 4], [1, 2]]), mindspore.float32)
-output = mindspore.nn.GELU()(x)
+output = mindspore.nn.GELU(approximate=False)(x)
 print(output)
-# [[1.9545977 3.99993 ]
-#  [0.841192 1.9545977]]
+# [[1.9544997 3.9998732]
+#  [0.8413447 1.9544997]]
 ```

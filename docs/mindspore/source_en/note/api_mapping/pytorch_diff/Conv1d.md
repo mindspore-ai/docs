@@ -77,7 +77,6 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-|input | Single input | input | x |Interface input, with the same functions, but different parameter names |
 |Parameters | Parameter 1 | in_channels | in_channels |- |
 | | Parameter 2 | out_channels | out_channels |- |
 | | Parameter 3 | kernel_size | kernel_size |- |
@@ -89,6 +88,7 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 | | Parameter 9 | padding_mode | pad_mode |Refer to the above for specific differences|
 | | Parameter 10 | - | weight_init |Initialization method for weight parameters|
 | | Parameter 11 | - | bias_init |Initialization method for bias parameters|
+|Input | Single input | input | x | Same functions, different parameter names |
 
 ### Code Example 1
 

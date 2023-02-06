@@ -14,11 +14,10 @@ tf.keras.optimizers.Ftrl(
     name='Ftrl',
     l2_shrinkage_regularization_strength=0.0,
     beta=0.0,
-    **kwargs
-) -> Tensor
+    **kwargs) -> Tensor
 ```
 
-For more information, see [tf.keras.optimizers.Ftrl](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl).
+For more information, see [tf.keras.optimizers.Ftrl](https://www.tensorflow.org/versions/r2.6/api_docs/python/tf/keras/optimizers/Ftrl).
 
 ## mindspore.nn.FTRL
 
@@ -32,8 +31,7 @@ class mindspore.nn.FTRL(
     l2=0.0,
     use_locking=False,
     loss_scale=1.0,
-    weight_decay=0.0
-)(grads) -> Tensor
+    weight_decay=0.0)(grads) -> Tensor
 ```
 
 For more information, see [mindspore.nn.FTRL](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.FTRL.html).
@@ -57,8 +55,8 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow.
 |      | Parameter 9 | **kwargs | - | Not involved |
 |      | Parameter 10 | - | params | A list composed of Parameter or a list composed of dictionaries. TensorFlow does not have this parameter. |
 |      | Parameter 11 | - | use_locking | If True, the update operation is protected with a lock, the default value is False. TensorFlow does not have this parameter. |
-|      | Parameter 12 | - | loss_scale | The gradient scaling is sparse and must be greater than 0. If loss_scale is an integer, it will be converted to a floating point number. The default value is normally used, but only if the FixedLossScaleManager is used for training and the drop_overflow_update property of the FixedLossScaleManager is configured to False, this value needs to be the same as the loss_scale in the FixedLossScaleManager. The default value is 1.0. TensorFlow does not have this parameter. |
-|      | Parameter 13 | - | grads | Reverse input. TensorFlow does not have this parameter. |
+|      | Parameter 12 | - | loss_scale | Gradient scaling factor, default value: 1.0. TensorFlow does not have this parameter. |
+|      | Parameter 13 | - | grads | Gradient of `params` in the optimizer. TensorFlow does not have this parameter. |
 
 ### Code Example 1
 
@@ -112,10 +110,10 @@ y0 = net(input_x)
 model.train(1, data)
 y1 = net(input_x)
 print(y1)
+# [0.6031424]
 model.train(1, data)
 y2 = net(input_x)
 print(y2)
-# [0.6031424]
 # [0.5532904]
 ```
 
@@ -171,9 +169,9 @@ y0 = net(input_x)
 model.train(1, data)
 y1 = net(input_x)
 print(y1)
+# [0.688954]
 model.train(1, data)
 y2 = net(input_x)
 print(y2)
-# [0.688954]
 # [0.6834637]
 ```

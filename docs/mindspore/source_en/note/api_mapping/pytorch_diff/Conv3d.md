@@ -83,7 +83,7 @@ pad: Zero padding.
 | | Parameter 10 | - | weight_init |The initialization method for the weight parameter. PyTorch can use the init function to initialize the weights|
 | | Parameter 11 | - | bias_init |Initialization method for the bias parameter, which is not available for PyTorch|
 | | Parameter 12 | - | data_format |Input data format, which is not available for PyTorch |
-| | Parameter 13 | input | x | Interface input, same function, only different parameter names |
+| Input | Single input | input  | x | Same function, different parameter names |
 
 ### Code Example 1
 
