@@ -10,7 +10,7 @@ To fully utilize the computing, logic control and task distribution capabilities
 
 From the user's perspective, the process of network training is as follows:
 
-![user-view](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-user-view.png)
+![user-view](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-user-view.png)
 
 This tutorial introduces the principles and usage of data sink, graph sink and loop sink as an example of the execution flow of training.
 
@@ -18,7 +18,7 @@ This tutorial introduces the principles and usage of data sink, graph sink and l
 
 To improve the execution performance of the network, a dedicated chip is usually used to execute the operator. A chip corresponds to a Device, and the general interaction flow between Host and Device is as follows:
 
-![without-sink](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-without-sink.png)
+![without-sink](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-without-sink.png)
 
 As seen from the above figure, each training iteration needs to copy data from Host to Device, and the overhead of copying input data between Host and Device can be eliminated by data sinking.
 
@@ -26,7 +26,7 @@ When data sinking is enabled, MindSpore creates a dedicated data cache queue on 
 
 Both GPU backend and Ascend backend support data sinking, and the Host-Device interaction flow for GPU data sinking is as follows:
 
-![data-sink](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-data-sink.png)
+![data-sink](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-data-sink.png)
 
 Users can control whether to enable data sink through `dataset_sink_mode` of the [train](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface.
 
@@ -36,7 +36,7 @@ In general, each training iteration needs to issue and trigger the execution of 
 
 In order to reduce the interaction between Host and Device, the operators in the network are packaged and issued to Device together during graph compilation, so that each iteration only triggers the execution of the computational graph once, thus improving the execution efficiency of the network.
 
-![graph-sink](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-graph-sink.png)
+![graph-sink](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-graph-sink.png)
 
 The GPU backend does not support graph sinking currently. When using the Ascend device, data sinking is turned on and the graph sinking is turned on at the same time.
 
@@ -44,7 +44,7 @@ The GPU backend does not support graph sinking currently. When using the Ascend 
 
 When data sinking and graph sinking are enabled, the computed results of each iteration are returned to Host, which determines whether it is necessary to move to the next iteration. To reduce the Device-Host interaction for each iteration, you can sink the loop judgment into the next iteration to the Device, so that the computation result is returned to the Host when all iterations are executed. The loop sinking Host-Device interaction flow is as follows:
 
-![loop-sink](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-loop-sink.png)
+![loop-sink](https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/tutorials/experts/source_en/optimize/images/image-loop-sink.png)
 
 The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host.
 

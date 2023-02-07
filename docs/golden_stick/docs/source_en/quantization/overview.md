@@ -32,5 +32,5 @@ Currently, there are two types of quantization solutions in the industry: **quan
 
 ## Examples
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
-- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/quantization/slb.html): A non-linear low-bit quantization aware algorithm
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
+- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/quantization/slb.html): A non-linear low-bit quantization aware algorithm
