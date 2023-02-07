@@ -20,9 +20,9 @@ mindspore.ops.median((x, axis=-1, keepdims=False) -> Tensor
 
 ## 差异对比
 
-PyTorch：根据指定 `dim`，输出 `input` 的中值与索引。`keepdim` 控制输出和输入的维度是否相同。在输入仅有 `input` 时, 返回所有元素的中值；在输入包含 `dim` 时，返回指定维度的中值和索引。`out` 可以获取输出。
+PyTorch：根据指定 `dim`，输出 `input` 的中值与索引。`keepdim` 控制输出和输入的维度是否相同。在输入仅有 `input` 时，返回所有元素的中值；在输入包含 `dim` 时，返回指定维度的中值和索引。`out` 可以获取输出。
 
-MindSpore：根据指定 `axis`，输出 `x` 的中值与索引。`keepdims` 功能和PyTorch一致。与Pytorch不同，不论输入包含不包含 `axis`，MindSpore返回指定维度上的中值与索引。MindSpore没有 `out` 参数
+MindSpore：根据指定 `axis`，输出 `x` 的中值与索引。`keepdims` 功能和PyTorch一致。与Pytorch不同，不论输入包含不包含 `axis`，MindSpore返回指定维度上的中值与索引。MindSpore没有 `out` 参数。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
