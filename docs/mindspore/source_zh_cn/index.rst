@@ -29,7 +29,7 @@ MindSpore 文档
    :hidden:
 
    note/benchmark
-   网络支持↗ <https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#目录>
+   网络支持↗ <https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#目录>
    note/operator_list
    note/syntax_list
 

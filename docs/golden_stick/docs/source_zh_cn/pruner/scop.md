@@ -42,7 +42,7 @@ SCOP训练分为Knockoff阶段和Finetune阶段，Knockoff阶段对应于前文�
 
 接下来，以ResNet50网络为例，展开叙述SCOP剪枝训练的相关步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet/golden_stick/pruner/scop> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet/golden_stick/pruner/scop> 。
 
 ### Knockoff Data阶段
 

@@ -37,7 +37,7 @@ distributed_graph_partition/
 
 ### 训练Python脚本准备
 
-参考<https://gitee.com/mindspore/models/tree/r2.0/research/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。下面按照步骤给出训练脚本各部分代码示例。
+参考<https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。下面按照步骤给出训练脚本各部分代码示例。
 
 #### 数据集加载
 

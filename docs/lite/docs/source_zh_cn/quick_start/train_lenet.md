@@ -212,7 +212,7 @@ The predicted classes are:
 
 ### 定义并导出模型
 
-首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore ModelZoo的现有[LeNet模型](https://gitee.com/mindspore/models/tree/r2.0/research/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore ModelZoo的现有[LeNet模型](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet)。
 
 > 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/index.html)。
 
