@@ -22,7 +22,7 @@ For more information, see [mindspore.nn.L1Loss](https://mindspore.cn/docs/en/mas
 
 PyTorch: functional.l1_loss is equivalent to L1Loss.
 
-MindSpore: Includes PyTorch function, which can still run when logits and labels have different shapes but can propagate to each other, while PyTorch cannot.
+MindSpore: Includes PyTorch function, which can still run when logits and labels have different shapes but can broadcast to each other, while PyTorch cannot.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
@@ -32,7 +32,7 @@ MindSpore: Includes PyTorch function, which can still run when logits and labels
 |      | Parameter 4 | reduce    | -    | Deprecated, function taken over by reduction|
 |      | Parameter 5 | reduction | reduction | - |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -61,3 +61,4 @@ output = loss(logits, labels)
 print(output)
 # 0.6666667
 ```
+

@@ -15,7 +15,7 @@ class torch.nn.GRU(
     bidirectional=False)(input, h_0) -> Tensor
 ```
 
-For more information, see [torch.nn.GRU](https://pytorch.org/docs/1.8.1/generated/torch.nn.GRU.html#torch.nn.GRU).
+For more information, see [torch.nn.GRU](https://pytorch.org/docs/1.8.1/generated/torch.nn.GRU.html).
 
 ## mindspore.nn.GRU
 
@@ -36,10 +36,10 @@ For more information, see [mindspore.nn.GRU](https://mindspore.cn/docs/en/master
 
 PyTorch: Calculate the output sequence and the final state based on the output sequence and the given initial state.
 
-MindSpore: Consistent function, and only the parameter names are different.
+MindSpore: Consistent function. One more interface input seq_length, indicating the length of each sequence in the input batch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
-| ---- | ----- | ------- | --------- | ------------- |
+| ---- | ------ | :------------ | ------------- | ------------------------- |
 | Parameters | Parameter 1  | input_size| input_size  | - |
 |      | Parameter 2  | hidden_size   | hidden_size | -  |
 |      | Parameter 3  | num_layers    | num_layers   | -   |
@@ -47,11 +47,11 @@ MindSpore: Consistent function, and only the parameter names are different.
 |      | Parameter 5  | batch_first   | batch_first   | -                         |
 |      | Parameter 6  | dropout       | dropout       | -                         |
 |      | Parameter 7  | bidirectional | bidirectional | -                         |
-|      | Parameter 8  | input         | x             | Same function, different parameter names      |
-|      | Parameter 9  | h_0           | hx            | Same function, different parameter names      |
-|      | Parameter 10 | -             | seq_length    |  The length of each sequence in input batch |
+|   Input   | Input 1  | input         | x             | Same function, different parameter names      |
+|      | Input 2 | h_0           | hx            | Same function, different parameter names      |
+|      | Input 3 | -             | seq_length    |  The length of each sequence in input batch |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -62,19 +62,20 @@ import torch.nn as nn
 import numpy as np
 
 rnn = nn.GRU(10, 16, 2, batch_first=True)
-input = torch.ones([3,5,10], dtype=torch.float32)
-h0 = torch.ones([1 * 2,3,16], dtype=torch.float32)
+input = torch.ones([3, 5, 10], dtype=torch.float32)
+h0 = torch.ones([1 * 2, 3, 16], dtype=torch.float32)
 output, hn = rnn(input, h0)
 output = output.detach().numpy()
 print(output.shape)
 # (3, 5, 16)
 
 # MindSpore
+import mindspore
 from mindspore import Tensor, nn
 
 net = nn.GRU(10, 16, 2, batch_first=True)
-x = Tensor(np.ones([3, 5, 10]).astype(np.float32))
-h0 = Tensor(np.ones([1 * 2, 3, 16]).astype(np.float32))
+x = Tensor(np.ones([3, 5, 10]), mindspore.float32)
+h0 = Tensor(np.ones([1 * 2, 3, 16]), mindspore.float32)
 output, hn = net(x, h0)
 print(output.shape)
 # (3, 5, 16)

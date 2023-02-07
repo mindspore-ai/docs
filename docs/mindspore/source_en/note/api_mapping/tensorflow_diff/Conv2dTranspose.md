@@ -52,16 +52,16 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow. T
 |      | Parameter 3 | output_shape | - | TensorFlow is a one-dimensional Tensor [N,H,W,C] of length 4, and specifies the output shape (an error will occur if the size is wrong). MindSpore output dimension needs to be calculated. |
 |      | Parameter 4 | strides   |  stride           | Transpose the stride of each dimension of the convolution. TensorFlow represents strides in width and height if it is an int, and defaults to 0 on N and C. If it is an int list of length 1, 2 or 4, the order is the same as data_format.MindSpore is int type or tuple(int, int). An integer indicates the value of the move step in both height and width directions. Two integer tuples mean move steps in height and width respectively. |
 |      | Parameter 5 | padding   |  padding           | TensorFlow indicates the padding mode with optional values of "SAME", "VALID", [[0, 0], [pad_top,pad_bottom], [pad_left, pad_right], [0, 0]] (NHWC) or [[0, 0], [0, 0], [pad_top, pad_bottom ], [pad_left, pad_right]] (NCHW). If padding is an integer in MindSpore, the top, bottom, left, and right padding are all equal to padding. If the padding is tuple(int,int,int,int), the top, bottom, left and right padding are equal to padding[0], padding[1], padding[2] and padding[3] respectively. The value should be greater than or equal to 0. The default is 0. |
-|      | Parameter 6 | data_format   |    | Set the format. Optional values are "NHWC" and "NCHW", and the default is "NHWC"  |
+|      | Parameter 6 | data_format   |    | Set the format. Optional values are "NHWC" and "NCHW", and the default is "NHWC". MindSpore defaults to "NCHW". |
 |      | Parameter 7 | dilations   |  dilation           | 2D convolutional kernel expansion size. In TensorFlow a list of length 4, must be 1 in D and C dimensions (format consistent with data_format)  |
 |      | Parameter 8 |   name  | -        | Not involved |
-|  | Parameter 1 | - | in_channels | The spatial dimension of the input. TensorFlow does not have this parameter. |
-|      | Parameter 9 | - | out_channels | The spatial dimension of the output. TensorFlow does not have this parameter. |
-|      | Parameter 10 |   -  | pad_mode       | Specify the padding mode. The optional values "same", "valid" and "pad" corresponding to the TensorFlow padding parameters. In "same" and "valid" mode, padding must be set to 0, and default is "same". |
-|      | Parameter 11 |  -  |  group           | Split the filter into groups, and in_channels and out_channels must be divisible by group. Default is 1.  |
-|      | Parameter 12 |  -  |  has_bias           | Whether to add a bias function. Default is False |
-|      | Parameter 13 |   -  | weight_init        | The initialization method for the weights parameter. Can be Tensor, str, Initializer or numbers.Number. When using str, the values of the "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. Default is "normal". |
-|      | Parameter 14 |   -  | bias_init        | The initialization method for the bias parameter. The initialization method is the same as "weight_init", the default is "zeros". |
+|      | Parameter 9 | - | in_channels | The spatial dimension of the input. TensorFlow does not have this parameter. |
+|      | Parameter 10 | - | out_channels | The spatial dimension of the output. TensorFlow does not have this parameter. |
+|      | Parameter 11 |   -  | pad_mode       | Specify the padding mode. The optional values "same", "valid" and "pad" corresponding to the TensorFlow padding parameters. In "same" and "valid" mode, padding must be set to 0, and default is "same". |
+|      | Parameter 12 |  -  |  group           | Split the filter into groups, and in_channels and out_channels must be divisible by group. Default is 1. TensorFlow does not have this parameter.  |
+|      | Parameter 13 |  -  |  has_bias           | Whether to add a bias function. Default is False. TensorFlow does not have this parameter. |
+|      | Parameter 14 |   -  | weight_init        | The initialization method for the weights parameter. Can be Tensor, str, Initializer or numbers.Number. When using str, the values of the "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. Default is "normal". TensorFlow does not have this parameter. |
+|      | Parameter 15 |   -  | bias_init        | The initialization method for the bias parameter. The initialization method is the same as "weight_init", the default is "zeros". TensorFlow does not have this parameter. |
 
 ### Code Example 1
 
@@ -75,9 +75,9 @@ import numpy as np
 k = 4
 x_ = np.ones([1, 16, 50, 3])
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
-f = np.ones((k,k,64,3), dtype=np.float32)
-output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,19,53,64], strides=1, padding=[[0, 0], [0,0], [0, 0], [0, 0]])
-print(tf.transpose(output,[0,3,1,2]).shape)
+f = np.ones((k, k, 64, 3), dtype=np.float32)
+output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1, 19, 53, 64], strides=1, padding=[[0, 0], [0,0], [0, 0], [0, 0]])
+print(tf.transpose(output, [0, 3, 1, 2]).shape)
 # (1, 64, 19, 53)
 
 
@@ -107,9 +107,9 @@ import numpy as np
 k = 5
 x_ = np.ones([1, 16, 50, 3])
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
-f = np.ones((k,k,64,3), dtype=np.float32)
-output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,16,50, 64], strides=1, padding='SAME')
-print(tf.transpose(output,[0,3,1,2]).shape)
+f = np.ones((k, k, 64, 3), dtype=np.float32)
+output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1, 16, 50, 64], strides=1, padding='SAME')
+print(tf.transpose(output, [0, 3, 1, 2]).shape)
 # (1, 64, 16, 50)
 
 
@@ -140,9 +140,9 @@ k = 5
 s = 3
 x_ = np.ones([1, 16, 50, 3])
 x = tf.convert_to_tensor(x_, dtype=tf.float32)
-f = np.ones((k,k,64,3), dtype=np.float32)
-output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1,50,152, 64], strides=s, padding='VALID')
-print(tf.transpose(output,[0,3,1,2]).shape)
+f = np.ones((k, k, 64, 3), dtype=np.float32)
+output = tf.nn.conv2d_transpose(x, filters=f, output_shape=[1, 50, 152, 64], strides=s, padding='VALID')
+print(tf.transpose(output, [0, 3, 1, 2]).shape)
 # (1, 64, 50, 152)
 
 
