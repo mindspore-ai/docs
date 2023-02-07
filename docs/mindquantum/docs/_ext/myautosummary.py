@@ -521,7 +521,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
     """definition of cnmsplatformautosummary."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.table_head = ('接口名', '概述', '支持平台')
+        self.table_head = ('**接口名**', '**概述**', '**支持平台**')
         self.third_name_en = "Supported Platforms:"
 
     def get_third_column(self, name=None, content=None):
@@ -544,7 +544,7 @@ class MsCnNoteAutoSummary(MsCnAutoSummary):
     """definition of cnmsnoteautosummary."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.table_head = ('接口名', '概述', '说明')
+        self.table_head = ('**接口名**', '**概述**', '**说明**')
         self.third_name_en = ".. note::"
 
     def get_third_column(self, name=None, content=''):
@@ -556,7 +556,7 @@ class MsCnMathAutoSummary(MsCnAutoSummary):
     """definition of mscnmathautosummary."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.table_head = ('接口名', '概述', '数学表示')
+        self.table_head = ('**接口名**', '**概述**', '**数学表示**')
         self.third_name_en = ".. math::"
 
     def get_third_column(self, name=None, content=''):
