@@ -41,8 +41,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且目标值�
 |      | 参数2 | size_average | - | 已弃用，功能由reduction接替 |
 |      | 参数3 | ignore_index | ignore_index    | -                                                            |
 |      | 参数4 | reduce | - | 已弃用，功能由reduction接替 |
-|      | 参数5 | reduction    | reduction       | -                                                            |
-|      | 参数6 |    -     | label_smoothing | 标签平滑值，用于计算Loss时防止模型过拟合的正则化手段。取值范围为[0.0, 1.0]。 默认值: 0.0 |
+|      | 参数5 | reduction    | reduction       | -     |
+|      | 参数6 |    -     | label_smoothing | 标签平滑值，用于计算Loss时防止模型过拟合的正则化手段。取值范围为[0.0, 1.0]。默认值：0.0 |
 | 输入 | 输入1 | input    | logits       | 功能一致，参数名不同    |
 |      | 输入2| target    | labels       | 功能一致，参数名不同   |
 
