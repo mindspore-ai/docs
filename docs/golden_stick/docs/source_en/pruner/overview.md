@@ -20,4 +20,4 @@ Channel pruning and filter pruning are generally considered to be structured pru
 
 ## Examples
 
-In the current version, the MindSpore Golden Stick provides a structured weight pruning algorithm. For details, see [SCOP Algorithm Example](https://www.mindspore.cn/golden_stick/docs/en/r2.0.0-alpha/pruner/scop.html).
+In the current version, the MindSpore Golden Stick provides a structured weight pruning algorithm. For details, see [SCOP Algorithm Example](https://www.mindspore.cn/golden_stick/docs/en/r0.3.0-alpha/pruner/scop.html).

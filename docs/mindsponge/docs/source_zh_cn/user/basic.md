@@ -2,10 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindsponge/docs/source_zh_cn/user/basic.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png"></a>
 
-分子基础模型是针对蛋白质，氨基酸或者分子做一些预训练任务，从而使下游任务取得更好的结果，如分子信息表示是AI驱动的药物设计和发现的关键先决条件，分子图预训练模型可学习到分子的丰富结构和语义信息，从而在分子性质预测等11个下游任务上与当前SOTA结果相比平均超过6%的改进。
+在生物计算、药物设计等领域，大多数任务中给训练数据打标签非常昂贵，可用于模型训练的数据集都非常小，该领域的研究者限于数据无法开发更有效的模型，导致模型精度不佳。基于生物化学与迁移学习的相关理论，分子基础模型在相关的有大量数据的任务上做预训练后，仅需使用少量数据微调即可在目标任务上得到更准确的结果。MindSPONGE提供一系列分子基础模型以及这些模型在大规模数据集上训好的checkpoint，用户可以直接在这些模型基础上根据自己的需要做精调，轻松实现高精度的模型开发。
 
 ## 已支持网络
 
 | 功能          | 模型                            | 训练 | 推理 | 后端       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| 分子图预训练模型 | [GROVER](https://gitee.com/mindspore/mindscience/blob/f906bf284918ff2bdcd462e1c2bbf06b9af5d06a/MindSPONGE/applications/research/grover/README.md#) | ×    | √   | GPU/Ascend |
+| 小分子化合物预训练模型 | [GROVER](https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindSPONGE/applications/research/grover) | √    | √   | GPU/Ascend |
+| 小分子化合物预训练模型 | [MGBERT](https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindSPONGE/applications/research/MG_BERT) | √    | √   | GPU/Ascend |
+
+后续将提供蛋白质预训练等基础模型，敬请期待。

@@ -1,11 +1,14 @@
-# Molecular Basic Model
+# Molecular Foundation Model
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindsponge/docs/source_en/user/basic.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source_en.png"></a>
 
-Molecular basic model is to perform some pre-training tasks for proteins, amino acids or molecules, so as to achieve better results for downstream tasks. For example, molecular information representation is a key prerequisite for AI-driven drug design and discovery. Molecular diagram pre-training model can learn the rich structure and semantic information of molecules. This results in an average improvement of more than 6% over the current SOTA results for 11 downstream tasks such as molecular property prediction.
+In fields such as biological computing and drug design, it is very expensive to label training data in most tasks, and the data sets available for model training are very small. Researchers in this field cannot develop more effective models due to limited data, resulting in poor model accuracy. Based on the theories of biochemistry and transfer learning, the molecular base model can get more accurate results on the target task by using only a small amount of data fine-tuning after pre-training on the relevant task with a large amount of data. MindSPONGE provides a series of molecular foundation models and their checkpoint training based on large-scale data sets. Users can make fine-tuning directly based on these models according to their needs, enabling them to easily achieve high-precision model development.
 
 ## Supported Networks
 
 | Function            | Model                  | Training | Inferring | Back-end       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| Molecular Graph Pre-training Model | [GROVER](https://gitee.com/mindspore/mindscience/blob/f906bf284918ff2bdcd462e1c2bbf06b9af5d06a/MindSPONGE/applications/research/grover/README.md#) | ×    | √   | GPU/Ascend |
+| Molecular Compound Pre-training Model | [GROVER](https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindSPONGE/applications/research/grover) | √    | √   | GPU/Ascend |
+| Molecular Compound Pre-training Model | [MGBERT](https://gitee.com/mindspore/mindscience/tree/r0.2.0-alpha/MindSPONGE/applications/research/MG_BERT) | √    | √   | GPU/Ascend |
+
+In the future, basic models such as protein pre-training will be provided. Please stay tuned.
