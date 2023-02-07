@@ -21,9 +21,9 @@ For more information, see [torch.cross](https://pytorch.org/docs/1.5.0/torch.htm
 class mindspore.numpy.cross(
     a,
     b,
-    axisa=- 1,
-    axisb=- 1,
-    axisc=- 1,
+    axisa=-1,
+    axisb=-1,
+    axisc=-1,
     axis=None
 )
 ```
