@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0.0-alpha/docs/mindspore/source_zh_cn/note/benchmark.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/resource/_static/logo_source.png"></a>
 
-本文介绍MindSpore的基准性能。MindSpore网络定义可参考[ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#)。
+本文介绍MindSpore的基准性能。MindSpore网络定义可参考[ModelZoo](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/README_CN.md#)。
 
 ## 训练性能
 

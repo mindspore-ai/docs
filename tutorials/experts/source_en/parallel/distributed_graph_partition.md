@@ -38,7 +38,7 @@ distributed_graph_partition/
 
 ### Preparation for Training Python Script
 
-Refer to <https://gitee.com/mindspore/models/tree/r2.0/research/cv/lenet>, using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/), to learn how to train a LeNet network. Sample code for each part of the training script is given below according to steps.
+Refer to <https://gitee.com/mindspore/models/tree/r2.0.0-alpha/research/cv/lenet>, using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/), to learn how to train a LeNet network. Sample code for each part of the training script is given below according to steps.
 
 #### Loading the Dataset
 

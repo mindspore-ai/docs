@@ -164,7 +164,7 @@ infer finished.
 
 ### 备注
 
-- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/models/blob/r2.0/official/nlp/Bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
+- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/nlp/Bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
 
 ```python
 class BertOutput(nn.Cell):

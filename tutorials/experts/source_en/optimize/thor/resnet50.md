@@ -9,7 +9,7 @@ Common optimization algorithms can be divided into first-order optimization algo
 Based on the existing natural gradient algorithm, the MindSpore development team has developed a usable second-order optimizer THOR by using approximations, tiles and other optimization accelerations for the FIM matrix, which greatly reduces the computational complexity of the inverse matrix. Using eight Ascend 910 AI processors, THOR can complete training the ResNet50-v1.5 network and ImageNet dataset in 72min, nearly doubling the speed compared to SGD+Momentum.
 
 This tutorial will focus on how to train ResNet50-v1.5 network and ImageNet dataset on Ascend 910 and GPU using THOR, a second-order optimizer provided by MindSpore.
-> Download the complete sample code: [Resnet](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet).
+> Download the complete sample code: [Resnet](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/official/cv/ResNet).
 
 The directory structure of sample code:
 
@@ -172,7 +172,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## Defining the Networks
 
-The network model used in this example is ResNet50-v1.5, defining the [ResNet50 network](https://gitee.com/mindspore/models/blob/r2.0/official/cv/ResNet/src/resnet.py).
+The network model used in this example is ResNet50-v1.5, defining the [ResNet50 network](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/src/resnet.py).
 
 After the network is constructed, the defined ResNet50 is called in the `__main__` function.
 
@@ -337,7 +337,7 @@ bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> [CONFIG_PATH]
 
 The script needs to pass in the variables `RANK_TABLE_FILE`, `DATASET_PATH` and `CONFIG_PATH`, where:
 
-- `RANK_TABLE_FILE`: The path of networking information file. (For the generation of rank table files, refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r2.0/utils/hccl_tools).)
+- `RANK_TABLE_FILE`: The path of networking information file. (For the generation of rank table files, refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/hccl_tools).)
 - `DATASET_PATH`: The path of the training dataset.
 - `CONFIG_PATH`: The path of configuration file.
 

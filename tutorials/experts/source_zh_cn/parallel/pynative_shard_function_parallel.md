@@ -229,7 +229,7 @@ print('result.shape:', result.shape)
 
 Ascend分布式相关的环境变量有：
 
-- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/r2.0/utils/hccl_tools)获取。
+- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/r2.0.0-alpha/utils/hccl_tools)获取。
 - DEVICE_ID：当前卡在机器上的实际序号。
 - RANK_ID：当前卡的逻辑序号。
 
