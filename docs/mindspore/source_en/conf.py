@@ -202,17 +202,17 @@ except:
     pass
 
 # replace py_files that have too many errors.
-try:
-    decorator_list = [("mindspore/train/serialization.py","mindspore/python/mindspore/train/serialization.py")]
-
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
-        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
-            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
-            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
-
-except:
-    pass
+#try:
+#    decorator_list = [("mindspore/train/serialization.py","mindspore/python/mindspore/train/serialization.py")]
+#
+#    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+#    for i in decorator_list:
+#        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+#            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+#            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+#
+#except:
+#    pass
 
 import mindspore
 
