@@ -42,9 +42,9 @@ MindSpore: MindSpore implements the same function as PyTorch, and the target val
 |      | Parameter 3 | ignore_index | ignore_index    | - |
 |      | Parameter 4 | reduce | - | Deprecated, function taken over by reduction |
 |      | Parameter 5 | reduction    | reduction       | - |
-|      | Parameter 6 | input    | logits    | Same function, different parameter names  |
-|      | Parameter 7 | target    | labels   | Same function, different parameter names |
-|      | Parameter 8 |    -     | label_smoothing | Label smoothing value, used as a regularization means to prevent overfitting of the model when calculating Loss. The range of values is [0.0, 1.0]. Default value: 0.0. |
+|      | Parameter 6 |     -     | label_smoothing | Label smoothing value, used as a regularization means to prevent overfitting of the model when calculating Loss. The range of values is [0.0, 1.0]. Default value: 0.0. |
+| Input | Input 1 | input    | logits | Same function, different parameter names    |
+|      | Input 2| target   | labels  | Same function, different parameter names   |
 
 ### Code Example 1
 
@@ -55,25 +55,26 @@ MindSpore: MindSpore implements the same function as PyTorch, and the target val
 import torch
 import numpy as np
 
-inpu = np.array([[1.62434536, -0.61175641, -0.52817175, -1.07296862, 0.86540763], [-2.3015387, 1.74481176, -0.7612069, 0.3190391, -0.24937038], [1.46210794, -2.06014071, -0.3224172, -0.38405435, 1.13376944]])
-targe = np.array([1, 0, 4])
-
+input_torch = np.array([[1.624, -0.611, -0.528, -1.072, 0.865], [-2.301, 1.744, -0.761, 0.319, -0.249], [1.462, -2.060, -0.322, -0.384, 1.133]])
+target_torch = np.array([1, 0, 4])
 loss = torch.nn.CrossEntropyLoss()
-input = torch.tensor(inpu, requires_grad=True)
-target = torch.tensor(targe, dtype=torch.long)
-output = loss(input, target)
-print(output.detach().numpy())
-# 2.7648239812294704
+input_torch = torch.tensor(input_torch, requires_grad=True)
+target_torch = torch.tensor(target_torch, dtype=torch.long)
+output = loss(input_torch, target_torch)
+print(round(float(output.detach().numpy()), 3))
+# 2.764
 
 # MindSpore
 import mindspore
 import numpy as np
 
-inputs = mindspore.Tensor(inpu, mindspore.float32)
-target = mindspore.Tensor(targe, mindspore.int32)
+input_ms = np.array([[1.624, -0.611, -0.528, -1.072, 0.865], [-2.301, 1.744, -0.761, 0.319, -0.249], [1.462, -2.060, -0.322, -0.384, 1.133]])
+target_ms = np.array([1, 0, 4])
+input_ms = mindspore.Tensor(input_ms, mindspore.float32)
+target_ms = mindspore.Tensor(target_ms, mindspore.int32)
 loss = mindspore.nn.CrossEntropyLoss()
-output = loss(inputs, target)
-print(output)
-# 2.7648222
+output = loss(input_ms, target_ms)
+print(round(float(output), 3))
+# 2.764
 ```
 

@@ -33,17 +33,17 @@ For more information, see [mindspore.nn.Dense](https://www.mindspore.cn/docs/en/
 
 Pytorch: Fully connected layer that implements the matrix multiplication operation.
 
-MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch, and it is possible to add activation functions after the fully connected layer. MindSpore and PyTorch have different initialization methods for weight and bias parameters, which may cause differences during model training. Developers should pay attention to the impact of weight initialization. For details, please refer to [Differences Between MindSpore and PyTorch - Different Default Weight Initialization](https://mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#different-default-weight-initialization)
+MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch, and it is possible to add activation functions after the fully connected layer.
 
 | Categories | Subcategories   | PyTorch             | MindSpore   | Differences    |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
-| Input | Single input | input | x | Interface input, same function, only different parameter names |
 | Parameters | Parameter 1 | in_features  | in_channels  | Same function, different parameter names              |
 |      | Parameter 2 | out_features | out_channels | Same function, different parameter names       |
 |      | Parameter 3 | bias         | has_bias     | Same function, different parameter names         |
 |      | Parameter 4 | -             | weight_init  | Initialization method for the weight parameter, which is not available for PyTorch         |
 |      | Parameter 5 | -             | bias_init    | Initialization method for the bias parameter, which is not available for PyTorch           |
 |      | Parameter 6 | -             | activation   | Activation function applied to the output of the fully connected layer, which is not available for PyTorch   |
+| Input | Single input | input | x | Same function, only different parameter names |
 
 ### Code Example
 
@@ -67,7 +67,7 @@ from mindspore import Tensor, nn
 import numpy as np
 
 x = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
-net = nn.Dense(3, 4, activation=nn.ReLU())
+net = nn.Dense(3, 4)
 output = net(x)
 print(output.shape)
 # (2, 4)

@@ -61,7 +61,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow.
 |      | Parameter 12 | name     |     -     | Not involved   |
 |      | Parameter 13 | **kwargs   |     -    | Not involved    |
 |      | Parameter 14 | -    |     in_channels         | The spatial dimension of the input. TensorFlow does not have this parameter    |
-|      | Parameter 15 | x        |     x         | - |
+|  Input   | Single input | x                 |     x         | -    |
 
 ### Code Example
 
@@ -85,7 +85,7 @@ from mindspore import Tensor, nn
 import numpy as np
 
 x = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
-net = nn.Dense(3, 4, activation=nn.ReLU())
+net = nn.Dense(3, 4)
 output = net(x)
 print(output.shape)
 # (2, 4)
