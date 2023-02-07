@@ -68,7 +68,7 @@ MindSpore：对输入的四维数据进行批归一化(Batch Normalization Layer
 | | 参数14 | **kwargs | - | 不涉及 |
 | | 参数15 | - | num_features | 通道数量，输入Tensor shape (N,C,H,W)中的C，TensorFlow无此参数 |
 | | 参数16 | - | affine | bool类型，设置为True时，可学习 γ 和 β 值，默认值：True。TensorFlow无此参数 |
-| | 参数17 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会 设置为True。在验证时，use_batch_statistics 会自动设置为False，默认值：None。TensorFlow无此参数 |
+| | 参数17 | - | use_batch_statistics | 如果为True，则使用当前批处理数据的平均值和方差值，并跟踪运行平均值和运行方差。<br /> 如果为False，则使用指定值的平均值和方差值，不跟踪统计值。<br /> 如果为None，则根据训练和验证模式自动设置 use_batch_statistics 为True或False。在训练时，use_batch_statistics会设置为True。在验证时，use_batch_statistics 会自动设置为False，默认值：None。TensorFlow无此参数 |
 | | 参数18 | - | data_format | MindSpore可指定输入数据格式可为"NHWC"或"NCHW"，默认值："NCHW"。TensorFlow无此参数 |
 | 输入 | 输入1 | inputs | x | 功能一致，参数名不同 |
 | | 输入2 | training | - | 不涉及 |

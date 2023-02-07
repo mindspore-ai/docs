@@ -38,11 +38,11 @@ MindSpore: Implement the same function as PyTorch.
 | | Parameter 2 | size_average | - | Deprecated, function taken over by reduction |
 | | Parameter 3 | reduce | - | Deprecated, function taken over by reduction |
 | | Parameter 4 | reduction | reduction | - |
-| | Parameter 5 | x1 | logits_x1 |  Same function, different parameter names  |
-| | Parameter 6 | x2 | logits_x2 |  Same function, different parameter names  |
-| | Parameter 7 | target | labels |  Same function, different parameter names  |
+|Input | Input 1 | x1 | logits_x1 |  Same function, different parameter names  |
+| | Input 2 | x2 | logits_x2 |  Same function, different parameter names  |
+| | Input 3 | target | labels |  Same function, different parameter names  |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
@@ -52,13 +52,13 @@ import torch
 from torch import tensor, nn
 import numpy as np
 
-input1 = tensor(np.array([[0.3, 0.8], [0.4, 0.3]]))
-input2 = tensor(np.array([[0.4, 1.2], [-0.4, -0.9]]))
-target = tensor(np.array([1, -1]))
+input1 = tensor(np.array([[0.3, 0.8], [0.4, 0.3]]), dtype=torch.float32)
+input2 = tensor(np.array([[0.4, 1.2], [-0.4, -0.9]]), dtype=torch.float32)
+target = tensor(np.array([1, -1]), dtype=torch.int32)
 cosine_embedding_loss = nn.CosineEmbeddingLoss()
 output = cosine_embedding_loss(input1, input2, target)
 print(output.detach().numpy())
-# 0.00034258311711488076
+# 0.0003426075
 
 # MindSpore
 import mindspore
