@@ -23,11 +23,21 @@ You can install MindSpore Graph Learning either by pip or by source code.
 
 #### Installation by pip
 
-```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/GraphLearning/any/mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
+- Ascend/CPU
+
+    ```bash
+    pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/GraphLearning/cpu/{system_structure}/mindspore_gl-0.2.0a0-cp37-cp37m-linux_{system_structure}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
+
+- GPU
+
+    ```bash
+    pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/GraphLearning/gpu/x86_64/cuda-{cuda_verison}/mindspore_gl-0.2.0a0-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2.0-alpha/requirements.txt). In other cases, you need to manually install dependency items.
+> - `{system_structure}` denotes the Linux system architecture, and the option is `x86_64` and `arrch64`.
+> - `{cuda_verison}` denotes the CUDA version, and the option is `10.1`, `11.1` and `11.6`。
 
 #### Installation by Source Code
 
