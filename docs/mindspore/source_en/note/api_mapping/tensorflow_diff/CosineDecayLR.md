@@ -45,12 +45,12 @@ MindSpore: The same function as TensorFlow now, based on a different calculation
 | | Parameter 5 | alpha | - |Calculate the α parameter in the formula. MindSpore does not have this parameter |
 | | Parameter 6 | beta | - |Calculate the β parameter in the formula. MindSpore does not have this parameter |
 | | Parameter 7 | name | - | Not involved |
-| | Parameter 8 | - | min_lr |The minimum value of learning rate |
-| | Parameter 9 | - | max_lr |The maximum value of learning rate |
+| | Parameter 8 | - | min_lr |The minimum value of learning rate. TensorFlow does not have this parameter|
+| | Parameter 9 | - | max_lr |The maximum value of learning rate. TensorFlow does not have this parameter |
 
-### Code Example 1
+### Code Example
 
-> The two APIs implement the same function with different calculation logic.
+> The two APIs achieve the same function, based on different calculation formulas.
 
 ```python
 # TensorFlow

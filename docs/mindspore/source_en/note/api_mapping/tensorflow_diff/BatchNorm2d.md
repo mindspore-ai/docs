@@ -52,28 +52,28 @@ MindSpore: Batch Normalization Layer (BNL) is applied to the input four-dimensio
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | x | inputs | Same function, different parameter names |
-| | Parameter 2 | axis | - | The axis that should be normalized (usually the feature axis). MindSpore does not have this parameter |
-| | Parameter 3 | momentum | momentum | - |
-| | Parameter 4 | epsilon | eps | Same function, different parameter names |
-| | Parameter 5 | center | - | If True, the offset beta is added to the normalization tensor. If False, beta is ignored. MindSpore does not have this parameter |
-| | Parameter 6 | scale | - | If True, multiply by gamma. if False, do not use gamma. MindSpore does not have this parameter |
-| | Parameter 7 | beta_initializer | beta_init | Same function, different parameter names |
-| | Parameter 8 | gamma_initializer | gamma_init | Same function, different parameter names |
-| | Parameter 9 | moving_mean_initializer | moving_mean_init | Same function, different parameter names |
-| | Parameter 10 | moving_variance_initializer | moving_var_init | Same function, different parameter names |
-| | Parameter 11 | beta_regularizer | - | Optional regularizer for beta weights. MindSpore does not have this parameter |
-| | Parameter 12 | gamma_regularizer | - | Optional regularizer for gamma weights. MindSpore does not have this parameter |
-| | Parameter 13 | beta_constraint | - | Optional constraint on the beta weight. MindSpore does not have this parameter |
-| | Parameter 14 | gamma_constraint | - | Optional constraint on gamma weights. MindSpore does not have this parameter |
-| | Parameter 15 | **kwargs | - | Not involved |
-| | Parameter 16 | - | num_features | Number of channels, input C in Tensor shape (N,C,H,W)(N,C,H,W) |
-| | Parameter 17 | - | affine | bool type. When set to True, the γ and β values can be learned. Default value: True |
-| | Parameter 18 | - | use_batch_statistics | If True, the mean and variance values of the current batch data are used, and the running mean and running variance are tracked.<br /> If False, the mean and variance values of the specified values are used and no statistical values are tracked.<br /> If None, use_batch_statistics is automatically set to True or False depending on the training and validation modes. use_batch_statistics is set to True for training. use_batch_statistics is automatically set to False for validation. Default value: None |
-| | Parameter 19 | - | data_format | MindSpore can specify the input data format as "NHWC" or "NCHW". Default value: "NCHW". TensorFlow does not have this parameter |
-| | Parameter 20 | training | - | Not involved |
+|Parameters | Parameter 1 | axis | - | The axis that should be normalized (usually the feature axis). MindSpore does not have this parameter |
+| | Parameter 2 | momentum | momentum | - |
+| | Parameter 3 | epsilon | eps | Same function, different parameter names |
+| | Parameter 4 | center | - | If True, the offset beta is added to the normalization tensor. If False, beta is ignored. MindSpore does not have this parameter |
+| | Parameter 5 | scale | - | If True, multiply by gamma. if False, do not use gamma. MindSpore does not have this parameter |
+| | Parameter 6 | beta_initializer | beta_init | Same function, different parameter names |
+| | Parameter 7 | gamma_initializer | gamma_init | Same function, different parameter names |
+| | Parameter 8 | moving_mean_initializer | moving_mean_init | Same function, different parameter names |
+| | Parameter 9 | moving_variance_initializer | moving_var_init | Same function, different parameter names |
+| | Parameter 10 | beta_regularizer | - | Optional regularizer for beta weights. MindSpore does not have this parameter |
+| | Parameter 11 | gamma_regularizer | - | Optional regularizer for gamma weights. MindSpore does not have this parameter |
+| | Parameter 12 | beta_constraint | - | Optional constraint on the beta weight. MindSpore does not have this parameter |
+| | Parameter 13 | gamma_constraint | - | Optional constraint on gamma weights. MindSpore does not have this parameter |
+| | Parameter 14 | **kwargs | - | Not involved |
+| | Parameter 15 | - | num_features | Number of channels, input C in Tensor shape (N,C,H,W)(N,C,H,W). TensorFlow does not have this parameter |
+| | Parameter 16 | - | affine | bool type. When set to True, the γ and β values can be learned. Default value: True. TensorFlow does not have this parameter |
+| | Parameter 17 | - | use_batch_statistics | If True, the mean and variance values of the current batch data are used, and the running mean and running variance are tracked.<br /> If False, the mean and variance values of the specified values are used and no statistical values are tracked.<br /> If None, use_batch_statistics is automatically set to True or False depending on the training and validation modes. use_batch_statistics is set to True for training. use_batch_statistics is automatically set to False for validation. Default value: None. TensorFlow does not have this parameter |
+| | Parameter 18 | - | data_format | MindSpore can specify the input data format as "NHWC" or "NCHW". Default value: "NCHW". TensorFlow does not have this parameter |
+| Inputs |Input 1 | inputs | x | Same function, different parameter names |
+| | Input 2 | training | - | Not involved |
 
-### Code Example 1
+### Code Example
 
 > Both APIs have the same function and are used in the same way.
 
@@ -111,11 +111,11 @@ from mindspore import Tensor, nn
 import numpy as np
 
 m = nn.BatchNorm2d(num_features=2, momentum=0.9)
-input_x = Tensor(np.array([[[[1, 2], [2, 1]],
+input_ms = Tensor(np.array([[[[1, 2], [2, 1]],
                           [[3, 4], [4, 3]]],
                           [[[5, 6], [6, 5]],
                           [[7, 8], [8, 7]]]]).astype(np.float32))
-output = m(input_x)
+output = m(input_ms)
 print(output)
 # [[[[0.99999493 1.9999899 ]
 #    [1.9999899  0.99999493]]
