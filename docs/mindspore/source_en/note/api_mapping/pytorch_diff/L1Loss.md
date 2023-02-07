@@ -8,7 +8,7 @@
 torch.nn.L1Loss(size_average=None, reduce=None, reduction='mean')(input, target) -> Tensor
 ```
 
-For more information, see [torch.nn.L1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.L1Loss.html#torch.nn.L1Loss).
+For more information, see [torch.nn.L1Loss](https://pytorch.org/docs/1.8.1/generated/torch.nn.L1Loss.html).
 
 ## mindspore.nn.L1Loss
 
@@ -22,17 +22,17 @@ For more information, see [mindspore.nn.L1Loss](https://mindspore.cn/docs/en/mas
 
 PyTorch: L1Loss is used to calculate the average absolute error between the predicted and target values.
 
-MindSpore: Includes PyTorch function, which can still run when logits and labels have different shapes but can propagate to each other, while PyTorch cannot.
+MindSpore: Includes PyTorch function, which can still run when logits and labels have different shapes but can broadcast to each other, while PyTorch cannot.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
 | Parameters | Parameter 1 | size_average     | -    | Deprecated, function taken over by reduction |
 |      | Parameter 2 | reduce    | -    | Deprecated, function taken over by reduction|
 |      | Parameter 3 | reduction | reduction | - |
-|      | Parameter 4 | input     | logits    | Same function, different parameter names |
-|      | Parameter 5 | target    | labels    | Same function, different parameter names |
+| Input  | Input 1 | input     | logits    | Same function, different parameter names |
+|      | Input 2 | target    | labels    | Same function, different parameter names |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 

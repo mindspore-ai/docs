@@ -59,12 +59,12 @@ MindSpore: MindSpore API implements basically the same function as PyTorch, but 
 |      | Parameter 6 | output_padding   |     -       | One-sided complementary zeros (right and bottom side) are applied to the feature map after deconvolution, which is usually used to adjust output shapes if stride > 1. For example, the padding is usually set to (kernel_size - 1)/2, and setting output_padding = (stride - 1) ensures that input shapes/output shapes = stride. MindSpore does not have this parameter.|
 |      | Parameter 7 | groups   |  group           | Same function, different parameter names  |
 |      | Parameter 8 | bias   |  has_bias           | PyTorch defaults to True, and MindSpore defaults to False|
-|      | Parameter 9 | dilation   |  dilation           | -  |
+|      | Parameter 9 | dilation   |  dilation        | -  |
 |      | Parameter 10 |  padding_mode   |    -     | Numeric padding mode, only support "zeros" that is, pad 0. MindSpore does not have this parameter, but the default padding is 0|
-|      | Parameter 11 |   -  | pad_mode       | Specify the padding mode. Optional values are "same", "valid", "pad". In "same" and "valid" mode, padding must be set to 0, default is "same".|
-|      | Parameter 12 |   -  | weight_init        | The initialization method for the weight parameter. Can be Tensor, str, Initializer or numbers.Number. When using str, the values of "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. The default is "normal". |
-|      | Parameter 13 |  -   | bias_init        | The initialization method for the bias parameter. The initialization method is the same as "weight_init", and the default is "zeros". |
-| |Parameter 14  | input | x  | Interface input, same function, only different parameter names |
+|      | Parameter 11 |   -  | pad_mode       | Specify the padding mode. Optional values are "same", "valid", "pad". In "same" and "valid" mode, padding must be set to 0, default is "same". PyTorch does not have this parameter.|
+|      | Parameter 12 |   -  | weight_init        | The initialization method for the weight parameter. Can be Tensor, str, Initializer or numbers.Number. When using str, the values of "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. The default is "normal". PyTorch does not have this parameter. |
+|      | Parameter 13 |  -   | bias_init        | The initialization method for the bias parameter. The initialization method is the same as "weight_init", and the default is "zeros". PyTorch does not have this parameter.|
+| Input |Single input  | input | x  | Same function, different parameter names |
 
 ### Code Example 1
 
@@ -80,7 +80,7 @@ import numpy as np
 k = 4
 x_ = np.ones([1, 3, 16, 50])
 x = tensor(x_, dtype=torch.float32)
-net = nn.ConvTranspose2d(3, 64, kernel_size=k, stride=1, padding=(2,4), output_padding=0, bias=False)
+net = nn.ConvTranspose2d(3, 64, kernel_size=k, stride=1, padding=(2, 4), output_padding=0, bias=False)
 net.weight.data = torch.ones(3, 64, k, k)
 output = net(x).detach().numpy()
 print(output.shape)
@@ -94,7 +94,7 @@ import numpy as np
 k = 4
 x_ = np.ones([1, 3, 16, 50])
 x = ms.Tensor(x_, ms.float32)
-net = nn.Conv2dTranspose(3, 64, kernel_size=k, weight_init='ones', pad_mode='pad',padding=(2,2,4,4))
+net = nn.Conv2dTranspose(3, 64, kernel_size=k, weight_init='ones', pad_mode='pad', padding=(2, 2, 4, 4))
 output = net(x)
 print(output.shape)
 # (1, 64, 15, 45)
@@ -180,16 +180,17 @@ print(output.shape)
 
 ```python
 # PyTorch
+import torch
 import torch.nn as nn
 import numpy as np
 
-m = nn.ConvTranspose2d(in_channels=3,out_channels=32,
+m = nn.ConvTranspose2d(in_channels=3, out_channels=32,
                        kernel_size=3,
                        stride=2,
                        padding=1,
                        output_padding=1,
                        bias=False)
-input = torch.tensor(np.ones([1,3,48,48]),dtype=torch.float32)
+input = torch.tensor(np.ones([1, 3, 48, 48]), dtype=torch.float32)
 output = m(input).detach().numpy()
 print(output.shape)
 #  (1, 32, 96, 96)
@@ -198,7 +199,7 @@ print(output.shape)
 import mindspore as ms
 import mindspore.nn as nn
 import numpy as np
-input = ms.Tensor(np.ones([1,3,48,48]),dtype=ms.float32)
+input = ms.Tensor(np.ones([1, 3, 48, 48]), dtype=ms.float32)
 m = nn.Conv2dTranspose(in_channels=3,
                        out_channels=32,
                        kernel_size=3,
@@ -207,9 +208,7 @@ m = nn.Conv2dTranspose(in_channels=3,
                        pad_mode="pad",
                        has_bias=False)
 output = m(input)
-print(output.shape)
-# (1, 32, 95, 95)
-pad = nn.Pad(paddings=((0,0),(0,0),(0,1),(0,1)), mode="CONSTANT")
+pad = nn.Pad(paddings=((0, 0), (0, 0), (0, 1), (0, 1)), mode="CONSTANT")
 output = pad(output)
 print(output.shape)
 # (1, 32, 96, 96)

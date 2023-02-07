@@ -8,7 +8,7 @@
 torch.nn.Hardshrink(lambd=0.5)(input) -> Tensor
 ```
 
-For more information, see [torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Hardshrink.html#torch.nn.Hardshrink).
+For more information, see [torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Hardshrink.html).
 
 ## mindspore.nn.HShrink
 
@@ -22,14 +22,14 @@ For more information, see [mindspore.nn.HShrink](https://mindspore.cn/docs/en/ma
 
 PyTorch: Activation function, and calculate the output by the input elements.
 
-MindSpore: MindSpore API implements the same function as PyTorch.
+MindSpore: MindSpore API implements the same function as PyTorch, and only the parameter names are different.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | lambd   | lambd     | -    |
-|      | Parameter 2 | input   | input_x     | Same function, different parameter names    |
+| Parameter | Parameter 1 | lambd   | lambd     | -    |
+|  Input    | Single input | input   | input_x     | Same function, different parameter names    |
 
-### Code Example 1
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 
