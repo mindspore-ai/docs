@@ -115,7 +115,7 @@ def create_dataset(...)
 
 ### 开始训练
 
-根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r2.0/official/cv/ResNet/README_CN.md#)所描述的步骤
+根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r2.0.0-alpha/official/cv/ResNet/README_CN.md#)所描述的步骤
 启动CIFAR10数据集的训练，随后自动数据加速模块会通过LOG的形式展示其对于性能瓶颈的分析情况：
 
 ```text

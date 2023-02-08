@@ -25,7 +25,7 @@ SCOP采用数据驱动的方式，通过引入训练数据学习不同卷积核�
 | 规格         | 规格说明                                                     |
 | ------------ | ------------------------------------------------------------ |
 | 硬件支持     | GPU、Ascend AI 910处理器的硬件平台                           |
-| 网络支持     | ResNet系列网络，具体请参见<https://gitee.com/mindspore/models/tree/r2.0>。 |
+| 网络支持     | ResNet系列网络，具体请参见<https://gitee.com/mindspore/models/tree/r2.0.0-alpha>。 |
 | 算法支持     | 结构化的剪枝算法。                                           |
 | 数据类型支持 | Ascend和GPU平台支持精度为FP32的网络进行剪枝训练。 |
 | 运行模式支持 | Graph模式和PyNative模式                                      |
