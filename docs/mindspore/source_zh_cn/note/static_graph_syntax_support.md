@@ -709,8 +709,7 @@ ret:[[3. 3. 3. 3.]]
 
 限制：
 
-- 当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
-- 当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。`+`、`-`、`*`、`/`、`%`、`**`、`//` 支持左右操作数的值同时为`Bool`。
 - 当任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
 - `List/Tuple`和`Number`进行`*`运算时表示将`List/Tuple`复制`Number`份后串联起来，`List/Tuple`内的数据类型必须为`Number`、`String`、`None`或由以上类型构成的`List/Tuple`。
 

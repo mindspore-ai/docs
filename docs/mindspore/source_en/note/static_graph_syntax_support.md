@@ -714,8 +714,7 @@ notes:
 
 Restrictions:
 
-- If all operands are `Number` type, value of Number can't be `Bool`.
-- If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported. Operators including `+`, `-`, `*`, `/`, `%`, `**`, `//` all support left and right operands to be `Bool` value.
 - If either operand is `Tensor` type, left and right operands can't both be `Bool` value.
 - The result of `List  * Number`  is concatenate  duplicate List Number times, data type of the `List` must be `Number`, `String`, `None` or `List`/`Tuple` that contains these types.  This rule applies to `Number * List`,  `Tuple * Number`, `Number * Tuple` too.
 
