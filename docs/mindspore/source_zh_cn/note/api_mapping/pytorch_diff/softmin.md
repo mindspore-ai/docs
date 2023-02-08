@@ -20,7 +20,7 @@ class mindspore.nn.Softmin(
 )
 ```
 
-更多内容详见[mindspore.nn.Softmin](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softmin.html)。
+更多内容详见[mindspore.nn.Softmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Softmin.html)。
 
 ## 差异对比
 
