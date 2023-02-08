@@ -81,3 +81,10 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
    :caption: 参考文档
 
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

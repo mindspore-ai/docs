@@ -62,3 +62,10 @@ The simulation results, such as the S parameters or electromagnetic fields, can 
    mindelec.operators
    mindelec.solver
    mindelec.vision
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
