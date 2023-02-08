@@ -117,7 +117,7 @@ In the experiment, LeNet is used to complete image classification as a demo mode
 Define LeNet:
 
 ```python
-from mindspore import nn
+from mindspore import nn, ops, grad
 from mindspore.common.initializer import Normal
 
 
@@ -162,28 +162,23 @@ network = LeNet5()
 Define an optimizer and a loss function:
 
 ```python
-import mindspore.nn as nn
-
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+net_loss = nn.CrossEntropyLoss()
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
 ```
 
 Define network parameters:
 
 ```python
-from mindspore import train
+from mindspore.train import Model, LossMonitor, CheckpointConfig, ModelCheckpoint
 
-config_ck = train.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-ckpoint = train.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
 ```
 
 Train LeNet:
 
 ```python
-from mindspore.train import LossMonitor
-import mindspore as ms
-
-model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
+model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(1875)])
 ```
 
@@ -209,8 +204,10 @@ print("{}".format(acc))
 Load the trained LeNet model:
 
 ```python
-param_dict = ms.load_checkpoint("checkpoint_lenet-5_1875.ckpt")
-ms.load_param_into_net(network, param_dict)
+from mindspore import load_checkpoint, load_param_into_net
+
+param_dict = load_checkpoint("checkpoint_lenet-5_1875.ckpt")
+load_param_into_net(network, param_dict)
 ```
 
 ```text
@@ -233,25 +230,15 @@ def forward_fn(inputs, targets):
 Then, implement the FGSM attack according to formula (2):
 
 ```python
-import numpy as np
+from mindspore import grad
 
-
-def gradient_func(inputs, labels):
-    _grad_all = ops.composite.GradOperation(get_all=True, sens_param=False)
-    # Obtain the gradient
-    out_grad = _grad_all(forward_fn)(inputs, labels)[0]
-    gradient = out_grad.asnumpy()
-    gradient = np.sign(gradient)
-    return gradient
-
+grad_fn = grad(forward_fn, 0)
 
 def generate(inputs, labels, eps):
     # Implement FGSM
-    inputs_tensor = ms.Tensor(inputs)
-    labels_tensor = ms.Tensor(labels)
-    gradient = gradient_func(inputs_tensor, labels_tensor)
+    gradient = grad_fn(inputs, labels)
     # Generate perturbation
-    perturbation = eps * gradient
+    perturbation = eps * ops.sign(gradient)
     # Generate the images after perturbation
     adv_x = inputs + perturbation
     return adv_x
@@ -269,8 +256,9 @@ def batch_generate(inputs, labels, eps, batch_size):
         y_batch = arr_y[i * batch_size: (i + 1) * batch_size]
         adv_x = generate(x_batch, y_batch, eps=eps)
         res.append(adv_x)
-    adv_x = np.concatenate(res, axis=0)
+    adv_x = ops.concat(res)
     return adv_x
+
 ```
 
 Reprocess the images from the test set in the MINIST dataset:
@@ -282,19 +270,19 @@ test_images = []
 test_labels = []
 predict_labels = []
 
-ds_test = dataset_eval.create_dict_iterator(output_numpy=True)
+ds_test = dataset_eval.create_dict_iterator()
 
 for data in ds_test:
-    images = data['image'].astype(np.float32)
+    images = data['image']
     labels = data['label']
     test_images.append(images)
     test_labels.append(labels)
-    pred_labels = np.argmax(model.predict(ms.Tensor(images)).asnumpy(), axis=1)
+    pred_labels = model.predict(images).argmax(1)
     predict_labels.append(pred_labels)
 
-test_images = np.concatenate(test_images)
-predict_labels = np.concatenate(predict_labels)
-true_labels = np.concatenate(test_labels)
+test_images = ops.concat(test_images)
+predict_labels = ops.concat(predict_labels)
+true_labels = ops.concat(test_labels)
 ```
 
 ## Running Attack
@@ -306,13 +294,12 @@ $$\eta = \varepsilon sign(\nabla_x  J(\theta)) \tag{3}$$
 Observe the attack effect when $\varepsilon$ is 0:
 
 ```python
-import mindspore.ops as ops
+import mindspore as ms
 
 advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.0)
 
-adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
-adv_predicts = np.argmax(adv_predicts, axis=1)
-accuracy = np.mean(np.equal(adv_predicts, true_labels))
+adv_predicts = model.predict(advs).argmax(1)
+accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
 print(accuracy)
 ```
 
@@ -325,9 +312,8 @@ Set $\varepsilon$ to 0.5 and try to run the attack.
 ```python
 advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.5)
 
-adv_predicts = model.predict(ms.Tensor(advs)).asnumpy()
-adv_predicts = np.argmax(adv_predicts, axis=1)
-accuracy = np.mean(np.equal(adv_predicts, true_labels))
+adv_predicts = model.predict(advs).argmax(1)
+accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
 print(accuracy)
 ```
 
@@ -343,17 +329,17 @@ The following shows the actual form of the attacked image. It can be seen that t
 import matplotlib.pyplot as plt
 %matplotlib inline
 
-adv_examples = np.transpose(advs[:10], [0, 2, 3, 1])
-ori_examples = np.transpose(test_images[:10], [0, 2, 3, 1])
+adv_examples = advs[:10].transpose(0, 2, 3, 1)
+ori_examples = test_images[:10].transpose(0, 2, 3, 1)
 
 plt.figure(figsize=(10, 3), dpi=120)
 for i in range(10):
     plt.subplot(3, 10, i + 1)
     plt.axis("off")
-    plt.imshow(np.squeeze(ori_examples[i]))
+    plt.imshow(ori_examples[i].squeeze().asnumpy())
     plt.subplot(3, 10, i + 11)
     plt.axis("off")
-    plt.imshow(np.squeeze(adv_examples[i]))
+    plt.imshow(adv_examples[i].squeeze().asnumpy())
 plt.show()
 ```
 
