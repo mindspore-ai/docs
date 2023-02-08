@@ -42,7 +42,6 @@ MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。M
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 接口输入，功能一致，仅参数名不同 |
 | 参数 | 参数1 | num_features | num_features | - |
 | | 参数2 | eps | eps | - |
 | | 参数3 | momentum | momentum | 功能一致，但PyTorch中的默认值是0.1，MindSpore中是0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同 |
@@ -52,6 +51,7 @@ MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。M
 | | 参数7 | - | beta_init |β 参数的初始化方法，默认值："zeros" |
 | | 参数8 | - | moving_mean_init |动态平均值的初始化方法，默认值："zeros" |
 | | 参数9 | - | moving_var_init |动态方差的初始化方法，默认值："ones" |
+| 输入 | 单输入 | input | x | 接口输入，功能一致，仅参数名不同 |
 
 ### 代码示例
 
