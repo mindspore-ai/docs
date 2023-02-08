@@ -80,12 +80,3 @@ def setup(app):
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
-
-src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
-des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-content = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes\n\n")
-    p.write(content[0])
