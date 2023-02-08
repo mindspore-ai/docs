@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.svd` 和 `torch.Tensor.svd` 的功能差异，参考 `mindspore.ops.svd` and `torch.svd` 的功能差异比较。
+> `mindspore.Tensor.svd` 和 `torch.Tensor.svd` 的功能差异，参考 `mindspore.ops.svd` 和 `torch.svd` 的功能差异比较。
 
 ## torch.svd
 
@@ -57,7 +57,7 @@ print(v)
 # tensor([[-0.6386,  0.7695],
 #         [-0.7695, -0.6386]])
 
-# Mindspore
+# MindSpore
 import mindspore as ms
 input_x = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
 s, u, v = ms.ops.svd(input_x, full_matrices=True, compute_uv=True)
