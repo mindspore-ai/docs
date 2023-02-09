@@ -354,7 +354,7 @@ By comparing the Loss Graph in Figure 10 with that in Figure 11, it can be seen 
 ## Notices
 
 1. During landscape drawing, the drawing time is directly related to the size of model parameters, dataset `num_sample` and resolution `landscape_size`. The larger model, `num_sample` and `landscape_size`, the longer it takes. For example, for a LeNet network with a resolution of 40 * 40, a landscape takes 4 minutes. When using two devices, the time of a landscape can be reduced to 2 minutes. ResNet-50 network, under the same resolution, 4 devices are used for drawing and calculation, and one landscape takes 20 minutes.
-2. In the MindInsight startup interface, the training log file is large. Mindinsight needs more time to parse the training log file. Please wait patiently.
+2. In the MindInsight startup interface, the training log file is large. MindInsight needs more time to parse the training log file. Please wait patiently.
 3. This function currently only supports models defined through mindspore.train.Model.
 4. At present, it only supports: Backend: Ascend / GPU / CPU, Mode: Static Graph Mode, and Platform: Linux.
 5. At present, this function only supports single device and multi-device modes.
