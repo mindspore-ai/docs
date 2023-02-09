@@ -271,7 +271,9 @@ if (build_ret != mindspore::kSuccess) {
 
 > After the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is loaded and built, the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step can be released.
 >
-> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_ File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+>
+> If the user enables the `MSLITE_ENABLE_MODEL_PRE_INFERENCE` function when compiling the source code, the runtime will perform pre-inference by default in the Build phase(non-encrypted scenario) to check whether the program can execute normally. This function can be disabled through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `common`, `key` is `enable_pre_inference`, `value` is `true` or `false`.
 
 ## Inputting Data
 
