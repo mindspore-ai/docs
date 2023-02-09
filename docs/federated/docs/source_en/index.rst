@@ -60,9 +60,11 @@ Vertical Federated Architecture:
 
    Support high-performance Privacy Set Intersection Protocol (PSI), which prevents federated participants from obtaining ID information outside the intersection and can cope with data imbalance scenarios.
 
-   Support encryption scheme of Label based on differential privacy to prevent leakage of user label data.
+   Support feature protection software solution that combines quantization and differential privacy, to prevent attackers from reconstructing original privacy data from intermediate features.
 
-   Support privacy protection scheme combined software with hardware, which can reduce the number of communication rounds and communication volume compared with homomorphic encryption method.
+   Support feature protection hardware solution which is based on trusted execution environment, to provide high-strength and efficient feature protection capabilities.
+
+   Support label protection solution which is based on differential privacy, to prevent the leakage of user label data.
 
 2. Federated training
 
@@ -131,6 +133,7 @@ Common Application Scenarios
    local_differential_privacy_training_signds
    pairwise_encryption_training
    private_set_intersection
+   secure_vertical_federated_learning_with_EmbeddingDP
    secure_vertical_federated_learning_with_TEE
    secure_vertical_federated_learning_with_DP
 
