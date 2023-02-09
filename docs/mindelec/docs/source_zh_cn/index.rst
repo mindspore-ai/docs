@@ -62,3 +62,10 @@ AI电磁模型库
    mindelec.operators
    mindelec.solver
    mindelec.vision
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

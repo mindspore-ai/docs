@@ -1,6 +1,6 @@
 # 比较与torch.torch_op的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/examples/api_mapping_with_diffs_template.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/templates/api_mapping_with_diffs_template.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.torch_op
 

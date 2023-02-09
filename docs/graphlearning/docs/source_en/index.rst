@@ -81,3 +81,10 @@ Typical MindSpore Graph Learning Application Scenarios
    :caption: References
 
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
