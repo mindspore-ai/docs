@@ -756,7 +756,7 @@ else:
 
 ![resnet_profiler1](images/resnet_profiler1.png)
 
-Mindinsihgt性能分析的界面如图所示（此分析是在Ascend环境上进行的，GPU上差不多，CPU暂不支持profiler）。整体上有三大部分。
+MindInsight性能分析的界面如图所示（此分析是在Ascend环境上进行的，GPU上差不多，CPU暂不支持profiler）。整体上有三大部分。
 
 第一部分是迭代轨迹，这部分是进行性能分析最基本的，单卡的数据包括迭代间隙和前向反向，其中前向反向的时间是模型在device上实际运行的时间，迭代间隙是其他的时间，在训练过程中包括数据处理，打印数据，保存参数等在CPU上的时间。
 可以看到迭代间隙和前向反向执行的时间基本一半一半，数据处理等非device操作占了很大的一部分。

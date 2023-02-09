@@ -24,7 +24,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 
 2. MindSpore侧Profiler将在用户脚本中对原始数据进行解析，并在用户指定的文件夹下面生成中间数据结果；
 
-3. Mindinsight侧Profiler对接中间数据，提供可视化Profiler功能供用户使用。
+3. MindInsight侧Profiler对接中间数据，提供可视化Profiler功能供用户使用。
 
 ### 模块层级结构
 
