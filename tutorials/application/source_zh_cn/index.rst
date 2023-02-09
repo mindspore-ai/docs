@@ -31,7 +31,9 @@
    :maxdepth: 1
    :caption: 生成式
 
+   generative/gan
    generative/dcgan
+   
 
    
    
