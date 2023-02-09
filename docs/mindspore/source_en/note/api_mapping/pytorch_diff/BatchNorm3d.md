@@ -38,7 +38,7 @@ For more information, see [mindspore.nn.BatchNorm3d](https://www.mindspore.cn/do
 
 PyTorch: Apply batch normalization on five-dimensional inputs (three-dimensional input with additional mini-batch and channel channels) to avoid internal covariate bias.
 
-MindSpore：The function of this API is basically the same as that of PyTorch, with two typical differences. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d).
+MindSpore：The function of this API is basically the same as that of PyTorch, with two typical differences. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories   |PyTorch | MindSpore | Differences |
 | --- | --- | --- | --- |---|
