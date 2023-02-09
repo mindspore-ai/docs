@@ -150,7 +150,7 @@ Use x86_64 or ARM64 environment.
 Three-backend-unification packages need to configure the following environment variables:
 
 ```bash
-export MSLITE_ENABLE_CLOUD_FUSION_INFERENCE=on
+export MSLITE_ENABLE_CLOUD_INFERENCE=on
 export MSLITE_GPU_BACKEND=tensorrt
 export MSLITE_ENABLE_ACL=on
 ```

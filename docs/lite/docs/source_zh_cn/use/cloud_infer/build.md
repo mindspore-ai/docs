@@ -150,7 +150,7 @@ GPU环境编译，使用TensorRT需要集成CUDA、TensorRT。当前版本适配
 三后端合一包需配置如下环境变量
 
 ```bash
-export MSLITE_ENABLE_CLOUD_FUSION_INFERENCE=on
+export MSLITE_ENABLE_CLOUD_INFERENCE=on
 export MSLITE_GPU_BACKEND=tensorrt
 export MSLITE_ENABLE_ACL=on
 ```
