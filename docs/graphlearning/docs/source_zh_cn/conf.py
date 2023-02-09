@@ -184,3 +184,14 @@ def setup(app):
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
+
+src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("(## MindSpore[\s\S\n]*?\n)## ", data)
+content1 = re.findall("(### Contributors[\s\S\n]*?\n)### ", data)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(content[0]+"\n\n")
+    p.write(content1[0])
