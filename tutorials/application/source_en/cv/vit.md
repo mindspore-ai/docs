@@ -24,6 +24,8 @@ ViT model is mainly applied in the field of image classification. Therefore, its
 
 The following code example will explain in detail the implementation of ImageNet classification task based on ViT.
 
+This tutorial runs on the CPU for too long and is not recommended to run on the CPU.
+
 ## Environment Preparation and Data Reading
 
 Before you start experimenting, make sure you have installed a local Python environment and MindSpore.
@@ -422,7 +424,7 @@ class ViT(nn.Cell):
     def construct(self, x):
         """ViT construct."""
         x = self.patch_embedding(x)
-        cls_tokens = ops.tile(self.cls_token, (x.shape[0], 1, 1))
+        cls_tokens = ops.tile(self.cls_token.astype(x.dtype), (x.shape[0], 1, 1))
         x = ops.concat((cls_tokens, x), axis=1)
         x += self.pos_embedding
 
