@@ -5,31 +5,24 @@
 ## torch.dot
 
 ```python
-torch.dot(
-    input,
-    tensor
-)
+torch.dot(input, other, *, out=None)
 ```
 
-更多内容详见[torch.dot](https://pytorch.org/docs/1.5.0/torch.html#torch.dot)。
+更多内容详见[torch.dot](https://pytorch.org/docs/1.8.1/generated/torch.dot.html)。
 
 ## mindspore.ops.tensor_dot
 
 ```python
-mindspore.ops.tensor_dot(
-    x1,
-    x2,
-    axes
-)
+mindspore.ops.tensor_dot(x1, x2, axes)
 ```
 
 更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
 
 ## 使用方式
 
-PyTorch：计算两个相同shape的tensor的点乘（内积），仅支持1D。
+PyTorch：计算两个相同shape的tensor的点乘（内积），仅支持1D。支持的输入数据类型包括uint8、int8/16/32/64、float32/64。
 
-MindSpore：计算两个tensor在任意轴上的点乘，支持任意维度的tensor，但指定的轴对应的形状要相等。当输入为1D，轴设定为1时和PyTorch的功能一致。
+MindSpore：计算两个tensor在任意轴上的点乘，支持任意维度的tensor，但指定的轴对应的形状要相等。当输入为1D， 轴设定为1时，和PyTorch的功能一致。支持的输入数据类型为float16或float32。
 
 ## 代码示例
 

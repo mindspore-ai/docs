@@ -5,31 +5,24 @@
 ## torch.dot
 
 ```python
-torch.dot(
-    input,
-    tensor
-)
+torch.dot(input, other, *, out=None)
 ```
 
-For more information, see [torch.dot](https://pytorch.org/docs/1.5.0/torch.html#torch.dot).
+For more information, see [torch.dot](https://pytorch.org/docs/1.8.1/generated/torch.dot.html).
 
 ## mindspore.ops.tensor_dot
 
 ```python
-mindspore.ops.tensor_dot(
-    x1,
-    x2,
-    axes
-)
+mindspore.ops.tensor_dot(x1, x2, axes)
 ```
 
 For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
 
 ## Differences
 
-PyTorch: Calculates the dot product (inner product) of two tensors of the same shape, only 1D is supported.
+PyTorch: Calculates the dot product (inner product) of two tensors of the same shape, only 1D is supported. The supported input data types include uint8, int8/16/32/64, float32/64.
 
-MindSpore: Calculates the dot product of two tensors on any axis. Support tensor of any dimension, but the shape corresponding to the specified axis should be equal. The function of the PyTorch is the same when the input is 1D and the axis is set to 0.
+MindSpore: Calculates the dot product of two tensors on any axis. Support tensor of any dimension, but the shape corresponding to the specified axis should be equal. The function of the PyTorch is the same when the input is 1D and the axis is set to 0. The supported input data types are float16 or float32.
 
 ## Code Example
 
