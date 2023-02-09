@@ -57,7 +57,7 @@ print(v)
 # tensor([[-0.6386,  0.7695],
 #         [-0.7695, -0.6386]])
 
-# Mindspore
+# MindSpore
 import mindspore as ms
 input_x = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
 s, u, v = ms.ops.svd(input_x, full_matrices=True, compute_uv=True)
