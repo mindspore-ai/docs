@@ -68,7 +68,7 @@ docs
 |
 │───install // Installation instruction
 |
-│───examples // Document templates and examples
+│───templates // Document templates and examples
 |
 │───resource // Resource related documents
 |

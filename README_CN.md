@@ -68,7 +68,7 @@ docs
 |
 │───install // 安装指南
 |
-│───examples // 文档模板和样例
+│───templates // 文档模板和样例
 |
 │───resource // 资源相关文档
 |
