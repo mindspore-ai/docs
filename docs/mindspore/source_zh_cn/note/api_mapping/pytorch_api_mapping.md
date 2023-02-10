@@ -107,9 +107,9 @@
 | [torch.is_floating_point](https://pytorch.org/docs/1.8.1/generated/torch.is_floating_point.html) | [mindspore.ops.is_floating_point](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_floating_point.html) | 功能一致，参数名不一致|
 | [torch.inverse](https://pytorch.org/docs/1.8.1/generated/torch.inverse.html) | [mindspore.ops.inverse](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inverse.html) | 功能一致，参数名不一致 |
 | [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isclose.html) | 功能一致，参数名不一致 |
-| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isfinite.html) | |
-| [torch.isinf](https://pytorch.org/docs/1.8.1/generated/torch.isinf.html) | [mindspore.ops.isinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isinf.html) | |
-| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isnan.html) | |
+| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isfinite.html) | 功能一致 |
+| [torch.isinf](https://pytorch.org/docs/1.8.1/generated/torch.isinf.html) | [mindspore.ops.isinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isinf.html) | 功能一致 |
+| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isnan.html) | 功能一致 |
 | [torch.isneginf](https://pytorch.org/docs/1.8.1/generated/torch.isneginf.html) | [mindspore.ops.isneginf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isneginf.html) | 功能一致，参数名不一致 |
 | [torch.isposinf](https://pytorch.org/docs/1.8.1/generated/torch.isposinf.html) | [mindspore.ops.isposinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isposinf.html) | 功能一致，参数名不一致 |
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isreal.html) | 功能一致，参数名不一致 |
