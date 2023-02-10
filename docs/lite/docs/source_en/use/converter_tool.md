@@ -6,7 +6,7 @@
 
 MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. The command line parameters contain multiple personalized options, providing a convenient conversion method for users.
 
-Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, TensorFlow and ONNX.
+Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, TensorFlow, ONNX, and PyTorch.
 
 The ms model converted by the conversion tool supports the conversion tool and the higher version of the Runtime framework to perform inference.
 
