@@ -12,7 +12,7 @@ torch.matrix_power(input, n)
 
 For more information, see [torch.matrix_power](https://pytorch.org/docs/1.8.1/generated/torch.matrix_power.html).
 
-## mindspore.ops.scatter
+## mindspore.ops.matrix_power
 
 ```python
 mindspore.ops.matrix_power(x, n)
