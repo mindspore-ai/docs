@@ -24,7 +24,7 @@ ViT model is mainly applied in the field of image classification. Therefore, its
 
 The following code example will explain in detail the implementation of ImageNet classification task based on ViT.
 
-This tutorial runs on the CPU for too long and is not recommended to run on the CPU.
+> This tutorial runs on the CPU for too long and is not recommended to run on the CPU.
 
 ## Environment Preparation and Data Reading
 
