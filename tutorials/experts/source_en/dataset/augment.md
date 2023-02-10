@@ -285,7 +285,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
                        batch_size=32, shuffle=False, num_samples=5):
         # create a train or eval imagenet2012 dataset for ResNet-50
         dataset = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8,
-                                        shuffle=shuffle, num_samples=num_samples, decode=True)
+                                        shuffle=shuffle, decode=True)
 
         image_size = 224
 
@@ -298,6 +298,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
         type_cast_op = transforms.TypeCast(ms.int32)
 
         # map images and labes
+        dataset = dataset.map(operations=[vision.Resize(256), vision.CenterCrop(image_size)], input_columns="image")
         dataset = dataset.map(operations=trans, input_columns="image")
         dataset = dataset.map(operations=type_cast_op, input_columns="label")
 
@@ -312,28 +313,29 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 
     ```python
     import matplotlib.pyplot as plt
+    from download import download
 
     # Define the path to image folder directory.
-    DATA_DIR = "/path/to/image_folder_directory"
-    dataset = create_dataset(dataset_path=DATA_DIR,
+    url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/ImageNetSimilar.tar.gz"
+    download(url, "./", kind="tar.gz", replace=True)
+    dataset = create_dataset(dataset_path="ImageNetSimilar",
                              train=True,
                              batch_size=5,
-                             shuffle=False,
-                             num_samples=5)
+                             shuffle=False)
 
     epochs = 5
     columns = 5
     rows = 5
-    step_num = 0
     fig = plt.figure(figsize=(8, 8))
     itr = dataset.create_dict_iterator()
 
     for ep_num in range(epochs):
+        step_num = 0
         for data in itr:
-            step_num += 1
             for index in range(rows):
-                fig.add_subplot(rows, columns, ep_num * rows + index + 1)
+                fig.add_subplot(rows, columns, step_num * rows + index + 1)
                 plt.imshow(data['image'].asnumpy()[index])
+            step_num += 1
     plt.show()
     ```
 
@@ -341,7 +343,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 
 ![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0.0-alpha/tutorials/experts/source_en/dataset/images/auto_augmentation.png)
 
-The running result can be seen that the augmentation effect of each image in the batch, the horizontal direction represents 5 images of 1 batch, and the vertical direction represents 5 batches.
+The running result can be seen that the augmentation effect of each image in the batch, the vertical direction represents 5 images of 1 batch, and the horizontal direction represents 5 batches.
 
 ## References
 
