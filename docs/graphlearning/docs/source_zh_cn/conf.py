@@ -185,7 +185,7 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
 
-src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
+src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
