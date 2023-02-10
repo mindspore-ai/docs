@@ -103,8 +103,6 @@
 | [torch.igammac](https://pytorch.org/docs/1.8.1/generated/torch.igammac.html)| [mindspore.ops.igammac](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.igammac.html)|功能一致|
 | [torch.imag](https://pytorch.org/docs/1.8.1/generated/torch.imag.html) | [mindspore.ops.imag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.imag.html)  | 功能一致 |
 | [torch.inner](https://pytorch.org/docs/1.8.1/generated/torch.inner.html) | [mindspore.ops.inner](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inner.html) | 功能一致，参数名不一致 |
-| [torch.is_complex](https://pytorch.org/docs/1.8.1/generated/torch.is_complex.html) | [mindspore.ops.is_complex](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_complex.html) | 功能一致，参数名不一致|
-| [torch.is_floating_point](https://pytorch.org/docs/1.8.1/generated/torch.is_floating_point.html) | [mindspore.ops.is_floating_point](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_floating_point.html) | 功能一致，参数名不一致|
 | [torch.inverse](https://pytorch.org/docs/1.8.1/generated/torch.inverse.html) | [mindspore.ops.inverse](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inverse.html) | 功能一致，参数名不一致 |
 | [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isclose.html) | 功能一致，参数名不一致 |
 | [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isfinite.html) | 功能一致 |
@@ -113,6 +111,8 @@
 | [torch.isneginf](https://pytorch.org/docs/1.8.1/generated/torch.isneginf.html) | [mindspore.ops.isneginf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isneginf.html) | 功能一致，参数名不一致 |
 | [torch.isposinf](https://pytorch.org/docs/1.8.1/generated/torch.isposinf.html) | [mindspore.ops.isposinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isposinf.html) | 功能一致，参数名不一致 |
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isreal.html) | 功能一致，参数名不一致 |
+| [torch.is_complex](https://pytorch.org/docs/1.8.1/generated/torch.is_complex.html) | [mindspore.ops.is_complex](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_complex.html) | 功能一致，参数名不一致|
+| [torch.is_floating_point](https://pytorch.org/docs/1.8.1/generated/torch.is_floating_point.html) | [mindspore.ops.is_floating_point](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_floating_point.html) | 功能一致，参数名不一致|
 | [torch.lcm](https://pytorch.org/docs/1.8.1/generated/torch.lcm.html) | [mindspore.ops.lcm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.lcm.html) | 功能一致，参数名不一致 |
 | [torch.le](https://pytorch.org/docs/1.8.1/generated/torch.le.html) | [mindspore.ops.le](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.le.html) | 功能一致，参数名不一致 |
 | [torch.less_equal](https://pytorch.org/docs/1.8.1/generated/torch.less_equal.html) | [mindspore.ops.less_equal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.less_equal.html) | 功能一致，参数名不一致 |
@@ -175,7 +175,7 @@
 | [torch.split](https://pytorch.org/docs/1.8.1/generated/torch.split.html)                         | [mindspore.ops.split](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.split.html)                         | 功能一致，参数名不一致|
 | [torch.stack](https://pytorch.org/docs/1.8.1/generated/torch.stack.html#torch.stack) | [mindspore.ops.stack](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stack.html) |    功能一致，参数名不一致                                               |
 | [torch.std_mean](https://pytorch.org/docs/1.8.1/generated/torch.std_mean.html#torch.std_mean) | [mindspore.ops.std](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.std.html#mindspore.ops.std) | 功能一致，参数名不一致 |
-| [torch.squeeze](https://pytorch.org/docs/1.8.1/torch.html#torch.squeeze) | [mindspore.ops.Squeeze](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Squeeze.html) | 功能一致 |
+| [torch.squeeze](https://pytorch.org/docs/1.8.1/torch.html#torch.squeeze) | [mindspore.ops.squeeze](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.squeeze.html) | 功能一致 |
 | [torch.sqrt](https://pytorch.org/docs/1.8.1/generated/torch.sqrt.html) | [mindspore.ops.sqrt](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.sqrt.html) |  功能一致，参数名不一致 |
 | [torch.square](https://pytorch.org/docs/1.8.1/generated/torch.square.html)| [mindspore.ops.square](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.square.html)|功能一致，参数名不一致|
 | [torch.sub](https://pytorch.org/docs/1.8.1/generated/torch.sub.html#torch.sub)  | [mindspore.ops.subtract](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.subtract.html)  | 功能一致，参数名不一致 |
@@ -350,6 +350,7 @@
 | [torch.Tensor.atan](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.atan)| [mindspore.Tensor.atan](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.atan.html)|功能一致|
 | [torch.Tensor.atan2](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.atan2)                     | [mindspore.Tensor.atan2](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.atan2.html)                     | 功能一致 |
 | [torch.Tensor.atanh](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.atanh)| [mindspore.Tensor.atanh](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.atanh.html)|功能一致|
+| [torch.Tensor.baddbmm](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.baddbmm)                     | [mindspore.Tensor.baddbmm](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.baddbmm.html)                     | 功能一致   |
 | [torch.Tensor.bincount](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.bincount)                     | [mindspore.Tensor.bincount](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.bincount.html)                     | 功能一致                                       |
 | [torch.Tensor.bitwise_and](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.bitwise_and)| [mindspore.Tensor.bitwise_and](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.bitwise_and.html)|功能一致|
 | [torch.Tensor.bitwise_or](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.bitwise_or)| [mindspore.Tensor.bitwise_or](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.bitwise_or.html)|功能一致|
