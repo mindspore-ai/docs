@@ -56,7 +56,7 @@ docs
 |    |
 |    ├───probability // MindSpore Probability Documents
 |    |
-|    ├───recommender // MindSpore Recmmender Documents
+|    ├───recommender // MindSpore Recommender Documents
 |    |
 |    ├───reinforcement // MindSpore Reinforcement Documents
 |    |
