@@ -22,6 +22,7 @@ MindSpore 文档
    design/graph_fusion_engine
    design/data_engine
    design/glossary
+   design/pluggable_device
    
 .. toctree::
    :glob:
