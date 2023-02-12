@@ -42,7 +42,7 @@ MindSpore：The implementation function of API in MindSpore is basically the sam
 | | Parameter 3 | padding | - | The number of elements to fill. The default value is 0 (no padding), and the value cannot exceed kernel_size/2 (rounded down). For more details, refer to [Conv and Pooling](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#conv-and-pooling). |
 | | Parameter 4 | dilation | - | Span length between elements in the window: the default value is 1, when the elements in the window are contiguous. If the value > 1, the elements in the window are spaced |
 | | Parameter 5 | return_indices | - | Return index: If the value is True, the index of the corresponding element will be returned along with the maximum pooling result. Useful for subsequent calls to torch.nn.MaxUnpool1d |
-| | Parameter 6 | ceil_mode | - | Control the output shape(N, C, L_{out}) in L_{out} to round up or down. In MindSpore, default: round down |
+| | Parameter 6 | ceil_mode | - | Control the output shape($N$, $C$, $L_{out}$) in $L_{out}$ to round up or down. In MindSpore, default: round down |
 | | Parameter 7 | input | x | Consistent function, different parameter names |
 | | Parameter 8 | - | pad_mode | Control the filling mode, and PyTorch does not have this parameter |
 
