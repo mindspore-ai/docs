@@ -22,13 +22,7 @@ For more information, see [mindspore.ops.float_power](https://mindspore.cn/docs/
 
 PyTorch: Raise the input tensor to double precision to calculate exponential powers. If neither input is complex, a torch.float64 tensor is returned, and if one or more inputs is complex, a torch.complex128 tensor is returned.
 
-MindSpore:
-
-- If neither input is complex Tensor, MindSpore’s API implements the same function as PyTorch, only the parameter names are different;
-- If one or more inputs is complex Tensor, MindSpore will not improve the precision. Currently, complex number operations only support CPU;
-    - When the inputs are two complex Tensors, MindSpore requires the two Tensors to be of the same type, and the return value is the same as the input type;
-    - When the inputs are a complex Tensor and a scalar, the return value of MindSpore is the same type as the input Tensor;
-    - When the inputs are a complex Tensor and a real Tensor, MindSpore currently does not support this operation.
+MindSpore: If the inputs are all real numbers, MindSpore API implements the same functionality as PyTorch, and only the parameter names are different. Currently, MindSpore does not support computation with complex numbers.
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences       |
 | ---- | ----- | ------- | --------- | -------------------- |
@@ -36,7 +30,7 @@ MindSpore:
 |      | Parameter 2 | exponent | exponent | The function is the same |
 |      | Parameter 3 | out     | -         | MindSpore does not have this Parameter      |
 
-## Code Example 1
+## Code Example
 
 > When the input is a real number type, the functions of the two APIs are the same, and the usage is the same.
 
@@ -57,31 +51,4 @@ x = Tensor(input_np)
 output = ops.float_power(x, 2.)
 print(output.asnumpy())
 # [ 4.  9. 16.]
-```
-
-## Code Example 2
-
-> When the input is of complex type, MindSpore only supports two complex Tensors or one complex Tensor and one scalar as the input on the CPU platform, and the return value type is the same as the input complex Tensor type.
-
-```python
-import numpy as np
-input_np = np.array([(2., 3.), (3., 4.), (4., 5.)], np.complex64)
-# PyTorch
-import torch
-input = torch.from_numpy(input_np)
-out_torch = torch.float_power(input, 2.)
-print(out_torch.detach().numpy(), out_torch.detach().numpy().dtype)
-# [[ 4.+0.j  9.+0.j]
-#  [ 9.+0.j 16.+0.j]
-#  [16.+0.j 25.+0.j]] complex128
-
-# MindSpore
-import mindspore
-from mindspore import Tensor, ops
-x = Tensor(input_np)
-output = ops.float_power(x, 2.)
-print(output.asnumpy())
-# [[ 4.      +0.j  9.      +0.j]
-#  [ 9.      +0.j 16.      +0.j]
-#  [16.      +0.j 25.000002+0.j]] complex64
 ```
