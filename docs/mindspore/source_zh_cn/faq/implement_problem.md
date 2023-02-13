@@ -616,3 +616,9 @@ Traceback (most recent call last):
 另外在一些情况下，CANN会抛出一些内部错误(Inner Error)，例如：错误码为 "EI9999: Inner Error" 此种情况如果在MindSpore官网或者论坛无法搜索到案例说明，可在社区提单求助。
 
 <br/>
+
+<font size=3>**Q: 算子执行过程中出现报错：`python: relocation error: /the-path-of-cuda/libcublas.so.11: symbol xxxxx version libcublasLt.so.11 not defined in file libcublasLt.so with link time reference`如何解决？**</font>
+
+ A: 2.0.0alpha存在一个已知问题，当环境中存在多个cuda版本时可能会出现类似的错误，最保守的解决办法是为将要运行的cuda版本添加软链接到`/usr/local/cuda`，并将其他cuda目录重命名。该问题已在主干修复，请期待下一个发行版本。
+
+<br/>
