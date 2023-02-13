@@ -209,3 +209,10 @@ Contribution Guide
    mindsponge.data
    mindsponge.metrics
    constant
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
