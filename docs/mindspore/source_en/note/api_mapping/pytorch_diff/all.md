@@ -2,6 +2,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+> For function differences between `mindspore.Tensor.all` and `torch.Tensor.all`, refer to the function differences between `mindspore.ops.all` and `torch.all`.
+
 ## torch.all
 
 ```text
