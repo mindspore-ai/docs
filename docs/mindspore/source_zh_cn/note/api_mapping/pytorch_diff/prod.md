@@ -2,6 +2,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/prod.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+> `mindspore.Tensor.prod` 和 `torch.Tensor.prod` 的功能差异，参考 `mindspore.ops.prod` 和 `torch.prod` 的功能差异比较。
+
 ## torch.prod
 
 ```text
