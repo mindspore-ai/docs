@@ -53,7 +53,7 @@
 - 数据格式：JPEG
 - 下载数据集，目录结构如下：
 
-```{container} highlight
+```text
 └─dataset
     ├─train                 # 训练数据集
     └─validation_preprocess # 评估数据集
@@ -180,7 +180,7 @@ if get_rank_id() == 0:
 
    输出如下，可以看到loss值随着训练逐步降低：
 
-   ```{container} highlight
+   ```text
    ============== Starting Training ==============
    epoch: 1 step: 625 loss is  5.2477064
    ...
@@ -194,7 +194,7 @@ if get_rank_id() == 0:
 
 2. 查看推理精度。
 
-   ```{container} highlight
+   ```text
    ============== Starting Testing ==============
    ============== {'Accuracy': 0.6604992988782051} ==============
    ```
@@ -293,14 +293,14 @@ model.train(2, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=Tr
 
    输出如下，可以看到loss值随着训练逐步降低：
 
-   ```{container} highlight
+   ```text
    epoch: 1 step: 625 loss is  2.3422508
    epoch: 2 step: 625 loss is  2.1641185
    ```
 
 2. 查看推理精度，代码中会将checkpoint保存到当前目录，随后会加载该checkpoint执行推理。
 
-   ```{container} highlight
+   ```text
    ============== Starting Testing ==============
    ============== {'Accuracy': 0.7430964543269231} ==============
    ```
