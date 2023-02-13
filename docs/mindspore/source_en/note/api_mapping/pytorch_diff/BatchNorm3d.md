@@ -46,7 +46,7 @@ MindSpore：The function of this API is basically the same as that of PyTorch, w
 | | Parameter 2 | eps | eps | - |
 | | Parameter 3 | momentum | momentum | The function is the same, but the default value in PyTorch is 0.1, and in MindSpore is 0.9, the conversion relationship with PyTorch's momentum is 1-momentum, and the default value behavior is the same as PyTorch |
 | | Parameter 4 | affine | affine | - |
-| | Parameter 5 | track_running_stats | use_batch_statistics | The function is the same, and different values correspond to different default methods. For details, please refer to [Typical differences with PyTorch -nn.BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d) |
+| | Parameter 5 | track_running_stats | use_batch_statistics | The function is the same, and different values correspond to different default methods. For details, please refer to [Typical differences with PyTorch -nn.BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d) |
 | | Parameter 6 | - | gamma_init |The initialization method of the γ parameter, default value: "ones". |
 | | Parameter 7 | - | beta_init |The initialization method of the β parameter, default value: "zeros". |
 | | Parameter 8 | - | moving_mean_init |Initialization method of dynamic average, default value: "zeros". |
