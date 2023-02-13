@@ -18,11 +18,11 @@ MindSpore 文档
    design/mindir
    design/all_scenarios
    design/dynamic_graph_and_static_graph
+   design/pluggable_device
    design/distributed_training_design
    design/graph_fusion_engine
    design/data_engine
    design/glossary
-   design/pluggable_device
    
 .. toctree::
    :glob:
