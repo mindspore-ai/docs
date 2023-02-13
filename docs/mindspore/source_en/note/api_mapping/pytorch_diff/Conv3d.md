@@ -51,23 +51,35 @@ $$
 
 where $\star$ is the 3d cross-correlation operator, $N$ is the batch size, $C$ is the number of channels, and $D$, $H$, and $W$ are the depth, height, and width of the feature layer, respectively.
 
-MindSpore: Implement essentially the same function as PyTorch, but does not add bias parameters by default, in contrast to PyTorch. MindSpore pads the input by default, while PyTorch does not by default. Also MindSpore padding mode options are different from PyTorch, which has 'zeros', 'reflect', 'replicate', and 'circular' for the parameter padding_mode, with the following meanings:
+MindSpore: It is basically the same as the functions implemented by PyTorch, but there are bias differences and filling differences.
 
-zero: Constant padding (default zero padding)
+1. Offset difference: MindSpore does not add offset parameters by default, contrary to PyTorch.
+2. Fill difference: MindSpore fills the input by default, while PyTorch does not fill by default. At the same time, MindSpore filling mode options and behavior are different from PyTorch. The specific differences in filling behavior are as follows.
 
-reflect: reflection padding. However, when using Conv3d, this kind of padding is not available.
+### Filling Behavior Difference
 
-replicate: replication padding
+1. The parameter "padding_mode" of PyTorch can be selected as 'zero','reflect', 'replicate', and 'circular'. The default is 'zero'. The parameter "padding" can be selected as 'int', 'tuple of ints', 'valid', and 'same'. The default is 0. The four padding mode of the parameter "padding_mode" is consistent with that of the "torch.nn.functional.pad" interface. After setting, the convolution input will be filled according to the specified filling mode, as follows:
 
-circular: Circular padding
+    - zero: constant fill (zero fill by default).
 
-MindSpore parameter pad_mode can be optionally 'same', 'valid', 'pad', with the following meanings:
+    - reflect: reflection fill.
 
-same: The width of the output is the same as the value after dividing stride by the input.
+    - replicate: Edge replication fill.
 
-valid: No padding
+    - circular: circular fill.
 
-pad: Zero padding.
+    After the filling method is determined by "padding _mode", the "padding" parameter is used to control the number and position of filling. For "Conv2d", when "padding" is specified as 'int', "padding" times will be filled in the top, bottom, left, right，front and back sides of the input (if the default value is 0, it means no filling). When "padding" is specified as tuple, the specified number of filling will be filled in the top, bottom, left, and right front and back sides according to the input of tuple. When "padding" is set to the 'valid' mode, it will not be filled, but will only be convolved within the range of the feature map. When "padding" is set to the 'same' mode, if the number of elements requiring "padding" is even, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. If the number of elements requiring "padding" is odd, PyTorch will fill the left and upper sides of the feature map first.
+
+2. The parameter "pad_mode" of MindSpore can be selected as 'same', 'valid', and 'pad'. The parameter "padding" can only be input as "int". The detailed meaning of the filling parameter is as follows:
+
+    When "pad_mode" is set to 'pad', "MindSpore" can set the "padding" parameter to a positive integer greater than or equal to 0. Zero filling will be carried out "padding" times around the input(if it is the default value of 0, it will not fill). When "pad_mode" is the other two modes, the "padding" parameter must be set to 0 only. When "pad_mode" is set to 'valid' mode, it will not fill, and the convolution will only be carried out within the range of the feature map. If pad_mode is set to 'same' mode, when the padding element is an even number, padding elements are evenly distributed on the top, bottom, left, right of the feature map. If the number of elements requiring "padding" is odd, MindSpore will preferentially fill the right and lower sides of the feature map (different from PyTorch, similar to TensorFlow).
+
+    Therefore, if "MindSpore" wants to achieve the same filling mode as "PyTorch", it needs to manually fill the input with "nn.Pad" or "ops.pad" interface.
+
+### Weight Initialization Difference
+
+1. mindspore.nn.Conv2d (weight：$\mathcal{N}(0, 1)$，bias：zeros)
+2. torch.nn.Conv2d (weight：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
@@ -79,9 +91,9 @@ pad: Zero padding.
 | | Parameter 6 | dilation | dilation |-|
 | | Parameter 7 | groups | group |Same function, different parameter names|
 | | Parameter 8 | bias | has_bias |Same function, different parameter names, different default values |
-| | Parameter 9 | padding_mode | pad_mode |PyTorch and MindSpore have different options and different default values|
-| | Parameter 10 | - | weight_init |The initialization method for the weight parameter. PyTorch can use the init function to initialize the weights|
-| | Parameter 11 | - | bias_init |Initialization method for the bias parameter, which is not available for PyTorch|
+| | Parameter 9 | padding_mode | pad_mode |Refer to the above for specific differences|
+| | Parameter 10 | - | weight_init |The initialization method for the weight parameter. Refer to the above for specific differences|
+| | Parameter 11 | - | bias_init |Initialization method for the bias parameter. Refer to the above for specific differences|
 | | Parameter 12 | - | data_format |Input data format, which is not available for PyTorch |
 | Input | Single input | input  | x | Same function, different parameter names |
 
