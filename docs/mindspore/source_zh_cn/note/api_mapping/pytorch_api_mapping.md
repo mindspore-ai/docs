@@ -304,6 +304,7 @@
 | [torch.nn.Threshold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Threshold.html) | [mindspore.nn.Threshold](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Threshold.html) | 功能一致 |
 | [torch.nn.TripletMarginLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.TripletMarginLoss.html) | [mindspore.nn.TripletMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TripletMarginLoss.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html |
 | [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html) | [mindspore.nn.Unfold](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Unfold.html) |
+| [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html#torch.nn.Upsample) | [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)| [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/ReduceBicubic.html) |
 
 ### torch.nn.functional
 
