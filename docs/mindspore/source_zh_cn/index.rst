@@ -23,7 +23,7 @@ MindSpore 文档
    design/graph_fusion_engine
    design/data_engine
    design/glossary
-   
+
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -53,7 +53,6 @@ MindSpore 文档
    api_python/mindspore.dataset.transforms
    api_python/mindspore.mindrecord
    api_python/mindspore.nn.probability
-   api_python/mindspore.nn.transformer
    api_python/mindspore.rewrite
    api_python/mindspore.boost
    api_python/mindspore.numpy
