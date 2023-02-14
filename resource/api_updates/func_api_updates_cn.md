@@ -1,4 +1,4 @@
-# # mindspore.ops.function API接口变更
+# mindspore.ops.function API接口变更
 
 与上一版本相比，MindSpore中`mindspore.ops.function`API接口的添加、删除和支持平台的更改信息如下表所示。
 
