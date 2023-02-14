@@ -6,7 +6,7 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu18.04.
 
-## 2.0.0a0
+## 2.0.0-alpha
 
 Inference runtime
 |  Module Name  | Hardware Platform |  Operating System  | Download Links |   SHA-256   |
