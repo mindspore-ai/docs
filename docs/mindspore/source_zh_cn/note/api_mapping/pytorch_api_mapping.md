@@ -245,6 +245,9 @@
 | [torch.nn.CeLU](https://pytorch.org/docs/1.8.1/generated/torch.nn.CELU.html) | [mindspore.nn.CELU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CELU.html) | 功能一致 |
 | [torch.nn.ChannelShuffle](https://pytorch.org/docs/1.8.1/generated/torch.nn.ChannelShuffle.html) | [mindspore.nn.ChannelShuffle](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ChannelShuffle.html) | 功能一致 |
 |  [torch.nn.CTCLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CTCLoss.html)  | [mindspore.nn.CTCLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CTCLoss.html) | 功能一致 |
+| [torch.nn.ConstantPad1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ConstantPad1d.html)  | [mindspore.nn.ConstantPad1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ConstantPad1d.html) | 功能一致 |
+| [torch.nn.ConstantPad2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ConstantPad2d.html)  | [mindspore.nn.ConstantPad2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ConstantPad2d.html) | 功能一致 |
+| [torch.nn.ConstantPad3d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ConstantPad3d.html)  | [mindspore.nn.ConstantPad3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ConstantPad3d.html) | 功能一致 |
 | [torch.nn.Conv1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv1d.html) | [mindspore.nn.Conv1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv1d.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv1d.html)                                                             |
 | [torch.nn.Conv2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv2d.html) | [mindspore.nn.Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv2d.html) |
 | [torch.nn.Conv3d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Conv3d.html) | [mindspore.nn.Conv3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv3d.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv3d.html)                                                             |
@@ -314,6 +317,7 @@
 | [torch.nn.TripletMarginLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.TripletMarginLoss.html) | [mindspore.nn.TripletMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TripletMarginLoss.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
 | [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html) | [mindspore.nn.Unfold](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Unfold.html) |
 | [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html#torch.nn.Upsample) | [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)| [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/ResizeBicubic.html) |
+| [torch.nn.ZeroPad2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ZeroPad2d.html) | [mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ZeroPad2d.html) | 功能一致 |
 
 ### torch.nn.functional
 
