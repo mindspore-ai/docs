@@ -638,3 +638,9 @@ tsd client wait response fail, device response code[1]. unknown device  error.[F
 In addition, CANN may throw some Inner Errors, for example, the error code is "EI9999: Inner Error". If you cannot search the case description in MindSpore official website or forum, you can ask for help in the community by raising an issue.
 
 <br/>
+
+<font size=3>**Q: What can I do when the error message `python: relocation error: /the-path-of-cuda/libcublas.so.11: symbol xxxxx version libcublasLt.so.11 not defined in file libcublasLt.so with link time reference` is reported during the execution of the operator?**</font>
+
+ A: There is a known problem in 2.0.0alpha. Similar errors may occur when there are many cuda versions in the environment. The most conservative solution is to add a soft link to `/usr/local/cuda` for the cuda version to be run, and rename the other cuda directories. This issue has been fixed in the master branch. Please look forward to the next release.
+
+<br/>
