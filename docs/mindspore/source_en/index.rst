@@ -54,7 +54,6 @@ MindSpore Documentation
    api_python/mindspore.dataset.transforms
    api_python/mindspore.mindrecord
    api_python/mindspore.nn.probability
-   api_python/mindspore.nn.transformer
    api_python/mindspore.rewrite
    api_python/mindspore.boost
    api_python/mindspore.numpy

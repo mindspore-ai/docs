@@ -193,7 +193,7 @@
 
 6. 中文API文档中不需要手写“支持平台”和“样例”部分。
 7. 当前rst文档作为整个API的文档页面时，需要添加标题，且标题名称为当前接口的全名；当前rst文档作为其他rst文档的引用时，不需要添加标题。
-8. `mindspore.train`和`mindspore.nn.transformer`模块下的接口，需要将每个API的文档分别放于`train`和`transformer`目录下，并在`mindspore.train.rst`和`mindspore.nn.transformer.rst`文件中通过`.. include::`的写法将接口引入过来；其他模块下的接口结构参考英文的API文档。
+8. `mindspore.train`模块下的接口，需要将每个API的文档放于`train`目录下，并在`mindspore.train.rst`文件中通过`.. include::`的写法将接口引入过来；其他模块下的接口结构参考英文的API文档。
 
 9. 引用类/函数的用法
 
