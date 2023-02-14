@@ -17,6 +17,7 @@
    cv/vit
    cv/cnnctc
    cv/fcn8s
+   cv/shufflenet
    
 .. toctree::
    :glob:
