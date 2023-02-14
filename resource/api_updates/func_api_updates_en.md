@@ -1,4 +1,4 @@
-# # mindspore.ops.function API Interface Change
+# mindspore.ops.function API Interface Change
 
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops.function` operators in MindSpore, is shown in the following table.
 
