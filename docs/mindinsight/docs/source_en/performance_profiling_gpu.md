@@ -68,10 +68,11 @@ There are two ways to collect neural network performance data. You can enable Pr
 
     For example: `export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
 
+    - `op_time` (bool, optional) - Whether to collect operators performance data. Default value: true.
     - `start`(bool, mandatory) - If this parameter is set to true, Profiler is enabled. If the parameter is set to false, the performance data collection is disabled. Default value: false.
     - `output_path`(str, optional) - This parameter must be set to the absolute path. If this parameter is not set to the absolute path, the data directory is created in the current path to store performance data by default.
-    - `sync_enable`(bool, optional) - Whether the profiler collects operator time taken in a synchronous way. Default value: true.
-    - `timeline_limit`(int, optional) - Set the maximum storage size of the timeline file (unit M). Default value: 500.
+    - `sync_enable`(bool, optional) - Whether the profiler collects operator time taken in a synchronous way. When using this parameter, op_time must be set to true. Default value: true.
+    - `timeline_limit`(int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
     - `data_process`(bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
 
 ## Launching MindInsight

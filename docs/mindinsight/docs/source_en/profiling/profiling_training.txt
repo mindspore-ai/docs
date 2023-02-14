@@ -149,15 +149,17 @@ There are two ways to collect neural network performance data. You can enable Pr
 
   - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
 
-  - `memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is true. Default value: false.
+  - `op_time` (bool, optional) - Indicates whether to collect operators performance data. Default values: true.
 
-  - `hccl` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is true. In single-device training, this parameter is not set correctly. Default value: false.
+  - `profile_memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is true. When using this parameter, op_time must be set to true. Default value: false.
+
+  - `profile_communication` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is true. In single-device training, this parameter is not set correctly. When using this parameter, op_time must be set to true. Default value: false.
 
   - `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
 
   - `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: false.
 
-  - `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). Default value: 500.
+  - `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
 
   - `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
 
