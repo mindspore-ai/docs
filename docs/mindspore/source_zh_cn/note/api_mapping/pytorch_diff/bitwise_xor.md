@@ -13,7 +13,7 @@ torch.bitwise_xor(input, other, *, out=None) -> Tensor
 ## mindspore.ops.bitwise_xor
 
 ```text
-mindspore.ops.bitwise_xor(x, y) -> Tensor
+mindspore.ops.bitwise_xor(input, other) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.bitwise_xor](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bitwise_xor.html)。
@@ -26,8 +26,8 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，但MindSpore不支持�
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
-| 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
-|      | 参数2 | other   | y         | 功能一致，参数名不同 |
+| 参数 | 参数1 | input   | input         | 无差异 |
+|      | 参数2 | other   | other         | 无差异 |
 |      | 参数3 | out     | -         | 不涉及               |
 
 ### 代码示例1
@@ -52,9 +52,9 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int32)
-y = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int32)
-output = ops.bitwise_xor(x, y)
+input = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int32)
+other = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int32)
+output = ops.bitwise_xor(input, other)
 print(output)
 # [ 0  1  0  0 -2  3  2]
 ```

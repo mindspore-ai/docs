@@ -13,7 +13,7 @@ For more information, see [torch.atan2](https://pytorch.org/docs/1.8.1/generated
 ## mindspore.ops.atan2
 
 ```text
-mindspore.ops.atan2(x, y) -> Tensor
+mindspore.ops.atan2(input, other) -> Tensor
 ```
 
 For more information, see [mindspore.ops.atan2](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.atan2.html).
@@ -22,17 +22,17 @@ For more information, see [mindspore.ops.atan2](https://mindspore.cn/docs/en/mas
 
 PyTorch: Compute the inverse tangent of input/other for the considered quadrant element-wise, where the second parameter other is the x-coordinate and the first parameter input is the y-coordinate.
 
-MindSpore: MindSpore API implements the same function as PyTorch, also supports Scalar input for x or y.
+MindSpore: MindSpore API implements the same function as PyTorch, also supports Scalar input for `input` or `other`.
 
 | Categories | Subcategories   | PyTorch     | MindSpore   | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 | input   | x | Same function, different parameter names |
-|  | Parameter 2 | other | y | Same function, different parameter names |
+| Parameters | Parameter 1 | input   | input | No difference |
+|  | Parameter 2 | other | other | No difference |
 |      | Parameter 3 | out     | -    | Not involved    |
 
 ### Code Example 1
 
-When the input x and y are both Tensor, the two APIs achieve the same function.
+When the input `input` and `other` are both Tensor, the two APIs achieve the same function.
 
 ```python
 # PyTorch
@@ -52,17 +52,17 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([0, 1]), mindspore.float32)
-y = Tensor(np.array([1, 1]), mindspore.float32)
+input = Tensor(np.array([0, 1]), mindspore.float32)
+other = Tensor(np.array([1, 1]), mindspore.float32)
 
-output = ops.atan2(x, y)
+output = ops.atan2(input, other)
 print(output)
 # [0.        0.7853982]
 ```
 
 ### Code Example 2
 
-Note: When the input x or y is Scalar, MindSpore can achieve the corresponding function, while pytorch does not support.
+Note: When the input `input` or `other` is Scalar, MindSpore can achieve the corresponding function, while pytorch does not support.
 
 ```python
 # MindSpore
@@ -71,10 +71,10 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = 1
-y = Tensor(np.array([1, 1]), mindspore.float32)
+input = 1
+other = Tensor(np.array([1, 1]), mindspore.float32)
 
-output = ops.atan2(x, y)
+output = ops.atan2(input, other)
 print(output)
 # [0.7853982 0.7853982]
 ```

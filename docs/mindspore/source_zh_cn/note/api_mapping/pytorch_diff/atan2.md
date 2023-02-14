@@ -13,7 +13,7 @@ torch.atan2(input, other, *, out=None) -> Tensor
 ## mindspore.ops.atan2
 
 ```text
-mindspore.ops.atan2(x, y) -> Tensor
+mindspore.ops.atan2(input, other) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.atan2](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.atan2.html)。
@@ -22,17 +22,17 @@ mindspore.ops.atan2(x, y) -> Tensor
 
 PyTorch：逐元素计算考虑象限的input/other的反正切值，其中第二个参数other是x坐标，第一个参数input是y坐标。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过也支持x或者y为Scalar的输入。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过也支持`input`或者`other`为Scalar的输入。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
-| 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
-|      | 参数2 | other   | y         | 功能一致，参数名不同 |
+| 参数 | 参数1 | input   | input         | 无差异 |
+|      | 参数2 | other   | other         | 无差异 |
 |      | 参数3 | out     | -         | 不涉及               |
 
 ### 代码示例1
 
-当输入的x和y均为Tensor的时候，两API实现相同的功能。
+当输入的`input`和`other`均为Tensor的时候，两API实现相同的功能。
 
 ```python
 # PyTorch
@@ -52,17 +52,17 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([0, 1]), mindspore.float32)
-y = Tensor(np.array([1, 1]), mindspore.float32)
+input = Tensor(np.array([0, 1]), mindspore.float32)
+other = Tensor(np.array([1, 1]), mindspore.float32)
 
-output = ops.atan2(x, y)
+output = ops.atan2(input, other)
 print(output)
 # [0.        0.7853982]
 ```
 
 ### 代码示例2
 
-说明：当输入的x或y是Scalar的时候，MindSpore能实现对应功能，pytorch不支持。
+说明：当输入的`input`或`other`是Scalar的时候，MindSpore能实现对应功能，pytorch不支持。
 
 ```python
 # MindSpore
@@ -71,10 +71,10 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = 1
-y = Tensor(np.array([1, 1]), mindspore.float32)
+input = 1
+other = Tensor(np.array([1, 1]), mindspore.float32)
 
-output = ops.atan2(x, y)
+output = ops.atan2(input, other)
 print(output)
 # [0.7853982 0.7853982]
 ```
