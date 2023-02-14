@@ -56,7 +56,7 @@ docs
 |    |
 |    ├───probability // MindSpore Probability文档
 |    |
-|    ├───recommender // MindSpore Recmmender文档
+|    ├───recommender // MindSpore Recommender文档
 |    |
 |    ├───reinforcement // MindSpore Reinforcement文档
 |    |
