@@ -38,7 +38,7 @@ MindSpore: The function and usage of the padding parameter of MindSpore is compl
 | ---- | ----- | ------- | --------- | -------------------- |
 | parameter | parameter1 | input   | input_x   | Same functions, different parameter names |
 |      | parameter2 | pad     | padding   | Same functions, different parameter names |
-|      | parameter3 | mode    | mode   | The functions are consistent. MindSpore is temporarily missing the circular mode |
+|      | parameter3 | mode    | mode   | The functions are consistent. MindSpore does not support circular mode yet |
 |      | parameter4 | value   | value   | The functions are consistent. In constant mode, the default value is 0 when MindSpore enters the parameter None |
 
 ## Code Example

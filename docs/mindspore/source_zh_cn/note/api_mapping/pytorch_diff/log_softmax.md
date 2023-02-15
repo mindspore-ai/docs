@@ -13,7 +13,7 @@ torch.nn.functional.log_softmax(
 )
 ```
 
-更多内容详见[torch.nn.functional.log_softmax](https://pytorch.org/docs/1.8.0/nn.functional.html#torch.nn.functional.log_softmax)。
+更多内容详见[torch.nn.functional.log_softmax](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.log_softmax)。
 
 ## mindspore.ops.log_softmax
 
