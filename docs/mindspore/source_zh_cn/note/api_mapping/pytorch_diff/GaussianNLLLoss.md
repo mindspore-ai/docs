@@ -13,7 +13,7 @@ class torch.nn.GaussianNLLLoss(
 )(input, target, var) -> Tensor/Scalar
 ```
 
-更多内容详见[torch.nn.CosineEmbeddingLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.GaussianNLLLoss.html)。
+更多内容详见[torch.nn.GaussianNLLLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.GaussianNLLLoss.html)。
 
 ## mindspore.nn.GaussianNLLLoss
 
