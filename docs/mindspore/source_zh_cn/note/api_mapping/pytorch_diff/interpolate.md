@@ -14,7 +14,7 @@ torch.nn.functional.interpolate(
     recompute_scale_factor=None) -> Tensor
 ```
 
-更多内容详见[torch.nn.functional.interpolate](https://pytorch.org/docs/1.8.1/nn.functional.html?highlight=interpolate#torch.nn.functional.interpolate)。
+更多内容详见[torch.nn.functional.interpolate](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.interpolate)。
 
 ## mindspore.ops.interpolate
 

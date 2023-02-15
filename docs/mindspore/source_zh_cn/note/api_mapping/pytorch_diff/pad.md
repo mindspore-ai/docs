@@ -38,8 +38,8 @@ MindSpore：MindSpore的padding参数与PyTorch的pad参数功能用法完全一
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | input   | input_x   | 功能一致，参数名不同 |
 |      | 参数2 | pad     | padding   | 功能一致，参数名不同 |
-|      | 参数3 | mode    | mode   | 功能一致，mindspore暂缺失circular模式 |
-|      | 参数4 | value   | value   | 功能一致，constant模式下mindspore入参None的时候默认值为0 |
+|      | 参数3 | mode    | mode   | 功能一致，MindSpore暂不支持circular模式 |
+|      | 参数4 | value   | value   | 功能一致，constant模式下MindSpore入参None的时候默认值为0 |
 
 ## 代码示例
 
