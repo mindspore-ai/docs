@@ -146,15 +146,17 @@
 
   - `output_path` (str, 可选) - 表示输出数据的路径（绝对路径）。默认值："./data"。
 
-  - `memory` (bool，可选) - 表示是否收集Tensor内存数据。当值为true时，收集这些数据。默认值：false。
+  - `op_time`（bool, 可选）- 表示是否收集算子性能数据，默认值：true。
 
-  - `hccl` (bool, 可选) - 表示是否在多设备训练中收集通信性能数据。当值为true时，收集这些数据。在单台设备训练中，该参数的设置无效。默认值：false。
+  - `profile_memory` (bool，可选) - 表示是否收集Tensor内存数据。当值为true时，收集这些数据。使用此参数时，op_time必须设置成true。默认值：false。
+
+  - `profile_communication` (bool, 可选) - 表示是否在多设备训练中收集通信性能数据。当值为true时，收集这些数据。在单台设备训练中，该参数的设置无效。使用此参数时，op_time必须设置成true。默认值：false。
 
   - `aicore_metrics` (int, 可选) - 设置AI Core指标类型，默认值：0。
 
   - `l2_cache` (bool, 可选) - 设置是否收集l2缓存数据，默认值：false。
 
-  - `timeline_limit` (int, 可选) - 设置限制timeline文件存储上限大小（单位M），默认值：500。
+  - `timeline_limit` (int, 可选) - 设置限制timeline文件存储上限大小（单位M），使用此参数时，op_time必须设置成true。默认值：500。
 
   - `data_process` (bool, 可选) - 表示是否收集数据准备性能数据，默认值：true。
 

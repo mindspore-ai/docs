@@ -76,9 +76,10 @@
 
     - `start`（bool, 必选）- 设置为true，表示使能Profiler；设置成false，表示关闭性能数据收集，默认值：false。
     - `output_path`（str, 可选）- 需要设置为绝对路径，不设置则默认在当前路径创建data目录存储性能数据。
-    - `sync_enable`（bool, 可选）- Profiler是否用同步的方式收集算子耗时，默认值：true。
-    - `timeline_limit`（int, 可选) - 设置限制timeline文件存储上限大小（单位M），默认值：500。
+    - `sync_enable`（bool, 可选）- Profiler是否用同步的方式收集算子耗时。使用此参数时，op_time必须设置成true，默认值：true。
+    - `timeline_limit`（int, 可选) - 设置限制timeline文件存储上限大小（单位M）。使用此参数时，op_time必须设置成true，默认值：500。
     - `data_process`（bool, 可选）- 表示是否收集数据准备性能数据，默认值：true。
+    - `op_time`（bool, 可选）- 表示是否收集算子性能数据，默认值：true。
 
 ## 启动MindInsight
 
