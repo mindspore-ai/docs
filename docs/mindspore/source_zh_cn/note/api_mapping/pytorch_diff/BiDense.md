@@ -9,9 +9,7 @@ torch.nn.Bilinear(
     in1_features,
     in2_features,
     out_features,
-    bias=True,
-    device=None,
-    dtype=None)(input1, input2) -> Tensor
+    bias=True)(input1, input2) -> Tensor
 ```
 
 更多内容详见[torch.nn.Bilinear](https://pytorch.org/docs/1.8.1/generated/torch.nn.Bilinear.html#torch.nn.Bilinear)。
@@ -45,7 +43,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。可以通过 `we
 |      | 参数5 | - | bias_init    | 偏置参数的初始化方法，PyTorch无此参数      |
 |      | 参数6 | bias | has_bias   |   功能一致，参数名不同                   |
 |  输入 | 输入1 | input1 | input1 | 功能一致  |
-|  输入 | 输入2 | input2 | input2 | 功能一致  |
+|   | 输入2 | input2 | input2 | 功能一致  |
 
 ### 代码示例
 

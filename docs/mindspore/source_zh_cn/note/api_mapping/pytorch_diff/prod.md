@@ -15,7 +15,7 @@ torch.prod(input, dim, keepdim=False, *, dtype=None) -> Tensor
 ## mindspore.ops.prod
 
 ```text
-mindspore.ops.prod((x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.prod(x, axis=(), keep_dims=False) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.prod](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.prod.html)。
