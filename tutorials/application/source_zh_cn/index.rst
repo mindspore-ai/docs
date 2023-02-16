@@ -18,6 +18,7 @@
    cv/cnnctc
    cv/fcn8s
    cv/shufflenet
+   cv/ssd
    
 .. toctree::
    :glob:
