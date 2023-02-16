@@ -146,7 +146,7 @@
 
   - `output_path` (str, 可选) - 表示输出数据的路径（绝对路径）。默认值："./data"。
 
-  - `op_time`（bool, 可选）- 表示是否收集算子性能数据，默认值：true。
+  - `op_time` (bool, 可选) - 表示是否收集算子性能数据，默认值：true。
 
   - `profile_memory` (bool，可选) - 表示是否收集Tensor内存数据。当值为true时，收集这些数据。使用此参数时，op_time必须设置成true。默认值：false。
 
