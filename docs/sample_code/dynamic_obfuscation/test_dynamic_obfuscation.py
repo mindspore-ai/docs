@@ -73,9 +73,9 @@ class ObfuscateNet(nn.Cell):
         return x
 
 
-def test_obfuscate_model_password_mode():
+def test_obfuscate_model_random_seed_mode():
     """
-    Feature: Obfuscate MindIR format model with dynamic obfuscation (password mode).
+    Feature: Obfuscate MindIR format model with dynamic obfuscation (random_seed mode).
     Description: Test obfuscate a MindIR format model and then load it for prediction.
     Expectation: Success.
     """
@@ -86,24 +86,24 @@ def test_obfuscate_model_password_mode():
 
     # obfuscate model
     obf_config = {"original_model_path": "net.mindir", "save_model_path": "./obf_net",
-                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_password": 3423}
+                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_random_seed": 3423}
     ms.obfuscate_model(obf_config)
 
-    # load obfuscated model, predict with right password
+    # load obfuscated model, predict with right random seed
     obf_graph = ms.load("obf_net.mindir")
-    obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-    right_password_result = obf_net(input_tensor).asnumpy()
+    obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+    right_random_seed_result = obf_net(input_tensor).asnumpy()
 
-    # load obfuscated model, predict with wrong password
+    # load obfuscated model, predict with wrong random seed
     obf_graph = ms.load("obf_net.mindir")
-    obf_net = nn.GraphCell(obf_graph, obf_password=5344)
-    wrong_password_result = obf_net(input_tensor).asnumpy()
+    obf_net = nn.GraphCell(obf_graph, obf_random_seed=5344)
+    wrong_random_seed_result = obf_net(input_tensor).asnumpy()
 
     os.remove("net.mindir")
     os.remove("obf_net.mindir")
 
-    assert np.all(original_result == right_password_result)
-    assert np.any(original_result != wrong_password_result)
+    assert np.all(original_result == right_random_seed_result)
+    assert np.any(original_result != wrong_random_seed_result)
 
 
 def test_obfuscate_model_customized_func_mode():
@@ -149,9 +149,9 @@ def test_obfuscate_model_customized_func_mode():
     assert np.any(original_result != wrong_func_result)
 
 
-def test_export_password_mode():
+def test_export_random_seed_mode():
     """
-    Feature: Obfuscate MindIR format model with dynamic obfuscation (password mode) in ms.export().
+    Feature: Obfuscate MindIR format model with dynamic obfuscation (random_seed mode) in ms.export().
     Description: Test obfuscate a MindIR format model and then load it for prediction.
     Expectation: Success.
     """
@@ -161,24 +161,24 @@ def test_export_password_mode():
     original_result = net(input_tensor).asnumpy()
 
     # obfuscate model
-    obf_config = {"obf_ratio": 0.8, "obf_password": 3423}
+    obf_config = {"obf_ratio": 0.8, "obf_random_seed": 3423}
     ms.export(net, input_tensor, file_name="obf_net", file_format="MINDIR", obf_config=obf_config)
 
-    # load obfuscated model, predict with right password
+    # load obfuscated model, predict with right random seed
     obf_graph = ms.load("obf_net.mindir")
-    obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-    right_password_result = obf_net(input_tensor).asnumpy()
+    obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+    right_random_seed_result = obf_net(input_tensor).asnumpy()
 
-    # load obfuscated model, predict with wrong password
+    # load obfuscated model, predict with wrong random seed
     obf_graph = ms.load("obf_net.mindir")
-    obf_net = nn.GraphCell(obf_graph, obf_password=5344)
-    wrong_password_result = obf_net(input_tensor).asnumpy()
+    obf_net = nn.GraphCell(obf_graph, obf_random_seed=5344)
+    wrong_random_seed_result = obf_net(input_tensor).asnumpy()
 
     os.remove("net.mindir")
     os.remove("obf_net.mindir")
 
-    assert np.all(original_result == right_password_result)
-    assert np.any(original_result != wrong_password_result)
+    assert np.all(original_result == right_random_seed_result)
+    assert np.any(original_result != wrong_random_seed_result)
 
 
 def test_export_customized_func_mode():

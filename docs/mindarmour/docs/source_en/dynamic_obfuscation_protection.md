@@ -21,10 +21,10 @@ The following uses an example to describe how to export and load an obfuscated m
 mindspore.export(net, *inputs, file_name, file_format="MINDIR", **kwargs)
 ```
 
-To use this API to export an obfuscated model, you need to set the dictionary parameter `obf_config` for dynamic obfuscation and input it as `kwargs`. Dynamic obfuscation provides two modes to protect models: password and customized function.
+To use this API to export an obfuscated model, you need to set the dictionary parameter `obf_config` for dynamic obfuscation and input it as `kwargs`. Dynamic obfuscation provides two modes to protect models: random_seed and customized function.
 The following describes how to export and load obfuscated models in the two modes.
 
-### Exporting an Obfuscated Model in Password Mode
+### Exporting an Obfuscated Model in random_seed Mode
 
 1. Prepare a test network ObfuscateNet:
 
@@ -83,50 +83,52 @@ The following describes how to export and load obfuscated models in the two mode
 2. Set the obfuscation dictionary parameter.
 
     ```python
-    obf_config = {"obf_ratio": 0.8, "obf_password": 3423}
+    obf_config = {"obf_ratio": 0.8, "obf_random_seed": 3423}
     ```
 
     As shown in the preceding information, `obf_ratio` indicates the obfuscation ratio, that is, the ratio of obfuscated nodes in the obfuscated model to all model nodes. The value can be a floating point number or a character string. If the value is a floating point number, the value range is (0,1]. If the value is a character string, the valid value is `'small'`, `'medium'`, or `'large'`.
-    `obf_password` indicates the obfuscation password. The valid value is an integer greater than 0 and less than or equal to int64_max (9223372036854775807).
+    `obf_random_seed` indicates the obfuscation random seed. The valid value is an integer greater than 0 and less than or equal to int64_max (9223372036854775807).
 
 3. Export the obfuscated model.
 
     ```python
     net = ObfuscateNet()
     input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
-    obf_config = {"obf_ratio": 0.8, "obf_password": 3423}
+    obf_config = {"obf_ratio": 0.8, "obf_random_seed": 3423}
     ms.export(net, input_tensor, file_name="obf_net", file_format="MINDIR", obf_config=obf_config)
     ```
 
     After the preceding steps are complete, an obfuscated MindIR model is obtained. (Currently, only obfuscated models in MindIR format can be exported.)
 
-### Loading the Obfuscated Model in Password Mode
+### Loading the Obfuscated Model in random_seed Mode
 
-The `load()` and `nn.GraphCell()` APIs of MindSpore can be used to load obfuscated models for inference. Ensure that the input `obf_password` is correct when calling the `nn.GraphCell()` API. Otherwise, the obtained inference result is incorrect.
+The `load()` and `nn.GraphCell()` APIs of MindSpore can be used to load obfuscated models for inference. Ensure that the input `obf_random_seed` is correct when calling the `nn.GraphCell()` API. Otherwise, the obtained inference result is incorrect.
 
 ```python
 obf_graph = ms.load("obf_net.mindir")
-obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-right_password_result = obf_net(input_tensor).asnumpy()
-print(right_password_result)
+obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+right_seed_result = obf_net(input_tensor).asnumpy()
+print(right_seed_result)
+# Note that the print results may be different under different software versions. The print here is only for comparison of results.
 # [[743.6489  844.62427 716.82104 735.7657  802.5662  833.0927  861.00336 769.6415  857.3915  765.9037 ]]
 ```
 
-To check whether the inference result is correct, you can obtain the inference result of the original model and compare `right_password_result` with the inference result as follows:
+To check whether the inference result is correct, you can obtain the inference result of the original model and compare `right_seed_result` with the inference result as follows:
 
 ```python
 original_predict_result = net(input_tensor).asnumpy()
 print(original_predict_result)
+# Note that the print results may be different under different software versions. The print here is only for comparison of results.
 # [[743.6489  844.62427 716.82104 735.7657  802.5662  833.0927  861.00336 769.6415  857.3915  765.9037 ]]
-print(np.all(original_predict_result == right_password_result))
+print(np.all(original_predict_result == right_seed_result))
 # True
 ```
 
-The comparison result shows that the inference result obtained by entering the correct password is the same as that of the original model, and the accuracy is lossless.
+The comparison result shows that the inference result obtained by entering the correct obf_random_seed is the same as that of the original model, and the accuracy is lossless.
 
 ### Exporting Obfuscated Models in Customized Function Mode (Only for the CPU Hardware Environment)
 
-In addition to the password mode, dynamic obfuscation also provides the customized function mode. Compared with the password mode, the customized function mode is more secure, but the configuration is more complex.
+In addition to the random_seed mode, dynamic obfuscation also provides the customized function mode. Compared with the random_seed mode, the customized function mode is more secure, but the configuration is more complex.
 In customized function mode, you need to define a Python function that meets the following requirements: 1. There are 2 input parameters. 2. For any input (which comes from the output of any model layer during inference), the output value of this function is always True or False. Example:
 
 ```python
@@ -173,21 +175,21 @@ right_func_result = obf_net(input_tensor).asnumpy()
 ms.obfuscate_model(obf_config, **kwargs)
 ```
 
-`obfuscate_model()` also provides the password and customized function modes.
+`obfuscate_model()` also provides the random_seed and customized function modes.
 The following describes how to export and load obfuscated models in the two modes.
 
-### Exporting an Obfuscated Model in Password Mode
+### Exporting an Obfuscated Model in random_seed Mode
 
 1. Set the obfuscation dictionary parameter.
 
     ```python
     input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
     obf_config = {"original_model_path": "net.mindir", "save_model_path": "./obf_net",
-                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_password": 3423}
+                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_random_seed": 3423}
     ```
 
     As shown in the preceding information, `original_model_path` indicates the path of a model to be obfuscated, `save_model_path` indicates the path for storing the output of the obfuscated model, and `model_inputs` indicates the tensor input to the model. The tensor value can be a random number, which is similar to the `inputs` of `export()`.
-    The `obf_ratio` and `obf_password` parameters are the same as those of the `export()` API.
+    The `obf_ratio` and `obf_random_seed` parameters are the same as those of the `export()` API.
 
 2. Export the obfuscated model.
 
@@ -197,23 +199,25 @@ The following describes how to export and load obfuscated models in the two mode
 
     After the preceding steps are complete, an obfuscated MindIR model is obtained.
 
-### Loading the Obfuscated Model in Password Mode
+### Loading the Obfuscated Model in random_seed Mode
 
-The `load()` and `nn.GraphCell()` APIs of MindSpore can be used to load obfuscated models for inference. Ensure that the input `obf_password` is correct when calling the `nn.GraphCell()` API. Otherwise, the obtained inference result is incorrect.
+The `load()` and `nn.GraphCell()` APIs of MindSpore can be used to load obfuscated models for inference. Ensure that the input `obf_random_seed` is correct when calling the `nn.GraphCell()` API. Otherwise, the obtained inference result is incorrect.
 
 ```python
 obf_graph = ms.load("obf_net.mindir")
-obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-right_password_result = obf_net(input_tensor).asnumpy()
+obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+right_seed_result = obf_net(input_tensor).asnumpy()
 ```
 
-To check whether the inference result is correct, you can obtain the inference result of the original model and compare `right_password_result` with the inference result as follows:
+To check whether the inference result is correct, you can obtain the inference result of the original model and compare `right_seed_result` with the inference result as follows:
 
 ```python
+ori_net = ObfuscateNet()
+ms.export(ori_net, input_tensor, file_name="net", file_format="MINDIR")
 original_graph = ms.load("net.mindir")
 original_net = nn.GraphCell(original_graph)
 original_predict_result = original_net(input_tensor).asnumpy()
-print(np.all(original_predict_result == right_password_result))
+print(np.all(original_predict_result == right_seed_result))
 # True
 ```
 
@@ -233,7 +237,6 @@ Export the obfuscated model as follows:
 ```python
 net = ObfuscateNet()
 input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
-ms.export(net, input_tensor, file_name="net", file_format="MINDIR")
 obf_config = {"original_model_path": "net.mindir", "save_model_path": "./obf_net",
               "model_inputs": [input_tensor], "obf_ratio": 0.8, "customized_func": my_func}
 ms.obfuscate_model(obf_config)

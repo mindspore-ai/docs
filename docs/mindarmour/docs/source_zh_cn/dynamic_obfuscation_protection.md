@@ -21,10 +21,10 @@ MindSpore框架提供通过动态混淆对MindIR模型进行保护的功能，�
 mindspore.export(net, *inputs, file_name, file_format="MINDIR", **kwargs)
 ```
 
-如果要使用这个接口导出混淆后的模型，需要设置动态混淆的字典参数 `obf_config` ，然后作为kwargs传入。动态混淆提供了两种模式来保护模型，分别是password模式和customized function模式。
+如果要使用这个接口导出混淆后的模型，需要设置动态混淆的字典参数 `obf_config` ，然后作为kwargs传入。动态混淆提供了两种模式来保护模型，分别是random_seed模式和customized function模式。
 下面分别介绍在这两种模式下如何导出混淆模型和加载混淆模型。
 
-### Password模式－导出混淆模型
+### random_seed模式－导出混淆模型
 
 1. 准备实验网络，我们如下构建了ObfuscateNet进行实验：
 
@@ -83,50 +83,52 @@ mindspore.export(net, *inputs, file_name, file_format="MINDIR", **kwargs)
 2. 设置混淆参数字典：
 
     ```python
-    obf_config = {"obf_ratio": 0.8, "obf_password": 3423}
+    obf_config = {"obf_ratio": 0.8, "obf_random_seed": 3423}
     ```
 
     如上所示，参数 `obf_ratio` 表示混淆比例，代表混淆模型中的混淆节点占全部模型节点数量的比例，取值可以是浮点数或者字符串。如果是浮点数，其取值范围是(0, 1]，如果是字符串，合法取值是 `'small'` 、 `'medium'` 或 `'large'` 。
-    `obf_password` 是混淆密码，合法值是大于0、小于等于int64_max（9223372036854775807）的整数。
+    `obf_random_seed` 是混淆随机种子，合法值是大于0、小于等于int64_max（9223372036854775807）的整数。
 
 3. 导出混淆模型：
 
     ```python
     net = ObfuscateNet()
     input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
-    obf_config = {"obf_ratio": 0.8, "obf_password": 3423}
+    obf_config = {"obf_ratio": 0.8, "obf_random_seed": 3423}
     ms.export(net, input_tensor, file_name="obf_net", file_format="MINDIR", obf_config=obf_config)
     ```
 
     完成上述步骤后，就可以得到一个混淆后的MindIR模型（目前只支持导出MindIR格式的混淆模型）。
 
-### Password模式－加载混淆模型
+### random_seed模式－加载混淆模型
 
-使用MindSpore的 `load()` 接口和 `nn.GraphCell()` 接口可以加载混淆模型进行推理。注意，在调用 `nn.GraphCell()` 接口时，需要把正确的 `obf_password` 传入，否则得到的推理结果不正确。
+使用MindSpore的 `load()` 接口和 `nn.GraphCell()` 接口可以加载混淆模型进行推理。注意，在调用 `nn.GraphCell()` 接口时，需要把正确的 `obf_random_seed` 传入，否则得到的推理结果不正确。
 
 ```python
 obf_graph = ms.load("obf_net.mindir")
-obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-right_password_result = obf_net(input_tensor).asnumpy()
-print(right_password_result)
+obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+right_seed_result = obf_net(input_tensor).asnumpy()
+print(right_seed_result)
+# 注意，在不同的软件版本下这个打印结果可能不同，这里打印只是为了进行结果对比
 # [[743.6489  844.62427 716.82104 735.7657  802.5662  833.0927  861.00336 769.6415  857.3915  765.9037 ]]
 ```
 
-为了验证推理结果是否正确，可以如下得到原模型的推理结果，并将 `right_password_result` 与之比较:
+为了验证推理结果是否正确，可以如下得到原模型的推理结果，并将 `right_seed_result` 与之比较:
 
 ```python
 original_predict_result = net(input_tensor).asnumpy()
 print(original_predict_result)
+# 注意，在不同的软件版本下这个打印结果可能不同，这里打印只是为了进行结果对比
 # [[743.6489  844.62427 716.82104 735.7657  802.5662  833.0927  861.00336 769.6415  857.3915  765.9037 ]]
-print(np.all(original_predict_result == right_password_result))
+print(np.all(original_predict_result == right_seed_result))
 # True
 ```
 
-比较结果表明输入正确password得到的推理结果与原模型的推理结果完全一致，且精度无损。
+比较结果表明输入正确的随机种子得到的推理结果与原模型的推理结果完全一致，且精度无损。
 
 ### Customized function模式（只支持CPU）－导出混淆模型
 
-除了password模式，动态混淆还提供自定义函数模式(customized function mode)。自定义函数模式相比于password模式安全性更高，但配置方式相对复杂。
+除了random_seed模式，动态混淆还提供自定义函数模式(customized function mode)。自定义函数模式相比于random_seed模式安全性更高，但配置方式相对复杂。
 自定义函数模式需要用户定义一个Python函数，它需要满足这些要求：１、入参数量为2；２、对于任意输入（输入都来自于模型中任意一层在推理过程中的输出值），该函数的输出值恒为True或者False。例如：
 
 ```python
@@ -173,21 +175,21 @@ right_func_result = obf_net(input_tensor).asnumpy()
 ms.obfuscate_model(obf_config, **kwargs)
 ```
 
-`obfuscate_model()` 也提供了password模式和customized function模式。
+`obfuscate_model()` 也提供了random_seed模式和customized function模式。
 下面分别介绍在这两种模式下如何导出混淆模型和加载混淆模型。
 
-### Password模式－导出混淆模型
+### random_seed模式－导出混淆模型
 
 1. 设置混淆参数字典：
 
     ```python
     input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
     obf_config = {"original_model_path": "net.mindir", "save_model_path": "./obf_net",
-                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_password": 3423}
+                  "model_inputs": [input_tensor], "obf_ratio": 0.8, "obf_random_seed": 3423}
     ```
 
     如上所示，参数 `original_model_path` 指的是待混淆的模型路径； `save_model_path` 指的是混淆模型的输出保存路径； `model_inputs` 指的是模型输入的Tensor，Tensor的值可以是随机数，与 `export()` 的inputs类似。
-    参数 `obf_ratio` 和 `obf_password` 与介绍 `export()` 接口时相同。
+    参数 `obf_ratio` 和 `obf_random_seed` 与介绍 `export()` 接口时相同。
 
 2. 导出混淆模型：
 
@@ -197,23 +199,25 @@ ms.obfuscate_model(obf_config, **kwargs)
 
     完成上述步骤后，就可以得到一个混淆后的MindIR模型。
 
-### Password模式－加载混淆模型
+### random_seed模式－加载混淆模型
 
-使用MindSpore的 `load()` 接口和 `nn.GraphCell()` 接口可以加载混淆模型进行推理。注意，在调用 `nn.GraphCell()` 接口时，需要把正确的 `obf_password` 传入，否则得到的推理结果不正确。
+使用MindSpore的 `load()` 接口和 `nn.GraphCell()` 接口可以加载混淆模型进行推理。注意，在调用 `nn.GraphCell()` 接口时，需要把正确的 `obf_random_seed` 传入，否则得到的推理结果不正确。
 
 ```python
 obf_graph = ms.load("obf_net.mindir")
-obf_net = nn.GraphCell(obf_graph, obf_password=3423)
-right_password_result = obf_net(input_tensor).asnumpy()
+obf_net = nn.GraphCell(obf_graph, obf_random_seed=3423)
+right_seed_result = obf_net(input_tensor).asnumpy()
 ```
 
-为了验证推理结果是否正确，可以如下得到原模型的推理结果，并将 `right_password_result` 与之比较:
+为了验证推理结果是否正确，可以如下得到原模型的推理结果，并将 `right_seed_result` 与之比较:
 
 ```python
+ori_net = ObfuscateNet()
+ms.export(ori_net, input_tensor, file_name="net", file_format="MINDIR")
 original_graph = ms.load("net.mindir")
 original_net = nn.GraphCell(original_graph)
 original_predict_result = original_net(input_tensor).asnumpy()
-print(np.all(original_predict_result == right_password_result))
+print(np.all(original_predict_result == right_seed_result))
 # True
 ```
 
@@ -233,7 +237,6 @@ def my_func(x1, x2):
 ```python
 net = ObfuscateNet()
 input_tensor = ms.Tensor(np.ones((1, 1, 32, 32)).astype(np.float32))
-ms.export(net, input_tensor, file_name="net", file_format="MINDIR")
 obf_config = {"original_model_path": "net.mindir", "save_model_path": "./obf_net",
               "model_inputs": [input_tensor], "obf_ratio": 0.8, "customized_func": my_func}
 ms.obfuscate_model(obf_config)
