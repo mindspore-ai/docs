@@ -13,7 +13,7 @@ For more information, see [torch.bitwise_or](https://pytorch.org/docs/1.8.1/gene
 ## mindspore.ops.bitwise_or
 
 ```text
-mindspore.ops.bitwise_or(x, y) -> Tensor
+mindspore.ops.bitwise_or(input, other) -> Tensor
 ```
 
 For more information, see [mindspore.ops.bitwise_or](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bitwise_or.html).
@@ -26,8 +26,8 @@ MindSpore: MindSpore API implements the same function as PyTorch, but MindSpore 
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 | input   | x         | Same function, different parameter names |
-|      | Parameter 2 | other   | y         | Same function, different parameter names |
+| Parameters | Parameter 1 | input   | input         | No difference |
+|      | Parameter 2 | other   | other         | No difference |
 |      | Parameter 3 | out | -         | Not involved    |
 
 ### Code Example 1
@@ -52,9 +52,9 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor
 
-x = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int32)
-y = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int32)
-output = ops.bitwise_or(x, y)
+input = Tensor(np.array([0, 0, 1, -1, 1, 1, 1]), mindspore.int32)
+other = Tensor(np.array([0, 1, 1, -1, -1, 2, 3]), mindspore.int32)
+output = ops.bitwise_or(input, other)
 print(output)
 # [ 0  1  1 -1 -1  3  3]
 ```
