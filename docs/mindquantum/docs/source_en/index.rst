@@ -38,8 +38,11 @@ Typical Application Scenarios
    :caption: Guide
 
    parameterized_quantum_circuit
+   quantum_simulator
    initial_experience_of_quantum_neural_network
    get_gradient_of_PQC_with_mindquantum
+   advanced_operations_of_quantum_circuit
+   quantum_measurement
 
 .. toctree::
    :glob:
