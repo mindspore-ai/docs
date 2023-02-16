@@ -15,7 +15,7 @@ torch.any(input, dim, keepdim=False, *, out=None) -> Tensor
 ## mindspore.ops.any
 
 ```text
-mindspore.ops.any((x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.any(x, axis=(), keep_dims=False) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.any](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.any.html)。

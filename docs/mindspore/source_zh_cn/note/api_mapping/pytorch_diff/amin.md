@@ -15,7 +15,7 @@ torch.amin(input, dim, keepdim=False, *, out=None) -> Tensor
 ## mindspore.ops.amin
 
 ```text
-mindspore.ops.amin((x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.amin(x, axis=(), keep_dims=False) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.amin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.amin.html)。

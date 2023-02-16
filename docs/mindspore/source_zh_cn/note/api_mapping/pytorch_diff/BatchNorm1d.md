@@ -43,7 +43,6 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但目前只能�
 
 | 分类 | 子类   | PyTorch             | MindSpore            | 差异                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
-| 输入 | 单输入  | input               | x                    | PyTorch允许二维或三维（可选channel维度）的输入，而MindSpore的输入只能为二维 |
 | 参数 | 参数1  | num_features        | num_features         | -                                                            |
 |      | 参数2  | eps                 | eps                  | -                                                            |
 |      | 参数3  | momentum            | momentum             | 功能一致，但PyTorch中的默认值是0.1，MindSpore中是0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同        |

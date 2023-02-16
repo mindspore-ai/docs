@@ -43,7 +43,6 @@ MindSpore：The implementation function of the API in MindSpore is basically the
 
 | Categories | Subcategories   | PyTorch             | MindSpore            | Differences                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
-| Input | Single input | input | x | PyTorch allows inputs to be 2D or 3D(optional additional channel dimension), while MindSpore allows inputs to be 2D only |
 | Parameters | Parameter 1  | num_features        | num_features         | -                                                            |
 |      | Parameter 2  | eps                 | eps                  | -                                                            |
 |      | Parameter 3  | momentum            | momentum             | The function is the same, but the default value in PyTorch is 0.1, and in MindSpore is 0.9. The conversion relationship with PyTorch's momentum is 1-momentum, and the default value behavior is the same as PyTorch         |

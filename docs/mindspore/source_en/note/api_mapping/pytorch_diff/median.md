@@ -15,7 +15,7 @@ For more information, see [torch.median](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.ops.median
 
 ```text
-mindspore.ops.median((x, axis=-1, keepdims=False) -> Tensor
+mindspore.ops.median(x, axis=-1, keepdims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.median.html).
