@@ -98,7 +98,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 ### Configuring Using GPU Backend
 
-When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables Float16 inference by `SetEnableFP16`.
+When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables Float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
 
 The following sample code demonstrates how to create a GPU inference backend while the device ID is set to 0:
 
@@ -123,7 +123,14 @@ gpu_device_info->SetEnableFP16(true);
 device_list.push_back(gpu_device_info);
 ```
 
-> Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing power] of the current device (https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix).
+Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing power] of the current device (https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix).
+
+`SetPrecisionMode()` has two parameters to control Float16 inference, `SetPrecisionMode("enforce_fp32")` equals to `SetEnableFP16(true)`, vice versa.
+
+| SetPrecisionMode() | SetEnableFP16() |
+| ------------------ | --------------- |
+| enforce_fp32       | false           |
+| preferred_fp16     | true            |
 
 ### Configuring Using Ascend Backend
 
@@ -150,6 +157,16 @@ device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
 ```
+
+The user can configure the precision mode by calling the `SetPrecisionMode()` interface, and the usage scenarios are shown in the following table:
+
+| user configure precision mode param | ACL obtain precision mode param  | ACL scenario description   |
+|-------------------------------------|----------------------------------|----------------------------|
+| enforce_fp32                        | force_fp32                       | force to use fp32          |
+| preferred_fp32                      | allow_fp32_to_fp16               | prefer to use fp32         |
+| enforce_fp16                        | force_fp16                       | force to use fp16          |
+| enforce_origin                      | must_keep_origin_dtype           | force to use original type |
+| preferred_optimal                   | allow_mix_precision              | prefer to use fp16         |
 
 ## Model Creation Loading and Compilation
 

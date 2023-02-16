@@ -105,3 +105,9 @@ Mean bias of all nodes: 0%
 ```bash
 ./benchmark --modelFile=/path/to/model.mindir --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
+
+如果输入的模型是加密模型，需要同时配置`decryptKey`和`cryptoLibPath`对模型解密后进行推理，使用如下命令：
+
+```bash
+./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey=30313233343536373839414243444546 --cryptoLibPath=/root/anaconda3/bin/openssl
+```
