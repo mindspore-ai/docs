@@ -4,14 +4,14 @@
 
 ## 概述
 
-MindSpore Hybrid DSL的语法与Python语法类似，例如函数定义、缩进和注释。把MindSpore Hybrid DSL书写的函数加上ms_hybrid装饰器后可以当做普通的`numpy`函数使用，也可以用于Custom的进行自定义算子。
+MindSpore Hybrid DSL的语法与Python语法类似，例如函数定义、缩进和注释。把MindSpore Hybrid DSL书写的函数加上`kernel`装饰器后可以当做普通的`numpy`函数使用，也可以用于Custom的进行自定义算子。
 
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 
-@ms_kernel
+@kernel
 def outer_product(a, b):
     d = allocate(a.shape, a.dtype)
     c = output_tensor(a.shape, a.dtype)
@@ -51,7 +51,7 @@ MindSpore Hybrid DSL中的变量包括Tensor和Scalar两种形式。
 Tensor分配的示例代码如下：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     # a和b作为输入tensor，可以直接使用
 
@@ -75,7 +75,7 @@ def kernel_func(a, b):
 Scalar变量使用的示例代码如下：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a):
     c = output_tensor(a.shape, a.dtype)
 
@@ -113,7 +113,7 @@ MindSpore Hybrid DSL支持基本的四则运算表达，包括 `+, -, *, /`，�
 类型转换代码示例如下：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -131,7 +131,7 @@ def kernel_func(a):
 基本循环的写法和Python一样，循环维度的表达可以使用 `range`和 `grid`关键词。`range`表示一维的循环维度，接受一个参数表示循环的上限，例如：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -147,7 +147,7 @@ def kernel_func(a, b):
 `grid`表示多维网格，接受的输入为 `tuple` ，例如上面的代码用 `grid`表达后如下：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -159,7 +159,7 @@ def kernel_func(a, b):
 此时，参数 `arg`等价于一个三维index `(i,j,k)`，其上限分别为4，5，6。对参数 `arg`我们可以取其中的某个分量，例如
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -177,7 +177,7 @@ def kernel_func(a, b):
 `serial` 会提示调度器该循环在调度生成时应保持前后顺序，不要做会改变顺序的调度变换，例如：
 
 ```python
-@ms_kernel
+@kernel
 def serial_test(a, b):
     row = a.shape[0]
     col = a.shape[1]
@@ -192,7 +192,7 @@ def serial_test(a, b):
 `vectorize` 一般用于最内层循环，会提示调度器该循环有生成向量化指令的机会，例如：
 
 ```python
-@ms_kernel
+@kernel
 def vector_test(a, b):
     out = output_tensor(a.shape, a.dtype)
     row = a.shape[0]
@@ -208,7 +208,7 @@ def vector_test(a, b):
 `parallel` 一般用于最外层循环，会提示调度器该循环有并行执行机会，例如：
 
 ```python
-@ms_kernel
+@kernel
 def parallel_test(a, b):
     out = output_tensor(a.shape, a.dtype)
     row = a.shape[0]
@@ -251,7 +251,7 @@ def reduce_test(a):
 同时，在 `grid`关键词中我们接受某个Tensor对象的 `shape`属性，那么循环的维度由Tensor的维度决定。例如：
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 

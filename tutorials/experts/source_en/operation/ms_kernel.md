@@ -4,14 +4,14 @@
 
 ## Overview
 
-The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function definitions, indentation, and annotations. Functions written in MindSpore Hybrid DSL can be used as ordinary `numpy` functions after adding ms_kernel decorators, or they can be customized operators used for Custom.
+The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function definitions, indentation, and annotations. Functions written in MindSpore Hybrid DSL can be used as ordinary `numpy` functions after adding `kernel` decorators, or they can be customized operators used for Custom.
 
 ```python
 import numpy as np
 import mindspore as ms
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 
-@ms_kernel
+@kernel
 def outer_product(a, b):
     d = allocate(a.shape, a.dtype)
     c = output_tensor(a.shape, a.dtype)
@@ -51,7 +51,7 @@ Tensor variables, besides those in the inputs of the function, must be declared 
 Example of Tensor allocation:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     # We can use a and b directly as input tensors
 
@@ -75,7 +75,7 @@ Scalar variables will regard its first assignment as the declaration. The assign
 Example of using Scalar variable:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, a.dtype)
 
@@ -112,7 +112,7 @@ When writing assignment expressions, users must take care of the dtype of the ex
 Example of dtype casting:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -129,7 +129,7 @@ Currently, only the `for` loop is supported. `while`, `break`, and `continue` ar
 Loops are the same as those in Python. `range` and `grid` are supported to express extents of loops. `range` is for one-dimensional loops and accepts a number as the upper bound of the loop, such as:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -145,7 +145,7 @@ The iteration space of the above loops is `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`.
 `grid` is for multi-dimensional loops and accepts `tuple` as its input. For example, the above code can be also written as follows in `grid`:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -157,7 +157,7 @@ def kernel_func(a, b):
 Right now `arg` is equivalent to a three dimensional index `(i,j,k)`, with upper bound 4, 5, 6 respectively. We also have access to each element in `arg`, such as:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
@@ -175,7 +175,7 @@ From version 1.8, MindSpore Hybrid DSL provides scheduling keywords to describe 
 `serial` indicates that the scheduler should keep the order of the loop and not apply loop transformations on such loops. For example,
 
 ```python
-@ms_kernel
+@kernel
 def serial_test(a, b):
     row = a.shape[0]
     col = a.shape[1]
@@ -190,7 +190,7 @@ Here `serial` indicates that there are dependence relations on `i` and `j`. `i` 
 `vectorize` is usually used in the innermost loop, indicating the chance of generation vector instructions. For example,
 
 ```python
-@ms_kernel
+@kernel
 def vector_test(a, b):
     out = output_tensor(a.shape, a.dtype)
     row = a.shape[0]
@@ -206,7 +206,7 @@ Here `vectorize` indicates that the innermost `j` loop conducts the same computa
 `parallel` is usually used in the outermost loop, prompting the scheduler that the loop has the chance of parallel execution. For example,
 
 ```python
-@ms_kernel
+@kernel
 def parallel_test(a, b):
     out = output_tensor(a.shape, a.dtype)
     row = a.shape[0]
@@ -249,7 +249,7 @@ The shape attribute of a Tensor is a `tuple`. We have access to its element with
 Once `grid` accepts one Tensor's `shape` attribute as its input, the dimension of the loops is the same as the dimension of the Tensor. For example:
 
 ```python
-@ms_kernel
+@kernel
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 

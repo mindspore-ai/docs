@@ -62,12 +62,12 @@ Notice that custom operators of Hybrid type use the source to source transformat
 import numpy as np
 import mindspore as ms
 from mindspore import ops
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 
 ms.set_context(device_target="GPU")
 
 # Operator implementation, Hybrid DSL
-@ms_kernel
+@kernel
 def add(a, b):
     c = output_tensor(a.shape, a.dtype)
     for i0 in range(a.shape[0]):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 In this case,
 
 - The Hybrid type is the default type for Custom.
-- The input of custom operators with Hybrid type must be a function with [`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.kernel.html).
+- The input of custom operators with Hybrid type must be a function with [`@kernel`](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/ops/mindspore.ops.kernel.html).
 - When defining a custom operator for the Hybrid type, you can use the built-in automatic shape/dtype derivation function, or you can manually enter the shape/dtype deduction function.
 
 Execute case:
@@ -695,7 +695,7 @@ Before going to examples, let's import some dependency modules for MindSpore.
 import numpy as np
 import mindspore as ms
 from mindspore import ops
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 from mindspore.nn import Cell
 
 ###########################################
@@ -774,7 +774,7 @@ Notice that:
 - like Python we define a loop with the keyword `range`.
 
 ```python
-@ms_kernel
+@kernel
 def tensor_add_3d(x, y):
     result = output_tensor(x.shape, x.dtype)
     #    1. we need a three dim loops
@@ -789,7 +789,7 @@ def tensor_add_3d(x, y):
 ```
 
 Next we define a custom op with the above function by DSL.
-Notice that the `hybrid` function based on `ms_kernel`, we can use the automatic shape and data type derivation.
+Notice that the function based on `kernel`, we can use the automatic shape and data type derivation.
 Thus we give the input of `func` only with the default value of `func_type` as `"hybrid"`.
 
 ```python
