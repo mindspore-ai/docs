@@ -98,7 +98,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用GPU后端
 
-当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为推理后端。其中GPUDeviceInfo通过`SetDeviceID`来设置设备ID，通过`SetEnableFP16`使能Float16推理。
+当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为推理后端。其中GPUDeviceInfo通过`SetDeviceID`来设置设备ID，通过`SetEnableFP16`或者`SetPrecisionMode`使能Float16推理。
 
 下面示例代码演示如何创建GPU推理后端，同时设备ID设置为0：
 
@@ -123,7 +123,14 @@ gpu_device_info->SetEnableFP16(true);
 device_list.push_back(gpu_device_info);
 ```
 
-> `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
+`SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
+
+用户可通过调用 `SetPrecisionMode()`接口配置精度模式，设置 `SetPrecisionMode("enforce_fp32")` 时，同时 `SetEnableFP16(true)` 会自动设置，反之亦然。
+
+| SetPrecisionMode() | SetEnableFP16() |
+| ------------------ | --------------- |
+| enforce_fp32       | false           |
+| preferred_fp16     | true            |
 
 ### 配置使用Ascend后端
 
@@ -150,6 +157,16 @@ device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
 ```
+
+用户可通过调用 `SetPrecisionMode()`接口配置精度模式，使用场景如下表所示：
+
+| 用户配置precision mode参数 | ACL实际获取precision mode参数 | ACL使用场景说明       |
+| -------------------------- | ----------------------------- | ----------------------  |
+| enforce_fp32               | force_fp32                    | 强制使用 fp32       |
+| preferred_fp32             | allow_fp32_to_fp16            | 优先使用 fp32       |
+| enforce_fp16               | force_fp16                    | 强制使用 fp16       |
+| enforce_origin             | must_keep_origin_dtype        | 强制使用 初始类型       |
+| preferred_optimal          | allow_mix_precision           | 优先使用 fp16+精度权衡  |
 
 ## 模型创建加载与编译
 
