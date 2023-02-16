@@ -62,12 +62,12 @@ Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](https://www.mindspore
 import numpy as np
 from mindspore import ops
 import mindspore as ms
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 
 ms.set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
-@ms_kernel
+@kernel
 def add(a, b):
     c = output_tensor(a.shape, a.dtype)
     for i0 in range(a.shape[0]):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - Hybrid类型是Custom的默认类型。
-- Hybrid类型自定义算子的输入必须是一个带有[`@ms_kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html)的函数。
+- Hybrid类型自定义算子的输入必须是一个带有[`@kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html)的函数。
 - Hybrid类型自定义算子定义时可以使用自带的自动shape/dtype推导函数，也可以手动输入shape/dtype推导函数。
 
 执行用例：
@@ -695,7 +695,7 @@ python test_custom_akg.py
 import numpy as np
 import mindspore as ms
 from mindspore import ops
-from mindspore.ops import ms_kernel
+from mindspore.ops import kernel
 from mindspore.nn import Cell
 
 #############################################
@@ -775,7 +775,7 @@ print(result_cus)
 - 基本循环的写法和Python一样，循环维度的表达可以使用 `range`。
 
 ```python
-@ms_kernel
+@kernel
 def tensor_add_3d(x, y):
     result = output_tensor(x.shape, x.dtype)
     #    1. 你需要一个三层循环
@@ -791,7 +791,7 @@ def tensor_add_3d(x, y):
 
 下面我们用上面的函数自定义一个算子。
 
-注意到基于`ms_kernel`的`hybrid`函数时，我们可以使用自动的形状和数据类型推导。
+注意到基于`kernel`的`hybrid`函数时，我们可以使用自动的形状和数据类型推导。
 
 因此我们只用给一个`func`输入（`func_type`的默认值为`"hybrid"`）。
 
