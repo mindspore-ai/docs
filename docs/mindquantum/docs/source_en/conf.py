@@ -14,11 +14,10 @@ import os
 import sys
 import IPython
 import re
+import sphinx
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
-
-import mindquantum
 
 # -- Project information -----------------------------------------------------
 
@@ -126,6 +125,27 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Repair error content defined in mindspore.
+try:
+    decorator_list = [("mindquantum/core/operators/fermion_operator.py","Shield api generate bugs",
+                       "cxx_base_klass = mqbackend.FermionOperatorBase","# cxx_base_klass = mqbackend.FermionOperatorBase"),
+                      ("mindquantum/core/operators/qubit_operator.py","Shield api generate bugs",
+                       "cxx_base_klass = mqbackend.QubitOperatorBase","# cxx_base_klass = mqbackend.QubitOperatorBase")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
+import mindquantum
 
 # Copy source files of en python api from mindquantum repository.
 from sphinx.util import logging
