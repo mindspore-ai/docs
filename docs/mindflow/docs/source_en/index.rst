@@ -53,7 +53,7 @@ MindSpore AI Fluid Simulation Suite
    :maxdepth: 1
    :caption: Data Mechanism Fusion
 
-   physics_plus_data_driven/pdenet
+   data_mechanism_fusion/pde_net
 
 .. toctree::
    :maxdepth: 1
