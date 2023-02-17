@@ -75,6 +75,10 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 1. mindspore.nn.Conv1d (weight：$\mathcal{N}(0, 1)$，bias：zeros)
 2. torch.nn.Conv1d (weight：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
 
+### Weight Transfer Difference
+
+The Conv1d underlying layer of MindSpore is implemented by using the Conv2d operator. For parameters such as "kernel_size", the automatic zero filling operation will be carried out in the 0 dimension, resulting in the initialized weight being one more dimension than PyTorch, which is insensitive during normal use. However, when the network model migration is involved, calling Conv1d through the method of parameter loading may lead to inconsistent weight dimensions, which requires the user to manually upgrade the weight on the corresponding dimension.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 |Parameters | Parameter 1 | in_channels | in_channels |- |

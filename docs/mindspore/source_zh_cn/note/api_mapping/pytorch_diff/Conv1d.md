@@ -76,6 +76,10 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 1. mindspore.nn.Conv1d的weight为：$\mathcal{N}(0, 1)$，bias为：zeros。
 2. torch.nn.Conv1d的weight为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$
 
+### 权重迁移差异
+
+MindSpore的Conv1d底层使用Conv2d算子实现，对于 `kernel_size` 等参数会在第0维进行自动补0操作，导致初始化的权重weight比PyTorch多一维，正常使用不感知，但涉及网络模型迁移时，通过参数加载的方式调用Conv1d可能会出现权重维度不一致的情况，需要用户手动对weight权重在对应维度上进行升维。
+
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | in_channels | in_channels |- |
