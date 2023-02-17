@@ -52,7 +52,7 @@ MindSpore AI 流体仿真套件
    :maxdepth: 1
    :caption: 数据机理融合
 
-   physics_plus_data_driven/pdenet
+   data_mechanism_fusion/pde_net
 
 .. toctree::
    :maxdepth: 1
