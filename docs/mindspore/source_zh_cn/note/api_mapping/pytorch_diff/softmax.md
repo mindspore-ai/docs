@@ -20,7 +20,7 @@ torch.nn.functional.softmax(
 ```python
 class mindspore.ops.softmax(
     x,
-    axis=-1,
+    axis=-1
 )
 ```
 

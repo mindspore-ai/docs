@@ -5,7 +5,7 @@
 ## torch.nn.functional.leaky_relu
 
 ```text
-torch.nn.functional.leaky_relu(input, negative_slope=0.01, inplace=False) → Tensor
+torch.nn.functional.leaky_relu(input, negative_slope=0.01, inplace=False) -> Tensor
 ```
 
 更多内容详见[torch.nn.functional.leaky_relu](https://pytorch.org/docs/1.8.1/nn.functional.html#leaky-relu)。

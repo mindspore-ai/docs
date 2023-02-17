@@ -7,7 +7,7 @@
 ## torch.float_power
 
 ```python
-torch.float_power(input, exponent, *, out=None) → Tensor
+torch.float_power(input, exponent, *, out=None) -> Tensor
 ```
 
 更多内容详见[torch.float_power](https://pytorch.org/docs/1.8.1/generated/torch.float_power.html)。

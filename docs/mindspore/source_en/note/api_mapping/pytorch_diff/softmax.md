@@ -20,7 +20,7 @@ For more information, see [torch.nn.functional.softmax](https://pytorch.org/docs
 ```python
 class mindspore.ops.softmax(
     x,
-    axis=-1,
+    axis=-1
 )
 ```
 
