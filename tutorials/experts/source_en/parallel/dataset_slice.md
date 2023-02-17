@@ -73,7 +73,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
     # in random map function, using num_parallel_workers=1 to avoid the dataset random seed not working.
     data_set = data_set.map(operations=c_trans, input_columns="image", num_parallel_workers=1)
     # slice image
-    slice_patchs_img_op = vision.SlicePatchs(slice_h_num, slice_w_num)
+    slice_patchs_img_op = vision.SlicePatches(slice_h_num, slice_w_num)
     img_cols = ['img' + str(x) for x in range(slice_h_num * slice_w_num)]
     data_set = data_set.map(operations=slice_patchs_img_op, input_columns="image", output_columns=img_cols)
     data_set = data_set.project([img_cols[rank_id % (slice_h_num * slice_w_num)], "label"])

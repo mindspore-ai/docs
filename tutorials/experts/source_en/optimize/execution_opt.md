@@ -209,7 +209,7 @@ if __name__ == "__main__":
     network = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = ms.Model(network, net_loss, net_opt)
+    model = train.Model(network, net_loss, net_opt)
 
     print("============== Starting Training ==============")
     model.train(epoch=10, train_dataset=ds_train, callbacks=[train.LossMonitor()], dataset_sink_mode=True, sink_size=1000)
@@ -409,7 +409,7 @@ if __name__ == "__main__":
         loss = net_loss(network(data), label)
         return loss
 
-    grad_fn = ops.value_and_grad(forward_fn, None, weights)
+    grad_fn = ms.value_and_grad(forward_fn, None, weights)
 
     def train_step(data, label):
         loss, grads = grad_fn(data, label)

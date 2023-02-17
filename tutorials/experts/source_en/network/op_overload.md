@@ -16,16 +16,16 @@ A sample code that uses HyperMap to optimize compiling performance instead of a 
 import time
 import mindspore as ms
 from mindspore.ops import MultitypeFuncGraph, HyperMap
-from mindspore import ops
+from mindspore import ops, Tensor
 
 add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
+@add.register("Tensor", "Tensor")
+def add_Tensor(x, y):
+    return ops.add(x, y)
 
 add_map = HyperMap(add)
-list1 = [i for i in range(200)]
-list2 = [i for i in range(200)]
+list1 = [Tensor(i) for i in range(200)]
+list2 = [Tensor(i) for i in range(200)]
 @ms.jit
 def hyper_map_net():
     output = add_map(list1, list2)
@@ -40,7 +40,7 @@ print("hyper map cost time:", end_time - start_time)
 def for_loop_net():
     out = []
     for i in range(200):
-        out.append(ops.scalar_add(i, i))
+        out.append(i+i)
     return out
 
 start_time = time.time()

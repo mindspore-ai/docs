@@ -306,16 +306,17 @@ MindSpore提供Model类向ModelThor类的一键转换接口。
 ```python
 ...
 import mindspore as ms
-from mindspore.train import Model
+from mindspore import amp
+from mindspore.train import Model, ConvertModelUtils
 ...
 
 if __name__ == "__main__":
     ...
-    loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
+    loss_scale = amp.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
                   amp_level="O2", keep_batchnorm_fp32=False, eval_network=dist_eval_network)
     if cfg.optimizer == "Thor":
-        model = ms.ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
+        model = ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
                                                           loss_scale_manager=loss_scale, metrics={'acc'},
                                                           amp_level="O2", keep_batchnorm_fp32=False)  
     ...
