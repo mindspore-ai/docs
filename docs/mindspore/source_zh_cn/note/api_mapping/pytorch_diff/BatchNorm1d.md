@@ -39,7 +39,7 @@ class mindspore.nn.BatchNorm1d(
 
 PyTorch：对输入的二维或三维数据进行批归一化。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，但目前只能对二维数据进行批归一化；MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
 
 | 分类 | 子类   | PyTorch             | MindSpore            | 差异                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
@@ -53,7 +53,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但目前只能�
 |      | 参数8  | -                   | moving_mean_init     |    PyTorch无此参数，MindSpore可以初始化参数moving_mean的值    |
 |      | 参数9  | -                   | moving_var_init      |    PyTorch无此参数，MindSpore可以初始化参数moving_var的值     |
 |      | 参数10  | -                   | data_format      |    PyTorch无此参数    |
-| 输入 | 单输入 | input               | x                    | 接口输入，功能基本一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
+| 输入 | 单输入 | input               | x                    | 接口输入，功能一致，仅参数名不同 |
 
 ### 代码示例
 
