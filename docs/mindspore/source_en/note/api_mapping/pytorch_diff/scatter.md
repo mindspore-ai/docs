@@ -28,6 +28,13 @@ MindSpore: The shape of `index` must be the same as the shape of `src` , i.e. al
 
 There is no difference in function.
 
+| Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
+| ---------- | ------------- | ------------ | ---------     | ------------- |
+| Parameters | Parameter 1   | input        | x             | Same function, different parameter names |
+|            | Parameter 2   | dim          | axis          | Same function, different parameter names |
+|            | Parameter 3   | index        | index         | For MindSpore, the shape of `index` must be the same as the shape of `src` . For PyTorch, `index.size(d) <= src.size(d)` is required for all dimensions `d` |
+|            | Parameter 4   | src          | src           | Same function  |
+
 ## Code Example
 
 ```python

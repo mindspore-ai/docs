@@ -24,6 +24,13 @@ PyTorch: Calculates the dot product (inner product) of two tensors of the same s
 
 MindSpore: Calculates the dot product of two tensors on any axis. Support tensor of any dimension, but the shape corresponding to the specified axis should be equal. The function of the PyTorch is the same when the input is 1D and the axis is set to 0. The supported input data types are float16 or float32.
 
+| Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
+| ---------- | ------------- | ------------ | ---------     | ------------- |
+| Parameters | Parameter 1   | input        | x1            | Same function, different parameter names |
+|            | Parameter 2   | other        | x2            | Same function, different parameter names |
+|            | Parameter 3   | out          | -             | Not involved |
+|            | Parameter 4   | -            | axes          | The function of the PyTorch is the same when the input is 1D and the axis is set to 0. |
+
 ## Code Example
 
 ```python

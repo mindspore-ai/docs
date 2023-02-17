@@ -36,6 +36,11 @@ MindSpore:
 
 There is no difference in function.
 
+| Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
+| ---------- | ------------- | ------------ | ---------     | ------------- |
+| Parameters | Parameter 1   | input        | x             | MindSpore only supports 3-D, types of float16 and float32; PyTorch supports 2-D or higher dimensions, types of uint8, int8/16/32/64 and float16/32/64. |
+|            | Parameter 2   | n            | n             | Same function |
+
 ## Code Example
 
 ```python
