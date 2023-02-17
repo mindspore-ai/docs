@@ -18,7 +18,7 @@ For more information, see [torch.distributed.all_gather](https://pytorch.org/doc
 ## mindspore.ops.AllGather
 
 ```python
-mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
+class mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
 ```
 
 For more information, see [mindspore.ops.AllGather](https://mindspore.cn/docs/en/r2.0.0-alpha/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather).

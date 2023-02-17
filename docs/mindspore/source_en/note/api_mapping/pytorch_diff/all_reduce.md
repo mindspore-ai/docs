@@ -18,7 +18,7 @@ For more information, see [torch.distributed.all_reduce](https://pytorch.org/doc
 ## mindspore.ops.AllReduce
 
 ```python
-mindspore.ops.AllReduce(
+class mindspore.ops.AllReduce(
     op=ReduceOp.SUM,
     group=GlobalComm.WORLD_COMM_GROUP
 )(input_x)
