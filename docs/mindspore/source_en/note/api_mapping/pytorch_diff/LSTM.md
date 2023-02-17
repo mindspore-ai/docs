@@ -13,7 +13,7 @@ class torch.nn.LSTM(
     batch_first=False,
     dropout=0,
     bidirectional=False,
-    proj_size=0)(input, (h0, c0)) -> Tensor
+    proj_size=0)(input, (h_0, c_0)) -> Tensor
 ```
 
 For more information, see [torch.nn.LSTM](https://pytorch.org/docs/1.8.1/generated/torch.nn.LSTM.html).
