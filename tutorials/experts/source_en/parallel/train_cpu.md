@@ -150,7 +150,7 @@ def train_resnet50_with_cifar10(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = nn.Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    model = ms.Model(net, loss_fn=loss, optimizer=opt)
+    model = train.Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 
 

@@ -475,7 +475,7 @@ def train_step(inputs, targets):
     return loss
 
 # Instantiate models
-model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
+model = train.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 ```
 
 ```python
@@ -543,7 +543,7 @@ def visualize_model(best_ckpt_path, dataset_val):
     # Load model parameters.
     param_dict = ms.load_checkpoint(best_ckpt_path)
     ms.load_param_into_net(net, param_dict)
-    model = ms.Model(net)
+    model = train.Model(net)
     # Load the validation dataset.
     data = next(dataset_val.create_dict_iterator())
     images = data["image"].asnumpy()

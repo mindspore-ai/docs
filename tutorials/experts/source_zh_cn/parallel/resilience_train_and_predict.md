@@ -291,7 +291,7 @@ net = PipelineCell(net, 4) # micro_batch=4
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
 ms.set_auto_parallel_context(strategy_ckpt_save_file="../src_pipeline_strategys/src_strategy{}.ckpt")
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-model = ms.Model(net, optimizer=opt)
+model = train.Model(net, optimizer=opt)
 ckpt_config = train.CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=1,
                                   integrated_save=False)
 ckpoint_cb = train.ModelCheckpoint(prefix="src_checkpoint",

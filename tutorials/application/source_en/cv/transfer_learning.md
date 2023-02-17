@@ -395,7 +395,7 @@ opt = nn.Momentum(params=network.trainable_params(), learning_rate=lr, momentum=
 loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Instantiate models
-model = ms.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
+model = train.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 
 def forward_fn(inputs, targets):
 
@@ -498,7 +498,7 @@ def visualize_model(best_ckpt_path, val_ds):
     # Load model parameters
     param_dict = ms.load_checkpoint(best_ckpt_path)
     ms.load_param_into_net(net, param_dict)
-    model = ms.Model(net)
+    model = train.Model(net)
     # Load the data from the validation set for validation
     data = next(val_ds.create_dict_iterator())
     images = data["image"].asnumpy()
@@ -577,7 +577,7 @@ def train_step(inputs, targets):
     return loss
 
 # Instantiate models
-model1 = ms.Model(net_work, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
+model1 = train.Model(net_work, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 ```
 
 ```text
