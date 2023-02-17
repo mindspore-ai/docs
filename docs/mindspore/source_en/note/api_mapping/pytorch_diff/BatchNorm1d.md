@@ -39,7 +39,7 @@ For more information, see [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/e
 
 PyTorch：Batch normalization of the input 2D or 3D data.
 
-MindSpore：The implementation function of the API in MindSpore is basically the same as that of PyTorch, but currently only two-dimensional data can be batch normalized. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
+MindSpore：The implementation function of the API in MindSpore is basically the same as that of PyTorch. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories   | PyTorch             | MindSpore            | Differences                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
@@ -53,7 +53,7 @@ MindSpore：The implementation function of the API in MindSpore is basically the
 |      | Parameter 8  | -                   | moving_mean_init     |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter moving_mean   |
 |      | Parameter 9  | -                   | moving_var_init      |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter moving_var     |
 |      | Parameter 10  | -                   | data_format      |    PyTorch does not have this parameter    |
-| Input | Single input | input    | x     | Interface input. The function is basically the same, but PyTorch allows input to be 2D or 3D, while input in MindSpore can only be 2D |
+| Input | Single input | input    | x     | Same function, different parameter names  |
 
 ## Code Example
 
