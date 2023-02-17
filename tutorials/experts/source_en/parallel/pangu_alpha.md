@@ -1,4 +1,4 @@
-# PengCheng·PanGu Model Network Multi-dimension Hydrid Parallel Analysis
+# PengCheng·PanGu Model Network Multi-dimension Hybrid Parallel Analysis
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/pangu_alpha.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -12,7 +12,7 @@ In the training entry script train.py, the semi-automatic parallel mode `SEMI_AU
 
 ## Embedding Layer
 
-In language model training, the input data are sentences composed of words, and we usually use the embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindspore.nn.transformer.VocabEmbedding`.
+In language model training, the input data are sentences composed of words, and we usually use the embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindformers.modules.VocabEmbedding`.
 
 The following code shows that the `Gather` operator takes two inputs and finds the corresponding vectors in the lookup table `embedding_table` according to the index `input_ids`. The lookup table is a parameter to be learned during training and statically occupies memory resources on the card. We can decide to use a data parallel strategy for the `Gather` operator to slice the index batch dimension or a model parallel strategy to row slice the lookup table depending on the size of the lookup table. When the word list range `config.vocab_size` is large, it is recommended to choose a model parallel strategy for `word_embedding`, and the framework will automatically introduce computation and communication operators to handle out-of-bounds lookup cases.
 
@@ -27,7 +27,7 @@ import mindspore as ms
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 from mindspore.nn import Cell
-from mindspore.nn.transformer import EmbeddingOpParallelConfig
+from mindformers.modules import EmbeddingOpParallelConfig
 default_embedding_parallel_config = EmbeddingOpParallelConfig()
 class VocabEmbedding(Cell):
     def __init__(self, vocab_size, hidden_size, parallel_config=default_embedding_parallel_config,
@@ -38,21 +38,21 @@ class VocabEmbedding(Cell):
         self.embedding_table = ms.Parameter(initializer(param_init, [self.vocab_size, self.hidden_size]),
                                             name='embedding_table', parallel_optimizer=False)
         if parallel_config.vocab_emb_dp:
-            self.gather = ops.GatherV2().shard(((1, 1), (parallel_config.data_parallel, 1)))
+            self.gather = ops.Gather().shard(((1, 1), (parallel_config.data_parallel, 1)))
         else:
-            self.gather = ops.GatherV2().shard(((parallel_config.model_parallel, 1), (1, 1)))
+            self.gather = ops.Gather().shard(((parallel_config.model_parallel, 1), (1, 1)))
     def construct(self, input_ids):
         output = self.gather(self.embedding_table, input_ids, 0)
         return output, self.embedding_table
 ```
 
-Based on `mindspore.nn.transformer.VocabEmbedding`, we can implement the summation of word embedding vectors and location embedding vectors. We define the `Add` and `Dropout` operators and set the strategy corresponding to these two operators to be data parallelism.
+Based on `mindformers.modules.VocabEmbedding`, we can implement the summation of word embedding vectors and location embedding vectors. We define the `Add` and `Dropout` operators and set the strategy corresponding to these two operators to be data parallelism.
 
 ```python
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 from mindspore import nn
-from mindspore.nn.transformer import VocabEmbedding
+from mindformers.modules import VocabEmbedding
 class EmbeddingLayer(nn.Cell):
     """Embedding layer of the PanGUAlpha Model"""
     def __init__(self, config):
@@ -95,7 +95,7 @@ The key difficulty in training large-scale Transformer networks is how to solve 
 
 ### Self-Attention
 
-Self-Attention can be implemented directly via `mindspore.nn.transformer.MultiHeadAttention`. In the process of computing Attention, the input vector needs to be projected to the Query, Key, and Value vectors, and then the output of attention needs to be passed through the Dense layer again after the calculation of attention is completed. The following describes the strategy configuration of these three sections respectively.
+Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAttention`. In the process of computing Attention, the input vector needs to be projected to the Query, Key, and Value vectors, and then the output of attention needs to be passed through the Dense layer again after the calculation of attention is completed. The following describes the strategy configuration of these three sections respectively.
 
 - Three Dense Matrix Multiplication
 
@@ -140,7 +140,7 @@ Self-Attention can be implemented directly via `mindspore.nn.transformer.MultiHe
 
 ### FeedForward
 
-FeedForward can be implemented by calling `mindspore.nn.transformer.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
+FeedForward can be implemented by calling `mindformers.modules.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
 
 ```python
 from mindspore.common.initializer import initializer
@@ -148,7 +148,7 @@ import mindspore as ms
 import mindspore.ops as ops
 from mindspore import nn
 from mindspore.nn import get_activation
-from mindspore.nn.transformer import OpParallelConfig
+from mindformers.modules import OpParallelConfig
 
 default_dpmp_config = OpParallelConfig()
 class Linear(nn.Cell):
