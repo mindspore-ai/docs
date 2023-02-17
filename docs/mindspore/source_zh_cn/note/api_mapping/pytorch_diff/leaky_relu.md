@@ -1,4 +1,4 @@
-# 比较与torch.的功能差异
+# 比较与torch.nn.functional.leaky_relu的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/leaky_relu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -22,7 +22,7 @@ mindspore.ops.leaky_relu(x, alpha=0.2) -> Tensor
 
 PyTorch：leaky_relu激活函数。`input` 中小于0的元素乘以 `negative_slope` 。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。不同的是，MindSpore中 `alpha` 的初始值是0.2, PyTorch中对应的 `negative_slope` 初始值是0.01。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。不同的是，MindSpore中 `alpha` 的初始值是0.2，PyTorch中对应的 `negative_slope` 初始值是0.01。
 
 | 分类 | 子类  | PyTorch      | MindSpore    | 差异                          |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |

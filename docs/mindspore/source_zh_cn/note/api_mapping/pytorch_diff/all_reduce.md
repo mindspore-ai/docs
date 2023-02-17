@@ -18,7 +18,7 @@ torch.distributed.all_reduce(
 ## mindspore.ops.AllReduce
 
 ```python
-mindspore.ops.AllReduce(
+class mindspore.ops.AllReduce(
     op=ReduceOp.SUM,
     group=GlobalComm.WORLD_COMM_GROUP
 )(input_x)
