@@ -84,7 +84,7 @@ conda activate mindspore_py37
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 22.0.0安装指引文档]。
+- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 22.0.0安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100289994)。
 
 - 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`6.0.1.alpha001`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
