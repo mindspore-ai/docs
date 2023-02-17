@@ -38,6 +38,13 @@ MindSpore:
 
 功能上无差异。
 
+| 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
+| ---------- | ------------ | ------------ | ---------      | ------------- |
+| 参数       | 参数 1       | input         | a             | 功能一致，参数名不同 |
+|            | 参数 2       | some          | full_matrices | 若要返回缩减后的奇异值分解结果，MindSpore配置 `full_matrices` 为False，PyTorch配置 `some` 为True |
+|            | 参数 3       | compute_uv    | compute_uv    | 如果参数 `compute_uv` 为True，MindSpore的输出值的顺序是 s，u，v，PyTorch的输出值的顺序是 u，s，v。 |
+|            | 参数 4       | out           | -             | 不涉及        |
+
 ## 差异分析与示例
 
 > 奇异值分解的输出不是唯一的。

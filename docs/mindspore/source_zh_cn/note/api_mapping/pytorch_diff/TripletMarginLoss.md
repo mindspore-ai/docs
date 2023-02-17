@@ -7,7 +7,15 @@
 ## torch.nn.TripletMarginLoss
 
 ```text
-torch.nn.TripletMarginLoss(margin=1.0, p=2.0, eps=1e-06, swap=False, size_average=None, reduce=None, reduction='mean')
+torch.nn.TripletMarginLoss(
+    margin=1.0,
+    p=2.0,
+    eps=1e-06,
+    swap=False,
+    size_average=None,
+    reduce=None,
+    reduction='mean'
+)(anchor, positive, negative) -> Tensor/Scalar
 ```
 
 更多内容详见[torch.nn.TripletMarginLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.TripletMarginLoss.html)。
@@ -15,7 +23,12 @@ torch.nn.TripletMarginLoss(margin=1.0, p=2.0, eps=1e-06, swap=False, size_averag
 ## mindspore.nn.TripletMarginLoss
 
 ```text
-mindspore.nn.TripletMarginLoss(p=2, swap=False, eps=1e-06, reduction='mean')
+mindspore.nn.TripletMarginLoss(
+    p=2,
+    swap=False,
+    eps=1e-06,
+    reduction='mean'
+)(margin, x, positive, negative) -> Tensor/Scalar
 ```
 
 更多内容详见[mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TripletMarginLoss.html)。

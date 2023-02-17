@@ -38,6 +38,13 @@ MindSpore:
 
 There is no difference in function.
 
+| Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
+| ---------- | ------------- | ------------ | ---------     | ------------- |
+| Parameters | Parameter 1   | input        | a             | Same function, different parameter names |
+|            | Parameter 2   | some         | full_matrices | To return the reduced singular value decomposition, MindSpore should set `full_matrices` to False, and PyTorch should set `some` to True |
+|            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is True, the order of output values of MindSpore is s, u, v, and the order of PyTorch is u, s, v |
+|            | Parameter 4   | out          | -             | Not involved  |
+
 ## Code Example
 
 > The output values of singular value decomposition are not unique.
