@@ -80,53 +80,7 @@ auto_tune=false
 | activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
 | bias_correction         | 可选 | 是否对量化误差进行校正 | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
 | per_channel         | 可选 | 采用PerChannel或PerLayer的量化方式 | Boolean  | True    | True，False。设置为False，启用PerLayer量化方式。 |
-| target_device         | 可选 | 全量化支持多硬件后端。设置特定硬件后，量化模型会调用专有硬件量化算子库进行推理；如果未设置，转换模型调用通用量化算子库。 | String  | -    | NVGPU: 转换后的量化模型可以在NVIDIA GPU上执行量化推理；<br/>DSP: 转换后的量化模型可以在DSP硬件上执行量化推理。 |
-
-通用全量化（PerChannel量化方式）参数配置如下所示：
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=true
-```
-
-通用全量化（PerLayer量化方式）参数配置如下所示：
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=false
-```
-
-NVIDIA GPU全量化参数配置如下：
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Supports specific hardware backends
-target_device=NVGPU
-```
-
-DSP全量化参数配置如下：
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error.
-bias_correction=false
-# Supports specific hardware backends
-target_device=DSP
-```
+| target_device         | 可选 | 全量化支持多硬件后端。设置特定硬件后，量化模型会调用专有硬件量化算子库进行推理；如果未设置，转换模型调用通用量化算子库。 | String  | -    | NVGPU: 转换后的量化模型可以在NVIDIA GPU上执行量化推理；<br/>DSP: 转换后的量化模型可以在DSP硬件上执行量化推理；<br/>ASCEND: 转换后的量化模型可以在ASCEND硬件上执行量化推理。 |
 
 ### 数据预处理
 
@@ -242,7 +196,7 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 ```
 
-### 部分模型精度结果
+- 部分模型精度结果
 
 |  模型                |  测试数据集        |  FP32模型精度    |  权重量化精度（8bit） |
 | --------            | -------              | -----            | -----     |
@@ -256,13 +210,15 @@ min_quant_weight_channel=16
 
 针对CV模型需要提升模型运行速度、降低模型运行功耗的场景，可以使用训练后全量化功能。下面对全量化的使用方式和效果进行阐述。
 
-全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右。
+全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右，**且校准数据集需处理成`NHWC`的Format**。
 
 针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html#数据预处理)。
 
+用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`
+
 注意：
 
-- 模型校准数据必须与训练数据同分布，并且校准数据与模型输入的format（例如：NCHW、NHWC）需要保持一致。
+- 模型校准数据必须与训练数据同分布，并且校准数据与导出的浮点模型输入的Format需要保持一致。
 
 全量化转换命令的一般形式为：
 
@@ -270,7 +226,9 @@ min_quant_weight_channel=16
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
 ```
 
-全量化配置文件如下所示：
+### CPU
+
+CPU全量化完整配置文件如下所示：
 
 ```ini
 [common_quant_param]
@@ -313,15 +271,114 @@ bias_correction=true
 
 > 全量化需要执行推理，等待时间可能较长，如果需要查看日志，可以在执行前设置export GLOG_v=1，用于打印相关Info级别日志。
 
-### 部分模型精度结果
+通用全量化（权重PerChannel量化方式）参数`[full_quant_param]`配置如下所示：
 
-|  模型                |  测试数据集   | 量化方法    |  FP32模型精度    |  全量化精度（8bit） | 说明 |
-| --------            | -------      | -----          | -----            | -----     | -----  |
-| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL |    77.60%   |   77.40%   | 校准数据集随机选择ImageNet Validation数据集中的100张 |
-| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | KL |    70.96%    |  70.31%  | 校准数据集随机选择ImageNet Validation数据集中的100张 |
-| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | MAX_MIN |    71.56%    |  71.16%  | 校准数据集随机选择ImageNet Validation数据集中的100张 |
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=true
+```
+
+通用全量化（权重PerLayer量化方式）参数`[full_quant_param]`配置如下所示：
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=false
+```
+
+部分模型精度结果
+
+| 模型                                                         | 测试数据集                        | 量化方法 | FP32模型精度 | 全量化精度（8bit） | 说明                                                 |
+| ------------------------------------------------------------ | --------------------------------- | -------- | ------------ | ------------------ | ---------------------------------------------------- |
+| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL       | 77.60%       | 77.40%             | 校准数据集随机选择ImageNet Validation数据集中的100张 |
+| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | KL       | 70.96%       | 70.31%             | 校准数据集随机选择ImageNet Validation数据集中的100张 |
+| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%       | 71.16%             | 校准数据集随机选择ImageNet Validation数据集中的100张 |
 
 > 以上所有结果均在x86环境上测得。
+
+### NVIDIA GPU
+
+NVIDIA GPU全量化参数配置，只需在`[full_quant_param]`新增配置`target_device=NVGPU`：
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Supports specific hardware backends
+target_device=NVGPU
+```
+
+### DSP
+
+DSP全量化参数配置，只需在`[full_quant_param]`新增配置`target_device=DSP`：
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error.
+bias_correction=false
+# Supports specific hardware backends
+target_device=DSP
+```
+
+### Ascend
+
+Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置[Ascend相关环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
+
+Ascend全量化静态Shape参数配置
+
+- Ascend相关环境变量Ascend全量化静态Shape场景下转换命令的一般形式为：
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
+    ```
+
+- Ascend全量化参数静态shape场景，只需在`[full_quant_param]`新增配置`target_device=ASCEND`
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+    ```
+
+Ascend全量化支持动态Shape参数，具体可参考[Ascend动态Shape特性](https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html#%E5%8A%A8%E6%80%81shape%E7%89%B9%E6%80%A7)，同时转换命令需要设置单Batch的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
+
+- Ascend全量化动态Shape场景转换命令的一般形式为：
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;"
+    ```
+
+- Ascend全量化参数动态shape场景，还需新增`[acl_option_cfg_param]`相关配置
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+
+    [acl_option_cfg_param]
+    input_shape_vector="[-1,32,32,4]"
+    dynamic_batch_size="2,4"
+    # 其中，input_shape中的"-1"表示设置动态batch，档位可取值为"2,4"，即支持档位0: [2,32,32,4]，档位1: [4,32,32,4].
+    ```
 
 ## 动态量化
 
