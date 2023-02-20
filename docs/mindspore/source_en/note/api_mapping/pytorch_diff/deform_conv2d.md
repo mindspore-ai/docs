@@ -48,7 +48,7 @@ MindSpore: Parameters offsets is a 4D tensor of x-y coordinates offset and mask.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 | Parameters | Parameter 1 | input     | x         | Same function, different parameter names |
-|      | Parameter 2 | offsets   | offsets | MindSpore parameters offsets is a 4D tensor of x-y coordinates offset and mask |
+|      | Parameter 2 | offset   | offsets | MindSpore parameters offsets is a 4D tensor of x-y coordinates offset and mask |
 |      | Parameter 3 | weight     | weight         | - |
 |      | Parameter 4 | mask     | -         | MindSpore does not have this parameter |
 |      | Parameter 5 | bias     | bias         | - |

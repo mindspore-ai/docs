@@ -39,7 +39,6 @@ MindSpore：此API实现功能与PyTorch基本一致，但目前只能对三维�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 接口输入，功能基本一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
 | 参数 | 参数1 | num_features | num_features | - |
 | | 参数2 | eps | eps | - |
 | | 参数3 | momentum | momentum | - |
@@ -47,6 +46,7 @@ MindSpore：此API实现功能与PyTorch基本一致，但目前只能对三维�
 | | 参数5 | track_running_stats | - | 如果设置为True，PyTorch会在推理中使用训练得到的均值和方差，默认值为False，MindSpore无此参数，在训练和推理中均会使用输入数据的计算均值和方差，与PyTorch的默认值False行为相同 |
 | | 参数6 | - | gamma_init | 用于学习的变换参数 γ 初始化，默认是'ones'，而PyTorch不能额外设置，只能是'ones'|
 | | 参数7 | - | beta_init |用于学习的变换参数 β 初始化，默认是'zeros'，而PyTorch不能额外设置，只能是'zeros' |
+| 输入 | 单输入 | input | x | 接口输入，功能基本一致，但PyTorch里允许输入是二维或三维的，而MindSpore里的输入只能是二维的 |
 
 ### 代码示例
 

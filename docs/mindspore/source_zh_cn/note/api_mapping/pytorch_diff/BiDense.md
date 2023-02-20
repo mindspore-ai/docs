@@ -23,7 +23,7 @@ mindspore.nn.BiDense(
     out_channels,
     weight_init=None,
     bias_init=None,
-    has_bias=True)(input1, intput2) -> Tensor
+    has_bias=True)(input1, input2) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.BiDense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BiDense.html#mindspore.nn.BiDense)。
