@@ -43,6 +43,7 @@ MindSpore: MindSpore API implements the same function as TensorFlow, and only th
 |      | Parameter 3 | strides     | stride      | Same function, different parameter names, no default values for TensorFlow              |
 |      | Parameter 4 | padding     | pad_mode    | Same function, different parameter names, no default values for TensorFlow              |
 |      | Parameter 5 | data_format | data_format | Same function, different default values of parameters                                 |
+|      | Parameter 6 | name | - | Not involved    |
 
 ### Code Example
 

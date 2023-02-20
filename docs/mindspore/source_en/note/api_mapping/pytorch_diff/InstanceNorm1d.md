@@ -40,7 +40,7 @@ MindSpore: MindSpore API implements the same function as PyTorch, but currently 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
 | Input | Single input | input | x | Interface input. The function is basically the same, but PyTorch allows input to be 2D or 3D, while input in MindSpore can only be 2D |
-| Parameters | Parameter 1 | num_groups | num_groups   | - |
+| Parameters | Parameter 1 | num_features | num_features   | - |
 |      | Parameter 2 | eps | eps | - |
 | | Parameter 3 | momentum | momentum | - |
 | | Parameter 4 | affine | affine | The default values are different: MindSpore defaults to True, which learns the internal parameters γ and β, and PyTorch defaults to False, which does not learn the parameters |
