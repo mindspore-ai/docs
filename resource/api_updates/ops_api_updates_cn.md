@@ -74,7 +74,6 @@
 [mindspore.ops.ExtractGlimpse](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ExtractGlimpse.html#mindspore.ops.ExtractGlimpse)|修改|从输入图像Tensor中提取glimpse，并返回一个窗口。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|图像处理
 [mindspore.ops.NonMaxSuppressionV3](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NonMaxSuppressionV3.html#mindspore.ops.NonMaxSuppressionV3)|新增|贪婪选取一组按score降序排列后的边界框。|master: Ascend/GPU|图像处理
 [mindspore.ops.NonMaxSuppressionWithOverlaps](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NonMaxSuppressionWithOverlaps.html#mindspore.ops.NonMaxSuppressionWithOverlaps)|新增|贪婪选取一组按score降序排列后的边界框。|master: Ascend/GPU/CPU|图像处理
-[mindspore.ops.PSROIPooling](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.PSROIPooling.html#mindspore.ops.PSROIPooling)|新增|对输入Tensor应用Position Sensitive ROI-Pooling。|master: Ascend|图像处理
 [mindspore.ops.RGBToHSV](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.RGBToHSV.html#mindspore.ops.RGBToHSV)|修改|将一张或多张图片由RGB格式转换为HSV格式。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|图像处理
 [mindspore.ops.ResizeArea](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeArea.html#mindspore.ops.ResizeArea)|新增|使用面积插值调整图像大小到指定的大小。|master: Ascend/GPU/CPU|图像处理
 [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)|修改|使用双三次插值调整图像大小到指定的大小。|r2.0.0-alpha:  => master: Ascend/GPU/CPU|图像处理
@@ -107,7 +106,6 @@
 [mindspore.ops.GridSampler3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GridSampler3D.html#mindspore.ops.GridSampler3D)|新增|给定一个输入和一个网格，使用网格中的输入值和像素位置计算输出。|master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.MirrorPad](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MirrorPad.html#mindspore.ops.MirrorPad)|修改|通过指定的填充模式和大小对输入Tensor进行填充。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.NthElement](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NthElement.html#mindspore.ops.NthElement)|新增|寻找并返回输入Tensor最后一维第 \(n\) 小的值。|master: Ascend/GPU/CPU|神经网络
-[mindspore.ops.NuclearNorm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NuclearNorm.html#mindspore.ops.NuclearNorm)|新增|返回给定Tensor的矩阵核范数。|master: Ascend/CPU|神经网络
 [mindspore.ops.PadV3](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.PadV3.html#mindspore.ops.PadV3)|新增|根据参数 mode 和 paddings_contiguous 对输入进行填充。|master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)|修改|r2.0.0-alpha: 使用双线性插值调整图像大小到指定的大小。 => master: 此接口已弃用，请使用 mindspore.ops.ResizeBilinearV2 。|r2.0.0-alpha: Ascend/CPU/GPU => master: |神经网络
 [mindspore.ops.ResizeLinear1D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeLinear1D.html#mindspore.ops.ResizeLinear1D)|修改|使用线性插值调整输入 x 为指定大小。|r2.0.0-alpha:  => master: GPU/CPU|神经网络
@@ -130,6 +128,5 @@
 [mindspore.ops.Multinomial](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Multinomial.html#mindspore.ops.Multinomial)|修改|返回从输入Tensor对应行进行多项式概率分布采样出的Tensor。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|随机生成算子
 [mindspore.ops.NonDeterministicInts](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NonDeterministicInts.html#mindspore.ops.NonDeterministicInts)|新增|生成指定数据类型范围内的随机整数。|master: Ascend/GPU/CPU|随机生成算子
 [mindspore.ops.ParameterizedTruncatedNormal](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ParameterizedTruncatedNormal.html#mindspore.ops.ParameterizedTruncatedNormal)|新增|返回一个具有指定shape的Tensor，其数值取自截断正态分布。|master: Ascend/GPU/CPU|随机生成算子
-[mindspore.ops.RandomGamma](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.RandomGamma.html#mindspore.ops.RandomGamma)|新增|根据概率密度函数分布生成随机正值浮点数x。|master: CPU|随机生成算子
 [mindspore.ops.RandomPoisson](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.RandomPoisson.html#mindspore.ops.RandomPoisson)|新增|根据离散概率密度函数分布生成随机非负数浮点数i。|master: Ascend/GPU/CPU|随机生成算子
 [mindspore.ops.TruncatedNormal](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TruncatedNormal.html#mindspore.ops.TruncatedNormal)|新增|返回一个具有指定shape的Tensor，其数值取自正态分布。|master: Ascend/GPU/CPU|随机生成算子
