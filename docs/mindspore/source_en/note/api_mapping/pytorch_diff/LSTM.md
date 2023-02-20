@@ -9,7 +9,7 @@ class torch.nn.LSTM(
     input_size,
     hidden_size,
     num_layers=1,
-    has_bias=True,
+    bias=True,
     batch_first=False,
     dropout=0,
     bidirectional=False,
