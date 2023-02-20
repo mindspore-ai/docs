@@ -50,14 +50,15 @@ MindSpore: 一个四维Tensor，存储x和y坐标的偏移，以及可变形卷�
 | 参数 | 参数1 | input   | x        |  功能一致，参数名不同 |
 |      | 参数2 | offsets   | offsets        | MindSpore的offsets参数包含PyTorch的offsets和mask两个参数 |
 |      | 参数3 | weight   | weight        | - |
-|      | 参数4 | mask   | -        | MindSpore无此参数 |
-|      | 参数5 | bias   | bias        | - |
-|      | 参数6 | stride   | strides        | 功能一致，参数名不同 |
-|      | 参数7 | padding   | padding        | - |
-|      | 参数8 | dilations   | dilations        | - |
-|      | 参数9 | -  | groups        | Pytorch无此参数 |
-|      | 参数10 | -  | deformable_groups        | Pytorch无此参数 |
-|      | 参数11 | -  | modulated        | Pytorch无此参数 |
+|      | 参数4 | -  | kernel_size        | Pytorch无此参数 |
+|      | 参数5 | mask   | -        | MindSpore无此参数 |
+|      | 参数6 | bias   | bias        | - |
+|      | 参数7 | stride   | strides        | 功能一致，参数名不同 |
+|      | 参数8 | padding   | padding        | - |
+|      | 参数9 | dilations   | dilations        | - |
+|      | 参数10 | -  | groups        | Pytorch无此参数 |
+|      | 参数11 | -  | deformable_groups        | Pytorch无此参数 |
+|      | 参数12 | -  | modulated        | Pytorch无此参数 |
 
 ### 代码示例
 
