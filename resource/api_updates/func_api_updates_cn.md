@@ -190,5 +190,4 @@
 |[mindspore.ops.randint_like](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like)|新增|返回一个Tensor，其元素为 [ low , high ) 区间的随机整数。|master: Ascend/GPU/CPU|随机生成函数|
 |[mindspore.ops.randn](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randn.html#mindspore.ops.randn)|新增|返回一个Tensor，shape和dtype由输入决定，其元素为服从标准正态分布的 \([0, 1)\) 区间的数字。|master: Ascend/GPU/CPU|随机生成函数|
 |[mindspore.ops.randn_like](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randn_like.html#mindspore.ops.randn_like)|新增|返回一个Tensor，shape和dtype由输入决定，其元素为服从标准正态分布的 \([0, 1)\) 区间的数字。|master: Ascend/GPU/CPU|随机生成函数|
-|[mindspore.ops.random_gamma](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.random_gamma.html#mindspore.ops.random_gamma)|新增|根据伽马分布产生成随机数。|master: CPU|随机生成函数|
 |[mindspore.ops.random_poisson](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.random_poisson.html#mindspore.ops.random_poisson)|新增|从一个指定均值为 rate 的泊松分布中，随机生成形状为 shape 的随机数Tensor。|master: CPU|随机生成函数|
