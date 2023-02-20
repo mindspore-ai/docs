@@ -35,3 +35,4 @@ MindSpore: The input of this interface is `input_x` that is a `tensor`. The outp
 | | Param 2 | tensor | - |PyTorch: the tensor broadcasted by the current process. MindSpore does not have this parameter |
 | | Param 3 | group | group |No dfference|
 | | Param 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
+| Input | Single input | - | input_x | PyTorch: not applied. MindSpore: the input tensor of AllGather. |

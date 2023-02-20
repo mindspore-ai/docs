@@ -38,3 +38,4 @@ MindSpore：该接口输入tensor input_x，输出在通信域group中进行op�
 | | 参数2 | op | op | 一致|
 | | 参数3 | group | group |一致|
 | | 参数4 | async_op | - |PyTorch：异步操作标志，MindSpore无此参数 |
+|输入| 单输入| - |input_x| PyTorch：不适用，MindSpore：AllReduce算子的输入Tensor |
