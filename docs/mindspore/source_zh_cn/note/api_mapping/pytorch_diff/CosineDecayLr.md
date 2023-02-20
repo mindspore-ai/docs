@@ -39,11 +39,12 @@ MindSpore（mindspore.nn.cosine_decay_lr）：`mindspore.nn.cosine_decay_lr` 的
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | 参数 | 参数1 | optimizer   |        | PyTorch应用的优化器，MindSpore无此参数 |
-|      | 参数2 | T_max   | decay_steps | 进行衰减的step，功能一致，参数名不同 |
+|      | 参数2 | T_max   | total_step | 进行衰减的step，功能一致，参数名不同 |
 |      | 参数3 | eta_min | min_lr     | 学习率最小值，功能一致，参数名不同 |
-|      | 参数4 | last_epoch |   | MindSpore无此参数 |
+|      | 参数4 | last_epoch | decay_epoch | 功能一致，参数名不同 |
 |      | 参数5 | verbose |        | PyTorch的 `verbose` 为True时，每一次更新打印相关信息。MindSpore无此参数 |
 |      | 参数6 |       |  max_lr   | 最大学习率，PyTorch设置为初始lr，MindSpore设置为 `max_lr` |
+|      | 参数7 |    - |  step_per_epoch     | MindSpore每个epoch的step数 |
 
 ## 代码示例
 
