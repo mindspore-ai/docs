@@ -48,7 +48,7 @@ MindSpore: 一个四维Tensor，存储x和y坐标的偏移，以及可变形卷�
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | input   | x        |  功能一致，参数名不同 |
-|      | 参数2 | offsets   | offsets        | MindSpore的offsets参数包含PyTorch的offsets和mask两个参数 |
+|      | 参数2 | offset   | offsets        | MindSpore的offsets参数包含PyTorch的offset和mask两个参数 |
 |      | 参数3 | weight   | weight        | - |
 |      | 参数4 | mask   | -        | MindSpore无此参数 |
 |      | 参数5 | bias   | bias        | - |

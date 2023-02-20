@@ -39,7 +39,6 @@ MindSpore: MindSpore API implements the same function as PyTorch, but currently 
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Input | Single input | input | x | Interface input. The function is basically the same, but PyTorch allows input to be 2D or 3D, while input in MindSpore can only be 2D |
 | Parameters | Parameter 1 | num_features | num_features   | - |
 |      | Parameter 2 | eps | eps | - |
 | | Parameter 3 | momentum | momentum | - |
@@ -47,6 +46,7 @@ MindSpore: MindSpore API implements the same function as PyTorch, but currently 
 | | Parameter 5 | track_running_stats | - | If set to True, PyTorch will use the mean and variance obtained from training in inference, and the default value is False. MindSpore does not have this parameter, and will use the computed mean and variance of the input data in both training and inference, with the same behavior as PyTorch default value. |
 | | Parameter 6 | - | gamma_init | Initialize transform parameter γ for learning, default is 'ones', while PyTorch can't set additionally, only 'ones'|
 | | Parameter 7 | - | beta_init |Initialize transform parameter γ for learning, default is 'zeros', while PyTorch can't set additionally, only 'zeros' |
+| Input | Single input | input | x | Interface input. The function is basically the same, but PyTorch allows input to be 2D or 3D, while input in MindSpore can only be 2D |
 
 ### Code Example
 
