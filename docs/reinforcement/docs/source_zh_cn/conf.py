@@ -162,7 +162,7 @@ try:
 except Exception as e:
     logger.warning(f'{e}')
 
-#import mindspore_rl
+import mindspore_rl
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
