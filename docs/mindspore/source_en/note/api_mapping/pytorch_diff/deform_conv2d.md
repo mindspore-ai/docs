@@ -50,14 +50,15 @@ MindSpore: Parameters offsets is a 4D tensor of x-y coordinates offset and mask.
 | Parameters | Parameter 1 | input     | x         | Same function, different parameter names |
 |      | Parameter 2 | offset   | offsets | MindSpore parameters offsets is a 4D tensor of x-y coordinates offset and mask |
 |      | Parameter 3 | weight     | weight         | - |
-|      | Parameter 4 | mask     | -         | MindSpore does not have this parameter |
-|      | Parameter 5 | bias     | bias         | - |
-|      | Parameter 6 | stride     | strides         | Same function, different parameter names |
-|      | Parameter 7 | padding     | padding         | - |
-|      | Parameter 8 | dilations     | dilations         | - |
-|      | Parameter 9 | -     | groups         | Pytorch does not have this parameter |
-|      | Parameter 10 | -     | deformable_groups         | Pytorch does not have this parameter |
-|      | Parameter 11 | -     | modulated         | Pytorch does not have this parameter |
+|      | Parameter 4 | -     | kernel_size         | Pytorch does not have this parameter |
+|      | Parameter 5 | mask     | -         | MindSpore does not have this parameter |
+|      | Parameter 6 | bias     | bias         | - |
+|      | Parameter 7 | stride     | strides         | Same function, different parameter names |
+|      | Parameter 8 | padding     | padding         | - |
+|      | Parameter 9 | dilations     | dilations         | - |
+|      | Parameter 10 | -     | groups         | Pytorch does not have this parameter |
+|      | Parameter 11 | -     | deformable_groups         | Pytorch does not have this parameter |
+|      | Parameter 12 | -     | modulated         | Pytorch does not have this parameter |
 
 ### Code Example
 
