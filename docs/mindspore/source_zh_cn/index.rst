@@ -84,6 +84,7 @@ MindSpore 文档
    migration_guide/faq
    migration_guide/typical_api_comparision
    migration_guide/use_third_party_op
+   migration_guide/tensorflow2mindspore
 
 .. toctree::
    :glob:

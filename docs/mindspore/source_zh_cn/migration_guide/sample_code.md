@@ -480,7 +480,7 @@ param = {
 }
 ```
 
-再结合`param_convert`的相关流程就可以获取到参数文件了。
+再结合`param_convert`的相关流程就可以获取到参数文件了。针对网络模型是TensorFlow的情况可参考: [TensorFlow模型转换MindSpore模型文件方法](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/tensorflow2mindspore.html) 。
 
 ### 单元测试
 
