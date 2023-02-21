@@ -80,57 +80,7 @@ The full quantization parameters mainly include `activation_quant_method`, `bias
 | activation_quant_method | Optional  | Activation quantization algorithm                   | String         | MAX_MIN       | KL, MAX_MIN, or RemovalOutlier.<br/>KL: quantizes and calibrates the data range based on [KL divergence](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf).<br/>MAX_MIN: data quantization parameter computed based on the maximum and minimum values.<br/>RemovalOutlier: removes the maximum and minimum values of data based on a certain proportion and then calculates the quantization parameters.<br/>If the calibration dataset is consistent with the input data during actual inference, MAX_MIN is recommended. If the noise of the calibration dataset is large, KL or RemovalOutlier is recommended. |
 | bias_correction         | Optional  | Indicate whether to correct the quantization error. | Boolean        | True          | True or False. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
 | per_channel         | Optional  | Select PerChannel or PerLayer quantization type. | Boolean        | True          | True or False. Set to false to enable Perlayer quantization. |
-| target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model  can execute the proprietry hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU:  The quantized model can perform quantitative inference on the NVIDIA GPU. <br/>DSP:  The quantized model can perform quantitative inference on the DSP devices. |
-
-The full quantization parameter (PerChannel quantization type) configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=true
-```
-
-The full quantization parameter (PerLayer quantization type) configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=false
-```
-
-NVIDIA GPU full quantization parameter configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# Whether to support PerChannel quantization strategy. Recommended to set to true.
-per_channel=true
-# Supports specific hardware backends
-target_device=NVGPU
-```
-
-DSP full quantization parameter configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error.
-bias_correction=false
-# Supports specific hardware backends
-target_device=DSP
-```
+| target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model can execute the proprietry hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU: The quantized model can perform quantitative inference on the NVIDIA GPU. <br/>DSP: The quantized model can perform quantitative inference on the DSP devices.<br/>ASCEND: The quantized model can perform quantitative inference on the ASCEND devices. |
 
 ### Data Preprocessing
 
@@ -259,18 +209,42 @@ min_quant_weight_channel=16
 
 In CV scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the full quantization after training can be used. The following describes how to use full quantization and its effects.
 
-To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500.
+To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500, **and the calibration dataset needs to be processed into the Format of `NHWC`**.
 
 For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
-Note：
-
-- The calibration dataset must have the same distribution as the training data. The calibration dataset is consistent with the format of the model inputs(e.g. NCHW、NHWC).
+Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`。
 
 The general form of the full quantization conversion command is:
 
 ```bash
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
+```
+
+### CPU
+
+The full quantization parameter (PerChannel quantization type) configuration is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=true
+```
+
+The full quantization parameter (PerLayer quantization type) configuration is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=false
 ```
 
 The full quantization profile is as follows:
@@ -316,7 +290,7 @@ bias_correction=true
 
 > Full quantification needs to perform inference, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before the execution to print the relevant Info level log.
 
-### Partial Model Accuracy Result
+Partial Model Accuracy Result
 
 | Model                                                        | Test Dataset                      | quant_method | FP32 Model Accuracy | Full Quantization Accuracy (8 bits) | Description                                                  |
 | --------            | -------      | -----          | -----            | -----     | -----  |
@@ -325,6 +299,86 @@ bias_correction=true
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%              | 71.16%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
 
 > All the preceding results are obtained in the x86 environment.
+
+### NVDIA
+
+NVIDIA GPU full quantization parameter configuration only need add `target_device=NVGPU` to `[full_quant_param]` likes as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Whether to support PerChannel quantization strategy. Recommended to set to true.
+per_channel=true
+# Supports specific hardware backends
+target_device=NVGPU
+```
+
+### DSP
+
+DSP full quantization parameter configuration only need add `target_device=DSP` to `[full_quant_param]`, and the command is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error.
+bias_correction=false
+# Supports specific hardware backends
+target_device=DSP
+```
+
+### Ascend
+
+Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) and we also need to set [environment](https://www.mindspore.cn/lite/docs/en/master/use/ascend_info.html#environment-preparation) for Ascend.
+
+Ascend quantization static shape parameter configuration
+
+- In the static shape scenario, the general form of the conversion command for Ascend quantization as follow:
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
+    ```
+
+- Ascend static shape quantizion only need add `target_device=ASCEND` to `[full_quant_param]` likes as follows:
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+    ```
+
+Ascend quantization also support dynamic shape, we can refer [this](https://www.mindspore.cn/lite/docs/en/master/use/ascend_info.html#dynamic-shape) for more detail. It is worth noting that the conversion command must set the inputShape of a single batch. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+
+- In the dynamic shape scenario, the general form of the conversion command for Ascend quantization as follow:
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;"
+    ```
+
+- We must add configuration about `[acl_option_cfg_param]` for dynamic shape as follow:
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+
+    [acl_option_cfg_param]
+    input_shape_vector="[-1,32,32,4]"
+    dynamic_batch_size="2,4"
+
+    # "-1" in input_shape indicates that the batch size is dynamic. The value range is "2,4". That is, size 0: [2, 32, 32, 4] and size 1: [4, 32, 32, 4] are supported.
+    ```
 
 ## Dynamic Quantization
 
