@@ -13,7 +13,7 @@ torch.empty(
     layout=torch.strided,
     device=None,
     requires_grad=False,
-    pin_memory=False
+    pin_memory=False,
     memory_format=torch.contiguous_format
 ) -> Tensor
 ```
