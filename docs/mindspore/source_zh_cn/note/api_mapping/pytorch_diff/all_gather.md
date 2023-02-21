@@ -35,3 +35,4 @@ MindSpore：该接口输入tensor input_x，输出tensor，第一维为通信域
 | | 参数2 | tensor | - | PyTorch：当前进程广播的tensor，MindSpore无此参数|
 | | 参数3 | group | group |-|
 | | 参数4 | async_op | - |PyTorch：异步操作标志，MindSpore无此参数 |
+|输入| 单输入| - |input_x| PyTorch：不适用，MindSpore：AllGather算子的输入Tensor |

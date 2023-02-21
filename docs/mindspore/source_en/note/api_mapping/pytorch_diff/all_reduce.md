@@ -38,3 +38,4 @@ MindSpore: The input of this interface is `input_x` that is a `tensor`. The outp
 | | Param 2 | op | op |No difference|
 | | Param 3 | group | group |No difference|
 | | Param 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
+| Input | Single input | - | input_x | PyTorch: not applied. MindSpore: the input tensor of AllReduce. |
