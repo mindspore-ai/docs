@@ -406,7 +406,7 @@ layer1.0.conv1.weight (64, 64, 1, 1)
 
 ### 参数映射及checkpoint保存
 
-发现除了BatchNorm的参数外，其他参数的名字和shape是完全能够对的上的，这时可以写一个简单的python脚本来做参数映射:
+发现除了BatchNorm的参数外，其他参数的名字和shape是完全能够对的上的，这时可以写一个简单的python脚本来做参数映射：
 
 ```python
 import mindspore as ms
@@ -480,7 +480,7 @@ param = {
 }
 ```
 
-再结合`param_convert`的相关流程就可以获取到参数文件了。针对网络模型是TensorFlow的情况可参考: [TensorFlow模型转换MindSpore模型文件方法](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/tensorflow2mindspore.html) 。
+再结合`param_convert`的相关流程就可以获取到参数文件了。针对网络模型是TensorFlow的情况可参考：[TensorFlow模型转换MindSpore模型文件方法](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/tensorflow2mindspore.html)。
 
 ### 单元测试
 
