@@ -1,13 +1,15 @@
 # TensorFlow模型转换MindSpore模型文件方法
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 本章将以LeNet5网络结构为例，结合[代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/convert_tf2ms_code) 来详细介绍模型权重转换方法。
 
-首先我们需要明确训练好的TensorFlow模型转换成MindSpore能够使用的checkpoint，基本需要以下几个流程:
+首先我们需要明确训练好的TensorFlow模型转换成MindSpore能够使用的checkpoint，基本需要以下几个流程：
 
 1. 打印TensorFlow的参数文件里面所有参数的参数名和shape，打印需要加载参数的MindSpore Cell里所有参数的参数名和shape；
-2. 比较参数名和shape， 构造参数映射关系；
+2. 比较参数名和shape，构造参数映射关系；
 3. 按照参数映射将TensorFlow的参数映射到MindSpore的Parameter，构成Parameter List之后保存成checkpoint；
-4. 单元测试: MindSpore加载转换后的参数，固定输入，对比MindSpore与TensorFlow的结果。
+4. 单元测试：MindSpore加载转换后的参数，固定输入，对比MindSpore与TensorFlow的结果。
 
 ## 打印参数信息
 
@@ -74,8 +76,8 @@ fc3.bias (1,)
 ## 参数映射及checkpoint保存
 
 通过以上参数名和shape输出进行对比，可以发现两者参数名有一定规律性可以结合网络结构进行匹配，针对参数shape可以发现卷积和全连接层的shape维度不一样，
-MindSpore的卷积层中weight的shape为[out_channel, in_channel, kernel_height, kernel_weight]，而TensorFlow卷积的weight
-的shape为[kernel_height, kernel_weight, in_channel, out_channel]，MindSpore的全连接中weight的shape为[out_channel, in_channel]，
+MindSpore的卷积层中weight的shape为[out_channel, in_channel, kernel_height, kernel_weight]，而TensorFlow卷积层的weight
+的shape为[kernel_height, kernel_weight, in_channel, out_channel]，MindSpore的全连接层中weight的shape为[out_channel, in_channel]，
 而TensorFlow全连接层的weight的shape为[in_channel, out_channel]，所以在这里我们处理卷积和全连接层权重转换的时候需要做下转置。
 
 ```python
@@ -98,7 +100,7 @@ def tensorflow2mindspore(tf_ckpt_dir, param_mapping_dict, ms_ckpt_path):
 ```
 
 因为当前网络的参数名映射非常复杂，通过参数名很难找到映射关系，所以我们需要通过一个参数映射字典。当遇到比较简单的参数名映射时，
-转换方法可以参考[PyTorch模型文件转MindSpore模型文件](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81) 的方法
+转换方法可以参考[PyTorch模型文件转MindSpore模型文件](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)的方法。
 
 ```python
 params_mapping = {
