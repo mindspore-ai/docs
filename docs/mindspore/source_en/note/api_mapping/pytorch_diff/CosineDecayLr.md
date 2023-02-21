@@ -39,11 +39,12 @@ MindSpore (mindspore.nn.cosine_decay_lr): the learning rate adjustment of `minds
 | Categories | Subcategories  | PyTorch | MindSpore | Differences                 |
 | ---- | ----- | ------- | --------- | -------------------- |
 | Parameter | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this parameter |
-|      | Parameter 2 | T_max   | decay_steps | The step to perform decay. The function is the same, and the parameter name is different |
+|      | Parameter 2 | T_max   | total_step | The step to perform decay. The function is the same, and the parameter name is different |
 |      | Parameter 3 | eta_min | min_lr     | Minimum learning rate, same function, different parameter names |
-|      | Parameter 4 | last_epoch |   | MindSpore does not have this parameter |
+|      | Parameter 4 | last_epoch |  decay_epoch | The functions are the same, but the parameter names are different |
 |      | Parameter 5 | verbose |        | PyTorch prints information about each update when `verbose` is True. MindSpore does not have this parameter |
 |      | Parameter 6 |       |  max_lr   | Maximum learning rate. PyTorch is set to initial lr, and MindSpore is set to `max_lr` |
+|      | Parameter 7 |       |  step_per_epoch   | MindSpore number of steps per epoch |
 
 ## Code Example
 

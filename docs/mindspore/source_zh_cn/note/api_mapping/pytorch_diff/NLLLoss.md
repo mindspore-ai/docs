@@ -11,7 +11,7 @@ torch.nn.NLLLoss(
     ignore_index=-100,
     reduce=None,
     reduction='mean'
-)
+)(input, target)
 ```
 
 更多内容详见[torch.nn.NLLLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.NLLLoss.html)。
@@ -41,6 +41,8 @@ MindSpore：除两个在PyTorch已弃用的参数不同外，功能上无差异�
 | | 参数3 | ignore_index | ignore_index | 指定labels中需要忽略的值(一般为填充值)，使其不对梯度产生影响 |
 | | 参数4 | reduce | - | 已弃用，被reduction取代，MindSpore无此参数 |
 | | 参数5 | reduction         | reduction      | 指定应用于输出结果的计算方式 |
+|  输入 | 输入1 | input | logits | 功能一致，参数名不同 |
+|   | 输入2 | target | labels | 功能一致，参数名不同 |
 
 ## 代码示例
 
