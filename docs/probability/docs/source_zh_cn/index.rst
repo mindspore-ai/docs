@@ -7,7 +7,6 @@ MindSpore Probability 概率编程主要包括以下几部分：
 
 - 提供丰富的统计分布和常用的概率推断算法。
 - 提供可组合的概率编程模块，让开发者可以用开发深度学习模型的逻辑来构造深度概率模型。
-- 提供不确定估计和异常检测的工具箱，拓展贝叶斯应用功能。
 
 .. raw:: html
 
@@ -19,18 +18,6 @@ MindSpore Probability 概率编程主要包括以下几部分：
 1. `构建贝叶斯神经网络 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_bnn.html>`_
    
    利用贝叶斯神经网络实现图片分类应用。
-   
-2. `构建变分自编码器 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_the_vae.html>`_
-   
-   利用变分自编码器压缩输入数据，生成新样本。
-   
-3. `DNN一键转BNN <https://www.mindspore.cn/probability/docs/zh-CN/master/one_click_conversion_from_dnn_to_bnn.html>`_
-   
-   支持DNN模型一键转换成BNN模型。
-   
-4. `使用不确定性估计工具箱 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_the_uncertainty_toolbox.html>`_
-   
-   利用不确定性估计工具箱，得到偶然不确定性和认知不确定性，更好地理解模型和数据集。
 
 .. toctree::
    :glob:
@@ -43,9 +30,6 @@ MindSpore Probability 概率编程主要包括以下几部分：
    :caption: 使用指南
 
    using_bnn
-   using_the_vae
-   one_click_conversion_from_dnn_to_bnn
-   using_the_uncertainty_toolbox
    probability
 
 .. toctree::
