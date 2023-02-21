@@ -43,7 +43,7 @@ Therefore, in the second mode, there is a difference between the calculation res
 | Parameters | Parameter 1 | size  |   -   |         -                                                   |
 |      | Parameter 2 | scale_factor |   -    | Multiplier for spatial size. MindSpore does not have this feature |
 |      | Parameter 3 | mode    |    -        | The upsampling algorithm. Bicubic interpolation will be applied when mode is `bicubic`  |
-|      | Parameter 4 | align_corner | align_corners   |         -                                             |
+|      | Parameter 4 | align_corners | align_corners   |         -                                             |
 |      | Parameter 5 |   -    | half_pixel_centers | In MindSpore, it's the flag of half-pixel center alignment, while PyTorch implementation with align_corners=False uses half-pixel center alignment |
 | Inputs | Input 1 | input      | images    |                -                                           |
 |       | Input 2 | -          | size      |                 -                                          |
