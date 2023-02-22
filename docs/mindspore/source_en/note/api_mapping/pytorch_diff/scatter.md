@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/scatter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For the functional differences between `mindspore.Tensor.scatter` and `torch.Tensor.scatter` , refer to the functional differences between `mindspore.ops.scatter` and `torch.scatter` .
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.scatter    |   mindspore.ops.scatter    |
+|    torch.Tensor.scatter   |  mindspore.Tensor.scatter   |
 
 ## torch.scatter
 

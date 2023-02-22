@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/scatter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.scatter` 和 `torch.Tensor.scatter` 的功能差异，参考 `mindspore.ops.scatter` 和 `torch.scatter` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.scatter    |   mindspore.ops.scatter    |
+|    torch.Tensor.scatter   |  mindspore.Tensor.scatter   |
 
 ## torch.scatter
 

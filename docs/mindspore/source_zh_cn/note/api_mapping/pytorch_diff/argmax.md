@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/argmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.argmax` 和 `torch.Tensor.argmax` 的功能差异，参考 `mindspore.ops.argmax` 和 `torch.argmax` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.argmax     |  mindspore.ops.argmax   |
+|   torch.Tensor.argmax    |   mindspore.Tensor.argmax    |
 
 ## torch.argmax
 

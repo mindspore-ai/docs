@@ -2,11 +2,14 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/abs.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> `torch.absolute` alias for `torch.abs`, `torch.Tensor.absolute` alias for `torch.Tensor.abs`.
->
-> `mindspore.ops.absolute` alias for `mindspore.ops.abs`, `mindspore.Tensor.absolute` alias for `mindspore.Tensor.abs`.
->
-> For the functional differences between `mindspore.ops.absolute` and `torch.absolute`, `mindspore.Tensor.abs` and `torch.Tensor.abs`, `mindspore.Tensor.absolute` and `torch.Tensor.absolute`, refer to the functional differences between `mindspore.ops.abs` and `torch.abs`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.abs     |  mindspore.ops.abs   |
+|    torch.absolute     |  mindspore.ops.absolute   |
+|   torch.Tensor.abs    |   mindspore.Tensor.abs    |
+| torch.Tensor.absolute | mindspore.Tensor.absolute |
 
 ## torch.abs
 

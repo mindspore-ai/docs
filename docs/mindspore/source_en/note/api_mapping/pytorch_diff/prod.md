@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/prod.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For function differences between `mindspore.Tensor.prod` and `torch.Tensor.prod`, refer to the function differences between `mindspore.ops.prod` and `torch.prod`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.prod    |   mindspore.ops.prod    |
+|    torch.Tensor.prod   |  mindspore.Tensor.prod   |
 
 ## torch.prod
 

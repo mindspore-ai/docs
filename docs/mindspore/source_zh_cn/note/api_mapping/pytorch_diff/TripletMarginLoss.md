@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TripletMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `torch.nn.functional.triplet_margin_loss` 和 `mindspore.ops.triplet_margin_loss` 的功能差异，参考 `torch.nn.TripletMarginLoss` 和 `mindspore.nn.TripletMarginLoss` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.nn.TripletMarginLoss    |   mindspore.nn.TripletMarginLoss   |
+|    torch.functional.triplet_margin_loss   |  mindspore.ops.triplet_margin_loss   |
 
 ## torch.nn.TripletMarginLoss
 

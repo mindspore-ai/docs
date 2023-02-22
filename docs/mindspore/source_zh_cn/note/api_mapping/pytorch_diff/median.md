@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/median.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.median` 和 `torch.Tensor.median` 的功能差异，参考 `mindspore.ops.median` 和 `torch.median` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.median    |   mindspore.ops.median    |
+|    torch.Tensor.median   |  mindspore.Tensor.median   |
 
 ## torch.median
 

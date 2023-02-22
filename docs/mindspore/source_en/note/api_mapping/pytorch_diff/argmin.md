@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/argmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For function differences between `mindspore.Tensor.argmin` and `torch.Tensor.argmin`, refer to the function differences between `mindspore.ops.argmin` and `torch.argmin`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.argmin     |  mindspore.ops.argmin   |
+|   torch.Tensor.argmin    |   mindspore.Tensor.argmin    |
 
 ## torch.argmin
 

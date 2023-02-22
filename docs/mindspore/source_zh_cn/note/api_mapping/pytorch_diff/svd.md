@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.svd` 和 `torch.Tensor.svd` 的功能差异，参考 `mindspore.ops.svd` 和 `torch.svd` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.svd    |   mindspore.ops.svd    |
+|    torch.Tensor.svd   |  mindspore.Tensor.svd   |
 
 ## torch.svd
 
