@@ -41,8 +41,8 @@ MindSpore: There are no functional differences except for two parameters that ha
 | | Parameter 3 | ignore_index | ignore_index | Specify the values to be ignored in the labels (generally padding values) so that they do not have an effect on the gradient |
 | | Parameter 4 | reduce | - | Deprecated, replaced by reduction. MindSpore does not have this parameter |
 | | Parameter 5 | reduction         | reduction      | Specify the calculation method to be applied to the output results |
-|  Inputs | Input | input1 | logits | The functions are the same, but the parameter names are different |
-|   | target | input2 | labels | The functions are the same, but the parameter names are different |
+|  Inputs | Input 1 | input | logits | The functions are the same, but the parameter names are different |
+|   | Input 2 | target | labels | The functions are the same, but the parameter names are different |
 
 ## Code Example
 
