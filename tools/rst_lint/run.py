@@ -1,5 +1,8 @@
 """The restructuredtext linter."""
+import os
+import shutil
 import sys
+import restructuredtext_lint
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
@@ -9,7 +12,6 @@ from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.domains.python import PyCurrentModule, PyModule
 from sphinx.directives.other import TocTree
 from sphinx.directives.code import LiteralInclude
-from restructuredtext_lint.cli import main
 
 
 class CustomDirective(Directive):
@@ -139,4 +141,19 @@ register_generic_role('doc', nodes.literal)
 register_generic_role('py:obj', nodes.literal)
 
 if __name__ == "__main__":
+    try:
+        decorator_list = [("restructuredtext_lint/cli.py", "cli.py")]
+
+        base_path = os.path.dirname(os.path.dirname(restructuredtext_lint.__file__))
+        for i in decorator_list:
+            if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+                os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+                shutil.copy(os.path.join(os.path.dirname(__file__), i[1]),
+                            os.path.join(base_path, os.path.normpath(i[0])))
+    # pylint: disable=W0703
+    except Exception:
+        pass
+    # pylint: disable=C0412
+    from restructuredtext_lint.cli import main
+
     sys.exit(main())

@@ -10,7 +10,7 @@
 1. 配置环境变量`work_dir`作为工作目录。
 
     ```bash
-    export work_dir=/home/useranme/xxx`
+    export work_dir=/home/useranme/xxx
     ```
 
     默认在当前目录进行构建。
