@@ -32,13 +32,14 @@ class mindspore.nn.GaussianNLLLoss(
 
 PyTorch：服从高斯分布的负对数似然损失。
 
-MindSpore：与PyTorch实现同样的功能。如果var中存在小于0的数字，PyTorch会直接报错，而MindSpore则会计算max(var, eps)之后，将结果传给log进行计算。
+MindSpore：与PyTorch实现同样的功能。如果var中存在小于0的数字，PyTorch会直接报错，而MindSpore则会计算max(var, eps)
+之后，将结果传给log进行计算。
 
 | 分类  | 子类  | PyTorch   | MindSpore | 差异         |
 |-----|-----|-----------|-----------|------------|
 | 参数  | 参数1 | full      | full      | 功能一致       |
-|     | 参数2 | eps       | -         | 功能一致       |
-|     | 参数3 | reduction | -         | 功能一致       |
+|     | 参数2 | eps       | eps       | 功能一致       |
+|     | 参数3 | reduction | reduction | 功能一致       |
 | 输入  | 输入1 | input     | logits    | 功能一致，参数名不同 |
 |     | 输入2 | target    | labels    | 功能一致，参数名不同 |
 |     | 输入3 | var       | var       | 功能一致       |
