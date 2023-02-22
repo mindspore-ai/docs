@@ -480,7 +480,7 @@ param = {
 }
 ```
 
-Then, you can obtain the parameter file based on the `param_convert` process. For the case where the network model is TensorFlow, please refer to [File Method for Converting TensorFlow Models to MindSpore Models](https://www.mindspore.cn/docs/en/master/migration_guide/ tensorflow2mindspore.html).
+Then, you can obtain the parameter file based on the `param_convert` process. For the case where the network model is TensorFlow, please refer to [File Method for Converting TensorFlow Models to MindSpore Models](https://www.mindspore.cn/docs/en/master/migration_guide/tensorflow2mindspore.html).
 
 ### Unit Test
 
