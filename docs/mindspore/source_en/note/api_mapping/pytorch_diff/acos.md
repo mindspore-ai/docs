@@ -2,11 +2,14 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/acos.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> `torch.arccos` alias for `torch.acos`, `torch.Tensor.arccos` alias for `torch.Tensor.acos`.
->
-> `mindspore.ops.arccos` alias for `mindspore.ops.acos`, `mindspore.Tensor.arccos` alias for `mindspore.Tensor.acos`.
->
-> For the functional differences between `mindspore.ops.arccos` and `torch.arccos`, `mindspore.Tensor.acos` and `torch.Tensor.acos`, `mindspore.Tensor.arccos` and `torch.Tensor.arccos`, refer to the functional differences between `mindspore.ops.acos` and `torch.acos`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.acos      |   mindspore.ops.acos|
+|    torch.arccos     |  mindspore.ops.arccos   |
+|   torch.Tensor.acos   |   mindspore.Tensor.acos    |
+| torch.Tensor.arccos | mindspore.Tensor.arccos |
 
 ## torch.acos
 

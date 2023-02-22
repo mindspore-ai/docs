@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/argmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.argmin` 和 `torch.Tensor.argmin` 的功能差异，参考 `mindspore.ops.argmin` 和 `torch.argmin` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.argmin     |  mindspore.ops.argmin   |
+|   torch.Tensor.argmin    |   mindspore.Tensor.argmin    |
 
 ## torch.argmin
 

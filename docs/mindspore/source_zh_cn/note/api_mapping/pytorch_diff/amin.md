@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/amin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.amin` 和 `torch.Tensor.amin` 的功能差异，参考 `mindspore.ops.amin` 和 `torch.amin` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.amin     |  mindspore.ops.amin   |
+|   torch.Tensor.amin    |   mindspore.Tensor.amin    |
 
 ## torch.amin
 

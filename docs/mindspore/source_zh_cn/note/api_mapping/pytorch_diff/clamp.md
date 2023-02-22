@@ -2,11 +2,14 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `torch.clip`别名`torch.clamp`，`torch.Tensor.clip`别名`torch.Tensor.clamp`。
->
-> `mindspore.ops.clip`别名`mindspore.ops.clamp`，`mindspore.Tensor.clip`别名`mindspore.Tensor.clamp`。
->
-> `mindspore.ops.clip`与`torch.clip`，`mindspore.Tensor.clamp`与`torch.Tensor.clamp`，`mindspore.Tensor.clip`与`torch.Tensor.clip`的功能差异，均参考`mindspore.ops.clamp`与`torch.clamp`的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|  torch.clamp | mindspore.ops.clamp |
+|    torch.clip     |  mindspore.ops.clip   |
+|   torch.Tensor.clamp    |   mindspore.Tensor.clamp    |
+|  torch.Tensor.clip | mindspore.Tensor.clip |
 
 ## torch.clamp
 

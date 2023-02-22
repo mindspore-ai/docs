@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> `mindspore.Tensor.all` 和 `torch.Tensor.all` 的功能差异，参考 `mindspore.ops.all` 和 `torch.all` 的功能差异比较。
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.all     |  mindspore.ops.all   |
+|   torch.Tensor.all    |   mindspore.Tensor.all    |
 
 ## torch.all
 

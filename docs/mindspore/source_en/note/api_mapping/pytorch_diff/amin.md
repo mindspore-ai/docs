@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/amin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For function differences between `mindspore.Tensor.amin` and `torch.Tensor.amin`, refer to the function differences between `mindspore.ops.amin` and `torch.amin`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.amin     |  mindspore.ops.amin   |
+|   torch.Tensor.amin    |   mindspore.Tensor.amin    |
 
 ## torch.amin
 

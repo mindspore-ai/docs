@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/equal_2.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For function differences between `mindspore.Tensor.equal` and `torch.Tensor.equal`, refer to the function between `mindspore.ops.equal` and `torch.equal`.
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.equal    |   mindspore.ops.equal    |
+|    torch.Tensor.equal     |  mindspore.Tensor.equal   |
 
 ## torch.equal
 

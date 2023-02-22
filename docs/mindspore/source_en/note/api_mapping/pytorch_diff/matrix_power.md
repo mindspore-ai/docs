@@ -2,7 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/matrix_power.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> For the functional differences between `mindspore.Tensor.matrix_power` and `torch.Tensor.matrix_power` , refer to the functional differences between `mindspore.ops.matrix_power` and `torch.matrix_power` .
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|   torch.matrix_power    |   mindspore.ops.matrix_power    |
+|    torch.Tensor.matrix_power   |  mindspore.Tensor.matrix_power   |
 
 ## torch.matrix_power
 
