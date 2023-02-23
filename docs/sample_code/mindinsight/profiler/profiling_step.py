@@ -23,6 +23,7 @@ from mindspore import Profiler
 
 class Network(nn.Cell):
     """The test net"""
+
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
@@ -57,6 +58,7 @@ def datapipe(dataset, batch_size):
 
 def train(epochs, model, dataset, loss_fn, optimizer):
     """Train the net."""
+
     def forward_fn(data, label):
         logits = model(data)
         loss = loss_fn(logits, label)
@@ -64,6 +66,7 @@ def train(epochs, model, dataset, loss_fn, optimizer):
 
     grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
+    @mindspore.jit
     def train_step(data, label):
         (loss, _), grads = grad_fn(data, label)
         loss = ops.depend(loss, optimizer(grads))
