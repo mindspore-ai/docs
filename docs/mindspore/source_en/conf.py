@@ -204,7 +204,15 @@ except:
 # replace py_files that have too many errors.
 
 try:
-   decorator_list = [("mindspore/train/serialization.py","mindspore/python/mindspore/train/serialization.py")]
+   decorator_list = [("mindspore/train/serialization.py","mindspore/python/mindspore/train/serialization.py"),
+                     ("mindspore/dataset/text/transforms.py","mindspore/python/mindspore/dataset/text/transforms.py"),
+                     ("mindspore/nn/cell.py","mindspore/python/mindspore/nn/cell.py"),
+                     ("mindspore/ops/function/vmap_func.py","mindspore/python/mindspore/ops/function/vmap_func.py"),
+                     ("mindspore/ops/operations/_grad_ops.py","mindspore/python/mindspore/ops/operations/_grad_ops.py"),
+                     ("mindspore/ops/operations/debug_ops.py","mindspore/python/mindspore/ops/operations/debug_ops.py"),
+                     ("mindspore/ops/operations/sparse_ops.py","mindspore/python/mindspore/ops/operations/sparse_ops.py"),
+                     ("mindspore/profiler/profiling.py","mindspore/python/mindspore/profiler/profiling.py"),
+                     ("mindspore/train/model.py","mindspore/python/mindspore/train/model.py")]
 
    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
    for i in decorator_list:
