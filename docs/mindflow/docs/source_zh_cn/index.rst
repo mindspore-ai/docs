@@ -25,8 +25,6 @@ MindSpore AI 流体仿真套件
 
    physics_driven/burgers1D
    physics_driven/navier_stokes2D
-   physics_driven/poisson_ring
-   physics_driven/sympy_pde_definition
 
 .. toctree::
    :glob:
@@ -53,6 +51,14 @@ MindSpore AI 流体仿真套件
    :caption: 数据机理融合
 
    data_mechanism_fusion/pde_net
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 特性
+
+   features/poisson_ring
+   features/sympy_pde_definition
 
 .. toctree::
    :maxdepth: 1
