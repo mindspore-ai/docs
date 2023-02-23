@@ -69,10 +69,14 @@ def custom_file(filepath):
             s.push((i, text[i]))  # 因为最后要记录剩余左括号未匹配的情况，所以索引也要存储
         elif text[i] in dict_bracket:  # 遇到右括号
             if s.is_empty() or s.peek()[1] != dict_bracket[text[i]]: # 栈空和缺少对应左括号可以归为一种情况
-                if not s.is_empty() and s.peek()[1] != '（' and text[i] != '）' and '\n' not in text[s.peek()[0]:i]: # 去除范围类括号，类似左开右闭
+                if not s.is_empty() and s.peek()[1] != '（' and text[i] != '）': # 去除范围类括号，类似左开右闭
                     if re.findall('[\u4e00-\u9fa5]+', text[s.peek()[0]:i]):
                         flag = 0
-                    elif len(text[s.peek()[0]:i]) <= 3:
+                    elif ',' not in text[s.peek()[0]:i]:
+                        flag = 0
+                    elif ',' in text[s.peek()[0]:i] and text[i-1] == ',':
+                        flag = 0
+                    elif ',' in text[s.peek()[0]:i] and re.findall(rf',[^\S]+\{text[i]}', text[s.peek()[0]:i+1]):
                         flag = 0
                     elif '）' in text[s.peek()[0]:i] or ')' in text[s.peek()[0]:i]:
                         if text[s.peek()[0]:i].count(')') != text[s.peek()[0]:i].count('(')\
@@ -111,7 +115,7 @@ def custom_file(filepath):
                 if err_sentence == sentence:
                     break
                 line += 1
-            msg = f'{err[0]} hiatus or use error brackets'
+            msg = f'There are mismatched or missing {err[0]} in the statements'
             result_err.append(["WARNING", filepath, line, msg])
         return result_err
     return []
