@@ -119,10 +119,8 @@
 |[mindspore.ops.inner](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inner.html#mindspore.ops.inner)|新增|计算两个1D Tensor的点积。|master: Ascend/GPU/CPU|线性代数函数|
 |[mindspore.ops.inverse](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inverse.html#mindspore.ops.inverse)|新增|计算输入矩阵的逆。|master: GPU/CPU|线性代数函数|
 |[mindspore.ops.kron](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kron.html#mindspore.ops.kron)|新增|计算 x 和 y 的Kronecker积：\(x⊗y\) 。|master: Ascend/GPU/CPU|线性代数函数|
-|[mindspore.ops.log_matrix_determinant](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.log_matrix_determinant.html#mindspore.ops.log_matrix_determinant)|新增|对一个或多个方阵行列式的绝对值取对数，返回其符号和值。|master: Ascend/GPU/CPU|线性代数函数|
 |[mindspore.ops.logdet](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.logdet.html#mindspore.ops.logdet)|新增|计算方块矩阵或批量方块矩阵的对数行列式。|master: GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_band_part](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_band_part.html#mindspore.ops.matrix_band_part)|新增|将矩阵的每个中心带外的所有位置设置为0。|master: GPU/CPU|线性代数函数|
-|[mindspore.ops.matrix_determinant](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_determinant.html#mindspore.ops.matrix_determinant)|新增|计算一个或多个方阵的行列式。|master: Ascend/GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_diag_part](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_diag_part.html#mindspore.ops.matrix_diag_part)|新增|返回输入Tensor的对角线部分。|master: Ascend/GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_exp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_exp.html#mindspore.ops.matrix_exp)|修改|计算方阵的矩阵指数。|r2.0.0-alpha: CPU => master: Ascend/CPU|线性代数函数|
 |[mindspore.ops.matrix_power](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_power.html#mindspore.ops.matrix_power)|新增|计算一个方阵的（整数）n次幂。|master: CPU|线性代数函数|

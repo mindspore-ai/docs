@@ -112,7 +112,6 @@
 [mindspore.ops.UpsampleTrilinear3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.UpsampleTrilinear3D.html#mindspore.ops.UpsampleTrilinear3D)|修改|输入为五维度Tensor，跨其中三维执行三线性插值上调采样。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.SparseTensorDenseAdd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseAdd.html#mindspore.ops.SparseTensorDenseAdd)|新增|一个稀疏tensor加上稠密Tensor得到一个稠密Tensor。|master: GPU/CPU|稀疏算子
 [mindspore.ops.SparseTensorDenseMatmul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseMatmul.html#mindspore.ops.SparseTensorDenseMatmul)|修改|稀疏矩阵 A 乘以稠密矩阵 B 。|r2.0.0-alpha: CPU => master: GPU/CPU|稀疏算子
-[mindspore.ops.Orgqr](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Orgqr.html#mindspore.ops.Orgqr)|修改|计算 Householder 矩阵乘积的前 \(N\) 列。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|线性代数算子
 [mindspore.ops.Qr](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Qr.html#mindspore.ops.Qr)|新增|返回一个或多个矩阵的QR（正交三角）分解。|master: Ascend/CPU|线性代数算子
 [mindspore.ops.Svd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Svd.html#mindspore.ops.Svd)|新增|计算一个或多个矩阵的奇异值分解。|master: GPU/CPU|线性代数算子
 [mindspore.ops.TridiagonalMatMul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TridiagonalMatMul.html#mindspore.ops.TridiagonalMatMul)|新增|返回两个矩阵的乘积，其中左边的矩阵是三对角矩阵。|master: Ascend/CPU|线性代数算子
