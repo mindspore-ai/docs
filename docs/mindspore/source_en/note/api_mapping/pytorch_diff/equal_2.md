@@ -15,7 +15,7 @@ The following mapping relationships can be found in this file.
 torch.equal(input, other) -> bool
 ```
 
-For more information, see [torch.eq](https://pytorch.org/docs/1.8.1/generated/torch.equal.html).
+For more information, see [torch.equal](https://pytorch.org/docs/1.8.1/generated/torch.equal.html).
 
 ## mindspore.ops.equal
 
