@@ -49,6 +49,7 @@ MindSpore: This API achieves basically the same function as TensorFlow's. After 
 
 ```python
 # TensorFlow
+# TensorFlow
 import tensorflow as tf
 
 tf.compat.v1.disable_eager_execution()
@@ -58,18 +59,19 @@ decay_steps = 4
 output = tf.compat.v1.train.cosine_decay(learning_rate, global_steps, decay_steps)
 ss = tf.compat.v1.Session()
 print(ss.run(output))
-#0.009999999
+# 0.0049999994
 
 # MindSpore
 import mindspore
 from mindspore import Tensor, nn
 
 min_lr = 0.01
-max_lr = 1
+max_lr = 1.0
 decay_steps = 4
 global_steps = Tensor(2, mindspore.int32)
 cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
 output = cosine_decay_lr(global_steps)
-print(output)
-#0.0101
+adapted_output = output * 0.01
+print(adapted_output)
+# 0.00505
 ```

@@ -59,23 +59,24 @@ import tensorflow as tf
 learning_rate = 1.0
 decay_rate = 0.9
 step_per_epoch = 2
-epochs = 6
+epochs = 3
 lr = []
 for epoch in range(epochs):
     learning_rate = tf.compat.v1.train.exponential_decay(learning_rate, epoch, step_per_epoch, decay_rate, staircase=True)
-    lr.append(round(float(learning_rate().numpy()), 2))
+    learning_rate = learning_rate().numpy().item()
+    lr.append(round(float(learning_rate), 2))
 print(lr)
-# [1.0, 1.0, 0.9, 0.9, 0.81, 0.81]
+# [1.0, 1.0, 0.9]
 
 # MindSpore
 import mindspore.nn as nn
 
 learning_rate = 1.0
 decay_rate = 0.9
-total_step = 6
+total_step = 3
 step_per_epoch = 2
 decay_epoch = 1
 output = nn.exponential_decay_lr(learning_rate, decay_rate, total_step, step_per_epoch, decay_epoch)
 print(output)
-# [1.0, 1.0, 0.9, 0.9, 0.81, 0.81]
+# [1.0, 1.0, 0.9]
 ```

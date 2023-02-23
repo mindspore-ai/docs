@@ -128,8 +128,8 @@ import mindspore.ops as ops
 
 max_pool = mindspore.nn.MaxPool1d(kernel_size=4, stride=2)
 x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
-data = ops.pad(x, ((0, 0), (0, 0), (1, 1)))
-output = max_pool(data)
+padding = ops.pad(x, ((1, 1)))
+output = max_pool(padding)
 result = output.shape
 print(output)
 # [[[ 3.  5.  7.  9. 10.]
