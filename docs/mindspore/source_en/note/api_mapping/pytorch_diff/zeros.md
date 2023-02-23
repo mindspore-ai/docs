@@ -16,7 +16,8 @@ For more information, see [torch.zeros](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.zeros(size, dtype=dtype) -> Tensor
 ```
 
-For more information, see [mindspore.ops.zeros](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros.html).
+For more information,
+see [mindspore.ops.zeros](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros.html).
 
 ## Differences
 
@@ -24,13 +25,14 @@ PyTorch: Generate a Tensor of size `*size` with a padding value of 0.
 
 MindSpore: MindSpore API implements the same function as TensorFlow, and only the parameter names are different.
 
-| Categories | Subcategories |PyTorch | MindSpore | Difference |
-| ---- | ----- | ------- | --------- | ------------- |
-| Parameters  | Parameter 1 | size          | size      | MindSpore only supports input of int or tuple type |
-|     | Parameter 2 | out           | -         | Not involved                        |
-|     | Parameter 3 | layout        | -         | Not involved                        |
-|     | Parameter 4 | device        | -         | Not involved                        |
-|     | Parameter 5 | requires_grad | -         | Not involved                        |
+| Categories | Subcategories | PyTorch       | MindSpore | Difference                                         |
+|------------|---------------|---------------|-----------|----------------------------------------------------|
+| Parameters | Parameter 1   | size          | size      | MindSpore only supports input of int or tuple type |
+|            | Parameter 2   | out           | -         | Not involved                                       |
+|            | Parameter 3   | dtype         | dtype     | The parameter is consistent.                       |
+|            | Parameter 4   | layout        | -         | Not involved                                       |
+|            | Parameter 5   | device        | -         | Not involved                                       |
+|            | Parameter 6   | requires_grad | -         | Not involved                                       |
 
 ### Code Example 1
 
