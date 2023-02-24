@@ -37,8 +37,8 @@ MindSpore: Implements the same function as PyTorch. If there is a number less th
 | Categories | Subcategories |PyTorch | MindSpore | Differences |
 |-----|-----|-----------|-----------|------------|
 | Parameters  | Parameter 1 | full      | full      | Same function       |
-|     | Parameter 2 | eps       | -         | Same function       |
-|     | Parameter 3 | reduction | -         | Same function       |
+|     | Parameter 2 | eps       |eps         | Same function       |
+|     | Parameter 3 | reduction | reduction   | Same function       |
 | Inputs  | Input 1 | input     | logits    | Same function, different parameter names |
 |     | Input 2 | target    | labels    | Same function, different parameter names |
 |     | Input 3 | var       | var       | Same function       |
