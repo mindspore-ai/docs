@@ -64,4 +64,4 @@ Different from cross silo scenario, all of the workers are stable computing node
 
 ## References
 
-[1] Keith Bonawitz, Vladimir Ivanov, Ben Kreuter, et al. [Practical Secure Aggregationfor Privacy-Preserving Machine Learning](https://dl.acm.org/doi/pdf/10.1145/3133956.3133982). NeurIPS, 2016.
+[1] Keith Bonawitz, Vladimir Ivanov, Ben Kreuter, et al. [Practical Secure Aggregationfor Privacy-Preserving Machine Learning](https://dl.acm.org/doi/pdf/10.1145/3133956.3133982). Proceedings of the 2017 ACM SIGSAC Conference on Computer and communications Security. 2017.
