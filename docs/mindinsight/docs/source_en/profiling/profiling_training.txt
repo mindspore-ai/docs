@@ -3,21 +3,59 @@ Preparing the Training Script
 
 There are two ways to collect neural network performance data. You can enable Profiler in either of the following ways.
 
-- Method 1: Modify the training script
+Method 1: Modify the training script
+~~~~~~~~~~~~~~~~~~
 
-  Add the MindSpore Profiler interface to the training script.
+Add the MindSpore Profiler interface to the training script.
 
-  - Before training, initialize the MindSpore Profiler object, profiler enables collection of performance data.
+- Before training, initialize the MindSpore Profiler object, and profiler enables collection of performance data.
 
-    .. note::
-        The parameters of Profiler are as follows:
-        `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
-        Before initializing the Profiler, you need to determine the device_id.
+  .. note::
+     The parameters of Profiler are as follows:
+     `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
+     Before initializing the Profiler, you need to determine the device_id.
 
-  - At the end of the training, ``Profiler.analyse()`` should be called
-    to finish profiling and generate the perforamnce analyse results.
+- At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the perforamnce analyse results.
 
-  The simple scenario code is as follows:
+** Unconditional Open example: **
+
+- Example 1: In the MindSpore functional Programming use case, Profiler is used to collect performance data. Part of the sample code is shown below.
+  `Complete code sample <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
+
+  .. code:: python
+
+     # Init Profiler.
+     # Note that the Profiler should be initialized before model training.
+     profiler = Profiler(output_path="profiler_data")
+
+     def forward_fn(data, label):
+         logits = model(data)
+         loss = loss_fn(logits, label)
+         return loss, logits
+
+
+     # Get gradient function
+     grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+
+     @ms.jit
+     def train_step(data, label):
+         """Define function of one-step training"""
+         (loss, _), grads = grad_fn(data, label)
+         loss = ops.depend(loss, optimizer(grads))
+         return loss
+
+
+     for t in range(epochs):
+         train_loop(model, train_dataset, loss_fn, optimizer)
+
+     profiler.analyse()
+
+  .. note::
+     The default mode of MindSpore is PyNative. If functional programming network is used to collect the performance data of Profiler static graph mode,
+     mindspore.set_context(mode=mindspore.GRAPH_MODE) should be set into static graph mode.
+
+- Example 2: model.train is used for network training. The complete code is as follows:
 
   .. code:: python
 
@@ -53,7 +91,7 @@ There are two ways to collect neural network performance data. You can enable Pr
 
          # Init Profiler
          # Note that the Profiler should be initialized before model.train
-         profiler = ms.Profiler(output_path = './profiler_data')
+         profiler = ms.Profiler(output_path='./profiler_data')
 
          # Train Model
          net = Net()
@@ -62,105 +100,110 @@ There are two ways to collect neural network performance data. You can enable Pr
          # Profiler end
          profiler.analyse()
 
-  The user can set the initialization parameter start_profile to False to decide not to turn the Profiler on temporarily, call the start function to turn the Profiler on at an appropriate time, call the stop function to stop collecting data, and finally call the analyse to parse the data.
-  The user can use Callback to turn on and off the Profiler based on step or epoch, and only collect the data of step or epoch. For the data sinking mode, CANN can only be told to turn on and off after each epoch, so for the data sinking mode, it needs to turn on and off based on the epoch.
+** Conditional open example: **
 
-  - When dataset_sink_mode is set to False, it needs to be enabled based
-    on step, `Non-data sinking Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_
+The user decides not to start the Profiler by setting the initialization parameter start_profile to False, then starts the Profiler at the right time by calling Start, stops collecting data, and finally calls analyse to phase the data.
+You can open and close the Profiler based on the epoch or step, and the data within the specified step or epoch interval is collected. There are two ways to collect performance data based on step or epoch, one is through user-defined training,
+the other is through Callback based on step or epoch to open and close Profiler.
 
-    .. code:: python
+- Custom training:
 
-        import mindspore as ms
+  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
 
-        class StopAtStep(ms.Callback):
-            def __init__(self, start_step, stop_step):
-                super(StopAtStep, self).__init__()
-                self.start_step = start_step
-                self.stop_step = stop_step
-                self.profiler = ms.Profiler(start_profile=False)
+  .. code:: python
+     profiler = ms.Profiler(start_profile=False)
+     data_loader = ds.create_dict_iterator()
 
-            def step_begin(self, run_context):
-                cb_params = run_context.original_args()
-                step_num = cb_params.cur_step_num
-                if step_num == self.start_step:
-                    self.profiler.start()
+     for i, data in enumerate(data_loader):
+         train()
+         if i==100:
+             profiler.start()
+         if i==200:
+             profiler.stop()
 
-            def step_end(self, run_context):
-                cb_params = run_context.original_args()
-                step_num = cb_params.cur_step_num
-                if step_num == self.stop_step:
-                    self.profiler.stop()
+     profiler.analyse()
 
-            def end(self, run_context):
-                self.profiler.analyse()
+- User-defined Callback
 
-  - When dataset_sink_mode is set to True, it needs to be enabled based
-    on epoch
+  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
 
     .. code:: python
 
-        class StopAtEpoch(ms.Callback):
-            def __init__(self, start_epoch, stop_epoch):
-                super(StopAtEpoch, self).__init__()
-                self.start_epoch = start_epoch
-                self.stop_epoch = stop_epoch
-                self.profiler = ms.Profiler(start_profile=False)
+       import mindspore as ms
 
-            def epoch_begin(self, run_context):
-                cb_params = run_context.original_args()
-                epoch_num = cb_params.cur_epoch_num
-                if epoch_num == self.start_epoch:
-                    self.profiler.start()
+       class StopAtStep(ms.Callback):
+           def __init__(self, start_step, stop_step):
+               super(StopAtStep, self).__init__()
+               self.start_step = start_step
+               self.stop_step = stop_step
+               self.profiler = ms.Profiler(start_profile=False)
 
-            def epoch_end(self, run_context):
-                cb_params = run_context.original_args()
-                epoch_num = cb_params.cur_epoch_num
-                if epoch_num == self.stop_epoch:
-                    self.profiler.stop()
+           def step_begin(self, run_context):
+               cb_params = run_context.original_args()
+               step_num = cb_params.cur_step_num
+               if step_num == self.start_step:
+                   self.profiler.start()
 
-            def end(self, run_context):
-                self.profiler.analyse()
+           def step_end(self, run_context):
+               cb_params = run_context.original_args()
+               step_num = cb_params.cur_step_num
+               if step_num == self.stop_step:
+                   self.profiler.stop()
 
-  - Custom training, `Complete code example <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_
+           def end(self, run_context):
+               self.profiler.analyse()
 
-    .. code:: python
+- For data sink mode, CANN is told to start and stop only after the end of each epoch, so it needs to start and stop based on the epoch. The Profiler sample code modification training script can be opened based on step according to a custom Callback.
 
-       profiler = ms.Profiler(start_profile=False)
-       data_loader = ds.create_dict_iterator()
+  .. code:: python
 
-       for i, data in enumerate(data_loader):
-           train()
-           if i==100:
-               profiler.start()
-           if i==200:
-               profiler.stop()
+     class StopAtEpoch(ms.Callback):
+         def __init__(self, start_epoch, stop_epoch):
+             super(StopAtEpoch, self).__init__()
+             self.start_epoch = start_epoch
+             self.stop_epoch = stop_epoch
+             self.profiler = ms.Profiler(start_profile=False)
 
-       profiler.analyse()
+         def epoch_begin(self, run_context):
+             cb_params = run_context.original_args()
+             epoch_num = cb_params.cur_epoch_num
+             if epoch_num == self.start_epoch:
+                 self.profiler.start()
 
-- Method 2: Enable environment variables
+         def epoch_end(self, run_context):
+             cb_params = run_context.original_args()
+             epoch_num = cb_params.cur_epoch_num
+             if epoch_num == self.stop_epoch:
+                 self.profiler.stop()
 
-  Before running the network script, configure Profiler configuration items.
+         def end(self, run_context):
+             self.profiler.analyse()
 
-  .. code-block:: shell
+Method 2: Enable environment variables
+~~~~~~~~~~~~~~~~~~
 
-      export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
+Before running the network script, configure Profiler configuration items.
 
-  - `start` (bool, mandatory) - Set to true to enable Profiler. Set to false to disable performance data collection. Default value: false.
+.. code-block:: shell
 
-  - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
+   export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "memory": false, "hccl": false, "aicore_metrics": 0, "l2_cache": false}'
 
-  - `op_time` (bool, optional) - Indicates whether to collect operators performance data. Default values: true.
+- `start` (bool, mandatory) - Set to true to enable Profiler. Set to false to disable performance data collection. Default value: false.
 
-  - `profile_memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is true. When using this parameter, op_time must be set to true. Default value: false.
+- `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
 
-  - `profile_communication` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is true. In single-device training, this parameter is not set correctly. When using this parameter, op_time must be set to true. Default value: false.
+- `op_time` (bool, optional) - Indicates whether to collect operators performance data. Default values: true.
 
-  - `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
+- `profile_memory` (bool, optional) - Tensor data will be collected. This data is collected when the value is true. When using this parameter, op_time must be set to true. Default value: false.
 
-  - `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: false.
+- `profile_communication` (bool, optional) - Indicates whether to collect communication performance data in multi-device training. This data is collected when the value is true. In single-device training, this parameter is not set correctly. When using this parameter, op_time must be set to true. Default value: false.
 
-  - `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
+- `aicore_metrics` (int, optional) - Set the indicator type of AI Core. Default value: 0.
 
-  - `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
+- `l2_cache` (bool, optional) - Set whether to collect l2 cache data. Default value: false.
 
-  - `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
+- `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
+
+- `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
+
+- `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
