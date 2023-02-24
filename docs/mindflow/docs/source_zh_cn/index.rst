@@ -66,7 +66,6 @@ MindSpore AI 流体仿真套件
    mindflow.loss
    mindflow.operators
    mindflow.pde
-   mindflow.solver
 
 .. toctree::
    :glob:

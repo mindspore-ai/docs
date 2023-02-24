@@ -167,6 +167,16 @@ import nbsphinx_mod
 import mindflow
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+
+from custom_directives import IncludeCodeDirective
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+
+def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('includecode', IncludeCodeDirective)
+
 import search_code
 
 src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE.md')
