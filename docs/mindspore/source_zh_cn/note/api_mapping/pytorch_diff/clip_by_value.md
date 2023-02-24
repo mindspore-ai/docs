@@ -41,6 +41,8 @@ import numpy as np
 
 data = np.array([0.2, 0.5, 0.2], dtype=np.float32)
 label = np.array([1, 0], dtype=np.float32)
+label_pt = np.array([0], dtype=np.float32)
+
 # PyTorch
 import torch
 class Net1(torch.nn.Module):
@@ -61,7 +63,8 @@ class Net1(torch.nn.Module):
 net1 = Net1()
 loss_fun = torch.nn.CrossEntropyLoss()
 out = net1(torch.tensor(data))
-loss = loss_fun(out, torch.tensor(label))
+out = torch.unsqueeze(out, 0)
+loss = loss_fun(out, torch.tensor(label_pt, dtype=torch.long))
 loss.backward()
 grads = [p.grad for p in net1.parameters() if p.grad is not None]
 print(grads)
