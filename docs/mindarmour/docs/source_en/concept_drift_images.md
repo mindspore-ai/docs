@@ -16,7 +16,7 @@ This example provides a method for detecting a distribution change of image data
 5. Execute the concept drift detection function.
 6. View the execution result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_check_images_lenet.py>.
+> This example is for CPUs, GPUs, and Ascend 910 AI processors. Currently only supports GRAPH_MODE. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_check_images_lenet.py>.
 
 ## Preparations
 
@@ -38,6 +38,8 @@ from mindarmour.utils import LogUtil
 from mindspore import nn
 from examples.common.networks.lenet5.lenet5_net_for_fuzzing import LeNet5
 from mindarmour.reliability import OodDetectorFeatureCluster
+
+ms.set_context(mode=ms.GRAPH_MODE)
 ```
 
 ## Loading Data
