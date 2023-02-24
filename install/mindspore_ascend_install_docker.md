@@ -26,7 +26,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `mindspore/mindspore-ascend` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
-> `x.y.z`对应MindSpore版本号，例如安装1.10.0版本MindSpore时，`x.y.z`应写为1.10.0。
+> `x.y.z`对应MindSpore版本号，例如安装1.10.1版本MindSpore时，`x.y.z`应写为1.10.1。
 
 ## 确认系统环境信息
 
