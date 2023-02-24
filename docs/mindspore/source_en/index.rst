@@ -16,7 +16,7 @@ MindSpore Documentation
    design/distributed_training_design
    design/mindir
    design/thor
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.9/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.10/training_visual_design.html>
    design/glossary
 
 .. toctree::

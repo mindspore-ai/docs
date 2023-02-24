@@ -148,7 +148,7 @@ train_net = nn.TrainOneStepWithLossScaleCell(net_with_loss, optimizer=opt, scale
 model = ms.Model(network=train_net)
 ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.9/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r1.10/debug/dump.html) of MindInsight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.10/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r1.10/debug/dump.html) of MindInsight to check why overflow occurs.
 
 ```python
 import numpy as np
@@ -278,7 +278,7 @@ if rank_size > 1:
     init()
 ```
 
-For details, see [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.9/performance_profiling_of_cluster.html).
+For details, see [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_of_cluster.html).
 
 ### Data Processing Performance Tuning
 
@@ -286,6 +286,6 @@ The performance jitter of a single step and the empty data queue for a period of
 
 When the data processing speed is slow, the empty queue is gradually consumed from the beginning when the queue is full. The training process starts to wait for the empty queue to fill in data. Once new data is filled in, the network continues single-step training. Because no queue is used as the buffer for data processing, the performance jitter of data processing is directly reflected by the performance of a single step. Therefore, the performance jitter of a single step is also caused.
 
-For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/r1.9/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindInsight. This describes common data performance problems and solutions.
+For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindInsight. This describes common data performance problems and solutions.
 
 For more performance debugging methods, see [Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r1.10/debug/performance_optimization.html).

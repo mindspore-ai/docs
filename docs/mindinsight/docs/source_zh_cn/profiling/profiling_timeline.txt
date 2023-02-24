@@ -1,0 +1,60 @@
+Timeline分析
+~~~~~~~~~~~~
+
+Timeline组件可以展示：
+
+- 算子分配到哪个设备（AICPU、AICORE、HOSTCPU）执行。
+- MindSpore对该网络的流切分策略。
+- 算子在Device上的执行序列和执行时长。
+- 训练的Step数（暂不支持动态Shape场景、多图场景和异构训练场景，这些场景下Step数据可能不准确）。
+- 算子的\ ``Scope Name``\ 信息，可以选择展示多少层\ ``Scope Name``\ 信息并下载对应的timeline文件。例如某算子的全名为：\ ``Default/network/lenet5/Conv2D-op11``\ ，则该算子的第一层Scope
+  Name为\ ``Default``\ 、第二层为\ ``network``\ 。如果选择展示两层\ ``Scope Name``\ 信息，则会展示\ ``Default``\ 和\ ``network``\ 。
+
+通过分析Timeline，用户可以对训练过程进行细粒度分析：
+
+- 从High Level层面，可以分析流切分方法是否合理、迭代间隙和拖尾时间是否过长等。
+- 从Low Level层面，可以分析算子执行时间等。
+
+用户可以点击总览页面Timeline部分的下载按钮，将Timeline数据文件
+(json格式) 保存至本地，再通过工具查看Timeline的详细信息。推荐使用
+``chrome://tracing`` 或者 `Perfetto <https://ui.perfetto.dev/#!/>`__
+做Timeline展示。
+
+- Chrome tracing：点击左上角“load”加载文件。
+- Perfetto：点击左侧“Open trace file”加载文件。
+
+.. figure:: ./images/timeline.png
+   :alt: timeline.png
+
+*图：Timeline分析*
+
+Timeline主要包含如下几个部分：
+
+- Device及其stream
+  list：包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
+
+  各个颜色块表示算子执行的起始时间及时长。timeline的详细解释如下：
+
+  - Process AI Core Op：包含在AI Core上执行的算子的时间线。
+
+    - Step：训练迭代数。
+    - Scope Name：算子的Scope Name。
+    - Stream #ID：在该stream上执行的算子。
+
+  - Process AI CPU Op：在AI CPU上执行的算子的时间线。
+  - Process Communication Op：包含通信算子执行的时间线。
+  - Process Host CPU Op：在Host CPU上执行的算子的时间线。
+  - Process Op Overlap
+    Analyse：所有计算算子与通信算子合并后的时间线，可用于分析通信时间占比。
+
+    - Merged Computation Op：为所有计算（AI Core、AI CPU、Host
+      CPU）算子合并后的时间线。
+    - Merged Communication Op：为所有通信算子合并后的时间线。
+    - Pure Communication
+      Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
+    - Free
+      Time：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。
+
+- 算子信息：选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
+
+可以使用W/A/S/D来放大、缩小地查看Timeline图信息。
