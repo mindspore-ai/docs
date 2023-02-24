@@ -7,7 +7,7 @@ MindSpore Flow is a flow simulation suite developed based on MindSpore. It suppo
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="1200px" alt="" style="display: inline-block">
 
 
 MindSpore AI Fluid Simulation Suite
@@ -18,6 +18,13 @@ MindSpore AI Fluid Simulation Suite
    :caption: Installation Deployment
 
    mindflow_install
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Features
+
+   features/solve_pinns_by_mindflow
 
 .. toctree::
    :glob:
@@ -39,16 +46,6 @@ MindSpore AI Fluid Simulation Suite
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: CFD-solver
-
-   cfd/lax_tube
-   cfd/sod_tube
-   cfd/couette
-   cfd/riemann2d
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: Data Mechanism Fusion
 
    data_mechanism_fusion/pde_net
@@ -56,9 +53,12 @@ MindSpore AI Fluid Simulation Suite
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Features
+   :caption: CFD-solver
 
-   features/solve_pinns_by_mindflow
+   cfd_solver/lax_tube
+   cfd_solver/sod_tube
+   cfd_solver/couette
+   cfd_solver/riemann2d
 
 .. toctree::
    :maxdepth: 1
