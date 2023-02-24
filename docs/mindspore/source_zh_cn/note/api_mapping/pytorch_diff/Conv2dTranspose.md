@@ -193,7 +193,7 @@ m = nn.ConvTranspose2d(in_channels=3, out_channels=32,
 input = torch.tensor(np.ones([1, 3, 48, 48]), dtype=torch.float32)
 output = m(input).detach().numpy()
 print(output.shape)
-# (1, 32, 96, 96)
+#(1, 32, 96, 96)
 
 # MindSpore
 import mindspore as ms
@@ -211,5 +211,5 @@ output = m(input)
 pad = nn.Pad(paddings=((0, 0), (0, 0), (0, 1), (0, 1)), mode="CONSTANT")
 output = pad(output)
 print(output.shape)
-# (1, 32, 96, 96)
+#(1, 32, 96, 96)
 ```

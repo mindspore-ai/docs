@@ -100,7 +100,7 @@ exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_st
 result = exponential_decay_lr(global_step)
 print(result)
 # out
-# 0.09486833
+# 0.094868325
 
 # In torch:
 import torch

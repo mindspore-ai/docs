@@ -46,7 +46,7 @@ floor_div = ops.FloorDiv()
 output = floor_div(input_x, input_y)
 print(output)
 # Out：
-# [0 1 -1]
+# [ 0  1 -1]
 
 # In torch, the output will be rounded toward 0, so, after division, the output -0.33 will be rounded to 0.
 input_x = torch.tensor(np.array([2, 4, -1]))
