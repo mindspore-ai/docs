@@ -676,6 +676,72 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
+### 模型解密推理
+
+当模型被[converter_lite工具](https://mindspore.cn/mindarmour/docs/zh-CN/master/model_encrypt_protection.html#%E7%AB%AF%E4%BE%A7%E6%A8%A1%E5%9E%8B%E4%BF%9D%E6%8A%A4)转换时加密，在lite加载模型时需通过传入密钥和解密工具相关参数。其中，dec_key应与使用converter_lite工具加密时的密钥一致，均十六进制表示的字符串。如b'0123456789ABCDEF'对应的十六进制表示为30313233343536373839414243444546，Linux平台用户可以使用xxd工具对字节表示的密钥进行十六进制表达转换。crypto_lib_path为该环境中openssl的安装路径，如"/home/root/openssl"。
+
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc)演示模型解密加载及推理的流程：
+
+```cpp
+int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
+                      const std::string crypto_lib_path) {
+  // Set Context
+  auto context = std::make_shared<mindspore::Context>();
+  auto &device_list = context->MutableDeviceInfo();
+  auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+  device_list.push_back(device_info);
+
+  // Create model
+  auto model = new (std::nothrow) mindspore::Model();
+
+  // Set Decrypt Parameters
+  mindspore::Key dec_key;
+  std::string dec_mode = "AES-GCM";
+  dec_key.len = Hex2ByteArray(dec_key_str, dec_key.key, kEncMaxLen);
+
+  // Build model
+  auto build_ret = model->Build(model_path, mindspore::kMindIR, context, dec_key, dec_mode, crypto_lib_path);
+  if (build_ret != mindspore::kSuccess) {
+    delete model;
+    std::cerr << "Build model error " << build_ret << std::endl;
+    return -1;
+  }
+
+  // Predict
+  auto inputs = model->GetInputs();
+  auto outputs = model->GetOutputs();
+  auto predict_ret = model->Predict(inputs, &outputs);
+  if (predict_ret != mindspore::kSuccess) {
+    delete model;
+    std::cerr << "Predict error " << predict_ret << std::endl;
+    return -1;
+  }
+
+  // Delete model.
+  delete model;
+  return 0;
+```
+
+如使用converter_lite工具的命令为：
+
+```bash
+./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey=30313233343536373839414243444546 --encryption=true
+```
+
+在mindspore/lite/examples/runtime_cpp目录下编译源码生成build/runtime_cpp文件：
+
+```bash
+cd mindspore/lite/examples/runtime_cpp
+bash build.sh
+cd build
+```
+
+运行Lite端侧使用加密后的模型进行推理：
+
+```bash
+./runtime_cpp  --modelFile=./lenet_enc.ms 6 30313233343536373839414243444546 ${your_openssl_path}
+```
+
 ### 查看日志
 
 当推理出现异常的时候，可以通过查看日志信息来定位问题。针对Android平台，采用`Logcat`命令行工具查看MindSpore Lite推理的日志信息，并利用`MS_LITE` 进行筛选。

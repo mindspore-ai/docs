@@ -677,6 +677,72 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
+### Decrypted Model Prediction
+
+If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
+
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately.：
+
+```cpp
+int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
+                      const std::string crypto_lib_path) {
+  // Set Context
+  auto context = std::make_shared<mindspore::Context>();
+  auto &device_list = context->MutableDeviceInfo();
+  auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+  device_list.push_back(device_info);
+
+  // Create model
+  auto model = new (std::nothrow) mindspore::Model();
+
+  // Set Decrypt Parameters
+  mindspore::Key dec_key;
+  std::string dec_mode = "AES-GCM";
+  dec_key.len = Hex2ByteArray(dec_key_str, dec_key.key, kEncMaxLen);
+
+  // Build model
+  auto build_ret = model->Build(model_path, mindspore::kMindIR, context, dec_key, dec_mode, crypto_lib_path);
+  if (build_ret != mindspore::kSuccess) {
+    delete model;
+    std::cerr << "Build model error " << build_ret << std::endl;
+    return -1;
+  }
+
+  // Predict
+  auto inputs = model->GetInputs();
+  auto outputs = model->GetOutputs();
+  auto predict_ret = model->Predict(inputs, &outputs);
+  if (predict_ret != mindspore::kSuccess) {
+    delete model;
+    std::cerr << "Predict error " << predict_ret << std::endl;
+    return -1;
+  }
+
+  // Delete model.
+  delete model;
+  return 0;
+```
+
+If the command for using the converter_lite is:
+
+```bash
+./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey=30313233343536373839414243444546 --encryption=true
+```
+
+Compile the source code in the mindspore/lite/examples/runtime_cpp directory, and generate build/runtime_cpp:
+
+```bash
+cd mindspore/lite/examples/runtime_cpp
+bash build.sh
+cd build
+```
+
+Run Mindspore Lite inference on the encrypted model file:
+
+```bash
+./runtime_cpp  --modelFile=./lenet_enc.ms 6 30313233343536373839414243444546 ${your_openssl_path}
+```
+
 ### Viewing Logs
 
 If an exception occurs during inference, you can view logs to locate the fault. For the Android platform, use the `Logcat` command line to view the MindSpore Lite inference log information and use `MS_LITE` to filter the log information.
