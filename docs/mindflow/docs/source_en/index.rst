@@ -58,8 +58,7 @@ MindSpore AI Fluid Simulation Suite
    :maxdepth: 1
    :caption: Features
 
-   features/poisson_ring
-   features/sympy_pde_definition
+   features/solve_pinns_by_mindflow
 
 .. toctree::
    :maxdepth: 1
