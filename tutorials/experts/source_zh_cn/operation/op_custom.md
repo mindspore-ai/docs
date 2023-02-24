@@ -219,17 +219,14 @@ dropout2d_op_info = CustomRegOp("Dropout2D") \
     .target("Ascend") \
     .get_op_info()
 
-@custom_info_register(dropout2d_op_info)
-def dropout2d_aicpu():
-    """Dropout2D AiCPU register"""
-    return
 
 # 定义自定义算子网络
 class NetDropout2D(nn.Cell):
     def __init__(self, keep_prob=0.5):
         super(NetDropout2D, self).__init__()
-        self.op = ops.Custom(dropout2d_aicpu, out_shape=lambda x, _, cust_attr: (x, x), \
-                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu")
+        self.op = ops.Custom("dropout2d_aicpu", out_shape=lambda x, _, cust_attr: (x, x), \
+                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu",
+                              reg_info=dropout2d_op_info)
         self.keep_prob = keep_prob
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
