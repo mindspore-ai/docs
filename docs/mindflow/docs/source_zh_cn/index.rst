@@ -57,8 +57,7 @@ MindSpore AI 流体仿真套件
    :maxdepth: 1
    :caption: 特性
 
-   features/poisson_ring
-   features/sympy_pde_definition
+   features/solve_pinns_by_mindflow
 
 .. toctree::
    :maxdepth: 1
