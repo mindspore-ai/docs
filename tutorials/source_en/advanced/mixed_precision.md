@@ -297,4 +297,26 @@ loss_callback = LossMonitor(100)
 trainer.train(10, train_dataset, callbacks=[loss_callback])
 ```
 
+```text
+    epoch: 1 step: 100, loss is 2.2883859
+    epoch: 1 step: 200, loss is 2.2612116
+    epoch: 1 step: 300, loss is 2.1563218
+    epoch: 1 step: 400, loss is 1.9420109
+    epoch: 1 step: 500, loss is 1.396821
+    epoch: 1 step: 600, loss is 1.0450488
+    epoch: 1 step: 700, loss is 0.69754004
+    epoch: 1 step: 800, loss is 0.6924556
+    epoch: 1 step: 900, loss is 0.57444984
+    ...
+    epoch: 10 step: 58, loss is 0.13086069
+    epoch: 10 step: 158, loss is 0.07224723
+    epoch: 10 step: 258, loss is 0.08281057
+    epoch: 10 step: 358, loss is 0.09759849
+    epoch: 10 step: 458, loss is 0.17265382
+    epoch: 10 step: 558, loss is 0.10023793
+    epoch: 10 step: 658, loss is 0.08235697
+    epoch: 10 step: 758, loss is 0.10531154
+    epoch: 10 step: 858, loss is 0.19084263
+```
+
 > The image is quoted from [automatic-mixed-precision](https://developer.nvidia.com/automatic-mixed-precision).
