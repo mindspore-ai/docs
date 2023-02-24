@@ -1,0 +1,44 @@
+Calculation quantity analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Calculation Quantity Analysis module shows the actual calculation
+quantity data, including calculation quantity data for operator
+granularity, scope level granularity, and model granularity. The actual
+calculation quantity refers to the amount of calculation that is running
+on the device, which is different from the theoretical calculation
+quantity. For example, the matrix computing unit on the Ascend910 device
+is dealing with a matrix of 16x16 size, so in the runtime, the original
+matrix will be padded to 16x16. Only calculation quantity on AICORE
+devices is supported currently. The information about calculation
+quantity has three indicators:
+
+- FLOPs: the number of floating point operations（the unit is
+  million）.
+- FLOPS: the number of floating point operations per second (the unit
+  is billion).
+- FLOPS utilization: obtained by dividing the FLOPS by the peak FLOPS
+  of the AICORE device.
+
+.. figure:: ./images/flops-single-card.png
+   :alt: flops_statistics.png
+
+*Figure:Calculation Quantity Analysis*
+
+The red box in figure above includes calculation quantity data on operator
+granularity, scope level granularity, and model granularity. Click the
+“details” to see the scope level calculation quantity data.
+
+.. figure:: ./images/flops-scope.png
+   :alt: flops_scope_statistics.png
+
+*Figure:Scope Level FLOPs*
+
+Figure above is a sankey diagram that presents data in the structure of a
+tree where the cursor selects a scope to see the specific FLOPs value.
+
+.. note::
+   This figure only draws the Scope hierarchy structure of the operator
+   (the specific name of the operator at the last layer is not shown).
+   Since the depth of each operator’s hierarchy is not equal in the
+   training process, it may occur that the sum of time of adjacent
+   levels is not equal.
