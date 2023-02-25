@@ -168,6 +168,6 @@ ctypes.memset(id(key) + offset, 0, length)
 MindSpore Lite提供的模型转换工具conveter可以将密文的mindir模型转化为明文ms模型，用户只需在调用该工具时指明密钥和解密模式即可，注意这里的密钥为十六进制表示的字符串，如前面定义的`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。具体调用方法如下：
 
 ```shell
-./converter_tools --fmk=MINDIR --modelFile=./lenet_enc.mindir --outputFile=lenet --decryptKey=30313233343536373839414243444546 --decryptMode=AES-GCM
+./converter_lite --fmk=MINDIR --modelFile=./lenet_enc.mindir --outputFile=lenet --decryptKey=30313233343536373839414243444546 --decryptMode=AES-GCM
 ```
 

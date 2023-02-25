@@ -168,5 +168,5 @@ For the key passed to ms.CheckpointConfig() when config_ck=ms.CheckpointConfig()
 The model converter provided by MindSpore Lite can convert a ciphertext MindIR model into a plaintext MS model. You only need to specify the key and decryption mode when calling this tool. Note that the key is a hexadecimal character string, for example, the hexadecimal string corresponding to `b'0123456789ABCDEF` is `30313233343536373839414243444546`. On the Linux platform, you can use the `xxd` tool to convert the key represented by bytes to a hexadecimal string. The call method is as follows:
 
 ```shell
-./converter_tools --fmk=MINDIR --modelFile=./lenet_enc.mindir --outputFile=lenet --decryptKey=30313233343536373839414243444546 --decryptMode=AES-GCM
+./converter_lite --fmk=MINDIR --modelFile=./lenet_enc.mindir --outputFile=lenet --decryptKey=30313233343536373839414243444546 --decryptMode=AES-GCM
 ```
