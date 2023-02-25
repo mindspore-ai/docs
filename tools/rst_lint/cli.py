@@ -115,7 +115,7 @@ def custom_file(filepath):
                 if err_sentence == sentence:
                     break
                 line += 1
-            msg = f'There are mismatched or missing {err[0]} in the statements'
+            msg = f'There are mismatched or missing {err[0]} in the statements.'
             result_err.append(["WARNING", filepath, line, msg])
         return result_err
     return []

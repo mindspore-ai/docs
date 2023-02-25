@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
 import os
 import shutil
 import sys
@@ -181,10 +182,18 @@ sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+
+rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
+
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('rst_files', set(), False)
 
 src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE_CN.md')
 des_release = "./RELEASE.md"

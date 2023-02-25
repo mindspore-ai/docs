@@ -8,6 +8,7 @@
     - [Error in "xxx" directive](#error-in-"xxx"-directive)
     - [Inline interpreted text or phrase reference start-string without end-string](#inline-interpreted-text-or-phrase-reference-start-string-without-end-string)
     - [Content block expected for the "xxx" directive; none found](#content-block-expected-for-the-"xxx"-directive-none-found)
+    - [There are mismatched or missing "xxx" in the statements](#there-are-mismatched-or-missing-"xxx"-in-the-statements)
 
 ## Title underline too short
 
@@ -174,4 +175,36 @@
 
     import mindspore
     import sys
+    ```
+
+## There are mismatched or missing "xxx" in the statements
+
+表示所在位置的某个括号缺失对应匹配括号或者匹配的括号错误。(描述变量的范围时请使用英文逗号，否则也会报错)
+
+- 正确示例1：
+
+    ```text
+    输入：
+        - **shape** (Union[Tuple[int], Tensor[int]]) - 1-D Tensor或Tuple，指定了输出Tensor的shape。
+          其数据类型必须是int32或int64。
+    ```
+
+- 错误示例1：
+
+    ```text
+    输入：
+        - **shape** (Union[Tuple[int], Tensor[int]) - 1-D Tensor或Tuple，指定了输出Tensor的shape。
+          其数据类型必须是int32或int64。
+    ```
+
+- 正确示例2：
+
+    ```text
+    如果算子Log的输入值在(0, 0.01)或[0.95, 1.05]范围内，则输出精度可能会存在误差。
+    ```
+
+- 错误示例2：
+
+    ```text
+    如果算子Log的输入值在(0, 0.01）或[0.95, 1.05]范围内，则输出精度可能会存在误差。
     ```
