@@ -4,7 +4,7 @@ Preparing the Training Script
 There are two ways to collect neural network performance data. You can enable Profiler in either of the following ways.
 
 Method 1: Modify the training script
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Add the MindSpore Profiler interface to the training script.
 
@@ -111,6 +111,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
   The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
 
   .. code:: python
+
      profiler = ms.Profiler(start_profile=False)
      data_loader = ds.create_dict_iterator()
 
@@ -180,7 +181,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
              self.profiler.analyse()
 
 Method 2: Enable environment variables
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before running the network script, configure Profiler configuration items.
 
