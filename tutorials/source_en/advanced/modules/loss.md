@@ -30,8 +30,8 @@ A value of the `reduction` parameter in `nn.L1Loss` may be `mean`, `sum`, or `no
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+from mindspore import nn
+from mindspore import Tensor
 
 # Output a mean loss value.
 loss = nn.L1Loss()
@@ -40,12 +40,12 @@ loss_sum = nn.L1Loss(reduction='sum')
 # Output the original loss value.
 loss_none = nn.L1Loss(reduction='none')
 
-input_data = ms.Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
-target_data = ms.Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
+input_data = Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
+target_data = Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
 
 print("loss:", loss(input_data, target_data))
 print("loss_sum:", loss_sum(input_data, target_data))
-print("loss_none:\n", loss_none(input_data, target_data))
+print("loss_none:", loss_none(input_data, target_data))
 ```
 
 ```text
@@ -73,26 +73,18 @@ In the preceding formula, $f(x)$ indicates the predicted value, $y$ indicates th
 The following describes how to customize the loss function `MAELoss` based on `nn.Cell`.
 
 ```python
-import mindspore.ops as ops
+from mindspore import ops
+import mindspore as ms
 
 class MAELoss(nn.Cell):
     """Customize the loss function MAELoss."""
-
-    def __init__(self):
-        """Initialize."""
-        super(MAELoss, self).__init__()
-        self.abs = ops.Abs()
-        self.reduce_mean = ops.ReduceMean()
-
     def construct(self, base, target):
-        """Call the operator."""
-        x = self.abs(base - target)
-        return self.reduce_mean(x)
+        return ops.abs(base - target).mean()
 
 loss = MAELoss()
 
-input_data = ms.Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32)) # Generate a predicted value.
-target_data = ms.Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32)) # Generate the actual value.
+input_data = Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32)) # Generate a predicted value.
+target_data = Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32)) # Generate the actual value.
 
 output = loss(input_data, target_data)
 print(output)
@@ -111,20 +103,14 @@ The process of building the loss function `MAELoss` based on [nn.LossBase](https
 ```python
 class MAELoss(nn.LossBase):
     """Customize the loss function MAELoss."""
-
-    def __init__(self, reduction="mean"):
-        """Initialize and compute the mean loss value."""
-        super(MAELoss, self).__init__(reduction)
-        self.abs = ops.Abs() # Compute the absolute value.
-
     def construct(self, base, target):
-        x = self.abs(base - target)
-        return self.get_loss(x) # Return the mean loss value.
+        x = ops.abs(base - target)
+        return self.get_loss(x)  # Return the mean loss value.
 
 loss = MAELoss()
 
-input_data = ms.Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32)) # Generate a predicted value.
-target_data = ms.Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32)) # Generate the actual value.
+input_data = Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32)) # Generate a predicted value.
+target_data = Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32)) # Generate the actual value.
 
 output = loss(input_data, target_data)
 print(output)
@@ -154,7 +140,7 @@ def get_data(num, w=2.0, b=3.0):
 
 def create_dataset(num_data, batch_size=16):
     """Load the dataset."""
-    dataset = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
+    dataset = GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
     dataset = dataset.batch(batch_size)
     return dataset
 
@@ -200,9 +186,6 @@ $$f(x)=2x+3+noise$$
 Use `create_multilabel_dataset` to generate a multi-label dataset and set `column_names` in `GeneratorDataset` to ['data', 'label1', 'label2']. The returned dataset is in the format that one piece of `data` corresponds to two labels `label1` and `label2`.
 
 ```python
-import numpy as np
-from mindspore import dataset as ds
-
 def get_multilabel_data(num, w=2.0, b=3.0):
     for _ in range(num):
         x = np.random.uniform(-10.0, 10.0)
@@ -213,7 +196,7 @@ def get_multilabel_data(num, w=2.0, b=3.0):
         yield np.array([x]).astype(np.float32), np.array([y1]).astype(np.float32), np.array([y2]).astype(np.float32)
 
 def create_multilabel_dataset(num_data, batch_size=16):
-    dataset = ds.GeneratorDataset(list(get_multilabel_data(num_data)), column_names=['data', 'label1', 'label2'])
+    dataset = GeneratorDataset(list(get_multilabel_data(num_data)), column_names=['data', 'label1', 'label2'])
     dataset = dataset.batch(batch_size) # Each batch has 16 pieces of data.
     return dataset
 ```
