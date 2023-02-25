@@ -432,6 +432,8 @@ def resnet50(num_classes: int = 1000, pretrained: bool = False):
 
 In this part, [a ResNet-50 pre-trained model](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/application/resnet50_224_new.ckpt) is used for fine-tuning. Call `resnet50` to build a ResNet50 model and set `pretrained` to True. The ResNet50 pre-trained model is automatically downloaded and the parameters of the pre-trained model are loaded to the network. Define the optimizer and loss function, print the loss values and evaluation accuracy of the training epoch by epoch, and save the ckpt file with the highest evaluation accuracy (resnet50-best.ckpt) to  . /BestCheckPoint of the current path.
 
+> Here we demonstrate the training process of 5 epochs. In order to achieve reasonable model performance, we recommend to train for 80 epochs.
+
 ```python
 import mindspore as ms
 # Define the ResNet50 network.
@@ -453,7 +455,7 @@ Replace is False and data exists, so doing nothing. Use replace=True to re-downl
 
 ```python
 # Set the learning rate
-num_epochs = 40
+num_epochs = 5
 lr = nn.cosine_decay_lr(min_lr=0.00001, max_lr=0.001, total_step=step_size_train * num_epochs,
                         step_per_epoch=step_size_train, decay_epoch=num_epochs)
 # Define optimizer and loss function
@@ -532,6 +534,8 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
 ## Visualizing Model Prediction Results
 
 Define the `visualize_model` function, use the model with the highest validation accuracy described above to predict the CIFAR-10 dataset, and visualize the prediction result. If the prediction result is in blue, the prediction is correct. If the prediction result is in red, the prediction is incorrect.
+
+> As can be seen from the outputs during training, the prediction accuracy of the model on the validation dataset after 5 epochs of training is less than 50%, which means only half of the image classifications can be predicted correctly, and the actual accuracy might be even lower. The following figure shows a relatively good prediction result after training the model for 40 epochs. Note that this outcome is random. Generally, one or two of the six images are classified incorrectly. In order to achieve reasonable model performance, we recommend to train for 80 epochs.
 
 ```python
 import matplotlib.pyplot as plt

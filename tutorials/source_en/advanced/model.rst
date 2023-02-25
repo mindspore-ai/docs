@@ -69,7 +69,7 @@ Download and Process Dataset
     
     url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
           "notebook/datasets/MNIST_Data.zip"
-    path = download(url, "./", kind="zip")
+    path = download(url, "./", kind="zip", replace=True)
     
     
     def datapipe(path, batch_size):
