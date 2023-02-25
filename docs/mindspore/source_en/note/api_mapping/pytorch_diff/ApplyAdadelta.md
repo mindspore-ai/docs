@@ -66,12 +66,11 @@ epsilon = ms.Tensor(1e-6, ms.float32)
 grad = ms.Tensor(np.random.rand(1, 1).astype(np.float32))
 var, accum, accum_update = net(lr, rho, epsilon, grad)
 print(var)
+# [[0.5480372]]
 print(accum)
+# [[0.29689768]]
 print(accum_update)
-# Out:
-# [[0.5480]]
-# [[0.2969]]
-# [[0.6028]]
+# [[0.6027623]]
 
 # The following implements Adadelta with torch.
 input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))

@@ -51,18 +51,18 @@ x = ms.Tensor(np.array([1, 2, 3, 4, 5]), ms.float32)
 output1 = ops.log_softmax(x)
 print(output1)
 # Out:
-# [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086 ]
+# [-4.451912   -3.4519122  -2.4519122  -1.451912   -0.45191208]
 x = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
 output2 = ops.log_softmax(x, axis=0)
 print(output2)
 # out:
-# [[0.01798621 0.11920292 0.5        0.880797   0.98201376]
-#  [0.98201376 0.880797   0.5        0.11920292 0.01798621]]
+# [[-4.01815    -2.126928   -0.6931472  -0.12692805 -0.01814996]
+#  [-0.01814996 -0.12692805 -0.6931472  -2.126928   -4.01815   ]]
 
 # In torch, the input and dim should be input at the same time to implement the function.
 input = torch.tensor(np.array([1.0, 2.0, 3.0, 4.0, 5.0]))
 output3 = torch.nn.functional.log_softmax(input, dim=0)
 print(output3)
 # Out:
-# tensor([0.0117, 0.0317, 0.0861, 0.2341, 0.6364], dtype=torch.float64)
+# tensor([-4.4519, -3.4519, -2.4519, -1.4519, -0.4519], dtype=torch.float64)
 ```
