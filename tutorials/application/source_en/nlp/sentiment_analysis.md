@@ -366,7 +366,7 @@ from mindspore.common.initializer import Uniform, HeUniform
 
 class RNN(nn.Cell):
     def __init__(self, embeddings, hidden_dim, output_dim, n_layers,
-                 bidirectional, dropout, pad_idx):
+                 bidirectional, pad_idx):
         super().__init__()
         vocab_size, embedding_dim = embeddings.shape
         self.embedding = nn.Embedding(vocab_size, embedding_dim, embedding_table=ms.Tensor(embeddings), padding_idx=pad_idx)
@@ -374,17 +374,15 @@ class RNN(nn.Cell):
                            hidden_dim,
                            num_layers=n_layers,
                            bidirectional=bidirectional,
-                           dropout=dropout,
                            batch_first=True)
         weight_init = HeUniform(math.sqrt(5))
         bias_init = Uniform(1 / math.sqrt(hidden_dim * 2))
         self.fc = nn.Dense(hidden_dim * 2, output_dim, weight_init=weight_init, bias_init=bias_init)
-        self.dropout = nn.Dropout(1 - dropout)
 
     def construct(self, inputs):
-        embedded = self.dropout(self.embedding(inputs))
+        embedded = self.embedding(inputs)
         _, (hidden, _) = self.rnn(embedded)
-        hidden = self.dropout(ops.concat((hidden[-2, :, :], hidden[-1, :, :]), axis=1))
+        hidden = ops.concat((hidden[-2, :, :], hidden[-1, :, :]), axis=1)
         output = self.fc(hidden)
         return output
 ```
@@ -398,11 +396,10 @@ hidden_size = 256
 output_size = 1
 num_layers = 2
 bidirectional = True
-dropout = 0.5
 lr = 0.001
 pad_idx = vocab.tokens_to_ids('<pad>')
 
-model = RNN(embeddings, hidden_size, output_size, num_layers, bidirectional, dropout, pad_idx)
+model = RNN(embeddings, hidden_size, output_size, num_layers, bidirectional, pad_idx)
 loss_fn = nn.BCEWithLogitsLoss(reduction='mean')
 optimizer = nn.Adam(model.trainable_params(), learning_rate=lr)
 ```
