@@ -32,6 +32,7 @@ MindSpore AI 流体仿真套件
 
    physics_driven/burgers1D
    physics_driven/navier_stokes2D
+   physics_driven/taylor_green2D
 
 .. toctree::
    :glob:
