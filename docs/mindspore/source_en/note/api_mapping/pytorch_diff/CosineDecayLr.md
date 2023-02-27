@@ -59,7 +59,7 @@ step_per_epoch = 2
 decay_epoch = 2
 output = nn.cosine_decay_lr(min_lr, max_lr, total_step, step_per_epoch, decay_epoch)
 print(output)
-# out: [0.1, 0.1, 0.05500000000000001, 0.05500000000000001, 0.01, 0.01]
+# [0.1, 0.1, 0.05500000000000001, 0.05500000000000001, 0.01, 0.01]
 
 
 # In PyTorch:

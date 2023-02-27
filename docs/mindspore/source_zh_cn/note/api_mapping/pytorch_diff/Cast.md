@@ -38,11 +38,10 @@ import numpy as np
 # In MindSpore, you can specify the data type to be transformed into.
 input_x = ms.Tensor(np.random.randn(2, 3, 4, 5).astype(np.float32))
 cast = ops.Cast()
-output = cast(input_x, mindspore.int32)
+output = cast(input_x, ms.int32)
 print(output.dtype)
-print(output.shape)
-# Out：
 # Int32
+print(output.shape)
 # (2, 3, 4, 5)
 
 # In torch, the input will be transformed into float.
