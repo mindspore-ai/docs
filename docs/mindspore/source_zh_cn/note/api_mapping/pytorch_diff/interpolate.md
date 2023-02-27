@@ -85,7 +85,7 @@ import torch
 import numpy as np
 
 x = torch.tensor(np.array([[[[1, 2, 3], [4, 5, 6]]]]).astype(np.float32))
-output = torch.nn.functional.interpolate(input=x, scale_factor=2, mode="bilinear", align_corners=True)
+output = torch.nn.functional.interpolate(input=x, scale_factor=2.0, mode="bilinear", align_corners=True)
 print(output.numpy())
 # [[[[1.        1.4000001 1.8       2.2       2.6       3.       ]
 #    [2.        2.4       2.8       3.1999998 3.6000001 4.       ]
@@ -99,7 +99,7 @@ from mindspore import Tensor
 import mindspore.ops as ops
 
 x = Tensor(np.array([[[[1, 2, 3], [4, 5, 6]]]]).astype(np.float32))
-output = ops.interpolate(x, scale_factor=2, recompute_scale_factor=True, mode="bilinear", align_corners=True)
+output = ops.interpolate(x, scale_factor=2.0, recompute_scale_factor=True, mode="bilinear", align_corners=True)
 print(output)
 # [[[[1.        1.4       1.8       2.2       2.6       3.       ]
 #    [2.        2.4       2.8000002 3.2       3.6       4.       ]
