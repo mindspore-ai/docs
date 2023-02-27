@@ -61,7 +61,7 @@ import mindspore
 input_ms = mindspore.numpy.ones((4,1,2))
 ms_output = mindspore.numpy.empty_like(input_ms, shape=[2, 3])
 print(ms_output.shape)
-# [2, 3]
+# (2, 3)
 ```
 
 ### Code Example 2
@@ -83,15 +83,15 @@ import mindspore
 input_tensor_ms = mindspore.numpy.ones((2, 3))
 ms_tensor_output = mindspore.numpy.empty_like(input_tensor_ms)
 print(ms_tensor_output.shape)
-# [2, 3]
+# (2, 3)
 
 input_list_ms = [[1, 2, 3],[4, 5, 6]]
 ms_list_output = mindspore.numpy.empty_like(input_list_ms)
 print(ms_list_output.shape)
-# [2, 3]
+# (2, 3)
 
 input_tuple_ms = ((1, 2, 3),(4, 5, 6))
 ms_tuple_output = mindspore.numpy.empty_like(input_tuple_ms)
 print(ms_tuple_output.shape)
-# [2, 3]
+# (2, 3)
 ```

@@ -48,12 +48,12 @@ y = np.array([[4,5,6], [1,2,3]])
 output = np.cross(x, y)
 print(output)
 # [[-3  6 -3]
-# [ 3 -6  3]]
+#  [ 3 -6  3]]
 output = np.cross(x, y, axisc=0)
 print(output)
 # [[-3  3]
-# [ 6 -6]
-# [-3  3]]
+#  [ 6 -6]
+#  [-3  3]]
 x = np.array([[1,2], [4,5]])
 y = np.array([[4,5], [1,2]])
 print(np.cross(x, y))

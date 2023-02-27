@@ -53,5 +53,5 @@ import numpy as np
 x = Tensor(np.array([0.24, 0.83, 0.31, 0.09]), mindspore.float32)
 output = ops.cos(x)
 print(output)
-# [0.971338 0.6748758 0.95233357 0.9959527 ]
+# [0.971338   0.6748758  0.95233357 0.9959527 ]
 ```

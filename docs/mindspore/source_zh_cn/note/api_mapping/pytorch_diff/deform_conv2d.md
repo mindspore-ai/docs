@@ -130,5 +130,5 @@ weight = Tensor(weight)
 offsets = Tensor(offsets)
 output = ops.deformable_conv2d(x, weight, offsets, (kh, kw), (1, 1, stride_h, stride_w,), (pad_h, pad_h, pad_w, pad_w), dilations=(1, 1, dilation_h, dilation_w))
 print(output)
-# [[[[-0.0022435  0.       ]]]]
+# [[[[-0.00220442  0.        ]]]]
 ```
