@@ -36,7 +36,7 @@ MindSpore:  MindSpore API implements basically the same function as PyTorch, but
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
 |Parameters | Parameter 1 | size | size |Consistent function |
-| | Parameter 2 | fill_value | fill_value | Consistent function |
+| | Parameter 2 | fill_value | fill_value | For the parameter fill_value, PyTorch full operator supports the number type, and MindSpore does not support the plural type. |
 |  | Parameter 3 | dtype         | dtype     | Consistent function       |
 | | Parameter 4 | out           | -         | Not involved |
 | | Parameter 5 | layout | - | Not involved |
@@ -44,8 +44,6 @@ MindSpore:  MindSpore API implements basically the same function as PyTorch, but
 | | Parameter 7 | requires_grad | - | MindSpore does not have this parameter and supports reverse derivation by default |
 
 ### Code Example 1
-
-> For the parameter fill_value, PyTorch full operator supports the number type, and MindSpore does not support the plural type.
 
 ```python
 # PyTorch

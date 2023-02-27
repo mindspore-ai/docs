@@ -8,7 +8,6 @@
 torch.nn.functional.log_softmax(
     input,
     dim=None,
-    _stacklevel=3,
     dtype=None
 )
 ```
