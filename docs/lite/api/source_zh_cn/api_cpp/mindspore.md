@@ -72,6 +72,28 @@ Context();
 
 ### 公有成员函数
 
+| 函数                                                                            | 云侧推理是否支持 |
+|-------------------------------------------------------------------------------|--------|
+| `void SetThreadNum(int32_t thread_num);`                                      | √      |
+| `int32_t GetThreadNum() const;`                                               | √      |
+| `void SetInterOpParallelNum(int32_t parallel_num);`                           | √      |
+| `int32_t GetInterOpParallelNum() const;`                                      | √      |
+| `void SetThreadAffinity(int mode);`                                           | √      |
+| `int GetThreadAffinityMode() const;`                                          | √      |
+| `void SetThreadAffinity(const std::vector<int> &core_list);`                  | √      |
+| `std::vector<int32_t> GetThreadAffinityCoreList() const;`                     | √      |
+| `void SetEnableParallel(bool is_parallel);`                                   | ✕      |
+| `bool GetEnableParallel() const;`                                             | ✕      |
+| `void SetBuiltInDelegate(DelegateMode mode);`                                 | ✕      |
+| `DelegateMode GetBuiltInDelegate() const;`                                    | ✕      |
+| `void SetDelegate(const std::shared_ptr<Delegate> &delegate);`                | ✕      |
+| `std::shared_ptr<Delegate> GetDelegate() const;`                              | ✕      |
+| `set_delegate(const std::shared_ptr<AbstractDelegate> &delegate);`            | ✕      |
+| `std::shared_ptr<AbstractDelegate> get_delegate() const;`                     | ✕      |
+| `void SetMultiModalHW(bool float_mode);`                                      | ✕      |
+| `bool GetMultiModalHW() const;`                                               | ✕      |
+| `std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo() const;` | √      |
+
 #### SetThreadNum
 
 ```cpp
@@ -243,6 +265,17 @@ virtual ~DeviceInfoContext() = default;
 
 ### 公有成员函数
 
+| 函数                                                                | 云侧推理是否支持 |
+|-------------------------------------------------------------------|---------|
+| `enum DeviceType GetDeviceType() const;`                          |        √ |
+| `std::shared_ptr<T> Cast();`                                      |        √ |
+| `void SetProvider(const std::string &provider);`                  |        √ |
+| `std::string GetProvider() const;`                                |        √ |
+| `void SetProviderDevice(const std::string &device);`              |        √ |
+| `std::string GetProviderDevice() const;`                          |        √ |
+| `void SetAllocator(const std::shared_ptr<Allocator> &allocator);` |       √ |
+| `std::shared_ptr<Allocator> GetAllocator() const;`                |        √ |
+
 #### GetDeviceType
 
 ```cpp
@@ -347,11 +380,11 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-|     函数     |     说明      |
-| ------------ | ------------ |
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |
-| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |
-| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |
+|     函数     |     说明      | 云侧推理是否支持 |
+| ------------ | ------------ |---------|
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |        √ |
+| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        √ |
+| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |        √ |
 
 ## GPUDeviceInfo
 
@@ -361,20 +394,23 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-|     函数     | 说明                                                                                                   |
-| ------------ |------------------------------------------------------------------------------------------------------|
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kGPU                                                                              |
-| `void SetDeviceID(uint32_t device_id)`  | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                 |
-| `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                      |
-| `void SetPrecisionMode(const std::string &precision_mode)`                   | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`enforce_fp32`(以FP32精度进行推理)，`preferred_fp16`(以FP16精度进行推理) |
-| `std::string GetPrecisionMode() const`                                       | - 返回值: 已配置的精度模式                                                                                      |
-| `int GetRankID() const`                                       | - 返回值: 当前运行的RANK ID                                                                                  |
-| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                 |
-| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式                                                                                      |
-| `void SetGLContext(void *gl_context)`   | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值                              |
-| `void *GetGLContext() const`            | - 返回值: 已配置的指向OpenGL EGLContext的指针                                                                    |
-| `void SetGLDisplay(void *gl_display)`   | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值                              |
-| `void *GetGLDisplay() const`            | - 返回值: 已配置的指向OpenGL EGLDisplay的指针                                                                    |
+| 函数                                                         | 说明                                                                                                   | 云侧推理是否支持 |
+|------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------|
+| `enum DeviceType GetDeviceType() const`                    | - 返回值: DeviceType::kGPU                                                                              | √        |
+| `void SetDeviceID(uint32_t device_id)`                     | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                 | √        |
+| `uint32_t GetDeviceID() const`                             | - 返回值: 已配置的设备ID                                                                                      | √        |
+| `void SetPrecisionMode(const std::string &precision_mode)` | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin` | √        |
+| `std::string GetPrecisionMode() const`                     | - 返回值: 已配置的精度模式                                                                                      | √        |
+| `int GetRankID() const`                                    | - 返回值: 当前运行的RANK ID                                                                                  | √        |
+| `int GetGroupSize() const`                                 | - 返回值: 当前运行的GROUP SIZE                                                                               | √        |
+| `void SetEnableFP16(bool is_fp16)`                         | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                 | √        |
+| `bool GetEnableFP16() const`                               | - 返回值: 已配置的精度模式                                                                                      | √        |
+| `void SetGLContext(void *gl_context)`                      | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值                              | ✕        |
+| `void *GetGLContext() const`                               | - 返回值: 已配置的指向OpenGL EGLContext的指针                                                                    | ✕        |
+| `void SetGLDisplay(void *gl_display)`                      | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值                              | ✕        |
+| `void *GetGLDisplay() const`                               | - 返回值: 已配置的指向OpenGL EGLDisplay的指针                                                                    | ✕        |
+| `void SetEnableGLTexture(bool is_enable_gl_texture)`       | 用于指定是否绑定OpenGL纹理数据<br><br> - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据                              | ✕        |
+| `bool GetEnableGLTexture() const`                          | - 返回值: 已配置的绑定OpenGL纹理数据模式                                                                            | ✕        |
 
 ## KirinNPUDeviceInfo
 
@@ -384,11 +420,13 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-|     函数     |     说明      |
-| ------------ | ------------ |
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kGPU |
-| `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 |
-| `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 |
+|     函数     |     说明      | 云侧推理是否支持 |
+| ------------ | ------------ |-------|
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kKirinNPU |    √   |
+| `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 | ✕     |
+| `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 | ✕     |
+| `void SetEnableFP16(bool is_fp16)`                          | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        ✕ |
+| `bool GetEnableFP16() const`                                | - 返回值: 已配置的精度模式 |       ✕ |
 
 ## AscendDeviceInfo
 
@@ -398,22 +436,23 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                                                                        | 说明                                                                                                                                                                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `void SetDeviceID(uint32_t device_id)`                   | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                                                                                                           |
-| `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                                                                                                                                                                                                |
-| `void SetInsertOpConfigPath(const std::string &cfg_path)`          | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)算子<br><br> - `cfg_path`: [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)配置文件路径 |
-| `std::string GetInsertOpConfigPath()`                                | - 返回值: 已配置的[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)                                                                                                                                              |
-| `void SetInputFormat(const std::string &format)`                   | 指定模型输入formatt<br><br> - `format`: 可选有`"NCHW"`，`"NHWC"`等                                                                                                                                                                                                                        |
-| `std::string GetInputFormat()`                                       | - 返回值: 已配置模型输入format                                                                                                                                                                                                                                                           |
-| `void SetInputShape(const std::string &shape)`                     | 指定模型输入shape<br><br> - `shape`: 如`"input_op_name1:1,2,3,4;input_op_name2:4,3,2,1"`                                                                                                                                                                                              |
-| `std::string GetInputShape()`                                        | - 返回值: 已配置模型输入shape                                                                                                                                                                                                                                                            |
-| `void SetOutputType(enum DataType output_type)`                    | 指定模型输出type<br><br> - `output_type`: 仅支持uint8、fp16和fp32                                                                                                                                                                                                                         |
-| `enum DataType GetOutputType()`                                      | - 返回值: 已配置模型输出type                                                                                                                                                                                                                                                             |
-| `void SetPrecisionMode(const std::string &precision_mode)`         | 配置模型精度模式<br><br> - `precision_mode`: 可选有`"enforce_fp32"`，`"preferred_fp32"`，`"enforce_fp16"`，`"enforce_origin"`或者`"preferred_optimal"`                                                                                                                       |
-| `std::string GetPrecisionMode(t)`                                     | - 返回值: 已配置模型精度模式                                                                                                                                                                                                                                                               |
-| `void SetOpSelectImplMode(const std::string &op_select_impl_mode)` | 配置算子选择模式<br><br> - `op_select_impl_mode`: 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"`                                                                                                                                                                   |
-| `std::string GetOpSelectImplMode()`                                  | - 返回值: 已配置算子选择模式                                                                                                                                                                                                                                                               |
+| 函数                                                                 | 说明                                                                                                                                                                                                                                                                                | 云侧推理是否支持 |
+|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| `enum DeviceType GetDeviceType() const`                            | - 返回值: DeviceType::kAscend                                                                                                                                                                                                                                                        |    √     |
+| `void SetDeviceID(uint32_t device_id)`                             | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                                                                                                              |        √ |
+| `uint32_t GetDeviceID() const`                                     | - 返回值: 已配置的设备ID                                                                                                                                                                                                                                                                   |        √ |
+| `void SetInsertOpConfigPath(const std::string &cfg_path)`          | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)算子<br><br> - `cfg_path`: [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)配置文件路径   |        √ |
+| `std::string GetInsertOpConfigPath()`                              | - 返回值: 已配置的[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)                                                                                                                                                 |        √ |
+| `void SetInputFormat(const std::string &format)`                   | 指定模型输入formatt<br><br> - `format`: 可选有`"NCHW"`，`"NHWC"`等                                                                                                                                                                                                                           |        √ |
+| `std::string GetInputFormat()`                                     | - 返回值: 已配置模型输入format                                                                                                                                                                                                                                                              |        √ |
+| `void SetInputShape(const std::string &shape)`                     | 指定模型输入shape<br><br> - `shape`: 如`"input_op_name1:1,2,3,4;input_op_name2:4,3,2,1"`                                                                                                                                                                                                 |        √ |
+| `std::string GetInputShape()`                                      | - 返回值: 已配置模型输入shape                                                                                                                                                                                                                                                               |        √ |
+| `void SetOutputType(enum DataType output_type)`                    | 指定模型输出type<br><br> - `output_type`: 仅支持uint8、fp16和fp32                                                                                                                                                                                                                            |        √ |
+| `enum DataType GetOutputType()`                                    | - 返回值: 已配置模型输出type                                                                                                                                                                                                                                                                |        √ |
+| `void SetPrecisionMode(const std::string &precision_mode)`         | 配置模型精度模式<br><br> - `precision_mode`: 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`                                                                                                                               |        √ |
+| `std::string GetPrecisionMode(t)`                                  | - 返回值: 已配置模型精度模式                                                                                                                                                                                                                                                                  |        √ |
+| `void SetOpSelectImplMode(const std::string &op_select_impl_mode)` | 配置算子选择模式<br><br> - `op_select_impl_mode`: 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"`                                                                                                                                                                      |        √ |
+| `std::string GetOpSelectImplMode()`                                | - 返回值: 已配置算子选择模式                                                                                                                                                                                                                                                                  |        √ |
 
 ## Serialization
 
@@ -656,6 +695,50 @@ Model();
 ```
 
 ### 公有成员函数
+
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                           |        √ |
+| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                                      |        √ |
+| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);` |        √ |
+| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);`           |        √ |
+| `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                                    |        ✕ |
+| `Status Build(GraphCell graph, Node *optimizer, std::vector<Expr *> inputs, const std::shared_ptr<Context> &model_context, const std::shared_ptr<TrainCfg> &train_cfg);`                                           |        ✕ |
+| `Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                 |        ✕ |
+| `Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims);`                                                                                                               |        √ |
+| `Status UpdateWeights(const std::vector<MSTensor> &new_weights);`                                                                                                                                                  |        ✕ |
+| `Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                          |        √ |
+| `Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |
+| `Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |
+| `Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`               |        ✕ |
+| `Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs);`                                                                                                             |        ✕ |
+| `bool HasPreprocess();`                                                                                                                                                                                            |        ✕ |
+| `Status LoadConfig(const std::string &config_path);`                                                                                                                                                               |        √ |
+| `Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config);`                                                                                                              |        √ |
+| `std::vector<MSTensor> GetInputs();`                                                                                                                                                                               |        √ |
+| `MSTensor GetInputByTensorName(const std::string &tensor_name);`                                                                                                                                                   |        √ |
+| `std::vector<MSTensor> GetOutputs();`                                                                                                                                                                              |        √ |
+| `std::vector< std::string> GetOutputTensorNames();`                                                                                                                                                                |        √ |
+| `MSTensor GetOutputByTensorName(const std::string &tensor_name);`                                                                                                                                                  |        √ |
+| `std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);`                                                                                                                                        |        ✕ |
+| `static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type);`                                                                                                                                |        √ |
+| `std::vector<MSTensor> GetGradients() const;`                                                                                                                                                                      |        ✕ |
+| `Status ApplyGradients(const std::vector<MSTensor> &gradients);`                                                                                                                                                   |        ✕ |
+| `std::vector<MSTensor> GetFeatureMaps() const;`                                                                                                                                                                    |        ✕ |
+| `std::vector<MSTensor> GetTrainableParams() const;`                                                                                                                                                                |        ✕ |
+| `Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights);`                                                                                                                                              |        ✕ |
+| `std::vector<MSTensor> GetOptimizerParams() const;`                                                                                                                                                                |        ✕ |
+| `Status SetOptimizerParams(const std::vector<MSTensor> &params);`                                                                                                                                                  |        ✕ |
+| `Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f);`                                                                                                                |        ✕ |
+| `Status SetLearningRate(float learning_rate);`                                                                                                                                                                     |        ✕ |
+| `float GetLearningRate();`                                                                                                                                                                                         |        ✕ |
+| `Status InitMetrics(std::vector<Metrics *> metrics);`                                                                                                                                                              |        ✕ |
+| `std::vector<Metrics *> GetMetrics();`                                                                                                                                                                             |        ✕ |
+| `Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture, std::map<std::string, unsigned int> *outputGLTexture);`                                                                   |        ✕ |
+| `Status SetTrainMode(bool train);`                                                                                                                                                                                 |        ✕ |
+| `bool GetTrainMode() const;`                                                                                                                                                                                       |        ✕ |
+| `Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                               |        ✕ |
+| `Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                                        |        ✕ |
 
 #### Build
 
