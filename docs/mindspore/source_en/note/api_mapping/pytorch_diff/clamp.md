@@ -31,7 +31,7 @@ For more information, see [mindspore.ops.clamp](https://mindspore.cn/docs/en/mas
 
 PyTorch: Clamps all elements in `input` into the range `[min, max]`. Change the value smaller than `min` to `min` and the value larger than `max` to `max`.
 
-MindSpore: MindSpore API implements the same functionality as PyTorch except for the `input` parameter name. The dtype of the output is the same as the input `x`.
+MindSpore: MindSpore API implements the same functionality as PyTorch except for the `input` parameter name.
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences       |
 | --- |---------------|---------| --- |-------------------------------------------------------------------|
@@ -68,26 +68,31 @@ print(output)
 
 ### Code Example 2
 
-> MindSpore API returns the same dtype as the input `x`.
+> In PyTorch-1.8, `min` and `max` only support input of type `Number`, and MindSpore additionally supports Tensor input. Note: When using PyTorch-1.12 to run the first use case of the following code, output `Tensor ([0.5000, 0.5000, 0.5000])`.
 
 ```python
 # PyTorch
 import torch
 a = torch.tensor([1, 2, 3])
-max = torch.tensor([0.5, 0.6, 0.7])
-output = torch.clamp(a, max=max)
+output = torch.clamp(a, max=0.5)
 print(output)
-#tensor([0.5000, 0.6000, 0.7000])
+#tensor([0, 0, 0])
+
+a = torch.tensor([1., 2., 3.])
+output = torch.clamp(a, max=0.5)
+print(output)
+#tensor([0.5000, 0.5000, 0.5000])
 
 # MindSpore
-x = Tensor([1., 2., 3.])
-max = Tensor([0.5, 0.6, 0.7])
-output = ops.clamp(x, max=max)
-print(output)
-#[0.5 0.6 0.7]
+from mindspore import Tensor, ops
 x = Tensor([1, 2, 3])
-max = Tensor([0.5, 0.6, 0.7])
+max = Tensor([0.5, 0.5, 0.5])
 output = ops.clamp(x, max=max)
 print(output)
 #[0 0 0]
+
+x = Tensor([1., 2., 3.])
+output = ops.clamp(x, max=max)
+print(output)
+#[0.5 0.5 0.5]
 ```
