@@ -56,5 +56,5 @@ x_ = np.array([0.0, 1.0, 2.0, 4.0])
 x = Tensor(x_, mindspore.float32)
 output = ops.expm1(x)
 print(output)
-#[ 0.          1.7182819  6.389056  53.59815  ]
+#[ 0.         1.7182819  6.389056  53.59815  ]
 ```

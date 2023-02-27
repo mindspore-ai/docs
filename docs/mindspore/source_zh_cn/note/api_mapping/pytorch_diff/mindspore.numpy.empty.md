@@ -62,5 +62,5 @@ import mindspore
 
 ms_output = mindspore.numpy.empty((2, 3))
 print(ms_output.shape)
-# [2, 3]
+# (2, 3)
 ```
