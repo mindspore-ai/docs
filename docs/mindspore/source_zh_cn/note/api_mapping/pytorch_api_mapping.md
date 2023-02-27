@@ -6,6 +6,23 @@
 
 也欢迎更多的MindSpore开发者参与完善映射内容。
 
+因为框架机制原因，MindSpore不提供PyTorch的以下参数：
+
+|    参数名     |                        功能                        |
+| :-----------: | :------------------------------------------------: |
+|      out      |                  表示输出的Tensor                  |
+|    layout     |                  表示内存分布策略                  |
+|    device     |                 表示Tensor存放位置                 |
+| requires_grad |                  表示是否更新梯度                  |
+|   generator   |                 表示伪随机数生成器                 |
+|  pin_memeory  |                表示是否使用锁页内存                |
+| memory_format |                表示Tensor的内存格式                |
+|    stable     |                  表示是否稳定排序                  |
+|    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |
+|  sparse_grad  |                表示是否对梯度稀疏化                |
+| size_average  |                  PyTorch废弃参数                   |
+|    reduce     |                  PyTorch废弃参数                   |
+
 ## PyTorch 1.8.1
 
 ### torch
