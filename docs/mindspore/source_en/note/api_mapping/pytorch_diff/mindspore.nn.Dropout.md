@@ -48,6 +48,7 @@ print(tuple(output.shape))
 input = mindspore.Tensor(np.ones([5,5]),mindspore.float32)
 net = mindspore.nn.Dropout(keep_prob=0.1)
 net.set_train()
+# Dropout<keep_prob=0.1>
 output = net(input)
 print(output.shape)
 # out:

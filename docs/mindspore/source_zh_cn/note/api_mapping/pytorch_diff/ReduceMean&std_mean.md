@@ -54,8 +54,7 @@ input_x = torch.tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 output = torch.std_mean(input=input_x, dim=1)
 std, mean = output
 print('std: {}'.format(std))
-print('mean: {}'.format(mean))
-# Out：
 # torch.tensor([0.7071, 0.7071])
+print('mean: {}'.format(mean))
 # torch.tensor([1.5000, 3.5000])
 ```

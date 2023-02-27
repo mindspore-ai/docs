@@ -31,7 +31,7 @@ For more information, see [mindspore.ops.L2Normalize](https://mindspore.cn/docs/
 
 PyTorch: Supports using the LP paradigm by specifying the parameter `p`.
 
-MindSpore：Only L2 paradigm is supported.
+MindSpore: Only L2 paradigm is supported.
 
 ## Code Example
 
@@ -54,8 +54,7 @@ input_x = torch.tensor(np.array([1.0, 2.0, 3.0]))
 outputL2 = torch.nn.functional.normalize(input=input_x, p=2, dim=0)
 outputL3 = torch.nn.functional.normalize(input=input_x, p=3, dim=0)
 print(outputL2)
-print(outputL3)
-# Out：
 # tensor([0.2673, 0.5345, 0.8018], dtype=torch.float64)
+print(outputL3)
 # tensor([0.3029, 0.6057, 0.9086], dtype=torch.float64)
 ```

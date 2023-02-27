@@ -41,8 +41,8 @@ input = torch.tensor([[1, 2], [3, 4]])
 other = torch.tensor([[1, 1], [4, 4]])
 output = torch.not_equal(input, other)
 print(output.detach().numpy())
-#[[False  True]
-# [ True False]]
+# [[False  True]
+#  [ True False]]
 
 # MindSpore
 import mindspore
@@ -52,6 +52,6 @@ x = Tensor(np.array([[1, 2], [3, 4]]))
 other = Tensor(np.array([[1, 1], [4, 4]]))
 output = ops.not_equal(x, other)
 print(output)
-#[[False  True]
-# [ True False]]
+# [[False  True]
+#  [ True False]]
 ```

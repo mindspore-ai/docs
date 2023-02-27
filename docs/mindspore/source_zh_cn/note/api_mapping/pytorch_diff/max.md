@@ -45,17 +45,15 @@ import numpy as np
 input_x = ms.Tensor(np.array([0.0, 0.4, 0.6, 0.7, 0.1]), ms.float32)
 index, output = ops.max(input_x)
 print(index)
-print(output)
-# Out：
 # 3
+print(output)
 # 0.7
 
 # Output tuple(max, index of max).
 input_x = torch.tensor([0.0, 0.4, 0.6, 0.7, 0.1])
 output, index = torch.max(input_x, 0)
 print(index)
-print(output)
-# Out：
 # tensor(3)
+print(output)
 # tensor(0.7000)
 ```

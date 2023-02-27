@@ -51,9 +51,6 @@ class MyNet(nn.Cell):
 # The following implements mindspore.nn.Cell.name_cells() with MindSpore.
 net = MyNet()
 print(net.name_cells())
-```
-
-```text
 # Out:
 OrderedDict([('build_block', SequentialCell<
   (0): ConvBN<
