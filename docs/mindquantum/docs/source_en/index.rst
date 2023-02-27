@@ -43,6 +43,8 @@ Typical Application Scenarios
    get_gradient_of_PQC_with_mindquantum
    advanced_operations_of_quantum_circuit
    quantum_measurement
+   noise
+   bloch_sphere
 
 .. toctree::
    :glob:
