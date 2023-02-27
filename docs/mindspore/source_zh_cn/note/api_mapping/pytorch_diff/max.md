@@ -27,11 +27,18 @@ class mindspore.ops.max(
 
 更多内容详见[mindspore.ops.max](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.max.html)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：输出为元组(最大值, 最大值的索引)。
 
 MindSpore：输出为元组(最大值的索引, 最大值)。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | input | x |功能一致，参数名不同 |
+| | 参数2 | dim | axis | 功能一致，参数名不同|
+|  | 参数3 | keepdim         | keep_dims     | 功能一致，参数名不同       |
+| | 参数4 | out           | -         | 不涉及 |
 
 ## 代码示例
 

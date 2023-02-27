@@ -33,6 +33,13 @@ PyTorch: Output tuple(max, index of max).
 
 MindSpore: Output tuple(index of max, max).
 
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| ---- | ----- | ------- | --------- | ------------- |
+|Parameters | Parameter 1 | input        | x       | Same function, different parameter names |
+|      | Parameter 2 | dim       | axis      | Same function, different parameter names |
+|      | Parameter 3 | keepdim |  keep_dims   | Same function, different parameter names|
+| | Parameter 4 | out | - | Not involved |
+
 ## Code Example
 
 ```python
