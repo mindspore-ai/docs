@@ -11,6 +11,8 @@
 3. 按照参数映射将TensorFlow的参数映射到MindSpore的Parameter，构成Parameter List之后保存成checkpoint；
 4. 单元测试：MindSpore加载转换后的参数，固定输入，对比MindSpore与TensorFlow的结果。
 
+> 本章实例基于TensorFlow 1.15版本实现。
+
 ## 打印参数信息
 
 ```python
