@@ -65,6 +65,7 @@ from mindspore import Tensor
 window_length = Tensor(12, mindspore.int32)
 ms_output = mindspore.ops.blackman_window(window_length, periodic=True)
 print(ms_output.asnumpy())
-# [0.        0.0269873 0.13      0.34      0.63      0.8930127 1.
-#  0.8930127 0.63      0.34      0.13      0.0269873]
+# [-2.9802322e-08  2.6987284e-02  1.3000000e-01  3.4000000e-01
+#   6.3000000e-01  8.9301276e-01  1.0000000e+00  8.9301258e-01
+#   6.2999994e-01  3.3999997e-01  1.2999988e-01  2.6987255e-02]
 ```
