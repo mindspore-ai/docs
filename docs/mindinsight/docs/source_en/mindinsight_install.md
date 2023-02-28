@@ -41,7 +41,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 #### Downloading Source Code from Gitee
 
 ```bash
-git clone https://gitee.com/mindspore/mindinsight.git -b r1.9
+git clone https://gitee.com/mindspore/mindinsight.git -b r1.10
 ```
 
 #### Compiling MindInsight
