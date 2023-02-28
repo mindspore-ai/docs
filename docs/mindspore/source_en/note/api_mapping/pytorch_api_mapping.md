@@ -6,6 +6,23 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 
 More MindSpore developers are also welcome to participate in improving the mapping content.
 
+Because of the framework mechanism, MindSpore does not provide the following parameters for PyTorch:
+
+| Parameter Names |                          Functions                           |
+| :-------------: | :----------------------------------------------------------: |
+|       out       |                 Indicates the output Tensor                  |
+|     layout      |          Indicates the memory distribution strategy          |
+|     device      |            Indicates the Tensor storage location             |
+|  requires_grad  |           Indicates whether to update the gradient           |
+|    generator    |        Indicates a generator for pseudorandom number         |
+|   pin_memeory   |         Indicates whether to use locking page memory         |
+|  memory_format  |          Indicates the memory format of the Tensor           |
+|     stable      |           Indicates whether the sorting is stable            |
+|     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |
+|   sparse_grad   | Indicates whether to perform sparsification on the gradient  |
+|  size_average   |             The deprecated parameter in PyTorch              |
+|     reduce      |             The deprecated parameter in PyTorch              |
+
 ## PyTorch 1.8.1
 
 ### torch
