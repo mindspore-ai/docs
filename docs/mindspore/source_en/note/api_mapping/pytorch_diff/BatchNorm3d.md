@@ -80,6 +80,9 @@ import numpy as np
 
 m = nn.BatchNorm3d(num_features=2, momentum=0.9)
 m.set_train()
+# BatchNorm3d<
+      (bn2d): BatchNorm2d<num_features=2, eps=1e-05, momentum=0.9, gamma=Parameter (name=bn2d.gamma, shape=(2,), dtype=Float32, requires_grad=True), beta=Parameter (name=bn2d.beta, shape=(2,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=bn2d.moving_mean, shape=(2,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=bn2d.moving_variance, shape=(2,), dtype=Float32, requires_grad=False)>
+      >
 input_x = Tensor(np.array([[[[[0.1, 0.2], [0.3, 0.4]]],
                              [[[0.9, 1], [1.1, 1.2]]]]]).astype(np.float32))
 output = m(input_x)

@@ -48,8 +48,7 @@ print(output.shape)
 input_x = torch.Tensor(np.random.randn(2, 3, 4, 5).astype(np.int32))
 output = input_x.float()
 print(output.dtype)
-print(output.shape)
-# Out：
 # torch.float32
+print(output.shape)
 # torch.Size([2, 3, 4, 5])
 ```

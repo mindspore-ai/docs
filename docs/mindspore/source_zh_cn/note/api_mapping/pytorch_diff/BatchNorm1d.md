@@ -79,7 +79,8 @@ from mindspore import Tensor
 
 net = nn.BatchNorm1d(num_features=4, affine=False, momentum=0.9)
 net.set_train()
-# BatchNorm1d<num_features=4, eps=1e-05, momentum=0.9, gamma=Parameter (name=gamma, shape=(4,), dtype=Float32, requires_grad=False), beta=Parameter (name=beta, shape=(4,), dtype=Float32, requires_grad=False), moving_mean=Parameter (name=mean, shape=(4,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=variance, shape=(4,), dtype=Float32, requires_grad=False)>
+# BatchNorm1d<num_features=4, eps=1e-05, momentum=0.9, gamma=Parameter (name=gamma, shape=(4,), dtype=Float32, requires_grad=False), beta=Parameter (name=beta, shape=(4,), dtype=Float32, requires_grad=False), moving_mean=Parameter (name=mean, shape=(4,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=variance, shape=(4,),dtype=Float32, requires_grad=False)>
+
 x = Tensor(np.array([[0.7, 0.5, 0.5, 0.6], [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
 output = net(x)
 print(output.asnumpy())
