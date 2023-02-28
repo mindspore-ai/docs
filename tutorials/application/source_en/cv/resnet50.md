@@ -67,7 +67,7 @@ from mindspore import nn, ops
 
 
 data_dir = "./datasets-cifar10-bin/cifar-10-batches-bin" # Dataset root directory
-batch_size = 6 # Batch size
+batch_size = 256 # Batch size
 image_size = 32 # Size of training image space
 workers = 4 # Number of parallel threads
 num_classes = 10 # Number of classes
