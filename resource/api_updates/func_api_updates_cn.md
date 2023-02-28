@@ -7,7 +7,6 @@
 |[mindspore.ops.argwhere](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argwhere.html#mindspore.ops.argwhere)|新增|返回一个Tensor，包含所有输入Tensor非零数值的位置。|master: Ascend/GPU/CPU|Array操作|
 |[mindspore.ops.bincount](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bincount.html#mindspore.ops.bincount)|新增|计算非负整数数组中每个值的出现次数。|master: Ascend/GPU/CPU|Array操作|
 |[mindspore.ops.block_diag](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.block_diag.html#mindspore.ops.block_diag)|新增|基于输入Tensor创建块对角矩阵。|master: Ascend/GPU/CPU|Array操作|
-|[mindspore.ops.cartesian_prod](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cartesian_prod.html#mindspore.ops.cartesian_prod)|新增|对给定Tensor序列计算Cartesian乘积，类似于Python里的 itertools.product 。|master: Ascend/GPU/CPU|Array操作|
 |[mindspore.ops.cat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cat.html#mindspore.ops.cat)|新增|在指定轴上拼接输入Tensor。|master: Ascend/GPU/CPU|Array操作|
 |[mindspore.ops.chunk](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.chunk.html#mindspore.ops.chunk)|新增|根据指定的轴将输入Tensor切分成块。|master: Ascend/GPU/CPU|Array操作|
 |[mindspore.ops.column_stack](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.column_stack.html#mindspore.ops.column_stack)|新增|将多个1-D 或2-D Tensor沿着水平方向堆叠成一个2-D Tensor，即按列拼接。|master: Ascend/GPU/CPU|Array操作|
