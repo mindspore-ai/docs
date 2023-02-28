@@ -11,6 +11,8 @@ First we need to clarify the trained TensorFlow model into a checkpoint that Min
 3. Map the TensorFlow parameters to MindSpore Parameter according to the parameter mapping and form a Parameter List and then save it as a checkpoint.
 4. Unit test: MindSpore loads the transformed parameters, fixes the input, and compares the results of MindSpore with TensorFlow.
 
+> The examples in this chapter are implemented based on TensorFlow version 1.15.
+
 ## Printing the Parameter Information
 
 ```python
