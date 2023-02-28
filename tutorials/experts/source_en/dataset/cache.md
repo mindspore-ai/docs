@@ -86,9 +86,12 @@ Output parameters description:
 In the Python training script, use the `DatasetCache` API to define a cache instance named `test_cache`, and put a cache session ID created in the previous step to the `session_id` parameter.
 
 ```python
+import os
 import mindspore.dataset as ds
 
-test_cache = ds.DatasetCache(session_id=1456416665, size=0, spilling=False)
+# define a variable named `session_id` to receive the cache session ID created in the previous step
+session_id = int(os.popen('cache_admin --list_sessions | tail -1 | awk -F " " \'{{print $1;}}\'').read())
+test_cache = ds.DatasetCache(session_id=session_id, size=0, spilling=False)
 ```
 
 `DatasetCache` supports the following parameters:
@@ -220,8 +223,12 @@ cache_admin --list_sessions
 
 After the training is complete, you can destroy the current cache and release the memory.
 
+```python
+destroy_session = 'cache_admin --destroy_session' + str(session_id)
+```
+
 ```bash
-cache_admin --destroy_session 780643335
+destroy_session
 ```
 
 The preceding command is used to destroy the cache with the session ID 1456416665 on the server with the port number 50052.
