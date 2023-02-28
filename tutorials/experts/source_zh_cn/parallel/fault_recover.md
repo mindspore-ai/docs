@@ -101,10 +101,91 @@ def recover_train():
     model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
 ```
 
+## 准备环节
+
+### 下载数据集
+
+- [WMT14 En-Fr数据集下载](http://statmt.org/wmt14/test-full.tgz)，如果点击下载不成功，请尝试复制链接地址后下载。
+
+使用`newstest2014-fren-ref.en.sgm`作为该任务的训练集合，合并且清洗该数据集。将数据集解压至`docs/sample_code/distributed_training_transformer`目录下。
+
+### 预处理流程
+
+执行下述代码进行数据的预处理过程，将会在当前目录下产生`output`目录，目录下将会生成`wmt14.en_fr.txt`和`wmt14.fr_en.txt`两个文件，文件中每行是一个法语和英语的句子对。我们将采用`wmt14.fr_en.txt`作为训练数据。
+
+```python
+python preprocess.py
+```
+
+### 配置分布式环境变量
+
+在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，可以跳过本小节。
+
+以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为`rank_table_8pcs.json`。2卡环境配置可以参考样例代码中的`rank_table_2pcs.json`文件。
+
+```json
+{
+    "version": "1.0",
+    "server_count": "1",
+    "server_list": [
+        {
+            "server_id": "10.155.111.140",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
+        }
+    ],
+    "status": "completed"
+}
+```
+
+其中需要根据实际训练环境修改的参数项有：
+
+- `server_count`表示参与训练的机器数量。
+- `server_id`表示当前机器的IP地址。
+- `device_id`表示卡物理序号，即卡所在机器中的实际序号。
+- `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
+- `rank_id`表示卡逻辑序号，固定从0开始编号。
+
+### 调用集合通信库
+
+MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
+> HCCL实现了基于Ascend AI处理器的多机多卡通信，有一些使用限制，我们列出使用分布式服务常见的，详细的可以查看HCCL对应的使用文档。
+>
+> - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
+> - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时卡必须相连且不支持跨组网创建集群。
+> - 组建多机集群时需要保证各台机器使用同一交换机。
+> - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
+
+下面是调用集合通信库样例代码：
+
+```python
+import os
+from mindspore.communication import init
+import mindspore as ms
+
+if __name__ == "__main__":
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    init()
+    ...
+```
+
+其中，
+
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `device_id`：卡的物理序号，即卡所在机器中的实际序号。
+- `init`：使能HCCL通信，并完成分布式训练初始化操作。
+
 ## 运行代码
 
-首先，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html#准备环节) 准备好数据集。
-进入代码目录后，执行保存切片权重的训练脚本。
+在准备好数据和进入代码目录后，执行保存切片权重的训练脚本。
 
 ```bash
 bash run_parallel_save_ckpt.sh DATASET_PATH

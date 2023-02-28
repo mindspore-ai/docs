@@ -24,7 +24,7 @@ The directory structure is as follows:
 
 where `net.py` is the network definition script and `run_with_mpi.sh` is the execution script.
 
-> In addition, tutorials for distributed parallel training on Ascend 910 platform are available in [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) and [Distributed Parallel Training of Transformer Models](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html).
+> In addition, tutorials for distributed parallel training on Ascend 910 platform are available in [Distributed Parallel Training Example (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
 
 ## Preparation
 
