@@ -135,7 +135,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 #### GPU
 
-GPU environment compilation. Using TensorRT requires integration with CUDA, TensorRT. The current version is adapted to [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.2.5](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+GPU environment compilation. Using TensorRT requires integration with CUDA, TensorRT. The current version is adapted to [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 Install the appropriate version of CUDA and set the installed directory to the environment variable `${CUDA_HOME}`. The build script will use this environment variable to find CUDA.
 
