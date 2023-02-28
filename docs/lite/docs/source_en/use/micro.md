@@ -54,7 +54,7 @@ The following describes how to prepare the environment for using the conversion 
 
     ${PACKAGE_ROOT_PATH} is the path of the decompressed folder.
 
-### Generating Inference Code by Running converter_lite
+### Generating Inference Code in Single Model Scenario
 
 1. Go to the conversion directory
 
@@ -84,7 +84,7 @@ The following describes how to prepare the environment for using the conversion 
     ```
 
     In the configuration file, `[micro_param]` in the first line indicates that the subsequent variable parameters belong to the micro configuration item `micro_param`. These parameters are used to control code generation. Table 1 describes the parameters.
-    In this example, we will generate inference code for Linux systems with the underlying architecture x86_64, so set `target=x86` to declare that the generated inference code will be used for Linux systems with the underlying architecture x86_64.
+    In this example, we will generate single model inference code for Linux systems with the underlying architecture x86_64, so set `target=x86` to declare that the generated inference code will be used for Linux systems with the underlying architecture x86_64.
 
 3. Prepare the model to generate inference code
 
@@ -117,18 +117,23 @@ The following describes how to prepare the environment for using the conversion 
     │   └── load_input.h
     ├── CMakeLists.txt             # cmake project file of the benchmark routine
     └── src                        # Model inference code directory
+        ├── model0                 # Directory related to specify model
+           ├── model0.c
+           ├── net0.bin            # Model weights in binary form
+           ├── net0.c
+           ├── net0.h
+           ├── weight0.c
+           ├── weight0.h
         ├── CMakeLists.txt
-        ├── net.bin                # Model weights in binary form
-        ├── net.c
+        ├── allocator.c
+        ├── allocator.h
         ├── net.cmake
-        ├── net.h
         ├── model.c
+        ├── model.h
         ├── context.c
         ├── context.h
         ├── tensor.c
         ├── tensor.h
-        ├── weight.c
-        └── weight.h
     ```
 
     The `src` directory in the generated code is the directory where the model inference code is located. The `benchmark` is just a routine for calling the `src` directory code integratedly.
@@ -136,11 +141,135 @@ The following describes how to prepare the environment for using the conversion 
 
 Table 1: micro_param Parameter Definition
 
-| Parameter            | Mandatory or not | Parameter Description                         | Range                   | Default value    |
-| --------------- | -------- | ------------------------------| --------------------------| --------- |
-| enable_micro    | Yes       | The model generates code, otherwise it generates .ms.       | true, false                | false      |
-| target          | Yes       | Platform for which code is generated               | x86, Cortex-M, ARM32, ARM64 | x86       |
-| support_parallel | No       | Generate multi-threaded inference codes or not, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
+| Parameter            | Mandatory or not      | Parameter Description                                                                              | Range                   | Default value    |
+| --------------- |-----------------------|----------------------------------------------------------------------------------------------------| --------------------------| --------- |
+| enable_micro    | Yes                   | The model generates code, otherwise it generates .ms.                                              | true, false                | false      |
+| target          | Yes                   | Platform for which code is generated                                                               | x86, Cortex-M, ARM32, ARM64 | x86       |
+| support_parallel | No                    | Whether to generate multi-threaded inference codes, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
+| save_path      | No(Multi-model param) | The path of multi-model generated code directory                                                   |             |             |
+| project_name     | No(Multi-model param) | Multi-model generated code project name                                                            |             |             |
+
+### Generating Inference Code in Multi-model Scenario
+
+1. Go to the conversion directory
+
+    ```bash
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+    ```
+
+2. Set the Micro configuration item
+
+   Create the micro.cfg file in the current directory. The file content is as follows:
+
+    ```text
+    [micro_param]
+
+    # enable code-generation for MCU HW
+
+    enable_micro=true
+
+    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+
+    target=x86
+
+    # enable parallel inference or not.
+
+    support_parallel=false
+
+    # save generated code path.
+
+    save_path=workpath/
+
+    # set project name.
+
+    project_name=minst
+
+    [model_param]
+
+    # input model type.
+
+    fmk=TFLITE
+
+    # path of input model file.
+
+    modelFile=mnist.tflite
+
+    [model_param]
+
+    # input model type.
+
+    fmk=TFLITE
+
+    # path of input model file.
+
+    modelFile=mnist.tflite
+
+    ```
+
+   In the configuration file, `[micro_param]` in the first line indicates that the subsequent variable parameters belong to the micro configuration item `micro_param`. These parameters are used to control code generation, and the meaning of each parameter is shown in Table 1. `[model_param]` indicates that the subsequent variable parameters belong to the specify model configuration item`model_param`. These parameters are used to control the conversion of different models. The range of parameters includes the necessary parameters supported by `converter_lite`.
+   In this example, we will generate single model inference code for Linux systems with the underlying architecture x86_64, so set `target=x86` to declare that the generated inference code will be used for Linux systems with the underlying architecture x86_64.
+
+3. Prepare the model to generate inference code
+
+   Click here to download the [MNIST Handwritten Digit Recognition Model](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz) used in this example.
+   After downloading, decompress the package to obtain `mnist.tflite`. This model is a trained MNIST classification model, that is, a TFLITE model. Copy the `mnist.tflite` model to the current conversion tool directory.
+
+4. Execute converter_lite. The user only needs to set the configFile, and then the code is generated
+
+    ```bash
+    ./converter_lite --configFile=micro.cfg
+    ```
+
+   The following information is displayed when the code is run successfully:
+
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
+
+   For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+
+   After the conversion tool is successfully executed, the generated code is saved in the specified `save_path` + `project_name` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
+
+    ```text
+    mnist                          # Specified name of generated code root directory
+    ├── benchmark                  # Benchmark routines for integrated calls to model inference code
+    │   ├── benchmark.c
+    │   ├── calib_output.c
+    │   ├── calib_output.h
+    │   ├── load_input.c
+    │   └── load_input.h
+    ├── CMakeLists.txt             # cmake project file of the benchmark routine
+    ├── include
+        ├── model_handle.h         # Model external interface file
+    └── src                        # Model inference code directory
+        ├── model0                 # Directory related to specify model
+           ├── model0.c
+           ├── net0.bin            # Model weights in binary form
+           ├── net0.c
+           ├── net0.h
+           ├── weight0.c
+           ├── weight0.h
+        ├── model1                 # Directory related to specify model
+           ├── model1.c
+           ├── net1.bin            # Model weights in binary form
+           ├── net1.c
+           ├── net1.h
+           ├── weight1.c
+           ├── weight1.h
+        ├── CMakeLists.txt
+        ├── allocator.c
+        ├── allocator.h
+        ├── net.cmake
+        ├── model.c
+        ├── model.h
+        ├── context.c
+        ├── context.h
+        ├── tensor.c
+        ├── tensor.h
+    ```
+
+   The `src` directory in the generated code is the directory where the model inference code is located. The `benchmark` is just a routine for calling the `src` directory code integratedly. In multi-model inference scenario, users need to modify the `benchmark` according to their own needs.
+   For more details on integrated calls, please refer to the section on [Code Integration and Compilation Deployment](#code-integration-and-compilation-deployment).
 
 ### (Optional) Model Input Shape Configuration
 
@@ -417,6 +546,10 @@ Different platforms have differences in code integration and compilation deploym
 - For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - For compilation and deployment on the OpenHarmony platform, see [Executing Inference on Light Harmony Devices](#executing-inference-on-light-harmony-devices)
+
+### Integration of Multi-model Inference Scenario
+
+Multi-model integration is similar to single model integration. The only difference is that in the single model scenario, users can create model through the `MSModelCreate` interface. While in multi-model scenario, the `MSModeHandle` handle is provided for users. Users can integrate different models by manipulating the `MSModeHandle` handle of different models and calling the inference common API interface of single model. The `MSModeHandle` handle can refer to the `model_handle.h` file in the multi-model directory.
 
 ## Performing Inference on the MCU
 

@@ -54,7 +54,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     ${PACKAGE_ROOT_PATH}是解压得到的文件夹路径。
 
-### 执行converter_lite生成推理代码
+### 单模型生成推理代码
 
 1. 进入转换目录
 
@@ -84,7 +84,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     ```
 
     配置文件中，第一行的`[micro_param]`表明后续的变量参数属于Micro配置项`micro_param`，这些参数用于控制代码生成，各参数含义如下表1所示。
-    本例中，我们将生成适用底层架构为x86_64的Linux系统上的推理代码，故设置`target=x86`以声明生成的推理代码将用于底层架构为x86_64的Linux系统。
+    本例中，我们将生成适用底层架构为x86_64的Linux系统上的单模型推理代码，故设置`target=x86`以声明生成的推理代码将用于底层架构为x86_64的Linux系统。
 
 3. 准备要生成推理代码的模型
 
@@ -117,18 +117,23 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     │   └── load_input.h
     ├── CMakeLists.txt             # benchmark例程的cmake工程文件
     └── src                        # 模型推理代码目录
+        ├── model0                 # 与模型相关的文件目录
+           ├── model0.c
+           ├── net0.bin            # 二进制形式的模型权重
+           ├── net0.c
+           ├── net0.h
+           ├── weight0.c
+           ├── weight0.h
         ├── CMakeLists.txt
-        ├── net.bin                # 二进制形式的模型权重
-        ├── net.c
+        ├── allocator.c
+        ├── allocator.h
         ├── net.cmake
-        ├── net.h
         ├── model.c
+        ├── model.h
         ├── context.c
         ├── context.h
         ├── tensor.c
         ├── tensor.h
-        ├── weight.c
-        └── weight.h
     ```
 
     生成代码中的`src`目录即为模型推理代码所在目录，`benchmark`只是对`src`目录代码进行集成调用的一个例程。
@@ -136,11 +141,135 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 表1：micro_param参数定义
 
-| 参数            | 是否必选 | 参数说明                         | 取值范围                   | 默认值    |
-| --------------- | -------- | ------------------------------| --------------------------| --------- |
-| enable_micro    | 是       | 模型会生成代码，否则生成.ms       | true, false                | false      |
-| target          | 是       | 生成代码针对的平台               | x86, Cortex-M, ARM32, ARM64 | x86       |
-| support_parallel | 否       | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true, false     | false    |
+| 参数               | 是否必选     | 参数说明                                    | 取值范围                        | 默认值   |
+|------------------|----------|-----------------------------------------|-----------------------------|-------|
+| enable_micro     | 是        | 模型会生成代码，否则生成.ms                         | true, false                 | false |
+| target           | 是        | 生成代码针对的平台                               | x86, Cortex-M, ARM32, ARM64 | x86   |
+| support_parallel | 否        | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true, false                 | false |
+| save_path        | 否（多模型参数） | 多模型生成代码文件路径                             | 无                           | 无     |
+| project_name     | 否（多模型参数） | 多模型生成代码工程名                              | 无                           | 无     |
+
+### 多模型生成推理代码
+
+1. 进入转换目录
+
+    ```bash
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+    ```
+
+2. 设置Micro配置项
+
+   在当前目录下新建`micro.cfg`文件，文件内容如下：
+
+    ```text
+    [micro_param]
+
+    # enable code-generation for MCU HW
+
+    enable_micro=true
+
+    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+
+    target=x86
+
+    # enable parallel inference or not.
+
+    support_parallel=false
+
+    # save generated code path.
+
+    save_path=workpath/
+
+    # set project name.
+
+    project_name=minst
+
+    [model_param]
+
+    # input model type.
+
+    fmk=TFLITE
+
+    # path of input model file.
+
+    modelFile=mnist.tflite
+
+    [model_param]
+
+    # input model type.
+
+    fmk=TFLITE
+
+    # path of input model file.
+
+    modelFile=mnist.tflite
+
+    ```
+
+   配置文件中，`[micro_param]`表明后续的变量参数属于Micro配置项`micro_param`，这些参数用于控制代码生成，各参数含义如表1所示。`[model_param]`表明后续的变量参数属于对应Model配置项`model_param`，这些参数用于控制不同模型的转换，参数的范围包括`converter_lite`支持的必要参数。
+   本例中，我们将生成适用底层架构为x86_64的Linux系统上的多模型推理代码，故设置`target=x86`以声明生成的推理代码将用于底层架构为x86_64的Linux系统。
+
+3. 准备要生成推理代码的模型
+
+   用户可点击此处下载本例中用到的[MNIST手写数字识别模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz)。
+   下载后，解压包，得到`mnist.tflite`，该模型为已经训练完的MNIST分类模型，为TFLITE模型。将`mnist.tflite`模型拷贝到当前所在的转换工具目录。
+
+4. 执行converter_lite，只需要配置config文件，生成代码
+
+    ```bash
+    ./converter_lite --configFile=micro.cfg
+    ```
+
+   运行成功后的结果显示为：
+
+    ```text
+    CONVERTER RESULT SUCCESS:0
+    ```
+
+   用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
+
+   在转换工具执行成功后，生成的代码被保存在用户指定的`save_path`+`project_name`路径下，在本例中，为当前转换目录下的mnist文件夹，内容如下：
+
+    ```text
+    mnist                          # 指定的生成代码根目录（工程）名称
+    ├── benchmark                  # 对模型推理代码进行集成调用的benchmark例程
+    │   ├── benchmark.c
+    │   ├── calib_output.c
+    │   ├── calib_output.h
+    │   ├── load_input.c
+    │   └── load_input.h
+    ├── CMakeLists.txt             # benchmark例程的cmake工程文件
+    ├── include
+        ├── model_handle.h         # 模型对外接口文件
+    └── src                        # 模型推理代码目录
+        ├── model0                 # 第一个模型相关的文件目录
+           ├── model0.c
+           ├── net0.bin            # 二进制形式的模型权重
+           ├── net0.c
+           ├── net0.h
+           ├── weight0.c
+           ├── weight0.h
+        ├── model1                 # 第二个模型相关的文件目录
+           ├── model1.c
+           ├── net1.bin
+           ├── net1.c
+           ├── net1.h
+           ├── weight1.c
+           ├── weight1.h
+        ├── CMakeLists.txt
+        ├── allocator.c
+        ├── allocator.h
+        ├── net.cmake
+        ├── model.c
+        ├── model.h
+        ├── context.c
+        ├── context.h
+        ├── tensor.c
+        ├── tensor.h
+    ```
+
+   生成代码中的`src`目录即为模型推理代码所在目录，`benchmark`只是对`src`目录代码进行集成调用的一个例程，在多模型场景下，用户需根据自己的需求对`benchmark`进行微调。
+   关于集成调用的更多详细说明，请参照[代码集成及编译部署](#代码集成及编译部署)章节。
 
 ### 模型输入shape配置(可选)
 
@@ -376,18 +505,18 @@ mindspore-lite-{version}-linux-x64
 
 表3：推理通用API接口
 
-| 功能                  | 函数原型                                                                                                                                                                    |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 创建 Model            | MSModelHandle MSModelCreate()                                                                                                                                               |
-| 销毁 Model            | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
-| 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台)    | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
-| 设置 Model 运行时的缓存（仅支持Cortex-M平台)           | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
-| 编译 Model           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
-| 推理 Model                 | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
-| 获取所有输入 Tensor   | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
-| 获取所有输出 Tensor   | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
-| 通过名字取输入 Tensor | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
-| 通过名字取输出 Tensor | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                                                              |9
+| 功能                                 | 函数原型                                                                                                                                                                        |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 创建 Model                           | MSModelHandle MSModelCreate()                                                                                                                                               |
+| 销毁 Model                           | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
+| 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台) | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                                                                                                                        |
+| 设置 Model 运行时的缓存（仅支持Cortex-M平台)     | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                                                                                       |
+| 编译 Model                           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
+| 推理 Model                           | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| 获取所有输入 Tensor                      | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
+| 获取所有输出 Tensor                      | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
+| 通过名字取输入 Tensor                     | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
+| 通过名字取输出 Tensor                     | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                             |9
 
 ### 训练代码的调用接口
 
@@ -412,6 +541,10 @@ mindspore-lite-{version}-linux-x64
 - 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
+
+### 多模型推理集成
+
+多模型集成与单模型的类似。唯有一点不同：单模型场景下，用户可通过`MSModelCreate`接口创建模型。而在多模型场景下，为用户提供了`MSModelHandle`句柄，用户可通过操纵不同模型的`MSModelHandle`句柄，调用单模型通用的推理API接口，实现对不同模型的集成，`MSModelHandle`句柄可参考多模型文件目录下的`model_handle.h`文件。
 
 ## 在MCU上执行推理
 
