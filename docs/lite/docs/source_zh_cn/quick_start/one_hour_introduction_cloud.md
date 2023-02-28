@@ -139,14 +139,14 @@ export PATH=$LITE_HOME/tools/converter/converter:$LITE_HOME/tools/benchmark:$PAT
 
 硬件后端为Nvidia GPU时，推理依赖cuda和TensorRT，用户需要先安装cuda和TensorRT。
 
-以下以cuda11.1和TensorRT8.2.5.1为例，用户需要根据实际安装路径设置环境变量。
+以下以cuda11.1和TensorRT8.5.1.7为例，用户需要根据实际安装路径设置环境变量。
 
 ```bash
 export CUDA_HOME=/usr/local/cuda-11.1
 export PATH=$CUDA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
-export TENSORRT_PATH=/usr/local/TensorRT-8.2.5.1
+export TENSORRT_PATH=/usr/local/TensorRT-8.5.1.7
 export PATH=$TENSORRT_PATH/bin:$PATH
 export LD_LIBRARY_PATH=$TENSORRT_PATH/lib:$LD_LIBRARY_PATH
 ```

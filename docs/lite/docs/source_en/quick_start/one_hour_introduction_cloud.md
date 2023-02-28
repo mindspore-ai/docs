@@ -140,14 +140,14 @@ export PATH=$LITE_HOME/tools/converter/converter:$LITE_HOME/tools/benchmark:$PAT
 
 When the hardware backend is an Nvidia GPU, inference relies on cuda and TensorRT, and users need to install cuda and TensorRT first.
 
-The following is an example of cuda11.1 and TensorRT8.2.5.1. Users need to set the environment variables according to the actual installation path.
+The following is an example of cuda11.1 and TensorRT8.5.1.7. Users need to set the environment variables according to the actual installation path.
 
 ```bash
 export CUDA_HOME=/usr/local/cuda-11.1
 export PATH=$CUDA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
-export TENSORRT_PATH=/usr/local/TensorRT-8.2.5.1
+export TENSORRT_PATH=/usr/local/TensorRT-8.5.1.7
 export PATH=$TENSORRT_PATH/bin:$PATH
 export LD_LIBRARY_PATH=$TENSORRT_PATH/lib:$LD_LIBRARY_PATH
 ```

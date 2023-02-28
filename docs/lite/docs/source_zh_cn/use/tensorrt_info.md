@@ -6,7 +6,7 @@
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) 和[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download) 以及 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.2.5](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) 和[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download) 以及 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 安装相应版本的CUDA，并将安装后的目录设置为环境变量`${CUDA_HOME}`。构建脚本将使用这个环境变量寻找CUDA。
 
