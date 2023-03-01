@@ -77,6 +77,7 @@ Typical Application Scenarios
    mindquantum.io
    mindquantum.engine
    mindquantum.utils
+   mindquantum.config
 
 .. toctree::
    :glob:
