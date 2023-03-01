@@ -59,19 +59,21 @@ size = (1, 4)
 upsample = torch.nn.Upsample(size=size, mode='bicubic', align_corners=True)
 out = upsample(torch.from_numpy(x_np))
 print(out.detach().numpy())
-# [[[[1., 1.3148143, 1.6851856, 2.]]]]
+# [[[[1. 1.3148143 1.6851856 2.]]]]
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
-from mindspore.ops as ops
+from mindspore import ops
 
-resize_bicubic_op = ops.ResizeBicubic(align_corners=True,half_pixel_centers=False)
+x_np = np.array([1, 2, 3, 4]).astype(np.float32).reshape(1, 1, 2, 2)
+size = (1, 4)
 images = Tensor(x_np)
 size = Tensor(size, mindspore.int32)
+resize_bicubic_op = ops.ResizeBicubic(align_corners=True, half_pixel_centers=False)
 output = resize_bicubic_op(images, size)
 print(output.asnumpy())
-# [[[[1., 1.3144622, 1.6855378, 2.]]]]
+# [[[[1. 1.3144622 1.6855378 2.]]]]
 ```
 
 ### 代码示例2
@@ -86,17 +88,19 @@ size = (1, 4)
 upsample = torch.nn.Upsample(size=size, mode='bicubic', align_corners=False)
 out = upsample(torch.from_numpy(x_np))
 print(out.detach().numpy())
-# [[[[0.70703125, 1.0390625, 1.5859375, 1.9179688]]]]
+# [[[[0.70703125 1.0390625 1.5859375 1.9179688]]]]
 
 # MindSpore
 import mindspore
 from mindspore import Tensor
-from mindspore.ops as ops
+from mindspore import ops
 
-resize_bicubic_op = ops.ResizeBicubic(align_corners=False, half_pixel_centers=True)
+x_np = np.array([1, 2, 3, 4]).astype(np.float32).reshape(1, 1, 2, 2)
+size = (1, 4)
 images = Tensor(x_np)
 size = Tensor(size, mindspore.int32)
+resize_bicubic_op = ops.ResizeBicubic(align_corners=False, half_pixel_centers=True)
 output = resize_bicubic_op(images, size)
 print(output.asnumpy())
-# [[[[1.9117649, 2.2071428, 2.7928572, 3.0882356]]]]
+# [[[[1.9117649 2.2071428 2.7928572 3.0882356]]]]
 ```
