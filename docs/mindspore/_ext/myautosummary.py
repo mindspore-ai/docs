@@ -24,14 +24,44 @@ class MsAutosummary(Autosummary):
         self.find_doc_name = ""
         self.third_title = ""
         self.default_doc = ""
+        self.find_doc_name_fourth = ""
+        self.fourth_title = ""
+        self.default_doc_fourth = ""
 
     def extract_env_summary(self, doc: List[str]) -> str:
         """Extract env summary from docstring."""
         env_sum = self.default_doc
-        for i, piece in enumerate(doc):
+        for i, piece in enumerate(doc): # 行索引和行注释内容
             if piece.startswith(self.find_doc_name):
-                env_sum = doc[i+1][4:]
+                env_sum = doc[i+1][4:] # 支持平台
         return env_sum
+
+    def extract_env_note(self, doc: List[str]) -> str:
+        """Extract env note from docstring."""
+        flag_note = 0
+        env_note = ''
+        indent = 0
+        for piece in doc:
+            if piece == '.. rubric:: Examples':
+                break
+            if flag_note and piece != '' and (len(piece) - len(piece.lstrip())) >= indent+3:
+                if piece.lstrip().startswith('- '):
+                    env_note += piece.lstrip().lstrip('- ')+' '
+                else:
+                    env_note += piece.lstrip()+' '
+            elif piece == '':
+                continue
+            elif (len(piece) - len(piece.lstrip())) <= indent+3 and flag_note:
+                break
+            if piece.startswith(self.find_doc_name_fourth):
+                if piece != self.find_doc_name_fourth:
+                    env_note = piece[10:].lstrip('- ')
+                    break
+                flag_note = 1
+                indent = len(piece) - len(piece.lstrip())
+        if not env_note:
+            env_note = "None"
+        return env_note.rstrip()
 
     def run(self):
         """
@@ -93,7 +123,10 @@ class MsAutosummary(Autosummary):
                     real_name, obj, parent, modname = import_by_name(name, prefixes=prefixes)
             except ImportError:
                 logger.warning(__('failed to import %s'), name)
-                items.append((name, '', '', name, ''))
+                if self.fourth_title:
+                    items.append((name, '', '', name, '', ''))
+                else:
+                    items.append((name, '', '', name, ''))
                 continue
 
             self.bridge.result = StringList()  # initialize for each documenter
@@ -109,11 +142,17 @@ class MsAutosummary(Autosummary):
 
             if not documenter.parse_name():
                 logger.warning(__('failed to parse name %s'), real_name)
-                items.append((display_name, '', '', real_name, ''))
+                if self.fourth_title:
+                    items.append((display_name, '', '', real_name, '', ''))
+                else:
+                    items.append((display_name, '', '', real_name, ''))
                 continue
             if not documenter.import_object():
                 logger.warning(__('failed to import object %s'), real_name)
-                items.append((display_name, '', '', real_name, ''))
+                if self.fourth_title:
+                    items.append((display_name, '', '', real_name, '', ''))
+                else:
+                    items.append((display_name, '', '', real_name, ''))
                 continue
             if documenter.options.members and not documenter.check_module():
                 continue
@@ -149,7 +188,11 @@ class MsAutosummary(Autosummary):
             documenter.add_content(None)
             summary = extract_summary(self.bridge.result.data[:], self.state.document)
             env_sum = self.extract_env_summary(self.bridge.result.data[:])
-            items.append((display_name, sig, summary, real_name, env_sum))
+            env_warn = self.extract_env_note(self.bridge.result.data[:])
+            if self.fourth_title:
+                items.append((display_name, sig, summary, real_name, env_sum, env_warn))
+            else:
+                items.append((display_name, sig, summary, real_name, env_sum))
 
         return items
 
@@ -164,11 +207,19 @@ class MsAutosummary(Autosummary):
         table = autosummary_table('')
         real_table = nodes.table('', classes=['longtable'])
         table.append(real_table)
-        group = nodes.tgroup('', cols=3)
-        real_table.append(group)
-        group.append(nodes.colspec('', colwidth=10))
-        group.append(nodes.colspec('', colwidth=70))
-        group.append(nodes.colspec('', colwidth=30))
+        if not self.fourth_title:
+            group = nodes.tgroup('', cols=3)
+            real_table.append(group)
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=70))
+            group.append(nodes.colspec('', colwidth=30))
+        else:
+            group = nodes.tgroup('', cols=4)
+            real_table.append(group)
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=50))
+            group.append(nodes.colspec('', colwidth=30))
+            group.append(nodes.colspec('', colwidth=20))
         body = nodes.tbody('')
         group.append(body)
 
@@ -190,19 +241,47 @@ class MsAutosummary(Autosummary):
             body.append(row)
 
         # add table's title
-        append_row("**API Name**", "**Description**", self.third_title)
-        for name, sig, summary, real_name, env_sum in items:
-            qualifier = 'obj'
-            if 'nosignatures' not in self.options:
-                col1 = ':%s:`%s <%s>`\\ %s' % (qualifier, name, real_name, rst.escape(sig))
-            else:
-                col1 = ':%s:`%s <%s>`' % (qualifier, name, real_name)
-            col2 = summary
-            col3 = env_sum
-            append_row(col1, col2, col3)
+        if not self.fourth_title:
+            append_row("**API Name**", "**Description**", self.third_title)
+            for name, sig, summary, real_name, env_sum in items:
+                qualifier = 'obj'
+                if 'nosignatures' not in self.options:
+                    col1 = ':%s:`%s <%s>`\\ %s' % (qualifier, name, real_name, rst.escape(sig))
+                else:
+                    col1 = ':%s:`%s <%s>`' % (qualifier, name, real_name)
+                col2 = summary
+                col3 = env_sum
+                append_row(col1, col2, col3)
+        else:
+            append_row("**API Name**", "**Description**", self.third_title, self.fourth_title)
+            for name, sig, summary, real_name, env_sum, env_warn in items:
+                qualifier = 'obj'
+                if 'nosignatures' not in self.options:
+                    col1 = ':%s:`%s <%s>`\\ %s' % (qualifier, name, real_name, rst.escape(sig))
+                else:
+                    col1 = ':%s:`%s <%s>`' % (qualifier, name, real_name)
+                col2 = summary
+                col3 = env_sum
+                col4 = env_warn
+                append_row(col1, col2, col3, col4)
 
         return [table_spec, table]
 
+class MsPlatNoteAutoSummary(MsAutosummary):
+    """
+    Inherited from MsAutosummary. Add a third column about Note` to the table
+    and Add a fourth column about `Supported Platforms` to the table.
+    """
+    def init(self):
+        """
+        init method
+        """
+        self.find_doc_name_fourth = ".. note::"
+        self.fourth_title = "**Note**"
+        self.default_doc_fourth = "None"
+        self.find_doc_name = "Supported Platforms:"
+        self.third_title = "**{}**".format(self.find_doc_name[:-1])
+        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
 
 class MsNoteAutoSummary(MsAutosummary):
     """
@@ -216,6 +295,9 @@ class MsNoteAutoSummary(MsAutosummary):
         self.find_doc_name = ".. note::"
         self.third_title = "**Note**"
         self.default_doc = "None"
+        self.find_doc_name_fourth = ""
+        self.fourth_title = ""
+        self.default_doc_fourth = ""
 
     def extract_env_summary(self, doc: List[str]) -> str:
         """Extract env summary from docstring."""
@@ -236,6 +318,9 @@ class MsPlatformAutoSummary(MsAutosummary):
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
         self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+        self.find_doc_name_fourth = ""
+        self.fourth_title = ""
+        self.default_doc_fourth = ""
 
 class MsCnAutoSummary(Autosummary):
     """Overwrite MsPlatformAutosummary for chinese python api."""
@@ -246,6 +331,8 @@ class MsCnAutoSummary(Autosummary):
         self.third_title = ""
         self.default_doc = ""
         self.third_name_en = ""
+        self.fourth_name_en = ""
+        self.default_doc_fourth = ""
 
     def get_third_column_en(self, doc):
         """Get the third column for en."""
@@ -260,6 +347,24 @@ class MsCnAutoSummary(Autosummary):
                 except IndexError:
                     third_column = ''
         return third_column
+
+    def get_fourth_column_en(self, doc):
+        """Get the fourth column for en."""
+        flag_warn = 0
+        env_warn = ''
+        for piece in doc:
+            if flag_warn and piece != '':
+                if piece.lstrip().startswith('- '):
+                    env_warn += piece.lstrip().lstrip('- ')+' '
+                else:
+                    env_warn += piece.lstrip()+' '
+            elif flag_warn and piece == '':
+                break
+            if piece.startswith(self.fourth_name_en):
+                flag_warn = 1
+        if not env_warn:
+            env_warn = self.default_doc_fourth
+        return env_warn.rstrip()
 
     def get_summary_re(self, display_name: str):
         return re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\n\s+(.*?)[。\n]')
@@ -336,21 +441,33 @@ class MsCnAutoSummary(Autosummary):
                         summary_str = ''
                     if not self.table_head:
                         items.append((display_name, summary_str))
-                    else:
+                    elif len(self.table_head) == 3:
                         third_str = self.get_third_column(display_name, content)
                         if third_str:
                             third_str = third_str[0]
                         else:
                             third_str = ''
-
                         items.append((display_name, summary_str, third_str))
+                    elif len(self.table_head) == 4:
+                        third_str = self.get_third_column(display_name, content)
+                        if third_str:
+                            third_str = third_str[0]
+                        else:
+                            third_str = ''
+                        fourth_str = self.get_fourth_column(display_name, content)
+                        if not fourth_str:
+                            fourth_str = '无'
+                        items.append((display_name, summary_str, third_str, fourth_str))
             else:
                 try:
                     with mock(self.config.autosummary_mock_imports):
                         real_name, obj, parent, modname = import_by_name(name, prefixes=prefixes)
                 except ImportError:
                     logger.warning(__('failed to import %s'), name)
-                    items.append((name, '', ''))
+                    if len(self.table_head) == 3:
+                        items.append((name, '', ''))
+                    elif len(self.table_head) == 4:
+                        items.append((name, '', '', ''))
                     continue
 
                 self.bridge.result = StringList()  # initialize for each documenter
@@ -366,11 +483,17 @@ class MsCnAutoSummary(Autosummary):
 
                 if not documenter.parse_name():
                     logger.warning(__('failed to parse name %s'), real_name)
-                    items.append((display_name, '', ''))
+                    if len(self.table_head) == 3:
+                        items.append((display_name, '', ''))
+                    elif len(self.table_head) == 4:
+                        items.append((display_name, '', '', ''))
                     continue
                 if not documenter.import_object():
                     logger.warning(__('failed to import object %s'), real_name)
-                    items.append((display_name, '', ''))
+                    if len(self.table_head) == 3:
+                        items.append((display_name, '', ''))
+                    elif len(self.table_head) == 4:
+                        items.append((display_name, '', '', ''))
                     continue
                 if documenter.options.members and not documenter.check_module():
                     continue
@@ -407,7 +530,11 @@ class MsCnAutoSummary(Autosummary):
                 summary = extract_summary(self.bridge.result.data[:], self.state.document)
                 if self.table_head:
                     third_colum = self.get_third_column_en(self.bridge.result.data[:])
-                    items.append((display_name, summary, third_colum))
+                    if len(self.table_head) == 3:
+                        items.append((display_name, summary, third_colum))
+                    elif len(self.table_head) == 4:
+                        fourth_colum = self.get_fourth_column_en(self.bridge.result.data[:])
+                        items.append((display_name, summary, third_colum, fourth_colum))
                 else:
                     items.append((display_name, summary))
 
@@ -432,11 +559,20 @@ class MsCnAutoSummary(Autosummary):
             group.append(nodes.colspec('', colwidth=90))
         else:
             table_spec['spec'] = r'\X{1}{2}\X{1}{2}\X{1}{2}'
-            group = nodes.tgroup('', cols=3)
-            real_table.append(group)
-            group.append(nodes.colspec('', colwidth=10))
-            group.append(nodes.colspec('', colwidth=60))
-            group.append(nodes.colspec('', colwidth=30))
+            if len(self.table_head) == 3:
+                group = nodes.tgroup('', cols=3)
+                real_table.append(group)
+                group.append(nodes.colspec('', colwidth=10))
+                group.append(nodes.colspec('', colwidth=60))
+                group.append(nodes.colspec('', colwidth=30))
+            elif len(self.table_head) == 4:
+                group = nodes.tgroup('', cols=4)
+                real_table.append(group)
+                group.append(nodes.colspec('', colwidth=10))
+                group.append(nodes.colspec('', colwidth=50))
+                group.append(nodes.colspec('', colwidth=15))
+                group.append(nodes.colspec('', colwidth=25))
+
         body = nodes.tbody('')
         group.append(body)
 
@@ -463,13 +599,21 @@ class MsCnAutoSummary(Autosummary):
                 col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
                 col2 = summary
                 append_row(col1, col2)
-        else:
+        elif len(self.table_head) == 3:
             for name, summary, other in items:
                 qualifier = 'obj'
                 col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
                 col2 = summary
                 col3 = other
                 append_row(col1, col2, col3)
+        elif len(self.table_head) == 4:
+            for name, summary, other, other1 in items:
+                qualifier = 'obj'
+                col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
+                col2 = summary
+                col3 = other
+                col4 = other1
+                append_row(col1, col2, col3, col4)
         return [table_spec, table]
 
 def get_api(fullname):
@@ -486,7 +630,7 @@ def get_api(fullname):
     return api
 
 class MsCnPlatformAutoSummary(MsCnAutoSummary):
-    """definition of cnmsplatformautosummary."""
+    """definition of mscnplatformautosummary."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.table_head = ('**接口名**', '**概述**', '**支持平台**')
@@ -509,6 +653,61 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
             return platform_str
         except: #pylint: disable=bare-except
             return []
+
+class MsCnPlatNoteAutoSummary(MsCnAutoSummary):
+    """definition of mscnplatnoteautosummary."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.table_head = ('**接口名**', '**概述**', '**支持平台**', '**说明**')
+        self.third_name_en = "Supported Platforms:"
+        self.fourth_name_en = ".. note::"
+        self.default_doc_fourth = "None"
+
+    def get_third_column(self, name=None, content=None):
+        """Get the `Supported Platforms`."""
+        if not name:
+            return []
+        try:
+            api_doc = inspect.getdoc(get_api(name))
+            platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if ['deprecated'] == platform_str:
+                return ["弃用"]
+            if not platform_str:
+                platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                if platform_str_leak:
+                    return platform_str_leak
+                return ["``Ascend`` ``GPU`` ``CPU``"]
+            return platform_str
+        except: #pylint: disable=bare-except
+            return []
+
+    def get_fourth_column(self, name=None, content=''):
+        """Get the `Note`."""
+        env_note = ''
+        fourth_str = ''
+        try:
+            if re.findall('.. note::\n', content):
+                indent = re.findall(r'([ ]+)\.\. note::\n', content)[0]
+                if re.findall(rf'\.\. note::\n((?:.|\n|)+?)\n\n{indent}\S', content):
+                    env_note = re.findall(rf'\.\. note::\n((?:.|\n|)+?)\n\n{indent}\S', content)[0]
+                elif re.findall(rf'\.\. note::\n((?:.|\n|)+)\n', content):
+                    env_note = re.findall(rf'\.\. note::\n((?:.|\n|)+)\n', content)[0]
+                for line in env_note.split('\n'):
+                    if line == '':
+                        continue
+                    elif '.. include::' in line:
+                        break
+                    elif len(line) - len(line.lstrip()) <= len(indent):
+                        logger.warning(name + ' Note has error format')
+                        break
+                    else:
+                        if line.lstrip().startswith('- '):
+                            fourth_str += line.lstrip().lstrip('- ')+' '
+                        else:
+                            fourth_str += line.lstrip()+' '
+        except IndexError:
+            logger.warning(name + 'get Note error')
+        return fourth_str
 
 class MsCnNoteAutoSummary(MsCnAutoSummary):
     """definition of cnmsnoteautosummary."""
