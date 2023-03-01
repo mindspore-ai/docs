@@ -85,6 +85,8 @@ import numpy as np
 
 m = nn.BatchNorm2d(num_features=3, momentum=0.9)
 m.set_train()
+#  BatchNorm2d<num_features=3, eps=1e-05, momentum=0.9, gamma=Parameter (name=gamma, shape=(3,), dtype=Float32, requires_grad=True), beta=Parameter (name=beta, shape=(3,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=mean, shape=(3,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=variance, shape=(3,), dtype=Float32, requires_grad=False)>
+
 input_ms = Tensor(np.array([[[[0.1, 0.2], [0.3, 0.4]],
                           [[0.5, 0.6], [0.7, 0.8]],
                           [[0.9, 1], [1.1, 1.2]]]]).astype(np.float32))
