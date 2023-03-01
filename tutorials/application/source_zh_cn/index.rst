@@ -27,6 +27,7 @@
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
+   nlp/sequence_to_sequence
 
 .. toctree::
    :glob:
