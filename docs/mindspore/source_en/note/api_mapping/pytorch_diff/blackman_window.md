@@ -39,7 +39,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, and 
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 |window_length | window_length | - |
+| Parameters | Parameter 1 |window_length | window_length |  An int in PyTorch and a Tensor in MindSpore |
 | | Parameter 2 | periodic | periodic | - |
 |  | Parameter 3 | dtype        | dtype | - |
 | | Parameter 4 | layout | - | Not involved |

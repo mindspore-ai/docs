@@ -39,7 +39,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 |window_length | window_length | - |
+| 参数 | 参数1 |window_length | window_length | PyTorch中为int类型，MindSpore中为Tensor  |
 | | 参数2 | periodic | periodic | - |
 |  | 参数3 | dtype        | dtype | - |
 | | 参数4 | layout | - | 不涉及 |

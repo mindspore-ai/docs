@@ -18,6 +18,13 @@ mindspore.ops.diag(input_x) -> Tensor
 
 更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diag.html)。
 
+以下映射关系均可参考本文。
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.diag     |  mindspore.ops.diag   |
+|   torch.Tensor.diag    |   mindspore.Tensor.diag    |
+
 ## 差异对比
 
 PyTorch：若输入为一维张量，用输入的对角线值构成的一维张量来构造对角线张量；若输入为矩阵，则返回由输入的对角线元素组成的一维张量。
