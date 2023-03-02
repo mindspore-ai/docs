@@ -328,7 +328,7 @@ Please refer to the `CMakeLists.txt` file in the generated code for details.
 
 At present, this function is only enabled when the `target` is configured as x86/ARM32/ARM64. The maximum number of inference threads can be set to 4.
 
-### (Optional) Generate Int8 Quantitative Inference Code
+### (Optional) Generating Int8 Quantitative Inference Code
 
 In MCU scenarios such as Cortex-M, limited by the memory size and computing power of the device, Int8 quantization operators are usually used for deployment inference to reduce the runtime memory size and speed up operations.
 
@@ -400,7 +400,7 @@ This chapter describes the functions related to code generation in the conversio
 
 For preparing environment section, refer to the [above](#preparing-environment), which will not be repeated here.
 
-### Generating Training Code by Running converter_lite
+### Generating Inference Code by Running converter_lite
 
 1. Go to the conversion directory
 
