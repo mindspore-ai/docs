@@ -226,7 +226,7 @@
 | [torch.split](https://pytorch.org/docs/1.8.1/generated/torch.split.html)                         | [mindspore.ops.split](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.split.html)                         | 功能一致，参数名不同|
 | [torch.stack](https://pytorch.org/docs/1.8.1/generated/torch.stack.html#torch.stack) | [mindspore.ops.stack](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stack.html) |    功能一致，参数名不同                                               |
 | [torch.std_mean](https://pytorch.org/docs/1.8.1/generated/torch.std_mean.html#torch.std_mean) | [mindspore.ops.std](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.std.html#mindspore.ops.std) | 功能一致，参数名不同 |
-| [torch.squeeze](https://pytorch.org/docs/1.8.1/torch.html#torch.squeeze) | [mindspore.ops.squeeze](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.squeeze.html) | 一致 |
+| [torch.squeeze](https://pytorch.org/docs/1.8.1/generated/torch.squeeze.html) | [mindspore.ops.squeeze](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.squeeze.html) | 功能一致，参数名不一致 |
 | [torch.sqrt](https://pytorch.org/docs/1.8.1/generated/torch.sqrt.html) | [mindspore.ops.sqrt](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.sqrt.html) |  功能一致，参数名不同 |
 | [torch.square](https://pytorch.org/docs/1.8.1/generated/torch.square.html)| [mindspore.ops.square](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.square.html)|功能一致，参数名不同|
 | [torch.sub](https://pytorch.org/docs/1.8.1/generated/torch.sub.html#torch.sub)  | [mindspore.ops.subtract](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.subtract.html)  | 功能一致，参数名不同 |
