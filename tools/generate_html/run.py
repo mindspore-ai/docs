@@ -55,7 +55,7 @@ def flush(dir_path):
 #######################################
 # 运行检测
 #######################################
-def main(version, user, pd, WGETDIR):
+def main(version, user, pd, WGETDIR, release_url):
 
     print(f"开始构建{version}版本html....")
 
@@ -177,7 +177,6 @@ def main(version, user, pd, WGETDIR):
 
         elif version != "daily":
             if data[i]['whl_path'] != "":
-                release_url = f"https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}"
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
                 dowmloaded = requests.get(download_url, stream=True, verify=False)
@@ -186,7 +185,6 @@ def main(version, user, pd, WGETDIR):
                 print(f"Download {data[i]['whl_name']} success!")
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
-                    release_url = f"https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}"
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                     download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
                     dowmloaded = requests.get(download_url, stream=True, verify=False)
@@ -348,6 +346,7 @@ if __name__ == "__main__":
     parser.add_argument('--user', type=str, default="") # repo url username
     parser.add_argument('--pd', type=str, default="") # repo url password
     parser.add_argument('--wgetdir', type=str, default="") # repo url
+    parser.add_argument('--release_url', type=str, default="") # repo url
     args = parser.parse_args()
 
     password = args.pd
@@ -360,7 +359,7 @@ if __name__ == "__main__":
 
     # 开始执行
     try:
-        main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir)
+        main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir, release_url=args.release_url)
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
