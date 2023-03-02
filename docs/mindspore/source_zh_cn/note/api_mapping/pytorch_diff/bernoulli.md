@@ -1,0 +1,68 @@
+# 比较与torch.bernoulli的功能差异
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bernoulli.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
+以下映射关系均可参考本文。
+
+|     PyTorch APIs          |      MindSpore APIs           |
+| :-------------------:     | :-----------------------:     |
+| torch.bernoulli           | mindspore.ops.bernoulli       |
+| torch.Tensor.bernoulli    | mindspore.Tensor.bernoulli    |
+
+## torch.bernoulli
+
+```python
+torch.bernoulli(input, *, generator=None, out=None)
+```
+
+更多内容详见[torch.bernoulli](https://pytorch.org/docs/1.8.1/generated/torch.bernoulli.html)。
+
+## mindspore.ops.bernoulli
+
+```python
+mindspore.ops.bernoulli(x, p=0.5, seed=-1)
+```
+
+更多内容详见[mindspore.ops.bernoulli](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bernoulli.html)。
+
+## 差异对比
+
+PyTorch: 参数 `input` 里保存了伯努利分布的概率值，返回值的shape和 `input` 一致。
+
+MindSpore: 参数 `p` 里保存了伯努利分布的概率值，默认值为0.5。 `p` 的shape需要和 `x` 的shape一致，返回值的shape和 `x` 的shape一致。
+
+功能上无差异。
+
+| 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
+| ---------- | ------------ | ------------ | ---------      | ------------- |
+| 参数       | 参数 1       | -             | x             | Mindspore下返回值的shape和数据类型和 `x` 的shape一致 |
+|            | 参数 2       | input         | p             | 保存伯努利分布的概率值。PyTorch下返回值的shape和 `input` 一致。MindSpore下 `p` 为可选参数，默认值是0.5 |
+|            | 参数 3       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
+|            | 参数 4       | out           | -             | 不涉及            |
+
+## 差异分析与示例
+
+```python
+# PyTorch
+import torch
+import numpy as np
+
+p0 = np.array([0.0, 1.0, 1.0])
+input_torch = torch.tensor(p0, dtype=torch.float32)
+output = torch.bernoulli(input_torch)
+print(output.shape)
+# torch.Size([3])
+
+# MindSpore
+import mindspore as ms
+import numpy as np
+
+x0 = np.array([1, 2, 3])
+p0 = np.array([0.0, 1.0, 1.0])
+
+input_x = ms.Tensor(x0, ms.float32)
+input_p = ms.Tensor(p0, ms.float32)
+output = ms.ops.bernoulli(input_x, input_p)
+print(output.shape)
+# (3,)
+```
