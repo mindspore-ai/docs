@@ -93,7 +93,7 @@ import mindspore.ops as ops
 input_x = Tensor([1, 2, 3, 4]).astype('int32')
 output = ops.diag(input_x)
 # MindSpore implements this API function when the diagonal is greater than 0.
-padding = ((0, 1), (1, 0))
+padding = ((1, 0, 0, 1))
 a = ops.pad(output, padding)
 print(a)
 # [[0 1 0 0 0]
@@ -103,7 +103,7 @@ print(a)
 #  [0 0 0 0 0]]
 
 # MindSpore implements this API function when the diagonal is smaller than 0.
-padding = ((1, 0), (0, 1))
+padding = ((0, 1, 1, 0))
 a = ops.pad(output, padding)
 print(a)
 # [[0 0 0 0 0]
