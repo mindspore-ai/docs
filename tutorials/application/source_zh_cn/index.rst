@@ -37,6 +37,7 @@
    generative/gan
    generative/dcgan
    generative/pix2pix
+   generative/cyclegan
    
 
    
