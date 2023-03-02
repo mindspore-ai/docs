@@ -1,6 +1,6 @@
-# 比较与torch.nn.conv2d的功能差异
+# 比较与torch.nn.functional.conv2d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Conv2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.ops.conv2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.conv2d
 
@@ -28,9 +28,9 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异，填�
 
 ### 填充行为差异
 
- 1. PyTorch的参数padding可选项有int， tuple of ints，默认为0，padding参数则用于控制填充的数量与位置。针对conv2d，padding指定为int的时候，会在输入的上下左右进行padding次的填充(若为默认值0则代表不进行填充)；padding指定为tuple的时候，会按照tuple的输入在上下和左右进行指定次数的填充；
+ 1. PyTorch的参数padding可选项有int，tuple of ints，默认为0，padding参数则用于控制填充的数量与位置。针对conv2d，padding指定为int的时候，会在输入的上下左右进行padding次的填充(若为默认值0则代表不进行填充)；padding指定为tuple的时候，会按照tuple的输入在上下和左右进行指定次数的填充；
 
- 2. MindSpore的参数pad_mode可选项有‘same’， ‘valid’， ‘pad’， 参数padding只能输入int或者tuple of ints，填充参数的详细意义如下：
+ 2. MindSpore的参数pad_mode可选项有‘same’，‘valid’，‘pad’，参数padding只能输入int或者tuple of ints，填充参数的详细意义如下：
 
      pad_mode设置为‘pad’的时候，MindSpore可以设置padding参数为大于等于0的正整数，会在输入的上下左右进行padding次的0填充(若为默认值0则代表不进行填充)，如果padding是一个由4个int组成的tuple，那么上、下、左、右的填充分别等于 padding[0] 、 padding[1] 、 padding[2] 和 padding[3]；pad_mode为另外两种模式时，padding参数必须只能设置为0，pad_mode设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；pad_mode设置为‘same’模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，MindSpore则会优先填充特征图的右侧和下侧(与PyTorch不同，类似TensorFlow)。
 
@@ -76,4 +76,3 @@ print(output.shape)
 # (10, 32, 34, 36)
 
 ```
-

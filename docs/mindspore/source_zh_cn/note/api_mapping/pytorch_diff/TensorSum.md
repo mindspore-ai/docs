@@ -28,10 +28,13 @@ mindspore.Tensor.sum(axis=None, dtype=None, keepdims=False, initial=None)
 import mindspore as ms
 
 a = ms.Tensor([10, -5], ms.float32)
-print(a.sum()) # 5.0
-print(a.sum(initial=2)) # 7.0
+print(a.sum())
+# 5.0
+print(a.sum(initial=2))
+# 7.0
 
 import torch
 b = torch.Tensor([10, -5])
-print(torch.Tensor.sum(b)) # tensor(5.)
+print(torch.Tensor.sum(b))
+# tensor(5.)
 ```
