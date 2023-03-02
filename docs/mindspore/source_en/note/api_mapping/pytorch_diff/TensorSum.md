@@ -28,10 +28,14 @@ The basic function is the same. `mindspore.Tensor.sum` can be configured with th
 import mindspore as ms
 
 a = ms.Tensor([10, -5], ms.float32)
-print(a.sum()) # 5.0
-print(a.sum(initial=2)) # 7.0
+print(a.sum())
+# 5.0
+print(a.sum(initial=2))
+# 7.0
 
 import torch
 b = torch.Tensor([10, -5])
-print(torch.Tensor.sum(b)) # tensor(5.)
+print(torch.Tensor.sum(b))
+# tensor(5.)
 ```
+
