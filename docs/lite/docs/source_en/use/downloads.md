@@ -6,6 +6,35 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu18.04.
 
+## 1.10.1
+
+Inference runtime
+|  Module Name  | Hardware Platform |  Operating System  | Download Links |   SHA-256   |
+|      ---      |       ---         |         ---        |      ---       |    ---      |
+| Inference/training runtime lib, inference/training aar package, Micro lib, benchmark tool | CPU         | Android-aarch32 | [mindspore-lite-1.10.1-android-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/android/cpu/mindspore-lite-1.10.1-android-aarch32.tar.gz) | a6f2eab47f1b1da322670332c2d9c1f24513001531f57481e3e03a4c7c27677e |
+| Inference/training runtime lib, inference/training aar package, Micro lib, benchmark tool | CPU/GPU     | Android-aarch64 | [mindspore-lite-1.10.1-android-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/android/gpu/mindspore-lite-1.10.1-android-aarch64.tar.gz) | 7d41ea8180a73c79ef7268d63b325a14ff5429dfdfccdd3557403404d9ebb9e0 |
+| Inference/training runtime lib, inference/training jar package, Micro lib, benchmark tool, converter tool, cropper tool | CPU         | Linux-x86_64 | [mindspore-lite-1.10.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.10.1-linux-x64.tar.gz) | 093a92715e9972d5c5bde6774c22b94306df80c40b2f9852c13868061c7068ac |
+| Inference runtime lib, Micro lib, benchmark tool, converter tool | CPU         | Linux-aarch64 | [mindspore-lite-1.10.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/aarch64/mindspore-lite-1.10.1-linux-aarch64.tar.gz) | 3669cf2da9afa54d1c254332f7ccfe4aac00cff58b66f3f489075d1e6abaf9e2 |
+| Inference runtime lib, Micro lib, benchmark tool, converter tool | CPU         | Windows-x86_64 | [mindspore-lite-1.10.1-win-x64.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/windows/mindspore-lite-1.10.1-win-x64.zip) | 77a3ba17f52fd15b570eafd99fb2c7334a6662a3025a30ef649924aa80a6e4be |
+| iOS inference runtime lib | CPU         | iOS-aarch32 | [mindspore-lite-1.10.1-ios-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/ios/mindspore-lite-1.10.1-ios-aarch32.tar.gz) | d619bbe8eca4a32bb2e0f69918c0c7bfb326b2bd1ad9be81f5c53470fedfa081 |
+| iOS inference runtime lib | CPU         | iOS-aarch64 | [mindspore-lite-1.10.1-ios-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/ios/mindspore-lite-1.10.1-ios-aarch64.tar.gz) | b862222e74a275963f3035ffe5f1b73130bcc0a7c2ca7907f9b06d04e971d2a5 |
+| NNIE converter tool | CPU         | Linux-x86_64 | [mindspore-lite-1.10.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/nnie/mindspore-lite-1.10.1-linux-x64.tar.gz) | 893b80f768a3eef72fad45edf0c4db53bb9d0e205f42ce439d882a22d08e920f |
+| NNIE inference runtime lib, benchmark tool | Hi3516D | Linux-aarch32 | [mindspore-lite-1.10.1-linux-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/nnie/Hi3516D/mindspore-lite-1.10.1-linux-aarch32.tar.gz) | cdd7ce851917b74ea0e5f0cda1d6c66bb263085afabc4e0fdbf410612f8017f3 |
+| NNIE inference runtime lib, benchmark tool | Hi3519A | Linux-aarch32 | [mindspore-lite-1.10.1-linux-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/nnie/Hi3519A/mindspore-lite-1.10.1-linux-aarch32.tar.gz) | 4840036f7f104a69d80e49a49d71865a639d7d3a2982d3975fbe1f6495810cf8 |
+| NNIE inference runtime lib, benchmark tool | Hi3559A | Linux-aarch64 | [mindspore-lite-1.10.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/nnie/Hi3559A/mindspore-lite-1.10.1-linux-aarch64.tar.gz) | da92cffc329998cecaae86890d331bb2082ec9b177ebdb7c9fbc0679261300c1 |
+| Ascend inference runtime lib, benchmark tool, converter tool | Ascend      | Linux-x86_64 | [mindspore-lite-1.10.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/x86_64/ascend/mindspore-lite-1.10.1-linux-x64.tar.gz) | 845b221e41688e1d7763f75df18b54b59729c11105fd0d34697ca52ac4ba7d76 |
+| Ascend inference runtime lib, benchmark tool, converter tool | Ascend      |  Linux-aarch64 | [mindspore-lite-1.10.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/aarch64/ascend/mindspore-lite-1.10.1-linux-aarch64.tar.gz) | 919c3f88db13b4648558e995fe04aad0ec1751cb0e9761b9f6b836fe3128fea3 |
+| HarmonyOS lite runtime lib, Micro lib | Hi3516D     | OpenHarmony-aarch32 | [mindspore-lite-1.10.1-ohos-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/openharmony/mindspore-lite-1.10.1-ohos-aarch32.tar.gz) | 3ecbc09ba40f435cb8ecd844a5acafb49ee6cdaadd4c4f9cb96404e8f4bda64f |
+| Micro lib | Cortex-M7 | None | [mindspore-lite-1.10.1-none-cortex-m7.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/none_cortex-m/mindspore-lite-1.10.1-none-cortex-m7.tar.gz) | 69f6fb71b1335a6481e7faccb23b6822414aeb2773f9aad9749814a251c5ec6e |
+
+Python API wheel package
+|  Module Name  | Hardware Platform |  Operating System  | Download Links |   SHA-256   |
+|      ---      |       ---         |         ---        |      ---       |    ---      |
+| Converter and inference runtime | CPU     | Linux-x86_64 | [mindspore_lite-1.10.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/x86_64/mindspore_lite-1.10.1-cp37-cp37m-linux_x86_64.whl)          | 86e5f925648396f5a351097d3ade70168b53ade2367590b03106084a6fddd350 |
+| Converter and inference runtime | CPU     | Linux-aarch64 | [mindspore_lite-1.10.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/aarch64/mindspore_lite-1.10.1-cp37-cp37m-linux_aarch64.whl)        | 908edc7e43bce3accd34cbcdb3a6b86ab063078dbf784f04516fd7531f5d25de |
+| Ascend converter and inference runtime | Ascend  | Linux-x86_64 | [mindspore_lite-1.10.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/x86_64/ascend/mindspore_lite-1.10.1-cp37-cp37m-linux_x86_64.whl)      | b50b531225810c85c4c61f868b446912a8c3bde34baff0759738378017eaacc5 |
+| Ascend converter and inference runtime | Ascend  |  Linux-aarch64 | [mindspore_lite-1.10.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindSpore/lite/release/linux/aarch64/ascend/mindspore_lite-1.10.1-cp37-cp37m-linux_aarch64.whl) | 20b8ee6c80251fc6a0d7de53b4ea739d29cb4d70633d2af8825eb10dfe243077 |
+
 ## 1.10.0
 
 Inference runtime
