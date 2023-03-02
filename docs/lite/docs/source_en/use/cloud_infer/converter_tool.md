@@ -62,17 +62,17 @@ Detailed parameter descriptions are provided below.
 | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weight file. | - | - | - |
 | `--configFile=<CONFIGFILE>` | Not | 1. can be used as a post-training quantization profile path; 2. can be used as an extended function profile path.  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model inputs, and keep the order of the input dimensions the same as the original model. The model structure can be further optimized for some specific models, but the converted model will probably lose the dynamic shape properties. Multiple inputs are split by `;`, along with double quotes `""`. | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
-| `--saveType=<SAVETYPE>` | Required | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
-| `--optimize=<OPTIMIZE>` | Not | Set the mode of optimization in the process of converting model. | none, general, ascend_oriented | general | The default value is none when saveType is set to MINDIR |
+| `--saveType=<SAVETYPE>` | Not | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
+| `--optimize=<OPTIMIZE>` | Not | Set the optimization accomplished in the process of converting model. | none, general, ascend_oriented | general | - |
+| `--decryptKey=<DECRYPTKEY>` | Not | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk` is MINDIR. | - | - | - |
+| `--decryptMode=<DECRYPTMODE>` | Not | Set the mode to load the cipher MindIR, valid only when decryptKey is specified. | AES-GCM, AES-CBC | AES-GCM | - |
+| `--encryptKey=<ENCRYPTKEY>` | Not | Set the key to export the encryption `mindir` model. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | - |
+| `--encryption=<ENCRYPTION>` | Not | Set whether to encrypt when exporting `mindir` models. Export encryption protects model integrity, but increases runtime initialization time. | true, false | true | - |
+| `--infer=<INFER>` | Not | Set whether to perform pre-inference when the conversion is completed. | true, false | false | - |
+| `--inputDataFormat=<INPUTDATAFORMAT>` | Not | Set the input format of the exported model, valid only for 4-dimensional inputs. | NHWC, NCHW | - | - |
 | `--fp16=<FP16>` | Not | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | on, off | off | Not supported at the moment|
-| `--decryptKey=<DECRYPTKEY>` | Not | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk` is MINDIR. | - | - | Not supported at the moment |
-| `--decryptMode=<DECRYPTMODE>` | Not | Set the mode to load the cipher MindIR, valid only when decryptKey is specified. | AES-GCM, AES-CBC | AES-GCM | Not supported at the moment |
 | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input tensor. Only if the quantization parameters (scale and zero point) of the model input tensor are available. The default is to keep the same data type as the original model input tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output tensor. Only if the quantization parameters (scale and zero point) of the model output tensor are available. The default is to keep the same data type as the original model output tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
-| `--encryptKey=<ENCRYPTKEY>` | Not | Set the key to export the encryption `mindir` model. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | Not supported at the moment |
-| `--encryption=<ENCRYPTION>` | Not | Set whether to encrypt when exporting `mindir` models. Export encryption protects model integrity, but increases runtime initialization time. | true, false | true | Not supported at the moment |
-| `--infer=<INFER>` | Not | Set whether to perform pre-inference when the conversion is completed. | true, false | false | Not supported at the moment |
-| `--inputDataFormat=<INPUTDATAFORMAT>` | Not | Set the input format of the exported model, valid only for 4-dimensional inputs. | NHWC, NCHW | NHWC | Not supported at the moment |
 
 Notes:
 
@@ -80,11 +80,12 @@ Notes:
 - Caffe models are generally divided into two files: `*.prototxt` model structure, corresponding to the `--modelFile` parameter, and `*.caffemodel` model weights, corresponding to the `--weightFile` parameter.
 - The `configFile` configuration file uses the `key=value` approach to define the relevant parameters.
 - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
+- The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
 - For the MindSpore model, since it is already a `mindir` model, two approaches are suggested:
 
     Inference is performed directly without offline conversion.
 
-    Using offline conversion and setting --optimize to general. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
+    Setting `--optimize` to general in CPU/GPU hardware backend and setting `--optimize` to ascend_oriented in Ascend hardware when using offline conversion. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
 
 ### Usage Examples
 
