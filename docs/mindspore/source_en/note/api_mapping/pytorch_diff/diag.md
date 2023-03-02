@@ -2,6 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs      |      MindSpore APIs       |
+| :-------------------: | :-----------------------: |
+|    torch.diag     |  mindspore.ops.diag   |
+|   torch.Tensor.diag    |   mindspore.Tensor.diag    |
+
 ## torch.diag
 
 ```text
