@@ -47,7 +47,7 @@ from torch import tensor
 
 input1 = tensor([1, 2], dtype=torch.float32)
 other = tensor([[1, 2], [0, 2], [1, 3]], dtype=torch.int64)
-out = torch.equal(input1, other).numpy()
+out = torch.equal(input1, other)
 print(out)
 # False
 
