@@ -49,7 +49,7 @@ scatter_nd_add = ops.ScatterNdAdd()
 output = scatter_nd_add(input_x, indices, updates)
 print(output)
 # Out：
-# [1. 10. 9. 4. 12. 6. 7. 17.]
+# [ 1. 10.  9.  4. 12.  6.  7. 17.]
 
 # In torch, parameter dim can be set to specify dimension.
 input_x = torch.tensor(np.array([1, 2, 3, 4, 5, 6, 7, 8]).astype(np.float32))
@@ -58,5 +58,5 @@ updates = torch.tensor(np.array([6, 7, 8, 9]).astype(np.float32))
 output = input_x.scatter_add_(dim=0, index=indices, src=updates)
 print(output)
 # Out:
-# tensor([1., 10., 9., 4., 12., 6., 7., 17.])
+# tensor([ 1., 10.,  9.,  4., 12.,  6.,  7., 17.])
 ```
