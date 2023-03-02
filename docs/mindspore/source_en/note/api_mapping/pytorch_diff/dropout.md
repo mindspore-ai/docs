@@ -5,34 +5,32 @@
 ## torch.nn.Dropout
 
 ```python
-torch.nn.Dropout(p=0.5, inplace=False) -> Tensor
+torch.nn.Dropout(p=0.5, inplace=False)
 ```
 
-For more information, see [torch.nn.Dropout](https://pytorch.org/docs/1.8.1/generated/torch.nn.Dropout.html?highlight=torch%20nn%20dropout#torch.nn.Dropout).
+For more information, see [torch.nn.Dropout](https://pytorch.org/docs/1.8.1/generated/torch.nn.Dropout.html).
 
-## mindspore.ops.dropout
+## mindspore.nn.Dropout
 
 ```python
-mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
+mindspore.nn.Dropout(keep_prob=0.5, p=None)
 ```
 
-For more information, see [mindspore.ops.dropout](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dropout.html).
+For more information, see [mindspore.nn.Dropout](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html).
 
 ## Differences
 
-PyTorch: dropout is a function used to prevent or mitigate overfitting by dropping a random portion of neurons at different training sessions. That is, the neuronal output is randomly set to 0 with a certain probability p, which serves to reduce the neuronal correlation. The remaining parameters that are not set to 0 will be scaled with $\frac{1}{1-p}$.
+PyTorch: Dropout is a regularization device. The operator randomly sets some neuron outputs to 0 during training according to the dropout probability `p` , reducing overfitting by preventing correlation between neuron nodes.
 
-MindSpore: MindSpore API Basically achieves the same function as PyTorch.
+MindSpore: MindSpore API implements much the same functionality as PyTorch. `keep_prob` is the input neuron retention rate, now deprecated, will be removed in the near future version.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ----|
-| Parameters | Parameter 1 | p   | p    | -  |
-|      | Parameter 2 | inplace |           | If set to True, this action will be performed in-place, the default value is False. In-place execution means that the operation is performed in the memory space of the input itself, i.e. Dropout is also performed on the input and save the input. MindSpore does not have this parameter. |
-|      | Parameter 3 |         | x         | (Tensor), dropout input, Tensor of any dimension.      |
-|      | Parameter 4 |         | seed0     | (int), the random seed of the operator layer, used to generate random numbers. Default value: 0     |
-|      | Parameter 5 |         | seed1     | (int), the global random seed, which together with the random seed of the operator layer determines the finally generated random number. Default value: 0 |
+| Parameters | Parameter 1 | -   | keep_prob    | MindSpore discard parameter |
+|      | Parameter 2 | p |  p   | The parameter names and functions are the same |
+|      | Parameter 3 |   inplace   | - | MindSpore does not have this parameter |
 
-### Code Example 1
+### Code Example
 
 > When the inplace input is False, both APIs achieve the same function.
 
@@ -51,14 +49,13 @@ print(output.shape)
 
 # MindSpore
 import mindspore
-from mindspore import ops
 from mindspore import Tensor
 x = Tensor([[1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00],
             [1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00],
             [1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00],
             [1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00],
             [1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00]], mindspore.float32)
-output, mask = ops.dropout(x, p=0.2)
+output = mindspore.nn.Dropout(p=0.2)(x)
 print(output.shape)
 # (5, 10)
 ```
