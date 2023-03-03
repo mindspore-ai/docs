@@ -15,15 +15,11 @@ Client定义了端侧联邦学习算法执行流程对象。
 | [abstract List<Callback\> initCallbacks(RunType runType, DataSet dataSet)](#initcallbacks) |
 | [abstract Map<RunType, Integer\> initDataSets(Map<RunType, List<String\>\> files)](#initdatasets)    |
 | [abstract float getEvalAccuracy(List<Callback\> evalCallbacks)](#getevalaccuracy) |
-| [abstract List<Integer\> getInferResult(List<Callback\> inferCallbacks)](#getinferresult) |
-| [Status initSessionAndInputs(String modelPath, MSConfig config)](#initsessionandinputs) |
+| [abstract List<Object\> getInferResult(List<Callback\> inferCallbacks)](#getinferresult) |
 | [Status trainModel(int epochs)](#trainmodel) |
-| [evalModel()](#evalmodel) |
-| [List<Integer\> inferModel()](#infermodel) |
-| [Status saveModel(String modelPath)](#savemodel) |
-| [List<MSTensor\> getFeatures()](#getfeatures) |
-| [Status updateFeatures(String modelName, List<FeatureMap\> featureMaps)](#updatefeatures) |
-| [void free()](#free) |
+| [float evalModel()](#evalmodel) |
+| [Map<String, float[]\> genUnsupervisedEvalData(List<Callback\> evalCallbacks)](#genunsupervisedevaldata) |
+| [List<Object\> inferModel()](#infermodel) |
 | [Status setLearningRate(float lr)](#setlearningrate) |
 | [void setBatchSize(int batchSize)](#setbatchsize) |
 
@@ -79,7 +75,7 @@ public abstract float getEvalAccuracy(List<Callback> evalCallbacks)
 ## getInferResult
 
 ```java
-public abstract List<Integer> getInferResult(List<Callback> inferCallbacks)
+public abstract List<Object> getInferResult(List<Callback> inferCallbacks)
 ```
 
 获取预测结果。
@@ -91,23 +87,6 @@ public abstract List<Integer> getInferResult(List<Callback> inferCallbacks)
 - 返回值
 
   预测结果。
-
-## initSessionAndInputs
-
-```java
-public Status initSessionAndInputs(String modelPath, MSConfig config)
-```
-
-初始化client底层会话和输入。
-
-- 参数
-
-    - `modelPath`: 模型文件。
-    - `config`: 会话配置。
-
-- 返回值
-
-  初始化状态结果。
 
 ## trainModel
 
@@ -137,10 +116,26 @@ public float evalModel()
 
   模型评估精度。
 
+## genUnsupervisedEvalData
+
+```java
+public Map<String, float[]> genUnsupervisedEvalData(List<Callback> evalCallbacks)
+```
+
+生成无监督训练评估数据，子类需要覆写该函数。
+
+- 参数
+
+    - `evalCallbacks`: 推理回调类，该类生成数据。
+
+- 返回值
+
+  无监督训练评估数据。
+
 ## inferModel
 
 ```java
-public List<Integer> inferModel()
+public List<Object> inferModel()
 ```
 
 执行模型预测过程。
@@ -148,55 +143,6 @@ public List<Integer> inferModel()
 - 返回值
 
   模型预测结果。
-
-## saveModel
-
-```java
-public Status saveModel(String modelPath)
-```
-
-保存模型。
-
-- 返回值
-
-  模型保存结果。
-
-## getFeatures
-
-```java
-public List<MSTensor> getFeatures()
-```
-
-获取端侧权重。
-
-- 返回值
-
-  模型权重。
-
-## updateFeatures
-
-```java
-public Status updateFeatures(String modelName, List<FeatureMap> featureMaps)
-```
-
-更新端侧权重。
-
-- 参数
-
-    - `modelName`: 待更新的模型文件。
-    - `featureMaps`: 待更新的模型权重。
-
-- 返回值
-
-  模型权重。
-
-## free
-
-```java
-public void free()
-```
-
-释放模型。
 
 ## setLearningRate
 

@@ -156,13 +156,13 @@
 
     设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
-    注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--jarPath`设置为`"libs/jarX86/mindspore-lite-java-flclient.jar"`，则需确保`jarX86`文件夹下仅包含一个jar包`mindspore-lite-java-flclient.jar`。
-
 - `--case_jar_path`
 
-    设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+    设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向联邦端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
-    注意，请确保该路径下仅包含该jar包。例如，在上面示例代码中，`--case_jarPath`设置为`"case_jar/quick_start_flclient.jar"`，则需确保`case_jar`文件夹下仅包含一个jar包`quick_start_flclient.jar`。
+ - `--lite_jar_path`
+
+    设置mindspore lite的端侧jar包`mindspore-lite-java.jar`的路径，位于端侧包mindspore-lite-{version}-linux-x64.tar.gz中，x86环境联邦学习jar包获取可参考[横向端侧部署中构建环境依赖](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
 - `--train_data_dir`
 
@@ -206,6 +206,7 @@
  && python3 run_client_x86.py \
  --fl_jar_path="federated/mindspore_federated/device_client/build/libs/jarX86/mindspore-lite-java-flclient.jar" \
  --case_jar_path="federated/example/quick_start_flclient/target/case_jar/quick_start_flclient.jar" \
+ --lite_jar_path="federated/mindspore_federated/device_client/third/mindspore-lite-2.0.0-linux-x64/runtime/lib/mindspore-lite-java.jar" \
  --train_data_dir="federated/tests/st/simulate_x86/data/3500_clients_bin/" \
  --eval_data_dir="null" \
  --infer_data_dir="null" \

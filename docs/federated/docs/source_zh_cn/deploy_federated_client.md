@@ -165,19 +165,13 @@ sudo apt-get install cmake -y
 
 ### 构建依赖环境
 
-1. 将文件`federated/mindspore_federated/device_client/third/mindspore-lite-{version}-linux-x64.tar.gz`解压后，所得到的目录结构如下所示：
+1. 将文件`federated/mindspore_federated/device_client/third/mindspore-lite-{version}-linux-x64.tar.gz`解压后，所得到的目录结构如下所示(联邦学习l不使用的文件不展示)：
 
     ```sh
     mindspore-lite-{version}-linux-x64
     ├── tools
-    │   ├── benchmark_train # 训练模型性能与精度调测工具
-    │   ├── converter       # 模型转换工具
-    │   └── cropper         # 库裁剪工具
-    │       ├── cropper                 # 库裁剪工具可执行文件
-    │       └── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     └── runtime
         ├── include  # 训练框架头文件
-        │   └── registry # 自定义算子注册头文件
         ├── lib      # 训练框架库
         │   ├── libminddata-lite.a          # 图像处理静态库文件
         │   ├── libminddata-lite.so        # 图像处理动态库文件
@@ -187,31 +181,20 @@ sudo apt-get install cmake -y
         │   ├── libmindspore-lite-train-jni.so # MindSpore Lite训练框架依赖的jni动态库
         │   ├── libmindspore-lite.a  # MindSpore Lite推理框架依赖的静态库
         │   ├── libmindspore-lite.so  # MindSpore Lite推理框架依赖的动态库
-        │   ├── mindspore-lite-java.jar    # MindSpore Lite训练框架jar包
-        │   └── mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
+        │   └── mindspore-lite-java.jar    # MindSpore Lite训练框架jar包
         └── third_party
+            ├── glog
+            │└── libmindspore_glog.so.0   #glog 日志动态库文件
             └── libjpeg-turbo
                 └── lib
                     ├── libjpeg.so.62   # 图像处理动态库文件
                     └── libturbojpeg.so.0  # 图像处理动态库文件
     ```
 
-2. 其中联邦学习所需的相关x86包名如下：
-
-    ```sh
-    libminddata-lite.so  # 图像处理动态库文件
-    libmindspore-lite.so  # MindSpore Lite推理框架依赖的动态库
-    libmindspore-lite-jni.so  # MindSpore Lite推理框架依赖的jni动态库
-    libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
-    libmindspore-lite-train-jni.so # MindSpore Lite训练框架的jni动态库
-    libjpeg.so.62   # 图像处理动态库文件
-    libturbojpeg.so.0  # 图像处理动态库文件
-    ```
-
-3. 可将路径`mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共7个）放入一个文件夹，比如`/resource/x86libs/`。然后在x86中设置环境变量(下面需提供绝对路径)：
+2. 可将路径`mindspore-lite-{version}-linux-x64/runtime/lib/`、`mindspore-lite-{version}-linux-x64/runtime/third_party/glog/`以及`mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib/`中联邦学习所依赖的so文件放入一个文件夹，比如`/resource/x86libs/`。然后在x86中设置环境变量(下面需提供绝对路径)：
 
     ```sh
     export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
     ```
 
-4. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。
+3. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。

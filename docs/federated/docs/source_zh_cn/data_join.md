@@ -93,7 +93,9 @@ python run_data_join.py \
     --main_table_files="vfl/input/leader/" \
     --output_dir="vfl/output/leader/" \
     --data_schema_path="vfl/leader_schema.yaml" \
+    --server_name=leader_node \
     --http_server_address="127.0.0.1:1086" \
+    --remote_server_name=follower_node \
     --remote_server_address="127.0.0.1:1087" \
     --primary_key="oaid" \
     --bucket_num=5 \
@@ -111,7 +113,9 @@ python run_data_join.py \
     --main_table_files="vfl/input/follower/" \
     --output_dir="vfl/output/follower/" \
     --data_schema_path="vfl/follower_schema.yaml" \
+    --server_name=follower_node \
     --http_server_address="127.0.0.1:1087" \
+    --remote_server_name=leader_node \
     --remote_server_address="127.0.0.1:1086" \
     --store_type="csv" \
     --thread_num=0
@@ -125,7 +129,9 @@ python run_data_join.py \
 | main_table_files                  | 原始数据路径，可以配置单个或多个文件路径、数据目录路径，list或str类型。 |
 | output_dir                        | 导出的MindRecord相关文件的目录路径，str类型。                |
 | data_schema_path         | 导出时所需要配置的超参文件存放的路径，str类型。         |
+| server_name      |本地用于通信的http服务名字，str类型。                             |
 | http_server_address      | 本机IP和端口地址，str类型。                             |
+| remote_server_name | 对端用于通信的http服务名字，str类型。                                |
 | remote_server_address | 对端IP和端口地址，str类型。                                |
 | primary_key（Follower不需要配置） | 数据ID的名称，str类型。                                      |
 | bucket_num（Follower不需要配置）  | 求交和导出时，分桶的数目，int类型。                          |
@@ -206,27 +212,20 @@ Follower数据导出运行结果：
 
 ### 数据导出
 
-用户可以使用已经封装好的接口实现数据求交以及导出MindRecord相关文件，方法如下：
+用户可以使用已经封装好的接口和配置文件实现数据求交以及导出MindRecord相关文件，方法如下：
 
 ```python
-from mindspore_federated.data_join import FLDataWorker
+from mindspore_federated import FLDataWorker
+from mindspore_federated.common.config import get_config
 
 
 if __name__ == '__main__':
-    worker = FLDataWorker(role="leader",
-                          main_table_files="vfl/input/leader/",
-                          output_dir="vfl/output/leader/",
-                          data_schema_path="vfl/leader_schema.yaml",
-                          http_server_address="127.0.0.1:1086",
-                          remote_server_address="127.0.0.1:1087",
-                          primary_key="oaid",
-                          bucket_num=5,
-                          store_type="csv",
-                          shard_num=1,
-                          join_type="psi",
-                          thread_num=0,
-                          )
-    worker.export()
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    args = get_config(os.path.join(current_dir, "vfl/vfl_data_join_config.yaml"))
+    dict_cfg = args.__dict__
+
+    worker = FLDataWorker(config=dict_cfg)
+    worker.do_worker()
 ```
 
 ### 数据读取
