@@ -53,6 +53,8 @@ models/
 
 ### 生成端侧模型文件
 
+用户可以根据如下指导生成端侧模型文件，或下载已经生成好的[ALBERT端侧模型文件](https://gitee.com/link?target=https%3A%2F%2Fmindspore-website.obs.cn-north-4.myhuaweicloud.com%2Fnotebook%2Fmodels%2Falbert_supervise.mindir.ms)。
+
 #### 将模型导出为MindIR格式文件
 
 示例代码如下：
