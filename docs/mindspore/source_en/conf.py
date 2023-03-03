@@ -112,14 +112,14 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../resource/numpy_objects.inv'),
 }
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsPlatNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsPlatWarnAutoSummary
 
 sys.path.append(os.path.abspath('../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msplatnoteautosummary', MsPlatNoteAutoSummary)
+    app.add_directive('msplatwarnautosummary', MsPlatWarnAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_stylesheet('css/bootstrap.min.css')

@@ -313,7 +313,7 @@ ops_interface_name()
 nn_interface_name()
 tensor_interface_name()
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
@@ -322,7 +322,7 @@ def setup(app):
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
-    app.add_directive('mscnplatnoteautosummary', MsCnPlatNoteAutoSummary)
+    app.add_directive('mscnplatwarnautosummary', MsCnPlatWarnAutoSummary)
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
