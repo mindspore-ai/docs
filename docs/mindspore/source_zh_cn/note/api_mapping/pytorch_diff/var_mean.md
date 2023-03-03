@@ -20,9 +20,9 @@ mindspore.ops.var_mean(input, axis=None, ddof=0, keepdims=False)
 
 ## 差异对比
 
-PyTorch: 输出Tensor各维度上的方差和均值，也可以按照 `dim` 对指定维度求方差和均值。`unbiased` 如果为True，使用Bessel校正；如果是False，使用偏置估计来计算方差。`keepdim` 控制输出和输入的维度是否相同。
+PyTorch：输出Tensor各维度上的方差和均值，也可以按照 `dim` 对指定维度求方差和均值。`unbiased` 如果为True，使用Bessel校正；如果是False，使用偏置估计来计算方差。`keepdim` 控制输出和输入的维度是否相同。
 
-MindSpore: 输出Tensor各维度上的方差和均值，也可以按照 `axis` 对指定维度求方差和均值。如果 `ddof` 是布尔值，和 `unbiased` 作用相同； `ddof` 为整数，计算中使用的除数是 N−ddof，其中N表示元素的数量。`keepdim` 控制输出和输入的维度是否相同。
+MindSpore：输出Tensor各维度上的方差和均值，也可以按照 `axis` 对指定维度求方差和均值。如果 `ddof` 是布尔值，和 `unbiased` 作用相同； `ddof` 为整数，计算中使用的除数是 N−ddof，其中N表示元素的数量。`keepdim` 控制输出和输入的维度是否相同。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
