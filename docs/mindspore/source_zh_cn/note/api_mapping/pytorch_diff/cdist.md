@@ -42,8 +42,8 @@ x =  torch.tensor(np.array([[1.0, 1.0], [2.0, 2.0]]).astype(np.float32))
 y =  torch.tensor(np.array([[3.0, 3.0], [3.0, 3.0]]).astype(np.float32))
 output = torch.cdist(x, y, 2.0)
 print(output)
-#tensor([[2.8284, 2.8284],
-#        [1.4142, 1.4142]])
+# tensor([[2.8284, 2.8284],
+#         [1.4142, 1.4142]])
 
 # MindSpore
 import mindspore.numpy as np
@@ -54,7 +54,7 @@ x = Tensor(np.array([[1.0, 1.0], [2.0, 2.0]]).astype(np.float32))
 y = Tensor(np.array([[3.0, 3.0], [3.0, 3.0]]).astype(np.float32))
 output = ops.cdist(x, y, 2.0)
 print(output)
-#[[2.828427  2.828427 ]
-# [1.4142135 1.4142135]]
+# [[2.828427  2.828427 ]
+#  [1.4142135 1.4142135]]
 
 ```
