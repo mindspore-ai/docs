@@ -133,7 +133,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
     ```yaml
     opts:
-      - type: PanguAlphaAdam
+      - type: CustomizedAdam
         grads:
           - inputs:
               - name: input_ids
@@ -174,22 +174,22 @@ MindSpore Federated uses the `GradOperation` operator to complete the above grad
 
 ```yaml
 grad_scalers:
-      - inputs:
-          - name: hidden_states
-          - name: input_ids
-          - name: word_table
-          - name: position_id
-          - name: attention_mask
-        output:
-          name: output
-        sens: 1024.0
+  - inputs:
+      - name: hidden_states
+      - name: input_ids
+      - name: word_table
+      - name: position_id
+      - name: attention_mask
+    output:
+      name: output
+    sens: 1024.0
 ```
 
 The `inputs` and `output` fields are lists of input and output tensors of the `GradOperation` operator, whose elements are input/output tensor names, respectively. The `sens` field is the gradient weighting coefficient or sensitivity of this `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)). If it is a `float` or `int` type value, a constant tensor will be constructed as the gradient weighting coefficient. If it is a `str` type string, the tensor corresponding to the name will be parsed as a weighting coefficient from the weighting coefficients transmitted by the other participants via the network.
 
 ### Executing the Training
 
-1. After completing the above Python programming development and yaml configuration file, the `FLModel` class and `FLYamlData` class provided by MindSpore Federated are used to build the vertical federated learning process. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+1. After completing the above Python programming development and yaml configuration file, the `FLModel` class and `FLYamlData` class provided by MindSpore Federated are used to build the vertical federated learning process. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/run_pangu_train_local.py) is as follows:
 
     ```python
     embedding_yaml = FLYamlData('./embedding.yaml')
@@ -209,10 +209,12 @@ The `inputs` and `output` fields are lists of input and output tensors of the `G
 
     The `FLYamlData` class mainly completes the parsing and verification of yaml configuration files, and the `FLModel` class mainly provides the control interface for vertical federated learning training, inference and other processes.
 
-2. Call the interface methods of the `FLModel` class to perform vertical federated learning training. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+2. Call the interface methods of the `FLModel` class to perform vertical federated learning training. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/run_pangu_train_local.py) is as follows:
 
     ```python
-    embedding_fl_model.load_ckpt()
+    if opt.resume:
+        embedding_fl_model.load_ckpt()
+        ...
     for epoch in range(50):
         for step, item in enumerate(train_iter, start=1):
             # forward process
@@ -220,9 +222,9 @@ The `inputs` and `output` fields are lists of input and output tensors of the `G
             embedding_out = embedding_fl_model.forward_one_step(item)
             ...
             # backward process
-            head_scale = head_fl_model.backward_one_step(item, backbone_out)
+            embedding_fl_model.backward_one_step(item, sens=backbone_scale)
             ...
-            if step % 10 == 0:
+            if step % 1000 == 0:
                 embedding_fl_model.save_ckpt()
     ```
 

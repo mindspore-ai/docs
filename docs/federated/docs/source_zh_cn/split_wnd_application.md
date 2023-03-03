@@ -140,23 +140,30 @@ train_iter = ds_train.create_dict_iterator()
 Leader参与方网络：
 
 ```python
+from wide_and_deep import WideDeepModel, BottomLossNet, LeaderTopNet, LeaderTopLossNet, LeaderTopEvalNet, \
+     LeaderTeeNet, LeaderTeeLossNet, LeaderTopAfterTeeNet, LeaderTopAfterTeeLossNet, LeaderTopAfterTeeEvalNet, \
+     AUCMetric
 from network_config import config
-from wide_and_deep import LeaderNet, LeaderLossNet
 
 
-leader_base_net = LeaderNet(config)
-leader_train_net = LeaderLossNet(leader_base_net, config)
+# Leader Top Net
+leader_top_base_net = LeaderTopNet()
+leader_top_train_net = LeaderTopLossNet(leader_top_base_net)
+...
+# Leader Bottom Net
+leader_bottom_eval_net = leader_bottom_base_net = WideDeepModel(config, config.leader_field_size)
+leader_bottom_train_net = BottomLossNet(leader_bottom_base_net, config)
 ```
 
 Follower参与方网络：
 
 ```python
+from wide_and_deep import WideDeepModel, BottomLossNet
 from network_config import config
-from wide_and_deep import FollowerNet, FollowerLossNet
 
 
-follower_base_net = FollowerNet(config)
-follower_train_net = FollowerLossNet(follower_base_net, config)
+follower_bottom_eval_net = follower_base_net = WideDeepModel(config, config.follower_field_size)
+follower_bottom_train_net = BottomLossNet(follower_base_net, config)
 ```
 
 ### 纵向联邦通信底座
@@ -172,21 +179,23 @@ from mindspore_federated.startup.vertical_federated_local import VerticalFederat
 Leader参与方通信底座：
 
 ```python
-http_server_config = ServerConfig(server_name='serverB', server_address='127.0.0.1:10180')
-remote_server_config = ServerConfig(server_name='serverA', server_address='127.0.0.1:10190')
-vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
-                                                      remote_server_config=remote_server_config)
-vertical_communicator.launch()
+http_server_config = ServerConfig(server_name='leader', server_address=config.http_server_address)
+remote_server_config = ServerConfig(server_name='follower', server_address=config.remote_server_address)
+self.vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
+                                                           remote_server_config=remote_server_config,
+                                                           compress_configs=compress_configs)
+self.vertical_communicator.launch()
 ```
 
 Follower参与方通信底座：
 
 ```python
-http_server_config = ServerConfig(server_name='serverA', server_address='127.0.0.1:10190')
-remote_server_config = ServerConfig(server_name='serverB', server_address='127.0.0.1:10180')
-vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
-                                                      remote_server_config=remote_server_config)
-vertical_communicator.launch()
+http_server_config = ServerConfig(server_name='follower', server_address=config.http_server_address)
+remote_server_config = ServerConfig(server_name='leader', server_address=config.remote_server_address)
+self.vertical_communicator = VerticalFederatedCommunicator(http_server_config=http_server_config,
+                                                           remote_server_config=remote_server_config,
+                                                           compress_configs=compress_configs)
+self.vertical_communicator.launch()
 ```
 
 ### 构建纵向联邦网络
@@ -202,19 +211,27 @@ from mindspore_federated import FLModel, FLYamlData
 Leader参与方纵向联邦网络：
 
 ```python
-leader_yaml_data = FLYamlData(config.leader_yaml_path)
-leader_fl_model = FLModel(yaml_data=leader_yaml_data,
-                          network=leader_base_net,
-                          train_network=leader_train_net)
+leader_bottom_yaml_data = FLYamlData(config.leader_bottom_yaml_path)
+leader_top_yaml_data = FLYamlData(config.leader_top_yaml_path)
+...
+self.leader_top_fl_model = FLModel(yaml_data=leader_top_yaml_data,
+                                   network=leader_top_train_net,
+                                   metrics=self.eval_metric,
+                                   eval_network=leader_top_eval_net)
+...
+self.leader_bottom_fl_model = FLModel(yaml_data=leader_bottom_yaml_data,
+                                      network=leader_bottom_train_net,
+                                      eval_network=leader_bottom_eval_net)
 ```
 
 Follower参与方纵向联邦网络：
 
 ```python
-follower_yaml_data = FLYamlData(config.follower_yaml_path)
-follower_fl_model = FLModel(yaml_data=follower_yaml_data,
-                            network=follower_base_net,
-                            train_network=follower_train_net)
+follower_bottom_yaml_data = FLYamlData(config.follower_bottom_yaml_path)
+...
+self.follower_bottom_fl_model = FLModel(yaml_data=follower_bottom_yaml_data,
+                                        network=follower_bottom_train_net,
+                                        eval_network=follower_bottom_eval_net)
 ```
 
 ### 纵向训练
@@ -224,20 +241,30 @@ follower_fl_model = FLModel(yaml_data=follower_yaml_data,
 Leader参与方训练流程：
 
 ```python
-for step, item in itertools.product(range(config.epochs), train_iter):
-    follower_out = vertical_communicator.receive("serverA")
-    leader_out = leader_fl_model.forward_one_step(item, follower_out)
-    grad_scale = leader_fl_model.backward_one_step(item, follower_out)
-    vertical_communicator.send_tensors("serverA", grad_scale)
+for epoch in range(config.epochs):
+    for step, item in enumerate(train_iter):
+        leader_embedding = self.leader_bottom_fl_model.forward_one_step(item)
+        item.update(leader_embedding)
+        follower_embedding = self.vertical_communicator.receive("follower")
+        ...
+        leader_out = self.leader_top_fl_model.forward_one_step(item, follower_embedding)
+        grad_scale = self.leader_top_fl_model.backward_one_step(item, follower_embedding)
+        scale_name = 'loss'
+        ...
+        grad_scale_follower = {scale_name: OrderedDict(list(grad_scale[scale_name].items())[2:])}
+        self.vertical_communicator.send_tensors("follower", grad_scale_follower)
+        grad_scale_leader = {scale_name: OrderedDict(list(grad_scale[scale_name].items())[:2])}
+        self.leader_bottom_fl_model.backward_one_step(item, sens=grad_scale_leader)
 ```
 
 Follower参与方训练流程：
 
 ```python
-for step, item in itertools.product(range(config.epochs), train_iter):
-    follower_out = follower_fl_model.forward_one_step(item)
-    vertical_communicator.send_tensors("serverB", embedding_data)
-    scale = vertical_communicator.receive("serverB")
-    follower_fl_model.backward_one_step(item, sens=scale)
+for _ in range(config.epochs):
+    for _, item in enumerate(train_iter):
+        follower_embedding = self.follower_bottom_fl_model.forward_one_step(item)
+        self.vertical_communicator.send_tensors("leader", follower_embedding)
+        scale = self.vertical_communicator.receive("leader")
+        self.follower_bottom_fl_model.backward_one_step(item, sens=scale)
 ```
 
