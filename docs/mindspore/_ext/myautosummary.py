@@ -36,32 +36,29 @@ class MsAutosummary(Autosummary):
                 env_sum = doc[i+1][4:] # 支持平台
         return env_sum
 
-    def extract_env_note(self, doc: List[str]) -> str:
+    def extract_env_warn(self, doc: List[str]) -> str:
         """Extract env note from docstring."""
-        flag_note = 0
-        env_note = ''
+        flag_warn = 0
+        env_warn = ''
         indent = 0
         for piece in doc:
             if piece == '.. rubric:: Examples':
                 break
-            if flag_note and piece != '' and (len(piece) - len(piece.lstrip())) >= indent+3:
+            if flag_warn and piece != '' and (len(piece) - len(piece.lstrip())) >= indent+3:
                 if piece.lstrip().startswith('- '):
-                    env_note += piece.lstrip().lstrip('- ')+' '
+                    env_warn += piece.lstrip().lstrip('- ')+' '
                 else:
-                    env_note += piece.lstrip()+' '
+                    env_warn += piece.lstrip()+' '
             elif piece == '':
                 continue
-            elif (len(piece) - len(piece.lstrip())) <= indent+3 and flag_note:
+            elif (len(piece) - len(piece.lstrip())) <= indent+3 and flag_warn:
                 break
             if piece.startswith(self.find_doc_name_fourth):
-                if piece != self.find_doc_name_fourth:
-                    env_note = piece[10:].lstrip('- ')
-                    break
-                flag_note = 1
+                flag_warn = 1
                 indent = len(piece) - len(piece.lstrip())
-        if not env_note:
-            env_note = "None"
-        return env_note.rstrip()
+        if not env_warn:
+            env_warn = "None"
+        return env_warn.rstrip()
 
     def run(self):
         """
@@ -188,7 +185,7 @@ class MsAutosummary(Autosummary):
             documenter.add_content(None)
             summary = extract_summary(self.bridge.result.data[:], self.state.document)
             env_sum = self.extract_env_summary(self.bridge.result.data[:])
-            env_warn = self.extract_env_note(self.bridge.result.data[:])
+            env_warn = self.extract_env_warn(self.bridge.result.data[:])
             if self.fourth_title:
                 items.append((display_name, sig, summary, real_name, env_sum, env_warn))
             else:
@@ -267,7 +264,7 @@ class MsAutosummary(Autosummary):
 
         return [table_spec, table]
 
-class MsPlatNoteAutoSummary(MsAutosummary):
+class MsPlatWarnAutoSummary(MsAutosummary):
     """
     Inherited from MsAutosummary. Add a third column about Note` to the table
     and Add a fourth column about `Supported Platforms` to the table.
@@ -276,8 +273,8 @@ class MsPlatNoteAutoSummary(MsAutosummary):
         """
         init method
         """
-        self.find_doc_name_fourth = ".. note::"
-        self.fourth_title = "**Note**"
+        self.find_doc_name_fourth = ".. warning::"
+        self.fourth_title = "**Warning**"
         self.default_doc_fourth = "None"
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
@@ -654,13 +651,13 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
         except: #pylint: disable=bare-except
             return []
 
-class MsCnPlatNoteAutoSummary(MsCnAutoSummary):
-    """definition of mscnplatnoteautosummary."""
+class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
+    """definition of mscnplatwarnautosummary."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.table_head = ('**接口名**', '**概述**', '**支持平台**', '**说明**')
+        self.table_head = ('**接口名**', '**概述**', '**支持平台**', '**警告**')
         self.third_name_en = "Supported Platforms:"
-        self.fourth_name_en = ".. note::"
+        self.fourth_name_en = ".. warning::"
         self.default_doc_fourth = "None"
 
     def get_third_column(self, name=None, content=None):
@@ -682,17 +679,17 @@ class MsCnPlatNoteAutoSummary(MsCnAutoSummary):
             return []
 
     def get_fourth_column(self, name=None, content=''):
-        """Get the `Note`."""
-        env_note = ''
+        """Get the `Warning`."""
+        env_warn = ''
         fourth_str = ''
         try:
-            if re.findall('.. note::\n', content):
-                indent = re.findall(r'([ ]+)\.\. note::\n', content)[0]
-                if re.findall(rf'\.\. note::\n((?:.|\n|)+?)\n\n{indent}\S', content):
-                    env_note = re.findall(rf'\.\. note::\n((?:.|\n|)+?)\n\n{indent}\S', content)[0]
-                elif re.findall(rf'\.\. note::\n((?:.|\n|)+)\n', content):
-                    env_note = re.findall(rf'\.\. note::\n((?:.|\n|)+)\n', content)[0]
-                for line in env_note.split('\n'):
+            if re.findall(r'\.\. warning::\n', content):
+                indent = re.findall(r'([ ]+)\.\. warning::\n', content)[0]
+                if re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content):
+                    env_warn = re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content)[0]
+                elif re.findall(rf'\.\. warning::\n((?:.|\n|)+)\n', content):
+                    env_warn = re.findall(rf'\.\. warning::\n((?:.|\n|)+)\n', content)[0]
+                for line in env_warn.split('\n'):
                     if line == '':
                         continue
                     elif '.. include::' in line:
@@ -706,7 +703,7 @@ class MsCnPlatNoteAutoSummary(MsCnAutoSummary):
                         else:
                             fourth_str += line.lstrip()+' '
         except IndexError:
-            logger.warning(name + 'get Note error')
+            logger.warning(name + 'get Warning error')
         return fourth_str
 
 class MsCnNoteAutoSummary(MsCnAutoSummary):
