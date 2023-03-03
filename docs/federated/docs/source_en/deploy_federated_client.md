@@ -165,19 +165,13 @@ After running the above command, the path of generated jar package is federated/
 
 ### Building Dependency Environment
 
-1. After extracting the file `federated/mindspore_federated/device_client/third/mindspore-lite-{version}-linux-x64.tar.gz`, the obtained directory structure is as follows:
+1. After extracting the file `federated/mindspore_federated/device_client/third/mindspore-lite-{version}-linux-x64.tar.gz`, the obtained directory structure is as follows(files that are not used in federated  learning are not displayed here):
 
     ```sh
     mindspore-lite-{version}-linux-x64
     ├── tools
-    │   ├── benchmark_train # Tool for training model performance and accuracy tuning
-    │   ├── converter       # Model converter
-    │   └── cropper         # Library cropper
-    │       ├── cropper                 # Executable files of library cropper
-    │       └── cropper_mapping_cpu.cfg # Configuration files required for cropping the cpu library
     └── runtime
         ├── include  # Header files of training framework
-        │   └── registry # Custom operator registration header files
         ├── lib      # Training framework library
         │   ├── libminddata-lite.a          # Static library files for image processing
         │   ├── libminddata-lite.so        # Dynamic library files for image processing
@@ -188,32 +182,21 @@ After running the above command, the path of generated jar package is federated/
         │   ├── libmindspore-lite.a  # Static library relied by MindSpore Lite inference framework
         │   ├── libmindspore-lite.so  # Dynamic library relied by MindSpore Lite inference framework
         │   ├── mindspore-lite-java.jar    # MindSpore Lite training framework jar package
-        │   └── mindspore-lite-java-flclient.jar  # Federated learning framework jar package
         └── third_party
+            ├── glog
+            │└── libmindspore_glog.so.0   # Dynamic library files of glog
             └── libjpeg-turbo
                 └── lib
                     ├── libjpeg.so.62   # Dynamic library files for image processing
                     └── libturbojpeg.so.0  # Dynamic library files for image processing
     ```
 
-2. The names of the relevant x86 packages required for federated learning are as follows:
-
-    ```sh
-    libminddata-lite.so  # Dynamic library files for image processing
-    libmindspore-lite.so  # Dynamic libraries relied by MindSpore Lite inference framework
-    libmindspore-lite-jni.so  # jni dynamic library relied by MindSpore Lite inference framework
-    libmindspore-lite-train.so  # Dynamic library relied by MindSpore Lite training framework
-    libmindspore-lite-train-jni.so # jni dynamic library relied by MindSpore Lite training framework
-    libjpeg.so.62   # Dynamic library files for image processing
-    libturbojpeg.so.0  # Dynamic library files for image processing
-    ```
-
-3. Put the so files (7 in total) relied by federated learning in paths `mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib` in a folder, e.g. `/resource/x86libs/`. Then set the environment variables in x86 (absolute paths need to be provided below):
+2. Put the so files relied by federated learning in paths `mindspore-lite-{version}-linux-x64/runtime/lib/`,  `mindspore-lite-{version}-linux-x64/runtime/third_party/glog/` and `mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib/` in a folder, e.g. `/resource/x86libs/`. Then set the environment variables in x86 (absolute paths need to be provided below):
 
     ```sh
     export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
     ```
 
-4. After setting up the dependency environment, you can simulate starting multiple clients in the x86 environment for federated learning by referring to the application practice tutorial [Implementing an end-cloud federation for image classification application (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
+3. After setting up the dependency environment, you can simulate starting multiple clients in the x86 environment for federated learning by referring to the application practice tutorial [Implementing an end-cloud federation for image classification application (x86)](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
 
 

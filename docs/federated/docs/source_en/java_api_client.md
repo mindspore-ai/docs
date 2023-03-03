@@ -15,15 +15,11 @@ Client defines the execution process object of the end-side federated learning a
 | [abstract List<Callback\> initCallbacks(RunType runType, DataSet dataSet)](#initcallbacks) |
 | [abstract Map<RunType, Integer\> initDataSets(Map<RunType, List<String\>\> files)](#initdatasets)    |
 | [abstract float getEvalAccuracy(List<Callback\> evalCallbacks)](#getevalaccuracy) |
-| [abstract List<Integer\> getInferResult(List<Callback\> inferCallbacks)](#getinferresult) |
-| [Status initSessionAndInputs(String modelPath, MSConfig config)](#initsessionandinputs) |
+| [abstract List<Object\> getInferResult(List<Callback\> inferCallbacks)](#getinferresult) |
 | [Status trainModel(int epochs)](#trainmodel) |
-| [evalModel()](#evalmodel) |
-| [List<Integer\> inferModel()](#infermodel) |
-| [Status saveModel(String modelPath)](#savemodel) |
-| [List<MSTensor\> getFeatures()](#getfeatures) |
-| [Status updateFeatures(String modelName, List<FeatureMap\> featureMaps)](#updatefeatures) |
-| [void free()](#free) |
+| [float evalModel()](#evalmodel) |
+| [Map<String, float[]\> genUnsupervisedEvalData(List<Callback\> evalCallbacks)](#genunsupervisedevaldata) |
+| [List<Object\> inferModel()](#infermodel) |
 | [Status setLearningRate(float lr)](#setlearningrate) |
 | [void setBatchSize(int batchSize)](#setbatchsize) |
 
@@ -79,7 +75,7 @@ Get eval model accuracy.
 ## getInferResult
 
 ```java
-public abstract List<Integer> getInferResult(List<Callback> inferCallbacks)
+public abstract List<Object> getInferResult(List<Callback> inferCallbacks)
 ```
 
 Get infer phase result.
@@ -91,23 +87,6 @@ Get infer phase result.
 - Returns
 
   predict results.
-
-## initSessionAndInputs
-
-```java
-public Status initSessionAndInputs(String modelPath, MSConfig config)
-```
-
-Initialize client runtime session and input buffer.
-
-- Parameters
-
-    - `modelPath`: Model file path.
-    - `config`: session config.
-
-- Returns
-
-    Whether the Initialization is successful.
 
 ## trainModel
 
@@ -137,66 +116,33 @@ Execute eval model process.
 
   The accuracy in eval process.
 
-## inferModel
+## genUnsupervisedEvalData
 
 ```java
-public List<Integer> inferModel()
+public Map<String, float[]> genUnsupervisedEvalData(List<Callback> evalCallbacks)
 ```
 
-Execute infer model process.
-
-- Returns
-
-  The infer result in infer process.
-
-## saveModel
-
-```java
-public Status saveModel(String modelPath)
-```
-
-Save model.
-
-- Returns
-
-  Whether the inference is successful.
-
-## getFeatures
-
-```java
-public List<MSTensor> getFeatures()
-```
-
-Get feature weights.
-
-- Returns
-
-  The feature weights of model.
-
-## updateFeatures
-
-```java
-public Status updateFeatures(String modelName, List<FeatureMap> featureMaps)
-```
-
-Update model feature weights.
+Generate unsupervised training evaluation data, and the subclass needs to rewrite this function.
 
 - Parameters
 
-    - `modelName`: Model file name.
-    - `featureMaps`: New model weights.
+    - `evalCallbacks`: the eval Callback that generates data.
 
 - Returns
 
-  Whether the update is successful.
+  unsupervised training evaluation data
 
-## free
+## inferModel
 
 ```java
-public void free()
+public List<Object> inferModel()
 ```
 
-free model.
+Execute model prediction process.
+
+- Returns
+
+  The prediction result.
 
 ## setLearningRate
 

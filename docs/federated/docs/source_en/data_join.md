@@ -93,7 +93,9 @@ python run_data_join.py \
     --main_table_files="vfl/input/leader/" \
     --output_dir="vfl/output/leader/" \
     --data_schema_path="vfl/leader_schema.yaml" \
+    --server_name=leader_node \
     --http_server_address="127.0.0.1:1086" \
+    --remote_server_name=follower_node \
     --remote_server_address="127.0.0.1:1087" \
     --primary_key="oaid" \
     --bucket_num=5 \
@@ -111,7 +113,9 @@ python run_data_join.py \
     --main_table_files="vfl/input/follower/" \
     --output_dir="vfl/output/follower/" \
     --data_schema_path="vfl/follower_schema.yaml" \
+    --server_name=follower_node \
     --http_server_address="127.0.0.1:1087" \
+    --remote_server_name=leader_node \
     --remote_server_address="127.0.0.1:1086" \
     --store_type="csv" \
     --thread_num=0
@@ -125,7 +129,9 @@ The user can set the hyperparameter according to the actual situation.
 | main_table_files                  | The path of raw data, configure either single or multiple file paths, data directory paths, list or str types |
 | output_dir                        | The directory path of the exported MindRecord related files, str type.                |
 | data_schema_path         | The path of the super reference file to be configured during export, str type.         |
+| server_name      |Name of local http server that used for communication, str type.                             |
 | http_server_address      | Local IP and port address, str type.                             |
+| remote_server_name | Name of remote http server that used for communication, str type.                                |
 | remote_server_address | Peer IP and port address, str type.                                |
 | primary_key (Follower does not need to be configured) | The name of data ID, str type.                                      |
 | bucket_num (Follower does not need to be configured)  | Find the number of sub-buckets when intersecting and exporting, int type.                          |
@@ -206,27 +212,20 @@ For detailed API documentation for the following code, see [Data Access Document
 
 ### Data Export
 
-The user can implement data join and MindRecord related files export by using the encapsulated interface in the following way:
+The user can implement data join and MindRecord related files export by using the encapsulated interface and yaml file in the following way:
 
 ```python
-from mindspore_federated.data_join import FLDataWorker
+from mindspore_federated import FLDataWorker
+from mindspore_federated.common.config import get_config
 
 
 if __name__ == '__main__':
-    worker = FLDataWorker(role="leader",
-                          main_table_files="vfl/input/leader/",
-                          output_dir="vfl/output/leader/",
-                          data_schema_path="vfl/leader_schema.yaml",
-                          http_server_address="127.0.0.1:1086",
-                          remote_server_address="127.0.0.1:1087",
-                          primary_key="oaid",
-                          bucket_num=5,
-                          store_type="csv",
-                          shard_num=1,
-                          join_type="psi",
-                          thread_num=0,
-                          )
-    worker.export()
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    args = get_config(os.path.join(current_dir, "vfl/vfl_data_join_config.yaml"))
+    dict_cfg = args.__dict__
+
+    worker = FLDataWorker(config=dict_cfg)
+    worker.do_worker()
 ```
 
 ### Data Reading
