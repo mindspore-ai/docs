@@ -616,3 +616,9 @@ Traceback (most recent call last):
 另外在一些情况下，CANN会抛出一些内部错误(Inner Error)，例如：错误码为 "EI9999: Inner Error" 此种情况如果在MindSpore官网或者论坛无法搜索到案例说明，可在社区提单求助。
 
 <br/>
+
+<font size=3>**Q: 如何控制`print`方法打印出的Tensor值？**</font>
+
+A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printoptions`对输出的值进行控制。在Graph静态图模式下，因为`print`方法需要转化成为算子，所以暂时无法对输出的值进行控制。print算子具体用法可[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)。
+
+<br/>

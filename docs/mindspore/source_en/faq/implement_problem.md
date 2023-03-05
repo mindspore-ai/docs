@@ -638,3 +638,8 @@ tsd client wait response fail, device response code[1]. unknown device  error.[F
 In addition, CANN may throw some Inner Errors, for example, the error code is "EI9999: Inner Error". If you cannot search the case description in MindSpore official website or forum, you can ask for help in the community by raising an issue.
 
 <br/>
+
+<font size=3>**Q: How to control the Tensor value printed by the 'print' method?**</font>
+
+A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference]（ https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html )。
+<br/>
