@@ -43,6 +43,7 @@
    operation/op_custom
    operation/ms_kernel
    operation/op_custom_adv
+   operation/op_custom_aot
 
 .. toctree::
    :glob:
