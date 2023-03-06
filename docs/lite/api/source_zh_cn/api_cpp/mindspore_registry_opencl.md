@@ -100,7 +100,8 @@ template <typename T>
 ### RunKernel
 
 ```c++
-Status RunKernel(const cl::Kernel &kernbel, const cl::NDRange &global, const cl::NDRange &local);
+Status RunKernel(const cl::Kernel &kernel, const cl::NDRange &global, const cl::NDRange &local,
+                   cl::CommandQueue *command_queue = nullptr, cl::Event *event = nullptr);
 ```
 
 运行OpenCL内核。
@@ -109,9 +110,13 @@ Status RunKernel(const cl::Kernel &kernbel, const cl::NDRange &global, const cl:
 
     - `kernel`: OpenCL内核。
 
-    - `global`: 定义工作项的总数量。
+    - `global`: 工作项的总数量。
 
-    - `local`: 定义每个工作组中工作项的数量。
+    - `local`: 每个工作组中工作项的数量。
+
+    - `command_queue`: 使用的指令队列，默认空，使用框架内默认队列。
+
+    - `event`: 事件对象的指针，用来标识本次执行命令，默认空，无事件标识。
 
 ### SyncCommandQueue
 
@@ -209,7 +214,7 @@ uint64_t GetMaxImage2DHeight();
 
 获取Image内存数据支持的最大高度。
 
-### GetMaxImage2DWidth
+### GetImagePitchAlignment
 
 ```c++
 uint64_t GetImagePitchAlignment();
