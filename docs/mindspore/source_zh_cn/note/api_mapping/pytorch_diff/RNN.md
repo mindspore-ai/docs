@@ -10,7 +10,7 @@ class torch.nn.RNN(*args, **kwargs)(input, h_0)
 
 更多内容详见[torch.nn.RNN](https://pytorch.org/docs/1.8.1/generated/torch.nn.RNN.html)。
 
-## mindspore.nn.PReLU
+## mindspore.nn.RNN
 
 ```text
 class mindspore.nn.RNN(*args, **kwargs)(x, h_x, seq_length)

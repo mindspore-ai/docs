@@ -34,7 +34,7 @@ There are differences in parameter names and default values between MindSpore an
 | Parameters | Parameter 1   | input        | inputs        | The functions are the same, but the parameter names are different |
 |            | Parameter 2   | num_samples  | num_sample   | The functions are the same, but the parameter names are different |
 |            | Parameter 3   | replacement  | replacement   | The functionality is the same, the default values are different. The default value for PyTorch is False and the default value for MindSpore is True  |
-|            | Parameter 4   | out          | -             | MindSpore uses a random number seed to generate random numbers |
+|            | Parameter 4   | generator          | seed    | MindSpore uses a random number seed to generate random numbers |
 |            | Parameter 5   | out          | -             | Not involved  |
 
 ## Code Example

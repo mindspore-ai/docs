@@ -12,7 +12,7 @@
 ## torch.renorm
 
 ```text
-torch.renorm(input, p, dim, maxnorm, *, out=None) → Tensor
+torch.renorm(input, p, dim, maxnorm, *, out=None) -> Tensor
 ```
 
 更多内容详见[torch.renorm](https://pytorch.org/docs/1.8.1/generated/torch.renorm.html)。

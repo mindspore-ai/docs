@@ -38,8 +38,8 @@ MindSpore在PyTorch的基础上，兼容了Numpy的入参 `initial` 和 `where` 
 |-----|-----|---------|-----------|------------|
 | 输入  | 输入1 | dim     | axis      | 功能一致，参数名不同 |
 |     | 输入2 | keepdim | keepdims  | 功能一致，参数名不同 |
-|     | 输入3 | initial | -         | 不涉及        |
-|     | 输入4 | where   | -         | 不涉及        |
+|     | 输入3 | -      |initial    | 不涉及        |
+|     | 输入4 |  -     |where    | 不涉及        |
 
 ### 代码示例1
 
