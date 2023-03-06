@@ -17,7 +17,7 @@ import re
 sys.path.append(os.path.abspath('../_ext'))
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindtransformer
+import mindformers
 
 # -- Project information -----------------------------------------------------
 

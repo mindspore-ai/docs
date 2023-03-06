@@ -1,0 +1,5 @@
+mindformers
+================
+
+.. automodule:: mindformers
+    :members:
