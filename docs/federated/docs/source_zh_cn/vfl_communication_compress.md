@@ -1,6 +1,6 @@
 # 纵向联邦学习通信压缩
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/vfl_communication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/vfl_communication_compress.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 纵向联邦学习通信量会影响用户体验（用户流量、通信时延、联邦学习训练效率），并受性能约束（内存、带宽、CPU 占用率）限制。小的通信量对提高用户体验和减少性能瓶颈都有很大帮助，因此需要对通信量进行压缩。MindSpore Federated 在纵向联邦应用场景中，实现了Leader和Follower之间的双向通信压缩。
 
