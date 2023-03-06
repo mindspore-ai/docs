@@ -54,6 +54,13 @@ MindSpore Transformer是一个基于MindSpore的Python软件包。
    :caption: API参考
 
    mindformers
+   mindformers.core
+   mindformers.dataset
+   mindformers.models
+   mindformers.modules
+   mindformers.pipeline
+   mindformers.trainer
+   mindformers.wrapper
 
 .. toctree::
    :glob:

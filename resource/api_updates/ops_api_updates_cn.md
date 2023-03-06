@@ -35,7 +35,6 @@
 [mindspore.ops.LowerBound](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LowerBound.html#mindspore.ops.LowerBound)|新增|返回一个Tensor，包含用于查找输入 sorted_x 中值下限的索引。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.LuSolve](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LuSolve.html#mindspore.ops.LuSolve)|新增|返回线性方程组 \(Ax = b\) 的解。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.LuUnpack](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LuUnpack.html#mindspore.ops.LuUnpack)|新增|从Tensor的LU分解中解压缩 LU_data 和 LU_pivots 。|master: Ascend/GPU/CPU|Array操作
-[mindspore.ops.MatrixBandPart](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatrixBandPart.html#mindspore.ops.MatrixBandPart)|新增|复制一个Tensor，将每个最内层矩阵中中心带之外的所有值都设置为零。|master: GPU/CPU|Array操作
 [mindspore.ops.MatrixDeterminant](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatrixDeterminant.html#mindspore.ops.MatrixDeterminant)|新增|计算一个或多个方阵的行列式。|master: GPU/CPU|Array操作
 [mindspore.ops.MatrixExp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatrixExp.html#mindspore.ops.MatrixExp)|修改|计算方阵的矩阵指数。|r2.0.0-alpha: CPU => master: Ascend/CPU|Array操作
 [mindspore.ops.MatrixLogarithm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatrixLogarithm.html#mindspore.ops.MatrixLogarithm)|新增|返回一个或多个方阵的矩阵对数。|master: Ascend/CPU|Array操作
@@ -109,7 +108,6 @@
 [mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)|修改|r2.0.0-alpha: 使用双线性插值调整图像大小到指定的大小。 => master: 此接口已弃用，请使用 mindspore.ops.ResizeBilinearV2 。|r2.0.0-alpha: Ascend/CPU/GPU => master: |神经网络
 [mindspore.ops.ResizeLinear1D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeLinear1D.html#mindspore.ops.ResizeLinear1D)|修改|使用线性插值调整输入 x 为指定大小。|r2.0.0-alpha:  => master: GPU/CPU|神经网络
 [mindspore.ops.UpsampleTrilinear3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.UpsampleTrilinear3D.html#mindspore.ops.UpsampleTrilinear3D)|修改|输入为五维度Tensor，跨其中三维执行三线性插值上调采样。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|神经网络
-[mindspore.ops.SparseTensorDenseAdd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseAdd.html#mindspore.ops.SparseTensorDenseAdd)|新增|一个稀疏tensor加上稠密Tensor得到一个稠密Tensor。|master: GPU/CPU|稀疏算子
 [mindspore.ops.SparseTensorDenseMatmul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseMatmul.html#mindspore.ops.SparseTensorDenseMatmul)|修改|稀疏矩阵 A 乘以稠密矩阵 B 。|r2.0.0-alpha: CPU => master: GPU/CPU|稀疏算子
 [mindspore.ops.Svd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Svd.html#mindspore.ops.Svd)|新增|计算一个或多个矩阵的奇异值分解。|master: GPU/CPU|线性代数算子
 [mindspore.ops.TridiagonalMatMul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TridiagonalMatMul.html#mindspore.ops.TridiagonalMatMul)|新增|返回两个矩阵的乘积，其中左边的矩阵是三对角矩阵。|master: Ascend/CPU|线性代数算子
