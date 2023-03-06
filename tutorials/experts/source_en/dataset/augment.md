@@ -2,11 +2,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## Overview
-
 MindSpore not only allows you to customize data augmentation, but also provides an auto augmentation method to automatically perform data augmentation on images based on specific policies.
 
-Auto augmentation can be implemented based on **probability** or **callback parameters**.
+The following is divided into two different automatic data augmentation approaches **based on probability** and **based on callback parameters**.
 
 ## Probability-Based Auto Augmentation
 
@@ -22,20 +20,22 @@ In the following code example, the `RandomCrop` and `RandomColorAdjust` operatio
 import mindspore.dataset.vision as vision
 from mindspore.dataset.transforms import RandomApply
 
-rand_apply_list = RandomApply([vision.RandomCrop(512), vision.RandomColorAdjust()])
+transforms_list = [vision.RandomCrop(512), vision.RandomColorAdjust()]
+rand_apply = RandomApply(transforms_list)
 ```
 
 ### RandomChoice
 
 The API receives a data augmentation operation list `transforms` and randomly selects a data augmentation operation to perform.
 
-In the following code example, an operation is selected from `CenterCrop` and `RandomCrop` for execution with equal probability.
+In the following code example, one of the `CenterCrop` and `RandomCrop` operations is executed with equal probability by calling the `RandomChoice` operation.
 
 ```python
 import mindspore.dataset.vision as vision
 from mindspore.dataset.transforms import RandomChoice
 
-rand_choice = RandomChoice([vision.CenterCrop(512), vision.RandomCrop(512)])
+transforms_list = [vision.CenterCrop(512), vision.RandomCrop(512)]
+rand_choice = RandomChoice(transforms_list)
 ```
 
 ### RandomSelectSubpolicy
@@ -55,9 +55,14 @@ import mindspore.dataset.vision as vision
 from mindspore.dataset.vision import RandomSelectSubpolicy
 
 policy_list = [
-      [(vision.RandomRotation((45, 45)), 0.5), (vision.RandomVerticalFlip(), 1.0), (vision.RandomColorAdjust(), 0.8)],
-      [(vision.RandomRotation((90, 90)), 1.0), (vision.RandomColorAdjust(), 0.2)]
-      ]
+    # policy 1: (transforms, probability)
+    [(vision.RandomRotation((45, 45)), 0.5),
+     (vision.RandomVerticalFlip(), 1.0)],
+    # policy 2: (transforms, probability)
+    [(vision.RandomRotation((90, 90)), 1.0),
+     (vision.RandomColorAdjust(), 0.2)]
+]
+
 policy = RandomSelectSubpolicy(policy_list)
 ```
 
@@ -80,7 +85,6 @@ The following demonstrates the use of automatic data augmentation based on callb
 1. Customize the `Augment` class where `preprocess` is a custom data augmentation function and `update` is a callback function for updating the data augmentation policy.
 
     ```python
-    import mindspore.dataset as ds
     import numpy as np
 
     class Augment:
@@ -89,7 +93,7 @@ The following demonstrates the use of automatic data augmentation based on callb
             self.step_num = 0
 
         def preprocess(self, input_):
-            return np.array((input_ + self.step_num ** self.ep_num - 1), )
+            return np.array((input_ + self.step_num ** self.ep_num - 1),)
 
         def update(self, data):
             self.ep_num = data['ep_num']
@@ -99,8 +103,11 @@ The following demonstrates the use of automatic data augmentation based on callb
 2. The data processing pipeline calls back the custom data augmentation policy update function `update`, and then performs the data augmentation operation defined in `preprocess` based on the updated policy in the `map` operation.
 
     ```python
+    import mindspore.dataset as ds
+
     arr = list(range(1, 4))
     dataset = ds.NumpySlicesDataset(arr, shuffle=False)
+
     aug = Augment()
     dataset = dataset.sync_wait(condition_name="policy", callback=aug.update)
     dataset = dataset.map(operations=[aug.preprocess])
@@ -111,12 +118,14 @@ The following demonstrates the use of automatic data augmentation based on callb
     ```python
     epochs = 5
     itr = dataset.create_tuple_iterator(num_epochs=epochs)
+
     step_num = 0
     for ep_num in range(epochs):
         for data in itr:
             print("epcoh: {}, step:{}, data :{}".format(ep_num, step_num, data))
             step_num += 1
-            dataset.sync_update(condition_name="policy", data={'ep_num': ep_num, 'step_num': step_num})
+            dataset.sync_update(condition_name="policy",
+                                data={'ep_num': ep_num, 'step_num': step_num})
     ```
 
     The output is as follows:
