@@ -108,7 +108,7 @@ Configure the search_mode as `sharding_propagation` in Auto_Parallel mode:
 set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation")
 ```
 
-### Training the model and checking the Sharding Strategies
+### Training the Model and Checking the Sharding Strategies
 
 Run the command `bash run.sh 8`. By setting the context: `save_graphs=True`, the IR graphs in the compilation process are saved. We choose the IRs corresponding to device 0.
 
@@ -166,13 +166,13 @@ In `xx_validate_xxx.ir`, each input and output tensor in the computation operato
 …
 ```
 
-## Empirical principles on configuring sharding strategies
+## Empirical Principles on Configuring Sharding Strategies
 
 Given a new model with numerous operators, from the user's perspective, a key problem is to determine which operators should be configured, with what sharding strategies. Since the goal of Sharding Propagation is to minimize Tensor Redistribution cost, instead of finding the global minima of end-to-end step time, it is crucial to configure proper sharding strategies for "key operators". There is no compulsory standard specifying which operators must be configured. However, based on our experience of training large models, there are indeed some principles guiding users to annotate shardings. Here, we list three principles, which may be useful for new users.
 
-### Configure parameter-involved operators
+### Configuring Parameter-involved Operators
 
-The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need explicitly annotated sharding strategies. In the following figure, Gather and MatMul are annotated shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/tree/r0.3/mindformers/modules), respectively.
+The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need to explicitly configure the sharding strategies. In the following examples in the figure, Gather and MatMul involving weights are configured shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/tree/master/mindformers/modules), respectively.
 
 ![sp_case1](./images/sp_case1.png "Configure parameter-involved operators")
 
