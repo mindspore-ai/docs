@@ -277,6 +277,12 @@
 | [torch.xlogy](https://pytorch.org/docs/1.8.1/generated/torch.xlogy.html) | [mindspore.ops.xlogy](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.xlogy.html) | 功能一致，参数名不同|
 | [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/zeros.html)|
 
+### torch.distributions
+
+| PyTorch 1.8.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
+| -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
+| [torch.distributions.laplace.Laplace](https://pytorch.org/docs/1.8.1/distributions.html#torch.distributions.laplace.Laplace) | [mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.standard_laplace.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/standard_laplace.html)   |
+
 ### torch.distributed
 
 | PyTorch 1.8.1 APIs                                                                                                           | MindSpore APIs                                                                                                                                                  | 说明                                                                                                              |
@@ -649,6 +655,7 @@
 | [torch.Tensor.round](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.round)| [mindspore.Tensor.round](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.round.html)|一致|
 | [torch.Tensor.rot90](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.rot90)                         | [mindspore.Tensor.rot90](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.rot90.html)                         | 一致                                       |
 | [torch.Tensor.rsqrt](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.rsqrt)                           | [mindspore.Tensor.rsqrt](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.rsqrt.html)                           |一致 |
+| [torch.Tensor.scatter_](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.scatter_)                        | [mindspore.ops.tensor_scatter_elements](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_scatter_elements.html)                    |[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/tensor_scatter_elements.html)   |
 | [torch.Tensor.sgn](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.sgn)                           | [mindspore.Tensor.sgn](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.sgn.html)                           |一致 |
 | [torch.Tensor.sigmoid](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.sigmoid)               | [mindspore.Tensor.sigmoid](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.sigmoid.html)       | 一致|
 | [torch.Tensor.sign](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.sign)                           | [mindspore.Tensor.sign](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.sign.html)                           |一致 |
