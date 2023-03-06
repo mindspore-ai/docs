@@ -8,7 +8,7 @@
 | :-------------------: | :-----------------------: |
 |   torch.scatter_add    |   mindspore.ops.tensor_scatter_elements    |
 
-## torch.scatter
+## torch.scatter_add
 
 ```python
 torch.scatter_add(input, dim, index, src)

@@ -12,7 +12,7 @@ The following mapping relationships can be found in this file.
 ## torch.renorm
 
 ```text
-torch.renorm(input, p, dim, maxnorm, *, out=None) → Tensor
+torch.renorm(input, p, dim, maxnorm, *, out=None) -> Tensor
 ```
 
 For more information, see [torch.renorm](https://pytorch.org/docs/1.8.1/generated/torch.renorm.html).

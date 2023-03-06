@@ -7,7 +7,7 @@
 |     PyTorch APIs      |      MindSpore APIs       |
 | :-------------------: | :-----------------------: |
 | torch.ger             | mindspore.ops.ger         |
-| torch.Tensor.svd      | mindspore.Tensor.ger      |
+| torch.Tensor.ger      | mindspore.Tensor.ger      |
 
 ## torch.ger
 
