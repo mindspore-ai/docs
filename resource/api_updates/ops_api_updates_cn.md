@@ -88,7 +88,6 @@
 [mindspore.ops.Cauchy](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cauchy.html#mindspore.ops.Cauchy)|新增|从柯西分布中提取的随机数创建shape由 size 决定的Tensor。|master: Ascend/CPU|数学运算算子
 [mindspore.ops.Cholesky](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cholesky.html#mindspore.ops.Cholesky)|新增|计算单个或成批对称正定矩阵的Cholesky分解。|master: Ascend/CPU|数学运算算子
 [mindspore.ops.CholeskyInverse](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CholeskyInverse.html#mindspore.ops.CholeskyInverse)|新增|使用Cholesky矩阵分解返回正定矩阵的逆矩阵。|master: Ascend/GPU/CPU|数学运算算子
-[mindspore.ops.CholeskySolve](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CholeskySolve.html#mindspore.ops.CholeskySolve)|新增|给定Cholesky因子 u ，求解具有正定矩阵的线性方程组，结果表示为 c 。|master: Ascend/GPU/CPU|数学运算算子
 [mindspore.ops.Complex](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Complex.html#mindspore.ops.Complex)|修改|给定复数的实部与虚部，返回一个复数的Tensor。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|数学运算算子
 [mindspore.ops.ComplexAbs](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ComplexAbs.html#mindspore.ops.ComplexAbs)|新增|返回输入复数的模。|master: Ascend/GPU/CPU|数学运算算子
 [mindspore.ops.Cross](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cross.html#mindspore.ops.Cross)|新增|计算两个输入向量/向量数组的向量积。|master: Ascend/CPU|数学运算算子

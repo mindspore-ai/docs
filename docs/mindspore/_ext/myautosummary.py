@@ -215,8 +215,8 @@ class MsAutosummary(Autosummary):
             real_table.append(group)
             group.append(nodes.colspec('', colwidth=10))
             group.append(nodes.colspec('', colwidth=50))
-            group.append(nodes.colspec('', colwidth=30))
-            group.append(nodes.colspec('', colwidth=20))
+            group.append(nodes.colspec('', colwidth=25))
+            group.append(nodes.colspec('', colwidth=25))
         body = nodes.tbody('')
         group.append(body)
 
@@ -566,9 +566,9 @@ class MsCnAutoSummary(Autosummary):
                 group = nodes.tgroup('', cols=4)
                 real_table.append(group)
                 group.append(nodes.colspec('', colwidth=10))
-                group.append(nodes.colspec('', colwidth=50))
-                group.append(nodes.colspec('', colwidth=15))
+                group.append(nodes.colspec('', colwidth=45))
                 group.append(nodes.colspec('', colwidth=25))
+                group.append(nodes.colspec('', colwidth=20))
 
         body = nodes.tbody('')
         group.append(body)
