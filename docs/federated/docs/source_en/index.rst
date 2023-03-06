@@ -142,6 +142,7 @@ Common Application Scenarios
    :caption: Communication Compression
 
    communication_compression
+   vfl_communication_compress
 
 .. toctree::
    :maxdepth: 1

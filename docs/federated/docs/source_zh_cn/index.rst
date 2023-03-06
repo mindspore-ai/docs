@@ -142,6 +142,7 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
    :caption: 通信压缩
 
    communication_compression
+   vfl_communication_compress
 
 .. toctree::
    :maxdepth: 1
