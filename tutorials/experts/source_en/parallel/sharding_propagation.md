@@ -172,7 +172,7 @@ Given a new model with numerous operators, from the user's perspective, a key pr
 
 ### Configure parameter-involved operators
 
-The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need explicitly annotated sharding strategies. In the following figure, Gather and MatMul are annotated shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [Transformer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn/transformer), respectively.
+The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need explicitly annotated sharding strategies. In the following figure, Gather and MatMul are annotated shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/tree/r0.3/mindformers/modules), respectively.
 
 ![sp_case1](./images/sp_case1.png "Configure parameter-involved operators")
 

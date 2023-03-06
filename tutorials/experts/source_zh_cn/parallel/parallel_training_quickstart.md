@@ -24,7 +24,7 @@
 
 其中，`net.py`为网络定义脚本，`run_with_mpi.sh`是执行脚本。
 
-> 此外，在Ascend 910平台上进行分布式并行训练的教程详见[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)与[分布式并行训练Transformer模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html)。
+> 此外，在Ascend 910平台上进行分布式并行训练的教程详见[分布式并行训练基础样例（Ascend）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
 
 ## 准备环节
 

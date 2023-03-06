@@ -7,4 +7,5 @@ Distributed Case
   train_ascend
   train_gpu
   train_cpu
+  transformer
   pangu_alpha
