@@ -1,5 +1,0 @@
-mindtransformer
-================
-
-.. automodule:: mindtransformer
-    :members:

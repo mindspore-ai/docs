@@ -52,7 +52,7 @@ docs
 |    |
 |    ├───mindspore // MindSpore文档
 |    |
-|    ├───mindtransformer // MindTransformer文档
+|    ├───mindformers // mindformers文档
 |    |
 |    ├───probability // MindSpore Probability文档
 |    |

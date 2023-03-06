@@ -6,20 +6,20 @@ MindSpore Transformer Document
    :maxdepth: 1
    :caption: Installation Deployment
 
-   mindtransformer_install
+   mindformers_install
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: BERT Fine adjustment
 
-   mindtransformer_bert_finetune
+   mindformers_bert_finetune
 
 .. toctree::
    :maxdepth: 1
    :caption: API References
 
-   mindtransformer
+   mindformers
 
 .. toctree::
    :glob:

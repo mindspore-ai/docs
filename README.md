@@ -52,7 +52,7 @@ docs
 |    |
 |    ├───mindspore // MindSpore Documents
 |    |
-|    ├───mindtransformer // MindSpore Transformer Documents
+|    ├───mindformers // MindSpore Transformer Documents
 |    |
 |    ├───probability // MindSpore Probability Documents
 |    |
