@@ -21,7 +21,6 @@ MindSpore Documentation
    design/graph_fusion_engine
    design/mindir
    design/all_scenarios
-   design/thor
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/data_engine
    design/glossary
