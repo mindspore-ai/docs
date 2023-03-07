@@ -35,7 +35,7 @@ Figure above displays the statistics for the operator types, including:
   operator type. The time of one operator type is calculated by
   accumulating the execution time of operators belonging to this type.
 - Display top 20 operator types with the longest execution time, show
-  the proportion and execution time (ms) of each operator type.
+  the proportion and execution time (us) of each operator type.
 
 .. figure:: ./images/op_statistics.PNG
    :alt: op_statistics.png
@@ -45,8 +45,8 @@ Figure above displays the statistics for the operator types, including:
 Figure above displays the statistics table for the operators, including:
 
 - Choose All: Display statistics for the operators, including operator
-  name, type, execution time, full scope time, information, etc. The
-  table will be sorted by execution time by default.
+  name, type, average execution time, execution frequency, full scope time, information, etc.
+  The table will be sorted by execution time by default.
 - Choose Type: Display statistics for the operator types, including
   operator type name, execution time, execution frequency and
   proportion of total time. Users can click on each line, querying for
