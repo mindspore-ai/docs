@@ -32,7 +32,7 @@ Using the example of training on 8 cards and fine-tuning on 4 cards, the overall
 
 Note that loading a distributed Checkpoint requires that the network be compiled before it can be loaded.
 
-> For dataset download, please refer to the [Preparation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/transformer.html#preparation) in the Distributed Parallel Training Transformer Model tutorial.
+> For dataset download, please refer to the [Preparation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/fault_recover.html#preparation) in the Distributed Parallel Training Transformer Model tutorial.
 >
 > Download the complete sample code: [Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training).
 

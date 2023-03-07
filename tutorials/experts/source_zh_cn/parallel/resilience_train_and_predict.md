@@ -32,7 +32,7 @@
 
 需要注意，加载分布式的Checkpoint，要求对网络进行编译后才可以加载。
 
-> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/transformer.html#准备环节)。
+> 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/fault_recover.html#准备环节)。
 >
 >下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training)。
 
