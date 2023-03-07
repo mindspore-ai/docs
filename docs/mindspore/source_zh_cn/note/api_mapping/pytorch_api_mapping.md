@@ -154,6 +154,7 @@
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isreal.html) | 功能一致，参数名不同 |
 | [torch.is_complex](https://pytorch.org/docs/1.8.1/generated/torch.is_complex.html) | [mindspore.ops.is_complex](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_complex.html) | 功能一致，参数名不同|
 | [torch.is_floating_point](https://pytorch.org/docs/1.8.1/generated/torch.is_floating_point.html) | [mindspore.ops.is_floating_point](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_floating_point.html) | 功能一致，参数名不同|
+| [torch.is_tensor](https://pytorch.org/docs/1.8.1/generated/torch.is_tensor.html#torch.is_tensor) | [mindspore.ops.is_tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.is_tensor.html) | 一致 |
 | [torch.kaiser_window](https://pytorch.org/docs/1.8.1/generated/torch.kaiser_window.html)                     | [mindspore.ops.kaiser_window](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kaiser_window.html)                                         | 一致 |
 | [torch.kron](https://pytorch.org/docs/1.8.1/generated/torch.kron.html)                         | [mindspore.ops.kron](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kron.html) |   功能一致，参数名不同|
 | [torch.lcm](https://pytorch.org/docs/1.8.1/generated/torch.lcm.html) | [mindspore.ops.lcm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.lcm.html) | 一致 |
