@@ -143,7 +143,7 @@ model.fit(10, train_dataset, eval_dataset, callbacks=LossMonitor(train_dataset_s
 
 ### Using Customized Evaluation Metrics
 
-In the following example, the customized evaluation metric `MAE()` is transferred to `Model`, and the evaluation dataset is transferred to the `model.eval()` API for evaluation.
+In the following example, the customized evaluation metric `MAE()` is transferred to `Model`, and the evaluation dataset is transferred to the `model.fit()` API for evaluation while training.
 
 The validation result is of the dictionary type. The `key` of the validation result is the same as that of `metrics`. The `value` of the `metrics`result is the mean absolute error between the predicted value and the actual value.
 
