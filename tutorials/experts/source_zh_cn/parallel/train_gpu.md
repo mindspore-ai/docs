@@ -415,7 +415,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 > 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
 
-相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
+相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构：
 
 ```python
 import mindspore as ms
@@ -569,7 +569,7 @@ done
 
 即可执行2机8卡分布式训练任务。
 
-若希望启动数据并行模式训练，需要将脚本`resnet50_distributed_training_gpu.py`中`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
+若希望启动数据并行模式训练，需要将脚本`resnet50_distributed_training_gpu.py`中`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`：
 
 ```python
 set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
@@ -641,7 +641,7 @@ ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(ge
 
 > 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
 
-涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`。脚本内容`run_gpu_cluster_recovery.sh`如下：
+涉及到的脚本有`run_gpu_cluster_recovery.sh`、`resnet50_distributed_training_gpu_recovery.py`、`resnet.py`。脚本内容`run_gpu_cluster_recovery.sh`如下：
 
 ```bash
 #!/bin/bash
@@ -684,7 +684,7 @@ do
 done
 ```
 
-在启动Worker和Scheduler之前，需要添加相关环境变量设置, 如Scheduler的IP和Port，当前进程的角色是Worker还是Scheduler。
+在启动Worker和Scheduler之前，需要添加相关环境变量设置，如Scheduler的IP和Port，当前进程的角色是Worker还是Scheduler。
 
 执行下面的命令即可启动一个单机8卡的数据并行训练
 
@@ -713,4 +713,4 @@ pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > scheduler.log 2>&
 
 Worker和Scheduler的组网会自动恢复。
 
-Worker进程出现异常退出处理方式类似(注:Worker进程出现异常退出，需要等30s后再拉起才能恢复训练，在这之前，Scheduler为了防止网络抖动和恶意注册，拒绝相同node id的Worker再次注册)。
+Worker进程出现异常退出处理方式类似(注：Worker进程出现异常退出，需要等30s后再拉起才能恢复训练，在这之前，Scheduler为了防止网络抖动和恶意注册，拒绝相同node id的Worker再次注册)。

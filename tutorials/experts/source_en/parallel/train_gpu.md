@@ -721,9 +721,3 @@ pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > scheduler.log 2>&
 Worker and Scheduler's networking is automatically restored.
 
 The exception exit of the Worker process is handled in a similar way (Note: the Worker process has an abnormal exit, and it needs to wait for 30s to pull up before resuming training. Before that, Scheduler refuses to register the worker with the same node id again in order to prevent network jitter and malicious registration).
-
-## Using ms-operators for Distributed Training in K8s Clusters
-
-MindSpore Operator is a plugin for MindSpore to conduct distributed training on Kubernetes. The CRD (Custom Resource Definition) defines three roles of Scheduler, PS, and Worker, and users only need to configure the yaml file to easily implement distributed training.
-
-The current ms-operator supports ordinary single Worker training, single Worker training in PS mode, and Scheduler and Worker startups for automatic parallelism (such as data parallelism and model parallelism). For detailed procedures, see [ms-operator](https://gitee.com/mindspore/ms-operator).

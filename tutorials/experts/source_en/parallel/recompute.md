@@ -30,7 +30,7 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 ## Preliminaries
 
-### Sample code description
+### Sample Code Description
 
 1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/ResNet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
 
@@ -116,7 +116,7 @@ We can call two kinds of interface to configure the recomputation. Take `src/res
                      class_num)
    ```
 
-## Training the Model
+### Training the Model
 
 We take the GPU environment for example, use the script `script/run_standalone_train_gpu.sh`. Run the command `bash scripts/run_standalone_train_gpu.sh $date_set_path config/resnet50_cifar10_config.yaml`. We can set the context: `save_graph=True` in `src/train.py` to print the construction of the computation graph to do comparison.
 
