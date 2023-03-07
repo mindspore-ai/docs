@@ -19,13 +19,31 @@ ms.set_context(mode=ms.PYNATIVE_MODE)
 
 ### Executing Single Operators
 
-The following is example code of executing Add operator [mindspore.ops.Add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add):
+The following is example code of executing Add operator [mindspore.ops.Add](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add):
 
 ```python
 add = ops.Add()
 x = ms.Tensor(np.array([1, 2]).astype(np.float32))
 y = ms.Tensor(np.array([3, 5]).astype(np.float32))
 z = add(x, y)
+print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
+```
+
+### Executing Function
+
+Execute the custom function `add_func`. The sample code is as follows:
+
+```python
+add = ops.Add()
+
+def add_func(x, y):
+    z = add(x, y)
+    z = add(z, x)
+    return z
+
+x = ms.Tensor(np.array([1, 2]).astype(np.float32))
+y = ms.Tensor(np.array([3, 5]).astype(np.float32))
+z = add_func(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
 ```
 

@@ -18,7 +18,7 @@ The ps-lite architecture consists of three independent components: server, worke
 
 - Scheduler: establishes the communication relationship between the server and worker.
 
-## Preparations
+## Practice
 
 The following describes how to use parameter server to train LeNet on Ascend 910:
 
@@ -84,7 +84,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-## Training
+### Training
 
 1. Shell scripts
 

@@ -28,7 +28,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 ### 参数设置
 
-1. 首先调用`mindspore.set_ps_context(enable_ps=True)`开启Parameter Server训练模式.
+1. 首先调用`mindspore.set_ps_context(enable_ps=True)`开启Parameter Server训练模式。
 
     - 此接口需在`mindspore.communication.init()`之前调用。
     - 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html#环境变量设置)则不会生效。
