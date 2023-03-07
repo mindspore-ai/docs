@@ -97,6 +97,8 @@ def main(version, user, pd, WGETDIR, release_url):
             ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = data[i]["branch"]
+        elif data[i]['name'] == "mindscience":
+            pass
         else:
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
 
