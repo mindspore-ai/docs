@@ -13,7 +13,7 @@ For more information, see [torch.nn.functional.soft_margin_loss](https://pytorch
 ## mindspore.nn.SoftMarginLoss
 
 ```text
-class mindspore.nn.SoftMarginLoss(reduction='mean')(logits, labels)  -> Tensor/Scalar
+class mindspore.nn.SoftMarginLoss(reduction='mean')(logits, labels)  -> Tensor
 ```
 
 For more information, see [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SoftMarginLoss.html).

@@ -10,7 +10,7 @@ class torch.nn.CosineEmbeddingLoss(
     size_average=None,
     reduce=None,
     reduction='mean'
-)(x1, x2, target) -> Tensor/Scalar
+)(x1, x2, target) -> Tensor
 ```
 
 For more information, see [torch.nn.CosineEmbeddingLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.CosineEmbeddingLoss.html).
