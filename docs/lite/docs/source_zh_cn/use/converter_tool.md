@@ -77,6 +77,15 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
 需要注意的是，加解密算法在1.7版本进行了更新，导致新版的converter工具不支持对1.6及其之前版本的MindSpore加密导出的模型进行转换。
 
+### CPU模型编译优化
+
+如果转换后的ms模型使用Android CPU后端进行推理，并且对模型编译阶段时延要求较高。可以尝试开启此优化，在`configFile`配置文件中增加配置项`[cpu_option_cfg_param]`，得到编译更高效的模型。目前仅对模型中含有Matmul算子并且数据类型为`Float32`或开启动态量化时有优化效果。
+
+| 参数 | 属性 | 功能描述 | 取值范围 |
+|--------|--------|--------|--------|
+|    `architecture`    |    必选    |     目标架构，当前仅支持ARM64    |     ARM64    |
+|    `instruction`    |    必选    |    目标指令集，当前仅支持SMID_DOT    |    SIMD_DOT    |
+
 ### 使用示例
 
 下面选取了几个常用示例，说明转换命令的使用方法。

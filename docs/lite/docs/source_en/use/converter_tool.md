@@ -79,6 +79,15 @@ The following describes the parameters in detail.
 > - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
 It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore in version 1.6 and earlier.
 
+### CPU Model Optimization
+
+If the converted ms model is running on android cpu backend, and hope the model compile with lower latency.  Try to turn on this optimization，Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model。At present, the optimization is only available when the model include Matmul operator and its data type is `Float32` or dynamic quantization is enabled.
+
+| Parameter | Attribute | Function Description | Value Range |
+|--------|--------|--------|--------|
+|    `architecture`    |    Mandatory    |     target cpu architecture, only support ARM64    |     ARM64    |
+|    `instruction`    |    Mandatory    |    target instruction set, only support SMID_DOT    |    SIMD_DOT    |
+
 ### Example
 
 The following describes how to use the conversion command by using several common examples.
