@@ -47,9 +47,6 @@ In the following, we demonstrate the automatic mixed precision implementation of
 import mindspore as ms
 from mindspore import nn
 from mindspore import value_and_grad
-```
-
-```python
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
 
@@ -113,9 +110,9 @@ Mixed precision calculations require type conversion of operations that require 
 The `mindspore.amp.auto_mixed_precision` interface provides the function to do automatic type conversion for networks. Automatic type conversion follows a blacklist and white list mechanism with four levels configured according to common operator precision conventions, as follows:
 
 - 'O0': Neural network keeps FP32.
-- 'O1'：Operation cast to FP16 by whitelist.
-- 'O2'：Retain FP32 by blacklist and the rest of operations cast to FP16.
-- 'O3'：The neural network is fully cast to FP16.
+- 'O1': Operation cast to FP16 by whitelist.
+- 'O2': Retain FP32 by blacklist and the rest of operations cast to FP16.
+- 'O3': The neural network is fully cast to FP16.
 
 The following is an example of using automatic type conversion:
 
