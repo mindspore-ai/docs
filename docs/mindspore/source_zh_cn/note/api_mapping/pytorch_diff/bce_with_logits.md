@@ -27,7 +27,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅输入参数 `weigh
 | 分类 | 子类  | PyTorch   | MindSpore | 差异                                                         |
 | ---- | ----- | --------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | input     | logits    | 功能一致，参数名不同                                         |
-|      | 参数2 | target    | labels    | 功能一致，参数名不同                                         |
+|      | 参数2 | target    | label    | 功能一致，参数名不同                                         |
 |      | 参数3 | weight    | weight    | 功能一致，参数名默认值未设定                                      |
 |      | 参数4 | size_average    | -    | PyTorch的已弃用参数，功能由reduction参数取代          |
 |      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
