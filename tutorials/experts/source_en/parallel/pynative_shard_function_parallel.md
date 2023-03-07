@@ -18,6 +18,8 @@ The Shard function follows this pattern, except that it can perform operator-lev
 
 ## Operation Practices
 
+### Sample Code Description
+
 > You can download the full sample code here:
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/pynative_shard_function_parallel>.

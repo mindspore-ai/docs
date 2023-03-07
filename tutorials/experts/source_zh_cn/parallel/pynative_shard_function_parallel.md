@@ -187,31 +187,31 @@ class Net(nn.Cell):
 
 - function可以使用`mindspore.shard`进行函数式切分，以matmul+bias_add+relu函数为例，使用方法如下：
 
-```python
-import numpy as np
+    ```python
+    import numpy as np
 
-import mindspore as ms
-import mindspore.ops as ops
-from mindspore import Tensor
+    import mindspore as ms
+    import mindspore.ops as ops
+    from mindspore import Tensor
 
-ms.set_auto_parallel_context(dataset_strategy="full_batch") # 此处例子为数据集不切分且shard的输出张量不切分
+    ms.set_auto_parallel_context(dataset_strategy="full_batch") # 此处例子为数据集不切分且shard的输出张量不切分
 
-def dense_relu(x, weight, bias):
-    x = ops.matmul(x, weight)
-    x = ops.bias_add(x, bias)
-    x = ops.relu(x)
-    return x
+    def dense_relu(x, weight, bias):
+        x = ops.matmul(x, weight)
+        x = ops.bias_add(x, bias)
+        x = ops.relu(x)
+        return x
 
-x = Tensor(np.random.uniform(0, 1, (32, 128)), ms.float32)
-weight = Tensor(np.random.uniform(0, 1, (128, 10)), ms.float32)
-bias = Tensor(np.random.uniform(0, 1, (10,)), ms.float32)
+    x = Tensor(np.random.uniform(0, 1, (32, 128)), ms.float32)
+    weight = Tensor(np.random.uniform(0, 1, (128, 10)), ms.float32)
+    bias = Tensor(np.random.uniform(0, 1, (10,)), ms.float32)
 
-# 通过in_strategy指定x的切分策略为(4, 2)、weight和bias切分策略设为None，表示自动推导生成。
-result = ms.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
-print('result.shape:', result.shape)
-```
+    # 通过in_strategy指定x的切分策略为(4, 2)、weight和bias切分策略设为None，表示自动推导生成。
+    result = ms.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
+    print('result.shape:', result.shape)
+    ```
 
-> 注意，参数的初始化依赖于Cell的参数管理，当传入shard的fn类型为function时，其定义不应该含有参数（如Conv2D、Dense等运算）。
+    > 注意，参数的初始化依赖于Cell的参数管理，当传入shard的fn类型为function时，其定义不应该含有参数（如Conv2D、Dense等运算）。
 
 ### 运行代码
 

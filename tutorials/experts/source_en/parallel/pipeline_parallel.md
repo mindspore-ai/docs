@@ -62,7 +62,7 @@ visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascen
 For details about how to configure the distributed environment and call the HCCL,
 visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#preparations>.
 
-## Defining the Network
+### Defining the Network
 
 The network definition is the same as that in the Parallel Distributed Training Example.
 
@@ -114,7 +114,7 @@ class ResNet(nn.Cell):
         return x
 ```
 
-## Training the Network
+### Training the Network
 
 To enable pipeline parallelism, you need to add the following configurations to the training script:
 
@@ -148,7 +148,7 @@ def test_train_cifar(epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-## Running the Single-host with 8 devices Script
+### Running the Single-host with 8 Devices Script
 
 Using the sample code, you can run a 2-stage pipeline on 8 Ascend devices by using below scripts:
 
