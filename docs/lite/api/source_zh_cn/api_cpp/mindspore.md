@@ -2967,7 +2967,7 @@ void SetWorkersNum(int32_t workers_num);
 int32_t GetWorkersNum() const;
 ```
 
-获取RunnerConfig配置的上下文参数。
+获取RunnerConfig的worker的个数。
 
 - 返回值
 
