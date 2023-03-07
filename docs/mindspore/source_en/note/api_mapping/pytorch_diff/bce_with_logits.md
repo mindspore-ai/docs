@@ -28,7 +28,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
 | Parameters | Parameter 1 | input     | logits    | Same function, different parameter names                  |
-|      | Parameter 2 | target    | labels    | Same function, different parameter names                 |
+|      | Parameter 2 | target    | label    | Same function, different parameter names                 |
 |      | Parameter 3 | weight    | weight    | default value is not set  |
 |      | Parameter 4 | size_average    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter          |
 |      | Parameter 5 | reduce    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter        |

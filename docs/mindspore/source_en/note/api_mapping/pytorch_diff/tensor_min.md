@@ -38,8 +38,8 @@ MindSpore is compatible with Numpy parameters `initial` and `where` based on PyT
 | --- |---------------|---------| --- |-------------|
 | Inputs  | Input 1 | dim     | axis      | Same function, different parameter names |
 |     | Input 2 | keepdim | keepdims  | Same function, different parameter names |
-|     | Input 3 | initial | -         | Not involved        |
-|     | Input 4 | where   | -         | Not involved        |
+|     | Input 3 | - | initial        | Not involved        |
+|     | Input 4 |  - | where      | Not involved        |
 
 ### Code Example 1
 
