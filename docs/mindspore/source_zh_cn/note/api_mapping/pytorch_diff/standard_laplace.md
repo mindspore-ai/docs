@@ -8,7 +8,7 @@
 torch.distributions.laplace.Laplace(loc, scale) -> Class Instance
 ```
 
-更多内容详见[torch.distributions.laplace.Laplace](https://pytorch.org/docs/1.8.1/distributions.html?highlight=laplace#torch.distributions.laplace.Laplace)。
+更多内容详见[torch.distributions.laplace.Laplace](https://pytorch.org/docs/1.8.1/distributions.html#torch.distributions.laplace.Laplace)。
 
 ## mindspore.ops.standard_laplace
 
@@ -22,7 +22,7 @@ mindspore.ops.standard_laplace(shape, seed) -> Tensor
 
 PyTorch：创建一个Laplace分布实例，调用该实例sample接口进行采样可以生成符合Laplace分布的随机值。
 
-MindSpore：生成符合标准Laplace（mean=0, lambda=1）分布的随机数。当PyTorch中loc=0, scale=1，sample函数输入shape与MindSpore一致时，时两API实现功能一致。
+MindSpore：生成符合标准Laplace（mean=0, lambda=1）分布的随机数。当PyTorch中loc=0，scale=1，sample函数输入shape与MindSpore一致时，两API实现功能一致。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
