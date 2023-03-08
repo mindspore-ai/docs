@@ -32,6 +32,7 @@ MindSpore AI Fluid Simulation Suite
    :caption: Physics-driven
 
    physics_driven/burgers1D
+   physics_driven/darcy2D
    physics_driven/navier_stokes2D
    physics_driven/poisson_geometry
    physics_driven/taylor_green2D
