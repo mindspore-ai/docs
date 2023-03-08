@@ -4,49 +4,62 @@
 
 ## torch.nn.init.uniform_
 
-```python
+```text
 torch.nn.init.uniform_(
     tensor,
     a=0.0,
     b=1.0
-)
+) -> Tensor
 ```
 
-更多内容详见[torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.uniform_)。
+更多内容详见[torch.nn.init.uniform_](https://pytorch.org/docs/1.8.1/nn.init.html#torch.nn.init.uniform_)。
 
-## mindspore.common.initializer.Uniform
+## mindspore.ops.uniform
 
-```python
-class mindspore.common.initializer.Uniform(scale=0.07)(arr)
+```text
+mindspore.ops.uniform(shape, minval, maxval, seed=None, dtype=mstype.float32) -> Tensor
 ```
 
-更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform)。
+更多内容详见[mindspore.ops.uniform](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform.html)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：通过入参`a`和`b`分别指定均匀分布的上下界，即U(-a, b)。
 
-MindSpore：仅通过一个入参`scale`指定均匀分布的范围，即U(-scale, scale)，且是原地更新输入值。
+MindSpore：通过入参`minval`和`maxval`分别指定均匀分布的上下界，即U(minval, maxval)，通过seed指定随机种子。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | --- | --- | --- |---|
+|参数 | 参数1 | tensor | shape         | Pytorch是一个n维Tensor，MindSpore则为shape或包裹shape的Tensor   |
+|  | 参数2 | a       | minval          | 参数名不同，功能相似，指定生成随机值最小值   |
+|  | 参数3 | b       | maxval         | 参数名不同，功能相似，指定生成随机值最大值 |
+|  | 参数4 | -       | seed          | 指定随机种子 |
+|  | 参数5 | -       | dtype         | 指定输入数据的类型，根据数据类型确定均匀分布生成数据是离散型或是连续型 |
 
 ## 代码示例
 
 ```python
-import mindspore
+# PyTorch
 import torch
+from torch import nn
+
+w = torch.empty(3, 2)
+output = nn.init.uniform_(w, a=1, b=4)
+print(output.shape)
+# Out：
+# torch.Size([3, 2])
+
+# MindSpore
 import numpy as np
+import mindspore
+from mindspore import ops
+from mindspore import Tensor
 
-# In MindSpore, only one parameter is set to specify the scope of uniform distribution (-1, 1).
-input_x = np.array([1, 1, 1]).astype(np.float32)
-uniform = mindspore.common.initializer.Uniform(scale=1)
-uniform(input_x)
-print(input_x)
+shape = (3,2)
+minval = Tensor(1, mindspore.float32)
+maxval = Tensor(4, mindspore.float32)
+output = ops.uniform(shape, minval, maxval, dtype=mindspore.float32)
+print(output.shape)
 # Out：
-# [-0.2333 0.6208 -0.1627]
-
-# In torch, parameters are set separately to specify the lower and upper bound of uniform distribution.
-input_x = torch.tensor(np.array([1, 1, 1]).astype(np.float32))
-output = torch.nn.init.uniform_(tensor=input_x, a=-1, b=1)
-print(output)
-# Out：
-# tensor([0.9936, 0.7676, -0.8275])
+# (3, 2)
 ```
