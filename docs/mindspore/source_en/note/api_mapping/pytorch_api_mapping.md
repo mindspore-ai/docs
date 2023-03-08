@@ -209,6 +209,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.not_equal](https://pytorch.org/docs/1.8.1/generated/torch.not_equal.html) | [mindspore.ops.not_equal](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.not_equal.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/not_equal.html)    |
 | [torch.numel](https://pytorch.org/docs/1.8.1/generated/torch.numel.html) | [mindspore.ops.numel](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.numel.html) | The functions are consistent, but the parameter names are inconsistent.|
 | [torch.ones](https://pytorch.org/docs/1.8.1/generated/torch.ones.html) | [mindspore.ops.ones](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ones.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/ones.html) |
+| [torch.ones_like](https://pytorch.org/docs/1.8.1/torch.html#torch.ones_like) | [mindspore.ops.ones_like](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ones_like.html) | Consistent |
 | [torch.orgqr](https://pytorch.org/docs/1.8.1/generated/torch.orgqr.html) | [mindspore.ops.orgqr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.orgqr.html) | Consistent |
 | [torch.outer](https://pytorch.org/docs/1.8.1/generated/torch.outer.html) | [mindspore.ops.outer](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.outer.html) |   The functions are consistent, but the parameter names are inconsistent.|
 | [torch.poisson](https://pytorch.org/docs/1.8.1/generated/torch.poisson.html) | [mindspore.ops.random_poisson](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.random_poisson.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/poisson.html) |
@@ -277,6 +278,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.where](https://pytorch.org/docs/1.8.1/generated/torch.where.html) | [mindspore.ops.where](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.where.html) | Consistent |
 | [torch.xlogy](https://pytorch.org/docs/1.8.1/generated/torch.xlogy.html) | [mindspore.ops.xlogy](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.xlogy.html) | The functions are consistent, but the parameter names are inconsistent.|
 | [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/zeros.html) |
+| [torch.zeros_like](https://pytorch.org/docs/1.8.1/torch.html#torch.zeros_like) | [mindspore.ops.zeros_like](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros_like.html) | Consistent |
 
 ### torch.distributions
 
@@ -768,7 +770,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.mean](https://pytorch.org/docs/1.5.0/torch.html#torch.mean) | [mindspore.ops.ReduceMean](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean) |                                                              |
 | [torch.multinomial](https://pytorch.org/docs/1.5.0/torch.html#torch.multinomial) | [mindspore.ops.multinomial](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.multinomial.html#mindspore.ops.multinomial) |                                                              |
 | [torch.numel](https://pytorch.org/docs/1.5.0/torch.html#torch.numel) | [mindspore.ops.Size](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Size.html#mindspore.ops.Size) |                                                              |
-| [torch.ones_like](https://pytorch.org/docs/1.5.0/torch.html#torch.ones_like) | [mindspore.ops.OnesLike](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.OnesLike.html#mindspore.ops.OnesLike) |                                                              |
 | [torch.poisson](https://pytorch.org/docs/1.5.0/torch.html#torch.poisson) | [mindspore.ops.random_poisson](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.random_poisson.html#mindspore.ops.random_poisson) |                                                              |
 | [torch.prod](https://pytorch.org/docs/1.5.0/torch.html#torch.prod) | [mindspore.ops.ReduceProd](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceProd.html#mindspore.ops.ReduceProd) |                                                              |
 | [torch.promote_types](https://pytorch.org/docs/1.5.0/torch.html#torch.promote_types) | [mindspore.numpy.promote_types](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.promote_types.html#mindspore.numpy.promote_types) |                                                              |
@@ -794,7 +795,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.triu_indices](https://pytorch.org/docs/1.5.0/torch.html#torch.triu_indices) | [mindspore.numpy.triu_indices](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.triu_indices.html#mindspore.numpy.triu_indices) |                                                              |
 | [torch.var](https://pytorch.org/docs/1.5.0/torch.html#torch.var) | [mindspore.Tensor.var](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var) |                                                              |
 | [torch.where](https://pytorch.org/docs/1.5.0/torch.html#torch.where) | [mindspore.numpy.where](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.where.html#mindspore.numpy.where) |                                                              |
-| [torch.zeros_like](https://pytorch.org/docs/1.5.0/torch.html#torch.zeros_like) | [mindspore.ops.ZerosLike](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ZerosLike.html#mindspore.ops.ZerosLike) |                                                              |
 
 ### torch.autograd
 
