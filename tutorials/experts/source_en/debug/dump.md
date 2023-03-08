@@ -6,7 +6,7 @@
 
 The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 
-- For the dynamic graph mode, MindSpore provides native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script.
+- For the dynamic graph mode, MindSpore provides the Dump function and native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script, it's also can save the graph and the input and output data of the operator during model training to a disk file.
 
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
 
