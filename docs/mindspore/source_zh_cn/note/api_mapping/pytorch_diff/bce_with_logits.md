@@ -8,7 +8,7 @@
 torch.nn.functional.binary_cross_entropy_with_logits(input, target, weight=None, size_average=None, reduce=None, reduction='mean', pos_weight=None)
 ```
 
-更多内容详见[torch.nn.functional.binary_cross_entropy_with_logits](https://pytorch.org/docs/1.8.1/nn.functional.html#binary_cross_entropy_with_logits)。
+更多内容详见[torch.nn.functional.binary_cross_entropy_with_logits](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy_with_logits)。
 
 ## mindspore.ops.binary_cross_entropy_with_logits
 

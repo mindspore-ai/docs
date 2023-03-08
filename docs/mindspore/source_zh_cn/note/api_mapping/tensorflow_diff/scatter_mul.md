@@ -44,7 +44,7 @@ MindSpore：实现与TensorFlow一致的功能。TensorFlow可以使用use_locki
 
 ### 代码示例
 
-> TensorFlow中use_locking为False时，两API实现功能一致.
+> TensorFlow中use_locking为False时，两API实现功能一致。
 
 ```python
 # TensorFlow

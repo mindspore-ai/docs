@@ -1,6 +1,6 @@
-# 比较与tf.raw_ops.SparseToDense的功能差异
+# Function Differences with tf.raw_ops.SparseToDense
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SparseToDense.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/SparseToDense.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.raw_ops.SparseToDense
 
@@ -15,7 +15,7 @@ tf.raw_ops.SparseToDense(
 ) -> Tensor
 ```
 
-更多内容详见[tf.raw_ops.SparseToDense](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/raw_ops/SparseToDense)。
+For more information, see [tf.raw_ops.SparseToDense](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/raw_ops/SparseToDense).
 
 ## mindspore.ops.SparseToDense
 
@@ -27,26 +27,26 @@ class mindspore.ops.SparseToDense(
 )() -> Tensor
 ```
 
-更多内容详见[mindspore.ops.SparseToDense](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseToDense.html)。
+For more information, see [mindspore.ops.SparseToDense](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.SparseToDense.html).
 
-## 差异对比
+## Differences
 
-TensorFlow：SparseToDense将Tensor的稀疏表示转换为密集Tensor。
+TensorFlow: SparseToDense converts a sparse representation of a Tensor to a dense Tensor.
 
-MindSpore：MindSpore此API实现功能与TensorFlow基本一致。不过TensorFlow的default_value参数可以指定默认填充值，MindSpore没有这个参数，但是可以两次调用SparseToDense来实现，原理是首先使用SparseToDense创建一个临时dense Tensor，然后将其中每个元素加上与TensorFlow一致的default_value，最后再将indices制定的位置减去default_value即得到目标结果。
+MindSpore: MindSpore API basically implements the same functions as TensorFlow. TensorFlow default_value parameter can specify a default padding value, while MindSpore does not have this parameter, but it can be implemented by calling SparseToDense twice. The principle is to first create a temporary dense Tensor using SparseToDense, then add a default_value consistent with TensorFlow to each element, and finally subtract the default_value from the position set by the indices to get the target result.
 
-| 分类 | 子类   | TensorFlow                | MindSpore     | 差异                      |
-| ---- | ------ | --------------------- -- | ------------- | ------------------------ |
-| 参数 | 参数1  | sparse_indices            | indices       | 功能一致，参数名不同         |
-|      | 参数2  | output_shape              | sparse_shape   | 功能一致，参数名不同       |
-|      | 参数3  | sparse_values             | values         | 功能一致，参数名不同      |
-|      | 参数4  | default_value             | -             | MindSpore无此参数，但是可以两次调用SparseToDense实现同样的功能     |
-|      | 参数5  | validate_indices          | -             | 不涉及        |
-|      | 参数6  | name                      | -        | 不涉及 |
+| Categories | Subcategories |TensorFlow | MindSpore | Differences |
+| --- | --- | --- | --- |---|
+| Parameters | Parameter1  | sparse_indices            | indices       | Same function, different parameter names         |
+|      | Parameter2  | output_shape              | sparse_shape   | Same function, different parameter names       |
+|      | Parameter3  | sparse_values             | values         | Same function, different parameter names      |
+|      | Parameter4  | default_value             | -             | MindSpore does not have this parameter, but you can call SparseToDense twice to achieve the same function     |
+|      | Parameter5  | validate_indices          | -             | 不涉及        |
+|      | Parameter6  | name                      | -        | Not involved |
 
-### 代码示例1
+### Code Example 1
 
-> 默认充值0时，两API实现功能一致。
+> The two APIs achieve the same function when 0 is padded by default.
 
 ```python
 # TensorFlow
@@ -83,9 +83,9 @@ print(out)
 #  [0. 0. 0. 3.]]
 ```
 
-### 代码示例2
+### Code Example 2
 
-> TensorFlow的default_value参数可以指定默认填充值。MindSpore以两次调用SparseToDense来实现这一功能。首先使用SparseToDense创建一个临时dense Tensor，然后将其中每个元素加上与TensorFlow一致的default_value。然后将indices指定位置的元素减去default_value即可。
+> TensorFlow default_value parameter can specify a default padding value, while MindSpore implements functions with two calls to SparseToDense. First create a temporary dense Tensor using SparseToDense, then add a default_value consistent with TensorFlow to each element, subtract the default_value from the element at the location specified by indices.
 
 ```python
 # TensorFlow

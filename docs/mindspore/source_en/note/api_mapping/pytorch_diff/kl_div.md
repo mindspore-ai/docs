@@ -8,7 +8,7 @@
 torch.nn.functional.kl_div(input, target, size_average=None, reduce=None, reduction='mean', log_target=False)
 ```
 
-For more information, see [torch.nn.functional.kl_div](https://pytorch.org/docs/1.8.1/nn.functional.html#kl_div).
+For more information, see [torch.nn.functional.kl_div](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.kl_div).
 
 ## mindspore.ops.kl_div
 
