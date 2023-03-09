@@ -1632,6 +1632,22 @@ zero_point
 
 **int32_t** 类型变量。
 
+#### min
+
+```cpp
+min
+```
+
+**double** 类型变量。量化的最小值。
+
+#### max
+
+```cpp
+max
+```
+
+**double** 类型变量。量化的最大值。
+
 ## MSKernelCallBack
 
 \#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
@@ -1665,6 +1681,14 @@ node_type
 ```
 
 **string** 类型变量。节点类型参数。
+
+#### execute_time
+
+```cpp
+execute_time
+```
+
+**double** 类型变量。GPU执行时间。
 
 ## Delegate
 
