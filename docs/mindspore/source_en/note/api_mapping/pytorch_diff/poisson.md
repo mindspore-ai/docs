@@ -22,7 +22,7 @@ For more information, see [mindspore.ops.random_poisson](https://www.mindspore.c
 
 PyTorch: The shape and data type of the return value are the same as `input`.
 
-MindSpore: `shape` determines the shape of the random number tensor sampled under each distribution, and the shape of the return value is `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` . When the value of `shape` is `Tensor([])`, the shape of the return value is the same as that in PyTorch, which is the same as the shape of 'rate'. The data type of the return value is determined by `dtype` .
+MindSpore: `shape` determines the shape of the random number tensor sampled under each distribution, and the shape of the return value is `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` . When the value of `shape` is `Tensor([])`, the shape of the return value is the same as that in PyTorch, which is the same as the shape of `rate`. The data type of the return value is determined by `dtype` .
 
 There is no difference in function.
 
