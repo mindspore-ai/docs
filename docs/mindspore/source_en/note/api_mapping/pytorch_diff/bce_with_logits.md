@@ -33,7 +33,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 |      | Parameter 4 | size_average    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter          |
 |      | Parameter 5 | reduce    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter        |
 |      | Parameter 6 | reduction | reduction | Same function, different default values. |
-|      | Parameter 7 | weight    | weight    | default value is not set  |
+|      | Parameter 7 | pos_weight    | pos_weight    | default value is not set  |
 
 ### Code Example 1
 

@@ -22,7 +22,7 @@ class mindspore.ops.max(
     x,
     axis=0,
     keep_dims=False
-)(input_x)
+)
 ```
 
 For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.max.html).
