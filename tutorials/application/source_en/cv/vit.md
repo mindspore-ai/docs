@@ -162,7 +162,7 @@ Therefore, for the same input vector, multiple attention mechanisms can process 
 The following Multi-Head Attention code, combined with the explanation above, clearly shows the process.
 
 ```python
-from mindspore import nn, ops, train
+from mindspore import nn, ops
 
 
 class Attention(nn.Cell):
@@ -454,6 +454,7 @@ It takes a long time to train the ViT model completely, and it is recommended to
 ```python
 from mindspore.nn import LossBase
 from mindspore.train import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
+from mindspore import train
 
 # define super parameter
 epoch_size = 10
@@ -516,9 +517,9 @@ ckpt_callback = ModelCheckpoint(prefix='vit_b_16', directory='./ViT', config=ckp
 # "Ascend + mixed precision" can improve performance
 ascend_target = (ms.get_context("device_target") == "Ascend")
 if ascend_target:
-    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O2")
+    model = train.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O2")
 else:
-    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O0")
+    model = train.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics={"acc"}, amp_level="O0")
 
 # train model
 model.train(epoch_size,
@@ -572,9 +573,9 @@ eval_metrics = {'Top_1_Accuracy': train.Top1CategoricalAccuracy(),
                 'Top_5_Accuracy': train.Top5CategoricalAccuracy()}
 
 if ascend_target:
-    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O2")
+    model = train.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O2")
 else:
-    model = ms.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O0")
+    model = train.Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=eval_metrics, amp_level="O0")
 
 # evaluate model
 result = model.eval(dataset_val)

@@ -184,7 +184,7 @@ def get_loss():
 The entry script train.py of training code:
 
 ```python
-import mindspore.context as context
+import mindspore as ms
 from mindspore import set_seed
 from mindspore.train.metrics import Accuracy
 from mindspore.train import Model
@@ -192,7 +192,7 @@ from mindspore.train.callback import LossMonitor, TimeMonitor
 from mindspore.communication import init, get_rank
 
 
-context.set_context(mode=context.GRAPH_MODE, device_target='GPU')
+ms.set_context(mode=context.GRAPH_MODE, device_target='GPU')
 init()
 net = LeNet()
 opt = get_optimizer(net)
