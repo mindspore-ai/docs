@@ -246,9 +246,8 @@ It can be seen that `inputs[0] = threshold`, so it is replaced with `20`.
 When the function interface cannot satisfy the complex function implementation, but MindSpore has implemented Primitive operators, we need to be able to use Primitive operators to encapsulate the neural network layer by ourselves as needed. Taking the `Upsample` layer as an example, its function is to upsample 1D, 2D and 3D data. The current `mindspore.nn` does not yet provide the upsample interface, but it has provided `ResizeNearestNeighbor`, `ResizeLinear1D`, `ResizeBilinearV2` and other Primitive operators that can achieve its function. The corresponding package implementation is as follows:
 
 ```python
-from mindspore.ops.operations.image_ops import ResizeBilinearV2, ResizeLinear1D
 from mindspore.ops._primitive_cache import _get_cache_prim
-from mindspore.ops import constexpr
+from mindspore.ops import constexpr, ResizeBilinearV2, ResizeLinear1D
 
 @constexpr
 def _check_scale_factor(shape, scale_factor):
