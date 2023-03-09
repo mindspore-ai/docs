@@ -20,7 +20,7 @@ torch.renorm(input, p, dim, maxnorm, *, out=None) -> Tensor
 ## mindspore.ops.renorm
 
 ```text
-mindspore.ops.renorm(input_x, p, dim, maxnorm)
+mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
 更多内容详见[mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.renorm.html)。
@@ -33,9 +33,9 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数类型有差�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 |input | input_x | 功能一致，参数名不同  |
+| 参数 | 参数1 |input | input | -  |
 | | 参数2 | p | p | torch上该参数为float类型，mindspore上为int类型 |
-|  | 参数3 | dim        | dim | - |
+|  | 参数3 | dim        | axis |  功能一致，参数名不同 |
 | | 参数4 | maxnorm | maxnorm |  - |
 | | 参数5 | out | - | 不涉及 |
 

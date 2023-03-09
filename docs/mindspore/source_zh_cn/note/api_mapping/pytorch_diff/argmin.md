@@ -20,7 +20,7 @@ torch.argmin(input, dim=None, keepdim=False) -> Tensor
 ## mindspore.ops.argmin
 
 ```text
-mindspore.ops.argmin(x, axis=None, keepdims=False) -> Tensor
+mindspore.ops.argmin(input, axis=None, keepdims=False) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.argmin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmin.html)。
@@ -35,7 +35,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，返回值类型�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 都是输入Tensor |
+| 输入 | 单输入 | input | input | 都是输入Tensor |
 | 参数 | 参数1 | dim | axis | 功能一致，参数名不同 |
 |  | 参数2 | keepdim | keepdims | 功能一致，参数名不同 |
 

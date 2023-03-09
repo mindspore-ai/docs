@@ -20,7 +20,7 @@ For more information, see [torch.broadcast_to](https://pytorch.org/docs/1.8.1/ge
 ## mindspore.ops.broadcast_to
 
 ```text
-mindspore.ops.broadcast_to(x, shape) -> Tensor
+mindspore.ops.broadcast_to(input, shape) -> Tensor
 ```
 
 For more information, see [mindspore.ops.broadcast_to](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.broadcast_to.html).
@@ -33,7 +33,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, with
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Input | Single input | input | x | Same function, different parameter names |
+| Input | Single input | input | input | Same function, different parameter names |
 |Parameter | Parameter 1 | shape | shape |Same function |
 
 ### Code Example 1

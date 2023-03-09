@@ -20,7 +20,7 @@ For more information, see [torch.renorm](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.ops.renorm
 
 ```text
-mindspore.ops.renorm(input_x, p, dim, maxnorm)
+mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
 For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.renorm.html).
@@ -33,9 +33,9 @@ MindSpore: MindSpore API implements the same function as PyTorch, with only diff
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences  |
 | --- |---------------|---------| --- |-------------|
-| Parameters | Parameter 1 |input | input_x | Same function, different parameter names  |
+| Parameters | Parameter 1 |input | input | -  |
 | | Parameter 2 | p | p | The parameter is of type float in torch and is int in mindspore |
-|  | Parameter 3 | dim        | dim | - |
+|  | Parameter 3 | dim        | axis | Same function, different parameter names  |
 | | Parameter 4 | maxnorm | maxnorm |  - |
 | | Parameter 5 | out | - | Not involved |
 

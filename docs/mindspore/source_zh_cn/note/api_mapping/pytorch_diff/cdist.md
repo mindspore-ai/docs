@@ -13,7 +13,7 @@ torch.cdist(x1, x2, p=2.0, compute_mode='use_mm_for_euclid_dist_if_necessary')
 ## mindspore.ops.cdist
 
 ```text
-def cdist(x, y, p=2.0)
+mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
 更多内容详见[mindspore.ops.cdist](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cdist.html)。
@@ -26,8 +26,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 参数 | 参数1 |x1 | x | torch中为int类型，MindSpore中为Tensor  |
-| | 参数2 | x2 | y | - |
+| 参数 | 参数1 |x1 | x1 | - |
+| | 参数2 | x2 | x2 | - |
 |  | 参数3 | p | p | - |
 | | 参数4 | compute_mode | - | torch中指定是否用矩阵乘法计算欧几里得距离，MindSpore中没有该参数 |
 

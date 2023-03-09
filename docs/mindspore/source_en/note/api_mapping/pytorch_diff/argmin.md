@@ -20,7 +20,7 @@ For more information, see [torch.argmin](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.ops.argmin
 
 ```text
-mindspore.ops.argmin(x, axis=None, keepdims=False) -> Tensor
+mindspore.ops.argmin(input, axis=None, keepdims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.argmin](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.argmin.html).
@@ -35,7 +35,7 @@ To ensure that the two output types are identical, use the [mindspore.ops.Cast](
 
 | Categories | Subcategories   | PyTorch     | MindSpore   | Differences   |
 | ---- | ----- | ------- | --------- | --------------------- |
-| Input | Single input | input | x | Input Tensor |
+| Input | Single input | input | input | Input Tensor |
 | Parameters | Parameter 1 | dim | axis | Same function, different parameter names |
 |  | Parameter 2 | keepdim | keepdims | Same function, different parameter names |
 
