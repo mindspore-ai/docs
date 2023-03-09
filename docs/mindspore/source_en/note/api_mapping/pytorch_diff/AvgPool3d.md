@@ -28,9 +28,9 @@ MindSpore: This API implementation function of MindSpore is compatible with Tens
 | ---- | ----- | ------- | --------- | -------------- |
 | Parameters | Parameter 1 | kernel_size  | kernel_size | Consistent function, no default values for PyTorch    |
 |      | Parameter 2 | stride     | stride  | Consistent function, different default values of parameters            |
-|      | Parameter 3 | padding     | -    | Consistent|
-|      | Parameter 4 | ceil_mode             | -           | Consistent|
-|      | Parameter 5 | count_include_pad     | -           | Consistent |
+|      | Parameter 3 | padding           | padding    | Consistent |
+|      | Parameter 4 | ceil_mode         | ceil_mode    | Consistent |
+|      | Parameter 5 | count_include_pad | count_include_pad   | Consistent |
 |      | Parameter 6 | divisor_override | -           | Consistent |
 |      | Parameter 7 | -                     | pad_mode    | MindSpore specifies how the pooling will be filled, with optional values of "same", "valid" or "pad". PyTorch does not have this parameter|
 | Input | Single input | input                 | x           | Same function, different parameter names                               |

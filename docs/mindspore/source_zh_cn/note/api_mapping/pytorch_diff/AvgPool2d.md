@@ -28,9 +28,9 @@ MindSpore：MindSpore此API实现功能同时兼容TensorFlow和PyTorch，`pad_m
 | ---- | ------ | --------------------- | ----------- | ------------------------------------------------------------ |
 | 参数 | 参数1  | kernel_size           | kernel_size | 功能一致，PyTorch无默认值                                    |
 |      | 参数2  | stride                | stride      | 功能一致，参数默认值不同                                     |
-|      | 参数3  | padding               | -           | 功能一致|
-|      | 参数4  | ceil_mode             | -           | 功能一致 |
-|      | 参数5  | count_include_pad     | -           | 功能一致|
+|      | 参数3  | padding           | padding  | 功能一致 |
+|      | 参数4  | ceil_mode         | ceil_mode   | 功能一致 |
+|      | 参数5  | count_include_pad | count_include_pad   | 功能一致 |
 |      | 参数6  | divisor_override | -           | 功能一致 |
 |      | 参数7  | -                     | pad_mode    | MindSpore指定池化的填充方式，可选值为"same"，"valid" 或者 "pad"，PyTorch无此参数 |
 |      | 参数8  | -                     | data_format | MindSpore中指定输入数据格式，值可为"NHWC"或"NCHW"，PyTorch无此参数 |
