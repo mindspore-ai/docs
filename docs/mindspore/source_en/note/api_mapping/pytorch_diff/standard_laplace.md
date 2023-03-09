@@ -13,7 +13,7 @@ For more information, see [torch.distributions.laplace.Laplace](https://pytorch.
 ## mindspore.ops.standard_laplace
 
 ```text
-mindspore.ops.standard_laplace(shape, seed) -> Tensor
+mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
 For more information, see [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.standard_laplace.html).
@@ -26,8 +26,8 @@ MindSpore: Generates random numbers that match the standard Laplace (mean=0, lam
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 | loc   | x         | Same function, different parameter names                    |
-|      | Parameter 2 | scale   | axis      | MindSpore `axis` has a default value, and PyTorch `dim` has no default value |
+| Parameters | Parameter 1 | loc   | -         | MindSpore doesn't have this parameter, it implements the same functionality as loc in PyTorch equals 0   |
+|      | Parameter 2 | scale   | -      |  MindSpore doesn't have this parameter, it implements the same functionality as scale in PyTorch equals 1  |
 |      | Parameter 3 | -   | shape | This parameter in PyTorch is passed in when the sample interface is called |
 |      | Parameter 4 | -   | seed        | Random seeds for the operator layer. PyTorch does not have this parameter |
 

@@ -36,7 +36,7 @@ MindSpore: MindSpore API implements the same function as PyTorch, which is a Ten
 |    | Parameter 2 | index | indices | Same function, different parameter names |
 |    | Parameter 3 | src | updates | Same function, different parameter names |
 |    | Parameter 4 | reduce | reduction | Specification computation method. MindSpore only supports "none" and "add" modes. |
-|    | Parameter 5 | self | input_x | This interface is the Tensor interface in PyTorch |
+|    | Parameter 5 | - | input_x | This interface is the Tensor interface in PyTorch |
 
 ### Code Example
 
