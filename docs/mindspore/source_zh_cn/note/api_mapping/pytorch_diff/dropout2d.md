@@ -13,7 +13,7 @@ torch.nn.functional.dropout2d(input, p=0.5, training=True, inplace=False) -> Ten
 ## mindspore.ops.dropout2d
 
 ```python
-mindspore.dropout2d(input, p=0.5, training=True) -> Tensor
+mindspore.ops.dropout2d(input, p=0.5, training=True) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.dropout2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout2d.html)。

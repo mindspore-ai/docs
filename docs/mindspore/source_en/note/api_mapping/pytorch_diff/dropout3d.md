@@ -13,7 +13,7 @@ For more information, see [torch.nn.functional.dropout3d](https://pytorch.org/do
 ## mindspore.ops.dropout3d
 
 ```python
-mindspore.dropout3d(input, p=0.5, training=True) -> Tensor
+mindspore.ops.dropout3d(input, p=0.5, training=True) -> Tensor
 ```
 
 For more information, see [mindspore.ops.dropout3d](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dropout3d.html).
