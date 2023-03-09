@@ -20,6 +20,13 @@ MindSpore Transformer Document
    :caption: API References
 
    mindformers
+   mindformers.core
+   mindformers.dataset
+   mindformers.models
+   mindformers.modules
+   mindformers.pipeline
+   mindformers.trainer
+   mindformers.wrapper
 
 .. toctree::
    :glob:
