@@ -20,7 +20,7 @@ torch.broadcast_to(input, shape) -> Tensor
 ## mindspore.ops.broadcast_to
 
 ```text
-mindspore.ops.broadcast_to(x, shape) -> Tensor
+mindspore.ops.broadcast_to(input, shape) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.broadcast_to](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.broadcast_to.html)。
@@ -33,7 +33,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，额外支持shap
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | input | x | 功能一致，参数名不同 |
+| 输入 | 单输入 | input | input | 功能一致 |
 |参数 | 参数1 | shape | shape |功能一致 |
 
 ### 代码示例1

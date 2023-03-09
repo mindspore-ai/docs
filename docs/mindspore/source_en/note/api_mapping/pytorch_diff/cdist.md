@@ -13,7 +13,7 @@ For more information, see [torch.cdist](https://pytorch.org/docs/1.8.1/generated
 ## mindspore.ops.cdist
 
 ```text
-def cdist(x, y, p=2.0)
+mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
 For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.cdist.html).
@@ -26,8 +26,8 @@ MindSpore: MindSpore API basically implements the same functionality as PyTorch,
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences  |
 | --- |---------------|---------| --- |-------------|
-| Parameters | Parameter 1 |x1 | x | int type in torch, Tensor in MindSpore  |
-| | Parameter 2 | x2 | y | - |
+| Parameters | Parameter 1 |x1 | x1 | -  |
+| | Parameter 2 | x2 | x2 | - |
 |  | Parameter 3 | p | p | - |
 | | Parameter 4 | compute_mode | - | torch specifies whether to calculate the Euclidean distance by using matrix multiplication, which is not available in MindSpore |
 

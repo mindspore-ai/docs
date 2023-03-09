@@ -20,7 +20,7 @@ For more information, see [torch.diag](https://pytorch.org/docs/1.8.1/generated/
 ## mindspore.ops.diag
 
 ```text
-mindspore.ops.diag(input_x) -> Tensor
+mindspore.ops.diag(input) -> Tensor
 ```
 
 For more information, see [mindspore.ops.diag](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.diag.html).
@@ -33,7 +33,7 @@ MindSpore: If the input is a one-dimensional tensor, MindSpore API achieves the 
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | input | input_x |Same function, different parameter names |
+|Parameters | Parameter 1 | input | input |- |
 | | Parameter 2 | diagonal | - | The value of `diagonal` in PyTorch is used to control the position of the diagonal to be considered. MindSpore does not have this parameter. |
 | | Parameter 3 | out | - | Not involved |
 

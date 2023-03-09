@@ -13,7 +13,7 @@ torch.diag(input, diagonal=0, *, out=None) -> Tensor
 ## mindspore.ops.diag
 
 ```text
-mindspore.ops.diag(input_x) -> Tensor
+mindspore.ops.diag(input) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diag.html)。
@@ -33,7 +33,7 @@ MindSpore：MindSpore此API，若输入为一维张量，则实现与PyTorch相�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input_x |功能一致，参数名不同 |
+|参数 | 参数1 | input | input |- |
 | | 参数2 | diagonal | - | PyTorch中`diagonal`的取值用于控制要考虑的对角线的位置，MindSpore无此参数 |
 | | 参数3 | out | - | 不涉及 |
 
