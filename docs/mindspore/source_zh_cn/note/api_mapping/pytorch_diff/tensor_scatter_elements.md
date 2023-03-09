@@ -36,7 +36,7 @@ MindSpore：MindSpore此算子实现功能与PyTorch一致，PyTorch中该接口
 |    | 参数2 | index | indices | 功能一致，参数名不同 |
 |    | 参数3 | src | updates | 功能一致，参数名不同 |
 |    | 参数4 | reduce | reduction | 规约计算方式，目前MindSpore仅支持“none”和“add”模式 |
-|    | 参数5 | self | input_x | PyTorch中该接口为Tensor接口 |
+|    | 参数5 | - | input_x | PyTorch中该接口为Tensor接口 |
 
 ### 代码示例
 

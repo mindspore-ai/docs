@@ -13,7 +13,7 @@ torch.distributions.laplace.Laplace(loc, scale) -> Class Instance
 ## mindspore.ops.standard_laplace
 
 ```text
-mindspore.ops.standard_laplace(shape, seed) -> Tensor
+mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.standard_laplace.html)。
@@ -26,8 +26,8 @@ MindSpore：生成符合标准Laplace（mean=0, lambda=1）分布的随机数。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
-| 参数 | 参数1 | loc   | x         | 功能一致，参数名不同                    |
-|      | 参数2 | scale   | axis      | MindSpore的 `axis` 有默认值，PyTorch的 `dim` 没有默认值 |
+| 参数 | 参数1 | loc   | -         | MindSpore无此参数，默认实现loc=0的功能                    |
+|      | 参数2 | scale   | -      | MindSpore无此参数，默认实现scale=1的功能 |
 |      | 参数3 | -   | shape | PyTorch这个参数在调用sample接口时传入 |
 |      | 参数4 | -   | seed        | 算子层的随机种子，PyTorch无此参数 |
 
