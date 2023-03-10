@@ -106,7 +106,6 @@
 [mindspore.ops.NthElement](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NthElement.html#mindspore.ops.NthElement)|新增|寻找并返回输入Tensor最后一维第 \(n\) 小的值。|master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.PadV3](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.PadV3.html#mindspore.ops.PadV3)|新增|根据参数 mode 和 paddings_contiguous 对输入进行填充。|master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)|修改|r2.0.0-alpha: 使用双线性插值调整图像大小到指定的大小。 => master: 此接口已弃用，请使用 mindspore.ops.ResizeBilinearV2 。|r2.0.0-alpha: Ascend/CPU/GPU => master: |神经网络
-[mindspore.ops.ResizeLinear1D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeLinear1D.html#mindspore.ops.ResizeLinear1D)|修改|使用线性插值调整输入 x 为指定大小。|r2.0.0-alpha:  => master: GPU/CPU|神经网络
 [mindspore.ops.UpsampleTrilinear3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.UpsampleTrilinear3D.html#mindspore.ops.UpsampleTrilinear3D)|修改|输入为五维度Tensor，跨其中三维执行三线性插值上调采样。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.SparseTensorDenseMatmul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseMatmul.html#mindspore.ops.SparseTensorDenseMatmul)|修改|稀疏矩阵 A 乘以稠密矩阵 B 。|r2.0.0-alpha: CPU => master: GPU/CPU|稀疏算子
 [mindspore.ops.Svd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Svd.html#mindspore.ops.Svd)|新增|计算一个或多个矩阵的奇异值分解。|master: GPU/CPU|线性代数算子
