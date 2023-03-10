@@ -20,7 +20,7 @@ torch.matrix_power(input, n)
 ## mindspore.ops.matrix_power
 
 ```python
-mindspore.ops.matrix_power(x, n)
+mindspore.ops.matrix_power(input, n)
 ```
 
 更多内容详见[mindspore.ops.matrix_power](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_power.html)。
@@ -43,7 +43,7 @@ MindSpore：
 
 | 分类       | 子类         | PyTorch      | MindSpore  | 差异          |
 | ---------- | ------------ | ------------ | ---------  | ------------- |
-| 参数       | 参数 1       | input         | x        | MindSpore仅支持3维，float16和float32类型，PyTorch支持2维或更高维度，uint8、int8/16/32/64和float16/32/64类型。 |
+| 参数       | 参数 1       | input         | input    | MindSpore仅支持3维，float16和float32类型，PyTorch支持2维或更高维度，uint8、int8/16/32/64和float16/32/64类型。 |
 |            | 参数 2       | n             | n        | 功能一致        |
 
 ## 差异分析与示例
@@ -51,8 +51,8 @@ MindSpore：
 ```python
 # PyTorch
 import torch
-x = torch.tensor([[0, 1], [-1, 0]], dtype=torch.int32)
-y = torch.matrix_power(x, 2)
+input = torch.tensor([[0, 1], [-1, 0]], dtype=torch.int32)
+y = torch.matrix_power(input, 2)
 print(x.shape)
 print(y)
 # torch.Size([2, 2])
@@ -61,8 +61,8 @@ print(y)
 
 # MindSpore
 import mindspore as ms
-x = ms.Tensor([[[0, 1], [-1, 0]]], dtype=ms.float32)
-y = ms.ops.matrix_power(x, 2)
+input = ms.Tensor([[[0, 1], [-1, 0]]], dtype=ms.float32)
+y = ms.ops.matrix_power(input, 2)
 print(x.shape)
 print(y)
 # (1, 2, 2)

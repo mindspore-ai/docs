@@ -122,11 +122,32 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
     The `Tensor` index value is obtained on dimension 0, and the element in the corresponding position of dimension 0 is obtained.
 
-    The data type of the `Tensor` index must be one of int8, int16, int32, and int64, the element cannot be a negative number, and the value must be less than the length of dimension 0.
+    The data type of the `Tensor` index can be int and bool.
+
+    When the data type is int, it must be one of int8, int16, int32, and int64. The element cannot be a negative number, and the value must be less than the length of dimension 0.
 
     The `Tensor` index value is obtained by `data_shape = tensor_inde4x.shape + tensor_x.shape[1:]`.
 
     For example, if the index value is obtained for a tensor whose shape is `(6, 4, 5)` by using a tensor whose shape is `(2, 3)`, the obtained shape is `(2, 3, 4, 5)`.
+
+    When the data type is bool, the dimension of the result obtained by the `Tensor` index is `tensor_x.ndim - tensor_index.ndim + 1` .
+
+    Let the number of True in `tensor_index` be `num_true` and the shape of `tensor_x` be `(N0, N1, ... Ni-1, Ni, Ni+1, ..., Nk)` , the shape of `tensor_index` is `(N0, N1, ... Ni-1)`, then the shape of the returned value is `(num_true, Ni+1, Ni+2, ... , Nk)`.
+
+    For example:
+
+    ```python
+    tensor_x = Tensor([1, 2, 3])
+    tensor_index = Tensor([True, False, True], dtype=mstype.bool_)
+    output = tensor_x[tensor_index]
+    print(output)
+    ```
+
+    The result is as follows:
+
+    ```text
+    [1 3]
+    ```
 
     The multi-level index value can be understood as obtaining the current-level `Tensor` index value based on the previous-level index value.
 
@@ -188,7 +209,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
     The `Tuple` index contains a maximum of one `ellipsis`. The first half of the `ellipsis` index elements correspond to the `Tensor` dimensions starting from the dimension 0, and the second half of the index elements correspond to the `Tensor` dimensions starting from the last dimension. If other dimensions are not specified, all dimensions are obtained.
 
-    The data type of `Tensor` contained in the element must be one of (int8, int16, int32, int64). In addition, the value of `Tensor` element must be non-negative and less than the length of the operation dimension.
+    The data type of `Tensor` contained in the element can be int or bool, and int type must be one of (int8, int16, int32, int64). In addition, the value of `Tensor` element must be non-negative and less than the length of the operation dimension.
 
     For example, `tensor_x[0:3, 1, tensor_index] == tensor_x[(0:3, 1, tensor_index)]`, because `0:3, 1, tensor_index` is a `Tuple`.
 
@@ -352,9 +373,9 @@ Index value assignment can be understood as assigning values to indexed position
 
     Single-level `Tensor` index value assignments are supported. The single-level `Tensor` index value assignment is `tensor_x[tensor_index] = u`.
 
-    Boolean `Tensor` index is not currently supported, only `mstype.int*` type is supported.
+    Currently, the supported index types are `int` and `bool` .
 
-    For example:
+    An example of the `int` type is as follows:
 
     ```python
     import mindspore.numpy as np
@@ -373,6 +394,23 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
     tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
+    ```
+
+    An example of the `bool` type is as follows:
+
+    ```python
+    tensor_x = Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
+    tensor_index = Tensor([True, False, True], mstype.bool_)
+    tensor_x[tensor_index] = -1
+    print(tensor_x)
+    ```
+
+    The result is as follows:
+
+    ```text
+    [[-1. -1. -1.]
+     [ 3.  4.  5.]
+     [-1. -1. -1.]]
     ```
 
 - `List` index value assignment

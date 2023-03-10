@@ -20,7 +20,7 @@ torch.bernoulli(input, *, generator=None, out=None)
 ## mindspore.ops.bernoulli
 
 ```python
-mindspore.ops.bernoulli(x, p=0.5, seed=-1)
+mindspore.ops.bernoulli(input, p=0.5, seed=-1)
 ```
 
 更多内容详见[mindspore.ops.bernoulli](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bernoulli.html)。
@@ -29,13 +29,13 @@ mindspore.ops.bernoulli(x, p=0.5, seed=-1)
 
 PyTorch: 参数 `input` 里保存了伯努利分布的概率值，返回值的shape和 `input` 一致。
 
-MindSpore: 参数 `p` 里保存了伯努利分布的概率值，默认值为0.5。 `p` 的shape需要和 `x` 的shape一致，返回值的shape和 `x` 的shape一致。
+MindSpore: 参数 `p` 里保存了伯努利分布的概率值，默认值为0.5。 `p` 的shape需要和 `input` 的shape一致，返回值的shape和 `input` 的shape一致。
 
 功能上无差异。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
-| 参数       | 参数 1       | -             | x             | Mindspore下返回值的shape和数据类型和 `x` 的shape一致 |
+| 参数       | 参数 1       | -             | input         | Mindspore下返回值的shape和数据类型和 `input` 的shape一致 |
 |            | 参数 2       | input         | p             | 保存伯努利分布的概率值。PyTorch下返回值的shape和 `input` 一致。MindSpore下 `p` 为可选参数，默认值是0.5 |
 |            | 参数 3       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
 |            | 参数 4       | out           | -             | 不涉及            |
@@ -57,12 +57,12 @@ print(output.shape)
 import mindspore as ms
 import numpy as np
 
-x0 = np.array([1, 2, 3])
+input0 = np.array([1, 2, 3])
 p0 = np.array([0.0, 1.0, 1.0])
 
-input_x = ms.Tensor(x0, ms.float32)
-input_p = ms.Tensor(p0, ms.float32)
-output = ms.ops.bernoulli(input_x, input_p)
+input = ms.Tensor(input0, ms.float32)
+p = ms.Tensor(p0, ms.float32)
+output = ms.ops.bernoulli(input, p)
 print(output.shape)
 # (3,)
 ```
