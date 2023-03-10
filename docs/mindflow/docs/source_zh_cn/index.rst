@@ -41,8 +41,8 @@ MindSpore AI 流体仿真套件
    :caption: 数据驱动
 
    data_driven/dfyf
-   data_driven/FNO1D
-   data_driven/FNO2D
+   data_driven/burgers_FNO1D
+   data_driven/navier_stokes_FNO2D
 
 .. toctree::
    :glob:
