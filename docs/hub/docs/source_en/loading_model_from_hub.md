@@ -2,6 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/loading_model_from_hub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+## Overview
+
+For individual developers, training a better model from scratch requires a lot of well-labeled data, sufficient computational resources, and a lot of training and debugging time. It makes model training very resource-consuming and raises the threshold of AI development. To solve the above problems, MindSpore Hub provides a lot of model weight files with completed training, which can enable developers to quickly train a better model with a small amount of data and only a small amount of training time.
+
+This document demonstrates the use of the models provided by MindSpore Hub for both inference verification and migration learning, and shows how to quickly complete training with a small amount of data to get a better model.
+
 ## For Inference Validation
 
 `mindspore_hub.load` API is used to load the pre-trained model in a single line of code. The main process of model loading is as follows:
@@ -13,7 +19,6 @@
 2. Complete the task of loading model according to the `Usage` , as shown in the example below:
 
    ```python
-
    import mindspore_hub as mshub
    import mindspore
    from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE, train
@@ -152,6 +157,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/
    loss_net = nn.WithLossCell(train_network, loss_fn)
    steps_per_epoch = dataset.get_dataset_size()
    lr = generate_steps_lr(lr_init=0.01, steps_per_epoch=steps_per_epoch, total_epochs=epoch_size)
+
    # Create an optimizer.
    optim = Momentum(filter(lambda x: x.requires_grad, classification_layer.get_parameters()), Tensor(lr, mindspore.float32), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
@@ -175,7 +181,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/
        save_checkpoint(train_network, ckpt_path)
    ```
 
-6. Eval on test set.
+7. Eval on test set.
 
    ```python
    model = "mindspore/1.6/mobilenetv2_imagenet2012"
