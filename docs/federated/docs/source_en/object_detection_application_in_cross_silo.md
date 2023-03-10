@@ -40,7 +40,7 @@ Including both downloading source code and downloading release version, supporti
 
 Currently the federated learning framework is only supported for deployment in Linux environments, and cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 
-## Starting Mission
+### Starting Mission
 
 Refer to [example](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn) to start the cluster. The reference example directory structure is as follows:
 
@@ -74,13 +74,12 @@ cross_silo_faster_rcnn
 ├── requirements.txt
 ├── mindspore_hub_conf.py
 ├── generate_mindrecord.py              // Convert annotations files in .json format to MindRecord format for reading datasets
-├── default_config.yaml                 // Network structure, dataset address, configuration file required by fl_plan
-├── default_yaml_config.yaml            // Configuration file required for federated training
-├── config.json                         // Configuration file required for disaster recovery
-├── run_cross_silo_fasterrcnn_worker.py // Starting cross-silo federated worker script
-└── test_fl_fasterrcnn.py               // Training scripts used on the client side
-└── run_cross_silo_fasterrcnn_sched.py  // Starting cross-silo federated scheduler script
-└── run_cross_silo_fasterrcnn_server.py // Starting cross-silo federated server script
+├── default_yaml_config.yaml                 // Required configuration files for Federated training
+├── default_config.yaml                         // Required configuration file of network structure, dataset address, and fl_plan
+├── run_cross_silo_fasterrcnn_worker.py // Start Cloud Federated worker script
+└── test_fl_fasterrcnn.py               // Training scripts used by the client
+└── run_cross_silo_fasterrcnn_sched.py  // Start Cloud federated scheduler script
+└── run_cross_silo_fasterrcnn_server.py // Start Cloud federated server script
 ```
 
 1. Note that you can choose whether to record the loss value for each step by setting the parameter `dataset_sink_mode` in the `test_fl_fasterrcnn.py` file.
