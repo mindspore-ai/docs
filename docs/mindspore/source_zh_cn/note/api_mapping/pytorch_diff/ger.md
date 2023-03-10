@@ -20,7 +20,7 @@ torch.ger(input, vec2, *, out=None)
 ## mindspore.ops.ger
 
 ```python
-mindspore.ops.ger(x1, x2)
+mindspore.ops.ger(input, other)
 ```
 
 更多内容详见[mindspore.ops.ger](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ger.html)。
@@ -29,14 +29,14 @@ mindspore.ops.ger(x1, x2)
 
 PyTorch: 参数 `input` 和 `vec2` 支持uint, int和float下的所有数据类型，且可以是不同的数据类型，返回值的数据类型选择输入参数中范围更大的数据类型。
 
-MindSpore: 参数 `x1` 和 `x2` 的数据类型支持float16/32/64，必须是相同的数据类型，返回值的数据类型和输入一致。
+MindSpore: 参数 `input` 和 `other` 的数据类型支持float16/32/64，必须是相同的数据类型，返回值的数据类型和输入一致。
 
 功能上无差异。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
-| 参数       | 参数 1       | input         | x1             | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
-|            | 参数 2       | vec2          | x2            | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
+| 参数       | 参数 1       | input         | input          | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
+|            | 参数 2       | vec2          | other         | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
 |            | 参数 3       | out           | -             | 不涉及        |
 
 ## 差异分析与示例
@@ -49,9 +49,9 @@ import numpy as np
 x1 = np.arange(3)
 x2 = np.arange(6)
 
-input_x1 = torch.tensor(x1, dtype=torch.int32)
-input_x2 = torch.tensor(x2, dtype=torch.float32)
-output = torch.ger(input_x1, input_x2)
+input = torch.tensor(x1, dtype=torch.int32)
+other = torch.tensor(x2, dtype=torch.float32)
+output = torch.ger(input, other)
 print(output)
 print(output.dtype)
 # tensor([[ 0.,  0.,  0.,  0.,  0.,  0.],
@@ -66,9 +66,9 @@ import numpy as np
 x1 = np.arange(3)
 x2 = np.arange(6)
 
-input_x1 = ms.Tensor(x1, ms.float32)
-input_x2 = ms.Tensor(x2, ms.float32)
-output = ms.ops.ger(input_x1, input_x2)
+input = ms.Tensor(x1, ms.float32)
+other = ms.Tensor(x2, ms.float32)
+output = ms.ops.ger(input, other)
 print(output)
 print(output.dtype)
 # [[ 0.  0.  0.  0.  0.  0.]

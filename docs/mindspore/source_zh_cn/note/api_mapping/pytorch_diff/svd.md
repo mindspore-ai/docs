@@ -20,7 +20,7 @@ torch.svd(input, some=True, compute_uv=True, *, out=None)
 ## mindspore.ops.svd
 
 ```python
-mindspore.ops.svd(a, full_matrices=False, compute_uv=True)
+mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
 更多内容详见[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.svd.html)。
@@ -45,7 +45,7 @@ MindSpore:
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
-| 参数       | 参数 1       | input         | a             | 功能一致，参数名不同 |
+| 参数       | 参数 1       | input         | input         | 一致           |
 |            | 参数 2       | some          | full_matrices | 若要返回缩减后的奇异值分解结果，MindSpore配置 `full_matrices` 为False，PyTorch配置 `some` 为True |
 |            | 参数 3       | compute_uv    | compute_uv    | 如果参数 `compute_uv` 为True，MindSpore的输出值的顺序是 s，u，v，PyTorch的输出值的顺序是 u，s，v。 |
 |            | 参数 4       | out           | -             | 不涉及        |
@@ -57,8 +57,8 @@ MindSpore:
 ```python
 # PyTorch
 import torch
-input_x = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
-u, s, v = torch.svd(input_x, some=False, compute_uv=True)
+input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
+u, s, v = torch.svd(input, some=False, compute_uv=True)
 print(s)
 print(u)
 print(v)
@@ -71,8 +71,8 @@ print(v)
 
 # MindSpore
 import mindspore as ms
-input_x = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
-s, u, v = ms.ops.svd(input_x, full_matrices=True, compute_uv=True)
+input = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
+s, u, v = ms.ops.svd(input, full_matrices=True, compute_uv=True)
 print(s)
 print(u)
 print(v)
