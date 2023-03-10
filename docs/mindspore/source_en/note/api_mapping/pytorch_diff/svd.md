@@ -20,7 +20,7 @@ For more information, see [torch.svd](https://pytorch.org/docs/1.8.1/generated/t
 ## mindspore.ops.svd
 
 ```python
-mindspore.ops.svd(a, full_matrices=False, compute_uv=True)
+mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
 For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.svd.html).
@@ -45,7 +45,7 @@ There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters | Parameter 1   | input        | a             | Same function, different parameter names |
+| Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | some         | full_matrices | To return the reduced singular value decomposition, MindSpore should set `full_matrices` to False, and PyTorch should set `some` to True |
 |            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is True, the order of output values of MindSpore is s, u, v, and the order of PyTorch is u, s, v |
 |            | Parameter 4   | out          | -             | Not involved  |
@@ -57,8 +57,8 @@ There is no difference in function.
 ```python
 # PyTorch
 import torch
-input_x = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
-u, s, v = torch.svd(input_x, some=False, compute_uv=True)
+input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
+u, s, v = torch.svd(input, some=False, compute_uv=True)
 print(s)
 print(u)
 print(v)
@@ -71,8 +71,8 @@ print(v)
 
 # MindSpore
 import mindspore as ms
-input_x = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
-s, u, v = ms.ops.svd(input_x, full_matrices=True, compute_uv=True)
+input = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
+s, u, v = ms.ops.svd(input, full_matrices=True, compute_uv=True)
 print(s)
 print(u)
 print(v)

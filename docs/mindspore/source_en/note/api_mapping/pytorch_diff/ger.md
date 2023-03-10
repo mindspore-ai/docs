@@ -20,7 +20,7 @@ For more information, see [torch.ger](https://pytorch.org/docs/1.8.1/generated/t
 ## mindspore.ops.ger
 
 ```python
-mindspore.ops.ger(x1, x2)
+mindspore.ops.ger(input, other)
 ```
 
 For more information, see [mindspore.ops.ger](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ger.html).
@@ -29,14 +29,14 @@ For more information, see [mindspore.ops.ger](https://www.mindspore.cn/docs/en/m
 
 PyTorch: The parameters `input` and `vec2` support all data types of uint, int and float, and can be different data types. The data type of the return value selects a larger range of data types in the input parameter.
 
-MindSpore: The data types of parameters `x1` and `x2` support float16/32/64, and must be the same data type. The data type of the return value is the same as the input.
+MindSpore: The data types of parameters `input` and `other` support float16/32/64, and must be the same data type. The data type of the return value is the same as the input.
 
 There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters | Parameter 1   | input        | x1            | PyTorch supports all data types of uint, int and float, and MindSpore only supports float16/32/64 |
-|            | Parameter 2   | vec2         | x2            | PyTorch supports all data types of uint, int and float, and MindSpore only supports float16/32/64 |
+| Parameters | Parameter 1   | input        | input         | PyTorch supports all data types of uint, int and float, and MindSpore only supports float16/32/64 |
+|            | Parameter 2   | vec2         | other         | PyTorch supports all data types of uint, int and float, and MindSpore only supports float16/32/64 |
 |            | Parameter 3   | out          | -             | Not involved  |
 
 ## Code Example
@@ -49,9 +49,9 @@ import numpy as np
 x1 = np.arange(3)
 x2 = np.arange(6)
 
-input_x1 = torch.tensor(x1, dtype=torch.int32)
-input_x2 = torch.tensor(x2, dtype=torch.float32)
-output = torch.ger(input_x1, input_x2)
+input = torch.tensor(x1, dtype=torch.int32)
+other = torch.tensor(x2, dtype=torch.float32)
+output = torch.ger(input, other)
 print(output)
 print(output.dtype)
 # tensor([[ 0.,  0.,  0.,  0.,  0.,  0.],
@@ -66,9 +66,9 @@ import numpy as np
 x1 = np.arange(3)
 x2 = np.arange(6)
 
-input_x1 = ms.Tensor(x1, ms.float32)
-input_x2 = ms.Tensor(x2, ms.float32)
-output = ms.ops.ger(input_x1, input_x2)
+input = ms.Tensor(x1, ms.float32)
+other = ms.Tensor(x2, ms.float32)
+output = ms.ops.ger(input, other)
 print(output)
 print(output.dtype)
 # [[ 0.  0.  0.  0.  0.  0.]

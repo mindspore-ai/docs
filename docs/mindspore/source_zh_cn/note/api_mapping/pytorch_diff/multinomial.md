@@ -20,7 +20,7 @@ torch.multinomial(input, num_samples, replacement=False, *, generator=None, out=
 ## mindspore.ops.multinomial
 
 ```python
-mindspore.ops.multinomial(inputs, num_sample, replacement=True, seed=None)
+mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 ```
 
 更多内容详见[mindspore.ops.multinomial](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.multinomial.html)。
@@ -31,8 +31,8 @@ MindSpore下的参数名和默认值和PyTorch存在差异，功能上无差异�
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
-| 参数       | 参数 1       | input         | inputs        | 功能一致，参数名不同 |
-|            | 参数 2       | num_samples   | num_sample    | 功能一致，参数名不同 |
+| 参数       | 参数 1       | input         | input         | 功能一致，参数名不同 |
+|            | 参数 2       | num_samples   | num_samples   | 功能一致，参数名不同 |
 |            | 参数 3       | replacement   | replacement   | 功能一致，默认值不同。PyTorch的默认值为False，MindSpore的默认值为True |
 |            | 参数 4       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
 |            | 参数 5       | out           | -             | 不涉及        |
@@ -43,16 +43,16 @@ MindSpore下的参数名和默认值和PyTorch存在差异，功能上无差异�
 # PyTorch
 import torch
 
-x = torch.tensor([0, 9, 4, 0], dtype=torch.float32)
-output = torch.multinomial(x, 2)
+input = torch.tensor([0, 9, 4, 0], dtype=torch.float32)
+output = torch.multinomial(input, 2)
 print(output)
 # tensor([1, 2]) or tensor([2, 1])
 
 # MindSpore
 import mindspore as ms
 
-x = ms.Tensor([0, 9, 4, 0], dtype=ms.float32)
-output = ms.ops.multinomial(x, 2, False)
+input = ms.Tensor([0, 9, 4, 0], dtype=ms.float32)
+output = ms.ops.multinomial(input, 2, False)
 print(output)
 # [1 2] or [2 1]
 ```
