@@ -8,7 +8,7 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 实现自定义算子大概有以下几个步骤：
 
-1. 确定算子类型 ：分为通用算子与Custom算子。
+1. 确定算子类型：分为通用算子与Custom算子。
 2. 算子实现：继承Kernel类实现自定义算子，并注册进MindSpore Lite。
 3. 算子InferShape：继承mindspore::kernel::KernelInteface实现自定义算子的InferShape能力，并注册进MindSpore Lite。
 
@@ -463,353 +463,353 @@ class CustomAddKernel : public kernel::Kernel {
 
 1. 检验环境
 
-  样例中，首先通过调用`CheckSpecs`，对算子的运行环境进行检查。
-  此处，在`CheckSpecs`中，检查了输入和输出的数据类型，及输入和输出的tensor数量。
-  通过`MSTensor::IsConst()`接口可以判断一个tensor的数据是否为常量，此处对非常量输入的数据类型，和算子注册时所声明处理的数据类型也进行了对比校验。对于常量数据的处理，参考本章后续的教程。
+    样例中，首先通过调用`CheckSpecs`，对算子的运行环境进行检查。
+    此处，在`CheckSpecs`中，检查了输入和输出的数据类型，及输入和输出的tensor数量。
+    通过`MSTensor::IsConst()`接口可以判断一个tensor的数据是否为常量，此处对非常量输入的数据类型，和算子注册时所声明处理的数据类型也进行了对比校验。对于常量数据的处理，参考本章后续的教程。
 
-  ```cpp
-  int Prepare() override {
-    auto ret = CheckSpecs();
-    if (ret != kSuccess) {
-      std::cerr << "Prepare failed for check kernel specs!";
-      return ret;
-    }
-    ...
-  }
-
-  int CheckSpecs() {
-    for (auto &tensor : inputs_) {
-      if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
-        std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 input";
-        return kLiteError;
-      }
-    }
-    for (auto &tensor : outputs_) {
-      if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
-        std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 output";
-        return kLiteError;
-      }
-    }
-
-    if (inputs_.size() != 2 || outputs_.size() != 1) {
-      std::cerr << "in size: " << inputs_.size() << ", out size: " << outputs_.size();
-      return kLiteError;
-    }
-
-    for (int i = 0; i < inputs_.size(); ++i) {
-      auto &in_tensor = inputs_.at(i);
-      if (!in_tensor.IsConst()) {
-        if (fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat32) {
-          std::cerr << "Inputs data type error, expectation kNumberTypeFloat16 but kNumberTypeFloat32.";
-          return kLiteError;
-        } else if (!fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16) {
-          std::cerr << "Inputs data type error, expectation kNumberTypeFloat32 but kNumberTypeFloat16.";
-          return kLiteError;
+    ```cpp
+    int Prepare() override {
+        auto ret = CheckSpecs();
+        if (ret != kSuccess) {
+        std::cerr << "Prepare failed for check kernel specs!";
+        return ret;
         }
-      }
+        ...
     }
 
-    return kSuccess;
-  }
-  ```
+    int CheckSpecs() {
+        for (auto &tensor : inputs_) {
+        if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
+            std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 input";
+            return kLiteError;
+        }
+        }
+        for (auto &tensor : outputs_) {
+        if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
+            std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 output";
+            return kLiteError;
+        }
+        }
+
+        if (inputs_.size() != 2 || outputs_.size() != 1) {
+        std::cerr << "in size: " << inputs_.size() << ", out size: " << outputs_.size();
+        return kLiteError;
+        }
+
+        for (int i = 0; i < inputs_.size(); ++i) {
+        auto &in_tensor = inputs_.at(i);
+        if (!in_tensor.IsConst()) {
+            if (fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat32) {
+            std::cerr << "Inputs data type error, expectation kNumberTypeFloat16 but kNumberTypeFloat32.";
+            return kLiteError;
+            } else if (!fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16) {
+            std::cerr << "Inputs data type error, expectation kNumberTypeFloat32 but kNumberTypeFloat16.";
+            return kLiteError;
+            }
+        }
+        }
+
+        return kSuccess;
+    }
+    ```
 
 2. 加载自定义的OpenCL代码
 
-  通过`opencl_runtime_`调用`OpenCLRuntimeWrapper::LoadSource`接口加载自定义的OpenCL代码。
+    通过`opencl_runtime_`调用`OpenCLRuntimeWrapper::LoadSource`接口加载自定义的OpenCL代码。
 
-  ```cpp
-  int Prepare() override {
-    ...
-    const std::string kernel_name_ = "ElementAdd";
-    const std::string program_name = "Arithmetic";
-    std::string source = arithmetic_source;
-    if (opencl_runtime_.LoadSource(program_name, source) != kSuccess) {
-      std::cerr << "Load source failed.";
-      return kLiteError;
+    ```cpp
+    int Prepare() override {
+        ...
+        const std::string kernel_name_ = "ElementAdd";
+        const std::string program_name = "Arithmetic";
+        std::string source = arithmetic_source;
+        if (opencl_runtime_.LoadSource(program_name, source) != kSuccess) {
+        std::cerr << "Load source failed.";
+        return kLiteError;
+        }
+        ...
     }
-    ...
-  }
-  ```
+    ```
 
-  `arithmetic_source`的为用户自定义的OpenCL代码，如下所示：
+    `arithmetic_source`的为用户自定义的OpenCL代码，如下所示：
 
-  ```cpp
-  static const char *arithmetic_source =
-    "\n"
-    "#pragma OPENCL EXTENSION cl_khr_fp16 : enable\n"
-    "__constant sampler_t smp_none = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;\n"
-    "\n"
-    "__kernel void ElementAdd(__read_only image2d_t input_a, __read_only image2d_t input_b, __write_only image2d_t "
-    "output,\n"
-    "                         const int2 output_shape) {\n"
-    "  int X = get_global_id(0);\n"
-    "  int Y = get_global_id(1);\n"
-    "  if (X >= output_shape.x || Y >= output_shape.y) {\n"
-    "    return;\n"
-    "  }\n"
-    "\n"
-    "  FLT4 a = READ_IMAGE(input_a, smp_none, (int2)(X, Y));\n"
-    "  FLT4 b = READ_IMAGE(input_b, smp_none, (int2)(X, Y));\n"
-    "  FLT4 result = a + b;\n"
-    "\n"
-    "  WRITE_IMAGE(output, (int2)(X, Y), result);\n"
-    "}\n";
-  ```
+    ```cpp
+    static const char *arithmetic_source =
+        "\n"
+        "#pragma OPENCL EXTENSION cl_khr_fp16 : enable\n"
+        "__constant sampler_t smp_none = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;\n"
+        "\n"
+        "__kernel void ElementAdd(__read_only image2d_t input_a, __read_only image2d_t input_b, __write_only image2d_t "
+        "output,\n"
+        "                         const int2 output_shape) {\n"
+        "  int X = get_global_id(0);\n"
+        "  int Y = get_global_id(1);\n"
+        "  if (X >= output_shape.x || Y >= output_shape.y) {\n"
+        "    return;\n"
+        "  }\n"
+        "\n"
+        "  FLT4 a = READ_IMAGE(input_a, smp_none, (int2)(X, Y));\n"
+        "  FLT4 b = READ_IMAGE(input_b, smp_none, (int2)(X, Y));\n"
+        "  FLT4 result = a + b;\n"
+        "\n"
+        "  WRITE_IMAGE(output, (int2)(X, Y), result);\n"
+        "}\n";
+    ```
 
 3. 编译OpenCL代码
 
-  通过`fp16_enable_`指定不同的编译选项，以生成处理FLOAT16或FPLOAT32数据的代码。
-  通过`opencl_runtime_`调用`OpenCLRuntimeWrapper::BuildKernel`接口，得到编译后的`cl::Kernel`变量，保存在`kernel_`。
+    通过`fp16_enable_`指定不同的编译选项，以生成处理FLOAT16或FPLOAT32数据的代码。
+    通过`opencl_runtime_`调用`OpenCLRuntimeWrapper::BuildKernel`接口，得到编译后的`cl::Kernel`变量，保存在`kernel_`。
 
-  ```cpp
-  int Prepare() override {
-    ...
-    std::vector<std::string> build_options_ext = {"-cl-mad-enable -cl-fast-relaxed-math -Werror"};
-    if (fp16_enable_) {
-      build_options_ext.push_back(" -DFLT4=half4 -DWRITE_IMAGE=write_imageh -DREAD_IMAGE=read_imageh");
-    } else {
-      build_options_ext.push_back(" -DFLT4=float4 -DWRITE_IMAGE=write_imagef -DREAD_IMAGE=read_imagef");
-    }
+    ```cpp
+    int Prepare() override {
+        ...
+        std::vector<std::string> build_options_ext = {"-cl-mad-enable -cl-fast-relaxed-math -Werror"};
+        if (fp16_enable_) {
+        build_options_ext.push_back(" -DFLT4=half4 -DWRITE_IMAGE=write_imageh -DREAD_IMAGE=read_imageh");
+        } else {
+        build_options_ext.push_back(" -DFLT4=float4 -DWRITE_IMAGE=write_imagef -DREAD_IMAGE=read_imagef");
+        }
 
-    if (opencl_runtime_.BuildKernel(&kernel_, program_name, kernel_name_, build_options_ext) != kSuccess) {
-      std::cerr << "Build kernel failed.";
-      return kLiteError;
+        if (opencl_runtime_.BuildKernel(&kernel_, program_name, kernel_name_, build_options_ext) != kSuccess) {
+        std::cerr << "Build kernel failed.";
+        return kLiteError;
+        }
+        ...
     }
-    ...
-  }
-  ```
+    ```
 
 4. 设置OpenCL工作组和工作项
 
-  对注册为GPU的算子来说，除输入为常量的情况，所接收到的是Image格式的输入数据，Format为NHWC4（指C轴4字节对齐的NHWC格式数据）。
-  本例中也将所有数据转为这种格式进行计算和输出。
-  例程中实现的是一个简单的加法自定义算子，所以这里直接通过`GpuTensorInfo`函数计算输出数据`Image`内存所用宽度和高度来设置工作项。
+    对注册为GPU的算子来说，除输入为常量的情况，所接收到的是Image格式的输入数据，Format为NHWC4（指C轴4字节对齐的NHWC格式数据）。
+    本例中也将所有数据转为这种格式进行计算和输出。
+    例程中实现的是一个简单的加法自定义算子，所以这里直接通过`GpuTensorInfo`函数计算输出数据`Image`内存所用宽度和高度来设置工作项。
 
-  ```cpp
-  int Prepare() override {
-    ...
-    auto out_shape = GpuTensorInfo(&outputs_[0], &opencl_runtime_);
-    local_range_ = cl::NullRange;
-    global_range_ = cl::NDRange(out_shape.width, out_shape.height);
-    ...
-  }
-  ```
+    ```cpp
+    int Prepare() override {
+        ...
+        auto out_shape = GpuTensorInfo(&outputs_[0], &opencl_runtime_);
+        local_range_ = cl::NullRange;
+        global_range_ = cl::NDRange(out_shape.width, out_shape.height);
+        ...
+    }
+    ```
 
-  `GpuTensorInfo`的实现如下，首先通过`Broadcast2GpuShape`函数将tensor的shape转为四维，然后计算Format为NHWC4时的shape值。
-  再接着通过`OpenCLRuntimeWrapper::GetMaxImage2DWidth`及`OpenCLRuntimeWrapper::GetMaxImage2DHeight`接口得到Image内存所支持的最大宽度和高度，以此确定算子实际使用的Image内存宽度和高度。
+    `GpuTensorInfo`的实现如下，首先通过`Broadcast2GpuShape`函数将tensor的shape转为四维，然后计算Format为NHWC4时的shape值。
+    再接着通过`OpenCLRuntimeWrapper::GetMaxImage2DWidth`及`OpenCLRuntimeWrapper::GetMaxImage2DHeight`接口得到Image内存所支持的最大宽度和高度，以此确定算子实际使用的Image内存宽度和高度。
 
-  ```cpp
-  struct GpuTensorInfo {
-    GpuTensorInfo() = default;
-    explicit GpuTensorInfo(const MSTensor *tensor, registry::opencl::OpenCLRuntimeWrapper *opencl_run) {
-      if (tensor == nullptr) {
-        return;
-      }
-      auto shape_ori = tensor->Shape();
-      int64_t shape[4];
-      Broadcast2GpuShape(shape, shape_ori.data(), shape_ori.size(), 1l);
-      N = shape[0];
-      H = shape[1];
-      W = shape[2];
-      C = shape[3];
-      Slice = UP_DIV(C, C4NUM);
-      if (tensor->DataType() == mindspore::DataType::kNumberTypeFloat16) {
-        FLT_size = sizeof(cl_half);
-      } else {
-        FLT_size = sizeof(cl_float);
-      }
-      FLT4_size = FLT_size * 4;
-      if (W * Slice <= opencl_run->GetMaxImage2DWidth()) {
-        height = N * H;
-        width = W * Slice;
-      } else {
-        height = N * H * W;
-        width = Slice;
-        if (height > opencl_run->GetMaxImage2DHeight()) {
-          height = -1;
-          width = -1;
+    ```cpp
+    struct GpuTensorInfo {
+        GpuTensorInfo() = default;
+        explicit GpuTensorInfo(const MSTensor *tensor, registry::opencl::OpenCLRuntimeWrapper *opencl_run) {
+        if (tensor == nullptr) {
+            return;
         }
-      }
+        auto shape_ori = tensor->Shape();
+        int64_t shape[4];
+        Broadcast2GpuShape(shape, shape_ori.data(), shape_ori.size(), 1l);
+        N = shape[0];
+        H = shape[1];
+        W = shape[2];
+        C = shape[3];
+        Slice = UP_DIV(C, C4NUM);
+        if (tensor->DataType() == mindspore::DataType::kNumberTypeFloat16) {
+            FLT_size = sizeof(cl_half);
+        } else {
+            FLT_size = sizeof(cl_float);
+        }
+        FLT4_size = FLT_size * 4;
+        if (W * Slice <= opencl_run->GetMaxImage2DWidth()) {
+            height = N * H;
+            width = W * Slice;
+        } else {
+            height = N * H * W;
+            width = Slice;
+            if (height > opencl_run->GetMaxImage2DHeight()) {
+            height = -1;
+            width = -1;
+            }
+        }
 
-      ElementsNum = N * H * W * C;
-      Image2DSize = height * width * FLT4_size;
-    }
-    size_t N{1};
-    size_t H{1};
-    size_t W{1};
-    size_t C{1};
-    size_t Slice{};
-    size_t width{};
-    size_t height{};
-    size_t FLT_size{4};
-    size_t FLT4_size{16};
-    size_t ElementsNum{};
-    size_t Image2DSize{};
-  };
-  }  // namespace
-  ```
+        ElementsNum = N * H * W * C;
+        Image2DSize = height * width * FLT4_size;
+        }
+        size_t N{1};
+        size_t H{1};
+        size_t W{1};
+        size_t C{1};
+        size_t Slice{};
+        size_t width{};
+        size_t height{};
+        size_t FLT_size{4};
+        size_t FLT4_size{16};
+        size_t ElementsNum{};
+        size_t Image2DSize{};
+    };
+    }  // namespace
+    ```
 
-  `Broadcast2GpuShape`的实现如下所示。
+    `Broadcast2GpuShape`的实现如下所示。
 
-  ```cpp
-  template <typename SrcT, typename DstT>
-  void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num) {
-    if (src == nullptr || src_num <= 0) {
-      return;
+    ```cpp
+    template <typename SrcT, typename DstT>
+    void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num) {
+        if (src == nullptr || src_num <= 0) {
+        return;
+        }
+        auto *N = dst;
+        auto *H = dst + 1;
+        auto *W = dst + 2;
+        auto *C = dst + 3;
+        if (src_num == 1) {  // 1 1 1 C
+        *C = src[0];
+        } else if (src_num == 2) {  // N 1 1 C
+        *N = src[0];
+        *C = src[1];
+        } else if (src_num == 3) {  // N 1 W C
+        *N = src[0];
+        *W = src[1];
+        *C = src[2];
+        } else if (src_num == 4) {  // N H W C
+        *N = src[0];
+        *H = src[1];
+        *W = src[2];
+        *C = src[3];
+        } else if (src_num > 4) {
+        std::cerr << "GPU doesn't support ndim>=" << src_num;
+        }
     }
-    auto *N = dst;
-    auto *H = dst + 1;
-    auto *W = dst + 2;
-    auto *C = dst + 3;
-    if (src_num == 1) {  // 1 1 1 C
-      *C = src[0];
-    } else if (src_num == 2) {  // N 1 1 C
-      *N = src[0];
-      *C = src[1];
-    } else if (src_num == 3) {  // N 1 W C
-      *N = src[0];
-      *W = src[1];
-      *C = src[2];
-    } else if (src_num == 4) {  // N H W C
-      *N = src[0];
-      *H = src[1];
-      *W = src[2];
-      *C = src[3];
-    } else if (src_num > 4) {
-      std::cerr << "GPU doesn't support ndim>=" << src_num;
-    }
-  }
 
-  template <typename SrcT, typename DstT>
-  void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num, DstT default_value) {
-    for (int i = 0; i < 4; ++i) {
-      dst[i] = default_value;
+    template <typename SrcT, typename DstT>
+    void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num, DstT default_value) {
+        for (int i = 0; i < 4; ++i) {
+        dst[i] = default_value;
+        }
+        if (src == nullptr || src_num <= 0) {
+        return;
+        }
+        Broadcast2GpuShape(dst, src, src_num);
     }
-    if (src == nullptr || src_num <= 0) {
-      return;
-    }
-    Broadcast2GpuShape(dst, src, src_num);
-  }
-  ```
+    ```
 
 5. 将常量输入转为合适格式的数据，并分配GPU内存
 
-  对注册为GPU的算子来说，除输入为常量的情况，其它情况下，输入数据已经为Image格式的GPU内存数据。
-  为满足算子运算所需，用户需为常量输入设置合适的格式，必要时为其分配GPU内存。在此例，针对常量tensor的操作如下所示。
+    对注册为GPU的算子来说，除输入为常量的情况，其它情况下，输入数据已经为Image格式的GPU内存数据。
+    为满足算子运算所需，用户需为常量输入设置合适的格式，必要时为其分配GPU内存。在此例，针对常量tensor的操作如下所示。
 
-  首先通过`MSTensor::IsConst()`接口判断输入是否为常量，并通过`GpuTensorInfo`计算转为Image格式时所需的内存大小。
-  然后分配该大小的局部内存`weight`，并通过`PackNHWCToNHWC4`函数将tensor内存转到`weight`中存储。
+    首先通过`MSTensor::IsConst()`接口判断输入是否为常量，并通过`GpuTensorInfo`计算转为Image格式时所需的内存大小。
+    然后分配该大小的局部内存`weight`，并通过`PackNHWCToNHWC4`函数将tensor内存转到`weight`中存储。
 
-  ```cpp
-  for (int i = 0; i < inputs_.size(); ++i) {
-    auto &in_tensor = inputs_.at(i);
-    if (in_tensor.IsConst()) {
-      GpuTensorInfo in_shape = GpuTensorInfo(&in_tensor, &opencl_runtime_);
-      std::vector<char> weight(in_shape.Image2DSize, 0);
-      bool src_is_fp16 = in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16;
-      PackNHWCToNHWC4(in_tensor.MutableData(), weight.data(), src_is_fp16, fp16_enable_, in_shape,
-                      in_tensor.DataType());
-      ...
-  ```
+    ```cpp
+    for (int i = 0; i < inputs_.size(); ++i) {
+        auto &in_tensor = inputs_.at(i);
+        if (in_tensor.IsConst()) {
+        GpuTensorInfo in_shape = GpuTensorInfo(&in_tensor, &opencl_runtime_);
+        std::vector<char> weight(in_shape.Image2DSize, 0);
+        bool src_is_fp16 = in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16;
+        PackNHWCToNHWC4(in_tensor.MutableData(), weight.data(), src_is_fp16, fp16_enable_, in_shape,
+                        in_tensor.DataType());
+        ...
+    ```
 
-  `PackNHWCToNHWC4`函数实现如下，其中包含了对FLOAT16和FLOAT32类型的转换。
+    `PackNHWCToNHWC4`函数实现如下，其中包含了对FLOAT16和FLOAT32类型的转换。
 
-  ```cpp
-  void PackNHWCToNHWC4(void *src, void *dst, bool src_is_fp16, bool dst_is_fp16, const GpuTensorInfo &tensor,
-                       mindspore::DataType data_type) {
-    auto src_fp16 = reinterpret_cast<float16_t *>(src);
-    auto src_fp32 = reinterpret_cast<float32_t *>(src);
-    auto src_int32 = reinterpret_cast<int32_t *>(src);
-    auto dst_fp16 = reinterpret_cast<float16_t *>(dst);
-    auto dst_fp32 = reinterpret_cast<float32_t *>(dst);
-    auto dst_int32 = reinterpret_cast<int32_t *>(dst);
-    for (int n = 0, src_idx = 0; n < tensor.N; n++) {
-      for (int h = 0; h < tensor.H; ++h) {
-        for (int w = 0; w < tensor.W; ++w) {
-          for (int c = 0; c < tensor.C; ++c, ++src_idx) {
-            int dst_idx = ((n * tensor.H + h) * tensor.W + w) * tensor.Slice * C4NUM + c;
-            if (data_type == mindspore::DataType::kNumberTypeInt32) {
-              dst_int32[dst_idx] = src_int32[src_idx];
-            } else if (dst_is_fp16) {
-              dst_fp16[dst_idx] = src_is_fp16 ? src_fp16[src_idx] : static_cast<float16_t>(src_fp32[src_idx]);
-            } else {
-              dst_fp32[dst_idx] = src_is_fp16 ? static_cast<float32_t>(src_fp16[src_idx]) : src_fp32[src_idx];
+    ```cpp
+    void PackNHWCToNHWC4(void *src, void *dst, bool src_is_fp16, bool dst_is_fp16, const GpuTensorInfo &tensor,
+                        mindspore::DataType data_type) {
+        auto src_fp16 = reinterpret_cast<float16_t *>(src);
+        auto src_fp32 = reinterpret_cast<float32_t *>(src);
+        auto src_int32 = reinterpret_cast<int32_t *>(src);
+        auto dst_fp16 = reinterpret_cast<float16_t *>(dst);
+        auto dst_fp32 = reinterpret_cast<float32_t *>(dst);
+        auto dst_int32 = reinterpret_cast<int32_t *>(dst);
+        for (int n = 0, src_idx = 0; n < tensor.N; n++) {
+        for (int h = 0; h < tensor.H; ++h) {
+            for (int w = 0; w < tensor.W; ++w) {
+            for (int c = 0; c < tensor.C; ++c, ++src_idx) {
+                int dst_idx = ((n * tensor.H + h) * tensor.W + w) * tensor.Slice * C4NUM + c;
+                if (data_type == mindspore::DataType::kNumberTypeInt32) {
+                dst_int32[dst_idx] = src_int32[src_idx];
+                } else if (dst_is_fp16) {
+                dst_fp16[dst_idx] = src_is_fp16 ? src_fp16[src_idx] : static_cast<float16_t>(src_fp32[src_idx]);
+                } else {
+                dst_fp32[dst_idx] = src_is_fp16 ? static_cast<float32_t>(src_fp16[src_idx]) : src_fp32[src_idx];
+                }
             }
-          }
+            }
         }
-      }
+        }
+        if (tensor.ElementsNum == 1) {
+        if (dst_is_fp16) {
+            dst_fp16[3] = dst_fp16[2] = dst_fp16[1] = dst_fp16[0];
+        } else {
+            dst_fp32[3] = dst_fp32[2] = dst_fp32[1] = dst_fp32[0];
+        }
+        }
     }
-    if (tensor.ElementsNum == 1) {
-      if (dst_is_fp16) {
-        dst_fp16[3] = dst_fp16[2] = dst_fp16[1] = dst_fp16[0];
-      } else {
-        dst_fp32[3] = dst_fp32[2] = dst_fp32[1] = dst_fp32[0];
-      }
-    }
-  }
-  ```
+    ```
 
-  通过`OpenCLRuntimeWrapper::GetAllocator`得到分配GPU内存的内存分配器。
-  然后通过分配器的`mindspore::Allocator::Malloc`接口，可以申请到Image格式的GPU内存。
-  接着通过`OpenCLRuntimeWrapper::WriteImage(void *buffer, void *src_data)`接口，将已经转为NHWC4格式的`weight`数据写入到GPU内存中。
-  申请的GPU内存指针保存到weight_ptrs_中，以便在析构时释放。
+    通过`OpenCLRuntimeWrapper::GetAllocator`得到分配GPU内存的内存分配器。
+    然后通过分配器的`mindspore::Allocator::Malloc`接口，可以申请到Image格式的GPU内存。
+    接着通过`OpenCLRuntimeWrapper::WriteImage(void *buffer, void *src_data)`接口，将已经转为NHWC4格式的`weight`数据写入到GPU内存中。
+    申请的GPU内存指针保存到weight_ptrs_中，以便在析构时释放。
 
-  ```cpp
-  DataType dtype =
-    fp16_enable_ ? mindspore::DataType::kNumberTypeFloat16 : mindspore::DataType::kNumberTypeFloat32;
-  auto allocator = opencl_runtime_.GetAllocator();
-  if (allocator == nullptr) {
-    std::cerr << "GetAllocator fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  auto weight_ptr = allocator->Malloc(in_shape.width, in_shape.height, dtype);
-  if (weight_ptr == nullptr) {
-    std::cerr << "Malloc fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  weight_ptrs_.push_back(weight_ptr);
-  if (opencl_runtime_.WriteImage(weight_ptr, weight.data()) != kSuccess) {
-    std::cerr << "WriteImage fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  ```
-
-  析构时调用的释放GPU内存函数如下，通过`OpenCLRuntimeWrapper::GetAllocator`得到分配GPU内存的内存分配器。
-  然后通过分配器的`mindspore::Allocator::Free`接口，可以释放申请到的GPU内存。
-
-  ```cpp
-  void FreeWeight() {
-      auto allocator = opencl_runtime_.GetAllocator();
-      if (allocator == nullptr) {
+    ```cpp
+    DataType dtype =
+        fp16_enable_ ? mindspore::DataType::kNumberTypeFloat16 : mindspore::DataType::kNumberTypeFloat32;
+    auto allocator = opencl_runtime_.GetAllocator();
+    if (allocator == nullptr) {
         std::cerr << "GetAllocator fail.";
-        return;
-      }
-      for (auto &weight_ptr : weight_ptrs_) {
-        if (weight_ptr != nullptr) {
-          allocator->Free(weight_ptr);
-          weight_ptr = nullptr;
-        }
-      }
+        FreeWeight();
+        return kLiteError;
     }
-  ```
+    auto weight_ptr = allocator->Malloc(in_shape.width, in_shape.height, dtype);
+    if (weight_ptr == nullptr) {
+        std::cerr << "Malloc fail.";
+        FreeWeight();
+        return kLiteError;
+    }
+    weight_ptrs_.push_back(weight_ptr);
+    if (opencl_runtime_.WriteImage(weight_ptr, weight.data()) != kSuccess) {
+        std::cerr << "WriteImage fail.";
+        FreeWeight();
+        return kLiteError;
+    }
+    ```
+
+    析构时调用的释放GPU内存函数如下，通过`OpenCLRuntimeWrapper::GetAllocator`得到分配GPU内存的内存分配器。
+    然后通过分配器的`mindspore::Allocator::Free`接口，可以释放申请到的GPU内存。
+
+    ```cpp
+    void FreeWeight() {
+        auto allocator = opencl_runtime_.GetAllocator();
+        if (allocator == nullptr) {
+            std::cerr << "GetAllocator fail.";
+            return;
+        }
+        for (auto &weight_ptr : weight_ptrs_) {
+            if (weight_ptr != nullptr) {
+            allocator->Free(weight_ptr);
+            weight_ptr = nullptr;
+            }
+        }
+        }
+    ```
 
 6. 设置OpenCL内核运行时参数的值
 
-  某些OpenCL内核运行时不会改变的参数，可以在`Prepare`阶段进行设置。
-  在此例中，通过`OpenCLRuntimeWrapper::SetKernelArg`，设置`ElementAdd`运行时的第三个参数（计算的范围）。
+    某些OpenCL内核运行时不会改变的参数，可以在`Prepare`阶段进行设置。
+    在此例中，通过`OpenCLRuntimeWrapper::SetKernelArg`，设置`ElementAdd`运行时的第三个参数（计算的范围）。
 
-  ```cpp
-  int arg_idx = 3;
-  cl_int2 output_shape{static_cast<int>(global_range_[0]), static_cast<int>(global_range_[1])};
-  if (opencl_runtime_.SetKernelArg(kernel_, arg_idx, output_shape) != kSuccess) {
-    std::cerr << "Set kernel arg" << arg_idx << "failed.";
-    FreeWeight();
-    return kLiteError;
-  }
-  ```
+    ```cpp
+    int arg_idx = 3;
+    cl_int2 output_shape{static_cast<int>(global_range_[0]), static_cast<int>(global_range_[1])};
+    if (opencl_runtime_.SetKernelArg(kernel_, arg_idx, output_shape) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx << "failed.";
+        FreeWeight();
+        return kLiteError;
+    }
+    ```
 
 #### ReSize及Execute实现代码与说明
 
@@ -817,107 +817,107 @@ class CustomAddKernel : public kernel::Kernel {
 
 1. 调用`ReSize`函数，以支持运行时shape变更
 
-  在本例中，首先调用`PreProcess`来处理运算前的一些准备工作。
-  在`PreProcess()`中，首先调用`ReSize`函数，该函数为需要用户重载实现的运行时shape变更适配接口。
-  在`ReSize`函数中，通过调用`CheckOutputs`判断算子的输出tensor的shape是否存在非法值，以判断是否需要重新进行shape推理。若不需要，直接返回。
-  在需要进行shape推理时，通过`registry::RegisterKernelInterface::GetKernelInterface`获得该算子所注册的shape推理函数，此处得到的其实就是本例程中用户实现并注册的`InferShape`函数。
-  在重新推理之后，通过调用之前实现的`Prepare`接口，重新申请和分配算子运算时需要的内存及相关变量。
+    在本例中，首先调用`PreProcess`来处理运算前的一些准备工作。
+    在`PreProcess()`中，首先调用`ReSize`函数，该函数为需要用户重载实现的运行时shape变更适配接口。
+    在`ReSize`函数中，通过调用`CheckOutputs`判断算子的输出tensor的shape是否存在非法值，以判断是否需要重新进行shape推理。若不需要，直接返回。
+    在需要进行shape推理时，通过`registry::RegisterKernelInterface::GetKernelInterface`获得该算子所注册的shape推理函数，此处得到的其实就是本例程中用户实现并注册的`InferShape`函数。
+    在重新推理之后，通过调用之前实现的`Prepare`接口，重新申请和分配算子运算时需要的内存及相关变量。
 
-  ```cpp
-  int ReSize() override {
-    if (CheckOutputs(outputs_) == kSuccess) {
-      return kSuccess;
+    ```cpp
+    int ReSize() override {
+        if (CheckOutputs(outputs_) == kSuccess) {
+        return kSuccess;
+        }
+        auto status =
+        registry::RegisterKernelInterface::GetKernelInterface("", primitive_)->Infer(&inputs_, &outputs_, primitive_);
+        if (status != kSuccess) {
+        std::cerr << "infer failed." << std::endl;
+        return kLiteError;
+        }
+        ret = Prepare();
+        if (ret != kSuccess) {
+        std::cerr << "ReSize failed for kernel prepare!";
+        return ret;
+        }
+        return kSuccess;
     }
-    auto status =
-      registry::RegisterKernelInterface::GetKernelInterface("", primitive_)->Infer(&inputs_, &outputs_, primitive_);
-    if (status != kSuccess) {
-      std::cerr << "infer failed." << std::endl;
-      return kLiteError;
-    }
-    ret = Prepare();
-    if (ret != kSuccess) {
-      std::cerr << "ReSize failed for kernel prepare!";
-      return ret;
-    }
-    return kSuccess;
-  }
 
-  int PreProcess() {
-     int ret;
-     ret = ReSize();
-     if (ret != kSuccess) {
-       return ret;
-     }
-     ...
-   }
-
-  int Execute() override {
-    if (inputs_.size() != 2) {
-      return kLiteParamInvalid;
+    int PreProcess() {
+        int ret;
+        ret = ReSize();
+        if (ret != kSuccess) {
+        return ret;
+        }
+        ...
     }
-    PreProcess();
-    ...
-  }
-  ```
+
+    int Execute() override {
+        if (inputs_.size() != 2) {
+        return kLiteParamInvalid;
+        }
+        PreProcess();
+        ...
+    }
+    ```
 
 2. 为输出tensor申请内存分配
 
-  在算子运行前，需要为输出tensor申请分配GPU内存，由于框架的限制，该GPU内存需要托管给框架管理，用户不可人为释放。具体操作流程如下：
-  1. 通过调用输出tensor的`allocator()`接口，可以得到框架中管理这个tensor的内存分配器，在GPU注册算子中，则为负责分配GPU内存的内存分配器。
-  2. 计算需要分配的内存大小，此例中通过`GpuTensorInfo`函数来计算。
-  3. 通过内存分配器的`Malloc`接口申请内存，用户可分别通过`void *Malloc(size_t weight, size_t height, DataType type)`和`void *Malloc(size_t size)`接口得到Image或Buffer格式的内存。
-  4. 通过`SetData`接口，将申请的内存赋值给tensor，此后，此内存将由框架统一管理，用户不可手动释放。
+    在算子运行前，需要为输出tensor申请分配GPU内存，由于框架的限制，该GPU内存需要托管给框架管理，用户不可人为释放。具体操作流程如下：
+    1. 通过调用输出tensor的`allocator()`接口，可以得到框架中管理这个tensor的内存分配器，在GPU注册算子中，则为负责分配GPU内存的内存分配器。
+    2. 计算需要分配的内存大小，此例中通过`GpuTensorInfo`函数来计算。
+    3. 通过内存分配器的`Malloc`接口申请内存，用户可分别通过`void *Malloc(size_t weight, size_t height, DataType type)`和`void *Malloc(size_t size)`接口得到Image或Buffer格式的内存。
+    4. 通过`SetData`接口，将申请的内存赋值给tensor，此后，此内存将由框架统一管理，用户不可手动释放。
 
-  ```cpp
-  int PreProcess() {
-    ...
-    for (auto i = 0; i < outputs_.size(); ++i) {
-      auto *output = &outputs_.at(i);
-      auto img_info = GpuTensorInfo(output, &opencl_runtime_);
-      auto allocator = output->allocator();
-      if (allocator == nullptr) {
-        std::cerr << "The output tensor of OpenCL kernel must have an allocator.";
-        return kLiteError;
-      }
-      auto data_ptr = allocator->Malloc(img_info.width, img_info.height, output->DataType());
-      if (data_ptr == nullptr) {
-        std::cerr << "Malloc data failed";
-        return kLiteError;
-      }
-      output->SetData(data_ptr);
+    ```cpp
+    int PreProcess() {
+        ...
+        for (auto i = 0; i < outputs_.size(); ++i) {
+        auto *output = &outputs_.at(i);
+        auto img_info = GpuTensorInfo(output, &opencl_runtime_);
+        auto allocator = output->allocator();
+        if (allocator == nullptr) {
+            std::cerr << "The output tensor of OpenCL kernel must have an allocator.";
+            return kLiteError;
+        }
+        auto data_ptr = allocator->Malloc(img_info.width, img_info.height, output->DataType());
+        if (data_ptr == nullptr) {
+            std::cerr << "Malloc data failed";
+            return kLiteError;
+        }
+        output->SetData(data_ptr);
+        }
+        return kSuccess;
     }
-    return kSuccess;
-  }
-  ```
+    ```
 
 3. 运行OpenCL内核
 
-  通过`SetKernelArg`接口设置OpenCL的Kernel运行时的参数，通过`RunKernel`运行OpenCL的Kernel。
+    通过`SetKernelArg`接口设置OpenCL的Kernel运行时的参数，通过`RunKernel`运行OpenCL的Kernel。
 
-  ```cpp
-  int Execute() override {
-    ...
-    std::cout << this->name() << " Running!" << std::endl;
-    auto input_0_ptr = weight_ptrs_[0] == nullptr ? inputs_[0].MutableData() : weight_ptrs_[0];
-    auto input_1_ptr = weight_ptrs_[1] == nullptr ? inputs_[1].MutableData() : weight_ptrs_[1];
-    int arg_idx = 0;
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_0_ptr) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_1_ptr) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, outputs_[0].MutableData()) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->RunKernel(kernel_, global_range_, local_range_, nullptr, &event_) != kSuccess) {
-      std::cerr << "Run kernel failed.";
-      return kLiteError;
-    }
+    ```cpp
+    int Execute() override {
+        ...
+        std::cout << this->name() << " Running!" << std::endl;
+        auto input_0_ptr = weight_ptrs_[0] == nullptr ? inputs_[0].MutableData() : weight_ptrs_[0];
+        auto input_1_ptr = weight_ptrs_[1] == nullptr ? inputs_[1].MutableData() : weight_ptrs_[1];
+        int arg_idx = 0;
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_0_ptr) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_1_ptr) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, outputs_[0].MutableData()) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->RunKernel(kernel_, global_range_, local_range_, nullptr, &event_) != kSuccess) {
+        std::cerr << "Run kernel failed.";
+        return kLiteError;
+        }
 
-    return kSuccess;
-  }
-  ```
+        return kSuccess;
+    }
+    ```
