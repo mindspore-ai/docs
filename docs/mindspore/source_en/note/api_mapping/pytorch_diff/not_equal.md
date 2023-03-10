@@ -30,7 +30,7 @@ MindSpore: MindSpore API implements the same functionality as PyTorch except for
 | | Parameter 2   | other   | other     | The function is the same          |
 | | Parameter 3   | out     | -         | MindSpore does not have this Parameter      |
 
-## Code Example 1
+### Code Example 1
 
 > The two APIs have the same functions and the same usage.
 

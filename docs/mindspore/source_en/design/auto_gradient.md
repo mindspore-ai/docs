@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/auto_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## Automatic Differentiation Overview
+## Automatic Differentiation
 
 Modern AI algorithm, such as deep learning, uses a large amount of data to learn and fit an optimized model with parameters. This training process often uses loss back-propagation to update parameters. **Automatic differentiation (AD)** is one of the key techniques.
 
@@ -162,7 +162,7 @@ The formula of $\frac{df}{dy}$ and $\frac{df}{dz}$ is similar to $\frac{df}{dx}$
 
 Based on chain rule, we define gradient function `bprop: dout->(df, dinputs)` for every functions (including operators and graph). Here, `df` means gradients with respect to free variables (variables defined outside the function) and `dinputs` is gradients to function inputs. Then we use total derivative rule to accumulate `(df, dinputs)` to correspond variables.
 
-MindSporeIR has developed the formulas for branching, loops and closures. So if we define the gradient rules correctly, we can get the correct gradient.
+MindIR has developed the formulas for branching, loops and closures. So if we define the gradient rules correctly, we can get the correct gradient.
 
 Define operator K, backward mode AD can be represented as:
 

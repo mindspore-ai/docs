@@ -55,7 +55,7 @@ MindSpore：The implementation function of the API in MindSpore is basically the
 |      | Parameter 10  | -                   | data_format      |    PyTorch does not have this parameter    |
 | Input | Single input | input    | x     | Same function, different parameter names  |
 
-## Code Example
+### Code Example
 
 > The two APIs achieve the same function and have the same usage.
 

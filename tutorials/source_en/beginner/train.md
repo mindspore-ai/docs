@@ -112,7 +112,7 @@ Common loss functions include `nn.MSELoss` (mean squared error) for regression t
 loss_fn = nn.CrossEntropyLoss()
 ```
 
-## Optimizer
+### Optimizer
 
 Model optimization is the process of adjusting the model parameters at each training step to reduce model error, and MindSpore offers several implementations of optimization algorithms called Optimizers. The optimizer internally defines the parameter optimization process of the model (i.e., how the gradient is updated to the model parameters), and all optimization logic is encapsulated in the optimizer object. Here, we use the SGD (Stochastic Gradient Descent) optimizer.
 
@@ -122,12 +122,11 @@ We obtain the trainable parameters of the model via the `model.trainable_params(
 optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 ```
 
-In the training process, the gradient corresponding to the parameters can be calculated by the differentiation function, which can be passed into the optimizer to achieve parameter optimization. The form is as follows:
-
-```python
-grads = grad_fn(inputs)
-optimizer(grads)
-```
+> In the training process, the gradient corresponding to the parameters can be calculated by the differentiation function, which can be passed into the optimizer to achieve parameter optimization. The form is as follows:
+>
+> grads = grad_fn(inputs)
+>
+> optimizer(grads)
 
 ### Implementing Training and Evaluation
 

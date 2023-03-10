@@ -56,6 +56,8 @@ MindSpore:
 
 - MindSpore's initialization parameters 'swap' and 'eps' are positioned in a different order than PyTorch.
 
+There is no difference in functions.
+
 | Categories | Subcategories | PyTorch      | MindSpore   | Differences   |
 | ---------- | ------------- | ------------ | ---------   | ------------- |
 | Parameters | Parameter 1   | margin       | -           | Different position, same function. Data type is float. |
@@ -70,7 +72,7 @@ MindSpore:
 |            | Input 3       | positive     | positive    | -             |
 |            | Input 4       | negative     | negative    | -             |
 
-### Code Example
+## Code Example
 
 ```python
 # PyTorch
