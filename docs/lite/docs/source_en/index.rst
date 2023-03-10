@@ -127,11 +127,11 @@ MindSpore Lite Documentation
 										<div class="doc-os">Environment</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1 doc-environment-detail">
-										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
-										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
-										<button class="doc-filter-btn doc-btn" id="os-mac">Mac</button>
 										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
+										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
+										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
 										<button class="doc-filter-btn doc-btn" id="os-ios">iOS</button>
+										<button class="doc-filter-btn doc-btn" id="os-ohos">OpenHarmony</button>
 										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
 									</div>
 								</div>
@@ -215,7 +215,7 @@ MindSpore Lite Documentation
 						</div>
 
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -228,15 +228,28 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios stage-Environment-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos stage-Environment-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Building MindSpore Lite</span>
+											<span class="doc-head-content">Building Device-side MindSpore Lite</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This chapter introduces how to quickly compile MindSpore Lite.
+										This chapter introduces how to quickly compile device-side MindSpore Lite.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Building Cloud-side MindSpore Lite</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This chapter introduces how to quickly compile cloud-side MindSpore Lite.
 										</div>
 									</div>
 								</a>
@@ -245,11 +258,24 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Getting Started in One Hour</span>
+											<span class="doc-head-content">Getting Started to Device-side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This document uses a model inference example to describe how to use basic MindSpore Lite functions.
+										This document uses a model inference example to describe how to use basic device-side MindSpore Lite functions.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction_cloud.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Getting Started to Cloud-side Inference</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This document uses a model inference example to describe how to use basic cloud-side MindSpore Lite functions.
 										</div>
 									</div>
 								</a>
@@ -275,12 +301,12 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using MindSpore Lite Java API by random inputting data, executing inference, and printing the inference result. 
+										This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using MindSpore Lite Java interface by random inputting data, executing inference, and printing the inference result. 
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -288,7 +314,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides a sample program for MindSpore Lite to perform inference, demonstrating the Python interface to perform the basic process of device-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to inference execution.
+										This tutorial provides a sample program for MindSpore Lite to perform inference, demonstrating the Python interface to perform the basic process of device-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite interfaces related to inference execution.
 										</div>
 									</div>
 								</a>
@@ -301,7 +327,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related APIs.
+										This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related interfaces.
 										</div>
 									</div>
 								</a>
@@ -326,8 +352,8 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Post Training Quantization</span>
 										</div>
 										<div class="doc-article-desc">
-											Converting a trained 'float32' model into an 'int8' model through quantization after training can reduce the model size and improve the inference performance.
-											This tutorial introduces how to use the function.
+										Converting a trained 'float32' model into an 'int8' model through quantization after training can reduce the model size and improve the inference performance.
+										This tutorial introduces how to use the function.
 										</div>
 									</div>
 								</a>
@@ -339,19 +365,19 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Preprocessing Image Data</span>
 										</div>
 										<div class="doc-article-desc">
-											This tutorial introduces how to process the image data before inference to meet the data format requirements for model inference by creating a LiteMat object.
+										This tutorial introduces how to process the image data before inference to meet the data format requirements for model inference by creating a LiteMat object.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using C++ Interface to Perform Inference</span>
 										</div>
 										<div class="doc-article-desc">
-											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write inference code.
+										After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use C++ interface to write inference code.
 										</div>
 									</div>
 								</a>
@@ -363,7 +389,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Using Java Interface to Perform Inference</span>
 										</div>
 										<div class="doc-article-desc">
-											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java API to write inference code.
+										After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java interface to write inference code.
 										</div>
 									</div>
 								</a>
@@ -400,7 +426,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Usage Description of the Integrated NNIE</span>
 										</div>
 										<div class="doc-article-desc">
-											This tutorial introduces instructions for using integrated NNIE.
+										This tutorial introduces instructions for using integrated NNIE.
 										</div>
 									</div>
 								</a>
@@ -412,7 +438,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">TensorRT Integration Information</span>
 										</div>
 										<div class="doc-article-desc">
-											This tutorial introduces the instructions for using the integrated TensorRT.
+										This tutorial introduces the instructions for using the integrated TensorRT.
 										</div>
 									</div>
 								</a>
@@ -438,7 +464,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-											This tutorial explains the code that trains a LeNet model using Training-on-Device infrastructure.
+										This tutorial explains the code that trains a LeNet model using Training-on-Device infrastructure.
 										</div>
 									</div>
 								</a>
@@ -451,7 +477,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-											This tutorial demonstrates how to use the Java API on MindSpore Lite by building and deploying LeNet of the Java version. 
+										This tutorial demonstrates how to use the Java interface on MindSpore Lite by building and deploying LeNet of the Java version. 
 										</div>
 									</div>
 								</a>
@@ -463,7 +489,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Using C++ Interface to Perform Training</span>
 										</div>
 										<div class="doc-article-desc">
-											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write training code.
+										After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ interface to write training code.
 										</div>
 									</div>
 								</a>
@@ -475,43 +501,43 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Using Java Interface to Perform Training</span>
 										</div>
 										<div class="doc-article-desc">
-											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use Java API to write training code.
+										After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use Java interface to write training code.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-cpp stage-Model-Converting user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Construct custom kernel by registering conversion tool</span>
 										</div>
 										<div class="doc-article-desc">
-                      MindSpore Lite provides a highly flexible tool for offline model conversion. It supports users to expand such as combining your own specific hardware with MindSpore Lite Inference Engine.
+                                        MindSpore Lite provides a highly flexible tool for offline model conversion. It supports users to expand such as combining your own specific hardware with MindSpore Lite Inference Engine.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-cpp stage-Inference user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Custom Operators Online</span>
 										</div>
 										<div class="doc-article-desc">
-											MindSpore Lite provides a southbound operator registration mechanism. This document describes how to schedule your own operators through the MindSpore Lite framework.
+										MindSpore Lite provides a southbound operator registration mechanism. This document describes how to schedule your own operators through the MindSpore Lite framework.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-cpp user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/delegate.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Delegate to Support Third-party AI Framework</span>
 										</div>
 										<div class="doc-article-desc">
-											Delegate of MindSpore Lite is used to support third-party AI frameworks (such as NPU, TensorRT) to quickly access to the inference process in MindSpore Lite. 
+										Delegate of MindSpore Lite is used to support third-party AI frameworks (such as NPU, TensorRT) to quickly access to the inference process in MindSpore Lite. 
 										</div>
 									</div>
 								</a>
@@ -523,7 +549,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Converting Models for Inference</span>
 										</div>
 										<div class="doc-article-desc">
-											MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
+										MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
 										</div>
 									</div>
 								</a>
@@ -535,7 +561,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Creating MindSpore Lite Models</span>
 										</div>
 										<div class="doc-article-desc">
-											This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
+										This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
 										</div>
 									</div>
 								</a>
@@ -547,7 +573,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Using Python Interface for Model Conversion</span>
 										</div>
 										<div class="doc-article-desc">
-											MindSpore Lite supports model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference.
+										MindSpore Lite supports model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference.
 										</div>
 									</div>
 								</a>
@@ -559,8 +585,8 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">benchmark</span>
 										</div>
 										<div class="doc-article-desc">
-											After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
-											It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+										After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
+										It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 										</div>
 									</div>
 								</a>
@@ -572,7 +598,7 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">benchmark_train</span>
 										</div>
 										<div class="doc-article-desc">
-											You can use the net_train tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+										You can use the net_train tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 										</div>
 									</div>
 								</a>
@@ -584,12 +610,12 @@ MindSpore Lite Documentation
 											<span class="doc-head-content">Static Library Cropper Tool</span>
 										</div>
 										<div class="doc-article-desc">
-											MindSpore Lite provides the libmindspore-lite.a static library cropping tool for runtime, which can filter out the operators in the ms model, crop the static library files, and effectively reduce the size of the library files.
+										MindSpore Lite provides the libmindspore-lite.a static library cropping tool for runtime, which can filter out the operators in the ms model, crop the static library files, and effectively reduce the size of the library files.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-mac stage-Visualization">
+							<div class="doc-article-item all os-Windows os-Linux stage-Visualization">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/visual_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -613,72 +639,122 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
+							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience C++ Minimalist Concurrent Reasoning Demo</span>
+											<span class="doc-head-content">Using C++ Interface to Perform Cloud-side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides a MindSpore Lite parallel inference demo. It demonstrates the basic on-device inference process using C++ by inputting random data, executing inference, and printing the inference result.
+										This tutorial introduces how to use C++ interface to write cloud-side inference code.
 										</div>
 									</div>
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience Java Minimalist Concurrent Reasoning Demo</span>
+											<span class="doc-head-content">Using Java Interface to Perform Cloud-side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to parallel inference.
+										This tutorial introduces how to use Java interface to write cloud-side inference code.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
+							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experiencing the Python Simplified Concurrent Inference Demo</span>
+											<span class="doc-head-content">Using Python Interface to Perform Cloud-side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides a sample program for MindSpore Lite to perform concurrent inference.
+										This tutorial introduces how to use Python interface to write cloud-side inference code.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience C++ Minimalist Concurrent Reasoning Demo</span>
+											<span class="doc-head-content">Using C++ Interface to Perform Concurrent Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides a MindSpore Lite parallel inference demo.
+										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using C++ interface.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience Java Minimalist Concurrent Reasoning Demo</span>
+											<span class="doc-head-content">Using Java Interface to Perform Concurrent Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to parallel inference.
+										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using Java interface.
 										</div>
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux language-python stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using Python Interface to Perform Concurrent Inference</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using Python interface.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Converting Models for Cloud-side Inference</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite provides a tool for cloud-side offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_python.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using Python Interface for Cloud-side Model Conversion</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite supports cloud-side model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/benchmark_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Cloud-side benchmark</span>
+										</div>
+										<div class="doc-article-desc">
+										After model conversion and before cloud-side inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
+										It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/architecture_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -691,7 +767,7 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/operator_list_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -704,7 +780,7 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-iot user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/operator_list_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -769,7 +845,7 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/troubleshooting_guide.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -782,7 +858,7 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/log.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -795,7 +871,7 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://mindspore.cn/lite/docs/en/master/RELEASE.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
