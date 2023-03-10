@@ -20,7 +20,7 @@ For more information, see [torch.scatter](https://pytorch.org/docs/1.8.1/generat
 ## mindspore.ops.scatter
 
 ```python
-mindspore.ops.scatter(x, axis, index, src)
+mindspore.ops.scatter(input, axis, index, src)
 ```
 
 For more information, see [mindspore.ops.scatter](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.scatter.html).
@@ -29,13 +29,13 @@ For more information, see [mindspore.ops.scatter](https://www.mindspore.cn/docs/
 
 PyTorch: For all dimensions `d` , `index.size(d) <= src.size(d)` is required, i.e. `index` can select some or all of the data of `src` to be scattered into `input` .
 
-MindSpore: The shape of `index` must be the same as the shape of `src` , i.e. all data of `src` will be scattered into `x` by `index` .
+MindSpore: The shape of `index` must be the same as the shape of `src` , i.e. all data of `src` will be scattered into `input` by `index` .
 
 There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters | Parameter 1   | input        | x             | Same function, different parameter names |
+| Parameters | Parameter 1   | input        | input         | Same function, different parameter names |
 |            | Parameter 2   | dim          | axis          | Same function, different parameter names |
 |            | Parameter 3   | index        | index         | For MindSpore, the shape of `index` must be the same as the shape of `src` . For PyTorch, `index.size(d) <= src.size(d)` is required for all dimensions `d` |
 |            | Parameter 4   | src          | src           | Same function  |
@@ -46,10 +46,10 @@ There is no difference in function.
 # PyTorch
 import torch
 import numpy as np
-x = torch.tensor(np.zeros((5, 5)), dtype=torch.float32)
+input = torch.tensor(np.zeros((5, 5)), dtype=torch.float32)
 src = torch.tensor(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), dtype=torch.float32)
 index = torch.tensor(np.array([[0, 1], [0, 1], [0, 1]]), dtype=torch.int64)
-out = torch.scatter(x=x, dim=1, index=index, src=src)
+out = torch.scatter(input=input, dim=1, index=index, src=src)
 print(out)
 # tensor([[1., 2., 0., 0., 0.],
 #         [4., 5., 0., 0., 0.],
@@ -60,10 +60,10 @@ print(out)
 # MindSpore
 import mindspore as ms
 import numpy as np
-x = ms.Tensor(np.zeros((5, 5)), dtype=ms.float32)
+input = ms.Tensor(np.zeros((5, 5)), dtype=ms.float32)
 src = ms.Tensor(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), dtype=ms.float32)
 index = ms.Tensor(np.array([[0, 1, 2], [0, 1, 2], [0, 1, 2]]), dtype=ms.int64)
-out = ms.ops.scatter(x=x, axis=1, index=index, src=src)
+out = ms.ops.scatter(input=input, axis=1, index=index, src=src)
 print(out)
 # [[1. 2. 3. 0. 0.]
 #  [4. 5. 6. 0. 0.]

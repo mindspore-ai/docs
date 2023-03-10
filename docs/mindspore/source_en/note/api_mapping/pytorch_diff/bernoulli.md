@@ -20,7 +20,7 @@ For more information, see [torch.bernoulli](https://pytorch.org/docs/1.8.1/gener
 ## mindspore.ops.bernoulli
 
 ```python
-mindspore.ops.bernoulli(x, p=0.5, seed=-1)
+mindspore.ops.bernoulli(input, p=0.5, seed=-1)
 ```
 
 For more information, see [mindspore.ops.bernoulli](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bernoulli.html).
@@ -29,13 +29,13 @@ For more information, see [mindspore.ops.bernoulli](https://www.mindspore.cn/doc
 
 PyTorch: The probability value of the Bernoulli distribution is stored in the parameter `input` , and the shape of the returned value is the same as that of `input` .
 
-MindSpore: The probability value of the Bernoulli distribution is stored in the parameter `p` , with a default value of 0.5. The shape of `p` needs to be consistent with the shape of `x` , and the shape of the return value should be the same as the shape of `x` .
+MindSpore: The probability value of the Bernoulli distribution is stored in the parameter `p` , with a default value of 0.5. The shape of `p` needs to be consistent with the shape of `input` , and the shape of the return value should be the same as the shape of `input` .
 
 There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters | Parameter 1   | -            | x             | The shape and data type of the returned value under Mindspore are the same as the shape of `x` |
+| Parameters | Parameter 1   | -            | input         | The shape and data type of the returned value under Mindspore are the same as the shape of `input` |
 |            | Parameter 2   | input        | p             | Save the probability values for the Bernoulli distribution. The shape of the return value under PyTorch is the same as 'input'. 'p' is optional under MindSpore, and the default value is 0.5 |
 |            | Parameter 3   | generator    | seed          | MindSpore uses a random number seed to generate random numbers |
 |            | Parameter 4   | out          | -             | Not involved  |
@@ -57,12 +57,12 @@ print(output.shape)
 import mindspore as ms
 import numpy as np
 
-x0 = np.array([1, 2, 3])
+input0 = np.array([1, 2, 3])
 p0 = np.array([0.0, 1.0, 1.0])
 
-input_x = ms.Tensor(x0, ms.float32)
-input_p = ms.Tensor(p0, ms.float32)
-output = ms.ops.bernoulli(input_x, input_p)
+input = ms.Tensor(input0, ms.float32)
+p = ms.Tensor(p0, ms.float32)
+output = ms.ops.bernoulli(input, p)
 print(output.shape)
 # (3,)
 ```
