@@ -2,8 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/enveriment_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## Overview
-
 Network migration starts with the configuration of the MindSpore development environment. This chapter describes in detail the installation process and related materials. The materials include a basic introduction to the MindSpore components models and Hub, including their uses, scenarios and usage. There are also tutorials on training on the cloud: using ModelArts to adapt scripts, uploading datasets in OBS, training online, etc.
 
 ## Installing MindSpore

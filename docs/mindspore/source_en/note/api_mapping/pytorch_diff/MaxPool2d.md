@@ -32,9 +32,9 @@ For more information, see [mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs
 
 ## Differences
 
-PyTorch：Perform two-dimensional maximum pooling operations on the input multidimensional data.
+PyTorch: Perform two-dimensional maximum pooling operations on the input multidimensional data.
 
-MindSpore：The implementation function of API in MindSpore is basically the same as that of PyTorch.
+MindSpore: The implementation function of API in MindSpore is basically the same as that of PyTorch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
@@ -48,7 +48,7 @@ MindSpore：The implementation function of API in MindSpore is basically the sam
 | | Parameter 8 | - | pad_mode | Control the padding mode, and PyTorch does not have this parameter |
 | | Parameter 9 | - | data_format | The input data format can be "NHWC" or "NCHW". Default value: "NCHW" |
 
-## Code Example 1
+### Code Example 1
 
 > Construct a pooling layer with a convolution kernel size of 1x3 and a step size of 1. The padding defaults to 0 and no element filling is performed. The default value of dilation is 1, and the elements in the window are contiguous. Pooling padding mode returns the output from a valid calculation without padding, and excess pixels that do not satisfy the calculation are discarded. With the same parameter settings, the two APIs achieve the same function to perform two-dimensional maximum pooling operations on the input multidimensional data.
 

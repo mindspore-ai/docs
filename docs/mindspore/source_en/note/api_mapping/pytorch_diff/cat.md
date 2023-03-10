@@ -35,7 +35,7 @@ MindSpore: The implementation function of the API in MindSpore is basically the 
 |Parameters | Parameter 1 | dim | axis |Consistent function, different parameter names |
 |  | Parameter 2  | out | - | Not involved          |
 
-## Code Example 1
+### Code Example 1
 
 > MindSpore currently requires that the data type of the input tensor is consistent. If it is inconsistent, the low-precision tensor can be converted to a high-precision type through ops.cast before calling the concat operator.
 

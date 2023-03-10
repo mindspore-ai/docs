@@ -37,9 +37,9 @@ For more information, see [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/do
 
 ## Differences
 
-PyTorch：Apply batch normalization on four-dimensional inputs (two-dimensional input with additional mini-batch and channel channels) to avoid internal covariate bias.
+PyTorch: Apply batch normalization on four-dimensional inputs (two-dimensional input with additional mini-batch and channel channels) to avoid internal covariate bias.
 
-MindSpore：The function of this API is basically the same as that of PyTorch, with two typical differences. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
+MindSpore: The function of this API is basically the same as that of PyTorch, with two typical differences. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories   |PyTorch | MindSpore | Differences |
 | --- | --- | --- | --- |---|
@@ -55,7 +55,7 @@ MindSpore：The function of this API is basically the same as that of PyTorch, w
 | | Parameter 10 | - | data_format |MindSpore can specify the input data format as "NHWC" or "NCHW", default value: "NCHW". PyTorch does not have this parameter|
 | Input | Single input | input | x | Same function, different parameter names |
 
-## Code Example
+### Code Example
 
 > In PyTorch, the value after 1-momentum is equal to the momentum of MindSpore, both trained by using mini-batch data and learning parameters.
 

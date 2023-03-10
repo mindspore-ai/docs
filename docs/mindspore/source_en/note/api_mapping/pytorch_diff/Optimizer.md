@@ -28,7 +28,7 @@ For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/en/
 
 ## Differences
 
-### parameters setting
+## Parameters Setting
 
 - **Default function interface**
 
@@ -103,7 +103,7 @@ for pname, p in all_params:
 optim_sgd = optim.SGD(no_conv_params, lr=0.01)
 ```
 
-## learning_rate setting
+## learning_rate Setting
 
 fix learning rate: same.
 
@@ -171,16 +171,16 @@ for epoch in range(5):
 [0.05904900000000002]
 ```
 
-## weight_decay setting
+## weight_decay Setting
 
 Same.
 
-## loss_scale setting
+## loss_scale Setting
 
 - mindspore: As an input parameter of the optimizer, it should be used with FixedLossScaleManager.
 - pytorch: Do not set the mixed precision separately for the optimizer.
 
-## Groups of parameters
+## Groups of Parameters
 
 Both PyTorch and MindSpore support grouping parameters and can be used in similar ways. But mindspore only supports groups for 'params', 'weight_decay', 'lr', 'grad_centralizaiton', while pytorch supports groups for all optimizer inputs.
 
