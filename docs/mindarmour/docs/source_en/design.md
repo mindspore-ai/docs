@@ -66,7 +66,7 @@ AI Fuzzer consists of three modules:
 
 ### Model Asset Security
 
-Deep learning models have high business value and knowledge attributes. To protect model asset security and prevent models from being illegally copied, redistributed, and abused during transmission, deployment, and running, MindArmour provides encryption-based model file protection and structure parameter obfuscation-based lightweight model protection. In federated learning scenarios, secure multi-party computing capabilities with lossless precision are provided to prevent model theft.
+Deep learning models have high business value and knowledge attributes. To protect model asset security and prevent models from being illegally copied, redistributed, and abused during transmission, deployment, and running, MindArmour provides encryption-based model file protection and structure parameter obfuscation-based lightweight model protection.
 
 #### Model Encryption
 
