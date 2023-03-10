@@ -11,7 +11,7 @@ torch.nn.functional.binary_cross_entropy_with_logits(input, target, weight=None,
 
 For more information, see [torch.nn.functional.binary_cross_entropy_with_logits](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy_with_logits).
 
-## mindspore.nn.BCELoss
+## mindspore.ops.binary_cross_entropy_with_logits
 
 ```text
 mindspore.ops.binary_cross_entropy_with_logits(logits, label, weight, pos_weight, reduction='mean')
