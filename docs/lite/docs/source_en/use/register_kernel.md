@@ -463,353 +463,353 @@ In this example, the Prepare API is overloaded to load and build the custom Open
 
 1. Check the environment.
 
-  In the example, `CheckSpecs` is called to check the running environment of the operator.
-  In `CheckSpecs`, the input and output data types and the number of input and output tensors are checked.
-  The `MSTensor::IsConst()` API can be used to determine whether the data of a tensor is a constant. The data type of the non-constant input is also compared with the data type declared during operator registration. For details about how to process constant data, see the subsequent tutorials.
+    In the example, `CheckSpecs` is called to check the running environment of the operator.
+    In `CheckSpecs`, the input and output data types and the number of input and output tensors are checked.
+    The `MSTensor::IsConst()` API can be used to determine whether the data of a tensor is a constant. The data type of the non-constant input is also compared with the data type declared during operator registration. For details about how to process constant data, see the subsequent tutorials.
 
-  ```cpp
-  int Prepare() override {
-    auto ret = CheckSpecs();
-    if (ret != kSuccess) {
-      std::cerr << "Prepare failed for check kernel specs!";
-      return ret;
-    }
-    ...
-  }
-
-  int CheckSpecs() {
-    for (auto &tensor : inputs_) {
-      if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
-        std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 input";
-        return kLiteError;
-      }
-    }
-    for (auto &tensor : outputs_) {
-      if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
-        std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 output";
-        return kLiteError;
-      }
-    }
-
-    if (inputs_.size() != 2 || outputs_.size() != 1) {
-      std::cerr << "in size: " << inputs_.size() << ", out size: " << outputs_.size();
-      return kLiteError;
-    }
-
-    for (int i = 0; i < inputs_.size(); ++i) {
-      auto &in_tensor = inputs_.at(i);
-      if (!in_tensor.IsConst()) {
-        if (fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat32) {
-          std::cerr << "Inputs data type error, expectation kNumberTypeFloat16 but kNumberTypeFloat32.";
-          return kLiteError;
-        } else if (!fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16) {
-          std::cerr << "Inputs data type error, expectation kNumberTypeFloat32 but kNumberTypeFloat16.";
-          return kLiteError;
+    ```cpp
+    int Prepare() override {
+        auto ret = CheckSpecs();
+        if (ret != kSuccess) {
+        std::cerr << "Prepare failed for check kernel specs!";
+        return ret;
         }
-      }
+        ...
     }
 
-    return kSuccess;
-  }
-  ```
+    int CheckSpecs() {
+        for (auto &tensor : inputs_) {
+        if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
+            std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 input";
+            return kLiteError;
+        }
+        }
+        for (auto &tensor : outputs_) {
+        if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
+            std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 output";
+            return kLiteError;
+        }
+        }
+
+        if (inputs_.size() != 2 || outputs_.size() != 1) {
+        std::cerr << "in size: " << inputs_.size() << ", out size: " << outputs_.size();
+        return kLiteError;
+        }
+
+        for (int i = 0; i < inputs_.size(); ++i) {
+        auto &in_tensor = inputs_.at(i);
+        if (!in_tensor.IsConst()) {
+            if (fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat32) {
+            std::cerr << "Inputs data type error, expectation kNumberTypeFloat16 but kNumberTypeFloat32.";
+            return kLiteError;
+            } else if (!fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16) {
+            std::cerr << "Inputs data type error, expectation kNumberTypeFloat32 but kNumberTypeFloat16.";
+            return kLiteError;
+            }
+        }
+        }
+
+        return kSuccess;
+    }
+    ```
 
 2. Load the custom OpenCL code.
 
-  Use `opencl_runtime_` to call the `OpenCLRuntimeWrapper::LoadSource` API to load the custom OpenCL code.
+    Use `opencl_runtime_` to call the `OpenCLRuntimeWrapper::LoadSource` API to load the custom OpenCL code.
 
-  ```cpp
-  int Prepare() override {
-    ...
-    const std::string kernel_name_ = "ElementAdd";
-    const std::string program_name = "Arithmetic";
-    std::string source = arithmetic_source;
-    if (opencl_runtime_.LoadSource(program_name, source) != kSuccess) {
-      std::cerr << "Load source failed.";
-      return kLiteError;
+    ```cpp
+    int Prepare() override {
+        ...
+        const std::string kernel_name_ = "ElementAdd";
+        const std::string program_name = "Arithmetic";
+        std::string source = arithmetic_source;
+        if (opencl_runtime_.LoadSource(program_name, source) != kSuccess) {
+        std::cerr << "Load source failed.";
+        return kLiteError;
+        }
+        ...
     }
-    ...
-  }
-  ```
+    ```
 
-  `arithmetic_source` is the user-defined OpenCL code, as shown in the following:
+    `arithmetic_source` is the user-defined OpenCL code, as shown in the following:
 
-  ```cpp
-  static const char *arithmetic_source =
-    "\n"
-    "#pragma OPENCL EXTENSION cl_khr_fp16 : enable\n"
-    "__constant sampler_t smp_none = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;\n"
-    "\n"
-    "__kernel void ElementAdd(__read_only image2d_t input_a, __read_only image2d_t input_b, __write_only image2d_t "
-    "output,\n"
-    "                         const int2 output_shape) {\n"
-    "  int X = get_global_id(0);\n"
-    "  int Y = get_global_id(1);\n"
-    "  if (X >= output_shape.x || Y >= output_shape.y) {\n"
-    "    return;\n"
-    "  }\n"
-    "\n"
-    "  FLT4 a = READ_IMAGE(input_a, smp_none, (int2)(X, Y));\n"
-    "  FLT4 b = READ_IMAGE(input_b, smp_none, (int2)(X, Y));\n"
-    "  FLT4 result = a + b;\n"
-    "\n"
-    "  WRITE_IMAGE(output, (int2)(X, Y), result);\n"
-    "}\n";
-  ```
+    ```cpp
+    static const char *arithmetic_source =
+        "\n"
+        "#pragma OPENCL EXTENSION cl_khr_fp16 : enable\n"
+        "__constant sampler_t smp_none = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_NONE | CLK_FILTER_NEAREST;\n"
+        "\n"
+        "__kernel void ElementAdd(__read_only image2d_t input_a, __read_only image2d_t input_b, __write_only image2d_t "
+        "output,\n"
+        "                         const int2 output_shape) {\n"
+        "  int X = get_global_id(0);\n"
+        "  int Y = get_global_id(1);\n"
+        "  if (X >= output_shape.x || Y >= output_shape.y) {\n"
+        "    return;\n"
+        "  }\n"
+        "\n"
+        "  FLT4 a = READ_IMAGE(input_a, smp_none, (int2)(X, Y));\n"
+        "  FLT4 b = READ_IMAGE(input_b, smp_none, (int2)(X, Y));\n"
+        "  FLT4 result = a + b;\n"
+        "\n"
+        "  WRITE_IMAGE(output, (int2)(X, Y), result);\n"
+        "}\n";
+    ```
 
 3. Build the OpenCL code.
 
-  Use `fp16_enable_` to specify different build options to generate the code for processing FLOAT16 or FLOAT32 data.
-  Use `opencl_runtime_` to call the `OpenCLRuntimeWrapper::BuildKernel` API, obtain the built `cl::Kernel` variable, and save it in `kernel_`.
+    Use `fp16_enable_` to specify different build options to generate the code for processing FLOAT16 or FLOAT32 data.
+    Use `opencl_runtime_` to call the `OpenCLRuntimeWrapper::BuildKernel` API, obtain the built `cl::Kernel` variable, and save it in `kernel_`.
 
-  ```cpp
-  int Prepare() override {
-    ...
-    std::vector<std::string> build_options_ext = {"-cl-mad-enable -cl-fast-relaxed-math -Werror"};
-    if (fp16_enable_) {
-      build_options_ext.push_back(" -DFLT4=half4 -DWRITE_IMAGE=write_imageh -DREAD_IMAGE=read_imageh");
-    } else {
-      build_options_ext.push_back(" -DFLT4=float4 -DWRITE_IMAGE=write_imagef -DREAD_IMAGE=read_imagef");
-    }
+    ```cpp
+    int Prepare() override {
+        ...
+        std::vector<std::string> build_options_ext = {"-cl-mad-enable -cl-fast-relaxed-math -Werror"};
+        if (fp16_enable_) {
+        build_options_ext.push_back(" -DFLT4=half4 -DWRITE_IMAGE=write_imageh -DREAD_IMAGE=read_imageh");
+        } else {
+        build_options_ext.push_back(" -DFLT4=float4 -DWRITE_IMAGE=write_imagef -DREAD_IMAGE=read_imagef");
+        }
 
-    if (opencl_runtime_.BuildKernel(&kernel_, program_name, kernel_name_, build_options_ext) != kSuccess) {
-      std::cerr << "Build kernel failed.";
-      return kLiteError;
+        if (opencl_runtime_.BuildKernel(&kernel_, program_name, kernel_name_, build_options_ext) != kSuccess) {
+        std::cerr << "Build kernel failed.";
+        return kLiteError;
+        }
+        ...
     }
-    ...
-  }
-  ```
+    ```
 
 4. Set the OpenCL working group and work items.
 
-  For an operator registered as a GPU, the input data received is in image format except that the input is a constant. The format is NHWC4 (C-axis 4-byte aligned NHWC format data).
-  In this example, all data is converted to this format for computation and output.
-  In the routine, a simple addition custom operator is implemented. Therefore, the `GpuTensorInfo` function is used to compute the width and height of the `Image` memory used by the output data to set the work items.
+    For an operator registered as a GPU, the input data received is in image format except that the input is a constant. The format is NHWC4 (C-axis 4-byte aligned NHWC format data).
+    In this example, all data is converted to this format for computation and output.
+    In the routine, a simple addition custom operator is implemented. Therefore, the `GpuTensorInfo` function is used to compute the width and height of the `Image` memory used by the output data to set the work items.
 
-  ```cpp
-  int Prepare() override {
-    ...
-    auto out_shape = GpuTensorInfo(&outputs_[0], &opencl_runtime_);
-    local_range_ = cl::NullRange;
-    global_range_ = cl::NDRange(out_shape.width, out_shape.height);
-    ...
-  }
-  ```
+    ```cpp
+    int Prepare() override {
+        ...
+        auto out_shape = GpuTensorInfo(&outputs_[0], &opencl_runtime_);
+        local_range_ = cl::NullRange;
+        global_range_ = cl::NDRange(out_shape.width, out_shape.height);
+        ...
+    }
+    ```
 
-  The implementation of `GpuTensorInfo` is as follows: Use the `Broadcast2GpuShape` function to convert the shape of a tensor to four dimensions, and then compute the shape value when the format is NHWC4.
-  Then, obtain the maximum width and height supported by the image memory by calling `OpenCLRuntimeWrapper::GetMaxImage2DWidth` and `OpenCLRuntimeWrapper::GetMaxImage2DHeight`, and determine the image memory width and height actually used by the operator.
+    The implementation of `GpuTensorInfo` is as follows: Use the `Broadcast2GpuShape` function to convert the shape of a tensor to four dimensions, and then compute the shape value when the format is NHWC4.
+    Then, obtain the maximum width and height supported by the image memory by calling `OpenCLRuntimeWrapper::GetMaxImage2DWidth` and `OpenCLRuntimeWrapper::GetMaxImage2DHeight`, and determine the image memory width and height actually used by the operator.
 
-  ```cpp
-  struct GpuTensorInfo {
-    GpuTensorInfo() = default;
-    explicit GpuTensorInfo(const MSTensor *tensor, registry::opencl::OpenCLRuntimeWrapper *opencl_run) {
-      if (tensor == nullptr) {
-        return;
-      }
-      auto shape_ori = tensor->Shape();
-      int64_t shape[4];
-      Broadcast2GpuShape(shape, shape_ori.data(), shape_ori.size(), 1l);
-      N = shape[0];
-      H = shape[1];
-      W = shape[2];
-      C = shape[3];
-      Slice = UP_DIV(C, C4NUM);
-      if (tensor->DataType() == mindspore::DataType::kNumberTypeFloat16) {
-        FLT_size = sizeof(cl_half);
-      } else {
-        FLT_size = sizeof(cl_float);
-      }
-      FLT4_size = FLT_size * 4;
-      if (W * Slice <= opencl_run->GetMaxImage2DWidth()) {
-        height = N * H;
-        width = W * Slice;
-      } else {
-        height = N * H * W;
-        width = Slice;
-        if (height > opencl_run->GetMaxImage2DHeight()) {
-          height = -1;
-          width = -1;
+    ```cpp
+    struct GpuTensorInfo {
+        GpuTensorInfo() = default;
+        explicit GpuTensorInfo(const MSTensor *tensor, registry::opencl::OpenCLRuntimeWrapper *opencl_run) {
+        if (tensor == nullptr) {
+            return;
         }
-      }
+        auto shape_ori = tensor->Shape();
+        int64_t shape[4];
+        Broadcast2GpuShape(shape, shape_ori.data(), shape_ori.size(), 1l);
+        N = shape[0];
+        H = shape[1];
+        W = shape[2];
+        C = shape[3];
+        Slice = UP_DIV(C, C4NUM);
+        if (tensor->DataType() == mindspore::DataType::kNumberTypeFloat16) {
+            FLT_size = sizeof(cl_half);
+        } else {
+            FLT_size = sizeof(cl_float);
+        }
+        FLT4_size = FLT_size * 4;
+        if (W * Slice <= opencl_run->GetMaxImage2DWidth()) {
+            height = N * H;
+            width = W * Slice;
+        } else {
+            height = N * H * W;
+            width = Slice;
+            if (height > opencl_run->GetMaxImage2DHeight()) {
+            height = -1;
+            width = -1;
+            }
+        }
 
-      ElementsNum = N * H * W * C;
-      Image2DSize = height * width * FLT4_size;
-    }
-    size_t N{1};
-    size_t H{1};
-    size_t W{1};
-    size_t C{1};
-    size_t Slice{};
-    size_t width{};
-    size_t height{};
-    size_t FLT_size{4};
-    size_t FLT4_size{16};
-    size_t ElementsNum{};
-    size_t Image2DSize{};
-  };
-  }  // namespace
-  ```
+        ElementsNum = N * H * W * C;
+        Image2DSize = height * width * FLT4_size;
+        }
+        size_t N{1};
+        size_t H{1};
+        size_t W{1};
+        size_t C{1};
+        size_t Slice{};
+        size_t width{};
+        size_t height{};
+        size_t FLT_size{4};
+        size_t FLT4_size{16};
+        size_t ElementsNum{};
+        size_t Image2DSize{};
+    };
+    }  // namespace
+    ```
 
-  The implementation of `Broadcast2GpuShape` is as follows:
+    The implementation of `Broadcast2GpuShape` is as follows:
 
-  ```cpp
-  template <typename SrcT, typename DstT>
-  void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num) {
-    if (src == nullptr || src_num <= 0) {
-      return;
+    ```cpp
+    template <typename SrcT, typename DstT>
+    void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num) {
+        if (src == nullptr || src_num <= 0) {
+        return;
+        }
+        auto *N = dst;
+        auto *H = dst + 1;
+        auto *W = dst + 2;
+        auto *C = dst + 3;
+        if (src_num == 1) {  // 1 1 1 C
+        *C = src[0];
+        } else if (src_num == 2) {  // N 1 1 C
+        *N = src[0];
+        *C = src[1];
+        } else if (src_num == 3) {  // N 1 W C
+        *N = src[0];
+        *W = src[1];
+        *C = src[2];
+        } else if (src_num == 4) {  // N H W C
+        *N = src[0];
+        *H = src[1];
+        *W = src[2];
+        *C = src[3];
+        } else if (src_num > 4) {
+        std::cerr << "GPU doesn't support ndim>=" << src_num;
+        }
     }
-    auto *N = dst;
-    auto *H = dst + 1;
-    auto *W = dst + 2;
-    auto *C = dst + 3;
-    if (src_num == 1) {  // 1 1 1 C
-      *C = src[0];
-    } else if (src_num == 2) {  // N 1 1 C
-      *N = src[0];
-      *C = src[1];
-    } else if (src_num == 3) {  // N 1 W C
-      *N = src[0];
-      *W = src[1];
-      *C = src[2];
-    } else if (src_num == 4) {  // N H W C
-      *N = src[0];
-      *H = src[1];
-      *W = src[2];
-      *C = src[3];
-    } else if (src_num > 4) {
-      std::cerr << "GPU doesn't support ndim>=" << src_num;
-    }
-  }
 
-  template <typename SrcT, typename DstT>
-  void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num, DstT default_value) {
-    for (int i = 0; i < 4; ++i) {
-      dst[i] = default_value;
+    template <typename SrcT, typename DstT>
+    void Broadcast2GpuShape(DstT *dst, const SrcT *src, int src_num, DstT default_value) {
+        for (int i = 0; i < 4; ++i) {
+        dst[i] = default_value;
+        }
+        if (src == nullptr || src_num <= 0) {
+        return;
+        }
+        Broadcast2GpuShape(dst, src, src_num);
     }
-    if (src == nullptr || src_num <= 0) {
-      return;
-    }
-    Broadcast2GpuShape(dst, src, src_num);
-  }
-  ```
+    ```
 
 5. Convert the constant input into data in a proper format and allocate the GPU memory.
 
-  For an operator registered as a GPU, the input data is GPU memory data in image format except when the input is a constant.
-  To meet the operator computation requirements, you need to set a proper format for the constant input and allocate GPU memory if necessary. In this example, the operations on a constant tensor are as follows:
+    For an operator registered as a GPU, the input data is GPU memory data in image format except when the input is a constant.
+    To meet the operator computation requirements, you need to set a proper format for the constant input and allocate GPU memory if necessary. In this example, the operations on a constant tensor are as follows:
 
-  Use the `MSTensor::IsConst()` API to check whether the input is a constant, and use `GpuTensorInfo` to compute the memory size required for converting the image format.
-  Allocate the local memory `weight` of this size, and use the `PackNHWCToNHWC4` function to transfer the tensor memory to `weight` for storage.
+    Use the `MSTensor::IsConst()` API to check whether the input is a constant, and use `GpuTensorInfo` to compute the memory size required for converting the image format.
+    Allocate the local memory `weight` of this size, and use the `PackNHWCToNHWC4` function to transfer the tensor memory to `weight` for storage.
 
-  ```cpp
-  for (int i = 0; i < inputs_.size(); ++i) {
-    auto &in_tensor = inputs_.at(i);
-    if (in_tensor.IsConst()) {
-      GpuTensorInfo in_shape = GpuTensorInfo(&in_tensor, &opencl_runtime_);
-      std::vector<char> weight(in_shape.Image2DSize, 0);
-      bool src_is_fp16 = in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16;
-      PackNHWCToNHWC4(in_tensor.MutableData(), weight.data(), src_is_fp16, fp16_enable_, in_shape,
-                      in_tensor.DataType());
-      ...
-  ```
+    ```cpp
+    for (int i = 0; i < inputs_.size(); ++i) {
+        auto &in_tensor = inputs_.at(i);
+        if (in_tensor.IsConst()) {
+        GpuTensorInfo in_shape = GpuTensorInfo(&in_tensor, &opencl_runtime_);
+        std::vector<char> weight(in_shape.Image2DSize, 0);
+        bool src_is_fp16 = in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16;
+        PackNHWCToNHWC4(in_tensor.MutableData(), weight.data(), src_is_fp16, fp16_enable_, in_shape,
+                        in_tensor.DataType());
+        ...
+    ```
 
-  The `PackNHWCToNHWC4` function is implemented as follows, including the conversion between the FLOAT16 and FLOAT32 types.
+    The `PackNHWCToNHWC4` function is implemented as follows, including the conversion between the FLOAT16 and FLOAT32 types.
 
-  ```cpp
-  void PackNHWCToNHWC4(void *src, void *dst, bool src_is_fp16, bool dst_is_fp16, const GpuTensorInfo &tensor,
-                       mindspore::DataType data_type) {
-    auto src_fp16 = reinterpret_cast<float16_t *>(src);
-    auto src_fp32 = reinterpret_cast<float32_t *>(src);
-    auto src_int32 = reinterpret_cast<int32_t *>(src);
-    auto dst_fp16 = reinterpret_cast<float16_t *>(dst);
-    auto dst_fp32 = reinterpret_cast<float32_t *>(dst);
-    auto dst_int32 = reinterpret_cast<int32_t *>(dst);
-    for (int n = 0, src_idx = 0; n < tensor.N; n++) {
-      for (int h = 0; h < tensor.H; ++h) {
-        for (int w = 0; w < tensor.W; ++w) {
-          for (int c = 0; c < tensor.C; ++c, ++src_idx) {
-            int dst_idx = ((n * tensor.H + h) * tensor.W + w) * tensor.Slice * C4NUM + c;
-            if (data_type == mindspore::DataType::kNumberTypeInt32) {
-              dst_int32[dst_idx] = src_int32[src_idx];
-            } else if (dst_is_fp16) {
-              dst_fp16[dst_idx] = src_is_fp16 ? src_fp16[src_idx] : static_cast<float16_t>(src_fp32[src_idx]);
-            } else {
-              dst_fp32[dst_idx] = src_is_fp16 ? static_cast<float32_t>(src_fp16[src_idx]) : src_fp32[src_idx];
+    ```cpp
+    void PackNHWCToNHWC4(void *src, void *dst, bool src_is_fp16, bool dst_is_fp16, const GpuTensorInfo &tensor,
+                        mindspore::DataType data_type) {
+        auto src_fp16 = reinterpret_cast<float16_t *>(src);
+        auto src_fp32 = reinterpret_cast<float32_t *>(src);
+        auto src_int32 = reinterpret_cast<int32_t *>(src);
+        auto dst_fp16 = reinterpret_cast<float16_t *>(dst);
+        auto dst_fp32 = reinterpret_cast<float32_t *>(dst);
+        auto dst_int32 = reinterpret_cast<int32_t *>(dst);
+        for (int n = 0, src_idx = 0; n < tensor.N; n++) {
+        for (int h = 0; h < tensor.H; ++h) {
+            for (int w = 0; w < tensor.W; ++w) {
+            for (int c = 0; c < tensor.C; ++c, ++src_idx) {
+                int dst_idx = ((n * tensor.H + h) * tensor.W + w) * tensor.Slice * C4NUM + c;
+                if (data_type == mindspore::DataType::kNumberTypeInt32) {
+                dst_int32[dst_idx] = src_int32[src_idx];
+                } else if (dst_is_fp16) {
+                dst_fp16[dst_idx] = src_is_fp16 ? src_fp16[src_idx] : static_cast<float16_t>(src_fp32[src_idx]);
+                } else {
+                dst_fp32[dst_idx] = src_is_fp16 ? static_cast<float32_t>(src_fp16[src_idx]) : src_fp32[src_idx];
+                }
             }
-          }
+            }
         }
-      }
+        }
+        if (tensor.ElementsNum == 1) {
+        if (dst_is_fp16) {
+            dst_fp16[3] = dst_fp16[2] = dst_fp16[1] = dst_fp16[0];
+        } else {
+            dst_fp32[3] = dst_fp32[2] = dst_fp32[1] = dst_fp32[0];
+        }
+        }
     }
-    if (tensor.ElementsNum == 1) {
-      if (dst_is_fp16) {
-        dst_fp16[3] = dst_fp16[2] = dst_fp16[1] = dst_fp16[0];
-      } else {
-        dst_fp32[3] = dst_fp32[2] = dst_fp32[1] = dst_fp32[0];
-      }
-    }
-  }
-  ```
+    ```
 
-  `OpenCLRuntimeWrapper::GetAllocator` is used to obtain the memory allocator that allocates the memory.
-  Then, the `mindspore::Allocator::Malloc` API of the allocator can be used to apply for the GPU memory in image format.
-  Write the `weight` data in the NHWC4 format to the GPU memory through the `OpenCLRuntimeWrapper::WriteImage(void *buffer, void *src_data)` API.
-  The pointer to the requested GPU memory is stored in weight_ptrs_ so that it can be released during destruction.
+    `OpenCLRuntimeWrapper::GetAllocator` is used to obtain the memory allocator that allocates the memory.
+    Then, the `mindspore::Allocator::Malloc` API of the allocator can be used to apply for the GPU memory in image format.
+    Write the `weight` data in the NHWC4 format to the GPU memory through the `OpenCLRuntimeWrapper::WriteImage(void *buffer, void *src_data)` API.
+    The pointer to the requested GPU memory is stored in weight_ptrs_ so that it can be released during destruction.
 
-  ```cpp
-  DataType dtype =
-    fp16_enable_ ? mindspore::DataType::kNumberTypeFloat16 : mindspore::DataType::kNumberTypeFloat32;
-  auto allocator = opencl_runtime_.GetAllocator();
-  if (allocator == nullptr) {
-    std::cerr << "GetAllocator fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  auto weight_ptr = allocator->Malloc(in_shape.width, in_shape.height, dtype);
-  if (weight_ptr == nullptr) {
-    std::cerr << "Malloc fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  weight_ptrs_.push_back(weight_ptr);
-  if (opencl_runtime_.WriteImage(weight_ptr, weight.data()) != kSuccess) {
-    std::cerr << "WriteImage fail.";
-    FreeWeight();
-    return kLiteError;
-  }
-  ```
-
-  During destruction, the function called for releasing the GPU memory is as follows. The memory allocator that allocates the GPU memory is obtained by using `OpenCLRuntimeWrapper::GetAllocator`.
-  Then, the `mindspore::Allocator::Free` API of the allocator can be used to release the applied GPU memory.
-
-  ```cpp
-  void FreeWeight() {
-      auto allocator = opencl_runtime_.GetAllocator();
-      if (allocator == nullptr) {
+    ```cpp
+    DataType dtype =
+        fp16_enable_ ? mindspore::DataType::kNumberTypeFloat16 : mindspore::DataType::kNumberTypeFloat32;
+    auto allocator = opencl_runtime_.GetAllocator();
+    if (allocator == nullptr) {
         std::cerr << "GetAllocator fail.";
-        return;
-      }
-      for (auto &weight_ptr : weight_ptrs_) {
-        if (weight_ptr != nullptr) {
-          allocator->Free(weight_ptr);
-          weight_ptr = nullptr;
-        }
-      }
+        FreeWeight();
+        return kLiteError;
     }
-  ```
+    auto weight_ptr = allocator->Malloc(in_shape.width, in_shape.height, dtype);
+    if (weight_ptr == nullptr) {
+        std::cerr << "Malloc fail.";
+        FreeWeight();
+        return kLiteError;
+    }
+    weight_ptrs_.push_back(weight_ptr);
+    if (opencl_runtime_.WriteImage(weight_ptr, weight.data()) != kSuccess) {
+        std::cerr << "WriteImage fail.";
+        FreeWeight();
+        return kLiteError;
+    }
+    ```
+
+    During destruction, the function called for releasing the GPU memory is as follows. The memory allocator that allocates the GPU memory is obtained by using `OpenCLRuntimeWrapper::GetAllocator`.
+    Then, the `mindspore::Allocator::Free` API of the allocator can be used to release the applied GPU memory.
+
+    ```cpp
+    void FreeWeight() {
+        auto allocator = opencl_runtime_.GetAllocator();
+        if (allocator == nullptr) {
+            std::cerr << "GetAllocator fail.";
+            return;
+        }
+        for (auto &weight_ptr : weight_ptrs_) {
+            if (weight_ptr != nullptr) {
+            allocator->Free(weight_ptr);
+            weight_ptr = nullptr;
+            }
+        }
+        }
+    ```
 
 6. Set values of OpenCL kernel runtime parameters.
 
-  Some unchanged parameters during the OpenCL kernel running can be set in the `Prepare` phase.
-  In this example, `OpenCLRuntimeWrapper::SetKernelArg` is used to set the third parameter (computation range) of the `ElementAdd` runtime.
+    Some unchanged parameters during the OpenCL kernel running can be set in the `Prepare` phase.
+    In this example, `OpenCLRuntimeWrapper::SetKernelArg` is used to set the third parameter (computation range) of the `ElementAdd` runtime.
 
-  ```cpp
-  int arg_idx = 3;
-  cl_int2 output_shape{static_cast<int>(global_range_[0]), static_cast<int>(global_range_[1])};
-  if (opencl_runtime_.SetKernelArg(kernel_, arg_idx, output_shape) != kSuccess) {
-    std::cerr << "Set kernel arg" << arg_idx << "failed.";
-    FreeWeight();
-    return kLiteError;
-  }
-  ```
+    ```cpp
+    int arg_idx = 3;
+    cl_int2 output_shape{static_cast<int>(global_range_[0]), static_cast<int>(global_range_[1])};
+    if (opencl_runtime_.SetKernelArg(kernel_, arg_idx, output_shape) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx << "failed.";
+        FreeWeight();
+        return kLiteError;
+    }
+    ```
 
 #### Code and Description of the ReSize and Execute Implementations
 
