@@ -36,7 +36,7 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
 
-## Configuring for Recomputation
+### Configuring for Recomputation
 
 We can call two kinds of interface to configure the recomputation. Take `src/resnet.py` for example:
 

@@ -32,7 +32,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
-## Configuring for Hybrid Training
+### Configuring for Hybrid Training
 
 1. Configure the flag of hybrid training. In the file `default_config.yaml`, change the default value of `host_device_mix` to be `1`:
 
@@ -54,7 +54,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
     self.optimizer_d.target = "CPU"
     ```
 
-## Training the Model
+### Training the Model
 
 In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/master/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
 

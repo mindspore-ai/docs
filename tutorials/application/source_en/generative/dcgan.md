@@ -270,7 +270,7 @@ optimizer_G.update_parameters_name('optim_g.')
 optimizer_D.update_parameters_name('optim_d.')
 ```
 
-## Training Mode
+### Training Mode
 
 Training is divided into two parts: discriminator training and generator training.
 
