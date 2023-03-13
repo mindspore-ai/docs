@@ -31,7 +31,7 @@ MindSpore: This API implementation function of MindSpore is compatible with Tens
 |      | Parameter 3 | padding           | padding    | Consistent |
 |      | Parameter 4 | ceil_mode         | ceil_mode    | Consistent |
 |      | Parameter 5 | count_include_pad | count_include_pad   | Consistent |
-|      | Parameter 6 | divisor_override | -           | Consistent |
+|      | Parameter 6 | divisor_override | divisor_override           | Consistent |
 |      | Parameter 7 | -                     | pad_mode    | MindSpore specifies how the pooling will be filled, with optional values of "same", "valid" or "pad". PyTorch does not have this parameter|
 |      | Parameter 8 | -                     | data_format    | Specify the input data format in MindSpore, either "NHWC" or "NCHW". PyTorch does not have this parameter |
 | Input | Single input | input                 | x           | Same function, different parameter names                               |
