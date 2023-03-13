@@ -10,7 +10,7 @@
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)
         - [Installing TensorRT-optional](#installing-tensorrt-optional)
-    - [Installing MindSpore](#installing-mindspore)
+        - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
 
@@ -223,7 +223,7 @@ source ~/.bashrc
 cd -
 ```
 
-## Installing MindSpore
+### Installing MindSpore
 
 First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.0.0-alpha as an example, execute the following commands.
 
