@@ -441,6 +441,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 注意：
 
 - 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
+- 对于通信算子（`AllReduce`、`AllGather`、`ReduceScatter`、`Broadcast`、`NeighborExchange`、`NeighborExchange2`、`AlltoAll`），由于在设备上执行时输入地址会被输出覆盖，异步Dump不能直接保存其输入数据，而是会保存其输入算子的输出数据。可以通过ir图查看通信算子的输入算子。
 - 使用Dump功能将自动生成最终执行图的IR文件。
 
 ### 异步Dump数据对象目录

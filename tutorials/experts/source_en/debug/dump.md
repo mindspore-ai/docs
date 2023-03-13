@@ -445,6 +445,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     Note:
 
     - If you need to dump all or part of the operator, you can modify the `dump_mode` option in the json configuration file to 0 or 1.
+    - For communication operators(`AllReduce`, `AllGather`, `ReduceScatter`, `Broadcast`, `NeighborExchange`, `NeighborExchange2`, `AlltoAll`), because the input address will be overwritten by the output when executed on the device, asynchronous dump cannot directly save its input data, but will save the output data of its input operator. You can view the input operator of the communication operator through the ir graph.
     - Using the Dump function will automatically generate the IR file of the final execution graph.
 
 ### Asynchronous Dump Data Object Directory
