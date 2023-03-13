@@ -5,14 +5,7 @@
 ## torch.nn.MaxPool1d
 
 ```text
-class torch.nn.MaxPool1d(
-    kernel_size,
-    stride=None,
-    padding=0,
-    dilation=1,
-    return_indices=False,
-    ceil_mode=False
-)(input) -> Tensor
+torch.nn.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)(input) -> Tensor
 ```
 
 For more information, see [torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/generated/torch.nn.MaxPool1d.html).
@@ -20,29 +13,25 @@ For more information, see [torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/ge
 ## mindspore.nn.MaxPool1d
 
 ```text
-class mindspore.nn.MaxPool1d(
-    kernel_size=1,
-    stride=1,
-    pad_mode='valid'
-)(x) -> Tensor
+mindspore.nn.MaxPool1d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False)(x) -> Tensor
 ```
 
 For more information, see [mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MaxPool1d.html).
 
 ## Differences
 
-PyTorch：Perform maximum pooling operations on temporal data.
+PyTorch: Perform maximum pooling operations on temporal data.
 
-MindSpore：The implementation function of API in MindSpore is basically the same as that of PyTorch, but it lacks padding, dilation, and return_indices for parameter setting.
+MindSpore: This API implementation function of MindSpore is compatible with TensorFlow and PyTorch, When `pad_mode` is "valid" or "same", the function is consistent with TensorFlow, and when `pad_mode` is "pad", the function is consistent with PyTorch, MindSpore additionally supports 2D input, which is consistent with PyTorch 1.12.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 |Parameters | Parameter 1 | kernel_size | kernel_size | Consistent function, no default values for PyTorch |
 | | Parameter 2 | stride | stride | Consistent function, different default value  |
-| | Parameter 3 | padding | - | The number of elements to fill. The default value is 0 (no padding), and the value cannot exceed kernel_size/2 (rounded down). For more details, refer to [Conv and Pooling](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#conv-and-pooling). |
-| | Parameter 4 | dilation | - | Span length between elements in the window: the default value is 1, when the elements in the window are contiguous. If the value > 1, the elements in the window are spaced |
-| | Parameter 5 | return_indices | - | Return index: If the value is True, the index of the corresponding element will be returned along with the maximum pooling result. Useful for subsequent calls to torch.nn.MaxUnpool1d |
-| | Parameter 6 | ceil_mode | - | Control the output shape($N$, $C$, $L_{out}$) in $L_{out}$ to round up or down. In MindSpore, default: round down |
+| | Parameter 3 | padding |padding | Consistent |
+| | Parameter 4 | dilation | dilation | Consistent |
+| | Parameter 5 | return_indices | return_indices | Consistent |
+| | Parameter 6 | ceil_mode | ceil_mode | Consistent |
 | | Parameter 7 | input | x | Consistent function, different parameter names |
 | | Parameter 8 | - | pad_mode | Control the filling mode, and PyTorch does not have this parameter |
 
@@ -78,62 +67,27 @@ print(result)
 
 ### Code Example 2
 
-> When ceil_mode=True and pad_mode='same', both APIs achieve the same function.
+> Use pad mode to ensure functional consistency.
 
 ```python
-# PyTorch
-import torch
-
-max_pool = torch.nn.MaxPool1d(kernel_size=3, stride=2, ceil_mode=True)
-x = torch.tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], dtype=torch.float32)
-output = max_pool(x)
-print(output.numpy())
-# [[[ 3.  5.  7.  9. 10.]
-#   [ 3.  5.  7.  9. 10.]]]
-
-# MindSpore
-import mindspore
+import mindspore as ms
 from mindspore import Tensor
-
-max_pool = mindspore.nn.MaxPool1d(kernel_size=3, stride=2, pad_mode='same')
-x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
-output = max_pool(x)
-print(output)
-# [[[ 3.  5.  7.  9. 10.]
-#   [ 3.  5.  7.  9. 10.]]]
-```
-
-### Code Example 3
-
-> In PyTorch, when ceil_mode=False, set padding=1, and in MindSpore pad_mode='valid', first padding x by ops.pad(), then calculating the result of max pooling, so that both APIs achieve the same function.
-
-```python
-# PyTorch
+import mindspore.nn as nn
 import torch
+import numpy as np
 
-max_pool = torch.nn.MaxPool1d(kernel_size=4, stride=2, padding=1)
-x = torch.tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], dtype=torch.float32)
+np_x = np.random.randint(0, 10, [1, 2, 4])
+
+x = Tensor(np_x, ms.float32)
+max_pool = nn.MaxPool1d(kernel_size=2, stride=1, pad_mode='pad', padding=1, dilation=1, return_indices=False)
 output = max_pool(x)
 result = output.shape
-print(output.numpy())
-# [[[ 3.  5.  7.  9. 10.]
-#   [ 3.  5.  7.  9. 10.]]]
-print(tuple(result))
-# (1, 2, 5)
-
-# MindSpore
-import mindspore
-from mindspore import Tensor
-import mindspore.ops as ops
-
-max_pool = mindspore.nn.MaxPool1d(kernel_size=4, stride=2)
-x = Tensor([[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]], mindspore.float32)
-padding = ops.pad(x, ((1, 1)))
-output = max_pool(padding)
-result = output.shape
-print(output)
-# [[[ 3.  5.  7.  9. 10.]
-#   [ 3.  5.  7.  9. 10.]]]
 print(result)
 # (1, 2, 5)
+x = torch.tensor(np_x, dtype=torch.float32)
+max_pool = torch.nn.MaxPool1d(kernel_size=2, stride=1, padding=1, dilation=1, return_indices=False)
+output = max_pool(x)
+result = output.shape
+print(result)
+# torch.Size([1, 2, 5])
 ```
