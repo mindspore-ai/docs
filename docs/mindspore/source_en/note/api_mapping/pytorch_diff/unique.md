@@ -16,7 +16,7 @@ For more information, see [torch.unique](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.ops.unique
 
 ```python
-mindspore.ops.unique(x)
+mindspore.ops.unique(input)
 ```
 
 For more information, see [mindspore.ops.unique](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique).
@@ -29,7 +29,7 @@ MindSpore: Deduplicate the elements in the Tensor, as well as return the positio
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter1 | input   | x | Input Tensor with different parameter names |
+| Parameters | Parameter1 | input   | input | Consistent |
 |  | Parameter2 | sorted | - | When sorted is True, the output Tensor is sorted in ascending order; when sorted is False, it is sorted in the original order |
 |  | Parameter3 | return_inverse | - | When return_inverse is True, the index position of each element of the input Tensor in the output Tensor is returned |
 |  | Parameter4 | return_counts | - | When return_counts is True, the number of each element of the output Tensor in the input Tensor is returned |

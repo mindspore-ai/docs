@@ -20,7 +20,7 @@ For more information, see [torch.prod](https://pytorch.org/docs/1.8.1/generated/
 ## mindspore.ops.prod
 
 ```text
-mindspore.ops.prod(x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.prod(input, axis=(), keep_dims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.prod](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.prod.html.
@@ -29,11 +29,11 @@ For more information, see [mindspore.ops.prod](https://mindspore.cn/docs/en/mast
 
 PyTorch: Find the product on elements in `input` based on the specified `dim`. `keepdim` controls whether the output and input have the same dimension. `dtype` sets the data type of the output Tensor.
 
-MindSpore: Find the product on the elements in `x` by the specified `axis`. The function of `keep_dims` is the same as PyTorch. MindSpore does not have a `dtype` parameter. MindSpore has a default value for `axis`, which is the product of all elements of `x` if `axis` is the default value.
+MindSpore: Find the product on the elements in `input` by the specified `axis`. The function of `keep_dims` is the same as PyTorch. MindSpore does not have a `dtype` parameter. MindSpore has a default value for `axis`, which is the product of all elements of `input` if `axis` is the default value.
 
 | Categories | Subcategories| PyTorch | MindSpore |Differences |
 | ---- | ----- | ------- | --------- |------------------ |
-| Parameters | Parameter 1 | input   | x         | Same function, different parameter names                    |
+| Parameters | Parameter 1 | input   | input   | Consistent  |
 |      | Parameter 2 | dim   | axis      | PyTorch must pass `dim` and only one integer. MindSpore `axis` can be passed as an integer, a tuples of integers or a list of integers |
 |      | Parameter 3 | keepdim   | keep_dims | Same function, different parameter names |
 |      | Parameter 4 | dtype   | -         | PyTorch `dtype` can set the data type of the output Tensor. MindSpore does not have this parameter |

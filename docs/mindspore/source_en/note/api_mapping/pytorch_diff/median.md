@@ -20,7 +20,7 @@ For more information, see [torch.median](https://pytorch.org/docs/1.8.1/generate
 ## mindspore.ops.median
 
 ```text
-mindspore.ops.median(x, axis=-1, keepdims=False) -> Tensor
+mindspore.ops.median(input, axis=-1, keepdims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.median.html).
@@ -29,11 +29,11 @@ For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/ma
 
 PyTorch: Output the median and index of `input` according to the specified `dim`. `keepdim` controls whether the output and input have the same dimension. Return the median of all elements when the input has only `input`, or the median and index of the specified dimension when the input contains `dim`. `out` can get the output.
 
-MindSpore: Output the median and index of `x` according to the specified `axis`. The `keepdims` function is identical to PyTorch. Unlike Pytorch, MindSpore returns the median and index in the specified dimension, regardless of whether the input contains `axis` or not. MindSpore does not have `out` parameter.
+MindSpore: Output the median and index of `input` according to the specified `axis`. The `keepdims` function is identical to PyTorch. Unlike Pytorch, MindSpore returns the median and index in the specified dimension, regardless of whether the input contains `axis` or not. MindSpore does not have `out` parameter.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-| Parameters  | Parameter 1 | input   | x         | Same function, different parameter names                    |
+| Parameters  | Parameter 1 | input   | input        | Consistent  |
 |      | Parameter 2 | dim   | axis      | Same function, different parameter names |
 |      | Parameter 3 | keepdim   | keepdims | Same function, different parameter names |
 |      | Parameter 4 | out   | -         | PyTorch's `out` can get the output. MindSpore does not have this parameter |

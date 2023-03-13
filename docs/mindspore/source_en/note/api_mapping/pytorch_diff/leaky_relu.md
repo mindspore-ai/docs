@@ -13,7 +13,7 @@ For more information, see [torch.nn.functional.leaky_relu](https://pytorch.org/d
 ## mindspore.ops.leaky_relu
 
 ```text
-mindspore.ops.leaky_relu(x, alpha=0.2) -> Tensor
+mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
 For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
@@ -26,7 +26,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch. The 
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | input | x  | Same function, different parameter names          |
+| Parameters | Parameter 1 | input | input  | Consistent          |
 |      | Parameter 2 | negative_slope | alpha | Same function, different parameter names |
 |      | Parameter 3 | inplace | -     | Whether to make in-place changes to parameters. MindSpore does not have this feature |
 
