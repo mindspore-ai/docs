@@ -278,7 +278,7 @@ In addition to setting the parameter `requires_grad=False` not to update the par
 ![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
 
 As shown in the preceding figure, the `requires_grad=False` does not update some parameters, but the backward gradient calculation is normal.
-The `stop_gradient` directly performs backward gradient. When there is no parameter to be trained before the parameter to be frozen, the two parameters are equivalent in function.
+The `stop_gradient` directly cuts off backward gradient. When there is no parameter to be trained before the parameter to be frozen, the two parameters are equivalent in function.
 However, `stop_gradient` is faster (with less backward gradient calculations).
 If there are parameters to be trained before the frozen parameters, only `requires_grad=False` can be used.
 In addition, `stop_gradient` needs to be added to the computational link of the network, acting on the Tensor.
