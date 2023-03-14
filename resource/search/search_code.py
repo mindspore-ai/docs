@@ -122,7 +122,7 @@ search_score_target = """if (!Scorer) {
     objPrioDefault: 0,
 
     // query found in title
-    title: 15,
+    title: 50,
     partialTitle: 7,
     // query found in terms
     term: 5,
@@ -144,10 +144,10 @@ search_score_source = """if (!Scorer) {
     },
     */
 
-    // query matches the full name of an object
-    objNameMatch: 11,
-    // or matches in the last dotted part of the object name
-    objPartialMatch: 6,
+    // query matches the full name of an object 11
+    objNameMatch: 60,
+    // or matches in the last dotted part of the object name 6
+    objPartialMatch: 55,
     // Additive scores depending on the priority of the object
     objPrio: {0:  15,   // used to be importantResults
               1:  5,   // used to be objectResults
@@ -155,14 +155,15 @@ search_score_source = """if (!Scorer) {
     //  Used when the priority is not in the mapping.
     objPrioDefault: 0,
 
-    // query found in title
+    // query found in title 15,7
     title: 50,
-    partialTitle: 7,
+    partialTitle: 60,
     // query found in terms
     term: 5,
     partialTerm: 2
   };
 }"""
+
 
 
 # Get the index of entries containing Chinese
