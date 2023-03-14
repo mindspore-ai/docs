@@ -24,7 +24,7 @@ class mindspore.ops.SparseToDense(
     indices,
     values,
     sparse_shape
-)() -> Tensor
+) -> Tensor
 ```
 
 For more information, see [mindspore.ops.SparseToDense](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.SparseToDense.html).
