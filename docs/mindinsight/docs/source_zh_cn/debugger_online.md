@@ -64,6 +64,9 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 在GPU环境下，训练执行图面板的右上角会有`当前节点`和`下一个节点`两个按钮，分别用于回到当前执行节点和执行下一个节点。
 用户可以方便地执行单个节点。
 
+当一个命名空间或聚合节点的直接子节点的深度超过70时，计算图页面不支持展开该节点。
+要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/faq.html) 。
+
 ### 节点列表
 
 ![debugger_search_node_type](images/debugger_search_node_type.png)
