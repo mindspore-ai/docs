@@ -20,7 +20,7 @@ torch.bernoulli(input, *, generator=None, out=None)
 ## mindspore.ops.bernoulli
 
 ```python
-mindspore.ops.bernoulli(input, p=0.5, seed=-1)
+mindspore.ops.bernoulli(input, p=0.5, seed=None)
 ```
 
 更多内容详见[mindspore.ops.bernoulli](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bernoulli.html)。
