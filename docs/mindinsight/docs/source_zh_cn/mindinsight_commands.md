@@ -43,6 +43,7 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 |`--enable-debugger <ENABLE_DEBUGGER>`|可选|是否开启Debugger功能|Boolean|False|True/False/1/0|只有开启了调试器，才会在MindInsight页面显示调试器入口。|
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|可选|指定单个离线调试器会话内存使用上限（单位MB），当出现内存不足导致MindInght离线调试器运行问题时，需要用户根据内存情况设置。|Integer|16*1024|6*1024~int32上限|-|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|可选|指定离线调试器会话数上限，会话数指的是能同时使用离线调试器调试的训练作业个数。|Integer|2|1~2|-|
+|`--max-graph-node-size <MAX_GRAPH_NODE_SIZE >`|可选| 设置调试器最多加载的图节点数。|Integer|100000|0~2000000|-|
 
 `--workspace`日志目录说明：
 
