@@ -20,6 +20,8 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 ## Building and Running the Demo
 
+### Linux X86
+
 - Environment requirements
 
     - System environment: Linux x86_64, Ubuntu 18.04.02LTS recommended

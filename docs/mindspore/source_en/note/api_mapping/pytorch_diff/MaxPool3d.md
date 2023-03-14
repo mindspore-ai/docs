@@ -35,7 +35,7 @@ MindSpore: This API implementation function of MindSpore is compatible with Tens
 | | Parameter 7 | input | x | Consistent function, different parameter names |
 | | Parameter 8 | - | pad_mode | Control the padding mode, and PyTorch does not have this parameter |
 
-### Code Example
+## Code Example
 
 > Use pad mode to ensure functional consistency.
 
