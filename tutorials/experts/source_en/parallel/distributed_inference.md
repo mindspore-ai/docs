@@ -15,7 +15,7 @@ This tutorial would focus on the process that the model slices are saved on each
 
 >Download [Distributed inference](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference) sample code.
 
-## Process of Distributed Inference
+### Process of Distributed Inference
 
 1. Execute training, and generate the checkpoint file and the model strategy file.
 

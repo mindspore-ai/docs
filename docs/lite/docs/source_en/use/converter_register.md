@@ -49,7 +49,7 @@ The sample code, please refer to [node_parser](https://gitee.com/mindspore/minds
 
 The sample code, please refer to the unit case [ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)
 
-## Optimization Extension
+### Optimization Extension
 
 1. Self-defined Pass: The users need to inherit the base class [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), and override the interface function [Execute](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_dataset_Execute.html)。
 
@@ -112,7 +112,7 @@ The sample code, please refer to [pass](https://gitee.com/mindspore/mindspore/tr
 
   The dynamic library `libconverter_extend_tutorial.so` will be generated in the directory of `mindspore/lite/examples/converter_extend/build`.
 
-### Execute Program
+### Executing Program
 
 1. Copy library
 

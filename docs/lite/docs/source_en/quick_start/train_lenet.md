@@ -56,11 +56,11 @@ The directory structure is as follows:
             train-labels.idx1-ubyte
 ```
 
-### Install MindSpore
+### Installing MindSpore
 
 MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
 
-### Download and Install MindSpore Lite
+### Downloading and Installing MindSpore Lite
 
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
@@ -83,11 +83,11 @@ cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-
 
 You can also [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
-### Connect Android Device
+### Connecting Android Device
 
 Turning on the 'USB debugging' mode of your Android device and connect it with your PC by using `adb` debugging tool (run`sudo apt install adb` in Ubuntu OS command line).
 
-## Train and Eval
+## Training and Evaluation
 
 Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
@@ -305,124 +305,121 @@ int NetRunner::Main() {
 }
 ```
 
-#### Loading Model
+1. Loading Model
 
-`InitAndFigureInputs` creates the TrainSession instance from the `.ms` file, then sets the input tensors indices for the `.ms` model.
+    `InitAndFigureInputs` creates the TrainSession instance from the `.ms` file, then sets the input tensors indices for the `.ms` model.
 
-```cpp
-void NetRunner::InitAndFigureInputs() {
-  auto context = std::make_shared<mindspore::Context>();
-  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
-  cpu_context->SetEnableFP16(enable_fp16_);
-  context->MutableDeviceInfo().push_back(cpu_context);
+    ```cpp
+    void NetRunner::InitAndFigureInputs() {
+    auto context = std::make_shared<mindspore::Context>();
+    auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+    cpu_context->SetEnableFP16(enable_fp16_);
+    context->MutableDeviceInfo().push_back(cpu_context);
 
-  graph_ = new mindspore::Graph();
-  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kMindIR, graph_);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
+    graph_ = new mindspore::Graph();
+    auto status = mindspore::Serialization::Load(ms_file_, mindspore::kMindIR, graph_);
+    if (status != mindspore::kSuccess) {
+        std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+        MS_ASSERT(status != mindspore::kSuccess);
+    }
 
-  auto cfg = std::make_shared<mindspore::TrainCfg>();
-  if (enable_fp16_) {
-    cfg.get()->optimization_level_ = mindspore::kO2;
-  }
+    auto cfg = std::make_shared<mindspore::TrainCfg>();
+    if (enable_fp16_) {
+        cfg.get()->optimization_level_ = mindspore::kO2;
+    }
 
-  model_ = new mindspore::Model();
-  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during build of model " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
+    model_ = new mindspore::Model();
+    status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+    if (status != mindspore::kSuccess) {
+        std::cout << "Error " << status << " during build of model " << ms_file_;
+        MS_ASSERT(status != mindspore::kSuccess);
+    }
 
-  acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
-  model_->InitMetrics({acc_metrics_.get()});
+    acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+    model_->InitMetrics({acc_metrics_.get()});
 
-  auto inputs = model_->GetInputs();
-  MS_ASSERT(inputs.size() >= 1);
-  auto nhwc_input_dims = inputs.at(0).Shape();
+    auto inputs = model_->GetInputs();
+    MS_ASSERT(inputs.size() >= 1);
+    auto nhwc_input_dims = inputs.at(0).Shape();
 
-  batch_size_ = nhwc_input_dims.at(0);
-  h_ = nhwc_input_dims.at(1);
-  w_ = nhwc_input_dims.at(2);
-}
-```
+    batch_size_ = nhwc_input_dims.at(0);
+    h_ = nhwc_input_dims.at(1);
+    w_ = nhwc_input_dims.at(2);
+    }
+    ```
 
-#### Dataset Processing
+2. Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more details.
+    `InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more details.
 
-```cpp
-int NetRunner::InitDB() {
-  train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
+    ```cpp
+    int NetRunner::InitDB() {
+    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
 
-  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-  Resize resize({h_, w_});
-  train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
+    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+    Resize resize({h_, w_});
+    train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-  train_ds_ = train_ds_->Map({&typecast}, {"label"});
+    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+    train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
-  train_ds_ = train_ds_->Batch(batch_size_, true);
+    train_ds_ = train_ds_->Batch(batch_size_, true);
 
-  if (verbose_) {
-    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
-  }
-  if (train_ds_->GetDatasetSize() == 0) {
-    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
-  }
-  return 0;
-}
-```
+    if (verbose_) {
+        std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
+    }
+    if (train_ds_->GetDatasetSize() == 0) {
+        std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+        MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+    }
+    return 0;
+    }
+    ```
 
-#### Execute Training
+3. Execute Training
 
-The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
+    The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
 
-```cpp
-int NetRunner::TrainLoop() {
-  mindspore::LossMonitor lm(100);
-  mindspore::TrainAccuracy am(1);
+    ```cpp
+    int NetRunner::TrainLoop() {
+    mindspore::LossMonitor lm(100);
+    mindspore::TrainAccuracy am(1);
 
-  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
-  Rescaler rescale(kScalePoint);
-  Measurement measure(epochs_);
+    mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+    Rescaler rescale(kScalePoint);
+    Measurement measure(epochs_);
 
-  if (virtual_batch_ > 0) {
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
-  } else {
-    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
-    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
-  }
+    if (virtual_batch_ > 0) {
+        model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
+    } else {
+        struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+        mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+        model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+    }
 
-  return 0;
-}
-```
+    return 0;
+    }
+    ```
 
-#### Execute Evaluating
+4. Execute Evaluating
 
-To eval the model accuracy, the `CalculateAccuracy` method is being called. Within which, the model is switched to `Eval` mode, and the method runs a cycle of test tensors through the trained network to measure the current accuracy rate.
+    To eval the model accuracy, the `CalculateAccuracy` method is being called. Within which, the model is switched to `Eval` mode, and the method runs a cycle of test tensors through the trained network to measure the current accuracy rate.
 
-```cpp
-float NetRunner::CalculateAccuracy(int max_tests) {
-  test_ds_ = Mnist(data_dir_ + "/test", "all");
-  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-  Resize resize({h_, w_});
-  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
+    ```cpp
+    float NetRunner::CalculateAccuracy(int max_tests) {
+    test_ds_ = Mnist(data_dir_ + "/test", "all");
+    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+    Resize resize({h_, w_});
+    test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-  test_ds_ = test_ds_->Map({&typecast}, {"label"});
-  test_ds_ = test_ds_->Batch(batch_size_, true);
+    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+    test_ds_ = test_ds_->Map({&typecast}, {"label"});
+    test_ds_ = test_ds_->Batch(batch_size_, true);
 
-  model_->Evaluate(test_ds_, {});
-  std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
+    model_->Evaluate(test_ds_, {});
+    std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
-  return 0.0;
-}
-```
+    return 0.0;
+    }
+    ```
 
-In the given example, the program runs a fixed number of train cycles. The user may easily change the termination condition, e.g., run until a certain accuracy is reached, or run only at night time when device is connected to a power source.
-
-Finally, when trainining is completed, the fully trained model needs to be saved. The `SaveToFile` method is used for this purpose.
