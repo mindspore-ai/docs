@@ -13,7 +13,7 @@ tf.raw_ops.LRN(input, depth_radius=5, bias=1, alpha=1, beta=0.5, name=None) -> T
 ## mindspore.ops.LRN
 
 ```text
-mindspore.ops.LRN(x, depth_radius=5, bias=1.0, alpha=1.0, beta=0.5, norm_region="ACROSS_CHANNELS") -> Tensor
+mindspore.ops.LRN(depth_radius=5, bias=1.0, alpha=1.0, beta=0.5, norm_region="ACROSS_CHANNELS")(x) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.LRN](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LRN.html)。
