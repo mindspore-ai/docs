@@ -38,6 +38,7 @@
    generative/dcgan
    generative/pix2pix
    generative/cyclegan
+   generative/diffusion
    
 
    
