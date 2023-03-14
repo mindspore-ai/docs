@@ -23,7 +23,7 @@ For more information, see [tf.raw_ops.SparseApplyAdagradV2](https://tensorflow.g
 ## mindspore.ops.SparseApplyAdagradV2
 
 ```text
-mindspore.ops.SparseApplyAdagradV2(lr, epsilon, update_slots=True, use_locking=False) -> (Tensor, Tensor)
+mindspore.ops.SparseApplyAdagradV2(lr, epsilon, update_slots=True, use_locking=False)(var, accum, grad, indices) -> (Tensor, Tensor)
 ```
 
 For more information, see [mindspore.ops.SparseApplyAdagradV2](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.SparseApplyAdagradV2.html).
