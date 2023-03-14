@@ -6,7 +6,7 @@
 
 Differential privacy is a mechanism for protecting user data privacy. What is privacy? Privacy refers to the attributes of individual users. Common attributes shared by a group of users may not be considered as privacy. For example, if we say "smoking people have a higher probability of getting lung cancer", it does not disclose privacy. However, if we say "Zhang San smokes and gets lung cancer", it discloses the privacy of Zhang San. Assume that there are 100 patients in a hospital and 10 of them have lung cancer. If the information of any 99 patients are known, we can infer whether the remaining one has lung cancer. This behavior of stealing privacy is called differential attack. Differential privacy is a method for preventing differential attacks. By adding noise, the query results of two datasets with only one different record are nearly indistinguishable. In the above example, after differential privacy is used, the statistic information of the 100 patients achieved by the attacker is almost the same as that of the 99 patients. Therefore, the attacker can hardly infer the information of the remaining one patient.
 
-**Differential privacy in machine learning:**
+### Differential Privacy in Machine Learning
 
 Machine learning algorithms usually update model parameters and learn data features based on a large amount of data. Ideally, these models can learn the common features of a class of entities and achieve good generalization, such as "smoking patients are more likely to get lung cancer" rather than models with individual features, such as "Zhang San is a smoker who gets lung cancer." However, machine learning algorithms do not distinguish between general and individual features. The published machine learning models, especially the deep neural networks,  may unintentionally memorize and expose the features of individual entities in training data. This can be exploited by malicious attackers to reveal Zhang San's privacy information from the published model. Therefore, it is necessary to use differential privacy to protect machine learning models from privacy leakage.
 
@@ -16,14 +16,14 @@ $Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D') \in S]+\delta$
 
 For datasets $D$ and $D'$ that differ on only one record, the probability of obtaining the same result from $\mathcal{K}(D)$ and $\mathcal{K}(D')$ by using a randomized algorithm $\mathcal{K}$ must meet the preceding formula. $\epsilon$ indicates the differential privacy budget and $\delta$ indicates the perturbation. The smaller the values of $\epsilon$ and $\delta$, the closer the data distribution output by $\mathcal{K}$ on $D$ and $D'$.
 
-**Differential privacy measurement:**
+### Differential Privacy Measurement
 
 Differential privacy can be measured using $\epsilon$ and $\delta$.
 
 - $\epsilon$: specifies the upper limit of the output probability that can be changed when a record is added to or deleted from the dataset. We usually hope that $\epsilon$ is a small constant. A smaller value indicates stricter differential privacy conditions.
 - $\delta$: limits the probability of arbitrary model behavior change. Generally, this parameter is set to a small constant. You are advised to set this parameter to a value less than the reciprocal of the size of a training dataset.
 
-**Differential privacy implemented by MindArmour:**
+### Differential Privacy Implemented by MindArmour
 
 MindArmour differential privacy module Differential-Privacy implements the differential privacy optimizer. Currently, SGD, Momentum, and Adam are supported. They are differential privacy optimizers based on the Gaussian mechanism. Gaussian noise mechanism supports both non-adaptive policy and adaptive policy  The non-adaptive policy use a fixed noise parameter for each step while the adaptive policy changes the noise parameter along time or iteration step. An advantage of using the non-adaptive Gaussian noise is that a differential privacy budget $\epsilon$ can be strictly controlled. However, a disadvantage is that in a model training process, the noise amount added in each step is fixed. In the later training stage, large noise makes the model convergence difficult, and even causes the performance to decrease greatly and the model usability to be poor. Adaptive noise can solve this problem. In the initial model training stage, the amount of added noise is large. As the model converges, the amount of noise decreases gradually, and the impact of noise on model availability decreases. The disadvantage is that the differential privacy budget cannot be strictly controlled. Under the same initial value, the $\epsilon$ of the adaptive differential privacy is greater than that of the non-adaptive differential privacy. Rényi differential privacy (RDP) [2] is also provided to monitor differential privacy budgets.
 

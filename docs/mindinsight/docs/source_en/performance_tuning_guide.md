@@ -117,16 +117,16 @@ Step 2：Observe the forward and backward propagation in the cluster step trace 
 - Users should make sure if the forward and backward propagation of one device is much longer than others first. If sure, it indicates that this device is a slow node and users can jump to the corresponding single device page, referring to the `Long Forward And Backward Propagation` section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
 - If the forward and backward propagation time of all devices are very long, users can jump to the single device page of any device and referring to the `Long Step Interval` section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
 
-Step 3：Observe the step tail in the cluster step trace page
+Step 3: Observe the step tail in the cluster step trace page
 
 - Users should make sure if the step tail of one device is much longer than others first. If it is, it usually caused by slow node in the cluster. Users can refer to Step 1 and Step 2 to find the slow node.
 - If the step tail of all devices are essentially the same, and the phase is time-consuming, it is usually due to the long time taken by the AllReduce collective communication operators. Users can try to modify the all_reduce_fusion_config parameter to optimize the performance.
 
-#### Model Parallel
+### Model Parallel
 
 For model parallel, the cluster step trace page provides step interval, computation time, and communication time of all devices in the cluster.
 
-Step 1：Observe the step interval in the cluster step trace page
+Step 1: Observe the step interval in the cluster step trace page
 
 Please refer to step 1 of "Data Parallel".
 
@@ -135,7 +135,7 @@ Step 2: Observe the computation time in the cluster step trace page
 In the forward and backward propagation phase of model parallel, the calculation operators and the communication operators are alternately executed, and the slow nodes can not be found. So MindInsight provides computation time to help users find slow node from cluster.
 Please refer to step 2 of "Data Parallel".
 
-Step 3：Observe the pure communication time in the cluster step trace page
+Step 3: Observe the pure communication time in the cluster step trace page
 
 On the premise of confirming that there is no slow node through step 1 and step 2, the pure communication time of each card in the cluster should be basically the same. If this phase takes a short time, it means that the communication time caused by re-distribution of operators is very short, and users do not need to consider optimizing the parallel strategy. Otherwise, users need to focus on analyzing whether the parallel strategy can be optimized.
 Users need to have a certain understanding of the principle of model parallelism before continue to analyse. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
@@ -160,14 +160,14 @@ Step 4：Users can go to the `cluster communication` page to check each time-con
 
 - If the communication duration is long, it means that the communication operator is communicating most of the time. Users can go to the `Link Information page` to observe the bandwidth to confirm whether there is a slow link that causes the communication time to be long. If there is a problem with the bandwidth of a link, users need to check the link and repair the link problem.
 
-![rank_id_link_info.png](./images/rank_id_link_info.png)
+    ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-*Figure 5: Link Information*
+    *Figure 5: Link Information*
 
 - If the waiting duration is long, it means that there are slow nodes in the cluster, and users can confirm and repair the slow nodes through steps 1 and 2.
-- In addition to the communication and waiting time, there will be a Reduce time for AllReduce communication operators. If the time period is long, it means that the operator performing Reduce is abnormal. Please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
+- In addition to the communication and waiting time, there will be a Reduce time for AllReduce communication operators. If the time period is long, it means that the operator performing Reduce is abnormal. Please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues).
 
-#### Pipeline Parallel
+### Pipeline Parallel
 
 For pipeline parallel, the cluster step trace page provides step interval, stage time, computation time, communication time, communication time(including the receive operator only) and communication time(not including the receive operator) of all devices in the cluster.
 

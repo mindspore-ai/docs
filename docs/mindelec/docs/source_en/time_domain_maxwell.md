@@ -62,7 +62,7 @@ from src import MultiStepLR, PredictCallback
 from src import visual_result
 ```
 
-## Creating a Dataset
+### Creating a Dataset
 
 In addition to loading dataset files in different formats, MindElec also supports online generation of sample datasets. The Geometry module allows you to create simple geometry, then create complex geometry through logical operations among the simple geometry, and implement sampling within the geometry and on the boundaries.
 
@@ -106,7 +106,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["train_batch
                                                   drop_remainder=True)
 ```
 
-## Defining the Control Equation and Initial Boundary Value Condition
+### Defining the Control Equation and Initial Boundary Value Condition
 
 Inherit the Problem class provided by MindElec and allow you to quickly customize PDE problems. One implementation of this problem class can constrain multiple datasets. The member functions governing_equation, boundary_condition, initial_condition, and constraint_function correspond to the control equation, boundary condition, initial condition, and supervised label or function constraint, respectively. You can transfer the column name of the corresponding sample in the dataset in the constructor function to automatically compute the loss function of the sample set. The core code of the PDE problem is defined as follows. The first-order differential equation can be implemented by calling the Grad API, and the second-order differential equation can be implemented by calling the SecondOrderGrad API.
 
@@ -262,7 +262,7 @@ print("check problem: ", train_prob)
 train_constraints = Constraints(elec_train_dataset, train_prob)
 ```
 
-## Building a Neural Network
+### Building a Neural Network
 
 In this example, the multi-channel residual network and Sin activation function are used to obtain higher accuracy than other methods in the simulation of the problem. The following figure shows the structure of the neural network.
 
@@ -353,7 +353,7 @@ model = MultiScaleFCCell(config["input_size"],
                          )
 ```
 
-## Adaptive Weighted Loss Function for Accelerating Convergence
+### Adaptive Weighted Loss Function for Accelerating Convergence
 
 The Physics-Informed Neural Networks (PINNs) directly uses the governing equations for network training. The loss function of the network usually includes residuals of the governing equation, the boundary condition, and the initial condition. In this case, because the encrypted sampling near the source region is viewed as an independent subdataset for network training, the composition of the loss function includes the following five parts: a control equation and an initial condition of the source region, a control equation and an initial condition of the source-free region, and a boundary condition. Experiments show that the five components in the loss function differ greatly in magnitude, so the simple summation of the loss functions will lead to the failure of network training, and the manual adjustment of the weight information of each loss function is very cumbersome. MindElec develops a weighting algorithm based on uncertainty estimation of multi-task learning. By introducing trainable parameters and adaptively adjusting the weight of each loss function, MindElec can significantly improve the training speed and accuracy. The algorithm is implemented as follows:
 
@@ -380,7 +380,7 @@ class MTLWeightedLossCell(nn.Cell):
 mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 ```
 
-## Model Testing
+### Model Testing
 
 MindElec can use the user-defined callback function to implement training and inference at the same time. You can directly load the test dataset and implement the user-defined callback function to implement inference and analyze the result.
 
@@ -393,7 +393,7 @@ if config.get("train_with_eval", False):
     callbacks += [predict_callback]
 ```
 
-## Model Training
+### Model Training
 
 The Solver class provided by MindElec is an API for model training and inference. You can set the optimizer, network model, PDE constraints (train_constraints), and optional parameters such as the adaptive weighting algorithm module to define the solver object. In this tutorial, the MindSpore + Ascend mixed precision mode is used to train the network to solve the Maxwell's equations.
 

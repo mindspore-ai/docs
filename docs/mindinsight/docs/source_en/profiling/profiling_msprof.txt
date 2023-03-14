@@ -1,5 +1,5 @@
 Msprof tool to assist analysis
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can collect detailed data of AI Core through profiler, and then analyze and view them through Msprof tool.
 
