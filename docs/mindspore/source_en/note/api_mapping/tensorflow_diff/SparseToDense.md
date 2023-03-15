@@ -37,12 +37,12 @@ MindSpore: MindSpore API basically implements the same functions as TensorFlow. 
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-| Parameters | Parameter1  | sparse_indices            | indices       | Same function, different parameter names         |
-|      | Parameter2  | output_shape              | sparse_shape   | Same function, different parameter names       |
-|      | Parameter3  | sparse_values             | values         | Same function, different parameter names      |
-|      | Parameter4  | default_value             | -             | MindSpore does not have this parameter, but you can call SparseToDense twice to achieve the same function     |
-|      | Parameter5  | validate_indices          | -             | 不涉及        |
-|      | Parameter6  | name                      | -        | Not involved |
+| Parameters | Parameter 1  | sparse_indices            | indices       | Same function, different parameter names         |
+|      | Parameter 2  | output_shape              | sparse_shape   | Same function, different parameter names       |
+|      | Parameter 3  | sparse_values             | values         | Same function, different parameter names      |
+|      | Parameter 4  | default_value             | -             | MindSpore does not have this parameter, but you can call SparseToDense twice to achieve the same function     |
+|      | Parameter 5  | validate_indices          | -             | Not involved        |
+|      | Parameter 6  | name                      | -        | Not involved |
 
 ### Code Example 1
 
