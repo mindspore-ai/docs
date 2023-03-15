@@ -121,7 +121,6 @@
 |[mindspore.ops.logdet](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.logdet.html#mindspore.ops.logdet)|新增|计算方块矩阵或批量方块矩阵的对数行列式。|master: GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_diag_part](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_diag_part.html#mindspore.ops.matrix_diag_part)|新增|返回输入Tensor的对角线部分。|master: Ascend/GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_exp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_exp.html#mindspore.ops.matrix_exp)|修改|计算方阵的矩阵指数。|r2.0.0-alpha: CPU => master: Ascend/CPU|线性代数函数|
-|[mindspore.ops.matrix_power](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_power.html#mindspore.ops.matrix_power)|新增|计算一个方阵的（整数）n次幂。|master: CPU|线性代数函数|
 |[mindspore.ops.matrix_set_diag](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_set_diag.html#mindspore.ops.matrix_set_diag)|新增|返回具有新的对角线值的批处理矩阵Tensor。|master: GPU/CPU|线性代数函数|
 |[mindspore.ops.matrix_solve](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.matrix_solve.html#mindspore.ops.matrix_solve)|新增|求解线性方程组。|master: GPU/CPU|线性代数函数|
 |[mindspore.ops.mm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.mm.html#mindspore.ops.mm)|新增|计算两个矩阵的乘积。|master: Ascend/GPU/CPU|线性代数函数|

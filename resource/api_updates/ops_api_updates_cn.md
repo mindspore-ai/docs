@@ -54,7 +54,6 @@
 [mindspore.ops.SegmentMin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SegmentMin.html#mindspore.ops.SegmentMin)|新增|计算Tensor的片段最小值。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.SegmentProd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SegmentProd.html#mindspore.ops.SegmentProd)|新增|计算Tensor的片段乘积。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.SegmentSum](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SegmentSum.html#mindspore.ops.SegmentSum)|新增|计算Tensor的片段和。|master: Ascend/GPU/CPU|Array操作
-[mindspore.ops.SparseSlice](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseSlice.html#mindspore.ops.SparseSlice)|新增|基于 start 和 size 对稀疏Tensor进行切片。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.SplitV](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SplitV.html#mindspore.ops.SplitV)|新增|沿给定维度将输入Tensor拆分为 num_split 个Tensor。|master: Ascend|Array操作
 [mindspore.ops.Tril](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Tril.html#mindspore.ops.Tril)|新增|返回单个矩阵（二维Tensor）或批次输入矩阵的下三角形部分，其他位置的元素将被置零。|master: Ascend/GPU/CPU|Array操作
 [mindspore.ops.TrilIndices](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TrilIndices.html#mindspore.ops.TrilIndices)|新增|返回一个包含 row * col 的矩阵的下三角形部分的索引的Tensor。|master: GPU/CPU|Array操作
@@ -107,7 +106,6 @@
 [mindspore.ops.PadV3](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.PadV3.html#mindspore.ops.PadV3)|新增|根据参数 mode 和 paddings_contiguous 对输入进行填充。|master: Ascend/GPU/CPU|神经网络
 [mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)|修改|r2.0.0-alpha: 使用双线性插值调整图像大小到指定的大小。 => master: 此接口已弃用，请使用 mindspore.ops.ResizeBilinearV2 。|r2.0.0-alpha: Ascend/CPU/GPU => master: |神经网络
 [mindspore.ops.UpsampleTrilinear3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.UpsampleTrilinear3D.html#mindspore.ops.UpsampleTrilinear3D)|修改|输入为五维度Tensor，跨其中三维执行三线性插值上调采样。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|神经网络
-[mindspore.ops.SparseTensorDenseMatmul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseTensorDenseMatmul.html#mindspore.ops.SparseTensorDenseMatmul)|修改|稀疏矩阵 A 乘以稠密矩阵 B 。|r2.0.0-alpha: CPU => master: GPU/CPU|稀疏算子
 [mindspore.ops.Svd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Svd.html#mindspore.ops.Svd)|新增|计算一个或多个矩阵的奇异值分解。|master: GPU/CPU|线性代数算子
 [mindspore.ops.TridiagonalMatMul](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TridiagonalMatMul.html#mindspore.ops.TridiagonalMatMul)|新增|返回两个矩阵的乘积，其中左边的矩阵是三对角矩阵。|master: Ascend/CPU|线性代数算子
 [mindspore.ops.AccumulateNV2](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AccumulateNV2.html#mindspore.ops.AccumulateNV2)|修改|逐元素将所有输入的Tensor相加。|r2.0.0-alpha: Ascend => master: Ascend/GPU|逐元素运算
@@ -117,7 +115,6 @@
 [mindspore.ops.NextAfter](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NextAfter.html#mindspore.ops.NextAfter)|修改|逐元素返回 x1 指向 x2 的下一个可表示值符点值。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.Polar](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Polar.html#mindspore.ops.Polar)|新增|将极坐标转化为笛卡尔坐标。|master: GPU/CPU|逐元素运算
 [mindspore.ops.Zeta](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Zeta.html#mindspore.ops.Zeta)|新增|计算输入Tensor的Hurwitz zeta函数ζ(x,q)值。|master: Ascend/GPU/CPU|逐元素运算
-[mindspore.ops.UpsampleNearest3D](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.UpsampleNearest3D.html#mindspore.ops.UpsampleNearest3D)|修改|执行最近邻上采样操作。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|采样算子
 [mindspore.ops.LogNormalReverse](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LogNormalReverse.html#mindspore.ops.LogNormalReverse)|新增|用给定均值和标准差初始化对数正态分布，并以此填充输入Tensor的元素。|master: Ascend/GPU/CPU|随机生成算子
 [mindspore.ops.Multinomial](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Multinomial.html#mindspore.ops.Multinomial)|修改|返回从输入Tensor对应行进行多项式概率分布采样出的Tensor。|r2.0.0-alpha: GPU/CPU => master: Ascend/GPU/CPU|随机生成算子
 [mindspore.ops.NonDeterministicInts](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NonDeterministicInts.html#mindspore.ops.NonDeterministicInts)|新增|生成指定数据类型范围内的随机整数。|master: Ascend/GPU/CPU|随机生成算子
