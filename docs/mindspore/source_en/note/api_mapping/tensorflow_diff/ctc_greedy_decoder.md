@@ -5,7 +5,12 @@
 ## tf.nn.ctc_greedy_decoder
 
 ```text
-tf.nn.ctc_greedy_decoder(inputs, sequence_length, merge_repeated=True, blank_index=None)
+tf.nn.ctc_greedy_decoder(
+    inputs,
+    sequence_length,
+    merge_repeated=True,
+    blank_index=None
+) -> Tuple(decoded, neg_sum_logits)
 ```
 
 For more information, see [tf.nn.ctc_greedy_decoder](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/ctc_greedy_decoder).
@@ -13,7 +18,11 @@ For more information, see [tf.nn.ctc_greedy_decoder](https://tensorflow.google.c
 ## mindspore.ops.ctc_greedy_decoder
 
 ```text
-mindspore.ops.ctc_greedy_decoder(inputs, sequence_length, merge_repeated=True)
+mindspore.ops.ctc_greedy_decoder(
+    inputs,
+    sequence_length,
+    merge_repeated=True
+) -> Tuple(decoded_indices, decoded_values, decoded_shape, log_probability)
 ```
 
 For more information, see [mindspore.ops.ctc_greedy_decoder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ctc_greedy_decoder.html).

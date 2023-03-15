@@ -13,7 +13,7 @@ tf.random.uniform_candidate_sampler(
     range_max,
     seed=None,
     name=None
-)  -> Tensor
+)  -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
 ```
 
 For more information, see [tf.random.uniform_candidate_sampler](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/random/uniform_candidate_sampler).
@@ -21,7 +21,15 @@ For more information, see [tf.random.uniform_candidate_sampler](https://tensorfl
 ## mindspore.ops.uniform_candidate_sampler
 
 ```text
-mindspore.ops.uniform_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, seed=0, remove_accidental_hits=False) -> Tensor
+mindspore.ops.uniform_candidate_sampler(
+    true_classes,
+    num_true,
+    num_sampled,
+    unique,
+    range_max,
+    seed=0,
+    remove_accidental_hits=False
+) -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
 ```
 
 For more information, see [mindspore.ops.uniform_candidate_sampler](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.uniform_candidate_sampler.html).
@@ -42,6 +50,9 @@ MindSpore: MindSpore API implements the same functions as TensorFlow, with some 
 |  | Parameter 6 | seed       | seed          | - |
 | | Parameter 7 | - | remove_accidental_hits      | Indicates whether to remove the accidental hit. Default: False|
 | | Parameter 8 | name | -           | Not involved |
+| Return Parameters | Parameter 1 | sampled_candidates |   sampled_candidates        |-|
+| | Parameter 2 | true_expected_count |     true_expected_count    | - |
+| | Parameter 3| sampled_expected_count |     sampled_expected_count     | - |
 
 ### Code Example 1
 
