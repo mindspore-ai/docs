@@ -146,12 +146,19 @@ Common Application Scenarios
 
 .. toctree::
    :maxdepth: 1
-   :caption: API References
+   :caption: Horizontal Federated API Reference
 
-   Horizontal_FL_Server
-   Horizontal_FL_Client
-   Vertical_FL_Server
+   horizontal_server
+   cross_device
+   horizontal/cross_silo
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Vertical Federated API Reference
+
    Data_Join
+   vertical/vertical_communicator
+   vertical_federated_trainer
 
 .. toctree::
    :maxdepth: 1

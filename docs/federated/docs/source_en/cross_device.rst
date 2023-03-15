@@ -1,4 +1,4 @@
-Cross-Device
+Device-side Client
 ======================
 
 .. toctree::
