@@ -45,9 +45,8 @@ from torch import nn
 
 w = torch.empty(3, 2)
 output = nn.init.uniform_(w, a=1, b=4)
-print(output.shape)
-# Out：
-# torch.Size([3, 2])
+print(tuple(output.shape))
+# (3, 2)
 
 # MindSpore
 import numpy as np

@@ -13,7 +13,7 @@ tf.random.uniform_candidate_sampler(
     range_max,
     seed=None,
     name=None
-)  -> Tensor
+)  -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
 ```
 
 更多内容详见[tf.random.uniform_candidate_sampler](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/random/uniform_candidate_sampler)。
@@ -21,7 +21,15 @@ tf.random.uniform_candidate_sampler(
 ## mindspore.ops.uniform_candidate_sampler
 
 ```text
-mindspore.ops.uniform_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, seed=0, remove_accidental_hits=False) -> Tensor
+mindspore.ops.uniform_candidate_sampler(
+    true_classes,
+    num_true,
+    num_sampled,
+    unique,
+    range_max,
+    seed=0,
+    remove_accidental_hits=False
+) -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
 ```
 
 更多内容详见[mindspore.ops.uniform_candidate_sampler](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform_candidate_sampler.html)。
@@ -42,6 +50,9 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，部分参数名不�
 |  | 参数6 | seed       | seed          | - |
 | | 参数7 | - | remove_accidental_hits      | 表示是否移除accidental hit。默认值：False|
 | | 参数8 | name | -           | 不涉及 |
+|返回参数| 参数1 | sampled_candidates |   sampled_candidates        |- |
+| | 参数2 | true_expected_count |     true_expected_count    | - |
+| |  参数3| sampled_expected_count |     sampled_expected_count     | - |
 
 ### 代码示例1
 

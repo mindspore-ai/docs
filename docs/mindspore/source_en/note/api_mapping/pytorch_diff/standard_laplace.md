@@ -42,8 +42,8 @@ import torch
 m = torch.distributions.laplace.Laplace(torch.tensor([0.0]), torch.tensor([1.0]))
 shape = (4, 4)
 sample = m.sample(shape)
-print(sample.shape)
-# torch.Size([4, 4, 1])
+print(tuple(sample.shape))
+# (4, 4, 1)
 
 # MindSpore
 import mindspore
