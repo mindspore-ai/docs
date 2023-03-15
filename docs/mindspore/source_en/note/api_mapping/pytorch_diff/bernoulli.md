@@ -20,7 +20,7 @@ For more information, see [torch.bernoulli](https://pytorch.org/docs/1.8.1/gener
 ## mindspore.ops.bernoulli
 
 ```python
-mindspore.ops.bernoulli(input, p=0.5, seed=-1)
+mindspore.ops.bernoulli(input, p=0.5, seed=None)
 ```
 
 For more information, see [mindspore.ops.bernoulli](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bernoulli.html).
