@@ -24,8 +24,6 @@ The following figure shows the detailed training process:
 
 A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
-> In MindSpore Lite the user is not allowed to access the training model object, since it is being used by `Model` during training. All interactions with training model object including instantiation, compilation and deletion are handled within `Model`.
-
 ### Creating Contexts
 
 [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
@@ -70,7 +68,7 @@ int CreateSession() {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
 
 ## Data Processing
 
@@ -140,7 +138,7 @@ int Train() {
 
 ### Evaluating
 
-Also  call the `Evaluate` function of the class `Model` to evaluate model.
+Also call the `Evaluate` function of the class `Model` to evaluate model.
 
 ```cpp
 float Evaluate() {
@@ -312,10 +310,8 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     // The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
     ```
 
-Note:  
-
-- The data layout in the model input tensors of MindSpore Lite must be NHWC (bathc size, height, weight and channel).
-- The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
+    > - The data layout in the model input tensors of MindSpore Lite must be NHWC (bathc size, height, weight and channel).
+    > - The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
 
 ### Obtaining Output Tensors
 
@@ -425,27 +421,9 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     }
     ```
 
-Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
+    > Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
 
-### Execute Session
-
-Whether a `Model` object is in the training mode or in eval mode, the way to make it execute, i.e., to run the data through the graph, is to call the `Train` method.
-
-```cpp
-/// \brief Run session with callbacks.
-///
-/// \param[in] before Define a call_back_function to be called before running each node.
-/// \param[in] after Define a call_back_function called after running each node.
-///
-/// \note RunGraph should be called after CompileGraph.
-///
-/// \return STATUS as an error code of running graph, STATUS is defined in errorcode.h.
-virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
-```
-
-Prior to run each graph, the user must make sure that the data is properly loaded to the input tensors.
-
-#### Execute Callback
+### Execute Callback
 
 MindSpore Lite framework allows the user to set two callback functions that will be called before and after running each node. Such functions can assist the developer in tracing the network, debugging it and measuring how long it took run each node. The callback parameters are as follows:
 

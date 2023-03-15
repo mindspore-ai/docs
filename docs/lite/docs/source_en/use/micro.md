@@ -303,8 +303,6 @@ support_parallel=true
 
 ```
 
-For the meaning of each option in the configuration file, refer to Table 1.
-
 #### Involved Calling Interfaces
 
 By integrating the code and calling the following interfaces, the user can configure the multi-threaded inference of the model.

@@ -56,7 +56,7 @@ dependencies {
 }
 ```
 
-## Loading a Model(optional)
+## Loading a Model
 
 Before performing model inference, MindSpore Lite needs to load the `.ms` model converted by the model conversion tool from the file system and parse the model.ss
 
@@ -121,7 +121,7 @@ context.addDeviceInfo(DeviceType.DT_NPU, true, 3);
 context.addDeviceInfo(DeviceType.DT_CPU, true);
 ```
 
-## Loading and compilation a Model
+## Loading and Compiling a Model
 
 When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) is the main entrance of inference, and the model can be realized through Model Loading, model compilation and model execution. Using the [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#init) created in the previous step, call the composite [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) interface to implement model loading and model compilation.
 
@@ -197,6 +197,8 @@ If the MindSpore Lite inference framework is not required, you need to release t
 ```java
 model.free();
 ```
+
+## Advanced Usage
 
 ### Resizing the Input Dimension
 

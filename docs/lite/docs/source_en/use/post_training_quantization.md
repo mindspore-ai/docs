@@ -404,7 +404,7 @@ bit_num=8
 >
 > The dynamic quantization will have a further acceleration effect on the ARM architecture that supports SDOT instructions.
 
-### Partial model performance results
+### Partial Model Performance Results
 
 - tinybert_encoder
 
