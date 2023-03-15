@@ -13,7 +13,7 @@ torch.nn.functional.leaky_relu(input, negative_slope=0.01, inplace=False) -> Ten
 ## mindspore.ops.leaky_relu
 
 ```text
-mindspore.ops.leaky_relu(x, alpha=0.2) -> Tensor
+mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)。
@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。不同的是，M
 
 | 分类 | 子类  | PyTorch      | MindSpore    | 差异                          |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
-| 参数 | 参数1 | input | x  | 功能一致，参数名不同          |
+| 参数 | 参数1 | input | input  | 一致          |
 |      | 参数2 | negative_slope | alpha | 功能一致，参数名不同，默认值不同 |
 |      | 参数3 | inplace | -     | 是否对入参进行原地修改，MindSpore无此功能 |
 

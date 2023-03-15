@@ -16,7 +16,7 @@ torch.unique(
 ## mindspore.ops.unique
 
 ```python
-mindspore.ops.unique(x)
+mindspore.ops.unique(input)
 ```
 
 更多内容详见[mindspore.ops.unique](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique)。
@@ -29,7 +29,7 @@ MindSpore：对Tensor中元素进行去重，以及返回输入Tensor的各元�
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                  |
 | ---- | ----- | ------- | --------- | --------------------- |
-| 参数 | 参数1 | input   | x | 输入Tensor，参数名不同 |
+| 参数 | 参数1 | input   | input | 一致 |
 |  | 参数2 | sorted | - | sorted为True时，输出Tensor按照升序排列；sorted为False时，按照原有顺序排列 |
 |  | 参数3 | return_inverse | - | return_inverse为True时，返回输入Tensor各元素在输出Tensor中的索引位置 |
 |  | 参数4 | return_counts | - | return_counts为True时，返回输出Tensor各元素在输入Tensor中的数量 |
