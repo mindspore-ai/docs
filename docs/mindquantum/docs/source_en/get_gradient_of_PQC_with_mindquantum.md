@@ -32,7 +32,118 @@ Then, we will introduce the meaning of each parameter one by one.
 4. simulator_left. It is the simulator that contains the $\left|\varphi\right>$ in the formula. You can set the state of the emulator to the state you need by the emulator's set_qs, apply_gate or apply_circuit methods. When it is the default value None, $\left|\varphi\right>=\left|\psi\right>$, and $\left|\psi\right>$ is the quantum state contained in the current simulator.
 5. parallel_worker. When the hams contains multiple Hamiltonians or the input of the encoder contains multiple sample points, MindQuantum will reasonably perform parallel operations based on this integer as a reference.
 
-## Expected values of multiple Hamiltonians at multiple input sample points
+In MindQuantum, the parameters in the quantum line can be encoder parameters, used to encode classical data into quantum states, similar to the input part in a classical neural network. The encoder parameter accepts a two-dimensional data. The first dimension represents the number of sample points, and the second dimension represents the number of features of the classical data, which is equivalent to a batch in classical machine learning. Another part of the parameters can be the ansatz parameters, similar to the training parameters in classical neural networks, which are used to train a specific quantum line. In the following, we construct a quantum line that contains both encoder and ansatz parameters.
+
+```python
+from mindquantum.core.circuit import Circuit
+
+circ1 = Circuit().rx('a', 0).as_encoder()                       # Set quantum lines to encoder lines
+circ2 = Circuit().ry('b', 0).as_ansatz()                        # Set the quantum lines to ansatz lines. By default, all quantum lines are ansatz lines.
+circ3 = Circuit().rz('c', 0).as_encoder()  # Set quantum lines to encoder lines
+
+circ = circ1 + circ2 + circ3
+print(f"encoder parameters: {circ.encoder_params_name}")
+print(f"ansatz parameters: {circ.ansatz_params_name}")
+```
+
+```text
+encoder parameters: ['a', 'c']
+ansatz parameters: ['b']
+```
+
+In the following we use MindQuantum to calculate the expected value of the above quantum lines with respect to the Hamiltonian quantity $Z$. First, we define the problem Hamiltonian.
+
+```python
+from mindquantum.core.operators import QubitOperator                   # Import QubitOperator module to generate bubble operators
+from mindquantum.core.operators import Hamiltonian                     # Import Hamiltonian module to generate Hamiltonian quantities
+
+ham = Hamiltonian(QubitOperator('Z0'))
+print(ham)
+```
+
+```text
+1 [Z0]
+```
+
+Next, we generate operators that compute the expected value and the derivative of the expected value with respect to each parameter by using MindQuantum.
+
+```python
+from mindquantum.simulator import Simulator
+
+sim = Simulator('mqvector', 1)
+grad_ops = sim.get_expectation_with_grad(ham, circ)
+print(grad_ops)
+```
+
+```text
+<mindquantum.simulator.simulator.GradOpsWrapper object at 0x7fde987a6a30>
+```
+
+Here we compute the expected value of the line with respect to the Pauli $Z$ operator for $a=1, b=2, c=3$. According to the above description, we choose encoder data as `[[1, 3]]`. The first dimension denotes the number of sample points of classical data, and the second dimension denotes that there are two classical features, `a` and `c`. The parameter to be trained is chosen as `[2]`, which is the value of the ansatz parameter `c`. Here the to-be-trained parameter will be reflected later in this tutorial, and we directly give the value of the parameter to be trained.
+
+```python
+import numpy as np
+
+encoder_data = np.array([[1, 3]])
+ansatz_data = np.array([2])
+f, g_e, g_a = grad_ops(encoder_data, ansatz_data)
+print(f"expectation value:\n{f}\n with shape {f.shape}")
+print(
+    f"gradient value w.r.t encoder parametres:\n{g_e}\n with shape {g_e.shape}")
+print(
+    f"gradient value w.r.t ansatz parametres:\n{g_a}\n with shape {g_a.shape}")
+```
+
+```text
+expectation value:
+[[-0.2248451+0.j]]
+ with shape (1, 1)
+gradient value w.r.t encoder parametres:
+[[[3.50175488e-01+0.j 2.77555756e-17+0.j]]]
+ with shape (1, 1, 2)
+gradient value w.r.t ansatz parametres:
+[[[-0.4912955+0.j]]]
+ with shape (1, 1, 1)
+```
+
+To verify that the encoder data can take different sample points at the same time, we calculate both the expectation and gradient for $a=1, c=3$ and $a=4, c=5$.
+
+```python
+encoder_data = np.array([[1, 3], [4, 5]])
+ansatz_data = np.array([2])
+f, g_e, g_a = grad_ops(encoder_data, ansatz_data)
+print(f"expectation value:\n{f}\n with shape {f.shape}")
+print(
+    f"gradient value w.r.t encoder parametres:\n{g_e}\n with shape {g_e.shape}")
+print(f"gradient value w.r.t ansatz parametres:\n{g_a}\n with shape {g_a.shape}")
+```
+
+```text
+expectation value:
+[[-0.2248451 +0.j]
+ [ 0.27201173+0.j]]
+ with shape (2, 1)
+gradient value w.r.t encoder parametres:
+[[[ 3.50175488e-01+0.j  2.77555756e-17+0.j]]
+
+ [[-3.14940964e-01+0.j  5.55111512e-17+0.j]]]
+ with shape (2, 1, 2)
+gradient value w.r.t ansatz parametres:
+[[[-0.4912955 +0.j]]
+
+ [[ 0.59435646+0.j]]]
+ with shape (2, 1, 1)
+```
+
+### Result Analysis
+
+In the above results, we find that the expectation is a two-dimensional array with dimension $(2, 1)$, where the first dimension denotes the number of sample points and the second dimension denotes the number of Hamiltonian quantities. In MindQuantum, we can calculate both the expected value of different Hamiltonian quantities with respect to the line and the derivatives of the parameters, in addition to the sample points of the batch. Thus, in the above results, the expected value is $-0.2248451$ when $a=1, b=2, c=3$ and $0.27201173$ when $a=4, b=2, c=5$.
+
+### Gradient Analysis
+
+In the above results, we find that the gradient of the expected value about the encoder parameters is a three-dimensional array with dimension $(2, 1, 2)$, where the first dimension denotes the number of sample points, the second dimension denotes the number of Hamiltonian quantities, and the third dimension denotes the number of encoder parameters. The gradient of ansatz parameters is also a three-dimensional array with dimension $(2, 1, 1)$, where the first dimension denotes the number of sample points, the second dimension denotes the number of Hamiltonian quantities, and the third dimension denotes the number of ansatz parameters.
+
+## Expected Values of Multiple Hamiltonians at Multiple Input Sample Points
 
 In this task, we want to calculate the expected value of the Hamiltonian $Z_0, X_0, Y_0$ for the following quantum circuit when $\alpha=\text{arctan}(\sqrt{2}), \pi/2$.
 
@@ -116,11 +227,11 @@ shape: (2, 3)
 shape: (2, 3, 1)
 ```
 
-### Result analysis
+### Result Analysis
 
 According to the above results, we can see that the dimension of the expected value f is (2, 3). It is not difficult to find that each row of f corresponds to a different expected value of the Hamiltonian for each sample point, and each column of f corresponds to the expected value of each Hamiltonian under different samples. For the gradient g, we also have similar conclusions, except that the last dimension represents different circuit parameters.
 
-## Calculating the inner product of different quantum states
+## Calculating the Inner Product of Different Quantum States
 
 According to the model, we only need to set the Hamiltonian as the unit operator and $U_l(\boldsymbol{\theta})$ as an empty quantum circuit, then we can use $U_r(\boldsymbol{\theta})$ to rotate $\left|\psi\right>$ to $\left|\varphi\right>$, which requires calculating the inner product between $\left|\varphi\right>$ and the rotated quantum state.
 
@@ -183,7 +294,7 @@ print(g)
     2.31681689e-04-3.80179652e-05j]]]
 ```
 
-### Result analysis
+### Result Analysis
 
 According to the calculation results, we find that the inner product of the last two states is close to 1, indicating that we can prepare a uniform superposition state with high fidelity by the above circuit.
 

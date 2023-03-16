@@ -9,249 +9,251 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 Variational quantum circuit(VQC), is an approach for Quantum Machine Learning. The MindQuantum (mixing framework of quantum and classic machine learning) can process variational quantum circuit and get the derivation of all observation to every parameter respectively by auto differentiating the circuit using quantum neural network.
 The process of constructing a quantum circuit and circuit evolution by parameterized simulator operators is as follows:
 
-1. Initialize a quantum circuit.
-2. According to requirements, add parameterized quantum gates or non-parameterized quantum gates to the circuit.
-3. Process gradient solution or state of evolution by PQC simulator operators.
+- Initialize a quantum circuit.
+
+- According to requirements, add parameterized quantum gates or non-parameterized quantum gates to the circuit.
+
+- Process gradient solution or state of evolution by PQC simulator operators.
 
 ## Preparing Environment
 
 Import required modules.
 
 ```python
-import numpy as np
-import mindquantum as mq
-from mindquantum.core.gates import H, X, Y, RY, RX
+import numpy as np                                          # Import numpy library and abbreviate to np
+from mindquantum.core.gates import X, Y, Z, H, RX, RY, RZ   # Import the quantum gate H, X, Y, Z, RX, RY, RZ
 ```
+
+Note:
+
+1. numpy is a powerful Python library for performing calculations on multidimensional arrays, supporting a large number of dimensional arrays and matrices, in addition to providing a large library of mathematical functions for arrays.
+
+2. mindquantum, a hybrid quantum-classical computing framework, supports the training and inference of a wide range of quantum neural networks.
+
+3. The quantum gates to be executed in the built quantum lines need to be imported from the mindquantum.core module.
 
 ## Quantum Gate
 
-A quantum gate is the basic logic unit to operate quantum bit. For a classic circuit, any logic circuit can consist of some basic logic gates, similarly, any quantum circuit can consist of some basic quantum gates like gates or C-NOT gates acting on a single bit. Commonly used quantum gates include $\text{X}$ gates, $\text{Y}$ gates, $\text{Z}$ gates, $\text{Hadamard}$ gates, $\text{CNOT}$ gates and some revolving gates. For example, the form of $\text{Y}$ gate is as follows:
+A quantum gate is the basic logic unit to operate quantum bit. For a classic circuit, any logic circuit can consist of some basic logic gates, similarly, any quantum circuit can consist of some basic quantum gates like gates or C-NOT gates acting on a single bit. Commonly used quantum gates include $\text{X}$ gates, $\text{Y}$ gates, $\text{Z}$ gates, $\text{Hadamard}$ gates, $\text{CNOT}$ gates and some revolving gates.
+
+In general, quantum gates can be classified into parametric and non-parametric quantum gates. For example, the non-parametric quantum gates are `X` gate, `Y` gate, `Z` gate, `Hadamard` gate (`H` gate) and `CNOT` gate, which have the following matrix forms, respectively:
+
+$$
+\text{X}=
+\left(
+    \begin{matrix}
+        0&1\\
+        1&0
+    \end{matrix}
+\right),
+\text{Y}=
+\left(
+    \begin{matrix}
+        0&-i\\
+        i&0
+    \end{matrix}
+\right),
+\text{Z}=
+\left(
+    \begin{matrix}
+        1&0\\
+        0&-1
+    \end{matrix}
+\right),
+\text{H}=\frac{1}{\sqrt{2}}
+\left(
+    \begin{matrix}
+        1&1\\
+        1&-1
+    \end{matrix}
+\right),
+\text{CNOT}=
+\left(
+    \begin{matrix}
+        1&0&0&0\\
+        0&1&0&0\\
+        0&0&0&1\\
+        0&0&1&0
+    \end{matrix}
+\right).$$
+
+Print the matrix form of the above quantum gates separately and we can get:
 
 ```python
-print('Gate name: ', Y)
-print('Gate matrix: \n', Y.matrix())
+print('Gate name:', X)
+X.matrix()
 ```
 
 ```text
-Gate name:  Y
-Gate matrix:
-[[ 0.+0.j -0.-1.j]
-[ 0.+1.j  0.+0.j]]
+Gate name: X
+array([[0, 1],
+       [1, 0]])
 ```
 
-The above $\text{Z}$ gate is a non-parametric gate, while some revolving gates (such as $\text{RY}$ gates) are parametric gates. By giving different rotation angles $\theta$, the revolving gate will have different effects on the qubit. For example, the expression of $\text{RY}$ gate matrix is:
-
-$$
-RY(\theta)=e^{-i\theta Y/2}=\left(\begin{matrix}\cos(\theta/2) & -\sin(\theta/2) \\\sin(\theta/2) & \cos(\theta/2)\end{matrix}\right)
-$$
-
-The $i$ is imaginary quantity basic unit. Quantum gate with parameters like above is an important component in constructing a quantum neural network. Then, we print the matrix formulation of gate $\text{RY}$ when the revolving angle is $0.5$.
-
 ```python
-ry = RY('a')
-ry.matrix({'a': 0.5})
+print('Gate name:', Y)
+Y.matrix()
 ```
 
 ```text
-array([[ 0.96891242, -0.24740396],
-       [ 0.24740396,  0.96891242]])
+Gate name: Y
+array([[ 0.+0.j, -0.-1.j],
+       [ 0.+1.j,  0.+0.j]])
 ```
+
+Note: For each item in the matrix, "0." on the left indicates the real part of the fractional form (floating point number) (if the real part is negative, "-" is displayed before the fractional part, otherwise it is non-negative by default), "0. " on the right indicates the imaginary part of the decimal form (floating point number) (if the imaginary part is negative, "-" is displayed before the decimal, otherwise "+" is displayed), and j indicates the imaginary unit $i$.
+
+```python
+print('Gate name:', Z)
+Z.matrix()
+```
+
+```text
+Gate name: Z
+array([[ 1,  0],
+       [ 0, -1]])
+```
+
+```python
+print('Gate name:', H)
+H.matrix()
+```
+
+```text
+Gate name: H
+array([[ 0.70710678,  0.70710678],
+       [ 0.70710678, -0.70710678]])
+```
+
+For `CNOT` gates, they are essentially Controlled-`X` gates, so in MindQuantum, if we need to execute a `CNOT` gate, we only need to set the control bits and the target bits of the `X` gate (in fact, for any quantum gate we can set the control bits and the target bits of the desired quantum gate operation). For example:
+
+```python
+cnot = X.on(0, 1)   # X gate acts on bit 0 quantum bit and is controlled by bit 1 quantum bit
+print(cnot)
+```
+
+```text
+X(0 <-: 1)
+```
+
+Note:
+
+1. The `X(1 <-: 0)` denotes that the bit 0 quantum bit is the target bit, the bit 1 quantum bit is the control bit, and the bit 0 quantum bit is controlled by the bit 1 quantum bit. Perform `X`-gate operation on bit 0 quantum bit if bit 1 is 1, otherwise no operation is performed.
+
+The above describes some quantum gates without parameters. Next, we will introduce some quantum gates with parameters (such as the revolving gate `RX` gate, `RY` gate and `RZ` gate), which can be obtained by giving certain definite values of the rotation angle $\theta$ that act differently. In addition, these quantum gates with parameters are important building blocks for the subsequent construction of quantum neural networks.
+
+For example, the `RX` gate, `RY` gate and `RZ` gate have the following matrix form:
+
+$$\text{RX}(\theta)= e^{-\frac{i\theta X}{2}}=\cos\left(\frac{\theta}{2}\right)\cdot I-i\sin\left(\frac{\theta}{2}\right)\cdot X=
+\left(
+    \begin{matrix}
+        \cos\left(\frac{\theta}{2}\right)&-i\sin\left(\frac{\theta}{2}\right)\\
+        -i\sin\left(\frac{\theta}{2}\right)&\cos\left(\frac{\theta}{2}\right)
+    \end{matrix}
+\right),$$
+
+$$\text{RY}(\theta)= e^{-\frac{i\theta Y}{2}}=\cos\left(\frac{\theta}{2}\right)\cdot I-i\sin\left(\frac{\theta}{2}\right)\cdot Y=
+\left(
+    \begin{matrix}
+        \cos\left(\frac{\theta}{2}\right)&-\sin\left(\frac{\theta}{2}\right)\\
+        \sin\left(\frac{\theta}{2}\right)&\cos\left(\frac{\theta}{2}\right)
+    \end{matrix}
+\right),$$
+
+$$\text{RZ}(\theta)= e^{-\frac{i\theta Z}{2}}=\cos\left(\frac{\theta}{2}\right)\cdot I-i\sin\left(\frac{\theta}{2}\right)\cdot Z=
+\left(
+    \begin{matrix}
+        e^{-\frac{i\theta}{2}}&0\\
+        0&e^{\frac{i\theta}{2}}
+    \end{matrix}
+\right).$$
+
+We make $\theta$ be $0, \frac{\pi}{2}$ and $\pi$, respectively, and then print the matrix forms of $\text{RX}(0)$ gates, $\text{RY}(\frac{\pi}{2}$) gates and $\text{RZ}(\pi)$ gates. And we can obtain:
+
+```python
+rx = RX('theta')
+print('Gate name:', rx)
+rx.matrix({'theta': 0})   # Assign a value of theta to 0
+```
+
+```text
+Gate name: RX(theta)
+array([[1.+0.j, 0.+0.j],
+       [0.+0.j, 1.+0.j]])
+```
+
+When $\theta=0$, at this point the $\text{RX}(0)$ gate is the familiar `I` gate.
+
+```python
+ry = RY('theta')
+print('Gate name:', ry)
+ry.matrix({'theta': np.pi/2})   # pi needs to be imported from np, assigning the value of theta to pi/2
+```
+
+```text
+Gate name: RY(theta)
+array([[ 0.70710678+0.j, -0.70710678+0.j],
+       [ 0.70710678+0.j,  0.70710678+0.j]])
+```
+
+When $\theta=\frac{\pi}{2}$, at this point the $\text{RY}(\frac{\pi}{2})$ gate is the familiar `H` gate.
+
+```python
+rz = RZ('theta')
+print('Gate name:', rz)
+np.round(rz.matrix({'theta': np.pi}))   # The value of pi is assigned to theta, and because of the problem of imprecise floating point numbers in computers, the rounded value of the floating point number is returned by the function np.round.
+```
+
+```text
+Gate name: RZ(theta)
+array([[0.-1.j, 0.+0.j],
+       [0.+0.j, 0.+1.j]])
+```
+
+When $\theta=\pi$, at this point the $\text{RZ}(\pi)$ gate is the familiar `Z` gate. (differing by one global phase $-i$)
 
 ## Quantum Circuit
 
-Quantum circuit is a structure used to effectively organize various quantum logic gates. We can initialize the quantum circuit through the list of quantum gates, or expand the quantum circuit by adding a quantum gate or circuit through addition(`+`), and multiplying by an integer through multiplication(`*`). Here we will construct the following quantum circuit and print the relevant information of the quantum circuit. In the following figure, `q0`, `q1` and `q2` represent three qubits respectively. The quantum circuit consists of three quantum gates, namely the Hadamard gate acting on `q0` bit, the $CNOT$ gate acting on `q1` bit  and controlled by `q0`bit, and the $\text{RY}$ revolving gate acting on `q2`bit.
+Quantum circuit is a structure used to effectively organize various quantum logic gates. We can initialize the quantum circuit through the list of quantum gates, or expand the quantum circuit by adding a quantum gate or circuit through addition(`+`), and multiplying by an integer through multiplication(`*`). Here we will construct the following quantum circuit and print the relevant information of the quantum circuit. In the following figure, `q0`, `q1` and `q2` represent three qubits respectively. The quantum circuit consists of three quantum gates, namely the Hadamard gate acting on `q0` bit, the $CNOT$ gate acting on `q1` bit and controlled by `q0` bit, and the $\text{RY}$ revolving gate acting on `q2` bit.
 
 ![quantum circuit](./images/quantum_circuit.png)
 
-### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format
-
-1. Constructing a quantum circuit by `CircuitEngine`
-
-    We can use the operator "|" to act the quantum gate on the corresponding qubit.
-
-    ```python
-    eng = mq.engine.CircuitEngine()
-    qubits = eng.allocate_qureg(3)
-    H | qubits[0]
-    X | (qubits[0], qubits[1])
-    RY('p1') | qubits[2]
-    encoder = eng.circuit
-    print(encoder)
-    encoder.summary()
-    ```
-
-    ```text
-    q0: ────H───────●──
-                    │
-    q1: ────────────X──
-
-    q2: ──RY(p1)───────
-    ========Circuit Summary========
-    |Total number of gates  : 3.  |
-    |Parameter gates        : 1.  |
-    |with 1 parameters are  : p1. |
-    |Number qubit of circuit: 3   |
-    ===============================
-    ```
-
-    The `X(1 <-: 0)` represents gate `X` is controlled by bit 0, and acts on bit 1, namely C-NOT gate. `RY(p1|2)` represents the revolving door around the Y axis acting on 2 bits, and `p1` is the rotation angle. From the summary information printed out, we can know that this quantum circuit is constructed by three quantum gates, where a quantum gate is parameterized quantum gate and the whole quantum circuit involves three quantum bits.
-
-2. Constructing a quantum circuit by decorator
-
-    Constructing quantum circuit by decorator can omit some repeat engine declaration.
-
-    ```python
-    from mindquantum.engine import circuit_generator
-
-    @circuit_generator(3)
-    def encoder(qubits):
-        H | qubits[0]
-        X | (qubits[0], qubits[1])
-        RY('p1') | qubits[2]
-
-    print(encoder)
-    encoder.summary()
-    ```
-
-    ```text
-    q0: ────H───────●──
-                    │
-    q1: ────────────X──
-
-    q2: ──RY(p1)───────
-    ========Circuit Summary========
-    |Total number of gates  : 3.  |
-    |Parameter gates        : 1.  |
-    |with 1 parameters are  : p1. |
-    |Number qubit of circuit: 3   |
-    ===============================
-    ```
-
-    We can also input more parameters to the decorator for circuit generation. For example, you can input a character string and use this character string to add a prefix to each parameter when building a quantum circuit, which is helpful for generating quantum circuits under the same structure but with different parameter names.
-
-    ```python
-    @circuit_generator(3, prefix='encoder')
-    def encoder(qubits, prefix):
-        H | qubits[0]
-        X | (qubits[0], qubits[1])
-        RY(prefix + '_1') | qubits[2]
-
-    print(encoder)
-    encoder.summary()
-    ```
-
-    ```text
-    q0: ────────H──────────●──
-                           │
-    q1: ───────────────────X──
-
-    q2: ──RY(encoder_1)───────
-    ===========Circuit Summary===========
-    |Total number of gates  : 3.        |
-    |Parameter gates        : 1.        |
-    |with 1 parameters are  : encoder_1.|
-    |Number qubit of circuit: 3         |
-    =====================================
-    ```
-
-### A More Convenient Circuit Generation
-
-By continuously adding quantum gates acting on different bits to the quantum circuit, the construction of the quantum circuit can be completed quickly.
+The construction of a quantum line can be accomplished quickly by adding quantum gates acting on different quantum bits in the quantum line.
 
 ```python
-from mindquantum.core.circuit import Circuit
+from mindquantum.core.circuit import Circuit     # Import Circuit module for building quantum lines
 
-encoder = Circuit()
-encoder += H.on(0)
-encoder += X.on(1,0)
-encoder += RY('p1').on(2)
-print(encoder)
-encoder.summary()
+encoder = Circuit()                              # Initialize quantum lines
+encoder += H.on(0)                               # H-gate acts at bit 0 quantum bit
+encoder += X.on(1, 0)                            # The X gate acts on the bit 1 quantum bit and is controlled by the bit 0 quantum bit
+encoder += RY('theta').on(2)                     # RY(theta) gate acts on the bit 2 quantum bit
+
+print(encoder)                                   # Print Encoder
+encoder.summary()                                # Summarize Encoder quantum lines
 ```
 
 ```text
-q0: ────H───────●──
-                │
-q1: ────────────X──
+q0: ──────H────────●──
+                   │
+q1: ───────────────X──
 
-q2: ──RY(p1)───────
-========Circuit Summary========
-|Total number of gates  : 3.  |
-|Parameter gates        : 1.  |
-|with 1 parameters are  : p1. |
-|Number qubit of circuit: 3   |
-===============================
+q2: ──RY(theta)───────
+=========Circuit Summary=========
+|Total number of gates  : 3.    |
+|Parameter gates        : 1.    |
+|with 1 parameters are  : theta.|
+|Number qubit of circuit: 3     |
+=================================
 ```
 
-## Simulate Quantum Circuit by MindSpore Operator
-
-A normal quantum neural network usually consists of three part as follow:
-
-- one(or more) encoding circuit for encoding the classical data into quantum data
-- one(or more) circuit for training(as we say Ansatz)
-- one(or more) physical quantity to be measured
-
-In the following, we will construct a quantum neural network, whose encoder consists of two $\text{RY}$ gates, and Ansatz circuit consist of a $\text{CNOT}$ gate and two $\text{RX}$ gates, where physical quantity to be measured is operator $\text{Z}$ acting on bit 1.
-
-![simple qnn](./images/simple_qnn.png)
+In the Jupyter Notebook environment, you can call the `.svg()` interface of the quantum line to draw the image format of the quantum line. Calling the `.svg().to_file(filename='circuit.svg')` interface of the quantum line saves the svg image of the quantum line to local.
 
 ```python
-from mindquantum.core import QubitOperator
-
-@circuit_generator(2)
-def encoder(qubits):
-    RY('a') | qubits[0]
-    RY('b') | qubits[1]
-
-@circuit_generator(2)
-def ansatz(qubits):
-    X | (qubits[0],qubits[1])
-    RX('p1') | qubits[0]
-    RX('p2') | qubits[1]
-
-ham = mq.Hamiltonian(QubitOperator('Z1'))
-encoder_names = ['a', 'b']
-ansatz_names = ['p1', 'p2']
+encoder.svg()
 ```
 
-We generate an Encoder circuit and an Ansatz circuit through the decorator. We also generate a circuit simulation operator by `get_expectation_with_grad` within `Simulator`, and get the gradients of the quantum neural network output of each parameter respectively by processing simulation computation of quantum circuit. In `get_expectation_with_grad`, we need to provide parameter names of the Encoder circuit and Ansatz circuit, the whole quantum circuit and physical quantity for measurement.
+From the Summary of Encoder, we can see that the quantum line consists of three quantum gates, one of which is a quantum gate with parameters and has the parameter theta, and the number of quantum bits regulated by this quantum line is 3.
 
-```python
-from mindquantum.simulator import Simulator
-total_circuit = encoder.as_encoder() + ansatz.as_ansatz()
-sim = Simulator('mqvector', total_circuit.n_qubits)
-grad_ops = sim.get_expectation_with_grad(ham,
-                                         total_circuit)
-encoder_data = np.array([[0.1,0.2]])
-ansatz_data = np.array([0.3,0.4])
-measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
-print('Measurement result: ', measure_result)
-print('Gradient of encoder parameters: ', encoder_grad)
-print('Gradient of ansatz parameters: ', ansatz_grad)
-```
+Therefore, we can build the corresponding quantum line according to the problem we need to solve. Go and build your first quantum line!
 
-```text
-Measurement result:  [[0.89819133]]
-Gradient of encoder parameters:  [[[-0.09011973 -0.1820724 ]]]
-Gradient of ansatz parameters:  [[[-2.7755576e-17 -3.7974921e-01]]]
-```
-
-The above three results respectively represent the output value of the quantum neural network, the gradient value of the parameter in the encoding circuit, and the gradient value of the parameter in the Ansatz circuit with training. Sometimes, The quantum neural network is the first layer of the entire quantum classical hybrid neural network, so we don't need to take the derivative of the gradient in the encoding circuit. For this kind of circuit that does not need to calculate the gradient, the `no_grad` method can be used to specify that the quantum circuit that does not need to calculate the gradient is not to be derived.
-
-```python
-encoder.no_grad()
-grad_ops = sim.get_expectation_with_grad(ham,
-                                         encoder.as_encoder() + ansatz.as_ansatz())
-measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
-print('Measurement result: ', measure_result)
-print('Gradient of encoder parameters: ', encoder_grad)
-print('Gradient of ansatz parameters: ', ansatz_grad)
-```
-
-```text
-Measurement result:  [[0.89819133]]
-Gradient of encoder parameters:  [[[0. 0.]]]
-Gradient of ansatz parameters:  [[[-2.7755576e-17 -3.7974921e-01]]]
-```
-
-As we know above, all the derivation of encoder circuit parameters in the quantum neural network are zero and we do not take the derivative in the actual simulation calculation.
+To find out more about MindQuantum's API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
