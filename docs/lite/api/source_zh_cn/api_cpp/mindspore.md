@@ -528,7 +528,7 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 - 参数
 
     - `file`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graph`: 输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -549,7 +549,7 @@ Status Load(const std::vector<std::string> &files, ModelType model_type, std::ve
 - 参数
 
     - `files`: 多个模型文件路径，用vector存储。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graphs`: 输出参数，依次保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -571,7 +571,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
     - `model_data`：模型数据指针。
     - `data_size`：模型数据字节数。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graph`：输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -1539,7 +1539,7 @@ size_t DataSize() const;
 bool IsDevice() const;
 ```
 
-判断`MSTensor`中是否在设备上。仅MindSpore云侧支持。
+判断`MSTensor`中是否在设备上。
 
 - 返回值
 
@@ -1881,7 +1881,7 @@ CoreMLDelegate在线构图，仅在内部图编译阶段调用。
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
 
-定义了Lite执行在线推理时模型文件的版本。
+定义了MindSpore Lite执行在线推理时模型文件的版本。
 
 ```cpp
 typedef enum {
@@ -1895,7 +1895,7 @@ typedef enum {
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
 
-定义了Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
+定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
 ```cpp
 using KernelIter = std::vector<kernel::Kernel *>::iterator;
