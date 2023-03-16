@@ -10,14 +10,14 @@ ModelParallelRunner定义了MindSpore Lite并发推理。
 
 ## 公有成员函数
 
-| function                                                       |
-| ------------------------------------------------------------   |
-| [long getModelParallelRunnerPtr()](#getmodelparallelrunnerptr) |
-| [boolean init()](#init)                                        |
-| [boolean predict()](#predict)                                  |
-| [boolean getInputs()](#getinputs)                              |
-| [boolean getOutputs()](#getoutputs)                            |
-| [void free()](#free)                                           |
+| function                                                       | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------------------------------------------------------   |--------|--------|
+| [long getModelParallelRunnerPtr()](#getmodelparallelrunnerptr) | √      | ✕      |
+| [boolean init()](#init)                                        | √      | ✕      |
+| [boolean predict()](#predict)                                  | √      | ✕      |
+| [boolean getInputs()](#getinputs)                              | √      | ✕      |
+| [boolean getOutputs()](#getoutputs)                            | √      | ✕      |
+| [void free()](#free)                                           | √      | ✕      |
 
 ## getModelParallelRunnerPtr
 

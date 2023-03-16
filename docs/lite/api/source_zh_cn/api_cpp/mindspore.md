@@ -55,7 +55,7 @@
 
 | 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
-| [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行端侧推理时，模型文件的版本。    | ✕      | √      |
+| [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行推理时，模型文件的版本。    | ✕      | √      |
 | [CharVersion](#charversion)                      | 获取字符vector形式的当前版本号。                        | ✕      | √      |
 | [Version](#version)                              | 获取字符串形式的当前版本号。                        | ✕      | √      |
 
@@ -145,7 +145,7 @@ Context();
 void SetThreadNum(int32_t thread_num);
 ```
 
-设置运行时的线程数，该选项仅MindSpore Lite有效。
+设置运行时的线程数。
 
 - 参数
 
@@ -169,7 +169,7 @@ int32_t GetThreadNum() const;
 void SetInterOpParallelNum(int32_t parallel_num);
 ```
 
-设置运行时的算子并行推理数目，该选项仅MindSpore Lite有效。
+设置运行时的算子并行推理数目。
 
 - 参数
 
@@ -193,7 +193,7 @@ int32_t GetInterOpParallelNum() const;
 void SetThreadAffinity(int mode);
 ```
 
-设置运行时的CPU绑核策略，该选项仅MindSpore Lite有效。
+设置运行时的CPU绑核策略。
 
 - 参数
 
@@ -205,7 +205,7 @@ void SetThreadAffinity(int mode);
 int GetThreadAffinityMode() const;
 ```
 
-获取当前CPU绑核策略，该选项仅MindSpore Lite有效。
+获取当前CPU绑核策略。
 
 - 返回值
 
@@ -217,7 +217,7 @@ int GetThreadAffinityMode() const;
 void SetThreadAffinity(const std::vector<int> &core_list);
 ```
 
-设置运行时的CPU绑核列表，该选项仅MindSpore Lite有效。如果SetThreadAffinity和SetThreadAffinity同时设置，core_list生效，mode不生效。
+设置运行时的CPU绑核列表。如果SetThreadAffinity和SetThreadAffinity同时设置，core_list生效，mode不生效。
 
 - 参数
 
@@ -229,7 +229,7 @@ void SetThreadAffinity(const std::vector<int> &core_list);
 std::vector<int32_t> GetThreadAffinityCoreList() const;
 ```
 
-获取当前CPU绑核列表，该选项仅MindSpore Lite有效。
+获取当前CPU绑核列表。
 
 - 返回值
 
@@ -241,7 +241,7 @@ std::vector<int32_t> GetThreadAffinityCoreList() const;
 void SetEnableParallel(bool is_parallel);
 ```
 
-设置运行时是否支持并行，该选项仅MindSpore Lite有效。
+设置运行时是否支持并行。
 
 - 参数
 
@@ -253,7 +253,7 @@ void SetEnableParallel(bool is_parallel);
 bool GetEnableParallel() const;
 ```
 
-获取当前是否支持并行，该选项仅MindSpore Lite有效。
+获取当前是否支持并行。
 
 - 返回值
 
@@ -265,7 +265,7 @@ bool GetEnableParallel() const;
 void SetDelegate(const std::shared_ptr<Delegate> &delegate);
 ```
 
-设置Delegate，Delegate定义了用于支持第三方AI框架接入的代理，该选项仅MindSpore Lite有效。
+设置Delegate，Delegate定义了用于支持第三方AI框架接入的代理。
 
 - 参数
 
@@ -277,7 +277,7 @@ void SetDelegate(const std::shared_ptr<Delegate> &delegate);
 std::shared_ptr<Delegate> GetDelegate() const;
 ```
 
-获取当前Delegate，该选项仅MindSpore Lite有效。
+获取当前Delegate。
 
 - 返回值
 
@@ -530,8 +530,8 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
     - `file`: 模型文件路径。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `graph`: 输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。MindSpore Lite不支持该参数。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。MindSpore Lite不支持该参数。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -539,7 +539,7 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 
 #### Load
 
-从多个文件加载多个模型，MindSpore Lite未提供此功能。
+从多个文件加载多个模型。
 
 ```cpp
 Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
@@ -573,8 +573,8 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
     - `data_size`：模型数据字节数。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。MindSpore Lite不支持该参数。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。MindSpore Lite不支持该参数。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -582,7 +582,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
 #### SetParameters
 
-配置模型参数。MindSpore Lite未提供此功能。
+配置模型参数。
 
 ```cpp
 static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model);
@@ -835,7 +835,7 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
@@ -856,7 +856,7 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
     - `dec_mode`: 解密模式，可选有`AES-GCM`。
@@ -878,7 +878,7 @@ Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
@@ -898,7 +898,7 @@ Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
     - `dec_mode`: 解密模式，可选有`AES-GCM`。
