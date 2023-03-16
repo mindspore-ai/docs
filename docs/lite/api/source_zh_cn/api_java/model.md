@@ -10,31 +10,31 @@ Model定义了MindSpore中编译和运行的模型。
 
 ## 公有成员函数
 
-| function                                                     |
-| ------------------------------------------------------------ |
-| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           |
-| [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) |
-| [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            |
-| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  |
-| [boolean build(String modelPath, MSContext context)](#build)                                         |
-| [boolean predict()](#predict)                                         |
-| [boolean runStep()](#runstep)                                         |
-| [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         |
-| [List<MSTensor\> getInputs()](#getinputs)                                         |
-| [List<MSTensor\> getOutputs()](#getoutputs)                                         |
-| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         |
-| [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         |
-| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         |
-| [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         |
-| [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)                                         |
-| [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         |
-| [boolean updateFeatureMaps(List<MSTensor\> features)](#updatefeaturemaps)                                         |
-| [boolean setTrainMode(boolean isTrain)](#settrainmode)                                         |
-| [boolean getTrainMode()](#gettrainmode)                               |
-| [boolean setLearningRate(float learning_rate)](#setlearningrate)                                         |
-| [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupvirtualbatch)                           |
-| [void free()](#free)                                    |
-| [ModelType](#modeltype)                                    |
+| function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------------------------------------------------------ |--------|--------|
+| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | √      | √      |
+| [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
+| [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
+| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | √      | √      |
+| [boolean build(String modelPath, MSContext context)](#build)                                         | √      | √      |
+| [boolean predict()](#predict)                                         | √      | √      |
+| [boolean runStep()](#runstep)                                         | ✕      | √      |
+| [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         | √      | √      |
+| [List<MSTensor\> getInputs()](#getinputs)                                         | √      | √      |
+| [List<MSTensor\> getOutputs()](#getoutputs)                                         | √      | √      |
+| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
+| [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
+| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | √      | √      |
+| [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
+| [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
+| [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
+| [boolean updateFeatureMaps(List<MSTensor\> features)](#updatefeaturemaps)                                         | ✕      | √      |
+| [boolean setTrainMode(boolean isTrain)](#settrainmode)                                         | ✕      | √      |
+| [boolean getTrainMode()](#gettrainmode)                               | ✕      | √      |
+| [boolean setLearningRate(float learning_rate)](#setlearningrate)                                         | ✕      | √      |
+| [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupvirtualbatch)                           | ✕      | √      |
+| [void free()](#free)                                    | √      | √      |
+| [ModelType](#modeltype)                                    | √      | √      |
 
 ## build
 

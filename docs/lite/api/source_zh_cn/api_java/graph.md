@@ -10,11 +10,11 @@ Graph定义了MindSpore的计算图。
 
 ## 公有成员函数
 
-| function                                                     |
-| ------------------------------------------------------------ |
-| [boolean load(String file)](#load) |
-| [long getGraphPtr()](#getgraphptr)                            |
-| [void free()](#free)                                         |
+| function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------------------------------------------------------ |--------|--------|
+| [boolean load(String file)](#load) | √      | √      |
+| [long getGraphPtr()](#getgraphptr)                            | √      | √      |
+| [void free()](#free)                                         | √      | √      |
 
 ## load
 

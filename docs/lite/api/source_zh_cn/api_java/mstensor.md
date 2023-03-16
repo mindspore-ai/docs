@@ -10,26 +10,26 @@ MSTensor定义了MindSpore中的张量。
 
 ## 公有成员函数
 
-| function                                   |
-| ------------------------------------------ |
-| [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)             |
-| [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             |
-| [int[] getShape()](#getshape)             |
-| [int getDataType()](#getdatatype)        |
-| [byte[] getByteData()](#getbytedata)     |
-| [float[] getFloatData()](#getfloatdata)  |
-| [int[] getIntData()](#getintdata)        |
-| [long[] getLongData()](#getlongdata)     |
-| [void setData(byte[] data)](#setdata)     |
-| [void setData(float[] data)](#setdata)     |
-| [void setData(int[] data)](#setdata)     |
-| [void setData(long[] data)](#setdata)     |
-| [void setData(ByteBuffer data)](#setdata) |
-| [long size()](#size)                       |
-| [int elementsNum()](#elementsnum)         |
-| [void free()](#free)                       |
-| [String tensorName()](#tensorname)         |
-| [DataType](#datatype)                      |
+| function                                   | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------------------------------------ |--------|--------|
+| [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)             | √      | √      |
+| [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             | √      | √      |
+| [int[] getShape()](#getshape)             | √      | √      |
+| [int getDataType()](#getdatatype)        | √      | √      |
+| [byte[] getByteData()](#getbytedata)     | √      | √      |
+| [float[] getFloatData()](#getfloatdata)  | √      | √      |
+| [int[] getIntData()](#getintdata)        | √      | √      |
+| [long[] getLongData()](#getlongdata)     | √      | √      |
+| [void setData(byte[] data)](#setdata)     | √      | √      |
+| [void setData(float[] data)](#setdata)     | √      | √      |
+| [void setData(int[] data)](#setdata)     | √      | √      |
+| [void setData(long[] data)](#setdata)     | √      | √      |
+| [void setData(ByteBuffer data)](#setdata) | √      | √      |
+| [long size()](#size)                       | √      | √      |
+| [int elementsNum()](#elementsnum)         | √      | √      |
+| [void free()](#free)                       | √      | √      |
+| [String tensorName()](#tensorname)         | √      | √      |
+| [DataType](#datatype)                      | √      | √      |
 
 ## createTensor
 

@@ -6,14 +6,14 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 
 ## 公有成员函数
 
-| function                                                       |
-| ------------------------------------------------------------   |
-| [boolean init()](#init)                                        |
-| [void setWorkerNum()](#setworkernum)                           |
-| [void setConfigInfo()](#setconfiginfo)                         |
-| [void setConfigPath()](#setconfigpath)                         |
-| [void getConfigPath()](#getconfigpath)                         |
-| [long getRunnerConfigPtr()](#getrunnerconfigptr)               |
+| function                                                       | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------------------------------------------------------   |--------|--------|
+| [boolean init()](#init)                                        | √      | ✕      |
+| [void setWorkerNum()](#setworkernum)                           | √      | ✕      |
+| [void setConfigInfo()](#setconfiginfo)                         | √      | ✕      |
+| [void setConfigPath()](#setconfigpath)                         | √      | ✕      |
+| [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
+| [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 
 ## init
 

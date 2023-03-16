@@ -10,27 +10,27 @@ MSContext类用于配置运行时的上下文配置。
 
 ## 公有成员函数
 
-| function                                                                                      |
-| --------------------------------------------------------------------------------------------- |
-| [boolean init()](#init)                                                                       |
-| [boolean init(int threadNum, int cpuBindMode)](#init)                                         |
-| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               |
-| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)](#adddeviceinfo)              |
-| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)](#adddeviceinfo) |
-| [void free()](#free)                                                                          |
-| [long getMSContextPtr()](#getmscontextptr)                                                    |
-| [void setThreadNum(int threadNum)](#setenableparallel)                                        |
-| [int getThreadNum()](#getenableparallel)                                                      |
-| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         |
-| [int getInterOpParallelNum()](#getinteropparallelnum)                                         |
-| [void setThreadAffinity(int mode)](#setthreadaffinity)                                        |
-| [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     |
-| [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 |
-| [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                |
-| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              |
-| [boolean getEnableParallel()](#getenableparallel)                                             |
-| [DeviceType](#devicetype)                                                                     |
-| [CpuBindMode](#cpubindmode)                                                                   |
+| function                                                                                      | 云侧推理是否支持 | 端侧推理是否支持 |
+| --------------------------------------------------------------------------------------------- |--------|--------|
+| [boolean init()](#init)                                                                       | √      | √      |
+| [boolean init(int threadNum, int cpuBindMode)](#init)                                         | √      | √      |
+| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               | ✕      | √      |
+| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)](#adddeviceinfo)              | √      | √      |
+| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)](#adddeviceinfo) | ✕      | √      |
+| [void free()](#free)                                                                          | √      | √      |
+| [long getMSContextPtr()](#getmscontextptr)                                                    | √      | √      |
+| [void setThreadNum(int threadNum)](#setenableparallel)                                        | √      | √      |
+| [int getThreadNum()](#getenableparallel)                                                      | √      | √      |
+| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         | √      | √      |
+| [int getInterOpParallelNum()](#getinteropparallelnum)                                         | √      | √      |
+| [void setThreadAffinity(int mode)](#setthreadaffinity)                                        | √      | √      |
+| [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     | √      | √      |
+| [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 | √      | √      |
+| [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                | √      | √      |
+| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | √      | √      |
+| [boolean getEnableParallel()](#getenableparallel)                                             | √      | √      |
+| [DeviceType](#devicetype)                                                                     | √      | √      |
+| [CpuBindMode](#cpubindmode)                                                                   | √      | √      |
 
 ## init
 
