@@ -181,7 +181,7 @@ opt = MolecularDynamics (
 
 ## SimulationCell
 
-s mentioned above, in addition to directly using the top module Sponge of MindSPONGE to encapsulate three functional modules, namely system (molecule) module, potential energy (force field) module and refresher (optimizer) module, SimulationCell can also be used to encapsulate the system (molecular) module and potential energy (force field) module. Besides encapsulating two modules, SimulationCell can also set neighbour list, bias potential and post-processing mode of potential energy (wrapper) when initializing:
+As mentioned above, in addition to directly using the top module Sponge of MindSPONGE to encapsulate three functional modules, namely system (molecule) module, potential energy (force field) module and refresher (optimizer) module, SimulationCell can also be used to encapsulate the system (molecular) module and potential energy (force field) module. Besides encapsulating two modules, SimulationCell can also set neighbour list, bias potential and post-processing mode of potential energy (wrapper) when initializing:
 
 ```python
 from mindsponge import SimulationCell
@@ -223,3 +223,7 @@ Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalabl
 ## Tutorial
 
 A tutorial on molecular dynamics simulations using the MindSPONGE is available at [MindScience](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic).
+
+## Reference
+
+[1] de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.

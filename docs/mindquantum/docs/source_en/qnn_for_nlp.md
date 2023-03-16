@@ -6,8 +6,6 @@
 
 Word embedding plays a key role in natural language processing. It embeds a high-dimension word vector to lower dimension space. When more information is added to the neural network, the training task will become more difficult. By taking advantage of the characteristics of quantum mechanics (e.g., state superposition and entanglement), a quantum neural network can process such classical information during training, thereby improving the accuracy of convergence. In the following, we will build a simple mixed quantum neural network for completing word embedding task.
 
-## Environment Preparation
-
 Import relevant dependencies of the tutorial.
 
 ```python
@@ -66,7 +64,7 @@ print('number of samples: ', len(sample))
 
 According to the above information, the size of the dictionary is 5 and it is enough to select a sample.
 
-## Encoding Ccircuitircuit
+## Encoding Circuit
 
 For simplification, we use the RX revolving door to construct the encoding circuit. The structure is as follows.
 
@@ -177,7 +175,7 @@ GenerateTrainData(sample, word_dict)
 
 According to the above result, we merge the encoding information of these 4 input words into a longer vector for further usage of the neural network.
 
-## Ansatz Circuicircuitt
+## Ansatz Circuit
 
 There is a variety of selections for the Ansatz circuits. We select the below quantum circuit as the Ansatz circuit. A single unit of the Ansatz circuit consists of a $\text{RY}$ door and a $\text{CNOT}$ door. The full Ansatz circuit can be obtained by repeating $p$ times over this single unit.
 
