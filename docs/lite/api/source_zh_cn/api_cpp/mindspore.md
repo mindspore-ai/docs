@@ -4,58 +4,103 @@
 
 ## 接口汇总
 
-### 类
+### 推理
 
-| 类名                                               | 描述                                                |
-|--------------------------------------------------|---------------------------------------------------|
-| [Context](#context)                              | 保存执行中的环境变量。                                       |
-| [DeviceInfoContext](#deviceinfocontext)          | 不同硬件设备的环境信息。                                      |
-| [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置，仅MindSpore Lite支持。                   |
-| [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     |
-| [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置，仅MindSpore Lite支持。                   |             |
-| [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Ascend 310/310P上的配置。                               |
-| [Serialization](#serialization)                  | 汇总了模型文件读写的方法。                                     |
-| [Buffer](#buffer)                                | Buff数据类。                                          |
-| [Model](#model)                                  | MindSpore中的模型，便于计算图管理。                            |
-| [MSTensor](#mstensor)                            | MindSpore中的张量。                                    |
-| [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 |
-| [MSKernelCallBack](#mskernelcallback)            | MindSpore回调函数包装器，仅MindSpore Lite支持。               |
-| [MSCallBackParam](#mscallbackparam)              | MindSpore回调函数的参数，仅MindSpore Lite支持。               |
-| [Delegate](#delegate)                            | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。     |
-| [CoreMLDelegate](#coremldelegate)               | MindSpore Lite接入CoreML框架的代理，仅MindSpore Lite支持。    |
-| [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行推理时模型文件的版本，仅MindSpore Lite支持。    |
-| [KernelIter](#kerneliter)                        | MindSpore Lite 算子列表的迭代器，仅MindSpore Lite支持。        |
-| [DelegateModel](#delegatemodel)                  | MindSpore Lite Delegate机制封装的模型，仅MindSpore Lite支持。 |
-| [TrainCfg](#traincfg)                            | MindSpore Lite训练配置类，仅MindSpore Lite支持。            |
-| [MixPrecisionCfg](#mixprecisioncfg)              | MindSpore Lite训练混合精度配置类，仅MindSpore Lite支持。        |
-| [AccuracyMetrics](#accuracymetrics)              | MindSpore Lite训练精度类，仅MindSpore Lite支持。            |
-| [Metrics](#metrics)                              | MindSpore Lite训练指标类，仅MindSpore Lite支持。            |
-| [TrainCallBack](#traincallback)                  | MindSpore Lite训练回调类，仅MindSpore Lite支持。            |
-| [TrainCallBackData](#traincallbackdata)          | 定义了训练回调的一组参数，仅MindSpore Lite支持。                   |
-| [CkptSaver](#ckptsaver)                          | MindSpore Lite训练模型文件保存类，仅MindSpore Lite支持。        |
-| [LossMonitor](#lossmonitor)                      | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。         |
-| [LRScheduler](#lrscheduler)                      | MindSpore Lite训练配置类，仅MindSpore Lite支持。            |
-| [StepLRLambda](#steplrlambda)                    | MindSpore Lite训练学习率的一组参数，仅MindSpore Lite支持。       |
-| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子，仅MindSpore Lite支持。              |
-| [TimeMonitor](#timemonitor)                      | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。          |
-| [TrainAccuracy](#trainaccuracy)                  | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。         |
-| [CharVersion](#charversion)                      | 获取当前版本号，仅MindSpore Lite支持。                        |
-| [Version](#version)                              | 获取当前版本号，仅MindSpore Lite支持。                        |
-| [Allocator](#allocator)                          | 内存管理基类。                                           |
-| [Status](#status)                                | 返回状态类。                                            |
-| [Graph](#graph)                                  | 图类。                                               |
-| [CellBase](#cellbase)                            | 容器基类。                                             |
-| [Cell](#cell)                                    | 容器类。                                              |
-| [GraphCell](#graphcell)                          | 图容器类。                                             |
-| [RunnerConfig](#runnerconfig)                    | 模型并发推理配置参数。                                       |
-| [ModelParallelRunner](#modelparallelrunner)      | 模型并发推理类。                                          |
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [Model](#model)                                  | MindSpore中的模型，便于计算图管理。                            | √      | √      |
 
-### 枚举
+### 运行环境配置
 
-| 接口名 | 描述 |
-| --- | --- |
-| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 |
-| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 |
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [Context](#context)                              | 保存执行中的环境变量。                                       | √      | √      |
+| [DeviceInfoContext](#deviceinfocontext)          | 不同硬件设备的环境信息。                                      | √      | √      |
+| [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置。                   | √      | √      |
+| [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     | √      | √      |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置。                   | ✕      | √      |
+| [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Ascend 310/310P上的配置。                               | √      | √      |
+
+### 并发推理
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [RunnerConfig](#runnerconfig)                    | 模型并发推理配置参数。                                       | √      | ✕      |
+| [ModelParallelRunner](#modelparallelrunner)      | 模型并发推理类。                                          | √      | ✕      |
+
+### 张量Tensor相关
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [MSTensor](#mstensor)                            | MindSpore中的张量。                                    | √      | √      |
+| [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
+| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
+| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
+| [Allocator](#allocator)                          | 内存管理基类。                                           | √      | √      |
+
+### 状态
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [Status](#status)                                | 返回状态类。                                            | √      | √      |
+
+### 序列化保存与加载
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [Serialization](#serialization)                  | 汇总了模型文件读写的方法。                                     | √      | √      |
+| [Buffer](#buffer)                                | Buff数据类。                                          | √      | √      |
+
+### 版本查询
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [SchemaVersion](#schemaversion)                  | MindSpore Lite 执行端侧推理时，模型文件的版本。    | ✕      | √      |
+| [CharVersion](#charversion)                      | 获取字符vector形式的当前版本号。                        | ✕      | √      |
+| [Version](#version)                              | 获取字符串形式的当前版本号。                        | ✕      | √      |
+
+### 回调函数
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [MSKernelCallBack](#mskernelcallback)            | MindSpore回调函数包装器。               | √      | √      |
+| [MSCallBackParam](#mscallbackparam)              | MindSpore回调函数的参数。               | √      | √      |
+
+### Mindspore Lite 训练配置
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [TrainCfg](#traincfg)                            | MindSpore Lite训练配置类。            | ✕      | √      |
+| [MixPrecisionCfg](#mixprecisioncfg)              | MindSpore Lite训练混合精度配置类。        | ✕      | √      |
+| [AccuracyMetrics](#accuracymetrics)              | MindSpore Lite训练精度类。            | ✕      | √      |
+| [Metrics](#metrics)                              | MindSpore Lite训练指标类。            | ✕      | √      |
+| [TrainCallBack](#traincallback)                  | MindSpore Lite训练回调类。            | ✕      | √      |
+| [TrainCallBackData](#traincallbackdata)          | 定义了训练回调的一组参数。                   | ✕      | √      |
+| [CkptSaver](#ckptsaver)                          | MindSpore Lite训练模型文件保存类。        | ✕      | √      |
+| [LossMonitor](#lossmonitor)                      | MindSpore Lite训练学习率调度类。         | ✕      | √      |
+| [LRScheduler](#lrscheduler)                      | MindSpore Lite训练配置类。            | ✕      | √      |
+| [StepLRLambda](#steplrlambda)                    | MindSpore Lite训练学习率的一组参数。       | ✕      | √      |
+| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子。              | ✕      | √      |
+| [TimeMonitor](#timemonitor)                      | MindSpore Lite训练时间监测类。          | ✕      | √      |
+| [TrainAccuracy](#trainaccuracy)                  | MindSpore Lite训练学习率调度类。         | ✕      | √      |
+
+### Delegate三方框架接入机制
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [Delegate](#delegate)                            | MindSpore Lite接入第三方AI框架的代理。     | ✕      | √      |
+| [DelegateModel](#delegatemodel)                  | MindSpore Lite Delegate机制封装的模型。 | ✕      | √      |
+| [KernelIter](#kerneliter)                        | MindSpore Lite 算子列表的迭代器。        | ✕      | √      |
+| [CoreMLDelegate](#coremldelegate)               | MindSpore Lite接入CoreML框架的代理。    | ✕      | √      |
+
+### 图容器
+
+| 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------|---------------------------------------------------|--------|--------|
+| [CellBase](#cellbase)                            | 容器基类。                                             | ✕      | √      |
+| [Cell](#cell)                                    | 容器类。                                              | ✕      | √      |
+| [GraphCell](#graphcell)                          | 图容器类。                                             | ✕      | √      |
+| [Graph](#graph)                                  | 图类。                                               | ✕      | √      |
 
 ## Context
 
@@ -72,27 +117,27 @@ Context();
 
 ### 公有成员函数
 
-| 函数                                                                            | 云侧推理是否支持 |
-|-------------------------------------------------------------------------------|--------|
-| `void SetThreadNum(int32_t thread_num);`                                      | √      |
-| `int32_t GetThreadNum() const;`                                               | √      |
-| `void SetInterOpParallelNum(int32_t parallel_num);`                           | √      |
-| `int32_t GetInterOpParallelNum() const;`                                      | √      |
-| `void SetThreadAffinity(int mode);`                                           | √      |
-| `int GetThreadAffinityMode() const;`                                          | √      |
-| `void SetThreadAffinity(const std::vector<int> &core_list);`                  | √      |
-| `std::vector<int32_t> GetThreadAffinityCoreList() const;`                     | √      |
-| `void SetEnableParallel(bool is_parallel);`                                   | ✕      |
-| `bool GetEnableParallel() const;`                                             | ✕      |
-| `void SetBuiltInDelegate(DelegateMode mode);`                                 | ✕      |
-| `DelegateMode GetBuiltInDelegate() const;`                                    | ✕      |
-| `void SetDelegate(const std::shared_ptr<Delegate> &delegate);`                | ✕      |
-| `std::shared_ptr<Delegate> GetDelegate() const;`                              | ✕      |
-| `set_delegate(const std::shared_ptr<AbstractDelegate> &delegate);`            | ✕      |
-| `std::shared_ptr<AbstractDelegate> get_delegate() const;`                     | ✕      |
-| `void SetMultiModalHW(bool float_mode);`                                      | ✕      |
-| `bool GetMultiModalHW() const;`                                               | ✕      |
-| `std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo() const;` | √      |
+| 函数                                                                            | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------------------------------------------|--------|--------|
+| `void SetThreadNum(int32_t thread_num);`                                      | √      | √      |
+| `int32_t GetThreadNum() const;`                                               | √      | √      |
+| `void SetInterOpParallelNum(int32_t parallel_num);`                           | √      | √      |
+| `int32_t GetInterOpParallelNum() const;`                                      | √      | √      |
+| `void SetThreadAffinity(int mode);`                                           | √      | √      |
+| `int GetThreadAffinityMode() const;`                                          | √      | √      |
+| `void SetThreadAffinity(const std::vector<int> &core_list);`                  | √      | √      |
+| `std::vector<int32_t> GetThreadAffinityCoreList() const;`                     | √      | √      |
+| `void SetEnableParallel(bool is_parallel);`                                   | ✕      | √      |
+| `bool GetEnableParallel() const;`                                             | ✕      | √      |
+| `void SetBuiltInDelegate(DelegateMode mode);`                                 | ✕      | √      |
+| `DelegateMode GetBuiltInDelegate() const;`                                    | ✕      | √      |
+| `void SetDelegate(const std::shared_ptr<Delegate> &delegate);`                | ✕      | √      |
+| `std::shared_ptr<Delegate> GetDelegate() const;`                              | ✕      | √      |
+| `set_delegate(const std::shared_ptr<AbstractDelegate> &delegate);`            | ✕      | √      |
+| `std::shared_ptr<AbstractDelegate> get_delegate() const;`                     | ✕      | √      |
+| `void SetMultiModalHW(bool float_mode);`                                      | ✕      | √      |
+| `bool GetMultiModalHW() const;`                                               | ✕      | √      |
+| `std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo() const;` | √      | √      |
 
 #### SetThreadNum
 
@@ -244,7 +289,7 @@ std::shared_ptr<Delegate> GetDelegate() const;
 std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 ```
 
-修改该context下的[DeviceInfoContext](#deviceinfocontext)数组，仅MindSpore Lite支持数组中有多个成员是异构场景。
+修改该context下的[DeviceInfoContext](#deviceinfocontext)数组，仅端侧推理支持数组中有多个成员是异构场景。
 
 - 返回值
 
@@ -265,16 +310,16 @@ virtual ~DeviceInfoContext() = default;
 
 ### 公有成员函数
 
-| 函数                                                                | 云侧推理是否支持 |
-|-------------------------------------------------------------------|---------|
-| `enum DeviceType GetDeviceType() const;`                          |        √ |
-| `std::shared_ptr<T> Cast();`                                      |        √ |
-| `void SetProvider(const std::string &provider);`                  |        √ |
-| `std::string GetProvider() const;`                                |        √ |
-| `void SetProviderDevice(const std::string &device);`              |        √ |
-| `std::string GetProviderDevice() const;`                          |        √ |
-| `void SetAllocator(const std::shared_ptr<Allocator> &allocator);` |       √ |
-| `std::shared_ptr<Allocator> GetAllocator() const;`                |        √ |
+| 函数                                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------------------------------|---------|---------|
+| `enum DeviceType GetDeviceType() const;`                          |        √ |        √ |
+| `std::shared_ptr<T> Cast();`                                      |        √ |        √ |
+| `void SetProvider(const std::string &provider);`                  |        √ |        √ |
+| `std::string GetProvider() const;`                                |        √ |        √ |
+| `void SetProviderDevice(const std::string &device);`              |        √ |        √ |
+| `std::string GetProviderDevice() const;`                          |        √ |        √ |
+| `void SetAllocator(const std::shared_ptr<Allocator> &allocator);` |       √ |        √ |
+| `std::shared_ptr<Allocator> GetAllocator() const;`                |        √ |        √ |
 
 #### GetDeviceType
 
@@ -376,57 +421,57 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置，仅MindSpore Lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置。
 
 ### 公有成员函数
 
-|     函数     |     说明      | 云侧推理是否支持 |
-| ------------ | ------------ |---------|
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |        √ |
-| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        √ |
-| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |        √ |
+|     函数     |     说明      | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------ | ------------ |---------|---------|
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |        √ |        √ |
+| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        √ |        √ |
+| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |        √ |        √ |
 
 ## GPUDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，仅MindSpore Lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置。
 
 ### 公有成员函数
 
-| 函数                                                         | 说明                                                                                                   | 云侧推理是否支持 |
-|------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------|
-| `enum DeviceType GetDeviceType() const`                    | - 返回值: DeviceType::kGPU                                                                              | √        |
-| `void SetDeviceID(uint32_t device_id)`                     | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                 | √        |
-| `uint32_t GetDeviceID() const`                             | - 返回值: 已配置的设备ID                                                                                      | √        |
-| `void SetPrecisionMode(const std::string &precision_mode)` | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin` | √        |
-| `std::string GetPrecisionMode() const`                     | - 返回值: 已配置的精度模式                                                                                      | √        |
-| `int GetRankID() const`                                    | - 返回值: 当前运行的RANK ID                                                                                  | √        |
-| `int GetGroupSize() const`                                 | - 返回值: 当前运行的GROUP SIZE                                                                               | √        |
-| `void SetEnableFP16(bool is_fp16)`                         | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                 | √        |
-| `bool GetEnableFP16() const`                               | - 返回值: 已配置的精度模式                                                                                      | √        |
-| `void SetGLContext(void *gl_context)`                      | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值                              | ✕        |
-| `void *GetGLContext() const`                               | - 返回值: 已配置的指向OpenGL EGLContext的指针                                                                    | ✕        |
-| `void SetGLDisplay(void *gl_display)`                      | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值                              | ✕        |
-| `void *GetGLDisplay() const`                               | - 返回值: 已配置的指向OpenGL EGLDisplay的指针                                                                    | ✕        |
-| `void SetEnableGLTexture(bool is_enable_gl_texture)`       | 用于指定是否绑定OpenGL纹理数据<br><br> - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据                              | ✕        |
-| `bool GetEnableGLTexture() const`                          | - 返回值: 已配置的绑定OpenGL纹理数据模式                                                                            | ✕        |
+| 函数                                                         | 说明                                                                                                   | 云侧推理是否支持 | 端侧推理是否支持 |
+|------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------|----------|
+| `enum DeviceType GetDeviceType() const`                    | - 返回值: DeviceType::kGPU                                                                              | √        | √        |
+| `void SetDeviceID(uint32_t device_id)`                     | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                 | √        | √        |
+| `uint32_t GetDeviceID() const`                             | - 返回值: 已配置的设备ID                                                                                      | √        | √        |
+| `void SetPrecisionMode(const std::string &precision_mode)` | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin` | √        | √        |
+| `std::string GetPrecisionMode() const`                     | - 返回值: 已配置的精度模式                                                                                      | √        | √        |
+| `int GetRankID() const`                                    | - 返回值: 当前运行的RANK ID                                                                                  | √        | √        |
+| `int GetGroupSize() const`                                 | - 返回值: 当前运行的GROUP SIZE                                                                               | √        | √        |
+| `void SetEnableFP16(bool is_fp16)`                         | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                 | √        | √        |
+| `bool GetEnableFP16() const`                               | - 返回值: 已配置的精度模式                                                                                      | √        | √        |
+| `void SetGLContext(void *gl_context)`                      | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值                              | ✕        | √        |
+| `void *GetGLContext() const`                               | - 返回值: 已配置的指向OpenGL EGLContext的指针                                                                    | ✕        | √        |
+| `void SetGLDisplay(void *gl_display)`                      | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值                              | ✕        | √        |
+| `void *GetGLDisplay() const`                               | - 返回值: 已配置的指向OpenGL EGLDisplay的指针                                                                    | ✕        | √        |
+| `void SetEnableGLTexture(bool is_enable_gl_texture)`       | 用于指定是否绑定OpenGL纹理数据<br><br> - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据                              | ✕        | √        |
+| `bool GetEnableGLTexture() const`                          | - 返回值: 已配置的绑定OpenGL纹理数据模式                                                                            | ✕        | √        |
 
 ## KirinNPUDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置，仅MindSpore Lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置。
 
 ### 公有成员函数
 
-|     函数     |     说明      | 云侧推理是否支持 |
-| ------------ | ------------ |-------|
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kKirinNPU |    √   |
-| `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 | ✕     |
-| `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 | ✕     |
-| `void SetEnableFP16(bool is_fp16)`                          | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        ✕ |
-| `bool GetEnableFP16() const`                                | - 返回值: 已配置的精度模式 |       ✕ |
+|     函数     |     说明      | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------ | ------------ |-------|-------|
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kKirinNPU |    √   |    √   |
+| `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 | ✕     |    √   |
+| `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 | ✕     |    √   |
+| `void SetEnableFP16(bool is_fp16)`                          | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        ✕ |    √   |
+| `bool GetEnableFP16() const`                                | - 返回值: 已配置的精度模式 |       ✕ |    √   |
 
 ## AscendDeviceInfo
 
@@ -436,23 +481,23 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                                 | 说明                                                                                                                                                                                                                                                                                | 云侧推理是否支持 |
-|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| `enum DeviceType GetDeviceType() const`                            | - 返回值: DeviceType::kAscend                                                                                                                                                                                                                                                        |    √     |
-| `void SetDeviceID(uint32_t device_id)`                             | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                                                                                                              |        √ |
-| `uint32_t GetDeviceID() const`                                     | - 返回值: 已配置的设备ID                                                                                                                                                                                                                                                                   |        √ |
-| `void SetInsertOpConfigPath(const std::string &cfg_path)`          | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)算子<br><br> - `cfg_path`: [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)配置文件路径   |        √ |
-| `std::string GetInsertOpConfigPath()`                              | - 返回值: 已配置的[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)                                                                                                                                                 |        √ |
-| `void SetInputFormat(const std::string &format)`                   | 指定模型输入formatt<br><br> - `format`: 可选有`"NCHW"`，`"NHWC"`等                                                                                                                                                                                                                           |        √ |
-| `std::string GetInputFormat()`                                     | - 返回值: 已配置模型输入format                                                                                                                                                                                                                                                              |        √ |
-| `void SetInputShape(const std::string &shape)`                     | 指定模型输入shape<br><br> - `shape`: 如`"input_op_name1:1,2,3,4;input_op_name2:4,3,2,1"`                                                                                                                                                                                                 |        √ |
-| `std::string GetInputShape()`                                      | - 返回值: 已配置模型输入shape                                                                                                                                                                                                                                                               |        √ |
-| `void SetOutputType(enum DataType output_type)`                    | 指定模型输出type<br><br> - `output_type`: 仅支持uint8、fp16和fp32                                                                                                                                                                                                                            |        √ |
-| `enum DataType GetOutputType()`                                    | - 返回值: 已配置模型输出type                                                                                                                                                                                                                                                                |        √ |
-| `void SetPrecisionMode(const std::string &precision_mode)`         | 配置模型精度模式<br><br> - `precision_mode`: 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`                                                                                                                               |        √ |
-| `std::string GetPrecisionMode(t)`                                  | - 返回值: 已配置模型精度模式                                                                                                                                                                                                                                                                  |        √ |
-| `void SetOpSelectImplMode(const std::string &op_select_impl_mode)` | 配置算子选择模式<br><br> - `op_select_impl_mode`: 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"`                                                                                                                                                                      |        √ |
-| `std::string GetOpSelectImplMode()`                                | - 返回值: 已配置算子选择模式                                                                                                                                                                                                                                                                  |        √ |
+| 函数                                                                 | 说明                                                                                                                                                                                                                                                                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|--------|
+| `enum DeviceType GetDeviceType() const`                            | - 返回值: DeviceType::kAscend                                                                                                                                                                                                                                                        |    √     |    √     |
+| `void SetDeviceID(uint32_t device_id)`                             | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                                                                                                              |        √ |    √     |
+| `uint32_t GetDeviceID() const`                                     | - 返回值: 已配置的设备ID                                                                                                                                                                                                                                                                   |        √ |    √     |
+| `void SetInsertOpConfigPath(const std::string &cfg_path)`          | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)算子<br><br> - `cfg_path`: [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)配置文件路径   |        √ |    √     |
+| `std::string GetInsertOpConfigPath()`                              | - 返回值: 已配置的[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)                                                                                                                                                 |        √ |    √     |
+| `void SetInputFormat(const std::string &format)`                   | 指定模型输入formatt<br><br> - `format`: 可选有`"NCHW"`，`"NHWC"`等                                                                                                                                                                                                                           |        √ |    √     |
+| `std::string GetInputFormat()`                                     | - 返回值: 已配置模型输入format                                                                                                                                                                                                                                                              |        √ |    √     |
+| `void SetInputShape(const std::string &shape)`                     | 指定模型输入shape<br><br> - `shape`: 如`"input_op_name1:1,2,3,4;input_op_name2:4,3,2,1"`                                                                                                                                                                                                 |        √ |    √     |
+| `std::string GetInputShape()`                                      | - 返回值: 已配置模型输入shape                                                                                                                                                                                                                                                               |        √ |    √     |
+| `void SetOutputType(enum DataType output_type)`                    | 指定模型输出type<br><br> - `output_type`: 仅支持uint8、fp16和fp32                                                                                                                                                                                                                            |        √ |    √     |
+| `enum DataType GetOutputType()`                                    | - 返回值: 已配置模型输出type                                                                                                                                                                                                                                                                |        √ |    √     |
+| `void SetPrecisionMode(const std::string &precision_mode)`         | 配置模型精度模式<br><br> - `precision_mode`: 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`                                                                                                                               |        √ |    √     |
+| `std::string GetPrecisionMode(t)`                                  | - 返回值: 已配置模型精度模式                                                                                                                                                                                                                                                                  |        √ |    √     |
+| `void SetOpSelectImplMode(const std::string &op_select_impl_mode)` | 配置算子选择模式<br><br> - `op_select_impl_mode`: 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"`                                                                                                                                                                      |        √ |    √     |
+| `std::string GetOpSelectImplMode()`                                | - 返回值: 已配置算子选择模式                                                                                                                                                                                                                                                                  |        √ |    √     |
 
 ## Serialization
 
@@ -461,6 +506,15 @@ std::shared_ptr<Allocator> GetAllocator() const;
 Serialization类汇总了模型文件读写的方法。
 
 ### 静态公有成员函数
+
+| 函数                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------|--------|--------|
+| `Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)`      |    √     |    √     |
+| `Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);`      |    √     |    ✕     |
+| `Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);`      |    √     |    √     |
+| `static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model);`      |    ✕     |    ✕     |
+| `static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data);`      |    ✕     |    √     |
+| `static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector<std::string> output_tensor_name = {});`      |    ✕     |    √     |
 
 #### Load
 
@@ -600,6 +654,15 @@ Buffer定义了MindSpore中Buffer数据的结构。
 
 ### 公有成员函数
 
+| 函数                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|-----------------------------|--------|--------|
+| `const void *Data() const`      |    √     |    √     |
+| `void *MutableData()`      |    √     |    √     |
+| `size_t DataSize() const`      |    √     |    √     |
+| `bool ResizeData(size_t data_len)`      |    √     |    √     |
+| `bool SetData(const void *data, size_t data_len)`      |    √     |    √     |
+| `Buffer Clone() const`      |    √     |    √     |
+
 #### Data
 
 ```cpp
@@ -696,49 +759,49 @@ Model();
 
 ### 公有成员函数
 
-| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                           |        √ |
-| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                                      |        √ |
-| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);` |        √ |
-| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);`           |        √ |
-| `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                                    |        ✕ |
-| `Status Build(GraphCell graph, Node *optimizer, std::vector<Expr *> inputs, const std::shared_ptr<Context> &model_context, const std::shared_ptr<TrainCfg> &train_cfg);`                                           |        ✕ |
-| `Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                 |        ✕ |
-| `Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims);`                                                                                                               |        √ |
-| `Status UpdateWeights(const std::vector<MSTensor> &new_weights);`                                                                                                                                                  |        ✕ |
-| `Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                          |        √ |
-| `Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |
-| `Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |
-| `Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`               |        ✕ |
-| `Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs);`                                                                                                             |        ✕ |
-| `bool HasPreprocess();`                                                                                                                                                                                            |        ✕ |
-| `Status LoadConfig(const std::string &config_path);`                                                                                                                                                               |        √ |
-| `Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config);`                                                                                                              |        √ |
-| `std::vector<MSTensor> GetInputs();`                                                                                                                                                                               |        √ |
-| `MSTensor GetInputByTensorName(const std::string &tensor_name);`                                                                                                                                                   |        √ |
-| `std::vector<MSTensor> GetOutputs();`                                                                                                                                                                              |        √ |
-| `std::vector< std::string> GetOutputTensorNames();`                                                                                                                                                                |        √ |
-| `MSTensor GetOutputByTensorName(const std::string &tensor_name);`                                                                                                                                                  |        √ |
-| `std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);`                                                                                                                                        |        ✕ |
-| `static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type);`                                                                                                                                |        √ |
-| `std::vector<MSTensor> GetGradients() const;`                                                                                                                                                                      |        ✕ |
-| `Status ApplyGradients(const std::vector<MSTensor> &gradients);`                                                                                                                                                   |        ✕ |
-| `std::vector<MSTensor> GetFeatureMaps() const;`                                                                                                                                                                    |        ✕ |
-| `std::vector<MSTensor> GetTrainableParams() const;`                                                                                                                                                                |        ✕ |
-| `Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights);`                                                                                                                                              |        ✕ |
-| `std::vector<MSTensor> GetOptimizerParams() const;`                                                                                                                                                                |        ✕ |
-| `Status SetOptimizerParams(const std::vector<MSTensor> &params);`                                                                                                                                                  |        ✕ |
-| `Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f);`                                                                                                                |        ✕ |
-| `Status SetLearningRate(float learning_rate);`                                                                                                                                                                     |        ✕ |
-| `float GetLearningRate();`                                                                                                                                                                                         |        ✕ |
-| `Status InitMetrics(std::vector<Metrics *> metrics);`                                                                                                                                                              |        ✕ |
-| `std::vector<Metrics *> GetMetrics();`                                                                                                                                                                             |        ✕ |
-| `Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture, std::map<std::string, unsigned int> *outputGLTexture);`                                                                   |        ✕ |
-| `Status SetTrainMode(bool train);`                                                                                                                                                                                 |        ✕ |
-| `bool GetTrainMode() const;`                                                                                                                                                                                       |        ✕ |
-| `Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                               |        ✕ |
-| `Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                                        |        ✕ |
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
+| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                           |        √ |        √ |
+| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr);`                                                                                      |        √ |        √ |
+| `Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);` |        √ |        √ |
+| `Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path);`           |        √ |        √ |
+| `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                                    |        ✕ |        √ |
+| `Status Build(GraphCell graph, Node *optimizer, std::vector<Expr *> inputs, const std::shared_ptr<Context> &model_context, const std::shared_ptr<TrainCfg> &train_cfg);`                                           |        ✕ |        √ |
+| `Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`                                                 |        ✕ |        √ |
+| `Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims);`                                                                                                               |        √ |        √ |
+| `Status UpdateWeights(const std::vector<MSTensor> &new_weights);`                                                                                                                                                  |        ✕ |        √ |
+| `Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                          |        √ |        √ |
+| `Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |        √ |
+| `Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`                                                                                                               |        ✕ |        √ |
+| `Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr);`               |        ✕ |        ✕ |
+| `Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs);`                                                                                                             |        ✕ |        ✕ |
+| `bool HasPreprocess();`                                                                                                                                                                                            |        ✕ |        ✕ |
+| `Status LoadConfig(const std::string &config_path);`                                                                                                                                                               |        √ |        √ |
+| `Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config);`                                                                                                              |        √ |        √ |
+| `std::vector<MSTensor> GetInputs();`                                                                                                                                                                               |        √ |        √ |
+| `MSTensor GetInputByTensorName(const std::string &tensor_name);`                                                                                                                                                   |        √ |        √ |
+| `std::vector<MSTensor> GetOutputs();`                                                                                                                                                                              |        √ |        √ |
+| `std::vector< std::string> GetOutputTensorNames();`                                                                                                                                                                |        √ |        √ |
+| `MSTensor GetOutputByTensorName(const std::string &tensor_name);`                                                                                                                                                  |        √ |        √ |
+| `std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);`                                                                                                                                        |        ✕ |        √ |
+| `static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type);`                                                                                                                                |        √ |        √ |
+| `std::vector<MSTensor> GetGradients() const;`                                                                                                                                                                      |        ✕ |        √ |
+| `Status ApplyGradients(const std::vector<MSTensor> &gradients);`                                                                                                                                                   |        ✕ |        √ |
+| `std::vector<MSTensor> GetFeatureMaps() const;`                                                                                                                                                                    |        ✕ |        √ |
+| `std::vector<MSTensor> GetTrainableParams() const;`                                                                                                                                                                |        ✕ |        √ |
+| `Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights);`                                                                                                                                              |        ✕ |        √ |
+| `std::vector<MSTensor> GetOptimizerParams() const;`                                                                                                                                                                |        ✕ |        √ |
+| `Status SetOptimizerParams(const std::vector<MSTensor> &params);`                                                                                                                                                  |        ✕ |        √ |
+| `Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f);`                                                                                                                |        ✕ |        √ |
+| `Status SetLearningRate(float learning_rate);`                                                                                                                                                                     |        ✕ |        √ |
+| `float GetLearningRate();`                                                                                                                                                                                         |        ✕ |        √ |
+| `Status InitMetrics(std::vector<Metrics *> metrics);`                                                                                                                                                              |        ✕ |        √ |
+| `std::vector<Metrics *> GetMetrics();`                                                                                                                                                                             |        ✕ |        √ |
+| `Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture, std::map<std::string, unsigned int> *outputGLTexture);`                                                                   |        ✕ |        √ |
+| `Status SetTrainMode(bool train);`                                                                                                                                                                                 |        ✕ |        √ |
+| `bool GetTrainMode() const;`                                                                                                                                                                                       |        ✕ |        √ |
+| `Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                               |        ✕ |        √ |
+| `Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);`                                                                                                                        |        ✕ |        √ |
 
 #### Build
 
@@ -1237,6 +1300,16 @@ explicit MSTensor(std::nullptr_t);
 
 ### 静态公有成员函数
 
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|------------------------------------------------------------------------------------------------------------------|---------|---------|
+| `MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len) noexcept`                                                                           |        √ |        √ |
+| `MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept`                                                                           |        √ |        √ |
+| `static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept`                 |        √ |        ✕ |
+| `static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8, const std::vector<int64_t> &shape = {}) noexcept`                 |        √ |        ✕ |
+| `MSTensor *StringsToTensor(const std::string &name, const std::vector<std::string> &str)`                                                                           |        √ |        √ |
+| `std::vector<std::string> TensorToStrings(const MSTensor &tensor)`                                                                           |        √ |        √ |
+| `void DestroyTensorPtr(MSTensor *tensor) noexcept`                                                                           |        √ |        √ |
+
 #### CreateTensor
 
 ```cpp
@@ -1346,6 +1419,35 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
     - `tensor`: 由`Clone`、`StringsToTensor`、`CreateRefTensor`或`CreateTensor`返回的指针。
 
 ### 公有成员函数
+
+| 函数                            | 云侧推理是否支持 | 端侧推理是否支持 |
+|---------------------------------------------------------------------------------------------|---------|---------|
+| `std::string Name() const`                                                                           |        √ |        √ |
+| `enum DataType DataType() const`   |        √ |        √ |
+| `const std::vector<int64_t> &Shape() const`   |        √ |        √ |
+| `int64_t ElementNum() const`   |        √ |        √ |
+| `std::shared_ptr<const void> Data() const`   |        √ |        √ |
+| `void *MutableData()`   |        √ |        √ |
+| `size_t DataSize() const`   |        √ |        √ |
+| `bool IsConst() const`   |        √ |        √ |
+| `bool IsDevice() const`   |        √ |        ✕ |
+| `MSTensor *Clone() const`   |        √ |        √ |
+| `bool operator==(std::nullptr_t) const`   |        √ |        √ |
+| `bool operator!=(std::nullptr_t) const`   |        √ |        √ |
+| `bool operator==(const MSTensor &tensor) const`   |        √ |        √ |
+| `void SetShape(const std::vector<int64_t> &shape)`   |        √ |        √ |
+| `void SetDataType(enum DataType data_type)`   |        √ |        √ |
+| `void SetTensorName(const std::string &name)`   |        √ |        √ |
+| `void SetAllocator(std::shared_ptr<Allocator> allocator)`   |        √ |        √ |
+| `std::shared_ptr<Allocator> allocator() const`   |        √ |        √ |
+| `void SetFormat(mindspore::Format format)`   |        √ |        √ |
+| `mindspore::Format format() const`   |        √ |        √ |
+| `void SetData(void *data, bool own_data = true)`   |        √ |        √ |
+| `void SetDeviceData(void *data)`   |        √ |        √ |
+| `void *GetDeviceData()`   |        √ |        √ |
+| `std::vector<QuantParam> QuantParams() const`   |        √ |        √ |
+| `void SetQuantParams(std::vector<QuantParam> quant_params)`   |        √ |        √ |
+| `const std::shared_ptr<Impl> impl()`   |        √ |        √ |
 
 #### Name
 
@@ -1485,7 +1587,7 @@ bool operator!=(std::nullptr_t) const;
 bool operator==(const MSTensor &tensor) const;
 ```
 
-判断`MSTensor`是否与另一个MSTensor相等，仅MindSpore Lite支持。
+判断`MSTensor`是否与另一个MSTensor相等。
 
 - 返回值
 
@@ -1497,7 +1599,7 @@ bool operator==(const MSTensor &tensor) const;
 void SetShape(const std::vector<int64_t> &shape);
 ```
 
-设置`MSTensor`的Shape，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+设置`MSTensor`的Shape，目前在[Delegate](#delegate)机制使用。
 
 #### SetDataType
 
@@ -1505,7 +1607,7 @@ void SetShape(const std::vector<int64_t> &shape);
 void SetDataType(enum DataType data_type);
 ```
 
-设置`MSTensor`的DataType，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+设置`MSTensor`的DataType，目前在[Delegate](#delegate)机制使用。
 
 #### SetTensorName
 
@@ -1513,7 +1615,7 @@ void SetDataType(enum DataType data_type);
 void SetTensorName(const std::string &name);
 ```
 
-设置`MSTensor`的名字，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+设置`MSTensor`的名字，目前在[Delegate](#delegate)机制使用。
 
 #### SetAllocator
 
@@ -1521,7 +1623,7 @@ void SetTensorName(const std::string &name);
 void SetAllocator(std::shared_ptr<Allocator> allocator);
 ```
 
-设置`MSTensor`数据所属的内存池，仅MindSpore Lite支持。
+设置`MSTensor`数据所属的内存池。
 
 - 参数
 
@@ -1533,7 +1635,7 @@ void SetAllocator(std::shared_ptr<Allocator> allocator);
 std::shared_ptr<Allocator> allocator() const;
 ```
 
-获取`MSTensor`数据所属的内存池，仅MindSpore Lite支持。
+获取`MSTensor`数据所属的内存池。
 
 - 返回值
 
@@ -1545,7 +1647,7 @@ std::shared_ptr<Allocator> allocator() const;
 void SetFormat(mindspore::Format format);
 ```
 
-设置`MSTensor`数据的format，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+设置`MSTensor`数据的format，目前在[Delegate](#delegate)机制使用。
 
 #### format
 
@@ -1553,7 +1655,7 @@ void SetFormat(mindspore::Format format);
 mindspore::Format format() const;
 ```
 
-获取`MSTensor`数据的format，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+获取`MSTensor`数据的format，目前在[Delegate](#delegate)机制使用。
 
 #### SetData
 
@@ -1582,7 +1684,7 @@ void SetDeviceData(void *data);
 std::vector<QuantParam> QuantParams() const;
 ```
 
-获取`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+获取`MSTensor`的量化参数，目前在[Delegate](#delegate)机制使用。
 
 #### SetQuantParams
 
@@ -1590,7 +1692,7 @@ std::vector<QuantParam> QuantParams() const;
 void SetQuantParams(std::vector<QuantParam> quant_params);
 ```
 
-设置`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+设置`MSTensor`的量化参数，目前在[Delegate](#delegate)机制使用。
 
 #### impl
 
@@ -1598,7 +1700,7 @@ void SetQuantParams(std::vector<QuantParam> quant_params);
 const std::shared_ptr<Impl> impl()
 ```
 
-获取实现类的指针，仅MindSpore Lite支持。
+获取实现类的指针。
 
 ## QuantParam
 
@@ -2458,6 +2560,10 @@ constexpr int METRICS_MULTILABEL = 1;
 
 ## CharVersion
 
+| 函数                | 云侧推理是否支持 | 端侧推理是否支持 |
+|-----------------------|--------|--------|
+| `std::vector<char> CharVersion()`            | ✕      | √      |
+
 \#include &lt;types.h&gt;
 
 ```cpp
@@ -2471,6 +2577,10 @@ std::vector<char> CharVersion();
   MindSpore Lite版本的字符vector。
 
 ## Version
+
+| 函数                | 云侧推理是否支持 | 端侧推理是否支持 |
+|-----------------------|--------|--------|
+| `std::string Version()`            | ✕      | √      |
 
 \#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
 
@@ -2628,6 +2738,10 @@ inline Status(enum StatusCode status_code, const std::string &status_msg = "");
 inline Status(const StatusCode code, int line_of_code, const char *file_name, const std::string &extra = "");
 ~Status() = default;
 ```
+
+### 公有成员函数
+
+所有`Status`公有成员函数，在云侧和端侧推理中都受支持。
 
 #### StatusCode
 
@@ -2973,6 +3087,17 @@ RunnerConfig();
 
 ### 公有成员函数
 
+| 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------------------------|---------|---------|
+| `void SetWorkersNum(int32_t workers_num)`                   |        √ |        ✕ |
+| `int32_t GetWorkersNum() const`                   |        √ |        ✕ |
+| `void SetContext(const std::shared_ptr<Context> &context)`                   |        √ |        ✕ |
+| `std::shared_ptr<Context> GetContext() const`                   |        √ |        ✕ |
+| `inline void SetConfigInfo(const std::string &section, const std::map<std::string, std::string> &config)`                   |        √ |        ✕ |
+| `inline std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const`                   |        √ |        ✕ |
+| `inline void SetConfigPath(const std::string &config_path)`                   |        √ |        ✕ |
+| `inline std::string GetConfigPath() const`                   |        √ |        ✕ |
+
 #### SetWorkersNum
 
 ```cpp
@@ -3084,6 +3209,14 @@ ModelParallelRunner();
 ```
 
 ### 公有成员函数
+
+| 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------------------------|---------|---------|
+| `inline Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &runner_config = nullptr)`                   |        √ |        ✕ |
+| `Status Init(const void *model_data, const size_t data_size, const std::shared_ptr<RunnerConfig> &runner_config = nullptr)`                   |        √ |        ✕ |
+| `std::vector<MSTensor> GetInputs()`                   |        √ |        ✕ |
+| `std::vector<MSTensor> GetOutputs()`                   |        √ |        ✕ |
+| `Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)`                   |        √ |        ✕ |
 
 #### Init
 
