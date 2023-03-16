@@ -22,19 +22,6 @@ First, we need to import the iris dataset, and before importing the dataset, we 
 pip show scikit-learn
 ```
 
-```text
-Name: scikit-learn
-Version: 1.0.1
-Summary: A set of python modules for machine learning and data mining
-Home-page: http://scikit-learn.org
-Author:
-Author-email:
-License: new BSD
-Location: /usr/local/lib/python3.7/dist-packages
-Requires: joblib, numpy, scipy, threadpoolctl
-Required-by:
-```
-
 If no error is reported, it means it has been installed. To briefly explain, sklearn is the abbreviation of scikit-learn, which is a third-party module based on Python. The sklearn library integrates some common machine learning methods. When performing machine learning tasks, there is no need to implement algorithms. Most machine learning tasks can be completed by simply calling the modules provided in the sklearn library.
 
 If the sklearn library is not installed, it can be installed by running the following code.
@@ -42,10 +29,6 @@ If the sklearn library is not installed, it can be installed by running the foll
 ```bash
 pip install scikit-learn
 ```
-
-## Importing the iris dataset
-
-With the above preparation, now we can import the iris dataset.
 
 ```python
 import numpy as np                                        # Import the numpy library and abbreviated as np
@@ -143,7 +126,7 @@ print(X.shape)                        # Print the data dimension of the sample o
 (100, 7)
 ```
 
-It can be seen from the above print that there are still 100 samples in the dataset X at this time, but each sample has 7 features at this time, the first 4 feature values are the original feature values, and the last 3 feature values are the ones calculated by the above preprocessing. The specific calculation formula is as follows:
+It can be seen from the above print that there are still 100 samples in the dataset `X` at this time, but each sample has 7 features at this time, the first 4 feature values are the original feature values, and the last 3 feature values are the ones calculated by the above preprocessing. The specific calculation formula is as follows:
 
 $$ X_{i+4}^{j} = X_{i}^{j} * X_{i+1}^{j}, i=0,1,2,j=1,2,...,100. $$
 
