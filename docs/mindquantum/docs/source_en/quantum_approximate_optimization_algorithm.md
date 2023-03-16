@@ -6,6 +6,8 @@
 
 Quantum approximate optimization algorithm (QAOA) is a quantum algorithm that uses quantum computers to solve combination optimization problems. It was first proposed by Farhi et al. in 2014. In this tutorial, we will use QAOA to solve the Max-Cut problem and get familiar with the construction and training of quantum circuits in MindQuantum.
 
+> This document applies to the CPU environment.
+
 ## Environment Preparation
 
 This tutorial requires the following library:
@@ -13,6 +15,10 @@ This tutorial requires the following library:
 - networkx
 
 > `NetworkX` is a library for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks. You can run the `pip3 install networkx` command to install it.
+
+```bash
+pip3 install networkx
+```
 
 ## Max-Cut Problem Description
 
@@ -22,17 +28,49 @@ The Max-Cut problem is an NP-complete problem in the graph theory. It needs to d
 
 ## Max-Cut Problem Quantization
 
-Assign each vertex a quantum bit. If the vertex is allocated to the left side, its quantum bit is set to the $\left|0\right>$ state. If the vertex is on the right side, its quantum bit is set to the $\left|1\right>$ state. When two vertices are in different sets, the bits on the two vertices are in different quantum states. For the vertex 0 and the vertex 1, when their connection line is cut, quantum states corresponding to bits on the two vertices may be $\left|\psi\right>=\left|0_11_0\right>$ or $\left|\psi\right>=\left|1_10_0\right>$, where the subscript represents the vertex number. Select the Hamiltonian $H=(Z_1Z_0-1)/2$, where $Z$ is the Pauli $Z$ operator. You can find that:
+Assign each vertex a quantum bit. If the vertex is allocated to the left side, its quantum bit is set to the $\left|0\right>$ state. If the vertex is on the right side, its quantum bit is set to the $\left|1\right>$ state. When two vertices are in different sets, the bits on the two vertices are in different quantum states. For the vertex 0 and the vertex 1, when their connection line is cut, quantum states corresponding to bits on the two vertices may be $|01\rangle$ (vertax 1: left, vertax 0: right) or $|10\rangle$ (vertax 1: right, vertax 0: left). If they are partitioned to the same side, the corresponding quantum state is $|00\rangle$ or $|11\rangle$. So we just need to find a Hamiltonian $H$ that makes the expectation value of the Hamiltonian to -1 when there are connected two vertices in different quantum states, i.e.
 
-$$\left<\psi\right|H\left|\psi\right>=-1$$
+$$
+\langle 01|H|01\rangle=-1,\quad \langle 10|H|10\rangle=-1
+$$
 
-When vertices are in the same set, you can verify that:
+When vertices are in the same quantum state, the expected value of Hamiltonian quantity is 0, i.e
 
-$$\left<\psi\right|H\left|\psi\right>=0$$
+$$
+\langle 00|H|00\rangle=0,\quad \langle 11|H|11\rangle=0
+$$
 
-Therefore, we only need to write the Hamiltonian $H$ corresponding to the graph according to the preceding rule, and obtain the ground state energy and the ground state of $H$ by using a quantum computer. Then, we can obtain the Max-Cut cutting solution and the maximum number of cut edges of the graph. Assuming that the set of all edges is $C$ and the number of all edges is $c$, the Hamiltonian can be written as follows:
+Subsequently the maximum number of cut edges, and the corresponding grouping case at that point, can be found by simply minimizing the expected value of the Hamiltonian quantity. The reason why the expected value at different quantum states is set to -1 is that in the training of the quantum neural network, the gradient of the parameters in Ansatz keeps decreasing, and also the measured value keeps decreasing. The training method is aimed at finding the minimum value, and here we use it to find the ground state energy of the Hamiltonian quantity. At this point, we choose the Hamiltonian $H=(Z_1Z_0-1)/2$, where $Z$ is the Pauli $Z$ operator. We can see that:
 
-$$H=\sum_{(i,j)\in C}(Z_iZ_j-1)/2$$
+$$
+Z_1Z_0|00\rangle=|00\rangle,\quad Z_1Z_0|11\rangle=|11\rangle, \quad Z_1Z_0|01\rangle=-|01\rangle, \quad Z_1Z_0|10\rangle=-|10\rangle
+$$
+
+Thus when the vertices are partitioned into different sets:
+
+$$
+\left<01\right|H\left|01\right>=\frac{1}{2}\left<01\right|Z_1Z_0\left|01\right>-\frac{1}{2}=-1
+$$
+
+$$
+\left<10\right|H\left|10\right>=\frac{1}{2}\left<10\right|Z_1Z_0\left|10\right>-\frac{1}{2}=-1
+$$
+
+And when the vertices are partitioned into the same set, it is not difficult to verify that:
+
+$$
+\left<00\right|H\left|00\right>=\frac{1}{2}\left<00\right|Z_1Z_0\left|00\right>-\frac{1}{2}=0
+$$
+
+$$
+\left<11\right|H\left|11\right>=\frac{1}{2}\left<11\right|Z_1Z_0\left|11\right>-\frac{1}{2}=0
+$$
+
+Therefore, we just write the above Hamiltonian for each edge in the graph and then sum up all the edges to write the Hamiltonian $H$ corresponding to the graph. Using a quantum computer to find the ground state energy and ground state of $H$, we can get the Max-Cut cutting scheme and the maximum number of cutting edges of the graph. We write down the set of all edges as $C$ and the number of all edge strips as $c$, then the Hamiltonian quantity can be written as:
+
+$$
+H=\sum_{(i,j)\in C}(Z_iZ_j-1)/2
+$$
 
 ## Importing Dependencies
 
@@ -67,51 +105,143 @@ nx.draw(g,with_labels=True, font_weight='bold')
 
 As shown in the preceding figure, a graph structure consisting of five vertices and six edges is obtained.
 
-## Setting up a QAOA Circuit
+## The Process of QAQA Algorithm
 
-### Circuit Setup
+1. Build a QAOA quantum circuit, where the ansatz circuit contains parameters that can be trained
+2. Initialize the parameters in the circuit
+3. Run this quantum circuit and get the quantum state $|\psi\rangle$
+4. ompute the expected value $\langle\psi|H_C|\psi\rangle$ of the target Hamiltonian $H_C$
+5. Based on the results of step 4, use the Adam optimizer to optimize the parameters in the circuit
+6. Repeat steps 3-5 until the results in step 4 are basically unchanged
+7. Based on the result of step 4, the approximate solution of the target problem is calculated
 
-We use the quantum adiabatic approximation algorithm to evolve the quantum state from the eigenstate of $X^{\otimes n}$ to the ground state of Hamiltonian corresponding to the graph.
+In this process, steps 2-6 can all be implemented by packages and functions available in MindSpore and MindQuantum, so we will focus on step 1: building the quantum circuit.
 
-Build the time-dependent evolution circuit of Hamiltonian corresponding to the graph:
+## Setting up a QAOA Quantum Circuit
+
+As mentioned previously, we need to combine the Hamiltonian quantities corresponding to the problem:
+
+$$
+H_C=\sum_{(i,j)\in C}(Z_iZ_j-1)/2
+$$
+
+Minimization to find the solution of the problem, which means we have to find the ground state of that Hamiltonian quantity. We can use quantum adiabatic evolution to make the system first on the ground state of some simple Hamiltonian $H_B$, and then make the simple Hamiltonian $H_B$ evolve adiabatically and slowly to some complex Hamiltonian $H_C$. According to the adiabatic theorem, the system will always remain on the ground state of the Hamiltonian, and finally reach the ground state of the complex Hamiltonian $H_C$.
+
+The quantum circuit we are going to build is using the above idea, choosing the initial simple Hamiltonian quantity as:
+
+$$
+H_B=\sum_i X_i
+$$
+
+Prepare the quantum circuit to the ground state $|s\rangle=|+\rangle^{\otimes n}$ of $H_B$, which can be achieved here by acting `Hadamard` gate on all quantum bits. Then the ansatz circuits are connected, and by continuously optimizing the parameters, the ansatz circuits can be made closer to the real adiabatic evolution, and the finally obtained quantum circuits can be regarded as simulating a real adiabatic evolution.
+
+### ansatz Circuit
+
+In the quantum adiabatic evolution, the initial Hamiltonian quantities are first selected
+
+$$
+H_B=\sum_i X_i
+$$
+
+Put the system in the $H_B$ ground state $|s\rangle=|+\rangle^{\otimes n}$. Then slowly act on the following time-dependent Hamiltonian:
+
+$$
+H(t)=(1-\frac{t}{T})H_B+(\frac{t}{T})H_C
+$$
+
+Notice that $H(T)=H_C$ when $t=T$. When the chosen $T$ is large enough (satisfying the adiabatic condition), the system will always be on the instantaneous ground state of $H(t)$, when the quantum state of the system will evolve adiabatically from the ground state $|\psi (0)\rangle$ of the initial Hamiltonian $H_B$ to the ground state $|\psi (T)\rangle$ of the target Hamiltonian $H_C$, i.e.
+
+$$
+|\psi (T)\rangle=\mathcal{T}e^{-i\int^{T}_{0} H(t)dt}|\psi(0)\rangle
+$$
+
+That is, the ansatz circuit needs to model the evolution process $\mathcal{T}e^{-i\int^{T}_{0} H(t)dt}$. Next we will make some approximations and simplifications to this equation to make it into a form that can be implemented in quantum circuits.
+
+Considering the following trotter formula:
+
+$$
+\mathcal{T}e^{-i\int^T_0 H(t)dt}=\lim_{N\rightarrow \infty}\prod^N_{l=1}e^{-iH(t_l)\Delta t},\quad \Delta t=\frac{T}{N},\quad t_l=l\Delta t
+$$
+
+Omitting the $O(\Delta t^2)$ term, we obtain:
+
+$$
+\mathcal{T}e^{-i\int^T_0 H(t)dt}\approx \lim_{N\rightarrow \infty}\prod^N_{l=1}e^{-iH_B(1-t_l/T)\Delta t}e^{-iH_C t_l\Delta t/T}
+$$
+
+Let $\beta_l=(1-t_l/T)\Delta t$, $\gamma_l=t_l\Delta t/T$, and take $N$ as a finite large integer, that is, the ansatz of QAOA is obtained:
+
+$$
+|\psi(\gamma,\beta)\rangle=\prod^p_{l=1}e^{-i\beta_l H_B}e^{-i\gamma_l H_C}|\psi_{in}\rangle
+$$
+
+Thus the ansatz line we need to build consists of $U_C(\gamma)$ and $U_B(\beta)$ which alternate the two unitary transformations, where $U_C(\gamma)=e^{-i\gamma \sum_{\langle i,j\rangle}Z_i Z_j}$ can be implemented by the `ZZ` gate. $U_B(\beta)=e^{-i\beta \sum_i X_i}$ is then equivalent to acting a `RX` revolving gate on each quantum bit, with $\gamma$ and $\beta$ as trainable parameters.
+
+Build the quantum circuit corresponding to $U_C(\gamma)$:
 
 ```python
-def build_hc(g,para):
-    hc = Circuit()
+def build_hc(g, para):
+    hc = Circuit()                  # Build quantum circuit
     for i in g.edges:
-        hc += ZZ(para).on(i)
+        hc += ZZ(para).on(i)        # Act ZZ gate on each edge of the diagram
+    hc.barrier()                    # Add Barrier for easy display of circuits
     return hc
 ```
 
-Build the time-dependent quantum circuit for $X^{\otimes n}$:
+Display the circuits:
+
+```python
+# pylint: disable=W0104
+circuit = build_hc(g, 'gamma')
+circuit.svg()
+```
+
+Build the quantum circuits corresponding to $U_B(\beta)$:
 
 ```python
 def build_hb(g, para):
-    hc = Circuit()
+    hb = Circuit()                  # Build quantum circuit
     for i in g.nodes:
-        hc += RX(para).on(i)
-    return hc
+        hb += RX(para).on(i)        # Act RX gate on each node
+    hb.barrier()                    # Add Barrier for easy display of circuits
+    return hb
 ```
 
-To ensure that the final optimization result is accurate, the quantum circuit needs to be repeated for multiple times. Therefore, a multi-layer training network is built by using the following functions:
+Display the circuits:
 
 ```python
-def build_ansatz(g, p):
-    c = Circuit()
-    for i in range(p):
-        c += build_hc(g,f'g{i}')
-        c += build_hb(g,f'b{i}')
-    return c
+# pylint: disable=W0104
+circuit = build_hb(g, 'beta')
+circuit.svg()
 ```
 
-Build Hamiltonian corresponding to the graph:
+The ansatz circuit that implements a layer of unitary transform $U_B(\beta) U_C(\gamma)$ is shown below:
+
+```python
+# pylint: disable=W0104
+circuit = build_hc(g, 'gamma') + build_hb(g, 'beta')
+circuit.svg()
+```
+
+In order to make the final optimization result accurate enough, we need to repeat the quantum circuit several times, so we build a multilayer training network by the following function:
+
+```python
+def build_ansatz(g, p):                    # g is the graph of the max-cut problem, and p is the number of layers of the ansatz circuit
+    circ = Circuit()                       # Build quantum circuit
+    for i in range(p):
+        circ += build_hc(g, f'g{i}')       # Add the circuit corresponding to Uc, with parameters noted as g0, g1, g2...
+        circ += build_hb(g, f'b{i}')       # Add the circuit corresponding to Ub, with parameters noted as b0, b1, b2...
+    return circ
+```
+
+The Hamiltonian quantity $H_C=\sum_{(i,j)\in C}(Z_iZ_j-1)/2$ corresponding to construction graph(ignoring the constant terms and coefficients).
 
 ```python
 def build_ham(g):
-    hc = QubitOperator()
+    ham = QubitOperator()
     for i in g.edges:
-        hc += QubitOperator(f'Z{i[0]} Z{i[1]}')
-    return hc
+        ham += QubitOperator(f'Z{i[0]} Z{i[1]}')  # Generate the Hamiltonian quantity Hc
+    return ham
 ```
 
 ### Generating a Complete Quantum Circuit and the Hamiltonian Corresponding to the Graph
@@ -119,10 +249,13 @@ def build_ham(g):
 In this example, `p = 4` is selected, indicating that the four-layer QAOA quantum circuit is used. `ansatz` is a quantum circuit for solving the problem, and `init_state_circ` is a quantum circuit for preparing a quantum state on a uniformly superposed state.
 
 ```python
+# pylint: disable=W0104
 p = 4
-ham = Hamiltonian(build_ham(g))
-ansatz = build_ansatz(g, p)
-init_state_circ = UN(H, g.nodes)
+ham = Hamiltonian(build_ham(g))              # Generate Hamiltonian quantities
+init_state_circ = UN(H, g.nodes)             # Generate uniform superposition states, i.e., act H-gate on all quantum bits
+ansatz = build_ansatz(g, p)                  # Generate ansatz circuit
+circ = init_state_circ + ansatz              # Combine the initialized circuit and the ansatz circuit into one circuit
+circ.svg()
 ```
 
 ### Building a Quantum Neural Network to Be Trained
@@ -133,150 +266,78 @@ This problem does not require a coding-layer quantum circuit, so we use `MQAnsat
 import mindspore as ms
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 
-total_circuit = init_state_circ + ansatz
-sim = Simulator('mqvector', total_circuit.n_qubits)
-grad_ops = sim.get_expectation_with_grad(ham, total_circuit)
-net = MQAnsatzOnlyLayer(grad_ops)
-opti = nn.Adam(net.trainable_params(), learning_rate=0.05)
-train_net = nn.TrainOneStepCell(net, opti)
+sim = Simulator('mqvector', circ.n_qubits)                     # Create the simulator, backend using 'mqvector', capable of simulating 5 bits (the number of bits contained in the 'circ' line)
+grad_ops = sim.get_expectation_with_grad(ham, circ)            # Obtain the operator to calculate the expectation and gradient of the variational quantum circuit
+net = MQAnsatzOnlyLayer(grad_ops)                              # Generate the neural network to be trained
+opti = nn.Adam(net.trainable_params(), learning_rate=0.05)     # Set the Adam optimizer for all trainable parameters in the network with a learning rate of 0.05
+train_net = nn.TrainOneStepCell(net, opti)                     # One-step training of neural networks
 ```
 
 ## Displaying Training Results
 
 ```python
-for i in range(600):
+for i in range(200):
+    cut = (len(g.edges) - train_net()) / 2      # Train the neural network for one step and calculate the result (number of cut edges). Note: Every time 'train_net()' is run, the neural network is trained for one step
     if i%10 == 0:
-        print("train step:", i, ", cut:", (len(g.edges)-train_net())/2)
+        print("train step:", i, ", cut:", cut)  # Every 10 training steps, print the current number of training steps and the current number of cutting edges obtained
 ```
 
-```bash
-train step: 0 , cut: [[3.0059216]]
-train step: 10 , cut: [[3.3262742]]
-train step: 20 , cut: [[3.7228582]]
-train step: 30 , cut: [[3.983411]]
-train step: 40 , cut: [[4.135832]]
-train step: 50 , cut: [[4.216693]]
-train step: 60 , cut: [[4.2141833]]
-train step: 70 , cut: [[4.2036085]]
-train step: 80 , cut: [[4.260594]]
-train step: 90 , cut: [[4.373112]]
-train step: 100 , cut: [[4.4853263]]
-train step: 110 , cut: [[4.5553446]]
-train step: 120 , cut: [[4.587566]]
-train step: 130 , cut: [[4.611128]]
-train step: 140 , cut: [[4.637698]]
-train step: 150 , cut: [[4.6584387]]
-train step: 160 , cut: [[4.66508]]
-train step: 170 , cut: [[4.663408]]
-train step: 180 , cut: [[4.6678705]]
-train step: 190 , cut: [[4.6875486]]
-train step: 200 , cut: [[4.7206187]]
-train step: 210 , cut: [[4.7580614]]
-train step: 220 , cut: [[4.7893686]]
-train step: 230 , cut: [[4.8074245]]
-train step: 240 , cut: [[4.8116426]]
-train step: 250 , cut: [[4.8077316]]
-train step: 260 , cut: [[4.803544]]
-train step: 270 , cut: [[4.8039436]]
-train step: 280 , cut: [[4.8088512]]
-train step: 290 , cut: [[4.8154163]]
-train step: 300 , cut: [[4.821649]]
-train step: 310 , cut: [[4.8281393]]
-train step: 320 , cut: [[4.8366113]]
-train step: 330 , cut: [[4.847317]]
-train step: 340 , cut: [[4.858108]]
-train step: 350 , cut: [[4.865946]]
-train step: 360 , cut: [[4.8693476]]
-train step: 370 , cut: [[4.869488]]
-train step: 380 , cut: [[4.868954]]
-train step: 390 , cut: [[4.8695197]]
-train step: 400 , cut: [[4.8711824]]
-train step: 410 , cut: [[4.8730283]]
-train step: 420 , cut: [[4.874686]]
-train step: 430 , cut: [[4.8768916]]
-train step: 440 , cut: [[4.880748]]
-train step: 450 , cut: [[4.8865013]]
-train step: 460 , cut: [[4.8930907]]
-train step: 470 , cut: [[4.898922]]
-train step: 480 , cut: [[4.9031305]]
-train step: 490 , cut: [[4.906122]]
-train step: 500 , cut: [[4.9088955]]
-train step: 510 , cut: [[4.9119415]]
-train step: 520 , cut: [[4.9149566]]
-train step: 530 , cut: [[4.9175825]]
-train step: 540 , cut: [[4.920064]]
-train step: 550 , cut: [[4.9228735]]
-train step: 560 , cut: [[4.925872]]
-train step: 570 , cut: [[4.9282985]]
-train step: 580 , cut: [[4.929679]]
-train step: 590 , cut: [[4.930426]]
+```text
+train step: 0 , cut: [3.0001478]
+train step: 10 , cut: [4.1718774]
+train step: 20 , cut: [4.6871986]
+train step: 30 , cut: [4.7258005]
+train step: 40 , cut: [4.804503]
+train step: 50 , cut: [4.8477592]
+train step: 60 , cut: [4.8705964]
+train step: 70 , cut: [4.9060946]
+train step: 80 , cut: [4.933446]
+train step: 90 , cut: [4.9356637]
+train step: 100 , cut: [4.938308]
+train step: 110 , cut: [4.9390197]
+train step: 120 , cut: [4.939068]
+train step: 130 , cut: [4.9392157]
+train step: 140 , cut: [4.939249]
+train step: 150 , cut: [4.939247]
+train step: 160 , cut: [4.939255]
+train step: 170 , cut: [4.939257]
+train step: 180 , cut: [4.939257]
+train step: 190 , cut: [4.939257]
 ```
 
 Based on the above training results, we find that the number of cut edges corresponding to the ground state energy of Hamiltonian is close to 5.
 
-### Displaying Quantum State
+### Optimal Parameter
 
-We have obtained the optimal values of the parameters in the quantum circuit through training. Next, we use the `final_state` of the `StateEvolution` class to output the quantum state of the quantum circuit in the case of optimal parameters. The `ket` parameter indicates whether to represent the final quantum state as the right vector.
+Previously, we obtained the optimal values of the parameters in the quantum circuit by training. In the following, we extract the optimal parameters and store them as dictionary types, which correspond to the parameters named in the previous circuit.
 
 ```python
-pr = dict(zip(ansatz.params_name, net.weight.asnumpy()))
-print(total_circuit.get_qs(pr=pr, ket=True))
+pr = dict(zip(ansatz.params_name, net.weight.asnumpy())) # Obtain circuit parameters
+print(pr)
 ```
 
-```bash
-(0.017737679183483124-0.03180303797125816j)¦00000⟩
-(-0.02683155983686447+0.0012889178469777107j)¦00001⟩
-(0.011993971653282642+0.006973826792091131j)¦00010⟩
-(-0.014608755707740784-0.003942559473216534j)¦00011⟩
-(-0.02683155983686447+0.0012889178469777107j)¦00100⟩
-(0.00725862430408597+0.10942266136407852j)¦00101⟩
-(-0.014608755707740784-0.003942559473216534j)¦00110⟩
-(0.008969870395958424-0.004171415697783232j)¦00111⟩
-(0.00950924027711153-0.00026544960564933717j)¦01000⟩
-(-0.37196943163871765-0.3156493902206421j)¦01001⟩
-(-0.040885526686906815+0.037214867770671844j)¦01010⟩
-(-0.37196943163871765-0.3156493902206421j)¦01011⟩
-(-0.03160367161035538+0.009305878542363644j)¦01100⟩
-(-0.040885526686906815+0.037214867770671844j)¦01101⟩
-(-0.03160367161035538+0.009305878542363644j)¦01110⟩
-(0.00950924027711153-0.00026544960564933717j)¦01111⟩
-(0.00950924027711153-0.00026544960564933717j)¦10000⟩
-(-0.03160367161035538+0.009305878542363644j)¦10001⟩
-(-0.040885526686906815+0.037214867770671844j)¦10010⟩
-(-0.03160367161035538+0.009305878542363644j)¦10011⟩
-(-0.37196943163871765-0.3156493902206421j)¦10100⟩
-(-0.040885526686906815+0.037214867770671844j)¦10101⟩
-(-0.37196943163871765-0.3156493902206421j)¦10110⟩
-(0.00950924027711153-0.00026544960564933717j)¦10111⟩
-(0.008969870395958424-0.004171415697783232j)¦11000⟩
-(-0.014608755707740784-0.003942559473216534j)¦11001⟩
-(0.00725862430408597+0.10942266136407852j)¦11010⟩
-(-0.02683155983686447+0.0012889178469777107j)¦11011⟩
-(-0.014608755707740784-0.003942559473216534j)¦11100⟩
-(0.011993971653282642+0.006973826792091131j)¦11101⟩
-(-0.02683155983686447+0.0012889178469777107j)¦11110⟩
-(0.017737679183483124-0.03180303797125816j)¦11111⟩
+```text
+{'g0': 0.22448167, 'b0': -1.1390871, 'g1': 0.45314747, 'b1': -0.94472605, 'g2': 0.5338268, 'b2': -0.67756957, 'g3': 0.58400834, 'b3': -0.38243017}
 ```
 
 ### Probabilistic Graph
 
-We draw the probability distribution of the final quantum state under the calculated basis vector.
+We substitute the optimal parameters into the quantum circuit and draw the probability distribution of the final quantum state under the computed vector by sampling the quantum circuit 1000 times:
 
 ```python
-def show_amp(state):
-    amp = np.abs(state)**2
-    n_qubits = int(np.log2(len(amp)))
-    labels = [bin(i)[2:].zfill(n_qubits) for i in range(len(amp))]
-    plt.bar(labels, amp)
-    plt.xticks(rotation=45)
-    plt.show()
-state = total_circuit.get_qs(pr=pr)
-show_amp(state)
+# pylint: disable=W0104
+circ.measure_all()                               # Add measurement gates for all bits in the circuit
+sim.sampling(circ, pr=pr, shots=1000).svg()      # Run the circuit 1000 times and print the results
 ```
 
-![png](./images/maxcut_dist.png)
-
 According to the probability distribution diagram, the Max-Cut problem has four degenerate solutions, and the probability corresponding to each solution is about 25%.
+
+- `01001`: The vertices numbered 1, 2, and 4 are on the left, and the vertices numbered 0 and 3 are on the right.
+- `10110`: The vertices numbered 0 and 3 are on the left, and the vertices numbered 1, 2, and 4 are on the right.
+- `01011`: The vertices numbered 2 and 4 are on the left, and the vertices numbered 0, 1, and 3 are on the right.
+- `10100`: The vertices numbered 0, 1, and 3 are on the left, and the vertices numbered 2 and 4 are on the right.
+
+It can be found that the above results are consistent with the previous results obtained by the exhaustive method.
 
 ## Summary
 

@@ -13,7 +13,7 @@ tf.random.uniform_candidate_sampler(
     range_max,
     seed=None,
     name=None
-)  -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
+)(sampled_candidates, true_expected_count, sampled_expected_count)  -> Tuple
 ```
 
 For more information, see [tf.random.uniform_candidate_sampler](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/random/uniform_candidate_sampler).
@@ -29,7 +29,7 @@ mindspore.ops.uniform_candidate_sampler(
     range_max,
     seed=0,
     remove_accidental_hits=False
-) -> Tuple(sampled_candidates, true_expected_count, sampled_expected_count)
+)(sampled_candidates, true_expected_count, sampled_expected_count) -> Tuple
 ```
 
 For more information, see [mindspore.ops.uniform_candidate_sampler](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.uniform_candidate_sampler.html).

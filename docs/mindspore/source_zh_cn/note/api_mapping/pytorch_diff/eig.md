@@ -26,7 +26,7 @@ MindSpore：返回 `eigenvalues` 和 `eigenvectors`。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
-| 参数 | 参数1 | input   | x         | 功能一致，参数名不同                    |
+| 参数 | 参数1 | input   | A         | 功能一致，参数名不同                    |
 |      | 参数2 | eigenvectors   | -      |MindSpore无此参数  |
 |      | 参数3 | out   | -         | PyTorch的 `out` 可以获取输出，MindSpore无此参数 |
 

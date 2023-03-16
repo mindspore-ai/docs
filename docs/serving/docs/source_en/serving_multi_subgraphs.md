@@ -87,6 +87,8 @@ For more detailed examples, see [Quick Start for Beginners](https://www.mindspor
 
 Execute the `export_matmul.py` script to generate the `matmul_0.mindir` and `matmul_1.mindir` files. The inputs shapes of these subgraphs are [128,96] and [8,96].
 
+### Deploying Inference Services
+
 #### Configuring the Service
 
 Start Serving with the following files:

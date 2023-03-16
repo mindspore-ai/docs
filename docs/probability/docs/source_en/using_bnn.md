@@ -119,7 +119,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     return mnist_ds
 ```
 
-### Defining the BNN
+## Defining the BNN
 
 In the classic LeNet5 network, the data goes through the following calculation process: convolution 1->activation->pooling->convolution 2->activation->pooling->dimensionality reduction->full connection 1->full connection 2-> Fully connected 3.
 
@@ -180,7 +180,7 @@ fc3.bias_posterior.untransformed_std
 
 The printed information shows that the convolutional layer and the fully connected layer of the LeNet network constructed with the `bnn_layers` module are both Bayesian layers.
 
-### Defining the Loss Function and Optimizer
+## Defining the Loss Function and Optimizer
 
 Next, you need to define the loss function and the optimizer. The loss function is the training target of deep learning, also called the objective function. It can be understood as the distance between the output of the neural network (Logits) and the label (Labels), which is a scalar data.
 
@@ -200,7 +200,7 @@ criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 optimizer = nn.AdamWeightDecay(params=network.trainable_params(), learning_rate=0.0001)
 ```
 
-### Training the Network
+## Training the Network
 
 The training process of BNN is similar to that of DNN. The only difference is that `WithLossCell` is replaced with `WithBNNLossCell` applicable to BNN. In addition to the `backbone` and `loss_fn` parameters, the `dnn_factor` and `bnn_factor` parameters are added to `WithBNNLossCell`. `dnn_factor` is a coefficient of the overall network loss computed by a loss function, and `bnn_factor` is a coefficient of the KL divergence of each Bayesian layer. The two parameters are used to balance the overall network loss and the KL divergence of the Bayesian layer, preventing the overall network loss from being covered by a large KL divergence.
 
