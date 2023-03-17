@@ -2,6 +2,14 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/interpolate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+以下映射关系均可参考本文。
+
+|     PyTorch APIs                |      MindSpore APIs       |
+| :-----------------------------: | :-----------------------: |
+| torch.nn.functional.interpolate | mindspore.ops.interpolate |
+| torch.nn.functional.upsample    | mindspore.ops.upsample    |
+| torch.nn.Upsample               | mindspore.nn.Upsample     |
+
 ## torch.nn.functional.interpolate
 
 ```python
@@ -39,8 +47,8 @@ MindSpore：和PyTorch实现功能基本一致，但是对于一些参数支持�
 | 分类 | 子类  | PyTorch | MindSpore | 差异 |
 | ---- | ----- | ------- | --------- | ---- |
 | 参数 | 参数1 | size     | size         | - |
-|  | 参数2 | scale_factor | scale_factor  | 功能一致，目前仅支持'nearest'(5D)，'trilinear'和'area'模式直接传入缩放系数，对于不支持的模式可以通过设置 `recompute_scale_factor` 参数为True进行规避（当 `scale_factor` 为浮点数时，可能产生精度误差） |
-|  | 参数3 | mode      | mode   | 功能一致，除上述六种模式外，MindSpore还支持'nearest-exact'模式 |
+|  | 参数2 | scale_factor | scale_factor  | 功能一致，目前仅支持'area'模式直接传入缩放系数，对于不支持的模式可以通过设置 `recompute_scale_factor` 参数为True进行规避（当 `scale_factor` 为浮点数时，可能产生精度误差） |
+|  | 参数3 | mode      | mode   | 功能一致，MindSpore暂不支持'nearest'(5D)和'trilinear'模式 |
 |  | 参数4 | align_corners | align_corners | 功能一致, 但在'bicubic'模式 `align_corners=False` 时，计算方式和TensorFlow相同，结果和PyTorch有差异 |
 |  | 参数5 | recompute_scale_factor |   recompute_scale_factor    | - |
 | 输入 | 单输入 | input      |  x  | 功能一致，参数名不同  |

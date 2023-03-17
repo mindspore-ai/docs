@@ -427,7 +427,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.TripletMarginLoss](https://pytorch.org/docs/1.8.1/generated/torch.nn.TripletMarginLoss.html) | [mindspore.nn.TripletMarginLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TripletMarginLoss.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
 | [torch.nn.Unflatten](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unflatten.html) | [mindspore.nn.Unflatten](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unflatten.html)  |  Consistent|
 | [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Unfold.html) | [mindspore.nn.Unfold](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unfold.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Unfold.html) |
-| [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html#torch.nn.Upsample) | [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)| [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/ResizeBicubic.html) |
+| [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html) | [mindspore.nn.Upsample](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Upsample.html)| [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/interpolate.html) |
 | [torch.nn.ZeroPad2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ZeroPad2d.html) | [mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ZeroPad2d.html) | Consistent |
 
 ### torch.nn.functional
@@ -504,6 +504,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.functional.threshold](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.threshold) | [mindspore.ops.threshold](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.threshold.html) | Consistent |
 | [torch.nn.functional.triplet_margin_loss](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.triplet_margin_loss) | [mindspore.ops.triplet_margin_loss](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.triplet_margin_loss.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
 | [torch.nn.functional.unfold](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.unfold) | [mindspore.ops.unfold](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unfold.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Unfold.html) |
+| [torch.nn.functional.upsample](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.upsample) | [mindspore.ops.upsample](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.upsample.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/interpolate.html) |
 
 ### torch.nn.Module
 
@@ -872,7 +873,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.ReplicationPad2d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.ReplicationPad2d) | [mindspore.nn.Pad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) |                                                              |
 | [torch.nn.SELU](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.SELU) | [mindspore.ops.SeLU](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.SeLU.html#mindspore.ops.SeLU) |                                                              |
 | [torch.nn.SyncBatchNorm.convert_sync_batchnorm](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.SyncBatchNorm.convert_sync_batchnorm) | [mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SyncBatchNorm.html#mindspore.nn.SyncBatchNorm) |                                                              |
-| [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample) | [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/ResizeBilinear.html) |
 
 ### torch.nn.functional
 

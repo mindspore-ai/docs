@@ -2,6 +2,14 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/interpolate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+The following mapping relationships can be found in this file.
+
+|     PyTorch APIs                |      MindSpore APIs       |
+| :-----------------------------: | :-----------------------: |
+| torch.nn.functional.interpolate | mindspore.ops.interpolate |
+| torch.nn.functional.upsample    | mindspore.ops.upsample    |
+| torch.nn.Upsample               | mindspore.nn.Upsample     |
+
 ## torch.nn.functional.interpolate
 
 ```python
@@ -39,8 +47,8 @@ MindSpore: The functionality is basically the same as PyTorch, but support for s
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ---- |
 | Parameter | Parameter 1 | size | size | - |
-|  | Parameter 2 | scale_factor | scale_factor | Function is consistent. Currently only supports 'nearest' (5D), 'trilinear' and 'area' modes directly pass in `scale_factor`. For unsupported modes, you can bypass by setting `recompute_scale_factor` parameter to True (when `scale_factor` is a floating-point number, there may be precision errors) |
-|  | Parameter 3 | mode | mode | Function is consistent, in addition to the above six modes, MindSpore also supports 'nearest-exact' mode |
+|  | Parameter 2 | scale_factor | scale_factor | Function is consistent. Currently only supports 'area' mode directly pass in `scale_factor`. For unsupported modes, you can bypass by setting `recompute_scale_factor` parameter to True (when `scale_factor` is a floating-point number, there may be precision errors) |
+|  | Parameter 3 | mode | mode | Function is consistent, MindSpore does not support 'nearest' (5D) and 'trilinear' modes |
 |  | Parameter 4 | align_corners | align_corners | Function is consistent, but in 'bicubic' mode `align_corners=False`, the calculation method is the same as TensorFlow, and the results are different from PyTorch |
 |  | Parameter 5 | recompute_scale_factor | recompute_scale_factor | - |
 | Input | Single input | input | x | Same function, different parameter names |
