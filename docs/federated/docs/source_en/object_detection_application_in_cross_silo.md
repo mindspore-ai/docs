@@ -77,6 +77,7 @@ cross_silo_faster_rcnn
 ├── default_yaml_config.yaml                 // Required configuration files for Federated training
 ├── default_config.yaml                         // Required configuration file of network structure, dataset address, and fl_plan
 ├── run_cross_silo_fasterrcnn_worker.py // Start Cloud Federated worker script
+├── run_cross_silo_fasterrcnn_worker_distribute.py // Start the Cloud Federated distributed worker training script
 └── test_fl_fasterrcnn.py               // Training scripts used by the client
 └── run_cross_silo_fasterrcnn_sched.py  // Start Cloud federated scheduler script
 └── run_cross_silo_fasterrcnn_server.py // Start Cloud federated server script
@@ -158,6 +159,18 @@ cross_silo_faster_rcnn
     ```
 
     Then it means that cross-silo federated is started successfully and `worker_0` is training. Other workers can be viewed in a similar way.
+
+    At present, the 'worker' node of Cloud Federated supports the distributed training mode of single machine multi-card and multi-machine multi-card. `run_cross_silo_fasterrcnn_worker_distributed.py` is a python script for users to start distributed training of the worker node, and supports configuration modification via argparse. Execute the following instructions, representing the distributed 'worker' that starts this federated learning task, where 'device_num' represents the number of processes started by the 'worker' cluster, 'run_distribute' represents the distributed training started by the cluster, and its http start port is '6668'. Number of 'worker' processes is '4':
+
+    ```sh
+    python run_cross_silo_fasterrcnn_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
+    ```
+
+    Enter the 'worker_distributed/log_output/' folder in the current directory and run the 'grep -rn "epoch" *' command to view the logs of the 'worker' distributed cluster. You can see the following information:
+
+    ```sh
+    epoch: 1 step: 1 total_loss: 0.613467
+    ```
 
     Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/en/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
 

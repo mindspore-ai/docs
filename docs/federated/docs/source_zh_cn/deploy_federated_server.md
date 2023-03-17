@@ -118,6 +118,10 @@ redis-server --port 23456 --save ""
       data_rate_dir: ".."
       participation_time_level: "5,15"
 
+    unsupervised:
+      cluster_client_num: 1000
+      eval_type: SILHOUETTE_SCORE
+
     encrypt:
       encrypt_type: NOT_ENCRYPT
       pw_encrypt:

@@ -40,6 +40,14 @@ python run_psi.py --comm_role="client" --http_server_address="127.0.0.1:8005" --
 - `--thread_num`（可选）表示计算所使用的并行线程数；
 - 如需运行明文通讯求交，命令中加入参数`--plain_intersection=True`即可。
 
+目前psi支持亿级大数据求交，可以通过设置`input_begin`、`input_end`、`peer_input_begin`、`peer_input_end`参数来指定输入数据集的大小。理论证明机器的内存资源与系统资源足够，psi支持的数据求交数目没有上限。启动命令如下所示：
+
+```python
+python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100000000
+
+python run_psi.py --comm_role="client" --http_server_address="127.0.0.1:8005" --remote_server_address="127.0.0.1:8004" --input_begin=1 --input_end=100000000
+```
+
 ### 输出结果
 
 运行脚本前，可通过设置环境变量`export GLOG_v=1`来显示`INFO`级别的日志，也可以观察协议内部各个阶段的运行情况。脚本运行结束后，会打印输出交集结果，因交集数据量可能过大，这里限制输出前20个交集结果。

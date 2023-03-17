@@ -40,6 +40,14 @@ python run_psi.py --comm_role="client" --http_server_address="127.0.0.1:8005" --
 - `--thread_num` (optional) indicates the number of parallel threads used for the calculation.
 - To run plaintext intersection, add the parameter `--plain_intersection=True` to the command.
 
+At present, psi supports the intersection of hundreds of millions of large data. You can specify the size of the input data set by setting 'input_begin'、'input_end'、'peer_input_begin'、'peer_input_end' parameters. The theory proves that the memory resources of the machine and the system are sufficient, and there is no upper limit to the number of data computations psi can support. The startup command is as follows:
+
+```python
+python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100000000
+
+python run_psi.py --comm_role="client" --http_server_address="127.0.0.1:8005" --remote_server_address="127.0.0.1:8004" --input_begin=1 --input_end=100000000
+```
+
 ### Output Results
 
 Before running the script, you can set the environment variable `export GLOG_v=1` to display the `INFO` level log, and also observe the operation of each phase within the protocol. After running the script, the intersection results will be printed out. As the amount of intersection data may be too large, the output here is limited to the first 20 intersection results.

@@ -268,6 +268,16 @@
     ......
     ```
 
+    在云侧，可以通过设置yaml配置文件的`cluster_client_num`参数与`eval_type`参数来指定进行无监督聚类指标统计的客户端group id数量与算法类型，在云侧生成的`metrics.json`统计文件可以查询到无监督指标信息：
+
+    ```text
+    "unsupervisedEval":0.640
+    "unsupervisedEval":0.675
+    "unsupervisedEval":0.677
+    "unsupervisedEval":0.706
+    ......
+    ```
+
 - 启动推理任务SyncFLJob.modelInference()
 
     当`基本启动指令`中 `--task`设置为`inference`时代表启动该任务。

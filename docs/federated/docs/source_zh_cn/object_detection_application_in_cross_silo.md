@@ -77,6 +77,7 @@ cross_silo_faster_rcnn
 ├── default_yaml_config.yaml                 // 联邦训练所需配置文件
 ├── default_config.yaml                         // 网络结构、数据集地址、fl_plan所需配置文件
 ├── run_cross_silo_fasterrcnn_worker.py // 启动云云联邦worker脚本
+├── run_cross_silo_fasterrcnn_worker_distribute.py // 启动云云联邦分布式worker训练脚本
 └── test_fl_fasterrcnn.py               // 客户端使用的训练脚本
 └── run_cross_silo_fasterrcnn_sched.py  // 启动云云联邦scheduler脚本
 └── run_cross_silo_fasterrcnn_server.py // 启动云云联邦server脚本
@@ -158,6 +159,18 @@ cross_silo_faster_rcnn
     ```
 
     则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
+
+    当前云云联邦的`worker`节点支持单机多卡&多机多卡的分布式训练方式，`run_cross_silo_fasterrcnn_worker_distributed.py`是为用户启动`worker`节点的分布式训练而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的分布式`worker`，其中`device_num`表示`worker`集群启动的进程数目，`run_distribute`表示启动集群的分布式训练，其http起始端口为`6668`，`worker`进程数量为`4`个：
+
+    ```sh
+    python run_cross_silo_fasterrcnn_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
+    ```
+
+    进入当前目录下`worker_distributed/log_output/`文件夹，通过指令`grep -rn "epoch" *`查看`worker`分布式集群的日志，可看到如下类似打印：
+
+    ```sh
+    epoch: 1 step: 1 total_loss: 0.613467
+    ```
 
     以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
 
