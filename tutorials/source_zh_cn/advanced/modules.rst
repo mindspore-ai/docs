@@ -1,7 +1,7 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png
-    :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_cell.ipynb
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/model/mindspore_cell.ipynb
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png
-    :target: https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/tutorials/zh_cn/advanced/model/mindspore_cell.py
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/model/mindspore_cell.py
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
     :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/modules/cell.ipynb
 
