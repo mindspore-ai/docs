@@ -1,4 +1,4 @@
-# TensorFlow模型转换MindSpore模型文件方法
+# TensorFlow模型转换MindSpore模型的方法
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
