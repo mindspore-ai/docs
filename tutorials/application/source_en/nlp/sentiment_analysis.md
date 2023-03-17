@@ -391,7 +391,7 @@ class RNN(nn.Cell):
 
 ### Loss Function and Optimizer
 
-After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer, and encapsulate them by using `nn.TrainOneStepCell`. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCEWithLogitsLoss` (binary cross entropy loss function) is selected.
+After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCEWithLogitsLoss` (binary cross entropy loss function) is selected.
 
 ```python
 hidden_size = 256
