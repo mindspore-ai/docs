@@ -36,7 +36,7 @@
 | [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
 | [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
 | [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
-| [Allocator](#allocator)                          | 内存管理基类。                                           | √      | √      |
+| [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
 ### 状态
 
@@ -1252,12 +1252,12 @@ Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack 
 Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims);
 ```
 
-调整已编译模型的输入形状。
+调整已编译模型的输入张量形状。
 
 - 参数
 
     - `inputs`: 模型输入按顺序排列的`vector`。
-    - `dims`: 输入形状，按输入顺序排列的由形状组成的`vector`，模型会按顺序依次调整张量形状。
+    - `dims`: 输入张量形状，按输入顺序排列的由形状组成的`vector`，模型会按顺序依次调整对应输入顺序的`inputs`张量形状。
 
 - 返回值
 
@@ -1323,7 +1323,7 @@ MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector
 
     - `name`: 名称。
     - `type`：数据类型。
-    - `shape`：形状。
+    - `shape`：张量的形状。
     - `data`：数据指针，指向一段已开辟的内存。
     - `data_len`：数据长度，以字节为单位。
 
@@ -1344,7 +1344,7 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
 
     - `name`: 名称。
     - `type`：数据类型。
-    - `shape`：形状。
+    - `shape`：张量的形状。
     - `data`：数据指针，指向一段已开辟的内存。
     - `data_len`：数据长度，以字节为单位。
 
@@ -1365,13 +1365,32 @@ static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type
 
     - `name`: 名称。
     - `type`：数据类型。
-    - `shape`：形状。
+    - `shape`：张量的形状。
     - `data`：数据指针，指向一段已开辟的device内存。
     - `data_len`：数据长度，以字节为单位。
 
 - 返回值
 
   `MStensor`对象。
+
+#### CreateTensorFromFile
+
+```cpp
+static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8,
+                                             const std::vector<int64_t> &shape = {}) noexcept;
+```
+
+创建一个`MSTensor`对象，其数据由文件路径`file`所指定，必须与`DestroyTensorPtr`成对使用。
+
+- 参数
+
+    - `file`: 文件路径，指向存放数据的二进制格式文件，可以是相对路径或者绝对路径。
+    - `type`：`file`文件保存的数据类型，也是创建后`MSTensor`对象的数据类型。
+    - `shape`：张量的形状，`shape`的乘积代表了`file`文件内数据的个数。
+
+- 返回值
+
+  `MStensor`指针。
 
 #### StringsToTensor
 
@@ -1533,6 +1552,18 @@ size_t DataSize() const;
 
   `MSTensor`中的数据的以字节为单位的内存长度。
 
+#### IsConst
+
+```cpp
+bool IsConst() const;
+```
+
+判断`MSTensor`中的数据是否是常量数据。
+
+- 返回值
+
+  `MSTensor`中的数据是否是常量数据。
+
 #### IsDevice
 
 ```cpp
@@ -1677,6 +1708,14 @@ void SetDeviceData(void *data);
 ```
 
 设置数据的设备地址，由用户负责设备内存的申请和释放。仅适用于Ascend和GPU硬件后端。
+
+#### GetDeviceData
+
+```cpp
+void *GetDeviceData();
+```
+
+获取由`SetDeviceData`接口设置的`MSTensor`数据的设备地址。
 
 #### QuantParams
 
@@ -2779,6 +2818,18 @@ int GetLineOfCode() const;
 
     代码行数。
 
+#### GetFileName
+
+```cpp
+inline std::string GetFileName() const;
+```
+
+获取文件名。
+
+- 返回值
+
+    文件名。
+
 #### GetErrDescription
 
 ```cpp
@@ -2806,6 +2857,18 @@ inline std::string SetErrDescription(const std::string &err_description);
 - 返回值
 
     状态信息字符串。
+
+#### SetStatusMsg
+
+```cpp
+inline void SetStatusMsg(const std::string &status_msg);
+```
+
+配置状态描述字符串。
+
+- 参数
+
+    - `status_msg`: 状态描述字符串。
 
 #### operator<<(std::ostream &os, const Status &s)
 
@@ -2856,6 +2919,22 @@ bool operator==(enum StatusCode other_code) const;
 
     是否与一个StatusCode相等。
 
+#### operator!=(const Status &other)
+
+```cpp
+bool operator!=(const Status &other) const;
+```
+
+判断是否与另一个Status不相等。
+
+- 参数
+
+    - `other`: 另一个Status。
+
+- 返回值
+
+    是否与另一个Status不相等。
+
 #### operator!=(enum StatusCode other_code)
 
 ```cpp
@@ -2878,7 +2957,11 @@ bool operator!=(enum StatusCode other_code) const;
 explicit operator bool() const;
 ```
 
-重载bool操作。
+重载bool操作，判断是否当前状态为kSuccess。
+
+- 返回值
+
+    是否当前状态为kSuccess。
 
 #### explicit operator int() const
 
@@ -2886,7 +2969,11 @@ explicit operator bool() const;
 explicit operator int() const;
 ```
 
-重载int操作。
+重载int操作。当`Status`对象被作为整型表达式使用时，返回整型表示的当前状态值。
+
+- 返回值
+
+    当前状态值。
 
 #### OK
 
