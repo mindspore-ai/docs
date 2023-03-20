@@ -72,7 +72,7 @@ parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKER
 
 > The configuration method of the Context is detailed in [Context](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html#creating-configuration-context).
 >
-> Multi-model concurrent inference currently supports [CPUDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.CPUDeviceInfo.html#mindspore_lite.CPUDeviceInfo), [GPUDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.GPUDeviceInfo.html#mindspore_lite.GPUDeviceInfo), [AscendDeviceInfo](https://mindspore.cn/lite/api/en/r1.9/mindspore_lite/mindspore_lite.AscendDeviceInfo.html#mindspore_lite.AscendDeviceInfo) different hardware backends. When setting the GPU backend, you need to set the GPU backend before setting the CPU backend, otherwise it will report an error and exit.
+> When setting the GPU backend, you need to set the GPU backend before setting the CPU backend, otherwise it will report an error and exit.
 >
 > Multi-model concurrent inference does not support FP32 type data inference. CPU pinning only supports unbinding or binding large cores, does not support the parameter setting of binding middle cores, and does not support the configuration of binding core list.
 

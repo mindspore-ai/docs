@@ -52,7 +52,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，部分参数名不�
 | | 参数8 | name | -           | 不涉及 |
 |返回参数| 参数1 | sampled_candidates |   sampled_candidates        |- |
 | | 参数2 | true_expected_count |     true_expected_count    | - |
-| |  参数3| sampled_expected_count |     sampled_expected_count     | - |
+| | 参数3| sampled_expected_count |     sampled_expected_count     | - |
 
 ### 代码示例1
 
