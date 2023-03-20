@@ -34,7 +34,6 @@ MindSpore：功能一致，仅参数名不同。
 > 两API实现功能一致，用法相同。
 
 ```python
-# 样例1 -> 代码示例1
 # PyTorch
 import torch
 
