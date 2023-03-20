@@ -2,6 +2,7 @@
 使用json文件自动化生成mindspore各组件的html页面
 """
 import argparse
+import glob
 import json
 import os
 import pickle
@@ -360,6 +361,54 @@ if __name__ == "__main__":
     # 开始执行
     try:
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir, release_url=args.release_url)
+        theme_list = []
+        output_path = f"{MAINDIR}/{args.version}/output"
+        for dir_name in os.listdir(output_path):
+            if dir_name == 'docs':
+                theme_list.append(dir_name)
+            elif dir_name == 'tutorials':
+                theme_list.append(dir_name + '/application')
+                theme_list.append(dir_name + '/experts')
+                theme_list.append(dir_name)
+            elif dir_name == 'lite':
+                theme_list.append(dir_name + '/docs')
+                theme_list.append(dir_name + '/faq')
+                theme_list.append(dir_name + '/api')
+            else:
+                theme_list.append(dir_name + '/docs')
+        theme_path = os.path.join(DOCDIR, "../../resource/api_generate_theme")
+        for f_name in os.listdir(theme_path):
+            if os.path.isfile(os.path.join(theme_path, f_name)):
+                if os.path.exists(os.path.join(output_path, f_name)):
+                    os.remove(os.path.join(output_path, f_name))
+                shutil.copy(os.path.join(theme_path, f_name), os.path.join(output_path, f_name))
+        # pylint: disable=W0621
+        for lg in ['en', 'zh-CN']:
+            # pylint: disable=W0621
+            for out_name in theme_list:
+                try:
+                    static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
+                    static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
+                    if 'lite' in out_name or 'tutorials' in out_name:
+                        css_path = f"theme-{out_name.split('/')[0]}/theme.css"
+                        js_path = f"theme-{out_name.split('/')[0]}/theme.js"
+                    else:
+                        css_path = "theme-docs/theme.css"
+                        js_path = "theme-docs/theme.js"
+                    static_path_new_css = os.path.join(theme_path, css_path)
+                    static_path_new_js = os.path.join(theme_path, js_path)
+                    if os.path.exists(static_path_css):
+                        os.remove(static_path_css)
+                    shutil.copy(static_path_new_css, static_path_css)
+                    if os.path.exists(static_path_js):
+                        os.remove(static_path_js)
+                    shutil.copy(static_path_new_js, static_path_js)
+                # pylint: disable=W0702
+                # pylint: disable=W0703
+                except Exception as e:
+                    print(f'替换{out_name}下的样式文件失败!\n{e}')
+                    continue
+        print(f'替换样式文件成功!')
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)

@@ -1,0 +1,222 @@
+[
+    {
+        "name": "Install",
+        "url": "/install/en"
+    },
+    {
+        "name": "Tutorials",
+        "id": "tutorials",
+        "children": [
+            {
+                "name": "Quickstart",
+                "id": "tutorials"
+            },
+            {
+                "name": "Application",
+                "id": "tutorials/application"
+            },
+            {
+                "name": "Experts",
+                "id": "tutorials/experts"
+            }
+        ]
+    },
+    {
+        "name": "Docs",
+        "id": "docs",
+        "children": [
+            {
+                "title": "Core Frameworks",
+                "children": [
+                    {
+                        "name": "MindSpore",
+                        "id": "docs"
+                    },
+                    {
+                        "name": "MindSpore Lite",
+                        "id": "lite"
+                    },
+                    {
+                        "name": "MindPandas",
+                        "id": "mindpandas"
+                    }
+                ]
+            },
+            {
+                "title": "Toolset",
+                "children": [
+                    {
+                        "name": "MindInsight",
+                        "id": "mindinsight"
+                    },
+                    {
+                        "name": "MindArmour",
+                        "id": "mindarmour"
+                    },
+                    {
+                        "name": "MindSpore Serving",
+                        "id": "serving"
+                    },
+                    {
+                        "name": "MindSpore Federated",
+                        "id": "federated"
+                    },
+                    {
+                        "name": "MindSpore Golden Stick",
+                        "id": "golden_stick"
+                    },
+                    {
+                        "name": "MindSpore XAI",
+                        "id": "xai"
+                    },
+
+                    {
+                        "name": "MindSpore Dev Toolkit",
+                        "id": "devtoolkit"
+                    }
+                ]
+            },
+            {
+                "title": "Domain Suite and Model",
+                "children": [
+                    {
+                        "name": "MindSpore Graph Learning",
+                        "id": "graphlearning"
+                    },
+                    {
+                        "name": "MindSpore Reinforcement",
+                        "id": "reinforcement"
+                    },
+                    {
+                        "name": "MindSpore Probability",
+                        "id": "probability"
+                    },
+                    {
+                        "name": "MindSpore Hub",
+                        "id": "hub"
+                    }
+                ]
+            },
+            {
+                "title": "Scientific Computing",
+                "children": [
+                    {
+                        "name": "MindElec",
+                        "id": "mindelec"
+                    },
+                    {
+                        "name": "MindSPONGE",
+                        "id": "mindsponge"
+                    },
+                    {
+                        "name": "MindFlow",
+                        "id": "mindflow"
+                    },
+                    {
+                        "name": "MindQuantum",
+                        "id": "mindquantum"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Ecosystem",
+        "url": "/ecosystem/libraries/en",
+        "children": [
+            {
+                "name": "Libraries",
+                "url": "/ecosystem/libraries/en"
+            },
+            {
+                "name": "Tutorials",
+                "url": "/ecosystem/tutorials/en"
+            },
+            {
+                "name": "Models",
+                "url": "/ecosystem/models/en"
+            }
+        ]
+    },
+    {
+        "name": "Community",
+        "url": "/community/en",
+        "children": [
+            {
+                "name": "Contribution Guide",
+                "url": "/community/en"
+            },
+            {
+                "name": "Governance",
+                "url": "/community/governance/en"
+            },
+            {
+                "name": "Forum",
+                "url": "https://forum.huawei.com/enterprise/en/forum-100504.html",
+                "openType": "_blank"
+            },
+            {
+                "name": "Developer",
+                "url": "/community/developer/en"
+            },
+            {
+                "name": "SIG",
+                "url": "/community/SIG/en"
+            },
+            {
+                "name": "Community Activities",
+                "url": "https://new.mindspore.cn/zh/calendar/",
+                "openType": "_blank"
+            },
+            {
+                "name": "Statistics",
+                "url": "https://datastat.mindspore.cn/en/overview",
+                "openType": "_blank"
+            }
+        ]
+    },
+    {
+        "name": "Resources",
+        "url": "/resources/en",
+        "children": [
+            {
+                "name": "Knowledge Map",
+                "url": "/resources/knowledgeMap/en"
+            },
+            {
+                "name": "Courses & Certification",
+                "url": "/resources/courses/en"
+            },
+            {
+                "name": "Hub",
+                "url": "/resources/hub/en"
+            }
+        ]
+    },
+    {
+        "name": "News",
+        "url": "/news/en",
+        "children": [
+            {
+                "name": "Version Releases",
+                "url": "/news/versionRelease/en"
+            },
+            {
+                "name": "Blogs",
+                "url": "/news/technologyBlog/en"
+            },
+            {
+                "name": "News",
+                "url": "/news/news/en"
+            },
+            {
+                "name": "Activities",
+                "url": "/news/activities/en"
+            }
+        ]
+    },
+    {
+        "name": "Security",
+        "url": "/security/en"
+    }
+]

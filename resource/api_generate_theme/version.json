@@ -1,0 +1,503 @@
+[
+    {
+        "name": "tutorials",
+        "label": {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r2.0.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+              "version": "r1.10",
+              "versionAlias": "",
+              "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "docs",
+        "label": {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r2.0.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+              "version": "r1.10",
+              "versionAlias": "",
+              "url": ""
+          },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "lite",
+        "label": {
+            "zh": "全场景推理框架（MindSpore Lite）",
+            "en": "MindSpore Lite"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r2.0.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.10",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "mindpandas",
+        "label": {
+            "zh": "MindPandas",
+            "en": "MindPandas"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "mindinsight",
+        "label": {
+            "zh": "可视化调试调优（MindInsight）",
+            "en": "MindInsight"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r2.0.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.10",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "mindarmour",
+        "label": {
+            "zh": "AI安全和隐私（MindArmour）",
+            "en": "MindArmour"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.8",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.7",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "serving",
+        "label": {
+            "zh": "服务化部署框架（MindSpore Serving）",
+            "en": "MindSpore Serving"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.8",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.7",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "federated",
+        "label": {
+            "zh": "联邦学习（MindSpore Federated）",
+            "en": "MindSpore Federated"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.7",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.6",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.5",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "golden_stick",
+        "label": {
+            "zh": "MindSpore Golden Stick",
+            "en": "MindSpore Golden Stick"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.3.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.2",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "xai",
+        "label": {
+            "zh": "可解释AI（MindSpore XAI）",
+            "en": "MindSpore XAI"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.8",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.5",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "devtoolkit",
+        "label": {
+            "zh": "MindSpore Dev Toolkit",
+            "en": "MindSpore Dev Toolkit"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.8",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "graphlearning",
+        "label": {
+            "zh": "图学习框架（MindSpore Graph Learning）",
+            "en": "MindSpore Graph Learning"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.2.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "reinforcement",
+        "label": {
+            "zh": "强化学习（MindSpore Reinforcement）",
+            "en": "MindSpore Reinforcement"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.6.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.5",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.3",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "probability",
+        "label": {
+            "zh": "概率编程（MindSpore Probability）",
+            "en": "MindSpore Probability"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.7",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.6",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.5",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "hub",
+        "label": {
+            "zh": "预训练模型（MindSpore Hub）",
+            "en": "MindSpore Hub"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.9",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.6",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.5",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "mindelec",
+        "label": {
+            "zh": "MindElec",
+            "en": "MindElec"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.2.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1",
+                "versionAlias": "",
+                "url": "/mindscience/docs/zh-CN/r0.1/mindelec/intro_and_install.html"
+            }
+        ]
+    },
+    {
+        "name": "mindsponge",
+        "label": {
+            "zh": "MindSPONGE",
+            "en": "MindSPONGE"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r1.0.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1",
+                "versionAlias": "",
+                "url": "/mindscience/docs/zh-CN/r0.1/mindsponge/intro_and_install.html"
+            }
+        ]
+    },
+    {
+        "name": "mindflow",
+        "label": {
+            "zh": "MindFlow",
+            "en": "MindFlow"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.1.0-alpha",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "name": "mindquantum",
+        "label": {
+            "zh": "MindQuantum",
+            "en": "MindQuantum"
+        },
+        "versions": [
+            {
+                "version": "master",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.8",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.7",
+                "versionAlias": "",
+                "url": ""
+            },
+            {
+                "version": "r0.6",
+                "versionAlias": "",
+                "url": ""
+            }
+        ]
+    }
+]
