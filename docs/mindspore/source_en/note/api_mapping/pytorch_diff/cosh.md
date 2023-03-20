@@ -34,7 +34,6 @@ MindSpore: Same function, and only the parameter names are different.
 > The two APIs achieve the same function and have the same usage.
 
 ```python
-# Example 1 -> Code example 1
 # PyTorch
 import torch
 
