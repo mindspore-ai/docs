@@ -56,7 +56,7 @@
 
 ### 静态图模式错误分析
 
-静态图模式下，MindSpore首先将网络结构编译成计算图，然后再执行图中涉及的计算操作。因此，静态图模式下的报错问题包括计算图编译报错问题和计算图执行报错问题。计算图编译报错的报错信息如图3所示，发生报错时自动保存`analyze_failed.dat`文件，帮助分析报错代码的位置。
+静态图模式下，MindSpore首先将网络结构编译成计算图，然后再执行图中涉及的计算操作。因此，静态图模式下的报错问题包括计算图编译报错问题和计算图执行报错问题。计算图编译报错的报错信息如图3所示，发生报错时自动保存`analyze_failed.ir`文件，帮助分析报错代码的位置。
 
 ![graph-errmsg](images/graph_errmsg.png)
 
@@ -66,10 +66,10 @@
 
 根据报错描述内容，确认计算图报错的类型，即是计算图编译报错问题还是计算图执行报错问题：
 
-- 如果是计算图编译报错，根据报错描述和发生报错时自动保存的`analyze_failed.dat`文件，分析计算图推导失败的原因和位置；
+- 如果是计算图编译报错，根据报错描述和发生报错时自动保存的`analyze_failed.ir`文件，分析计算图推导失败的原因和位置；
 - 如果是计算图执行报错，可能是资源不足导致的执行报错，也可能是算子的执行报错，需要根据报错信息进行区分。如果是算子执行报错，首先确认是哪个算子，然后使用Dump功能保存算子的输入数据，通过输入数据分析算子报错的原因；
 
-分析计算图推导失败的原因可以参考[`analyze_failed.dat`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#如何根据analyze-faildat文件分析图推导失败的原因)。
+分析计算图推导失败的原因可以参考[`analyze_failed.ir`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#如何根据analyze-faildat文件分析图推导失败的原因)。
 
 使用Dump保存算子输入数据可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 

@@ -105,7 +105,7 @@ ds = CoraV2(args.data_path)
 import mindspore.context as context
 
 if train_args.fuse:
-    context.set_context(device_target="GPU", save_graphs=True, save_graphs_path="./computational_graph/",
+    context.set_context(device_target="GPU", save_graphs=2, save_graphs_path="./computational_graph/",
                         mode=context.GRAPH_MODE, enable_graph_kernel=True,
                         graph_kernel_flags="--enable_expand_ops=Gather --enable_cluster_ops=TensorScatterAdd,"
                                            "UnsortedSegmentSum, GatherNd --enable_recompute_fusion=false "

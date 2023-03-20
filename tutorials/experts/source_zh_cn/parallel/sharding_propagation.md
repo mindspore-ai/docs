@@ -110,7 +110,7 @@ set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_p
 
 ### 训练模型并检查切分策略
 
-执行命令`bash run.sh 8`。通过在`train.py`中设置context: `save_graphs=True`，可以打印出编译过程中的IR图。我们选取设备0对应的IR图。
+执行命令`bash run.sh 8`。通过在`train.py`中设置context: `save_graphs=2`，可以打印出编译过程中的IR图。我们选取设备0对应的IR图。
 
 在`step_parallel_begin_xxxx.ir`中，可以看到每个计算算子都被配置了切分策略。
 

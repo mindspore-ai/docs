@@ -381,7 +381,7 @@ Dump功能
        默认值：0
      - 
    * - MS_OM_PATH
-     - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.dat文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om
+     - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.ir文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om
      - String
      - 文件路径，支持相对路径与绝对路径
      - 

@@ -54,7 +54,7 @@ if __name__ == "__main__":
     var_hidden_dim = 16
     var_out_dim = 16
 
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=True, save_graphs_path="../saved_graph")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=2, save_graphs_path="../saved_graph")
     # 单机8卡环境，并行模式为全自动并行，策略搜索设置为策略传播算法
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, \
                                  search_mode="sharding_propagation", \

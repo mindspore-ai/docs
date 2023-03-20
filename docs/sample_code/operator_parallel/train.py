@@ -35,7 +35,7 @@ class Net(Cell):
 
 
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=True)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=2)
     D.init()
     rank = D.get_rank()
     ms.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=8, full_batch=True)

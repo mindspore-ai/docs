@@ -63,7 +63,7 @@ class FFN(Cell):
         return x
 
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=True)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", save_graphs=2)
     D.init()
     rank = D.get_rank()
     ms.set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",

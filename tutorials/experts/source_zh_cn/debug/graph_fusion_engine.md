@@ -37,7 +37,7 @@ import mindspore.ops as ops
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # save graph ir to view fusion detail.
-ms.set_context(save_graphs=True)
+ms.set_context(save_graphs=2)
 # enable graph kernel optimization.
 ms.set_context(enable_graph_kernel=True)
 

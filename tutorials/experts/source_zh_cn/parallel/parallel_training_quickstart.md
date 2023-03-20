@@ -134,7 +134,7 @@ var_in_dim = 32
 var_hidden_dim = 16
 var_out_dim = 16
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=True, save_graphs_path="../saved_graph")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=2, save_graphs_path="../saved_graph")
 
 # 单机8卡环境，并行模式为全自动并行，策略搜索设置为策略传播算法
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation", dataset_strategy="data_parallel")
@@ -169,7 +169,7 @@ model.train(epoch_size, dataset, callbacks=callback, dataset_sink_mode=False)
 
 运行后，该脚本在后台进行，训练日志保存在`./device`目录下，逻辑编号为`rank_id`的卡的模型保存在`./device/{rank_id}`目录下。
 
-此外，通过`ms.set_context()`接口配置`save_graphs=True`保存模型中间表示`MindIR`，逻辑编号为`rank_id`的卡的`MindIR`保存在`./saved_graph/{rank_id}`目录下。其中，MindSpore IR(MindIR)是MindSpore框架程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，详见[MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。
+此外，通过`ms.set_context()`接口配置`save_graphs=2`保存模型中间表示`MindIR`，逻辑编号为`rank_id`的卡的`MindIR`保存在`./saved_graph/{rank_id}`目录下。其中，MindSpore IR(MindIR)是MindSpore框架程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，详见[MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)。
 
 #### 验证
 

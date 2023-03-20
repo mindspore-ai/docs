@@ -150,51 +150,53 @@ ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, 
 
 JIT Fallback支持在静态图模式下使用raise和assert。
 
-使用raise时，要求条件语句和抛出的异常语句符合常量场景的条件，否则可能出现不可预期的结果。正确的代码用例如下：
+使用raise时，要求条件语句为变量场景时，raise语句所在分支以外的分支不能返回none以外的值，否则可能出现不可预期的结果。正确的代码用例如下：
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore import Tensor
+
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
    def construct(self, x):
       if x <= 0:
-         raise ValueError("x should be greater than 0.")
+         raise ValueError(f"x should be greater than 0 but is {x}.")
       else:
-         x += 1
-      return x
+         return None
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net(-1)
+net(Tensor(-1))
 ```
 
 输出结果：
 
 ```text
-ValueError: x should be greater than 0.
+ValueError: x should be greater than 0 but is -1.
 ```
 
-同理，使用assert时，也需要符合常量场景的条件。正确的代码用例如下：
+同理，使用assert时，也需要符合与raise相同的条件。正确的代码用例如下：
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore import Tensor
 
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
-   def construct(self):
-      x = 1
-      assert 1 in [2, 3, 4]
+   def construct(self, x):
+      assert x in [2, 3, 4]
       return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net()
+x = Tensor(1)
+net(x)
 ```
 
 输出结果中正常出现： `AssertionError`。

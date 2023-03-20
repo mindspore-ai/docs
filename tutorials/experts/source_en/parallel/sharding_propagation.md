@@ -110,7 +110,7 @@ set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_p
 
 ### Training the Model and Checking the Sharding Strategies
 
-Run the command `bash run.sh 8`. By setting the context: `save_graphs=True`, the IR graphs in the compilation process are saved. We choose the IRs corresponding to device 0.
+Run the command `bash run.sh 8`. By setting the context: `save_graphs=2`, the IR graphs in the compilation process are saved. We choose the IRs corresponding to device 0.
 
 In `step_parallel_begin_xxx.ir`, each computation operator is annotated with a Sharding Strategy:
 

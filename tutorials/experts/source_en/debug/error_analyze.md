@@ -56,7 +56,7 @@ In dynamic graph mode, common network construction and training errors are found
 
 ### Error Analysis of the Static Graph Mode
 
-In static graph mode, MindSpore builds the network structure into a computational graph, and then performs the computation operations involved in the graph. Therefore, errors reported in static graph mode include computational graph build errors and computational graph execution errors. Figure 3 shows the error message reported during computational graph build. When an error occurs, the `analyze_failed.dat` file is automatically saved to help analyze the location of the error code.
+In static graph mode, MindSpore builds the network structure into a computational graph, and then performs the computation operations involved in the graph. Therefore, errors reported in static graph mode include computational graph build errors and computational graph execution errors. Figure 3 shows the error message reported during computational graph build. When an error occurs, the `analyze_failed.ir` file is automatically saved to help analyze the location of the error code.
 
 ![graph-errmsg](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png)
 
@@ -66,10 +66,10 @@ The general error analysis method in static graph mode is as follows:
 
 Check whether the error is caused by graph build or graph execution based on the error description.
 
-- If the error is reported during computational graph build, analyze the cause and location of the failure based on the error description and the `analyze_failed.dat` file automatically saved when the error occurs.
+- If the error is reported during computational graph build, analyze the cause and location of the failure based on the error description and the `analyze_failed.ir` file automatically saved when the error occurs.
 - If the error is reported during computational graph execution, the error may be caused by insufficient resources or improper operator execution. You need to further distinguish the error based on the error message. If the error is reported during operator execution, locate the operator, use the dump function to save the input data of the operator, and analyze the cause of the error based on the input data.
 
-For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.dat`](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#example-1-parameters-number-mismatch).
+For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.ir`](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#example-1-parameters-number-mismatch).
 
 For details about how to use Dump to save the operator input data, see [Dump Function Debugging](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
 

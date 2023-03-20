@@ -1203,7 +1203,7 @@ out2: [2]
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。图模式下内置函数的使用方法与对应的Python内置函数类似。
+当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`、`filter`和`raise`。图模式下内置函数的使用方法与对应的Python内置函数类似。
 
 #### int
 
@@ -2348,6 +2348,39 @@ print('ret:{}'.format(ret))
 
 ```text
 ret:(1, 3, 5)
+```
+
+#### raise
+
+功能：根据提供的错误类型和报错语句抛出异常。
+
+调用：`raise Exception(error message)`
+
+入参：
+
+- `Exception` -- 异常类型。
+
+- `error message` -- 异常信息。
+
+返回值：无。
+
+示例如下：
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test(tensor_to_raise):
+    raise ValueError(f"input should not be {tensor_to_raise}")
+
+tensor_to_raise = Tensor(1)
+ret = test(tensor_to_raise)
+```
+
+结果如下：
+
+```text
+ValueError: input should not be 1.
 ```
 
 ### 函数参数
