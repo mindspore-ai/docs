@@ -16,7 +16,7 @@ torch.linalg.qr(input, mode='reduced', *, out=None) -> (Tensor, Tensor)
 mindspore.ops.qr(input, mode='reduced') -> (Tensor, Tensor)
 ```
 
-更多内容详见[mindspore.ops.qr](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.qr.htmls)。
+更多内容详见[mindspore.ops.qr](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.qr.html)。
 
 ## 差异对比
 

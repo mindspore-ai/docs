@@ -72,7 +72,7 @@ parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKER
 
 > Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html#创建配置上下文)。
 >
-> 多model并发推理现阶段支持[CPUDeviceInfo](https://mindspore.cn/lite/api/zh-CN/r1.9/mindspore_lite/mindspore_lite.CPUDeviceInfo.html#mindspore_lite.CPUDeviceInfo)、[GPUDeviceInfo](https://mindspore.cn/lite/api/zh-CN/r1.9/mindspore_lite/mindspore_lite.GPUDeviceInfo.html#mindspore_lite.GPUDeviceInfo)、[AscendDeviceInfo](https://mindspore.cn/lite/api/zh-CN/r1.9/mindspore_lite/mindspore_lite.AscendDeviceInfo.html#mindspore_lite.AscendDeviceInfo)几种不同的硬件后端。在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
+> 在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 
