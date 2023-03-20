@@ -115,5 +115,3 @@ MindInsight包括以下内容：
    :caption: RELEASE NOTES
 
    RELEASE
-
-`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.10/zh/mindinsight.pdf>`_

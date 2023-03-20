@@ -115,5 +115,3 @@ Using MindInsight to Debug the Model Accuracy
    :caption: RELEASE NOTES
 
    RELEASE
-
-`Click to download the API documentation <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r1.10/en/mindinsight.pdf>`_
