@@ -125,16 +125,16 @@ To enable pipeline parallelism, you need to add the following configurations to 
 
 ```python
 import mindspore as ms
-from mindspore import nn, train
+from mindspore.train import Model, LossMonitor
+from mindspore import nn
 from mindspore.nn import Momentum
 from resnet import resnet50
-from mindspore.train import Model
 
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    ms.set_auto_parallel_context(pipeline_stages=2, save_graphs=2)
-    loss_cb = train.LossMonitor()
+    ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
+    loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
