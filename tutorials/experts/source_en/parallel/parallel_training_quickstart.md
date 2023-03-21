@@ -134,7 +134,7 @@ var_in_dim = 32
 var_hidden_dim = 16
 var_out_dim = 16
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=True, save_graphs_path="../saved_graph")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", save_graphs=2, save_graphs_path="../saved_graph")
 
 # Single-machine 8-card environment. Parallel mode is fully automatic parallelism, and strategy search is set to strategy propagation algorithm
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation", dataset_strategy="data_parallel")
@@ -169,7 +169,7 @@ Training can be performed with `mpirun` command of OpenMPI, as specified in the 
 
 After running, the script is performed in the background and the training log is saved in the `. /device` directory, and the model of the card with the logical number `rank_id` is saved in the `. /device/{rank_id}` directory.
 
-In addition, `save_graphs=True` is configured via the `ms.set_context()` interface to save the model intermediate representation `MindIR`, and the `MindIR` of the card with the logical number `rank_id` is saved in the `. /saved_graph/{rank_id}` directory. MindSpore IR (MindIR) is a program representation between the source language and the target language during the compilation of MindSpore framework programs to facilitate program analysis and optimization by the compiler, see [MindIR](https://www.mindspore.cn/docs/en/master/design/mindir.html).
+In addition, `save_graphs=2` is configured via the `ms.set_context()` interface to save the model intermediate representation `MindIR`, and the `MindIR` of the card with the logical number `rank_id` is saved in the `. /saved_graph/{rank_id}` directory. MindSpore IR (MindIR) is a program representation between the source language and the target language during the compilation of MindSpore framework programs to facilitate program analysis and optimization by the compiler, see [MindIR](https://www.mindspore.cn/docs/en/master/design/mindir.html).
 
 #### Verification
 

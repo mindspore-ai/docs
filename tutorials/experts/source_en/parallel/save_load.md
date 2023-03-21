@@ -442,7 +442,7 @@ User process:
 
    from mindspore.communication import init
    devid = int(os.getenv('DEVICE_ID'))
-   ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
+   ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=2, device_id=devid)
    init()
 
    class Net(nn.Cell):

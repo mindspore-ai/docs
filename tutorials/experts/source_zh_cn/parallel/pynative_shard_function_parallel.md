@@ -282,7 +282,7 @@ bash run_shard_function_example.sh 8 rank_table_8pcs.json
 执行过程中，框架会自动为`shard`的输入函数进行算子级别的模型并行，每个算子的并行策略由框架搜索得到，整个过程用户无感知。可以按如下操作存图
 
 ```python
-ms.set_context(save_graphs=True)
+ms.set_context(save_graphs=2)
 ```
 
 在`step_parallel_end.ir`中可以看到具体每一个算子的并行策略。

@@ -386,7 +386,7 @@ Other
        Default: 0
      - 
    * - MS_OM_PATH
-     - Specifies the save path for the file `analyze_fail.dat/*.npy` which is dumped if task exception or a compiling graph error occurred. 
+     - Specifies the save path for the file `analyze_fail.ir/*.npy` which is dumped if task exception or a compiling graph error occurred. 
        The file will be saved to the path of `the_specified_directory` `/rank_${rank_id}/om/`.
      - String
      - File path, which can be a relative path or an absolute path.

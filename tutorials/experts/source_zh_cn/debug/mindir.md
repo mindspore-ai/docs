@@ -4,14 +4,14 @@
 
 ## 概述
 
-在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
+在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=2)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`打印异序排序方式的ir文件。可以通过将该环境变量设置为其他值来切换为打印原来的排序方式的ir文件。
-- dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=True, save_graph_dot=True)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=3)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
 
-通过`set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有两种格式，默认保存后缀名为`.ir`的文本格式的ir文件。如果设置`set_context(save_graphs=3)`会打印后缀名为`.dot`的图形化格式的ir文件。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
+通过`set_context(save_graphs=2)`来保存各个编译阶段的中间代码。被保存的中间代码有两种格式，默认保存后缀名为`.ir`的文本格式的ir文件。如果设置`set_context(save_graphs=3)`会打印后缀名为`.dot`的图形化格式的ir文件。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
 
 `.dot`文件可以通过graphviz转换为图片格式来查看，例如将dot转换为png的命令是`dot -Tpng *.dot -o *.png`。
 
@@ -19,7 +19,7 @@
 
 ```python
 if __name__ == "__main__":
-    set_context(save_graphs=True, save_graph_dot=True, save_graphs_path="path/to/ir/files")
+    set_context(save_graphs=3, save_graphs_path="path/to/ir/files")
 ```
 
 执行训练命令后，在指定的路径下生成了若干个文件：
@@ -63,7 +63,7 @@ import mindspore.nn as nn
 from mindspore import ops
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(save_graphs=True, save_graphs_path="./")
+ms.set_context(save_graphs=2, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -305,9 +305,9 @@ dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
 
 对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
-## 如何根据analyze_fail.dat文件分析图推导失败的原因
+## 如何根据analyze_fail.ir文件分析图推导失败的原因
 
-MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.dat文件，来定位出脚本中存在的问题。
+MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.ir文件，来定位出脚本中存在的问题。
 
 ### 例子1：参数数量不匹配
 
@@ -320,7 +320,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
   6
   7
   8 ms.set_context(mode=ms.GRAPH_MODE)
-  9 ms.set_context(save_graphs=True)
+  9 ms.set_context(save_graphs=2)
  10
  11 class Net(nn.Cell):
  12     def __init__(self):
@@ -370,7 +370,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
  19 NodeInfo: In file test.py(19)
  20     def func(x, y):
  21
- 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
+ 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details):
  23 # 0 In file test.py(26)
  24         return c
  25         ^
@@ -382,12 +382,12 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...”。
 表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.ir`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
   2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
   4 # ===============================================================================
   5
   6 subgraph attr:
@@ -455,8 +455,8 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
  68 # num of function graphs in stack: 2
 ```
 
-`analyze_fail.dat`文件与前文介绍过的异序ir文件格式一致，唯一有区别的地方在于`analyze_fail.dat`文件中会指出推导出错的节点所在的位置。
-我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第44行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.20(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看analyze_fail.dat文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
+`analyze_fail.ir`文件与前文介绍过的异序ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置。
+我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第44行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.20(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看analyze_fail.ir文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
 
@@ -508,7 +508,7 @@ ValueError: For 'BiasAdd', bias[0] shape must be equal to input_x[1] shape when 
 ----------------------------------------------------
 - The Traceback of Net Construct Code:
 ----------------------------------------------------
-The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
 # 0 In file test.py(17)
     x = self.bias_add(x, self.bias)
         ^
@@ -519,12 +519,12 @@ The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_f
 mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
 ```
 
-根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
+根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.ir`，内容如下（此处版本为MindSpore 2.0，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
   2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
   4 # ===============================================================================
   5
   6 subgraph attr:

@@ -1211,7 +1211,7 @@ out2: [2]
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`. The usage of built-in function is similar to the usage of  corresponding Python built-in function.
+Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`, and `raise`. The usage of built-in function is similar to the usage of  corresponding Python built-in function.
 
 #### int
 
@@ -2355,6 +2355,39 @@ The result is as follows:
 
 ```text
 ret:(1, 3, 5)
+```
+
+#### raise
+
+Raise error according to the input error type and error message.
+
+Calling: `raise Exception(error message)`
+
+Input parameters:
+
+- `Exception` -- Error type.
+
+- `error message` -- Error message.
+
+Return value: None.
+
+For example:
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test(tensor_to_raise):
+    raise ValueError(f"input should not be {tensor_to_raise}")
+
+tensor_to_raise = Tensor(1)
+ret = test(tensor_to_raise)
+```
+
+The result is as follows:
+
+```text
+ValueError: input should not be 1.
 ```
 
 ### Function Parameters

@@ -4,14 +4,14 @@
 
 ## Overview
 
-When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an deep sorted ir can be generated. It can be switched back to the default ir file by setting environment variable `MS_DEV_SAVE_GRAPTHS_SORT_MODE` to any other value rather than 1.
-- .dot file: When `set_context(save_graphs=True, save_graph_dot=True)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
 
-`set_context(save_graphs=True)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If `set_context(save_graphs=3)` is set, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
+`set_context(save_graphs=2)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If `set_context(save_graphs=3)` is set, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
 
 You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
@@ -19,7 +19,7 @@ In the training script `train.py`, we add the following code to the `set_context
 
 ```python
 if __name__ == "__main__":
-    set_context(save_graphs=True, save_graph_dot=True, save_graphs_path="path/to/ir/files")
+    set_context(save_graphs=3, save_graphs_path="path/to/ir/files")
 ```
 
 After the training command is executed, several files were generated under the specified path.
@@ -62,7 +62,7 @@ import mindspore as ms
 from mindspore import nn, ops
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(save_graphs=True, save_graphs_path="./")
+ms.set_context(save_graphs=2, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -302,9 +302,9 @@ The transformed image is shown below, and we can visually see the model structur
 
 For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize compute graphs.
 
-## How to derive the cause of the failure based on the analyze_fail.dat file analysis graph
+## How to derive the cause of the failure based on the analyze_fail.ir file analysis graph
 
-In the process of MindSpore compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find the reason by analyzing the exception information and analyze_fail.dat.
+In the process of MindSpore compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find the reason by analyzing the exception information and analyze_fail.ir.
 
 ### Example 1: parameters number mismatch
 
@@ -315,7 +315,7 @@ In the process of MindSpore compiling a graph, the exceptions about graph evalua
   4 from mindspore import ops
   5
   6 ms.set_context(mode=ms.GRAPH_MODE)
-  7 ms.set_context(save_graphs=True)
+  7 ms.set_context(save_graphs=2)
   8
   9 class Net(nn.Cell):
  10    def __init__(self):
@@ -365,7 +365,7 @@ An error happens.
  19 NodeInfo: In file test.py(17)
  20     def func(x, y):
  21
- 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
+ 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details):
  23 # 0 In file test.py(24)
  24         return c
  25         ^
@@ -379,12 +379,12 @@ And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actu
 We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(23)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
 
-Sometimes when the exception information is not enough easy to understand, or we want to see the part of graph information that have evaluated, we use text editing software (e.g., vi) to open the file (in parentheses on line 20) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
+Sometimes when the exception information is not enough easy to understand, or we want to see the part of graph information that have evaluated, we use text editing software (e.g., vi) to open the file (in parentheses on line 20) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.ir` with the following content (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
   2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
   4 # ===============================================================================
   5
   6 subgraph attr:
@@ -452,7 +452,7 @@ Sometimes when the exception information is not enough easy to understand, or we
  68 # num of function graphs in stack: 2
 ```
 
-The file `analyze_fail.dat` has the same information format with deep sorted ir file. The only difference is `analyze_fail.dat` will locate the node which inferring failed.
+The file `analyze_fail.ir` has the same information format with deep sorted ir file. The only difference is `analyze_fail.ir` will locate the node which inferring failed.
 Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 1` at line 44. This last arrow points to the node that derives the error, which is `%3([CNode]5) = call @func.20(%1, %1, %2) ....`, which expresses the information of the node in IR. How to view the deep sorted ir file has been described in the `deep sorted ir Introduction` section earlier, and will not be repeated here.
 The node at line 45 to 48 have an error. Its IR expression is `%3([CNode]5) = call @func.20(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. From the source parsing call stack, it can be known that the function is actually `self.func`, which is defined in the script as `def dunc(x, y):...`.
 In the function definition, only two parameters are needed, so there will be a deduction failure error, and we need to modify the number of parameters passed in the script to solve the problem.
@@ -505,7 +505,7 @@ ValueError: For 'BiasAdd', bias[0] shape must be equal to input_x[1] shape when 
 ----------------------------------------------------
 - The Traceback of Net Construct Code:
 ----------------------------------------------------
-The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details. Get instructions about `analyze_fail.dat` at https://www.mindspore.cn/search?inputValue=analyze_fail.dat):
+The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
 # 0 In file test.py(17)
     x = self.bias_add(x, self.bias)
         ^
@@ -516,12 +516,12 @@ The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_f
 mindspore/core/ops/bias_add.cc:71 BiasAddInferShape
 ```
 
-The above reports that the errors is caused by the mismatching of the shape of the first input and the second input of the operator `BiasAdd`. To further understand what changes have taken place in the shape of the operator, we use text editing software (e.g., vi) to open the file that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
+The above reports that the errors is caused by the mismatching of the shape of the first input and the second input of the operator `BiasAdd`. To further understand what changes have taken place in the shape of the operator, we use text editing software (e.g., vi) to open the file that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.ir` with the following content (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
   2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.dat to get more instructions.
+  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
   4 # ===============================================================================
   5
   6 subgraph attr:

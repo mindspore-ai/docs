@@ -150,51 +150,53 @@ ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, 
 
 JIT Fallback supports the use of raise and assert in static graph mode.
 
-When using raise, it is required that conditional statements and thrown exception statements conform to the conditions of the constant scenario, otherwise unpredictable results may occur. The correct code example is as follows:
+When using raise, it is required that when conditional statements conform to the conditions of the variable scenario, branches other than the branch where the raise statement is located cannot return a value other than none, otherwise unpredictable results may occur. The correct code example is as follows:
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore import Tensor
+
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
    def construct(self, x):
       if x <= 0:
-         raise ValueError("x should be greater than 0.")
+         raise ValueError(f"x should be greater than 0 but is {x}.")
       else:
-         x += 1
-      return x
+         return None
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net(-1)
+net(Tensor(-1))
 ```
 
 Output the result:
 
 ```text
-ValueError: x should be greater than 0.
+ValueError: x should be greater than 0 but is -1.
 ```
 
-Similarly, when using assert, the conditions of the constant scenario need to be met. The correct code example is as follows:
+Similarly, when using assert, it also needs to meet the same conditions as raise. The correct code example is as follows:
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+from mindspore import Tensor
 
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
-   def construct(self):
-      x = 1
-      assert 1 in [2, 3, 4]
+   def construct(self, x):
+      assert x in [2, 3, 4]
       return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net()
+x = Tensor(1)
+net(x)
 ```
 
 The output appears normally: `AssertionError`.

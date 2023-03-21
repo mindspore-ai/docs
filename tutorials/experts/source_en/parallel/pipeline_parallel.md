@@ -133,7 +133,7 @@ from mindspore.train import Model
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    ms.set_auto_parallel_context(pipeline_stages=2, save_graphs=True)
+    ms.set_auto_parallel_context(pipeline_stages=2, save_graphs=2)
     loss_cb = train.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
