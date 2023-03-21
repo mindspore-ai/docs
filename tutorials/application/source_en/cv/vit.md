@@ -178,9 +178,9 @@ class Attention(nn.Cell):
         self.scale = ms.Tensor(head_dim ** -0.5)
 
         self.qkv = nn.Dense(dim, dim * 3)
-        self.attn_drop = nn.Dropout(attention_keep_prob)
+        self.attn_drop = nn.Dropout(p=1.0-attention_keep_prob)
         self.out = nn.Dense(dim, dim)
-        self.out_drop = nn.Dropout(keep_prob)
+        self.out_drop = nn.Dropout(p=1.0-keep_prob)
 
         self.attn_matmul_v = ops.BatchMatMul()
         self.q_matmul_k = ops.BatchMatMul(transpose_b=True)
@@ -227,7 +227,7 @@ class FeedForward(nn.Cell):
         self.dense1 = nn.Dense(in_features, hidden_features)
         self.activation = activation()
         self.dense2 = nn.Dense(hidden_features, out_features)
-        self.dropout = nn.Dropout(keep_prob)
+        self.dropout = nn.Dropout(p=1.0-keep_prob)
 
     def construct(self, x):
         """Feed Forward construct."""
@@ -407,7 +407,7 @@ class ViT(nn.Cell):
                                   requires_grad=True)
 
         self.pool = pool
-        self.pos_dropout = nn.Dropout(keep_prob)
+        self.pos_dropout = nn.Dropout(p=1.0-keep_prob)
         self.norm = norm((embed_dim,))
         self.transformer = TransformerEncoder(dim=embed_dim,
                                               num_layers=num_layers,
@@ -418,7 +418,7 @@ class ViT(nn.Cell):
                                               drop_path_keep_prob=drop_path_keep_prob,
                                               activation=activation,
                                               norm=norm)
-        self.dropout = nn.Dropout(keep_prob)
+        self.dropout = nn.Dropout(p=1.0-keep_prob)
         self.dense = nn.Dense(embed_dim, num_classes)
 
     def construct(self, x):
