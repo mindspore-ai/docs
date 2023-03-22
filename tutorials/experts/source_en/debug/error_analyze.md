@@ -69,7 +69,7 @@ Check whether the error is caused by graph build or graph execution based on the
 - If the error is reported during computational graph build, analyze the cause and location of the failure based on the error description and the `analyze_failed.ir` file automatically saved when the error occurs.
 - If the error is reported during computational graph execution, the error may be caused by insufficient resources or improper operator execution. You need to further distinguish the error based on the error message. If the error is reported during operator execution, locate the operator, use the dump function to save the input data of the operator, and analyze the cause of the error based on the input data.
 
-For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.ir`](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#example-1-parameters-number-mismatch).
+For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.ir`](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
 For details about how to use Dump to save the operator input data, see [Dump Function Debugging](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
 
