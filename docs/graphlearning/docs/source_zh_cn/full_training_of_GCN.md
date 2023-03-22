@@ -69,7 +69,7 @@ class LossNet(GNNCell):
     def __init__(self, net):
         super().__init__()
         self.net = net
-        self.loss_fn = nn.loss.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='none')
+        self.loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='none')
 
     def construct(self, x, in_deg, out_deg, train_mask, target, g: Graph):
         predict = self.net(x, in_deg, out_deg, g)
@@ -102,16 +102,16 @@ ds = CoraV2(args.data_path)
 环境变量的设置同MindSpore其他网络训练，特别的是设置enable_graph_kernel=True可以启动图算编译优化，加速图模型的训练。
 
 ```python
-import mindspore.context as context
+import mindspore as ms
 
 if train_args.fuse:
-    context.set_context(device_target="GPU", save_graphs=2, save_graphs_path="./computational_graph/",
-                        mode=context.GRAPH_MODE, enable_graph_kernel=True,
+    ms.set_context(device_target="GPU", save_graphs=2, save_graphs_path="./computational_graph/",
+                        mode=ms.GRAPH_MODE, enable_graph_kernel=True,
                         graph_kernel_flags="--enable_expand_ops=Gather --enable_cluster_ops=TensorScatterAdd,"
                                            "UnsortedSegmentSum, GatherNd --enable_recompute_fusion=false "
                                            "--enable_parallel_fusion=true ")
 else:
-    context.set_context(device_target="GPU", mode=context.PYNATIVE_MODE)
+    ms.set_context(device_target="GPU", mode=ms.PYNATIVE_MODE)
 ```
 
 ### 定义训练网络
