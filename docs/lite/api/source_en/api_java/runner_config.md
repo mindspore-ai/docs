@@ -6,14 +6,14 @@ RunnerConfig defines the configuration parameters of MindSpore Lite concurrent i
 
 ## Public Member Functions
 
-| function                                                       |
-| ------------------------------------------------------------   |
-| [boolean init()](#init)                                        |
-| [void setWorkerNum()](#setworkernum)                           |
-| [void setConfigInfo()](#setconfiginfo)                         |
-| [void setConfigPath()](#setconfigpath)                         |
-| [void getConfigPath()](#getconfigpath)                         |
-| [long getRunnerConfigPtr()](#getrunnerconfigptr)               |
+| function                                                       | Supported At Cloud-side Inference | Supported At Device-side Inference |
+| ------------------------------------------------------------   |--------|--------|
+| [boolean init()](#init)                                        | √      | ✕      |
+| [void setWorkerNum()](#setworkernum)                           | √      | ✕      |
+| [void setConfigInfo()](#setconfiginfo)                         | √      | ✕      |
+| [void setConfigPath()](#setconfigpath)                         | √      | ✕      |
+| [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
+| [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 
 ## init
 

@@ -8,7 +8,7 @@
 | com.mindspore.config | [MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html) | MSContext用于保存执行期间的上下文。                         | √      | √      |
 | com.mindspore        | [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mstensor.html) | MSTensor定义了MindSpore中的张量。                       | √      | √      |
 | com.mindspore        | [ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html) | 定义了MindSpore Lite并发推理。                       | √      | ✕      |
-| com.mindspore.config   | [RunnerConfig](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/RunnerConfig.java) | RunnerConfig 定义并发推理的配置参数。                    | √      | ✕      |
+| com.mindspore.config   | [RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html) | RunnerConfig 定义并发推理的配置参数。                    | √      | ✕      |
 | com.mindspore        | [Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/graph.html) | Model定义了MindSpore中的计算图。          | √      | √      |
 | com.mindspore.config | [CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java) | CpuBindMode定义了CPU绑定模式。                               | √      | √      |
 | com.mindspore.config | [DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java) | DeviceType定义了后端设备类型。                               | √      | √      |

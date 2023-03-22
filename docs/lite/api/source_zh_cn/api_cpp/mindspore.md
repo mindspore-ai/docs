@@ -2780,7 +2780,26 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 
 ### 公有成员函数
 
-所有`Status`公有成员函数，在云侧和端侧推理中都受支持。
+| 函数                                | 云侧推理是否支持 | 端侧推理是否支持 |
+|-----------------------------|--------|--------|
+| `enum StatusCode StatusCode() const;`      |    √     |    √     |
+| `inline std::string ToString() const;`      |    √     |    √     |
+| `int GetLineOfCode() const;`      |    √     |    √     |
+| `inline std::string GetFileName() const;`      |    √     |    √     |
+| `inline std::string GetErrDescription() const;`      |    √     |    √     |
+| `inline std::string SetErrDescription(const std::string &err_description);`      |    √     |    √     |
+| `inline void SetStatusMsg(const std::string &status_msg);`      |    √     |    √     |
+| `friend std::ostream &operator<<(std::ostream &os, const Status &s);`      |    √     |    √     |
+| `bool operator==(const Status &other) const;`      |    √     |    √     |
+| `bool operator==(enum StatusCode other_code) const;`      |    √     |    √     |
+| `bool operator!=(const Status &other) const;`      |    √     |    √     |
+| `bool operator!=(enum StatusCode other_code) const;`      |    √     |    √     |
+| `explicit operator bool() const;`      |    √     |    √     |
+| `explicit operator int() const;`      |    √     |    √     |
+| `static Status OK();`      |    √     |    √     |
+| `bool IsOk() const;`      |    √     |    √     |
+| `bool IsError() const;`      |    √     |    √     |
+| `static inline std::string CodeAsString(enum StatusCode c);`      |    √     |    √     |
 
 #### StatusCode
 

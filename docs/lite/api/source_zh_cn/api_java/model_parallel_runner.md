@@ -99,7 +99,7 @@ public List<MSTensor> getInputs()
 public List<MSTensor> getOutputs()
 ```
 
-获取模型所有输入张量。
+获取模型所有输出张量。
 
 - 返回值
 

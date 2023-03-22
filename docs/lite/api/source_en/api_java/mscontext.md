@@ -10,27 +10,27 @@ MSContext is defined for holding environment variables during runtime.
 
 ## Public Member Functions
 
-| function                                                                                      |
-| --------------------------------------------------------------------------------------------- |
-| [boolean init()](#init)                                                                       |
-| [boolean init(int threadNum, int cpuBindMode)](#init)                                         |
-| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               |
-| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)](#adddeviceinfo)              |
-| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)](#adddeviceinfo) |
-| [void setThreadNum(int threadNum)](#setenableparallel)                                        |
-| [int getThreadNum()](#getenableparallel)                                                      |
-| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         |
-| [int getInterOpParallelNum()](#getinteropparallelnum)                                         |
-| [void setThreadAffinity(int mode)](#setthreadaffinity)                                        |
-| [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     |
-| [void setThreadAffinity(ArrayList\<Integer\> coreList)](#setthreadaffinity-1)                 |
-| [ArrayList\<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                |
-| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              |
-| [boolean getEnableParallel()](#getenableparallel)                                             |
-| [void free()](#free)                                                                          |
-| [long getMSContextPtr()](#getmscontextptr)                                                    |
-| [DeviceType](#devicetype)                                                                     |
-| [CpuBindMode](#cpubindmode)                                                                   |
+| function                                                                                      | Supported At Cloud-side Inference | Supported At Device-side Inference |
+| --------------------------------------------------------------------------------------------- |--------|--------|
+| [boolean init()](#init)                                                                       | √      | √      |
+| [boolean init(int threadNum, int cpuBindMode)](#init)                                         | √      | √      |
+| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               | ✕      | √      |
+| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)](#adddeviceinfo)              | √      | √      |
+| [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)](#adddeviceinfo) | ✕      | √      |
+| [void free()](#free)                                                                          | √      | √      |
+| [long getMSContextPtr()](#getmscontextptr)                                                    | √      | √      |
+| [void setThreadNum(int threadNum)](#setenableparallel)                                        | √      | √      |
+| [int getThreadNum()](#getenableparallel)                                                      | √      | √      |
+| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         | √      | √      |
+| [int getInterOpParallelNum()](#getinteropparallelnum)                                         | √      | √      |
+| [void setThreadAffinity(int mode)](#setthreadaffinity)                                        | √      | √      |
+| [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     | √      | √      |
+| [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 | √      | √      |
+| [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                | √      | √      |
+| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | ✕      | √      |
+| [boolean getEnableParallel()](#getenableparallel)                                             | ✕      | √      |
+| [DeviceType](#devicetype)                                                                     | √      | √      |
+| [CpuBindMode](#cpubindmode)                                                                   | √      | √      |
 
 ## init
 
@@ -134,7 +134,7 @@ Free the memory allocated for MSContext.
 void setThreadNum(int threadNum)
 ```
 
-Sets the number of threads at runtime. Only valid for Lite.
+Sets the number of threads at runtime.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters
@@ -147,7 +147,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 void int getThreadNum()
 ```
 
-Get the current thread number setting. Only valid for Lite.
+Get the current thread number setting.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Returns
@@ -160,7 +160,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 void setInterOpParallelNum(int parallelNum)
 ```
 
-Set the parallel number of operators at runtime. Only valid for Lite.
+Set the parallel number of operators at runtime.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters
@@ -173,7 +173,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 int getInterOpParallelNum()
 ```
 
-et the current operators parallel number setting. Only valid for Lite.
+et the current operators parallel number setting.
 If MSContext is not initialized, this function will return -1 and output null pointer information in the log.
 
 - Returns
@@ -186,7 +186,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 void setThreadAffinity(int mode)
 ```
 
-Set the thread affinity to CPU cores. Only valid for Lite.
+Set the thread affinity to CPU cores.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters
@@ -199,7 +199,7 @@ If MSContext is not initialized, this function will do nothing and output null p
  int getThreadAffinityMode()
 ```
 
-Get the thread affinity of CPU cores. Only valid for Lite.
+Get the thread affinity of CPU cores.
 If MSContext is not initialized, this function will return -1 and output null pointer information in the log.
 
 - Returns
@@ -212,7 +212,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 void setThreadAffinity(ArrayList<Integer> coreList)
 ```
 
-Set the thread lists to CPU cores, if two different `setThreadAffinity` are set for a single MSContext at the same time，only `coreList` will take effect and `mode` will not. Only valid for Lite.
+Set the thread lists to CPU cores, if two different `setThreadAffinity` are set for a single MSContext at the same time，only `coreList` will take effect and `mode` will not.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters
@@ -225,7 +225,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ArrayList<Integer> getThreadAffinityCoreList()
 ```
 
- Get the thread lists of CPU cores. Only valid for Lite.
+ Get the thread lists of CPU cores.
 If MSContext is not initialized, this function will retutn an empty Arraylist and output null pointer information in the log.
 
 - Returns
@@ -238,7 +238,7 @@ If MSContext is not initialized, this function will retutn an empty Arraylist an
 void setEnableParallel(boolean isParallel)
 ```
 
-Set the status whether to perform model inference or training in parallel. Only valid for Lite.
+Set the status whether to perform model inference or training in parallel.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters
@@ -251,7 +251,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 boolean getEnableParallel()
 ```
 
-Get the status whether to perform model inference or training in parallel. Only valid for Lite.
+Get the status whether to perform model inference or training in parallel.
 If MSContext is not initialized, this function will return `false` and output null pointer information in the log.
 
 - Returns
