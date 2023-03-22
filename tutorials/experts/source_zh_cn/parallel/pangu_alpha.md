@@ -38,9 +38,9 @@ class VocabEmbedding(Cell):
         self.embedding_table = ms.Parameter(initializer(param_init, [self.vocab_size, self.hidden_size]),
                                             name='embedding_table', parallel_optimizer=False)
         if parallel_config.vocab_emb_dp:
-            self.gather = ops.GatherV2().shard(((1, 1), (parallel_config.data_parallel, 1)))
+            self.gather = ops.Gather().shard(((1, 1), (parallel_config.data_parallel, 1)))
         else:
-            self.gather = ops.GatherV2().shard(((parallel_config.model_parallel, 1), (1, 1)))
+            self.gather = ops.Gather().shard(((parallel_config.model_parallel, 1), (1, 1)))
     def construct(self, input_ids):
         output = self.gather(self.embedding_table, input_ids, 0)
         return output, self.embedding_table

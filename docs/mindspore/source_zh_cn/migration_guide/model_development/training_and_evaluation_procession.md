@@ -175,7 +175,7 @@ class Trainer:
         self.train_data_size = self.train_dataset.get_dataset_size()    # 获取训练集batch数
         self.weights = self.opt.parameters
         # 注意value_and_grad的第一个参数需要是需要做梯度求导的图，一般包含网络和loss。这里可以是一个函数，也可以是Cell
-        self.value_and_grad = ops.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
+        self.value_and_grad = ms.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
 
         # 分布式场景使用
         self.grad_reducer = self.get_grad_reducer()

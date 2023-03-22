@@ -35,7 +35,6 @@ MindSpore教程
    advanced/derivation
    advanced/compute_graph
    advanced/mixed_precision
-   advanced/continue_train
 
 .. raw:: html
 

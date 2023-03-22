@@ -175,7 +175,7 @@ class Trainer:
         self.train_data_size = self.train_dataset.get_dataset_size()    # Get the number of training set batches
         self.weights = self.opt.parameters
         # Note that the first parameter of value_and_grad needs to be a graph that needs to be gradient-derived, typically containing a network and a loss. Here it can be a function, or a Cell
-        self.value_and_grad = ops.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
+        self.value_and_grad = ms.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
 
         # Use in the distributed scenario
         self.grad_reducer = self.get_grad_reducer()

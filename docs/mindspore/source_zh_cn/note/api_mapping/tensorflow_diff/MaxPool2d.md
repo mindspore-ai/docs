@@ -61,10 +61,9 @@ print(output.shape)
 # MindSpore
 import mindspore
 import numpy as np
-from mindspore import context
 from mindspore import Tensor
 
-device = context.get_context("device_target")
+device = mindspore.get_context("device_target")
 x = Tensor(np.array([[[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]]).astype(np.float32))
 if device == "Ascend" or device == "CPU":
     max_pool = mindspore.nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='same')

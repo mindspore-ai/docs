@@ -61,7 +61,7 @@ init()
 
 where
 
-- `ms.set_context(mode=context.GRAPH_MODE, device_target="CPU")`: Specify the mode as graph mode (parallelism is not supported in PyNative mode on CPU) and the device as `CPU`.
+- `ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")`: Specify the mode as graph mode (parallelism is not supported in PyNative mode on CPU) and the device as `CPU`.
 - `ms.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)`: Specify the data parallelism mode. `gradients_mean=True` means averaging will be done after gradient normalization. Only summation is supported for gradient normalization on the current CPU.
 - `ms.set_ps_context`: Configure secure encrypted communication and enable secure encrypted communication by `ms.set_ps_context(enable_ssl=True)`. Default is `False` to turn off secure encrypted communication.
 - `init`: Initialize the node. The completion of initialization indicates successful network formation.
