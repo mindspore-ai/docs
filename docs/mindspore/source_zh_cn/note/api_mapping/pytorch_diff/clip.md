@@ -1,31 +1,29 @@
-# 比较与torch.clamp的功能差异
+# 比较与torch.clip的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clamp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/clip.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 以下映射关系均可参考本文。
 
 |     PyTorch APIs      |      MindSpore APIs       |
 | :-------------------: | :-----------------------: |
-|  torch.clamp | mindspore.ops.clamp |
 |    torch.clip     |  mindspore.ops.clip   |
-|   torch.Tensor.clamp    |   mindspore.Tensor.clamp    |
 |  torch.Tensor.clip | mindspore.Tensor.clip |
 
-## torch.clamp
+## torch.clip
 
 ```text
-torch.clamp(input, min, max, *, out=None) -> Tensor
+torch.clip(input, min, max, *, out=None) -> Tensor
 ```
 
-更多内容详见[torch.clamp](https://pytorch.org/docs/1.8.1/generated/torch.clamp.html)。
+更多内容详见[torch.clip](https://pytorch.org/docs/1.8.1/generated/torch.clip.html)。
 
-## mindspore.ops.clamp
+## mindspore.ops.clip
 
 ```text
-mindspore.ops.clamp(x, min=None, max=None) -> Tensor
+mindspore.ops.clip(x, min=None, max=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.clamp](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clamp.html)。
+更多内容详见[mindspore.ops.clip](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip.html)。
 
 ## 差异对比
 
@@ -48,7 +46,7 @@ MindSpore：MindSpore此API实现基本功能与PyTorch一致，参数名`input`
 # PyTorch
 import torch
 a = torch.tensor([[1., 25., 5., 7.], [4., 11., 6., 21.]], dtype=torch.float32)
-x = torch.clamp(a, min=5, max=20)
+x = torch.clip(a, min=5, max=20)
 print(x.detach().numpy())
 #[[ 5. 20.  5.  7.]
 # [ 5. 11.  6. 20.]]
@@ -60,7 +58,7 @@ import numpy as np
 min = Tensor(5, mindspore.float32)
 max = Tensor(20, mindspore.float32)
 x = Tensor(np.array([[1., 25., 5., 7.], [4., 11., 6., 21.]]), mindspore.float32)
-output = ops.clamp(x, min, max)
+output = ops.clip(x, min, max)
 print(output)
 #[[ 5. 20.  5.  7.]
 # [ 5. 11.  6. 20.]]
@@ -74,12 +72,12 @@ print(output)
 # PyTorch
 import torch
 a = torch.tensor([1, 2, 3])
-output = torch.clamp(a, max=0.5)
+output = torch.clip(a, max=0.5)
 print(output)
 #tensor([0, 0, 0])
 
 a = torch.tensor([1., 2., 3.])
-output = torch.clamp(a, max=0.5)
+output = torch.clip(a, max=0.5)
 print(output)
 #tensor([0.5000, 0.5000, 0.5000])
 
@@ -87,12 +85,12 @@ print(output)
 from mindspore import Tensor, ops
 x = Tensor([1, 2, 3])
 max = Tensor([0.5, 0.5, 0.5])
-output = ops.clamp(x, max=max)
+output = ops.clip(x, max=max)
 print(output)
 #[0 0 0]
 
 x = Tensor([1., 2., 3.])
-output = ops.clamp(x, max=max)
+output = ops.clip(x, max=max)
 print(output)
 #[0.5 0.5 0.5]
 ```
