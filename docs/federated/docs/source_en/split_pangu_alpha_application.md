@@ -238,6 +238,16 @@ This example provides 2 sample programs, both running as shell scripts to pull u
 
 2. `run_pangu_train_leader.sh` and `run_pangu_train_follower.sh`: Multi-process example program. Participant A and participant B run a separate process, which encapsulates the feature tensor and gradient tensor as protobuf messages, respectively, and transmits them to the other participant via the https communication interface. `run_pangu_train_leader.sh` and `run_pangu_train_follower.sh` can be run on two servers separately to achieve cross-domain collaboration training.
 
+3. The current vertical federated distributed training supports https cross-domain encrypted communication. The startup command is as follows:
+
+   ```bash
+   # Start the leader process in https encrypted communication mode:
+   bash run_pangu_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/train/data_set /path/to/eval/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
+
+   # Start the follower process in https encrypted communication mode:
+   bash run_pangu_train_follower.sh 127.0.0.1:10086 127.0.0.1:10087 True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
+   ```
+
 ### Running a Single-Process Example
 
 Taking `run_pangu_train_local.sh` as an example, run the sample program as follows:

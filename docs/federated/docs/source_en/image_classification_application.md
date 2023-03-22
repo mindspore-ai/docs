@@ -269,6 +269,16 @@ For different interfaces and scenarios, you only need to modify specific paramet
     ......
     ```
 
+    On the cloud side, the number of client group ids and algorithm type for unsupervised cluster index statistics can be specified by setting the 'cluster_client_num' parameter and 'eval_type' parameter of yaml configuration file. The 'metrics.json' statistical file generated on the cloud side can query the unsupervised indicator information:
+
+    ```text
+    "unsupervisedEval":0.640
+    "unsupervisedEval":0.675
+    "unsupervisedEval":0.677
+    "unsupervisedEval":0.706
+    ......
+    ```
+
 - Start the inference task: SyncFLJob.modelInference()
 
     When `--task` in `Basic Start Command` is set to `inference`, it means to start the task.

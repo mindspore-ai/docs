@@ -80,6 +80,12 @@ This sample runs as a Shell script pulling up a Python program.
 
    # start follower:
    bash run_vfl_train_socket_follower.sh
+
+   # Start the leader process with https encrypted communication:
+   bash run_vfl_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
+
+   # Start the follower process using https encrypted communication:
+   bash run_vfl_train_follower.sh 127.0.0.1:10086 127.0.0.1:10087 /path/to/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
    ```
 
 5. View training log `log_local_gpu.txt`.

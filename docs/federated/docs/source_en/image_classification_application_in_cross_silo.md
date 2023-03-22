@@ -168,6 +168,7 @@ cross_silo_femnist/
 ├── run_cross_silo_femnist_sched.py # Start cross-silo federated scheduler script
 ├── run_cross_silo_femnist_server.py # Start cross-silo federated server script
 ├── run_cross_silo_femnist_worker.py # Start cross-silo federated worker script
+├── run_cross_silo_femnist_worker_distributed.py # Start the cloud Federation distributed training worker script
 └── test_cross_silo_femnist.py # Training scripts used by the client
 ```
 
@@ -204,6 +205,12 @@ cross_silo_femnist/
    python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
    ```
 
+   At present, the `worker` node of the cloud federation supports the distributed training mode of single machine multi-card and multi-machine multi-card. `run_cross_silo_femnist_worker_distributed.py` is a Python script provided for users to start the distributed training of `worker` node. It also supports the configuration modification through parameter argparse. Execute the following instructions, representing the distributed `worker` that starts this federated learning task, where `device_num` represents the number of processes started by the `worker` cluster, `run_distribute` represents the distributed training started by the cluster, and its http start port is `5555`. The number of `orker` processes is `4`:
+
+   ```sh
+   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   ```
+
 After executing the above three commands, go to the `worker_0` folder in the current directory and check the `worker_0` log with the command `grep -rn "test acc" *` and you will see a print similar to the following:
 
 ```sh
@@ -213,6 +220,12 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 Then it means that cross-silo federated learning is started successfully and `worker_0` is training, other workers can be viewed in a similar way.
 
 Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
+
+If worker has been started in distributed multi-card training mode, enter the folder `worker_distributed/log_output/` in the current directory, and run the command `grep -rn "test acc" *` to view the log of `worker` distributed cluster. You can see the following print:
+
+```text
+local epoch: 0, loss: 2.3467453340711655, trian acc: 0.06532451988877687, test acc: 0.076
+```
 
 ### Viewing Log
 

@@ -238,6 +238,16 @@ grad_scalers:
 
 2. `run_pangu_train_leader.sh`和`run_pangu_train_follower.sh`：多进程示例程序，参与方A和参与方B分别运行一个进程，其分别将特征张量和梯度张量封装为protobuf消息后，通过https通信接口传输至另一参与方。`run_pangu_train_leader.sh`和`run_pangu_train_follower.sh`可分别在两台服务器上运行，实现跨域协同训练。
 
+3. 当前纵向联邦分布式训练支持https跨域加密通信，启动命令如下：
+
+   ```bash
+   # 以https加密通信的方式启动leader进程：
+   bash run_pangu_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/train/data_set /path/to/eval/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
+
+   # 以https加密通信的方式启动follower进程：
+   bash run_pangu_train_follower.sh 127.0.0.1:10086 127.0.0.1:10087 True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
+   ```
+
 ### 运行单进程样例
 
 `run_pangu_train_local.sh`为例，运行示例程序的步骤如下：

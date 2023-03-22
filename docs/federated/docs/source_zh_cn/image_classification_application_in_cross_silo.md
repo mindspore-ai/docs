@@ -168,6 +168,7 @@ cross_silo_femnist/
 ├── run_cross_silo_femnist_sched.py # 启动云云联邦scheduler脚本
 ├── run_cross_silo_femnist_server.py # 启动云云联邦server脚本
 ├── run_cross_silo_femnist_worker.py # 启动云云联邦worker脚本
+├── run_cross_silo_femnist_worker_distributed.py # 启动云云联邦分布式训练worker脚本
 └── test_cross_silo_femnist.py # 客户端使用的训练脚本
 ```
 
@@ -204,6 +205,12 @@ cross_silo_femnist/
    python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
    ```
 
+   当前云云联邦的`worker`节点支持单机多卡&多机多卡的分布式训练方式，`run_cross_silo_femnist_worker_distributed.py`是为用户启动`worker`节点的分布式训练而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的分布式`worker`，其中`device_num`表示`worker`集群启动的进程数目，`run_distribute`表示启动集群的分布式训练，其http起始端口为`5555`，`worker`进程数量为`4`个：
+
+   ```sh
+   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   ```
+
 当执行以上三个指令之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "test acc" *`查看`worker_0`日志，可看到如下类似打印：
 
 ```sh
@@ -211,6 +218,12 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 ```
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
+
+若worker已分布式多卡训练的方式启动，进入当前目录下`worker_distributed/log_output/`文件夹，通过指令`grep -rn "test acc" *`查看`worker`分布式集群的日志，可看到如下类似打印：
+
+```text
+local epoch: 0, loss: 2.3467453340711655, trian acc: 0.06532451988877687, test acc: 0.076
+```
 
 以上脚本中参数配置说明请参考[yaml配置说明](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html)。
 
