@@ -28,9 +28,9 @@ $$t = \alpha m+\beta$$
 
 ### Communication Fusion Implementation
 
-Currently, fusion is supported for each of the three communication operators `AllReduce`, `AllGather` and `ReduceScatter`, with the configuration item being a dict type, e.g.
+Currently, fusion is supported for each of the three communication operators `AllReduce`, `AllGather` and `ReduceScatter` and a control state `openstate` (bool), with the configuration item being a dict type, e.g.
 
-comm_fusion={"allreduce": {"mode": "auto", "config": None}}, where "mode" has three options:
+comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}, where "mode" has three options:
 
 "auto": Automatic operator fusion according to the data volume threshold of 64MB, with the configuration parameter "config" as None.
 
