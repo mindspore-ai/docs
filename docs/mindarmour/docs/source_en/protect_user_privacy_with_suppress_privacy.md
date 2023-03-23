@@ -27,7 +27,7 @@ import os
 from easydict import EasyDict as edict
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore.train import Accuracy
+from mindspore.train import Accuracy, LossMonitor, CheckpointConfig, ModelCheckpoint
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
@@ -127,9 +127,9 @@ Load the LeNet network, configure the checkpoint, set the optimizer type, and lo
 
 ```python
 networks_l5 = LeNet5()
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=10,
+config_ck = CheckpointConfig(save_checkpoint_steps=10,
                              keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
@@ -209,7 +209,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
     ```python
    LOGGER.info(TAG, "============== Starting SUPP Training ==============")
-   model_instance.train(10, ds_train, callbacks=[ckpoint_cb, ms.LossMonitor(), suppress_masker],
+   model_instance.train(10, ds_train, callbacks=[ckpoint_cb, LossMonitor(), suppress_masker],
                          dataset_sink_mode=False)
 
    LOGGER.info(TAG, "============== Starting SUPP Testing ==============")

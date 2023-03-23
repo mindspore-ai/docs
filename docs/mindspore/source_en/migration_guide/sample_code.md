@@ -662,6 +662,7 @@ The corresponding MindSpore code is as follows:
 ```python
 import numpy as np
 import mindspore as ms
+from mindspore.train import Model
 from mindspore import nn
 from mindspore.profiler import Profiler
 from src.dataset import create_dataset
@@ -740,8 +741,8 @@ train_dataset = create_dataset(config.dataset_name, config.data_path, True, batc
                                image_size=(int(config.image_height), int(config.image_width)),
                                rank_size=device_num, rank_id=config.rank_id)
 .....
-loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-model = ms.Model(resnet, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale)
+loss_scale = ms.amp.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
+model = Model(resnet, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale)
 if config.use_profilor:
     # Note that the profiling data should not be too large. Otherwise, the processing will be slow.
     model.train(3, train_dataset, callbacks=[LossMonitor(), TimeMonitor()], dataset_sink_mode=True)

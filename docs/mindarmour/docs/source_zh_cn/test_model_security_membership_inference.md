@@ -33,6 +33,7 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer
+from mindspore.train import Model
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
@@ -192,7 +193,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     opt = nn.Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9,
                       weight_decay=args.weight_decay, loss_scale=args.loss_scale)
     ms.load_param_into_net(net, ms.load_checkpoint(args.pre_trained))
-    model = ms.Model(network=net, loss_fn=loss, optimizer=opt)
+    model = Model(network=net, loss_fn=loss, optimizer=opt)
     ```
 
 2. 加载CIFAR-100数据集，按8:2分割为成员推理模型的训练集和测试集。

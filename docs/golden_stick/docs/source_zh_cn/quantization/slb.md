@@ -233,8 +233,8 @@ ResNetOpt<
 ```python
 import mindspore as ms
 import mindspore.train.callback as callback
-from mindspore.train.loss_scale_manager import FixedLossScaleManager
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore.amp import FixedLossScaleManager
+from mindspore.train import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, Model
 
 step_size = dataset.get_dataset_size()
 lr = get_lr(lr_init=config.lr_init,
@@ -255,7 +255,7 @@ opt = nn.Momentum(group_params, lr, config.momentum, weight_decay=config.weight_
 loss = init_loss_scale()
 loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
 metrics = {"acc"}
-model = ms.Model(quant_net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
+model = Model(quant_net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
                  amp_level="O0", boost_level=config.boost_mode, keep_batchnorm_fp32=False,
                  eval_network=None,
                  boost_config_dict={"grad_freeze": {"total_steps": config.epoch_size * step_size}})
@@ -320,7 +320,7 @@ param_dict = ms.load_checkpoint(config.checkpoint_file_path)
 ms.load_param_into_net(quant_net, param_dict)
 ds_eval = create_dataset(dataset_path=config.data_path, do_train=False, batch_size=config.batch_size,
                          eval_image_size=config.eval_image_size, target=config.device_target)
-model = ms.Model(quant_net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+model = Model(quant_net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 acc = model.eval(ds_eval)
 print(acc)
 ```

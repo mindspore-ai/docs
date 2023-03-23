@@ -136,28 +136,29 @@ The list of operators only supports float16 on Ascend:
 ```python
 import mindspore as ms
 from mindspore import nn
+from mindspore.train import Model
 # Model
-loss_scale_manager = ms.FixedLossScaleManager(drop_overflow_update=False) # Static loss scale
-# loss_scale_manager = ms.DynamicLossScaleManager()   # Dynamic loss scale
+loss_scale_manager = ms.amp.FixedLossScaleManager(drop_overflow_update=False) # Static loss scale
+# loss_scale_manager = ms.amp.DynamicLossScaleManager()   # Dynamic loss scale
 
 # 1. General process
 loss = nn.MSELoss()
 opt = nn.Adam(params=msnet.trainable_params(), learning_rate=0.01)
-model = ms.Model(network=msnet, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale_manager)
+model = Model(network=msnet, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale_manager)
 
 # 2. Self-packaged forward network and loss function
 msnet.to_float(ms.float16)
 loss.to_float(ms.float32)
 net_with_loss = nn.WithLossCell(msnet, loss)
 # It is recommended that loss_fn be used for the mixed precision of the model. Otherwise, float16 is used for calculation of the loss part, which may cause overflow.
-model = ms.Model(network=net_with_loss, optimizer=opt)
+model = Model(network=net_with_loss, optimizer=opt)
 
 # 3. Self-packaged training process
 scale_sense = nn.FixedLossScaleUpdateCell(1)#(config.loss_scale) # Static loss scale
 # scale_sense = nn.DynamicLossScaleUpdateCell(loss_scale_value=config.loss_scale,
 #                                             scale_factor=2, scale_window=1000) # Dynamic loss scale
 train_net = nn.TrainOneStepWithLossScaleCell(net_with_loss, optimizer=opt, scale_sense=scale_sense)
-model = ms.Model(network=train_net)
+model = Model(network=train_net)
 ```
 
 - Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html) of MindInsight to check why overflow occurs.

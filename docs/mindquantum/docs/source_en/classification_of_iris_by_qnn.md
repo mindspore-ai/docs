@@ -336,14 +336,14 @@ Next, we need to define the loss function, set the parameters to be optimized, a
 ```python
 from mindspore.nn import SoftmaxCrossEntropyWithLogits                         # Import the SoftmaxCrossEntropyWithLogits module to define the loss function
 from mindspore.nn import Adam                                                  # Import the Adam module, which is used to define optimization parameters.
-from mindspore.train import Accuracy                                           # Import the Accuracy module, which is used to evaluate the prediction accuracy respectively.
+from mindspore.train import Accuracy, Model, LossMonitor                       # Import the Accuracy module, which is used to evaluate the prediction accuracy respectively.
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset                               # Import the NumpySlicesDataset module for creating datasets that the model can recognize
 
 loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')            # The loss function is defined by SoftmaxCrossEntropyWithLogits, sparse=True indicates that the specified label uses a sparse format, and reduction='mean' indicates that the dimensionality reduction method of the loss function is averaging
 opti = Adam(QuantumNet.trainable_params(), learning_rate=0.1)                  # The parameters in Ansatz are optimized by the Adam optimizer. What needs to be optimized are the trainable parameters in Quantumnet, and the learning rate is set to 0.1
 
-model = ms.Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindQuantum and the operators of MindSpore to form a larger machine learning network
+model = Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindQuantum and the operators of MindSpore to form a larger machine learning network
 
 train_loader = NumpySlicesDataset({'features': X_train, 'labels': y_train}, shuffle=False).batch(5) # Create a dataset of training samples by NumpySlicesDataset, shuffle=False means not to shuffle the data, batch(5) means that the training set has 5 sample points per batch
 test_loader = NumpySlicesDataset({'features': X_test, 'labels': y_test}).batch(5)                   # Create a data set of test samples by NumpySlicesDataset, batch(5) means that there are 5 sample points in each batch of the test set
@@ -357,7 +357,7 @@ class StepAcc(ms.Callback):                                                     
     def step_end(self, run_context):
         self.acc.append(self.model.eval(self.test_loader, dataset_sink_mode=False)['Acc'])
 
-monitor = ms.LossMonitor(16)                                                       # Monitor the loss during training and print the loss value every 16 steps
+monitor = LossMonitor(16)                                                       # Monitor the loss during training and print the loss value every 16 steps
 
 acc = StepAcc(model, test_loader)                                               # Calculate the accuracy of predictions using the established model and test samples
 
@@ -403,7 +403,7 @@ Note:
 
 (6) Callback is an abstract base class for building callback classes, which are context managers that will input and output when passed to the model. You can use this mechanism to automatically initialize and release resources. The callback function will perform some operations in the current step or data loop;
 
-(7) LossMonitor is mainly used to monitor the loss in training. If the loss is NAN or INF, it will terminate the training. The general format is as follows: mindspore.LossMonitor(per_print_times=1), per_print_times=1 means print the loss every second, default value: 1;
+(7) LossMonitor is mainly used to monitor the loss in training. If the loss is NAN or INF, it will terminate the training. The general format is as follows: mindspore.train.LossMonitor(per_print_times=1), per_print_times=1 means print the loss every second, default value: 1;
 
 (8) The train module is used to train the model, where the iteration is controlled by the Python front-end; when the PyNative mode or CPU is set, the training process will be executed without the data set being received. The general format is as follows: train(epoch, train_dataset, callbacks= None, dataset_sink_mode=True, sink_size=-1), where epoch indicates the total number of iterations on the data; train_dataset is the train_loader we defined; callbacks is the loss value and accuracy we need to call back; dataset_sink_mode indicates whether to pass data by the dataset channel, in the tutorial it is no.
 

@@ -43,7 +43,7 @@ from easydict import EasyDict as edict
 
 import mindspore.nn as nn
 import mindspore as ms
-from mindspore.train import Accuracy
+from mindspore.train import Accuracy, LossMonitor, CheckpointConfig, ModelCheckpoint
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
@@ -212,9 +212,9 @@ Load the LeNet network, define the loss function, configure the checkpoint param
 ```python
 network = LeNet5()
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-config_ck = ms.CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
+config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
                              keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
@@ -291,7 +291,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     ```python
     LOGGER.info(TAG, "============== Starting Training ==============")
     model.train(cfg['epoch_size'], ds_train,
-                callbacks=[ckpoint_cb, ms.LossMonitor(), rdp_monitor],
+                callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
                 dataset_sink_mode=cfg.dataset_sink_mode)
 
     LOGGER.info(TAG, "============== Starting Testing ==============")

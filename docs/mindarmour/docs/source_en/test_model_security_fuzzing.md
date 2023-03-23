@@ -24,6 +24,8 @@ Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, you can also choose
 import numpy as np
 import mindspore as ms
 
+from mindspore.train import Model
+
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import KMultisectionNeuronCoverage
 from mindarmour.utils import LogUtil
@@ -53,7 +55,7 @@ For details about the API configuration, see the `set_context`.
    ```python
    ...
    # Lenet model
-   model = ms.Model(net)
+   model = Model(net)
    # get training data
    mnist_path = "../common/dataset/MNIST/"
    batch_size = 32

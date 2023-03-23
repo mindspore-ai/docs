@@ -36,6 +36,7 @@ import numpy as np
 import mindspore as ms
 from mindarmour.utils import LogUtil
 from mindspore import nn
+from mindspore.train import Model
 from examples.common.networks.lenet5.lenet5_net_for_fuzzing import LeNet5
 from mindarmour.reliability import OodDetectorFeatureCluster
 
@@ -73,7 +74,7 @@ ckpt_path = '../../dataset/trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
 net = LeNet5()
 load_dict = ms.load_checkpoint(ckpt_path)
 ms.load_param_into_net(net, load_dict)
-model = ms.Model(net)
+model = Model(net)
 ```
 
 `ckpt_path(str)`: model file path.

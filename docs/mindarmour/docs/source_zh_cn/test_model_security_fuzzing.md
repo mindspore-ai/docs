@@ -24,6 +24,8 @@ MindArmour的fuzz_testing模块以神经元覆盖率作为测试评价准则。�
 import numpy as np
 import mindspore as ms
 
+from mindspore.train import Model
+
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import KMultisectionNeuronCoverage
 from mindarmour.utils import LogUtil
@@ -53,7 +55,7 @@ ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
    ```python
    ...
    # Lenet model
-   model = ms.Model(net)
+   model = Model(net)
    # get training data
    mnist_path = "../common/dataset/MNIST/"
    batch_size = 32
