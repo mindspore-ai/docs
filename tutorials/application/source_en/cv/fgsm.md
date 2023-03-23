@@ -197,7 +197,7 @@ acc = model.eval(dataset_eval)
 print("{}".format(acc))
 ```
 
-```python
+```text
     {'accuracy': 0.9888822115384616}
 ```
 

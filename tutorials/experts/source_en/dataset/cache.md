@@ -196,6 +196,7 @@ data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=5, shuffle=False, 
 
 # apply cache to map
 rescale_op = vision.Rescale(1.0 / 255.0, -1.0)
+test_cache = ds.DatasetCache(session_id=session_id, size=0, spilling=False)
 data = data.map(input_columns=["image"], operations=rescale_op, cache=test_cache)
 
 num_iter = 0

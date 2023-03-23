@@ -46,7 +46,7 @@ from pathlib import Path
 cache_dir = Path.home() / '.mindspore_examples'
 
 def http_get(url: str, temp_file: IO):
-    """Download data by using the requests library and visualize the process by using the tqdm library.""
+    """Download data by using the requests library and visualize the process by using the tqdm library."""
     req = requests.get(url, stream=True)
     content_length = req.headers.get('Content-Length')
     total = int(content_length) if content_length is not None else None
@@ -58,7 +58,7 @@ def http_get(url: str, temp_file: IO):
     progress.close()
 
 def download(file_name: str, url: str):
-    """Download data and save it with the specified name.""
+    """Download data and save it with the specified name."""
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
     cache_path = os.path.join(cache_dir, file_name)
@@ -500,8 +500,6 @@ def evaluate(model, test_dataset, criterion, epoch=0):
 The model building, training, and evaluation logic design are complete. The following describes how to train a model. In this example, the number of training epochs is set to 5. In addition, maintain the `best_valid_loss` variable for saving the optimal model. Based on the loss value of each epoch of evaluation, select the epoch with the minimum loss value and save the model.
 
 ```python
-import mindspore as ms
-
 num_epochs = 5
 best_valid_loss = float('inf')
 ckpt_file_name = os.path.join(cache_dir, 'sentiment-analysis.ckpt')
@@ -537,8 +535,6 @@ After model training is complete, you need to test or deploy the model. In this 
 > The `load_param_into_net` API returns the weight name that does not match the checkpoint in the model. If the weight name matches the checkpoint, an empty list is returned.
 
 ```python
-import mindspore as ms
-
 param_dict = ms.load_checkpoint(ckpt_file_name)
 ms.load_param_into_net(model, param_dict)
 ```
