@@ -17,8 +17,8 @@ Execute the following test case:
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.ops as ops
 import mindspore as ms
+import mindspore.ops as ops
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
