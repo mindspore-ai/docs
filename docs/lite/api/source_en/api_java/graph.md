@@ -10,11 +10,11 @@ Model defines computational graph in MindSpore.
 
 ## Public Member Functions
 
-| function                                                     |
-| ------------------------------------------------------------ |
-| [boolean load(String file)](#load) |
-| [long getGraphPtr()](#getgraphptr)                           |
-| [void free()](#free)                                         |
+| function                                                     | Supported At Cloud-side Inference | Supported At Device-side Inference |
+| ------------------------------------------------------------ |--------|--------|
+| [boolean load(String file)](#load) | √      | √      |
+| [long getGraphPtr()](#getgraphptr)                            | √      | √      |
+| [void free()](#free)                                         | √      | √      |
 
 ## load
 

@@ -24,7 +24,7 @@ Model定义了MindSpore中编译和运行的模型。
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         | √      | √      |
 | [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
-| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | √      | √      |
+| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
@@ -92,7 +92,7 @@ public boolean build(final MappedByteBuffer buffer, int modelType, MSContext con
 public boolean build(String modelPath, int modelType, MSContext context, char[] dec_key, String dec_mode)
 ```
 
-通过模型计算图文件编译MindSpore MindiR模型。
+通过模型计算图文件编译MindSpore MindIR模型。
 
 - 参数
 

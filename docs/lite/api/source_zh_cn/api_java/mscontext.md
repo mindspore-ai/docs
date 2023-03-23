@@ -27,8 +27,8 @@ MSContext类用于配置运行时的上下文配置。
 | [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     | √      | √      |
 | [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 | √      | √      |
 | [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                | √      | √      |
-| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | √      | √      |
-| [boolean getEnableParallel()](#getenableparallel)                                             | √      | √      |
+| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | ✕      | √      |
+| [boolean getEnableParallel()](#getenableparallel)                                             | ✕      | √      |
 | [DeviceType](#devicetype)                                                                     | √      | √      |
 | [CpuBindMode](#cpubindmode)                                                                   | √      | √      |
 
@@ -38,7 +38,7 @@ MSContext类用于配置运行时的上下文配置。
 public boolean init()
 ```
 
-使用默认参数初始化MSContext，2线程，不绑核，不开启异构并行。
+初始化MSContext，采用默认配置：2线程，不绑核，不开启异构并行。
 
 - 返回值
 
@@ -48,7 +48,7 @@ public boolean init()
 public boolean init(int threadNum, int cpuBindMode)
 ```
 
-使用线程数和绑＆模式初始化MSContext。
+初始化MSContext，设置CPU线程数、CPU绑定模式。不开启异构并行。
 
 - 参数
 
@@ -63,7 +63,7 @@ public boolean init(int threadNum, int cpuBindMode)
 public boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)
 ```
 
-初始化MSContext。
+初始化MSContext，设置CPU线程数、CPU绑定模式、是否开启异构并行。
 
 - 参数
 
@@ -134,7 +134,7 @@ public void free()
 void setThreadNum(int threadNum)
 ```
 
-设置运行时的线程数量，该选项仅MindSpore Lite有效。
+设置运行时的线程数量。
 若未初始化 MSContext 则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
@@ -160,7 +160,7 @@ int getThreadNum()
 void setInterOpParallelNum(int parallelNum)
 ```
 
-设置运行时的算子并行推理数目，该选项仅MindSpore Lite有效。
+设置运行时的算子并行推理数目。
 若未初始化 MSContext 则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
@@ -173,7 +173,7 @@ void setInterOpParallelNum(int parallelNum)
 int getInterOpParallelNum()
 ```
 
-获取当前算子并行数设置，该选项仅MindSpore Lite有效。
+获取当前算子并行数设置。
 若未初始化 MSContext 则会返回-1，并在日志中输出空指针信息。
 
 - 返回值
@@ -186,7 +186,7 @@ int getInterOpParallelNum()
 void setThreadAffinity(int mode)
 ```
 
-设置运行时的CPU绑核策略，该选项仅MindSpore Lite有效。
+设置运行时的CPU绑核策略。
 若未初始化 MSContext 则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
@@ -199,7 +199,7 @@ void setThreadAffinity(int mode)
  int getThreadAffinityMode()
 ```
 
-获取当前CPU绑核策略，该选项仅MindSpore Lite有效。
+获取当前CPU绑核策略。
 若未初始化 MSContext 则返回-1，并在日志中输出空指针信息。
 
 - 返回值
@@ -225,7 +225,7 @@ void setThreadAffinity(ArrayList<Integer> coreList)
 ArrayList<Integer> getThreadAffinityCoreList()
 ```
 
-获取当前CPU绑核列表，该选项仅MindSpore Lite有效。
+获取当前CPU绑核列表。
 若未初始化 MSContext 则会返回长度为0的`ArrayList`，并在日志中输出空指针信息。  
 
 - 返回值
@@ -238,12 +238,12 @@ ArrayList<Integer> getThreadAffinityCoreList()
 void setEnableParallel(boolean isParallel)
 ```
 
-设置运行时是否支持并行，该选项仅MindSpore Lite有效。
+设置运行时是否使能异构并行。
 若未初始化 MSContext 则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
 
-    - `isParallel`: 为true则支持并行。
+    - `isParallel`: 为true则使能异构并行。
 
 ## getEnableParallel
 
@@ -251,12 +251,12 @@ void setEnableParallel(boolean isParallel)
 boolean getEnableParallel()
 ```
 
-获取当前是否支持并行，该选项仅MindSpore Lite有效。
+获取当前是否使能异构并行。
 若未初始化 MSContext 则会返回false，并在日志中输出空指针信息。
 
 - 返回值
 
-  返回值为为true，代表支持并行。
+  返回值为为true，代表使能异构并行。
 
 ## DeviceType
 
