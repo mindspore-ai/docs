@@ -41,34 +41,6 @@ You can customize `Callback` based on the `callback` base class as required.
 
 The `Callback` base class is defined as follows:
 
-```python
-class Callback():
-    """Callback base class"""
-    def begin(self, run_context):
-        """Called once before the network executing."""
-        pass
-
-    def epoch_begin(self, run_context):
-        """Called before each epoch beginning."""
-        pass
-
-    def epoch_end(self, run_context):
-        """Called after each epoch finished."""
-        pass
-
-    def step_begin(self, run_context):
-        """Called before each step beginning."""
-        pass
-
-    def step_end(self, run_context):
-        """Called after each step finished."""
-        pass
-
-    def end(self, run_context):
-        """Called once after network training."""
-        pass
-```
-
 The `Callback` can record important information during training and transfer the information to the `Callback` object through a dictionary variable `RunContext.original_args()`,
 You can obtain related attributes from each custom `Callback` and perform customized operations. You can also customize other variables and transfer them to the `RunContext.original_args()` object.
 

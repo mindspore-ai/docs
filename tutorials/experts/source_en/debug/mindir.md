@@ -59,7 +59,8 @@ The following is an example to describe the contents of the IR file. Run the scr
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+import mindspore.nn as nn
+from mindspore import ops
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_context(save_graphs=2, save_graphs_path="./")
@@ -311,34 +312,36 @@ In the process of MindSpore compiling a graph, the exceptions about graph evalua
 ```python
   1 import mindspore as ms
   2 import mindspore.nn as nn
-  3 from mindspore.nn import Cell
-  4 from mindspore import ops
-  5
-  6 ms.set_context(mode=ms.GRAPH_MODE)
-  7 ms.set_context(save_graphs=2)
-  8
-  9 class Net(nn.Cell):
- 10    def __init__(self):
- 11        super().__init__()
- 12        self.add = ops.Add()
- 13        self.sub = ops.Sub()
- 14        self.mul = ops.Mul()
- 15        self.div = ops.Div()
- 16
- 17    def func(x, y):
- 18        return self.div(x, y)
- 19
- 20    def construct(self, x, y):
- 21        a = self.sub(x, 1)
- 22        b = self.add(a, y)
- 23        c = self.mul(b, self.func(a, a, b))
- 24        return c
- 25
- 26 input1 = ms.Tensor(3, ms.float32)
- 27 input2 = ms.Tensor(2, ms.float32)
- 28 net = Net()
- 29 out = net(input1, input2)
- 30 print(out)
+  3
+  4 from mindspore.nn import Cell
+  5 from mindspore import ops
+  6
+  7
+  8 ms.set_context(mode=ms.GRAPH_MODE)
+  9 ms.set_context(save_graphs=2)
+ 10
+ 11 class Net(nn.Cell):
+ 12     def __init__(self):
+ 13         super().__init__()
+ 14         self.add = ops.Add()
+ 15         self.sub = ops.Sub()
+ 16         self.mul = ops.Mul()
+ 17         self.div = ops.Div()
+ 18
+ 19     def func(x, y):
+ 20         return self.div(x, y)
+ 21
+ 22     def construct(self, x, y):
+ 23         a = self.sub(x, 1)
+ 24         b = self.add(a, y)
+ 25         c = self.mul(b, self.func(a, a, b))
+ 26         return c
+ 27
+ 28 input1 = ms.Tensor(3, ms.float32)
+ 29 input2 = ms.Tensor(2, ms.float32)
+ 30 net = Net()
+ 31 out = net(input1, input2)
+ 32 print(out)
 ```
 
 An error happens.
