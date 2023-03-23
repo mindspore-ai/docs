@@ -36,6 +36,7 @@ from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
+from mindspore.train import Model
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod
 from mindarmour.utils import LogUtil
@@ -165,7 +166,7 @@ The LeNet model is used as an example. You can also create and train your own mo
     net = LeNet5()
     loss = SoftmaxCrossEntropyWithLogits(sparse=False)
     opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
-    model = ms.Model(net, loss, opt, metrics=None)
+    model = Model(net, loss, opt, metrics=None)
     model.train(10, ds_train, callbacks=[ms.LossMonitor()],
                 dataset_sink_mode=False)
 

@@ -741,7 +741,7 @@ train_dataset = create_dataset(config.dataset_name, config.data_path, True, batc
                                image_size=(int(config.image_height), int(config.image_width)),
                                rank_size=device_num, rank_id=config.rank_id)
 .....
-loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
+loss_scale = ms.amp.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
 model = Model(resnet, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale)
 if config.use_profilor:
     # 注意，profiling的数据不宜过多，否则处理会很慢

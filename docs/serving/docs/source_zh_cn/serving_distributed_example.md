@@ -76,6 +76,7 @@ import numpy as np
 from net import Net
 import mindspore as ms
 from mindspore.communication import init
+from mindspore.train import Model
 
 
 def test_inference():
@@ -87,7 +88,7 @@ def test_inference():
 
     predict_data = create_predict_data()
     network = Net(matmul_size=(96, 16))
-    model = ms.Model(network)
+    model = Model(network)
     model.infer_predict_layout(ms.Tensor(predict_data))
     ms.export(model.predict_network, ms.Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 

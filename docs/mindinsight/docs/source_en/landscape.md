@@ -25,7 +25,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
-   from mindspore.train import Accuracy
+   from mindspore.train import Accuracy, LossMonitor, CheckpointConfig, ModelCheckpoint, TimeMonitor, Model
 
    ms.set_seed(1)
 
@@ -115,10 +115,10 @@ The specific use steps are divided into two steps. Taking the classification tas
        network = LeNet5(10)
        net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
        net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-       time_cb = ms.TimeMonitor(data_size=ds_train.get_dataset_size())
-       config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-       ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
-       model = ms.Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+       time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+       config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
+       ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+       model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
        summary_dir = "./summary/lenet_test2"
        interval_1 = [x for x in range(1, 4)]
        interval_2 = [x for x in range(7, 11)]
@@ -137,7 +137,7 @@ The specific use steps are divided into two steps. Taking the classification tas
                                            collect_freq=1)
 
        print("============== Starting Training ==============")
-       model.train(10, ds_train, callbacks=[time_cb, ckpoint_cb, ms.LossMonitor(), summary_collector])
+       model.train(10, ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector])
 
    if __name__ == "__main__":
        train_lenet()
@@ -246,7 +246,7 @@ The specific use steps are divided into two steps. Taking the classification tas
        network = LeNet5(10)
        net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
        metrics = {"Loss": Loss()}
-       model = ms.Model(network, net_loss, metrics=metrics)
+       model = Model(network, net_loss, metrics=metrics)
        data_path = YOUR_DATA_PATH
        ds_eval = create_dataset(data_path)
        return model, network, ds_eval, metrics

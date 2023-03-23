@@ -77,6 +77,7 @@ import mindspore.nn as nn
 import mindspore as ms
 import numpy as np
 from mindspore.dataset import NumpySlicesDataset
+from mindspore.train import Model
 
 class Net(nn.Cell):
     def __init__(self):
@@ -97,7 +98,7 @@ class MyLoss(nn.LossBase):
 net = Net()
 loss = MyLoss()
 optim = nn.SGD(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-model = ms.Model(net, loss_fn=loss, optimizer=optim)
+model = Model(net, loss_fn=loss, optimizer=optim)
 data_x = np.array([1.0], dtype=np.float32)
 data_y = np.array([0.0], dtype=np.float32)
 data = NumpySlicesDataset((data_x, data_y), ["x", "y"])

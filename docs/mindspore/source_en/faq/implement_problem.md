@@ -318,7 +318,7 @@ if __name__ == "__main__":
     momentum = 0.9
 
     net = LinearNet()
-    net_loss = nn.loss.MSELoss()
+    net_loss = nn.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
     model = Model(net, net_loss, opt)
 

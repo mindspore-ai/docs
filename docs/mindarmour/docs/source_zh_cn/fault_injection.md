@@ -54,6 +54,7 @@ MNIST手写数据集包含60,000个样本的训练集和10,000个样本的测试
 import numpy as np
 import mindspore as ms
 
+from mindspore.train import Model
 from mindarmour.reliability import FaultInjector
 from examples.common.networks.lenet5.lenet5_net import LeNet5
 from examples.common.dataset.data_processing import generate_mnist_dataset
@@ -86,7 +87,7 @@ ckpt_path = 'PATH_TO_CHECKPOINT/'
 net = LeNet5()
 param_dict = ms.load_checkpoint(ckpt_path)
 ms.load_param_into_net(net, param_dict)
-model = ms.Model(net)
+model = Model(net)
 ```
 
 ## 设置参数及初始化故障注入模块
