@@ -28,9 +28,9 @@ $$t = \alpha m+\beta$$
 
 ### 通信融合的实现
 
-当前支持对`AllReduce`，`AllGather`和`ReduceScatter`三种通信算子分别进行融合，配置项为一个dict类型，如：
+当前支持对`AllReduce`，`AllGather`和`ReduceScatter`三种通信算子分别进行融合，配置项为一个dict类型。融合带有一个开关设置`openstate`，通过布尔值进行开关操作，如：
 
-comm_fusion={"allreduce": {"mode": "auto", "config": None}}。其中，"mode"有三种选项：
+comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}。其中，"mode"有三种选项：
 
 "auto"：自动按照数据量阈值64MB进行算子融合，配置参数"config"为None。
 
