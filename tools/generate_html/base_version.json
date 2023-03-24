@@ -1,0 +1,312 @@
+[
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    }, 
+    {
+        "version" : "",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorials",
+        "versionAlias": "",
+        "url": "",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "初学入门",
+                    "url": "/tutorials/zh-CN/master/index.html"
+                },
+                {
+                    "label": "应用实践",
+                    "url": "/tutorials/application/zh-CN/master/index.html"
+                },
+                {
+                    "label": "深度开发",
+                    "url": "/tutorials/experts/zh-CN/master/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Quickstart",
+                    "url": "/tutorials/experts/en/master/index.html"
+                },
+                {
+                    "label": "Application",
+                    "url": "/tutorials/application/en/master/index.html"
+                },
+                {
+                    "label": "Experts",
+                    "url": "/tutorials/experts/en/master/index.html"
+                }
+            ]
+        }
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "全场景推理框架（MindSpore Lite）",
+            "en": "MindSpore Lite"
+        },
+        "repo_name" : "lite",
+        "versionAlias": "",
+        "url": "",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/lite?version=/master/"
+                },
+                {
+                    "label": "下载",
+                    "url": "/lite/docs/zh-CN/master/use/downloads.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/lite/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/zh-CN/master/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/zh-CN/master/faq.html"
+                },
+                {
+                    "label": "示例",
+                    "url": "/lite/examples?version=/master/"
+                },
+                {
+                    "label": "模型",
+                    "url": "/lite/models"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/lite/en?version=/master/"
+                },
+                {
+                    "label": "Downloads",
+                    "url": "/lite/docs/en/master/use/downloads.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/lite/docs/en/master/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/en/master/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/en/master/faq.html"
+                },
+                {
+                    "label": "Examples",
+                    "url": "/lite/examples/en?version=/master/"
+                },
+                {
+                    "label": "Models",
+                    "url": "/lite/models/en"
+                }
+            ]
+        }
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindPandas",
+            "en": "MindPandas"
+        },
+        "repo_name" : "mindpandas",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "可视化调试调优（MindInsight）",
+            "en": "MindInsight"
+        },
+        "repo_name" : "mindinsight",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "AI安全和隐私（MindArmour）",
+            "en": "MindArmour"
+        },
+        "repo_name" : "mindarmour",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "服务化部署框架（MindSpore Serving）",
+            "en": "MindSpore Serving"
+        },
+        "repo_name" : "serving",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "联邦学习（MindSpore Federated）",
+            "en": "MindSpore Federated"
+        },
+        "repo_name" : "federated",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindSpore Golden Stick",
+            "en": "MindSpore Golden Stick"
+        },
+        "repo_name" : "golden_stick",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "可解释AI（MindSpore XAI）",
+            "en": "MindSpore XAI"
+        },
+        "repo_name" : "xai",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindSpore Dev Toolkit",
+            "en": "MindSpore Dev Toolkit"
+        },
+        "repo_name" : "devtoolkit",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "图学习框架（MindSpore Graph Learning）",
+            "en": "MindSpore Graph Learning"
+        },
+        "repo_name" : "graphlearning",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "强化学习（MindSpore Reinforcement）",
+            "en": "MindSpore Reinforcement"
+        },
+        "repo_name" : "reinforcement",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "概率编程（MindSpore Probability）",
+            "en": "MindSpore Probability"
+        },
+        "repo_name" : "probability",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "图学习框架（MindSpore Graph Learning）",
+            "en": "MindSpore Graph Learning"
+        },
+        "repo_name" : "graphlearning",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "预训练模型（MindSpore Hub）",
+            "en": "MindSpore Hub"
+        },
+        "repo_name" : "hub",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindElec",
+            "en": "MindElec"
+        },
+        "repo_name" : "mindelec",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindSPONGE",
+            "en": "MindSPONGE"
+        },
+        "repo_name" : "mindsponge",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindFlow",
+            "en": "MindFlow"
+        },
+        "repo_name" : "mindflow",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "MindQuantum",
+            "en": "MindQuantum"
+        },
+        "repo_name" : "mindquantum",
+        "versionAlias": "",
+        "url": "",
+        "submenu": ""
+    }
+]
