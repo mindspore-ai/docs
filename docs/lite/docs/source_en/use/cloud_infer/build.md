@@ -230,7 +230,7 @@ mindspore-lite-{version}-linux-{arch}
             ├── libmindspore_converter.so
             ├── libmindspore_core.so
             ├── libmindspore_glog.so.0
-            ├── libmindspore_shared_lib.so
+            ├── libmslite_shared_lib.so
             ├── libmslite_converter_plugin.so
             ├── libopencv_core.so.4.5
             ├── libopencv_imgcodecs.so.4.5

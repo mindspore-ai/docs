@@ -10,11 +10,12 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
 
 使用MindSpore Lite并发推理主要包括以下步骤：
 
-1. 安装MindSpore Lite云侧推理Python包。
-2. 创建配置项：创建多model并发推理配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.RunnerConfig.html)，用于配置多model并发。
-3. 初始化：多model并发推理前的初始化。
-4. 执行并发推理：使用ModelParallelRunner的Predict接口进行多Model并发推理。
-5. 释放内存：无需使用MindSpore Lite并发推理框架时，需要释放自己创建的ModelParallelRunner以及相关的Tensor。
+1. 准备工作：安装MindSpore Lite云侧推理Python包。
+2. 创建配置上下文：设置上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性，用于配置多model并发。
+3. 并发模型加载与编译：执行并发推理之前，需要调用[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html)的[build_from_file](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
+4. 设置并发推理任务：创建多线程，绑定并发推理任务。
+5. 执行并发推理：使用ModelParallelRunner的Predict接口进行多Model并发推理。
+6. 释放内存：无需使用MindSpore Lite并发推理框架时，需要释放自己创建的ModelParallelRunner以及相关的Tensor。
 
 ## 准备工作
 
@@ -28,11 +29,11 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
     python -m pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MINDSPORE_LITE_VERSION}/MindSpore/lite/release/centos_x86/cloud_fusion/mindspore_lite-${MINDSPORE_LITE_VERSION}-cp37-cp37m-linux_x86.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-### 创建并发推理配置
+### 创建配置上下文
 
-配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.RunnerConfig.html)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
+多model并发推理相关的上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
 
-下面示例代码演示了如何创建RunnerConfig，并配置并发推理的worker数量。
+下面示例代码演示了如何设置Context.parallel属性，并配置并发推理的worker数量。
 
 ```python
 import time
@@ -64,29 +65,28 @@ TASK_NUM = 2
 
 ```python
 # Init RunnerConfig and context, and add CPU device info
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=THREAD_NUM, inter_op_parallel_num=THREAD_NUM)
-context.append_device_info(cpu_device_info)
-parallel_runner_config = mslite.RunnerConfig(context=context, workers_num=WORKERS_NUM)
+context = mslite.Context()
+context.target = ["cpu"]
+context.cpu.thread_num = THREAD_NUM
+context.cpu.inter_op_parallel_num = THREAD_NUM
+context.parallel.workers_num = WORKERS_NUM
 ```
 
 > Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html#创建配置上下文)。
 >
-> 在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
->
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 
-## 初始化
+## 并发模型加载与编译
 
-使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化以及执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
+使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，调用`ModelParallelRunner`的[build_from_file](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
 
 ```python
 # Build ModelParallelRunner from file
 model_parallel_runner = mslite.ModelParallelRunner()
-model_parallel_runner.init(model_path="./model/mobilenetv2.mindir", runner_config=parallel_runner_config)
+model_parallel_runner.build_from_file(model_path="./model/mobilenetv2.mindir", context=context)
 ```
 
-> ModelParallelRunner的初始化，可以不设置RunnerConfig配置参数，则会使用默认参数进行多model的并发推理。
+> 可以不设置context配置参数，表示设置target为cpu的Context，Context带有默认的parallel属性。
 
 ### 设置并发推理任务
 
@@ -113,17 +113,17 @@ def parallel_runner_predict(parallel_runner, parallel_id):
         inputs[0].set_data_from_numpy(in_data)
         once_start_time = time.time()
         # Execute inference
-        outputs = []
-        parallel_runner.predict(inputs, outputs)
+        outputs = parallel_runner.predict(inputs)
         once_end_time = time.time()
         print("parallel id: ", parallel_id, " | task index: ", task_index, " | run once time: ",
               once_end_time - once_start_time, " s")
         # Get output
         for output in outputs:
-            tensor_name = output.get_tensor_name().rstrip()
-            data_size = output.get_data_size()
-            element_num = output.get_element_num()
-            print("tensor name is:%s tensor size is:%s tensor elements num is:%s" % (tensor_name, data_size,
+            tensor_name = output.name.rstrip()
+            data_size = output.data_size
+            element_num = output.element_num
+            print("tensor name is:%s tensor size is:%s tensor elements num is:%s" % (tensor_name,
+                                                                                     data_size,
                                                                                      element_num))
             data = output.get_data_to_numpy()
             data = data.flatten()

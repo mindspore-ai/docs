@@ -34,44 +34,45 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 ## 创建配置上下文
 
-创建配置上下文`Context`。由于本教程演示的是在CPU设备上执行推理的场景，因此需要将创建的CPU设备硬件信息加入上下文。
+创建配置上下文`Context`。由于本教程演示的是在CPU设备上执行推理的场景，因此需要设置上下文的目标设备为cpu。
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add CPU device info
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(cpu_device_info)
+# init context, and set target is cpu
+context = mslite.Context()
+context.target = ["cpu"]
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
-如果用户需要在Ascend或者GPU设备上运行推理时，需要添加Ascend或者GPU设备硬件信息。
+如果用户需要在Ascend设备上运行推理时，因此需要设置上下文的目标设备为ascend。
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add Ascend device info and CPU device info
-ascend_device_info = mslite.AscendDeviceInfo(device_id=0)
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(ascend_device_info)
-context.append_device_info(cpu_device_info)
+# init context, and set target is ascend.
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
-如果用户需要在GPU设备上运行推理时，需要添加GPU设备硬件信息。
+如果用户需要在GPU设备上运行推理时，因此需要设置上下文的目标设备为gpu。
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add Ascend device info and CPU device info
-gpu_device_info = mslite.GPUDeviceInfo(device_id=0)
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(gpu_device_info)
-context.append_device_info(cpu_device_info)
+# init context, and set target is gpu.
+context = mslite.Context()
+context.target = ["gpu"]
+context.gpu.device_id = 0
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
 ## 模型加载与编译
@@ -103,8 +104,7 @@ inputs[0].set_data_from_numpy(in_data)
 
 ```python
 # execute inference
-outputs = model.get_outputs()
-model.predict(inputs, outputs)
+outputs = model.predict(inputs)
 ```
 
 ## 获得输出
@@ -114,10 +114,10 @@ model.predict(inputs, outputs)
 ```python
 # get output
 for output in outputs:
-  tensor_name = output.get_tensor_name().rstrip()
-  data_size = output.get_data_size()
-  element_num = output.get_element_num()
-  print("tensor name is:%s tensor size is:%s tensor elements num is:%s" % (tensor_name, data_size, element_num))
+  name = output.name.rstrip()
+  data_size = output.data_size
+  element_num = output.element_num
+  print("tensor's name is:%s data size is:%s tensor elements num is:%s" % (name, data_size, element_num))
   data = output.get_data_to_numpy()
   data = data.flatten()
   print("output data is:", end=" ")

@@ -21,12 +21,13 @@
  **enum**类型变量，定义MindSpore Lite转换支持的框架类型。
 
 | 类型定义 | 值 | 描述 |
-| --- | --- | --- |
+| --- | -- | --- |
 |kFmkTypeTf| 0 | 表示tensorflow框架。 |
 |kFmkTypeCaffe| 1 | 表示caffe框架。 |
 |kFmkTypeOnnx| 2 | 表示onnx框架。 |
 |kFmkTypeMs| 3 | 表示mindspore框架。 |
 |kFmkTypeTflite| 4 | 表示tflite框架。 |
+|kFmkTypePytorch| 5 | 表示pytorch框架。 |
 
 ## ConverterParameters
 
