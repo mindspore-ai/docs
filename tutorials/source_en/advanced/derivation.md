@@ -23,7 +23,8 @@ First, define the network model `Net`, input `x`, and input `y`.
 
 ```python
 import numpy as np
-from mindspore import ops, Tensor
+from mindspore import ops
+from mindspore import Tensor
 import mindspore.nn as nn
 import mindspore as ms
 
@@ -212,8 +213,8 @@ class Net(nn.Cell):
 x_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
 
 net = Net()
-firstgrad = Grad(net)
-secondgrad = GradSec(firstgrad)
+firstgrad = ms.grad(net)
+secondgrad = ms.grad(firstgrad)
 output = secondgrad(x_train)
 
 # Print the result.
@@ -249,8 +250,9 @@ $$f''(x) = -sin(x) - cos(x) \tag{5}$$
 
 ```python
 import numpy as np
+from mindspore import ops
+from mindspore import Tensor
 import mindspore.nn as nn
-import mindspore.ops as ops
 import mindspore as ms
 
 class Net(nn.Cell):
@@ -268,8 +270,8 @@ class Net(nn.Cell):
 x_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
 
 net = Net()
-firstgrad = Grad(net)
-secondgrad = GradSec(firstgrad)
+firstgrad = ms.grad(net)
+secondgrad = ms.grad(firstgrad)
 output = secondgrad(x_train)
 
 # Print the result.
@@ -319,8 +321,9 @@ $$\dfrac{\mathrm{d}\sum{output}^{2}}{\mathrm{d}^{2}y} = sin(y) + cos(y) \tag{8}$
 
 ```python
 import numpy as np
+from mindspore import ops
+from mindspore import Tensor
 import mindspore.nn as nn
-import mindspore.ops as ops
 import mindspore as ms
 
 class Net(nn.Cell):

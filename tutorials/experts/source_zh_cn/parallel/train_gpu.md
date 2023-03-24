@@ -572,7 +572,7 @@ done
 若希望启动数据并行模式训练，需要将脚本`resnet50_distributed_training_gpu.py`中`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`：
 
 ```python
-set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 脚本会在后台运行，日志文件会保存到当前目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在worker_*.log中。将loss值grep出来后，示例如下：
@@ -633,6 +633,8 @@ export MS_RECOVERY_PATH=“/xxx/xxx”      #配置持久化路径文件夹，Wo
 2）配置checkpoint保存间隔，样例如下：
 
 ```python
+from mindspore.train import ModelCheckpoint, CheckpointConfig
+
 ckptconfig = CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
 ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
 ```

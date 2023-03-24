@@ -14,9 +14,9 @@ A sample code that uses HyperMap to optimize compiling performance instead of a 
 
 ```python
 import time
-import mindspore as ms
 from mindspore.ops import MultitypeFuncGraph, HyperMap
 from mindspore import ops, Tensor
+import mindspore as ms
 
 add = MultitypeFuncGraph('add')
 @add.register("Tensor", "Tensor")
@@ -64,8 +64,8 @@ A sample code that uses the `Select` operator instead of if statement to optimiz
 
 ```python
 import time
-import mindspore as ms
 from mindspore import ops
+import mindspore as ms
 
 @ms.jit
 def if_net(x, y):
