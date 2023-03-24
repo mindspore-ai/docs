@@ -29,12 +29,6 @@ download(url, "./datasets-cifar10-bin", kind="tar.gz")
 ```
 
 ```tex
-Creating data folder...
-Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz (162.2 MB)
-
-file_sizes: 100%|████████████████████████████| 170M/170M [00:08<00:00, 20.6MB/s]
-Extracting tar.gz file...
-Successfully downloaded / unzipped to ./datasets-cifar10-bin
 './datasets-cifar10-bin'
 ```
 
@@ -56,21 +50,18 @@ datasets-cifar10-bin/cifar-10-batches-bin
 Then, the `mindspore.dataset.Cifar10Dataset` interface is used to load the dataset and perform the associated image transforms.
 
 ```python
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
-import mindspore as ms
-import numpy as np
-
 from mindspore import dtype as mstype
-from mindspore import nn, ops
 
+data_dir = "./datasets-cifar10-bin/cifar-10-batches-bin"  # Root directory of the dataset
+batch_size = 256  # Batch size
+image_size = 32  # Image size of training data
+workers = 4  # Number of parallel workers
+num_classes = 10  # Number of classes
 
-data_dir = "./datasets-cifar10-bin/cifar-10-batches-bin" # Dataset root directory
-batch_size = 256 # Batch size
-image_size = 32 # Size of training image space
-workers = 4 # Number of parallel threads
-num_classes = 10 # Number of classes
 
 def create_dataset_cifar10(dataset_dir, usage, resize, batch_size, workers):
 
@@ -95,25 +86,22 @@ def create_dataset_cifar10(dataset_dir, usage, resize, batch_size, workers):
 
     target_trans = transforms.TypeCast(mstype.int32)
 
-    # Data mapping operation
-    data_set = data_set.map(
-        operations=trans,
-        input_columns='image',
-        num_parallel_workers=workers)
+    # Data transformation
+    data_set = data_set.map(operations=trans,
+                            input_columns='image',
+                            num_parallel_workers=workers)
 
-    data_set = data_set.map(
-        operations=target_trans,
-        input_columns='label',
-        num_parallel_workers=workers)
+    data_set = data_set.map(operations=target_trans,
+                            input_columns='label',
+                            num_parallel_workers=workers)
 
-    # Batch operation
+    # Batching
     data_set = data_set.batch(batch_size)
-
 
     return data_set
 
 
-# Obtain the processed training and test datasets
+# Obtain the preprocessed training and testing datasets
 
 dataset_train = create_dataset_cifar10(dataset_dir=data_dir,
                                        usage="train",
@@ -121,7 +109,6 @@ dataset_train = create_dataset_cifar10(dataset_dir=data_dir,
                                        batch_size=batch_size,
                                        workers=workers)
 step_size_train = dataset_train.get_dataset_size()
-index_label_dict = dataset_train.get_class_indexing()
 
 dataset_val = create_dataset_cifar10(dataset_dir=data_dir,
                                      usage="test",
@@ -141,19 +128,23 @@ data_iter = next(dataset_train.create_dict_iterator())
 
 images = data_iter["image"].asnumpy()
 labels = data_iter["label"].asnumpy()
-print(f"Image shape: {images.shape}, Label: {labels}")
+print(f"Image shape: {images.shape}, Label shape: {labels.shape}")
+
+# The labels for the first six pictures in the training dataset
+print(f"Labels: {labels[:6]}")
 
 classes = []
 
-with open(data_dir+"/batches.meta.txt", "r") as f:
+with open(data_dir + "/batches.meta.txt", "r") as f:
     for line in f:
         line = line.rstrip()
-        if line != '':
+        if line:
             classes.append(line)
 
+# First six pictures in the training dataset
 plt.figure()
 for i in range(6):
-    plt.subplot(2, 3, i+1)
+    plt.subplot(2, 3, i + 1)
     image_trans = np.transpose(images[i], (1, 2, 0))
     mean = np.array([0.4914, 0.4822, 0.4465])
     std = np.array([0.2023, 0.1994, 0.2010])
@@ -166,7 +157,8 @@ plt.show()
 ```
 
 ```text
-Image shape: (6, 3, 32, 32), Label: [9 8 6 0 8 5]
+Image shape: (256, 3, 32, 32), Label shape: (256,)
+Labels: [3 2 7 6 0 4]
 ```
 
 ![](images/output_6_1.png)
@@ -200,9 +192,10 @@ The following code defines the `ResidualBlockBase` class to implement the buildi
 
 ```python
 from typing import Type, Union, List, Optional
-from mindspore import nn, train
+import mindspore.nn as nn
 from mindspore.common.initializer import Normal
 
+# Initialize the parameters of the convolutional layer and BatchNorm layer
 weight_init = Normal(mean=0, sigma=0.02)
 gamma_init = Normal(mean=1, sigma=0.02)
 
@@ -283,6 +276,7 @@ class ResidualBlock(nn.Cell):
         self.down_sample = down_sample
 
     def construct(self, x):
+
         identity = x  # shortcut
 
         out = self.conv1(x)  # First layer of the main body: 1 x 1 convolutional layer
@@ -432,10 +426,11 @@ def resnet50(num_classes: int = 1000, pretrained: bool = False):
 
 In this part, [a ResNet-50 pre-trained model](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/application/resnet50_224_new.ckpt) is used for fine-tuning. Call `resnet50` to build a ResNet50 model and set `pretrained` to True. The ResNet50 pre-trained model is automatically downloaded and the parameters of the pre-trained model are loaded to the network. Define the optimizer and loss function, print the loss values and evaluation accuracy of the training epoch by epoch, and save the ckpt file with the highest evaluation accuracy (resnet50-best.ckpt) to  . /BestCheckPoint of the current path.
 
+To ensure successful loading of pre-trained weights, we need to set the fully connected layer's output size to the default value of 1000, which corresponds to the num_classes parameter in resnet50 model. However, since the CIFAR10 dataset only has 10 categories, we'll need to reset the output size of the fully connected layer to 10 when using this dataset for training.
+
 > Here we demonstrate the training process of 5 epochs. In order to achieve reasonable model performance, we recommend to train for 80 epochs.
 
 ```python
-import mindspore as ms
 # Define the ResNet50 network.
 network = resnet50(pretrained=True)
 
@@ -444,13 +439,6 @@ in_channel = network.fc.in_channels
 fc = nn.Dense(in_channels=in_channel, out_channels=10)
 # Reset the fully-connected layer.
 network.fc = fc
-
-for param in network.get_parameters():
-    param.requires_grad = True
-```
-
-```text
-Replace is False and data exists, so doing nothing. Use replace=True to re-download the data.
 ```
 
 ```python
@@ -466,21 +454,21 @@ loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 def forward_fn(inputs, targets):
     logits = network(inputs)
     loss = loss_fn(logits, targets)
-
     return loss
 
+
 grad_fn = ms.value_and_grad(forward_fn, None, opt.parameters)
+
 
 def train_step(inputs, targets):
     loss, grads = grad_fn(inputs, targets)
     opt(grads)
     return loss
-
-# Instantiate models
-model = train.Model(network, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
 ```
 
 ```python
+import os
+
 # Creating Iterators
 data_loader_train = dataset_train.create_tuple_iterator(num_epochs=num_epochs)
 data_loader_val = dataset_val.create_tuple_iterator(num_epochs=num_epochs)
@@ -489,41 +477,66 @@ data_loader_val = dataset_val.create_tuple_iterator(num_epochs=num_epochs)
 best_acc = 0
 best_ckpt_dir = "./BestCheckpoint"
 best_ckpt_path = "./BestCheckpoint/resnet50-best.ckpt"
+
+if not os.path.exists(best_ckpt_dir):
+    os.mkdir(best_ckpt_dir)
 ```
 
 ```python
-import os
+import mindspore.ops as ops
 
-# Start circuit training
+
+def train(data_loader, epoch):
+    """Model taining"""
+    losses = []
+    network.set_train(True)
+
+    for i, (images, labels) in enumerate(data_loader):
+        loss = train_step(images, labels)
+        if i % 100 == 0 or i == step_size_train - 1:
+            print('Epoch: [%3d/%3d], Steps: [%3d/%3d], Train Loss: [%5.3f]' %
+                  (epoch + 1, num_epochs, i + 1, step_size_train, loss))
+        losses.append(loss)
+
+    return sum(losses) / len(losses)
+
+
+def evaluate(data_loader):
+    """Model Evaluation"""
+    network.set_train(False)
+
+    correct_num = 0.0  # Number of correct predictions
+    total_num = 0.0  # Total number of predictions
+
+    for images, labels in data_loader:
+        logits = network(images)
+        pred = logits.argmax(axis=1)  # Prediction results
+        correct = ops.equal(pred, labels).reshape((-1, ))
+        correct_num += correct.sum().asnumpy()
+        total_num += correct.shape[0]
+
+    acc = correct_num / total_num  # Accuracy
+
+    return acc
+```
+
+```python
+# Start training loop
 print("Start Training Loop ...")
 
 for epoch in range(num_epochs):
-    losses = []
-    network.set_train()
-
-    # Read in data for each training round
-
-    for i, (images, labels) in enumerate(data_loader_train):
-        loss = train_step(images, labels)
-        if i%100 == 0 or i == step_size_train -1:
-            print('Epoch: [%3d/%3d], Steps: [%3d/%3d], Train Loss: [%5.3f]'%(
-                epoch+1, num_epochs, i+1, step_size_train, loss))
-        losses.append(loss)
-
-    # Verify the accuracy after each epoch
-
-    acc = model.eval(dataset_val)['Accuracy']
+    curr_loss = train(data_loader_train, epoch)
+    curr_acc = evaluate(data_loader_val)
 
     print("-" * 50)
     print("Epoch: [%3d/%3d], Average Train Loss: [%5.3f], Accuracy: [%5.3f]" % (
-        epoch+1, num_epochs, sum(losses)/len(losses), acc
+        epoch+1, num_epochs, curr_loss, curr_acc
     ))
     print("-" * 50)
 
-    if acc > best_acc:
-        best_acc = acc
-        if not os.path.exists(best_ckpt_dir):
-            os.mkdir(best_ckpt_dir)
+    # Save the model that has achieved the highest prediction accuracy
+    if curr_acc > best_acc:
+        best_acc = curr_acc
         ms.save_checkpoint(network, best_ckpt_path)
 
 print("=" * 80)
@@ -535,7 +548,7 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
 
 Define the `visualize_model` function, use the model with the highest validation accuracy described above to predict the CIFAR-10 dataset, and visualize the prediction result. If the prediction result is in blue, the prediction is correct. If the prediction result is in red, the prediction is incorrect.
 
-> As can be seen from the outputs during training, the prediction accuracy of the model on the validation dataset after 5 epochs of training is less than 50%, which means only half of the image classifications can be predicted correctly, and the actual accuracy might be even lower. The following figure shows a relatively good prediction result after training the model for 40 epochs. Note that this outcome is random. Generally, one or two of the six images are classified incorrectly. In order to achieve reasonable model performance, we recommend to train for 80 epochs.
+> Based on the results above, we can observe that the model's prediction accuracy on the validation dataset is around 70% after 5 epochs. This means that, on average, 2 out of 6 pictures may not be predicted correctly. To achieve reasonable training outcome, it's recommended to continue training for 80 epochs.
 
 ```python
 import matplotlib.pyplot as plt
@@ -547,32 +560,31 @@ def visualize_model(best_ckpt_path, dataset_val):
     # Load model parameters.
     param_dict = ms.load_checkpoint(best_ckpt_path)
     ms.load_param_into_net(net, param_dict)
-    model = train.Model(net)
     # Load the validation dataset.
     data = next(dataset_val.create_dict_iterator())
-    images = data["image"].asnumpy()
-    labels = data["label"].asnumpy()
+    images = data["image"]
+    labels = data["label"]
     # Predict the image type.
-    output = model.predict(ms.Tensor(data['image']))
+    output = net(data['image'])
     pred = np.argmax(output.asnumpy(), axis=1)
 
     # Image classification
     classes = []
 
-    with open(data_dir+"/batches.meta.txt", "r") as f:
+    with open(data_dir + "/batches.meta.txt", "r") as f:
         for line in f:
             line = line.rstrip()
-            if line != '':
+            if line:
                 classes.append(line)
 
-    # Display the image and the predicted value of the image.
+    # Show the picture along with its corresponding predicted value.
     plt.figure()
     for i in range(6):
-        plt.subplot(2, 3, i+1)
-        # If the prediction is correct, the color is blue. If the prediction is incorrect, the color is red.
-        color = 'blue' if pred[i] == labels[i] else 'red'
+        plt.subplot(2, 3, i + 1)
+        # If the prediction is correct, it will appear in blue; otherwise, it will show up in red.
+        color = 'blue' if pred[i] == labels.asnumpy()[i] else 'red'
         plt.title('predict:{}'.format(classes[pred[i]]), color=color)
-        picture_show = np.transpose(images[i], (1, 2, 0))
+        picture_show = np.transpose(images.asnumpy()[i], (1, 2, 0))
         mean = np.array([0.4914, 0.4822, 0.4465])
         std = np.array([0.2023, 0.1994, 0.2010])
         picture_show = std * picture_show + mean
@@ -582,7 +594,8 @@ def visualize_model(best_ckpt_path, dataset_val):
 
     plt.show()
 
-# Use the test dataset for validation.
+
+# Validate with test dataset
 visualize_model(best_ckpt_path=best_ckpt_path, dataset_val=dataset_val)
 ```
 
