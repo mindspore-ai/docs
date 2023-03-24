@@ -332,7 +332,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) and we also need to set [environment](https://www.mindspore.cn/lite/docs/en/master/use/ascend_info.html#environment-preparation) for Ascend.
+Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
 
 Ascend quantization static shape parameter configuration
 
@@ -354,12 +354,12 @@ Ascend quantization static shape parameter configuration
     target_device=ASCEND
     ```
 
-Ascend quantization also support dynamic shape, we can refer [this](https://www.mindspore.cn/lite/docs/en/master/use/ascend_info.html#dynamic-shape) for more detail. It is worth noting that the conversion command must set the inputShape of a single batch. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
 
 - In the dynamic shape scenario, the general form of the conversion command for Ascend quantization as follow:
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;"
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
 - We must add configuration about `[acl_option_cfg_param]` for dynamic shape as follow:
@@ -373,11 +373,11 @@ Ascend quantization also support dynamic shape, we can refer [this](https://www.
     # Supports specific hardware backends
     target_device=ASCEND
 
-    [acl_option_cfg_param]
-    input_shape_vector="[-1,32,32,4]"
-    dynamic_batch_size="2,4"
+    [ascend_context]
+    input_shape=input_1:[-1,32,32,4]
+    dynamic_dims=[1~4],[8],[16]
 
-    # "-1" in input_shape indicates that the batch size is dynamic. The value range is "2,4". That is, size 0: [2, 32, 32, 4] and size 1: [4, 32, 32, 4] are supported.
+    # "-1" in input_shape indicates that the batch size is dynamic.
     ```
 
 ## Dynamic Quantization

@@ -333,7 +333,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置[Ascend相关环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
+Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置Ascend相关环境变量。
 
 Ascend全量化静态Shape参数配置
 
@@ -355,12 +355,12 @@ Ascend全量化静态Shape参数配置
     target_device=ASCEND
     ```
 
-Ascend全量化支持动态Shape参数，具体可参考[Ascend动态Shape特性](https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html#%E5%8A%A8%E6%80%81shape%E7%89%B9%E6%80%A7)，同时转换命令需要设置单Batch的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
+Ascend全量化支持动态Shape参数，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
 
 - Ascend全量化动态Shape场景转换命令的一般形式为：
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;"
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
 - Ascend全量化参数动态shape场景，还需新增`[acl_option_cfg_param]`相关配置
@@ -374,10 +374,11 @@ Ascend全量化支持动态Shape参数，具体可参考[Ascend动态Shape特性
     # Supports specific hardware backends
     target_device=ASCEND
 
-    [acl_option_cfg_param]
-    input_shape_vector="[-1,32,32,4]"
-    dynamic_batch_size="2,4"
-    # 其中，input_shape中的"-1"表示设置动态batch，档位可取值为"2,4"，即支持档位0: [2,32,32,4]，档位1: [4,32,32,4].
+    [ascend_context]
+    input_shape=input_1:[-1,32,32,4]
+    dynamic_dims=[1~4],[8],[16]
+
+    # 其中，input_shape中的"-1"表示设置动态batch
     ```
 
 ## 动态量化
