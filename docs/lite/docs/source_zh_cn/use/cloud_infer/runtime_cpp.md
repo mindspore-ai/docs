@@ -125,7 +125,7 @@ device_list.push_back(gpu_device_info);
 
 `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
 
-用户可通过调用 `SetPrecisionMode()`接口配置精度模式，设置 `SetPrecisionMode("enforce_fp32")` 时，同时 `SetEnableFP16(true)` 会自动设置，反之亦然。
+用户可通过调用 `SetPrecisionMode()`接口配置精度模式，设置 `SetPrecisionMode("preferred_fp16")` 时，同时 `SetEnableFP16(true)` 会自动设置，反之亦然。
 
 | SetPrecisionMode() | SetEnableFP16() |
 | ------------------ | --------------- |
