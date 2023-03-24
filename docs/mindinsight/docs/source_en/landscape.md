@@ -162,7 +162,7 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    import mindspore as ms
    from mindspore.common.initializer import Normal
-   from mindspore.train import Loss
+   from mindspore.train import Loss, Model
 
    def create_dataset(data_path, batch_size=32, repeat_size=1,
                       num_parallel_workers=1):
