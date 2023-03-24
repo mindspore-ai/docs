@@ -129,8 +129,8 @@ def create_dataset_imagenet(dataset_path):
     dataset = dataset.map(transforms, 'image')
 
     # Batch operation
-    data_set = data_set.batch(batch_size)
-    return data_set
+    dataset = dataset.batch(batch_size)
+    return dataset
 
 dataset = create_dataset_imagenet('./faces')
 ```

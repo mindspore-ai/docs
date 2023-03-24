@@ -22,7 +22,7 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 
 ```python
 import mindspore as ms
-from mindspore import ModelCheckpoint, LossMonitor
+from mindspore.train import ModelCheckpoint,LossMonitor
 
 ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()

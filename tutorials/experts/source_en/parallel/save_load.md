@@ -436,11 +436,10 @@ User process:
    import numpy as np
    import os
    import mindspore.nn as nn
+   import mindspore as ms
    from mindspore.communication import init
    import mindspore.ops as ops
-   import mindspore as ms
 
-   from mindspore.communication import init
    devid = int(os.getenv('DEVICE_ID'))
    ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=2, device_id=devid)
    init()

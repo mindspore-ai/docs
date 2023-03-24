@@ -77,11 +77,11 @@ Here are two examples to further explain the usage of custom `Callback`.
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
 
-        def begin(self, run_context):
+        def on_train_begin(self, run_context):
             cb_params = run_context.original_args()
             cb_params.init_time = time.time()
 
-        def step_end(self, run_context):
+        def on_train_step_end(self, run_context):
             cb_params = run_context.original_args()
             epoch_num = cb_params.cur_epoch_num
             step_num = cb_params.cur_step_num
@@ -108,7 +108,7 @@ In addition, you can modify and add values in the dictionary. In the preceding e
             self.ds_eval = ds_eval
             self.acc = 0
 
-        def step_end(self, run_context):
+        def on_train_step_end(self, run_context):
             cb_params = run_context.original_args()
             result = self.model.eval(self.ds_eval)
             if result['accuracy'] > self.acc:

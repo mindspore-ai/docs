@@ -60,9 +60,9 @@ Notice that custom operators of Hybrid type use the source to source transformat
 
 ```python
 import numpy as np
-import mindspore as ms
 from mindspore import ops
-from mindspore.ops import ms_kernel
+import mindspore as ms
+from mindspore.ops import kernel
 
 ms.set_context(device_target="GPU")
 

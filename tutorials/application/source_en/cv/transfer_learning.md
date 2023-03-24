@@ -176,7 +176,7 @@ This chapter uses the ResNet50 model for training. After building the model fram
 
 ```python
 from typing import Type, Union, List, Optional
-from mindspore import nn, ops, train
+from mindspore import nn, train
 from mindspore.common.initializer import Normal
 
 
@@ -388,7 +388,7 @@ Replace is False and data exists, so doing nothing. Use replace=True to re-downl
 ```
 
 ```python
-from mindspore import ops
+import mindspore as ms
 
 # Define optimizer and loss function
 opt = nn.Momentum(params=network.trainable_params(), learning_rate=lr, momentum=momentum)

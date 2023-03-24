@@ -76,7 +76,7 @@ Example of using Scalar variable:
 
 ```python
 @kernel
-def kernel_func(a, b):
+def kernel_func(a):
     c = output_tensor(a.shape, a.dtype)
 
     for i in range(10): # i loop
@@ -159,9 +159,9 @@ Right now `arg` is equivalent to a three dimensional index `(i,j,k)`, with upper
 ```python
 @kernel
 def kernel_func(a, b):
-    c = output_tensor(a.shape, "float16")
+    c = output_tensor((3, 4, 5), "float16")
 
-    for arg in grid(a.shape):
+    for arg in grid((4,5,6)):
         out[arg] = a[arg] + b[arg[0]]
     return  c
 ```
