@@ -67,7 +67,7 @@ def generate_version_json(repo_name, branch, js_data, version, target_path):
                 filename = js_data[d]['repo_name']
             else:
                 filename = "docs"
-            if version != "daily" and write_content["submenu"]:
+            if version != "daily" and "submenu" in write_content.keys():
                 for url in write_content["submenu"]["zh"]:
                     url["url"] = url["url"].replace('/master/', f'/{branch}/')
                 for url in write_content["submenu"]["en"]:
