@@ -2,6 +2,7 @@
 使用json文件自动化生成mindspore各组件的html页面
 """
 import argparse
+import copy
 import glob
 import json
 import os
@@ -53,6 +54,28 @@ def flush(dir_path):
         shutil.rmtree(dir_path)
     os.makedirs(dir_path)
 
+def generate_version_json(repo_name, branch, js_data, version, target_path):
+    """
+    基于base_version.json文件给每个组件生成对应的version.json文件。
+    """
+    for d in range(len(js_data)):
+        if js_data[d]['repo_name'] == repo_name:
+            write_content = copy.deepcopy(js_data[d])
+            write_content['version'] = branch
+            write_content.pop("repo_name", None)
+            if js_data[d]['repo_name'] != 'mindspore':
+                filename = js_data[d]['repo_name']
+            else:
+                filename = "docs"
+            if version != "daily" and write_content["submenu"]:
+                for url in write_content["submenu"]["zh"]:
+                    url["url"] = url["url"].replace('/master/', f'/{branch}/')
+                for url in write_content["submenu"]["en"]:
+                    url["url"] = url["url"].replace('/master/', f'/{branch}/')
+            with open(os.path.join(target_path, f"{filename}_version.json"), 'w+', encoding='utf-8') as g:
+                json.dump(write_content, g, indent=4)
+            break
+
 #######################################
 # 运行检测
 #######################################
@@ -83,6 +106,12 @@ def main(version, user, pd, WGETDIR, release_url):
         with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
 
+    with open(os.path.join(os.path.dirname(__file__), "base_version.json"), 'r+', encoding='utf-8') as g:
+        data_b = json.load(g)
+
+    target_version = os.path.join(os.path.dirname(__file__), f"{version}_version")
+    flush(target_version)
+
     flush(WHLDIR)
     # 遍历json数据做好生成html前的准备
     # pylint: disable=R1702
@@ -98,8 +127,13 @@ def main(version, user, pd, WGETDIR, release_url):
             ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = data[i]["branch"]
+        elif data[i]['name'] == "mindscience":
+            pass
         else:
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+
+        if data[i]['name'] != "mindscience":
+            generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
 
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
@@ -363,7 +397,10 @@ if __name__ == "__main__":
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir, release_url=args.release_url)
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
+        version_path = f"{MAINDIR}/{args.version}_version/"
         for dir_name in os.listdir(output_path):
+            if os.path.isfile(os.path.join(output_path, dir_name)):
+                continue
             if dir_name == 'docs':
                 theme_list.append(dir_name)
             elif dir_name == 'tutorials':
@@ -389,6 +426,8 @@ if __name__ == "__main__":
                 try:
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
+                    static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
+                    static_path_version = os.path.join(static_path_version, "version.json")
                     if 'lite' in out_name or 'tutorials' in out_name:
                         css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                         js_path = f"theme-{out_name.split('/')[0]}/theme.js"
@@ -397,12 +436,17 @@ if __name__ == "__main__":
                         js_path = "theme-docs/theme.js"
                     static_path_new_css = os.path.join(theme_path, css_path)
                     static_path_new_js = os.path.join(theme_path, js_path)
+                    out_name_1 = out_name.split('/')[0]
+                    static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
                     if os.path.exists(static_path_css):
                         os.remove(static_path_css)
                     shutil.copy(static_path_new_css, static_path_css)
                     if os.path.exists(static_path_js):
                         os.remove(static_path_js)
                     shutil.copy(static_path_new_js, static_path_js)
+                    if os.path.exists(static_path_version):
+                        os.remove(static_path_version)
+                    shutil.copy(static_path_new_version, static_path_version)
                 # pylint: disable=W0702
                 # pylint: disable=W0703
                 except Exception as e:

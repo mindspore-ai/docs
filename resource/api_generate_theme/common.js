@@ -1141,7 +1141,7 @@ $(function () {
     docsformatter();
 
     //获取导航菜单json
-    headerMenuData = await getHeaderData(`/menu1_${isEn?'en':'zh-CN'}.json`);
+    headerMenuData = await getHeaderData(`/menu_${isEn?'en':'zh-CN'}.json`);
     msDocsVersion = await getHeaderData('/version.json');
 
     body.prepend(msHeader.pcHeader);
