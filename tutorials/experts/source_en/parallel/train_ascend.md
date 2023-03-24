@@ -241,8 +241,8 @@ Automatic parallelism splits models using the operator granularity and obtains t
 In the loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multiple small operators for implementation according to a mathematical formula. The sample code is as follows:
 
 ```python
-import mindspore.ops as ops
 import mindspore as ms
+import mindspore.ops as ops
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):
@@ -253,7 +253,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.onehot = ops.OneHot()
         self.on_value = ms.Tensor(1.0, ms.float32)
         self.off_value = ms.Tensor(0.0, ms.float32)
-        self.div = ops.Div()
+        self.div = ops.RealDiv()
         self.log = ops.Log()
         self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
         self.mul = ops.Mul()
@@ -262,6 +262,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = ops.ReduceMax(keep_dims=True)
         self.sub = ops.Sub()
+        self.eps = ms.Tensor(1e-24, ms.float32)
 
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
@@ -270,7 +271,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         softmax_result = self.div(exp, exp_sum)
         if self.sparse:
             label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
-        softmax_result_log = self.log(softmax_result)
+        softmax_result_log = self.log(softmax_result+self.eps)
         loss = self.sum_cross_entropy((self.mul(softmax_result_log, label)), -1)
         loss = self.mul2(ops.scalar_to_tensor(-1.0), loss)
         loss = self.mean(loss, -1)
@@ -587,11 +588,12 @@ It is convenient to save and load the model parameters in auto parallel mode. Ju
 
 ```python
 import mindspore as ms
-from mindspore.train import Model, ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonitor
 
 def test_train_cifar(epoch_size=10):
     ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
+    data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
@@ -673,7 +675,7 @@ To save the model, you can use the following code:
 net = SemiAutoParallelNet()
 ...
 ckpt_config = CheckpointConfig()
-ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
+ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
 ```
 
 To load the model, you can use the following code:

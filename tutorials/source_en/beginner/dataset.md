@@ -68,7 +68,7 @@ def visualize(dataset):
     plt.show()
 ```
 
-```text
+```python
 visualize(train_dataset)
 ```
 

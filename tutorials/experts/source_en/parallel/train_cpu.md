@@ -136,8 +136,8 @@ The reference sample of the full training script code and the training startup c
 import os
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore.communication import init
 from mindspore import train
+from mindspore.communication import init
 from resnet import resnet50
 
 def train_resnet50_with_cifar10(epoch_size=10):

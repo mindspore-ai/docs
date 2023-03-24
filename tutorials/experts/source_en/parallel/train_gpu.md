@@ -421,6 +421,7 @@ Compared with openMPI mode startup, this mode requires calling the `set_ps_conte
 
 ```python
 import mindspore as ms
+from mindspore.train import CheckpointConfig, ModelCheckpoint
 from mindspore.communication import init
 
 if __name__ == "__main__":
@@ -573,7 +574,6 @@ that is, perform 2-host and 8-card distributed training tasks.
 If you want to start data parallel mode training, you need to change the `set_auto_parallel_context` in the script `resnet50_distributed_training_gpu.py` to `DATA_PARALLEL`:
 
 ```python
-import mindspore as ms
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 

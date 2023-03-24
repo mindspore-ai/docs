@@ -61,6 +61,7 @@ def datapipe(dataset, batch_size):
         vision.Rescale(1.0 / 255.0, 0),
         vision.Normalize(mean=(0.1307,), std=(0.3081,)),
         vision.HWC2CHW()
+    ]
 
     label_transform = transforms.TypeCast(mindspore.int32)
 
@@ -70,7 +71,7 @@ def datapipe(dataset, batch_size):
     return dataset
 ```
 
-```text
+```python
 train_dataset = datapipe(train_dataset, 64)
 test_dataset = datapipe(test_dataset, 64)
 ```
@@ -194,7 +195,7 @@ def train(model, dataset):
 
 In addition to training, we define test functions that are used to evaluate the performance of the model.
 
-```Python
+```python
 def test(model, dataset, loss_fn):
     num_batches = dataset.get_dataset_size()
     model.set_train(False)

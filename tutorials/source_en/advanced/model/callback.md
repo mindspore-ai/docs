@@ -93,7 +93,7 @@ MindSpore provides the `callback` capability to allow users to insert customized
 To save the trained network model and parameters for re-inference or re-training, MindSpore provides the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.ModelCheckpoint.html#mindspore.train.ModelCheckpoint) API, which is generally used together with the [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html#mindspore.train.CheckpointConfig) API.
 
 ```python
-from mindspore.train import ModelCheckpoint, CheckpointConfig
+from mindspore.train import CheckpointConfig, ModelCheckpoint
 
 # Set the configuration information of the saved model.
 config = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
@@ -226,7 +226,7 @@ class StopTimeMonitor(ms.train.Callback):
         self.run_time = run_time            # Define the execution time.
 
     def on_train_begin(self, run_context):
-        """Operations when training is started.""
+        """Operations when training is started."""
         cb_params = run_context.original_args()
         cb_params.init_time = time.time()   # Obtain the current timestamp as the training start time.
         print(f"Begin training, time is: {cb_params.init_time}")

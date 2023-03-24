@@ -685,8 +685,8 @@ ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_"
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint(pretrain_ckpt_path)
-load_param_into_net(net, param_dict)
+param_dict = ms.load_checkpoint(pretrain_ckpt_path)
+ms.load_param_into_net(net, param_dict)
 ```
 
 以上介绍的三种并行训练模式，checkpoint文件的保存方式都是每张卡上均保存完整的checkpoint文件，在以上三种并行训练模式上，用户还可以选择每张卡上只保存本卡的checkpoint文件，以半自动并行模式（Semi Auto Parallel）为例，进行说明。

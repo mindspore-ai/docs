@@ -51,7 +51,7 @@ class MyMAE(ms.train.Metric):
         self._samples_num += y.shape[0]
 
     def eval(self):
-        """Compute the final evaluation result.""
+        """Compute the final evaluation result."""
         return self._abs_error_sum / self._samples_num
 
 # The network has two outputs.
