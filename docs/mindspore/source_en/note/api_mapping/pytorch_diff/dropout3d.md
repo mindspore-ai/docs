@@ -26,7 +26,7 @@ MindSpore: MindSpore API Basically achieves the same function as PyTorch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ----|
-| Parameters | Parameter 1 | input | input | Mindspore only supports a tensor with a rank of 4 as input |
+| Parameters | Parameter 1 | input | input | Mindspore only supports a tensor with a rank of 5 as input |
 |      | Parameter 2 | p | p | - |
 |      | Parameter 3 | training | training | - |
 |      | Parameter 4 | inplace| - | - |
