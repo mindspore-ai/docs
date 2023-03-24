@@ -262,8 +262,7 @@ In some networks where large Embedding tables need to be checked, the Embedding 
        def __init__(self, vocab_size, embedding_size, param_init='normal'):
            super(EmbeddingLookupNet, self).__init__()
            self.embeddinglookup = ops.EmbeddingLookup().set_device('CPU')
-           self.embedding_table = ms.Parameter(initializer(param_init, [vocab_size, embedding_size]),
-                                  name='embedding_table')
+           self.embedding_table = ms.Parameter(initializer(param_init, [vocab_size, embedding_size]), name='embedding_table')
 
        def construct(self, indices):
            out = self.embeddinglookup(self.embedding_table, indices, 0)

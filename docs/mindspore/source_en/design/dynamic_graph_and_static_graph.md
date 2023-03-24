@@ -251,8 +251,8 @@ JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/
 The code case is as follows, and `Tensor(1, dtype=mstype.int32)` is supported by JIT Fallback.
 
 ```python
-import mindspore as ms
 import mindspore.nn as nn
+import mindspore as ms
 
 class Net(nn.Cell):
    def __init__(self):

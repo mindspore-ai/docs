@@ -211,10 +211,13 @@ For `FuncGraph`, we need to create another `DFunctor` object and perform the map
 MindSpore defines these gradient functions in Python, taking `sin` operator for example:
 
 ```python
-@bprop_getters.register(P.Sin)
+import mindspore.ops as ops
+from mindspore.ops._grad.grad_base import bprop_getters
+
+@bprop_getters.register(ops.Sin)
 def get_bprop_sin(self):
     """Grad definition for `Sin` operation."""
-    cos = P.Cos()
+    cos = ops.Cos()
 
     def bprop(x, out, dout):
         dx = dout * cos(x)

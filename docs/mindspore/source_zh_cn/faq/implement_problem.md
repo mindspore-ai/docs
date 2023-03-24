@@ -35,8 +35,8 @@ A: 不能的，需要把其他框架训练好的参数转换成MindSpore的格�
 <font size=3>**Q: 使用MindSpore进行`model.train`的时候进行了如下设置，为什么会报错呢？**</font>
 
 ```python
-model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=True)
-model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=False)
+model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=False)
 ```
 
 A: 因为在已经设置为下沉模式的情况下，就不能再设置为非下沉了，是运行机制上的限制。
@@ -56,7 +56,7 @@ net.set_train(False)
 
 ```python
 # 定义模型
-model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+model = ms.train.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 # 评估模型
 res = model.eval(dataset)
 ```
@@ -130,7 +130,7 @@ net = Net()
 loss_fn = MyLoss()
 loss_with_net = MyWithLossCell(net, loss_fn)
 train_net = MyTrainOneStepCell(loss_with_net, optim)
-model = Model(net=train_net, loss_fn=None, optimizer=None)
+model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 ```
 
 <br/>
@@ -296,7 +296,7 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = Model(net, net_loss, opt)
+    model = ms.train.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
 
@@ -360,7 +360,7 @@ if __name__ == "__main__":
     net_loss = nn.loss.MSELoss()
     # RMSProp optimalizer with better effect is selected for quadratic function fitting, Currently, Ascend and GPU computing platforms are supported.
     opt = nn.RMSProp(net.trainable_params(), learning_rate=0.1)
-    model = Model(net, net_loss, opt)
+    model = ms.train.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
     model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
