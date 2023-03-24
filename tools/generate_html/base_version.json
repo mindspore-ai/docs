@@ -5,10 +5,7 @@
             "zh": "MindSpore",
             "en": "MindSpore"
         },
-        "repo_name" : "mindspore",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindspore"
     }, 
     {
         "version" : "",
@@ -17,8 +14,6 @@
             "en": "Tutorials"
         },
         "repo_name" : "tutorials",
-        "versionAlias": "",
-        "url": "",
         "submenu": {
             "zh": [
                 {
@@ -57,8 +52,6 @@
             "en": "MindSpore Lite"
         },
         "repo_name" : "lite",
-        "versionAlias": "",
-        "url": "",
         "submenu": {
             "zh": [
                 {
@@ -128,10 +121,7 @@
             "zh": "MindPandas",
             "en": "MindPandas"
         },
-        "repo_name" : "mindpandas",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindpandas"
     },
     {
         "version" : "",
@@ -139,10 +129,7 @@
             "zh": "可视化调试调优（MindInsight）",
             "en": "MindInsight"
         },
-        "repo_name" : "mindinsight",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindinsight"
     },
     {
         "version" : "",
@@ -150,10 +137,7 @@
             "zh": "AI安全和隐私（MindArmour）",
             "en": "MindArmour"
         },
-        "repo_name" : "mindarmour",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindarmour"
     },
     {
         "version" : "",
@@ -161,10 +145,7 @@
             "zh": "服务化部署框架（MindSpore Serving）",
             "en": "MindSpore Serving"
         },
-        "repo_name" : "serving",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "serving"
     },
     {
         "version" : "",
@@ -172,10 +153,7 @@
             "zh": "联邦学习（MindSpore Federated）",
             "en": "MindSpore Federated"
         },
-        "repo_name" : "federated",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "federated"
     },
     {
         "version" : "",
@@ -183,10 +161,7 @@
             "zh": "MindSpore Golden Stick",
             "en": "MindSpore Golden Stick"
         },
-        "repo_name" : "golden_stick",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "golden_stick"
     },
     {
         "version" : "",
@@ -194,10 +169,7 @@
             "zh": "可解释AI（MindSpore XAI）",
             "en": "MindSpore XAI"
         },
-        "repo_name" : "xai",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "xai"
     },
     {
         "version" : "",
@@ -205,10 +177,7 @@
             "zh": "MindSpore Dev Toolkit",
             "en": "MindSpore Dev Toolkit"
         },
-        "repo_name" : "devtoolkit",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "devtoolkit"
     },
     {
         "version" : "",
@@ -216,10 +185,7 @@
             "zh": "图学习框架（MindSpore Graph Learning）",
             "en": "MindSpore Graph Learning"
         },
-        "repo_name" : "graphlearning",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "graphlearning"
     },
     {
         "version" : "",
@@ -227,10 +193,7 @@
             "zh": "强化学习（MindSpore Reinforcement）",
             "en": "MindSpore Reinforcement"
         },
-        "repo_name" : "reinforcement",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "reinforcement"
     },
     {
         "version" : "",
@@ -238,10 +201,7 @@
             "zh": "概率编程（MindSpore Probability）",
             "en": "MindSpore Probability"
         },
-        "repo_name" : "probability",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "probability"
     },
     {
         "version" : "",
@@ -249,10 +209,7 @@
             "zh": "图学习框架（MindSpore Graph Learning）",
             "en": "MindSpore Graph Learning"
         },
-        "repo_name" : "graphlearning",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "graphlearning"
     },
     {
         "version" : "",
@@ -260,10 +217,7 @@
             "zh": "预训练模型（MindSpore Hub）",
             "en": "MindSpore Hub"
         },
-        "repo_name" : "hub",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "hub"
     },
     {
         "version" : "",
@@ -271,10 +225,7 @@
             "zh": "MindElec",
             "en": "MindElec"
         },
-        "repo_name" : "mindelec",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindelec"
     },
     {
         "version" : "",
@@ -282,10 +233,7 @@
             "zh": "MindSPONGE",
             "en": "MindSPONGE"
         },
-        "repo_name" : "mindsponge",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindsponge"
     },
     {
         "version" : "",
@@ -293,10 +241,7 @@
             "zh": "MindFlow",
             "en": "MindFlow"
         },
-        "repo_name" : "mindflow",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindflow"
     },
     {
         "version" : "",
@@ -304,9 +249,6 @@
             "zh": "MindQuantum",
             "en": "MindQuantum"
         },
-        "repo_name" : "mindquantum",
-        "versionAlias": "",
-        "url": "",
-        "submenu": ""
+        "repo_name" : "mindquantum"
     }
 ]
