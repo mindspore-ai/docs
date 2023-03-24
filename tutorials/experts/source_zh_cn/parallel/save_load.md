@@ -90,7 +90,7 @@ for i in range(rank_size):
 调用`build_searched_strategy`接口，得到模型各个参数的切分策略。
 
 ```python
-strategy = ms.build_searched_strategy("./strategy_train.cpkt")
+strategy = ms.build_searched_strategy("./strategy_train.ckpt")
 ```
 
 其中，
@@ -439,7 +439,6 @@ ms.load_param_into_net(opt, param_dict)
     from mindspore.communication import init
     import mindspore.ops as ops
 
-    from mindspore.communication import init
     devid = int(os.getenv('DEVICE_ID'))
     ms.set_context(mode=ms.GRAPH_MODE,device_target='Ascend',save_graphs=2, device_id=devid)
     init()

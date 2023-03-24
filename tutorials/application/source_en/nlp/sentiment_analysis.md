@@ -160,11 +160,11 @@ len(imdb_train)
 After the IMDB dataset is loaded to the memory and built as an iteration object, you can use the `GeneratorDataset` API provided by `mindspore.dataset` to load the dataset iteration object and then perform data processing. The following encapsulates a function to load train and test using `GeneratorDataset`, and set `column_name` of the text and label in the dataset to `text` and `label`, respectively.
 
 ```python
-import mindspore.dataset as dataset
+import mindspore.dataset as ds
 
 def load_imdb(imdb_path):
-    imdb_train = dataset.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"], shuffle=True)
-    imdb_test = dataset.GeneratorDataset(IMDBData(imdb_path, "test"), column_names=["text", "label"], shuffle=False)
+    imdb_train = ds.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"], shuffle=True)
+    imdb_test = ds.GeneratorDataset(IMDBData(imdb_path, "test"), column_names=["text", "label"], shuffle=False)
     return imdb_train, imdb_test
 ```
 
@@ -213,7 +213,7 @@ def load_glove(glove_path):
     embeddings.append(np.random.rand(100))
     embeddings.append(np.zeros((100,), np.float32))
 
-    vocab = dataset.text.Vocab.from_list(tokens, special_tokens=["<unk>", "<pad>"], special_first=False)
+    vocab = ds.text.Vocab.from_list(tokens, special_tokens=["<unk>", "<pad>"], special_first=False)
     embeddings = np.array(embeddings).astype(np.float32)
     return vocab, embeddings
 ```
@@ -277,9 +277,9 @@ For the table query operation from a token to an index ID, use the `text.Lookup`
 ```python
 import mindspore as ms
 
-lookup_op = dataset.text.Lookup(vocab, unknown_token='<unk>')
-pad_op = dataset.transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
-type_cast_op = dataset.transforms.TypeCast(ms.float32)
+lookup_op = ds.text.Lookup(vocab, unknown_token='<unk>')
+pad_op = ds.transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
+type_cast_op = ds.transforms.TypeCast(ms.float32)
 ```
 
 After the preprocessing is complete, you need to add data to the dataset processing pipeline and use the `map` API to add operations to the specified column.
@@ -485,7 +485,7 @@ def evaluate(model, test_dataset, criterion, epoch=0):
             loss = criterion(predictions, i[1])
             epoch_loss += loss.asnumpy()
 
-            acc = binary_accuracy(predictions.asnumpy(), i[1].asnumpy())
+            acc = binary_accuracy(predictions, i[1])
             epoch_acc += acc
 
             step_total += 1

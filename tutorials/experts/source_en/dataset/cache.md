@@ -189,7 +189,7 @@ Cache data after data enhancement processing `transforms`.
 ```python
 import mindspore.dataset.vision as vision
 
-dataset_dir = "cifar-10-batches-bin/"
+dataset_dir = "./datasets/cifar-10-batches-bin/train"
 
 # apply cache to dataset
 data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=5, shuffle=False, num_parallel_workers=1)
