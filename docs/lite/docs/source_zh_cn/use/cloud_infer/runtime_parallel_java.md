@@ -15,6 +15,8 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 3. 执行并发推理：使用ModelParallelRunner的Predict接口进行多Model并发推理。
 4. 释放内存：无需使用MindSpore Lite并发推理框架时，需要释放自己创建的ModelParallelRunner以及相关的Tensor。
 
+![](../../images/server_inference.png)
+
 ## 准备工作
 
 1. 以下代码样例来自于[使用Java接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java)。
