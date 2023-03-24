@@ -250,5 +250,13 @@
             "en": "MindQuantum"
         },
         "repo_name" : "mindquantum"
+    },
+    {
+        "version" : "",
+        "label" : {
+            "zh": "Recommender",
+            "en": "Recommender"
+        },
+        "repo_name" : "recommender"
     }
 ]

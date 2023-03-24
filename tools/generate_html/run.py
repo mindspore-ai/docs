@@ -109,7 +109,7 @@ def main(version, user, pd, WGETDIR, release_url):
     with open(os.path.join(os.path.dirname(__file__), "base_version.json"), 'r+', encoding='utf-8') as g:
         data_b = json.load(g)
 
-    target_version = os.path.join(os.path.dirname(__file__), f"{version}_version")
+    target_version = f"{MAINDIR}/{version}_version"
     flush(target_version)
 
     flush(WHLDIR)
