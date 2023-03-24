@@ -15,6 +15,8 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 3. Execute concurrent inference: Use the Predict interface of ModelParallelRunner to perform concurrent inference on multiple Models.
 4. Release memory: When you do not need to use the MindSpore Lite concurrent inference framework, you need to release the ModelParallelRunner and related Tensors you created.
 
+![](../../images/server_inference.png)
+
 ## Preparation
 
 1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java).
