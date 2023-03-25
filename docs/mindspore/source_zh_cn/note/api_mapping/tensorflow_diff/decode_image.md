@@ -20,7 +20,7 @@ tf.io.decode_image(
 
 ```python
 class mindspore.dataset.vision.Decode(
-    rgb=True
+    to_pil=False
 )
 ```
 

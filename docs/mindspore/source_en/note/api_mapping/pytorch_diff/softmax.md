@@ -47,13 +47,13 @@ import torch
 import numpy as np
 
 # In MindSpore, we can define an instance of this class first, and the default value of the parameter axis is -1.
-logits = ms.Tensor(np.array([1, 2, 3, 4, 5]), ms.float32)
-output1 = ops.softmax(logits)
+x = ms.Tensor(np.array([1, 2, 3, 4, 5]), ms.float32)
+output1 = ops.softmax(x)
 print(output1)
 # Out:
 # [0.01165623 0.03168492 0.08612853 0.23412165 0.63640857]
-logits = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
-output2 = ops.softmax(logits, axis=0)
+x = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
+output2 = ops.softmax(x, axis=0)
 print(output2)
 # out:
 # [[0.01798621 0.11920292 0.5        0.880797   0.98201376]

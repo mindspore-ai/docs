@@ -103,7 +103,7 @@ p = 2
 swap = False
 eps = 1e-06
 reduction = 'mean'
-triplet_margin_loss = nn.TripletMarginLoss(p=p, eps=eps, swap=swap, reduction=reduction)
+triplet_margin_loss = nn.TripletMarginLoss(p=p, swap=swap, eps=eps, reduction=reduction)
 
 x = ms.Tensor(np.array([[0.3, 0.7], [0.5, 0.5]]), dtype=ms.float32)
 positive = ms.Tensor(np.array([[0.4, 0.6], [0.4, 0.6]]), dtype=ms.float32)

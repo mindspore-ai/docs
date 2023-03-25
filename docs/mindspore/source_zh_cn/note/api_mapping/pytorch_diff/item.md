@@ -36,7 +36,7 @@ print(x.item((0,1)))
 # Out：
 # 2.0
 
-y = Tensor([1.0])
+y = ms.Tensor([1.0])
 print(y.item())
 # Out:
 # 1.0

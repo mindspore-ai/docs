@@ -36,7 +36,7 @@ from PIL import Image
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-import torchvision.transforms as transforms
+import torchvision.transforms as T
 import mindspore.dataset.vision as vision
 
 orig_img = Image.open(Path('.') / 'test.jpg')
@@ -68,7 +68,7 @@ show_diff_image(orig_img, rand_sola_img)
 
 # In torch, the RandomSolarize transform randomly solarizes the image by inverting all pixel values above the threshold.
 
-solarizer = transforms.RandomSolarize(threshold=192.0)
+solarizer = T.RandomSolarize(threshold=192.0)
 solarized_imgs = solarizer(orig_img)
 show_diff_image(orig_img, solarized_imgs)
 

@@ -48,7 +48,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
     data_single = tensor_x[True]
     data_multi = tensor_x[True][True]
     ```
@@ -75,7 +75,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
     data_single = tensor_x[...]
     data_multi = tensor_x[...][...]
     ```
@@ -104,7 +104,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 2).reshape((4, 2, 2)))
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 2).reshape((4, 2, 2)))
     data_single = tensor_x[1:4:2]
     data_multi = tensor_x[1:4:2][1:]
     ```
@@ -137,8 +137,8 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor([1, 2, 3])
-    tensor_index = Tensor([True, False, True], dtype=mstype.bool_)
+    tensor_x = ms.Tensor([1, 2, 3])
+    tensor_index = ms.Tensor([True, False, True], dtype=mstype.bool_)
     output = tensor_x[tensor_index]
     print(output)
     ```
@@ -154,9 +154,9 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
-    tensor_index0 = Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
-    tensor_index1 = Tensor(np.array([[0, 0]]), mstype.int32)
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
+    tensor_index0 = ms.Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
+    tensor_index1 = ms.Tensor(np.array([[0, 0]]), mstype.int32)
     data_single = tensor_x[tensor_index0]
     data_multi = tensor_x[tensor_index0][tensor_index1]
     ```
@@ -185,7 +185,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
     list_index0 = [1, 2, 0]
     list_index1 = [True, False, True]
     data_single = tensor_x[list_index0]
@@ -218,8 +218,8 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 * 4).reshape((2, 3, 4)))
-    tensor_index = Tensor(np.array([[1, 2, 1], [0, 3, 2]]), mstype.int32)
+    tensor_x = ms.Tensor(np.arange(2 * 3 * 4).reshape((2, 3, 4)))
+    tensor_index = ms.Tensor(np.array([[1, 2, 1], [0, 3, 2]]), mstype.int32)
     data = tensor_x[1, 0:1, tensor_index]
     ```
 
@@ -399,8 +399,8 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     `bool` 型示例如下：
 
     ```python
-    tensor_x = Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
-    tensor_index = Tensor([True, False, True], mstype.bool_)
+    tensor_x = ms.Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
+    tensor_index = ms.Tensor([True, False, True], mstype.bool_)
     tensor_x[tensor_index] = -1
     print(tensor_x)
     ```
@@ -482,8 +482,8 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_x = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_y = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
     tensor_x[[0, 1], 1:3] += 2
     tensor_y[[1], ...] -= [4, 3, 2, 1]
     ```

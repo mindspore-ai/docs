@@ -44,6 +44,7 @@ A: 在 `getattr(data, attr)` 语法中， `data` 不能是第三方对象（例�
 A: MindSpore在静态图模式下不支持 `yield` 语法。另外，在静态图模式下，如果代码中错误使用了 `net.trainable_params()` 不支持语法，也会触发该报错，因为其内部实现使用了 `list(filter(iterator))` 语法，隐式调用了 `yield` 语法。代码样例如下：
 
 ```python
+import mindspore as ms
 from mindspore import set_context, nn
 
 class Net(nn.Cell):
@@ -268,7 +269,7 @@ import mindspore as ms
 
 ZERO = ms.Tensor([0], ms.int32)
 ONE = ms.Tensor([1], ms.int32)
-@ms.jit
+@ms.jit()
 def f(x):
     y = ZERO
     if x < 0:
@@ -282,9 +283,10 @@ def f(x):
     z = y + 1
     return z
 
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor([5], ms.int32)
-f(x)
+def test_endless():
+    ms.set_context(mode=ms.GRAPH_MODE)
+    x = ms.Tensor([5], ms.int32)
+    f(x)
 ```
 
 <br/>

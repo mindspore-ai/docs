@@ -112,7 +112,7 @@ There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PU
 
 ### 3. 确认安装Python 3.7.5版本
 
-**注意:** ```Ubuntu 18.04``` 系统自带的 ```Python3```版本为```Python3.6.9```，系统自带```Python```不要删除，防止依赖错误。```Linux```发行版中, ```Debian```系的提供了```update-alternatives```工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用```update-alternatives```工具控制多个Python版本。
+**注意:** ```Ubuntu 18.04``` 系统自带的 ```python3```版本为```python3.6.9```，系统自带```python```不要删除，防止依赖错误。```Linux```发行版中, ```Debian```系的提供了```update-alternatives```工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用```update-alternatives```工具控制多个Python版本。
 
 （1）查看系统Python版本
 

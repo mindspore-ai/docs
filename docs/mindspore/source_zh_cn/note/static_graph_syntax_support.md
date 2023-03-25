@@ -1353,7 +1353,7 @@ def func():
    a = str()
    b = str(0)
    c = str([1, 2, 3, 4])
-   d = str(Tensor([10]))
+   d = str(ms.Tensor([10]))
    e = str(np.array([1, 2, 3, 4]))
    return a, b, c, d, e
 
@@ -1624,7 +1624,7 @@ def test():
     y = [2, 3, 4]
     x_is_tuple = isinstance(x, tuple)
     y_is_list = isinstance(y, list)
-    z_is_tensor = isinstance(z, Tensor)
+    z_is_tensor = isinstance(z, ms.Tensor)
     return x_is_tuple, y_is_list, z_is_tensor
 
 x_is_tuple, y_is_list, z_is_tensor = test()
