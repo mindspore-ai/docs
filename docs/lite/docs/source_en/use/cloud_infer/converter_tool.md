@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-x64
         └── lib                                # Dynamic libraries that the converter depends on
             ├── libmindspore_glog.so.0         # Glog dynamic libraries
             ├── libascend_pass_plugin.so       # Register for Ascend Backend Graph Optimization Plugin Dynamic Library
-            ├── libmindspore_shared_lib.so     # Adaptation of the dynamic library in the backend of Ascend
+            ├── libmslite_shared_lib.so        # Adaptation of the dynamic library in the backend of Ascend
             ├── libmindspore_converter.so      # Dynamic library for model conversion
             ├── libmslite_converter_plugin.so  # Model conversion plugin
             ├── libmindspore_core.so           # MindSpore Core dynamic libraries
@@ -56,7 +56,7 @@ Detailed parameter descriptions are provided below.
 | Parameters  |  Required or not   |  Description of parameters  | Value range | Default values | Remarks |
 | -------- | ------- | ----- | --- | ---- | ---- |
 | `--help` | Not | Print all help information. | - | - |
-| `--fmk=<FMK>`  | Required | The original format of the input model. | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
+| `--fmk=<FMK>` | Required | The original format of the input model. | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
 | `--modelFile=<MODELFILE>` | Required | The path of the input model. | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | Required | The path to the output model, without the suffix, can be automatically generated with the `.mindir` suffix. | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weight file. | - | - | - |
@@ -73,6 +73,7 @@ Detailed parameter descriptions are provided below.
 | `--fp16=<FP16>` | Not | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | on, off | off | Not supported at the moment|
 | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input tensor. Only if the quantization parameters (scale and zero point) of the model input tensor are available. The default is to keep the same data type as the original model input tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output tensor. Only if the quantization parameters (scale and zero point) of the model output tensor are available. The default is to keep the same data type as the original model output tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
+| `--device=<DEVICE>` | Not | Set target device when converter model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. | Ascend, Ascend310, Ascend310P | - | Ascend310 and Ascend310P will be deprecated |
 
 Notes:
 
@@ -80,7 +81,7 @@ Notes:
 - Caffe models are generally divided into two files: `*.prototxt` model structure, corresponding to the `--modelFile` parameter, and `*.caffemodel` model weights, corresponding to the `--weightFile` parameter.
 - The `configFile` configuration file uses the `key=value` approach to define the relevant parameters.
 - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
-- The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
+- The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
 - For the MindSpore model, since it is already a `mindir` model, two approaches are suggested:
 
     Inference is performed directly without offline conversion.

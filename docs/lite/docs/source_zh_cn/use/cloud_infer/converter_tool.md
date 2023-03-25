@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-x64
         └── lib                                # 转换工具依赖的动态库
             ├── libmindspore_glog.so.0         # Glog动态库
             ├── libascend_pass_plugin.so       # 注册昇腾后端图优化插件动态库
-            ├── libmindspore_shared_lib.so     # 适配昇腾后端的动态库
+            ├── libmslite_shared_lib.so        # 适配昇腾后端的动态库
             ├── libmindspore_converter.so      # 模型转换动态库
             ├── libmslite_converter_plugin.so  # 模型转换插件
             ├── libmindspore_core.so           # MindSpore Core动态库
@@ -54,9 +54,9 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 下面提供详细的参数说明。
 
 | 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 | 备注 |
-| -------- | ------- | ----- | --- | ---- | ---- |
-| `--help` | 否 | 打印全部帮助信息。 | - | - |
-| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
+| ------- | ------- | ----- | --- | ---- | ---- |
+| `--help` | 否 | 打印全部帮助信息。 | - | - | - |
+| `--fmk=<FMK>` | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.mindir`后缀。 | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - | - |
@@ -67,12 +67,13 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | `--decryptKey=<DECRYPTKEY>` | 否 | 设定用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk`为MINDIR时有效。 | - | - | - |
 | `--decryptMode=<DECRYPTMODE>` | 否 | 设定加载密文MindIR的模式，只在指定了decryptKey时有效。 | AES-GCM、AES-CBC | AES-GCM | - |
 | `--encryptKey=<ENCRYPTKEY>` | 否 | 设定导出加密`mindir`模型的密钥，密钥用十六进制表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | - | - | - |
-| `--encryption=<ENCRYPTION>` | 否 | 设定导出`mindir`模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | true、false | true |  |
-| `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false |  |
+| `--encryption=<ENCRYPTION>` | 否 | 设定导出`mindir`模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | true、false | true | - |
+| `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对四维输入有效。 | NHWC、NCHW | - | - |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | on、off | off | 暂不支持 |
 | `--inputDataType=<INPUTDATATYPE>` | 否 | 设定量化模型输入tensor的data type。仅当模型输入tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输入tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | 暂不支持 |
 | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设定量化模型输出tensor的data type。仅当模型输出tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输出tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | 暂不支持 |
+| `--device=<DEVICE>` | 否 | 设置转换模型时的目标设备。使用场景是在Ascend设备上，如果你需要转换生成的模型调用Ascend后端执行推理，则设置该参数，若未设置，默认模型调用CPU后端推理。 | Ascend、Ascend310、Ascend310P | - | Ascend310、Ascend310P选项即将废弃 |
 
 注意事项：
 
@@ -80,7 +81,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 - `configFile`配置文件采用`key=value`的方式定义相关参数。
 - `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
-- 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
+- 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 - 针对MindSpore模型，由于已经是`mindir`模型，建议两种做法：
 
     不需要经过离线转换，直接进行推理执行。

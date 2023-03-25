@@ -34,44 +34,45 @@ Running MindSpore Lite inference framework mainly consists of the following step
 
 ## Creating Configuration Context
 
-Create the configuration context `Context`. Since this tutorial demonstrates a scenario where inference is performed on a CPU device, the created CPU device hardware information needs to be added to the context.
+Create the configuration context `Context`. Since this tutorial demonstrates a scenario where inference is performed on a CPU device, they need to set Context's target to cpu.
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add CPU device info
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(cpu_device_info)
+# init context, and set target is cpu
+context = mslite.Context()
+context.target = ["cpu"]
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
-If users need to run inference on Ascend or GPU devices, they need to add Ascend or GPU device hardware information.
+If the user needs to run inference on Ascend device, they need to set Context's target to ascend.
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add Ascend device info and CPU device info
-ascend_device_info = mslite.AscendDeviceInfo(device_id=0)
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(ascend_device_info)
-context.append_device_info(cpu_device_info)
+# init context, and set target is ascend.
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
-If the user needs to run inference on a GPU device, the GPU device hardware information needs to be added.
+If the user needs to run inference on a GPU device, they need to set Context's target to gpu.
 
 ```python
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and add Ascend device info and CPU device info
-gpu_device_info = mslite.GPUDeviceInfo(device_id=0)
-cpu_device_info = mslite.CPUDeviceInfo(enable_fp16=False)
-context = mslite.Context(thread_num=1, thread_affinity_mode=2)
-context.append_device_info(gpu_device_info)
-context.append_device_info(cpu_device_info)
+# init context, and set target is gpu.
+context = mslite.Context()
+context.target = ["gpu"]
+context.gpu.device_id = 0
+context.cpu.thread_num = 1
+context.cpu.thread_affinity_mode=2
 ```
 
 ## Model Loading and Compilation
@@ -103,8 +104,7 @@ Call [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindsp
 
 ```python
 # execute inference
-outputs = model.get_outputs()
-model.predict(inputs, outputs)
+outputs = model.predict(inputs)
 ```
 
 ## Obtaining the Output
@@ -114,10 +114,10 @@ Print the output results after performing inference. Iterate through the `output
 ```python
 # get output
 for output in outputs:
-  tensor_name = output.get_tensor_name().rstrip()
-  data_size = output.get_data_size()
-  element_num = output.get_element_num()
-  print("tensor name is:%s tensor size is:%s tensor elements num is:%s" % (tensor_name, data_size, element_num))
+  name = output.name.rstrip()
+  data_size = output.data_size
+  element_num = output.element_num
+  print("tensor's name is:%s data size is:%s tensor elements num is:%s" % (name, data_size, element_num))
   data = output.get_data_to_numpy()
   data = data.flatten()
   print("output data is:", end=" ")

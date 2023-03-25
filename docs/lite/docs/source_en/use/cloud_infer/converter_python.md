@@ -12,7 +12,7 @@ When the input model type is MindSpore, since it is already a `mindir` model, tw
 
 1. Inference is performed directly without offline conversion.
 
-2. Set --NoFusion to false. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
+2. Setting `optimize` to `general` in CPU/GPU hardware backend and setting `optimize` to `ascend_oriented` in Ascend hardware when using offline conversion. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
 
 ## Linux Environment Usage Instructions
 
@@ -46,7 +46,7 @@ mindspore_lite
 │   ├── libmindspore-lite.so                                    # MindSpore Lite Dynamic Library for Cloud-Side inference
 │   ├── libmslite_converter_plugin.so                           # Model Conversion Plugin
 │   ├── libascend_pass_plugin.so                                # Register for Ascend Backend Graph Optimization Plugin Dynamic Library
-│   ├── libmindspore_shared_lib.so                              # Adaptation of the dynamic library in the backend of Ascend
+│   ├── libmslite_shared_lib.so                                 # Adaptation of the dynamic library in the backend of Ascend
 │   ├── libascend_kernel_plugin.so                              # Ascend backend kernel plugin
 │   ├── libtensorrt_plugin.so                                   # tensorrt backend kernel plugin
 │   ├── libopencv_core.so.4.5                                   # Dynamic library for OpenCV
@@ -60,34 +60,49 @@ mindspore_lite
 └── version.py         # MindSpore Lite cloud-side inference version number
 ```
 
-### Description of Parameters
+### Description of Attributes
 
-MindSpore Lite cloud-side inference model converter provides various parameter settings that users can choose to use according to their needs.
-
-Usage scenario: Convert third-party models to generate MindSpore models.
+MindSpore Lite cloud-side inference model converter provides various attribute settings that users can choose to use according to their needs.
 
 Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) are provided below.
 
-| Python interface model conversion parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values | Remarks |
-| -------- | ----- | -------- | ------- | ----- | --- | ---- | ---- |
+| Converter attributes | Types of attributes  | Parameters corresponding to the offline conversion of the model  | Description  | Value range | Remarks |
+| -------- | ----- | -------- | ------- | ---- | ---- |
+| decrypt_key | str | `--decryptKey=<DECRYPTKEY>` | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk_type` is MINDIR. | - | - |
+| decrypt_mode | str | `--decryptMode=<DECRYPTMODE>` | Set the mode to load cipher MindIR, only valid when `decrypt_key` is specified. | "AES-GCM", "AES-CBC" | - |
+| device | str | `--device=<DEVICE>` | Set target device when converter model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the attribute. If it is not set, the converted model will use CPU backend to perform inference by default. | "Ascend" | - |
+| encrypt_key | str | `--encryptKey=<ENCRYPTKEY>` | Set the key used to encrypt the file, in hexadecimal characters. Only supported when `decrypt_mode` is "AES-GCM" and the key length is 16. | - | - |
+| enable_encryption | bool | `--encryption=<ENCRYPTION>` | Whether to encrypt the model when exporting. Exporting encryption protects model integrity, but increases runtime initialization time. | True, False | - |
+| infer | bool | `--infer=<INFER>` | Whether to perform pre-inference at the completion of the conversion. | True, False | - |
+| input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | Set the data type of the quantized model input Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model input Tensor are available. The default is to keep the same data type as the original model input Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
+| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | Set the input format of the exported model, valid only for 4-dimensional inputs. | Format.NCHW, Format.NHWC | - |
+| input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | Set the dimensions of the model input, and the order of the input dimensions is kept the same as the original model. For example: {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - |
+| optimize | str | `--optimize=<OPTIMIZE>` | Set the mode of optimization during the offline conversion. | "none", "general", "ascend_oriented" | - |
+| output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | Set the data type of the quantized model output Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model output Tensor are available. The default is to keep the same data type as the original model output Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
+| save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR, ModelType.MINDIR_LITE | The MINDIR model uses the MindSpore Lite cloud-side inference installation package, and MINDIR_LITE uses the MindSpore Lite device-side inference installation package|
+| weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | True, False | - |
+
+> The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
+> `input_shape` is a attribute that the user may need to set in the following scenarios:
+>
+> - Usage 1: The input of the model to be converted is dynamic shape, and the fixed-shape inference is prepared, then this attribute is set to fixed-shape. After setting, when inference about the model after the Converter, the default input shape is the same as this attribute setting, and no resize operation is needed.
+> - Usage 2: Regardless of whether the original input of the model to be converted is a dynamic shape, use fixed-shape inference and want the performance of the model to be optimized as much as possible, then set this attribute to fixed-shape. After setting, the model structure will be further optimized, but the converted model may lose the characteristics of the dynamic shape (some operators strongly related to the shape will be fused).
+> `optimize` is an attribute, it used to set the mode of optimization during the offline conversion. If this attribute is set to "none", no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be performed during the execution of the inference phase. The advantage of this attribute is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this attribute is set to "general", general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this attribute is set to "ascend_oriented", the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
+>
+
+### Method of convert
+
+Usage scenario: Convert a third-party model into a MindSpore model. You can call the convert method multiple times to convert multiple models.
+
+Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) are provided below.
+
+|| Method of convert parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
+| -------- | ----- | -------- | ------- | ----- | --- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | Required | Input model frame type. | FmkType.TF, FmkType.CAFFE, FmkType.ONNX, FmkType.TFLITE | - |
 | model_file | str | `--modelFile=<MODELFILE>` | Required | The path of the input model file for the conversion. | - | - |
 | output_file | str | `--outputFile=<OUTPUTFILE>` | Required | The path to the output model at the time of conversion can be automatically generated with the `.mindir` suffix. | - | - |
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weights file. | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | Not | Converter profile path to configure training post-quantization or offline splitting operators parallel or to disable the operator fusion function and set the plug-in to the so path, etc. | - | "" |
-| input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model input, and the order of the input dimensions is kept the same as the original model. For example: {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | None, None is equivalent to {} |
-| export_mindir | ModelType | `--exportMindIR=<EXPORTMINDIR>` | Required | Set the type of the exported model file.| ModelType.MINDIR, ModelType.MINDIR_LITE | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package, and MINDIR_LITE uses the MindSpore Lite device-side inference installation package|
-| no_fusion | bool | `--NoFusion=<NOFUSION>` | Not | Whether to avoid fusion optimization, the default allows fusion optimization. | True, False | False |
-| weight_fp16 | bool | `--fp16=<FP16>` | Not | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | True, False | False | Not supported at the moment |
-| input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | Not | Set the input format of the exported model, valid only for 4-dimensional inputs. | Format.NCHW, Format.NHWC | Format.NHWC | Not supported at the moment |
-| input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model input Tensor are available. The default is to keep the same data type as the original model input Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | DataType.FLOAT32 | Not supported at the moment |
-| output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model output Tensor are available. The default is to keep the same data type as the original model output Tensor.   | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | DataType.FLOAT32 | Not supported at the moment |
-| decrypt_key | str | `--decryptKey=<DECRYPTKEY>` | Not | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk_type` is MINDIR. | - | "" | Not supported at the moment |
-| decrypt_mode | str | `--decryptMode=<DECRYPTMODE>` | Not | Set the mode to load cipher MindIR, only valid when `decrypt_key` is specified. | "AES-GCM", "AES-CBC" | "AES-GCM" | Not supported at the moment |
-| enable_encryption | bool | `--encryption=<ENCRYPTION>` | Not | Whether to encrypt the model when exporting. Exporting encryption protects model integrity, but increases runtime initialization time. | True, False | False | Not supported at the moment |
-| encrypt_key | str | `--encryptKey=<ENCRYPTKEY>` | Not | Set the key used to encrypt the file, in hexadecimal characters. Only supported when `decrypt_mode` is "AES-GCM" and the key length is 16. | - | "" | Not supported at the moment |
-| infer | bool | `--infer=<INFER>` | Not | Whether to perform pre-inference at the completion of the conversion. | True, False | False | Not supported at the moment |
-| train_model | bool | `--trainModel=<TRAINMODEL>` | Not | Whether the model will be trained on the device. | True, False | False | Not supported at the moment |
 
 > For more information about the `fmk_type` parameter, see [FmkType](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.FmkType.html)
 >
@@ -96,11 +111,6 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 > Caffe models are generally divided into two files: `*.prototxt` is model structure, corresponding to the `model_file` parameter, and `model.caffemodel` is model weights, corresponding to the `--weightFile` parameter.
 >
 > The `config_file` configuration file uses the `key = value` approach to define the relevant parameters.
->
-> `input_shape` is a parameter that the user may need to set in the following scenarios:
->
-> - Usage 1: The input of the model to be converted is dynamic shape, and the fixed-shape inference is prepared, then this parameter is set to fixed-shape. After setting, when inference about the model after the Converter, the default input shape is the same as this parameter setting, and no resize operation is needed.
-> - Usage 2: Regardless of whether the original input of the model to be converted is a dynamic shape, use fixed-shape inference and want the performance of the model to be optimized as much as possible, then set this parameter to fixed-shape. After setting, the model structure will be further optimized, but the converted model may lose the characteristics of the dynamic shape (some operators strongly related to the shape will be fused).
 >
 
 ### Usage Examples
@@ -111,8 +121,10 @@ The following selects common examples to illustrate the use of the conversion co
 
     ```python
     import mindspore_lite as mslite
-    converter = mslite.Converter(fmk_type=mslite.FmkType.CAFFE, model_file="lenet.prototxt",output_file="lenet", weight_file="lenet.caffemodel",export_mindir=mslite.ModelType.MINDIR)
-    converter.converter()
+    converter = mslite.Converter()
+    converter.save_type = mslite.ModelType.MINDIR
+    converter.optimize = "none"
+    converter.convert(fmk_type=mslite.FmkType.CAFFE, model_file="lenet.prototxt",output_file="lenet", weight_file="lenet.caffemodel")
     ```
 
     In this example, because the Caffe model is used, two input files, model structure and model weights, are required. Together with the other two required parameters, fmk type and output path, it can be executed successfully.
@@ -131,32 +143,40 @@ The following selects common examples to illustrate the use of the conversion co
 
         ```python
         import mindspore_lite as mslite
-        converter = mslite.Converter(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model",export_mindir=mslite.ModelType.MINDIR, no_fusion=False)
-        converter.converter()
+        converter = mslite.Converter()
+        converter.save_type = mslite.ModelType.MINDIR
+        converter.optimize = "general"
+        converter.converter(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model")
         ```
 
     - TensorFlow Lite model `model.tflite`
 
         ```python
         import mindspore_lite as mslite
-        converter = mslite.Converter(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model",export_mindir=mslite.ModelType.MINDIR)
-        converter.converter()
+        converter = mslite.Converter()
+        converter.save_type = mslite.ModelType.MINDIR
+        converter.optimize = "none"
+        converter.converter(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model")
         ```
 
     - TensorFlow model `model.pb`
 
         ```python
         import mindspore_lite as mslite
-        converter = mslite.Converter(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model",export_mindir=mslite.ModelType.MINDIR)
-        converter.converter()
+        converter = mslite.Converter()
+        converter.save_type = mslite.ModelType.MINDIR
+        converter.optimize = "none"
+        converter.converter(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model")
         ```
 
     - ONNX model `model.onnx`
 
         ```python
         import mindspore_lite as mslite
-        converter = mslite.Converter(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model",export_mindir=mslite.ModelType.MINDIR)
-        converter.converter()
+        converter = mslite.Converter()
+        converter.save_type = mslite.ModelType.MINDIR
+        converter.optimize = "none"
+        converter.converter(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model")
         ```
 
     In all of the above cases, the following conversion success message is displayed and the `model.mindir` target file is obtained at the same time.
@@ -164,3 +184,9 @@ The following selects common examples to illustrate the use of the conversion co
     ```text
     CONVERTER RESULT SUCCESS:0
     ```
+
+### Advanced Usage
+
+#### Online conversion
+
+get_config_info method and set_config_info method is used for online conversion. Please refer to the [set_config_info](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info) for details.
