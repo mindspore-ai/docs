@@ -50,7 +50,7 @@ import numpy as np
 
 input = Tensor(np.ones([3, 2, 4]), ms.float32)
 input = input.expand_dims(0)
-output = ops.dropout2d(x)
+output = ops.dropout2d(input)
 output = output.squeeze(0)
 print(output.shape)
 # (3, 2, 4)
@@ -75,7 +75,7 @@ import numpy as np
 
 input = Tensor(np.ones([1, 2, 3, 2, 4]), ms.float32)
 input = input.squeeze(0)
-output = ops.dropout2d(x)
+output = ops.dropout2d(input)
 output = output.expand_dims(0)
 print(output.shape)
 # (1, 2, 3, 2, 4)

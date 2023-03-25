@@ -44,21 +44,24 @@ MindSpore: This API implementation function of MindSpore is compatible with Tens
 import torch
 import torch.nn as nn
 
-m = nn.AvgPool3d(kernel_size=6, stride=1)
-input_x = torch.tensor([[[1,2,3,4,5,6,7]]], dtype=torch.float32)
-print(m(input_x).numpy())
-# [[[3.5 4.5]]]
+m = nn.AvgPool3d(kernel_size=1, stride=1)
+input_x = torch.tensor([[[[1, 0, 1], [0, 1, 1]]]],dtype=torch.float32)
+output = m(input_x)
+print(output.numpy())
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 
 # MindSpore
 import mindspore
 import mindspore.nn as nn
 from mindspore import Tensor
 
-pool = nn.AvgPool3d(kernel_size=6, stride=1)
-x = Tensor([[[1,2,3,4,5,6,7]]], dtype=mindspore.float32)
+pool = nn.AvgPool3d(kernel_size=1, stride=1)
+x = Tensor([[[[1, 0, 1], [0, 1, 1]]]], dtype=mindspore.float32)
 output = pool(x)
 print(output)
-# [[[3.5 4.5]]]
+# [[[[1. 0. 1.]
+#    [0. 1. 1.]]]]
 ```
 
 ### Code Example 2

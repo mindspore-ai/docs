@@ -9,8 +9,8 @@ tf.image.resize(
     images,
     size,
     method=ResizeMethodV1.BILINEAR,
-    align_corners=False,
     preserve_aspect_ratio=False,
+    antialias=False,
     name=None
 )
 ```

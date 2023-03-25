@@ -104,13 +104,19 @@ A: 可以自定义一个`Callback`。参考`ModelCheckpoint`的写法，此外�
 
 ```python
 class EarlyStop(Callback):
-    def __init__(self):
-        self.loss = None
+    def __init__(self, control_loss=1):
+        super(EarlyStop, self).__init__()
+        self._control_loss = control_loss
+
     def step_end(self, run_context):
-        loss =  ****(get current loss)
-        if (self.loss == None or loss < self.loss):
-            self.loss = loss
-            # do save ckpt
+        cb_params = run_context.original_args()
+        loss = cb_params.net_outputs
+        if loss.asnumpy() < self._control_loss:
+            # Stop training
+            run_context._stop_requested = True
+
+stop_cb = EarlyStop(control_loss=1)
+model.train(epoch_size, ds_train, callbacks=[stop_cb])
 ```
 
 <br/>
@@ -321,7 +327,7 @@ A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com
 
 ```python
 # Since the selected optimizer does not support CPU, so the training computing platform is changed to GPU, which requires readers to install the corresponding GPU version of MindSpore.
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 # Assuming that the function to be fitted this time is f(x)=2x^2+3x+4, the data generation function is modified as follows:
 def get_data(num, a=2.0, b=3.0 ,c = 4):
@@ -363,7 +369,7 @@ if __name__ == "__main__":
     model = ms.train.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
-    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.train.LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
@@ -390,7 +396,7 @@ A: 使用msnpureport工具设置device侧日志级别，工具位置在: `/usr/l
 
 ```bash
 /usr/local/Ascend/latest/driver/tools/msnpureport -m SLOG:error
-````
+```
 
 - Event级别:
 
@@ -587,7 +593,7 @@ A: 此问题的原因为：用户未正确配置算子参数，导致算子申�
 
  A: "Ascend Error Message"是MindSpore调用CANN(昇腾异构计算架构)接口时，CANN执行出错后抛出的故障信息，其中包含错误码和错误描述等信息，如下例子：
 
-```python
+```text
 Traceback (most recent call last):
  File "train.py", line 292, in <module>
  train_net()
