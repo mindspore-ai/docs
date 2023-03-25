@@ -100,7 +100,25 @@ def count_params(net):
 
 <font size=3>**Q: How do I monitor the `loss` during training and save the training parameters when the `loss` is the lowest?**</font>
 
-A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.EarlyStopping.html)。
+A: You can customize the `callback` method to implement the early stopping function.
+Example: When the loss value decreases to a certain value, the training stops.
+
+```python
+class EarlyStop(Callback):
+    def __init__(self, control_loss=1):
+        super(EarlyStop, self).__init__()
+        self._control_loss = control_loss
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        loss = cb_params.net_outputs
+        if loss.asnumpy() < self._control_loss:
+            # Stop training
+            run_context._stop_requested = True
+
+stop_cb = EarlyStop(control_loss=1)
+model.train(epoch_size, ds_train, callbacks=[stop_cb])
+```
 
 <br/>
 
@@ -126,25 +144,7 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 <font size=3>**Q: How does MindSpore implement the early stopping function?**</font>
 
-A: You can customize the `callback` method to implement the early stopping function.
-Example: When the loss value decreases to a certain value, the training stops.
-
-```python
-class EarlyStop(Callback):
-    def __init__(self, control_loss=1):
-        super(EarlyStop, self).__init__()
-        self._control_loss = control_loss
-
-    def step_end(self, run_context):
-        cb_params = run_context.original_args()
-        loss = cb_params.net_outputs
-        if loss.asnumpy() < self._control_loss:
-            # Stop training
-            run_context._stop_requested = True
-
-stop_cb = EarlyStop(control_loss=1)
-model.train(epoch_size, ds_train, callbacks=[stop_cb])
-```
+A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.EarlyStopping.html).
 
 <br/>
 
@@ -159,22 +159,6 @@ np.save("output.npy", out.asnumpy())
 
 <br/>
 
-<font size=3>**Q: Can the `vgg16` model be loaded and transferred on a GPU using the Hub?**</font>
-
-A: Yes, but you need to manually modify the following two arguments:
-
-```python
-# Add the **kwargs argument as follows:
-def vgg16(num_classes=1000, args=None, phase="train", **kwargs):
-```
-
-```python
-# Add the **kwargs argument as follows:
-net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_norm, phase=phase, **kwargs)
-```
-
-<br/>
-
 <font size=3>**Q: How to handle cache server exception shutdown?**</font>
 
 A: During the use of the cache server, system resources such as IPC share memory and socket files are allocated. If overflow is allowed, there will be overflowing data files on disk space. In general, if the server is shut down normally via the `cache_admin --stop` command, these resources will be automatically cleaned up.
@@ -185,38 +169,38 @@ However, if the cache server is shut down abnormally, such as the cache service 
 
     1. Check for IPC shared memory residue.
 
-    In general, the system allocates 4GB of share memory for the caching service. The following command allows you to view the usage of share memory blocks in the system.
+        In general, the system allocates 4GB of share memory for the caching service. The following command allows you to view the usage of share memory blocks in the system.
 
-    ```text
-    $ ipcs -m
-    ------ Shared Memory Segments --------
-    key        shmid      owner      perms      bytes      nattch     status
-    0x61020024 15532037   root       666        4294967296 1
-    ```
+        ```text
+        $ ipcs -m
+        ------ Shared Memory Segments --------
+        key        shmid      owner      perms      bytes      nattch     status
+        0x61020024 15532037   root       666        4294967296 1
+        ```
 
-    where `shmid` is the share memory block id, `bytes` is the size of the share memory block, and `nattch` is the number of processes linking to the shared memory block.  `nattch` is not 0, which indicates that there are still processes that use the share memory block. Before you delete share memory, you need to stop all processes that use that memory block.
+        where `shmid` is the share memory block id, `bytes` is the size of the share memory block, and `nattch` is the number of processes linking to the shared memory block.  `nattch` is not 0, which indicates that there are still processes that use the share memory block. Before you delete share memory, you need to stop all processes that use that memory block.
 
     2. Delete the IPC share memory.
 
-    Find the corresponding share memory id, and delete via the following command.
+        Find the corresponding share memory id, and delete via the following command.
 
-    ```text
-    ipcrm -m {shmid}
-    ```
+        ```text
+        ipcrm -m {shmid}
+        ```
 
 - Delete socket files.
 
-In general, socket files is located `/tmp/mindspore/cache`. Enter the folder, and execute the following command to delete socket files.
+    In general, socket files is located `/tmp/mindspore/cache`. Enter the folder, and execute the following command to delete socket files.
 
-```text
-rm cache_server_p{port_number}
-```
+    ```text
+    rm cache_server_p{port_number}
+    ```
 
-where `port_number` is the port number specified when the user creates the cache server, which defaults to 50052.
+    where `port_number` is the port number specified when the user creates the cache server, which defaults to 50052.
 
 - Delete data files that overflow to disk space.
 
-Enter the specified overflow data path when you enabled the cache server. In general, the default overflow path is `/tmp/mindspore/cache`. Find the corresponding data folders under the path and delete them one by one.
+    Enter the specified overflow data path when you enabled the cache server. In general, the default overflow path is `/tmp/mindspore/cache`. Find the corresponding data folders under the path and delete them one by one.
 
 <br/>
 
@@ -277,11 +261,11 @@ A: The following is based on the official MindSpore linear fitting case.
 ```python
 # The fitting function is: f(x)=2*sin(x)+3.
 import numpy as np
-import mindspore as ms
-from mindspore.train import Model, LossMonitor
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
 from mindspore import nn
+import mindspore as ms
+from mindspore.train import Model, LossMonitor
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
@@ -320,7 +304,7 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = Model(net, net_loss, opt)
+    model = ms.train.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
     model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
@@ -609,7 +593,7 @@ Therefore, the user needs to set the operator parameters appropriately to avoid 
 
 A: The "Ascend Error Message" is a fault message thrown after there is an error during CANN execution when CANN (Ascend Heterogeneous Computing Architecture) interface is called by MindSpore, which contains information such as error code and error description. For example:
 
-```python
+```text
 Traceback (most recent call last):
  File "train.py", line 292, in <module>
  train_net()

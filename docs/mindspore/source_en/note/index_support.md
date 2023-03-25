@@ -137,8 +137,8 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor([1, 2, 3])
-    tensor_index = Tensor([True, False, True], dtype=mstype.bool_)
+    tensor_x = ms.Tensor([1, 2, 3])
+    tensor_index = ms.Tensor([True, False, True], dtype=mstype.bool_)
     output = tensor_x[tensor_index]
     print(output)
     ```
@@ -186,10 +186,10 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
     ```python
     tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
-    tensor_index0 = ms.Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
-    tensor_index1 = ms.Tensor(np.array([[0, 0]]), mstype.int32)
-    data_single = tensor_x[tensor_index0]
-    data_multi = tensor_x[tensor_index0][tensor_index1]
+    list_index0 = [1, 2, 0]
+    list_index1 = [True, False, True]
+    data_single = tensor_x[list_index0]
+    data_multi = tensor_x[list_index0][list_index1]
     ```
 
     The result is as follows:
@@ -305,7 +305,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
-    tensor_x[...] = 88
+    tensor_x[...] = 88.0
     tensor_y[...]= np.array([[22, 44, 55], [22, 44, 55]])
     tensor_z[...] = ([11, 22, 33], [44, 55, 66])
     ```
@@ -399,8 +399,8 @@ Index value assignment can be understood as assigning values to indexed position
     An example of the `bool` type is as follows:
 
     ```python
-    tensor_x = Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
-    tensor_index = Tensor([True, False, True], mstype.bool_)
+    tensor_x = ms.Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
+    tensor_index = ms.Tensor([True, False, True], mstype.bool_)
     tensor_x[tensor_index] = -1
     print(tensor_x)
     ```

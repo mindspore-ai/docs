@@ -112,8 +112,8 @@ dynamic learning rate:
 mindspore:
 
 ```python
-import mindspore as ms
 from mindspore import nn
+import mindspore as ms
 
 # dynamic_lr
 milestone = [2, 5, 10]

@@ -186,6 +186,7 @@ x: ((1, 2, 3), 4, 5)
       return x
 
   x = test_list_clear()
+  print('x:{}'.format(x))
   ```
 
   The result is as follows:
@@ -303,8 +304,8 @@ x: ((1, 2, 3), 4, 5)
   For example:
 
   ```python
-  import numpy as np
   import mindspore as ms
+  import numpy as np
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
@@ -359,8 +360,8 @@ The reference type of tuple is same as List, please  refer to List.
   An example of the `int` and `slice` indexes is as follows:
 
   ```python
-  import numpy as np
   import mindspore as ms
+  import numpy as np
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
@@ -826,10 +827,7 @@ def test_cond(x, y):
         return n
 
 ret = test_cond(x, y)
-print('ret:{}'.format(ret))if (x > y).any():
-  return m
-else:
-  return n
+print('ret:{}'.format(ret))
 ```
 
 The data type of `m` returned by the `if` branch and `n` returned by the `else` branch must be same.
@@ -922,8 +920,8 @@ Restrictions:
 Example:
 
 ```python
-import numpy as np
 import mindspore as ms
+import numpy as np
 
 z = ms.Tensor(np.ones((2, 3)))
 
@@ -2005,8 +2003,8 @@ Return value: functions with certain input parameter values fixed
 For example:
 
 ```python
-from mindspore import ops
 import mindspore as ms
+from mindspore import ops
 
 def add(x, y):
     return x + y

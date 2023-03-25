@@ -56,8 +56,8 @@ MindSpore: Compute the gradient. When `grad_position` is set to int or tuple of 
 ```python
 # In MindSpore：
 import numpy as np
-import mindspore as ms
 import mindspore.nn as nn
+import mindspore as ms
 from mindspore import ops
 
 class Net(nn.Cell):
