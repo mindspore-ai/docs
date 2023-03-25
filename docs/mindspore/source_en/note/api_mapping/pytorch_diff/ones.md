@@ -13,7 +13,7 @@ For more information, see [torch.ones](https://pytorch.org/docs/1.8.1/generated/
 ## mindspore.ops.ones
 
 ```text
-mindspore.ops.ones(size, dtype=dtype) -> Tensor
+mindspore.ops.ones(shape, dtype=dtype) -> Tensor
 ```
 
 For more information,
@@ -27,7 +27,7 @@ MindSpore: MindSpore API implements the same function as TensorFlow, and only th
 
 | Categories | Subcategories | PyTorch       | MindSpore | Difference                                         |
 |------------|---------------|---------------|-----------|----------------------------------------------------|
-| Parameters | Parameter 1   | size          | size      | MindSpore only supports input of int or tuple type |
+| Parameters | Parameter 1   | size          | shape     | MindSpore only supports input of int or tuple type |
 |            | Parameter 2   | out           | -         | Not involved                                       |
 |            | Parameter 3   | dtype         | dtype     | The parameter is consistent                        |
 |            | Parameter 4   | layout        | -         | Not involved                                       |
