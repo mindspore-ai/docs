@@ -22,9 +22,9 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 2. 下载发布件
 
-    用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，`{arch}`为`x86`或者`aarch64`，`x86`版本支持Ascend、Nvidia GPU、CPU三个硬件后端，`aarch64`仅支持Ascend、CPU硬件后端。
+    用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，`{arch}`为`x64`或者`aarch64`，`x64`版本支持Ascend、Nvidia GPU、CPU三个硬件后端，`aarch64`仅支持Ascend、CPU硬件后端。
 
-    以下为`x86`云侧推理包内容。
+    以下为`x64`云侧推理包内容。
 
     ```text
     mindspore-lite-{version}-linux-x64
@@ -46,7 +46,6 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
     │   │   ├── libtransformer-shared.so     # Transformer动态库
     │   │   └── mindspore-lite-java.jar      # MindSpore Lite推理框架jar包
     │   └── third_party
-    │       └── libjpeg-turbo
     └── tools
         ├── benchmark       # 基准测试工具目录
         └── converter       # 模型转换工具目录
@@ -86,7 +85,7 @@ export LITE_HOME=$some_path/mindpsore-lite-2.0.0-linux-x64
 设置环境变量`LD_LIBRARY_PATH`：
 
 ```bash
-export LD_LIBRARY_PATH=$LITE_HOME/runtime/lib:$LITE_HOME/tools/converter/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LITE_HOME/runtime/lib:$LITE_HOME/runtime/third_party/dnnl:$LITE_HOME/tools/converter/lib:$LD_LIBRARY_PATH
 ```
 
 如果需要使用`convert_lite`或者`benchmark`工具，则需要设置环境变量`PATH`。
