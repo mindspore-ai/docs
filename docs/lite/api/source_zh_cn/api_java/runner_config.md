@@ -8,12 +8,14 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 
 | function                                                       | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------   |--------|--------|
-| [boolean init()](#init)                                        | √      | ✕      |
-| [void setWorkerNum()](#setworkernum)                           | √      | ✕      |
-| [void setConfigInfo()](#setconfiginfo)                         | √      | ✕      |
-| [void setConfigPath()](#setconfigpath)                         | √      | ✕      |
+| [boolean init()](#init)                            | √      | ✕      |
+| [public boolean init(MSContext msContext)](#init)  | √      | ✕      |
+| [public void setWorkerNum(int workerNum)](#setworkernum)                           | √      | ✕      |
+| [public void setConfigInfo(String section, HashMap<String, String> config)](#setconfiginfo)               | √      | ✕      |
+| [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
+| [public void free()](#free)    | √      | ✕      |
 
 ## init
 

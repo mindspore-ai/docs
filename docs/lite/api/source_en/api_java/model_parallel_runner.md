@@ -13,8 +13,9 @@ ModelParallelRunner defines MindSpore Lite concurrent inference.
 | function                                                       | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------------------------------------------   |--------|--------|
 | [long getModelParallelRunnerPtr()](#getmodelparallelrunnerptr) | √      | ✕      |
-| [boolean init()](#init)                                        | √      | ✕      |
-| [boolean predict()](#predict)                                  | √      | ✕      |
+| [boolean init(String modelPath, RunnerConfig runnerConfig)](#init)         | √      | ✕      |
+| [public boolean init(String modelPath)](#init) | √      | ✕      |
+| [public boolean predict(List<MSTensor> inputs, List<MSTensor> outputs)](#predict)   | √      | ✕      |
 | [boolean getInputs()](#getinputs)                              | √      | ✕      |
 | [boolean getOutputs()](#getoutputs)                            | √      | ✕      |
 | [void free()](#free)                                           | √      | ✕      |
