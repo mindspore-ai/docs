@@ -337,7 +337,7 @@ make
 
 Lite云侧推理框架支持动态shape输入的模型，GPU和Ascend硬件后端，需要在模型转换和模型推理时配置动态输入信息。
 
-动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--NoFusion=false`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Ascend 310环境上，模型转换工具指定`--device=Ascend`，则产生的模型仅支持在Ascend 310上运行，如果未指定`--device`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--NoFusion=true`，或MindSpore导出的MindIR模型没有经过转换工具处理。
+动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Ascend 310环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Ascend 310上运行，如果指定`--optimize=general`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
 
 Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
 
@@ -435,7 +435,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
       }
 
       std::vector<mindspore::MSTensor> outputs;
-      if (Predict(model, inputs, &outputs) != 0) {
+      if (model->Predict(inputs, &outputs) != 0) {
         return -1;
       }
     ```
@@ -457,7 +457,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
         tensor.SetDeviceData(nullptr);
         output_buffers.push_back(buffer); // for free
       }
-      if (Predict(model, inputs, &outputs) != 0) {
+      if (model->Predict(inputs, &outputs) != 0) {
         return -1;
       }
     ```
