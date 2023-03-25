@@ -13,7 +13,7 @@ torch.ones(*size, *, out=None, dtype=None, layout=torch.strided, device=None, re
 ## mindspore.ops.ones
 
 ```text
-mindspore.ops.ones(size, dtype=dtype) -> Tensor
+mindspore.ops.ones(shape, dtype=dtype) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.ones](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ones.html)。
@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类  | 子类  | PyTorch       | MindSpore | 差异                         |
 |-----|-----|---------------|-----------|----------------------------|
-| 参数  | 参数1 | size          | size      | MindSpore只支持int或tuple类型的输入 |
+| 参数  | 参数1 | size          | shape     | MindSpore只支持int或tuple类型的输入 |
 |     | 参数2 | out           | -         | 不涉及                        |
 |     | 参数3 | dtype         | dtype     | 无差异                        |
 |     | 参数4 | layout        | -         | 不涉及                        |
