@@ -23,9 +23,9 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 2. Download distributions
 
-    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of MindSpore official website, `{arch}` for `x86` or `aarch64`. `x86` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
+    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of MindSpore official website, `{arch}` for `x64` or `aarch64`. `x64` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
 
-    The following is the contents of the `x86` tar package.
+    The following is the contents of the `x64` tar package.
 
     ```text
     mindspore-lite-{version}-linux-x64
@@ -47,7 +47,6 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
     │   │   ├── libtransformer-shared.so     # Transformer Dynamic Library
     │   │   └── mindspore-lite-java.jar      # MindSpore Lite inference framework jar package
     │   └── third_party
-    │       └── libjpeg-turbo
     └── tools
         ├── benchmark       # Benchmark Test Tools Catalogue
         └── converter       # Model Converter Catalogue
@@ -87,7 +86,7 @@ export LITE_HOME=$some_path/mindpsore-lite-2.0.0-linux-x64
 Set the environment variable `LD_LIBRARY_PATH`:
 
 ```bash
-export LD_LIBRARY_PATH=$LITE_HOME/runtime/lib:$LITE_HOME/tools/converter/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LITE_HOME/runtime/lib:$LITE_HOME/runtime/third_party/dnnl:$LITE_HOME/tools/converter/lib:$LD_LIBRARY_PATH
 ```
 
 If you need to use the `convert_lite` or `benchmark` tools, you need to set the environment variable `PATH`.
