@@ -8,10 +8,11 @@ RunnerConfig defines the configuration parameters of MindSpore Lite concurrent i
 
 | function                                                       | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------------------------------------------   |--------|--------|
-| [boolean init()](#init)                                        | √      | ✕      |
-| [void setWorkerNum()](#setworkernum)                           | √      | ✕      |
-| [void setConfigInfo()](#setconfiginfo)                         | √      | ✕      |
-| [void setConfigPath()](#setconfigpath)                         | √      | ✕      |
+| [boolean init()](#init)                            | √      | ✕      |
+| [public boolean init(MSContext msContext)](#init)  | √      | ✕      |
+| [public void setWorkerNum(int workerNum)](#setworkernum)                           | √      | ✕      |
+| [public void setConfigInfo(String section, HashMap<String, String> config)](#setconfiginfo)               | √      | ✕      |
+| [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 

@@ -12,10 +12,10 @@ Model定义了MindSpore中编译和运行的模型。
 
 | function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | √      | √      |
+| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | ✕      | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
 | [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | √      | √      |
+| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | ✕      | √      |
 | [boolean build(String modelPath, MSContext context)](#build)                                         | √      | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |
