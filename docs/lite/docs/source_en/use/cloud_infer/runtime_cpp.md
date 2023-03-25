@@ -125,7 +125,7 @@ device_list.push_back(gpu_device_info);
 
 Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing power] of the current device (https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix).
 
-`SetPrecisionMode()` has two parameters to control Float16 inference, `SetPrecisionMode("enforce_fp32")` equals to `SetEnableFP16(true)`, vice versa.
+`SetPrecisionMode()` has two parameters to control Float16 inference, `SetPrecisionMode("preferred_fp16")` equals to `SetEnableFP16(true)`, vice versa.
 
 | SetPrecisionMode() | SetEnableFP16() |
 | ------------------ | --------------- |
