@@ -12,10 +12,10 @@ Model defines model in MindSpore for compiling and running.
 
 | function                                                     | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | √      | √      |
+| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | ✕      | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
 | [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | √      | √      |
+| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | ✕      | √      |
 | [boolean build(String modelPath, MSContext context)](#build)                                         | √      | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |

@@ -13,8 +13,9 @@ ModelParallelRunner定义了MindSpore Lite并发推理。
 | function                                                       | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------   |--------|--------|
 | [long getModelParallelRunnerPtr()](#getmodelparallelrunnerptr) | √      | ✕      |
-| [boolean init()](#init)                                        | √      | ✕      |
-| [boolean predict()](#predict)                                  | √      | ✕      |
+| [boolean init(String modelPath, RunnerConfig runnerConfig)](#init)         | √      | ✕      |
+| [public boolean init(String modelPath)](#init) | √      | ✕      |
+| [public boolean predict(List<MSTensor> inputs, List<MSTensor> outputs)](#predict)   | √      | ✕      |
 | [boolean getInputs()](#getinputs)                              | √      | ✕      |
 | [boolean getOutputs()](#getoutputs)                            | √      | ✕      |
 | [void free()](#free)                                           | √      | ✕      |
