@@ -1,11 +1,11 @@
-# 比较与torch.all的功能差异
+# 比较与torch.randint_like的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/randint_like.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## torch.randint
+## torch.randint_like
 
 ```text
-torch.randint_like(input, low=0, high, \*, dtype=None, layout=torch.strided, device=None, requires_grad=False, memory_format=torch.preserve_format)
+torch.randint_like(input, low=0, high, *, dtype=None, layout=torch.strided, device=None, requires_grad=False, memory_format=torch.preserve_format)
 ```
 
 更多内容详见[torch.randint_like](https://pytorch.org/docs/1.8.1/generated/torch.randint_like.html#torch.randint_like)。
@@ -16,7 +16,7 @@ torch.randint_like(input, low=0, high, \*, dtype=None, layout=torch.strided, dev
 mindspore.ops.randint_like(input, low, high, *, dtype=None, seed=None)
 ```
 
-更多内容详见[mindspore.ops.randint](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like)。
+更多内容详见[mindspore.ops.randint_like](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like)。
 
 ## 差异对比
 
