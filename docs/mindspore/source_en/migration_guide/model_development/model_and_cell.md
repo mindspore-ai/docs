@@ -146,13 +146,13 @@ class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.SequentialCell([
-            nn.Conv2d(3, 12, kernel_size=3, pad_mode="pad", padding=1),
+            nn.Conv2d(3, 12, kernel_size=3, pad_mode='pad', padding=1),
             nn.BatchNorm2d(12),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2)
         ])
         self.layer2 = nn.SequentialCell([
-            nn.Conv2d(12, 4, kernel_size=3, pad_mode="pad", padding=1),
+            nn.Conv2d(12, 4, kernel_size=3, pad_mode='pad', padding=1),
             nn.BatchNorm2d(4),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2)
@@ -202,13 +202,13 @@ class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.layer1 = nn.SequentialCell([
-            nn.Conv2d(3, 12, kernel_size=3, pad_mode="pad", padding=1),
+            nn.Conv2d(3, 12, kernel_size=3, pad_mode='pad', padding=1),
             nn.BatchNorm2d(12),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2)
         ])
         self.layer2 = nn.SequentialCell([
-            nn.Conv2d(12, 4, kernel_size=3, pad_mode="pad", padding=1),
+            nn.Conv2d(12, 4, kernel_size=3, pad_mode='pad', padding=1),
             nn.BatchNorm2d(4),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2)

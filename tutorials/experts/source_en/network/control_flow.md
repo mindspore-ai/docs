@@ -295,7 +295,7 @@ print("output:", output)
 
     These types of computation operations are completed during graph build, which conflicts with the computation mechanism of the `while` loop body during execution. The following uses sample code as an example:
 
-    ```Python
+    ```python
     import numpy as np
     from mindspore import nn
     import mindspore as ms
@@ -342,7 +342,7 @@ print("output:", output)
 
     The following uses sample code as an example:
 
-    ```Python
+    ```python
     import numpy as np
     from mindspore import nn
     import mindspore as ms
