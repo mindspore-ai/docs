@@ -17,11 +17,11 @@ The specific use steps are divided into two steps. Taking the classification tas
 1. Training data collection: in the training process, use the SummaryCollector to collect the forward network weights of multiple models, the parameters required for landscape drawing (expected drawing interval, landscape resolution, etc.), and other specific use methods of SummaryCollector can be referred to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html).
 
    ```python
-   import mindspore as ms
    import mindspore.dataset as ds
    import mindspore.dataset.vision as vision
    import mindspore.dataset.transforms as transforms
    from mindspore.dataset.vision import Inter
+   import mindspore as ms
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
@@ -154,13 +154,13 @@ The specific use steps are divided into two steps. Taking the classification tas
 2. Landscape drawing: using the model parameters saved in the training process, the model and dataset are consistent with the training, start a new script, and generate landscape information through forward calculation without re-training. (applicable to drawing landscape by single device or multi devices Parallel Computing)
 
    ```python
+   import mindspore as ms
    import mindspore.dataset as ds
    import mindspore.dataset.vision as vision
    import mindspore.dataset.transforms as transforms
    from mindspore.dataset.vision import Inter
    import mindspore.nn as nn
 
-   import mindspore as ms
    from mindspore.common.initializer import Normal
    from mindspore.train import Loss, Model
 

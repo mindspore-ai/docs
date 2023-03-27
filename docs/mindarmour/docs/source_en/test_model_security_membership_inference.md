@@ -30,7 +30,6 @@ import os
 
 import numpy as np
 
-import mindspore as ms
 import mindspore.nn as nn
 from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer

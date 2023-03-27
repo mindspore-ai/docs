@@ -21,7 +21,7 @@ This document demonstrates the use of the models provided by MindSpore Hub for b
    ```python
    import mindspore_hub as mshub
    import mindspore
-   from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE, train
+   from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE
    from mindspore import dtype as mstype
    import mindspore.dataset.vision as vision
 
