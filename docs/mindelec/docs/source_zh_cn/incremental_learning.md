@@ -35,7 +35,7 @@ MindElec基于物理信息的自解码器求解该问题的具体流程如下：
 
 导入本教程依赖的模块与接口：
 
-``` python
+```python
 from mindelec.data import Dataset
 from mindelec.geometry import Disk, Rectangle, TimeDomain, GeometryWithTime
 from mindelec.loss import Constraints

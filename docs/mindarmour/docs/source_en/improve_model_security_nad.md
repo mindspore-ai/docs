@@ -187,6 +187,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
     ```python
     # prediction accuracy before attack
+    net.set_train(False)
     test_logits = net(ms.Tensor(test_inputs)).asnumpy()
 
     tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
