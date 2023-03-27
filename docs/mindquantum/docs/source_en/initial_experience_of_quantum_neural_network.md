@@ -52,8 +52,9 @@ encoder += RX(f'alpha{0}').on(0)      # The RX(alpha_0) gate acts on the 0th qub
 encoder += RY(f'alpha{1}').on(0)      # The RY(alpha_1) gate acts on the 0th qubit
 encoder += RZ(f'alpha{2}').on(0)      # The RZ(alpha_2) gate acts on the 0th qubit
 encoder = encoder.no_grad()           # As the first layer of the entire quantum neural network, the Encoder does not need to take the derivative of the gradient in the encoding circuit, so no_grad() is added.
+encoder.as_encoder()
 encoder.summary()                     # Print the summary of Encoder
-encoder
+encoder.svg()
 ```
 
 ```text
@@ -99,7 +100,8 @@ Similarly, we can also build Ansatz in MindQuantum.
 ansatz = Circuit()                           # Initialize the quantum circuit
 ansatz += RX(f'theta{0}').on(0)              # The RX(theta_0) gate acts on the 0th qubit
 ansatz += RY(f'theta{1}').on(0)              # The RY(theta_1) gate acts on the 0th qubit
-ansatz                                       # Printing quantum circuits
+ansatz.as_ansatz()                                      # Printing quantum circuits
+ansatz.svg()
 ```
 
 ```text
@@ -127,7 +129,7 @@ Then the complete quantum circuit is Encoder plus Ansatz.
 ```python
 # pylint: disable=W0104
 circuit = encoder.as_encoder() + ansatz.as_ansatz()                   # The complete quantum circuit consists of Encoder and Ansatz
-circuit
+circuit.svg()
 ```
 
 ```text

@@ -85,6 +85,7 @@ eval_env_params = {'name': 'CartPole-v0'}
 algorithm_config = {
     ...
     'collect_environment': {
+        'number': 1,
         'type': GymEnvironment,            # the class name of environment
         'params': collect_env_params       # parameter of environment
     },
@@ -137,9 +138,10 @@ algorithm_config = {
 For part of algorithms, `ReplayBuffer` is used to store experience which is obtained by interaction between actor and environment. Then experience will be used to train the network.
 
 ```python
+from mindspore_rl.core.replay_buffer import ReplayBuffer
 algorithm_config = {
     ...
-    'replay_buffer': {'number': 1
+    'replay_buffer': {'number': 1,
                       'type': ReplayBuffer,
                       'capacity': 100000,                                            # the capacity of ReplayBuffer
                       'sample_size': 64,                                             # sample Batch Size

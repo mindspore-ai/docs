@@ -50,6 +50,7 @@ Use [net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_dist
 
 ```python
 import numpy as np
+import mindspore as ms
 from mindspore import ops
 from mindspore.nn import Cell
 

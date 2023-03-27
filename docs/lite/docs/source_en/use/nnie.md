@@ -253,7 +253,7 @@ You can perform equivalent operations based on the actual situation. See the fol
    If the calibration set sent to the mapper is an image when the model is exported by the Converter, the input data transferred to the benchmark must be of the int8 type. That is, the image must be converted into the int8 type before being transferred to the benchmark.
    Python is used to provide a conversion example.
 
-   ``` python
+   ```python
    import sys
    import cv2
 
