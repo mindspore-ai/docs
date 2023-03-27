@@ -27,7 +27,6 @@ import os
 from shutil import copyfile
 import numpy as np
 import mindspore as ms
-from mindspore import ops
 from mindspore.nn import Cell
 
 
@@ -151,6 +150,7 @@ def start():
     server.start_servables(servable_config)
 
     server.start_grpc_server("127.0.0.1:5500")
+    server.start_restful_server("127.0.0.1:1500")
 
 
 if __name__ == "__main__":

@@ -41,8 +41,8 @@ The followings are the required public modules, MindSpore modules, and different
 import os
 from easydict import EasyDict as edict
 
-import mindspore.nn as nn
 import mindspore as ms
+import mindspore.nn as nn
 from mindspore.train import Accuracy, LossMonitor, CheckpointConfig, ModelCheckpoint
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
@@ -50,9 +50,9 @@ import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 
 from mindarmour.privacy.diff_privacy import DPModel
-from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
 from mindarmour.privacy.diff_privacy import NoiseMechanismsFactory
 from mindarmour.privacy.diff_privacy import ClipMechanismsFactory
+from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
 from mindarmour.utils import LogUtil
 
 LOGGER = LogUtil.get_instance()

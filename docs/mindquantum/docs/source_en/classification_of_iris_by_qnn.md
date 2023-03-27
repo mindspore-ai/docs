@@ -184,7 +184,7 @@ for j in range(3):                                   # j = 0, 1, 2
 
 encoder = encoder.no_grad()                          # As the first layer of the entire quantum neural network, the Encoder does not need to take the derivative of the gradient in the encoding circuit, so no_grad() is added.
 encoder.summary()                                    # Summary Encoder
-encoder
+encoder.svg()
 ```
 
 ```text
@@ -227,7 +227,7 @@ from mindquantum.core.gates import RY                                           
 
 ansatz = HardwareEfficientAnsatz(4, single_rot_gate_seq=[RY], entangle_gate=X, depth=3).circuit     # Building Ansatz with HardwareEfficientAnsatz
 ansatz.summary()                                                                                    # Summary Ansatz
-ansatz
+ansatz.svg()
 ```
 
 ```text
@@ -259,7 +259,7 @@ Then the complete quantum circuit is Encoder plus Ansatz.
 # pylint: disable=W0104
 circuit = encoder.as_encoder() + ansatz.as_ansatz()                   # The complete quantum circuit consists of Encoder and Ansatz
 circuit.summary()
-circuit
+circuit.svg()
 ```
 
 ```text
@@ -290,7 +290,8 @@ from mindquantum.core.operators import QubitOperator                     # Impor
 from mindquantum.core.operators import Hamiltonian                       # Import the Hamiltonian module for building the Hamiltonian
 
 hams = [Hamiltonian(QubitOperator(f'Z{i}')) for i in [2, 3]]   # Perform the Pauli Z operator measurement on the 2nd and 3rd qubits respectively, and set the coefficients to 1 to construct the corresponding Hamiltonian
-hams
+for h in hams:
+    print(h)
 ```
 
 ```text

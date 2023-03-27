@@ -167,7 +167,7 @@ circuit = Circuit(X.on(2))  # Create a circuit where the input state is |0100⟩
 circuit += U_operator(15, 2, register1, register2)  # Apply the U operator
 
 print(circuit.get_qs('projectq', ket=True))  # Print the final state
-circuit # Print circuit
+circuit.svg() # Print circuit
 ```
 
 ```text
@@ -233,7 +233,7 @@ circuit += qft(register1[::-1]).hermitian() # Perform the inverse Fourier transf
 circuit.barrier() # Add barrier
 circuit += UN(Measure(), register1) # Measure register 1
 
-circuit # Draw a circuit diagram
+circuit.svg() # Draw a circuit diagram
 ```
 
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
@@ -271,7 +271,7 @@ sim = Simulator('projectq', circuit.n_qubits) # Create a quantum circuit simulat
 # Simulate the circuit 100 times, print the measurement results, set the random seed to a random integer within 100
 result = sim.sampling(circuit, shots=100, seed=np.random.randint(100))
 
-result
+result.svg()
 
 ```
 

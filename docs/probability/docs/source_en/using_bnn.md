@@ -41,6 +41,7 @@ Download the MNIST dataset and unzip it to the specified location, execute the f
 import os
 import requests
 
+requests.packages.urllib3.disable_warnings()
 def download_dataset(dataset_url, path):
     filename = dataset_url.split("/")[-1]
     save_path = os.path.join(path, filename)
@@ -53,6 +54,7 @@ def download_dataset(dataset_url, path):
         for chunk in res.iter_content(chunk_size=512):
             if chunk:
                 f.write(chunk)
+    print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
 
 train_path = "datasets/MNIST_Data/train"
 test_path = "datasets/MNIST_Data/test"
@@ -214,8 +216,8 @@ def train_model(train_net, net, dataset):
     accs = []
     loss_sum = 0
     for _, data in enumerate(dataset.create_dict_iterator()):
-        train_x = Tensor(data['image'].asnumpy().astype(np.float32))
-        label = Tensor(data['label'].asnumpy().astype(np.int32))
+        train_x = ms.Tensor(data['image'].asnumpy().astype(np.float32))
+        label = ms.Tensor(data['label'].asnumpy().astype(np.int32))
         loss = train_net(train_x, label)
         output = net(train_x)
         log_output = ops.LogSoftmax(axis=1)(output)
@@ -231,8 +233,8 @@ def train_model(train_net, net, dataset):
 def validate_model(net, dataset):
     accs = []
     for _, data in enumerate(dataset.create_dict_iterator()):
-        train_x = Tensor(data['image'].asnumpy().astype(np.float32))
-        label = Tensor(data['label'].asnumpy().astype(np.int32))
+        train_x = ms.Tensor(data['image'].asnumpy().astype(np.float32))
+        label = ms.Tensor(data['label'].asnumpy().astype(np.int32))
         output = net(train_x)
         log_output = ops.LogSoftmax(axis=1)(output)
         acc = np.mean(log_output.asnumpy().argmax(axis=1) == label.asnumpy())

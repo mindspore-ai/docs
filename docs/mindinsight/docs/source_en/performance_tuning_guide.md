@@ -49,7 +49,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 - Make sure if there is time-consuming custom logic in the script after getting data from the iterator of the dataset module, such as additional data cleaning, conversion, etc(MindInsight can not obtain the time spent by the customized logic and the user is required to obtain the duration manually). If so, the user is required to optimize for this custom logic. Code is shown below:
 
     ```python
-    iterator = dataset.create_dict_iterator()
+    iterator = mindspore.dataset.Cifar100Dataset()
     for item in iterator:
         start = time.time()
         item = transform_data(item) # customized function

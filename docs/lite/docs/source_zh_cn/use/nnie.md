@@ -253,7 +253,7 @@ nnie.cfg文件的示例参考如下：
    若converter导出模型时喂给mapper的校正集用的是图片，则传递给benchmark的输入需是int8的输入数据，即需要把图片转成int8传递给benchmark。
    这里采用python给出转换示范样例：
 
-   ``` python
+   ```python
    import sys
    import cv2
 

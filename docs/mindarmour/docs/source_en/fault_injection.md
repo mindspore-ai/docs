@@ -130,7 +130,7 @@ The initialization parameters are described as follows:
 After the module is initialized, call the fault injection function `kick_off`.
 
 ```python
-results = fi.kick_off(ds_data=ds_data, ds_label=ds_label, iter_times=100)
+results = fi.kick_off(ds_data, ds_label, iter_times=100)
 ```
 
 - `ds_data(numpy.ndarray)`: The data for testing. The fault tolerance of the model will be evaluated on this data.
