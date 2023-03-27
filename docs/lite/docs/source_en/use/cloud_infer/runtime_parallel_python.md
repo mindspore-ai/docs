@@ -17,7 +17,7 @@ Concurrent inference with MindSpore Lite consists of the following main steps:
 5. Perform concurrent inference: Use Predict interface of ModelParallelRunner for multi-model concurrent inference.
 6. Free memory: when there is no need to use the MindSpore Lite concurrent inference framework, you need to release the ModelParallelRunner you created and the associated Tensor.
 
-![](../../images/server_inference.png)
+![](../images/server_inference.png)
 
 ## Preparation
 
