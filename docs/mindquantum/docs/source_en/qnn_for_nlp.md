@@ -38,7 +38,7 @@ def GenerateWordDictAndSample(corpus, window=2):
     word_set.sort()
     word_dict = {w: i for i,w in enumerate(word_set)}
     sampling = []
-    for index, word in enumerate(all_words[window:-window]):
+    for index, _ in enumerate(all_words[window:-window]):
         around = []
         for i in range(index, index + 2*window + 1):
             if i != index + window:
@@ -74,16 +74,16 @@ We apply a $\text{RX}$ revolving door to each quantum.
 
 ```python
 def GenerateEncoderCircuit(n_qubits, prefix=''):
-    if len(prefix) != 0 and prefix[-1] != '_':
+    if prefix and prefix[-1] != '_':
         prefix += '_'
     circ = Circuit()
     for i in range(n_qubits):
         circ += RX(prefix + str(i)).on(i)
-    return circ
+    return circ.as_encoder()
 ```
 
 ```python
-GenerateEncoderCircuit(3,prefix='e')
+GenerateEncoderCircuit(3, prefix='e').svg()
 ```
 
 ```text
@@ -103,7 +103,6 @@ For the quantum state of a $n$ bits, it can be in a $2^n$ Hilbert space. For the
 For example. given the word "love" in the above dictionary, its corresponding label is 2, represented by `010` in the binary format. We only need to set `e_0`, `e_1`, and `e_2` to $0$, $\pi$, and $0$ respectively. In the following, we use the `Evolution` operator for verification.
 
 ```python
-import mindspore as ms
 from mindquantum.simulator import Simulator
 
 n_qubits = 3 # number of qubits of this quantum circuit
@@ -111,17 +110,15 @@ label = 2 # label need to encode
 label_bin = bin(label)[-1:1:-1].ljust(n_qubits,'0') # binary form of label
 label_array = np.array([int(i)*np.pi for i in label_bin]).astype(np.float32) # parameter value of encoder
 encoder = GenerateEncoderCircuit(n_qubits, prefix='e') # encoder circuit
-encoder_params_name = encoder.params_name # parameter names of encoder
+encoder_params_names = encoder.params_name # parameter names of encoder
 
 print("Label is: ", label)
 print("Binary label is: ", label_bin)
 print("Parameters of encoder is: \n", np.round(label_array, 5))
 print("Encoder circuit is: \n", encoder)
-print("Encoder parameter names are: \n", encoder_params_name)
+print("Encoder parameter names are: \n", encoder_params_names)
 
-ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
-
-state = encoder.get_qs(pr=label_array)
+state = encoder.get_qs(pr=dict(zip(encoder_params_names, label_array)))
 amp = np.round(np.abs(state)**2, 3)
 
 print("Amplitude of quantum state is: \n", amp)
@@ -185,7 +182,7 @@ The following function is defined to construct the Ansatz circuit.
 
 ```python
 def GenerateAnsatzCircuit(n_qubits, layers, prefix=''):
-    if len(prefix) != 0 and prefix[-1] != '_':
+    if prefix and prefix[-1] != '_':
         prefix += '_'
     circ = Circuit()
     for l in range(layers):
@@ -194,11 +191,11 @@ def GenerateAnsatzCircuit(n_qubits, layers, prefix=''):
         for i in range(l % 2, n_qubits, 2):
             if i < n_qubits and i + 1 < n_qubits:
                 circ += X.on(i + 1, i)
-    return circ
+    return circ.as_ansatz()
 ```
 
 ```python
-GenerateAnsatzCircuit(5, 2, 'a')
+GenerateAnsatzCircuit(5, 2, 'a').svg()
 ```
 
 ```text
@@ -254,22 +251,20 @@ def QEmbedding(num_embedding, embedding_dim, window, layers, n_threads):
     hams = GenerateEmbeddingHamiltonian(embedding_dim, n_qubits)
     circ = Circuit()
     circ = UN(H, n_qubits)
-    encoder_params_name = []
-    ansatz_params_name = []
+    encoder_param_name = []
+    ansatz_param_name = []
     for w in range(2 * window):
         encoder = GenerateEncoderCircuit(n_qubits, 'Encoder_' + str(w))
         ansatz = GenerateAnsatzCircuit(n_qubits, layers, 'Ansatz_' + str(w))
         encoder.no_grad()
-        circ += encoder.as_encoder()
-        circ += ansatz.as_ansatz()
-        encoder_params_name.extend(encoder.params_name)
-        ansatz_params_name.extend(ansatz.params_name)
-    sim = Simulator('mqvector', circ.n_qubits)
-    grad_ops = sim.get_expectation_with_grad(hams,
-                                             circ,
-                                             parallel_worker=n_threads)
-    net = MQLayer(grad_ops)
-    return net
+        circ += encoder
+        circ += ansatz
+        encoder_param_name.extend(encoder.params_name)
+        ansatz_param_name.extend(ansatz.params_name)
+    grad_ops = Simulator('mqvector', circ.n_qubits).get_expectation_with_grad(hams,
+                                                                              circ,
+                                                                              parallel_worker=n_threads)
+    return MQLayer(grad_ops)
 ```
 
 The training model is similar to a classical network, composed by an embedded layer and two fully-connected layers. However, the embedded layer here is constructed by a quantum neural network. The following defines the quantum neural network CBOW.
@@ -483,6 +478,7 @@ print("train_y shape: ", train_y.shape)
 Train the classical CBOW network.
 
 ```python
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 train_loader = ds.NumpySlicesDataset({
     "around": train_x,
     "center": train_y

@@ -168,7 +168,7 @@ def classify_top1(image):
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
     x = register.add_stage(preprocess_eager, image, outputs_count=1)
-    x = register.add_stage(resnet_model, x, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
     x = register.add_stage(postprocess_top1, x, outputs_count=1)
     return x
 
@@ -178,7 +178,7 @@ def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
      The input is `image` and the output is `label` and `score`. """
     x = register.add_stage(preprocess_eager, image, outputs_count=1)
-    x = register.add_stage(resnet_model, x, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
     label, score = register.add_stage(postprocess_top5, x, outputs_count=2)
     return label, score
 ```

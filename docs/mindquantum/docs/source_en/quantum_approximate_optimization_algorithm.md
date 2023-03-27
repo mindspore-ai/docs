@@ -82,8 +82,6 @@ from mindquantum.framework import MQAnsatzOnlyLayer
 from mindquantum.simulator import Simulator
 import networkx as nx
 import mindspore.nn as nn
-import numpy as np
-import matplotlib.pyplot as plt
 ```
 
 ## Building a Graph to Be Solved
@@ -104,6 +102,13 @@ nx.draw(g,with_labels=True, font_weight='bold')
 ![png](./images/maxcut_graph.png)
 
 As shown in the preceding figure, a graph structure consisting of five vertices and six edges is obtained.
+
+```python
+for i in g.nodes:
+    print('one size:', [i], 'cut=', nx.cut_size(g, [i]))
+    for j in range(i):
+        print('one size:', [i, j], 'cut=', nx.cut_size(g, [i, j]))
+```
 
 ## The Process of QAQA Algorithm
 

@@ -121,12 +121,12 @@ saliency_to_image(saliency, orig_img)
 对于梯度解释器，批次解释通常较有效率，但其他解释器也可以使用：
 
 ```python
-from dataset import load_dataset
+from common.dataset import load_dataset
 
 test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=Tensor([3, 3, 3, 3], dtype=ms.int32))
+    saliencies = grad_cam(images, targets=ms.Tensor([3, 3, 3, 3], dtype=ms.int32))
     # 其他用户操作 ...
 ```
 

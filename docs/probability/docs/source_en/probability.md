@@ -296,7 +296,7 @@ Use `Normal` as an example. Create a normal distribution whose average value is 
 ```python
 import mindspore as ms
 import mindspore.nn.probability.distribution as msd
-ms.set_context(mode=ms.PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="GPU")
 
 my_normal = msd.Normal(0.0, 1.0, dtype=ms.float32)
 
@@ -416,7 +416,7 @@ tx = ms.Tensor(x, dtype=ms.float32)
 cdf = LogNormal.cdf(tx)
 
 # generate samples from the distribution
-shape = (3, 2)
+shape = ((3, 2))
 sample = LogNormal.sample(shape)
 
 # get information of the distribution
@@ -426,7 +426,7 @@ print("underlying distribution:\n", LogNormal.distribution)
 print("bijector:\n", LogNormal.bijector)
 # get the computation results
 print("cdf:\n", cdf)
-print("sample shape:\n", sample.shape)
+print("sample:\n", sample.shape)
 ```
 
 The output is as follows:
@@ -494,7 +494,7 @@ x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
 tx = ms.Tensor(x, dtype=ms.float32)
 cdf, sample = net(tx)
 print("cdf: ", cdf)
-print("sample shape: ", sample.shape)
+print("sample: ", sample.shape)
 ```
 
 The output is as follows:
@@ -679,8 +679,8 @@ tx = ms.Tensor(x, dtype=ms.float32)
 forward, inverse, forward_log_jaco, inverse_log_jaco = net(tx)
 print("forward: ", forward)
 print("inverse: ", inverse)
-print("forward_log_jaco: ", forward_log_jaco)
-print("inverse_log_jaco: ", inverse_log_jaco)
+print("forward_log_jacobian: ", forward_log_jaco)
+print("inverse_log_jacobian: ", inverse_log_jaco)
 ```
 
 The output is as follows:
