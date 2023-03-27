@@ -160,7 +160,8 @@ axis = QubitOperator('Y0', 1 / np.sqrt(2)) + QubitOperator('X0', -1 / np.sqrt(2)
 trotter_order = 4
 # Trotter decomposition of rotation using TimeEvolution
 encoder = TimeEvolution(axis, {'alpha': 0.5 / trotter_order}).circuit * trotter_order
-encoder
+encoder.as_encoder()
+encoder.svg()
 ```
 
 ```text
@@ -182,7 +183,7 @@ hams
 Get the operator for the expected value and gradient:
 
 ```python
-grad_ops = Simulator('mqvector', 1).get_expectation_with_grad(hams, encoder.as_encoder(), parallel_worker=6)
+grad_ops = Simulator('mqvector', 1).get_expectation_with_grad(hams, encoder, parallel_worker=6)
 grad_ops
 ```
 
@@ -239,7 +240,7 @@ Here, we compute the inner product between the quantum state after the evolution
 
 ```python
 circuit = Circuit().ry('a', 0).rz('b', 0).ry('c', 0)
-circuit
+circuit.svg()
 ```
 
 ```text

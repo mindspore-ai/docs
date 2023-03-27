@@ -52,7 +52,7 @@ n = 4
 circ = Circuit()
 circ += UN(H, n) # Act h gate on the first 4 bits
 circ += X.on(n)  # Act X gate on q4
-circ
+circ.svg()
 ```
 
 ```text
@@ -73,7 +73,7 @@ With $q_4$ as the target bit, add the control $T^{2^i}$ gate.
 # pylint: disable=W0104
 for i in range(n):
     circ += Power(T, 2**i).on(n, n - i - 1) # Add T^2^i gate, where q4 is the target bit and n-i-1 is the control bit
-circ
+circ.svg()
 ```
 
 ```text
@@ -94,7 +94,7 @@ Perform an inverse quantum Fourier transform on the bits in the first register.
 # pylint: disable=W0104
 circ += BARRIER
 circ += qft(range(n)).hermitian() # Inverse transform of quantum Fourier transform applied to the first 4 bits
-circ
+circ.svg()
 ```
 
 ```text
@@ -118,7 +118,7 @@ sim = Simulator('mqvector', circ.n_qubits)                      # Create an emul
 sim.apply_circuit(circ)                                         # Evolving the circuit with the simulator
 qs = sim.get_qs()                                               # Obtain the evolved quantum state
 res = sim.sampling(UN(Measure(), circ.n_qubits - 1), shots=100) # Add a measurement gate to register 1 and sample the circuit 100 times to obtain statistical results
-res
+res.svg()
 ```
 
 ```text

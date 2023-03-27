@@ -193,7 +193,7 @@ def train_one_episode(self):
 定义`DQNPolicy`类，用于实现神经网络并定义策略。
 
 ```python
-class DQNPolicy:
+class DQNPolicy():
     def __init__(self, params):
         self.policy_network = FullyConnectedNet(
             params['state_space_dim'],

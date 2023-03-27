@@ -267,7 +267,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
    此外，由于下面的步骤7中需要用到新训练的模型进行攻击效果的评估，我们在生成`trained_ckpt_file`目录后，将`mnist_train.py`文件中的变量`ckpoint_cb`的生成命令改成：
 
    ```python
-   ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
+   ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
                              directory="./new_trained_ckpt_file/",
                              config=config_ck)
    ```

@@ -249,7 +249,7 @@ python infer.py --checkpoint_id 19
 
 ```python
 import mindspore as ms
-from mindspore_xai.whitebox.tbnet import TBNet
+from src.tbnet import TBNet
 
 ...
 

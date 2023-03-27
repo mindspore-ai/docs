@@ -10,7 +10,7 @@
 
 MindElec主要通过调用MindInsight的接口可视化训练/测试过程中的各项指标和结果，可视化文件通过回调函数Callback函数生成，其中数据集和网络定义具体可参照参数化教程。
 
-``` python
+```python
 solver = Solver(network=model_net,
                 mode="Data",
                 optimizer=optim,
@@ -30,7 +30,7 @@ callbacks_train = [monitor_train, monitor_eval]
 
 通过callbacks参数传入solver即可绘制训练过程中的loss曲线，以及测试集的相对误差曲线。
 
-``` python
+```python
 solver.model.train(epoch=opt.epochs,
                    train_dataset=data["train_loader"],
                    callbacks=callbacks_train,
@@ -53,7 +53,7 @@ solver.model.train(epoch=opt.epochs,
 
 MindElec提供了`plot_s11`函数可视化S11曲线，该可视化工具调用代码如下：
 
-``` python
+```python
 s11_tensor = s11
 path_image_save = './result'
 legend = 's11'
@@ -69,7 +69,7 @@ plot_s11(s11_tensor, path_image_save, legend, dpi)
 
 MindElec提供了`plot_eh`函数可视化电磁波的二维剖面，该可视化工具调用代码如下：
 
-``` python
+```python
 simu_res_tensor = result_eh
 path_image_save = './result'
 z_index = 5
@@ -95,7 +95,7 @@ MindElec 提供`vtk_structure`函数，用于生成三维电磁场的可视化�
 
 运行以下代码为仿真结果生成每个时刻的三维可视化`.vts`文件。
 
-``` python
+```python
 grid_tensor = result_grid
 eh_tensor = result_eh
 path_res = './result_vtk'

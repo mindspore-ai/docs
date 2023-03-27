@@ -66,7 +66,7 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置
 
-``` python
+```python
 PATCH_DIM = [25, 50, 25]
 NUM_SAMPLE = 10000
 INPUT_PATH = ""
@@ -82,7 +82,7 @@ SAVE_DATA_PATH = "./"
 
 对于不同大小的数据块尺寸，需要相应地修改编码器部分代码，确保编码器`Encoder`部分输出空间尺寸为`[1,1,1]`。
 
-``` python
+```python
 class EncoderDecoder(nn.Cell):
     def __init__(self, input_dim, target_shape, base_channels=8, decoding=False):
         super(EncoderDecoder, self).__init__()
@@ -110,7 +110,7 @@ class Decoder(nn.Cell):
 
 压缩模型训练时，首先根据`config.py`中定义的输入特征数、数据块大小、基础特征数等初始化自编码器`EncoderDecoder`：
 
-``` python
+```python
 model_net = EncoderDecoder(config["input_channels"], config["patch_shape"], config["base_channels"], ecoding=True)
 ```
 
@@ -126,7 +126,7 @@ eval_dataset ...
 
 为提升模型的精度，设定如下学习率衰减策略：
 
-``` python
+```python
 milestones, learning_rates = step_lr_generator(step_size,
                                                config["epochs"],
                                                config["lr"],
@@ -135,7 +135,7 @@ milestones, learning_rates = step_lr_generator(step_size,
 
 MindElec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
 
-``` python
+```python
 solver = Solver(model_net,
                 train_input_map={'train': ['train_input_data']},
                 test_input_map={'test': ['test_input_data']},
@@ -147,7 +147,7 @@ solver = Solver(model_net,
 
 最后使用`Solver.model.train`和`Solver.model.eval`训练和测试压缩模型，同时定期存储压缩模型检查点：
 
-``` python
+```python
 for epoch in range(config["epochs"] // config["eval_interval"]):
     solver.model.train(config["eval_interval"],
                         train_dataset,
@@ -162,7 +162,7 @@ for epoch in range(config["epochs"] // config["eval_interval"]):
 
 数据压缩时需要传入原始点云与模型检查点文件的路径，同时根据`config.py`文件定义压缩模型并导入模型检查点：
 
-``` python
+```python
 encoder = EncoderDecoder(config["input_channels"], config["patch_shape"], decoding=False)
 load_checkpoint(opt.model_path, encoder)
 ```
@@ -182,7 +182,7 @@ load_checkpoint(opt.model_path, encoder)
 
 参照`full_em/src/maxwell_model.py`构建电磁场仿真模型，该模型使用监督学习方式训练，模型分为特征提取与电磁场计算两部分。
 
-``` Python
+```python
 class Maxwell3D(nn.Cell):
     """maxwell3d"""
     def __init__(self, output_dim):
@@ -223,25 +223,25 @@ class ModelHead(nn.Cell):
 
 电磁场仿真模型训练时，首先通过`Maxwell3D`初始化仿真模型，网络输出为6维：
 
-``` python
+```python
 model_net = Maxwell3D(6)
 ```
 
 调用`src/dataset.py`中定义的的数据读取接口加载数据集，该接口的实现基于MindElec的数据接口，在加载数据的同时可以自动打乱数据并分批次：
 
-``` python
+```python
 dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle=True)
 ```
 
 设定学习率衰减策略：
 
-``` python
+```python
 lr = get_lr(config.lr, step_size, config.epochs)
 ```
 
 其次调用MindElec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等：
 
-``` python
+```python
 solver = Solver(model_net,
                 optimizer=optimizer,
                 loss_scale_manager=loss_scale,
@@ -252,7 +252,7 @@ solver = Solver(model_net,
 
 最后使用`Solver.model.train`和`Solver.model.eval`训练和测试模型，同时定期存储模型检查点：
 
-``` python
+```python
 ckpt_config = CheckpointConfig(save_checkpoint_steps=config["save_checkpoint_epochs"] * step_size,
                                keep_checkpoint_max=config["keep_checkpoint_max"])
 ckpt_cb = ModelCheckpoint(prefix='Maxwell3d', directory=opt.checkpoint_dir, config=ckpt_config)
@@ -264,14 +264,14 @@ solver.model.train(config.epochs, dataset, callbacks=[LossMonitor(), TimeMonitor
 
 传入推理输入数据与模型检查点文件的路径，同时根据`config.py`文件定义模型并导入模型检查点：
 
-``` python
+```python
 model_net = Maxwell3D(6)
 param_dict = load_checkpoint(opt.checkpoint_path)
 ```
 
 调用MindElec的推理接口可以实现自动推理：
 
-``` python
+```python
 solver = Solver(model_net, optimizer=optimizer, loss_fn=loss_net, metrics={"evl_mrc": evl_error_mrc})
 res = solver.model.eval(dataset, dataset_sink_mode=False)
 l2_s11 = res['evl_mrc']['l2_error']
@@ -288,7 +288,7 @@ print('test_res:', f'l2_error: {l2_s11:.10f} ')
 
 参照`S_parameter/src/model.py`构建S参数仿真模型，该模型同样通过监督学习方式训练，分为特征提取与S参数计算两部分。
 
-``` Python
+```python
 class S11Predictor(nn.Cell):
     """S11Predictor architecture for MindElec"""
     def __init__(self, input_dim):
@@ -339,25 +339,25 @@ class S11Predictor(nn.Cell):
 
 S参数仿真模型训练时，首先通过`S11Predictor`初始化仿真模型，网络输入张量channel维度在`Config.py`中配置：
 
-``` python
+```python
 model_net = S11Predictor(config["input_channels"])
 ```
 
 其次调用`src/dataset.py`中定义的的数据读取接口加载数据集：
 
-``` python
+```python
 dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True)
 ```
 
 设定学习率衰减策略：
 
-``` python
+```python
 milestones, learning_rates = step_lr_generator(step_size, epochs, lr, lr_decay_milestones)
 ```
 
 调用MindElec的训练接口`Solver`定义训练参数：
 
-``` python
+```python
 solver = Solver(model_net,
                 train_input_map={'train': ['train_input_data']},
                 test_input_map={'test': ['test_input_data']},
@@ -368,7 +368,7 @@ solver = Solver(model_net,
 
 最后使用`Solver.model.train`训练模型，训练完成后存储模型检查点：
 
-``` python
+```python
 solver.model.train(config["epochs"],
                    train_dataset,
                    callbacks=[LossMonitor(), TimeMonitor()],
@@ -381,14 +381,14 @@ save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model_best.ckpt'))
 
 根据`config.py`文件定义模型并导入模型检查点文件：
 
-``` python
+```python
 model_net = S11Predictor(input_dim=config["input_channels"])
 load_checkpoint(opt.model_path, model_net)
 ```
 
 调用MindElec的`solver.model.eval`接口进行推理：
 
-``` python
+```python
 solver = Solver(network=model_net,
                 mode="Data",
                 optimizer=nn.Adam(model_net.trainable_params(), 0.001),

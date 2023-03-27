@@ -19,7 +19,7 @@ import numpy as np
 
 def run_add_common():
     """invoke Servable add method add_common"""
-    client = Client("127.0.0.1:5500", "add", "add_common")
+    client = Client("localhost:5500", "add", "add_common")
     instances = []
 
     # instance 1
@@ -169,7 +169,7 @@ def start():
                                                  device_ids=(0, 1))
     server.start_servables(servable_configs=servable_config)
 
-    server.start_grpc_server(address="unix:/tmp/resnet50_test_temp_file")
+    server.start_grpc_server(address="unix:/tmp/serving_resnet50_test_temp_file")
 
 
 if __name__ == "__main__":
@@ -184,7 +184,7 @@ from mindspore_serving.client import Client
 
 
 def run_classify_top1():
-    client = Client("unix:/tmp/resnet50_test_temp_file", "resnet50", "classify_top1")
+    client = Client("unix:/tmp/serving_resnet50_test_temp_file", "resnet50", "classify_top1")
     instances = []
     for path, _, file_list in os.walk("./test_image/"):
         for file_name in file_list:

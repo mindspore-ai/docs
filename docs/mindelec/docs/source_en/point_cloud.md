@@ -66,7 +66,7 @@ If the point cloud resolution is set to a high value, the memory and computing c
 
 The training data used by the compressing model is the blocks of point cloud data. After the point cloud data is generated, the generate_data function in `data_compression/src/dataset.py` can be called to generate the data required for training and inference. The block size and data input and output paths are configured using the following parameters in the script:
 
-``` python
+```python
 PATCH_DIM = [25, 50, 25]
 NUM_SAMPLE = 10000
 INPUT_PATH = ""
@@ -82,7 +82,7 @@ Build a compressing model by referring to `data_compression/src/model.py`. The m
 
 For different data block sizes, you need to modify some code of the encoder accordingly to ensure that the output space size of the encoder is `[1,1,1]`.
 
-``` python
+```python
 class EncoderDecoder(nn.Cell):
     def __init__(self, input_dim, target_shape, base_channels=8, decoding=False):
         super(EncoderDecoder, self).__init__()
@@ -110,13 +110,13 @@ class Decoder(nn.Cell):
 
 During compressing model training, initialize `EncoderDecoder` based on parameters defined in `config.py`, such as the number of input features, data block size, and number of basic features.
 
-``` python
+```python
 model_net = EncoderDecoder(config["input_channels"], config["patch_shape"], config["base_channels"], ecoding=True)
 ```
 
 Then, call the MindElec data API to read a dataset. This API can automatically shuffle data and batch data.
 
-``` python
+```python
 train_dataset = create_dataset(input_path=opt.train_input_path,
                                label_path=opt.train_input_path,
                                batch_size=config["batch_size"],
@@ -126,7 +126,7 @@ eval_dataset ...
 
 In order to improve model precision, set the learning rate decay policy.
 
-``` python
+```python
 milestones, learning_rates = step_lr_generator(step_size,
                                                config["epochs"],
                                                config["lr"],
@@ -135,7 +135,7 @@ milestones, learning_rates = step_lr_generator(step_size,
 
 Then, call the training API `Solver` of MindElec to set training parameters, including the optimizer, metrics, and loss function.
 
-``` python
+```python
 solver = Solver(model_net,
                 train_input_map={'train': ['train_input_data']},
                 test_input_map={'test': ['test_input_data']},
@@ -147,7 +147,7 @@ solver = Solver(model_net,
 
 Finally, use `Solver.model.train` and `Solver.model.eval` to train and test the compressing model and periodically store the checkpoints of the compressing model.
 
-``` python
+```python
 for epoch in range(config["epochs"] // config["eval_interval"]):
     solver.model.train(config["eval_interval"],
                         train_dataset,
@@ -162,7 +162,7 @@ for epoch in range(config["epochs"] // config["eval_interval"]):
 
 During data compression, you need to set the original point cloud path and the model checkpoint file, define the compressing model based on parameters defined in `config.py`, and import the model checkpoint.
 
-``` python
+```python
 encoder = EncoderDecoder(config["input_channels"], config["patch_shape"], decoding=False)
 load_checkpoint(opt.model_path, encoder)
 ```
@@ -182,7 +182,7 @@ After the point cloud data is prepared, the electromagnetic simulation models in
 
 First, build an electromagnetic simulation model by referring to `full_em/src/maxwell_model.py`, and train the model in supervised learning mode. The model is divided into two parts: feature extraction and electromagnetic field computation.
 
-``` python
+```python
 class Maxwell3D(nn.Cell):
     """maxwell3d"""
     def __init__(self, output_dim):
@@ -223,25 +223,25 @@ class ModelHead(nn.Cell):
 
 During the training process of the electromagnetic simulation model, the prediction model is initialized using `Maxwell3D`. The network output is six dimensions, as shown below:
 
-``` python
+```python
 model_net = Maxwell3D(6)
 ```
 
 Then, call the `create_dataset` function in `src/dataset` to load dataset. This function is implemented using the dataset utilities of MindElec and can automatically shuffle data and batch data.
 
-``` python
+```python
 dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle=True)
 ```
 
 Set the learning rate decay policy.
 
-``` python
+```python
 lr = get_lr(config.lr, step_size, config.epochs)
 ```
 
 Then, call the training API `Solver` of MindElec to set training parameters, including the optimizer, metrics, and loss function.
 
-``` python
+```python
 solver = Solver(model_net,
                 optimizer=optimizer,
                 loss_scale_manager=loss_scale,
@@ -252,7 +252,7 @@ solver = Solver(model_net,
 
 Finally, use `Solver.model.train` and `Solver.model.eval` to train and test the model and periodically save the model checkpoint files.
 
-``` python
+```python
 ckpt_config = CheckpointConfig(save_checkpoint_steps=config["save_checkpoint_epochs"] * step_size,
                                keep_checkpoint_max=config["keep_checkpoint_max"])
 ckpt_cb = ModelCheckpoint(prefix='Maxwell3d', directory=opt.checkpoint_dir, config=ckpt_config)
@@ -264,14 +264,14 @@ solver.model.train(config.epochs, dataset, callbacks=[LossMonitor(), TimeMonitor
 
 Set the path of the inference input data and model checkpoint file, define the model based on parameters defined in `config.py`, and import the model checkpoint.
 
-``` python
+```python
 model_net = Maxwell3D(6)
 param_dict = load_checkpoint(opt.checkpoint_path)
 ```
 
 The MindElec inference API can be called to implement automatic inference.
 
-``` python
+```python
 solver = Solver(model_net, optimizer=optimizer, loss_fn=loss_net, metrics={"evl_mrc": evl_error_mrc})
 res = solver.model.eval(dataset, dataset_sink_mode=False)
 l2_s11 = res['evl_mrc']['l2_error']
@@ -288,7 +288,7 @@ Take the electromagnetic simulation of a mobile phone as an example. The followi
 
 First, build S-parameters simulation model by referring to `S_parameter/src/model.py`, and the model is also trained through supervised learning, which is divided into two parts: feature extraction and S-parameter calculation.
 
-``` Python
+```python
 class S11Predictor(nn.Cell):
     """S11Predictor architecture for MindElec"""
     def __init__(self, input_dim):
@@ -339,25 +339,25 @@ class S11Predictor(nn.Cell):
 
 During the training process of the S-parameters simulation model, the prediction model is initialized using `S11Predictor`. The network input tensor channel dimension is configured in `Config.py`, as shown below:
 
-``` python
+```python
 model_net = S11Predictor(config["input_channels"])
 ```
 
 Then, call the `create_dataset` function in `src/dataset` to load dataset.
 
-``` python
+```python
 dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True)
 ```
 
 Set the learning rate decay policy.
 
-``` python
+```python
 milestones, learning_rates = step_lr_generator(step_size, epochs, lr, lr_decay_milestones)
 ```
 
 Then, call the training API `Solver` of MindElec to set training parameters.
 
-``` python
+```python
 solver = Solver(model_net,
                 train_input_map={'train': ['train_input_data']},
                 test_input_map={'test': ['test_input_data']},
@@ -368,7 +368,7 @@ solver = Solver(model_net,
 
 Finally, use `Solver.model.train` to train the model, and save the model checkpoint files after the training is completed.
 
-``` python
+```python
 solver.model.train(config["epochs"],
                    train_dataset,
                    callbacks=[LossMonitor(), TimeMonitor()],
@@ -381,14 +381,14 @@ save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model_best.ckpt'))
 
 Define the model based on parameters defined in `config.py` and import the model checkpoint file.
 
-``` python
+```python
 model_net = S11Predictor(input_dim=config["input_channels"])
 load_checkpoint(opt.model_path, model_net)
 ```
 
 Use `solver.model.eval` function to perform inference.
 
-``` python
+```python
 solver = Solver(network=model_net,
                 mode="Data",
                 optimizer=nn.Adam(model_net.trainable_params(), 0.001),

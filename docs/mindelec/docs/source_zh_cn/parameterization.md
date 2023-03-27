@@ -57,7 +57,7 @@ PEC金属板置于一定厚度的PCB长方体之上，呈现为左右对称蝶�
 首先通过MindElec dataset模块加载蝶形天线数据集。参数化方法目前支持使用本地数据集训练，通过`ExistedDataConfig`接口可以配置相应数据集选项，需要指定输入和S11 label数据集文件位置、类型。
 随后通过`Dataset`接口生成数据集实例，并通过`create_dataset`函数构造数据生成器`dataloader`用于模型后续的训练和测试。
 
-``` python
+```python
 def create_dataset(opt):
     """
     load data
@@ -153,7 +153,7 @@ def create_dataset(opt):
 
 这里以S11Predictor模型作为示例，该模型通过MindSpore的模型定义接口，如`nn.Dense`、`nn.Relu`构建。您也可以构建自己的模型。
 
-``` python
+```python
 class S11Predictor(nn.Cell):
     def __init__(self, input_dimension):
         super(S11Predictor, self).__init__()
@@ -186,7 +186,7 @@ MindElec提供Solver类用于模型训练和推理，Solver类输入为优化器
 
 同时我们还通过`EvalMetric`定义了训练过程中验证集的评测方式和指标，该方法将通过`Solver`的`metric`参数加入训练，从而在训练过程中实时监控指标变化情况。
 
-``` python
+```python
 milestones, learning_rates = get_lr(data)
 
 optim = nn.Adam(model_net.trainable_params(),
@@ -230,7 +230,7 @@ save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model.ckpt'))
 
 模型训练结束后即可通过`solver.model.eval`接口调用预训练权重推理获得测试集的S11参数。
 
-``` python
+```python
 data, config_data = create_dataset(opt)
 
 model_net = S11Predictor(opt.input_dim)

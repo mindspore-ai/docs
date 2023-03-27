@@ -121,12 +121,12 @@ saliency_to_image(saliency, orig_img)
 对于梯度解释器，批次解释通常较有效率，但其他解释器也可以使用：
 
 ```python
-from dataset import load_dataset
+from common.dataset import load_dataset
 
 test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=Tensor([3, 3, 3, 3], dtype=ms.int32))
+    saliencies = grad_cam(images, targets=ms.Tensor([3, 3, 3, 3], dtype=ms.int32))
     # 其他用户操作 ...
 ```
 
@@ -152,6 +152,7 @@ from mindspore_xai.tool.cv import OoDNet
 from mindspore_xai.explainer import RISEPlus
 from common.dataset import load_dataset, load_image_tensor
 from common.resnet import resnet50
+from common.dataset import load_dataset, load_image_tensor
 
 # 只支持 PYNATIVE_MODE
 set_context(mode=PYNATIVE_MODE)

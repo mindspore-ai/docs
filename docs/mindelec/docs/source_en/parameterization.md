@@ -57,7 +57,7 @@ The parameterized electromagnetic simulation consists of the following five step
 Use the MindElec dataset module to load the dataset of bowtie antennas. Currently, the parameterization solution supports local dataset training. You can use the `ExistedDataConfig` API to configure the dataset options. You need to specify the paths and types of the input and the S11 label dataset file.
 Use the `Dataset` API to generate a dataset instance, and use the `create_dataset` function to build a data generator `dataloader` for model training and testing.
 
-``` python
+```python
 def create_dataset(opt):
     """
     load data
@@ -153,7 +153,7 @@ def create_dataset(opt):
 
 The S11Predictor model is used as an example. This model is built using the MindSpore APIs, such as `nn.Dense` and `nn.Relu`. You can also build your own models.
 
-``` python
+```python
 class S11Predictor(nn.Cell):
     def __init__(self, input_dimension):
         super(S11Predictor, self).__init__()
@@ -186,7 +186,7 @@ MindElec provides the Solver class for model training and testing. The input of 
 
 In addition, `EvalMetric` defines the evaluation mode and metrics of the validation set in the training process. This method uses the `metric` parameter of `Solver` to join the training, so that the metric changes can be monitored in real time during the training.
 
-``` python
+```python
 milestones, learning_rates = get_lr(data)
 
 optim = nn.Adam(model_net.trainable_params(),
@@ -230,7 +230,7 @@ save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model.ckpt'))
 
 After the model training, the S11 parameters of the testing set can be obtained by the pretrained weight through the `solver.model.eval` interface.
 
-``` python
+```python
 data, config_data = create_dataset(opt)
 
 model_net = S11Predictor(opt.input_dim)
