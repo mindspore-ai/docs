@@ -19,8 +19,8 @@ During the algorithm research phase, provide developers with a unified programmi
 
 The overall MindSpore architecture is divided into four layers:
 
-1. Model layer, providing users with usable-upon-unpacking function. This layer mainly contains repositories for expanding hot research areas, such as pre-built models and development kits, graph neural networks (GNN) and deep probabilistic programming.
-2. MindExpression layer, providing users with interfaces for AI model development, training, and inference. Support users to develop and debug neural networks with native Python syntax. Its unique ability to unify dynamic and static graphs allows developers to balance development efficiency and execution performance, while the layer provides a full-scenario unified C++ interface during the production and deployment phases.
+1. Model layer, providing users with usable-upon-unpacking function. This layer mainly contains repositories for expanding hot research areas, such as pre-built models and development kits, graph neural networks (GNN), deep probabilistic programming, and science computing library.
+2. MindExpression layer, providing users with interfaces for AI model development, training, and inference. Support users to develop and debug neural networks with native Python syntax. Its unique ability to unify dynamic and static graphs allows developers to balance development efficiency and execution performance, while the layer provides a full-scenario unified C++/Python interface during the production and deployment phases.
 3. MindCompiler, as the core of the AI framework, compiles front-end expressions into a more efficient underlying language for execution, using the full-scenario unified MindIR as the medium, and performs simultaneous global performance optimization, including hardware-independent optimization such as automatic differentiation and algebraic simplification, as well as hardware-related optimization such as graph-kernel fusion and operator generation.
 4. At runtime, the underlying hardware operator is docked and called according to the compiled and optimized results of the upper layer, while the "device-edge-cloud" unified runtime architecture supports "device-edge-cloud" AI collaboration, including federated learning.
 
@@ -30,15 +30,15 @@ The overall MindSpore architecture is divided into four layers:
 
 MindSpore provides users with programming paradigms for languages such as Python. Based on source code conversion, users can use native Python control syntax and other advanced APIs such as Tuple, List, and Lambda expressions.
 
-### Functional Programming Interface
+### Programming Paradigm
 
-MindSpore offers both object-oriented and function-oriented programming paradigms.
+MindSpore offers both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html), both of which can be used to build network algorithms and training processes.
 
 The user can define the AI network or a layer of the network based on the derivation of the nn.Cell class for the desired function, and assemble various layers defined by nested calls of objects to complete the definition of the whole AI network.
 
-Also users can define a Python pure function that can be converted by MindSpore source-to-source compilation, and speed up its execution with the functions or decorators provided by MindSpore. Python pure functions can support subfunction nesting, control logic, and even recursive function expressions while satisfying the requirements of MindSpore static syntax. Therefore, based on this programming paradigm, users have the flexibility to enable a number of functional features.
+Also users can define a Python pure function that can be converted by MindSpore source-to-source compilation, and speed up its execution with the functions or decorators provided by MindSpore. Python pure functions can support subfunction nesting, control logic, and even recursive function expressions while satisfying the requirements of MindSpore static syntax. Therefore, based on this programming paradigm, users have the flexibility to enable a number of functional features, to express business logic more easily.
 
-[Automatic differentiation based on source code conversion](https://www.mindspore.cn/docs/en/master/design/auto_gradient.html): Unlike the automatic differentiation mechanism of common AI frameworks. Based on source code conversion technology, MindSpore gets the Cell object or Python pure function that needs to be derived. The syntax is parsed, function objects that can be differentiated are constructed, and the derivation is performed based on the call chain according to the call relationship.
+MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/master/design/auto_gradient.html) for function objects that can be differentiated, based on a chain of calls, according to the calling relationship. Adopting such an automatic differentiation strategy is more in line with the mathematical semantics and has an intuitive correspondence with the composite function in basic algebra. As long as the derivation formula of the basic function is known, the derivation formula of the composite function composed of any basic function can be derived.
 
 For conventional automatic differentiation, there are three main types of mainstream:
 
@@ -47,8 +47,6 @@ For conventional automatic differentiation, there are three main types of mainst
 - Conversion based on source code: The technology evolved from a functional programming framework to perform automatic differential transformations of intermediate expressions (the form of an expression of program during compilation) in the form of just-in-time compilation (JIT), supporting complex process control scenarios, higher-order functions, and closures.
 
 The graph method can optimize network performance by using static compilation techniques, but it is very complex to set up or debug the network. Dynamic graphs built on operator overloading techniques are very easy to use, but difficult to optimize to the limit in terms of performance.
-
-The automatic differentiation strategy adopted by MindSpore, based on source code transformations, has an intuitive correspondence with the complex functions in basic algebra. As long as the derivation formula of the basis function is known, the derivation formula of the composite function composed of any basis function can be derived. Thus, programmability and performance are balanced.
 
 On the one hand, it is possible to maintain a consistent programming experience with the programming language, on the other hand, it is a differentiable technique at [Intermediate Representation](https://www.mindspore.cn/docs/en/master/design/mindir.html) (IR) granularity, which can reuse the optimization ability of modern compilers and has better performance.
 
@@ -70,11 +68,11 @@ The static graph mode can effectively perceive the relationship situation betwee
 
 Dynamic graph mode can effectively solve the more complex problems of programming static graphs. However, because the program is executed in the order in which the code is written, no integral-graph compilation optimization is done, resulting in less room for relative performance optimization, especially for proprietary hardware such as DSA, which is more difficult to enable.
 
-MindSpore builds the graph structure of neural networks based on the source code transformation mechanism, which can be more easily expressed than the traditional static graph model. It is also better compatible with programming interfaces for dynamic and static graphs, such as for control flow, and dynamic graphs can be programmed directly based on Python control flow keyword. Static graphs require programming based on special control flow operators or require user programming to instruct the control flow execution branches, which results in large programming differences between dynamic and static graphs.
+MindSpore builds the graph structure of neural networks based on the native Python, which can be more easily and flexibly expressed than the traditional static graph model. It is also better compatible with programming interfaces for dynamic and static graphs, such as for control flow, and dynamic graphs can be programmed directly based on Python control flow keyword. Static graphs require programming based on special control flow operators or require user programming to instruct the control flow execution branches, which results in large programming differences between dynamic and static graphs.
 
-MindSpore source code conversion mechanism enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
+The native Python expression enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
 
-### [Automatic Parallism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
+### [Distributed Parallism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
 
 MindSpore addresses the problem of increasingly large DL networks that require complex and multiple distributed parallel strategies, and the framework provides a built-in multi-dimensional distributed training strategy that can be flexibly assembled and used by users. It also simplifies the complexity of parallel programming for users by hiding communication operations through parallel abstraction.
 
