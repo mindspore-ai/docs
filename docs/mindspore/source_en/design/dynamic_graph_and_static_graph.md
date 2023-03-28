@@ -242,7 +242,7 @@ This document describes the support scope and usage notes of JIT Fallback so tha
 
 #### Support Scope
 
-The current JIT Fallback feature is applied to constant scenarios, which require that the actual value can be determined during compilation. The JIT Fallback feature is still being improved, and the following is a list of static graph compilation syntaxes that are currently supported by this feature.
+The current JIT Fallback feature is applied to constant scenarios mainly, which requires that the actual value can be determined during compilation. There is limited support for some variable scenarios. The JIT Fallback feature is still being improved, and the following is a list of static graph compilation syntaxes that are currently supported by this feature.
 
 #### Creating and Using Tensor
 
@@ -544,6 +544,112 @@ Output the result:
 res: 2
 ```
 
+#### Support JIT Fallback in the Runtime Phase
+
+When JIT Fallback handles unsupported syntax expressions, it will generate corresponding nodes, and constants will derive values at compile time, otherwise these nodes will be passed to the backend runtime, where the result is obtained through capable execution of Python. The sample code is as follows. `np.add(x, y)` will generate the corresponding node, and the node, as the return value of the function, will be passed to the runtime. Currently, JIT Fallback for the runtime phase in some scenarios is supported.
+
+```python
+import numpy as np
+import mindspore as ms
+
+@ms.jit
+def test_np_add():
+    x = np.array([1, 2, 3, 4, 5])
+    y = np.array([1, 2, 3, 4, 5])
+    return np.add(x, y)
+
+np_add_res = test_np_add()
+print(np_add_res)
+```
+
+Output the result:
+
+```text
+[ 2  4  6  8  10]
+```
+
+#### The Top-level Graph Supports Returning Basic Types Such as list, dict, scalar, and none
+
+##### The Top-level Graph Supports Returning lists
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_list():
+    return [1, "a", True, None]
+
+res = test_return_list()
+print(res)
+```
+
+Output the results:
+
+```text
+[1, "a", True, None]
+```
+
+##### The Top-level Graph Supports Returning dicts
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_dict():
+    x = {'a': 1, 'b': 2}
+    y = x.get('a')
+    y_tensor = ms.Tensor([y])
+    z = dict(a=y_tensor)
+    return z
+
+res = test_return_dict()
+print(res)
+```
+
+Output the results:
+
+```text
+{'a': Tensor(shape=[1], dtype=Int64, value= [1])}
+```
+
+##### The Top-level Graph Supports Returning scalars
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_scalar(x, y):
+    return x + y
+
+res = test_return_scalar(ms.mutable(1), ms.mutable(2))
+print(res)
+```
+
+Output the results:
+
+```text
+3
+```
+
+##### The Top-level Graph Supports Returning None
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_none():
+    return 1, "a", None
+
+res = test_return_none()
+print(res)
+```
+
+Output the results:
+
+```text
+(1, 'a', None)
+```
+
 #### Instructions for Use
 
 When using JIT Fallback, please note the following points:
@@ -574,31 +680,7 @@ When using JIT Fallback, please note the following points:
    RuntimeError: The 'setitem' operation does not support the type [External, Int64, Int64].
    ```
 
-4. JIT Fallback in the Runtime phase is not supported.
-
-   When JIT Fallback handles unsupported syntax expressions, it will generate corresponding nodes that need to be derived and executed in the compile-time phase, otherwise these nodes will raise an error when passed to the runtime. The sample code is as follows. `np.add(x, y)` will generate the corresponding node, as the return value of the function will be passed to the runtime, an error is reported. In this use case, the computed NumPy data type can be converted to a Tensor type, i.e., the Tensor() method can be called, allowing the program to execute properly.
-
-    ```python
-    import numpy as np
-    import mindspore as ms
-
-    @ms.jit
-    def test_np_add():
-        x = np.array([1, 2, 3, 4, 5])
-        y = np.array([1, 2, 3, 4, 5])
-        return np.add(x, y)
-        # return Tensor(np.add(x, y)) # If the Tensor() method is called to pass the result, the program will be able to execute normally.
-
-    np_add_res = test_np_add()
-    ```
-
-    The error message is reported as follows:
-
-    ```text
-    Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[2 4 6 8 10]'
-    ```
-
-    It should be noted that in the constant scenario, the operation results on NumPy integer data and floating-point data will be converted to constants for storage, so their results can be used as function return values. For example:
+4. It should be noted that in the constant scenario, the operation results on NumPy integer data and floating-point data will be converted to constants for storage, so their results can be used as function return values. For example:
 
     ```python
     import numpy as np
