@@ -299,7 +299,7 @@ x: ((1, 2, 3), 4, 5)
 
   The assigned value can be `Number`, `String`, `Tuple`, `List`, or `Tensor`.
 
-  When the value of the current slice is `Tensor`, the `Tensor` needs to be converted to a `List`, which is currently implemented through JIT Fallback. Therefore, variable scenarios cannot be supported temporarily.
+  When the value of the current slice is `Tensor`, the `Tensor` needs to be converted to a `List`, which is currently implemented through [JIT Fallback](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html#jit-fallback). Therefore, variable scenarios cannot be supported temporarily.
 
   For example:
 
