@@ -363,7 +363,7 @@ Ascend全量化支持动态Shape参数，同时转换命令需要设置校准数
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
-- Ascend全量化参数动态shape场景，还需新增`[acl_option_cfg_param]`相关配置
+- Ascend全量化参数动态shape场景，还需新增`[ascend_context]`相关配置
 
     ```ini
     [full_quant_param]

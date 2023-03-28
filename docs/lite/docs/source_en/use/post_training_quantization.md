@@ -362,7 +362,7 @@ Ascend quantization also support dynamic shape. It is worth noting that the conv
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
-- We must add configuration about `[acl_option_cfg_param]` for dynamic shape as follow:
+- We must add configuration about `[ascend_context]` for dynamic shape as follow:
 
     ```ini
     [full_quant_param]
