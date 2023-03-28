@@ -13,7 +13,7 @@ To experience the MindSpore Lite device-side inference process, please refer to 
 Using the MindSpore Lite inference framework consists of the following main steps:
 
 1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html).
-2. Create a Configuration Context: Create a configuration context [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Converter.html) and save some basic configuration parameters used to guide model compilation and model execution.
+2. Create a Configuration Context: Create a configuration context [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) and save some basic configuration parameters used to guide model compilation and model execution.
 3. Model loading and compilation: Before executing inference, you need to call Build interface of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time so it is recommended that the model be created once, compiled once and perform inference about multiple times.
 4. Input data: The input data needs to be padded before the model can be executed.
 5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model inference.
