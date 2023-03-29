@@ -13,7 +13,7 @@ In the Reddit dataset, the authors sampled 50 large communities and constructed 
 
 Since the Reddit dataset size is large, to reduce the GraphSAGE training time, in this example, distributed model training is performed on single-host to accelerate the model training.
 
-> Download the complete sample code here: [GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/master/model_zoo/graphsage).
+> Download the complete sample code here: [GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/graphsage).
 
 ## GraphSAGE Principles
 
@@ -88,16 +88,16 @@ class SAGENet(Cell):
         return ret
 ```
 
-For details about SAGENet implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/sageconv.py) code of mindspore_gl.nn.SAGEConv.
+For details about SAGENet implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/sageconv.py) code of mindspore_gl.nn.SAGEConv.
 
 ## Defining a Loss Function
 
-Because this task is a classification task, the cross entropy can be used as the loss function, and the implementation method is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#defining-a-loss-function).
+Because this task is a classification task, the cross entropy can be used as the loss function, and the implementation method is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#defining-a-loss-function).
 
 ## Constructing a Dataset
 
 The following uses the [Reddit](https://data.dgl.ai/dataset/reddit.zip) dataset as an example. Enter the data path to construct a data class.
-The get_group_size is used to obtain the total number of processes for distributed training, and the get_rank is used to obtain the ID of the current process. The construction method of dataloader can refer to [GIN](https://www.mindspore.cn/graphlearning/docs/en/master/batched_graph_training_GIN.html#constructing-a-dataset).
+The get_group_size is used to obtain the total number of processes for distributed training, and the get_rank is used to obtain the ID of the current process. The construction method of dataloader can refer to [GIN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/batched_graph_training_GIN.html#constructing-a-dataset).
 
 Different from GIN, in this example, the sampler is mindpoint_gl.dataloader.DistributeRandomBatchSampler. In DistributeRandomBatchSampler, datasets can be split based on process ID to ensure that each process obtains different part of dataset batches.
 
@@ -214,17 +214,17 @@ else:
     single_size = False
 ```
 
-Graph Operator compilation optimization settings is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#setting-environment-variables).
+Graph Operator compilation optimization settings is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#setting-environment-variables).
 
 ### Defining a Training Network
 
 Instantiation of the model body SAGENet and LossNet and optimizer.
-The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#defining-a-training-network).
+The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#defining-a-training-network).
 
 ### Network Training and Validation
 
 Instantiation of the model body STGcnNet and LossNet and optimizer.
-The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#network-training-and-validation-1).
+The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#network-training-and-validation-1).
 
 ## Executing Jobs and Viewing Results
 
@@ -234,7 +234,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/graphsage/distributed_run.sh) script to start training.
+Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/graphsage/distributed_run.sh) script to start training.
 
 - GPU
 

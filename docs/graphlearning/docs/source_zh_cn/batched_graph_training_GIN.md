@@ -14,7 +14,7 @@ IMDB-BINARY是一个电影协作数据集，由1000名在IMDB中扮演电影角�
 
 批次图模式中每次能够对多张图同时进行训练，并且每张图的节点数/边数都完全不同。mindspore_gl提供了构建虚拟图的方法将对批次内图整合成一张整图，并对整图数据进行统一，以降低内存消耗及加速计算。
 
-> 下载完整的样例[GIN](https://gitee.com/mindspore/graphlearning/tree/master/model_zoo/gin)代码。
+> 下载完整的样例[GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/gin)代码。
 
 ## GIN原理
 
@@ -90,11 +90,11 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/ginconv.py)代码。
+GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/ginconv.py)代码。
 
 ## 构造数据集
 
-从mindspore_gl.dataset调用了IMDB-BINARY的数据集，调用方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。然后利用mindspore_gl.dataloader.RandomBatchSampler定义了一个采样器，来生成采样索引。
+从mindspore_gl.dataset调用了IMDB-BINARY的数据集，调用方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。然后利用mindspore_gl.dataloader.RandomBatchSampler定义了一个采样器，来生成采样索引。
 MultiHomoGraphDataset根据采样索引从数据集里获取数据，将返回数据打包成batch，做出数据集的生成器。构建生成器后，调用mindspore.dataset.GeneratorDataset的API，完成数据加载器构建。
 
 ```python
@@ -198,7 +198,7 @@ class MultiHomoGraphDataset(Dataset):
 
 ## 定义loss函数
 
-由于本次任务为分类任务，可以采用交叉熵来作为损失函数，实现方法与[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89loss%E5%87%BD%E6%95%B0)类似。
+由于本次任务为分类任务，可以采用交叉熵来作为损失函数，实现方法与[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89loss%E5%87%BD%E6%95%B0)类似。
 
 与GCN不同的是，本次教程为图分类，因此在解析批次图时，调用的为mindspore_gl.BatchedGraph接口。
 
@@ -224,13 +224,13 @@ class LossNet(GNNCell):
 
 ### 设置环境变量
 
-环境变量设置方法可以[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
+环境变量设置方法可以[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
 
 ### 定义训练网络
 
 实例化模型主体GinNet以及LossNet和优化器。
 将LossNet实例和optimizer传入mindspore.nn.TrainOneStepCell构建一个单步训练网络train_net。
-实现方法与GCN类似，可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
+实现方法与GCN类似，可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
 
 ### 网络训练及验证
 
@@ -254,7 +254,7 @@ for data in train_dataloader:
 
 ### 执行结果
 
-执行脚本[trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/gin/trainval_imdb_binary.py)启动训练。
+执行脚本[trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/gin/trainval_imdb_binary.py)启动训练。
 
 ```bash
 cd model_zoo/gin

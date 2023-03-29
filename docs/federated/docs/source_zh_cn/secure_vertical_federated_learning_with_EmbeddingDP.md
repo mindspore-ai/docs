@@ -28,7 +28,7 @@ $$p = \frac{e^{(eps / 2)}}{e^{(eps / 2)} + 1},\quad q = \frac{1}{e^{(eps / 2)} +
 
 ## 特性体验
 
-本特性可对一维或二维的张量数组进行处理。一维数组仅可由数字0和1组成，二维数组需由独热编码格式的一维向量组成。在[安装MindSpore与Federated](https://mindspore.cn/federated/docs/zh-CN/master/federated_install.html#%E8%8E%B7%E5%8F%96mindspore-federated)后，可应用本特性处理符合要求的张量数组，示例程序如下所示：
+本特性可对一维或二维的张量数组进行处理。一维数组仅可由数字0和1组成，二维数组需由独热编码格式的一维向量组成。在[安装MindSpore与Federated](https://mindspore.cn/federated/docs/zh-CN/r0.1/federated_install.html#%E8%8E%B7%E5%8F%96mindspore-federated)后，可应用本特性处理符合要求的张量数组，示例程序如下所示：
 
 ```python
 import mindspore as ms
@@ -48,7 +48,7 @@ print(dp_tensor)
 
 #### 准备环节
 
-下载federated代码仓，并依据教程[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html#%E5%87%86%E5%A4%87%E7%8E%AF%E8%8A%82)，配置运行环境与实验数据集，而后可根据需要运行单进程或多进程示例程序。
+下载federated代码仓，并依据教程[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://mindspore.cn/federated/docs/zh-CN/r0.1/split_pangu_alpha_application.html#%E5%87%86%E5%A4%87%E7%8E%AF%E8%8A%82)，配置运行环境与实验数据集，而后可根据需要运行单进程或多进程示例程序。
 
 ```bash
 git clone https://gitee.com/mindspore/federated.git
@@ -56,7 +56,7 @@ git clone https://gitee.com/mindspore/federated.git
 
 #### 单进程样例
 
-1. 进入样例所在目录，并执行[运行单进程样例](https://mindspore.cn/federated/docs/zh-CN/master/split_pangu_alpha_application.html#%E8%BF%90%E8%A1%8C%E5%8D%95%E8%BF%9B%E7%A8%8B%E6%A0%B7%E4%BE%8B)中第2至4步：
+1. 进入样例所在目录，并执行[运行单进程样例](https://mindspore.cn/federated/docs/zh-CN/r0.1/split_pangu_alpha_application.html#%E8%BF%90%E8%A1%8C%E5%8D%95%E8%BF%9B%E7%A8%8B%E6%A0%B7%E4%BE%8B)中第2至4步：
 
     ```bash
     cd federated/example/splitnn_pangu_alpha

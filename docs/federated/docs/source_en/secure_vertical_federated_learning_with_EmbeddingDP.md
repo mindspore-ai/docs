@@ -28,7 +28,7 @@ $$p = \frac{e^{(eps / 2)}}{e^{(eps / 2)} + 1},\quad q = \frac{1}{e^{(eps / 2)} +
 
 ## Feature Experience
 
-This feature can work with one-dimensional or two-dimensional tensor arrays. One-dimensional arrays can only consist of the numbers 0 and 1, and two-dimensional arrays need to consist of one-dimensional vectors in the one-hot encoded format. After [installing MindSpore and Federated](https://mindspore.cn/federated/docs/en/master/federated_install.html#obtaining-mindspore-federated), this feature can be applied to process a tensor array that meets the requirements, as shown in the following sample program:
+This feature can work with one-dimensional or two-dimensional tensor arrays. One-dimensional arrays can only consist of the numbers 0 and 1, and two-dimensional arrays need to consist of one-dimensional vectors in the one-hot encoded format. After [installing MindSpore and Federated](https://mindspore.cn/federated/docs/en/r0.1/federated_install.html#obtaining-mindspore-federated), this feature can be applied to process a tensor array that meets the requirements, as shown in the following sample program:
 
 ```python
 import mindspore as ms
@@ -48,7 +48,7 @@ print(dp_tensor)
 
 #### Preparation
 
-Download the federated code repository and follow the tutorial [Longitudinal Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html#environment-preparation), configure the runtime environment and experimental dataset, and then run the single-process or multi-process example program as needed.
+Download the federated code repository and follow the tutorial [Longitudinal Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/r0.1/split_pangu_alpha_application.html#environment-preparation), configure the runtime environment and experimental dataset, and then run the single-process or multi-process example program as needed.
 
 ```bash
 git clone https://gitee.com/mindspore/federated.git
@@ -56,7 +56,7 @@ git clone https://gitee.com/mindspore/federated.git
 
 #### Single-process Sample
 
-1. Go to the directory where the sample is located and execute [running single-process sample](https://mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html#running-a-single-process-example) in steps 2 to 4:
+1. Go to the directory where the sample is located and execute [running single-process sample](https://mindspore.cn/federated/docs/en/r0.1/split_pangu_alpha_application.html#running-a-single-process-example) in steps 2 to 4:
 
     ```bash
     cd federated/example/splitnn_pangu_alpha

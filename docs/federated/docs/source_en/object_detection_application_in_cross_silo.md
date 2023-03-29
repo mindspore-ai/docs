@@ -4,7 +4,7 @@
 
 Based on the type of participating clients, federated learning can be classified into cross-silo federated learning and cross-device federated learning. In a cross-silo federated learning scenario, the clients involved in federated learning are different organizations (e.g., healthcare or finance) or geographically distributed data centers, i.e., training models on multiple data silos. In the cross-device federated learning scenario, the participating clients are a large number of mobile or IoT devices. This framework will describe how to implement a target detection application by using network Fast R-CNN on MindSpore Federated cross-silo federated framework.
 
-The full script to launch cross-silo federated target detection application can be found [here](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn).
+The full script to launch cross-silo federated target detection application can be found [here](https://gitee.com/mindspore/federated/tree/r0.1/example/cross_silo_faster_rcnn).
 
 ## Preparation
 
@@ -12,7 +12,7 @@ This tutorial deploy the cross-silo federated target detection task based on the
 
 Since the original COCO dataset is in json file format, the target detection script provided by cross-silo federated learning framework only supports input data in MindRecord format. You can convert the json file to MindRecord format file according to the following steps.
 
-- Configure the following parameters in the configuration file[default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml):
+- Configure the following parameters in the configuration file[default_config.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/default_config.yaml):
 
     - `mindrecord_dir`
 
@@ -30,19 +30,19 @@ Since the original COCO dataset is in json file format, the target detection scr
         instance_set: "./datasets/coco_split/split_100/train_0.json"
         ```
 
-- Run the script [generate_mindrecord.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/generate_mindrecord.py) to generate MindRecord file according to `train_0.json`, saved in the `mindrecord_dir` path.
+- Run the script [generate_mindrecord.py](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/generate_mindrecord.py) to generate MindRecord file according to `train_0.json`, saved in the `mindrecord_dir` path.
 
 ## Starting the Cross-Silo Federated Mission
 
 ### Installing MindSpore and Mindspore Federated
 
-Including both downloading source code and downloading release version, supporting CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install)， [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/master/index.html).
+Including both downloading source code and downloading release version, supporting CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install)， [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/r0.1/index.html).
 
 Currently the federated learning framework is only supported for deployment in Linux environments, and cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 
 ### Starting Mission
 
-Refer to [example](https://gitee.com/mindspore/federated/tree/master/example/cross_silo_faster_rcnn) to start the cluster. The reference example directory structure is as follows:
+Refer to [example](https://gitee.com/mindspore/federated/tree/r0.1/example/cross_silo_faster_rcnn) to start the cluster. The reference example directory structure is as follows:
 
 ```text
 cross_silo_faster_rcnn
@@ -90,7 +90,7 @@ cross_silo_faster_rcnn
     model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=False)   # Set dataset_sink_mode=False to record the loss value of each step
     ```
 
-2. Set the following parameters in configuration file [default_config.yaml](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/default_config.yaml):
+2. Set the following parameters in configuration file [default_config.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/default_config.yaml):
 
     - `pre_trained`
 
@@ -112,7 +112,7 @@ cross_silo_faster_rcnn
     python run_cross_silo_fasterrcnn_sched.py --yaml_config="default_yaml_config.yaml" --scheduler_manage_address="127.0.0.1:18019"
     ```
 
-    For the detailed implementation, see [run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py).
+    For the detailed implementation, see [run_cross_silo_fasterrcnn_sched.py](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_sched.py).
 
     The following print represents a successful starting:
 
@@ -129,7 +129,7 @@ cross_silo_faster_rcnn
     python run_cross_silo_fasterrcnn_server.py --yaml_config="default_yaml_config.yaml" --tcp_server_ip="127.0.0.1" --checkpoint_dir="/path/to/fl_ckpt" --local_server_num=4 --http_server_address="127.0.0.1:6668"
     ```
 
-    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py), and checkpoint_dir needs to enter the directory path where the checkpoint is located. The server will read the checkpoint initialization weight from this path. The prefix format of the checkpoint needs to be `{fl_name}_ recovery_ iteration_`.
+    The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `6668`, `6669`, `6670` and `6671`, as detailed in [run_cross_silo_fasterrcnn_server.py](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_server.py), and checkpoint_dir needs to enter the directory path where the checkpoint is located. The server will read the checkpoint initialization weight from this path. The prefix format of the checkpoint needs to be `{fl_name}_ recovery_ iteration_`.
 
     The following print represents a successful starting:
 
@@ -148,7 +148,7 @@ cross_silo_faster_rcnn
     python run_cross_silo_fasterrcnn_worker.py --local_worker_num=2 --yaml_config="default_yaml_config.yaml" --pre_trained="/path/to/pre_trained" --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
     ```
 
-    For the detailed implementation, see [run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py). Note that in dataset sink mode, the unit of the synchronization frequency of Cloud Federated is in epoch, otherwise the synchronization frequency is in step.
+    For the detailed implementation, see [run_cross_silo_femnist_worker.py](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/run_cross_silo_fasterrcnn_worker.py). Note that in dataset sink mode, the unit of the synchronization frequency of Cloud Federated is in epoch, otherwise the synchronization frequency is in step.
 
     As the above command, `--local_worker_num=2` means starting two clients, and the datasets used by the two clients are `datasets/coco_split/split_100/mindrecord_0` and `datasets/coco_split/split_100/mindrecord_1`. Please prepare the required datasets for the corresponding clients according to the `pre-task preparation` tutorial.
 
@@ -172,7 +172,7 @@ cross_silo_faster_rcnn
     epoch: 1 step: 1 total_loss: 0.613467
     ```
 
-    Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/en/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
+    Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/en/r0.1/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
 
 ### Viewing the Log
 
@@ -222,7 +222,7 @@ If you want to exit in the middle, the following command is available:
 python finish_cross_silo_fasterrcnn.py --redis_port=2345
 ```
 
-For the detailed implementation, see [finish_cloud.py](https://gitee.com/mindspore/federated/blob/master/tests/st/cross_device_cloud/finish_cloud.py).
+For the detailed implementation, see [finish_cloud.py](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/cross_device_cloud/finish_cloud.py).
 
 Or when the training task is finished, the cluster exits automatically, no need to close it manually.
 

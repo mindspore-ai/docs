@@ -85,13 +85,13 @@ redis-server --port 23456 --save ""
 
 ## 启动集群
 
-1. [样例路径](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/)。
+1. [样例路径](https://gitee.com/mindspore/federated/tree/r0.1/example/cross_device_lenet_femnist/)。
 
     ```bash
     cd example/cross_device_lenet_femnist
     ```
 
-2. 据实际运行需要修改yaml配置文件：`default_yaml_config.yaml`，如下为[Lenet的相关配置样例](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml)。
+2. 据实际运行需要修改yaml配置文件：`default_yaml_config.yaml`，如下为[Lenet的相关配置样例](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml)。
 
     ```yaml
     fl_name: Lenet

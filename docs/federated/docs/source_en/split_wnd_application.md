@@ -131,7 +131,7 @@ Before starting the vertical federated learning training, users need to construc
 
 ### Building the Dataset
 
-The current simulation process is used, i.e., both participants read the same data source. But for training, both participants use only part of the feature or label data, as shown in [Network and Data](#network-and-data). Later, the [Data Access](https://www.mindspore.cn/federated/docs/en/master/data_join/data_join.html) method will be used for both participants to import the data individually.
+The current simulation process is used, i.e., both participants read the same data source. But for training, both participants use only part of the feature or label data, as shown in [Network and Data](#network-and-data). Later, the [Data Access](https://www.mindspore.cn/federated/docs/en/r0.1/data_join/data_join.html) method will be used for both participants to import the data individually.
 
 ```python
 from run_vfl_train_local import construct_local_dataset
@@ -174,7 +174,7 @@ follower_bottom_train_net = BottomLossNet(follower_base_net, config)
 
 ### Vertical Federated Communication Base
 
-Before training, we first have to start the communication base to make Leader and Follower participants group network. Detailed API documentation can be found in [Vertical Federated Communicator](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python_en/vertical/vertical_communicator.rst).
+Before training, we first have to start the communication base to make Leader and Follower participants group network. Detailed API documentation can be found in [Vertical Federated Communicator](https://gitee.com/mindspore/federated/blob/r0.1/docs/api/api_python_en/vertical/vertical_communicator.rst).
 
 Both parties need to import the vertical federated communicator:
 
@@ -206,7 +206,7 @@ self.vertical_communicator.launch()
 
 ### Building a Vertical Federated Network
 
-Users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. The detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst).
+Users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. The detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/r0.1/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst).
 
 Both parties need to import the vertical federated training interface:
 

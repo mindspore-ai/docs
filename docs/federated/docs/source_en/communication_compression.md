@@ -113,13 +113,13 @@ The quantization codec is the same as that in upload compression.
 
 ## Code Implementation Preparation
 
-To use the upload and download compression methods, first successfully complete the training aggregation process for either device or cloud federated scenario, e.g. [Implementing a Sentiment Classification Application (Android)](https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html). The preparation work including datasets and network models and the simulation of the process to initiate multi-client participation in federated learning are described in detail in this document.
+To use the upload and download compression methods, first successfully complete the training aggregation process for either device or cloud federated scenario, e.g. [Implementing a Sentiment Classification Application (Android)](https://www.mindspore.cn/federated/docs/en/r0.1/sentiment_classification_application.html). The preparation work including datasets and network models and the simulation of the process to initiate multi-client participation in federated learning are described in detail in this document.
 
 ## Algorithm Open Script
 
 The upload and download compression methods are currently only supported in the device-cloud federated learning scenario. The open method requires setting `upload_compress_type='DIFF_SPARSE_QUANT'` and `download_compress_type='QUANT'` in the corresponding yaml in the server startup script when starting the cloud-side service.
 
-The relevant parameter configuration to start the algorithm is given in the cloud-side [full startup script](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/). After determining the parameter configuration, the user needs to configure the corresponding parameters before executing the training, as follows:
+The relevant parameter configuration to start the algorithm is given in the cloud-side [full startup script](https://gitee.com/mindspore/federated/tree/r0.1/tests/st/cross_device_cloud/). After determining the parameter configuration, the user needs to configure the corresponding parameters before executing the training, as follows:
 
 ```yaml
 compression:

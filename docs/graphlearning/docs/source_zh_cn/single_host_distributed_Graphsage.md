@@ -13,7 +13,7 @@ GraphSAGE是一个通用的归纳框架，它利用节点特征信息（例如�
 
 由于Reddit数据集较大，为了减少GraphSAGE训练时间，本例中在单机上执行分布式模型训练，以加快模型训练。
 
-> 下载完整的样例[GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/master/model_zoo/graphsage)代码。
+> 下载完整的样例[GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/graphsage)代码。
 
 ## GraphSAGE原理
 
@@ -88,17 +88,17 @@ class SAGENet(Cell):
         return ret
 ```
 
-SAGEConv执行的更多细节可以看mindspore_gl.nn.SAGEConv的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/sageconv.py)代码。
+SAGEConv执行的更多细节可以看mindspore_gl.nn.SAGEConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/sageconv.py)代码。
 
 ## 定义loss函数
 
-由于本次任务为分类任务，可以采用交叉熵来作为损失函数，实现方法与[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89loss%E5%87%BD%E6%95%B0)类似。
+由于本次任务为分类任务，可以采用交叉熵来作为损失函数，实现方法与[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89loss%E5%87%BD%E6%95%B0)类似。
 
 ## 构造数据集
 
 下面以[Reddit](https://data.dgl.ai/dataset/reddit.zip)数据集为例。输入数据路径，构造数据类。
 
-get_group_size用于获取分布式训练的进程总数，get_rank用于获取当前进程的ID。数据加载器的构建方法可以参考[GIN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/batched_graph_training_GIN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。
+get_group_size用于获取分布式训练的进程总数，get_rank用于获取当前进程的ID。数据加载器的构建方法可以参考[GIN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/batched_graph_training_GIN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 与GIN不同的时，在本例中采样器调用的是mindspore_gl.dataloader.DistributeRandomBatchSampler。DistributeRandomBatchSampler可以根据进程ID拆分数据集索引，确保每个进程获取的数据集批次的不同部分。
 
@@ -215,16 +215,16 @@ else:
     single_size = False
 ```
 
-图算编译优化设置可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
+图算编译优化设置可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
 
 ### 定义训练网络
 
 实例化模型主体以及LossNet和优化器。
-实现方法与GCN类似，可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
+实现方法与GCN类似，可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
 
 ### 网络训练及验证
 
-训练与验证方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83%E5%8F%8A%E9%AA%8C%E8%AF%81)。
+训练与验证方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83%E5%8F%8A%E9%AA%8C%E8%AF%81)。
 
 ## 执行并查看结果
 
@@ -234,7 +234,7 @@ else:
 
 ### 执行结果
 
-执行脚本[distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/graphsage/distributed_run.sh)启动训练。
+执行脚本[distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/graphsage/distributed_run.sh)启动训练。
 
 - GPU
 

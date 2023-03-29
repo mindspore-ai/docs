@@ -14,7 +14,7 @@ Get batched graph data from the IMDB-BINARY dataset. Each graph is a movie compo
 
 In the batched graph, multiple graphs can be trained at the same time, and the number of nodes/edges of each graph is different. mindspore_gl integrates the sub graph in the batch into a whole graph, and adds a virtual graph to unify the graph data to reduce memory consumption and speed up calculation.
 
-> Download the complete sample code here: [GIN](https://gitee.com/mindspore/graphlearning/tree/master/model_zoo/gin).
+> Download the complete sample code here: [GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/gin).
 
 ## GIN Principles
 
@@ -90,11 +90,11 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/ginconv.py) code of mindspore_gl.nn.GINConv.
+For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/ginconv.py) code of mindspore_gl.nn.GINConv.
 
 ## Constructing a Dataset
 
-From mindspore_gl.dataset calls the dataset of IMDB-BINARY,the method can refer to [GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86). Then use mindpoint_gl.dataloader.RandomBatchSampler defines a sampler and returns the sampling index.
+From mindspore_gl.dataset calls the dataset of IMDB-BINARY,the method can refer to [GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86). Then use mindpoint_gl.dataloader.RandomBatchSampler defines a sampler and returns the sampling index.
 MultiHomeGraphDataset obtains data from the dataset according to the sampling index, packages the data into a batch, and generates the dataset generator.
 After building a generator, invoke the API of mindspore.dataset.GeneratorDataset to construct a dataloader.
 
@@ -200,7 +200,7 @@ class MultiHomoGraphDataset(Dataset):
 
 ## Defining a Loss Function
 
-Since this is a classification task, the cross entropy can be used as the loss function, and the implementation method is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#defining-a-loss-function).
+Since this is a classification task, the cross entropy can be used as the loss function, and the implementation method is similar to that of [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#defining-a-loss-function).
 
 Different from GCN, this tutorial is for graph classification. Therefore, when parsing batch graphs, the mindspore_gl.BatchedGraph interface is invoked.
 
@@ -226,13 +226,13 @@ class LossNet(GNNCell):
 
 ### Setting Environment Variables
 
-The method of setting environment variables is similar to that of setting [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#setting-environment-variables).
+The method of setting environment variables is similar to that of setting [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#setting-environment-variables).
 
 ### Defining a Training Network
 
 Instantiation of the model body GinNet and LossNet and optimizer.
 Input the LossNet instance and optimizer to mindspore.nn.TrainOneStepCell to construct a single-step training network train_net.
-The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#defining-a-training-network).
+The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/r0.2/full_training_of_GCN.html#defining-a-training-network).
 
 ### Network Training and Validation
 
@@ -256,7 +256,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/gin/trainval_imdb_binary.py) script to start training.
+Run the [trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/gin/trainval_imdb_binary.py) script to start training.
 
 ```bash
 cd model_zoo/gin

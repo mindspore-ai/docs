@@ -19,7 +19,7 @@
 
 - 硬件平台确认为Linux系统下的GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.6.0版本。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2/requirements.txt)。
 
 ### 安装方式
 
@@ -39,7 +39,7 @@
     pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/GraphLearning/gpu/x86_64/cuda-{cuda_verison}/mindspore_gl-0.2.0a0-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt)），其余情况需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2/requirements.txt)），其余情况需自行安装。
 > - `{system_structure}`表示为Linux系统架构，可选项为`x86_64`和`arrch64`。
 > - `{cuda_verison}`表示为CUDA版本，可选项为`10.1`、`11.1`和`11.6`。
 

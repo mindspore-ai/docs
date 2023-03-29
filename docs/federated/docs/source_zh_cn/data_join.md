@@ -34,7 +34,7 @@ Leader Worker 和 Follower Worker 的每个桶都启动隐私求交方法获得�
 
 ### 数据准备样例
 
-若要使用数据接入方法，首先需要准备好原始数据。用户可以使用[随机数据生成脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/generate_random_data.py)生成出各参与方的伪造数据作为样例。
+若要使用数据接入方法，首先需要准备好原始数据。用户可以使用[随机数据生成脚本](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/data_join/generate_random_data.py)生成出各参与方的伪造数据作为样例。
 
 ```shell
 python generate_random_data.py \
@@ -83,7 +83,7 @@ leader_data_3.csv
 
 ### 数据导出样例
 
-用户可以使用[数据求交脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/run_data_join.py)实现两方数据求交并导出成MindRecord格式文件。用户需要分别启动Leader和Follower两个进程。
+用户可以使用[数据求交脚本](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/data_join/run_data_join.py)实现两方数据求交并导出成MindRecord格式文件。用户需要分别启动Leader和Follower两个进程。
 
 启动Leader：
 
@@ -140,7 +140,7 @@ python run_data_join.py \
 | join_type（Follower不需要配置）   | 求交算法，str类型。包括："psi"。                                          |
 | thread_num                        | 使用PSI求交算法时，计算所需线程数，int类型。                 |
 
-在上述样例中，data_schema_path对应的文件可以参考[leader_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/leader_schema.yaml)和[follower_schema.yaml](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/vfl/follower_schema.yaml)中的相应文件配置。用户需要在该文件中提供要导出的数据的列名和类型。
+在上述样例中，data_schema_path对应的文件可以参考[leader_schema.yaml](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/data_join/vfl/leader_schema.yaml)和[follower_schema.yaml](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/data_join/vfl/follower_schema.yaml)中的相应文件配置。用户需要在该文件中提供要导出的数据的列名和类型。
 
 运行数据导出后生成多个MindRecord相关文件：
 
@@ -159,7 +159,7 @@ mindrecord_4.db
 
 ### 数据读取样例
 
-用户可以使用[读取数据脚本](https://gitee.com/mindspore/federated/blob/master/tests/st/data_join/load_joined_data.py)实现求交后的数据读取：
+用户可以使用[读取数据脚本](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/data_join/load_joined_data.py)实现求交后的数据读取：
 
 ```shell
 python load_joined_data.py \
@@ -208,7 +208,7 @@ Follower数据导出运行结果：
 
 ## 深度体验
 
-下列代码的详细的API文档可以参考[数据接入文档](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join/data_join.html)。
+下列代码的详细的API文档可以参考[数据接入文档](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/data_join/data_join.html)。
 
 ### 数据导出
 

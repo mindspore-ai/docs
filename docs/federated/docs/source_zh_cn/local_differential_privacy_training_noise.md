@@ -30,7 +30,7 @@ MindSpore Federated客户端将加噪后的模型$W_p$上传至云侧服务器�
 
 ## 使用方式
 
-本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，通过[yaml](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html#)设置`encrypt_type`字段为`DP_ENCRYPT`即可。
+本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，通过[yaml](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/horizontal/federated_server_yaml.html#)设置`encrypt_type`字段为`DP_ENCRYPT`即可。
 
 此外，为了控制隐私保护的效果，我们还提供了3个参数：`dp_eps`，`dp_delta`以及`dp_norm_clip`，它们也是通过yaml文件进行设置。
 

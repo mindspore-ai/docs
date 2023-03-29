@@ -14,11 +14,11 @@ You can use the source code or download the release version. Currently, only the
 
 ## Obtaining MindSpore Federated WHL Package
 
-You can use the source code or download the release version to install MindSpore on hardware platforms such as the x86 CPU and GPU CUDA. For details about the installation process, see [Building MindSpore Federated whl](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html).
+You can use the source code or download the release version to install MindSpore on hardware platforms such as the x86 CPU and GPU CUDA. For details about the installation process, see [Building MindSpore Federated whl](https://www.mindspore.cn/federated/docs/en/r0.1/deploy_federated_server.html).
 
 ## Obtaining MindSpore Federated Java Package
 
-You can use the source code or download the release version. Currently, MindSpore Federated Learing supports the Linux and Android platforms. For details about the installation process, see [Building MindSpore Federated java](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+You can use the source code or download the release version. Currently, MindSpore Federated Learing supports the Linux and Android platforms. For details about the installation process, see [Building MindSpore Federated java](https://www.mindspore.cn/federated/docs/en/r0.1/deploy_federated_client.html).
 
 ## Requirements for Building the Linux Environment
 

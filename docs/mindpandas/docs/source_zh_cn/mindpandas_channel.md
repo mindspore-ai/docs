@@ -26,4 +26,4 @@ MindPandas的channel支持一个DataSender对应多个DataReceiver，每个DataR
 
 API说明请参考[mindpandas.channel](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/mindpandas.channel.html)。
 
-使用样例请参考[在线学习](https://www.mindspore.cn/recommender/docs/zh-CN/master/online_learning.html#%E4%BD%BF%E7%94%A8%E6%A0%B7%E4%BE%8B)。
+使用样例请参考[在线学习](https://www.mindspore.cn/recommender/docs/zh-CN/r0.2/online_learning.html#%E4%BD%BF%E7%94%A8%E6%A0%B7%E4%BE%8B)。

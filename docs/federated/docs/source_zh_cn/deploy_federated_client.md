@@ -197,4 +197,4 @@ sudo apt-get install cmake -y
     export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
     ```
 
-3. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。
+3. 设置好依赖环境之后，可参考应用实践教程[实现一个端云联邦的图像分类应用(x86)](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/image_classification_application.html)在x86环境中模拟启动多个客户端进行联邦学习。
