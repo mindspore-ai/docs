@@ -300,6 +300,16 @@ $(function () {
       return `
       <div class="nav-h5" id="nav-h5" style="height:4rem;"><div class="nav" show="1"></div></div>`;
     },
+    // 获取页面标题
+    pageTitle:function(){
+      let title = '';
+      msDocsVersion&&msDocsVersion.forEach((item) => {
+        if(pathname.startsWith('/'+item.name)){
+          title = isEn?item.label.en:item.label.zh;
+        }
+      });
+      return title;
+    },
     // 文档页面交互
     headerMethods:function (){
         const searchUrl = isEn?'/search/en':'/search';
@@ -880,12 +890,6 @@ $(function () {
       });
     }
 
-    // 默认展开API
-    if (pathname.startsWith('/docs/zh-CN/') || pathname.startsWith('/docs/en/')) {
-      wyMenu.find('.caption').removeClass('down').next().hide();
-      wyMenu.find('.caption').eq(2).addClass('down').next().show();
-    }
-
      // 进入页面调整到锚点,解决中文锚点问题，中文锚点需要转码
     function gotoId() {
       let url = window.location.toString(); //进这个页面的url
@@ -1142,7 +1146,7 @@ $(function () {
 
     //获取导航菜单json
     headerMenuData = await getHeaderData(`/menu_${isEn?'en':'zh-CN'}.json`);
-    msDocsVersion = await getHeaderData('/version.json');
+    msDocsVersion = await getHeaderData('/msVersion.json');
 
     body.prepend(msHeader.pcHeader);
     msHeader.headerMethods();
@@ -1155,6 +1159,8 @@ $(function () {
     isH5(() => {
       isH5Show();
     });
+
+    $('.wy-breadcrumbs>li:first-of-type')[0].innerText = msHeader.pageTitle() + '(' + getCurrentVersion() + ')';
 
     sensorsMethods.getSearchKey();
     sideRightAnchor();

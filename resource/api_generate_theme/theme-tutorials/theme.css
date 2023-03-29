@@ -2018,11 +2018,11 @@ a {
 a:hover {
   color: #379be6
 }
-
+/* 
 a:visited {
   color: #379be6
-}
-/* 
+}*/
+
 .toctree-l1 {
   position: relative;
 }
@@ -2036,13 +2036,13 @@ a:visited {
   line-height: 1.5rem;
   text-align: center;
   font-size: .8rem;
-} */
+} 
 
 .toctree-wrapper .toctree-l1>a::before {
   display: none;
 }
 
-/* .wy-menu-vertical>ul>.current>a:before {
+.wy-menu-vertical>ul>.current>a:before {
   content: "-";
   position: absolute;
   left: -.8rem;
@@ -2051,7 +2051,7 @@ a:visited {
   line-height: 1.5rem;
   text-align: center;
   font-size: .8rem;
-} */
+} 
 
 .navNoPlus>a:before {
   content: "" !important;
@@ -2090,7 +2090,7 @@ display: none;
 .wy-side-nav-search {
   background: #fff;
   width: 12.5rem;
-  margin-top: 1rem;
+  margin-top: .5rem;
 }
 
 .wy-side-nav-search>a {
@@ -3362,6 +3362,10 @@ blockquote:before {
   color: #1a1c33;
   padding-left: 1.5rem;
 }
+html[lang='en'] blockquote:before,
+html:lang(en) blockquote:before{
+  content: "Note" !important;
+}
 blockquote:after {
   content: "i";
   width: 0.8rem;
@@ -3599,7 +3603,45 @@ width:100% !important;
 height:150px;
 }
 
-
+.pagination>li{
+  margin-left: 0 !important;
+}
+.doc-label-content .doc-filter-btn{
+  margin-bottom:0.5rem;
+}
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+  display: none !important;
+}
+div.nbinput.container div.input_area {
+  border: none !important
+}
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt{
+  display: none !important;
+}
+.container{
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+}
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+  padding-left: 0.75rem !important;
+}
+div.nboutput.container div.output_area div[class*=highlight] > pre{
+  background: #eee;
+}
+div.nboutput.container div.output_area{
+  position: relative;
+  left:0;
+  padding-right:0;
+  background: #eee ;
+}
 
 
 

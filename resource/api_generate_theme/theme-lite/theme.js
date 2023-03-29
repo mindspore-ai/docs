@@ -19,9 +19,11 @@ $(function () {
   $('body').addClass('theme-lite');
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
+  const pagePath = '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
 
   let msDocsVersion = [],
-      versionArr = [],
+      msVersionInfo = [],
+      versionDropdownList = [],
       pageTitle = '';
 
   // 获取当前版本 r1.10
@@ -29,8 +31,7 @@ $(function () {
     return pathname.split('/')[4];
   }
   // 获取当前版本 不带R
-  function curVersion(str) {
-      let version = str ? str : getCurrentVersion();
+  function curVersion(version) {
       return version === 'master'
           ? 'master'
           : version.startsWith('r') ? version.slice(1):version;
@@ -38,7 +39,7 @@ $(function () {
   // 版本名称显示
   function pageVersionName (){
     let versionName= '';
-    versionArr.forEach((subitem) => {
+    versionDropdownList.forEach((subitem) => {
       if(getCurrentVersion().endsWith(subitem.version)){
         versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
@@ -64,85 +65,40 @@ $(function () {
       });
   }
 
-  // 教程切换导航
-  const liteMenu = [
-      {
-          name: '概述',
-          nameEn: 'Overview',
-          id: 'overview',
-          url: '/lite?version=/${latest}/',
-          type: false
-      },
-      {
-          name: '下载',
-          nameEn: 'Downloads',
-          id: 'downloads',
-          url: '/lite/docs/zh-CN/${latest}/use/downloads.html',
-          type: false
-      },
-      {
-          name: '文档',
-          nameEn: 'Docs',
-          id: '/lite/docs',
-          url: '/lite/docs/zh-CN/${latest}/index.html',
-          type: true
-      },
-      {
-          name: 'API',
-          nameEn: 'API',
-          id: '/lite/api',
-          url: '/lite/api/zh-CN/${latest}/index.html',
-          type: true
-      },
-      {
-          name: 'FQA',
-          nameEn: 'FQA',
-          id: '/lite/faq',
-          url: '/lite/faq/zh-CN/${latest}/faq.html',
-          type: true
-      },
-      {
-          name: '示例',
-          nameEn: 'Examples',
-          id: 'examples',
-          url: '/lite/examples?version=/${latest}/',
-          type: false
-      },
-      {
-          name: '模型',
-          nameEn: 'Models',
-          id: 'models',
-          url: '/lite/examples?version=/${latest}/',
-          type: false
-      }
-  ];
+
 
   const initLite = async function () {
-      msDocsVersion = await getHeaderData('/version.json');
-      let liteNav = '';
+      msDocsVersion = await getHeaderData('/msVersion.json');
+      msVersionInfo = await getHeaderData(`${pagePath}/_static/js/version.json`);
+
+      pageTitle = isEn ? msVersionInfo.label.en || '' : msVersionInfo.label.zh || '';
+      const pageSubMenu = isEn ? msVersionInfo.submenu.en || []: msVersionInfo.submenu.zh || [];
+
+
+      let liteSubMenu = '';
       msDocsVersion.forEach(function (item) {
-          if (pathname.startsWith('/' + item.name) && msDocsVersion.length > 2) {
-              versionArr = item.versions.slice(0, 3);
-              liteMenu.forEach((item) => {
-                  if (item.type) {
-                      item.versions = versionArr.map((sub) => {
-                          return {
-                              version: curVersion(sub.version),
-                              url: sub.url !=='' ? sub.url:item.url.replace('${latest}', sub.version),
-                              versionAlias:sub.versionAlias
-                          };
-                      });
+          if (pathname.startsWith('/' + item.name)) {
+              versionDropdownList = item.versions.slice(0, 3);
+              // 格式化版本拉下菜单
+              pageSubMenu.forEach((item) => {
+                  if(item.url.includes(pagePath) && !item.url.includes('use/downloads')){
+                    item.versions = versionDropdownList.map((sub) => {
+                        return {
+                            version: curVersion(sub.version),
+                            url: sub.url !=='' ? sub.url:item.url.replace(getCurrentVersion(), sub.version),
+                            versionAlias:sub.versionAlias
+                        };
+                    });
                   }
               });
-              pageTitle = isEn?item.label.en:item.label.zh;
 
-              liteNav = `<nav class="header-wapper row navbar navbar-expand-lg navbar-light header-wapper-lite header-wapper-docs" >
+              liteSubMenu = `<nav class="header-wapper row navbar navbar-expand-lg navbar-light header-wapper-lite header-wapper-docs" >
                 <div class="header-nav navbar-nav" style="height:100%;justify-content: flex-end;">
                 <div class="top">
-                  <p>${isEn ? item.label.en : item.label.zh}</p>
-                  ${liteMenu.map(function (subitem) {
-                    if(pathname.startsWith(subitem.id) && subitem.type){
-                        return `<div class="version-select ${subitem.nameEn}">
+                  <p>${pageTitle}</p>
+                  ${pageSubMenu.map(function (subitem) {
+                    if(subitem.url.includes(pagePath) && !subitem.url.includes('use/downloads')){
+                        return `<div class="version-select">
                             ${pageVersionName()}
                             <img src="/pic/select-down.svg" />
                             <ul>${subitem.versions && subitem.versions.map((child) => {
@@ -157,15 +113,15 @@ $(function () {
                     .join('')}
                 </div>
                 <div class="bottom" style="line-height: initial;">
-                ${liteMenu
+                ${pageSubMenu
                     .map(function (item) {
-                        if (pathname.startsWith(item.id)) {
+                      if(item.url.includes(pagePath) && !item.url.includes('use/downloads')){
                             item.active = 1;
                         }
                         return `<div class="header-nav-link">
                             <a class="header-nav-link-line ${
                                 item.active ? 'selected' : ''
-                            }" href="${item.url.replace('${latest}', getCurrentVersion())}">${isEn ? item.nameEn : item.name}</a>
+                            }" href="${item.url}">${item.label}</a>
                         </div>
                         `;
                     })
@@ -175,7 +131,7 @@ $(function () {
       });
 
       setTimeout(() => {
-          $('.header').append(liteNav);
+          $('.header').append(liteSubMenu);
 
           if(pathname.indexOf('/use/downloads')>-1){
             $('.header-wapper-docs .bottom .header-nav-link-line').removeClass('selected').eq(1).addClass('selected');
