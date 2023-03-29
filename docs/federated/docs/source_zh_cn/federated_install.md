@@ -14,11 +14,11 @@
 
 ## 获取MindSpore Federated whl包
 
-包括源码编译和下载发布版两种方式，支持x86 CPU、GPU CUDA等硬件平台，根据硬件平台类型，选择进行安装即可。安装步骤可参考[编译MindSpore Federated whl](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)。
+包括源码编译和下载发布版两种方式，支持x86 CPU、GPU CUDA等硬件平台，根据硬件平台类型，选择进行安装即可。安装步骤可参考[编译MindSpore Federated whl](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_server.html)。
 
 ## 获取MindSpore Federated java包
 
-包括源码编译和下载发布版两种方式。目前，MindSpore Federated联邦学习功能只支持Linux和Android平台。安装步骤可参考和[编译MindSpore Federated java](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+包括源码编译和下载发布版两种方式。目前，MindSpore Federated联邦学习功能只支持Linux和Android平台。安装步骤可参考和[编译MindSpore Federated java](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html)。
 
 ## Linux编译环境要求
 

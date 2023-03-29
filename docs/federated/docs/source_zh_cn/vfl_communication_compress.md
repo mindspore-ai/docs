@@ -88,13 +88,13 @@ quant_data = [127, -64, -32, 97, -97, 32, 64, -128, 0]
 
 ## 快速体验
 
-若要使用比特打包或量化压缩方法，首先需要成功完成任一纵向联邦场景的训练聚合过程，如[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html)。在该文档中详细介绍了包括数据集和网络模型等准备工作和模拟启动联邦学习的流程。
+若要使用比特打包或量化压缩方法，首先需要成功完成任一纵向联邦场景的训练聚合过程，如[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/split_wnd_application.html)。在该文档中详细介绍了包括数据集和网络模型等准备工作和模拟启动联邦学习的流程。
 
-1. 安装MindSpore、MindSpore Federated以及数据预处理操作参照[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/master/split_wnd_application.html)。
+1. 安装MindSpore、MindSpore Federated以及数据预处理操作参照[纵向联邦学习模型训练 - Wide&Deep推荐应用](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/split_wnd_application.html)。
 
-2. 在[相应yaml](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo/yaml_files)中设置压缩相关配置。
+2. 在[相应yaml](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo/yaml_files)中设置压缩相关配置。
 
-   [leader_top.yaml](https://gitee.com/mindspore/federated/blob/master/example/splitnn_criteo/yaml_files/leader_top.yaml)的配置如下：
+   [leader_top.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/splitnn_criteo/yaml_files/leader_top.yaml)的配置如下：
 
    ```yaml
    role: leader
@@ -117,7 +117,7 @@ quant_data = [127, -64, -32, 97, -97, 32, 64, -128, 0]
    ...
    ```
 
-   [follower_bottom.yaml](https://gitee.com/mindspore/federated/blob/master/example/splitnn_criteo/yaml_files/follower_bottom.yaml)的配置如下：
+   [follower_bottom.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/splitnn_criteo/yaml_files/follower_bottom.yaml)的配置如下：
 
    ```yaml
    role: follower
@@ -194,7 +194,7 @@ quant_data = [127, -64, -32, 97, -97, 32, 64, -128, 0]
 
 ### 获取压缩配置
 
-用户可以使用已经封装好的接口获取通讯压缩相关配置。[模型训练yaml详细配置项](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_yaml.html)给出启动的相关参数配置说明。[模型训练接口](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_federated_FLModel.html)提供了获取压缩配置的接口。示例方法如下：
+用户可以使用已经封装好的接口获取通讯压缩相关配置。[模型训练yaml详细配置项](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/vertical/vertical_federated_yaml.html)给出启动的相关参数配置说明。[模型训练接口](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/vertical/vertical_federated_FLModel.html)提供了获取压缩配置的接口。示例方法如下：
 
 ```python
 # parse yaml files
@@ -214,7 +214,7 @@ compress_configs = leader_top_fl_model.get_compress_configs()
 
 ### 设置压缩配置
 
-用户可以使用已经封装好的[纵向联邦学习通信器](https://www.mindspore.cn/federated/docs/zh-CN/master/vertical/vertical_communicator.html)接口将通讯压缩相关配置设置到通信器中，方法如下：
+用户可以使用已经封装好的[纵向联邦学习通信器](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/vertical/vertical_communicator.html)接口将通讯压缩相关配置设置到通信器中，方法如下：
 
 ```python
 # build vertical communicator

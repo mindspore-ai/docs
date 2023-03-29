@@ -131,7 +131,7 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
 
 ### 构造数据集
 
-当前采用模拟流程，即两方读取数据源一样，但训练时，两方只使用部分的特征或标签数据，如[网络和数据](#网络和数据)所示。后续将采用[数据接入](https://www.mindspore.cn/federated/docs/zh-CN/master/data_join/data_join.html)方法两方各自导入数据。
+当前采用模拟流程，即两方读取数据源一样，但训练时，两方只使用部分的特征或标签数据，如[网络和数据](#网络和数据)所示。后续将采用[数据接入](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/data_join/data_join.html)方法两方各自导入数据。
 
 ```python
 from run_vfl_train_local import construct_local_dataset
@@ -174,7 +174,7 @@ follower_bottom_train_net = BottomLossNet(follower_base_net, config)
 
 ### 纵向联邦通信底座
 
-在训练前首先要启动通信底座，使Leader和Follower参与方组网。详细的API文档可以参考[纵向联邦通信器](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_communicator.rst)。
+在训练前首先要启动通信底座，使Leader和Follower参与方组网。详细的API文档可以参考[纵向联邦通信器](https://gitee.com/mindspore/federated/blob/r0.1/docs/api/api_python/vertical/vertical_communicator.rst)。
 
 两方都需要导入纵向联邦通信器：
 
@@ -206,7 +206,7 @@ self.vertical_communicator.launch()
 
 ### 构建纵向联邦网络
 
-用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。
+用户需要使用MindSpore Federated提供的类，将自己构造好的网络封装成纵向联邦网络。详细的API文档可以参考[纵向联邦训练接口](https://gitee.com/mindspore/federated/blob/r0.1/docs/api/api_python/vertical/vertical_federated_FLModel.rst)。
 
 两方都需要导入纵向联邦训练接口：
 

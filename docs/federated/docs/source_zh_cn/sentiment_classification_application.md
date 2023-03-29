@@ -10,7 +10,7 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_server.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html)。
 
 ### 数据
 
@@ -49,7 +49,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/federated/blob/master/tests/st/network/albert.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/network/albert.py)。
 
 ### 生成端侧模型文件
 
@@ -161,12 +161,12 @@ if __name__ == '__main__':
 
 #### 将MindIR文件转化为联邦学习端侧框架可用的ms文件
 
-参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)中生成端侧模型文件部分。
+参考[图像分类应用](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/image_classification_application.html)中生成端侧模型文件部分。
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本，参考[横向云端部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html)。
-对应云侧配置和模型权重文件参考[albert example](https://gitee.com/mindspore/federated/tree/master/example/cross_device_albert)
+首先在服务端启动脚本，参考[横向云端部署](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_server.html)。
+对应云侧配置和模型权重文件参考[albert example](https://gitee.com/mindspore/federated/tree/r0.1/example/cross_device_albert)
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -200,7 +200,7 @@ if __name__ == '__main__':
 
 2. 获取Mindspore Federated 端侧jar包。
 
-   参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+   参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html)。
 
    ```text
    mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
@@ -299,7 +299,7 @@ app
     }
     ```
 
-2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/docs/zh-CN/master/interface_description_federated_client.html)。
+2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/interface_description_federated_client.html)。
 
    ```java
    import android.annotation.SuppressLint;

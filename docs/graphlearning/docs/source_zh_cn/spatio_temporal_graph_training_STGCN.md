@@ -13,7 +13,7 @@ METR-LA是一个大规模数据集，从洛杉矶乡村公路网的1500个交通
 
 一般图的节点特征形状为`(节点数量, 特征维度)`，时空图中输入的特征形状通常至少为三维`(节点数量, 特征维度, 时间步)`，邻居节点的特征融合处理会更加复杂。并且由于时间维度上进行卷积，`时间步`也会发生变化，计算loss时，需要提前计算好输出时间长度。
 
-> 下载完整的样例[STGCN](https://gitee.com/mindspore/graphlearning/tree/master/model_zoo/stgcn)代码。
+> 下载完整的样例[STGCN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/stgcn)代码。
 
 ## STGCN原理
 
@@ -34,7 +34,7 @@ edge_attr = ms.Tensor(edge_attr, ms.float32)
 edge_index, edge_weight = norm(edge_index, node_num, edge_attr, args.normalization)
 ```
 
-关于拉普拉斯归一化的更多细节，可以看mindspore_gl.graph.norm的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/graph/norm.py).
+关于拉普拉斯归一化的更多细节，可以看mindspore_gl.graph.norm的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/graph/norm.py).
 
 ## 定义网络结构
 
@@ -78,7 +78,7 @@ class STGcnNet(GNNCell):
         return x
 ```
 
-STConv执行的更多细节可以看mindspore_gl.nn.temporal.STConv的[API](https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/temporal/stconv.py)代码。
+STConv执行的更多细节可以看mindspore_gl.nn.temporal.STConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/temporal/stconv.py)代码。
 
 ## 定义loss函数
 
@@ -122,16 +122,16 @@ features, labels = metr.get_data(args.in_timestep, args.out_timestep)
 
 ### 设置环境变量
 
-环境变量设置方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
+环境变量设置方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
 
 ### 定义训练网络
 
 实例化模型主体以及LossNet和优化器。
-实现方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
+实现方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C)。
 
 ### 网络训练及验证
 
-实现方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83%E5%8F%8A%E9%AA%8C%E8%AF%81)。
+实现方法可以参考[GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/full_training_of_GCN.html#%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83%E5%8F%8A%E9%AA%8C%E8%AF%81)。
 
 ## 执行并查看结果
 
@@ -141,7 +141,7 @@ features, labels = metr.get_data(args.in_timestep, args.out_timestep)
 
 ### 执行结果
 
-执行脚本[trainval_metr.py](https://gitee.com/mindspore/graphlearning/blob/master/model_zoo/stgcn/trainval_metr.py)启动训练。
+执行脚本[trainval_metr.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/stgcn/trainval_metr.py)启动训练。
 
 ```bash
 cd model_zoo/stgcn

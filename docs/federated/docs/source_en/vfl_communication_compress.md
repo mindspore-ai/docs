@@ -88,13 +88,13 @@ After receiving quant_data, min_val and max_val, the receiver uses the inverse q
 
 ## Fast Experience
 
-To use bit packing or quantized compression methods, one first needs to successfully complete the training aggregation process for any of the vertical federated scenarios, such as [Vertical Federated Learning Model Training - Wide&Deep Recommended Applications](https://www.mindspore.cn/federated/docs/en/master/split_wnd_application.html). The preparation work including datasets and network models and the process of simulating the start of federated learning are described in detail in this document.
+To use bit packing or quantized compression methods, one first needs to successfully complete the training aggregation process for any of the vertical federated scenarios, such as [Vertical Federated Learning Model Training - Wide&Deep Recommended Applications](https://www.mindspore.cn/federated/docs/en/r0.1/split_wnd_application.html). The preparation work including datasets and network models and the process of simulating the start of federated learning are described in detail in this document.
 
-1. For MindSpore and MindSpore Federated installation and data preprocessing, refer to [Vertical Federated Learning Model Training - Wide&Deep Recommended Applications](https://www.mindspore.cn/federated/docs/en/master/split_wnd_application.html).
+1. For MindSpore and MindSpore Federated installation and data preprocessing, refer to [Vertical Federated Learning Model Training - Wide&Deep Recommended Applications](https://www.mindspore.cn/federated/docs/en/r0.1/split_wnd_application.html).
 
-2. Set the configuration related to compression setting in [related yaml](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo/yaml_files).
+2. Set the configuration related to compression setting in [related yaml](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo/yaml_files).
 
-   The configuration of [leader_top.yaml](https://gitee.com/mindspore/federated/blob/master/example/splitnn_criteo/yaml_files/leader_top.yaml) is as follows:
+   The configuration of [leader_top.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/splitnn_criteo/yaml_files/leader_top.yaml) is as follows:
 
    ```yaml
    role: leader
@@ -117,7 +117,7 @@ To use bit packing or quantized compression methods, one first needs to successf
    ...
    ```
 
-   The configuration of [follower_bottom.yaml](https://gitee.com/mindspore/federated/blob/master/example/splitnn_criteo/yaml_files/follower_bottom.yaml) is as follows:
+   The configuration of [follower_bottom.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/splitnn_criteo/yaml_files/follower_bottom.yaml) is as follows:
 
    ```yaml
    role: follower
@@ -194,7 +194,7 @@ To use bit packing or quantized compression methods, one first needs to successf
 
 ### Obtaining the Compression Configuration
 
-The user can use the encapsulated interface to get the configuration related to communication compression. The [Yaml Configuration file for model training of vertical federated learning](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html) gives the configuration description of the parameters related to the startup. The [Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html) provides the interface to get the compression configuration. The example method is as follows:
+The user can use the encapsulated interface to get the configuration related to communication compression. The [Yaml Configuration file for model training of vertical federated learning](https://www.mindspore.cn/federated/docs/en/r0.1/vertical/vertical_federated_yaml.html) gives the configuration description of the parameters related to the startup. The [Model Training Interface](https://www.mindspore.cn/federated/docs/en/r0.1/vertical/vertical_federated_FLModel.html) provides the interface to get the compression configuration. The example method is as follows:
 
 ```python
 # parse yaml files
@@ -214,7 +214,7 @@ compress_configs = leader_top_fl_model.get_compress_configs()
 
 ### Setting Compression Configuration
 
-Users can use the already encapsulated [Vertical Federated Learning Communicator](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_communicator.html) interface to set the configuration related to communication compression to the communicator device by the following method:
+Users can use the already encapsulated [Vertical Federated Learning Communicator](https://www.mindspore.cn/federated/docs/en/r0.1/vertical/vertical_communicator.html) interface to set the configuration related to communication compression to the communicator device by the following method:
 
 ```python
 # build vertical communicator

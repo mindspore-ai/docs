@@ -24,7 +24,7 @@ The gradient is passed backward similarly, Cut Layer computes the gradient $\nab
 
 ## Quick Experience
 
-We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of configuring TEE protection.
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo) as an example of configuring TEE protection.
 
 ### Front-End Needs and Environment Configuration
 
@@ -51,7 +51,7 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
    git clone https://gitee.com/mindspore/federated.git
    ```
 
-5. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+5. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo).
 
 6. Install MindSpore Federated for TEE compilation (need to additionally set compiler options to indicate whether to use SGX or not).
 
@@ -60,7 +60,7 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
-7. To prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+7. To prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo).
 
 ### Starting the Script
 
@@ -118,7 +118,7 @@ Usually, the Top Model and Cut Layer are put together for the backpropagation of
 
 Currently in MindSpore Federated, the above function is used to implement a custom backward propagation process by passing `grad_network` into the `mindspore_federated.vfl_model.FLModel()` definition. Therefore, to implement a network containing TEE, the user can define the backward propagation process for Top Model and Cut Layer in `grad_network` and just pass in `FLModel`, and `FLModel` will go through the user-defined training process during backward propagation.
 
-We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo) as an example of how to configure TEE protection in a vertical federated model. The presentation focuses on the differences between the configuration and the usual case when using TEE, and the same points will be skipped (a detailed description of vFL training can be found in [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html).
+We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo) as an example of how to configure TEE protection in a vertical federated model. The presentation focuses on the differences between the configuration and the usual case when using TEE, and the same points will be skipped (a detailed description of vFL training can be found in [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/r0.1/split_pangu_alpha_application.html).
 
 ### Front-End Needs and Environment Configuration
 
@@ -257,7 +257,7 @@ When defining the optimizer, there is no need to define the backward propagation
 
 #### Constructing the Network
 
-As the usual vFL training, users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. Detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/master/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst). The difference is that when constructing the leader network, you need to add `grad_network`.
+As the usual vFL training, users need to use the classes provided by MindSpore Federated to wrap their constructed networks into a vertical federated network. Detailed API documentation can be found in [Vertical Federated Training Interface](https://gitee.com/mindspore/federated/blob/r0.1/docs/api/api_python_en/vertical/vertical_federated_FLModel.rst). The difference is that when constructing the leader network, you need to add `grad_network`.
 
 ```python
 from mindspore_federated import FLModel, FLYamlData

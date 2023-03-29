@@ -26,7 +26,7 @@ Finish installing the `mindspore-federated` library in the Python environment.
 
 ### Starting the Script
 
-You can get the PSI start script for both sides from [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/master/tests/st/psi/run_psi.py) and open two processes to simulate both sides. The start command of local device and local communication:
+You can get the PSI start script for both sides from [MindSpore federated ST](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/psi/run_psi.py) and open two processes to simulate both sides. The start command of local device and local communication:
 
 ```python
 python run_psi.py --comm_role="server" --http_server_address="127.0.0.1:8004" --remote_server_address="127.0.0.1:8005" --input_begin=1 --input_end=100

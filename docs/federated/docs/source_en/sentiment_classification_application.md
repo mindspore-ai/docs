@@ -10,7 +10,7 @@ MindSpore Federated has applied the Federated Language Model to the emoji image 
 
 ### Environment
 
-For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/r0.1/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/r0.1/deploy_federated_client.html).
 
 ### Data
 
@@ -49,7 +49,7 @@ mobile/models/
 
 The ALBERT language model[1] is used in federated learning. The ALBERT model on the client includes the embedding layer, encoder layer, and classifier layer.
 
-For details about the network definition, see [source code](https://gitee.com/mindspore/federated/blob/master/tests/st/network/albert.py).
+For details about the network definition, see [source code](https://gitee.com/mindspore/federated/blob/r0.1/tests/st/network/albert.py).
 
 ### Generating a Device-Side Model File
 
@@ -161,11 +161,11 @@ if __name__ == '__main__':
 
 #### Converting the MindIR File into an MS File that Can be Used by the Federated Learning Framework on the Device
 
-For details about how to generate a model file on the device, see [Implementing an Image Classification Application](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
+For details about how to generate a model file on the device, see [Implementing an Image Classification Application](https://www.mindspore.cn/federated/docs/en/r0.1/image_classification_application.html).
 
 ## Starting the Federated Learning Process
 
-Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html)
+Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/r0.1/deploy_federated_server.html)
 
 Based on the training and inference tasks of the ALBERT model, the overall process is as follows:
 
@@ -199,7 +199,7 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 2. Obtain Mindspore Federated device-side jar package
 
-    For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html).
+    For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html).
 
    ```text
    mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
@@ -297,7 +297,7 @@ app
     }
     ```
 
-2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [federated Learning APIs](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
+2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [federated Learning APIs](https://www.mindspore.cn/federated/docs/en/r0.1/interface_description_federated_client.html).
 
     ```java
     import android.annotation.SuppressLint;

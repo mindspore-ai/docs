@@ -13,7 +13,7 @@ Cora数据集包括2708份科学出版物，分为七类之一。引文网络由
 
 将Cora的文献的分类作为标签，文献的单词向量作为GCN的节点特征，文献的引用作为边，构图后利用GCN进行训练，判断文献应该属于哪个类。
 
-> 下载完整的样例[GCN](https://gitee.com/mindspore/graphlearning/tree/master/examples/)代码。
+> 下载完整的样例[GCN](https://gitee.com/mindspore/graphlearning/tree/r0.2/examples/)代码。
 
 ## GCN原理
 
@@ -50,7 +50,7 @@ class GCNNet(GNNCell):
 
 GCNConv的参数data_feat_size为输入节点特征维度，hidden_dim_size为隐层特征维度，n_classes为输出分类的维度，in_deg和out_deg分别为图数据中节点的入度和出度。
 
-具体GCN的实现可以参考mindspore_gl.nn.GCNConv的接口代码：<https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/gcnconv.py>。
+具体GCN的实现可以参考mindspore_gl.nn.GCNConv的接口代码：<https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/gcnconv.py>。
 
 ## 定义loss函数
 
@@ -236,7 +236,7 @@ GNNCell.enable_display(screen_width=350)
 
 ### 执行结果
 
-执行脚本[vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gcn_datanet.py)启动训练。
+执行脚本[vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/examples/vc_gcn_datanet.py)启动训练。
 
 ```bash
 cd examples
@@ -258,4 +258,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 在cora上验证精度：0.82 (论文：0.815)
 
-以上就是整图训练的使用指南。更多样例可参考[examples directory](https://gitee.com/mindspore/graphlearning/tree/master/examples/)。
+以上就是整图训练的使用指南。更多样例可参考[examples directory](https://gitee.com/mindspore/graphlearning/tree/r0.2/examples/)。
