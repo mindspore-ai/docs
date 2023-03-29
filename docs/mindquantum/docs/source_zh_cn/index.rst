@@ -7,7 +7,7 @@ MindQuantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
 使用MindQuantum的典型场景
 ------------------------------

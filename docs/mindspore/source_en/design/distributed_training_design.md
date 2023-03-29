@@ -1,6 +1,6 @@
 # Distributed Training Design
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/distributed_training_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/distributed_training_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -155,7 +155,7 @@ Current scenarios that typically use heterogeneous parallel computing are: optim
 
 During the training of a large model in PanGu or GPT3, the optimizer state takes up a large amount of memory, which in turn limits the size of the model that can be trained. Using optimizer heterogeneity, assigning optimizers to CPUs for execution can greatly scale the trainable models:
 
-![heterogeneous-heter-opt](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/heter-opt.png)
+![heterogeneous-heter-opt](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/design/images/heter-opt.png)
 
 As shown in the figure, configuring the Adam operator to CPU execution while specifying an accelerator for FP16 computation reduces the parameter memory footprint to 1/3 of the original.
 
@@ -248,7 +248,7 @@ Steps 4 and 5 can also be directly fused into the optimizer operator for further
 
 In some networks where large Embedding tables need to be checked, the Embedding tables are often hundreds of gigabytes in size, which is limited by the accelerator memory size and cannot be executed by loading the entire table directly onto the accelerator. By putting the operators connected to the weight table on the CPU for execution, we avoid the problem that the accelerator cannot train the network due to memory limitation.
 
-![heterogeneous-heter-embed](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/heter-embed.png)
+![heterogeneous-heter-embed](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/design/images/heter-embed.png)
 
 1. Configure EmbeddingLookup operator to CPU execution
 
@@ -326,7 +326,7 @@ For the overall calling process, refer to <https://gitee.com/mindspore/models/tr
 
 When the EmbeddingTable reaches T level and the single machine memory cannot be put down, Parameter Server is used to pull and update the weights by heterogeneous Pull/Push operators.
 
-![heterogeneous-heter-ps](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/heter-ps.png)
+![heterogeneous-heter-ps](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/design/images/heter-ps.png)
 
 Parameter Server encapsulates heterogeneous processes, and users only need to configure parameters to use PS. For the detailed configuration process, refer to [Parameter Server training process](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html).
 

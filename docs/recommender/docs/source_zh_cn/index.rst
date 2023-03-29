@@ -5,7 +5,7 @@ MindSpore Recommender是一个构建在MindSpore框架基础上，面向推荐�
 
 .. raw:: html
 
-   <p style="text-align: center;"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/architecture.png" width="600px" alt="" ></p>
+   <p style="text-align: center;"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/recommender/docs/source_zh_cn/images/architecture.png" width="600px" alt="" ></p>
 
 MindSpore Recommender加速库由如下部分组成：
 

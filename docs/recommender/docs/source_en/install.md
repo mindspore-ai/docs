@@ -1,6 +1,6 @@
 # MindSpore Recommender Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_en/install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_en/install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 MindSpore Recommender relies on the MindSpore training framework, so after installing [MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation), install MindSpore Recommender. You can use either a pip installation or a source code compilation installation.
 

@@ -7,7 +7,7 @@ MindSpore Flow is a flow simulation suite developed based on MindSpore. It suppo
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="1200px" alt="" style="display: inline-block">
 
 
 MindSpore AI Fluid Simulation Suite

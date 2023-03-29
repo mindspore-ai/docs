@@ -1,6 +1,6 @@
 # Online Learning
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_en/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_en/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ Key differences between online learning and offline training:
 
 The user's streaming training data is pushed to Kafka. MindPandas reads data from Kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
 
-![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_en/images/online_training.png)
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/recommender/docs/source_en/images/online_training.png)
 
 ## Use Constraints
 
