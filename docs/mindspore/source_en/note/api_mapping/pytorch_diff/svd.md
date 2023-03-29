@@ -23,7 +23,7 @@ For more information, see [torch.svd](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
-For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.svd.html).
+For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.svd.html).
 
 ## Differences
 

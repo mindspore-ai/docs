@@ -26,7 +26,7 @@ class mindspore.dataset.MnistDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.MnistDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset).
+For more information, see [mindspore.dataset.MnistDataset](https://mindspore.cn/docs/en/r2.0/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset).
 
 ## Differences
 

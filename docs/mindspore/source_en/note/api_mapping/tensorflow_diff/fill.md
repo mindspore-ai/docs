@@ -16,7 +16,7 @@ For more information, see [tf.fill](https://tensorflow.google.cn/versions/r2.6/a
 mindspore.ops.fill(type, shape, value) -> Tensor
 ```
 
-For more information, see [mindspore.ops.fill](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.fill.html).
+For more information, see [mindspore.ops.fill](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.fill.html).
 
 ## Differences
 

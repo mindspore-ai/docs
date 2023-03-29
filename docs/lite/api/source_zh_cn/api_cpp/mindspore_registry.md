@@ -41,11 +41,11 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ### ~NodeParserRegistry
 
@@ -67,7 +67,7 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
@@ -83,11 +83,11 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ## ModelParserCreator
 
@@ -97,7 +97,7 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 typedef converter::ModelParser *(*ModelParserCreator)()
 ```
 
-创建[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#modelparser)的函数原型声明。
+创建[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#modelparser)的函数原型声明。
 
 ## ModelParserRegistry
 
@@ -115,7 +115,7 @@ ModelParserRegistry(FmkType fmk, ModelParserCreator creator)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
@@ -139,7 +139,7 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
 ## REG_MODEL_PARSER
 
@@ -153,11 +153,11 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
-> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)。
+> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#fmktype)。
 
 ## PassBase
 
@@ -322,7 +322,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 > MindSpore Lite开放了部分内置Pass，请见以下说明。用户可以在`names`参数中添加内置Pass的命名标识，以在指定运行处调用内置Pass。
 >
-> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)给定的情形下，也会触发预计算。
+> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/converter_tool.html#参数说明)给定的情形下，也会触发预计算。
 > - `DumpGraph`: 导出当前状态下的模型。请确保当前模型为NHWC或者NCHW格式的模型，例如卷积算子等。
 > - `ToNCHWFormat`: 将当前状态下的模型转换为NCHW的格式，例如，四维的图输入、卷积算子等。
 > - `ToNHWCFormat`: 将当前状态下的模型转换为NHWC的格式，例如，四维的图输入、卷积算子等。
@@ -363,13 +363,13 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)。
 
 ### 公有成员函数
 
@@ -387,7 +387,7 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -407,7 +407,7 @@ Custom算子注册。
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -453,7 +453,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -471,7 +471,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -491,7 +491,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -511,7 +511,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 

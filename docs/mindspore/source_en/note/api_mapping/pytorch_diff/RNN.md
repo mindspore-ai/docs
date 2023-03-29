@@ -16,7 +16,7 @@ For more information, see [torch.nn.RNN](https://pytorch.org/docs/1.8.1/generate
 class mindspore.nn.RNN(*args, **kwargs)(x, h_x, seq_length)
 ```
 
-For more information, see  [mindspore.nn.RNN](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RNN.html).
+For more information, see  [mindspore.nn.RNN](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.RNN.html).
 
 ## Differences
 

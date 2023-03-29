@@ -23,7 +23,7 @@ torch.svd(input, some=True, compute_uv=True, *, out=None)
 mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
-更多内容详见[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.svd.html)。
+更多内容详见[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.svd.html)。
 
 ## 差异对比
 

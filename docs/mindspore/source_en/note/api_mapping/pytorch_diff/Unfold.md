@@ -16,7 +16,7 @@ For more information, see [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/gener
 class mindspore.nn.Unfold(ksizes, strides, rates, padding='valid')(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unfold.html).
+For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Unfold.html).
 
 ## Differences
 

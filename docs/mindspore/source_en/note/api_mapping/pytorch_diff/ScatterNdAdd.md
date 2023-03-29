@@ -24,7 +24,7 @@ class mindspore.ops.ScatterNdAdd(use_locking=False)(
 )
 ```
 
-For more information, see [mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd).
+For more information, see [mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd).
 
 ## Differences
 

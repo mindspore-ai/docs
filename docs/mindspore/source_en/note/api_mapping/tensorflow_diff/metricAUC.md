@@ -19,7 +19,7 @@ For more information, see [tf.keras.metrics.AUC](https://tensorflow.google.cn/ve
 mindspore.train.auc(x, y, reorder=False)
 ```
 
-For more information, see [mindspore.train.auc](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.auc.html#mindspore.train.auc).
+For more information, see [mindspore.train.auc](https://mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.auc.html#mindspore.train.auc).
 
 ## Usage
 

@@ -25,7 +25,7 @@ torch.full(
 mindspore.ops.full(size, fill_value, *, dtype=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.full](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.full.html)。
+更多内容详见[mindspore.ops.full](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.full.html)。
 
 ## 差异对比
 

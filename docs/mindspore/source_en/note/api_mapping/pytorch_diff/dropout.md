@@ -16,7 +16,7 @@ For more information, see [torch.nn.Dropout](https://pytorch.org/docs/1.8.1/gene
 mindspore.nn.Dropout(keep_prob=0.5, p=None)
 ```
 
-For more information, see [mindspore.nn.Dropout](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html).
+For more information, see [mindspore.nn.Dropout](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Dropout.html).
 
 ## Differences
 

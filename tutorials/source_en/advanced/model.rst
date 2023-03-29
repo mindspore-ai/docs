@@ -37,7 +37,7 @@ The following describes MindSpore models and how to use ``Model`` for model trai
 Introduction to Model
 ---------------------
 
-`Model <https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__
+`Model <https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__
 is a high-level API provided by MindSpore for model training, evaluation, and inference. The common parameters of the API are as follows:
 
 -  ``network``: neural network used for training or inference.

@@ -24,7 +24,7 @@ class mindspore.nn.RNNCell(
     nonlinearity: str = 'tanh')(x, hx) -> Tensor
 ```
 
-For more information, see [mindspore.nn.RNNCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RNNCell.html).
+For more information, see [mindspore.nn.RNNCell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.RNNCell.html).
 
 ## Differences
 

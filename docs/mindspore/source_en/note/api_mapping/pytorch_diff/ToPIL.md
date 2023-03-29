@@ -18,7 +18,7 @@ For more information, see [torchvision.transforms.ToPILImage](https://pytorch.or
 class mindspore.dataset.vision.ToPIL
 ```
 
-For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
+For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
 
 ## Differences
 

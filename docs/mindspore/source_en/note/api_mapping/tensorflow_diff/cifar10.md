@@ -26,7 +26,7 @@ class mindspore.dataset.Cifar10Dataset(
 )
 ```
 
-For more information, see [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
+For more information, see [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/r2.0/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
 
 ## Differences
 

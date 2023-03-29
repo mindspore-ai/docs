@@ -16,7 +16,7 @@ torch.randint_like(input, low=0, high, *, dtype=None, layout=torch.strided, devi
 mindspore.ops.randint_like(input, low, high, *, dtype=None, seed=None)
 ```
 
-更多内容详见[mindspore.ops.randint_like](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like)。
+更多内容详见[mindspore.ops.randint_like](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like)。
 
 ## 差异对比
 

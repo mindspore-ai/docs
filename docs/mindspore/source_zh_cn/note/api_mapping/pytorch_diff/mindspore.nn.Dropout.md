@@ -22,7 +22,7 @@ class mindspore.nn.Dropout(
 )
 ```
 
-更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)。
+更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)。
 
 ## 使用方式
 

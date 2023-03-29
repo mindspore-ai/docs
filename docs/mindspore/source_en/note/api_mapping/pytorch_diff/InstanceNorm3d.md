@@ -29,7 +29,7 @@ class mindspore.nn.InstanceNorm3d(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.InstanceNorm3d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.InstanceNorm3d.html).
+For more information, see [mindspore.nn.InstanceNorm3d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.InstanceNorm3d.html).
 
 ## Differences
 

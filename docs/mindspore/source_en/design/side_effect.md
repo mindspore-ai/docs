@@ -36,7 +36,7 @@ Because of the side effects, `a`, `b` and `c` in the above program should be eva
 
 ## Design
 
-MindSpore uses a functional intermediate representation based on a graph representation, and refer to [MindIR](https://www.mindspore.cn/docs/en/master/design/mindir.html).
+MindSpore uses a functional intermediate representation based on a graph representation, and refer to [MindIR](https://www.mindspore.cn/docs/en/r2.0/design/mindir.html).
 Conceptually, the functions in MindIR are pure functions and do not have side effects.
 However, MindSpore can support computational models with side effects and provide operators with side effects, such as optimizer operators that will directly modify the input parameters.
 In order to support operator and computational models with side effects, MindSpore converts the side effects in the code to pure functional form when compiling the model. This ensures that computations with side effects are executed in the desired order while keeping MindIR pure functional semantics.

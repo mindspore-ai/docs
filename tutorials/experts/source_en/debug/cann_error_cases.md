@@ -9,7 +9,7 @@ export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN log level, 0 for debug, 1 for inf
 export ASCEND_SLOG_PRINT_TO_STDOUT=1    # Configure to enable log displaying
 ```
 
-In addition, if you need to know the network structure and operator information during graph compilation, you can [View Intermediate File](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html) to save intermediate files such as IR graphs for viewing.
+In addition, if you need to know the network structure and operator information during graph compilation, you can [View Intermediate File](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/mindir.html) to save intermediate files such as IR graphs for viewing.
 
 ## AICORE Operator Compilation Problem
 

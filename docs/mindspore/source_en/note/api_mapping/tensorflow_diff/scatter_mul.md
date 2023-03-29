@@ -26,7 +26,7 @@ mindspore.ops.scatter_mul(
 ) -> Tensor
 ```
 
-For more information, see [mindspore.ops.scatter_mul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.scatter_mul.html).
+For more information, see [mindspore.ops.scatter_mul](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.scatter_mul.html).
 
 ## Usage
 

@@ -32,7 +32,7 @@ mindspore.ops.uniform_candidate_sampler(
 )(sampled_candidates, true_expected_count, sampled_expected_count) -> Tuple
 ```
 
-更多内容详见[mindspore.ops.uniform_candidate_sampler](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform_candidate_sampler.html)。
+更多内容详见[mindspore.ops.uniform_candidate_sampler](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.uniform_candidate_sampler.html)。
 
 ## 差异对比
 

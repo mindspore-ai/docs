@@ -75,7 +75,7 @@
 
 在定义模型的过程中，\ ``construct``\ 方法内可使用Python语法进行模型结构的任意构造，如条件、循环等控制流语句。但在进行即时编译(Just
 In
-Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html>`__\ 。
+Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.0/note/static_graph_syntax_support.html>`__\ 。
 
 完成模型构造后，我们构造一个单样本数据，将其送入实例化的AlexNet中，即可求得正向结果。
 
@@ -106,7 +106,7 @@ Time)时，需通过编译器进行语法解析，此时存在语法限制，具
 
 除基础的网络结构构造外，我们分别对神经网络层(Layer)、损失函数(Loss)和优化器(Optimizer)，神经网络层需要的参数(Parameter)及其初始化方法(Initializer)的构造等场景进行详细介绍。
 
--  `Cell与参数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html>`__
--  `参数初始化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html>`__
--  `损失函数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html>`__
--  `优化器 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html>`__
+-  `Cell与参数 <https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/layer.html>`__
+-  `参数初始化 <https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/initializer.html>`__
+-  `损失函数 <https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/loss.html>`__
+-  `优化器 <https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/optimizer.html>`__

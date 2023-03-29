@@ -12,7 +12,7 @@ In dynamic graph mode, the program is executed in the order in which the code is
 
 ## MindSpore Static Graph
 
-In MindSpore, the static graph mode, also known as Graph mode, can be set to static graph mode by `set_context(mode=GRAPH_MODE)`. Static graph mode is more suitable for scenarios where the network is fixed and high performance is required. In static graph mode, the compiler can perform global optimization for the graph based on techniques such as graph optimization, whole graph offloading of computational graph. Therefore, better performance can be obtained under static graph, but the execution graph is converted from the source code. Not all Python syntax is supported under static graphs. For the detailed information, please refer to [Syntax Support](https://www.mindspore.cn/docs/en/master/note/syntax_list.html).
+In MindSpore, the static graph mode, also known as Graph mode, can be set to static graph mode by `set_context(mode=GRAPH_MODE)`. Static graph mode is more suitable for scenarios where the network is fixed and high performance is required. In static graph mode, the compiler can perform global optimization for the graph based on techniques such as graph optimization, whole graph offloading of computational graph. Therefore, better performance can be obtained under static graph, but the execution graph is converted from the source code. Not all Python syntax is supported under static graphs. For the detailed information, please refer to [Syntax Support](https://www.mindspore.cn/docs/en/r2.0/note/syntax_list.html).
 
 ### Graph Mode Execution Principle
 
@@ -49,7 +49,7 @@ print(net(x, y))
 
 ### Graph Mode Auto-differentiation Principle
 
-In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html).
+In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/r2.0/beginner/autograd.html).
 
 ## MindSpore Dynamic Graph
 
@@ -179,11 +179,11 @@ In MindSpore, we can switch the execution between using dynamic or static graphs
 ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
-Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/r2.0/note/static_graph_syntax_support.html).
 
 ### Combination of Static and Dynamic
 
-MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html#just-in-time-compilation).
+MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/r2.0/advanced/compute_graph.html#just-in-time-compilation).
 
 For example:
 
@@ -234,7 +234,7 @@ print(out)
 
 ### JIT Fallback
 
-In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
+In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/r2.0/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
 
 JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose whether to use the JIT Fallback feature, the switch `MS_DEV_ENABLE_FALLBACK` is provided and is currently turned on by default. If you need to turn it off, you can use the command: `export MS_DEV_ENABLE_FALLBACK=0`.
 
@@ -246,7 +246,7 @@ The current JIT Fallback feature is applied to constant scenarios, which require
 
 #### Creating and Using Tensor
 
-JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) in static graph mode.
+JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.Tensor.html) in static graph mode.
 
 The code case is as follows, and `Tensor(1, dtype=mstype.int32)` is supported by JIT Fallback.
 
@@ -308,9 +308,9 @@ Output the result:
 
 #### Using Native Print Printing of Python
 
-JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
+JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
 
-For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
+For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.0/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
 
 ```python
 import numpy as np
@@ -431,7 +431,7 @@ The output appears normally: `AssertionError`.
 
 #### Calling Python Built-in Functions
 
-MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
+MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.0/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
 
 ##### dict()
 
@@ -620,7 +620,7 @@ When using JIT Fallback, please note the following points:
     res: 3.0
     ```
 
-5. The NumPy third-party library supported by JIT Fallback and differs from the [mindspore.numpy](https://mindspore.cn/docs/en/master/api_python/mindspore.numpy.html) provided by MindSpore.
+5. The NumPy third-party library supported by JIT Fallback and differs from the [mindspore.numpy](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.numpy.html) provided by MindSpore.
 
     mindspore.numpy is implemented through the operator capabilities of the MindSpore framework and involves operator computation in the runtime phase and cannot derive its results in the compile-time phase (the derivation of variables results in None). The sample code is as follows, using the Tensor() method on the result of `mnp.average(x)`, which does not meet the conditions of the constant scenario, will raise an error.
 

@@ -16,7 +16,7 @@ For more information, see [tf.keras.backend.dot](https://keras.io/zh/backend/#do
 mindspore.ops.dot(x1, x2) -> Tensor
 ```
 
-For more information, see [mindspore.ops.dot](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dot.html).
+For more information, see [mindspore.ops.dot](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.dot.html).
 
 ## Differences
 

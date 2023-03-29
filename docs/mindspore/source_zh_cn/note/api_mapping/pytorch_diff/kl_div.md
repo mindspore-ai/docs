@@ -16,7 +16,7 @@ torch.nn.functional.kl_div(input, target, size_average=None, reduce=None, reduct
 mindspore.ops.kl_div(logits, labels, reduction='mean')
 ```
 
-更多内容详见[mindspore.ops.kl_div](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kl_div.html)。
+更多内容详见[mindspore.ops.kl_div](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.kl_div.html)。
 
 ## 差异对比
 

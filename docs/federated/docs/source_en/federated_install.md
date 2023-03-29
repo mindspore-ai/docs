@@ -10,7 +10,7 @@ You can use the source code or download the release version to install MindSpore
 
 ## Obtaining the MindSpore Lite Java Package
 
-You can use the source code or download the release version. Currently, only the Linux and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+You can use the source code or download the release version. Currently, only the Linux and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.0/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.0/use/build.html).
 
 ## Obtaining MindSpore Federated WHL Package
 
@@ -22,4 +22,4 @@ You can use the source code or download the release version. Currently, MindSpor
 
 ## Requirements for Building the Linux Environment
 
-Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/r2.0/use/build.html).

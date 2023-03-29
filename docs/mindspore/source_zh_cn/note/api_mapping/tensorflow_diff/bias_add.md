@@ -16,7 +16,7 @@ class tf.nn.bias_add(value, bias, data_format=None, name=None)
 mindspore.ops.bias_add(input_x, bias)
 ```
 
-更多内容详见[mindspore.ops.bias_add](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.bias_add.html)。
+更多内容详见[mindspore.ops.bias_add](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.bias_add.html)。
 
 ## 差异对比
 

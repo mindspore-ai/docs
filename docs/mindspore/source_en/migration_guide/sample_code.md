@@ -6,7 +6,7 @@ The following uses the classic network ResNet-50 as an example to describe the n
 
 ## Model Analysis and Preparation
 
-Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
+Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/r2.0/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
 
 First, analyze the algorithm and network structure.
 
@@ -64,15 +64,15 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
 
 | PyTorch API      | MindSpore API| Different or Not|
 | ---------------------- | ------------------ | ------|
-| `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html)|
-| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
+| `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_diff/Conv2d.html)|
+| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
 | `nn.ReLU`              | `nn.ReLU`          | No|
-| `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/MaxPool2d.html)|
+| `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_diff/MaxPool2d.html)|
 | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  No |
-| `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Dense.html)|
+| `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_diff/Dense.html)|
 | `torch.flatten`        | `nn.Flatten`       | No|
 
-By checking [PyTorch API Mapping] (https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
+By checking [PyTorch API Mapping] (https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
 
 - Function analysis
 
@@ -480,7 +480,7 @@ param = {
 }
 ```
 
-Then, you can obtain the parameter file based on the `param_convert` process. For the case where the network model is TensorFlow, please refer to [File Method for Converting TensorFlow Models to MindSpore Models](https://www.mindspore.cn/docs/en/master/migration_guide/tensorflow2mindspore.html).
+Then, you can obtain the parameter file based on the `param_convert` process. For the case where the network model is TensorFlow, please refer to [File Method for Converting TensorFlow Models to MindSpore Models](https://www.mindspore.cn/docs/en/r2.0/migration_guide/tensorflow2mindspore.html).
 
 ### Unit Test
 
@@ -783,7 +783,7 @@ Go to the `profiler_v1/profiler/` directory and click the `aicore_intermediate_0
 
 ![resnet_profiler6](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
 
-In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
+In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#timeline-analysis).
 
 The third part is the performance data during data processing. You can view the data queue status in this part.
 
@@ -795,7 +795,7 @@ And a queue status of each data processing operation:
 
 Now, let's analyze the process and solve the problem.
 
-From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://mindspore.cn/docs/zh-CN/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+From the step trace, the step interval and forward and backward execution time are almost even. MindSpore provides an [on-device execution method](https://mindspore.cn/docs/zh-CN/r2.0/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 When `dataset_sink_mode=True` is set, the result of setting the profiler is as follows:
 
@@ -803,13 +803,13 @@ When `dataset_sink_mode=True` is set, the result of setting the profiler is as f
 
 The execution time is reduced by half.
 
-Let's go on with the analysis and optimization. According to the execution time of forward and backward operators, `Cast` and `BatchNorm` account for almost 50%. Why are there so many `Cast`? According to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html), Conv, Sort, and TopK in the Ascend environment can only be float16. Therefore, the `Cast` operator is added before and after Conv calculation. The most direct method is to change the network calculation to float16. Only `Cast` is added before the network input and loss computation. The consumption of the `Cast` operator can be ignored. This involves the mixed precision policy of MindSpore.
+Let's go on with the analysis and optimization. According to the execution time of forward and backward operators, `Cast` and `BatchNorm` account for almost 50%. Why are there so many `Cast`? According to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/r2.0/migration_guide/model_development/model_development.html), Conv, Sort, and TopK in the Ascend environment can only be float16. Therefore, the `Cast` operator is added before and after Conv calculation. The most direct method is to change the network calculation to float16. Only `Cast` is added before the network input and loss computation. The consumption of the `Cast` operator can be ignored. This involves the mixed precision policy of MindSpore.
 
 MindSpore has three methods to use mixed precision:
 
 1. Use `Cast` to convert the network input `cast` into `float16` and the loss input `cast` into `float32`.
-2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html).
-3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html#automatic-mix-precision).
+2. Use the `to_float` method of `Cell`. For details, see [Network Entity and Loss Construction](https://www.mindspore.cn/docs/en/r2.0/migration_guide/model_development/model_and_cell.html).
+3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/r2.0/advanced/mixed_precision.html#automatic-mix-precision).
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 
@@ -830,7 +830,7 @@ If most of the data queues are empty, you need to optimize the data performance.
 
 ![resnet_profiler12](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
 
-In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
+In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r2.0/dataset/optimize.html).
 
 The code required for ResNet migration can be obtained from [code](https://gitee.com/mindspore/docs/tree/r2.0/docs/mindspore/source_zh_cn/migration_guide/code).
 

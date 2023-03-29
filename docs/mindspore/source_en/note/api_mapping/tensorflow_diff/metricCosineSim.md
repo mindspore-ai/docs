@@ -18,7 +18,7 @@ For more information, see [tf.keras.metrics.CosineSimilarity](https://tensorflow
 mindspore.train.CosineSimilarity(similarity="cosine", reduction="none", zero_diagonal=True)
 ```
 
-For more information, see [mindspore.train.CosineSimilarity](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity).
+For more information, see [mindspore.train.CosineSimilarity](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.CosineSimilarity.html#mindspore.train.CosineSimilarity).
 
 ## Usage
 

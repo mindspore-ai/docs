@@ -21,7 +21,7 @@ mindspore.ops.flatten(input_x)
 ```
 
 For more information,
-see [mindspore.ops.flatten](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.flatten.html).
+see [mindspore.ops.flatten](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.flatten.html).
 
 ## Differences
 

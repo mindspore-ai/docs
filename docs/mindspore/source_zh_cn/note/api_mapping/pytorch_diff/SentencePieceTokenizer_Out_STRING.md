@@ -21,7 +21,7 @@ class mindspore.dataset.text.SentencePieceTokenizer(
 )
 ```
 
-更多内容详见[mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer)。
+更多内容详见[mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer)。
 
 ## 使用方式
 

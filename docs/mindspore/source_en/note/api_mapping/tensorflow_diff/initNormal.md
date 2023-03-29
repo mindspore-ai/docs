@@ -18,7 +18,7 @@ For more information, see [tf.keras.initializers.RandomNormal](https://tensorflo
 mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 ```
 
-For more information, see [mindspore.common.initializer.Normal](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal).
+For more information, see [mindspore.common.initializer.Normal](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal).
 
 ## Usage
 

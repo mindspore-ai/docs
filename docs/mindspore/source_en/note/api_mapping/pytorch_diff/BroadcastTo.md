@@ -18,7 +18,7 @@ For more information, see [torch.broadcast_tensors](https://pytorch.org/docs/1.5
 class mindspore.ops.BroadcastTo(shape)(input_x)
 ```
 
-For more information, see [mindspore.ops.BroadcastTo](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo).
+For more information, see [mindspore.ops.BroadcastTo](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo).
 
 ## Differences
 

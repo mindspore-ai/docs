@@ -22,7 +22,7 @@ For more information, see [tf.nn.dropout](https://tensorflow.google.cn/versions/
 mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.dropout](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dropout.html).
+For more information, see [mindspore.ops.dropout](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.dropout.html).
 
 ## Differences
 

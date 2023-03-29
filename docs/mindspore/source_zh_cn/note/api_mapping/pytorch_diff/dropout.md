@@ -16,7 +16,7 @@ torch.nn.Dropout(p=0.5, inplace=False)
 mindspore.nn.Dropout(keep_prob=0.5, p=None)
 ```
 
-更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html)。
+更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Dropout.html)。
 
 ## 差异对比
 

@@ -23,7 +23,7 @@ For more information, see [torch.clip](https://pytorch.org/docs/1.8.1/generated/
 mindspore.ops.clip(x, min=None, max=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.clip](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip.html).
+For more information, see [mindspore.ops.clip](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.clip.html).
 
 ## Differences
 

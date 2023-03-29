@@ -33,7 +33,7 @@ class mindspore.nn.AdamWeightDecay(
 )
 ```
 
-For more information, see [mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay).
+For more information, see [mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay).
 
 ## Differences
 

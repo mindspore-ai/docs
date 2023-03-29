@@ -16,7 +16,7 @@ For more information, see [tf.math.erf](https://tensorflow.google.cn/versions/r2
 mindspore.ops.erf(x) -> Tensor
 ```
 
-For more information, see [mindspore.ops.erf](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.erf.html).
+For more information, see [mindspore.ops.erf](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.erf.html).
 
 ## Differences
 

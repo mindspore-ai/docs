@@ -27,11 +27,11 @@ There are two ways to collect neural network performance data. You can enable Pr
 
       > In GPU multi-card scenarios, the `Profiler` object needs to be initialized after `set_auto_parallel_context`.
       >
-      > The parameters of Profiler are as follows: [Profiler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler).
+      > The parameters of Profiler are as follows: [Profiler API](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler).
 
     - At the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the performance analysis results.
 
-    For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script).
+    For starting commands, refer to: [Example for performance debugging](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#preparing-the-training-script).
 
     In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
@@ -77,7 +77,7 @@ There are two ways to collect neural network performance data. You can enable Pr
 
 ## Launching MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html).
 
 ## Training Performance
 
@@ -188,19 +188,19 @@ Table 1 shows the details of operator time consumption expanded by iteration, in
 
 The usage is almost the same as that in Ascend. The difference is GPU Timeline displays the operation information and CUDA activity.
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#timeline-analysis).
 
 ### Step Trace Analysis
 
 The usage is almost the same as that in Ascend. (**Note that step trace do not support heterogeneous training scene.**)
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#step-trace-analysis)
 
 ### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#data-preparation-performance-analysis)
 
 ## Resource Utilization
 
@@ -216,7 +216,7 @@ Overview of resource utilization：Including CPU utilization analysis. You can v
 
 The usage is almost the same as that in Ascend.
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#cpu-utilization-analysis)
 
 ## Notices
 

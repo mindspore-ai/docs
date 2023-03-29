@@ -38,7 +38,7 @@ class mindspore.dataset.CSVDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.CSVDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset).
+For more information, see [mindspore.dataset.CSVDataset](https://www.mindspore.cn/docs/en/r2.0/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset).
 
 ## Differences
 

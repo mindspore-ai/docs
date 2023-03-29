@@ -23,7 +23,7 @@ For more information, see [torch.renorm](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
-For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.renorm.html).
+For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.renorm.html).
 
 ## Differences
 

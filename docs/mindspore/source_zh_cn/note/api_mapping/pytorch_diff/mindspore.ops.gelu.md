@@ -16,7 +16,7 @@ torch.nn.functional.gelu(input) -> Tensor
 mindspore.ops.gelu(input_x, approximate='none')
 ```
 
-更多内容详见[mindspore.ops.gelu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.gelu.html)。
+更多内容详见[mindspore.ops.gelu](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.gelu.html)。
 
 ## 差异对比
 

@@ -16,7 +16,7 @@ For more information, see [tf.arg_min](https://tensorflow.google.cn/versions/r1.
 mindspore.Tensor.argmin(axis=None)
 ```
 
-For more information, see [mindspore.Tensor.argmin](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.argmin.html#mindspore.Tensor.argmin).
+For more information, see [mindspore.Tensor.argmin](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.argmin.html#mindspore.Tensor.argmin).
 
 ## Usage
 

@@ -18,7 +18,7 @@ For more information, see [tf.keras.metrics.Precision](https://tensorflow.google
 mindspore.train.Precision(eval_type="classification")
 ```
 
-For more information, see [mindspore.train.Precision](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision).
+For more information, see [mindspore.train.Precision](https://mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision).
 
 ## Usage
 

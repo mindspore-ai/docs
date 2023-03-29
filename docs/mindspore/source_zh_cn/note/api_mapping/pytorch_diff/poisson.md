@@ -16,7 +16,7 @@ torch.poisson(input, generator=None)
 mindspore.ops.random_poisson(shape, rate, seed=None, dtype=mstype.float32)
 ```
 
-更多内容详见[mindspore.ops.random_poisson](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.random_poisson.html)。
+更多内容详见[mindspore.ops.random_poisson](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.random_poisson.html)。
 
 ## 差异对比
 

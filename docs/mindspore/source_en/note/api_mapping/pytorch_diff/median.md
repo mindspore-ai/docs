@@ -23,7 +23,7 @@ For more information, see [torch.median](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.median(input, axis=-1, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.median.html).
+For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.median.html).
 
 ## Differences
 

@@ -191,7 +191,7 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 1. Obtain MindSpore Lite AAR package
 
-    For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
+    For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/r2.0/use/downloads.html).
 
     ```text
    mindspore-lite-full-{version}.aar

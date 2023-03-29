@@ -19,7 +19,7 @@ For more information, see [torch.unique](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.unique(input)
 ```
 
-For more information, see [mindspore.ops.unique](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique).
+For more information, see [mindspore.ops.unique](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.unique.html#mindspore.ops.unique).
 
 ## Differences
 

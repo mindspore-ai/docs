@@ -42,7 +42,7 @@ class mindspore.nn.BatchNorm2d(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html).
+For more information, see [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.BatchNorm2d.html).
 
 ## Differences
 

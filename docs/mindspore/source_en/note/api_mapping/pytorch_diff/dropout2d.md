@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.dropout2d](https://pytorch.org/do
 mindspore.ops.dropout2d(input, p=0.5, training=True) -> Tensor
 ```
 
-For more information, see [mindspore.ops.dropout2d](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dropout2d.html).
+For more information, see [mindspore.ops.dropout2d](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.dropout2d.html).
 
 ## Differences
 

@@ -19,7 +19,7 @@ torch.normal(mean, std, size, *, out=None)
 mindspore.ops.normal(shape, mean, stddev, seed=None)
 ```
 
-更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.normal.html)。
+更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.normal.html)。
 
 ## 差异对比
 

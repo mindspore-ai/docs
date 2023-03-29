@@ -16,7 +16,7 @@ torch.var_mean(input, dim, unbiased=True, keepdim=False, *, out=None)
 mindspore.ops.var_mean(input, axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.ops.var_mean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.var_mean.html)。
+更多内容详见[mindspore.ops.var_mean](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.var_mean.html)。
 
 ## 差异对比
 

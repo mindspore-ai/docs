@@ -128,7 +128,7 @@ Refer to [Quick Experience](#quick-experience).
 
 #### Forward Propagation
 
-As usual vFL training, users need to define a network model containing TEE based on the `nn.Cell` provided by MindSpore (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) to develop the training network. The difference is that at the layer where the TEE is located, the user needs to call the TEE forward propagation function in the `construct` function of the class:
+As usual vFL training, users need to define a network model containing TEE based on the `nn.Cell` provided by MindSpore (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) to develop the training network. The difference is that at the layer where the TEE is located, the user needs to call the TEE forward propagation function in the `construct` function of the class:
 
 ```python
 from mindspore_federated._mindspore_federated import init_tee_cut_layer, backward_tee_cut_layer, \

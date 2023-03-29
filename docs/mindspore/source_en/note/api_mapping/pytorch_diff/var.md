@@ -23,7 +23,7 @@ For more information, see [torch.var](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.var(input, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.ops.var](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.var.html).
+For more information, see [mindspore.ops.var](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.var.html).
 
 ## Differences
 

@@ -28,7 +28,7 @@ mindspore.Tensor.min(axis=None,
                      where=True)
 ```
 
-For more information, see [mindspore.Tensor.min](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.min.html).
+For more information, see [mindspore.Tensor.min](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.min.html).
 
 ## Differences
 

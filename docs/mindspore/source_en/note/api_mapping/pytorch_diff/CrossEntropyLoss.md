@@ -27,7 +27,7 @@ class mindspore.nn.CrossEntropyLoss(
 )(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.CrossEntropyLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CrossEntropyLoss.html).
+For more information, see [mindspore.nn.CrossEntropyLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.CrossEntropyLoss.html).
 
 ## Differences
 

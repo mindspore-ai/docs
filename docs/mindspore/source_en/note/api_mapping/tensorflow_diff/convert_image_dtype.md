@@ -23,7 +23,7 @@ class mindspore.dataset.transforms.TypeCast(
 )
 ```
 
-For more information, see [mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast).
+For more information, see [mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/en/r2.0/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast).
 
 ## Differences
 

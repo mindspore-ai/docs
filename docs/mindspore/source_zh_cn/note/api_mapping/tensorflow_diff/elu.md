@@ -16,7 +16,7 @@ tf.nn.elu(features, name=None) -> Tensor
 mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.elu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.elu.html)。
+更多内容详见[mindspore.ops.elu](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.elu.html)。
 
 ## 差异对比
 

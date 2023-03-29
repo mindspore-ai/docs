@@ -29,7 +29,7 @@ mindspore.ops.blackman_window(
 ) -> Tensor
 ```
 
-For more information, see [mindspore.ops.blackman_window](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.blackman_window.html).
+For more information, see [mindspore.ops.blackman_window](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.blackman_window.html).
 
 ## Differences
 

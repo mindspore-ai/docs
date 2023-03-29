@@ -16,7 +16,7 @@ tf.math.add(x, y, name=None) -> Tensor
 mindspore.ops.add(x, y) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.add](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
+更多内容详见[mindspore.ops.add](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.add.html)。
 
 ## 差异对比
 

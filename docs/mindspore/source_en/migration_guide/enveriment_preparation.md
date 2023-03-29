@@ -6,7 +6,7 @@ Network migration starts with the configuration of the MindSpore development env
 
 ## Installing MindSpore
 
-[MindSpore](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) is a full-scene deep learning framework, which currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices. Before installing MindSpore on Ascend and GPU, you need to configure the corresponding runtime environment.
+[MindSpore](https://www.mindspore.cn/tutorials/en/r2.0/beginner/introduction.html) is a full-scene deep learning framework, which currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices. Before installing MindSpore on Ascend and GPU, you need to configure the corresponding runtime environment.
 
 > MindSpore Ascend supports AI training (910), inference cards (310 and 310P) and training servers on various Atlas series chips, etc. Note that MindSpore version needs to be used with Ascend AI processor package. For example, MindSpore 1.8.1 must be used with Ascend package commercial version 22.0.RC2 or CANN Community version 5.1.RC2.alpha008. There may be problems with other versions. Please refer to the "Installing Ascend AI Processor Package" section in the MindSpore Ascend Version Installation Guide for more details.
 >

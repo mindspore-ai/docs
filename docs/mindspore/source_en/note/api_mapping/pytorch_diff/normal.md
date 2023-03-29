@@ -19,7 +19,7 @@ For more information, see [torch.normal](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.normal(shape, mean, stddev, seed=None)
 ```
 
-For more information, see [mindspore.ops.normal](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.normal.html).
+For more information, see [mindspore.ops.normal](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.normal.html).
 
 ## Differences
 

@@ -24,7 +24,7 @@ class mindspore.dataset.vision.Decode(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.Decode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode)。
+更多内容详见[mindspore.dataset.vision.Decode](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode)。
 
 ## 使用方式
 

@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.leaky_relu](https://pytorch.org/d
 mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
-For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
+For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
 
 ## Differnnces
 

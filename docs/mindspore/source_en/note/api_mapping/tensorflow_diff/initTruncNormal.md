@@ -18,7 +18,7 @@ For more information, see [tf.keras.initializers.TruncatedNormal](https://tensor
 mindspore.common.initializer.TruncatedNormal(sigma=0.01)
 ```
 
-For more information, see [mindspore.common.initializer.TruncatedNormal](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.TruncatedNormal).
+For more information, see [mindspore.common.initializer.TruncatedNormal](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.TruncatedNormal).
 
 ## Usage
 

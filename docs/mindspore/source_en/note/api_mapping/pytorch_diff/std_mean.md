@@ -16,7 +16,7 @@ For more information, see [torch.std_mean](https://pytorch.org/docs/1.8.1/genera
 mindspore.ops.std_mean(input, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.ops.std_mean](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.std_mean.html).
+For more information, see [mindspore.ops.std_mean](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.std_mean.html).
 
 ## Differences
 

@@ -31,7 +31,7 @@ class mindspore.dataset.vision.RandomRotation(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation)。
+更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation)。
 
 ## 使用方式
 

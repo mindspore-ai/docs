@@ -35,7 +35,7 @@ For more information, see [tf.keras.Model.fit_generator](https://tensorflow.goog
 mindspore.train.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-For more information, see [mindspore.train.Model.train](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html).
+For more information, see [mindspore.train.Model.train](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html).
 
 ## Usage
 

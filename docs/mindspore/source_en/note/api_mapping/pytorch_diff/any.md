@@ -23,7 +23,7 @@ For more information, see [torch.any](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.any(x, axis=(), keep_dims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.any](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.any.html).
+For more information, see [mindspore.ops.any](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.any.html).
 
 ## Differences
 

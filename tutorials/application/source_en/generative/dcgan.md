@@ -251,7 +251,7 @@ discriminator = Discriminator()
 
 ### Loss Function
 
-When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used.
+When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used.
 
 ```python
 # Define loss function

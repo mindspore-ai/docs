@@ -16,7 +16,7 @@ torch.nn.functional.dropout3d(input, p=0.5, training=True, inplace=False) -> Ten
 mindspore.ops.dropout3d(input, p=0.5, training=True) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.dropout3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout3d.html)。
+更多内容详见[mindspore.ops.dropout3d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dropout3d.html)。
 
 ## 差异对比
 

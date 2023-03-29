@@ -16,7 +16,7 @@ For more information, see [tf.nn.bias_add](https://tensorflow.google.cn/versions
 mindspore.ops.bias_add(input_x, bias)
 ```
 
-For more information, see [mindspore.ops.bias_add](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bias_add.html).
+For more information, see [mindspore.ops.bias_add](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.bias_add.html).
 
 ## Differences
 

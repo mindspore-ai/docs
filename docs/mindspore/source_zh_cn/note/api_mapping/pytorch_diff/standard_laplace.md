@@ -16,7 +16,7 @@ torch.distributions.laplace.Laplace(loc, scale) -> Class Instance
 mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.standard_laplace.html)。
+更多内容详见[mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.standard_laplace.html)。
 
 ## 差异对比
 

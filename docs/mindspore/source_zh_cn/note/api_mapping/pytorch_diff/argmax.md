@@ -23,7 +23,7 @@ torch.argmax(input, dim, keepdim=False) -> Tensor
 mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.argmax.html)。
+更多内容详见[mindspore.ops.argmax](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.argmax.html)。
 
 ## 差异对比
 
@@ -39,7 +39,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 ### 代码示例1
 
-> 对于零维的Tensor，PyTorch支持dim参数为None/-1/0及keepdim参数为True/False的任意组合，且计算结果都是一致的，都是一个零维Tensor。MindSpore 1.8.1版本暂时不支持处理零维Tensor，需要先使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ExpandDims.html)将Tensor扩充为一维，然后再按照mindspore.ops.argmax算子的默认参数计算。
+> 对于零维的Tensor，PyTorch支持dim参数为None/-1/0及keepdim参数为True/False的任意组合，且计算结果都是一致的，都是一个零维Tensor。MindSpore 1.8.1版本暂时不支持处理零维Tensor，需要先使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ExpandDims.html)将Tensor扩充为一维，然后再按照mindspore.ops.argmax算子的默认参数计算。
 
 ```python
 # PyTorch
@@ -109,7 +109,7 @@ print(ms_out_np)
 
 ### 代码示例3
 
-> PyTorch算子有一个keepdim参数，当设置为True时，作用为：将进行聚合的维度保留，并设定为1。MindSpore的keepdims参数与其功能一致。为了实现相同的结果，在计算完成后，使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ExpandDims.html)算子扩充维度即可。
+> PyTorch算子有一个keepdim参数，当设置为True时，作用为：将进行聚合的维度保留，并设定为1。MindSpore的keepdims参数与其功能一致。为了实现相同的结果，在计算完成后，使用[mindspore.ops.ExpandDims](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ExpandDims.html)算子扩充维度即可。
 
 ```python
 # PyTorch

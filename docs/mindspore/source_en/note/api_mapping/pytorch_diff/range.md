@@ -28,7 +28,7 @@ mindspore.ops.range(start,
                     )
 ```
 
-For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.range.html).
+For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.range.html).
 
 ## Differences
 

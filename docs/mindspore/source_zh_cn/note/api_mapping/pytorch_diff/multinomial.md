@@ -23,7 +23,7 @@ torch.multinomial(input, num_samples, replacement=False, *, generator=None, out=
 mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 ```
 
-更多内容详见[mindspore.ops.multinomial](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.multinomial.html)。
+更多内容详见[mindspore.ops.multinomial](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.multinomial.html)。
 
 ## 差异对比
 

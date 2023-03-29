@@ -16,7 +16,7 @@ For more information, see [tf.nn.relu](https://tensorflow.google.cn/versions/r2.
 class mindspore.nn.ReLU()(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ReLU.html).
+For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.ReLU.html).
 
 ## Differences
 

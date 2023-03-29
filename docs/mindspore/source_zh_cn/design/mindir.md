@@ -6,13 +6,13 @@
 
 中间表示（IR）是程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，因此IR的设计需要考虑从源语言到目标语言的转换难度，同时考虑程序分析和优化的易用性和性能。
 
-MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。关于ANF-IR的具体介绍，可以参考[MindSpore IR文法定义](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)。
+MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。关于ANF-IR的具体介绍，可以参考[MindSpore IR文法定义](https://www.mindspore.cn/docs/zh-CN/r2.0/design/mindir.html#文法定义)。
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=1)`，运行时会输出一些图编译过程中生成的一些中间文件，我们称为IR文件。当需要分析更多后端流程相关的ir文件时，可以设置`set_context(save_graphs=True)` 或`set_context(save_graphs=2)`。当需要更多进阶的信息比如可视化计算图，或者更多详细前端ir图时，可以设置`set_context(save_graphs=3)`。当前主要有三种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - 通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`可以生成的ir后缀结尾的IR文件：格式跟默认的ir文件基本相同，但是生成的异序ir文件的图的生成与打印顺序和默认ir文件不同。
-- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 文法定义
 

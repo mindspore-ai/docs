@@ -26,9 +26,9 @@
 
 ## 分布式训练
 
-Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
+Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_ascend.html)。
 
-GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。
+GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_gpu.html)。
 
 ## 收集集群性能数据
 
@@ -203,7 +203,7 @@ done
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -236,7 +236,7 @@ done
 
 *图3：单卡性能信息*
 
-图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/performance_profiling_ascend.html)。
 
 ### 集群通信与计算重叠时间分析
 
@@ -484,7 +484,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/dataset/mindspore.dataset.MindDataset.html>
 
 ## 注意事项
 

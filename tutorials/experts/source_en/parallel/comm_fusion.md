@@ -166,7 +166,7 @@ The parameter layer3.output_mapping.bias's fusion id is 2
 
 ### Running the Code
 
-The above code needs to be configured with distributed variables before it can run. The Ascend environment needs to be configured with RANK_TABLE_FILE, RANK_ID and DEVICE_ID. For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables). The GPU environment needs to be configured with [OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment), NCCL and [HOST_FILE](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#multi-host-training). For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment).
+The above code needs to be configured with distributed variables before it can run. The Ascend environment needs to be configured with RANK_TABLE_FILE, RANK_ID and DEVICE_ID. For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_ascend.html#configuring-distributed-environment-variables). The GPU environment needs to be configured with [OpenMPI](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_gpu.html#configuring-distributed-environment), NCCL and [HOST_FILE](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_gpu.html#multi-host-training). For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_gpu.html#configuring-distributed-environment).
 
 Environment variables related to Ascend distributed are:
 

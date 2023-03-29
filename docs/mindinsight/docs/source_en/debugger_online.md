@@ -33,7 +33,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html).
 
 ### Run the Training Script in Debug Mode
 
@@ -85,7 +85,7 @@ After clicking a graph node, you can view its detailed information in the lower 
 In the GPU environment, select and right-click an executable graph node, and choose `Run to This Node` from the shortcut menu to run the training script to the selected node (no more than one step).
 
 When the depth of the direct child node of a namespace or an aggregation node exceeds 70, the graph node page does not support expanding the node.
-To see the tensor relationship inside the node, you can turn to the tensor relationship diagram page via a node related to it, refer to the [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/faq.html) for details.
+To see the tensor relationship inside the node, you can turn to the tensor relationship diagram page via a node related to it, refer to the [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r2.0/faq.html) for details.
 
 ### Anomaly Check List
 
@@ -259,7 +259,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 - When using the debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
-- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump).
+- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/dump.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
 

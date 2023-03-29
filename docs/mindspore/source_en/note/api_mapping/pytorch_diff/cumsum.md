@@ -16,7 +16,7 @@ For more information, see [torch.cumsum](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.cumsum(x, axis, dtype=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.cumsum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.cumsum.html).
+For more information, see [mindspore.ops.cumsum](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.cumsum.html).
 
 ## Differences
 

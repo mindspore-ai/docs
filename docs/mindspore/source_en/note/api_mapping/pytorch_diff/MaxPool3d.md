@@ -16,7 +16,7 @@ For more information, see [torch.nn.MaxPool3d](https://pytorch.org/docs/1.8.1/ge
 mindspore.nn.MaxPool3d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.MaxPool3d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MaxPool3d.html).
+For more information, see [mindspore.nn.MaxPool3d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.MaxPool3d.html).
 
 ## Differences
 

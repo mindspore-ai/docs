@@ -292,5 +292,5 @@ Python 接口 Wheel安装包
 
 > - Ubuntu-x64版本包是在GCC版本大于等于7.3.0的环境编译得到的，所以该版本包的部署环境要求GLIBC版本大于等于2.27。
 > - Android-aarch32的版本包不支持GPU和NPU。
-> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html#静态库裁剪工具)，用于裁剪静态库文件，有效降低库文件大小。
+> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cropper_tool.html#静态库裁剪工具)，用于裁剪静态库文件，有效降低库文件大小。
 > - MindSpore Lite下载完成后，需要进行SHA-256完整性校验。

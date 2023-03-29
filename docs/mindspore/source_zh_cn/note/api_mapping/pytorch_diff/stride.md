@@ -16,7 +16,7 @@ torch.Tensor.stride(dim)
 mindspore.Tensor.strides()
 ```
 
-更多内容详见[mindspore.Tensor.strides](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.strides.html#mindspore.Tensor.strides)
+更多内容详见[mindspore.Tensor.strides](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.strides.html#mindspore.Tensor.strides)
 
 ## 使用方式
 

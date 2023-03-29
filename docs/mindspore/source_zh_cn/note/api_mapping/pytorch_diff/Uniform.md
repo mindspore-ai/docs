@@ -20,7 +20,7 @@ torch.nn.init.uniform_(
 mindspore.ops.uniform(shape, minval, maxval, seed=None, dtype=mstype.float32) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.uniform](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform.html)。
+更多内容详见[mindspore.ops.uniform](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.uniform.html)。
 
 ## 差异对比
 

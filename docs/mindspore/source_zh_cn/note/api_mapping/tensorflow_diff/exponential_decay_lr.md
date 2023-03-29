@@ -30,7 +30,7 @@ mindspore.nn.exponential_decay_lr(
 ) -> list[float]
 ```
 
-更多内容详见[mindspore.nn.exponential_decay_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html)。
+更多内容详见[mindspore.nn.exponential_decay_lr](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.exponential_decay_lr.html)。
 
 ## 差异对比
 

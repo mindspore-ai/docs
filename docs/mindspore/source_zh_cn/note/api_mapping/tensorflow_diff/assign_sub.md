@@ -16,7 +16,7 @@ tf.compat.v1.assign_sub(ref, value, use_locking=None, name=None) -> Tensor
 mindspore.ops.assign_sub(variable, value)-> Tensor
 ```
 
-更多内容详见[mindspore.ops.assign_sub](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.assign_sub.html)。
+更多内容详见[mindspore.ops.assign_sub](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.assign_sub.html)。
 
 ## 差异对比
 

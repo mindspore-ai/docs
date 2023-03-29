@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.gelu](https://pytorch.org/docs/1.
 mindspore.ops.gelu(input_x, approximate='none')
 ```
 
-For more information, see [mindspore.ops.gelu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.gelu.html).
+For more information, see [mindspore.ops.gelu](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.gelu.html).
 
 ## Differences
 

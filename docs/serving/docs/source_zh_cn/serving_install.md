@@ -40,7 +40,7 @@ MindSpore的安装和配置可以参考[安装MindSpore](https://gitee.com/minds
 |                | Ascend 310       | Ascend 310      |
 |                | Ascend 310P       | Ascend 310P      |
 
-MindSpore Lite安装和配置可以参考[MindSpore Lite文档](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)，通过环境变量`LD_LIBRARY_PATH`指示`libmindspore-lite.so`的安装路径。
+MindSpore Lite安装和配置可以参考[MindSpore Lite文档](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/index.html)，通过环境变量`LD_LIBRARY_PATH`指示`libmindspore-lite.so`的安装路径。
 
 MindSpore Serving的安装可以采用pip安装或者源码编译安装两种方式。
 

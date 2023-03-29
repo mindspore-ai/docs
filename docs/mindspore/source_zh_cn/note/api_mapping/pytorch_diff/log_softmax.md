@@ -23,7 +23,7 @@ class mindspore.ops.log_softmax(
 )
 ```
 
-更多内容详见[mindspore.ops.log_softmax](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.log_softmax.html)。
+更多内容详见[mindspore.ops.log_softmax](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.log_softmax.html)。
 
 ## 差异对比
 

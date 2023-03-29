@@ -26,7 +26,7 @@ mindspore.ops.pad(
 )
 ```
 
-For more information, see [mindspore.ops.pad](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.pad.html).
+For more information, see [mindspore.ops.pad](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.pad.html).
 
 ## Differences
 

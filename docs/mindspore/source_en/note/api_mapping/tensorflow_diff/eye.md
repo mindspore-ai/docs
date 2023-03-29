@@ -22,7 +22,7 @@ For more information, see [tf.eye](https://tensorflow.google.cn/versions/r2.6/ap
 mindspore.ops.eye(n, m, t) -> Tensor
 ```
 
-For more information, see [mindspore.ops.eye](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.eye.html).
+For more information, see [mindspore.ops.eye](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.eye.html).
 
 ## Differences
 

@@ -35,7 +35,7 @@ class mindspore.nn.LayerNorm(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LayerNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LayerNorm.html).
+For more information, see [mindspore.nn.LayerNorm](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.LayerNorm.html).
 
 ## Differences
 

@@ -26,7 +26,7 @@ class mindspore.nn.NLLLoss(
 )(logits, labels)
 ```
 
-For more information, see [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html).
+For more information, see [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.NLLLoss.html).
 
 ## Differences
 

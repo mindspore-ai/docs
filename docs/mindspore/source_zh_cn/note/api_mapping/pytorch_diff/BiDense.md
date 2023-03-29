@@ -26,7 +26,7 @@ mindspore.nn.BiDense(
     has_bias=True)(input1, input2) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BiDense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BiDense.html#mindspore.nn.BiDense)。
+更多内容详见[mindspore.nn.BiDense](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.BiDense.html#mindspore.nn.BiDense)。
 
 ## 差异对比
 

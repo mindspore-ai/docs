@@ -30,7 +30,7 @@ For more information, see [tf.keras.Model.predict_generator](https://tensorflow.
 mindspore.train.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 ```
 
-For more information, see [mindspore.train.Model.eval](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval).
+For more information, see [mindspore.train.Model.eval](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval).
 
 ## Usage
 

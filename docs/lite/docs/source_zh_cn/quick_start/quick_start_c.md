@@ -8,13 +8,13 @@
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/context_c.html)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
-3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html)的[MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
+1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/context_c.html)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html)的[MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html#msmodelbuildfromfile)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
-5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html)的[MSModelPredict](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelpredict)接口进行模型推理。
+5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html)的[MSModelPredict](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html#msmodelpredict)接口进行模型推理。
 6. 获得输出：模型执行结束之后，可以通过`输出Tensor`得到推理结果。
-7. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html)。
+7. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html)。
 
 ![img](../images/lite_runtime.png)
 
@@ -37,7 +37,7 @@
   bash build.sh
   ```
 
-  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_c/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_c/include`目录下。
+  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_c/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_c/include`目录下。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_c/model`目录。
   >
@@ -70,7 +70,7 @@
 
 - 编译构建
 
-    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore\lite\examples\quick_start_c\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore\lite\examples\quick_start_c\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
+    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore\lite\examples\quick_start_c\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore\lite\examples\quick_start_c\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore\lite\examples\quick_start_c\model`目录。
 
@@ -170,7 +170,7 @@ endif()
 
 ## 模型创建加载与编译
 
-模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html)的[MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile)接口，从文件路径加载、编译得到运行时的模型。本例中`argv[1]`对应的是从控制台中输入的模型文件路径。
+模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html)的[MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/model_c.html#msmodelbuildfromfile)接口，从文件路径加载、编译得到运行时的模型。本例中`argv[1]`对应的是从控制台中输入的模型文件路径。
 
 ```c
   // Create model

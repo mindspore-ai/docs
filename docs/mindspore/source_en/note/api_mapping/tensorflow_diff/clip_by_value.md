@@ -16,7 +16,7 @@ For more information, see [tf.clip_by_value](https://www.tensorflow.org/versions
 mindspore.ops.clip_by_value(x, clip_value_min=None, clip_value_max=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.clip_by_value](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html).
+For more information, see [mindspore.ops.clip_by_value](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.clip_by_value.html).
 
 ## Differences
 

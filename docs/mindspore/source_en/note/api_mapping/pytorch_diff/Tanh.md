@@ -16,7 +16,7 @@ For more information, see [torch.nn.Tanh](https://pytorch.org/docs/1.8.1/generat
 class mindspore.nn.Tanh()(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanh.html).
+For more information, see [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Tanh.html).
 
 ## Differences
 

@@ -16,7 +16,7 @@ For more information, see [torch.distributions.laplace.Laplace](https://pytorch.
 mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.standard_laplace.html).
+For more information, see [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.standard_laplace.html).
 
 ## Differences
 

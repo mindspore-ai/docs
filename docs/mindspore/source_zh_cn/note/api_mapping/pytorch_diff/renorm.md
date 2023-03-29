@@ -23,7 +23,7 @@ torch.renorm(input, p, dim, maxnorm, *, out=None) -> Tensor
 mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
-更多内容详见[mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.renorm.html)。
+更多内容详见[mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.renorm.html)。
 
 ## 差异对比
 

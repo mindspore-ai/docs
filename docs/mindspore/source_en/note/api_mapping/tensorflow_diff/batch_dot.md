@@ -16,7 +16,7 @@ For more information, see [tf.keras.backend.batch_dot](https://keras.io/zh/backe
 mindspore.ops.batch_dot(x1, x2, axes=None)
 ```
 
-For more information, see [mindspore.ops.batch_dot](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.batch_dot.html).
+For more information, see [mindspore.ops.batch_dot](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.batch_dot.html).
 
 ## Differences
 

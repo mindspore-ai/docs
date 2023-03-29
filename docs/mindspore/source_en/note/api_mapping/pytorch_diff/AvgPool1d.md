@@ -16,7 +16,7 @@ For more information, see [torch.nn.AvgPool1d](https://pytorch.org/docs/1.8.1/ge
 mindspore.nn.AvgPool1d(kernel_size=1, stride=1, pad_mode="valid", padding=0, ceil_mode=False, count_include_pad=True)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.AvgPool1d.html).
+For more information, see [mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.AvgPool1d.html).
 
 ## Differences
 

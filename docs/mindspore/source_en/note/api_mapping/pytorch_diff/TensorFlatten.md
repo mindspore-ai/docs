@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.flatten](https://pytorch.org/docs/1.5.0/
 mindspore.Tensor.flatten(order="C")
 ```
 
-For more information, see [mindspore.Tensor.flatten](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.flatten.html#mindspore.Tensor.flatten).
+For more information, see [mindspore.Tensor.flatten](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.flatten.html#mindspore.Tensor.flatten).
 
 ## Usage
 

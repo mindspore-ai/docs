@@ -23,7 +23,7 @@ torch.median(input, dim=-1, keepdim=False, *, out=None) -> Tensor
 mindspore.ops.median(input, axis=-1, keepdims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.median](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.median.html)。
+更多内容详见[mindspore.ops.median](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.median.html)。
 
 ## 差异对比
 

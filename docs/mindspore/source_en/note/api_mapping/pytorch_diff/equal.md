@@ -16,7 +16,7 @@ For more information, see [torch.eq](https://pytorch.org/docs/1.8.1/generated/to
 mindspore.ops.equal(x, y) -> Tensor
 ```
 
-For more information, see [mindspore.ops.equal](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.equal.html).
+For more information, see [mindspore.ops.equal](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.equal.html).
 
 ## Differences
 

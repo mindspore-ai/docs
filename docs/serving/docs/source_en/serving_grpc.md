@@ -4,7 +4,7 @@
 
 ## Overview
 
-Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/r2.0/serving_install.html).
 
 The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/r2.0/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The Serving server depends on the specific inference hardware environment, and the client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     run_add_common()
 ```
 
-Export the model, start the Serving server, and run the preceding client code by referring to the [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html). After the code runs properly, the following information is displayed. To facilitate display, the format is adjusted.
+Export the model, start the Serving server, and run the preceding client code by referring to the [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r2.0/serving_example.html). After the code runs properly, the following information is displayed. To facilitate display, the format is adjusted.
 
 ```text
 [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},

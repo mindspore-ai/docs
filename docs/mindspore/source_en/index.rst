@@ -21,7 +21,7 @@ MindSpore Documentation
    design/graph_fusion_engine
    design/mindir
    design/all_scenarios
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r2.0/training_visual_design.html>
    design/data_engine
    design/glossary
 
@@ -58,7 +58,7 @@ MindSpore Documentation
    api_python/mindspore.boost
    api_python/mindspore.numpy
    api_python/mindspore.scipy
-   C++ API↗ <https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/en/r2.0/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

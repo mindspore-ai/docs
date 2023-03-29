@@ -21,7 +21,7 @@ For more information, see [tf.math.argmax](https://tensorflow.google.cn/versions
 mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.argmax](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.argmax.html).
+For more information, see [mindspore.ops.argmax](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.argmax.html).
 
 ## Differences
 
@@ -39,7 +39,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow. T
 
 ### Code Example 1
 
-> Whne TensorFlow argmax operator does not explicitly give the axis parameter, the computation result is the index of the maximum value when axis is 0 by default, while MindSpore returns the index of the maximum value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmax operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64.
+> Whne TensorFlow argmax operator does not explicitly give the axis parameter, the computation result is the index of the maximum value when axis is 0 by default, while MindSpore returns the index of the maximum value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmax operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64.
 
 ```python
 # TensorFlow
@@ -110,7 +110,7 @@ print(ms_out_np)
 
 ### Code Example 3
 
-> The TensorFlow parameter output_type is used to specify the output data type, and the default is tf.int64. The default value of the MindSpore parameter output_type is mindspore.int32. To ensure that the two output types are the same, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the MindSpore into mindspore.int64. The TensorFlow parameter name is used to define the name of the executed operation and does not affect the result, while MindSpore does not have this parameter.
+> The TensorFlow parameter output_type is used to specify the output data type, and the default is tf.int64. The default value of the MindSpore parameter output_type is mindspore.int32. To ensure that the two output types are the same, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator to convert the MindSpore into mindspore.int64. The TensorFlow parameter name is used to define the name of the executed operation and does not affect the result, while MindSpore does not have this parameter.
 
 ```python
 # TensorFlow

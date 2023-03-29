@@ -24,7 +24,7 @@ class mindspore.dataset.vision.Decode(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.Decode](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode).
+For more information, see [mindspore.dataset.vision.Decode](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode).
 
 ## Differences
 

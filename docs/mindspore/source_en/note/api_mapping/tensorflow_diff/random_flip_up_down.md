@@ -21,7 +21,7 @@ class mindspore.dataset.vision.RandomVerticalFlip(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.RandomVerticalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomVerticalFlip.html#mindspore.dataset.vision.RandomVerticalFlip).
+For more information, see [mindspore.dataset.vision.RandomVerticalFlip](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.RandomVerticalFlip.html#mindspore.dataset.vision.RandomVerticalFlip).
 
 ## Differences
 

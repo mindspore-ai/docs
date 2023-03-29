@@ -16,7 +16,7 @@ For more information, see [torch.linalg.qr](https://pytorch.org/docs/1.8.1/linal
 mindspore.ops.qr(input, mode='reduced') -> (Tensor, Tensor)
 ```
 
-For more information, see [mindspore.ops.qr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.qr.html).
+For more information, see [mindspore.ops.qr](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.qr.html).
 
 ## Differences
 

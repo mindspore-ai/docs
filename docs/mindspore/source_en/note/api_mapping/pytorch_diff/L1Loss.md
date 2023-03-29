@@ -16,7 +16,7 @@ For more information, see [torch.nn.L1Loss](https://pytorch.org/docs/1.8.1/gener
 mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.L1Loss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.L1Loss.html).
+For more information, see [mindspore.nn.L1Loss](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.L1Loss.html).
 
 ## Differences
 

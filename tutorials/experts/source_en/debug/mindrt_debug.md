@@ -18,7 +18,7 @@ For details, visit the following website:
 
 [MindSpore Configuration Error - 'set_context' Configuration Error](https://bbs.huaweicloud.com/forum/thread-183514-1-1.html)
 
-For details about the context configuration, see ['set_context'](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
+For details about the context configuration, see ['set_context'](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.set_context.html).
 
 ## Syntax Errors
 
@@ -62,7 +62,7 @@ According to the error message, the dimension shapes of the return values of dif
 
 For details, visit the following website:
 
-[MindSpore Syntax Error - Type (Shape) Join Failed](https://www.mindspore.cn/docs/en/master/faq/network_compilation.html)
+[MindSpore Syntax Error - Type (Shape) Join Failed](https://www.mindspore.cn/docs/en/r2.0/faq/network_compilation.html)
 
 The number of loops of the for and while statements may exceed the permitted range. As a result, the function call stack exceeds the threshold. The error message is displayed as follows:
 
