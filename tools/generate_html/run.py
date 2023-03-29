@@ -426,6 +426,8 @@ if __name__ == "__main__":
                 try:
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
+                    fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")[0]
+                    fonts_dir_2 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/fonts/")[0]
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
                     if 'lite' in out_name or 'tutorials' in out_name:
@@ -438,6 +440,10 @@ if __name__ == "__main__":
                     static_path_new_js = os.path.join(theme_path, js_path)
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
+                    if os.path.exists(fonts_dir_1):
+                        shutil.rmtree(fonts_dir_1)
+                    if os.path.exists(fonts_dir_2):
+                        shutil.rmtree(fonts_dir_2)
                     if os.path.exists(static_path_css):
                         os.remove(static_path_css)
                     shutil.copy(static_path_new_css, static_path_css)

@@ -21,53 +21,31 @@ $(function () {
 
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const lang = isEn ? '/en/' : '/zh-CN/';
+  const isTutorialsIndex =
+  pathname.startsWith('/tutorials/zh-CN/') ||
+  pathname.startsWith('/tutorials/en/')
+      ? true
+      : false;
+  // 获取文件路径
+  const pagePath = isTutorialsIndex
+      ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
+      : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
 
   let msDocsVersion = [],
-      versionArr = [],
-      pageTitle = isEn ? 'Tutorials' : '教程';
+      versionDropdownList = [],
+      msVersionInfo = [],
+      pageTitle ='';
 
   // 获取当前版本
   function getCurrentVersion() {
-    let version = 'master';
-    if (
-        pathname.startsWith('/tutorials/zh-CN/') ||
-        pathname.startsWith('/tutorials/en/')
-    ) {
-        version = pathname.split('/')[3];
-    } else {
-        version = pathname.split('/')[4];
-    }
-    return version;
-}
+    return isTutorialsIndex? pathname.split('/')[3] : pathname.split('/')[4];
+  }
   // 获取当前版本 不带R
-  function curVersion(ver) {
-    const version = ver?ver:getCurrentVersion();
+  function curVersion(version) {
       return version === 'master'
           ? 'master'
           : version.startsWith('r') ? version.slice(1):version;
   }
-
-
-
-  // 教程切换导航
-  const tutorialsMenu = [
-      {
-          name: '初学入门',
-          nameEn: 'Quickstart',
-          id: 'tutorials'
-      },
-      {
-          name: '应用实践',
-          nameEn: 'Application',
-          id: 'tutorials/application'
-      },
-      {
-          name: '深度开发',
-          nameEn: 'Experts',
-          id: 'tutorials/experts'
-      }
-  ];
 
   // 请求数据
   function getHeaderData(url) {
@@ -88,24 +66,22 @@ $(function () {
 
   // 版本名称显示
   function pageVersionName (){
-    let versionName= '';
-    tutorialsMenu.forEach((item) => {
-      item.versions.forEach((subitem) => {
-        if(getCurrentVersion().endsWith(subitem.version)){
-          versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
-        }
-      });
+    let name= '';
+    versionDropdownList.forEach((subitem) => {
+      if(getCurrentVersion().endsWith(subitem.version)){
+        name= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
+      }
     });
-    return curVersion(versionName);
+    return curVersion(name);
   }
 
 
   // 切换版本下拉菜单
-  function versionDropdown() {
+  function versionDropdown(obj) {
       return `<div class='version-select-wrap'><div class="version-select-dom">
         <span class="versionText">${pageVersionName()}</span> <img src="/pic/down.svg" />
             <ul>
-                ${tutorialsMenu.map(function (item) {
+                ${obj.map(function (item) {
                   if(item.active){
                     return item.versions.map((subitem) => {
                       return `<li><a href="${subitem.url}" class='version-option'>${subitem.versionAlias !==''?curVersion(subitem.versionAlias):subitem.version}</a></li>`;
@@ -118,34 +94,39 @@ $(function () {
   }
 
   const initPage = async function () {
-      msDocsVersion = await getHeaderData('/version.json');
+      msDocsVersion = await getHeaderData('/msVersion.json');
+      msVersionInfo = await getHeaderData(`${pagePath}/_static/js/version.json`);
+
+      pageTitle = isEn ? msVersionInfo.label.en || '': msVersionInfo.label.zh || '';
+      const pageSubMenu = isEn ? msVersionInfo.submenu.en  || []: msVersionInfo.submenu.zh  || [];
+
       let theme2Nav = '';
       msDocsVersion.forEach(function (item) {
-          if (
-              pathname.startsWith('/' + item.name) &&
-              msDocsVersion.length > 2
-          ) {
-              versionArr = item.versions.slice(0,3);
-              tutorialsMenu.forEach((item) => {
-                  item.versions = versionArr.map((sub) => {
-                    return {
+          if (pathname.startsWith('/' + item.name)) {
+              versionDropdownList = item.versions.slice(0,3);
+              // 格式化版本拉下菜单
+              pageSubMenu.forEach((item) => {
+                  item.versions = versionDropdownList.map((sub) => {
+                    if (item.url.includes(pagePath)) {
+                      item.active = 1;
+                    }
+                    return{
                         version: curVersion(sub.version),
-                        url: sub.url !=='' ? sub.url : '/'+item.id+lang+sub.version+'/index.html',
+                        url: sub.url !=='' ? sub.url:item.url.replace(getCurrentVersion(), sub.version),
                         versionAlias: sub.versionAlias
                     };
                 });
               });
+
+              // 生成菜单
               theme2Nav = `<nav class="header-wapper row navbar navbar-expand-lg navbar-light header-wapper-lite header-wapper-docs" >
               <div class="header-nav navbar-nav" style="height:100%;justify-content: flex-end;"><div class="bottom" style="line-height: initial;">
-              ${tutorialsMenu
+              ${pageSubMenu
                   .map(function (item) {
-                      if (pathname.startsWith('/' + item.id+lang)) {
-                          item.active = 1;
-                      }
                       return `<div class="header-nav-link">
                           <a class="header-nav-link-line ${
                               item.active ? 'selected' : ''
-                          }" href="${'/' + item.id + lang + getCurrentVersion() + '/index.html'}">${isEn ? item.nameEn : item.name}</a>
+                          }" href="${item.url}">${item.label}</a>
                       </div>
                       `;
                   })
@@ -153,6 +134,12 @@ $(function () {
         </div></nav>`;
           }
       });
+
+      // 教程首页中间导航点击在本页打开
+    $('.toctree-l1 .reference').on('click', function (e) {
+        e.preventDefault();
+        window.open($(this).attr('href'), ($(this).attr('target') || '_self'));
+    });
 
       setTimeout(() => {
           $('.header').append(theme2Nav);
@@ -166,14 +153,14 @@ $(function () {
           // 版本选择
           let width = window.innerWidth;
           if (width < 768) {
-              $('#nav-h5').append(versionDropdown(versionArr));
+              $('#nav-h5').append(versionDropdown(pageSubMenu));
               $('#nav-h5 .version-select-dom').on('click', function () {
                   $(this).find('ul').slideToggle();
               });
           } else {
               $('.wy-nav-side')
                   .addClass('side-fix')
-                  .prepend(versionDropdown(tutorialsMenu));
+                  .prepend(versionDropdown(pageSubMenu));
           }
       }, 100);
   };

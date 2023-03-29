@@ -1,6 +1,7 @@
 [
     {
         "name": "Install",
+        "id": "install",
         "url": "/install/en"
     },
     {
@@ -69,7 +70,7 @@
                         "name": "MindSpore XAI",
                         "id": "xai"
                     },
-
+  
                     {
                         "name": "MindSpore Dev Toolkit",
                         "id": "devtoolkit"
@@ -122,6 +123,7 @@
     },
     {
         "name": "Ecosystem",
+        "id": "ecosystem",
         "url": "/ecosystem/libraries/en",
         "children": [
             {
@@ -140,6 +142,7 @@
     },
     {
         "name": "Community",
+        "id": "community",
         "url": "/community/en",
         "children": [
             {
@@ -177,6 +180,7 @@
     },
     {
         "name": "Resources",
+        "id": "resources",
         "url": "/resources/en",
         "children": [
             {
@@ -195,6 +199,7 @@
     },
     {
         "name": "News",
+        "id": "news",
         "url": "/news/en",
         "children": [
             {
@@ -217,6 +222,8 @@
     },
     {
         "name": "Security",
+        "id": "security",
         "url": "/security/en"
     }
-]
+  ]
+  
