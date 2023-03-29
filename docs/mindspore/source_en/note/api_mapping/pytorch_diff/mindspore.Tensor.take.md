@@ -16,7 +16,7 @@ For more information, see [torch.take](https://pytorch.org/docs/1.5.0/torch.html
 mindspore.Tensor.take(indices, axis=None, mode="clip")
 ```
 
-For more information, see [mindspore.Tensor.take](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.take.html#mindspore.Tensor.take).
+For more information, see [mindspore.Tensor.take](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.take.html#mindspore.Tensor.take).
 
 ## Uasge
 

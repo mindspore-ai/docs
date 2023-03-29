@@ -26,7 +26,7 @@ class mindspore.nn.GaussianNLLLoss(
 )(logits, labels, var) -> Tensor/Scalar
 ```
 
-For more information, see [mindspore.nn.GaussianNLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GaussianNLLLoss.html).
+For more information, see [mindspore.nn.GaussianNLLLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.GaussianNLLLoss.html).
 
 ## Differences
 

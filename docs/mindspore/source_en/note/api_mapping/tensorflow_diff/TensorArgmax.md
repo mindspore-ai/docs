@@ -16,7 +16,7 @@ For more information, see [tf.arg_max](https://tensorflow.google.cn/versions/r1.
 mindspore.Tensor.argmax(axis=None)
 ```
 
-For more information, see [mindspore.Tensor.argmax](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax).
+For more information, see [mindspore.Tensor.argmax](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax).
 
 ## Usage
 

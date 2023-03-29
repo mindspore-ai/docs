@@ -16,7 +16,7 @@ For more information, see [tf.keras.initializers.Constant](https://tensorflow.go
 mindspore.common.initializer.Constant(value)
 ```
 
-For more information, see [mindspore.common.initializer.Constant](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
+For more information, see [mindspore.common.initializer.Constant](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
 
 ## Usage
 

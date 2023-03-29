@@ -16,7 +16,7 @@ For more information, see [torch.nn.GELU](https://pytorch.org/docs/1.8.1/generat
 class mindspore.nn.GELU(approximate=True)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.GELU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GELU.html).
+For more information, see [mindspore.nn.GELU](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.GELU.html).
 
 ## Differences
 

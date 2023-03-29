@@ -24,7 +24,7 @@ torch.empty_like(
 mindspore.numpy.empty_like(prototype, dtype=None, shape=None) -> Tensor
 ```
 
-更多内容详见[mindspore.numpy.empty_like](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.empty_like.html)。
+更多内容详见[mindspore.numpy.empty_like](https://mindspore.cn/docs/zh-CN/r2.0/api_python/numpy/mindspore.numpy.empty_like.html)。
 
 ## 差异对比
 

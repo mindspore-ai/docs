@@ -24,7 +24,7 @@ For more information, see [torch.hann_window](https://pytorch.org/docs/1.8.1/gen
 mindspore.numpy.hanning(M) -> Tensor
 ```
 
-For more information, see [mindspore.numpy.hanning](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.hanning.html).
+For more information, see [mindspore.numpy.hanning](https://mindspore.cn/docs/en/r2.0/api_python/numpy/mindspore.numpy.hanning.html).
 
 ## Differences
 

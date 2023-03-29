@@ -33,7 +33,7 @@ class mindspore.nn.LSTM(
     bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LSTM.html)。
+更多内容详见[mindspore.nn.LSTM](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.LSTM.html)。
 
 ## 差异对比
 

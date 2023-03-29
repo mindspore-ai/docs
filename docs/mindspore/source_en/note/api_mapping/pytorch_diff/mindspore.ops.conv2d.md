@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.conv2d](https://pytorch.org/docs/
 mindspore.ops.conv2d(inputs, weight, pad_mode="valid", padding=0, stride=1, dilation=1, group=1)
 ```
 
-For more information, see [mindspore.ops.conv2d](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.conv2d.html).
+For more information, see [mindspore.ops.conv2d](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.conv2d.html).
 
 ## Differences
 

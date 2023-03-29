@@ -16,7 +16,7 @@ torch.ones(*size, *, out=None, dtype=None, layout=torch.strided, device=None, re
 mindspore.ops.ones(shape, dtype=dtype) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.ones](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ones.html)。
+更多内容详见[mindspore.ops.ones](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ones.html)。
 
 ## 差异对比
 

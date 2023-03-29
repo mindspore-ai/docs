@@ -16,7 +16,7 @@ For more information, see [tf.math.add](https://tensorflow.google.cn/versions/r2
 mindspore.ops.add(x, y) -> Tensor
 ```
 
-For more information, see [mindspore.ops.add](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.add.html).
+For more information, see [mindspore.ops.add](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.add.html).
 
 ## Differences
 

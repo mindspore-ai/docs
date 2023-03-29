@@ -16,7 +16,7 @@ For more information, see [torch.nn.MSELoss](https://pytorch.org/docs/1.8.1/gene
 class mindspore.nn.MSELoss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.MSELoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MSELoss.html).
+For more information, see [mindspore.nn.MSELoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.MSELoss.html).
 
 ## Differences
 

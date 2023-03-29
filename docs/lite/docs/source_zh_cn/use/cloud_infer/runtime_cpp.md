@@ -4,19 +4,19 @@
 
 ## 概述
 
-本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧推理。
+本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/r2.0/index.html)执行MindSpore Lite云侧推理。
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 
-如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/runtime_cpp.html)。
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型。
-2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
-3. 模型加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-3)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
+1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_tool.html)转换获得MindIR模型。
+2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
+3. 模型加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#build-3)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要填充输入数据。
-5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)进行模型推理。
+5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#predict)进行模型推理。
 
 ![img](../../images/lite_runtime.png)
 
@@ -24,9 +24,9 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/runtime_cpp)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
-3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore/lite/examples/cloud_infer/runtime_cpp`目录。
+3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore/lite/examples/cloud_infer/runtime_cpp`目录。
 
 ## 创建配置上下文
 
@@ -43,11 +43,11 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数当前只能为其中一个。
+通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数当前只能为其中一个。
 
 ### 配置使用CPU后端
 
-当需要执行的后端为CPU时，需要设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为推理后端。通过`SetEnableFP16`使能Float16推理。
+当需要执行的后端为CPU时，需要设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#cpudeviceinfo)为推理后端。通过`SetEnableFP16`使能Float16推理。
 
 ```c++
 auto context = std::make_shared<mindspore::Context>();
@@ -70,7 +70,7 @@ device_list.push_back(cpu_device_info);
 
 1. 配置线程数
 
-    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadnum)配置线程数：
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)通过[SetThreadNum](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setthreadnum)配置线程数：
 
     ```c++
     // Configure the number of worker threads in the thread pool to 2, including the main thread.
@@ -79,7 +79,7 @@ device_list.push_back(cpu_device_info);
 
 2. 配置线程亲和性
 
-    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetThreadAffinity](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)通过[SetThreadAffinity](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setthreadaffinity-1)配置线程和CPU绑定。
     通过参数`const std::vector<int> &core_list`设置绑核列表。
 
     ```c++
@@ -89,7 +89,7 @@ device_list.push_back(cpu_device_info);
 
 3. 配置并行策略
 
-    [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)通过[SetInterOpParallelNum](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setinteropparallelnum)设置运行时的算子并行推理数目。
+    [Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)通过[SetInterOpParallelNum](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setinteropparallelnum)设置运行时的算子并行推理数目。
 
     ```c++
     // Configure the inference supports parallel.
@@ -98,7 +98,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用GPU后端
 
-当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为推理后端。其中GPUDeviceInfo通过`SetDeviceID`来设置设备ID，通过`SetEnableFP16`或者`SetPrecisionMode`使能Float16推理。
+当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#gpudeviceinfo)为推理后端。其中GPUDeviceInfo通过`SetDeviceID`来设置设备ID，通过`SetEnableFP16`或者`SetPrecisionMode`使能Float16推理。
 
 下面示例代码演示如何创建GPU推理后端，同时设备ID设置为0：
 
@@ -134,7 +134,7 @@ device_list.push_back(gpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Ascend 310/310P/910)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
+当需要执行的后端为Ascend时(目前支持Ascend 310/310P/910)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
 
 下面示例代码演示如何创建Ascend推理后端，同时设备ID设置为0：
 
@@ -170,7 +170,7 @@ device_list.push_back(gpu_device_info);
 
 ## 模型创建加载与编译
 
-使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，调用Model的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-3)接口来实现模型加载与模型编译。
+使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#context)，调用Model的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#build-3)接口来实现模型加载与模型编译。
 
 下面示例代码演示了Model创建、加载与编译的过程：
 
@@ -214,15 +214,15 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 }
 ```
 
-> 针对大模型，使用model buffer进行加载编译的时候需要单独设置权重文件的路径，通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#updateconfig)接口设置模型路径，其中`section`为`model_file`，`key`为`mindir_path`；使用model path进行加载编译的时候不需要设置其他参数，会自动读取权重参数。
+> 针对大模型，使用model buffer进行加载编译的时候需要单独设置权重文件的路径，通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#updateconfig)接口设置模型路径，其中`section`为`model_file`，`key`为`mindir_path`；使用model path进行加载编译的时候不需要设置其他参数，会自动读取权重参数。
 
 ## 输入数据
 
-在模型执行前，需要设置输入数据，使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。可以通过MSTensor的[DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize)方法来获取Tensor应该填入的数据大小，通过[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype)方法来获取Tensor的数据类型，通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)方法设置输入host数据。
+在模型执行前，需要设置输入数据，使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。可以通过MSTensor的[DataSize](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#datasize)方法来获取Tensor应该填入的数据大小，通过[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#datatype)方法来获取Tensor的数据类型，通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setdata-1)方法设置输入host数据。
 
 当前有两种指定输入数据的方式：
 
-1. 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)设置输入数据，可以避免host之间的拷贝，输入数据将最终直接拷贝到推理设备上。
+1. 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setdata-1)设置输入数据，可以避免host之间的拷贝，输入数据将最终直接拷贝到推理设备上。
 
     ```c++
     int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -254,7 +254,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
       SetTensorHostData(&inputs, &input_buffer);
     ```
 
-2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将是`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
+2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将是`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
 
     ```c++
     int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -281,7 +281,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 
 ## 执行推理
 
-调用[Model.Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口执行推理，并对返回的输出结果进行后续处理。
+调用[Model.Predict](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#predict)接口执行推理，并对返回的输出结果进行后续处理。
 
 ```c++
 int SpecifyInputDataExample(const std::string &model_path, const std::string &device_type, int32_t device_id,
@@ -317,7 +317,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## 编译和执行
 
-按照[快速入门环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction_cloud.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)一节所述，设置环境变量。接着按如下方式编译程序：
+按照[快速入门环境变量](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/quick_start/one_hour_introduction_cloud.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)一节所述，设置环境变量。接着按如下方式编译程序：
 
 ```bash
 mkdir build && cd build
@@ -339,7 +339,7 @@ Lite云侧推理框架支持动态shape输入的模型，GPU和Ascend硬件后�
 
 动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Ascend 310环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Ascend 310上运行，如果指定`--optimize=general`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
 
-Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
+Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
 
 通过`LoadConfig`加载的配置文件示例如下所示：
 
@@ -389,7 +389,7 @@ opt_dims=[1]
   }
 ```
 
-在模型推理时，如果模型的输入是动态的，通过`GetInputs`和`GetOutputs`返回的输入输出shape可能包括-1，即为动态shape，则需要通过[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)接口指定输入shape。如果输入Shape需要发生变化，比如`batch`维度发生变化，则需要重新调用`Resize`接口调整输入shape。
+在模型推理时，如果模型的输入是动态的，通过`GetInputs`和`GetOutputs`返回的输入输出shape可能包括-1，即为动态shape，则需要通过[Resize](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#resize)接口指定输入shape。如果输入Shape需要发生变化，比如`batch`维度发生变化，则需要重新调用`Resize`接口调整输入shape。
 
 调用`Resize`接口后，已调用和后续调用的`GetInputs`和`GetOutputs`中的Tensor的shape将发生变化。
 
@@ -416,7 +416,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 指定设备内存支持CPU、Asend和GPU硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
 
-通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
+通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setdata-1)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
 
 1. 指定输入host内存
 
@@ -468,7 +468,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/device_example_cpp)。
 
-通过[SetDeviceData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdevicedata)可单独或者同时指定输入和输出设备内存。用户需要维护设备内存的生命周期，负责设备内存的申请和释放。
+通过[SetDeviceData](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#setdevicedata)可单独或者同时指定输入和输出设备内存。用户需要维护设备内存的生命周期，负责设备内存的申请和释放。
 
 1. 指定输入设备内存
 

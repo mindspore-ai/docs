@@ -24,7 +24,7 @@ torch.hann_window(
 mindspore.numpy.hanning(M) -> Tensor
 ```
 
-更多内容详见[mindspore.numpy.hanning](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.hanning.html)。
+更多内容详见[mindspore.numpy.hanning](https://mindspore.cn/docs/zh-CN/r2.0/api_python/numpy/mindspore.numpy.hanning.html)。
 
 ## 差异对比
 

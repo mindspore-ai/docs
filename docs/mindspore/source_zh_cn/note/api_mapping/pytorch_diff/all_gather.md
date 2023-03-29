@@ -21,7 +21,7 @@ torch.distributed.all_gather(
 class mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
 ```
 
-更多内容详见[mindspore.ops.AllGather](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)。
+更多内容详见[mindspore.ops.AllGather](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)。
 
 ## 使用方式
 

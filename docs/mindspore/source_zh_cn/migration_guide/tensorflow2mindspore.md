@@ -102,7 +102,7 @@ def tensorflow2mindspore(tf_ckpt_dir, param_mapping_dict, ms_ckpt_path):
 ```
 
 因为当前网络的参数名映射非常复杂，通过参数名很难找到映射关系，所以我们需要通过一个参数映射字典。当遇到比较简单的参数名映射时，
-转换方法可以参考[PyTorch模型文件转MindSpore模型文件](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)的方法。
+转换方法可以参考[PyTorch模型文件转MindSpore模型文件](https://www.mindspore.cn/docs/zh-CN/r2.0/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)的方法。
 
 ```python
 params_mapping = {

@@ -26,7 +26,7 @@ class mindspore.nn.CosineDecayLR(
 )(global_step) -> Tensor
 ```
 
-For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html).
+For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.CosineDecayLR.html).
 
 ## Differences
 

@@ -16,7 +16,7 @@ For more information, see [tf.math.reduce_variance](https://tensorflow.google.cn
 mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.Tensor.var](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var).
+For more information, see [mindspore.Tensor.var](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var).
 
 ## Usage
 

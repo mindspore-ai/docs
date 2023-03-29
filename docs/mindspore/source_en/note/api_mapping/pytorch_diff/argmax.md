@@ -23,7 +23,7 @@ For more information, see [torch.argmax](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.argmax(x, axis=None, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.argmax](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.argmax.html).
+For more information, see [mindspore.ops.argmax](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.argmax.html).
 
 ## Differences
 
@@ -39,7 +39,7 @@ MindSpore: The implementation function of API in MindSpore is basically the same
 
 ### Code Example 1
 
-> For a zero-dimensional Tensor, PyTorch supports any combination of None/-1/0 for the dim parameter and True/False for the keepdim parameter, and the computation results are all consistent, all being a zero-dimensional Tensor. MindSpore version 1.8.1 does not support handling zero-dimensional Tensor at the moment, and you need to use [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ExpandDims.html) to expand the Tensor to one dimension, and then follow the default parameter computation of the mindspore.ops.argmax operator.
+> For a zero-dimensional Tensor, PyTorch supports any combination of None/-1/0 for the dim parameter and True/False for the keepdim parameter, and the computation results are all consistent, all being a zero-dimensional Tensor. MindSpore version 1.8.1 does not support handling zero-dimensional Tensor at the moment, and you need to use [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ExpandDims.html) to expand the Tensor to one dimension, and then follow the default parameter computation of the mindspore.ops.argmax operator.
 
 ```python
 # PyTorch
@@ -109,7 +109,7 @@ print(ms_out_np)
 
 ### Code Example 3
 
-> The PyTorch operator has a keepdim parameter. When set to True, it serves to keep the dimension for which aggregation is performed and is set to 1. MindSpore keepdims parameter is consistent with its function. To achieve the same result, after the calculation is done, use the [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ExpandDims.html) operator to expand the dimensionality.
+> The PyTorch operator has a keepdim parameter. When set to True, it serves to keep the dimension for which aggregation is performed and is set to 1. MindSpore keepdims parameter is consistent with its function. To achieve the same result, after the calculation is done, use the [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ExpandDims.html) operator to expand the dimensionality.
 
 ```python
 # PyTorch

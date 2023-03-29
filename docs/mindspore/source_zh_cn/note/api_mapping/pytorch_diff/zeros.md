@@ -16,7 +16,7 @@ torch.zeros(*size, *, out=None, dtype=None, layout=torch.strided, device=None, r
 mindspore.ops.zeros(size, dtype=dtype) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.zeros](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros.html)。
+更多内容详见[mindspore.ops.zeros](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.zeros.html)。
 
 ## 差异对比
 

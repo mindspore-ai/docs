@@ -24,7 +24,7 @@ class mindspore.ops.softmax(
 )
 ```
 
-For more information, see [mindspore.ops.softmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax).
+For more information, see [mindspore.ops.softmax](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax).
 
 ## Differences
 

@@ -19,7 +19,7 @@ For more information, see [tf.math.reduce_sum](https://tensorflow.google.cn/vers
 mindspore.Tensor.sum(self, axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
-For more information, see [mindspore.Tensor.sum](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
+For more information, see [mindspore.Tensor.sum](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
 
 ## Usage
 

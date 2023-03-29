@@ -34,8 +34,8 @@
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [MSTensor](#mstensor)                            | MindSpore中的张量。                                    | √      | √      |
 | [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
-| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
-| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
+| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
+| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
 | [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
 ### 状态
@@ -1967,7 +1967,7 @@ typedef enum {
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.0/include/api/delegate.h)&gt;
 
-定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
+定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
 ```cpp
 using KernelIter = std::vector<kernel::Kernel *>::iterator;
@@ -2001,7 +2001,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 std::vector<kernel::Kernel *> *kernels_;
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
 
 #### inputs_
 
@@ -2009,7 +2009,7 @@ std::vector<kernel::Kernel *> *kernels_;
 const std::vector<mindspore::MSTensor> &inputs_;
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
 
 #### outputs_
 
@@ -2017,7 +2017,7 @@ const std::vector<mindspore::MSTensor> &inputs_;
 const std::vector<mindspore::MSTensor> &outputs;
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
 
 #### primitives_
 
@@ -2025,7 +2025,7 @@ const std::vector<mindspore::MSTensor> &outputs;
 const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_;
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
 
 #### version_
 
@@ -2105,7 +2105,7 @@ const std::vector<mindspore::MSTensor> &inputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)的列表。
 
 #### outputs
 
@@ -2117,7 +2117,7 @@ const std::vector<mindspore::MSTensor> &outputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html#mstensor)的列表。
 
 #### GetVersion
 

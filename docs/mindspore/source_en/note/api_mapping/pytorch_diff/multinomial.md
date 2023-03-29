@@ -23,7 +23,7 @@ For more information, see [torch.multinomial](https://pytorch.org/docs/1.8.1/gen
 mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 ```
 
-For more information, see [mindspore.ops.multinomial](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.multinomial.html).
+For more information, see [mindspore.ops.multinomial](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.multinomial.html).
 
 ## Differences
 

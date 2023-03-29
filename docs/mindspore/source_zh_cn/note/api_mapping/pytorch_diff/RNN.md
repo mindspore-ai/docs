@@ -16,7 +16,7 @@ class torch.nn.RNN(*args, **kwargs)(input, h_0)
 class mindspore.nn.RNN(*args, **kwargs)(x, h_x, seq_length)
 ```
 
-更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RNN.html)。
+更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.RNN.html)。
 
 ## 差异对比
 

@@ -12,11 +12,11 @@ MindSpore is designed to provide an device-edge-cloud full-scenarios AI framewor
 
 Several important features of MindSpore full scenarios:
 
-1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/master/quick_start/train_lenet.html).
+1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/r2.0/quick_start/train_lenet.html).
 2. Model unification. The device and cloud use the same model format and definition, and the software architecture is consistent. MindSpore supports the execution of Ascend, GPU, CPU (x86, Arm) and other hardware, and is used in multiple deployments for one training.
 3. Diversified arithmetic support. Provide a unified southbound interface to support the quick addition of new hardware for use.
 4. Model miniaturization techniques, adapted to the requirements of different hardware environments and business scenarios, such as quantization compression.
-5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/master/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/master/use/runtime_train.html) and other new technologies.
+5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/master/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.0/use/runtime_train.html) and other new technologies.
 
 ## Full-scenarios Support Mode
 

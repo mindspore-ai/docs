@@ -10,7 +10,7 @@ MindSpore支持一个模型导出生成多张子图，拥有多个子图的模�
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/serving_install.html)。
 
 ### 下载样例
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 ```
 
 使用MindSpore定义神经网络需要继承`mindspore.nn.Cell`。`Cell`是所有神经网络的基类。神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。使用`mindspore`模块的`export`即可导出模型文件。
-更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html)。
+更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/quick_start.html)。
 
 执行`export_matmul.py`脚本，生成`matmul_0.mindir`和`matmul_1.mindir`文件，输入shape分别为[128,96]和[8,96]。
 
@@ -103,7 +103,7 @@ matmul_multi_subgraphs
 - `serving_server.py`为启动服务脚本文件。
 - `matmul`为模型文件夹，文件夹名即为模型名。
 - `matmul_0.mindir`和`matmul_1.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
-- [servable_config.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_multi_subgraphs/matmul/servable_config.py)为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_model.html)，其定义了Servable的方法`predict`。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_multi_subgraphs/matmul/servable_config.py)为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/serving_model.html)，其定义了Servable的方法`predict`。
 
 模型配置文件内容如下：
 

@@ -23,7 +23,7 @@ torch.scatter(input, dim, index, src)
 mindspore.ops.scatter(input, axis, index, src)
 ```
 
-更多内容详见[mindspore.ops.scatter](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.scatter.html)。
+更多内容详见[mindspore.ops.scatter](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.scatter.html)。
 
 ## 差异对比
 

@@ -210,7 +210,7 @@ if __name__ == "__main__":
     export(network, inputs, file_name="ResNet_SCOP", file_format='MINDIR')
 ```
 
-After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/r2.0/infer/inference.html).
 
 ## Summary
 

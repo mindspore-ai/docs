@@ -25,7 +25,7 @@ class mindspore.ops.max(
 )
 ```
 
-For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.max.html).
+For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.max.html).
 
 ## Differences
 

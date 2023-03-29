@@ -16,7 +16,7 @@ torch.cdist(x1, x2, p=2.0, compute_mode='use_mm_for_euclid_dist_if_necessary')
 mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
-更多内容详见[mindspore.ops.cdist](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cdist.html)。
+更多内容详见[mindspore.ops.cdist](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cdist.html)。
 
 ## 差异对比
 

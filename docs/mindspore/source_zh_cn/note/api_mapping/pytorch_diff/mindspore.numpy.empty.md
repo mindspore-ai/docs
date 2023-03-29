@@ -26,7 +26,7 @@ torch.empty(
 mindspore.numpy.empty(shape, dtype=mstype.float32) -> Tensor
 ```
 
-更多内容详见[mindspore.numpy.empty](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.empty.html)。
+更多内容详见[mindspore.numpy.empty](https://mindspore.cn/docs/zh-CN/r2.0/api_python/numpy/mindspore.numpy.empty.html)。
 
 ## 差异对比
 

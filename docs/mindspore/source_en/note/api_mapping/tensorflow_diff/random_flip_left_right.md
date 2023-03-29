@@ -21,7 +21,7 @@ class mindspore.dataset.vision.RandomHorizontalFlip(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip).
+For more information, see [mindspore.dataset.vision.RandomHorizontalFlip](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip).
 
 ## Differences
 

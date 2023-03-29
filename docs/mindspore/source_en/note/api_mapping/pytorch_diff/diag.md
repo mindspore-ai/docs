@@ -23,7 +23,7 @@ For more information, see [torch.diag](https://pytorch.org/docs/1.8.1/generated/
 mindspore.ops.diag(input) -> Tensor
 ```
 
-For more information, see [mindspore.ops.diag](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.diag.html).
+For more information, see [mindspore.ops.diag](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.diag.html).
 
 ## Differences
 

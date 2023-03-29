@@ -25,7 +25,7 @@ The invoking method of distributed training depending on the device.
 
 On the GPU hardware platform, communication in MindSpore distributed parallel training uses NVIDIA’s collective communication library NVIDIA Collective Communication Library (NCCL for short).
 
-For details about distributed training implementation on [GPU](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html).
+For details about distributed training implementation on [GPU](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_gpu.html).
 
 ```bash
 # GPU
@@ -42,7 +42,7 @@ mpirun --allow-run-as-root -n ${CUDA_NUM} python3 ./distributed_trainval_reddit.
 
 The Huawei Collective Communication Library (HCCL) is used for the communication of MindSpore parallel distributed training and can be found in the Ascend 310 AI processor software package. In addition, mindspore.communication.management encapsulates the collective communication API provided by the HCCL to help users configure distributed information.
 
-For details about distributed training implementation on [Ascend](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
+For details about distributed training implementation on [Ascend](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_ascend.html).
 
 ```bash
 # Ascend

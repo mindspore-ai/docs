@@ -12,7 +12,7 @@ Add the MindSpore Profiler interface to the training script.
 
   .. note::
      The parameters of Profiler are as follows:
-     `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
+     `Profiler API <https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
      Before initializing the Profiler, you need to determine the device_id.
 
 - At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the perforamnce analyse results.

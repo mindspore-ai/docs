@@ -16,7 +16,7 @@ class torch.nn.Tanh()(input) -> Tensor
 class mindspore.nn.Tanh()(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Tanh](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Tanh.html)。
+更多内容详见[mindspore.nn.Tanh](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Tanh.html)。
 
 ## 差异对比
 

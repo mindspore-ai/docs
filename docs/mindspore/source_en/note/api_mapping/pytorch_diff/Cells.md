@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.children](https://pytorch.org/docs/1.
 mindspore.nn.Cell.cells()
 ```
 
-For more information, see [mindspore.nn.Cell.cells](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells).
+For more information, see [mindspore.nn.Cell.cells](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells).
 
 ## Differences
 

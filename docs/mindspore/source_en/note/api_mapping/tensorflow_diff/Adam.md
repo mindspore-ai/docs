@@ -36,7 +36,7 @@ class mindspore.nn.Adam(
 )(gradients) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Adam](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html).
+For more information, see [mindspore.nn.Adam](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Adam.html).
 
 ## Differences
 

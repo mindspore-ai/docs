@@ -16,7 +16,7 @@ For more information, see [tf.keras.Model](https://tensorflow.google.cn/versions
 mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-For more information, see [mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
+For more information, see [mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
 ## Usage
 

@@ -16,7 +16,7 @@ class torch.nn.PReLU(num_parameters=1, init=0.25)(input) -> Tensor
 class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.PReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PReLU.html)。
+更多内容详见[mindspore.nn.PReLU](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.PReLU.html)。
 
 ## 差异对比
 

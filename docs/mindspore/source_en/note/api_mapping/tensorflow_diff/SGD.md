@@ -30,7 +30,7 @@ class mindspore.nn.SGD(
 )(gradients) -> Tensor
 ```
 
-For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SGD.html).
+For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SGD.html).
 
 ## Differences
 

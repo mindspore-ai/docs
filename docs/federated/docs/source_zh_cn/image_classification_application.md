@@ -14,7 +14,7 @@
 
 1. 定义网络和训练过程。
 
-   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
+   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/quick_start.html#网络构建)。
 
 2. 将模型导出为MindIR格式文件。
 
@@ -108,7 +108,7 @@
 
 3. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html )。
+   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/converter_tool.html )。
 
    模型转换示例如下：
 

@@ -13,7 +13,7 @@ MindSpore Lite quantization after training is classified into two types:
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, and `data preprocess parameter [data_preprocess_param]`.
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.0/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, and `data preprocess parameter [data_preprocess_param]`.
 
 ### Common Quantization Parameter
 
@@ -211,7 +211,7 @@ In CV scenarios where the model running speed needs to be improved and the model
 
 To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500, **and the calibration dataset needs to be processed into the Format of `NHWC`**.
 
-For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
+For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/r2.0/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
 Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`。
 
@@ -332,7 +332,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
+Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/r2.0/use/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
 
 Ascend quantization static shape parameter configuration
 
@@ -354,7 +354,7 @@ Ascend quantization static shape parameter configuration
     target_device=ASCEND
     ```
 
-Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.0/use/converter_tool.html#parameter-description).
 
 - In the dynamic shape scenario, the general form of the conversion command for Ascend quantization as follow:
 

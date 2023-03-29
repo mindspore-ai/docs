@@ -12,7 +12,7 @@ MindSpore Lite provides a lightweight offline model obfuscator to protect the co
 
 To use the MindSpore Lite model obfuscator, you need to prepare the environment as follows:
 
-- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example).
+- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.0/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.0/use/build.html#compilation-example).
 
 ### Directory Structure
 

@@ -38,7 +38,7 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
 
-A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)章节。
+A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/dataset.html#自定义数据集)章节。
 
 <br/>
 
@@ -160,9 +160,9 @@ A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不�
 
 A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GenratorDataset 示例](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)
+[GenratorDataset 示例](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/dataset.html#自定义数据集)
 
-[GenratorDataset API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
@@ -191,7 +191,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#转换成record格式)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/dataset/record.html#转换成record格式)教程。
 
 <br/>
 
@@ -203,7 +203,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 <font size=3>**Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？**</font>
 
-A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.dataset.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/dataset/optimize.html)。
 
 <br/>
 
@@ -315,7 +315,7 @@ dataset3 = dataset2.map(***)
 
 <font size=3>**Q: MindSpore中和DataLoader对应的接口是什么？**</font>
 
-A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/dataset.html#自定义数据集)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 

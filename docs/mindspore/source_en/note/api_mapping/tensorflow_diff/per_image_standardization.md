@@ -22,7 +22,7 @@ class mindspore.dataset.vision.Normalize(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.Normalize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html#mindspore.dataset.vision.Normalize).
+For more information, see [mindspore.dataset.vision.Normalize](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html#mindspore.dataset.vision.Normalize).
 
 ## Differences
 

@@ -16,7 +16,7 @@ tf.math.erf(x, name=None) -> Tensor
 mindspore.ops.erf(x) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.erf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.erf.html)。
+更多内容详见[mindspore.ops.erf](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.erf.html)。
 
 ## 差异对比
 

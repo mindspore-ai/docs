@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.kl_div](https://pytorch.org/docs/
 mindspore.ops.kl_div(logits, labels, reduction='mean')
 ```
 
-For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
+For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
 
 ## Differnnces
 

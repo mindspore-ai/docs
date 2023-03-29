@@ -18,7 +18,7 @@ For more information, see [tf.keras.metrics.Recall](https://tensorflow.google.cn
 mindspore.train.Recall(eval_type="classification")
 ```
 
-For more information, see [mindspore.train.Recall](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall).
+For more information, see [mindspore.train.Recall](https://mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall).
 
 ## Usage
 

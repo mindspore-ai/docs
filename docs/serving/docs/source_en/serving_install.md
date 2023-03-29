@@ -40,7 +40,7 @@ When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference ba
 |                | Ascend 310       | Ascend 310      |
 |                | Ascend 310P       | Ascend 310P      |
 
-For details about how to compile and install MindSpore Lite, see the [MindSpore Lite Documentation](https://www.mindspore.cn/lite/docs/en/master/index.html).
+For details about how to compile and install MindSpore Lite, see the [MindSpore Lite Documentation](https://www.mindspore.cn/lite/docs/en/r2.0/index.html).
 We should configure the environment variable `LD_LIBRARY_PATH` to indicates the installation path of `libmindspore-lite.so`.
 
 We can install MindSpore Serving either by pip or by source code.

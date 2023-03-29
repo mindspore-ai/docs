@@ -20,7 +20,7 @@ mindspore.nn.SequentialCell(
 )
 ```
 
-For more information, see [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html).
+For more information, see [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SequentialCell.html).
 
 ## Differences
 

@@ -16,7 +16,7 @@ For more information, see [torch.nn.Softshrink](https://pytorch.org/docs/1.8.1/g
 class mindspore.nn.SoftShrink(lambd=0.5)(input_x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.SoftShrink](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SoftShrink.html).
+For more information, see [mindspore.nn.SoftShrink](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SoftShrink.html).
 
 ## Differences
 

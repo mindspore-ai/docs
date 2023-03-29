@@ -44,7 +44,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
 ### Defining the Network Model
 
-1. Call the function components provided by MindSpore and take nn.Cell (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) as a base class to program the training network of this participant to be involved in vertical federated learning. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
+1. Call the function components provided by MindSpore and take nn.Cell (see [mindspore.nn.Cell](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)) as a base class to program the training network of this participant to be involved in vertical federated learning. Taking the Embedding subnetwork of participant A in this application practice as an example, [sample code](https://gitee.com/mindspore/federated/blob/master/example/splitnn_pangu_alpha/src/split_pangu_alpha.py) is as follows:
 
    ```python
    class EmbeddingLossNet(nn.Cell):
@@ -160,7 +160,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
     The `type` field is of the optimizer type. Here is the developer-defined optimizer.
 
-    The `grads` field is a list of `GradOperation` associated with the optimizer, which will use the `GradOperation` operator in the list to compute the output gradient values and update the training network parameters. The `inputs` and `output` fields are input and output tensor lists of the `GradOperation` operator, whose elements are an input/output tensor name, respectively. The `sens` field is the gradient weighting coefficient or the sensitivity identifier of the `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)).
+    The `grads` field is a list of `GradOperation` associated with the optimizer, which will use the `GradOperation` operator in the list to compute the output gradient values and update the training network parameters. The `inputs` and `output` fields are input and output tensor lists of the `GradOperation` operator, whose elements are an input/output tensor name, respectively. The `sens` field is the gradient weighting coefficient or the sensitivity identifier of the `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)).
 
     The `params` field is a list of training network parameter names to be updated by the optimizer, whose elements are the names of one training network parameter each. In this example, the custom optimizer will update the network parameters with the `word_embedding` string and the `position_embedding` string in their names.
 
@@ -185,7 +185,7 @@ grad_scalers:
     sens: 1024.0
 ```
 
-The `inputs` and `output` fields are lists of input and output tensors of the `GradOperation` operator, whose elements are input/output tensor names, respectively. The `sens` field is the gradient weighting coefficient or sensitivity of this `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)). If it is a `float` or `int` type value, a constant tensor will be constructed as the gradient weighting coefficient. If it is a `str` type string, the tensor corresponding to the name will be parsed as a weighting coefficient from the weighting coefficients transmitted by the other participants via the network.
+The `inputs` and `output` fields are lists of input and output tensors of the `GradOperation` operator, whose elements are input/output tensor names, respectively. The `sens` field is the gradient weighting coefficient or sensitivity of this `GradOperation` operator (refer to [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)). If it is a `float` or `int` type value, a constant tensor will be constructed as the gradient weighting coefficient. If it is a `str` type string, the tensor corresponding to the name will be parsed as a weighting coefficient from the weighting coefficients transmitted by the other participants via the network.
 
 ### Executing the Training
 

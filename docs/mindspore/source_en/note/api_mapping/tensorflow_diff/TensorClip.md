@@ -18,7 +18,7 @@ For more information, see [tf.clip_by_value](https://tensorflow.google.cn/versio
 mindspore.Tensor.clip(xmin, xmax, dtype=None)
 ```
 
-For more information, see [mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip).
+For more information, see [mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip).
 
 ## Usage
 

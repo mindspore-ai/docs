@@ -25,7 +25,7 @@ class mindspore.ops.L2Normalize(
 )(input_x)
 ```
 
-更多内容详见[mindspore.ops.L2Normalize](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize)。
+更多内容详见[mindspore.ops.L2Normalize](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize)。
 
 ## 差异对比
 

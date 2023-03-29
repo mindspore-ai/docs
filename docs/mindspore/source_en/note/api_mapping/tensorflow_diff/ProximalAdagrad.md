@@ -32,7 +32,7 @@ class mindspore.nn.ProximalAdagrad(
 )(grads) -> Tensor
 ```
 
-For more information, see [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ProximalAdagrad.html).
+For more information, see [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.ProximalAdagrad.html).
 
 ## Differences
 

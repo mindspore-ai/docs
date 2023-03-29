@@ -20,9 +20,9 @@ Data loading and processing has three phases: data preparation, data loading, an
 
 | Error Type| Error Description| Case Analysis|
 |-------------|---------|---|
-| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
-| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
-| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
+| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/minddata_debug.html)|
+| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/minddata_debug.html)|
+| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/minddata_debug.html)|
 
 ## Network Construction and Training Error Analysis
 
@@ -32,11 +32,11 @@ The following table lists common network construction and training errors.
 
 | Error Type  | Error Description| Case Analysis|
 | - | - | - |
-| Incorrect context configuration| An error occurs when the system configures the context.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
+| Incorrect context configuration| An error occurs when the system configures the context.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/r2.0/debug/mindrt_debug.html)|
+| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Error Analysis](https://mindspore.cn/tutorials/experts/en/r2.0/debug/mindrt_debug.html)|
+| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/r2.0/debug/mindrt_debug.html)|
+| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/r2.0/debug/mindrt_debug.html)|
+| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/r2.0/debug/mindrt_debug.html)|
 
 ### Error Analysis of the Dynamic Graph Mode
 
@@ -52,7 +52,7 @@ In dynamic graph mode, common network construction and training errors are found
 
 - Determine the object where the error is reported based on the error description, for example, the operator API name.
 - Locate the code line where the error is reported based on the Python call stack information.
-- Analyze the code input data and calculation logic at the position where the error occurs, and find the error cause based on the description and specifications of the error object in the [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html).
+- Analyze the code input data and calculation logic at the position where the error occurs, and find the error cause based on the description and specifications of the error object in the [MindSpore API](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore.html).
 
 ### Error Analysis of the Static Graph Mode
 
@@ -69,9 +69,9 @@ Check whether the error is caused by graph build or graph execution based on the
 - If the error is reported during computational graph build, analyze the cause and location of the failure based on the error description and the `analyze_failed.ir` file automatically saved when the error occurs.
 - If the error is reported during computational graph execution, the error may be caused by insufficient resources or improper operator execution. You need to further distinguish the error based on the error message. If the error is reported during operator execution, locate the operator, use the dump function to save the input data of the operator, and analyze the cause of the error based on the input data.
 
-For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.ir`](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
+For details about how to analyze and infer the failure cause, see the analysis methods described in [`analyze_failed.ir`](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
-For details about how to use Dump to save the operator input data, see [Dump Function Debugging](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+For details about how to use Dump to save the operator input data, see [Dump Function Debugging](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/dump.html).
 
 ## Distributed Parallel Error Analysis
 
@@ -114,7 +114,7 @@ class MyStridedSlice(nn.Cell):
 
 Error cause:
 
-The piece of code performs the slice operation on dimension 0. However, the configured policy (2,1) indicates that the slice operation is performed on both dimension 0 and dimension 1 of the input tensor. According to the description of operator slicing in the [MindSpore API](https://www.mindspore.cn/docs/en/master/note/operator_list_parallel.html),
+The piece of code performs the slice operation on dimension 0. However, the configured policy (2,1) indicates that the slice operation is performed on both dimension 0 and dimension 1 of the input tensor. According to the description of operator slicing in the [MindSpore API](https://www.mindspore.cn/docs/en/r2.0/note/operator_list_parallel.html),
 
 > only the mask whose value is all 0s is supported. All dimensions that are sliced must be extracted together. The input dimensions whose strides is not set to 1 cannot be sliced.
 
@@ -274,11 +274,11 @@ Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are i
 
 | Common Error Types   | Error Description | Case Analysis |
 | - | - | - |
-| AICORE Operator Compilation Problem | AICORE Operator Error During Compilation | [AICORE Operator Compilation Problem](https://www.mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-compilation-problem)|
-| AICORE Operator Execution Problem  | AICORE Operator Error During Execution| [AICORE Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-execution-problem) |
-| AICPU Operator Execution Problem   | AICPU Operator Error During Execution | [AICPU Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicpu-operator-execution-problem) |
-| runtime FAQ   | Including input data exceptions, operator implementation errors, functional limitations, resource limitations, etc. | [runtime FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#runtime-faq) |
-| HCCL & HCCP FAQ   | Common communication problems during multi-machine multi-card training, including socket build timeout, notify wait timeout, ranktable configuration error, etc. | [HCCL & HCCP FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#hccl-hccp-faq) |
-| profiling FAQ    | Errors when running profiling for performance tuning | [profiling FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#profiling-faq) |
+| AICORE Operator Compilation Problem | AICORE Operator Error During Compilation | [AICORE Operator Compilation Problem](https://www.mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#aicore-operator-compilation-problem)|
+| AICORE Operator Execution Problem  | AICORE Operator Error During Execution| [AICORE Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#aicore-operator-execution-problem) |
+| AICPU Operator Execution Problem   | AICPU Operator Error During Execution | [AICPU Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#aicpu-operator-execution-problem) |
+| runtime FAQ   | Including input data exceptions, operator implementation errors, functional limitations, resource limitations, etc. | [runtime FAQ](https://mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#runtime-faq) |
+| HCCL & HCCP FAQ   | Common communication problems during multi-machine multi-card training, including socket build timeout, notify wait timeout, ranktable configuration error, etc. | [HCCL & HCCP FAQ](https://mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#hccl-hccp-faq) |
+| profiling FAQ    | Errors when running profiling for performance tuning | [profiling FAQ](https://mindspore.cn/tutorials/experts/en/r2.0/debug/cann_error_cases.html#profiling-faq) |
 
 For more information about CANN errors, refer to the [Ascend CANN Developer Documentation](https://www.hiascend.com/document/moreVersion/zh/CANNCommunityEdition/) to check the troubleshooting section of the corresponding CANN version.

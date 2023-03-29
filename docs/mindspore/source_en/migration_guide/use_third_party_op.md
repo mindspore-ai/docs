@@ -4,9 +4,9 @@
 
 ## Overview
 
-When lacking of the built-in operators during developing a network, you can use the primitive in [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) to easily and quickly define and use different types of customized operators.
+When lacking of the built-in operators during developing a network, you can use the primitive in [Custom](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) to easily and quickly define and use different types of customized operators.
 
-Developers can choose different customized operator development methods according to their needs. For details, please refer to the [Usage Guide](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html) of Custom operator.
+Developers can choose different customized operator development methods according to their needs. For details, please refer to the [Usage Guide](https://www.mindspore.cn/tutorials/experts/en/r2.0/operation/op_custom.html) of Custom operator.
 
 One of the development methods for customized operators, the `aot` method, has its own special use. The `aot` can call the corresponding `cpp`/`cuda` functions by loading a pre-compiled `so`. Therefore. When a third-party library provides `API`, a `cpp`/`cuda` function, you can try to call its function interface in `so`, which is described below by taking `Aten` library in PyTorch as an example.
 

@@ -32,13 +32,13 @@ class mindspore.nn.BatchNorm3d(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BatchNorm3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm3d.html)。
+更多内容详见[mindspore.nn.BatchNorm3d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.BatchNorm3d.html)。
 
 ## 差异对比
 
 PyTorch：在五维输入(具有额外mini-batch和channel通道的三维输入)上应用批归一化处理，以避免内部协变量偏移。
 
-MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
+MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[与PyTorch典型区别-BatchNorm](https://www.mindspore.cn/docs/zh-CN/r2.0/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -46,7 +46,7 @@ MindSpore：此API实现功能与PyTorch基本一致，典型区别有两点。M
 | | 参数2 | eps | eps | - |
 | | 参数3 | momentum | momentum | 功能一致，但PyTorch中的默认值是0.1，MindSpore中是0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同 |
 | | 参数4 | affine | affine |- |
-| | 参数5 | track_running_stats | use_batch_statistics | 功能一致，不同值对应的默认方式不同，详细区别请参考[与PyTorch典型区别-nn.BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)  |
+| | 参数5 | track_running_stats | use_batch_statistics | 功能一致，不同值对应的默认方式不同，详细区别请参考[与PyTorch典型区别-nn.BatchNorm](https://www.mindspore.cn/docs/zh-CN/r2.0/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)  |
 | | 参数6 | - | gamma_init |γ 参数的初始化方法，默认值："ones" |
 | | 参数7 | - | beta_init |β 参数的初始化方法，默认值："zeros" |
 | | 参数8 | - | moving_mean_init |动态平均值的初始化方法，默认值："zeros" |

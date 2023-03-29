@@ -24,7 +24,7 @@ For more information, see [torch.empty_like](https://pytorch.org/docs/1.8.1/gene
 mindspore.numpy.empty_like(prototype, dtype=None, shape=None) -> Tensor
 ```
 
-For more information, see [mindspore.numpy.empty_like](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.empty_like.html).
+For more information, see [mindspore.numpy.empty_like](https://mindspore.cn/docs/en/r2.0/api_python/numpy/mindspore.numpy.empty_like.html).
 
 ## Differences
 

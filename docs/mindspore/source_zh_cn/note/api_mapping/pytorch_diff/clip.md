@@ -23,7 +23,7 @@ torch.clip(input, min, max, *, out=None) -> Tensor
 mindspore.ops.clip(x, min=None, max=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.clip](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip.html)。
+更多内容详见[mindspore.ops.clip](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.clip.html)。
 
 ## 差异对比
 

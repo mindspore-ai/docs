@@ -328,7 +328,7 @@ When the EmbeddingTable reaches T level and the single machine memory cannot be 
 
 ![heterogeneous-heter-ps](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/design/images/heter-ps.png)
 
-Parameter Server encapsulates heterogeneous processes, and users only need to configure parameters to use PS. For the detailed configuration process, refer to [Parameter Server training process](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html).
+Parameter Server encapsulates heterogeneous processes, and users only need to configure parameters to use PS. For the detailed configuration process, refer to [Parameter Server training process](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/parameter_server_training.html).
 
 In addition, the process of using PS is also available in the wide&deep network and can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
 

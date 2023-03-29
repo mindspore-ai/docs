@@ -18,7 +18,7 @@ For more information, see [torch.meshgrid](https://pytorch.org/docs/1.8.1/genera
 mindspore.ops.meshgrid(*inputs, indexing='xy')
 ```
 
-For more information, see [mindspore.ops.meshgrid](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.meshgrid.html).
+For more information, see [mindspore.ops.meshgrid](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.meshgrid.html).
 
 ## Differences
 

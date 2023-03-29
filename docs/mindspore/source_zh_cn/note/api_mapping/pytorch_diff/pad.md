@@ -26,7 +26,7 @@ mindspore.ops.pad(
 )
 ```
 
-更多内容详见[mindspore.ops.pad](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.pad.html)。
+更多内容详见[mindspore.ops.pad](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.pad.html)。
 
 ## 使用方式
 

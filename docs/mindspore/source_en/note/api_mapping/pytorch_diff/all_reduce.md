@@ -24,7 +24,7 @@ class mindspore.ops.AllReduce(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
+For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
 
 ## Differences
 

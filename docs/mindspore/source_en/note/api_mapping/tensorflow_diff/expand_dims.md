@@ -16,7 +16,7 @@ For more information, see [tf.expand_dims](https://tensorflow.google.cn/versions
 mindspore.ops.expand_dims(input_x, axis) -> Tensor
 ```
 
-For more information, see [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.expand_dims.html).
+For more information, see [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.expand_dims.html).
 
 ## Differences
 

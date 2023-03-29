@@ -18,7 +18,7 @@ tf.keras.initializers.RandomNormal(
 mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 ```
 
-更多内容详见[mindspore.common.initializer.Normal](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal)。
+更多内容详见[mindspore.common.initializer.Normal](https://mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal)。
 
 ## 使用方式
 

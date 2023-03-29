@@ -16,7 +16,7 @@ tf.expand_dims(x, axis, name=None) -> Tensor
 mindspore.ops.expand_dims(input_x, axis) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.expand_dims.html)。
+更多内容详见[mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.expand_dims.html)。
 
 ## 差异对比
 

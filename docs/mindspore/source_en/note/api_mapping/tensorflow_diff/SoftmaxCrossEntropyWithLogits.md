@@ -16,7 +16,7 @@ For more information, see [tf.nn.softmax_cross_entropy_with_logits](https://tens
 class mindspore.nn.SoftmaxCrossEntropyWithLogits(sparse=False, reduction='none')(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html).
+For more information, see [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html).
 
 ## Differences
 

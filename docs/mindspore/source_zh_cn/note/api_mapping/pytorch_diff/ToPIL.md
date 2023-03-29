@@ -18,7 +18,7 @@ class torchvision.transforms.ToPILImage(
 class mindspore.dataset.vision.ToPIL
 ```
 
-更多内容详见[mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL)。
+更多内容详见[mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL)。
 
 ## 使用方式
 

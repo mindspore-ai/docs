@@ -16,7 +16,7 @@ For more information, see [torch.eig](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.eig(A) -> Tensor
 ```
 
-For more information, see [mindspore.ops.eig](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.eig.html).
+For more information, see [mindspore.ops.eig](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.eig.html).
 
 ## Differences
 

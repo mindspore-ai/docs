@@ -17,7 +17,7 @@ mindspore.ops.ones(shape, dtype=dtype) -> Tensor
 ```
 
 For more information,
-see [mindspore.ops.ones](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ones.html).
+see [mindspore.ops.ones](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ones.html).
 
 ## Differences
 

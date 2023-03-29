@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
-A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#learningrateschedule类)。
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.nn.html#learningrateschedule类)。
 
 <br/>
 
@@ -122,7 +122,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <font size=3>**Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
@@ -142,7 +142,7 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 <font size=3>**Q: MindSpore如何实现早停功能？**</font>
 
-A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.EarlyStopping.html)。
+A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/train/mindspore.train.EarlyStopping.html)。
 
 <br/>
 
@@ -242,7 +242,7 @@ print(network.layers)
 
 <font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
-A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)
+A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/dataset.html)
 
 <br/>
 
@@ -624,6 +624,6 @@ Traceback (most recent call last):
 
 <font size=3>**Q: 如何控制`print`方法打印出的Tensor值？**</font>
 
-A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printoptions`对输出的值进行控制。在Graph静态图模式下，因为`print`方法需要转化成为算子，所以暂时无法对输出的值进行控制。print算子具体用法可[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)。
+A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printoptions`对输出的值进行控制。在Graph静态图模式下，因为`print`方法需要转化成为算子，所以暂时无法对输出的值进行控制。print算子具体用法可[参考](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Print.html)。
 
 <br/>

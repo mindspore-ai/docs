@@ -132,7 +132,7 @@ Status SyncCommandQueue();
 std::shared_ptr<Allocator> GetAllocator();
 ```
 
-获取GPU内存分配器的智能指针。通过[Allocator接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html)，可申请GPU内存，用于OpenCL内核的运算。
+获取GPU内存分配器的智能指针。通过[Allocator接口](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html)，可申请GPU内存，用于OpenCL内核的运算。
 
 ### MapBuffer
 

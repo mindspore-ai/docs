@@ -16,7 +16,7 @@ For more information, see [tf.nn.elu](https://tensorflow.google.cn/versions/r2.6
 mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.elu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.elu.html).
+For more information, see [mindspore.ops.elu](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.elu.html).
 
 ## Differences
 

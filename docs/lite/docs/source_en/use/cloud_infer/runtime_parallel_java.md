@@ -4,13 +4,13 @@
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Ascend 310/310P/910, Nvidia GPU and CPU backends.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/r2.0/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Ascend 310/310P/910, Nvidia GPU and CPU backends.
 
-After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [Java interface](https://www.mindspore.cn/lite/api/en/master/api_java/class_list.html).
+After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.0/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [Java interface](https://www.mindspore.cn/lite/api/en/r2.0/api_java/class_list.html).
 
 To use the MindSpore Lite parallel inference framework, perform the following steps:
 
-1. Create a configuration item: Create a multi-model concurrent inference configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html#runnerconfig), which is used to configure multiple model concurrency.
+1. Create a configuration item: Create a multi-model concurrent inference configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/r2.0/api_java/runner_config.html#runnerconfig), which is used to configure multiple model concurrency.
 2. Initialization: initialization before multi-model concurrent inference.
 3. Execute concurrent inference: Use the Predict interface of ModelParallelRunner to perform concurrent inference on multiple Models.
 4. Release memory: When you do not need to use the MindSpore Lite concurrent inference framework, you need to release the ModelParallelRunner and related Tensors you created.
@@ -21,13 +21,13 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 
 1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/quick_start_parallel_java).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.0/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [Official Website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_java` directory.
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [Official Website](https://www.mindspore.cn/lite/docs/en/r2.0/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_java` directory.
 
 ## Creating Configuration
 
-The [configuration item](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html) will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
+The [configuration item](https://www.mindspore.cn/lite/api/en/r2.0/api_java/runner_config.html) will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
 
 The following sample code demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 
@@ -47,9 +47,9 @@ config.init(context);
 config.setWorkersNum(2);
 ```
 
-> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/master/use/runtime_java.html#creating-a-configuration-context).
+> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/r2.0/use/runtime_java.html#creating-a-configuration-context).
 >
-> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#devicetype), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#devicetype), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#devicetype) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
+> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.0/api_java/mscontext.html#devicetype), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.0/api_java/mscontext.html#devicetype), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.0/api_java/mscontext.html#devicetype) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
 > Multi-model concurrent inference does not support FP32 type data reasoning. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
 

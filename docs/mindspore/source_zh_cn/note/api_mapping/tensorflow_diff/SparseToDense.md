@@ -27,7 +27,7 @@ class mindspore.ops.SparseToDense(
 ) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.SparseToDense](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SparseToDense.html)。
+更多内容详见[mindspore.ops.SparseToDense](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.SparseToDense.html)。
 
 ## 差异对比
 

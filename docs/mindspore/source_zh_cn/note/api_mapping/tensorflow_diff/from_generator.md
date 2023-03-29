@@ -36,7 +36,7 @@ class mindspore.dataset.GeneratorDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
+更多内容详见[mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
 ## 使用方式
 

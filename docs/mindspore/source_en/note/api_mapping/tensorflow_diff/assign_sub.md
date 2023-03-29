@@ -16,7 +16,7 @@ For more information, see [tf.compat.v1.assign_sub](https://tensorflow.google.cn
 mindspore.ops.assign_sub(variable, value)-> Tensor
 ```
 
-For more information, see [mindspore.ops.assign_sub](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.assign_sub.html).
+For more information, see [mindspore.ops.assign_sub](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.assign_sub.html).
 
 ## Differences
 

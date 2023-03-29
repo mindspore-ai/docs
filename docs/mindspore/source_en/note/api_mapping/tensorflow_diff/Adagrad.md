@@ -29,7 +29,7 @@ class mindspore.nn.Adagrad(
 )(grads) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adagrad.html).
+For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Adagrad.html).
 
 ## Differences
 

@@ -21,7 +21,7 @@ For more information, see [torch.cat](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.cat(tensors, axis=0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.cat.html).
+For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.cat.html).
 
 ## Differences
 

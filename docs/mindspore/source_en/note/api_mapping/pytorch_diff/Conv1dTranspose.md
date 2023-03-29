@@ -39,7 +39,7 @@ class mindspore.nn.Conv1dTranspose(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv1dTranspose.html).
+For more information, see [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Conv1dTranspose.html).
 
 ## Differences
 

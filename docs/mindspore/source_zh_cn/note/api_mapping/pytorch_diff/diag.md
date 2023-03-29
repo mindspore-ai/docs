@@ -16,7 +16,7 @@ torch.diag(input, diagonal=0, *, out=None) -> Tensor
 mindspore.ops.diag(input) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diag.html)。
+更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.diag.html)。
 
 以下映射关系均可参考本文。
 

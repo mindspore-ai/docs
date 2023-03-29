@@ -36,7 +36,7 @@ mindspore.nn.TripletMarginLoss(
 )(margin, x, positive, negative) -> Tensor/Scalar
 ```
 
-For more information, see [mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TripletMarginLoss.html).
+For more information, see [mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.TripletMarginLoss.html).
 
 ## Differences
 

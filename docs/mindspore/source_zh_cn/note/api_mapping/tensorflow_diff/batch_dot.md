@@ -16,7 +16,7 @@ tf.keras.backend.batch_dot(x, y, axes=None)
 mindspore.ops.batch_dot(x1, x2, axes=None)
 ```
 
-更多内容详见[mindspore.ops.batch_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.batch_dot.html)。
+更多内容详见[mindspore.ops.batch_dot](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.batch_dot.html)。
 
 ## 差异对比
 

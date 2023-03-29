@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.fold](https://pytorch.org/docs/1.
 mindspore.ops.fold(input, output_size, kernel_size, dilation=1, padding=0, stride=1)
 ```
 
-For more information, see [mindspore.ops.fold](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.fold.html).
+For more information, see [mindspore.ops.fold](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.fold.html).
 
 ## Differences
 

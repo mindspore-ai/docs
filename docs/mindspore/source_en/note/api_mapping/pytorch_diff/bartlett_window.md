@@ -28,7 +28,7 @@ mindspore.ops.bartlett_window(
 ) -> Tensor
 ```
 
-For more information, see [mindspore.ops.bartlett_window](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bartlett_window.html).
+For more information, see [mindspore.ops.bartlett_window](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.bartlett_window.html).
 
 ## Differences
 

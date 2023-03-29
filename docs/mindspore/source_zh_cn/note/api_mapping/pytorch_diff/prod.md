@@ -23,7 +23,7 @@ torch.prod(input, dim, keepdim=False, *, dtype=None) -> Tensor
 mindspore.ops.prod(input, axis=(), keep_dims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.prod](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.prod.html)。
+更多内容详见[mindspore.ops.prod](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.prod.html)。
 
 ## 差异对比
 

@@ -24,7 +24,7 @@ class mindspore.nn.Optimizer(
 )
 ```
 
-更多内容详见[mindspore.nn.Optimizer](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer)。
+更多内容详见[mindspore.nn.Optimizer](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer)。
 
 ## 使用方式
 

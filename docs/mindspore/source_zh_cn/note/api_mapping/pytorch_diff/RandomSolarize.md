@@ -21,7 +21,7 @@ class mindspore.dataset.vision.RandomSolarize(
     )
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize)。
+更多内容详见[mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize)。
 
 ## 使用方式
 

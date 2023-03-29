@@ -23,7 +23,7 @@ For more information, see [torch.broadcast_to](https://pytorch.org/docs/1.8.1/ge
 mindspore.ops.broadcast_to(input, shape) -> Tensor
 ```
 
-For more information, see [mindspore.ops.broadcast_to](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.broadcast_to.html).
+For more information, see [mindspore.ops.broadcast_to](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.broadcast_to.html).
 
 ## Differences
 

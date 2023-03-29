@@ -128,7 +128,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32):
 
 数据并行模式下，网络定义与单机写法一致，可参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/distributed_training_cpu/resnet.py)。
 
-优化器、损失函数及训练模型定义可参考[训练模型定义](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/train.html)。
+优化器、损失函数及训练模型定义可参考[训练模型定义](https://www.mindspore.cn/tutorials/zh-CN/r2.0/beginner/train.html)。
 
 完整训练脚本代码参考样例，下面列出训练启动代码。
 
@@ -225,4 +225,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## 安全认证
 
-CPU安全认证可参考[GPU分布式训练安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)。
+CPU安全认证可参考[GPU分布式训练安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_gpu.html#安全认证)。

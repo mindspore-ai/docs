@@ -17,7 +17,7 @@ For more information, see [torch.nn.functional.binary_cross_entropy_with_logits]
 mindspore.ops.binary_cross_entropy_with_logits(logits, label, weight, pos_weight, reduction='mean')
 ```
 
-For more information, see [mindspore.ops.binary_cross_entropy_with_logits](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html).
+For more information, see [mindspore.ops.binary_cross_entropy_with_logits](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html).
 
 ## Differences
 

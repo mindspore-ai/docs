@@ -23,7 +23,7 @@ For more information, see [torch.std](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.std(input, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.ops.std](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.std.html).
+For more information, see [mindspore.ops.std](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.std.html).
 
 ## Differences
 

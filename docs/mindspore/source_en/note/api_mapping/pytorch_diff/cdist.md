@@ -16,7 +16,7 @@ For more information, see [torch.cdist](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
-For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.cdist.html).
+For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.cdist.html).
 
 ## Differences
 

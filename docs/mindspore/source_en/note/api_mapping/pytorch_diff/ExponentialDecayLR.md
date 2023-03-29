@@ -28,7 +28,7 @@ mindspore.nn.exponential_decay_lr(
 )
 ```
 
-For more information, see [mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
+For more information, see [mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
 
 ## mindspore.nn.ExponentialDecayLR
 
@@ -41,7 +41,7 @@ mindspore.nn.ExponentialDecayLR(
 )
 ```
 
-For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
+For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
 
 ## Differences
 

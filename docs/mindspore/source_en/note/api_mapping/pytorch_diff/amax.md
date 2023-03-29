@@ -23,7 +23,7 @@ For more information, see [torch.amax](https://pytorch.org/docs/1.8.1/generated/
 mindspore.ops.amax((x, axis=(), keep_dims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.amax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.amax.html).
+For more information, see [mindspore.ops.amax](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.amax.html).
 
 ## Differences
 

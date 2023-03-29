@@ -85,7 +85,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 配置分布式环境
 
-分布式环境的配置可参考：[配置分布式环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)教程。
+分布式环境的配置可参考：[配置分布式环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_ascend.html#配置分布式环境变量)教程。
 
 ### 定义网络
 

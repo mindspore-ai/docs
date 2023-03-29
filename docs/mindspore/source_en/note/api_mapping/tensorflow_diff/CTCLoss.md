@@ -29,7 +29,7 @@ class mindspore.ops.CTCLoss(
 )(x, labels_indices, labels_values, sequence_length) -> (Tensor, Tensor)
 ```
 
-For more information, see [mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CTCLoss.html).
+For more information, see [mindspore.ops.CTCLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.CTCLoss.html).
 
 ## Differences
 

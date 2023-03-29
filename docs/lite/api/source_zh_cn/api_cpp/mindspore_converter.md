@@ -239,7 +239,7 @@ api::FuncGraphPtr Parse(const converter::ConverterParameters &flags);
 
 - 参数
 
-    - `flags`: 解析模型时基本信息，具体见[ConverterParameters](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#converterparameters)。
+    - `flags`: 解析模型时基本信息，具体见[ConverterParameters](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore_converter.html#converterparameters)。
 
 - 返回值
 

@@ -24,7 +24,7 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
 )
 ```
 
-For more information, see [mindspore.ops.ReduceMean](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean).
+For more information, see [mindspore.ops.ReduceMean](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean).
 
 ## Differences
 

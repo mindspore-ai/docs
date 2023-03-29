@@ -1,6 +1,6 @@
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_en/beginner/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
-**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html)
+**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0/beginner/save_load.html)
 
 # Overview
 
@@ -24,7 +24,7 @@ The following figure shows the overall MindSpore architecture:
 - **Data**: provides functions such as efficient data processing, common dataset loading and programming interfaces, and allows users to flexibly define processing registration and pipeline parallel optimization.
 - **Compiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
 - **Runtime**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
-- **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/master/index.html)).
+- **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/r2.0/index.html)).
 - **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection ([More Information](https://mindspore.cn/mindarmour/docs/en/master/index.html)).
 
 ### Execution Process

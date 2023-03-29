@@ -16,7 +16,7 @@ For more information, see [tf.math.reduce_std](https://tensorflow.google.cn/vers
 mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.Tensor.std](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std).
+For more information, see [mindspore.Tensor.std](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std).
 
 ## Usage
 

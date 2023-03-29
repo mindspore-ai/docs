@@ -41,7 +41,7 @@ optional arguments:
 
 2. 配置训练日志根目录
 
-    `summary_base_dir`是训练日志根目录，它用于训练记录的提取，这样可以更好地推荐超参。同时，建议用户在训练脚本中加`SummaryColletor`来收集训练信息，可查看[Summmary收集教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。调参命令会根据配置的`summary_base_dir`来生成子目录路径，可配置在`SummaryColletor`记录该次训练记录。自动执行训练后，会在训练日志根目录的子目录记录当次训练信息，产生的训练信息可以作为训练记录来推荐下一次需要的超参。配置`summary_base_dir`如`summary_base_dir: /home/summaries`。
+    `summary_base_dir`是训练日志根目录，它用于训练记录的提取，这样可以更好地推荐超参。同时，建议用户在训练脚本中加`SummaryColletor`来收集训练信息，可查看[Summmary收集教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html)。调参命令会根据配置的`summary_base_dir`来生成子目录路径，可配置在`SummaryColletor`记录该次训练记录。自动执行训练后，会在训练日志根目录的子目录记录当次训练信息，产生的训练信息可以作为训练记录来推荐下一次需要的超参。配置`summary_base_dir`如`summary_base_dir: /home/summaries`。
 
 3. 配置调参方法
 
@@ -189,7 +189,7 @@ optional arguments:
 
 4. 可视化
 
-    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#启动服务)。
+    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html#启动服务)。
 
 ## 注意事项
 

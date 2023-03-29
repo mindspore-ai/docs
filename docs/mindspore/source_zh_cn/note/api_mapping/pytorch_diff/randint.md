@@ -16,7 +16,7 @@ torch.randint(low=0, high, size, *, generator=None, out=None, dtype=None, layout
 mindspore.ops.randint(low, high, size, seed=None, *, dtype=None)
 ```
 
-更多内容详见[mindspore.ops.randint](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint.html#mindspore.ops.randint)。
+更多内容详见[mindspore.ops.randint](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.randint.html#mindspore.ops.randint)。
 
 ## 差异对比
 

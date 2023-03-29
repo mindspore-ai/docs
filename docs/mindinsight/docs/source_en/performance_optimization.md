@@ -10,11 +10,11 @@ This chapter introduces the common methods and cases of performance tuning, as w
 
 Please refer to the tutorials for the function introduction and instructions of MindSpore Profiler.
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
+[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_of_cluster.html)
 
 This section will introduce the common use of MindSpore Profiler through three typical cases.
 
@@ -43,7 +43,7 @@ By observing the `queue relationship between operators` in the Data Processing t
 
 *Figure 3: Data Preparation Details -- Data Processing*
 
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.0/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
 
 We find that the num_parallel_workers parameter of map operation is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 
@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 

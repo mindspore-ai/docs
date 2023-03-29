@@ -76,7 +76,7 @@ The `rank_table_8pcs.json` is the networking information file to configure the A
 
 ### Configuring the Distributed Environment
 
-The configuration of the distributed environment can be found in: [Configuring Distributed Environment Variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables) tutorial.
+The configuration of the distributed environment can be found in: [Configuring Distributed Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_ascend.html#configuring-distributed-environment-variables) tutorial.
 
 ### Defining the Network
 

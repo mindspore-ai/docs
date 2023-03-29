@@ -92,7 +92,7 @@ if __name__ == "__main__":
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
-- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/communicate_ops.html)中找到。
+- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/communicate_ops.html)中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
 
@@ -193,7 +193,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义损失函数及优化器
 
-与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)一致。
+与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_ascend.html)一致。
 
 ### 定义损失函数
 
@@ -387,17 +387,17 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## 分布式训练模型参数保存与加载
 
-在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)。
+在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_ascend.html#分布式训练模型参数保存和加载)。
 
 ## 不依赖OpenMPI进行训练
 
-出于训练时的安全及可靠性要求，MindSpore GPU还支持**不依赖OpenMPI的分布式训练**。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#多卡启动方式)查看多卡启动方式在不同平台的支持情况。
+出于训练时的安全及可靠性要求，MindSpore GPU还支持**不依赖OpenMPI的分布式训练**。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/introduction.html#多卡启动方式)查看多卡启动方式在不同平台的支持情况。
 
 OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力。
 
-参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
+参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
 
-执行Worker脚本前需要导出环境变量，如[环境变量设置](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html#环境变量设置):
+执行Worker脚本前需要导出环境变量，如[环境变量设置](https://mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/parameter_server_training.html#环境变量设置):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -415,7 +415,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 > 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training)。
 
-相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构：
+相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构：
 
 ```python
 import mindspore as ms
@@ -440,7 +440,7 @@ if __name__ == "__main__":
 
 `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
 
-详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
+详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -610,7 +610,7 @@ epoch: 1 step: 1, loss is 2.3025854
 - cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
 
 ### 容灾恢复
 

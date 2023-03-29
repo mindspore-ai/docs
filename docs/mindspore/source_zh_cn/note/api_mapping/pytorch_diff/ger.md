@@ -23,7 +23,7 @@ torch.ger(input, vec2, *, out=None)
 mindspore.ops.ger(input, other)
 ```
 
-更多内容详见[mindspore.ops.ger](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ger.html)。
+更多内容详见[mindspore.ops.ger](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ger.html)。
 
 ## 差异对比
 

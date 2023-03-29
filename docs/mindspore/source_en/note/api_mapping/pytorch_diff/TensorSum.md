@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.sum](https://pytorch.org/docs/1.5.0/tens
 mindspore.Tensor.sum(axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
-For more information, see [mindspore.Tensor.sum](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
+For more information, see [mindspore.Tensor.sum](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
 
 ## Usage
 

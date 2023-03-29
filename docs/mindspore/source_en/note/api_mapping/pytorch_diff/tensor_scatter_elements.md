@@ -22,7 +22,7 @@ mindspore.ops.tensor_scatter_elements(
 ) -> Tensor
 ```
 
-For more information, see [mindspore.ops.tensor_scatter_elements](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_scatter_elements.html).
+For more information, see [mindspore.ops.tensor_scatter_elements](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.tensor_scatter_elements.html).
 
 ## Differences
 

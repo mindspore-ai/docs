@@ -192,7 +192,7 @@ if __name__ == '__main__':
 
 1. 获取MindSpore Lite AAR包
 
-   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/downloads.html)。
 
    ```text
    mindspore-lite-full-{version}.aar

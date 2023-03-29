@@ -24,7 +24,7 @@ class mindspore.nn.CosineEmbeddingLoss(
 )(logits_x1, logits_x2, labels) -> Tensor/Scalar
 ```
 
-For more information, see [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineEmbeddingLoss.html).
+For more information, see [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.CosineEmbeddingLoss.html).
 
 ## Differences
 

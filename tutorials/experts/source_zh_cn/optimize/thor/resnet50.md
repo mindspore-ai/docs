@@ -70,11 +70,11 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 #### Ascend 910
 
-Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)。
+Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_ascend.html#配置分布式环境变量)。
 
 #### GPU
 
-GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
+GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/train_gpu.html#配置分布式环境)。
 
 ## 加载处理数据集
 
@@ -168,7 +168,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/dataset.html)章节。
 
 ## 定义网络
 

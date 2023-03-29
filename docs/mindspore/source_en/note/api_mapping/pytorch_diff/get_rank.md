@@ -16,7 +16,7 @@ For more information, see [torch.distributed.get_rank](https://pytorch.org/docs/
 mindspore.communication.get_rank(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-For more information, see [mindspore.communication.get_rank](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.get_rank).
+For more information, see [mindspore.communication.get_rank](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.communication.html#mindspore.communication.get_rank).
 
 ## Differences
 

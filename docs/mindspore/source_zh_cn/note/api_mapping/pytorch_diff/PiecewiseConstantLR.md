@@ -39,7 +39,7 @@ mindspore.nn.piecewise_constant_lr(
 )
 ```
 
-更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
+更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
 
 ## 差异对比
 

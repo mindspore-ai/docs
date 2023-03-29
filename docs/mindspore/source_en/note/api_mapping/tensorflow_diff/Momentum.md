@@ -29,7 +29,7 @@ class mindspore.nn.Momentum(
 )(gradients) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html).
+For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Momentum.html).
 
 ## Differences
 

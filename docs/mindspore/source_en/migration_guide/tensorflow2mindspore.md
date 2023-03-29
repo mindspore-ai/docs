@@ -100,7 +100,7 @@ def tensorflow2mindspore(tf_ckpt_dir, param_mapping_dict, ms_ckpt_path):
 ```
 
 Because the parameter name mapping of the current network is very complex, it is difficult to find the mapping relationship by parameter name, so we need to map dictionary through a parameter. When encountering simpler parameter name mappings, the
-conversion method can be found in [Convert PyTorch model file to MindSpore model file](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html#model-validation).
+conversion method can be found in [Convert PyTorch model file to MindSpore model file](https://www.mindspore.cn/docs/en/r2.0/migration_guide/sample_code.html#model-validation).
 
 ```python
 params_mapping = {

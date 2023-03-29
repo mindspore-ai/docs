@@ -16,7 +16,7 @@ torch.nn.functional.conv2d(input, weight, bias=None, stride=1, padding=0, dilati
 mindspore.ops.conv2d(inputs, weight, pad_mode="valid", padding=0, stride=1, dilation=1, group=1)
 ```
 
-更多内容详见[mindspore.ops.conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.conv2d.html)。
+更多内容详见[mindspore.ops.conv2d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.conv2d.html)。
 
 ## 差异对比
 

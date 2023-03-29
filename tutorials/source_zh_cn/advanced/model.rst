@@ -40,7 +40,7 @@
 Model基本介绍
 -------------
 
-`Model <https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
+`Model <https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
 
 -  ``network``\ ：用于训练或推理的神经网络。
 -  ``loss_fn``\ ：所使用的损失函数。

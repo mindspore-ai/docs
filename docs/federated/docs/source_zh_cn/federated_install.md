@@ -10,7 +10,7 @@
 
 ## 获取MindSpore Lite java包
 
-包括源码编译和下载发布版两种方式。目前，MindSpore Lite联邦学习功能只支持Linux和Android平台，且只支持CPU。安装步骤可参考[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)和[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
+包括源码编译和下载发布版两种方式。目前，MindSpore Lite联邦学习功能只支持Linux和Android平台，且只支持CPU。安装步骤可参考[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/downloads.html)和[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/build.html)。
 
 ## 获取MindSpore Federated whl包
 
@@ -22,4 +22,4 @@
 
 ## Linux编译环境要求
 
-目前源码编译只支持Linux，编译环境要求可参考[MindSpore源码编译](https://www.mindspore.cn/install)和[MindSpore Lite源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
+目前源码编译只支持Linux，编译环境要求可参考[MindSpore源码编译](https://www.mindspore.cn/install)和[MindSpore Lite源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/build.html)。

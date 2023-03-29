@@ -22,7 +22,7 @@ class mindspore.nn.GRUCell(
     has_bias: bool=True)(x, hx) -> Tensor
 ```
 
-For more information, see [mindspore.nn.GRUCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GRUCell.html).
+For more information, see [mindspore.nn.GRUCell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.GRUCell.html).
 
 ## Differences
 

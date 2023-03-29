@@ -24,7 +24,7 @@ class mindspore.ops.AllReduce(
 )(input_x)
 ```
 
-更多内容详见[mindspore.ops.AllReduce](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)。
+更多内容详见[mindspore.ops.AllReduce](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)。
 
 ## 使用方式
 

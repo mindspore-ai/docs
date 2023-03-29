@@ -16,7 +16,7 @@ For more information, see [torch.poisson](https://pytorch.org/docs/1.8.1/generat
 mindspore.ops.random_poisson(shape, rate, seed=None, dtype=mstype.float32)
 ```
 
-For more information, see [mindspore.ops.random_poisson](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.random_poisson.html).
+For more information, see [mindspore.ops.random_poisson](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.random_poisson.html).
 
 ## Differences
 

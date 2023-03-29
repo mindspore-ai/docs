@@ -28,7 +28,7 @@ class mindspore.nn.GroupNorm(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.GroupNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GroupNorm.html).
+For more information, see [mindspore.nn.GroupNorm](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.GroupNorm.html).
 
 ## Differences
 

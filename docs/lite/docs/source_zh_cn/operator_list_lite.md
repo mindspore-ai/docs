@@ -212,4 +212,4 @@
 
 [3] Sum与Max：仅支持输入个数为2。
 
-[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。

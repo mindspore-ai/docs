@@ -16,7 +16,7 @@ torch.nn.Hardshrink(lambd=0.5)(input) -> Tensor
 mindspore.nn.HShrink(lambd=0.5)(input_x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.HShrink](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.HShrink.html)。
+更多内容详见[mindspore.nn.HShrink](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.HShrink.html)。
 
 ## 差异对比
 

@@ -202,7 +202,7 @@ MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)
 新建运行设备信息，若创建失败则会返回`nullptr`，并日志中输出信息。
 
 - 参数
-    - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/types_c.html#msdevicetype)。
+    - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_c/types_c.html#msdevicetype)。
 
 - 返回值
 

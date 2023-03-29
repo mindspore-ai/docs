@@ -23,7 +23,7 @@ For more information, see [torch.scatter](https://pytorch.org/docs/1.8.1/generat
 mindspore.ops.scatter(input, axis, index, src)
 ```
 
-For more information, see [mindspore.ops.scatter](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.scatter.html).
+For more information, see [mindspore.ops.scatter](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.scatter.html).
 
 ## Differences
 

@@ -16,7 +16,7 @@ For more information, see [torch.nn.ReLU](https://pytorch.org/docs/1.8.1/generat
 class mindspore.nn.ReLU()(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ReLU.html).
+For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.ReLU.html).
 
 ## Differences
 

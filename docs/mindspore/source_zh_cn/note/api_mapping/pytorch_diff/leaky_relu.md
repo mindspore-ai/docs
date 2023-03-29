@@ -16,7 +16,7 @@ torch.nn.functional.leaky_relu(input, negative_slope=0.01, inplace=False) -> Ten
 mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)。
+更多内容详见[mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)。
 
 ## 差异对比
 

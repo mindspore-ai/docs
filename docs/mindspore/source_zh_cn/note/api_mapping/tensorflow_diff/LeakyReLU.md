@@ -16,7 +16,7 @@ tf.nn.leaky_relu(features, alpha=0.2, name=None) -> Tensor
 class mindspore.nn.LeakyReLU(alpha=0.2)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.LeakyReLU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LeakyReLU.html)。
+更多内容详见[mindspore.nn.LeakyReLU](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.LeakyReLU.html)。
 
 ## 差异对比
 

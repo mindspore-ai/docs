@@ -34,7 +34,7 @@ class mindspore.nn.RMSProp(
 )(gradients) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.RMSProp](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html)。
+更多内容详见[mindspore.nn.RMSProp](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.RMSProp.html)。
 
 ## 差异对比
 

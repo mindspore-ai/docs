@@ -25,7 +25,7 @@ mindspore.ops.ctc_greedy_decoder(
 )(decoded_indices, decoded_values, decoded_shape, log_probability) -> Tuple
 ```
 
-For more information, see [mindspore.ops.ctc_greedy_decoder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ctc_greedy_decoder.html).
+For more information, see [mindspore.ops.ctc_greedy_decoder](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ctc_greedy_decoder.html).
 
 ## Differences
 

@@ -26,7 +26,7 @@ class mindspore.nn.BCEWithLogitsLoss(
 )(logits, labels) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)。
+更多内容详见[mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)。
 
 ## 差异对比
 

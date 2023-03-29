@@ -16,7 +16,7 @@ torch.nn.MaxPool2d(kernel_size, stride=None, padding=0, dilation=1, return_indic
 mindspore.nn.MaxPool2d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False, data_format="NCHW")(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
+更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.MaxPool2d.html)。
 
 ## 差异对比
 

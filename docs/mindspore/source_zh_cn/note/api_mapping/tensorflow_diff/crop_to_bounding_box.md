@@ -25,7 +25,7 @@ class mindspore.dataset.vision.Crop(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.Crop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。
+更多内容详见[mindspore.dataset.vision.Crop](https://mindspore.cn/docs/zh-CN/r2.0/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。
 
 ## 使用方式
 

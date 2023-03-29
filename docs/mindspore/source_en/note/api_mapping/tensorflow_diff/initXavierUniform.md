@@ -19,7 +19,7 @@ For more information, see [tf.keras.initializers.VarianceScaling](https://tensor
 mindspore.common.initializer.XavierUniform(gain=1)
 ```
 
-For more information, see [mindspore.common.initializer.XavierUniform](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.XavierUniform).
+For more information, see [mindspore.common.initializer.XavierUniform](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.XavierUniform).
 
 ## Usage
 

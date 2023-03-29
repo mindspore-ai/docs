@@ -32,13 +32,13 @@ MindSpore provides users with programming paradigms for languages such as Python
 
 ### Programming Paradigm
 
-MindSpore offers both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html), both of which can be used to build network algorithms and training processes.
+MindSpore offers both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/r2.0/design/programming_paradigm.html), both of which can be used to build network algorithms and training processes.
 
 The user can define the AI network or a layer of the network based on the derivation of the nn.Cell class for the desired function, and assemble various layers defined by nested calls of objects to complete the definition of the whole AI network.
 
 Also users can define a Python pure function that can be converted by MindSpore source-to-source compilation, and speed up its execution with the functions or decorators provided by MindSpore. Python pure functions can support subfunction nesting, control logic, and even recursive function expressions while satisfying the requirements of MindSpore static syntax. Therefore, based on this programming paradigm, users have the flexibility to enable a number of functional features, to express business logic more easily.
 
-MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/master/design/auto_gradient.html) for function objects that can be differentiated, based on a chain of calls, according to the calling relationship. Adopting such an automatic differentiation strategy is more in line with the mathematical semantics and has an intuitive correspondence with the composite function in basic algebra. As long as the derivation formula of the basic function is known, the derivation formula of the composite function composed of any basic function can be derived.
+MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/r2.0/design/auto_gradient.html) for function objects that can be differentiated, based on a chain of calls, according to the calling relationship. Adopting such an automatic differentiation strategy is more in line with the mathematical semantics and has an intuitive correspondence with the composite function in basic algebra. As long as the derivation formula of the basic function is known, the derivation formula of the composite function composed of any basic function can be derived.
 
 For conventional automatic differentiation, there are three main types of mainstream:
 
@@ -48,17 +48,17 @@ For conventional automatic differentiation, there are three main types of mainst
 
 The graph method can optimize network performance by using static compilation techniques, but it is very complex to set up or debug the network. Dynamic graphs built on operator overloading techniques are very easy to use, but difficult to optimize to the limit in terms of performance.
 
-On the one hand, it is possible to maintain a consistent programming experience with the programming language, on the other hand, it is a differentiable technique at [Intermediate Representation](https://www.mindspore.cn/docs/en/master/design/mindir.html) (IR) granularity, which can reuse the optimization ability of modern compilers and has better performance.
+On the one hand, it is possible to maintain a consistent programming experience with the programming language, on the other hand, it is a differentiable technique at [Intermediate Representation](https://www.mindspore.cn/docs/en/r2.0/design/mindir.html) (IR) granularity, which can reuse the optimization ability of modern compilers and has better performance.
 
 Also based on the functional programming paradigm, MindSpore provides a wealth of higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential derivative function grad, it allows the user to conveniently construct a function or an object that can be used as an argument to a higher-order function. Higher-order functions are internally compiled and optimized to generate optimized versions of user-specific functions, implementing features such as vectorized transformations, distributed parallel slicing, and other functions.
 
-### [Device-edge-cloud Full Scenarios](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html)
+### [Device-edge-cloud Full Scenarios](https://www.mindspore.cn/docs/en/r2.0/design/all_scenarios.html)
 
 MindSpore is an all-in-one AI framework that supports both training and inference. MindSpore also supports CPU, GPU, NPU and other chips, and provides a unified programming interface on different chips and generates offline models that can be loaded and executed on multiple hardware.
 
 MindSpore provides a variety of versions according to the actual execution environment and business requirements, supports deployment and execution on embedded devices such as cloud, server, and cell phones, and ultra-lightweight devices such as headsets.
 
-### [Unified Programming Experience with Dynamic Graph and Static Graph](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html)
+### [Unified Programming Experience with Dynamic Graph and Static Graph](https://www.mindspore.cn/docs/en/r2.0/design/dynamic_graph_and_static_graph.html)
 
 Traditional AI frameworks have two main forms of programming execution, static graph mode and dynamic graph mode.
 
@@ -72,7 +72,7 @@ MindSpore builds the graph structure of neural networks based on the native Pyth
 
 The native Python expression enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
 
-### [Distributed Parallism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
+### [Distributed Parallism](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html)
 
 MindSpore addresses the problem of increasingly large DL networks that require complex and multiple distributed parallel strategies, and the framework provides a built-in multi-dimensional distributed training strategy that can be flexibly assembled and used by users. It also simplifies the complexity of parallel programming for users by hiding communication operations through parallel abstraction.
 
@@ -88,7 +88,7 @@ MindSpore provides rich hardware-independent optimizations such as IR fusion, al
 
 MindSpore offers some more distinctive techniques in addition to the usual optimizations of traditional AI frameworks:
 
-#### [Graph-kernel Fusion](https://www.mindspore.cn/docs/en/master/design/graph_fusion_engine.html)
+#### [Graph-kernel Fusion](https://www.mindspore.cn/docs/en/r2.0/design/graph_fusion_engine.html)
 
 Mainstream AI computing frameworks such as MindSpore provide operators to users that is usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
 

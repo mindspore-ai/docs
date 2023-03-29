@@ -36,7 +36,7 @@ mindspore.ops.interpolate(
     recompute_scale_factor=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.interpolate](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.interpolate.html)。
+更多内容详见[mindspore.ops.interpolate](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.interpolate.html)。
 
 ## 使用方式
 

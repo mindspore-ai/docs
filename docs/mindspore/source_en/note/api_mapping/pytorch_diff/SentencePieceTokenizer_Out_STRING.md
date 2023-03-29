@@ -21,7 +21,7 @@ class mindspore.dataset.text.SentencePieceTokenizer(
 )
 ```
 
-For more information, see [mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer).
+For more information, see [mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/en/r2.0/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer).
 
 ## Differences
 

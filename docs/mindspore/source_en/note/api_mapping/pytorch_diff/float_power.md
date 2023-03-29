@@ -23,7 +23,7 @@ For more information, see [torch.float_power](https://pytorch.org/docs/1.8.1/gen
 mindspore.ops.float_power(x, exponent)
 ```
 
-For more information, see [mindspore.ops.float_power](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.float_power.html#mindspore.ops.float_power).
+For more information, see [mindspore.ops.float_power](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.float_power.html#mindspore.ops.float_power).
 
 ## Differences
 

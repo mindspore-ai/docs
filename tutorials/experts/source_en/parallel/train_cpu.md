@@ -128,7 +128,7 @@ Unlike stand-alone, the `num_shards` and `shard_id` parameters need to be passed
 
 The network definition in data parallel mode is written in the same way with the stand-alone, which can be found in [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/distributed_training_cpu/resnet.py).
 
-The definitions of optimizer, loss function and training model can be found in [Training Model Definition](https://www.mindspore.cn/tutorials/en/master/beginner/train.html).
+The definitions of optimizer, loss function and training model can be found in [Training Model Definition](https://www.mindspore.cn/tutorials/en/r2.0/beginner/train.html).
 
 The reference sample of the full training script code and the training startup code is listed below:
 
@@ -225,4 +225,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## Security Authentication
 
-For CPU security authentication, refer to [GPU Distributed Training Security Authentication](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#security-authentication).
+For CPU security authentication, refer to [GPU Distributed Training Security Authentication](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_gpu.html#security-authentication).

@@ -16,7 +16,7 @@ torch.div(input, other, *, rounding_mode=None, out=None) -> Tensor
 mindspore.ops.div(input, other, rounding_mode=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.div](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.div.html)。
+更多内容详见[mindspore.ops.div](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.div.html)。
 
 ## 差异对比
 

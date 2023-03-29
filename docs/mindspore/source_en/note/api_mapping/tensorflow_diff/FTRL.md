@@ -34,7 +34,7 @@ class mindspore.nn.FTRL(
     weight_decay=0.0)(grads) -> Tensor
 ```
 
-For more information, see [mindspore.nn.FTRL](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.FTRL.html).
+For more information, see [mindspore.nn.FTRL](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.FTRL.html).
 
 ## Differences
 

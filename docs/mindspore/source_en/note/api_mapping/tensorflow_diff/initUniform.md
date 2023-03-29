@@ -18,7 +18,7 @@ For more information, see [tf.keras.initializers.RandomUniform](https://tensorfl
 class mindspore.common.initializer.Uniform(scale=0.07)
 ```
 
-For more information, see [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform).
+For more information, see [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform).
 
 ## Usage
 

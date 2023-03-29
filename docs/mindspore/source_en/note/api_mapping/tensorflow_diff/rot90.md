@@ -26,7 +26,7 @@ class mindspore.dataset.vision.Rotate(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.Rotate](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Rotate.html#mindspore.dataset.vision.Rotate).
+For more information, see [mindspore.dataset.vision.Rotate](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.Rotate.html#mindspore.dataset.vision.Rotate).
 
 ## Differences
 

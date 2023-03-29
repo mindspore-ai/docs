@@ -7,7 +7,7 @@
 
 An intermediate representation (IR) is a representation of a program between the source and target languages, which facilitates program analysis and optimization for the compiler. Therefore, the IR design needs to consider the difficulty in converting the source language to the target language, as well as the ease-of-use and performance of program analysis and optimization.
 
-MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax).
+MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/r2.0/design/mindir.html#syntax).
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=1)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. When more information about backend procedure is needed to analyze,we can set `set_context(save_graphs=True)` or `set_context(save_graphs=2)`. When more advanced information such as visualize computing graphs or ir graphs of frontend with more details is required, we can set `set_context(save_graphs=3)` to get more details. Currently, there are three IR files:
 
@@ -15,7 +15,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 - By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an IR file with a filename extension named .ir can be generated: It has the same format as default IR file, but with different graph printing order.  
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Syntax
 

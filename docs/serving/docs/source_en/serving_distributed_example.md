@@ -6,7 +6,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 ## Overview
 
-Distributed inference means that multiple cards are used in the inference phase, in order to solve the problem that too many parameters are in the very large scale neural network and the model cannot be fully loaded into a single card for inference, multi-cards can be used for distributed inference. This document describes the process of deploying the distributed inference service, which is similar to the process of deploying the [single-card inference service](https://www.mindspore.cn/serving/docs/en/master/serving_example.html), and these two can refer to each other.
+Distributed inference means that multiple cards are used in the inference phase, in order to solve the problem that too many parameters are in the very large scale neural network and the model cannot be fully loaded into a single card for inference, multi-cards can be used for distributed inference. This document describes the process of deploying the distributed inference service, which is similar to the process of deploying the [single-card inference service](https://www.mindspore.cn/serving/docs/en/r2.0/serving_example.html), and these two can refer to each other.
 
 The architecture of the distributed inference service shows as follows：
 
@@ -27,7 +27,7 @@ The following uses a simple distributed network MatMul as an example to demonstr
 
 ### Environment Preparation
 
-Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/r2.0/serving_install.html).
 
 ### Exporting a Distributed Model
 
@@ -71,7 +71,7 @@ class Net(Cell):
         return x
 ```
 
-Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html)。
+Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/distributed_inference.html)。
 
 ```python
 import numpy as np
@@ -136,7 +136,7 @@ matmul_distributed
 - `model` is the directory for storing model files.
 - `serving_server.py` is the script for starting services, including `Main` process and `Distributed Worker` process.
 - `serving_agent.py` is the script for starting `Agent`s.
-- `servable_config.py` is the [Model Configuration File](https://www.mindspore.cn/serving/docs/en/master/serving_model.html). It declares a distributed model with rank_size 8 and stage_size 1 through `declare_distributed_servable`, and defines a method `predict` for distributed servable.
+- `servable_config.py` is the [Model Configuration File](https://www.mindspore.cn/serving/docs/en/r2.0/serving_model.html). It declares a distributed model with rank_size 8 and stage_size 1 through `declare_distributed_servable`, and defines a method `predict` for distributed servable.
 
 The content of the model configuration file is as follows:
 

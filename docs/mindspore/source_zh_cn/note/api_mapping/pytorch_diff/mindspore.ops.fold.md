@@ -16,7 +16,7 @@ torch.nn.functional.fold(input, output_size, kernel_size, dilation=1, padding=0,
 mindspore.ops.fold(input, output_size, kernel_size, dilation=1, padding=0, stride=1)
 ```
 
-更多内容详见[mindspore.ops.fold](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.fold.html)。
+更多内容详见[mindspore.ops.fold](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.fold.html)。
 
 ## 差异对比
 

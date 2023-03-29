@@ -27,7 +27,7 @@ class mindspore.nn.Dense(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Dense](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html).
+For more information, see [mindspore.nn.Dense](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Dense.html).
 
 ## Differences
 

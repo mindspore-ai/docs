@@ -16,7 +16,7 @@ For more information, see [torch.nn.LeakyReLU](https://pytorch.org/docs/1.8.1/ge
 class mindspore.nn.LeakyReLU(alpha=0.2)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LeakyReLU](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LeakyReLU.html).
+For more information, see [mindspore.nn.LeakyReLU](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.LeakyReLU.html).
 
 ## Differences
 

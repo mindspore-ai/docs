@@ -16,7 +16,7 @@ For more information, see [torch.nn.Sigmoid](https://pytorch.org/docs/1.8.1/gene
 class mindspore.nn.Sigmoid()(input_x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Sigmoid.html).
+For more information, see [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Sigmoid.html).
 
 ## Differences
 

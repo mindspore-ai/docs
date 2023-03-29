@@ -16,7 +16,7 @@ torch.eig(input, eigenvectors=False, *, out=None) -> Tensor
 mindspore.ops.eig(A) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.eig](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.eig.html)。
+更多内容详见[mindspore.ops.eig](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.eig.html)。
 
 ## 差异对比
 

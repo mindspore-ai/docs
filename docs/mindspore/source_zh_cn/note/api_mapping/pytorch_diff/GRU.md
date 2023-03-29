@@ -30,7 +30,7 @@ class mindspore.nn.GRU(
     bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.GRU](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)。
+更多内容详见[mindspore.nn.GRU](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.GRU.html)。
 
 ## 差异对比
 

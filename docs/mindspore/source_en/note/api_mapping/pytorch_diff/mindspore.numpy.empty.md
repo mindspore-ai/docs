@@ -26,7 +26,7 @@ For more information, see [torch.empty](https://pytorch.org/docs/1.8.1/generated
 mindspore.numpy.empty(shape, dtype=mstype.float32) -> Tensor
 ```
 
-For more information, see [mindspore.numpy.empty](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.empty.html).
+For more information, see [mindspore.numpy.empty](https://mindspore.cn/docs/en/r2.0/api_python/numpy/mindspore.numpy.empty.html).
 
 ## Differences
 
