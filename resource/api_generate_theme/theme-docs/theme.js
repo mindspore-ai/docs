@@ -19,22 +19,16 @@ $(function () {
 
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const lang = isEn ? '/en/' : '/zh-CN/';
-  const prefix = pathname.startsWith('/docs/')
-                  ? 'docs'
-                  : pathname.split('/')[1] + '/docs';
-
+  // 获取文件路径
+  const pagePath = pathname.startsWith('/docs/')
+                  ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
+                  : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
 
   let msDocsVersion = [],
-      versionArr = [],
+      versionDropdownList = [],
+      msVersionInfo = [],
       pageTitle = '';
 
-  // 获取当前版本 不带R
-  function curVersion(version) {
-      return version === 'master'
-          ? 'master'
-          : version.startsWith('r') ? version.slice(1):version;
-  }
 
   // 获取当前版本
   function getCurrentVersion() {
@@ -44,12 +38,20 @@ $(function () {
       } else {
           version = pathname.split('/')[4];
       }
-      return curVersion(version);
+      return version;
   }
+
+  // 获取当前版本 不带R
+  function curVersion(version) {
+      return version === 'master'
+          ? 'master'
+          : version.startsWith('r') ? version.slice(1):version;
+  }
+
   // 版本名称显示
   function pageVersionName (){
     let versionName= '';
-    versionArr.forEach((subitem) => {
+    versionDropdownList.forEach((subitem) => {
       if(getCurrentVersion().endsWith(subitem.version)){
         versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
@@ -89,35 +91,47 @@ $(function () {
   }
 
   const initPage = async function () {
-      msDocsVersion = await getHeaderData('/version.json');
+      msDocsVersion = await getHeaderData('/msVersion.json');
+      msVersionInfo = await getHeaderData(`${pagePath}/_static/js/version.json`);
+
+      pageTitle = isEn ? msVersionInfo.label.en  || '': msVersionInfo.label.zh || '';
+
       msDocsVersion.forEach(function (item) {
-          if (pathname.startsWith('/' + item.name) && msDocsVersion.length > 2) {
-              versionArr = item.versions.map((subitem) => {
+          if (pathname.startsWith('/' + item.name)) {
+              versionDropdownList = item.versions.map((subitem) => {
                 return {
                   version: curVersion(subitem.version),
-                  url: subitem.url !=='' ? subitem.url : '/'+ prefix + lang + subitem.version +'/index.html',
+                  url: subitem.url !=='' ? subitem.url : pagePath.replace(getCurrentVersion(), subitem.version)+'/index.html',
                   versionAlias: curVersion(subitem.versionAlias)
                 };
               });
-              versionArr = versionArr.slice(0, 3);
-              pageTitle = isEn?item.label.en:item.label.zh;
-
+              versionDropdownList = versionDropdownList.slice(0, 3);
           }
       });
       setTimeout(() => {
           // 版本选择
           let width = window.innerWidth;
           if (width < 768) {
-              $('#nav-h5').append(versionDropdown(versionArr));
+              $('#nav-h5').append(versionDropdown(versionDropdownList));
               $('#nav-h5 .version-select-dom').on('click', function () {
                   $(this).find('ul').slideToggle();
               });
           } else {
               $('.wy-nav-side')
                   .addClass('side-fix')
-                  .prepend(versionDropdown(versionArr));
+                  .prepend(versionDropdown(versionDropdownList));
           }
           $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + '(' + pageVersionName() + ')';
+
+          // 默认展开API  docs
+          const wyMenu = $('.wy-grid-for-nav .wy-menu');
+          if (pathname.startsWith('/docs/zh-CN/') || pathname.startsWith('/docs/en/')) {
+            if(pathname.indexOf('/index.html')>-1 || pathname.indexOf('/search.html')>-1 || pathname.indexOf('/_modules/')>-1){
+              wyMenu.find('.caption').removeClass('down').next().hide();
+              wyMenu.find('.caption').eq(2).addClass('down').next().show();
+            }
+          }
+          
       }, 100);
   };
 
