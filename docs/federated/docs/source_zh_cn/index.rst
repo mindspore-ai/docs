@@ -19,7 +19,7 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/HFL.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/federated/docs/source_zh_cn/images/HFL.png" width="700px" alt="" >
 
 1. 隐私安全
 
@@ -54,7 +54,7 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/VFL.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/federated/docs/source_zh_cn/images/VFL.png" width="700px" alt="" >
 
 1. 隐私安全
 

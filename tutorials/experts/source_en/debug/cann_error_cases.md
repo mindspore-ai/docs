@@ -1,6 +1,6 @@
 # CANN Common Error Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/cann_error_cases.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/cann_error_cases.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 This article focuses on the handling of common CANN errors by users. When encountering CANN errors, MindSpore logs may not be sufficient to analyze the related errors. You can print CANN logs to better analyze the errors by setting the following two environment variables:
 

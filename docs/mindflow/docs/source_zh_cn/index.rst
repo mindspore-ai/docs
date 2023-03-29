@@ -7,7 +7,7 @@ MindFlow是基于昇思MindSpore开发的流体仿真领域套件，支持航空
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="1200px" alt="" style="display: inline-block">
 
 MindSpore AI 流体仿真套件
 

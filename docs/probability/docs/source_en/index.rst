@@ -12,7 +12,7 @@ MindSpore Probability provides the following functions:
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/probability/docs/source_en/probability_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/probability/docs/source_en/probability_en.png" width="700px" alt="" >
 
 Typical MindSpore Probability Application Scenarios
 ----------------------------------------------------

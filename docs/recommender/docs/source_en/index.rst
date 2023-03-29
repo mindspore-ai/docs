@@ -5,7 +5,7 @@ MindSpore Recommender is an open source training acceleration library based on t
 
 .. raw:: html
 
-   <p style="text-align: center;"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_en/images/architecture.png" width="600px" alt="" ></p>
+   <p style="text-align: center;"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/recommender/docs/source_en/images/architecture.png" width="600px" alt="" ></p>
 
 The MindSpore Recommender acceleration library consists of the following components:
 

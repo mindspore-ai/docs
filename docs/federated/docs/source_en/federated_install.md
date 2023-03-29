@@ -1,6 +1,6 @@
 # Obtaining MindSpore Federated
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 Currently, the [MindSpore Federated](https://gitee.com/mindspore/federated) framework code has been built independently, divided into device-side and cloud-side. Its cloud-side capability relies on MindSpore and MindSpore Federated, using MindSpore for cloud-side cluster aggregation training and communication with device-side, so it needs to get MindSpore whl package and MindSpore Federated whl package respectively. The device-side capability relies on MindSpore Lite and MindSpore Federated java packages, where MindSpore Federated java is mainly responsible for data pre-processing, model training and inference by calling MindSpore Lite for, as well as model-related uploads and downloads by using privacy protection mechanisms and the cloud side.
 
