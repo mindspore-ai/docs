@@ -1,6 +1,6 @@
 # Distributed Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -13,7 +13,7 @@ This tutorial would focus on the process that the model slices are saved on each
 
 ### Sample Code Description
 
->Download [Distributed inference](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference) sample code.
+>Download [Distributed inference](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_inference) sample code.
 
 ### Process of Distributed Inference
 
@@ -111,4 +111,4 @@ export(net, Tensor(input), file_name='net', file_format='MINDIR')
 
 In the case of multi-card training and single-card inference, the usage of exporting MindIR is the same as that of single host.
 
-> Distributed scenario exports MindIR file sample code: [distributed_export](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_export)
+> Distributed scenario exports MindIR file sample code: [distributed_export](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_export)

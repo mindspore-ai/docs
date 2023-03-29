@@ -1,6 +1,6 @@
 # Distributed Resilience Training and Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -34,7 +34,7 @@ Note that loading a distributed Checkpoint requires that the network be compiled
 
 > For dataset download, please refer to the [Preparation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/fault_recover.html#preparation) in the Distributed Parallel Training Transformer Model tutorial.
 >
-> Download the complete sample code: [Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training).
+> Download the complete sample code: [Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_resilience_training).
 
 ## Converting Distributed Checkpoint Files
 

@@ -1,6 +1,6 @@
 # Applying Second-Order Optimization Practices on the ResNet-50 Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/optimize/thor/resnet50.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -247,7 +247,7 @@ As can be seen from the parameter update formula, what the THOR optimizer needs 
 
 For more detailed introduction to THOR optimizer, refer to [THOR article](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
 
-When calling the MindSpore-encapsulated second-order optimizer THOR, the optimizer automatically calls the transformation interface to convert the Conv2d layer and Dense layer in the previously defined ResNet50 network into the corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py).
+When calling the MindSpore-encapsulated second-order optimizer THOR, the optimizer automatically calls the transformation interface to convert the Conv2d layer and Dense layer in the previously defined ResNet50 network into the corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/nn/layer/thor_layer.py).
 And the computation and storage of the second-order information matrix can be done in Conv2dThor and DenseThor.
 
 > The network backbone is the same before and after the THOR optimizer conversion, and the network parameters remain unchanged.
@@ -300,7 +300,7 @@ if __name__ == "__main__":
 
 ### Configuring the Training Network
 
-Training of the network can be easily performed through the `model.train` interface provided by MindSpore. The THOR optimizer reduces the volume of computation and improves the computation speed by reducing the frequency of second-order matrix updates, so it redefines a [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/train/train_thor/model_thor.py) class and inherits the Model class provided by MindSpore. Obtaining the second-order matrix update frequency control parameter of THOR in the ModelThor class, users can optimize the overall performance by adjusting this parameter.
+Training of the network can be easily performed through the `model.train` interface provided by MindSpore. The THOR optimizer reduces the volume of computation and improves the computation speed by reducing the frequency of second-order matrix updates, so it redefines a [ModelThor](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/train/train_thor/model_thor.py) class and inherits the Model class provided by MindSpore. Obtaining the second-order matrix update frequency control parameter of THOR in the ModelThor class, users can optimize the overall performance by adjusting this parameter.
 MindSpore provides a one-click conversion interface from Model class to ModelThor class.
 
 ```python

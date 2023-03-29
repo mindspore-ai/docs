@@ -1,6 +1,6 @@
 # 使用Java接口执行训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/runtime_train_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/runtime_train_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -49,7 +49,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 数据处理
 
@@ -97,7 +97,7 @@ liteModel.build(g, context, cfg);
     }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 执行训练
 
@@ -132,7 +132,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ### 推理
 

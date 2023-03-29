@@ -1,8 +1,8 @@
 # TensorFlow模型转换MindSpore模型的方法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
-本章将以LeNet5网络结构为例，结合[代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/convert_tf2ms_code) 来详细介绍模型权重转换方法。
+本章将以LeNet5网络结构为例，结合[代码](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/convert_tf2ms_code) 来详细介绍模型权重转换方法。
 
 首先我们需要明确训练好的TensorFlow模型转换成MindSpore能够使用的checkpoint，基本需要以下几个流程：
 

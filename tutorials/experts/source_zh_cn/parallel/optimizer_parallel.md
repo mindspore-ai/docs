@@ -1,6 +1,6 @@
 # 优化器并行
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -47,7 +47,7 @@ MindSpore实现的优化器参数切分还具有与算子级并行混合使用�
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel>。
+><https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_optimizer_parallel>。
 
 目录结构如下：
 
@@ -192,7 +192,7 @@ GPU分布式相关的环境变量：
 
 - HOST_FILE：描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
 
-用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
+用户可以通过[此处](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
 
 ```bash
 #!/bin/bash

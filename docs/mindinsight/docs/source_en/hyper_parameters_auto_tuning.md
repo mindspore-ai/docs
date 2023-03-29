@@ -1,6 +1,6 @@
 # Use Mindoptimizer to Tune Hyperparameters
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindinsight/docs/source_en/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -10,7 +10,7 @@ MindInsight provides `mindoptimizer`. This tuning command can extract past train
 
 ## Installation
 
-This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://gitee.com/mindspore/mindinsight/blob/master/README.md#).
+This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://gitee.com/mindspore/mindinsight/blob/r2.0/README.md#).
 
 ## Usage
 

@@ -2,7 +2,7 @@ Constructing MindSpore Network
 ==============================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_development.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/migration_guide/model_development/model_development.rst
 
 This chapter will introduce the related contents of MindSpore scripting,
 including datasets, network models and loss functions, optimizers,

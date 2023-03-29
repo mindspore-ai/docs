@@ -1,6 +1,6 @@
 # Android Application Development Based on JNI Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

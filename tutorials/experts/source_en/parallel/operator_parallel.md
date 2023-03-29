@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -59,7 +59,7 @@ The following is an illustration of operator-level parallelism by taking an Asce
 
 ### Sample Code Description
 
-> Download the complete sample code here: [operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel).
+> Download the complete sample code here: [operator_parallel](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/operator_parallel).
 
 The directory structure is as follows:
 

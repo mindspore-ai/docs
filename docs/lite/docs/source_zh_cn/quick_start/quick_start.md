@@ -1,6 +1,6 @@
 # 基于JNI接口的Android应用开发
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 

@@ -1,6 +1,6 @@
 # 集成NNIE使用说明
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 目录结构
 
@@ -457,7 +457,7 @@ cd /user/mindspore
   MindSpore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行集成使用。
   > 你可以在这里下载完整的样例代码：
   >
-  > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>
+  > <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/nnie_proposal>
 
 ### 分段机制说明及8段限制
 

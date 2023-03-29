@@ -1,6 +1,6 @@
 # Servable Provided Through Model Configuration
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/serving/docs/source_en/serving_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ Before running the sample network, ensure that MindSpore Serving has been proper
 
 MindSpore Serving Servable provides the inference services of the following types: One inference service comes from a single model, and the other one comes from a combination of multiple models. The two types of sevices are configured through the same interface. Models need to be configured to provide the Serving inference service.
 
-The following describes how to configure models to provide Servable. ResNet-50 is used as an example to describe how to configure a single model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/master/example/resnet/). Serving client is referred to as the client.
+The following describes how to configure models to provide Servable. ResNet-50 is used as an example to describe how to configure a single model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/r2.0/example/resnet/). Serving client is referred to as the client.
 
 ## Concepts
 
@@ -231,7 +231,7 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides parameter `batch_size` for interface `add_stage`. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py).
+In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides parameter `batch_size` for interface `add_stage`. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/r2.0/example/resnet/resnet50/servable_config.py).
 
 ## Services Composed of Multiple Models
 

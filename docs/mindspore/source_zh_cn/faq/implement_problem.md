@@ -1,6 +1,6 @@
 # 执行问题
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
 
@@ -314,7 +314,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: 如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/linear_regression.py)
+A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$:
 

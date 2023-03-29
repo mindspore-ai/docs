@@ -1,6 +1,6 @@
 # 模型加密保护
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -9,7 +9,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 
 以下通过示例来介绍加密导出和解密加载的方法。
 
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## 安全导出CheckPoint文件
 

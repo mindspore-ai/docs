@@ -1,6 +1,6 @@
 # Distributed Training Communication Fusion
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -18,7 +18,7 @@ The whole process of distributed training can be roughly divided into two proces
 
 As shown in the figure below, each node backs up the complete neural network model and uses the local dataset partition to train a mini-batch for forward and backward computation. The gradient obtained from the backward computation is synchronized across the nodes, and the training of the next mini-batch continues after synchronization, and so on, until the accuracy/loss reaches a threshold, or a certain number of epochs are trained. It can be seen that computation and communication alternate in the distributed training process. Work has been done on how to do pipelining of interdependent computation and transmission to reduce the percentage of cross-node data synchronization in the overall training duration [5-6], which will not be repeated here.
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/data_parallel.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/parallel/images/data_parallel.png)
 
 ### The Necessity of Communication Fusion
 
@@ -56,7 +56,7 @@ Regardless of the parallel mode scenario, users can set the index for the parame
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>.
+> <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_comm_fusion>.
 
 The directory structure is as follows:
 
@@ -97,7 +97,7 @@ If all similar communication operators are fused into one operator, in the curre
 
 In order to avoid the above problem, the network parameters can be fused in groups: while the next group of parameters is computed, the communication of the previous group of parameters is carried out, so that the computation and communication can be hidden from each other, to perform group fusion either by limiting the size of the fusion buffer, or by index partitioning.
 
-For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py).
+For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/r2.0/tests/ut/python/parallel/test_comm_fusion.py).
 
 > Users can try the size and index modes of `comm_fusion` on their own, which are essentially methods of the fusion buffer class.
 
@@ -178,7 +178,7 @@ Environment variables related to GPU distributed are:
 
 - HOST_FILE: describes the IP and number of devices for multi-card training. Each line of the file has the format [hostname] slots=[slotnum], and hostname can be an ip or hostname. Note that the username needs to be the same on different machines, but the hostname cannot be the same.
 
-The user can access the above script in this document via [here](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel). Execute the following `bash` script to run the program and output the log in the device0/train.log0 file.
+The user can access the above script in this document via [here](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_optimizer_parallel). Execute the following `bash` script to run the program and output the log in the device0/train.log0 file.
 
 ```bash
 #!/bin/bash

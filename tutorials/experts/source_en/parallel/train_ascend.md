@@ -1,11 +1,11 @@
 # Distributed Parallel Training Example (Ascend)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> Download address of the complete sample code: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training)
 
 The directory structure is as follow:
 
@@ -169,7 +169,7 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: [ResNet network sample script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: [ResNet network sample script](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/resnet/resnet.py)
 
 In this section we focus on how to define a network in hybrid parallel or semi-auto parallel mode.
 
@@ -556,7 +556,7 @@ Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on
 
 ### Single-host Training
 
-Take the distributed training script for eight devices [run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh) for an example, the script will run in the background. The log file is saved in the device directory, the log for different device will be saved in `log_output/1/` directory.
+Take the distributed training script for eight devices [run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/distributed_training/run_with_mpi.sh) for an example, the script will run in the background. The log file is saved in the device directory, the log for different device will be saved in `log_output/1/` directory.
 
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 >

@@ -1,6 +1,6 @@
 # 使用C++接口执行推理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/runtime_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/runtime_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 > MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。
 
@@ -26,7 +26,7 @@
 
 通过MindSpore Lite进行模型推理时，需要从文件系统读取[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型文件。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L332)演示了从文件系统读取MindSpore Lite模型。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L332)演示了从文件系统读取MindSpore Lite模型。
 
 ```cpp
 // Read model file.
@@ -43,7 +43,7 @@ if (model_buf == nullptr) {
 
 MindSpore Lite默认执行的后端是CPU，Context创建后调用[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，向列表中添加默认的[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L250)演示了如何创建Context，配置默认的CPU后端，并设定CPU使能Float16推理。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L250)演示了如何创建Context，配置默认的CPU后端，并设定CPU使能Float16推理。
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -100,7 +100,7 @@ context->SetEnableParallel(true);
 
 当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在GPU后，以保证泛化模型的推理。其中GPUDeviceInfo通过`SetEnableFP16`使能Float16推理。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L114)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L114)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -152,7 +152,7 @@ device_list.push_back(cpu_device_info);
 
 当需要执行的后端为NPU时，需要设置[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在NPU后，以保证泛化模型的推理。其中KirinNPUDeviceInfo通过`SetFrequency`来设置NPU频率。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L127)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L127)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -250,7 +250,7 @@ context->SetDelegate(coreml_delegate);
 
 使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，调用Model的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口来实现模型加载与模型编译。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L265)演示了Model创建、加载与编译的过程：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L265)演示了Model创建、加载与编译的过程：
 
 ```cpp
 // Create model
@@ -280,7 +280,7 @@ if (build_ret != mindspore::kSuccess) {
 
 MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
-1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，根据Tensor的名称来获取模型输入Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L154)演示如何调用`GetInputByTensorName`获得输入Tensor并填充数据。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，根据Tensor的名称来获取模型输入Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L154)演示如何调用`GetInputByTensorName`获得输入Tensor并填充数据。
 
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
@@ -298,7 +298,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    // Users need to free input_buf.
    ```
 
-2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137)演示如何调用`GetInputs`获得输入Tensor并填充数据。
+2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L137)演示如何调用`GetInputs`获得输入Tensor并填充数据。
 
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
@@ -326,7 +326,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
 MindSpore Lite调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)进行模型推理。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L355)演示调用`Predict`执行推理。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L355)演示调用`Predict`执行推理。
 
 ```cpp
 auto inputs = model->GetInputs();
@@ -341,7 +341,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 MindSpore Lite在执行完推理后，就可以获取模型的推理结果。MindSpore Lite提供三种方法来获取模型的输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
 
-1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出Tensor中连接到该节点的Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L170)演示如何调用`GetOutputsByNodeName`获得输出Tensor。
+1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出Tensor中连接到该节点的Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L170)演示如何调用`GetOutputsByNodeName`获得输出Tensor。
 
    ```cpp
    // Assume we have created a Model instance named model before.
@@ -355,7 +355,7 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
    // Post-processing your result data.
    ```
 
-2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，根据模型输出Tensor的名称来获取对应的模型输出Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L200)演示如何调用`GetOutputByTensorName`获得输出Tensor。
+2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，根据模型输出Tensor的名称来获取对应的模型输出Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L200)演示如何调用`GetOutputByTensorName`获得输出Tensor。
 
    ```cpp
    // Assume we have created a Model instance named model.
@@ -371,7 +371,7 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
    }
    ```
 
-3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，直接获取所有的模型输出Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L226)演示如何调用`GetOutputs`获得输出Tensor。
+3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，直接获取所有的模型输出Tensor的vector，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L226)演示如何调用`GetOutputs`获得输出Tensor。
 
    ```cpp
    // Assume we have created a Model instance named model.
@@ -385,7 +385,7 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
 
 ## 内存释放
 
-无需使用MindSpore Lite推理框架时，需要释放已经创建的Model，下列[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L370)演示如何在程序结束前进行内存释放。
+无需使用MindSpore Lite推理框架时，需要释放已经创建的Model，下列[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L370)演示如何在程序结束前进行内存释放。
 
 ```cpp
 // Delete model.
@@ -403,7 +403,7 @@ delete model;
 >
 > TensorRT的GPU后端只支持在NHWC输入格式下的NHW维度的resize，且resize维度的shape值，不能大于创建的Model的输入shape值。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L321)演示如何对MindSpore Lite的输入Tensor进行Resize：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L321)演示如何对MindSpore Lite的输入Tensor进行Resize：
 
 ```cpp
 // Assume we have created a Model instance named model.
@@ -427,7 +427,7 @@ op_name1=data_type:float16
 op_name2=data_type:float32
 ```
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L321)演示如何进行混合精度推理：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L321)演示如何进行混合精度推理：
 
 ```cpp
 Status load_config_ret = model->LoadConfig(config_file_path);
@@ -456,7 +456,7 @@ if (predict_ret != mindspore::kSuccess) {
 MindSpore Lite 支持多硬件异构推理。
 用户可以在[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)中配置多个[DeviceInfoContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)，并且根据设备的先后顺序，设置异构硬件的运行优先级。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546)演示如何进行多硬件异构推理：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L546)演示如何进行多硬件异构推理：
 
 ```cpp
 mindspore::Context context;
@@ -557,7 +557,7 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
 
 如果存在多个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的情况，可以通过在[DeviceInfoContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)中配置同一个[Allocator](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#allocator)，实现共享内存池来减少运行时内存大小。其中，内存池的内存总大小限制为`3G`，单次分配的内存限制为`2G`。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546)演示如何在两个Model间共享内存池的功能：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L546)演示如何在两个Model间共享内存池的功能：
 
 ```cpp
 auto context1 = std::make_shared<mindspore::Context>();
@@ -611,7 +611,7 @@ MindSpore Lite可以在调用[Predict](https://www.mindspore.cn/lite/api/zh-CN/m
 - 推理当前节点前的输入输出Tensor
 - 推理当前节点后的输入输出Tensor
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L672)演示如何定义了两个回调函数作为前置回调指针和后置回调指针，传入到Predict接口进行回调推理。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L672)演示如何定义了两个回调函数作为前置回调指针和后置回调指针，传入到Predict接口进行回调推理。
 
 ```cpp
 // Definition of callback function before forwarding operator.
@@ -641,7 +641,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 模型加载与编译也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口和[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)实现。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L282)演示模型加载与编译独立调用的流程：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L282)演示模型加载与编译独立调用的流程：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -680,7 +680,7 @@ if (build_ret != mindspore::kSuccess) {
 
 当模型被[converter_lite工具](https://mindspore.cn/mindarmour/docs/zh-CN/master/model_encrypt_protection.html#%E7%AB%AF%E4%BE%A7%E6%A8%A1%E5%9E%8B%E4%BF%9D%E6%8A%A4)转换时加密，在lite加载模型时需通过传入密钥和解密工具相关参数。其中，dec_key应与使用converter_lite工具加密时的密钥一致，均十六进制表示的字符串。如b'0123456789ABCDEF'对应的十六进制表示为30313233343536373839414243444546，Linux平台用户可以使用xxd工具对字节表示的密钥进行十六进制表达转换。crypto_lib_path为该环境中openssl的安装路径，如"/home/root/openssl"。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc)演示模型解密加载及推理的流程：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc)演示模型解密加载及推理的流程：
 
 ```cpp
 int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
@@ -756,7 +756,7 @@ logcat -s "MS_LITE"
 
 MindSpore Lite提供了[Version](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#version)方法可以获取版本号，包含在`include/api/types.h`头文件中，调用该方法可以得到当前MindSpore Lite的版本号。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L717)演示如何获取MindSpore Lite的版本号：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L717)演示如何获取MindSpore Lite的版本号：
 
 ```cpp
 #include "include/api/types.h"
@@ -765,7 +765,7 @@ std::string version = mindspore::Version();
 
 ### 扩展使用
 
-本章节提供了扩展MindSpore Lite推理框架的示例程序，通过演示自定义算子的构建、注册的全流程，用户能够快速了解推理框架的扩展API的使用，能够在推理框架中集成自定义算子。本章节以一个具有简易Add计算能力的Custom单算子为模型。相关代码放置在[mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend)目录。
+本章节提供了扩展MindSpore Lite推理框架的示例程序，通过演示自定义算子的构建、注册的全流程，用户能够快速了解推理框架的扩展API的使用，能够在推理框架中集成自定义算子。本章节以一个具有简易Add计算能力的Custom单算子为模型。相关代码放置在[mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/runtime_extend)目录。
 
 本章节仅提供了在Linux环境下的使用说明。
 
@@ -825,7 +825,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - Prepare：此接口将在图编译期间调用，用户可对算子做运行前的准备或者必要的校验。
 
-    - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
+    - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
 
       ```cpp
       Status CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // 算子运行时校验，以确定是否调用InferShape过程
@@ -841,7 +841,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - ReSize：此接口用于在图输入shape变化的情形下，当前算子所需的相应变动。
 
-    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
+    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
 
 2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)。
 
@@ -868,7 +868,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - 编译构建
 
-     在`mindspore/lite/examples/runtime_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+     在`mindspore/lite/examples/runtime_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
 
      ```bash
      bash build.sh

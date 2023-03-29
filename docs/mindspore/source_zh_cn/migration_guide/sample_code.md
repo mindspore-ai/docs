@@ -1,6 +1,6 @@
 # 网络迁移调试实例
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/sample_code.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 本章将以经典网络 ResNet50 为例，结合代码来详细介绍网络迁移方法。
 
@@ -14,7 +14,7 @@
 
 [论文](https://arxiv.org/pdf/1512.03385.pdf)：Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
+我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r2.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
 
 ### checklist
 
@@ -174,7 +174,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
 
 ### 网络模型实现
 
-参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
+参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
 
 ```python
 # Conv2d PyTorch
@@ -655,7 +655,7 @@ Test set: Average loss: 0.3240, Accuracy: 91%
 
 ## 训练流程
 
-PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
+PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/r2.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
 
 对应的MindSpore代码：
 
@@ -832,7 +832,7 @@ MindSpore有三种方法使用混合精度：
 
 每个数据处理操作的队列，发现最后一个操作，`batch`操作空的时间比较多，可以考虑增加`batch`操作的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
 
-整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code)获取。
+整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/r2.0/docs/mindspore/source_zh_cn/migration_guide/code)获取。
 
 欢迎点击下面视频，一起来学习。
 

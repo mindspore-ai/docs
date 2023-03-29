@@ -1,6 +1,6 @@
 # Fixed Randomness to Reproduce Run Results of Script
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 The purpose of fixed randomness is to reproduce the run results of the script and assist in locating the problem. After fixing the randomness, the loss curve produced by the two trainings under the same conditions should be basically the same, and you can perform debugging multiple times to easily find the cause of the loss curve abnormality without worrying about the problem phenomenon of the last debugging and no longer appearing in this run.
 
@@ -72,7 +72,7 @@ This document applies to Graph mode on Ascend.
 
     If the above two conditions cannot be met at the same time, it should be checked whether the above fixed randomness steps are in place. If the operation of fixing randomness has been done, but the script is run twice, and the loss values of the first two iterations are still inconsistent, please [Set New issue to ask MindSpore for help](https://gitee.com/mindspore/mindspore/issues/new).
 
-    We provide a [sample code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py) that successfully fixed randomness, which performs 2 iterations of training. As can be seen by running this code twice, the loss value of the first iteration of the two trainings satisfies the numpy.allclose() function, and the loss value of the second iteration of the two trainings satisfies the numpy.allclose() function, indicating that the randomness of the network is fixed.
+    We provide a [sample code](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py) that successfully fixed randomness, which performs 2 iterations of training. As can be seen by running this code twice, the loss value of the first iteration of the two trainings satisfies the numpy.allclose() function, and the loss value of the second iteration of the two trainings satisfies the numpy.allclose() function, indicating that the randomness of the network is fixed.
 
 ## Notes
 

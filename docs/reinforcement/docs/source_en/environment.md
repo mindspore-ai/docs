@@ -1,6 +1,6 @@
 # Reinforcement Learning Environment Access
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/environment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/reinforcement/docs/source_en/environment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -39,7 +39,7 @@ print('type: {}, shape: {}, dtype: {}'.format(type(state), state.dtype, state.sh
 - `in_types` and `in_shapes` specify the input data types and dimensions. `env.reset` has no input, so it fills in an empty list.
 - `out_types`, `out_shapes` specify the data types and dimensions of the returned values. From the previous execution, it can be seen that `env.reset()` returns a numpy array with data type and dimension `np.float64` and `(4,)` respectively, so `[ms.float64,]` and `[(4,),]` are filled in.
 - `PyFunc` returns tuple(Tensor).
-- For more detailed instructions, refer to the [reference](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/operations/other_ops.py).
+- For more detailed instructions, refer to the [reference](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/ops/operations/other_ops.py).
 
 ## Decoupling Environment and Algorithms
 

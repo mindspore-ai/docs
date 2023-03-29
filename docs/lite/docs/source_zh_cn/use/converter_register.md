@@ -1,6 +1,6 @@
 # 离线构建自定义算子
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_register.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/converter_register.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -12,7 +12,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 模型解析扩展：用户自定义模型的整个解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#modelparser)、[ModelParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#modelparserregistry)。
 图优化扩展：模型解析之后，将获得MindSpore定义的图结构，用户可基于此结构自定义图的优化过程。接口可参考[PassBase](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passbase)、[PassPosition](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passposition)、[PassRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passregistry)。
 
-> 节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件，并且flatbuffers和protobuf需要与发布件采用的版本一致，序列化文件需保证兼容发布件采用的序列化文件。发布件中不提供flatbuffers、protobuf及序列化文件，用户需自行编译，并生成序列化文件。用户可以从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[flatbuffers](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/flatbuffers.cmake)、[probobuf](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/protobuf.cmake)、[ONNX原型文件](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/onnx)、[CAFFE原型文件](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/caffe)、[TF原型文件](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/tensorflow)和[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/tools/converter/parser/tflite/schema.fbs)。
+> 节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件，并且flatbuffers和protobuf需要与发布件采用的版本一致，序列化文件需保证兼容发布件采用的序列化文件。发布件中不提供flatbuffers、protobuf及序列化文件，用户需自行编译，并生成序列化文件。用户可以从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r2.0/cmake/external_libs/flatbuffers.cmake)、[probobuf](https://gitee.com/mindspore/mindspore/blob/r2.0/cmake/external_libs/protobuf.cmake)、[ONNX原型文件](https://gitee.com/mindspore/mindspore/tree/r2.0/third_party/proto/onnx)、[CAFFE原型文件](https://gitee.com/mindspore/mindspore/tree/r2.0/third_party/proto/caffe)、[TF原型文件](https://gitee.com/mindspore/mindspore/tree/r2.0/third_party/proto/tensorflow)和[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/tools/converter/parser/tflite/schema.fbs)。
 >
 > MindSpore Lite还提供了一系列的注册宏，以便于用户侧的扩展接入转换工具。注册宏包括节点解析注册[REG_NODE_PARSER](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-node-parser)、模型解析注册[REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-model-parser)、图优化注册[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)、图优化调度注册[REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-scheduled-pass)。
 
@@ -24,7 +24,7 @@ MindSpore Lite转换工具的扩展能力，目前仅支持Linux系统。
 
 本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过自定义的节点解析、图优化，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html#custom算子)，最终输出Custom单算子模型。
 
-相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend)目录。
+相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/converter_extend)目录。
 
 ## 节点扩展
 
@@ -45,11 +45,11 @@ class AddParserTutorial : public NodeParser {  // 继承基类
 REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());     // 调用注册接口
 ```
 
-示例代码请参考[node_parser](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/node_parser)。
+示例代码请参考[node_parser](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/converter_extend/node_parser)。
 
 ## 模型扩展
 
-示例代码请参考[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)的模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
+示例代码请参考[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)的模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
 
 ### 优化扩展
 
@@ -75,9 +75,9 @@ REG_PASS(PassTutorial, opt::PassTutorial)             // 注册扩展类
 REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 ```
 
-示例代码可参考[pass](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/pass)。
+示例代码可参考[pass](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/converter_extend/pass)。
 
-> 在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#扩展使用)说明，示例代码可参考[infer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/infer)。
+> 在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#扩展使用)说明，示例代码可参考[infer](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/converter_extend/infer)。
 
 ## 示例演示
 
@@ -94,13 +94,13 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
   MindSpore Lite的发布件不会提供其他框架下的序列化文件，因此，用户需自行编译获得，请参考[概述](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html#概述)。
 
-  本示例采用的是tflite模型，用户需编译[flatbuffers](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/flatbuffers.cmake)，从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
+  本示例采用的是tflite模型，用户需编译[flatbuffers](https://gitee.com/mindspore/mindspore/blob/r2.0/cmake/external_libs/flatbuffers.cmake)，从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
 
   在`mindspore/lite/examples/converter_extend`目录下创建`schema`文件目录，继而将生成的序列化文件置于`schema`目录下。
 
 - 编译构建
 
-  在`mindspore/lite/examples/converter_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+  在`mindspore/lite/examples/converter_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
 
   ```bash
   bash build.sh

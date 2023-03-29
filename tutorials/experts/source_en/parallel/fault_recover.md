@@ -1,6 +1,6 @@
 # Distributed Fault Recovery
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/fault_recover.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/fault_recover.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ For the relationship between the parallel strategy and the slicing division of t
 
 Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in sink mode. This document will introduce the scheme as an example of distributed parallel training Transformer model. For detailed information of transformer, please refer to this tutorial.
 
-> Download the complete sample code here: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
+> Download the complete sample code here: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training_transformer)
 
 The directory structure is as follows:
 

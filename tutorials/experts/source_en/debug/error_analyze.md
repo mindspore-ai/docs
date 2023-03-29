@@ -1,6 +1,6 @@
 # Error Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 As mentioned before, error analysis refers to analyzing and inferring possible error causes based on the obtained network and framework information (such as error messages and network code).
 
@@ -10,7 +10,7 @@ During error analysis, the first step is to identify the scenario where the erro
 
 When an error is reported during data processing, check whether C++ error messages are contained as shown in Figure 1. Typically, the name of the data processing operation using the C++ language is the same as that using Python. Therefore, you can determine the data processing operation that reports the error based on the error message and locate the error in the Python code.
 
-![minddata-errmsg](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/debug/images/minddata_errmsg.png)
+![minddata-errmsg](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/debug/images/minddata_errmsg.png)
 
 *Figure 1*
 
@@ -44,7 +44,7 @@ In dynamic graph mode, the program is executed line by line according to the cod
 
 Generally, the error message may contain `WARNING` logs. During error analysis, analyze the error message following Traceback first.
 
-![pynative-errmsg](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/debug/images/pynative_errmsg.png)
+![pynative-errmsg](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/debug/images/pynative_errmsg.png)
 
 *Figure 2*
 
@@ -58,7 +58,7 @@ In dynamic graph mode, common network construction and training errors are found
 
 In static graph mode, MindSpore builds the network structure into a computational graph, and then performs the computation operations involved in the graph. Therefore, errors reported in static graph mode include computational graph build errors and computational graph execution errors. Figure 3 shows the error message reported during computational graph build. When an error occurs, the `analyze_failed.ir` file is automatically saved to help analyze the location of the error code.
 
-![graph-errmsg](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png)
+![graph-errmsg](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png)
 
 *Figure 3*
 

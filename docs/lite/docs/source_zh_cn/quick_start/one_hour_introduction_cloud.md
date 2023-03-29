@@ -1,6 +1,6 @@
 # 云侧推理快速入门
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -59,7 +59,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 4. 获取样例
 
-    本节样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
+    本节样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
 
     ```text
     quick_start_cpp

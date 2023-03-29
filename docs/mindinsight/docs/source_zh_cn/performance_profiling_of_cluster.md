@@ -1,6 +1,6 @@
 # 集群性能调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_of_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindinsight/docs/source_zh_cn/performance_profiling_of_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -197,7 +197,7 @@ done
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py)。
+通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/transform_cluster_profiler_data.py)。
 
 > 以上为Ascend AI处理器关于收集集群性能数据的介绍，GPU集群训练请参考GPU分布式训练教程。
 

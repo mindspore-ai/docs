@@ -1,10 +1,10 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/data_processing.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/faq/data_processing.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I offload data if I do not use high-level APIs?**</font>
 
-A: You can implement by referring to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+A: You can implement by referring to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/r2.0/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
 
 <br/>
 

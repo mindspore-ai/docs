@@ -1,6 +1,6 @@
 # Implement Problem
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
@@ -316,7 +316,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: How do I use MindSpore to fit quadratic functions such as $f(x)=ax^2+bx+c$?**</font>
 
-A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/linear_regression.py).
+A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/linear_regression.py).
 
 Modify the following items to fit $f(x) = ax^2 + bx + c$:
 

@@ -1,6 +1,6 @@
 # Quick Start to Cloud-Side Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -60,7 +60,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 4. Obtain sample
 
-    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp).
+    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/quick_start_cpp).
 
     ```text
     quick_start_cpp

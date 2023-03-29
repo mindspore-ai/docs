@@ -1,6 +1,6 @@
 # Dump功能调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/dump.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/debug/dump.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -236,11 +236,11 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 同步Dump数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，同步Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/dump) ，同步Dump只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/dump/train_alexnet.py)为例 ：
 
 ```python
 ...
@@ -509,7 +509,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
+Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r2.0/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
 若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
 
@@ -519,7 +519,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
 
 ### 异步Dump数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，异步Dump执行 `bash run_async_dump.sh` 即可。用户可以自行下载体验。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/dump) ，异步Dump执行 `bash run_async_dump.sh` 即可。用户可以自行下载体验。
 
 通过异步Dump的功能，获取到算子异步Dump生成的数据文件。如果异步Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 

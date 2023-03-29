@@ -2,7 +2,7 @@ MindSpore网络搭建
 =================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/model_development.rst
+    :target: https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/model_development/model_development.rst
 
 本章节将会从训练和推理需要的基本模块出发，介绍MindSpore脚本编写的相关内容，包含数据集、网络模型及loss函数、优化器、训练流程、推理流程等内容。其中会包含一些在网络迁移中常用的功能技巧，比如网络编写的规范，训练、推理流程模板，动态shape的规避策略等。
 

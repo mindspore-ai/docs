@@ -1,6 +1,6 @@
 # Using C++ Interface to Perform Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -68,7 +68,7 @@ int CreateSession() {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
 
 ## Data Processing
 

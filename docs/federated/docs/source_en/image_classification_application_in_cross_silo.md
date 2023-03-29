@@ -1,6 +1,6 @@
 # Implementing a Cloud-Slio Federated Image Classification Application (x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 Based on the type of participating clients, federated learning can be classified into cross-silo federated learning and cross-device federated learning. In a cross-silo federated learning scenario, the clients involved in federated learning are different organizations (e.g., healthcare or finance) or geographically distributed data centers, i.e., training models on multiple data silos. In the cross-device federated learning scenario, the participating clients are a large number of mobile or IoT devices. This framework will describe how to implement an image classification application by using the network LeNet on the MindSpore Federated cross-silo federated framework.
 
@@ -141,7 +141,7 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
 
 We choose the relatively simple LeNet network, which has seven layers without the input layer: two convolutional layers, two downsampling layers (pooling layers), and three fully connected layers. Each layer contains a different number of training parameters, as shown in the following figure:
 
-![LeNet5](https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
+![LeNet5](https://gitee.com/mindspore/docs/raw/r2.0/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
 
 > More information about LeNet network is not described herein. For more details, please refer to <http://yann.lecun.com/exdb/lenet/>.
 
