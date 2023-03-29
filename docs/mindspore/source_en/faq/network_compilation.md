@@ -467,3 +467,53 @@ If the data is a scalar type, you can export the scalar to Tensor type, and if t
  you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
+
+<font size=3>**Q: What does "External" type mean during compilation?**</font>
+
+A: The "External" type indicates that an object that cannot be natively supported is used in graph mode. For example:
+
+1) the object of the customized class is "External" type. The code example is as follows:
+
+```python
+import numpy as np
+from mindspore import Tensor, nn, context, jit_class
+context.set_context(mode=context.GRAPH_MODE)
+
+#It is recommended to use @jit_class to decorate a customized class.
+class UserDefinedNet:
+    value = 10
+
+    def func(self, t):
+        return 2 * t
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x, y):
+        x = self.net.value + self.net.func(x)
+        return x
+
+input_x = np.random.randn(2, 2, 3).astype(np.float32)
+input_y = np.random.randn(2, 3, 2).astype(np.float32)
+net = Net()
+out = net(Tensor(input_x), Tensor(input_y))
+print(out)
+```
+
+The result is as follows:
+
+```text
+RuntimeError: For operation 'add', current input arguments types are <External, External>. The 1-th argument type 'External' is not supported now.
+the support argument types of 'add' operation as follows:
+<Number, Number>
+
+The function call stack:
+# 0 In file test.py(18)
+    x = self.net.value + self.net.func(x)
+```
+
+2) The third-party library object is "External" type.
+
+<br/>

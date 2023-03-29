@@ -458,3 +458,53 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>
+
+<font size=3>**Q: 编译过程中 “External” 类型是什么意思？**</font>
+
+A: “External” 类型表示在图模式中使用了无法原生支持的对象。例如：
+
+1) 自定义类的对象是 “External” 类型。代码样例如下：
+
+```python
+import numpy as np
+from mindspore import Tensor, nn, context, jit_class
+context.set_context(mode=context.GRAPH_MODE)
+
+#建议使用@jit_class来装饰自定义类。
+class UserDefinedNet:
+    value = 10
+
+    def func(self, t):
+        return 2 * t
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x, y):
+        x = self.net.value + self.net.func(x)
+        return x
+
+input_x = np.random.randn(2, 2, 3).astype(np.float32)
+input_y = np.random.randn(2, 3, 2).astype(np.float32)
+net = Net()
+out = net(Tensor(input_x), Tensor(input_y))
+print(out)
+```
+
+执行结果如下：
+
+```text
+RuntimeError: For operation 'add', current input arguments types are <External, External>. The 1-th argument type 'External' is not supported now.
+the support argument types of 'add' operation as follows:
+<Number, Number>
+
+The function call stack:
+# 0 In file test.py(18)
+    x = self.net.value + self.net.func(x)
+```
+
+2）第三方库对象是 “External” 类型。
+
+<br/>
