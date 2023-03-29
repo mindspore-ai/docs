@@ -15,9 +15,9 @@ function createScriptSensor() {
     setTimeout(() => {
         oHead.appendChild(jsScript3);
     });
-}
-
-function createScriptCommonJs() {
+  }
+  
+  function createScriptCommonJs() {
     let oHead = document.getElementsByTagName('HEAD').item(0);
     let origin = location.origin;
     let jsScript = document.createElement('script');
@@ -26,10 +26,10 @@ function createScriptCommonJs() {
     setTimeout(() => {
         oHead.appendChild(jsScript);
     });
-}
-
-// 百度统计
-function createScriptBaidu() {
+  }
+  
+  // 百度统计
+  function createScriptBaidu() {
     // var _hmt = _hmt || [];
     (function () {
         var hm = document.createElement('script');
@@ -37,10 +37,10 @@ function createScriptBaidu() {
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(hm, s);
     })();
-}
-
-// jQuery中id含有特殊字符转义后使用
-function escapeJquery(srcString) {
+  }
+  
+  // jQuery中id含有特殊字符转义后使用
+  function escapeJquery(srcString) {
   // 转义之后的结果
   var escapseResult = srcString;
   // javascript正则表达式中的特殊字符
@@ -60,38 +60,27 @@ function escapeJquery(srcString) {
     );
   }
   return escapseResult;
-}
-
-// 判断是否 h5
-function isH5(cb) {
+  }
+  
+  // 判断是否 h5
+  function isH5(cb) {
   let screen = document.documentElement.clientWidth;
   if (screen < 768) {
       cb();
   }
-}
-
-$(function () {
+  }
+  
+  $(function () {
   // 统一修改title
   $('title').text('MindSpore');
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
   const lang = isEn?'/en/':'/zh-CN/';
   const enPath =isEn?'en':'';
-
+  
   //切换语言链接
   const newNavPath = isEn ? pathname.replace('/en/','/zh-CN/'):pathname.replace('/zh-CN/','/en/');
-
-  // 获取当前版本
-  const getCurrentVersion = () => {
-    let currentVersion = 'master';
-    if(pathname.startsWith('/docs/') || pathname.startsWith('/tutorials/zh-CN/') || pathname.startsWith('/tutorials/en/')){
-      currentVersion = pathname.split('/')[3];
-    }else{
-      currentVersion = pathname.split('/')[4];
-    }
-    return pathname.includes('/master/')?'master': currentVersion.startsWith('r')&& currentVersion.slice(1);
-  };
-
+  
   // 文档教程搜索埋点记录
   const sensorsMethods = {
     getSearchKey: function () {
@@ -165,9 +154,9 @@ $(function () {
         }
     }
   };
-
+  
   const body = $('body');
-
+  
   let headerMenuData = [],
   msDocsVersion = [];
   // 获取导航菜单
@@ -186,7 +175,7 @@ $(function () {
         });
     });
   }
-
+  
   //初始化header
   const msHeader = {
     pcHeader: function(){
@@ -202,9 +191,9 @@ $(function () {
                         <div class="header-nav-link"><a class="header-nav-link-line" href="${item.url ===''? msHeader.headerNavLinks(item.id):item.url}">${item.name}</a></div>
                         `;
                     } else {
-                        if (pathname.startsWith('/' + item.id)) {
-                          item.active = 1;
-                        }
+                      if (pathname.indexOf(item.id)>-1) {
+                        item.active = 1;
+                      }
                         return `
                         <div class="header-nav-link">
                           <a class="header-nav-link-line ${item.active ? 'selected' : ''}" href="${item.url ==='' || item.url === undefined ? msHeader.headerNavLinks(item.id):item.url}">${item.name}</a>
@@ -214,9 +203,10 @@ $(function () {
                                           return `<div class="docsNew-column">
                                                     <div class="docsNew-column-title">${sub.title || ''}</div>
                                                 <div class="bottom" style="line-height: initial;">
-                                                    ${sub.children.map(function (sub) {
+                                                    ${sub.children.map(function (subitem) {
+  
                                                         return `
-                                                        <div class="docsVersion"><a class="versionM" href="${msHeader.headerNavLinks(sub.id)}">${sub.name}</a></div>
+                                                        <div class="docsVersion"><a class="versionM" href="${msHeader.headerNavLinks(subitem.id)}">${subitem.name}</a></div>
                                                         `;
                                                     }).join('')}
                                                 </div>
@@ -228,7 +218,7 @@ $(function () {
                                 </div>
                         </div>`;
                     }
-
+  
                 }).join('')}
             </div>
             <div class="header-nav navbar-nav" style="display: flex;">
@@ -299,16 +289,6 @@ $(function () {
     h5Nav: function(){
       return `
       <div class="nav-h5" id="nav-h5" style="height:4rem;"><div class="nav" show="1"></div></div>`;
-    },
-    // 获取页面标题
-    pageTitle:function(){
-      let title = '';
-      msDocsVersion&&msDocsVersion.forEach((item) => {
-        if(pathname.startsWith('/'+item.name)){
-          title = isEn?item.label.en:item.label.zh;
-        }
-      });
-      return title;
     },
     // 文档页面交互
     headerMethods:function (){
@@ -423,7 +403,7 @@ $(function () {
               $(this).css('backgroundImage', 'url("/pic/close.png")');
           }
       });
-
+  
       // 侧栏导航显示
       $('.nav').on('click', function () {
           if ($(this).attr('show') == '0') {
@@ -432,7 +412,7 @@ $(function () {
             msHeader.showNav(1);
           }
       });
-
+  
       // 主导航二级菜单
       $('.drop-nav').each(function () {
           $(this).click(function () {
@@ -441,14 +421,14 @@ $(function () {
               if ($(this).children('.mobile-subnav-wraper')[0].style.display === 'block') {
                   $(this).children('.mobile-subnav-wraper').slideUp();
                   $(this).children('.mobile-nav-link').children('.btnArrow').css('transform', 'rotate(0deg)');
-
+  
               } else {
                   $(this).children('.mobile-subnav-wraper').slideDown();
                   $(this).children('.mobile-nav-link').children('.btnArrow').css('transform', 'rotate(180deg)');
               }
           });
       });
-
+  
       // mask点击关闭侧栏
       $('#mask').on('click', function () {
         msHeader.hideNav(0);
@@ -462,7 +442,7 @@ $(function () {
           if(typeof item.versions[1] === 'string'){
             version = item.versions.length >1 ? item.versions[1] : item.versions[0];
           }else{
-            version =item.versions[1].version;
+            version =item.versions[0].version;
           }
         }
       });
@@ -510,7 +490,7 @@ $(function () {
         $('#mask').hide();
     }
   };
-
+  
   // 初始化footer
   const msFotter = {
     fontmatter: {
@@ -725,7 +705,7 @@ $(function () {
       </div>
       `;
     },
-
+  
     srollEvent: function(){
       let startY, moveEndY, Y;
         let main = document.getElementsByTagName('body')[0];
@@ -778,7 +758,7 @@ $(function () {
       });
     }
   };
-
+  
   function isH5Show(){
     $('.wy-nav-content').append(msFotter.h5FootHTML).append('<div id="mask"></div>');
     $('#footer').remove();
@@ -790,7 +770,7 @@ $(function () {
       msHeader.h5HeaderMethods();
     },50);
   }
-
+  
   // 用一个宽度来记录之前的宽度，当之前的宽度和现在的宽度，从手机切换到电脑或者从电脑切换到手机，才执行下面部分函数
   const watchWinResize = () => {
     let oldWidth=window.innerWidth;
@@ -826,7 +806,7 @@ $(function () {
         oldWidth=width;
     });
   };
-
+  
   // 文档显示格式化
   function docsformatter() {
      // 解决公式显示问题
@@ -838,13 +818,13 @@ $(function () {
              }
          }
      }
-
+  
      // 说明样式调整
      if (pathname && pathname.indexOf('/design/introduction') != -1) {
          let blockquoteList = $('blockquote');
          blockquoteList.addClass('noteStyle');
      }
-
+  
      //隐藏内容里面的toc
      // 当p标签里有文本时，不隐藏；仅存在a标签时才隐藏
      let accessable = true;
@@ -864,15 +844,15 @@ $(function () {
      function resolveText(text) {
       return isEn ? 'Search in ' + text : '"' + text + '" 内搜索';
     }
-
+  
     // 左侧文档菜单控制
     const wyMenu = $('.wy-grid-for-nav .wy-menu');
     if(!wyMenu.find('.notoctree-l2.current .current').next().length) {
       wyMenu.find('.notoctree-l2.current .current').append('<style>.wy-grid-for-nav .wy-menu .notoctree-l2.current .current::before{content:\'\'}</style>');
     }
-
+  
     wyMenu.find('.caption').append('<img src=\'/pic/arrow-right.svg\' />').next().hide();
-
+  
     if(wyMenu.find('.current').length) {
         $('.wy-grid-for-nav .wy-menu>.current').show().prev().addClass('down');
     } else {
@@ -882,14 +862,14 @@ $(function () {
         $(this).toggleClass('down');
         $(this).next().toggle(200);
     });
-
+  
     // 左侧菜单少于4个 展开显示
     if(wyMenu.find('.caption').length < 5) {
       wyMenu.find('.caption').each(function (index, item) {
           $(item).addClass('down').next().show();
       });
     }
-
+  
      // 进入页面调整到锚点,解决中文锚点问题，中文锚点需要转码
     function gotoId() {
       let url = window.location.toString(); //进这个页面的url
@@ -900,7 +880,7 @@ $(function () {
           }
       }
     }
-
+  
     setTimeout(function () {
         // 页面内搜索框提示具体搜索内容
         $('.wy-grid-for-nav #rtd-search-form input').eq(0).attr('placeholder', '"文档"内搜索');
@@ -911,21 +891,21 @@ $(function () {
         $('.wy-menu-vertical').before(
           `<div class="docsHome"><a  href="#" class="welcome">${welcomeText}</a></div>`
         );
-
+  
         $('.welcome')[0].attributes[0].nodeValue = $('.icon-home')[0].attributes[0].nodeValue;
-
+  
         var strTemp = $('header .selected').text();
         if(strTemp==''){
           strTemp = isEn ?'Docs':'文档';
         }
         $('#rtd-search-form input').attr('placeholder', resolveText(strTemp));
-
+  
         gotoId();
-
+  
     }, 100);
-
+  
   }
-
+  
   // 右侧锚点标识
   function sideRightAnchor() {
       let sectionList = $('.document>div:first-of-type>.section');
@@ -1004,7 +984,7 @@ $(function () {
                       let navLi3Array = h2List[i].parentNode.querySelectorAll(
                           '.class>dt .descname,.function>dt .descname'
                       );
-
+  
                       for (let j = 0; j < navLi3Array.length; j++) {
                           if (
                               navLi3Array[
@@ -1060,7 +1040,7 @@ $(function () {
                           '</a></li>';
                   }
               }
-
+  
               $('.navList2').append(navLi2);
               $('.navList2>li:nth-of-type(' + (i + 1) + ') .navList3').append(
                   navLi3
@@ -1093,7 +1073,7 @@ $(function () {
               }
           }
       }
-
+  
       // 点击右侧导航选中
       const navListLink = $('.navList a');
       navListLink.on('click', function () {
@@ -1118,7 +1098,7 @@ $(function () {
       $('.navRightWraper').append('<div class="navRightMasker"></div>');
       computeNavRightMask();
       $('.navRight').scroll(computeNavRightMask);
-
+  
       // 锚点跟随滚动定位\
       function navContentAnchor() {
           for (let i = 0; i < navListLink.length; i++) {
@@ -1135,55 +1115,34 @@ $(function () {
       navContentAnchor();
       $('.wy-grid-for-nav').scroll(navContentAnchor);
   }
-
+  
   const initPage = async function(){
     createScriptSensor();
     createScriptCommonJs();
     createScriptBaidu();
-
+  
     watchWinResize();
     docsformatter();
-
+  
     //获取导航菜单json
     headerMenuData = await getHeaderData(`/menu_${isEn?'en':'zh-CN'}.json`);
     msDocsVersion = await getHeaderData('/msVersion.json');
-
+  
     body.prepend(msHeader.pcHeader);
     msHeader.headerMethods();
-
+  
     $('.wy-nav-content').append(msFotter.pcFootHTML);
     msFotter.jumpForumStatistics();
     msFotter.documentEvaluationFn();
-
+  
     // H5 显示
     isH5(() => {
       isH5Show();
     });
-
-    $('.wy-breadcrumbs>li:first-of-type')[0].innerText = msHeader.pageTitle() + '(' + getCurrentVersion() + ')';
-
+  
     sensorsMethods.getSearchKey();
     sideRightAnchor();
   };
-
+  
   initPage();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  });
