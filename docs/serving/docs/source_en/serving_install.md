@@ -64,7 +64,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 Install Serving using the [source code](https://gitee.com/mindspore/serving).
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r2.0
 cd serving
 bash build.sh
 ```
@@ -75,7 +75,7 @@ option, third-party dependencies can be downloaded from gitee instead of github.
 MindSpore Serving compliation depends on the MindSpore inference header files. During the preceding compilation, the MindSpore source code will be downloaded. If the MindSpore whl or MindSpore Lite package has been installed, we can run the following compilation command to avoid downloading the MindSpore source code.
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r2.0
 cd serving
 bash build.sh -p ${mindspore_path}/lib
 ```

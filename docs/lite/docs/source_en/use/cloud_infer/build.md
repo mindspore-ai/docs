@@ -84,7 +84,7 @@ General module compilation options:
 First, you need to download the source code from the MindSpore code repository before compiling.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r2.0
 ```
 
 ### Environment Preparation
