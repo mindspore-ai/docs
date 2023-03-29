@@ -61,7 +61,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 通过[源码](https://gitee.com/mindspore/serving)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r2.0
 cd serving
 bash build.sh
 ```
@@ -71,7 +71,7 @@ bash build.sh
 MindSpore Serving编译依赖MindSpore推理头文件，上述编译过程，会下载依赖的MindSpore源码，如果已安装MindSpore whl包或者MindSpore Lite包，可通过以下编译命令避免下载MindSpore源码。
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r2.0
 cd serving
 bash build.sh -p ${mindspore_path}/lib
 ```

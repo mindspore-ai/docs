@@ -339,7 +339,7 @@ ms-sd@mssd:~$ sudo apt-get install git
 （1）从代码仓库下载源码
 
 ```text
-ms-sd@mssd:~$ git clone https://gitee.com/mindspore/mindspore.git
+ms-sd@mssd:~$ git clone https://gitee.com/mindspore/mindspore.git -b r2.0
 ```
 
 （2）安装依赖（根据编译过程中报错，整理如下）

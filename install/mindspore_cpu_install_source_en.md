@@ -171,7 +171,7 @@ sudo apt-get install llvm-12-dev -y
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r2.0
 ```
 
 ## Compiling MindSpore
