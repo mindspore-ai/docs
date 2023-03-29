@@ -1,6 +1,6 @@
 # Using Java Interface to Perform Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_train_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/runtime_train_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -50,7 +50,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -100,7 +100,7 @@ Currently, java does not provide data processing API such as C++ `Dataset` class
     }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -137,7 +137,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 

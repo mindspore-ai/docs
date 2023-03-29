@@ -1,6 +1,6 @@
 # 分布式弹性训练与推理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/resilience_train_and_predict.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -34,7 +34,7 @@
 
 > 数据集下载，请参考分布式并行训练Transformer模型教程中的[准备环节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/fault_recover.html#准备环节)。
 >
->下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_resilience_training)。
+>下载完整样例代码：[Distributed Resilience Training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_resilience_training)。
 
 ## 对分布式Checkpoint文件进行转换
 

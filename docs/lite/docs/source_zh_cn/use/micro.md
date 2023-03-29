@@ -1,6 +1,6 @@
 # 在MCU或小型系统上执行推理或训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -536,9 +536,9 @@ mindspore-lite-{version}-linux-x64
 
 - 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在mcu上执行推理)
 
-- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
 
@@ -1136,7 +1136,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 ```
 
-在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
+在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
 
 ``` shell
 

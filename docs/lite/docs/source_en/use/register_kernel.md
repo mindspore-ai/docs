@@ -1,6 +1,6 @@
 # Building Custom Operators Online
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Implementing Custom Operators
 
@@ -18,7 +18,7 @@ View the operator prototype definition in mindspore/lite/schema/ops.fbs. Check w
 
 ### Common Operators
 
-For details about code related to implementation, registration, and InferShape of an operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_test.cc).
+For details about code related to implementation, registration, and InferShape of an operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_test.cc).
 
 #### Implementing Common Operators
 
@@ -133,7 +133,7 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ### Custom Operators
 
-For details about code related to parsing, creating, and operating custom operators, see [the code repository](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc).
+For details about code related to parsing, creating, and operating custom operators, see [the code repository](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc).
 
 #### Defining Custom Operators
 
@@ -220,7 +220,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, schedule)       // Set the external Pass sche
 }  // namespace mindspore::opt
 ```
 
-For details about code related to implementation, registration, and InferShape of a custom operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc).
+For details about code related to implementation, registration, and InferShape of a custom operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc).
 
 #### Implementing Custom Operators
 
@@ -351,7 +351,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 
 A set of GPU-related functional APIs are provided to facilitate the development of the GPU-based custom operator and enable the GPU-based custom operator to share the same resources with the internal GPU-based operators to improve the scheduling efficiency. For details about the APIs, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry_opencl.html).
 This document describes how to develop a custom GPU operator by parsing sample code. Before reading this document, you need to understand [Implement Custom Operators](#implementing-custom-operators).
-The [code repository](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc) contains implementation and registration of custom GPU operators.
+The [code repository](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc) contains implementation and registration of custom GPU operators.
 
 ### Registering Operators
 

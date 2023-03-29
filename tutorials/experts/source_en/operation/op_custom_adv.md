@@ -1,6 +1,6 @@
 # Advanced Usage of Custom Operators
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_adv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/operation/op_custom_adv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Registering the Operator Information
 
@@ -88,4 +88,4 @@ The execution result is as follows:
 [ 2.  8. 18.]
 ```
 
-> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom).
+> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r2.0/tests/st/ops/graph_kernel/custom).

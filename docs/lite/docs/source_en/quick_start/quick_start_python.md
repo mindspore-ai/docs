@@ -1,10 +1,10 @@
 # Experiencing the Python Simplified Inference Demo
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of device-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to inference execution. The related files are put in the directory [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python).
+This tutorial provides a sample program for MindSpore Lite to perform inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of device-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to inference execution. The related files are put in the directory [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python).
 
 The following is an example of how to use the Python Simplified Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu 18.04 as an example:
 
@@ -18,7 +18,7 @@ The following is an example of how to use the Python Simplified Inference Demo o
 
 This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
 
-Go to the [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 1.9.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
+Go to the [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 1.9.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
 
 Note: This command sets the installed version of MindSpore Lite. Since the Python interface is supported from MindSpore Lite version 1.8.0, the version cannot be set lower than 1.8.0. See the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) for details on the versions that can be set.
 
@@ -46,7 +46,7 @@ Successfully installed mindspore-lite-1.9.0
 
 ## Executing Demo
 
-After one-click installation, go to the [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
+After one-click installation, go to the [mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
 
 ```bash
 python quick_start_python.py

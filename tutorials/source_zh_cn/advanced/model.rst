@@ -3,7 +3,7 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_download_code.png
     :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.0/tutorials/zh_cn/advanced/model/mindspore_model.py
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/model/model.ipynb
+    :target: https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model
 ===============

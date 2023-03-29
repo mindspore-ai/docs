@@ -1,6 +1,6 @@
 # Publishing Models using MindSpore Hub
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -69,6 +69,6 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md
    ```
 
-5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#) for more information about creating a PR.
+5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/r2.0/CONTRIBUTING.md#) for more information about creating a PR.
 
 Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#) for more information about model submission.

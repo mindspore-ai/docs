@@ -1,10 +1,10 @@
 # Experience Java Simple Inference Demo
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/quick_start_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/master/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_java) directory.
+This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/master/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_java) directory.
 
 The MindSpore Lite inference steps are as follows:
 
@@ -31,7 +31,7 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
   ```bash
   bash build.sh

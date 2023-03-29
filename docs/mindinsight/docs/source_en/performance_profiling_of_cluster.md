@@ -1,6 +1,6 @@
 # Cluster Performance Profiling
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_of_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindinsight/docs/source_en/performance_profiling_of_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -198,7 +198,7 @@ In MindInsight r1.3 and earlier versions, the cluster directory structure is as 
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
+Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
 
 > This is the Ascend AI processor's introduction to collecting cluster performance data. For GPU cluster training, see the GPU distributed training tutorial.
 

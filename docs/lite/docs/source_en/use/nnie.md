@@ -1,6 +1,6 @@
 # Usage Description of the Integrated NNIE
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Directory Structures
 
@@ -459,7 +459,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
   MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in custom operator mode. You can change it to the implementation that matches your own model, and then perform [integration](#integration).
   > Download address of the complete sample code:
   >
-  > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>
+  > <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/nnie_proposal>
 
 ### Segmentation Mechanism and Restrictions
 

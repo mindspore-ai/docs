@@ -1,6 +1,6 @@
 # Adaptive Gradient Summation Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -33,7 +33,7 @@ It should be noted that after experimental verification, in small distributed tr
 
 ## Preparation
 
->Download [Adasum Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum).
+>Download [Adasum Sample Code](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/adasum).
 >
 >The models library links referenced in the code: [models](https://gitee.com/mindspore/models).
 
@@ -138,7 +138,7 @@ step_size = ds_train.get_dataset_size()
 
 ## Defining the Network
 
-The build code for the ResNet-50 network is imported by [resnet.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/adasum/resnet.py).
+The build code for the ResNet-50 network is imported by [resnet.py](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/adasum/resnet.py).
 
 ```python
 # define net

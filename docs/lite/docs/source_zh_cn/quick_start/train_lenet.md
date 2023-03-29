@@ -1,12 +1,12 @@
 # 基于C++接口实现端侧训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 > 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -57,7 +57,7 @@ MNIST_Data/
 
 ### 安装MindSpore
 
-你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
+你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_cpu_install_pip.md#)。
 
 ### 下载并安装MindSpore Lite
 
@@ -281,7 +281,7 @@ print("finished exporting")
 
 ### 训练模型
 
-模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)。
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)。
 
 模型训练的主函数为：
 

@@ -1,6 +1,6 @@
 # 模型分析与准备
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 获取参考代码
 
@@ -93,8 +93,8 @@
 以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
 或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html) 查找对应的API实现。
 
-一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad)中查看其一阶Grad是否存在对应的bprop函数定义。
-如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
+一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/python/mindspore/ops/_grad)中查看其一阶Grad是否存在对应的bprop函数定义。
+如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/ops/_grad/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/ops/_grad/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
 
 其他框架API的映射可以参考API命名与功能描述。注意，针对相同功能的API，MindSpore的命名可能与其他框架不同，同名API参数与功能也可能与其他框架有区别，均以官方描述为准。
 

@@ -1,6 +1,6 @@
 # Using C++ Interface to Perform Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/runtime_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
 
@@ -26,7 +26,7 @@ To use the MindSpore Lite inference framework, perform the following steps:
 
 When MindSpore Lite is used for model inference, read the `.ms` model file converted by using the model conversion tool from the file system and store it in the memory buffer. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L332) demonstrates how to load a MindSpore Lite model from the file system:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L332) demonstrates how to load a MindSpore Lite model from the file system:
 
 ```cpp
 // Read model file.
@@ -43,7 +43,7 @@ The context saves some basic configuration parameters required to build and exec
 
 The default backend of MindSpore Lite is CPU. After Context is created, call [MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo) to return list of backend device information. Add the default [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) to the list.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L250) demonstrates how to create a context, configure the default CPU backend, and enable CPU float16 inference.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L250) demonstrates how to create a context, configure the default CPU backend, and enable CPU float16 inference.
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -100,7 +100,7 @@ context->SetEnableParallel(true);
 
 If the backend to be executed is GPUs, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetEnableFP16` to enable GPU Float16 inference.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L114) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable Float16 inference for the GPU.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L114) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable Float16 inference for the GPU.
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -153,7 +153,7 @@ device_list.push_back(cpu_device_info);
 
 If the backend to be executed is NPUs, you need to set [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetFrequency` to set npu frequency.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L127) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L127) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -251,7 +251,7 @@ context->SetDelegate(coreml_delegate);
 
 When MindSpore Lite is used for inference, [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is the main entry for inference. You can use [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to load, build and execute model. Use the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step to call the [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of Model to load and build the runtime model.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L265) demonstrates how to create, load and build a model:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L265) demonstrates how to create, load and build a model:
 
 ```cpp
 // Create model
@@ -281,7 +281,7 @@ Before executing a model, obtain the input [MSTensor](https://www.mindspore.cn/l
 
 MindSpore Lite provides two methods to obtain the input tensor of a model.
 
-1. Use the [GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname) method to obtain the input tensor based on the name. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L154) demonstrates how to call `GetInputByTensorName` to obtain the input tensor and fill in data.
+1. Use the [GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname) method to obtain the input tensor based on the name. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L154) demonstrates how to call `GetInputByTensorName` to obtain the input tensor and fill in data.
 
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
@@ -299,7 +299,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
    // Users need to free input_buf.
    ```
 
-2. Use the [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137) demonstrates how to call `GetInputs` to obtain the input tensor and fill in data.
+2. Use the [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L137) demonstrates how to call `GetInputs` to obtain the input tensor and fill in data.
 
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
@@ -327,7 +327,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
 
 Call the [Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict) function of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model inference.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L355) demonstrates how to call `Predict` to perform inference.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L355) demonstrates how to call `Predict` to perform inference.
 
 ```cpp
 auto inputs = model->GetInputs();
@@ -342,7 +342,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 After performing inference, MindSpore Lite can obtain the inference result of the model. MindSpore Lite provides three methods to obtain the output [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) of a model.
 
-1. Use the [GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output tensor based on the name of the model output node. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L170) demonstrates how to call `GetOutputsByNodeName` to obtain the output tensor.
+1. Use the [GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output tensor based on the name of the model output node. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L170) demonstrates how to call `GetOutputsByNodeName` to obtain the output tensor.
 
    ```cpp
    // Assume we have created a Model instance named model before.
@@ -356,7 +356,7 @@ After performing inference, MindSpore Lite can obtain the inference result of th
    // Post-processing your result data.
    ```
 
-2. Use the [GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname) method to obtain the corresponding model output tensor based on the name of the model output tensor. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L200) demonstrates how to call `GetOutputsByTensorName` to obtain the output tensor.
+2. Use the [GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname) method to obtain the corresponding model output tensor based on the name of the model output tensor. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L200) demonstrates how to call `GetOutputsByTensorName` to obtain the output tensor.
 
    ```cpp
    // Assume we have created a Model instance named model.
@@ -372,7 +372,7 @@ After performing inference, MindSpore Lite can obtain the inference result of th
    }
    ```
 
-3. Use the [GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs) method to directly obtain the names of all model output tensors vector. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L226) demonstrates how to call `GetOutputs` to obtain the output tensor.
+3. Use the [GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs) method to directly obtain the names of all model output tensors vector. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L226) demonstrates how to call `GetOutputs` to obtain the output tensor.
 
    ```cpp
    // Assume we have created a Model instance named model.
@@ -386,7 +386,7 @@ After performing inference, MindSpore Lite can obtain the inference result of th
 
 ## Releasing Memory
 
-If the MindSpore Lite inference framework is not required, you need to release the created Model. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L370) demonstrates how to release the memory before the program ends.
+If the MindSpore Lite inference framework is not required, you need to release the created Model. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L370) demonstrates how to release the memory before the program ends.
 
 ```cpp
 // Delete model.
@@ -404,7 +404,7 @@ When MindSpore Lite is used for inference, if the input shape needs to be resize
 >
 > When the GPU backend is TensorRT, Resize only valid at dims NHW for NHWC format inputs, resize shape value should not be larger than the model inputs.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L321) demonstrates how to perform Resize on the input tensor of MindSpore Lite:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L321) demonstrates how to perform Resize on the input tensor of MindSpore Lite:
 
 ```cpp
 // Assume we have created a Model instance named model.
@@ -428,7 +428,7 @@ op_name1=data_type:float16
 op_name2=data_type:float32
 ```
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L470) demonstrates how to infer model in the mixed precision:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L470) demonstrates how to infer model in the mixed precision:
 
 ```cpp
 Status load_config_ret = model->LoadConfig(config_file_path);
@@ -457,7 +457,7 @@ if (predict_ret != mindspore::kSuccess) {
 MindSpore Lite supports multiple heterogeneous devices inference.
 Users can set multiple heterogeneous devices inference information by set multiple [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html) in [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to infer the model in multiple heterogeneous devices:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to infer the model in multiple heterogeneous devices:
 
 ```cpp
 mindspore::Context context;
@@ -558,7 +558,7 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
 
 If there are multiple [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model), you can configure the same [Allocator](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Allocator.html#class-allocator) in [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html#class-deviceinfocontext) to share the memory pool and reduce the memory size during running. The maximum memory size of the memory pool is `3 GB`, and the maximum memory size allocated each time is `2 GB`.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to share the memory pool between two models:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to share the memory pool between two models:
 
 ```cpp
 auto context1 = std::make_shared<mindspore::Context>();
@@ -612,7 +612,7 @@ MindSpore Lite can pass two [MSKernelCallBack](https://www.mindspore.cn/lite/api
 - Input and output tensors before the current node is inferred
 - Input and output tensors after the current node is inferred
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L672) demonstrates how to define two callback functions as the pre-callback pointer and post-callback pointer and pass them to the Predict API for callback inference.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L672) demonstrates how to define two callback functions as the pre-callback pointer and post-callback pointer and pass them to the Predict API for callback inference.
 
 ```cpp
 // Definition of callback function before forwarding operator.
@@ -642,7 +642,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 Use [Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load) of [Serialization](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html#class-serialization) to load [Graph](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Graph.html#class-graph) and use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to build the model.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L282) demonstrates how to load graph and build model separately.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L282) demonstrates how to load graph and build model separately.
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -681,7 +681,7 @@ if (build_ret != mindspore::kSuccess) {
 
 If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately.：
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately.：
 
 ```cpp
 int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
@@ -757,7 +757,7 @@ logcat -s "MS_LITE"
 
 MindSpore Lite provides the [Version](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_Version-1.html#function-documentation) method to obtain the version number, which is included in the `include/api/types.h` header file. You can call this method to obtain the version number of MindSpore Lite.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L717) demonstrates how to obtain the version number of MindSpore Lite:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc#L717) demonstrates how to obtain the version number of MindSpore Lite:
 
 ```cpp
 #include "include/api/types.h"
@@ -766,7 +766,7 @@ std::string version = mindspore::Version();
 
 ### Extension Usage
 
-In this chapter, we will show the users an example of extending MindSpore Lite inference, covering the whole process of creation and registration of custom operator. The example will help the users understand the extension usage as soon as possible. The chapter takes a simple model that consists of a single operator `Add` as an example. The code related to the example can be obtained from the directory [mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend).
+In this chapter, we will show the users an example of extending MindSpore Lite inference, covering the whole process of creation and registration of custom operator. The example will help the users understand the extension usage as soon as possible. The chapter takes a simple model that consists of a single operator `Add` as an example. The code related to the example can be obtained from the directory [mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/runtime_extend).
 
 The chapter only provides instruction in the Linux System.
 
@@ -826,7 +826,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - Prepare: The interface will be called during graph compilation. Users can make preparations or necessary verifications for the current node before running.
 
-    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
+    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
 
       ```cpp
       Status CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed
@@ -842,7 +842,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - ReSize: The interface is used to handle the changeable information of the current node due to the shape change of graph inputs.
 
-    - Attribute Parsing: The users need to provide their own parsing of custom operator, which can refer to [ParseAttrData](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc).
+    - Attribute Parsing: The users need to provide their own parsing of custom operator, which can refer to [ParseAttrData](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc).
 
 2. Operator registration. The users can refer to the interface [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel).
 
@@ -869,7 +869,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - Compilation and Build
 
-     Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh) in the directory of `mindspore/lite/examples/runtime_extend`, And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
+     Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_extend/build.sh) in the directory of `mindspore/lite/examples/runtime_extend`, And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
 
      ```bash
      bash build.sh

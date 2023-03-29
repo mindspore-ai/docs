@@ -1,6 +1,6 @@
 # 自适应梯度求和算法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/optimize/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ $$
 
 ## 准备环节
 
-> 下载完整的样例代码：[Adasum Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum)。
+> 下载完整的样例代码：[Adasum Sample Code](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/adasum)。
 >
 > 代码中引用到的[models](https://gitee.com/mindspore/models)库链接。
 
@@ -135,7 +135,7 @@ step_size = ds_train.get_dataset_size()
 
 ## 定义网络
 
-ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/adasum/resnet.py)导入。
+ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/adasum/resnet.py)导入。
 
 ```python
 # define net

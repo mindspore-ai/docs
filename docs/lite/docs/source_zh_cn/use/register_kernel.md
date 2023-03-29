@@ -1,6 +1,6 @@
 # 在线构建自定义算子
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 如何实现自定义算子
 
@@ -18,7 +18,7 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 ### 通用算子
 
-整个算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_test.cc)。
+整个算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_test.cc)。
 
 #### 通用算子实现
 
@@ -133,7 +133,7 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ### Custom算子
 
-Custom算子的解析、创建、操作等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
+Custom算子的解析、创建、操作等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
 
 #### Custom算子定义
 
@@ -220,7 +220,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, schedule)       // 设置外部Pass调度逻�
 }  // namespace mindspore::opt
 ```
 
-整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
+整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
 
 #### Custom算子实现
 
@@ -351,7 +351,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 
 为支持GPU自定义算子的便捷开发，并使GPU自定义算子与内部的GPU算子共享一套资源，以加快调度效率，我们还提供了一套GPU相关的功能接口，相关API说明请参考[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry_opencl.html)。
 本文以样例代码解析的方式，向用户阐明自定义GPU算子开发的相关实现。用户需对[如何实现自定义算子](#如何实现自定义算子)有所了解的情况下，再来阅读此文。
-在代码仓[样例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc)中包含了对自定义GPU算子的实现、注册。
+在代码仓[样例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc)中包含了对自定义GPU算子的实现、注册。
 
 ### 算子注册
 

@@ -20,7 +20,7 @@ Add the MindSpore Profiler interface to the training script.
 ** Unconditional Open example: **
 
 - Example 1: In the MindSpore functional Programming use case, Profiler is used to collect performance data. Part of the sample code is shown below.
-  `Complete code sample <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
+  `Complete code sample <https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
 
   .. code:: python
 
@@ -109,7 +109,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
 
 - Custom training:
 
-  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
+  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
 
   .. code:: python
 
@@ -127,7 +127,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
 
 - User-defined Callback
 
-  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
+  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
 
     .. code:: python
 

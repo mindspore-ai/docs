@@ -1,6 +1,6 @@
 # MindSpore Serving Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/serving/docs/source_en/serving_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Installation
 
@@ -30,7 +30,7 @@ Due to the dependency between MindSpore Serving and MindSpore, please follow the
 |              1.8.0              | [r1.8](https://gitee.com/mindspore/serving/tree/r1.8/) |   1.8.0, 1.8.1    |
 |              1.7.0              | [r1.7](https://gitee.com/mindspore/serving/tree/r1.7/) |       1.7.0       |
 
-For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
+For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/r2.0/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
 When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310P/310, Nvidia GPU and CPU environments. Only the `MindIR_Lite` model formats is supported. Models of format `MindIR` exported from MindSpore or models of other frameworks need be be converted to `MindIR_Lite` format by the MindSpore Lite conversion tool. The `MindIR_Lite` models converted from `Ascend310` and `Ascend310P` environments are different, and the `MindIR_Lite` models must be running on the corresponding `Ascend310` or `Ascend310P` environments. `MindIR_Lite` models converted from Nvidia GPU and CPU environments can be running only in the Nvidia GPU and CPU environments.
 

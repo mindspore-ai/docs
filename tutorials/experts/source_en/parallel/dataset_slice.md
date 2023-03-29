@@ -1,6 +1,6 @@
 # Dataset Slicing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -12,7 +12,7 @@ When performing distributed training, taking image data as an example, when the 
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training>
 
 The directory structure is as follows:
 

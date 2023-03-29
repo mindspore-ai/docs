@@ -1,6 +1,6 @@
 # Inference on the Ascend 310 AI Processor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/ascend_310_air.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/infer/ascend_310_air.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -18,7 +18,7 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 5. Load the saved OM model, perform inference, and view the result.
 
-> You can obtain the complete executable sample code [acl_resnet50_sample](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/acl_resnet50_sample).
+> You can obtain the complete executable sample code [acl_resnet50_sample](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/acl_resnet50_sample).
 
 ## Preparing the Development Environment
 
@@ -70,7 +70,7 @@ Install the development kit software package `Ascend-Toolkit-*{version}*-arm64-l
 
 ## Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`. The `inc`, `src`, and `test_data` [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/acl_resnet50_sample) can be obtained from the official website, and the `model` directory stores the exported `AIR` model file and the converted `OM` model file. The `out` directory stores the executable file generated after building and the output result directory. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`. The `inc`, `src`, and `test_data` [sample code](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/acl_resnet50_sample) can be obtained from the official website, and the `model` directory stores the exported `AIR` model file and the converted `OM` model file. The `out` directory stores the executable file generated after building and the output result directory. The directory structure of the inference code project is as follows:
 
 ```text
 └─acl_resnet50_sample

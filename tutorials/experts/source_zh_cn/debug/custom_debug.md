@@ -1,6 +1,6 @@
 # 自定义调试信息
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/debug/custom_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -65,7 +65,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 > 自定义`Callback`样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/debugging_info/custom_callback.py>
 
 - 在规定时间内终止训练。
 
@@ -130,7 +130,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 
 > `metrics`使用样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 import mindspore as ms

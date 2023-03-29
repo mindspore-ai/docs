@@ -1,6 +1,6 @@
 # Sharding Propagation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -62,7 +62,7 @@ The following figure illustrates an example process of applying Sharding Propaga
 
 > Download the complete sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sharding_propagation>.
+> <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/sharding_propagation>.
 
 The directory structure is as follows, where `rank_table_8pcs.json` is the IP configuration for Ascend devices (see [here]( https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables) for the explanation), `train.py` is the model definition, and `run.sh` is the execution script.
 

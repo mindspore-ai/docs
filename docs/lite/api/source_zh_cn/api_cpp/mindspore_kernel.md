@@ -1,6 +1,6 @@
 # mindspore::kernel
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 接口汇总
 
@@ -11,7 +11,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/r2.0/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。
 
@@ -233,7 +233,7 @@ std::map<std::string, std::string> GetConfig(const std::string &section) const
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 

@@ -2,7 +2,7 @@
 
 Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -31,7 +31,7 @@ Before running the sample network, ensure that MindSpore Serving has been proper
 
 ### Exporting a Distributed Model
 
-For details about the files required for exporting distributed models, see the [export_model directory](https://gitee.com/mindspore/serving/tree/master/example/matmul_distributed/export_model), the following files are required:
+For details about the files required for exporting distributed models, see the [export_model directory](https://gitee.com/mindspore/serving/tree/r2.0/example/matmul_distributed/export_model), the following files are required:
 
 ```text
 export_model
@@ -46,7 +46,7 @@ export_model
 - `export_model.sh` creates `device` directory on the current host and exports model files corresponding to `device`.
 - `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
-Use [net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
+Use [net.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
 
 ```python
 import numpy as np
@@ -71,7 +71,7 @@ class Net(Cell):
         return x
 ```
 
-Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html)。
+Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html)。
 
 ```python
 import numpy as np
@@ -101,7 +101,7 @@ def create_predict_data():
     return ms.Tensor(inputs_np)
 ```
 
-Run [export_model.sh](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/export_model.sh) to export the distributed model. After the command is executed successfully, the `model` directory is created in the upper-level directory. The structure is as follows:
+Run [export_model.sh](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/export_model/export_model.sh) to export the distributed model. After the command is executed successfully, the `model` directory is created in the upper-level directory. The structure is as follows:
 
 ```text
 model
@@ -121,7 +121,7 @@ Each `device` directory contains two files, `group_config.pb` and `matmul.mindir
 
 ### Deploying the Distributed Inference Service
 
-For details about how to start the distributed inference service, refer to [matmul_distributed](https://gitee.com/mindspore/serving/tree/master/example/matmul_distributed), the following files are required:
+For details about how to start the distributed inference service, refer to [matmul_distributed](https://gitee.com/mindspore/serving/tree/r2.0/example/matmul_distributed), the following files are required:
 
 ```text
 matmul_distributed
@@ -155,7 +155,7 @@ def predict(x):
 
 #### Starting Serving Server
 
-Use [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py) to call `distributed.start_servable` method to deploy the serving sever, including the `Main` and `Distributed Worker` processes.
+Use [serving_server.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/serving_server.py) to call `distributed.start_servable` method to deploy the serving sever, including the `Main` and `Distributed Worker` processes.
 
 ```python
 import os
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
 #### Starting Agent
 
-Use [serving_agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_agent.py) to call `startup_agents` method to start 8 `Agent` processes on the current host. `Agent`s obtain rank_tables from `Distributed Worker` so that `Agent`s can communicate with each other using HCCL.
+Use [serving_agent.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/serving_agent.py) to call `startup_agents` method to start 8 `Agent` processes on the current host. `Agent`s obtain rank_tables from `Distributed Worker` so that `Agent`s can communicate with each other using HCCL.
 
 ```python
 from mindspore_serving.server import distributed
@@ -220,7 +220,7 @@ if __name__ == '__main__':
 
 ### Executing Inference
 
-To access the inference service through gRPC, the client needs to specify the network address of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
+To access the inference service through gRPC, the client needs to specify the network address of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/r2.0/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
 
 ```python
 import numpy as np

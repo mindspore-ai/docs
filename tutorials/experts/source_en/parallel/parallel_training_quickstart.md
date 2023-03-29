@@ -1,6 +1,6 @@
 # Quick Start Distributed Parallel Training
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/parallel_training_quickstart.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -10,7 +10,7 @@ A tutorial on distributed parallel training of ResNet networks on a GPU platform
 
 > You can download the complete sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_quickstart>
+> <https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training_quickstart>
 
 The directory structure is as follows:
 
@@ -119,7 +119,7 @@ where the `shard()` method is described in detail in [Principles of Automatic Pa
 
 For the parallel sharding strategy set in the above example, the `matmul` operator computation process for the forward propagation process in a single-machine 8-card environment is schematically shown as follows:
 
-![image](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/parallel/images/matmul_shard.png)
+![image](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/parallel/images/matmul_shard.png)
 
 The top half of the diagram shows the data sharding, and the bottom half shows the calculation and communication process performed by each GPU card at logical number (rank) 0-7.
 

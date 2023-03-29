@@ -1,6 +1,6 @@
 # 纵向联邦-基于可信执行环境的特征保护
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 注：这是一个实验特性，未来有可能被修改或删除。
 

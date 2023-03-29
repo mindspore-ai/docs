@@ -1,6 +1,6 @@
 # Performing Inference or Training on MCU or Small Systems
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -539,9 +539,9 @@ Different platforms have differences in code integration and compilation deploym
 
 - For the MCU of the cortex-M architecture, see [Performing Inference on the MCU](#performing-inference-on-the-mcu)
 
-- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - For compilation and deployment on the OpenHarmony platform, see [Executing Inference on Light Harmony Devices](#executing-inference-on-light-harmony-devices)
 
@@ -1137,7 +1137,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 ```
 
-In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
+In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
 Finally, we compile the source code:
 
 ``` shell

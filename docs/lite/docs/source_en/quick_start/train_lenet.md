@@ -1,12 +1,12 @@
 # Implement Device Training Based On C++ Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet_cpp](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/train_lenet_cpp/).
 
 The completed training procedure is as follows:
 
@@ -58,7 +58,7 @@ The directory structure is as follows:
 
 ### Installing MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Downloading and Installing MindSpore Lite
 
@@ -280,7 +280,7 @@ The exported file `lenet_tod.ms` is under the folder `./train_lenet_cpp/model`.
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
 
 The main code continues as follows:
 

@@ -1,6 +1,6 @@
 # 分布式训练通信融合
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -56,7 +56,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>。
+><https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_comm_fusion>。
 
 目录结构如下：
 
@@ -97,7 +97,7 @@ init()
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 
-更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py)。
+更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/r2.0/tests/ut/python/parallel/test_comm_fusion.py)。
 
 >用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 
@@ -178,7 +178,7 @@ GPU分布式相关的环境变量：
 
 - HOST_FILE：描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
 
-用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
+用户可以通过[此处](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
 
 ```bash
 #!/bin/bash

@@ -1,6 +1,6 @@
 # 固定随机性以复现脚本运行结果
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 固定随机性的目的是复现脚本运行结果，辅助定位问题。固定随机性后，相同条件下的两次训练所产生的loss曲线应基本一致，您可以多次执行调试，方便地查找loss曲线异常的原因而无需担心上次调试的问题现象在本次运行时不再出现。
 
@@ -72,7 +72,7 @@
 
    若不能同时满足以上两个条件，应检查上述固定随机性的步骤是否都做到位了。如果固定随机性的操作均做到了，但是两次运行脚本，前两个迭代的loss值还是不一致，请[新建issue向MindSpore求助](https://gitee.com/mindspore/mindspore/issues/new)。
 
-我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
+我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
 
 ## 备注
 

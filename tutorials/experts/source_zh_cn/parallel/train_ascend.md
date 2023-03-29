@@ -1,11 +1,11 @@
 # 分布式并行训练基础样例（Ascend）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
-> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training)
 
 目录结构如下：
 
@@ -169,7 +169,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
+数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/resnet/resnet.py)。
 
 本章节重点介绍手动混合并行和半自动并行模式的网络定义方法。
 
@@ -556,7 +556,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ### 单机多卡训练
 
-以使用8张卡的分布式训练脚本[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh)为例，当运行该脚本时，
+以使用8张卡的分布式训练脚本[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/distributed_training/run_with_mpi.sh)为例，当运行该脚本时，
 脚本会在后台运行，日志文件会保存到device目录下，不同卡上的日志会按`rank_id`分别保存在`log_output/1/`路径下对应的文件中。
 
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。

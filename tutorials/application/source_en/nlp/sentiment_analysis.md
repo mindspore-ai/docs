@@ -1,6 +1,6 @@
 # Sentiment Classification Implemented by RNN
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

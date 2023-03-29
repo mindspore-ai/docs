@@ -1,10 +1,10 @@
 # 体验Python极简推理Demo
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/quick_start/quick_start_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关代码放置在[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。相关代码放置在[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python)目录。
 
 下面以Ubuntu 18.04为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python极简推理Demo：
 
@@ -18,7 +18,7 @@
 
 本环节以全新的Ubuntu 18.04为例，介绍在CPU环境的Linux-x86_64系统上，通过pip安装Python3.7版本的MindSpore Lite。
 
-进入到[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录下，以安装1.9.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
+进入到[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python)目录下，以安装1.9.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
 
 注：此命令可设置安装的MindSpore Lite版本，由于从MindSpore Lite 1.8.0版本开始支持Python接口，因此版本不能设置低于1.8.0，可设置的版本详情参见[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)提供的版本。
 
@@ -46,7 +46,7 @@ Successfully installed mindspore-lite-1.9.0
 
 ## 执行Demo
 
-一键安装后，进入[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+一键安装后，进入[mindspore/lite/examples/quick_start_python](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
 ```bash
 python quick_start_python.py

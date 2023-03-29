@@ -1,12 +1,12 @@
 # Distributed Parallel Training Example (GPU)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial describes how to train a ResNet-50 network by using a CIFAR-10 dataset on a GPU processor hardware platform through MindSpore and data parallelism and automatic parallelism mode.
 
-> You can download the complete sample code here: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> You can download the complete sample code here: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training)
 
 The directory structure is as follows:
 
@@ -187,7 +187,7 @@ Unlike stand-alone machines, the `num_shards` and `shard_id` parameters need to 
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py).
+In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/resnet/resnet.py).
 
 > - In semi-automatic parallel mode, operators without a policy configured default to data parallelism.
 > - The automatic parallel mode supports automatically obtaining efficient operator parallel policies through the policy search algorithm, and also allows users to manually configure specific parallel policies for operators.
@@ -298,7 +298,7 @@ On GPU hardware platform, MindSpore uses `mpirun`of OpenMPI for distributed trai
 
 The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
-> Obtain the running script of the example from [run_gpu.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh).
+> Obtain the running script of the example from [run_gpu.sh](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/distributed_training/run_gpu.sh).
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 
@@ -415,7 +415,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 On GPU hardware platform, the following shows how to run a distributed training script by using 8 cards as an example:
 
-> You can find the running directory of the sample [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training).
+> You can find the running directory of the sample [distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training).
 
 Compared with openMPI mode startup, this mode requires calling the `set_ps_context` interface in [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). This mission of MindSpore uses the PS mode training architecture:
 
@@ -645,7 +645,7 @@ ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(ge
 
 Each Worker turns on save checkpoint and uses a different path (as in the example above, the directory setting uses the rank id to ensure that the paths are not the same) to prevent checkpoint save conflicts of the same name. checkpoint is used for abnormal process recovery and normal process rollback. Training rollback means that each worker in the cluster is restored to the state corresponding to the latest checkpoint, and the data side also falls back to the corresponding step, and then continues training. The interval between saving checkpoints is configurable, which determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps that are reverted to the last save checkpoint, but the frequent saving of checkpoints may also affect the training efficiency, and the larger the interval, the opposite effect. keep_checkpoint_max set to at least 2 (to prevent checkpoint save failure).
 
-> The running directory of the sample: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training).
+> The running directory of the sample: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_training).
 
 The scripts involved are `run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`. The script content `run_gpu_cluster_recovery.sh` is as follows:
 

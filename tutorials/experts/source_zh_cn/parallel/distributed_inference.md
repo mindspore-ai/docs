@@ -1,6 +1,6 @@
 # 分布式推理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -13,7 +13,7 @@
 
 ### 样例代码说明
 
-> 分布式推理样例代码：[distributed_inference](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference)
+> 分布式推理样例代码：[distributed_inference](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_inference)
 
 ### 操作流程
 
@@ -111,4 +111,4 @@ export(net, Tensor(input), file_name='net', file_format='MINDIR')
 
 多卡训练、单卡推理的情况，导出MindIR的用法与单机相同。
 
-> 分布式场景导出MindIR文件样例代码：[distributed_export](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_export)
+> 分布式场景导出MindIR文件样例代码：[distributed_export](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/distributed_export)

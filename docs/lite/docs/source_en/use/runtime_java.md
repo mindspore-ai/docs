@@ -1,6 +1,6 @@
 # Using Java Interface to Perform Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -83,7 +83,7 @@ MindSpore Lite supports heterogeneous inference. The preferred backend for infer
 
 If the backend to be performed is a CPU, you need to configure [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo) after `MSContext` is inited. In addition, the CPU supports the setting of the core binding mode and whether to preferentially use the float16 operator.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59) demonstrates how to create a CPU backend, set the CPU core binding mode to large-core priority, and enable float16 inference:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59) demonstrates how to create a CPU backend, set the CPU core binding mode to large-core priority, and enable float16 inference:
 
 ```java
 MSContext context = new MSContext();
@@ -136,7 +136,7 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#setdata).
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputsbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputsbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
 
     ```java
     MSTensor inputTensor = model.getInputByTensorName("2031_2030_1_construct_wrapper:x");
@@ -144,7 +144,7 @@ MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` met
     inputTensor.setData(inputData);
     ```
 
-2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113) demonstrates how to call `getInputs` to obtain the input tensors and fill in the data.
+2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113) demonstrates how to call `getInputs` to obtain the input tensors and fill in the data.
 
     ```java
     List<MSTensor> inputs = model.getInputs();
@@ -168,13 +168,13 @@ boolean ret = model.predict();
 
 After performing inference, MindSpore Lite can output a tensor to obtain the inference result. MindSpore Lite provides three methods to obtain the output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html) of a model and supports the [getByteData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#getbytedata), [getFloatData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#getfloatdata), [getIntData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#getintdata) and [getLongData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#getlongdata) methods to obtain the output data.
 
-1. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputs) method to directly obtain the list of all model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor). The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L191) demonstrates how to call `getOutputs` to obtain the output tensor.
+1. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputs) method to directly obtain the list of all model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor). The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L191) demonstrates how to call `getOutputs` to obtain the output tensor.
 
     ```java
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -182,7 +182,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
     ...
     ```
 
-3. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputbytensorname) method to obtain the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L182) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+3. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputbytensorname) method to obtain the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L182) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = model.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -192,7 +192,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
 
 ## Releasing the Memory
 
-If the MindSpore Lite inference framework is not required, you need to release the created Model. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L204) demonstrates how to release the memory before the program ends.
+If the MindSpore Lite inference framework is not required, you need to release the created Model. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L204) demonstrates how to release the memory before the program ends.
 
 ```java
 model.free();
@@ -206,7 +206,7 @@ When using MindSpore Lite for inference, if you need to resize the input shape, 
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the inference fails.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to perform [resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) on the input tensor of MindSpore Lite:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to perform [resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) on the input tensor of MindSpore Lite:
 
 ```java
 List<MSTensor> inputs = session.getInputs();
@@ -226,7 +226,7 @@ logcat -s "MS_LITE"
 
 MindSpore Lite provides the [Version](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) method to obtain the version number, which is included in the `com.mindspore.lite.Version` header file. You can call this method to obtain the version number of MindSpore Lite.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215) demonstrates how to obtain the version number of MindSpore Lite:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215) demonstrates how to obtain the version number of MindSpore Lite:
 
 ```java
 import com.mindspore.lite.config.Version;
