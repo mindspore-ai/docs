@@ -152,7 +152,6 @@ Install the .whl package provided with the Ascend AI Processor software package 
 
 ```bash
 pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-{version}-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-{version}-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-{version}-py3-none-any.whl
 ```
@@ -271,7 +270,6 @@ pip uninstall te topi hccl -y
 Then, install again by running:
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
