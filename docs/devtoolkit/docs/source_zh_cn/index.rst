@@ -56,14 +56,25 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用指南
+   :caption: PyCharm插件使用指南
    :hidden:
 
+   PyCharm_plugin_install
    compiling
-   mindspore_project_wizard
-   operator_search
-   knowledge_search
    smart_completion
+   operator_search
+   operator_scanning
+   knowledge_search
+   mindspore_project_wizard
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: VSCode插件使用指南
+   :hidden:
+
+   VSCode_plugin_install
+   VSCode_smart_completion
 
 .. toctree::
    :glob:
