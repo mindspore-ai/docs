@@ -72,6 +72,10 @@ MindSpore builds the graph structure of neural networks based on the native Pyth
 
 The native Python expression enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
 
+### [Third-Party Hardware Access](https://www.mindspore.cn/docs/en/master/design/pluggable_device.html)
+
+MindSpore builds an open AI architecture based on the unified MindIR, which supports plug-in, standardization and low-cost access of third-party chips, and can access GPU series chips as well as various DSA chips. MindSpore provides two kinds of chip access methods, Kernel mode access and Graph mode access, and chip makers can choose the access method according to their own characteristics.
+
 ### [Distributed Parallism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
 
 MindSpore addresses the problem of increasingly large DL networks that require complex and multiple distributed parallel strategies, and the framework provides a built-in multi-dimensional distributed training strategy that can be flexibly assembled and used by users. It also simplifies the complexity of parallel programming for users by hiding communication operations through parallel abstraction.
