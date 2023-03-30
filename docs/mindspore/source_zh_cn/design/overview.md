@@ -72,6 +72,10 @@ MindSpore基于原生Python构建神经网络的图结构，相比于传统的�
 
 原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时用户基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，用户可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
+### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html)
+
+MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。
+
 ### [分布式并行](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
 
 MindSpore针对DL网络越来越大，需要复杂而多种分布式并行策略的问题，框架内置提供了多维分布式训练策略，可供用户灵活组装使用。并通过并行抽象，隐藏通讯操作，简化用户并行编程的复杂度。
