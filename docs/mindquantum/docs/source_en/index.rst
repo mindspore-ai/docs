@@ -55,6 +55,7 @@ Typical Application Scenarios
    quantum_approximate_optimization_algorithm
    qnn_for_nlp
    vqe_for_quantum_chemistry
+   equivalence_checking_of_PQC
 
 .. toctree::
    :glob:

@@ -55,6 +55,7 @@ MindQuantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量�
    quantum_approximate_optimization_algorithm
    qnn_for_nlp
    vqe_for_quantum_chemistry
+   equivalence_checking_of_PQC
 
 .. toctree::
    :glob:
