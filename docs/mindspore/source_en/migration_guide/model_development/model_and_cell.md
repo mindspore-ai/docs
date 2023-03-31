@@ -33,7 +33,7 @@ print(my_net.trainable_params())
 
 A parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
 
-To align parameter names, you may not need to add object names. The cell provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, add object names. If `auto_prefix` is set to `False`, the `name` of `Parameter` in the preceding example is `weight`.
+The cell provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The cell for training, such as optimizer and :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
 
 ### Unit Test
 
