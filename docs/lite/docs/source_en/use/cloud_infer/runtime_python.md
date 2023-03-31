@@ -8,7 +8,7 @@ This tutorial describes how to perform cloud-side inference with MindSpore Lite 
 
 MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend 310/310P/910, Nvidia GPU and CPU hardware backends are supported.
 
-To experience the MindSpore Lite device-side inference process, please refer to the document [Using the Python interface to perform device-side inference](https://www.mindspore.cn/lite/docs/en/r2.0/quick_start/quick_start_python.html).
+To experience the MindSpore Lite device-side inference process, please refer to the document [Experiencing the Python Simplified Interface](https://www.mindspore.cn/lite/docs/en/r2.0/quick_start/quick_start_python.html).
 
 Running MindSpore Lite inference framework mainly consists of the following steps:
 
@@ -24,7 +24,7 @@ Running MindSpore Lite inference framework mainly consists of the following step
 
 1. The following code samples are taken from [Using Python interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/quick_start_python).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.0/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/runtime_cpp/model` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.0/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_python/model` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
 
 3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.7 via pip.
 

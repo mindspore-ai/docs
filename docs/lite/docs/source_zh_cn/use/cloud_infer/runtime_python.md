@@ -8,7 +8,7 @@
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 
-如需体验MindSpore Lite端侧推理流程，请参考文档[使用Python接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/quick_start/quick_start_python.html)。
+如需体验MindSpore Lite端侧推理流程，请参考文档[体验Python极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/quick_start/quick_start_python.html)。
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
@@ -24,7 +24,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/r2.0/mindspore/lite/examples/cloud_infer/quick_start_python)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python/model`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
 
 3. 通过pip安装Python3.7版本的MindSpore Lite云侧推理Python包。
 
