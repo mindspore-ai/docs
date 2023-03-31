@@ -694,9 +694,9 @@ from mindspore import ops
 from mindspore.ops import kernel
 from mindspore.nn import Cell
 
-###########################################
+#############################################
 # Choose the backend: CPU, GPU and Ascend #
-###########################################
+#############################################
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # Use the next line to choose CPU
