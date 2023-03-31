@@ -10,7 +10,7 @@
 
 错误日志：
 
-```python
+```text
 RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\models-master\official\cv\ssd\MindRecord_COCO\test.mindrecord
 ```
 
@@ -30,7 +30,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
 错误日志：
 
-```python
+```text
 MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
 ```
 
@@ -48,7 +48,7 @@ MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
 
 错误日志：
 
-```python
+```text
 RuntimeError: Thread ID 1 Unexpected error. Fail to open ./data/cora
 RuntimeError: Unexpected error. Invalid file, DB file can not match file
 ```
@@ -69,7 +69,7 @@ RuntimeError: Unexpected error. Invalid file, DB file can not match file
 
 错误日志：
 
-```python
+```text
 RuntimeError: Unexpected error. Invalid data, the number of schema should be positive but got: 0. Please check the input schema.
 ```
 
@@ -91,7 +91,7 @@ RuntimeError: Unexpected error. Invalid data, the number of schema should be pos
 
 错误日志：
 
-```python
+```text
 RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset’s num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
 ```
 
@@ -109,7 +109,7 @@ RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset’s n
 
 错误日志：
 
-```python
+```text
 RuntimeError: Syntax error. Invalid data, Page size: 1048576 is too small to save a blob row.
 ```
 
@@ -171,7 +171,7 @@ Unexpected error. Invalid data type.
 
 错误日志：
 
-```python
+```text
 AttributeError: 'IdentitySampler' object has no attribute 'child_sampler'
 ```
 
@@ -203,7 +203,7 @@ For 'Tensor', the type of "input_data" should be one of ...
 
 错误日志：
 
-```python
+```text
 RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names
 ```
 
@@ -219,7 +219,7 @@ RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source
 
 错误日志：
 
-```python
+```text
 TypeError：parse() missing 1 required positionnal argument：'self'
 ```
 
@@ -235,7 +235,7 @@ TypeError：parse() missing 1 required positionnal argument：'self'
 
 错误日志：
 
-```python
+```text
 RuntimeError: Exception thrown from PyFunc. RuntimeError: mindspore/ccsrc/pipeline/pynative/pynative_execute.cc:1116 GetOpOutput] : The pointer[cnode] is null.
 ```
 
@@ -337,7 +337,7 @@ for item in ds_test.create_dict_iterator():
 
 错误日志：
 
-```python
+```text
 TypeError：Invalid object  with type'<class 'PIL.Image.Image'>' and value'<PIL.Image.Image image mode=RGB size=180x180 at 0xFFFF6132EA58>'.
 ```
 
@@ -353,7 +353,7 @@ TypeError：Invalid object  with type'<class 'PIL.Image.Image'>' and value'<PIL.
 
 错误日志：
 
-```python
+```text
 Exception thrown from PyFunc. TypeError: args should be Numpy narray. Got <class 'tuple'>.
 ```
 
@@ -369,7 +369,7 @@ Exception thrown from PyFunc. TypeError: args should be Numpy narray. Got <class
 
 错误日志：
 
-```python
+```text
 ValueError: The data pipeline is not a tree (i.e. one node has 2 consumers)
 ```
 
@@ -389,7 +389,7 @@ dataset 定义上发生了分支，导致 dataset 无法确定分叉的走向。
 
 错误日志：
 
-```python
+```text
 RuntimeError: Unexpected error. Inconsistent batch shapes, batch operation expect same shape for each data row, but got inconsistent shape in column 0, expected shape for this column is:, got shape:
 ```
 

@@ -371,7 +371,7 @@ When restoring data, execute:
 
 ```python
 import numpy
-numpy.load("Conv2d.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
+numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ```
 
 Generate the numpy.array data.

@@ -10,7 +10,7 @@ Common errors you may encounter in the data preparation phase include dataset pa
 
 Error log:
 
-```python
+```text
 RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\models-master\official\cv\ssd\MsindRecord_COCO\test.mindrecord
 ```
 
@@ -30,7 +30,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
 ```
 
@@ -48,7 +48,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Thread ID 1 Unexpected error. Fail to open ./data/cora
 RuntimeError: Unexpected error. Invalid file, DB file can not match file
 ```
@@ -69,7 +69,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Unexpected error. Invalid data, the number of schema should be positive but got: 0. Please check the input schema.
 ```
 
@@ -91,7 +91,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
 Error log:
 
-```python
+```text
 RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
 ```
 
@@ -109,7 +109,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Syntax error. Invalid data, Page size: 1048576 is too small to save a blob row.
 ```
 
@@ -171,7 +171,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 AttributeError: 'IdentitySampler' object has no attribute 'child_sampler'
 ```
 
@@ -203,7 +203,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names
 ```
 
@@ -219,7 +219,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 TypeError: parse() missing 1 required positionnal argument: 'self'
 ```
 
@@ -235,7 +235,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Exception thrown from PyFunc. RuntimeError: mindspore/ccsrc/pipeline/pynative/pynative_execute.cc:1116 GetOpOutput] : The pointer[cnode] is null.
 ```
 
@@ -337,7 +337,7 @@ In the data augmentation phase, the read data is processed. Currently, MindSpore
 
 Error log:
 
-```python
+```text
 TypeError: Invalid object with type'<class 'PIL.Image.Image'>' and value'<PIL.Image.Image image mode=RGB size=180x180 at 0xFFFF6132EA58>'.
 ```
 
@@ -353,7 +353,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 Exception thrown from PyFunc. TypeError: args should be Numpy narray. Got <class 'tuple'>.
 ```
 
@@ -369,7 +369,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 ValueError: The data pipeline is not a tree (i.e. one node has 2 consumers)
 ```
 
@@ -389,7 +389,7 @@ For details, visit the following website:
 
 Error log:
 
-```python
+```text
 RuntimeError: Unexpected error. Inconsistent batch shapes, batch operation expect same shape for each data row, but got inconsistent shape in column 0, expected shape for this column is:, got shape:
 ```
 
