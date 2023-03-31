@@ -150,7 +150,6 @@ from mindspore import set_context, save_checkpoint, load_checkpoint, load_param_
 from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
 from mindspore_xai.tool.cv import OoDNet
 from mindspore_xai.explainer import RISEPlus
-from common.dataset import load_dataset
 from common.resnet import resnet50
 from common.dataset import load_dataset, load_image_tensor
 
