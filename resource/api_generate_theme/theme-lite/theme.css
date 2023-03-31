@@ -2084,8 +2084,9 @@ a:visited {
 .toctree-wrapper .toctree-l1>a {
   font-size: .75rem !important;
 }
-.wy-menu-vertical li.toctree-l1>a~ul{
-display: none;
+
+.wy-grid-for-nav .wy-menu .notoctree-l2.current .current::before {
+  content: '';
 }
 .wy-side-nav-search {
   background: #fff;
