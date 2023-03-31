@@ -150,7 +150,6 @@ conda activate mindspore_py37
 
 ```bash
 pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -267,7 +266,6 @@ pip uninstall te topi hccl -y
 然后重新安装：
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```

@@ -87,7 +87,6 @@ pip uninstall te topi hccl -y
 Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -158,10 +157,10 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.0.0-alpha as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.0.0-rc1 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.0.0a0
+export MS_VERSION=2.0.0rc1
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
