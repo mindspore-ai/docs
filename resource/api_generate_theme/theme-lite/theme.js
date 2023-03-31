@@ -137,9 +137,22 @@ $(function () {
             $('.header-wapper-docs .bottom .header-nav-link-line').removeClass('selected').eq(1).addClass('selected');
             $('.header-wapper-docs .top .version-select').hide();
           }
-          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + '(' + pageVersionName() + ')';
+          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + ' (' + pageVersionName() + ')';
 
       }, 100);
+
+      if ($('li.current>ul').length === 0) {
+        $('li.current').addClass('notoctree-l2');
+      }
+      let aList = $('.wy-menu-vertical>ul>.current>ul>.toctree-l2>a');
+      for (let i = 0; i < aList.length; i++) {
+        let hash = aList[i].hash;
+        if (hash != '') {
+            aList[i].parentNode.parentNode.style.display = 'none';
+            aList[i].parentNode.parentNode.parentNode.className = aList[i].parentNode.parentNode.parentNode.className + ' ' + 'navNoPlus';
+        }
+      }
+      
   };
   initLite();
 });
