@@ -29,14 +29,14 @@ MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple 
 
 The table below shows the parameters used in the MindSpore Lite model training transfer tool.
 
-| Parameters                  | required | Parameter Description                                        | Value Range | Default Value |
-| --------------------------- | -------- | ------------------------------------------------------------ | ----------- | ------------- |
-| `--help`                    | no       | Prints all the help information.                             | -           | -             |
-| `--fmk=<FMK>`               | yes      | Original format of the input model.                          | MINDIR      | -             |
-| `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                     | -           | -             |
+| Parameters                  | required | Parameter Description                                                      | Value Range | Default Value |
+| --------------------------- |----------|----------------------------------------------------------------------------| ----------- | ------------- |
+| `--help`                    | no       | Prints all the help information.                                           | -           | -             |
+| `--fmk=<FMK>`               | yes      | Original format of the input model.                                        | MINDIR      | -             |
+| `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                                   | -           | -             |
 | `--outputFile=<OUTPUTFILE>` | yes      | Path of the output model. The suffix `.ms` can be automatically generated. | -           | -             |
-| `--trainModel=true`         | yes      | Training on Device or not                                    | true, false | false         |
-| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - |
+| `--trainModel=true`         | no       | If the original model is a training model, the value must be true.         | true, false | false         |
+| `--configFile=<CONFIGFILE>` | No       | 1) Configure quantization parameter; 2) Profile path for extension.        | - | - |
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 >
