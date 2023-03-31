@@ -182,28 +182,27 @@ The `mindspore.dataset.text` module provides a series of Transforms for text dat
 First we define three pieces of text as the data to be processed and load them by using `GeneratorDataset`.
 
 ```python
-texts = [
-    'Welcome to Beijing',
-    '北京欢迎您！',
-    '我喜欢China!',
-]
+texts = ['Welcome to Beijing']
 ```
 
 ```python
 test_dataset = GeneratorDataset(texts, 'text')
 ```
 
-### BasicTokenizer
+### PythonTokenizer
 
-Tokenize is a basic method to process text data. MindSpore provides many different Tokenizers. Here we choose the basic `BasicTokenizer` as an example. Here we choose the basic `BasicTokenizer` as an example. Together with `map`, we perform Tokenize on the three pieces of text and it can be seen that Tokenize is successfully performed on the processed data.
+Tokenize is a basic transformation to process text data. MindSpore provides many different Tokenizers. Take `PythonTokenizer` as example, it allows users to customize the token strategy. Then we can perform tokenization on the input text based on the `map` operation.
 
 ```python
-test_dataset = test_dataset.map(text.BasicTokenizer())
+def my_tokenizer(content):
+    return content.split()
+
+test_dataset = test_dataset.map(text.PythonTokenizer(my_tokenizer))
 print(next(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
-[Tensor(shape=[5], dtype=String, value= ['我', '喜', '欢', 'China', '!'])]
+[Tensor(shape=[3], dtype=String, value= ['Welcome', 'to', 'Beijing'])]
 ```
 
 ### Lookup
@@ -221,7 +220,7 @@ print(vocab.vocab())
 ```
 
 ```text
-{'迎': 11, '我': 10, '您': 9, '京': 6, 'to': 5, '！': 12, '喜': 8, 'Welcome': 4, 'China': 3, '北': 7, 'Beijing': 2, '!': 1, '欢': 0}
+{'to': 2, 'Beijing': 0, 'Welcome': 1}
 ```
 
 After generating the vocabulary, you can perform the vocabulary mapping transformation with the `map` method to convert Token to Index.
@@ -232,7 +231,7 @@ print(next(test_dataset.create_tuple_iterator()))
 ```
 
 ```text
-[Tensor(shape=[3], dtype=Int32, value= [4, 5, 2])]
+[Tensor(shape=[3], dtype=Int32, value= [1, 2, 0])]
 ```
 
 For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
