@@ -36,6 +36,7 @@ MindSpore AI Fluid Simulation Suite
    physics_driven/navier_stokes2D
    physics_driven/poisson_geometry
    physics_driven/taylor_green2D
+   physics_driven/navier_stokes_inverse
 
 .. toctree::
    :glob:
