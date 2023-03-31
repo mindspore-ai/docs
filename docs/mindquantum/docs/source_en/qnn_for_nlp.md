@@ -291,7 +291,7 @@ class CBOW(nn.Cell):
 In the following, we use a longer sentence for training. Firstly, we define `LossMonitorWithCollection` to supervise the convergence process and record the loss.
 
 ```python
-class LossMonitorWithCollection(ms.LossMonitor):
+class LossMonitorWithCollection(ms.train.callback.LossMonitor):
     def __init__(self, per_print_times=1):
         super(LossMonitorWithCollection, self).__init__(per_print_times)
         self.loss = []
