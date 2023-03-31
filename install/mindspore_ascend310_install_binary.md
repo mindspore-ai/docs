@@ -87,7 +87,6 @@ pip uninstall te topi hccl -y
 默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/topi-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -158,10 +157,10 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.0.0-alpha版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.0.0-rc1版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.0.0a0
+export MS_VERSION=2.0.0rc1
 ```
 
 然后根据系统架构及Python版本执行如下命令安装MindSpore。
