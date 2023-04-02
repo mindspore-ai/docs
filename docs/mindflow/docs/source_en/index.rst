@@ -45,6 +45,8 @@ MindSpore AI Fluid Simulation Suite
    data_driven/2D_steady
    data_driven/burgers_FNO1D
    data_driven/navier_stokes_FNO2D
+   data_driven/burgers_KNO1D
+   data_driven/navier_stokes_KNO2D
 
 .. toctree::
    :glob:
