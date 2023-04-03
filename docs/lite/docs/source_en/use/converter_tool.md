@@ -61,7 +61,7 @@ The following describes the parameters in detail.
 | `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
-| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE |
+| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE |
 | `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, ascend_oriented | general | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 | `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - |
