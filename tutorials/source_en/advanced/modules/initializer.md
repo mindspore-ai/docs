@@ -79,7 +79,7 @@ class XavierNormal(Initializer):
         std = self.gain * math.sqrt(2.0 / float(fan_in + fan_out)) # Calculate std value
         data = np.random.normal(0, std, arr.shape) # Construct the initialized array with numpy
 
-        arr = data # Assign the initialized ndarray to arr
+        arr[:] = data[:] # Assign the initialized ndarray to arr
 ```
 
 After that, we can call it like the built-in initialization method:
