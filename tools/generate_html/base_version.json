@@ -206,14 +206,6 @@
     {
         "version" : "",
         "label" : {
-            "zh": "图学习框架（MindSpore Graph Learning）",
-            "en": "MindSpore Graph Learning"
-        },
-        "repo_name" : "graphlearning"
-    },
-    {
-        "version" : "",
-        "label" : {
             "zh": "预训练模型（MindSpore Hub）",
             "en": "MindSpore Hub"
         },
