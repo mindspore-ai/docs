@@ -43,7 +43,29 @@ In general, the default parameter initialization provided by MindSpore can meet 
 ```python
 import math
 import numpy as np
-from mindspore.common.initializer import Initializer, _calculate_fan_in_and_fan_out, _assignment
+from mindspore.common.initializer import Initializer
+
+
+def _calculate_fan_in_and_fan_out(arr):
+    # calculate fan_in and fan_out. fan_in is the number of input units in `arr` , and fan_out is the number of output units in `arr`.
+    shape = arr.shape
+    dimensions = len(shape)
+    if dimensions < 2:
+        raise ValueError("'fan_in' and 'fan_out' can not be computed for arr with fewer than"
+                         " 2 dimensions, but got dimensions {}.".format(dimensions))
+    if dimensions == 2:  # Linear
+        fan_in = shape[1]
+        fan_out = shape[0]
+    else:
+        num_input_fmaps = shape[1]
+        num_output_fmaps = shape[0]
+        receptive_field_size = 1
+        for i in range(2, dimensions):
+            receptive_field_size *= shape[i]
+        fan_in = num_input_fmaps * receptive_field_size
+        fan_out = num_output_fmaps * receptive_field_size
+    return fan_in, fan_out
+
 
 class XavierNormal(Initializer):
     def __init__(self, gain=1):
@@ -52,12 +74,12 @@ class XavierNormal(Initializer):
         self.gain = gain
 
     def _initialize(self, arr): # arr is a Tensor to be initialized
-        fan_in, fan_out = _calculate_fan_in_and_fan_out(arr.shape) # Compute fan_in, fan_out
+        fan_in, fan_out = _calculate_fan_in_and_fan_out(arr) # Compute fan_in, fan_out
 
         std = self.gain * math.sqrt(2.0 / float(fan_in + fan_out)) # Calculate std value
         data = np.random.normal(0, std, arr.shape) # Construct the initialized array with numpy
 
-        _assignment(arr, data) # Assign the initialized ndarray to arr
+        arr = data # Assign the initialized ndarray to arr
 ```
 
 After that, we can call it like the built-in initialization method:
