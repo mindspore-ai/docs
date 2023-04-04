@@ -41,7 +41,7 @@ MindSpore vertical federated supports deployment on x86 CPU, GPU CUDA and Ascend
 Compile and install via [source code](https://gitee.com/mindspore/federated).
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 cd federated
 bash build.sh
 ```

@@ -41,7 +41,7 @@ MindSpore纵向联邦支持在x86 CPU、GPU CUDA和Ascend硬件平台上部署�
 通过[源码](https://gitee.com/mindspore/federated)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 cd federated
 bash build.sh
 ```

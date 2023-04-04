@@ -46,7 +46,7 @@ MindSpore横向联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台�
 通过[源码](https://gitee.com/mindspore/federated)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 cd federated
 bash build.sh
 ```
