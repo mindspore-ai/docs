@@ -46,7 +46,7 @@ The MindSpore horizontal federated learning cloud cluster supports deployment on
 Compile and install with [source code](https://gitee.com/mindspore/federated).
 
 ```shell
-git clone https://gitee.com/mindspore/federated.git -b master
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 cd federated
 bash build.sh
 ```

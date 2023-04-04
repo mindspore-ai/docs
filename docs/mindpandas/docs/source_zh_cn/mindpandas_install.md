@@ -13,7 +13,7 @@
 |  glibc  |             \>=2.25              |
 
 - 请确保环境中安装了libxml2-utils。
-- 其他的第三方依赖请参考[requirements文件](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt)。
+- 其他的第三方依赖请参考[requirements文件](https://gitee.com/mindspore/mindpandas/blob/r0.2/requirements.txt)。
 
 ## 安装方式
 

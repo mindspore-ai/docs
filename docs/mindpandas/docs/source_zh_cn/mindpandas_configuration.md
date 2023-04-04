@@ -107,7 +107,7 @@ yrctl start --master --address <address> --cpu <cpu> --datamem <datamem> --mem <
 如需查看`yrctl start`的参数使用说明，可以通过`yrctl start --help`查看。  
 在启动集群前，请检查下列事项：
 
-- 本机没有其他的redis服务占用6379端口，否则会引起端口冲突。如有redis或其他端口冲突问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/faq.html)解决。
+- 本机没有其他的redis服务占用6379端口，否则会引起端口冲突。如有redis或其他端口冲突问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/faq.html)解决。
 
 若集群部署成功，控制台回显的末尾应显示：
 
@@ -160,7 +160,7 @@ yrctl start --master --address <address>
 yrctl start --address=<address>
 ```
 
-其中`address`为master节点的IP地址，若启动过程中遇到部署失败的问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/master/faq.html)。
+其中`address`为master节点的IP地址，若启动过程中遇到部署失败的问题，请参考[FAQ](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/faq.html)。
 
 集群部署完毕后，在Python脚本中，如下列代码所示设置使用`"multiprocess"`后端，`address`为集群中master节点的IP地址。
 

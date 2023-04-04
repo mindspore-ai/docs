@@ -13,7 +13,7 @@ The following table lists the environment required for installing, compiling and
 |  glibc  |             \>=2.25              |
 
 - Make sure libxml2-utils is installed in your environment.
-- Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/master/requirements.txt) for other third party dependencies.
+- Please refer to [requirements](https://gitee.com/mindspore/mindpandas/blob/r0.2/requirements.txt) for other third party dependencies.
 
 ## Version Dependency
 

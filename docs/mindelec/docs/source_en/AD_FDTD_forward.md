@@ -7,7 +7,7 @@
 This tutorial introduces the method for solving electromagnetic positive problems provided by MindElec   based on device-to-device differentiable FDTD. The process of solving Maxwell's equations by the finite-difference time-domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). The device-to-device differentiable FDTD can be obtained by rewriting the update process with the differentiable operator of MindSpore. Compared with the data-driven black-box model, the solution process of the differentiable FDTD method strictly satisfies the constraints of Maxwell's equations, and the accuracy is comparable to that of traditional numerical algorithms.
 
 > This example is for GPU processors and you can download the full sample code here:
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/AD_FDTD/fdtd_forward>
+> <https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindElec/examples/AD_FDTD/fdtd_forward>
 
 ## Maxwell's Equations
 
