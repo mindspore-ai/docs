@@ -55,7 +55,7 @@ Detailed parameter descriptions are provided below.
 
 | Parameters  |  Required or not   |  Description of parameters  | Value range | Default values | Remarks |
 | -------- | ------- | ----- | --- | ---- | ---- |
-| `--help` | Not | Print all help information. | - | - |
+| `--help` | Not | Print all help information. | - | - | - |
 | `--fmk=<FMK>` | Required | The original format of the input model. | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
 | `--modelFile=<MODELFILE>` | Required | The path of the input model. | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | Required | The path to the output model, without the suffix, can be automatically generated with the `.mindir` suffix. | - | - | - |
