@@ -48,7 +48,7 @@
 1. 从代码仓下载源码
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.2
     ```
 
 2. 编译安装MindSpore Graph Learning

@@ -62,7 +62,7 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
 1. Download federated
 
    ```bash
-   git clone https://gitee.com/mindspore/federated.git
+   git clone https://gitee.com/mindspore/federated.git -b r0.1
    ```
 
 2. Go to the folder where the script is located

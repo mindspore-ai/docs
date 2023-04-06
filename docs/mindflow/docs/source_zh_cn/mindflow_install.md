@@ -35,7 +35,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 1. 从Gitee下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindscience.git
+   git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0
    cd {PATH}/mindscience/MindFlow
    ```
 

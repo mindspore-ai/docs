@@ -33,7 +33,7 @@ The following describes how to compile the MindSpore Dev ToolKit project based o
     * Run the git command to download the package.
 
       ```
-      git clone https://gitee.com/mindspore/ide-plugin.git
+      git clone https://gitee.com/mindspore/ide-plugin.git -b r2.0
       ```
 
 3. Use IntelliJ IDEA to open the project.

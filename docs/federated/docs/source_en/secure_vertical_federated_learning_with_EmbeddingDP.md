@@ -51,7 +51,7 @@ print(dp_tensor)
 Download the federated code repository and follow the tutorial [Longitudinal Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://mindspore.cn/federated/docs/en/r0.1/split_pangu_alpha_application.html#environment-preparation), configure the runtime environment and experimental dataset, and then run the single-process or multi-process example program as needed.
 
 ```bash
-git clone https://gitee.com/mindspore/federated.git
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 ```
 
 #### Single-process Sample

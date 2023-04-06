@@ -48,7 +48,7 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
 4. Download federated
 
    ```sh
-   git clone https://gitee.com/mindspore/federated.git
+   git clone https://gitee.com/mindspore/federated.git -b r0.1
    ```
 
 5. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo).

@@ -28,7 +28,7 @@
 下载[源码](https://gitee.com/mindspore/mindpandas.git)，下载后进入mindpandas目录，运行build.sh脚本。
 
 ```shell
-git clone https://gitee.com/mindspore/mindpandas.git
+git clone https://gitee.com/mindspore/mindpandas.git -b r0.2
 cd mindpandas
 bash build.sh
 ```

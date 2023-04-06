@@ -145,7 +145,7 @@ The `cli_build.sh` script in the federated learning device_client directory is u
 1. First, you need to download the source code from the gitee code repository before you can compile it.
 
     ```bash
-    git clone https://gitee.com/mindspore/federated.git ./
+    git clone https://gitee.com/mindspore/federated.git -b r0.1 ./
     ```
 
 2. Go to the mindspore_federated/device_client directory and execute the following command:
