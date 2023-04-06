@@ -44,7 +44,7 @@ You can install MindSpore Graph Learning either by pip or by source code.
 1. Download source code from Gitee.
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.2
     ```
 
 2. Compile and install in MindSpore Graph Learning directory.

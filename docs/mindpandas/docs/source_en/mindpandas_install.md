@@ -28,7 +28,7 @@ If you use the pip, please download the whl package from [MindPandas](https://ww
 Download [source code](https://gitee.com/mindspore/mindpandas), then enter the `mindpandas` directory to run build.sh script.
 
 ```shell
-git clone https://gitee.com/mindspore/mindpandas.git
+git clone https://gitee.com/mindspore/mindpandas.git -b r0.2
 cd mindpandas
 bash build.sh
 ```

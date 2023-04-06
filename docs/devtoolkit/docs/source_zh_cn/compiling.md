@@ -32,7 +32,7 @@
     * 使用git下载。
 
       ```
-      git clone https://gitee.com/mindspore/ide-plugin.git
+      git clone https://gitee.com/mindspore/ide-plugin.git -b r2.0
       ```
 
 3. 使用IntelliJ IDEA打开项目。

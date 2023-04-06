@@ -62,7 +62,7 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 
 .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://gitee.com/mindspore/mindscience.git -b r0.2.0
     cd mindscience/MindSPONGE
 
 - 安装依赖

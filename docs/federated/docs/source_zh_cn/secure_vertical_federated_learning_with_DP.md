@@ -62,7 +62,7 @@ MindSpore Federated采用了一种轻量级的label dp实现方式：训练时�
 1. 下载federated仓
 
    ```bash
-   git clone https://gitee.com/mindspore/federated.git
+   git clone https://gitee.com/mindspore/federated.git -b r0.1
    ```
 
 2. 进入脚本所在文件夹

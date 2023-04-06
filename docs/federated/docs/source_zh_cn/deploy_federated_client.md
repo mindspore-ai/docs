@@ -145,7 +145,7 @@ sudo apt-get install cmake -y
 1. 首先，在进行编译之前，需从gitee代码仓下载源码。
 
     ```bash
-    git clone https://gitee.com/mindspore/federated.git ./
+    git clone https://gitee.com/mindspore/federated.git -b r0.1 ./
     ```
 
 2. 然后进入目录mindspore_federated/device_client，执行如下命令：

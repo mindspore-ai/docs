@@ -51,7 +51,7 @@ print(dp_tensor)
 下载federated代码仓，并依据教程[纵向联邦学习模型训练 - 盘古α大模型跨域训练](https://mindspore.cn/federated/docs/zh-CN/r0.1/split_pangu_alpha_application.html#%E5%87%86%E5%A4%87%E7%8E%AF%E8%8A%82)，配置运行环境与实验数据集，而后可根据需要运行单进程或多进程示例程序。
 
 ```bash
-git clone https://gitee.com/mindspore/federated.git
+git clone https://gitee.com/mindspore/federated.git -b r0.1
 ```
 
 #### 单进程样例

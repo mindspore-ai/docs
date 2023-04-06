@@ -48,7 +48,7 @@
 4. 下载federated仓
 
    ```sh
-   git clone https://gitee.com/mindspore/federated.git
+   git clone https://gitee.com/mindspore/federated.git -b r0.1
    ```
 
 5. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/r0.1/example/splitnn_criteo)。
