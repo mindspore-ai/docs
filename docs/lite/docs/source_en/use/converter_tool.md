@@ -51,26 +51,26 @@ You can enter `./converter_lite --help` to obtain the help information in real t
 
 The following describes the parameters in detail.
 
-| Parameter  |  Mandatory or Not   | Parameter Description  | Value Range | Default Value |
-| -------- | ------- | ----- | --- | ---- |
-| `--help` | No | Prints all the help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX or PYTORCH | - |
-| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
-| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
-| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - |
-| `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
-| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
-| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE |
-| `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, ascend_oriented | general | - |
-| `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
-| `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - |
-| `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM |
-| `--inputDataType=<INPUTDATATYPE>` | No | Set data type of input tensor of quantized model. Only valid for input tensor which has quantization parameters(scale and zero point). Keep same with the data type of input tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
-| `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
-| `--encryptKey=<ENCRYPTKEY>` | No              | Set the key for exporting encrypted `ms` models. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - |
-| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true、false | true |
-| `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true、false | false |
+| Parameter  |  Mandatory or Not   | Parameter Description  | Value Range | Default Value | Remarks |
+| -------- | ------- | ----- | --- | ---- | ---- |
+| `--help` | No | Prints all the help information. | - | - | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX or PYTORCH | - | - |
+| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - | - |
+| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - | - |
+| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - | - |
+| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - | - |
+| `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off | - |
+| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
+| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE | - | - |
+| `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, ascend_oriented | general | - | - |
+| `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC | - |
+| `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - | - |
+| `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM | - |
+| `--inputDataType=<INPUTDATATYPE>` | No | Set data type of input tensor of quantized model. Only valid for input tensor which has quantization parameters(scale and zero point). Keep same with the data type of input tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | - |
+| `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | - |
+| `--encryptKey=<ENCRYPTKEY>` | No              | Set the key for exporting encrypted `ms` models. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | - |
+| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true、false | true | - |
+| `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true、false | false | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models:`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
