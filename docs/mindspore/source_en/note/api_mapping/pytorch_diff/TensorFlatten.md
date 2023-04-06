@@ -13,14 +13,14 @@ For more information, see [torch.Tensor.flatten](https://pytorch.org/docs/1.5.0/
 ## mindspore.Tensor.flatten
 
 ```python
-mindspore.Tensor.flatten(order="C")
+mindspore.Tensor.flatten(order='C', *, start_dim=0, end_dim=-1)
 ```
 
 For more information, see [mindspore.Tensor.flatten](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.flatten.html#mindspore.Tensor.flatten).
 
 ## Usage
 
-`torch.flatten` restricts the range of dimensions that need to be extended by input parameters `start_dim` and `end_dim`.
+`torch.Tensor.flatten` does not support the `order` option for prioritizing row or column flatten.
 
 `mindspore.Tensor.flatten` prioritizes row or column flatten by `order` to "C" or "F".
 
@@ -29,19 +29,21 @@ For more information, see [mindspore.Tensor.flatten](https://www.mindspore.cn/do
 ```python
 import mindspore as ms
 
-a = ms.Tensor([[1,2], [3,4]], ms.float32)
+a = ms.Tensor([[1,2], [3,4]], ms.int32)
 print(a.flatten())
-# [1. 2. 3. 4.]
+# [1 2 3 4]
 print(a.flatten('F'))
-# [1. 3. 2. 4.]
+# [1 3 2 4]
+print(a.flatten(start_dim=1))
+# [[1 2]
+#  [3 4]]
 
 import torch
 
-b = torch.tensor([[[1, 2],[3, 4]],[[5, 6],[7, 8]]])
+b = torch.tensor([[1, 2], [3, 4]])
 print(torch.Tensor.flatten(b))
-# tensor([1, 2, 3, 4, 5, 6, 7, 8])
+# tensor([1, 2, 3, 4])
 print(torch.Tensor.flatten(b, start_dim=1))
-# tensor([[1, 2, 3, 4],
-#         [5, 6, 7, 8]])
+# tensor([[1, 2],
+#         [3, 4]])
 ```
-
