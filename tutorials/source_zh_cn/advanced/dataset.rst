@@ -8,3 +8,4 @@
   dataset/record
   dataset/eager
   dataset/augment_graph_data
+  dataset/python_objects
