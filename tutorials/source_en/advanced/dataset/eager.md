@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_en/advanced/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 # Lightweight Data Processing
 
@@ -20,15 +20,15 @@ In the Eager mode, the execution of Transforms will not rely on constructing the
 
 MindSpore currently supports executing various Transforms in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
+- [vision module](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
 
     - Submodule transforms, data transform implemented based on OpenCV/Pillow.
 
-- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
+- [text module](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
 
     - Submodule transforms, data transform implemented based on Jieba, ICU4C, etc.
 
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
+- [transforms module](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore.dataset.transforms.html)
 
     - Submodule transforms, general-purpose data transform implemented based on C++/Python/NumPy.
 
@@ -72,17 +72,17 @@ import mindspore.dataset.vision as vision
 img_ori = Image.open("banana.jpg").convert("RGB")
 print("Image.type: {}, Image.shape: {}".format(type(img_ori), img_ori.size))
 
-# Define a Resize op and execute it immediately
+# Apply Resize to input immediately
 op1 = vision.Resize(size=(320))
 img = op1(img_ori)
 print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 
-# Define a CenterCrop op and execute it immediately
+# Apply CenterCrop to input immediately
 op2 = vision.CenterCrop((280, 280))
 img = op2(img)
 print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 
-# Define a Pad op and execute it immediately
+# Apply Pad to input immediately
 op3 = vision.Pad(40)
 img = op3(img)
 print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
@@ -116,12 +116,12 @@ Eager mode of Text Transforms supports `numpy.array` type data as input paramete
 import mindspore.dataset.text.transforms as text
 import mindspore as ms
 
-# Define a WhitespaceTokenizer op and execute it immediately
+# Apply UnicodeCharTokenizer to input immediately
 txt = "Welcome to Beijing !"
-txt = text.WhitespaceTokenizer()(txt)
+txt = text.UnicodeCharTokenizer()(txt)
 print("Tokenize result: {}".format(txt))
 
-# Define a ToNumber op and execute it immediately
+# Apply ToNumber to input immediately
 txt = ["123456"]
 to_number = text.ToNumber(ms.int32)
 txt = to_number(txt)
@@ -129,7 +129,7 @@ print("ToNumber result: {}, type: {}".format(txt, type(txt[0])))
 ```
 
 ```text
-Tokenize result: ['Welcome' 'to' 'Beijing' '!']
+Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i' 'n' 'g' ' ' '!']
 ToNumber result: [123456], type: <class 'numpy.int32'>
 ```
 
@@ -143,13 +143,13 @@ Eager mode of general Transform supports `numpy.array` type data as input parame
 import numpy as np
 import mindspore.dataset.transforms as trans
 
-# Define a Fill op and execute it immediately
+# Apply Fill to input immediately
 data = np.array([1, 2, 3, 4, 5])
 fill = trans.Fill(0)
 data = fill(data)
 print("Fill result: ", data)
 
-# Define a OneHot op and execute it immediately
+# Apply OneHot to input immediately
 label = np.array(2)
 onehot = trans.OneHot(num_classes=5)
 label = onehot(label)
