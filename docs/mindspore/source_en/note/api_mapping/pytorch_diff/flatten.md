@@ -17,7 +17,7 @@ For more information, see [torch.flatten](https://pytorch.org/docs/1.8.1/generat
 ## mindspore.ops.flatten
 
 ```python
-mindspore.ops.flatten(input_x)
+mindspore.ops.flatten(input, order='C', *, start_dim=1, end_dim=-1)
 ```
 
 For more information,
@@ -25,15 +25,16 @@ see [mindspore.ops.flatten](https://mindspore.cn/docs/en/r2.0/api_python/ops/min
 
 ## Differences
 
-PyTorch: Supports the flatten operation of elements by specified dimensions.
+PyTorch: Supports the flatten operation of elements by specified dimensions, where `start_dim` defaults to 0 and `end_dim` defaults to -1.
 
-MindSpore：Only the 0th dimension element is reserved and the elements of the remaining dimensions are flattened.
+MindSpore：Supports the flatten operation of elements by specified dimensions, where `start_dim` defaults to 1 and `end_dim` defaults to -1. Prioritizes row or column flatten by `order` to "C" or "F".
 
 | Categories | Subcategories | PyTorch   | MindSpore | Differences                                                   |
 |------------|---------------|-----------|-----------|---------------------------------------------------------------|
-| Parameter  | Parameter 1   | input     | input_x   | The function is the same, and the parameter name is different |
-|            | Parameter 2   | start_dim | -         | MindSpore does not have this Parameter                        |
-|            | Parameter 3   | end_dim   | -         | MindSpore does not have this Parameter                        |
+| Parameter  | Parameter 1   | input     | input     | Same function                                                 |
+|            | Parameter 2   | -         | order     | Flatten order, PyTorch does not have this Parameter           |
+|            | Parameter 3   | start_dim | start_dim | Same function                                                 |
+|            | Parameter 4   | end_dim   | end_dim   | Same function                                                 |
 
 ## Code Example
 
@@ -43,14 +44,20 @@ import mindspore.ops as ops
 import torch
 import numpy as np
 
-# In MindSpore, only the 0th dimension will be reserved and the rest will be flattened.
+# MindSpore
 input_tensor = ms.Tensor(np.ones(shape=[1, 2, 3, 4]), ms.float32)
 output = ops.flatten(input_tensor)
 print(output.shape)
 # Out：
 # (1, 24)
 
-# In torch, the dimension to reserve will be specified and the rest will be flattened.
+input_tensor = ms.Tensor(np.ones(shape=[1, 2, 3, 4]), ms.float32)
+output = ops.flatten(input_tensor, start_dim=2)
+print(output.shape)
+# Out：
+# (1, 2, 12)
+
+# PyTorch
 input_tensor = torch.Tensor(np.ones(shape=[1, 2, 3, 4]))
 output1 = torch.flatten(input=input_tensor, start_dim=1)
 print(output1.shape)

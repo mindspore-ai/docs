@@ -17,22 +17,23 @@ torch.flatten(
 ## mindspore.ops.flatten
 
 ```python
-mindspore.ops.flatten(input_x)
+mindspore.ops.flatten(input, order='C', *, start_dim=1, end_dim=-1)
 ```
 
 更多内容详见[mindspore.ops.flatten](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.flatten.html)。
 
 ## 使用方式
 
-PyTorch：支持指定维度对元素进行展开。
+PyTorch：支持指定维度对元素进行展开，`start_dim` 默认为0，`end_dim` 默认为-1。
 
-MindSpore：仅支持保留第零维元素，对其余维度的元素进行展开。
+MindSpore：支持指定维度对元素进行展开，`start_dim` 默认为1，`end_dim` 默认为-1。通过 `order` 为"C"或"F"确定优先按行还是列展平。
 
 | 分类  | 子类  | PyTorch   | MindSpore | 差异         |
 |-----|-----|-----------|-----------|------------|
-| 参数  | 参数1 | input     | input_x  | 功能一致，参数名不同 |
-|     | 参数2 | start_dim | -         | 不涉及        |
-|     | 参数3 | end_dim   | -         | 不涉及        |
+| 参数 | 参数1 | input     | input      | 功能一致        |
+|     | 参数2 | -         | order      | 展平优先顺序选项，PyTorch无此参数        |
+|     | 参数3 | start_dim | start_dim  | 功能一致        |
+|     | 参数4 | end_dim   | end_dim    | 功能一致        |
 
 ## 代码示例
 
@@ -42,14 +43,20 @@ import mindspore.ops as ops
 import torch
 import numpy as np
 
-# In MindSpore, only the 0th dimension will be reserved and the rest will be flattened.
+# MindSpore
 input_tensor = ms.Tensor(np.ones(shape=[1, 2, 3, 4]), ms.float32)
 output = ops.flatten(input_tensor)
 print(output.shape)
 # Out：
 # (1, 24)
 
-# In torch, the dimension to reserve will be specified and the rest will be flattened.
+input_tensor = ms.Tensor(np.ones(shape=[1, 2, 3, 4]), ms.float32)
+output = ops.flatten(input_tensor, start_dim=2)
+print(output.shape)
+# Out：
+# (1, 2, 12)
+
+# PyTorch
 input_tensor = torch.Tensor(np.ones(shape=[1, 2, 3, 4]))
 output1 = torch.flatten(input=input_tensor, start_dim=1)
 print(output1.shape)

@@ -13,34 +13,37 @@ torch.Tensor.flatten(input, start_dim=0, end_dim=-1)
 ## mindspore.Tensor.flatten
 
 ```python
-mindspore.Tensor.flatten(order="C")
+mindspore.Tensor.flatten(order='C', *, start_dim=0, end_dim=-1)
 ```
 
 更多内容详见[mindspore.Tensor.flatten](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.flatten.html#mindspore.Tensor.flatten)。
 
 ## 使用方式
 
-`torch.flatten`通过入参`start_dim`，`end_dim`限制需要扩展的维度范围。
+`torch.Tensor.flatten` 不支持按行优先或者按列优先的 `order` 选项。
 
-`mindspore.Tensor.flatten`通过`order`为"C"或"F"确定优先按行还是列展平。
+`mindspore.Tensor.flatten` 通过 `order` 为"C"或"F"确定优先按行还是列展平。
 
 ## 代码示例
 
 ```python
 import mindspore as ms
 
-a = ms.Tensor([[1,2], [3,4]], ms.float32)
+a = ms.Tensor([[1,2], [3,4]], ms.int32)
 print(a.flatten())
-# [1. 2. 3. 4.]
+# [1 2 3 4]
 print(a.flatten('F'))
-# [1. 3. 2. 4.]
+# [1 3 2 4]
+print(a.flatten(start_dim=1))
+# [[1 2]
+#  [3 4]]
 
 import torch
 
-b = torch.tensor([[[1, 2],[3, 4]],[[5, 6],[7, 8]]])
+b = torch.tensor([[1, 2], [3, 4]])
 print(torch.Tensor.flatten(b))
-# tensor([1, 2, 3, 4, 5, 6, 7, 8])
+# tensor([1, 2, 3, 4])
 print(torch.Tensor.flatten(b, start_dim=1))
-# tensor([[1, 2, 3, 4],
-#         [5, 6, 7, 8]])
+# tensor([[1, 2],
+#         [3, 4]])
 ```
