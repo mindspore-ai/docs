@@ -678,7 +678,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ### 模型解密推理
 
-当模型被[converter_lite工具](https://mindspore.cn/mindarmour/docs/zh-CN/master/model_encrypt_protection.html#%E7%AB%AF%E4%BE%A7%E6%A8%A1%E5%9E%8B%E4%BF%9D%E6%8A%A4)转换时加密，在lite加载模型时需通过传入密钥和解密工具相关参数。其中，dec_key应与使用converter_lite工具加密时的密钥一致，均十六进制表示的字符串。如b'0123456789ABCDEF'对应的十六进制表示为30313233343536373839414243444546，Linux平台用户可以使用xxd工具对字节表示的密钥进行十六进制表达转换。crypto_lib_path为该环境中openssl的安装路径，如"/home/root/openssl"。
+当模型被[converter_lite工具](https://mindspore.cn/mindarmour/docs/zh-CN/r1.9/model_encrypt_protection.html#%E7%AB%AF%E4%BE%A7%E6%A8%A1%E5%9E%8B%E4%BF%9D%E6%8A%A4)转换时加密，在lite加载模型时需通过传入密钥和解密工具相关参数。其中，dec_key应与使用converter_lite工具加密时的密钥一致，均十六进制表示的字符串。如b'0123456789ABCDEF'对应的十六进制表示为30313233343536373839414243444546，Linux平台用户可以使用xxd工具对字节表示的密钥进行十六进制表达转换。crypto_lib_path为该环境中openssl的安装路径，如"/home/root/openssl"。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc)演示模型解密加载及推理的流程：
 
