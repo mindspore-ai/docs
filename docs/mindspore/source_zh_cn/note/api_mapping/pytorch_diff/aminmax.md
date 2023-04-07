@@ -28,7 +28,7 @@ MindSpore：实现功能与PyTorch基本一致。不过MindSpore的 `axis` 有�
 | ---- | ----- | ------- | --------- | --------------------------------------- |
 | 参数 | 参数1 | input   | input        | -                   |
 |      | 参数2 | dim   | axis      | MindSpore的 `axis` 有默认值：0，在第零维上求取极值。PyTorch的 `dim` 默认值为None，求输入所有值的极值。 |
-|      | 参数3 | keepdim   | keepdim | - |
+|      | 参数3 | keepdim   | keepdims | - |
 |      | 参数4 | out   | -         | 不涉及 |
 
 ### 代码示例1
