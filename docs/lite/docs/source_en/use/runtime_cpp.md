@@ -679,7 +679,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ### Decrypted Model Prediction
 
-If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
+If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/r1.9/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately.：
 
