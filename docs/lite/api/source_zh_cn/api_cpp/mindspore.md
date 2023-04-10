@@ -133,8 +133,8 @@ Context()
 | [DelegateMode GetBuiltInDelegate() const](#getbuiltindelegate)     |    ✕    |    √    |
 | [void SetDelegate(const std::shared_ptr<Delegate> &delegate)](#setdelegate)     |    ✕    |    √    |
 | [std::shared_ptr<Delegate> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
-| [void set_delegate(const std::shared_ptr<AbstractDelegate> &delegate)](#set_delegate)         | ✕      | √      |
-| [std::shared_ptr<AbstractDelegate> get_delegate() const](#get_delegate)     |    ✕    |    √    |
+| [void set_delegate(const std::shared_ptr<AbstractDelegate> &delegate)](#set-delegate)         | ✕      | √      |
+| [std::shared_ptr<AbstractDelegate> get_delegate() const](#get-delegate)     |    ✕    |    √    |
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |
 | [std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()](#mutabledeviceinfo)     |    √    |    √    |
@@ -1385,7 +1385,7 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
 
   `MStensor`指针。
 
-#### CreateDevTensor
+#### CreateDeviceTensor
 
 ```cpp
 static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
