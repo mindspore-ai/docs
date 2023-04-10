@@ -78,7 +78,6 @@ Using MindInsight to Debug the Model Accuracy
    summary_record
    dashboard
    lineage_and_scalars_comparison
-   hyper_parameters_auto_tuning
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
