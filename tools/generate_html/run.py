@@ -61,7 +61,8 @@ def generate_version_json(repo_name, branch, js_data, version, target_path):
     for d in range(len(js_data)):
         if js_data[d]['repo_name'] == repo_name:
             write_content = copy.deepcopy(js_data[d])
-            write_content['version'] = branch
+            if not write_content['version']:
+                write_content['version'] = branch
             write_content.pop("repo_name", None)
             if js_data[d]['repo_name'] != 'mindspore':
                 filename = js_data[d]['repo_name']
