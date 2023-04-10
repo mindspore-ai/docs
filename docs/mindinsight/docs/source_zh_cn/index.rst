@@ -11,7 +11,6 @@ MindInsight包括以下内容：
 - `训练溯源及对比 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/lineage_and_scalars_comparison.html>`_
 - `性能调优 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/performance_profiling.html>`_
 - `精度调试 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger.html>`_
-- `超参调优 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/hyper_parameters_auto_tuning.html>`_
 - `模型迁移 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/migrate_3rd_scripts_mindconverter.html>`_
 
 .. raw:: html
@@ -78,7 +77,6 @@ MindInsight包括以下内容：
    summary_record
    dashboard
    lineage_and_scalars_comparison
-   hyper_parameters_auto_tuning
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
