@@ -32,7 +32,7 @@ MindSpore Documentation
    :hidden:
 
    note/benchmark
-   Network List↗ <https://gitee.com/mindspore/models/blob/master/README.md#table-of-contents>
+   Network List↗ <https://gitee.com/mindspore/models/blob/r2.0/README.md#table-of-contents>
    note/operator_list
    note/syntax_list
 
