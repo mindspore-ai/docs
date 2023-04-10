@@ -11,7 +11,6 @@ MindInsight provides the following functions:
 - `Training lineage and comparison <https://www.mindspore.cn/mindinsight/docs/en/r2.0/lineage_and_scalars_comparison.html>`_
 - `Performance optimization <https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling.html>`_
 - `Accuracy debugging <https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger.html>`_
-- `Hyperparameter optimization <https://www.mindspore.cn/mindinsight/docs/en/r2.0/hyper_parameters_auto_tuning.html>`_
 - `Model migration <https://www.mindspore.cn/mindinsight/docs/en/r2.0/migrate_3rd_scripts_mindconverter.html>`_
 
 .. raw:: html
@@ -78,7 +77,6 @@ Using MindInsight to Debug the Model Accuracy
    summary_record
    dashboard
    lineage_and_scalars_comparison
-   hyper_parameters_auto_tuning
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
