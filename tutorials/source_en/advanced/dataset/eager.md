@@ -125,12 +125,12 @@ print("Tokenize result: {}".format(txt))
 txt = ["123456"]
 to_number = text.ToNumber(ms.int32)
 txt = to_number(txt)
-print("ToNumber result: {}, type: {}".format(txt, type(txt[0])))
+print("ToNumber result: {}, type: {}".format(txt, txt[0].dtype))
 ```
 
 ```text
 Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i' 'n' 'g' ' ' '!']
-ToNumber result: [123456], type: <class 'numpy.int32'>
+ToNumber result: [123456], int32
 ```
 
 ### transforms
