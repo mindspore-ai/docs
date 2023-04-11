@@ -164,7 +164,9 @@ out = net()
 
 The error information is as follows:
 
+```text
 RuntimeError: `__str__` is a private variable or magic method, which is not supported.
+```
 
 ## Creating Instance of the Custom Class
 
@@ -277,4 +279,6 @@ print(out)
 
 The error information is as follows:
 
+```text
 RumtimeError: MsClassObject: 'InnerNet' has no `__call__` function, please check the code.
+```
