@@ -35,6 +35,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致。inputs参数只支持T
 
 ```python
 # PyTorch
+import numpy as np
 import torch
 
 x = torch.tensor(np.array([1, 2, 3, 4]).astype(np.int32))

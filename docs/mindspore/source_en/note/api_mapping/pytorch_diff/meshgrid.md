@@ -35,6 +35,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow. T
 
 ```python
 # PyTorch
+import numpy as np
 import torch
 
 x = torch.tensor(np.array([1, 2, 3, 4]).astype(np.int32))
