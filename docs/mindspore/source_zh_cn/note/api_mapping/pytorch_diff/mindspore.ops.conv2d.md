@@ -71,7 +71,7 @@ import numpy as np
 
 x = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
-output = ops.conv2d(x, weight, pad_mode="pad", padding=(2, 2, 3, 3))
+output = ops.conv2d(x, weight, pad_mode="pad", padding=(2, 3))
 print(output.shape)
 # (10, 32, 34, 36)
 
