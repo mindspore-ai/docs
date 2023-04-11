@@ -38,13 +38,15 @@ MindSpore：由于框架机制不同，实现梯度裁剪，需要先获取梯�
 
 ```python
 import numpy as np
+import torch
+import mindspore as ms
+from mindspore.common.initializer import initializer, Zero
 
 data = np.array([0.2, 0.5, 0.2], dtype=np.float32)
 label = np.array([1, 0], dtype=np.float32)
 label_pt = np.array([0], dtype=np.float32)
 
 # PyTorch
-import torch
 class Net1(torch.nn.Module):
     def __init__(self):
         super(Net1, self).__init__()
@@ -78,8 +80,6 @@ print(grads)
 #         [ 0.1000,  0.1000,  0.1000]]), tensor([-0.1000,  0.1000])]
 
 # MindSpore
-import mindspore as ms
-from mindspore.common.initializer import initializer, Zero
 class Net2(ms.nn.Cell):
     def __init__(self):
         super(Net2, self).__init__()
@@ -98,12 +98,12 @@ net2 = Net2()
 loss_fn = ms.nn.CrossEntropyLoss()
 
 def forward_fn(data, label):
-    logits = net2(data)
+    logits = ms.ops.squeeze(net2(data))
     loss = loss_fn(logits, label)
     return loss, logits
 
 grad_fn = ms.grad(forward_fn, grad_position=None, weights=net2.trainable_params(), has_aux=True)
-grads = grad_fn(ms.Tensor(data), ms.Tensor(label))
+grads = grad_fn(ms.ops.unsqueeze(ms.Tensor(data), dim=0), ms.Tensor(label))
 print(grads)
 # Before clip out:
 # ((Tensor(shape=[2, 3], dtype=Float32, value=
