@@ -192,7 +192,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.ops import CustomRegOp, custom_info_register, DataType
+from mindspore.ops import CustomRegOp, DataType
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
@@ -245,7 +245,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置。本例中lambda函数表明输出的两个shape与输入相同，第一个输出的数据类型和输入张量的信息相同，第二个输出的数据类型为bool类型。
-- 通过`CustomRegOp`生成算子信息，并通过`custom_info_register`装饰器注册算子信息。
+- 通过`CustomRegOp`生成算子信息，并通过`Custom`的`reg_info`接口传入。
 
 执行用例：
 

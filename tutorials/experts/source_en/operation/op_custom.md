@@ -193,7 +193,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.ops import CustomRegOp, custom_info_register, DataType
+from mindspore.ops import CustomRegOp, DataType
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
@@ -245,7 +245,7 @@ if __name__ == "__main__":
 In this example, there are the following points to explain:
 
 - The `out_shape` and `out_dtype` parameters of the `Custom` primitive can be specified in a variety of ways, either given a type or set with a Python lambda function. In this example, the lambda function indicates that the two shapes of the output are the same as the input, the data type of the first output and the information of the input tensor are the same, and the data type of the second output is the bool type.
-- Operator information is generated via `CustomRegOp` and operator information is registered with the `custom_info_register` decorator.
+- Operator information is generated via `CustomRegOp` and operator information is registered via the `reg_info` input of the `Custom`.
 
 Executing cash:
 
