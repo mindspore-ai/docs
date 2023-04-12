@@ -120,7 +120,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    | MindInsight | MI_PATH | <https://gitee.com/mindspore/mindinsight.git> | mindinsight |
    | MindArmour | MA_PATH | <https://gitee.com/mindspore/mindarmour.git> | mindarmour |
    | MindQuantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
-   | Reinforcement | RM_PATH | <https://gitee.com/mindspore/reinforcement.git> | reinforcement |
+   | Reinforcement | RM_PATH | <https://github.com/mindspore-lab/mindrl.git> | mindrl |
    | Serving | SV_PATH | <https://gitee.com/mindspore/serving.git> | serving |
    | Hub | HB_PATH | <https://gitee.com/mindspore/hub.git> | hub |
    | XAI | XA_PATH | <https://gitee.com/mindspore/xai.git> | xai |
