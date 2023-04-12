@@ -20,7 +20,7 @@ torch.amin(input, dim, keepdim=False, *, out=None) -> Tensor
 ## mindspore.ops.amin
 
 ```text
-mindspore.ops.amin(x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.amin(x, axis=(), keepdims=False) -> Tensor
 ```
 
 更多内容详见[mindspore.ops.amin](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.amin.html)。
@@ -29,13 +29,13 @@ mindspore.ops.amin(x, axis=(), keep_dims=False) -> Tensor
 
 PyTorch：根据指定 `dim`，求 `input` 的最小值元素。`keepdim` 控制输出和输入的维度是否相同。`out` 可以获取输出。
 
-MindSpore：根据指定 `axis`，求 `x` 的最小值元素。`keep_dims` 功能和PyTorch一致。MindSpore没有 `out` 参数。MindSpore的 `axis` 有默认值，在 `axis` 是默认值情况下，求 `x` 所有元素的最小值。
+MindSpore：根据指定 `axis`，求 `x` 的最小值元素。`keepdims` 功能和PyTorch一致。MindSpore没有 `out` 参数。MindSpore的 `axis` 有默认值，在 `axis` 是默认值情况下，求 `x` 所有元素的最小值。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
 | 参数 | 参数1 | input   | x         | 功能一致，参数名不同                    |
 |      | 参数2 | dim   | axis      | MindSpore的 `axis` 有默认值，PyTorch的 `dim` 没有默认值 |
-|      | 参数3 | keepdim   | keep_dims | 功能一致，参数名不同 |
+|      | 参数3 | keepdim   | keepdims | 功能一致，参数名不同 |
 |      | 参数4 | out   | -         | PyTorch的 `out` 可以获取输出，MindSpore无此参数 |
 
 ### 代码示例
@@ -52,6 +52,6 @@ print(torch.amin(input, dim=0, keepdim=True))
 import mindspore
 
 x = mindspore.Tensor([[1, 2, 3], [3, 2, 1]], dtype=mindspore.float32)
-print(mindspore.ops.amin(x, axis=0, keep_dims=True))
+print(mindspore.ops.amin(x, axis=0, keepdims=True))
 # [[1. 2. 1.]]
 ```
