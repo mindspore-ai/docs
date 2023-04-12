@@ -44,7 +44,7 @@ Optional parameters are as follows:
 |`--debugger-port <DEBUGGER_PORT>`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|-|
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|Optional|Specifies the maximum memory limit of a single offline debugger session. When the offline debugger cannot be executed due to insufficient memory, set it according to the device memory.|Integer|16*1024|6*1024~The upper limit of int32|-|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|Optional|Specifies the maximum session number of the offline debugger. The session number refers to the amount of training jobs that can be debugged at the same time.|Integer|2|1~2|-|
-|`--max-graph-node-size <MAX_GRAPH_NODE_SIZE >`|Optional|Set the maximum number of graph nodes loaded by the debugger.|Integer|100000|0~2000000|-|
+|`--max-graph-node-size <MAX_GRAPH_NODE_SIZE >`|Optional|Set the maximum number of graph nodes loaded by the debugger.|Integer|100000|1~2000000|-|
 
 `--workspace` log directory description：
 
