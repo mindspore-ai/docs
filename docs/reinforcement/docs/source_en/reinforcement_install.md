@@ -18,7 +18,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Rei
 
 ## Installation by Source Code
 
-Download [source code](https://gitee.com/mindspore/reinforcement)，and enter `reinforcement` directory.
+Download [source code](https://github.com/mindspore-lab/mindrl)，and enter `reinforcement` directory.
 
 ```shell
 bash build.sh

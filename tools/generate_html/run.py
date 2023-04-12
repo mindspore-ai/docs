@@ -141,9 +141,15 @@ def main(version, user, pd, WGETDIR, release_url):
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
-        if  data[i]['name'] == "devtoolkit":
+        if data[i]['name'] == "devtoolkit":
             repo_url = f"https://gitee.com/mindspore/ide-plugin.git"
             repo_path = f"{REPODIR}/ide-plugin"
+        elif data[i]['name'] == "reinforcement":
+            repo_url = f"https://github.com/mindspore-lab/mindrl.git"
+            repo_path = f"{REPODIR}/mindrl"
+        elif data[i]['name'] == "recommender":
+            repo_url = f"https://github.com/mindspore-lab/mindrec.git"
+            repo_path = f"{REPODIR}/mindrec"
 
         status_code = requests.get(f"{repo_url}").status_code
         if status_code == 200:

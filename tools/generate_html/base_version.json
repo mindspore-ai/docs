@@ -1,6 +1,7 @@
 [
     {
         "version" : "",
+        "versionAlias" : "2.0 RC1",
         "label" : {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -9,6 +10,7 @@
     }, 
     {
         "version" : "",
+        "versionAlias" : "2.0 RC1",
         "label" : {
             "zh": "教程",
             "en": "Tutorials"
@@ -47,6 +49,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "2.0 RC1",
         "label" : {
             "zh": "全场景推理框架（MindSpore Lite）",
             "en": "MindSpore Lite"
@@ -117,6 +120,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindPandas",
             "en": "MindPandas"
@@ -125,6 +129,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "2.0 RC1",
         "label" : {
             "zh": "可视化调试调优（MindInsight）",
             "en": "MindInsight"
@@ -133,6 +138,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "AI安全和隐私（MindArmour）",
             "en": "MindArmour"
@@ -141,6 +147,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "服务化部署框架（MindSpore Serving）",
             "en": "MindSpore Serving"
@@ -149,6 +156,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "new 0.1",
         "label" : {
             "zh": "联邦学习（MindSpore Federated）",
             "en": "MindSpore Federated"
@@ -157,6 +165,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindSpore Golden Stick",
             "en": "MindSpore Golden Stick"
@@ -165,6 +174,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "可解释AI（MindSpore XAI）",
             "en": "MindSpore XAI"
@@ -173,6 +183,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindSpore Dev Toolkit",
             "en": "MindSpore Dev Toolkit"
@@ -181,6 +192,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "图学习框架（MindSpore Graph Learning）",
             "en": "MindSpore Graph Learning"
@@ -189,6 +201,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "强化学习（MindSpore Reinforcement）",
             "en": "MindSpore Reinforcement"
@@ -197,6 +210,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "概率编程（MindSpore Probability）",
             "en": "MindSpore Probability"
@@ -205,6 +219,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "预训练模型（MindSpore Hub）",
             "en": "MindSpore Hub"
@@ -213,6 +228,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "0.2 RC1",
         "label" : {
             "zh": "MindElec",
             "en": "MindElec"
@@ -221,6 +237,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "1.0 RC1",
         "label" : {
             "zh": "MindSPONGE",
             "en": "MindSPONGE"
@@ -229,6 +246,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "0.1 RC1",
         "label" : {
             "zh": "MindFlow",
             "en": "MindFlow"
@@ -237,6 +255,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindQuantum",
             "en": "MindQuantum"
@@ -245,6 +264,7 @@
     },
     {
         "version" : "",
+        "versionAlias" : "",
         "label" : {
             "zh": "Recommender",
             "en": "Recommender"
