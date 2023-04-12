@@ -4,6 +4,7 @@
 
 In practical application scenarios, the training dataset is insufficient, so few people will train the whole network from scratch. It is common practice to train on a very large underlying dataset to obtain a pre-trained model, which is then used to initialize the weight parameters of the network or applied as a fixed feature extractor for a specific task. In this chapter, the wolf and dog images in the ImageNet dataset will be classified by using transfer learning.
 
+> This tutorial is not currently supported on Windows and macOS platforms.
 > See [Stanford University CS231n](https://cs231n.github.io/transfer-learning/#tf) for details of transfer learning.
 
 ## Data Preparation

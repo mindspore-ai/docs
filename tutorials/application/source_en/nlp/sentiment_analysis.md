@@ -16,7 +16,7 @@ Correct label: Positive
 Forecast label: Positive
 ```
 
-> The tutorial may experience slow training when running on Windows platforms.
+> This tutorial is not currently supported on Windows and macOS platforms.
 
 ## Data Preparation
 
