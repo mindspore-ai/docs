@@ -20,7 +20,7 @@ For more information, see [torch.amax](https://pytorch.org/docs/1.8.1/generated/
 ## mindspore.ops.amax
 
 ```text
-mindspore.ops.amax((x, axis=(), keep_dims=False) -> Tensor
+mindspore.ops.amax((x, axis=(), keepdims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.amax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.amax.html).
@@ -29,13 +29,13 @@ For more information, see [mindspore.ops.amax](https://mindspore.cn/docs/en/mast
 
 PyTorch: Find the maximum element of `input` according to the specified `dim`. `keepdim` controls whether the output and the input have the same dimension. `out` can get the output.
 
-MindSpore: Find the maximum element of `x` according to the specified `axis`. The `keep_dims` function is identical to PyTorch. MindSpore does not have `out` parameter. MindSpore `axis` has a default value, and finds the maximum value of all elements of `x` if `axis` is the default value.
+MindSpore: Find the maximum element of `x` according to the specified `axis`. The `keepdims` function is identical to PyTorch. MindSpore does not have `out` parameter. MindSpore `axis` has a default value, and finds the maximum value of all elements of `x` if `axis` is the default value.
 
 | Categories | Subcategories| PyTorch | MindSpore |Differences |
 | ---- | ----- | ------- | --------- |------------------ |
 | Parameters | Parameter 1 | input   | x         | Same function, different parameter names                    |
 |      | Parameter 2 | dim   | axis      | MindSpore `axis` has a default value, while PyTorch `dim` has no default value |
-|      | Parameter 3 | keepdim   | keep_dims | Same function, different parameter names |
+|      | Parameter 3 | keepdim   | keepdims | Same function, different parameter names |
 |      | Parameter 4 | out   | -         | PyTorch `out` can get the output. MindSpore does not have this parameter |
 
 ### Code Example
@@ -52,6 +52,6 @@ print(torch.amax(input, dim=0, keepdim=True))
 import mindspore
 
 x = mindspore.Tensor([[1, 2, 3], [3, 2, 1]], dtype=mindspore.float32)
-print(mindspore.ops.amax(x, axis=0, keep_dims=True))
+print(mindspore.ops.amax(x, axis=0, keepdims=True))
 # [[3. 2. 3.]]
 ```
