@@ -16,6 +16,8 @@ Correct label: Positive
 Forecast label: Positive
 ```
 
+> The tutorial may experience slow training when running on Windows platforms.
+
 ## Data Preparation
 
 This section uses the classic [IMDB Movie Review Dataset](https://ai.stanford.edu/~amaas/data/sentiment/) for sentimental classification. The dataset contains positive and negative data. The following is an example:
