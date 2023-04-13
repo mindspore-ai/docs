@@ -144,7 +144,7 @@ $(function () {
       setTimeout(() => {
           $('.header').append(theme2Nav);
           $('.wy-breadcrumbs>li:first-of-type')[0].innerText =
-              pageTitle + '(' + pageVersionName() + ')';
+              pageTitle + ' (' + pageVersionName() + ')';
           $('#rtd-search-form input').attr(
               'placeholder',
               isEn ? 'Search in Tutorials' : '"教程" 内搜索'
@@ -162,7 +162,21 @@ $(function () {
                   .addClass('side-fix')
                   .prepend(versionDropdown(pageSubMenu));
           }
+          if (pathname.indexOf('/index.html') !== -1) {
+            $('.welcome').addClass('selected');
+          }
       }, 100);
+
+      // 左侧菜单控制
+      let aList = $('.wy-menu-vertical>ul>.current>ul>.toctree-l2>a');
+      for (let i = 0; i < aList.length; i++) {
+          let hash = aList[i].hash;
+          if (hash != '') {
+              aList[i].parentNode.parentNode.style.display = 'none';
+              aList[i].parentNode.parentNode.parentNode.className = aList[i].parentNode.parentNode.parentNode.className + ' ' + 'navNoPlus';
+          }
+      }
+      
   };
 
   initPage();

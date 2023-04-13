@@ -729,7 +729,7 @@ html {
 }
 
 .wy-menu-vertical li.current ul {
-  display: block
+  display: block 
 }
 
 .wy-menu-vertical li ul {
@@ -1886,10 +1886,13 @@ span[id*='MathJax-Span'] {
   }
 }
 
+
 html body {
+  font-family:  'Helvetica', 'Arial', 'PingFang SC', 'Microsoft YaHei',sans-serif;
   font-size: .8rem;
   background: #fff !important;
 }
+code,pre{font-family:'Consolas','Microsoft YaHei'}
 
 .mermaid {
   background: #fff !important;
@@ -2052,7 +2055,7 @@ a:hover {
   display: none;
 }
 
-/* .wy-menu-vertical>ul>.current>a:before {
+.wy-menu-vertical>ul>.current>a:before {
   content: "-";
   position: absolute;
   left: -.8rem;
@@ -2061,7 +2064,10 @@ a:hover {
   line-height: 1.5rem;
   text-align: center;
   font-size: .8rem;
-} */
+}
+.wy-grid-for-nav .wy-menu .notoctree-l2.current .current::before {
+  content: '';
+}
 
 .navNoPlus>a:before {
   content: "" !important;
@@ -2094,9 +2100,7 @@ a:hover {
 .toctree-wrapper .toctree-l1>a {
   font-size: .75rem !important;
 }
-.wy-menu-vertical li.toctree-l1>a~ul{
-display: none;
-}
+
 .wy-side-nav-search {
   background: #fff;
   width: 12.5rem;
@@ -2118,7 +2122,11 @@ display: none;
   width: 14.95rem;
   padding-bottom: 0;
 }
-
+@media screen and (max-width: 900px) {
+  .wy-nav-side{
+      display: none !important;
+    }
+}
 .wy-menu-vertical,
 .wy-side-nav-search {
   margin-left: 2rem !important;
@@ -2225,11 +2233,11 @@ display: none;
 
 .navList a {
   color: #1a1c33;
-  overflow: hidden;
+  /* overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 200px;
-  display: block;
+  display: block; */
 }
 
 .navList a:hover {
