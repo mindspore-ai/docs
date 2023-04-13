@@ -4,7 +4,7 @@
 
 ## Overall Design
 
-The Differential-Privacy module of MindArmour implements the differential privacy training capability. Model training consists of building training dataset, computing loss, computing gradient, and updating model parameters. Currently, the differential privacy training of MindArmour focuses on the gradient computing process and uses the corresponding algorithm to clip and add noise to the gradient. In this way, user data privacy is protected.
+The Differential-Privacy module of MindSpore Armour implements the differential privacy training capability. Model training consists of building training dataset, computing loss, computing gradient, and updating model parameters. Currently, the differential privacy training of MindSpore Armour focuses on the gradient computing process and uses the corresponding algorithm to clip and add noise to the gradient. In this way, user data privacy is protected.
 
 ![dp_arch](./images/dp_arch.png)
 
@@ -14,7 +14,7 @@ Figure 1 shows an overall design of differential privacy training, and mainly in
 
 ### DP Optimizer
 
-DP optimizer inherits capabilities of the MindSpore optimizer and uses the DP mechanisms to scramble and protect gradients. Currently, MindArmour provides three types of DP optimizers: constant Gaussian optimizer, adaptive Gaussian optimizer, and adaptive clipping optimizer. Each type of DP optimizer adds differential privacy protection capabilities to common optimizers such as SGD and Momentum from different perspectives.
+DP optimizer inherits capabilities of the MindSpore optimizer and uses the DP mechanisms to scramble and protect gradients. Currently, MindSpore Armour provides three types of DP optimizers: constant Gaussian optimizer, adaptive Gaussian optimizer, and adaptive clipping optimizer. Each type of DP optimizer adds differential privacy protection capabilities to common optimizers such as SGD and Momentum from different perspectives.
 
 - Constant Gaussian optimizer is a DP optimizer for non-adaptive Gaussian noise. The advantage is that the differential privacy budget ϵ can be strictly controlled. The disadvantage is that in the model training process, the noise amount added in each step is fixed. If the number of training steps is too large, the noise in the later phase of training makes the model convergence difficult, or even causes the performance to deteriorate greatly and the model availability to be poor.
 - Adaptive Gaussian optimizer adaptively adjusts the standard deviation to adjust the Gaussian distribution noise. In the initial phase of model training, a large amount of noise is added. As the model gradually converges, the noise amount gradually decreases, and the impact of the noise on the model availability is reduced. A disadvantage of the adaptive Gaussian noise is that a differential privacy budget cannot be strictly controlled.

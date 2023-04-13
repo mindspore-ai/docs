@@ -1,4 +1,4 @@
-# 安装MindArmour
+# 安装MindSpore Armour
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/mindarmour_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
@@ -6,14 +6,14 @@
 
 - 硬件平台为Ascend、GPU或CPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。  
-    MindArmour与MindSpore的版本需保持一致。
+    MindSpore Armour与MindSpore的版本需保持一致。
 - 其余依赖请参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py)。
 
 ## MindSpore版本依赖关系
 
-由于MindArmour与MindSpore有依赖关系，请按照下表所示的对应关系，在[MindSpore下载页面](https://www.mindspore.cn/versions)下载并安装对应的whl包。
+由于MindSpore Armour与MindSpore有依赖关系，请按照下表所示的对应关系，在[MindSpore下载页面](https://www.mindspore.cn/versions)下载并安装对应的whl包。
 
-| MindArmour | 分支                                                      | MindSpore |
+| MindSpore Armour | 分支                                                      | MindSpore |
 | ---------- | --------------------------------------------------------- | --------- |
 | 2.0.0      | [r2.0](https://gitee.com/mindspore/mindarmour/tree/r2.0/) | >=1.7.0   |
 | 1.9.0      | [r1.9](https://gitee.com/mindspore/mindarmour/tree/r1.9/) | >=1.7.0   |
@@ -30,8 +30,8 @@
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindArmour/any/mindarmour-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindArmour安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py)），其余情况需自行安装。
-> - `{version}`表示MindArmour版本号，例如下载1.3.0版本MindArmour时，`{version}`应写为1.3.0。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Armour安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py)），其余情况需自行安装。
+> - `{version}`表示MindSpore Armour版本号，例如下载1.3.0版本MindSpore Armour时，`{version}`应写为1.3.0。
 
 ### 源码安装
 
@@ -41,7 +41,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
     git clone https://gitee.com/mindspore/mindarmour.git
     ```
 
-2. 在源码根目录下，执行如下命令编译并安装MindArmour。
+2. 在源码根目录下，执行如下命令编译并安装MindSpore Armour。
 
     ```bash
     cd mindarmour

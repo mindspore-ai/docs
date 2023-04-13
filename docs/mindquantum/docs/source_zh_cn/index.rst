@@ -1,16 +1,16 @@
-MindQuantum文档
+MindSpore Quantum文档
 =========================
 
-MindQuantum是基于MindSpore的新一代量子计算领域套件，支持多种量子神经网络的训练和推理。
+MindSpore Quantum是基于MindSpore的新一代量子计算领域套件，支持多种量子神经网络的训练和推理。
 
-MindQuantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量子计算模拟器和昇思MindSpore并行自动微分能力，MindQuantum有着极简的开发模式和极致的性能体验，能够高效处理量子机器学习、量子化学模拟和量子组合优化等问题，为广大科研人员、老师和学生提供快速设计和验证量子算法的高效平台，让量子计算触手可及。
+MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量子计算模拟器和昇思MindSpore并行自动微分能力，MindSpore Quantum有着极简的开发模式和极致的性能体验，能够高效处理量子机器学习、量子化学模拟和量子组合优化等问题，为广大科研人员、老师和学生提供快速设计和验证量子算法的高效平台，让量子计算触手可及。
 
 .. raw:: html
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
-使用MindQuantum的典型场景
-------------------------------
+使用MindSpore Quantum的典型场景
+--------------------------------
 
 1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/qnn_for_nlp.html>`_
 

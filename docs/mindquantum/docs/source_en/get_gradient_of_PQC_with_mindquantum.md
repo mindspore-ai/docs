@@ -4,7 +4,7 @@ Translator: [unseenme](https://gitee.com/unseenme)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/get_gradient_of_PQC_with_mindquantum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-In MindQuantum, we can obtain the gradient of a variable quantum circuit by the get_expectation_with_grad method of the Simulator class. In this tutorial, we will further introduce other functions of this method to help you achieve more advanced usage methods.
+In MindSpore Quantum, we can obtain the gradient of a variable quantum circuit by the get_expectation_with_grad method of the Simulator class. In this tutorial, we will further introduce other functions of this method to help you achieve more advanced usage methods.
 
 ## Model introduction
 
@@ -30,9 +30,9 @@ Then, we will introduce the meaning of each parameter one by one.
 2. circ_right. It is the $U_r(\boldsymbol{\theta})$ in the formula.
 3. circ_left. It is the $U_l^\dagger(\boldsymbol{theta})$ in the formula. When it is the default value None, circ_left and circ_right are the same circuits.
 4. simulator_left. It is the simulator that contains the $\left|\varphi\right>$ in the formula. You can set the state of the emulator to the state you need by the emulator's set_qs, apply_gate or apply_circuit methods. When it is the default value None, $\left|\varphi\right>=\left|\psi\right>$, and $\left|\psi\right>$ is the quantum state contained in the current simulator.
-5. parallel_worker. When the hams contains multiple Hamiltonians or the input of the encoder contains multiple sample points, MindQuantum will reasonably perform parallel operations based on this integer as a reference.
+5. parallel_worker. When the hams contains multiple Hamiltonians or the input of the encoder contains multiple sample points, MindSpore Quantum will reasonably perform parallel operations based on this integer as a reference.
 
-In MindQuantum, the parameters in the quantum line can be encoder parameters, used to encode classical data into quantum states, similar to the input part in a classical neural network. The encoder parameter accepts a two-dimensional data. The first dimension represents the number of sample points, and the second dimension represents the number of features of the classical data, which is equivalent to a batch in classical machine learning. Another part of the parameters can be the ansatz parameters, similar to the training parameters in classical neural networks, which are used to train a specific quantum line. In the following, we construct a quantum line that contains both encoder and ansatz parameters.
+In MindSpore Quantum, the parameters in the quantum line can be encoder parameters, used to encode classical data into quantum states, similar to the input part in a classical neural network. The encoder parameter accepts a two-dimensional data. The first dimension represents the number of sample points, and the second dimension represents the number of features of the classical data, which is equivalent to a batch in classical machine learning. Another part of the parameters can be the ansatz parameters, similar to the training parameters in classical neural networks, which are used to train a specific quantum line. In the following, we construct a quantum line that contains both encoder and ansatz parameters.
 
 ```python
 from mindquantum.core.circuit import Circuit
@@ -51,7 +51,7 @@ encoder parameters: ['a', 'c']
 ansatz parameters: ['b']
 ```
 
-In the following we use MindQuantum to calculate the expected value of the above quantum lines with respect to the Hamiltonian quantity $Z$. First, we define the problem Hamiltonian.
+In the following we use MindSpore Quantum to calculate the expected value of the above quantum lines with respect to the Hamiltonian quantity $Z$. First, we define the problem Hamiltonian.
 
 ```python
 from mindquantum.core.operators import QubitOperator                   # Import QubitOperator module to generate bubble operators
@@ -65,7 +65,7 @@ print(ham)
 1 [Z0]
 ```
 
-Next, we generate operators that compute the expected value and the derivative of the expected value with respect to each parameter by using MindQuantum.
+Next, we generate operators that compute the expected value and the derivative of the expected value with respect to each parameter by using MindSpore Quantum.
 
 ```python
 from mindquantum.simulator import Simulator
@@ -137,7 +137,7 @@ gradient value w.r.t ansatz parametres:
 
 ### Result Analysis
 
-In the above results, we find that the expectation is a two-dimensional array with dimension $(2, 1)$, where the first dimension denotes the number of sample points and the second dimension denotes the number of Hamiltonian quantities. In MindQuantum, we can calculate both the expected value of different Hamiltonian quantities with respect to the line and the derivatives of the parameters, in addition to the sample points of the batch. Thus, in the above results, the expected value is $-0.2248451$ when $a=1, b=2, c=3$ and $0.27201173$ when $a=4, b=2, c=5$.
+In the above results, we find that the expectation is a two-dimensional array with dimension $(2, 1)$, where the first dimension denotes the number of sample points and the second dimension denotes the number of Hamiltonian quantities. In MindSpore Quantum, we can calculate both the expected value of different Hamiltonian quantities with respect to the line and the derivatives of the parameters, in addition to the sample points of the batch. Thus, in the above results, the expected value is $-0.2248451$ when $a=1, b=2, c=3$ and $0.27201173$ when $a=4, b=2, c=5$.
 
 ### Gradient Analysis
 
@@ -308,4 +308,4 @@ print(circuit.get_qs(pr=rot_angle, ket=True))
 (0.7067790538448511+√5/3906250j)¦1⟩
 ```
 
-To find out more about MindQuantum's API, please click: https://mindspore.cn/mindquantum/
+To find out more about MindSpore Quantum's API, please click: https://mindspore.cn/mindquantum/

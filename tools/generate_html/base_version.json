@@ -118,8 +118,8 @@
     {
         "version" : "",
         "label" : {
-            "zh": "MindPandas",
-            "en": "MindPandas"
+            "zh": "MindSpore Pandas",
+            "en": "MindSpore Pandas"
         },
         "repo_name" : "mindpandas"
     },
@@ -134,8 +134,8 @@
     {
         "version" : "",
         "label" : {
-            "zh": "AI安全和隐私（MindArmour）",
-            "en": "MindArmour"
+            "zh": "AI安全和隐私（MindSpore Armour）",
+            "en": "MindSpore Armour"
         },
         "repo_name" : "mindarmour"
     },
@@ -214,40 +214,40 @@
     {
         "version" : "",
         "label" : {
-            "zh": "MindElec",
-            "en": "MindElec"
+            "zh": "MindSpore Elec",
+            "en": "MindSpore Elec"
         },
         "repo_name" : "mindelec"
     },
     {
         "version" : "",
         "label" : {
-            "zh": "MindSPONGE",
-            "en": "MindSPONGE"
+            "zh": "MindSpore SPONGE",
+            "en": "MindSpore SPONGE"
         },
         "repo_name" : "mindsponge"
     },
     {
         "version" : "",
         "label" : {
-            "zh": "MindFlow",
-            "en": "MindFlow"
+            "zh": "MindSpore Flow",
+            "en": "MindSpore Flow"
         },
         "repo_name" : "mindflow"
     },
     {
         "version" : "",
         "label" : {
-            "zh": "MindQuantum",
-            "en": "MindQuantum"
+            "zh": "MindSpore Quantum",
+            "en": "MindSpore Quantum"
         },
         "repo_name" : "mindquantum"
     },
     {
         "version" : "",
         "label" : {
-            "zh": "Recommender",
-            "en": "Recommender"
+            "zh": "MindSpore Recommender",
+            "en": "MindSpore Recommender"
         },
         "repo_name" : "recommender"
     }

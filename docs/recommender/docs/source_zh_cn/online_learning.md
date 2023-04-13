@@ -14,7 +14,7 @@
 
 ## 整体架构
 
-用户的流式训练数据推送到Kafka中，MindPandas从Kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
+用户的流式训练数据推送到Kafka中，MindSpore Pandas从Kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
 
 ![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/online_training.png)
 
@@ -35,7 +35,7 @@ kafka-python v2.0.2
 
 下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://gitee.com/mindspore/recommender/tree/master/examples/online_learning)。
 
-MindSpore Recommender为在线学习提供了专门的算法模型`RecModel`，搭配实时数据源Kafka数据读取与特征处理的MindPandas即可实现一个简单的在线学习流程。
+MindSpore Recommender为在线学习提供了专门的算法模型`RecModel`，搭配实时数据源Kafka数据读取与特征处理的MindSpore Pandas即可实现一个简单的在线学习流程。
 首先自定义一个实时数据处理的数据集，其中的构造函数参数`receiver`是MindPands中的`DataReceiver`类型，用于接收实时数据，`__getitem__`表示一次读取一条数据。
 
 ```python
@@ -168,7 +168,7 @@ config采用yaml的形式，见[default_config.yaml](https://gitee.com/mindspore
 python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
 
 # 参数说明：
-# --address： 本机host ip，从MindPandas接收训练数据需要配置
+# --address： 本机host ip，从MindSpore Pandas接收训练数据需要配置
 # --dataset_name： 数据集名字，和consumer模块保持一致
 ```
 
@@ -179,7 +179,7 @@ bash mpirun_dist_online_train.sh [$RANK_SIZE] [$LOCAL_HOST_IP]
 
 # 参数说明：
 # RANK_SIZE：多卡训练卡数量
-# LOCAL_HOST_IP：本机host ip，用于MindPandas接收训练数据
+# LOCAL_HOST_IP：本机host ip，用于MindSpore Pandas接收训练数据
 ```
 
 动态组网方式启动多卡训练：
@@ -191,7 +191,7 @@ bash run_dist_online_train.sh [$WORKER_NUM] [$SHED_HOST] [$SCHED_PORT] [$LOCAL_H
 # WORKER_NUM：多卡训练卡数量
 # SHED_HOST：MindSpore动态组网需要的Scheduler 角色的IP
 # SCHED_PORT：MindSpore动态组网需要的Scheduler 角色的Port
-# LOCAL_HOST_IP：本机host ip，从MindPandas接收训练数据需要配置
+# LOCAL_HOST_IP：本机host ip，从MindSpore Pandas接收训练数据需要配置
 ```
 
 成功启动训练后，会输出如下日志：

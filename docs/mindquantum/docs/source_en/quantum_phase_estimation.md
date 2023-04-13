@@ -22,7 +22,7 @@ The implementation of the quantum phase estimation algorithm requires two regist
 
 ## QPE code implementation
 
-The following is an example to demonstrate how to implement the quantum phase estimation algorithm in MindQuantum. The `T` gate is selected as the unitary operator for estimation, from the definition of
+The following is an example to demonstrate how to implement the quantum phase estimation algorithm in MindSpore Quantum. The `T` gate is selected as the unitary operator for estimation, from the definition of
 
 $$T|1\rangle=e^{i\pi/4}|1\rangle$$
 

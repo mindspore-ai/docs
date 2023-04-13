@@ -1,4 +1,4 @@
-# Shor's algorithm based on MindQuantum
+# Shor's algorithm based on MindSpore Quantum
 
 Translator: [redundan3y](https://gitee.com/redundan3y)
 
@@ -54,7 +54,7 @@ The quantum circuit of Shor's algorithm is shown as follows,
 
 ![shor's algorithm circuit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
 
-## Implement Shor's algorithm using MindQuantum
+## Implement Shor's algorithm using MindSpore Quantum
 
 First, we need to import some required modules.
 
@@ -106,7 +106,7 @@ print('f(x): ', f)
 
 We then compute $|0\rangle |0\rangle \langle 0| \langle 1|+|1\rangle |0\rangle \langle 1| \langle 2|+|2\rangle |0\rangle \langle 2|\langle 4|+...$ what we get is the matrix representation of the transformation $U$, where $|0\rangle |0\rangle$, $|0\rangle |1\rangle$, $|0\rangle |2\rangle$... can be expressed as mutually orthogonal column vectors with 256 entries, in which only one entity is 1 and the rest are 0. For example the first element in $|0\rangle |0\rangle$ is 1, the second element in $|0\rangle |1\rangle$ is 1, the 17th element in $|1\rangle |0\rangle$ is 1, and so on.
 
-However, the current version of MindQuantum's Simulator has a limit on the number of bits of the custom gate (which cannot be greater than 5 bits), but when we decomposing the smallest non-even prime factor integer 15=3*5 requires at least 8 bits, so we need to take a much more complicated approach to construct this Oracle using a compromise method, that is, register 1 (4 bits) is used as the control bit, and the corresponding transform $T_x$ is applied to each $x$ in register 2 (4 bits):
+However, the current version of MindSpore Quantum's Simulator has a limit on the number of bits of the custom gate (which cannot be greater than 5 bits), but when we decomposing the smallest non-even prime factor integer 15=3*5 requires at least 8 bits, so we need to take a much more complicated approach to construct this Oracle using a compromise method, that is, register 1 (4 bits) is used as the control bit, and the corresponding transform $T_x$ is applied to each $x$ in register 2 (4 bits):
 
 $$
 T_x|x\rangle \rightarrow |a^x\ mod\ N\rangle
@@ -376,7 +376,7 @@ def shor(N):
         return d, int(N / d)
 ```
 
-Since classical computer simulation of quantum algorithms requires a lot of memory, and the previously mentioned simulator in MindQuantum cannot implement multi-qubit gates, such as 5 qubit gates so far. We cannot use Shor's algorithm to calculate the case of $N>21$ for the time being. Finally let's try to decompose $N=15$ using the written Shor's algorithm.
+Since classical computer simulation of quantum algorithms requires a lot of memory, and the previously mentioned simulator in MindSpore Quantum cannot implement multi-qubit gates, such as 5 qubit gates so far. We cannot use Shor's algorithm to calculate the case of $N>21$ for the time being. Finally let's try to decompose $N=15$ using the written Shor's algorithm.
 
 ```python
 N = 15
@@ -395,7 +395,7 @@ print("q =", q)
 
 As we can see from the results, we successfully decomposed 15 into two prime factors 3 and 5.
 
-So far, we have successfully implemented the Shor's algorithm using MindQuantum.
+So far, we have successfully implemented the Shor's algorithm using MindSpore Quantum.
 
-For more information about MindQuantum API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
+For more information about MindSpore Quantum API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
 

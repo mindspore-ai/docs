@@ -4,7 +4,7 @@
 
 Other类中包含cancat、date_range以及read_csv等API。
 
-| MindPandas Other API | Pandas API                                                                                                                              | 支持平台 |
+| MindSpore Pandas Other API | Pandas API                                                                                                                              | 支持平台 |
 | -------------- |-----------------------------------------------------------------------------------------------------------------------------------------------| ------------------- |
 | mindpandas.concat         | [pandas.concat](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.concat.html?highlight=concat#pandas.concat)                 | CPU                 |                                  |
 | mindpandas.date_range     | [pandas.date_range](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.date_range.html?highlight=date_range#pandas.date_range) | CPU                 |                                  |

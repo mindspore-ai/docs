@@ -6,7 +6,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 ## Summary
 
-Variational quantum circuit(VQC), is an approach for Quantum Machine Learning. The MindQuantum (mixing framework of quantum and classic machine learning) can process variational quantum circuit and get the derivation of all observation to every parameter respectively by auto differentiating the circuit using quantum neural network.
+Variational quantum circuit(VQC), is an approach for Quantum Machine Learning. The MindSpore Quantum (mixing framework of quantum and classic machine learning) can process variational quantum circuit and get the derivation of all observation to every parameter respectively by auto differentiating the circuit using quantum neural network.
 The process of constructing a quantum circuit and circuit evolution by parameterized simulator operators is as follows:
 
 - Initialize a quantum circuit.
@@ -125,7 +125,7 @@ array([[ 0.70710678,  0.70710678],
        [ 0.70710678, -0.70710678]])
 ```
 
-For `CNOT` gates, they are essentially Controlled-`X` gates, so in MindQuantum, if we need to execute a `CNOT` gate, we only need to set the control bits and the target bits of the `X` gate (in fact, for any quantum gate we can set the control bits and the target bits of the desired quantum gate operation). For example:
+For `CNOT` gates, they are essentially Controlled-`X` gates, so in MindSpore Quantum, if we need to execute a `CNOT` gate, we only need to set the control bits and the target bits of the `X` gate (in fact, for any quantum gate we can set the control bits and the target bits of the desired quantum gate operation). For example:
 
 ```python
 cnot = X.on(0, 1)   # X gate acts on bit 0 quantum bit and is controlled by bit 1 quantum bit
@@ -256,4 +256,4 @@ From the Summary of Encoder, we can see that the quantum line consists of three 
 
 Therefore, we can build the corresponding quantum line according to the problem we need to solve. Go and build your first quantum line!
 
-To find out more about MindQuantum's API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
+To find out more about MindSpore Quantum's API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).

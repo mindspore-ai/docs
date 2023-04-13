@@ -12,7 +12,7 @@ This tutorial consists of the following parts:
 
 1. Introduction to the quantum chemistry
 2. VQE application
-3. Using MindQuantum to perform VQE simulation with efficient and automatic derivation
+3. Using MindSpore Quantum to perform VQE simulation with efficient and automatic derivation
 
 > This document applies to the CPU environment.
 
@@ -22,7 +22,7 @@ In this tutorial, the following environments need to be installed:
 
 - NumPy
 - SciPy
-- [MindQuantum](https://gitee.com/mindspore/mindquantum)
+- [MindSpore Quantum](https://gitee.com/mindspore/mindquantum)
 - [MindSpore](https://gitee.com/mindspore/mindspore)
 - PySCF
 - OpenFermion
@@ -253,7 +253,7 @@ $$
 
 UCC is short for unitary coupled-cluster theory. $\hat{T}^{\dagger}$ represents the Hermite conjugate of $\hat{T}$. In this way, $\exp{(\hat{T} - \hat{T}^{\dagger})}$ is the unitary operator. [Peruzzo et al.](https://doi.org/10.1038/ncomms5213) first performed chemical simulation experiments on quantum computers using VQE and unitary coupled-cluster with singles and doubles (UCCSD) in 2014. It should be noted that, by default, the parameter $\{\theta\}$ in the coupled-cluster operator is a real number. There is no problem with this hypothesis in molecular systems. In periodic systems, the study of [Liu Jie et al.](https://doi.org/10.1021/acs.jctc.0c00881) suggests that a unitary coupled-cluster can result in errors due to the neglect of the complex numbers. This tutorial does not discuss the application of unitary coupled-cluster in periodic systems.
 
-The `generate_uccsd` function in the circuit module of MindQuantum can be used to read the computing result saved in `molecule_file`, build the UCCSD wave function by one click, and obtain the corresponding quantum circuit.
+The `generate_uccsd` function in the circuit module of MindSpore Quantum can be used to read the computing result saved in `molecule_file`, build the UCCSD wave function by one click, and obtain the corresponding quantum circuit.
 
 ```python
 ansatz_circuit, \
@@ -268,7 +268,7 @@ ccsd:-7.882352909152705.
 fci:-7.882362286798725.
 ```
 
-`generate_uccsd` packs functions related to the unitary coupled-cluster, including multiple steps such as deriving a molecular Hamiltonian, building a unitary coupled-cluster ansatz operator, and extracting a coupled-cluster coefficient computed by CCSD. This function reads the molecule by entering its file path. The parameter `th` indicates the to-be-updated gradient threshold of a parameter in the quantum circuit. In the section [Building a Unitary Coupled-Cluster Ansatz Step by Step](#building-a-unitary-coupled-cluster-ansatz-step-by-step), we will demonstrate how to use the related interfaces of MindQuantum to complete the steps. A complete quantum circuit includes an HF initial state and a UCCSD ansatz, as shown in the following code:
+`generate_uccsd` packs functions related to the unitary coupled-cluster, including multiple steps such as deriving a molecular Hamiltonian, building a unitary coupled-cluster ansatz operator, and extracting a coupled-cluster coefficient computed by CCSD. This function reads the molecule by entering its file path. The parameter `th` indicates the to-be-updated gradient threshold of a parameter in the quantum circuit. In the section [Building a Unitary Coupled-Cluster Ansatz Step by Step](#building-a-unitary-coupled-cluster-ansatz-step-by-step), we will demonstrate how to use the related interfaces of MindSpore Quantum to complete the steps. A complete quantum circuit includes an HF initial state and a UCCSD ansatz, as shown in the following code:
 
 ```python
 total_circuit = hartreefock_wfn_circuit + ansatz_circuit
@@ -302,7 +302,7 @@ The procedure for solving the molecular ground state by using the VQE is as foll
 8. Repeat steps 5 to 7 until the convergence criteria are met.
 9. End.
 
-In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindQuantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of variational quantum circuits in simulation. The following uses MindQuantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
+In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindSpore Quantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of variational quantum circuits in simulation. The following uses MindSpore Quantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
 
 ```python
 sim = Simulator('mqvector', total_circuit.n_qubits)
@@ -385,7 +385,7 @@ It can be seen that the computing result of unitary coupled-cluster is very clos
 <a id="step-by-step"></a>
 
 In the preceding part, the `generate_uccsd` is used to build all the content required for designing the unitary coupled-cluster. In this section, the steps are split, we get the coupled-cluster operator, the corresponding quantum circuit and the initial guess of the variational parameters from the classical CCSD results.
-First, import some extra dependencies, including the related functions of the HiQfermion module in MindQuantum.
+First, import some extra dependencies, including the related functions of the HiQfermion module in MindSpore Quantum.
 
 ```python
 from mindquantum.algorithm.nisq import Transform
@@ -516,4 +516,4 @@ Optimized amplitudes:
 
 ## Summary
 
-In this case, the ground state energy of the LiH molecule is obtained by using the quantum neural network in two methods. In the first method, we use the `generate_uccsd` function packaged by MindQuantum to generate a quantum neural network that can solve this problem. In the second method, we build a similar quantum neural network step by step. The final results are the same.
+In this case, the ground state energy of the LiH molecule is obtained by using the quantum neural network in two methods. In the first method, we use the `generate_uccsd` function packaged by MindSpore Quantum to generate a quantum neural network that can solve this problem. In the second method, we build a similar quantum neural network step by step. The final results are the same.

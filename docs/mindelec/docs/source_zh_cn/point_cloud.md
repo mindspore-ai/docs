@@ -4,9 +4,9 @@
 
 ## 概述
 
-本教程介绍MindElec提供的基于点云方案的AI电磁仿真方法，引导您快速使用MindElec。
+本教程介绍MindSpore Elec提供的基于点云方案的AI电磁仿真方法，引导您快速使用MindSpore Elec。
 
-传统电磁仿真计算通常使用基于有限元或有限差分的方法计算电磁场，这些方法需要复杂的网格剖分与迭代计算，整体流程耗时长，影响产品研发效率。MindElec提供一种新的电磁场端到端AI计算方法，该方法基于点云数据，跳过网格剖分与迭代求解，直接计算仿真区域内电磁场，大幅提升整体仿真速度，助力产品高效研发。
+传统电磁仿真计算通常使用基于有限元或有限差分的方法计算电磁场，这些方法需要复杂的网格剖分与迭代计算，整体流程耗时长，影响产品研发效率。MindSpore Elec提供一种新的电磁场端到端AI计算方法，该方法基于点云数据，跳过网格剖分与迭代求解，直接计算仿真区域内电磁场，大幅提升整体仿真速度，助力产品高效研发。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/pointcloud>
@@ -22,7 +22,7 @@
 
 ## 从CST文件导出几何/材料信息
 
-MindElec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
+MindSpore Elec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
 
 - **基于CST的VBA接口自动调用导出json文件和stp文件**：打开CST软件的VBA Macros Editor， 导入`generate_pointcloud`目录下的`export_stp.bas`文件，将json文件和stp文件路径更改为想要存放的位置，然后点击`Run`即可导出json文件和stp文件。其中，json文件中包含了模型的端口位置以及stp文件对应的材料信息。
 - **对于CST2019或更新的版本，支持使用Python直接调用CST**：直接调用`generate_pointcloud`目录下的`export_stp.py`文件即可。
@@ -39,7 +39,7 @@ python export_stp.py --cst_path CST_PATH
 
 ## 点云数据生成
 
-stp文件无法直接作为神经网络的输入，需要先转换为规则的张量数据，MindElec提供将stp文件高效转化为点云张量数据的接口，`generate_pointcloud`目录下的`generate_cloud_point.py`文件提供该接口调用示例。
+stp文件无法直接作为神经网络的输入，需要先转换为规则的张量数据，MindSpore Elec提供将stp文件高效转化为点云张量数据的接口，`generate_pointcloud`目录下的`generate_cloud_point.py`文件提供该接口调用示例。
 
 调用时，通过配置`stp_path`和`json_path`可以指定用来生成点云的stp和json文件的路径；`material_dir`指定stp对应的材料信息的路径，材料信息直接在cst软件中导出；`sample_nums`指定x、y、z三个维度分别生成多少个点云数据；`bbox_args`用来指定生成点云数据的区域，即（x_min, y_min, z_min, x_max, y_max, z_max）。
 
@@ -55,7 +55,7 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 ## 数据压缩
 
-如果点云分辨率设置较高，仅单条点云数据的后处理就需巨大的内存和计算量，因此MindElec提供数据压缩功能。用户可以调用`data_compression`目录下的脚本，压缩原始点云数据，该压缩过程分两步：
+如果点云分辨率设置较高，仅单条点云数据的后处理就需巨大的内存和计算量，因此MindSpore Elec提供数据压缩功能。用户可以调用`data_compression`目录下的脚本，压缩原始点云数据，该压缩过程分两步：
 
 - 首次使用时需要调用`train.py`训练压缩模型，若已有压缩模型检查点可以跳过该步。
 - 模型训练结束后即可调用`data_compress.py`进行数据压缩。
@@ -114,7 +114,7 @@ class Decoder(nn.Cell):
 model_net = EncoderDecoder(config["input_channels"], config["patch_shape"], config["base_channels"], ecoding=True)
 ```
 
-其次调用MindElec的数据接口读取数据集，该接口可以自动打乱数据并分批次：
+其次调用MindSpore Elec的数据接口读取数据集，该接口可以自动打乱数据并分批次：
 
 ```python
 train_dataset = create_dataset(input_path=opt.train_input_path,
@@ -133,7 +133,7 @@ milestones, learning_rates = step_lr_generator(step_size,
                                                config["lr_decay_milestones"])
 ```
 
-MindElec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
+MindSpore Elec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
 
 ```python
 solver = Solver(model_net,
@@ -171,7 +171,7 @@ load_checkpoint(opt.model_path, encoder)
 
 ## 电磁仿真计算
 
-点云数据准备完毕后即可调用MindElec `full_em`和`S_parameter`目录下的电磁仿真模型，实现全量电磁场和S参数的仿真计算，每个仿真过程均可以分为如下两步：
+点云数据准备完毕后即可调用MindSpore Elec `full_em`和`S_parameter`目录下的电磁仿真模型，实现全量电磁场和S参数的仿真计算，每个仿真过程均可以分为如下两步：
 
 - 调用`train.py`训练仿真模型。
 - 模型训练结束后调用`eval.py`进行全量电磁场或S参数的仿真计算。
@@ -227,7 +227,7 @@ class ModelHead(nn.Cell):
 model_net = Maxwell3D(6)
 ```
 
-调用`src/dataset.py`中定义的的数据读取接口加载数据集，该接口的实现基于MindElec的数据接口，在加载数据的同时可以自动打乱数据并分批次：
+调用`src/dataset.py`中定义的的数据读取接口加载数据集，该接口的实现基于MindSpore Elec的数据接口，在加载数据的同时可以自动打乱数据并分批次：
 
 ```python
 dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle=True)
@@ -239,7 +239,7 @@ dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle
 lr = get_lr(config.lr, step_size, config.epochs)
 ```
 
-其次调用MindElec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等：
+其次调用MindSpore Elec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等：
 
 ```python
 solver = Solver(model_net,
@@ -269,7 +269,7 @@ model_net = Maxwell3D(6)
 param_dict = load_checkpoint(opt.checkpoint_path)
 ```
 
-调用MindElec的推理接口可以实现自动推理：
+调用MindSpore Elec的推理接口可以实现自动推理：
 
 ```python
 solver = Solver(model_net, optimizer=optimizer, loss_fn=loss_net, metrics={"evl_mrc": evl_error_mrc})
@@ -290,7 +290,7 @@ print('test_res:', f'l2_error: {l2_s11:.10f} ')
 
 ```python
 class S11Predictor(nn.Cell):
-    """S11Predictor architecture for MindElec"""
+    """S11Predictor architecture for MindSpore Elec"""
     def __init__(self, input_dim):
         super(S11Predictor, self).__init__()
         self.conv1 = nn.Conv3d(input_dim, 512, kernel_size=(3, 3, 1))
@@ -355,7 +355,7 @@ dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True
 milestones, learning_rates = step_lr_generator(step_size, epochs, lr, lr_decay_milestones)
 ```
 
-调用MindElec的训练接口`Solver`定义训练参数：
+调用MindSpore Elec的训练接口`Solver`定义训练参数：
 
 ```python
 solver = Solver(model_net,
@@ -386,7 +386,7 @@ model_net = S11Predictor(input_dim=config["input_channels"])
 load_checkpoint(opt.model_path, model_net)
 ```
 
-调用MindElec的`solver.model.eval`接口进行推理：
+调用MindSpore Elec的`solver.model.eval`接口进行推理：
 
 ```python
 solver = Solver(network=model_net,

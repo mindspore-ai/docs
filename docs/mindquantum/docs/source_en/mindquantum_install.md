@@ -1,4 +1,4 @@
-# MindQuantum Installation
+# MindSpore Quantum Installation
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/mindquantum_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -28,7 +28,7 @@ cd ~
 git clone https://gitee.com/mindspore/mindquantum.git
 ```
 
-2.Compiling MindQuantum
+2.Compiling MindSpore Quantum
 
 ```bash
 cd ~/mindquantum
@@ -45,4 +45,4 @@ python -c 'import mindquantum'
 
 ## Install with Docker
 
-Mac or Windows users can install MindQuantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md#).
+Mac or Windows users can install MindSpore Quantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md#).

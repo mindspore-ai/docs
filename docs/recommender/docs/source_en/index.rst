@@ -11,7 +11,7 @@ The MindSpore Recommender acceleration library consists of the following compone
 
 - online training: implements online training of real-time data and incremental model updates by streaming data from real-time data sources (e.g., Kafka) and online real-time data processing to support business scenarios that require real-time model updates.
 - offline training: for the traditional offline dataset training scenario, it supports the training of recommendation models containing large-scale feature vectors through automatic parallelism, distributed feature caching, heterogeneous acceleration and other technical solutions.
-- data processing: MindPandas and MindData provide the ability to read and process data online and offline, saving the overhead of multiple languages and frameworks through full-Python expression support, and opening up efficient data flow links for data processing and model training.
+- data processing: MindSpore Pandas and MindData provide the ability to read and process data online and offline, saving the overhead of multiple languages and frameworks through full-Python expression support, and opening up efficient data flow links for data processing and model training.
 - model library: includes continuous rich training of typical recommendation models. After rigorous validation for accuracy and performance, it can be used right after installation.
 
 .. toctree::

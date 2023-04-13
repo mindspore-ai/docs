@@ -6,7 +6,7 @@
 
 原始的PINNs（Physics-Informed Neural Networks, PINNs)方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。
 
-本教程重点介绍基于MindElec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
+本教程重点介绍基于MindSpore Elec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
@@ -19,7 +19,7 @@
 
 通常情况下，待求解方程中的可变参数$\lambda$ 的分布构成高维空间。为了降低模型复杂度以及训练成本，我们提出了基于物理信息的自解码器来求解同一类的方程族。该方法首先将高维可变参数空间映射到由低维向量表征的低维流形上，然后将流形的特征参数与方程的输入融合作为点源问题求解网络的输入一起参与到PINNs的训练中，由此可以得到预训练模型。针对新给定的可变参数问题，对预训练模型进行微调即可以得到新方程的解。
 
-MindElec基于物理信息的自解码器求解该问题的具体流程如下：
+MindSpore Elec基于物理信息的自解码器求解该问题的具体流程如下：
 
 - 基于隐向量和神经网络的结合对一系列方程组进行预训练。与求解单个问题不同，预训练步骤中，神经网络的输入为采样点（X）与隐向量（Z）的融合，具体如下图所示：
 
@@ -81,7 +81,7 @@ geom_dict = {src_region : ["domain", "IC"],
                 boundary : ["BC"]}
 ```
 
-MindElec提供了将不同的采样数据合并为统一训练数据集的Dataset接口。
+MindSpore Elec提供了将不同的采样数据合并为统一训练数据集的Dataset接口。
 
 ```python
 # create dataset for train
@@ -94,7 +94,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["batch_size"
 
 ### 定义控制方程及初边值条件
 
-继承MindElec提供的Problem类，我们定义该偏微分方程（partial differential equation，PDE）问题的核心代码如下。与求解单个点源问题不同，这里还传入了不同的参数`eps_candidates`， `mu_candidates`代表相对介电常数和相对磁导率。本案例中我们的预训练的参数选择为$(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$。
+继承MindSpore Elec提供的Problem类，我们定义该偏微分方程（partial differential equation，PDE）问题的核心代码如下。与求解单个点源问题不同，这里还传入了不同的参数`eps_candidates`， `mu_candidates`代表相对介电常数和相对磁导率。本案例中我们的预训练的参数选择为$(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$。
 
 ```python
 class Maxwell2DMur(Problem):
@@ -275,7 +275,7 @@ network = MultiScaleFCCell(config["input_size"],
 
 ### 自适应加权损失函数加速收敛
 
-在本案例中，由于源区附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindElec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应地调节每项损失函数的权重，可以显著地提升训练速度和精度。该算法的实现具体如下：
+在本案例中，由于源区附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindSpore Elec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应地调节每项损失函数的权重，可以显著地提升训练速度和精度。该算法的实现具体如下：
 
 ```python
 class MTLWeightedLossCell(nn.Cell):
@@ -302,7 +302,7 @@ mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 
 ### 模型测试
 
-MindElec可以通过自定义的callback函数，利用边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
+MindSpore Elec可以通过自定义的callback函数，利用边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
 
 ```python
 callbacks = [LossAndTimeMonitor(epoch_steps)]
@@ -314,7 +314,7 @@ if config.get("train_with_eval", False):
 
 ### 模型预训练
 
-MindElec提供的Solver类是模型训练和推理的接口。输入优化器和网络模型以及PDE的约束（train_constraints），以及可选参数如自适应加权算法模块，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成求解麦克斯韦方程。
+MindSpore Elec提供的Solver类是模型训练和推理的接口。输入优化器和网络模型以及PDE的约束（train_constraints），以及可选参数如自适应加权算法模块，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成求解麦克斯韦方程。
 
 ```python
 # mixed precision

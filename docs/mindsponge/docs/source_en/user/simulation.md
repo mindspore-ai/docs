@@ -2,15 +2,15 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/user/simulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-MindSPONGE has adopted a unique "AI-like" molecular simulation program architecture:
+MindSpore SPONGE has adopted a unique "AI-like" molecular simulation program architecture:
 
-![MindSPONGE](./images/mindsponge.png)
+![MindSpore SPONGE](./images/mindsponge.png)
 
-The feature of the architecture is that it turns molecular simulation into a special AI training process, which allows MindSPONGE perform molecular dynamics simulations in the same way that MindSpore can for training network models.
+The feature of the architecture is that it turns molecular simulation into a special AI training process, which allows MindSpore SPONGE perform molecular dynamics simulations in the same way that MindSpore can for training network models.
 
-Firstly, both MindSpore and MindSPONGE require three basic cells or function modules, and there is a one-to-one correspondence between them:
+Firstly, both MindSpore and MindSpore SPONGE require three basic cells or function modules, and there is a one-to-one correspondence between them:
 
-| MindSpore | | MindSPONGE | |
+| MindSpore | | MindSpore SPONGE | |
 | :-------- | :--------- | :--------- | :--------- |
 | Model | network | System | system |
 | Loss Function | loss_fn | Potential Function | potential |
@@ -37,7 +37,7 @@ ckpoint_cb = ModelCheckpoint('network', config=CheckpointConfig(32))
 model.train(1024, dataset, callbacks=[monitor_cb, ckpoint_cb])
 ```
 
-The code for molecular dynamics simulations using MindSPONGE is very similar to the code above:
+The code for molecular dynamics simulations using MindSpore SPONGE is very similar to the code above:
 
 ```python
 from mindsponge import SimulationCell
@@ -58,9 +58,9 @@ md.run(1000, callbacks=[run_info, cb_h5md])
 
 It can be seen that there are two encapsulation methods in MindSpore. One is to directly use the top-level module Model of MindSpore to encapsulate the network model, loss function loss_fn and optimizer, which is suitable for the simplest training of supervised learning. The other encapsulation method is to first use the WithLossCell module to wrap the network Model and loss function loss_fn, and then use the Model module to wrap the wrapped WithLossCell module and optimizer. This situation applies to more complex training. For example, the training of generative adversarial networks (GANs) using MindSpore can be implemented through the heavy-load mode of WithLossCell.
 
-Sponge is the top module used by MindSPONGE to encapsulate the three functional modules. There are also two ways to encapsulate the three basic units. The first one is to directly encapsulate the simulation system, potential energy function and updater with Sponge, which is also suitable for the most common simulation. In the other one, SimulationCell is used to encapsulate the simulation system and potential function, and then the encapsulated SimulationCell and updater are wrapped in Sponge. In this case, some complex simulation functions can be realized by adjusting SimulationCell parameters, such as adjusting cutoff radius and setting bias potential, etc.
+Sponge is the top module used by MindSpore SPONGE to encapsulate the three functional modules. There are also two ways to encapsulate the three basic units. The first one is to directly encapsulate the simulation system, potential energy function and updater with Sponge, which is also suitable for the most common simulation. In the other one, SimulationCell is used to encapsulate the simulation system and potential function, and then the encapsulated SimulationCell and updater are wrapped in Sponge. In this case, some complex simulation functions can be realized by adjusting SimulationCell parameters, such as adjusting cutoff radius and setting bias potential, etc.
 
-After encapsulating the three basic units, MindSpore executes the training process by calling the train() function of the Model module, while MindSPONGE executes the simulation process by calling the run() function of the Sponge module. In MindSpore, different callback functions can be used to process the information in the training process (without changing the calculation diagram). For example, LossMonitor() function can be used to monitor the parameter changes in the training process, and ModelCheckpoint() function can be used to save network parameters. However, MindSPONGE can also use a callback function to process information during simulation. For example, RunInfo() function is used to print parameter information during training, and WriteH5MD() is used to record the changes of system coordinates during simulation as a simulation trajectory.
+After encapsulating the three basic units, MindSpore executes the training process by calling the train() function of the Model module, while MindSpore SPONGE executes the simulation process by calling the run() function of the Sponge module. In MindSpore, different callback functions can be used to process the information in the training process (without changing the calculation diagram). For example, LossMonitor() function can be used to monitor the parameter changes in the training process, and ModelCheckpoint() function can be used to save network parameters. However, MindSpore SPONGE can also use a callback function to process information during simulation. For example, RunInfo() function is used to print parameter information during training, and WriteH5MD() is used to record the changes of system coordinates during simulation as a simulation trajectory.
 
 ## System(Molecule) Module
 
@@ -102,7 +102,7 @@ For Protein molecules, the protein class, a subclass of Molecule, can be initial
 
 ## Potential (Force Field) Module
 
-Simulation module is used to describe the potential energy function used in simulation process. The basic class (parent) of potential energy is mindsponge.potential.PotentialCell. However, in the classical molecular simulation, force field is used as the potential energy function, and in MindSPONGE, it is a force field module. Force field module is the basic class for mindsponge.potential.ForceFieldBase, it's a subclass for PotentialCell. The classical molecular force field generally contains different energy terms, the common energy terms include bond length, bond angles, dihedral angles, Coulomb interaction, van der Waals interaction and so on. Some of the commonly used energy are embedded in mindsponge.potential.energy, these energy terms can be put into ForceFieldBase as a list to initialize the class:
+Simulation module is used to describe the potential energy function used in simulation process. The basic class (parent) of potential energy is mindsponge.potential.PotentialCell. However, in the classical molecular simulation, force field is used as the potential energy function, and in MindSpore SPONGE, it is a force field module. Force field module is the basic class for mindsponge.potential.ForceFieldBase, it's a subclass for PotentialCell. The classical molecular force field generally contains different energy terms, the common energy terms include bond length, bond angles, dihedral angles, Coulomb interaction, van der Waals interaction and so on. Some of the commonly used energy are embedded in mindsponge.potential.energy, these energy terms can be put into ForceFieldBase as a list to initialize the class:
 
 ```python
 from mindsponge import ForceFieldBase
@@ -128,15 +128,15 @@ For the complete set of molecular force field, ForceField class, a subclass of F
     potential = ForceField(system, 'AMBER.FF14SB')
 ```
 
-The string 'AMBER.FF14SB' here is essentially the filename of a YAML format force field parameter file. The rules of MindSPONGE reading the force field parameters is that, first of all, in the current directory to find whether there is a file with the same name. If there exists the file, read it. If there is no file, it will continue to search in MindSPONGE.data.forcefield directory and read the same file.
+The string 'AMBER.FF14SB' here is essentially the filename of a YAML format force field parameter file. The rules of MindSpore SPONGE reading the force field parameters is that, first of all, in the current directory to find whether there is a file with the same name. If there exists the file, read it. If there is no file, it will continue to search in MindSpore SPONGE.data.forcefield directory and read the same file.
 
-Note that if ForceField class is used to build a potential function, then its initialization process will reconstruct force-related parameters such as the atom type of the incoming system (molecular) module system. This is because atom types of different molecular force fields are often different. However, when using system modules for modeling, MindSPONGE does not require specifying molecular force field before modeling like most traditional MD simulation software. Therefore, in many cases, the system (molecular) module does not set atom_type when initializing, so when ForceField is used to create a potential function, The atomtype (atom_type), charge (atom_charge), and mass (atom_mass) are automatically set according to the atom name (atom_name) in the system (molecule) module.
+Note that if ForceField class is used to build a potential function, then its initialization process will reconstruct force-related parameters such as the atom type of the incoming system (molecular) module system. This is because atom types of different molecular force fields are often different. However, when using system modules for modeling, MindSpore SPONGE does not require specifying molecular force field before modeling like most traditional MD simulation software. Therefore, in many cases, the system (molecular) module does not set atom_type when initializing, so when ForceField is used to create a potential function, The atomtype (atom_type), charge (atom_charge), and mass (atom_mass) are automatically set according to the atom name (atom_name) in the system (molecule) module.
 
 ## Updater (Optimizer) Module
 
-In MindSPONGE, the Updater is used to update the atomic coordinates of the simulation system during the simulation process. The Updater is essentially an optimizer. Its basic class mindsponge.optimizer.Updater is also a subclass of mindspore.nn.Optimizer. In fact, MindSpore optimizers such as Adam can be used directly as the upgrader of MindSPONGE, and the simulation process is equivalent to energy minimization of the simulation system.
+In MindSpore SPONGE, the Updater is used to update the atomic coordinates of the simulation system during the simulation process. The Updater is essentially an optimizer. Its basic class mindsponge.optimizer.Updater is also a subclass of mindspore.nn.Optimizer. In fact, MindSpore optimizers such as Adam can be used directly as the upgrader of MindSpore SPONGE, and the simulation process is equivalent to energy minimization of the simulation system.
 
-And MindSPONGE's Updater allows for fine-tuning of the simulation using different controllers. The controller, whose basic class is mindsponge.control.Controller, can be used to adjust and update seven variables of coordinate, velocity, force, energy, kinetic energy, virial and PBC box in the simulation process. Common controllers include the Integrator, Thermostat, Barostat, and Constraint. The Updater of the base class can be initialized by accepting a list of controller classes and updating the parameters in the order of the controllers in the list during the simulation:
+And MindSpore SPONGE's Updater allows for fine-tuning of the simulation using different controllers. The controller, whose basic class is mindsponge.control.Controller, can be used to adjust and update seven variables of coordinate, velocity, force, energy, kinetic energy, virial and PBC box in the simulation process. Common controllers include the Integrator, Thermostat, Barostat, and Constraint. The Updater of the base class can be initialized by accepting a list of controller classes and updating the parameters in the order of the controllers in the list during the simulation:
 
 ```python
 from mindsponge import Updater
@@ -181,7 +181,7 @@ opt = MolecularDynamics (
 
 ## SimulationCell
 
-As mentioned above, in addition to directly using the top module Sponge of MindSPONGE to encapsulate three functional modules, namely system (molecule) module, potential energy (force field) module and refresher (optimizer) module, SimulationCell can also be used to encapsulate the system (molecular) module and potential energy (force field) module. Besides encapsulating two modules, SimulationCell can also set neighbour list, bias potential and post-processing mode of potential energy (wrapper) when initializing:
+As mentioned above, in addition to directly using the top module Sponge of MindSpore SPONGE to encapsulate three functional modules, namely system (molecule) module, potential energy (force field) module and refresher (optimizer) module, SimulationCell can also be used to encapsulate the system (molecular) module and potential energy (force field) module. Besides encapsulating two modules, SimulationCell can also set neighbour list, bias potential and post-processing mode of potential energy (wrapper) when initializing:
 
 ```python
 from mindsponge import SimulationCell
@@ -202,9 +202,9 @@ simulation = SimulationCell(
 
 ## Callback
 
-In the AI framework, callback function is used to carry out some operations without changing the calculation graph, such as monitoring and recording the change of the loss function in the training process, verifying whether the parameters in the training process are up to standard, and stopping the training process according to the verification result. In MindSPONGE, Callback can also be used to implement operations that do not affect the simulation process, such as monitoring important simulation parameters, recording simulation tracks, calculating physical quantities and CVs (collective variables) in the simulation process, etc.
+In the AI framework, callback function is used to carry out some operations without changing the calculation graph, such as monitoring and recording the change of the loss function in the training process, verifying whether the parameters in the training process are up to standard, and stopping the training process according to the verification result. In MindSpore SPONGE, Callback can also be used to implement operations that do not affect the simulation process, such as monitoring important simulation parameters, recording simulation tracks, calculating physical quantities and CVs (collective variables) in the simulation process, etc.
 
-Currently, MindSPONGE has two built-in Callback functions:
+Currently, MindSpore SPONGE has two built-in Callback functions:
 
 - RunInfo: Used to print intermediate quantities of the simulation process, such as energy, temperature, pressure, etc.
 
@@ -212,17 +212,17 @@ Currently, MindSPONGE has two built-in Callback functions:
 
 ## Simulation Track File: H5MD
 
-MindSPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file Format based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014 (de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.).
+MindSpore SPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file Format based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014 (de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.).
 
 Jonas Landsgesell and Sascha Ehrhardt of the University of Stuttgart, Germany, have developed an [VMD plug-in](https://github.com/h5md/VMD-h5mdplugin) that allows us to view a simulation trace file in the H5MD format. However, this plugin is buggy and has not been updated since 2019. We forked the [original repository](https://gitee.com/helloyesterday/VMD-h5mdplugin), fixed bugs, and made some minor changes to the original program, adding functions such as unit conversion of coordinates, and changing the default file extension from.h5 to.h5MD. [MDAnalysis](https://www.mdanalysis.org/) can also be used to read the simulated trajectory information of the H5MD file.
 
-Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalable, in addition to recording simulation tracks, and can record relevant data during simulation. MindSPONGE recorded potential energy, kinetic energy, temperature, pressure and other information in the simulation process in the observables directory of H5MD file. This information can be viewed using some HDF5 readers, such as the [Silx Viewer](https://www.silx.org/doc/silx/latest/):
+Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalable, in addition to recording simulation tracks, and can record relevant data during simulation. MindSpore SPONGE recorded potential energy, kinetic energy, temperature, pressure and other information in the simulation process in the observables directory of H5MD file. This information can be viewed using some HDF5 readers, such as the [Silx Viewer](https://www.silx.org/doc/silx/latest/):
 
 ![silx](./images/silx.png)
 
 ## Tutorial
 
-A tutorial on molecular dynamics simulations using the MindSPONGE is available at [MindScience](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic).
+A tutorial on molecular dynamics simulations using the MindSpore SPONGE is available at [MindScience](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic).
 
 ## Reference
 

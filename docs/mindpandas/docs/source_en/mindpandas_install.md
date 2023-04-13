@@ -1,10 +1,10 @@
-# Installing MindPandas
+# Installing MindSpore Pandas
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Confirming System Environment Information
 
-The following table lists the environment required for installing, compiling and running MindPandas:
+The following table lists the environment required for installing, compiling and running MindSpore Pandas:
 
 | software |             version              |
 | :------: |:--------------------------------:|
@@ -19,9 +19,9 @@ The following table lists the environment required for installing, compiling and
 
 ### Installing from pip command
 
-If you use the pip, please download the whl package from [MindPandas](https://www.mindspore.cn/versions/en) page and install it.
+If you use the pip, please download the whl package from [MindSpore Pandas](https://www.mindspore.cn/versions/en) page and install it.
 
-> Installing whl package will download MindPandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
+> Installing whl package will download MindSpore Pandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
 
 ### Installing from source code
 

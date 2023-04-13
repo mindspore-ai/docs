@@ -158,7 +158,7 @@ Note:
 
 ## Building Encoder
 
-According to the quantum circuit diagram shown, we can build an Encoder in MindQuantum to encode classical data into quantum states.
+According to the quantum circuit diagram shown, we can build an Encoder in MindSpore Quantum to encode classical data into quantum states.
 
 ![Encoder](./images/encoder_classification_of_iris_by_qnn.png)
 
@@ -212,7 +212,7 @@ The UN module is used to map quantum gates to different target qubits and contro
 
 ## Building Ansatz
 
-According to the quantum circuit diagram shown, we can build Ansatz in MindQuantum.
+According to the quantum circuit diagram shown, we can build Ansatz in MindSpore Quantum.
 
 ![Ansatz](./images/ansatz_classification_of_iris_by_qnn.png)
 
@@ -344,7 +344,7 @@ from mindspore.dataset import NumpySlicesDataset                               #
 loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')            # The loss function is defined by SoftmaxCrossEntropyWithLogits, sparse=True indicates that the specified label uses a sparse format, and reduction='mean' indicates that the dimensionality reduction method of the loss function is averaging
 opti = Adam(QuantumNet.trainable_params(), learning_rate=0.1)                  # The parameters in Ansatz are optimized by the Adam optimizer. What needs to be optimized are the trainable parameters in Quantumnet, and the learning rate is set to 0.1
 
-model = Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindQuantum and the operators of MindSpore to form a larger machine learning network
+model = Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindSpore Quantum and the operators of MindSpore to form a larger machine learning network
 
 train_loader = NumpySlicesDataset({'features': X_train, 'labels': y_train}, shuffle=False).batch(5) # Create a dataset of training samples by NumpySlicesDataset, shuffle=False means not to shuffle the data, batch(5) means that the training set has 5 sample points per batch
 test_loader = NumpySlicesDataset({'features': X_test, 'labels': y_test}).batch(5)                   # Create a data set of test samples by NumpySlicesDataset, batch(5) means that there are 5 sample points in each batch of the test set
@@ -451,6 +451,6 @@ Actual classification result: [0 1 0 1 1 1 0 1 1 1 1 1 1 0 0 0 0 0 0 0]
 
 It can be seen from the above print that the predicted classification results are completely consistent with the actual classification results, and the accuracy of the model prediction has reached 100%.
 
-So far, we have experienced how to build a quantum neural network to solve a classic problem in classical machine learning - the iris classification problem. I believe everyone has a better understanding of using MindQuantum! Looking forward to digging more questions and giving full play to the powerful functions of MindQuantum!
+So far, we have experienced how to build a quantum neural network to solve a classic problem in classical machine learning - the iris classification problem. I believe everyone has a better understanding of using MindSpore Quantum! Looking forward to digging more questions and giving full play to the powerful functions of MindSpore Quantum!
 
-To find out more about MindQuantum's API, please click: <https://mindspore.cn/mindquantum/>.
+To find out more about MindSpore Quantum's API, please click: <https://mindspore.cn/mindquantum/>.

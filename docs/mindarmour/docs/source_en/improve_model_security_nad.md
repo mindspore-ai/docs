@@ -4,15 +4,15 @@
 
 ## Overview
 
-This tutorial describes the model security protection methods provided by MindArmour, helping you quickly use MindArmour and provide certain security protection capabilities for your AI model.
+This tutorial describes the model security protection methods provided by MindSpore Armour, helping you quickly use MindSpore Armour and provide certain security protection capabilities for your AI model.
 
-At the beginning of AI algorithm design, related security threats are sometimes not considered. As a result, the developed AI model may easily be affected by malicious attackers, leading to inaccurate judgment of the AI system. An attacker adds small perturbations that are not easily perceived by human to the original sample, causing deep learning model misjudgment. This is called an adversarial example attack. MindArmour model security toolkit provides functions such as adversarial example generation, adversarial example detection, model defense, and attack/defense effect evaluation, providing important support for AI model security research and AI application security.
+At the beginning of AI algorithm design, related security threats are sometimes not considered. As a result, the developed AI model may easily be affected by malicious attackers, leading to inaccurate judgment of the AI system. An attacker adds small perturbations that are not easily perceived by human to the original sample, causing deep learning model misjudgment. This is called an adversarial example attack. MindSpore Armour model security toolkit provides functions such as adversarial example generation, adversarial example detection, model defense, and attack/defense effect evaluation, providing important support for AI model security research and AI application security.
 
 - The adversarial example generation module enables security engineers to quickly and efficiently generate adversarial examples for attacking AI models.
 - The adversarial example detection and defense modules allow users to detect and filter adversarial examples and enhance the robustness of AI models to adversarial examples.
 - The evaluation module provides multiple metrics to comprehensively evaluate the attack and defense performance of adversarial examples.
 
-This section describes how to use MindArmour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
+This section describes how to use MindSpore Armour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
 > The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at
 > <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
@@ -204,7 +204,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
 ## Adversarial Attack
 
-Call the FGSM API provided by MindArmour.
+Call the FGSM API provided by MindSpore Armour.
 
 ```python
 # attacking
@@ -260,7 +260,7 @@ Natural Adversarial Defense (NAD) is a simple and effective adversarial example 
 
 ### Defense Implementation
 
-Call the NAD API provided by MindArmour.
+Call the NAD API provided by MindSpore Armour.
 
 ```python
 from mindarmour.adv_robustness.defenses import NaturalAdversarialDefense

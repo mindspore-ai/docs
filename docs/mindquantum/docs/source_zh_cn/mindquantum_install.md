@@ -1,4 +1,4 @@
-# 安装MindQuantum
+# 安装MindSpore Quantum
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/mindquantum_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -27,7 +27,7 @@ pip install mindquantum
     git clone https://gitee.com/mindspore/mindquantum.git
     ```
 
-2. 编译安装MindQuantum
+2. 编译安装MindSpore Quantum
 
     ```bash
     cd ~/mindquantum

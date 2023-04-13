@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-The DataFrame is a two-dimensional table data structure with row and column indexes, and is one of the main data structures of MindPandas.
+The DataFrame is a two-dimensional table data structure with row and column indexes, and is one of the main data structures of MindSpore Pandas.
 
 ## DataFrame Construction
 
@@ -58,7 +58,7 @@ The result is as follows:
 
 ## DataFrame API
 
-| MindPandas DataFrame API             | Pandas API                                                                                                                                                                    | Supported Platform |
+| MindSpore Pandas DataFrame API             | Pandas API                                                                                                                                                                    | Supported Platform |
 |--------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.DataFrame.add             | [pandas.DataFrame.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.add.html#pandas.DataFrame.add)                                      | CPU                 |
 | mindpandas.DataFrame.all             | [pandas.DataFrame.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.all.html#pandas.DataFrame.all)                                      | CPU                 |
