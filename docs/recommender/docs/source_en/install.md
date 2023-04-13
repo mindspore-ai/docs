@@ -18,7 +18,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Rec
 
 ## Installing from Source Code
 
-Download the [source code](https://gitee.com/mindspore/recommender) and go to the `recommender` directory after downloading.
+Download the [source code](https://github.com/mindspore-lab/mindrec) and go to the `mindrec` directory after downloading.
 
 ```shell
 bash build.sh
