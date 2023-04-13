@@ -27,15 +27,15 @@ MindSpore：`low` 为必选输入，无默认值。
 | 分类  | 子类   | PyTorch       | MindSpore | 差异                                   |
 |-----|------|---------------|-----------|--------------------------------------|
 | 参数  | 参数1  | low           | low       | PyTorch中 `low` 有默认值0，MindSpore不存在默认值 |
-| 参数  | 参数2  | high          | high      | 无差异                                  |
-| 参数  | 参数3  | size          | size      | 无差异                                  |
-| 参数  | 参数4  | generator     | -         | 通用差异                                 |
-| 参数  | 参数5  | out           | -         | 通用差异                                 |
-| 参数  | 参数6  | dtype         | dtype     | 无差异                                  |
-| 参数  | 参数7  | layout        | -         | 通用差异                                 |
-| 参数  | 参数8  | device        | -         | 通用差异                                 |
-| 参数  | 参数9  | requires_grad | -         | 通用差异                                 |
-| 参数  | 参数10 | -             | seed      | 通用差异                                 |
+|   | 参数2  | high          | high      | 无差异                                  |
+|   | 参数3  | size          | size      | 无差异                                  |
+|   | 参数4  | generator     | -         | 通用差异                                 |
+|   | 参数5  | out           | -         | 通用差异                                 |
+|   | 参数6  | dtype         | dtype     | 无差异                                  |
+|   | 参数7  | layout        | -         | 通用差异                                 |
+|   | 参数8  | device        | -         | 通用差异                                 |
+|   | 参数9  | requires_grad | -         | 通用差异                                 |
+|   | 参数10 | -             | seed      | 通用差异                                 |
 
 ### 代码示例
 
@@ -51,7 +51,7 @@ print(x.shape)
 # MindSpore
 import mindspore
 
-# MindSpore 必须将torch中low的默认值值（此处为0），作为输入传入。
+# MindSpore 必须将torch中low的默认值（此处为0），作为输入传入。
 x = mindspore.ops.randint(0, 10, (3, 3))
 print(x.shape)
 # (3, 3)
