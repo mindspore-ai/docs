@@ -19,7 +19,9 @@ $(function () {
   $('body').addClass('theme-lite');
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const pagePath = '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
+  const pagePath = pathname.startsWith('/docs/')
+  ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
+  : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
 
   let msDocsVersion = [],
       msVersionInfo = [],
@@ -28,8 +30,14 @@ $(function () {
 
   // 获取当前版本 r1.10
   function getCurrentVersion() {
-    return pathname.split('/')[4];
-  }
+    let version = 'master';
+    if (pathname.startsWith('/docs/')) {
+        version = pathname.split('/')[3];
+    } else {
+        version = pathname.split('/')[4];
+    }
+    return version;
+}
   // 获取当前版本 不带R
   function curVersion(version) {
       return version === 'master'
@@ -44,6 +52,9 @@ $(function () {
         versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
     });
+    if(versionName ==='') {
+      versionName = getCurrentVersion();
+    }
     return curVersion(versionName);
   }
 
@@ -137,9 +148,22 @@ $(function () {
             $('.header-wapper-docs .bottom .header-nav-link-line').removeClass('selected').eq(1).addClass('selected');
             $('.header-wapper-docs .top .version-select').hide();
           }
-          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + '(' + pageVersionName() + ')';
+          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + ' (' + pageVersionName() + ')';
 
       }, 100);
+
+      if ($('li.current>ul').length === 0) {
+        $('li.current').addClass('notoctree-l2');
+      }
+      let aList = $('.wy-menu-vertical>ul>.current>ul>.toctree-l2>a');
+      for (let i = 0; i < aList.length; i++) {
+        let hash = aList[i].hash;
+        if (hash != '') {
+            aList[i].parentNode.parentNode.style.display = 'none';
+            aList[i].parentNode.parentNode.parentNode.className = aList[i].parentNode.parentNode.parentNode.className + ' ' + 'navNoPlus';
+        }
+      }
+      
   };
   initLite();
 });

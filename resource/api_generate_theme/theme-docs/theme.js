@@ -121,7 +121,7 @@ $(function () {
                   .addClass('side-fix')
                   .prepend(versionDropdown(versionDropdownList));
           }
-          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + '(' + pageVersionName() + ')';
+          $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + ' (' + pageVersionName() + ')';
 
           // 默认展开API  docs
           const wyMenu = $('.wy-grid-for-nav .wy-menu');
@@ -130,9 +130,22 @@ $(function () {
               wyMenu.find('.caption').removeClass('down').next().hide();
               wyMenu.find('.caption').eq(2).addClass('down').next().show();
             }
-          }
-          
+          } 
       }, 100);
+
+      let aList = $('.wy-menu-vertical>ul>.current>ul>.toctree-l2>a');
+      if ($('li.current>ul').length === 0) {
+          $('li.current').addClass('notoctree-l2');
+      }
+      for (let i = 0; i < aList.length; i++) {
+          let hash = aList[i].hash;
+          if (hash != '') {
+              aList[i].parentNode.parentNode.style.display = 'none';
+              aList[i].parentNode.parentNode.parentNode.className = aList[i].parentNode.parentNode.parentNode.className + ' ' + 'navNoPlus';
+          }
+      }
+
+      
   };
 
   initPage();

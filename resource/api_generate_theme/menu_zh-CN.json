@@ -36,10 +36,6 @@
                     {
                         "name": "MindSpore Lite",
                         "id": "lite"
-                    },
-                    {
-                        "name": "MindPandas",
-                        "id": "mindpandas"
                     }
                 ]
             },
@@ -78,7 +74,7 @@
                 ]
             },
             {
-                "title": "领域套件与模型",
+                "title": "领域套件与扩展包",
                 "children": [
                     {
                         "name": "MindSpore Graph Learning",
@@ -91,6 +87,10 @@
                     {
                         "name": "MindSpore Probability",
                         "id": "probability"
+                    },
+                    {
+                        "name": "MindPandas",
+                        "id": "mindpandas"
                     },
                     {
                         "name": "MindSpore Hub",
