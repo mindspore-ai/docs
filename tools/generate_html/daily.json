@@ -50,7 +50,7 @@
    "id" : 6 ,
    "name" : "reinforcement",
    "branch" : "master",
-   "whl_path" : "/reinforcement/website/any",
+   "whl_path" : "/mindrl/website/any/",
    "whl_name" : "mindspore_rl-.*-py3-none-any.whl$",
    "environ" : "RM_PATH",
    "uninstall_name" : "mindspore_rl"
@@ -87,9 +87,9 @@
     "name" : "mindelec",
     "branch" : "master",
     "whl_path" : "/mindscience/website/x86_64",
-    "whl_name" : "mindscience_mindelec_ascend-.*-cp37-cp37m-linux_x86_64.whl$",
+    "whl_name" : "mindelec_ascend-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MSC_PATH",
-    "uninstall_name" : "mindscience_mindelec_ascend"
+    "uninstall_name" : "mindelec_ascend"
 },
 {
     "id" : 11 ,
@@ -167,7 +167,7 @@
     "id" : 19 ,
     "name" : "recommender",
     "branch" : "master",
-    "whl_path" : "/recommender/website/any/",
+    "whl_path" : "/mindrec/website/any/",
     "whl_name" : "mindspore_rec-.*-py3-none-any.whl$",
     "environ" : "RD_PATH",
     "uninstall_name" : "mindspore_rec"
