@@ -174,10 +174,14 @@ def main(version, user, pd, WGETDIR, release_url):
         if version == "daily":
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             s = requests.session()
-            res = s.get(WGETDIR, auth=(user, pd), verify=False)
+            if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender":
+                wgetdir = WGETDIR + "mindspore-lab"
+            else:
+                wgetdir = WGETDIR + "mindspore"
+            res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
             if data[i]['whl_path'] != "":
-                url = f"{WGETDIR}/{data[i]['whl_path']}"
+                url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
                 re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
@@ -198,7 +202,7 @@ def main(version, user, pd, WGETDIR, release_url):
 
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
-                    url = f"{WGETDIR}/{data[i]['tar_path']}"
+                    url = f"{wgetdir}/{data[i]['tar_path']}"
                     if not url.endswith(".html") and not url.endswith("/"):
                         url += "/"
                     re_name = data[i]['tar_name'].replace('.tar.gz', '\\.tar\\.gz')
