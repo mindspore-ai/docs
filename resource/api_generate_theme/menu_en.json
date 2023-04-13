@@ -36,10 +36,6 @@
                     {
                         "name": "MindSpore Lite",
                         "id": "lite"
-                    },
-                    {
-                        "name": "MindPandas",
-                        "id": "mindpandas"
                     }
                 ]
             },
@@ -78,7 +74,7 @@
                 ]
             },
             {
-                "title": "Domain Suite and Model",
+                "title": "Domain Suites and Extension Packages",
                 "children": [
                     {
                         "name": "MindSpore Graph Learning",
@@ -95,6 +91,10 @@
                     {
                         "name": "MindSpore Hub",
                         "id": "hub"
+                    },
+                    {
+                        "name": "MindPandas",
+                        "id": "mindpandas"
                     }
                 ]
             },
