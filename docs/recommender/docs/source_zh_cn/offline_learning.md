@@ -14,4 +14,4 @@
 
 ## 使用样例
 
-[Wide&Deep 分布式训练](https://gitee.com/mindspore/recommender/tree/r0.2/models/wide_deep)
+[Wide&Deep 分布式训练](https://github.com/mindspore-lab/mindrec/tree/r0.2/models/wide_deep)
