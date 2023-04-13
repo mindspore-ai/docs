@@ -14,7 +14,7 @@ Key differences between online learning and offline training:
 
 ## Overall Architecture
 
-The user's streaming training data is pushed to Kafka. MindPandas reads data from Kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
+The user's streaming training data is pushed to Kafka. MindSpore Pandas reads data from Kafka and performs feature engineering transformation, and then writes to the feature storage engine. MindData reads data from the storage engine as training data for training. MindSpore, as a service resident, continuously receives data and performs training, with the overall process shown in the following figure:
 
 ![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/recommender/docs/source_en/images/online_training.png)
 
@@ -35,7 +35,7 @@ kafka-python v2.0.2
 
 The following is an example of the process of online learning with the Criteo dataset training Wide&Deep. The sample code is located at [Online Learning](https://gitee.com/mindspore/recommender/tree/r0.2/examples/online_learning).
 
-MindSpore Recommender provides a specialized algorithm model `RecModel` for online learning, which is combined with MindPandas, a real-time data source Kafka for data reading and feature processing, to implement a simple online learning process.
+MindSpore Recommender provides a specialized algorithm model `RecModel` for online learning, which is combined with MindSpore Pandas, a real-time data source Kafka for data reading and feature processing, to implement a simple online learning process.
 First define a custom dataset for real-time data processing, where the constructor parameter `receiver` is of type `DataReceiver` in MindPands for receiving real-time data, and `__getitem__` means read data one at a time.
 
 ```python
@@ -167,7 +167,7 @@ Single-card traininf:
 python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
 
 # Parameter description:
-# --address： Local host ip. Receiving training data from MindPandas requires configuration
+# --address： Local host ip. Receiving training data from MindSpore Pandas requires configuration
 # --dataset_name： Dataset name, consistent with the consumer module
 ```
 
@@ -178,7 +178,7 @@ bash mpirun_dist_online_train.sh [$RANK_SIZE] [$LOCAL_HOST_IP]
 
 # Parameter description:
 # RANK_SIZE：Number of multi-card training cards
-# LOCAL_HOST_IP：Local host ip for MindPandas to receive training data
+# LOCAL_HOST_IP：Local host ip for MindSpore Pandas to receive training data
 ```
 
 Dynamic networking method to start multi-card training:
@@ -190,7 +190,7 @@ bash run_dist_online_train.sh [$WORKER_NUM] [$SHED_HOST] [$SCHED_PORT] [$LOCAL_H
 # WORKER_NUM：Number of multi-card training cards
 # SHED_HOST：IP of the Scheduler role required for MindSpore dynamic networking
 # SCHED_PORT：Port of the Scheduler role required for MindSpore dynamic networking
-# LOCAL_HOST_IP：Local host ip. Receiving training data from MindPandas requires configuration
+# LOCAL_HOST_IP：Local host ip. Receiving training data from MindSpore Pandas requires configuration
 ```
 
 When training is successfully started, the following log is output:

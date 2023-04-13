@@ -6,7 +6,7 @@ GroupBy将需要分组的DataFrame或Series按数值分组，并返回DataFrameG
 
 ## GroupBy API
 
-| MindPandas GroupBy API     | Pandas API                                                                                                                                                                | 支持平台 |
+| MindSpore Pandas GroupBy API     | Pandas API                                                                                                                                                                | 支持平台 |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------- |
 | mindpandas.GroupBy.all     | [pandas.core.groupby.GroupBy.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.core.groupby.GroupBy.all.html#pandas.core.groupby.GroupBy.all)             | CPU                 |                                  |
 | mindpandas.GroupBy.any     | [pandas.core.groupby.GroupBy.any](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.core.groupby.GroupBy.any.html#pandas.core.groupby.GroupBy.any)             | CPU                 |                                  |

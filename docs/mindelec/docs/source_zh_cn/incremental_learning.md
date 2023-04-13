@@ -6,7 +6,7 @@
 
 原始的PINNs（Physics-Informed Neural Networks, PINNs)方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。
 
-本教程重点介绍基于MindElec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
+本教程重点介绍基于MindSpore Elec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
 > <https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindElec/examples/physics_driven/incremental_learning>
@@ -94,7 +94,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["batch_size"
 
 ### 定义控制方程及初边值条件
 
-继承MindElec提供的Problem类，我们定义该偏微分方程（partial differential equation，PDE）问题的核心代码如下。与求解单个点源问题不同，这里还传入了不同的参数`eps_candidates`， `mu_candidates`代表相对介电常数和相对磁导率。本案例中我们的预训练的参数选择为$(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$。
+继承MindSpore Elec提供的Problem类，我们定义该偏微分方程（partial differential equation，PDE）问题的核心代码如下。与求解单个点源问题不同，这里还传入了不同的参数`eps_candidates`， `mu_candidates`代表相对介电常数和相对磁导率。本案例中我们的预训练的参数选择为$(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$。
 
 ```python
 class Maxwell2DMur(Problem):
@@ -275,7 +275,7 @@ network = MultiScaleFCCell(config["input_size"],
 
 ### 自适应加权损失函数加速收敛
 
-在本案例中，由于源区附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindElec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应地调节每项损失函数的权重，可以显著地提升训练速度和精度。该算法的实现具体如下：
+在本案例中，由于源区附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindSpore Elec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应地调节每项损失函数的权重，可以显著地提升训练速度和精度。该算法的实现具体如下：
 
 ```python
 class MTLWeightedLossCell(nn.Cell):

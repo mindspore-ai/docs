@@ -1,4 +1,4 @@
-# MindFlow Installation
+# MindSpore Flow Installation
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindflow/docs/source_en/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
@@ -10,7 +10,7 @@
 
 ## Installation
 
-You can install MindFlow either by pip or by source code.
+You can install MindSpore Flow either by pip or by source code.
 
 ### Installation by pip
 

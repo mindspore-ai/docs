@@ -1,12 +1,12 @@
-# MindPandas Execution Mode Introduction and Configuration Instructions
+# MindSpore Pandas Execution Mode Introduction and Configuration Instructions
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindpandas/docs/source_en/mindpandas_configuration.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
-This article mainly introduces the principle and usage of MindPandas distributed parallel mode.
+This article mainly introduces the principle and usage of MindSpore Pandas distributed parallel mode.
 
-## MindPandas Implementation Principle
+## MindSpore Pandas Implementation Principle
 
-MindPandas accelerates Pandas data processing through parallelized computing. The principle is to first slice the original data into a bunch of partitions, then convert the API into a general computing paradigm (map, reduce, injective_map, etc.), and then parallelize the calculation by the backend. The current MindPandas backend has two execution modes, which are multi-threaded mode and multi-process mode.
+MindPandas accelerates Pandas data processing through parallelized computing. The principle is to first slice the original data into a bunch of partitions, then convert the API into a general computing paradigm (map, reduce, injective_map, etc.), and then parallelize the calculation by the backend. The current MindSpore Pandas backend has two execution modes, which are multi-threaded mode and multi-process mode.
 
 ### Data Slicing Principle
 
@@ -40,7 +40,7 @@ The multi-process mode can make full use of multi-core, thereby achieving perfor
 
 In the multi-machine multi-process mode, computing is performed on a cluster composed of multiple servers, which can make full use of the resources of multiple machines to complete computing tasks and break through the resource limitations of single machine.
 
-## MindPandas Execution Mode Configuration
+## MindSpore Pandas Execution Mode Configuration
 
 ### Data Partition Configuration
 
@@ -60,7 +60,7 @@ MindPandas uses the multi-threaded mode as follows:
 
 ```python
 import mindpandas as pd
-pd.set_concurrency_mode('multithread') # MindPandas will use multithread as backend
+pd.set_concurrency_mode('multithread') # MindSpore Pandas will use multithread as backend
 
 df = pd.read_csv('data.csv')
 df_mean = df.mean()
@@ -68,7 +68,7 @@ df_mean = df.mean()
 
 ### Multi-process Mode Configuration
 
-When MindPandas is installed, the built-in distributed compute engine has also been installed synchronously, which can be accessed using the command `yrctl` in the console.
+When MindSpore Pandas is installed, the built-in distributed compute engine has also been installed synchronously, which can be accessed using the command `yrctl` in the console.
 
 > Note: In multi-process mode, please make sure that the cluster you start is only for your personal use. Using a cluster together with others may lead to potential security risks.
 
@@ -76,7 +76,7 @@ When MindPandas is installed, the built-in distributed compute engine has also b
 $ yrctl
 Usage: yrctl [OPTIONS] COMMAND [ARGS]...
 
-  The distributed executor of MindPandas.
+  The distributed executor of MindSpore Pandas.
 
 Options:
   --help  Show this message and exit.
@@ -100,7 +100,7 @@ Common parameters of the `yrctl start` command are:
 - `--address`: The ip address of the master node. Optional, uses "127.0.0.1" by default.
 - `--cpu`: The number of CPU cores to use. Optional, uses all CPU cores by default.
 - `--datamem`: The amount of memory used by datasystem (MB). Optional, uses 30% of total memory by default.
-- `--mem`: The total memory (including datamem) used by MindPandas (MB). Optional, uses 90% of total memory by default.
+- `--mem`: The total memory (including datamem) used by MindSpore Pandas (MB). Optional, uses 90% of total memory by default.
 - `--tmp-dir`: The temporary directory for the mindpandas process. Optional, uses "/tmp/mindpandas" by default.
 - `--tmp-file-size-limit`: The temporary file size limit (MB). Optional, the default value is "None" which uses up to 95% of current free disk space.
 
@@ -177,7 +177,7 @@ yrctl stop
 
 ### Adaptive Concurrency Function
 
-Because the performance of single-process computing is good enough when the amount of data is small. The parallel benefits of multi-process computing are often smaller than the extra overhead of using multi-processes, so MindPandas has added an adaptive concurrency function. When this function is enabled, MindPandas will adaptively switch the concurrency mode according to the data size to improve performance.
+Because the performance of single-process computing is good enough when the amount of data is small. The parallel benefits of multi-process computing are often smaller than the extra overhead of using multi-processes, so MindSpore Pandas has added an adaptive concurrency function. When this function is enabled, MindSpore Pandas will adaptively switch the concurrency mode according to the data size to improve performance.
 
 #### Enabling Adaptive Concurrency
 
@@ -198,7 +198,7 @@ After the adaptive concurrency function is enabled, the conditions for automatic
 
 #### Precautions
 
-- After the adaptive concurrency function is activated, the parallel mode and partition shape are adjusted by MindPandas, and users cannot use `set_concurrency_mode` to modify the concurrency mode.
+- After the adaptive concurrency function is activated, the parallel mode and partition shape are adjusted by MindSpore Pandas, and users cannot use `set_concurrency_mode` to modify the concurrency mode.
 - `set_adaptive_concurrency(True)` should be called at the beginning of the Python script.
 - After setting `set_adaptive_concurrency(True)`, users are not advised to switch adaptive concurrency back to `False` unless the Python script has finished running.
 

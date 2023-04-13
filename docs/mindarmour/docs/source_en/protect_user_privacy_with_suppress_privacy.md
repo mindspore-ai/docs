@@ -8,9 +8,9 @@ Translator: [翁炜华](https://gitee.com/weng-weihua)
 
 Privacy suppression is a mechanism to protect the privacy of user dat a. Privacy suppression is a way to protect user privacy when training an AI model. By removing unimportant parameters from the model, the number of its parameters can be significantly reduced, which reduces the input sample information that may be leaked by the model, thus greatly reducing the possibility of obtaining the original samples through model reversal attacks. Experiments show that the privacy suppression technique can achieve a better balance between the training accuracy and the degree of privacy protection for some models compared to differential privacy.
 
-### MindArmour's Implementation of Privacy Suppression
+### MindSpore Armour's Implementation of Privacy Suppression
 
-Suppress-Privacy, a Suppress-Privacy module in MindArmour, implements a suppressed privacy optimizer. During the model training process, unimportant parameters are gradually set to 0 in a certain ratio, and eventually only 5-10% of the parameters are retained.
+Suppress-Privacy, a Suppress-Privacy module in MindSpore Armour, implements a suppressed privacy optimizer. During the model training process, unimportant parameters are gradually set to 0 in a certain ratio, and eventually only 5-10% of the parameters are retained.
 
 Here is an example showing that how to train a neural network model in MindSpore using the LeNet model, MNIST dataset, and the SuppressourPrivacy optimizer.
 

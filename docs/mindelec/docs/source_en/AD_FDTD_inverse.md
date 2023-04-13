@@ -4,7 +4,7 @@
 
 ## Overview
 
-This tutorial introduces the method for solving electromagnetic inverse problems provided by MindElec   based on device-to-device differentiable FDTD. The process of solving Maxwell's equations by the finite-difference time-domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). The device-to-device differentiable FDTD can be obtained by rewriting the update process with the differentiable operator of MindSpore. Compared with the data-driven black-box model, the solution process of the differentiable FDTD method strictly satisfies the constraints of Maxwell's equations. Using MindSpore gradient-ased optimizer, differentiable FDTD can solve various EM inverse problems.
+This tutorial introduces the method for solving electromagnetic inverse problems provided by MindSpore Elec   based on device-to-device differentiable FDTD. The process of solving Maxwell's equations by the finite-difference time-domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). The device-to-device differentiable FDTD can be obtained by rewriting the update process with the differentiable operator of MindSpore. Compared with the data-driven black-box model, the solution process of the differentiable FDTD method strictly satisfies the constraints of Maxwell's equations. Using MindSpore gradient-ased optimizer, differentiable FDTD can solve various EM inverse problems.
 
 > This example is for GPU processors and you can download the full sample code here:
 > <https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindElec/examples/AD_FDTD/fdtd_forward>
@@ -35,7 +35,7 @@ This case solves the electromagnetic inverse scattering in two-dimensional TM mo
 
 ![Solution Area Setting](https://gitee.com/mindspore/docs/raw/r2.0/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
 
-The process that MindElec solves the problem is as follows:
+The process that MindSpore Elec solves the problem is as follows:
 
 1. Obtain the time domain electric field values at the observation points with traditional numerical methods to create training datasets and evaluation data.
 

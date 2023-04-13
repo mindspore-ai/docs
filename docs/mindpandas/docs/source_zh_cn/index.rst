@@ -13,36 +13,36 @@ MindPandas的架构图如下图所示：
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindpandas/docs/source_zh_cn/images/mindpandas_architecture.png" width="700px" alt="" >
 
-1. 最上层提供了与Pandas兼容的API，基于现有Pandas脚本，修改少量代码，即可切换到MindPandas进行分布式执行。
+1. 最上层提供了与Pandas兼容的API，基于现有Pandas脚本，修改少量代码，即可切换到MindSpore Pandas进行分布式执行。
 
 2. Distributed Query Compiler将API转换成为分布式的基础范式组合(map/reduce/injective_map等)，保证了后端逻辑的稳定性，当有新的算子实现时，可尝试转换为已有的通用计算范式组合。
 
 3. Parallel Execution层提供了两种执行模式：多线程模式和多进程模式，用户可根据自己的实际场景进行选择。
 
-4. MindPandas将原始数据进行切分，形成多个内部的Partition切片，随后每个Partition在不同的线程或进程同时执行相应的算子逻辑，从而实现数据的并行处理。
+4. MindSpore Pandas将原始数据进行切分，形成多个内部的Partition切片，随后每个Partition在不同的线程或进程同时执行相应的算子逻辑，从而实现数据的并行处理。
 
 5. 最底层提供了插件化的算子执行逻辑，当前主要支持Pandas算子，后续会以插件的形式支持更多类型的算子逻辑。
 
-6. MindPandas提供了基于共享内存的数据管道，数据无需落盘即可从MindPandas数据处理进程传输至MindSpore训练进程，解决了数据分析扩展包与训练框架割裂的问题。
+6. MindSpore Pandas提供了基于共享内存的数据管道，数据无需落盘即可从MindSpore Pandas数据处理进程传输至MindSpore训练进程，解决了数据分析扩展包与训练框架割裂的问题。
 
 设计特点
 ---------
 
-1. MindPandas可以使用机器上的所有CPU核
+1. MindSpore Pandas可以使用机器上的所有CPU核
 
-   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU核，MindPandas可以使用机器上的所有CPU核，或者整个集群的所有CPU核，使用如下所示：
+   相较于原生Pandas的单线程实现，在任何给定时间只能使用一个CPU核，MindSpore Pandas可以使用机器上的所有CPU核，或者整个集群的所有CPU核，使用如下所示：
 
    .. raw:: html
 
        <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindpandas/docs/source_zh_cn/images/mindpandas_multicore.png" width="700px" alt="" >
 
-   MindPandas可以拓展到整个集群，利用整个集群的内存以及CPU资源，使用如下所示：
+   MindSpore Pandas可以拓展到整个集群，利用整个集群的内存以及CPU资源，使用如下所示：
 
    .. raw:: html
 
        <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindpandas/docs/source_zh_cn/images/cluster.png" width="700px" alt="" >
 
-2. MindPandas与现有原生Pandas的API在接口使用上保持一致，设置MindPandas的后端运行模式即可运行脚本，在使用上只需将Pandas的导入替换为：
+2. MindSpore Pandas与现有原生Pandas的API在接口使用上保持一致，设置MindSpore Pandas的后端运行模式即可运行脚本，在使用上只需将Pandas的导入替换为：
 
    .. code-block:: python
 
@@ -81,7 +81,7 @@ read_csv 11.53s 5.62s
    # MindPandas
    mdf = mpd.read_csv("data.csv")
 
-其他常用API如fillna，使用MindPandas均可获得数倍至数十倍不等的加速效果。
+其他常用API如fillna，使用MindSpore Pandas均可获得数倍至数十倍不等的加速效果。
 
 测试场景：
 
@@ -106,7 +106,7 @@ fillna 0.77s  0.13s
    mpd.set_partition_shape((4, 2))
    mdf = mdf.fillna(1)
 
-常见的统计类API如max、min、sum、all、any等，在MindPandas中也通过并行化的方式大幅度提高了性能。
+常见的统计类API如max、min、sum、all、any等，在MindSpore Pandas中也通过并行化的方式大幅度提高了性能。
 
 测试场景：
 
@@ -118,23 +118,23 @@ fillna 0.77s  0.13s
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindpandas/docs/source_zh_cn/images/performance_compare.png" width="700px" alt="" >
 
-随着数据大小的增加，MindPandas的分布式并行处理所带来的优势会更明显，如下图所示在不同数据量下的性能对比：
+随着数据大小的增加，MindSpore Pandas的分布式并行处理所带来的优势会更明显，如下图所示在不同数据量下的性能对比：
 
 .. raw:: html
 
     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindpandas/docs/source_zh_cn/images/mindpandas_fillna.png" width="700px" alt="" >
 
-注：MindPandas设为多进程模式，使用32核CPU
+注：MindSpore Pandas设为多进程模式，使用32核CPU
 
 未来规划
 ---------
 
 MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，敬请期待。
 
-使用MindPandas的典型场景
+使用MindSpore Pandas的典型场景
 ---------------------------------------
 
-- MindPandas 数据处理
+- MindSpore Pandas 数据处理
 
   提供与Pandas相同的接口，使用时替换引用的包即可进行分布式并行处理原生数据。
 

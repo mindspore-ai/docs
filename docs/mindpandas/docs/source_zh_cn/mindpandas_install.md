@@ -4,7 +4,7 @@
 
 ## 确认系统环境信息
 
-下表列出了安装、编译和运行MindPandas所需的系统环境：
+下表列出了安装、编译和运行MindSpore Pandas所需的系统环境：
 
 | 软件名称 |                版本                |
 | :------: |:--------------------------------:|
@@ -19,9 +19,9 @@
 
 ### pip安装
 
-请从[MindPandas下载页面](https://www.mindspore.cn/versions)下载whl包，使用`pip`指令安装。
+请从[MindSpore Pandas下载页面](https://www.mindspore.cn/versions)下载whl包，使用`pip`指令安装。
 
-> 在联网状态下，安装whl包时会自动下载MindPandas安装包的依赖项（依赖项详情参见requirements.txt），其余情况需自行安装。
+> 在联网状态下，安装whl包时会自动下载MindSpore Pandas安装包的依赖项（依赖项详情参见requirements.txt），其余情况需自行安装。
 
 ### 源码安装
 

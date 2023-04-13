@@ -4,7 +4,7 @@
 
 ## 概述
 
-电磁仿真结果通常包含仿真区域内的电磁场、S参数等物理量。仿真结果的可视化能够直观反映所关心物理量的大小和分布，辅助设计人员调试调优。MindElec提供了对训练/测试过程，以及仿真结果（电磁场、S参数）的可视化模块`mindelec.vision`，下面的案例将介绍如何通过`mindelec.vision`进行可视化。
+电磁仿真结果通常包含仿真区域内的电磁场、S参数等物理量。仿真结果的可视化能够直观反映所关心物理量的大小和分布，辅助设计人员调试调优。MindSpore Elec提供了对训练/测试过程，以及仿真结果（电磁场、S参数）的可视化模块`mindelec.vision`，下面的案例将介绍如何通过`mindelec.vision`进行可视化。
 
 ## 训练/测试过程可视化
 
@@ -61,7 +61,7 @@ dpi = 300
 plot_s11(s11_tensor, path_image_save, legend, dpi)
 ```
 
-可视化结果（MindElec和商业软件CST结果对比）
+可视化结果（MindSpore Elec和商业软件CST结果对比）
 
 ![S11_test_bow](./images/visualization/2D/S11_test_bow.jpg)
 
