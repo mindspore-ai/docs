@@ -47,7 +47,7 @@
                         "id": "mindinsight"
                     },
                     {
-                        "name": "MindArmour",
+                        "name": "MindSpore Armour",
                         "id": "mindarmour"
                     },
                     {
@@ -89,7 +89,7 @@
                         "id": "probability"
                     },
                     {
-                        "name": "MindPandas",
+                        "name": "MindSpore Pandas",
                         "id": "mindpandas"
                     },
                     {
@@ -102,19 +102,19 @@
                 "title": "科学计算套件",
                 "children": [
                     {
-                        "name": "MindElec",
+                        "name": "MindSpore Elec",
                         "id": "mindelec"
                     },
                     {
-                        "name": "MindSPONGE",
+                        "name": "MindSpore SPONGE",
                         "id": "mindsponge"
                     },
                     {
-                        "name": "MindFlow",
+                        "name": "MindSpore Flow",
                         "id": "mindflow"
                     },
                     {
-                        "name": "MindQuantum",
+                        "name": "MindSpore Quantum",
                         "id": "mindquantum"
                     }
                 ]

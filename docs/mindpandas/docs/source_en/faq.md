@@ -7,7 +7,7 @@
 A: There are many possibilities for the engine failure to start. Some common reasons are listed below:
 
 - Reason 1: Redis port conflict.
-   Solution: You can enter `ps -ef|grep redis` on the command line to check whether other redis services are running in the system, resulting in port conflicts. MindPandas' redis runs on port 6379 by default. If you need to modify it, you can modify the `redis_port` field in `mindpandas/dist_executor/modules/config/config.xml` in the MindPandas installation directory to other non-conflicting ports.
+   Solution: You can enter `ps -ef|grep redis` on the command line to check whether other redis services are running in the system, resulting in port conflicts. MindSpore Pandas' redis runs on port 6379 by default. If you need to modify it, you can modify the `redis_port` field in `mindpandas/dist_executor/modules/config/config.xml` in the MindSpore Pandas installation directory to other non-conflicting ports.
 - Reason 2: etcd port conflict.
    Solution: You can enter `netstat -tunpl|grep -E "32379|32380"` in the command line to check whether the etcd port is occupied. If there is a conflict, please try to release the corresponding port.
 
@@ -33,11 +33,11 @@ A: Please try to redeploy the cluster and reduce the value of the `--cpu` parame
 
 <font size=3>**Q: What should I do if the error message "health check failed, please check port: \<port>" is reported during the deployment of a multi-process compute engine?**</font>
 
-A: The MindPandas compute engine will start multiple processes, and each process has a corresponding port. If the ports conflict, this error will be reported. The solutions are as follows:
+A: The MindSpore Pandas compute engine will start multiple processes, and each process has a corresponding port. If the ports conflict, this error will be reported. The solutions are as follows:
 
 - To check whether the port that is reporting the error is occupied, you can use the shell command `netstat -tunpl|grep <port>` to check the port occupancy. If the port conflicts, there are two solutions:
      - Method 1: Release the occupation of the conflicting port.
-     - Method 2: Modify the port used by the compute engine. In the MindPandas installation directory `dist_executor/modules/config/config.xml`, search for the conflicting port number and change it to another available port.
+     - Method 2: Modify the port used by the compute engine. In the MindSpore Pandas installation directory `dist_executor/modules/config/config.xml`, search for the conflicting port number and change it to another available port.
 - To check whether there is a residual process from the last startup, you can use `ps -ef |grep mindpandas/dist_executor` to check the PID of the residual process, and then manually clean up the process.
 
 <br/>

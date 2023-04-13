@@ -8,7 +8,7 @@ Electromagnetic simulation is widely used in the product design process of anten
 
 At present, products such as antennas and mobile phones are usually simulated using commercial simulation software (such as CST and HFS) to obtain results such as the S-parameters. Currently, commercial software simulation mainly uses numerical algorithms (such as FDTD) to compute S-parameters. The simulation process mainly includes two steps: semi-automatic/automatic mesh division and numerical solution of the Maxwell equations. The two steps are time-consuming and computing-consuming.
 
-MindElec use AI model to directly obtain the S-parameters of the target to be simulated without the iterative calculation of traditional numerical methods, and this can greatly save simulation time. MindElec provides two data-driven electromagnetic simulation solutions: parameterization solution and point cloud solution. The two solutions have the following characteristics:
+MindElec use AI model to directly obtain the S-parameters of the target to be simulated without the iterative calculation of traditional numerical methods, and this can greatly save simulation time. MindSpore Elec provides two data-driven electromagnetic simulation solutions: parameterization solution and point cloud solution. The two solutions have the following characteristics:
 
 - The parameterization solution directly maps parameters to simulation results. For example, the antenna width and angle are used as the network input, and the network output are the S-parameters. The direct mapping and simple network are the advantage of the parameterization solution.
 - The point cloud solution implements the mapping from the sampling point cloud of the antenna/phone to the simulation result. In this solution, the structure file of the mobile phone is converted into the point cloud tensor data, and the convolutional neural network is used to extract the structure features. Then, the final simulation result (S-parameters) are obtained through the mapping of multiple full-connected layers. The advantage of this solution is that it is applicable to complex working conditions where the number or types of structural parameters may change.
@@ -30,7 +30,7 @@ The PEC metal plate is placed on a PCB cuboid with a certain thickness, presenti
 
 During antenna design, the structure of the simulation object needs to be adjusted and optimized based on the simulation result. This tutorial also considers the generalization of the bowtie antenna structure. In this tutorial, the structural parameters changed by the bowtie antenna are the length (x) and height of the PEC plate, and thickness (z) of the PCB plate. The length ranges from 0 mm to 40 mm, the height ranges from 4 mm to 24 mm, and the thickness ranges from 2 mm to 18 mm.
 
-In this tutorial, we will build the mapping of these structural parameters to S11 with MindElec, so that S11 can be quickly calculated based on the parameters of new structures.
+In this tutorial, we will build the mapping of these structural parameters to S11 with MindSpore Elec, so that S11 can be quickly calculated based on the parameters of new structures.
 
 ### Dataset
 
@@ -54,7 +54,7 @@ The parameterized electromagnetic simulation consists of the following five step
 
 ### Dataset Loading
 
-Use the MindElec dataset module to load the dataset of bowtie antennas. Currently, the parameterization solution supports local dataset training. You can use the `ExistedDataConfig` API to configure the dataset options. You need to specify the paths and types of the input and the S11 label dataset file.
+Use the MindSpore Elec dataset module to load the dataset of bowtie antennas. Currently, the parameterization solution supports local dataset training. You can use the `ExistedDataConfig` API to configure the dataset options. You need to specify the paths and types of the input and the S11 label dataset file.
 Use the `Dataset` API to generate a dataset instance, and use the `create_dataset` function to build a data generator `dataloader` for model training and testing.
 
 ```python
@@ -260,7 +260,7 @@ print(f'Loss_mse: {loss_mse:.10f}  ', f'L2_S11: {l2_s11:.10f}')
 
 ### Result Visualization
 
-During the training process, the `vision.MonitorTrain` and `vision.MonitorEval` modules in MindElec can be used to display the loss, relative error, and the comparison of the predicted and S11 values of the training set and testing set.
+During the training process, the `vision.MonitorTrain` and `vision.MonitorEval` modules in MindSpore Elec can be used to display the loss, relative error, and the comparison of the predicted and S11 values of the training set and testing set.
 
 The following figure shows the loss and relative error.
 
@@ -270,10 +270,10 @@ The following figure shows the comparison between the predicted and S11 values.
 
 ![test_picture](./images/parameterization/test_picture.JPG)
 
-You can also use the `vision.plot_s11` module in MindElec to draw the comparison chart of the predicted and true S11 values, as shown in the following figure.
+You can also use the `vision.plot_s11` module in MindSpore Elec to draw the comparison chart of the predicted and true S11 values, as shown in the following figure.
 
 ![S11_test_bow](./images/parameterization/S11_test_bow.jpg)
 
-The orange dashed line indicates the simulation of the bowtie antenna using the commercial software CST, and the blue solid line indicates the prediction of the MindElec model. The relative error between the two is 1.02%. The resonance frequency points, corresponding S11 amplitudes and bandwidths of the two curves are basically the same.
+The orange dashed line indicates the simulation of the bowtie antenna using the commercial software CST, and the blue solid line indicates the prediction of the MindSpore Elec model. The relative error between the two is 1.02%. The resonance frequency points, corresponding S11 amplitudes and bandwidths of the two curves are basically the same.
 
-MindElec can quickly obtain the S-parameters of different structures and materials while ensuring that the error between MindElec and commercial software is small.
+MindElec can quickly obtain the S-parameters of different structures and materials while ensuring that the error between MindSpore Elec and commercial software is small.

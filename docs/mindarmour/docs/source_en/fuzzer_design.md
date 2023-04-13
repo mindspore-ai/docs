@@ -4,7 +4,7 @@
 
 ## Background
 
-Different from [fuzzing security test for traditional programs](https://zhuanlan.zhihu.com/p/43432370), MindArmour provides the AI model security test module fuzz_testing for deep neural network. Based on the neural network features, the concept of neuron coverage rate [1] is introduced to guide the fuzz testing. Fuzz testing is guided to generate samples in the direction of increasing neuron coverage rate so that more neurons can be activated by inputs. The distribution range of neuron values is wider to fully test DNN and explore the output results of different types of models and model error behavior.
+Different from [fuzzing security test for traditional programs](https://zhuanlan.zhihu.com/p/43432370), MindSpore Armour provides the AI model security test module fuzz_testing for deep neural network. Based on the neural network features, the concept of neuron coverage rate [1] is introduced to guide the fuzz testing. Fuzz testing is guided to generate samples in the direction of increasing neuron coverage rate so that more neurons can be activated by inputs. The distribution range of neuron values is wider to fully test DNN and explore the output results of different types of models and model error behavior.
 
 ## Fuzz Testing Design
 

@@ -3,13 +3,13 @@ MindArmour 文档
 
 MindArmour是一款安全与隐私保护工具，提供AI模型安全测评、模型混淆、隐私数据保护等能力。
 
-AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour通过对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估、数据漂移检测等技术，实现对MindSpore的安全与隐私保护。
+AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindSpore Armour通过对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估、数据漂移检测等技术，实现对MindSpore的安全与隐私保护。
 
 .. raw:: html
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
 
-使用MindArmour的典型场景
+使用MindSpore Armour的典型场景
 ------------------------------
 
 1. `对抗样本 <https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/improve_model_security_nad.html>`_

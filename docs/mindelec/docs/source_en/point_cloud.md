@@ -4,9 +4,9 @@
 
 ## Overview
 
-This tutorial describes the deep learning electromagnetic simulation method based on point cloud data, helping you quickly use MindElec.
+This tutorial describes the deep learning electromagnetic simulation method based on point cloud data, helping you quickly use MindSpore Elec.
 
-Conventional electromagnetic simulation usually uses finite element or finite-difference methods to compute electromagnetic fields. These methods require complex mesh division and iterative computation, which is time-consuming and affects product R&D efficiency. MindElec provides a new end-to-end electromagnetic field AI computation method. This method directly computes the electromagnetic field in the simulation area based on point cloud data without mesh division and iterative solution, greatly accelerating the overall simulation speed and facilitating efficient product R&D.
+Conventional electromagnetic simulation usually uses finite element or finite-difference methods to compute electromagnetic fields. These methods require complex mesh division and iterative computation, which is time-consuming and affects product R&D efficiency. MindSpore Elec provides a new end-to-end electromagnetic field AI computation method. This method directly computes the electromagnetic field in the simulation area based on point cloud data without mesh division and iterative solution, greatly accelerating the overall simulation speed and facilitating efficient product R&D.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
 > <https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindElec/examples/data_driven/pointcloud>
@@ -39,7 +39,7 @@ In the preceding command, `cst_path` specifies the path of the CST file to be ex
 
 ## Generating the Point Cloud Data
 
-The STP file cannot be directly used as the input of the neural network. It needs to be converted into regular tensor data. MindElec provides an API for efficiently converting the STP file into the point cloud tensor data. The `generate_cloud_point.py` file in the `generate_pointcloud` directory provides the API calling example.
+The STP file cannot be directly used as the input of the neural network. It needs to be converted into regular tensor data. MindSpore Elec provides an API for efficiently converting the STP file into the point cloud tensor data. The `generate_cloud_point.py` file in the `generate_pointcloud` directory provides the API calling example.
 
 When using this module, `stp_path` and `json_path` can be configured to specify the paths of the STP and JSON files used to generate the point cloud. `material_dir` specifies the path of the material information corresponding to the STP. The material information is directly exported from the CST software. `sample_nums` specifies the number of point cloud data records generated from the x, y, and z dimensions. `bbox_args` specifies the region where the point cloud data is generated, that is, (x_min, y_min, z_min, x_max, y_max, z_max).
 
@@ -55,7 +55,7 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 ## Data compression
 
-If the point cloud resolution is set to a high value, the memory and computing consumption for subsequent processing of a single piece of point cloud data may be too high. Therefore, MindElec provides the data compression function. You can call the script in the `data_compression` directory to compress the original point cloud data, reducing the memory and computing consumption of subsequent processes. The compression process is divided into the following two steps:
+If the point cloud resolution is set to a high value, the memory and computing consumption for subsequent processing of a single piece of point cloud data may be too high. Therefore, MindSpore Elec provides the data compression function. You can call the script in the `data_compression` directory to compress the original point cloud data, reducing the memory and computing consumption of subsequent processes. The compression process is divided into the following two steps:
 
 - If you use the model for the first time, call `train.py` to train a compressing model. If compressing model checkpoints exist, skip this step.
 - After model training is complete, call `data_compress.py` to compress data.
@@ -114,7 +114,7 @@ During compressing model training, initialize `EncoderDecoder` based on paramete
 model_net = EncoderDecoder(config["input_channels"], config["patch_shape"], config["base_channels"], ecoding=True)
 ```
 
-Then, call the MindElec data API to read a dataset. This API can automatically shuffle data and batch data.
+Then, call the MindSpore Elec data API to read a dataset. This API can automatically shuffle data and batch data.
 
 ```python
 train_dataset = create_dataset(input_path=opt.train_input_path,
@@ -133,7 +133,7 @@ milestones, learning_rates = step_lr_generator(step_size,
                                                config["lr_decay_milestones"])
 ```
 
-Then, call the training API `Solver` of MindElec to set training parameters, including the optimizer, metrics, and loss function.
+Then, call the training API `Solver` of MindSpore Elec to set training parameters, including the optimizer, metrics, and loss function.
 
 ```python
 solver = Solver(model_net,
@@ -171,7 +171,7 @@ The data compression script automatically divides the cloud data into data block
 
 ## Electromagnetic Simulation
 
-After the point cloud data is prepared, the electromagnetic simulation models in the `full_em` and `S_parameter` directory of MindElec can be called to implement full electromagnetic and S-parameters simulation. Each simulation process can be divided into two steps:
+After the point cloud data is prepared, the electromagnetic simulation models in the `full_em` and `S_parameter` directory of MindSpore Elec can be called to implement full electromagnetic and S-parameters simulation. Each simulation process can be divided into two steps:
 
 - Use `train.py` to train the simulation model.
 - After the model training is completed, use `eval.py` to compute the full electromagnetic or S-parameters simulation.
@@ -227,7 +227,7 @@ During the training process of the electromagnetic simulation model, the predict
 model_net = Maxwell3D(6)
 ```
 
-Then, call the `create_dataset` function in `src/dataset` to load dataset. This function is implemented using the dataset utilities of MindElec and can automatically shuffle data and batch data.
+Then, call the `create_dataset` function in `src/dataset` to load dataset. This function is implemented using the dataset utilities of MindSpore Elec and can automatically shuffle data and batch data.
 
 ```python
 dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle=True)
@@ -239,7 +239,7 @@ Set the learning rate decay policy.
 lr = get_lr(config.lr, step_size, config.epochs)
 ```
 
-Then, call the training API `Solver` of MindElec to set training parameters, including the optimizer, metrics, and loss function.
+Then, call the training API `Solver` of MindSpore Elec to set training parameters, including the optimizer, metrics, and loss function.
 
 ```python
 solver = Solver(model_net,
@@ -269,7 +269,7 @@ model_net = Maxwell3D(6)
 param_dict = load_checkpoint(opt.checkpoint_path)
 ```
 
-The MindElec inference API can be called to implement automatic inference.
+The MindSpore Elec inference API can be called to implement automatic inference.
 
 ```python
 solver = Solver(model_net, optimizer=optimizer, loss_fn=loss_net, metrics={"evl_mrc": evl_error_mrc})
@@ -290,7 +290,7 @@ First, build S-parameters simulation model by referring to `S_parameter/src/mode
 
 ```python
 class S11Predictor(nn.Cell):
-    """S11Predictor architecture for MindElec"""
+    """S11Predictor architecture for MindSpore Elec"""
     def __init__(self, input_dim):
         super(S11Predictor, self).__init__()
         self.conv1 = nn.Conv3d(input_dim, 512, kernel_size=(3, 3, 1))
@@ -355,7 +355,7 @@ Set the learning rate decay policy.
 milestones, learning_rates = step_lr_generator(step_size, epochs, lr, lr_decay_milestones)
 ```
 
-Then, call the training API `Solver` of MindElec to set training parameters.
+Then, call the training API `Solver` of MindSpore Elec to set training parameters.
 
 ```python
 solver = Solver(model_net,

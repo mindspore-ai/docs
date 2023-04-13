@@ -4,7 +4,7 @@
 
 ## Overview
 
-Electromagnetic simulation results usually include physical parameters such as the electromagnetic field, and S-parameters in the simulation area. The visualized simulation result can directly reflect the strength and distribution of the concerned physical parameters and assist the designers in debugging and optimization. MindElec provides the visualization module `mindelec.vision` for the training process, testing process and simulation results (electromagnetic field and S-parameters). The following cases show how to use `mindelec.vision` for visualization.
+Electromagnetic simulation results usually include physical parameters such as the electromagnetic field, and S-parameters in the simulation area. The visualized simulation result can directly reflect the strength and distribution of the concerned physical parameters and assist the designers in debugging and optimization. MindSpore Elec provides the visualization module `mindelec.vision` for the training process, testing process and simulation results (electromagnetic field and S-parameters). The following cases show how to use `mindelec.vision` for visualization.
 
 ## Visualized Training and Testing Process
 
@@ -61,7 +61,7 @@ dpi = 300
 plot_s11(s11_tensor, path_image_save, legend, dpi)
 ```
 
-Visualization Result (Comparison Between MindElec and Commercial Software CST Results)
+Visualization Result (Comparison Between MindSpore Elec and Commercial Software CST Results)
 
 ![S11_test_bow](./images/visualization/2D/S11_test_bow.jpg)
 

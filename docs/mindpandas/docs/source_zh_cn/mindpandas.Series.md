@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindpandas/docs/source_zh_cn/mindpandas.Series.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
-Series是具有轴标签的一维数据结构，是常用的MindPandas数据结构。
+Series是具有轴标签的一维数据结构，是常用的MindSpore Pandas数据结构。
 
 ## Series API
 
-| MindPandas Series API         | Pandas API                                                                                                                                          | 支持平台 |
+| MindSpore Pandas Series API         | Pandas API                                                                                                                                          | 支持平台 |
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | mindpandas.Series.add         | [pandas.Series.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.add.html#pandas.Series.add)                     | CPU  |
 | mindpandas.Series.all         | [pandas.Series.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.all.html#pandas.Series.all)                     | CPU  |

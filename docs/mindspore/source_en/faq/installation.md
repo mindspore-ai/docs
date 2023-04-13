@@ -62,7 +62,7 @@ A: Please execute `pip config list` to check the software library index `index-u
 
 <br/>
 
-<font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?**</font>
+<font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindSpore Armour on the installation page of MindSpore website?**</font>
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions/en) and manually install it via `pip install`.
 

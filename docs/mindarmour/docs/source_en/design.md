@@ -4,12 +4,12 @@
 
 ## Overall Architecture
 
-As a general technology, AI brings great opportunities and benefits, and faces new security and privacy protection challenges. MindArmour focuses on common security and privacy issues in AI application scenarios: AI models are vulnerable to adversarial example spoofing, sensitive privacy data may be collected in the data collection process, privacy data may be leaked during model use, model assets have a risk of being stolen, and models may become invalid due to data drift. MindArmour provides corresponding security and privacy protection capabilities.
+As a general technology, AI brings great opportunities and benefits, and faces new security and privacy protection challenges. MindSpore Armour focuses on common security and privacy issues in AI application scenarios: AI models are vulnerable to adversarial example spoofing, sensitive privacy data may be collected in the data collection process, privacy data may be leaked during model use, model assets have a risk of being stolen, and models may become invalid due to data drift. MindSpore Armour provides corresponding security and privacy protection capabilities.
 
-The following figure shows the overall MindArmour architecture. The following describes three parts: model robustness, model asset security, and privacy protection.
+The following figure shows the overall MindSpore Armour architecture. The following describes three parts: model robustness, model asset security, and privacy protection.
 
-- Model robustness: MindArmour model robustness focuses on the robustness of AI models for natural and adversarial perturbation examples. It covers natural perturbation example generation, black-box and white-box adversarial perturbation example generation, adversarial example detection, adversarial training, and AI Fuzzer, helping security personnel quickly and efficiently evaluate the robustness of AI models and improve their anti-attack capabilities.
-- Model asset security: The structure and weight of AI models are key assets. To prevent models from being stolen during transmission, deployment, and running, MindArmour provides encryption-based model file protection and lightweight model protection based on structure parameter obfuscation. In federated learning scenarios, secure multi-party computing capabilities with lossless precision are provided to prevent model theft.
+- Model robustness: MindSpore Armour model robustness focuses on the robustness of AI models for natural and adversarial perturbation examples. It covers natural perturbation example generation, black-box and white-box adversarial perturbation example generation, adversarial example detection, adversarial training, and AI Fuzzer, helping security personnel quickly and efficiently evaluate the robustness of AI models and improve their anti-attack capabilities.
+- Model asset security: The structure and weight of AI models are key assets. To prevent models from being stolen during transmission, deployment, and running, MindSpore Armour provides encryption-based model file protection and lightweight model protection based on structure parameter obfuscation. In federated learning scenarios, secure multi-party computing capabilities with lossless precision are provided to prevent model theft.
 - Privacy leakage measurement and protection: In the data collection phase, the data masking capability is provided to prevent user privacy data from being collected. In the model training phase, differential privacy and privacy suppression mechanisms are provided to reduce model privacy leakage risks. In the model use phase, privacy leakage assessment technologies based on membership inference and inversion attacks are provided to evaluate the risks of model privacy leakage.
 
 ![architecture](./images/ma_arch.png)
@@ -66,11 +66,11 @@ AI Fuzzer consists of three modules:
 
 ### Model Asset Security
 
-Deep learning models have high business value and knowledge attributes. To protect model asset security and prevent models from being illegally copied, redistributed, and abused during transmission, deployment, and running, MindArmour provides encryption-based model file protection and structure parameter obfuscation-based lightweight model protection.
+Deep learning models have high business value and knowledge attributes. To protect model asset security and prevent models from being illegally copied, redistributed, and abused during transmission, deployment, and running, MindSpore Armour provides encryption-based model file protection and structure parameter obfuscation-based lightweight model protection.
 
 #### Model Encryption
 
-To ensure the security of model flushing to disks, MindArmour integrates the CKPT and MINDIR encryption and decryption functions in the framework. Developers can encrypt models and load ciphertext models before flushing models to disks. In the training phase, you can transfer the encryption key and encryption mode to the framework to enable the model encryption function and generate a ciphertext model. When the inference service is deployed, the same encryption key and mode are transferred to the framework during encryption and export to enable decryption during running.
+To ensure the security of model flushing to disks, MindSpore Armour integrates the CKPT and MINDIR encryption and decryption functions in the framework. Developers can encrypt models and load ciphertext models before flushing models to disks. In the training phase, you can transfer the encryption key and encryption mode to the framework to enable the model encryption function and generate a ciphertext model. When the inference service is deployed, the same encryption key and mode are transferred to the framework during encryption and export to enable decryption during running.
 
 ![encrypted](./images/encrypted.png)
 
@@ -82,7 +82,7 @@ Model obfuscation scrambles the computation logic of a model without changing th
 
 ### Privacy
 
-Protecting user privacy and security is an important corporate responsibility. MindArmour provides privacy protection capabilities throughout the AI lifecycle. In the data collection phase, the data masking capability is provided to prevent user privacy data from being collected. In the model training phase, differential privacy and privacy suppression mechanisms are provided to reduce model privacy leakage risks. In the model use phase, privacy leakage assessment technologies based on membership inference and inversion attacks are provided to evaluate the risks of model privacy leakage.
+Protecting user privacy and security is an important corporate responsibility. MindSpore Armour provides privacy protection capabilities throughout the AI lifecycle. In the data collection phase, the data masking capability is provided to prevent user privacy data from being collected. In the model training phase, differential privacy and privacy suppression mechanisms are provided to reduce model privacy leakage risks. In the model use phase, privacy leakage assessment technologies based on membership inference and inversion attacks are provided to evaluate the risks of model privacy leakage.
 
 ### Data Masking
 
@@ -99,11 +99,11 @@ Predefined privacy elements: The most common scenario is to anonymize street vie
 
 #### Differential Privacy Training
 
-The differential-privacy module of MindArmour implements differential privacy training. Model training consists of building a training dataset, computing the loss, computing the gradient, and updating model parameters. Currently, the differential privacy training of MindArmour focuses on the gradient computation process, that is, cropping and noise adding on the gradient using corresponding algorithms. In this way, user data privacy is protected.
+The differential-privacy module of MindSpore Armour implements differential privacy training. Model training consists of building a training dataset, computing the loss, computing the gradient, and updating model parameters. Currently, the differential privacy training of MindSpore Armour focuses on the gradient computation process, that is, cropping and noise adding on the gradient using corresponding algorithms. In this way, user data privacy is protected.
 
 ![dp_arch](./images/dp_arch.png)
 
-- DP optimizer inherits capabilities of the MindSpore optimizer and uses the DP mechanisms to scramble and protect gradients. Currently, MindArmour provides three types of differential privacy optimizers: constant Gaussian optimizer, adaptive Gaussian optimizer, and adaptive clipping optimizer. Each type of differential privacy optimizer improves the differential privacy protection capabilities for common optimizers, such as SGD and Momentum, from different perspectives.
+- DP optimizer inherits capabilities of the MindSpore optimizer and uses the DP mechanisms to scramble and protect gradients. Currently, MindSpore Armour provides three types of differential privacy optimizers: constant Gaussian optimizer, adaptive Gaussian optimizer, and adaptive clipping optimizer. Each type of differential privacy optimizer improves the differential privacy protection capabilities for common optimizers, such as SGD and Momentum, from different perspectives.
 - Differential privacy (DP) noise mechanisms are the basis for building the differential privacy training capability. Different noise mechanisms meet the requirements of different differential privacy optimizers, including constant Gaussian noise, adaptive Gaussian noise, adaptive Gaussian noise clipping, and Laplacian-based noise mechanism.
 - The privacy monitor provides callback functions such as Rényi differential privacy (RDP) and zero-concentrated differential privacy (ZCDP) to monitor the differential privacy budget of the model.
 

@@ -3,12 +3,12 @@ MindSPONGE 简介
 
 MindSPONGE是一款基于MindSpore的计算生物领域套件，支持分子动力学、蛋白质折叠等常用功能。
 
-分子模拟或建模过程与AI模型训练/推理过程具有高度一致的逻辑，因此分子模拟原则上可以与AI训练/推理模式进行统一。MindSPONGE将分子模拟与AI训练/推理统一到同一套编程架构下，整体架构视图如下：
+分子模拟或建模过程与AI模型训练/推理过程具有高度一致的逻辑，因此分子模拟原则上可以与AI训练/推理模式进行统一。MindSpore SPONGE将分子模拟与AI训练/推理统一到同一套编程架构下，整体架构视图如下：
 
 .. figure:: ./intro/images/archi_cn.png
-   :alt: MindSPONGE Architecture
+   :alt: MindSpore SPONGE Architecture
 
-*MindSPONGE Architecture*
+*MindSpore SPONGE Architecture*
 
 与传统分子模拟软件不同，AI分子模拟库具有全新的特性，例如：
 
@@ -117,7 +117,7 @@ Group)是由一群有兴趣，有使命，旨在AI×生物计算领域做出一�
 MindSpore SPONGE
 SIG小组为广大科研人员，老师和学生提供高效易用的AI计算生物软件的同时，为在这个领域有着强大的能力或者浓厚的兴趣的人们提供了一个能够共同交流合作的平台。
 
-SIG小组目前有着六位核心专家老师，加入SIG小组之后可以由老师带领团队进行科技调研以及代码仓功能的开发，当然也十分欢迎组员们使用MindSPONGE来进行自己的课题的调研。
+SIG小组目前有着六位核心专家老师，加入SIG小组之后可以由老师带领团队进行科技调研以及代码仓功能的开发，当然也十分欢迎组员们使用MindSpore SPONGE来进行自己的课题的调研。
 
 在SIG小组中，我们会举办各种活动，包括暑期学校、公开课宣讲、科技分享会等大型活动，也有组内分享、知乎博文编写等多种小型活动，积极参与组内活动，能够获得非常多与老师们沟通交流的机会。
 

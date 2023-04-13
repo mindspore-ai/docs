@@ -4,7 +4,7 @@
 
 ## Confirming System Environment Information
 
-The following table lists the environment required for installing, compiling and running MindPandas:
+The following table lists the environment required for installing, compiling and running MindSpore Pandas:
 
 | software |             version              |
 | :------: |:--------------------------------:|
@@ -19,9 +19,9 @@ The following table lists the environment required for installing, compiling and
 
 ### Installing from pip command
 
-If you use the pip, please download the whl package from [MindPandas](https://www.mindspore.cn/versions/en) page and install it.
+If you use the pip, please download the whl package from [MindSpore Pandas](https://www.mindspore.cn/versions/en) page and install it.
 
-> Installing whl package will download MindPandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
+> Installing whl package will download MindSpore Pandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
 
 ### Installing from source code
 

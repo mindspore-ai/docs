@@ -6,14 +6,14 @@ MindSPONGE is a computative biology suite based on MindSpore, supporting common 
 The molecular simulation or modeling process has a high degree
 of logic consistency with the AI model training/inferring process,
 so the molecular simulation can in principle be unified with the
-AI training/inferring mode. MindSPONGE integrates molecular simulation
+AI training/inferring mode. MindSpore SPONGE integrates molecular simulation
 and AI training/inferring under the same programming structure.
 The overall structure view is as follows:
 
 .. figure:: ./intro/images/archi.png
-   :alt: MindSPONGE Architecture
+   :alt: MindSpore SPONGE Architecture
 
-   MindSPONGE Architecture
+   MindSpore SPONGE Architecture
 
 Different from traditional molecular simulation software,
 AI molecular simulation library has completely new features, such as:

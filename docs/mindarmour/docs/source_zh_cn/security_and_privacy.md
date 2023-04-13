@@ -1,10 +1,10 @@
-# MindArmour模块介绍
+# MindSpore Armour模块介绍
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindarmour/docs/source_zh_cn/security_and_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本篇主要介绍AI安全与隐私保护。AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour是MindSpore的一个子项目，为MindSpore提供安全与隐私保护能力，主要包括对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估等技术。
+本篇主要介绍AI安全与隐私保护。AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindSpore Armour是MindSpore的一个子项目，为MindSpore提供安全与隐私保护能力，主要包括对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估等技术。
 
 ## 对抗鲁棒性
 
