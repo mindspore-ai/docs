@@ -411,8 +411,7 @@ MindInsight can record the accuracy result of each training for users. When the 
 
         *Figure 13 Viewing the relationship between parameters and optimization objectives in a scatter chart through MindInsight lineage analysis*
 
-    3. Try to use the [MindInsight parameter tuner](https://www.mindspore.cn/mindinsight/docs/en/r2.0/hyper_parameters_auto_tuning.html) to optimize hyperparameters. It should be noted that the parameter debugger performs hyperparameter search by performing multiple times of complete training, and the time consumed is several times of the time consumed by one time of network training. If one time of network training takes a long time, the hyperparameter search takes a long time.
-    4. Try the common tuning suggestions described in the following sections.
+    3. Try the common tuning suggestions described in the following sections.
 
 - Check the accuracy of the validation set.
 
@@ -603,7 +602,7 @@ Perform operations such as standardization, normalization, and channel conversio
 
 ### Hyperparameter Problem Handling
 
-Hyperparameters in AI training include the global learning rate, epoch, and batch. To visualize the training process under different hyperparameters, see [Use Mindoptimizer to Tune Hyperparameters](https://www.mindspore.cn/mindinsight/docs/en/r2.0/hyper_parameters_auto_tuning.html). For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/optimizer.html).
+Hyperparameters in AI training include the global learning rate, epoch, and batch. For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/optimizer.html).
 
 ### Model Structure Problem Handling
 
