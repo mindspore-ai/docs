@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.Series.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
-Series is a one-dimensional data structure with axis labels, and is a commonly-used MindPandas data structure.
+Series is a one-dimensional data structure with axis labels, and is a commonly-used MindSpore Pandas data structure.
 
 ## Series API
 
-| MindPandas Series API       | Pandas API                                                                                                                                            | Supported Platform |
+| MindSpore Pandas Series API       | Pandas API                                                                                                                                            | Supported Platform |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.Series.add       | [pandas.Series.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.add.html#pandas.Series.add)                       | CPU                 |
 | mindpandas.Series.all       | [pandas.Series.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.Series.all.html#pandas.Series.all)                       | CPU                 |

@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
-DataFrame是一个具有行、列索引的二维表数据结构，是MindPandas主要的数据结构之一。
+DataFrame是一个具有行、列索引的二维表数据结构，是MindSpore Pandas主要的数据结构之一。
 
 ## DataFrame构造
 
@@ -58,7 +58,7 @@ print(df2)
 
 ## DataFrame API
 
-| MindPandas DataFrame API             | Pandas API                                                                                                                                                                    | 支持平台 |
+| MindSpore Pandas DataFrame API             | Pandas API                                                                                                                                                                    | 支持平台 |
 |--------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | mindpandas.DataFrame.add             | [pandas.DataFrame.add](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.add.html#pandas.DataFrame.add)                                      | CPU                 |
 | mindpandas.DataFrame.all             | [pandas.DataFrame.all](https://pandas.pydata.org/pandas-docs/version/1.3.5/reference/api/pandas.DataFrame.all.html#pandas.DataFrame.all)                                      | CPU                 |

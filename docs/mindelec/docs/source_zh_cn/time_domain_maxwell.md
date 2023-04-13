@@ -4,7 +4,7 @@
 
 ## 概述
 
-人工智能技术的蓬勃发展为科学计算提供了新的范式。MindElec套件提供了物理驱动和数据驱动的AI方法。物理驱动的AI方法结合物理方程和初边界条件进行模型的训练，相比于数据驱动而言，其优势在于无需监督数据。本案例教程重点介绍物理驱动的AI方法求解点源时域麦克斯韦方程。
+人工智能技术的蓬勃发展为科学计算提供了新的范式。MindSpore Elec套件提供了物理驱动和数据驱动的AI方法。物理驱动的AI方法结合物理方程和初边界条件进行模型的训练，相比于数据驱动而言，其优势在于无需监督数据。本案例教程重点介绍物理驱动的AI方法求解点源时域麦克斯韦方程。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/time_domain_maxwell>
@@ -29,7 +29,7 @@ $$
 
 其中$x_0$为激励源位置，$g(t)$为脉冲信号的函数表达形式。
 
-由于点源的空间分布是非连续的函数，使得源附近的物理场具有趋于无穷大的梯度。另外一个方面，激励源通常是多种频率信号的叠加。已有的基于物理信息神经网络的AI方法求解这种多尺度和奇异性问题通常无法收敛。在MindElec中，通过高斯分布函数平滑、多通道残差网络结合sin激活函数的网络结构以及自适应加权的多任务学习策略，使得针对该类问题的求解在精度和性能方面均明显优于其他框架及方法。下面将以模拟2D TE波为例，介绍MindElec求解麦克斯韦方程的具体流程。
+由于点源的空间分布是非连续的函数，使得源附近的物理场具有趋于无穷大的梯度。另外一个方面，激励源通常是多种频率信号的叠加。已有的基于物理信息神经网络的AI方法求解这种多尺度和奇异性问题通常无法收敛。在MindSpore Elec中，通过高斯分布函数平滑、多通道残差网络结合sin激活函数的网络结构以及自适应加权的多任务学习策略，使得针对该类问题的求解在精度和性能方面均明显优于其他框架及方法。下面将以模拟2D TE波为例，介绍MindSpore Elec求解麦克斯韦方程的具体流程。
 
 ## 问题描述
 
@@ -37,7 +37,7 @@ $$
 
 ![控制方程以及初始和边界条件](./images/maxwell/equation_maxwell.png)
 
-MindElec求解该问题的具体流程如下：
+MindSpore Elec求解该问题的具体流程如下：
 
 1. 对求解域以及初边值条件进行随机采样，创建训练数据集。
 
@@ -66,7 +66,7 @@ from src import visual_result
 
 ### 创建数据集
 
-除了支持加载不同格式的数据集文件以外，MindElec同样支持在线生成采样数据集。Geometry模块支持创建简单几何体，然后通过不同几何体之间的逻辑运算创建复杂几何构型，并实现在几何体内部以及边界的采样。
+除了支持加载不同格式的数据集文件以外，MindSpore Elec同样支持在线生成采样数据集。Geometry模块支持创建简单几何体，然后通过不同几何体之间的逻辑运算创建复杂几何构型，并实现在几何体内部以及边界的采样。
 
 在上述问题中，我们在矩形计算域内部均匀采样，并且在点源附近进行加密采样然后作为独立的训练数据集。因此为创建训练所需的数据集，需要实现5次采样，即由控制方程所约束的矩形域和点源附近区域的内部点采样；由初始条件所约束的矩形域和点源附近区域的内部点采样；以及由边界条件所控制的矩形域边界采样。空间采样与时间采样数据的集成构成了训练样本。
 
@@ -97,7 +97,7 @@ geom_dict = {src_region : ["domain", "IC"],
                  boundary : ["BC"]}
 ```
 
-MindElec的Dataset接口实现了将不同的采样数据合并为统一训练数据集。因此在训练过程中只需要进行一次数据下沉，无需针对每个子数据集分别调用训练网络接口。
+MindSpore Elec的Dataset接口实现了将不同的采样数据合并为统一训练数据集。因此在训练过程中只需要进行一次数据下沉，无需针对每个子数据集分别调用训练网络接口。
 
 ```python
 # create dataset for train
@@ -110,7 +110,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["train_batch
 
 ### 定义控制方程及初边值条件
 
-继承MindElec提供的Problem类，用户可以快速自定义Partial differential equation（PDE）问题。该问题类的一次实现即可以约束多个数据集。成员函数governing_equation、boundary_conditon、initial_condition以及constraint_function分别对应于控制方程、边界条件、初始条件以及有监督的标签或者函数约束。用户在构造函数中传入对应样本在数据集中的列名就可以自动实现对该类样本集的损失函数计算。以该问题为例，我们定义的PDE问题核心代码如下, 其中对于方程中的一阶微分可以调用梯度接口Grad来实现，相应的二阶微分可以调用接口SecondOrderGrad来完成。
+继承MindSpore Elec提供的Problem类，用户可以快速自定义Partial differential equation（PDE）问题。该问题类的一次实现即可以约束多个数据集。成员函数governing_equation、boundary_conditon、initial_condition以及constraint_function分别对应于控制方程、边界条件、初始条件以及有监督的标签或者函数约束。用户在构造函数中传入对应样本在数据集中的列名就可以自动实现对该类样本集的损失函数计算。以该问题为例，我们定义的PDE问题核心代码如下, 其中对于方程中的一阶微分可以调用梯度接口Grad来实现，相应的二阶微分可以调用接口SecondOrderGrad来完成。
 
 ```python
 # 2d TE-mode Maxwell equation with 2nd-order Mur boundary condition and static initial electromagnetic field
@@ -357,7 +357,7 @@ model = MultiScaleFCCell(config["input_size"],
 
 ### 自适应加权损失函数加速收敛
 
-物理信息神经网络直接利用控制方程进行网络训练。相应的该网络的损失函数通常包含控制方程、边界条件以及初始条件这三项的残差。在本案例中，由于点源附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindElec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应的调节每项损失函数的权重，可以显著的提升训练速度和精度。该算法的实现具体如下：
+物理信息神经网络直接利用控制方程进行网络训练。相应的该网络的损失函数通常包含控制方程、边界条件以及初始条件这三项的残差。在本案例中，由于点源附近区域的加密采样并作为独立子数据集进行网络训练，因此损失函数的构成包含如下五项：有源区域的控制方程和初始条件、无源区域的控制方程和初始条件以及边界条件。实验表明，这五项损失函数量级差异明显，因此简单的损失函数求和会导致网络训练失败，而手动调节每项损失函数的权重信息极为繁琐。MindSpore Elec发展了一种基于多任务学习不确定性估计的加权算法，通过引入可训的参数，自适应的调节每项损失函数的权重，可以显著的提升训练速度和精度。该算法的实现具体如下：
 
 ```python
 class MTLWeightedLossCell(nn.Cell):
@@ -384,7 +384,7 @@ mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 
 ### 模型测试
 
-MindElec可以通过自定义的callback函数，实现边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
+MindSpore Elec可以通过自定义的callback函数，实现边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
 
 ```python
 loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
@@ -397,7 +397,7 @@ if config.get("train_with_eval", False):
 
 ### 模型训练
 
-MindElec提供的Solver类是模型训练和推理的接口。输入优化器、网络模型、PDE的约束（train_constraints）和可选参数（如自适应加权算法模块），即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式，训练网络，从而完成求解麦克斯韦方程。
+MindSpore Elec提供的Solver类是模型训练和推理的接口。输入优化器、网络模型、PDE的约束（train_constraints）和可选参数（如自适应加权算法模块），即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式，训练网络，从而完成求解麦克斯韦方程。
 
 ```python
 # mixed precision

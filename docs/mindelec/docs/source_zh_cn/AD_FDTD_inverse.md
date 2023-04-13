@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程介绍MindElec提供的基于端到端可微分FDTD求解电磁逆问题的方法。时域有限差分（FDTD）方法求解麦克斯韦方程组的过程等价于一个循环卷积网络（RCNN）。利用MindSpore的可微分算子重写更新流程，便可得到端到端可微分FDTD。相比于数据驱动的黑盒模型，可微分FDTD方法的求解流程严格满足麦克斯韦方程组的约束。利用MindSpore的基于梯度的优化器，可微分FDTD可求解各种电磁逆问题。
+本教程介绍MindSpore Elec提供的基于端到端可微分FDTD求解电磁逆问题的方法。时域有限差分（FDTD）方法求解麦克斯韦方程组的过程等价于一个循环卷积网络（RCNN）。利用MindSpore的可微分算子重写更新流程，便可得到端到端可微分FDTD。相比于数据驱动的黑盒模型，可微分FDTD方法的求解流程严格满足麦克斯韦方程组的约束。利用MindSpore的基于梯度的优化器，可微分FDTD可求解各种电磁逆问题。
 
 > 本例面向GPU处理器，你可以在这里下载完整的样例代码：
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/AD_FDTD/fdtd_inverse>
@@ -35,7 +35,7 @@ $$
 
 ![求解区域设置](./images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
 
-MindElec求解该问题的具体流程如下：
+MindSpore Elec求解该问题的具体流程如下：
 
 1. 用传统数值方法获得观察点处的时域电场值，创建训练数据集和评估数据。
 

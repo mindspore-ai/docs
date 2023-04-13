@@ -6,7 +6,7 @@
 
 The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Partial Differential Equations (PDEs). When the parameters of PDEs (dielectric constants) change, the PINNs method needs to retrain a new neural network and it increases the total solving time.
 
-This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindElec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
+This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindSpore Elec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
@@ -19,7 +19,7 @@ This tutorial deals with the generalization of the medium parameters for the poi
 
 In general, the distribution of variable parameter $\lambda$ forms a high-dimensional space. To reduce the model complexity and training costs, we first map the high-dimensional variable parameter space onto a low-dimensional manifold represented by a low-dimensional vector (Z). Then the characteristic parameter (Z) of the manifold and the input (X) of the equation are fused into the training of PINNs as the inputs of the point source problem solving network. The pre-trained model can be obtained. For the newly given variable parameter problem, the solution of the new equation can be obtained by fine-tuning the pre-trained model.
 
-The process for MindElec to solve the problem based on Physics-Informed Auto-Decoder is as follows:
+The process for MindSpore Elec to solve the problem based on Physics-Informed Auto-Decoder is as follows:
 
 - Pre-train a series of equations based on the combination of latent vector and neural network. Different from solving a single PDE, the input of the neural network is the fusion of the sampling point (X) and the implicit vector (Z) in the pre-training step, as shown in the following figure.
 
@@ -81,7 +81,7 @@ geom_dict = {src_region : ["domain", "IC"],
                  boundary : ["BC"]}
 ```
 
-The MindElec Dataset API combines different sampled data into a unified training dataset.
+The MindSpore Elec Dataset API combines different sampled data into a unified training dataset.
 
 ```python
 # create dataset for train
@@ -94,7 +94,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["batch_size"
 
 ### Defining the Control Equation and Initial & Boundary Condition
 
-Inherit the Problem class provided by MindElec, the core code of the PDE problem is defined as follows. Different from solving one specific PDE problem, we transfer parameters `eps_candidates` and `mu_candidates` to represent the relative dielectric constant and relative magnetic permeability of the medium. In this tutorial, the pre-trained model selects the following parameter settings: $(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$.
+Inherit the Problem class provided by MindSpore Elec, the core code of the PDE problem is defined as follows. Different from solving one specific PDE problem, we transfer parameters `eps_candidates` and `mu_candidates` to represent the relative dielectric constant and relative magnetic permeability of the medium. In this tutorial, the pre-trained model selects the following parameter settings: $(\epsilon_r, \mu_r)\in [1,3,5]*[1,3,5]$.
 
 ```python
 class Maxwell2DMur(Problem):
@@ -275,7 +275,7 @@ network = MultiScaleFCCell(config["input_size"],
 
 ### Adaptive Weighted Loss Function for Accelerating Convergence
 
-In this case, because the encrypted sampling near the source region is performed as an independent subdataset for network training, the composition of the loss function includes the following five items: a control equation and an initial condition of the source region, a control equation and an initial condition of the source-free region, and a boundary condition. Experiments show that the five items in the loss function differ greatly in magnitude, so the simple summation of the loss functions will lead to the failure of network training, and the manual adjustment of the weight information of each loss function is very cumbersome. MindElec develops a weighting algorithm based on uncertainty estimation of multi-task learning. By introducing trainable parameters and adaptively adjusting the weight of each loss function, MindElec can significantly improve the training speed and accuracy. The algorithm is implemented as follows:
+In this case, because the encrypted sampling near the source region is performed as an independent subdataset for network training, the composition of the loss function includes the following five items: a control equation and an initial condition of the source region, a control equation and an initial condition of the source-free region, and a boundary condition. Experiments show that the five items in the loss function differ greatly in magnitude, so the simple summation of the loss functions will lead to the failure of network training, and the manual adjustment of the weight information of each loss function is very cumbersome. MindSpore Elec develops a weighting algorithm based on uncertainty estimation of multi-task learning. By introducing trainable parameters and adaptively adjusting the weight of each loss function, MindSpore Elec can significantly improve the training speed and accuracy. The algorithm is implemented as follows:
 
 ```python
 class MTLWeightedLossCell(nn.Cell):
@@ -302,7 +302,7 @@ mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 
 ### Model Evaluation
 
-MindElec can use the user-defined callback function to implement training and inference at the same time. You can directly load the test dataset and set corresponding callback functions to implement inference and analyze the result.
+MindSpore Elec can use the user-defined callback function to implement training and inference at the same time. You can directly load the test dataset and set corresponding callback functions to implement inference and analyze the result.
 
 ```python
 callbacks = [LossAndTimeMonitor(epoch_steps)]
@@ -314,7 +314,7 @@ if config.get("train_with_eval", False):
 
 ### Model Pre-training
 
-The Solver class provided by MindElec is an API for model training and inference. You can enter the optimizer, network model, PDE constraints (train_constraints), and optional parameters such as the adaptive weighting algorithm module to define the solver object. In this tutorial, the MindSpore + Ascend mixed precision mode is used to train the network to solve the Maxwell's equations.
+The Solver class provided by MindSpore Elec is an API for model training and inference. You can enter the optimizer, network model, PDE constraints (train_constraints), and optional parameters such as the adaptive weighting algorithm module to define the solver object. In this tutorial, the MindSpore + Ascend mixed precision mode is used to train the network to solve the Maxwell's equations.
 
 ```python
 # mixed precision

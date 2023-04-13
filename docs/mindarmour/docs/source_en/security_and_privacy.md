@@ -1,10 +1,10 @@
-# MindArmour Module Introduction
+# MindSpore Armour Module Introduction
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/security_and_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This document describes AI security and privacy protection. As a universal technology, AI brings huge opportunities and benefits, but also faces new security and privacy protection challenges. MindArmour is a sub-project of MindSpore. It provides security and privacy protection capabilities for MindSpore, including technologies such as adversarial robustness, model security test, differential privacy training, and privacy breach risk assessment.
+This document describes AI security and privacy protection. As a universal technology, AI brings huge opportunities and benefits, but also faces new security and privacy protection challenges. MindSpore Armour is a sub-project of MindSpore. It provides security and privacy protection capabilities for MindSpore, including technologies such as adversarial robustness, model security test, differential privacy training, and privacy breach risk assessment.
 
 ## Adversarial Robustness
 
