@@ -8,7 +8,7 @@
 
 ### MindSpore Armour实现的抑制隐私
 
-MindArmour的抑制隐私模块Suppress-Privacy，实现了抑制隐私优化器。在模型训练过程中，不重要的参数会按照一定的比例逐渐地被设置为0，最终只保留5-10%的参数。
+MindSpore Armour的抑制隐私模块Suppress-Privacy，实现了抑制隐私优化器。在模型训练过程中，不重要的参数会按照一定的比例逐渐地被设置为0，最终只保留5-10%的参数。
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用抑制隐私优化器训练神经网络模型。
 

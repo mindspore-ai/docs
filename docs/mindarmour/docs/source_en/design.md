@@ -28,7 +28,7 @@ Simulate common perturbations in real life, such as focus blur, motion blur, ove
 
 An attacker adds small perturbations that are not easily perceived by human to the original example, causing deep learning model misjudgment. This is called an adversarial example attack.
 
-MindArmour model security provides functions such as natural perturbation example generation, adversarial example generation, adversarial example detection, model defense, and attack defense effect evaluation, providing important support for AI model security research and AI application security.
+MindSpore Armour model security provides functions such as natural perturbation example generation, adversarial example generation, adversarial example detection, model defense, and attack defense effect evaluation, providing important support for AI model security research and AI application security.
 
 ![robustness](./images/robustness.png)
 
@@ -109,7 +109,7 @@ The differential-privacy module of MindSpore Armour implements differential priv
 
 #### Privacy Leakage Assessment
 
-MindArmour uses algorithms such as membership inference attack and model inversion attack to evaluate the risk of model privacy leakage.
+MindSpore Armour uses algorithms such as membership inference attack and model inversion attack to evaluate the risk of model privacy leakage.
 
 - Membership inference: If an attacker has some access permissions (black box, gray box, or white box) of a model to obtain some or all information about the model output, structure, or parameters, they can determine whether a sample belongs to a training set of a model. In this case, we can use membership inference to evaluate the privacy data security of machine learning and deep learning models.
 - Inversion attack: Attackers use model gradients to inversely infer user data. The attacker first randomly generates a pair of input data and labels, exports the virtual gradient, and updates the input data and labels during the optimization process to reduce the difference between the virtual gradient and the real gradient, thereby obtaining the privacy input data. With inversion attacks, we can evaluate the risk of leaking training data by deep learning models.

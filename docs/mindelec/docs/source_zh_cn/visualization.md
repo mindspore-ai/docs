@@ -8,7 +8,7 @@
 
 ## 训练/测试过程可视化
 
-MindElec主要通过调用MindInsight的接口可视化训练/测试过程中的各项指标和结果，可视化文件通过回调函数Callback函数生成，其中数据集和网络定义具体可参照参数化教程。
+MindSpore Elec主要通过调用MindInsight的接口可视化训练/测试过程中的各项指标和结果，可视化文件通过回调函数Callback函数生成，其中数据集和网络定义具体可参照参数化教程。
 
 ```python
 solver = Solver(network=model_net,
@@ -51,7 +51,7 @@ solver.model.train(epoch=opt.epochs,
 
 ## S11可视化
 
-MindElec提供了`plot_s11`函数可视化S11曲线，该可视化工具调用代码如下：
+MindSpore Elec提供了`plot_s11`函数可视化S11曲线，该可视化工具调用代码如下：
 
 ```python
 s11_tensor = s11
@@ -67,7 +67,7 @@ plot_s11(s11_tensor, path_image_save, legend, dpi)
 
 ## 二维电磁场可视化
 
-MindElec提供了`plot_eh`函数可视化电磁波的二维剖面，该可视化工具调用代码如下：
+MindSpore Elec提供了`plot_eh`函数可视化电磁波的二维剖面，该可视化工具调用代码如下：
 
 ```python
 simu_res_tensor = result_eh
@@ -91,7 +91,7 @@ Ex的连续动图如下：
 
 ## 三维结果可视化
 
-MindElec 提供`vtk_structure`函数，用于生成三维电磁场的可视化文件，该软件可以通过ParaView读取展示三维效果。
+MindSpore Elec 提供`vtk_structure`函数，用于生成三维电磁场的可视化文件，该软件可以通过ParaView读取展示三维效果。
 
 运行以下代码为仿真结果生成每个时刻的三维可视化`.vts`文件。
 

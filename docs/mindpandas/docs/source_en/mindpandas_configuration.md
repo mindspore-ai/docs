@@ -6,7 +6,7 @@ This article mainly introduces the principle and usage of MindSpore Pandas distr
 
 ## MindSpore Pandas Implementation Principle
 
-MindPandas accelerates Pandas data processing through parallelized computing. The principle is to first slice the original data into a bunch of partitions, then convert the API into a general computing paradigm (map, reduce, injective_map, etc.), and then parallelize the calculation by the backend. The current MindSpore Pandas backend has two execution modes, which are multi-threaded mode and multi-process mode.
+MindSpore Pandas accelerates Pandas data processing through parallelized computing. The principle is to first slice the original data into a bunch of partitions, then convert the API into a general computing paradigm (map, reduce, injective_map, etc.), and then parallelize the calculation by the backend. The current MindSpore Pandas backend has two execution modes, which are multi-threaded mode and multi-process mode.
 
 ### Data Slicing Principle
 
@@ -44,7 +44,7 @@ In the multi-machine multi-process mode, computing is performed on a cluster com
 
 ### Data Partition Configuration
 
-MindPandas supports users to configure the shape of the partition according to the actual usage. Users can use `set_partition_shape` to customize the number of rows and columns of the partition.
+MindSpore Pandas supports users to configure the shape of the partition according to the actual usage. Users can use `set_partition_shape` to customize the number of rows and columns of the partition.
 
 ```python
 import mindpandas as pd
@@ -56,7 +56,7 @@ df_mean = df.mean()
 
 ### Multi-threaded Mode Configuration
 
-MindPandas uses the multi-threaded mode as follows:
+MindSpore Pandas uses the multi-threaded mode as follows:
 
 ```python
 import mindpandas as pd
@@ -144,7 +144,7 @@ Succeeded to stop!
 
 #### Multi-machine Multi-process Mode Use
 
-MindPandas' multi-process backend supports building clusters on multiple machines and performs distributed computing. The cluster consists of a master node and multiple worker nodes, and services need to be started separately on each machine in the cluster. The startup method is the same as the single-machine multi-process mode, but the master node must be started first, and then other worker nodes must be started.
+MindSpore Pandas' multi-process backend supports building clusters on multiple machines and performs distributed computing. The cluster consists of a master node and multiple worker nodes, and services need to be started separately on each machine in the cluster. The startup method is the same as the single-machine multi-process mode, but the master node must be started first, and then other worker nodes must be started.
 
 Start the master node:
 
