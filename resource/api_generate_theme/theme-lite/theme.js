@@ -19,7 +19,9 @@ $(function () {
   $('body').addClass('theme-lite');
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const pagePath = '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
+  const pagePath = pathname.startsWith('/docs/')
+  ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
+  : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
 
   let msDocsVersion = [],
       msVersionInfo = [],
@@ -28,8 +30,14 @@ $(function () {
 
   // 获取当前版本 r1.10
   function getCurrentVersion() {
-    return pathname.split('/')[4];
-  }
+    let version = 'master';
+    if (pathname.startsWith('/docs/')) {
+        version = pathname.split('/')[3];
+    } else {
+        version = pathname.split('/')[4];
+    }
+    return version;
+}
   // 获取当前版本 不带R
   function curVersion(version) {
       return version === 'master'
@@ -44,6 +52,9 @@ $(function () {
         versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
     });
+    if(versionName ==='') {
+      versionName = getCurrentVersion();
+    }
     return curVersion(versionName);
   }
 
