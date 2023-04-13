@@ -37,7 +37,7 @@ $$
 
 ![控制方程以及初始和边界条件](./images/maxwell/equation_maxwell.png)
 
-MindElec求解该问题的具体流程如下：
+MindSpore Elec求解该问题的具体流程如下：
 
 1. 对求解域以及初边值条件进行随机采样，创建训练数据集。
 
@@ -97,7 +97,7 @@ geom_dict = {src_region : ["domain", "IC"],
                  boundary : ["BC"]}
 ```
 
-MindElec的Dataset接口实现了将不同的采样数据合并为统一训练数据集。因此在训练过程中只需要进行一次数据下沉，无需针对每个子数据集分别调用训练网络接口。
+MindSpore Elec的Dataset接口实现了将不同的采样数据合并为统一训练数据集。因此在训练过程中只需要进行一次数据下沉，无需针对每个子数据集分别调用训练网络接口。
 
 ```python
 # create dataset for train
@@ -384,7 +384,7 @@ mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 
 ### 模型测试
 
-MindElec可以通过自定义的callback函数，实现边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
+MindSpore Elec可以通过自定义的callback函数，实现边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
 
 ```python
 loss_time_callback = LossAndTimeMonitor(steps_per_epoch)
@@ -397,7 +397,7 @@ if config.get("train_with_eval", False):
 
 ### 模型训练
 
-MindElec提供的Solver类是模型训练和推理的接口。输入优化器、网络模型、PDE的约束（train_constraints）和可选参数（如自适应加权算法模块），即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式，训练网络，从而完成求解麦克斯韦方程。
+MindSpore Elec提供的Solver类是模型训练和推理的接口。输入优化器、网络模型、PDE的约束（train_constraints）和可选参数（如自适应加权算法模块），即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式，训练网络，从而完成求解麦克斯韦方程。
 
 ```python
 # mixed precision

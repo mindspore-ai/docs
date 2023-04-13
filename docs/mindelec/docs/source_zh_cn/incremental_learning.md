@@ -19,7 +19,7 @@
 
 通常情况下，待求解方程中的可变参数$\lambda$ 的分布构成高维空间。为了降低模型复杂度以及训练成本，我们提出了基于物理信息的自解码器来求解同一类的方程族。该方法首先将高维可变参数空间映射到由低维向量表征的低维流形上，然后将流形的特征参数与方程的输入融合作为点源问题求解网络的输入一起参与到PINNs的训练中，由此可以得到预训练模型。针对新给定的可变参数问题，对预训练模型进行微调即可以得到新方程的解。
 
-MindElec基于物理信息的自解码器求解该问题的具体流程如下：
+MindSpore Elec基于物理信息的自解码器求解该问题的具体流程如下：
 
 - 基于隐向量和神经网络的结合对一系列方程组进行预训练。与求解单个问题不同，预训练步骤中，神经网络的输入为采样点（X）与隐向量（Z）的融合，具体如下图所示：
 
@@ -81,7 +81,7 @@ geom_dict = {src_region : ["domain", "IC"],
                 boundary : ["BC"]}
 ```
 
-MindElec提供了将不同的采样数据合并为统一训练数据集的Dataset接口。
+MindSpore Elec提供了将不同的采样数据合并为统一训练数据集的Dataset接口。
 
 ```python
 # create dataset for train
@@ -302,7 +302,7 @@ mtl = MTLWeightedLossCell(num_losses=elec_train_dataset.num_dataset)
 
 ### 模型测试
 
-MindElec可以通过自定义的callback函数，利用边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
+MindSpore Elec可以通过自定义的callback函数，利用边训练边推理的功能。用户可以直接加载测试数据集，然后实现自定义的callback函数实现推理并分析结果。
 
 ```python
 callbacks = [LossAndTimeMonitor(epoch_steps)]
@@ -314,7 +314,7 @@ if config.get("train_with_eval", False):
 
 ### 模型预训练
 
-MindElec提供的Solver类是模型训练和推理的接口。输入优化器和网络模型以及PDE的约束（train_constraints），以及可选参数如自适应加权算法模块，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成求解麦克斯韦方程。
+MindSpore Elec提供的Solver类是模型训练和推理的接口。输入优化器和网络模型以及PDE的约束（train_constraints），以及可选参数如自适应加权算法模块，即可定义求解器对象solver。在该案例中利用MindSpore + Ascend混合精度模式训练网络，从而完成求解麦克斯韦方程。
 
 ```python
 # mixed precision

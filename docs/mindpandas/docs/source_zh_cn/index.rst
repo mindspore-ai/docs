@@ -1,13 +1,13 @@
-MindPandas 文档
+MindSpore Pandas 文档
 ==============================
 
-MindPandas是一个数据分析扩展包，兼容Pandas接口，同时提供分布式处理能力。
+MindSpore Pandas是一个数据分析扩展包，兼容Pandas接口，同时提供分布式处理能力。
 
 数据处理及分析是AI训练流程中重要的一环，其中表格数据类型是常见的数据表示形式。当前业界常用的数据分析扩展包Pandas提供了易用、丰富的接口，但由于其单线程的执行方式，在处理较大数据量时性能较差，同时因为其不支持分布式，导致无法处理超出单机内存的大数据量；另外，由于业界常用的数据分析扩展包与昇思MindSpore等AI框架是互相独立的，数据需要经过落盘、格式转换等步骤才能被训练，极大影响了使用效率。
 
-MindPandas致力于提供支持大数据量、高性能的表格类型数据处理能力，同时又能与训练流程无缝结合，使得昇思MindSpore支持完整AI模型训练全流程的能力。
+MindSpore Pandas致力于提供支持大数据量、高性能的表格类型数据处理能力，同时又能与训练流程无缝结合，使得昇思MindSpore支持完整AI模型训练全流程的能力。
 
-MindPandas的架构图如下图所示：
+MindSpore Pandas的架构图如下图所示：
 
 .. raw:: html
 
@@ -51,10 +51,10 @@ MindPandas的架构图如下图所示：
 
    使用方便快捷，to_pandas接口还与现有Pandas代码的兼容。实现改动小，性能优的效果。
 
-MindPandas性能介绍
-------------------
+MindSpore Pandas性能介绍
+-------------------------
 
-MindPandas通过将原始数据分片，在分片的基础上进行分布式并行计算，以此大幅度减少计算时间。
+MindSpore Pandas通过将原始数据分片，在分片的基础上进行分布式并行计算，以此大幅度减少计算时间。
 
 以read_csv为例，使用8核CPU读取900MB大小的csv文件，结果如下所示：
 
@@ -78,7 +78,7 @@ read_csv 11.53s 5.62s
    # pandas
    df = pd.read_csv("data.csv")
 
-   # MindPandas
+   # MindSpore Pandas
    mdf = mpd.read_csv("data.csv")
 
 其他常用API如fillna，使用MindSpore Pandas均可获得数倍至数十倍不等的加速效果。
@@ -129,7 +129,7 @@ fillna 0.77s  0.13s
 未来规划
 ---------
 
-MindPandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，敬请期待。
+MindSpore Pandas初始版本包含DataFrame、Series、GroupBy和Other类共100+API，后续将会增加对更多API的支持，敬请期待。
 
 使用MindSpore Pandas的典型场景
 ---------------------------------------

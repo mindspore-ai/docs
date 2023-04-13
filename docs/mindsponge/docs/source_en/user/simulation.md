@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindsponge/docs/source_en/user/simulation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
-MindSPONGE has adopted a unique "AI-like" molecular simulation program architecture:
+MindSpore SPONGE has adopted a unique "AI-like" molecular simulation program architecture:
 
 ![MindSpore SPONGE](./images/mindsponge.png)
 
@@ -212,7 +212,7 @@ Currently, MindSpore SPONGE has two built-in Callback functions:
 
 ## Simulation Track File: H5MD
 
-MindSPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file Format based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014 (de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.).
+MindSpore SPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file Format based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014 (de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.).
 
 Jonas Landsgesell and Sascha Ehrhardt of the University of Stuttgart, Germany, have developed an [VMD plug-in](https://github.com/h5md/VMD-h5mdplugin) that allows us to view a simulation trace file in the H5MD format. However, this plugin is buggy and has not been updated since 2019. We forked the [original repository](https://gitee.com/helloyesterday/VMD-h5mdplugin), fixed bugs, and made some minor changes to the original program, adding functions such as unit conversion of coordinates, and changing the default file extension from.h5 to.h5MD. [MDAnalysis](https://www.mdanalysis.org/) can also be used to read the simulated trajectory information of the H5MD file.
 

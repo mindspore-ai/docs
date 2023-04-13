@@ -22,7 +22,7 @@
 
 ## 从CST文件导出几何/材料信息
 
-MindElec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
+MindSpore Elec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
 
 - **基于CST的VBA接口自动调用导出json文件和stp文件**：打开CST软件的VBA Macros Editor， 导入`generate_pointcloud`目录下的`export_stp.bas`文件，将json文件和stp文件路径更改为想要存放的位置，然后点击`Run`即可导出json文件和stp文件。其中，json文件中包含了模型的端口位置以及stp文件对应的材料信息。
 - **对于CST2019或更新的版本，支持使用Python直接调用CST**：直接调用`generate_pointcloud`目录下的`export_stp.py`文件即可。
@@ -133,7 +133,7 @@ milestones, learning_rates = step_lr_generator(step_size,
                                                config["lr_decay_milestones"])
 ```
 
-MindElec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
+MindSpore Elec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
 
 ```python
 solver = Solver(model_net,

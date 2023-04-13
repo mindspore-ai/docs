@@ -1,4 +1,4 @@
-# 安装MindArmour
+# 安装MindSpore Armour
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindarmour/docs/source_zh_cn/mindarmour_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 

@@ -35,7 +35,7 @@ $$
 
 ![求解区域设置](./images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
 
-MindElec求解该问题的具体流程如下：
+MindSpore Elec求解该问题的具体流程如下：
 
 1. 用传统数值方法获得观察点处的时域电场值，创建训练数据集和评估数据。
 

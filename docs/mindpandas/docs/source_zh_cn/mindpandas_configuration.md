@@ -6,7 +6,7 @@
 
 ## MindSpore Pandas实现原理
 
-MindPandas通过并行化的计算实现了对Pandas数据处理的加速。原理是首先对原始数据进行分片，再将API转化为通用计算范式（map、reduce、injective_map等），之后由后端并行化计算。当前MindSpore Pandas后端有两种执行模式，分别是多线程模式和多进程模式。
+MindSpore Pandas通过并行化的计算实现了对Pandas数据处理的加速。原理是首先对原始数据进行分片，再将API转化为通用计算范式（map、reduce、injective_map等），之后由后端并行化计算。当前MindSpore Pandas后端有两种执行模式，分别是多线程模式和多进程模式。
 
 ### 数据分片原理
 
@@ -44,7 +44,7 @@ MindPandas通过并行化的计算实现了对Pandas数据处理的加速。原�
 
 ### 数据分片配置
 
-MindPandas支持用户根据实际使用情况配置分片的shape，用户可以使用`set_partition_shape`自定义分片的行数与列数。
+MindSpore Pandas支持用户根据实际使用情况配置分片的shape，用户可以使用`set_partition_shape`自定义分片的行数与列数。
 
 ```python
 import mindpandas as pd
@@ -56,7 +56,7 @@ df_mean = df.mean()
 
 ### 多线程模式配置
 
-MindPandas的多线程模式使用方法如下所示：
+MindSpore Pandas的多线程模式使用方法如下所示：
 
 ```python
 import mindpandas as pd
@@ -144,7 +144,7 @@ Succeeded to stop!
 
 #### 多机多进程模式使用
 
-MindPandas的多进程后端支持在多机上搭建集群，并进行分布式计算。集群由一个master节点和多个worker节点组成，集群中的每台机器上都需要单独启动服务。启动方式与单机多进程模式相同，但必须先启动master节点，然后再启动其他worker节点。
+MindSpore Pandas的多进程后端支持在多机上搭建集群，并进行分布式计算。集群由一个master节点和多个worker节点组成，集群中的每台机器上都需要单独启动服务。启动方式与单机多进程模式相同，但必须先启动master节点，然后再启动其他worker节点。
 
 启动master节点：
 

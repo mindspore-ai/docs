@@ -8,7 +8,7 @@ Electromagnetic simulation is widely used in the product design process of anten
 
 At present, products such as antennas and mobile phones are usually simulated using commercial simulation software (such as CST and HFS) to obtain results such as the S-parameters. Currently, commercial software simulation mainly uses numerical algorithms (such as FDTD) to compute S-parameters. The simulation process mainly includes two steps: semi-automatic/automatic mesh division and numerical solution of the Maxwell equations. The two steps are time-consuming and computing-consuming.
 
-MindElec use AI model to directly obtain the S-parameters of the target to be simulated without the iterative calculation of traditional numerical methods, and this can greatly save simulation time. MindSpore Elec provides two data-driven electromagnetic simulation solutions: parameterization solution and point cloud solution. The two solutions have the following characteristics:
+MindSpore Elec use AI model to directly obtain the S-parameters of the target to be simulated without the iterative calculation of traditional numerical methods, and this can greatly save simulation time. MindSpore Elec provides two data-driven electromagnetic simulation solutions: parameterization solution and point cloud solution. The two solutions have the following characteristics:
 
 - The parameterization solution directly maps parameters to simulation results. For example, the antenna width and angle are used as the network input, and the network output are the S-parameters. The direct mapping and simple network are the advantage of the parameterization solution.
 - The point cloud solution implements the mapping from the sampling point cloud of the antenna/phone to the simulation result. In this solution, the structure file of the mobile phone is converted into the point cloud tensor data, and the convolutional neural network is used to extract the structure features. Then, the final simulation result (S-parameters) are obtained through the mapping of multiple full-connected layers. The advantage of this solution is that it is applicable to complex working conditions where the number or types of structural parameters may change.
@@ -182,7 +182,7 @@ class S11Predictor(nn.Cell):
 
 After the model is built, you can use the data generator `dataloader` defined in the preceding step to load data.
 
-MindElec provides the Solver class for model training and testing. The input of the Solver class includes the optimizer, network, pattern, and loss function. In this tutorial, data-based supervised learning is used. Therefore, the mode is set to `Data`, and the network is trained using the mixed precision mode `solver.model.train`.
+MindSpore Elec provides the Solver class for model training and testing. The input of the Solver class includes the optimizer, network, pattern, and loss function. In this tutorial, data-based supervised learning is used. Therefore, the mode is set to `Data`, and the network is trained using the mixed precision mode `solver.model.train`.
 
 In addition, `EvalMetric` defines the evaluation mode and metrics of the validation set in the training process. This method uses the `metric` parameter of `Solver` to join the training, so that the metric changes can be monitored in real time during the training.
 
@@ -276,4 +276,4 @@ You can also use the `vision.plot_s11` module in MindSpore Elec to draw the comp
 
 The orange dashed line indicates the simulation of the bowtie antenna using the commercial software CST, and the blue solid line indicates the prediction of the MindSpore Elec model. The relative error between the two is 1.02%. The resonance frequency points, corresponding S11 amplitudes and bandwidths of the two curves are basically the same.
 
-MindElec can quickly obtain the S-parameters of different structures and materials while ensuring that the error between MindSpore Elec and commercial software is small.
+MindSpore Elec can quickly obtain the S-parameters of different structures and materials while ensuring that the error between MindSpore Elec and commercial software is small.

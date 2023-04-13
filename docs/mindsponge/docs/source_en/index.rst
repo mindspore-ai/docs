@@ -1,7 +1,7 @@
-MindSPONGE Documents
-====================
+MindSpore SPONGE Documents
+=============================
 
-MindSPONGE is a computative biology suite based on MindSpore, supporting common functions such as molecular dynamics and protein folding.
+MindSpore SPONGE is a computative biology suite based on MindSpore, supporting common functions such as molecular dynamics and protein folding.
 
 The molecular simulation or modeling process has a high degree
 of logic consistency with the AI model training/inferring process,
@@ -145,7 +145,7 @@ At present, the SIG group has six core teachers. After members joining
 the SIG group, our teachers will lead the team to carry out scientific
 research and develop the software function development. Of course,
 members are also welcome to do research on their own topics using
-MindSPONGE.
+MindSpore SPONGE.
 
 In the SIG group, we will hold various activities, including summer
 school, public lecture, technology communication meeting and other
