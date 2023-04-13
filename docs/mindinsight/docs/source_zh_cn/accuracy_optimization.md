@@ -414,8 +414,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
         *图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系*
 
-    3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
-    4. 尝试下文介绍的常用调优建议。
+    3. 尝试下文介绍的常用调优建议。
 
 - 检查验证集上的精度。
 
@@ -606,7 +605,7 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/optimizer.html#学习率)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/tutorials/zh-CN/r2.0/advanced/modules/optimizer.html#学习率)。
 
 ### 模型结构问题处理
 
