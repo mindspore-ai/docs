@@ -161,7 +161,7 @@ train_net = nn.TrainOneStepWithLossScaleCell(net_with_loss, optimizer=opt, scale
 model = Model(network=train_net)
 ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html) of MindInsight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html) of MindSpore Insight to check why overflow occurs.
 
 ```python
 import numpy as np
@@ -303,6 +303,6 @@ The performance jitter of a single step and the empty data queue for a period of
 
 When the data processing speed is slow, the empty queue is gradually consumed from the beginning when the queue is full. The training process starts to wait for the empty queue to fill in data. Once new data is filled in, the network continues single-step training. Because no queue is used as the buffer for data processing, the performance jitter of data processing is directly reflected by the performance of a single step. Therefore, the performance jitter of a single step is also caused.
 
-For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindInsight. This describes common data performance problems and solutions.
+For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindSpore Insight. This describes common data performance problems and solutions.
 
 For more performance debugging methods, see [Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/master/debug/performance_optimization.html).

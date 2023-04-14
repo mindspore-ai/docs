@@ -4,7 +4,7 @@
 
 ## Overview
 
-Training dashboard is an important part of mindinsight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational graph visualization, data graph visualization, image visualization, tensor visualization and training optimization process visualization.
+Training dashboard is an important part of MindSpore Insight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational graph visualization, data graph visualization, image visualization, tensor visualization and training optimization process visualization.
 
 Access the Training Dashboard by selecting a specific training from the training list.
 
@@ -194,16 +194,16 @@ The training optimization process visualization can show the optimization space 
 
 2. When using the Summary operator to collect data in training, 'HistogramSummary' operator will affect performance, so please use as few as possible.
 
-3. To limit memory usage, MindInsight limits the number of tags and steps:
-    - There are 300 tags at most in each training dashboard. The total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags cannot exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When the number of tags exceeds the limit, MindInsight preserves the most recently processed tags.
-    - There are 1000 steps at most for each scalar tag in each training dashboard. When the number of steps exceeds the limit, MindInsight will sample steps randomly to meet this limit.
-    - There are 10 steps at most for each image tag in each training dashboard. When the number of steps exceeds the limit, MindInsight will sample steps randomly to meet this limit.
-    - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When the number of steps exceeds the limit, MindInsight will sample steps randomly to meet this limit.
-    - There are 20 steps at most for each tensor tag in each training dashboard. When the number of steps exceeds the limit, MindInsight will sample steps randomly to meet this limit.
+3. To limit memory usage, MindSpore Insight limits the number of tags and steps:
+    - There are 300 tags at most in each training dashboard. The total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags cannot exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When the number of tags exceeds the limit, MindSpore Insight preserves the most recently processed tags.
+    - There are 1000 steps at most for each scalar tag in each training dashboard. When the number of steps exceeds the limit, MindSpore Insight will sample steps randomly to meet this limit.
+    - There are 10 steps at most for each image tag in each training dashboard. When the number of steps exceeds the limit, MindSpore Insight will sample steps randomly to meet this limit.
+    - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When the number of steps exceeds the limit, MindSpore Insight will sample steps randomly to meet this limit.
+    - There are 20 steps at most for each tensor tag in each training dashboard. When the number of steps exceeds the limit, MindSpore Insight will sample steps randomly to meet this limit.
 
-4. Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindInsight make the following restrictions with the size of tensor and the number of value responded and displayed on the front end:
-    - MindInsight supports loading tensors that contain up to 10 million values.
-    - MindInsight supports the column of tensor displayed on the front end up to 1000 columns for each query.
+4. Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindSpore Insight make the following restrictions with the size of tensor and the number of value responded and displayed on the front end:
+    - MindSpore Insight supports loading tensors that contain up to 10 million values.
+    - MindSpore Insight supports the column of tensor displayed on the front end up to 1000 columns for each query.
     - After the tensor is loaded, in the tensor-visible table view, you can view the maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
 
 5. Since tensor visualization (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
@@ -218,4 +218,4 @@ The training optimization process visualization can show the optimization space 
 
    The size of a `TensorSummary data = the number of values in the tensor \* 4 bytes`. Assuming that the size of the tensor recorded by `TensorSummary` is `32 \* 1 \* 256 \* 256`, then a `TensorSummary` data needs about `32 \* 1 \* 256 \* 256 \* 4 bytes = 8,388,608 bytes = 8MiB`. `TensorSummary` will record data of 20 steps by default. Then the required space when recording these 20 sets of data is about `20 \* 8 MiB = 160MiB`. It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 160MiB.
 
-6. The training log file is large when using `TensorSummary` because the complete tensor data is recorded. MindInsight needs more time to parse the training log file, please be patient.
+6. The training log file is large when using `TensorSummary` because the complete tensor data is recorded. MindSpore Insight needs more time to parse the training log file, please be patient.

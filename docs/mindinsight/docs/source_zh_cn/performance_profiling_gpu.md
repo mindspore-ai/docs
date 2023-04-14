@@ -9,7 +9,7 @@
 ## 操作流程
 
 - 准备训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
-- 启动MindInsight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
+- 启动MindSpore Insight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
 - 在训练列表找到对应训练，点击性能分析，即可在页面中查看训练性能数据。
 
 > 普通用户在默认情况下无权访问目标设备上的NVIDIA GPU性能计数器。
@@ -81,9 +81,9 @@
     - `data_process`（bool, 可选）- 表示是否收集数据准备性能数据，默认值：true。
     - `op_time`（bool, 可选）- 表示是否收集算子性能数据，默认值：true。
 
-## 启动MindInsight
+## 启动MindSpore Insight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -162,8 +162,8 @@ print(operation_info)  # json
 
 说明：
 
-- GPU平台下使用该接口获取的性能数据为CUDA内核数据，获取的性能数据字段（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）数据来源于图3所示内核信息列表的（`occurrences(次)`, `total_duration(us)`, `avg_duration(us/次)`）信息，不同点在于使用算子性能接口获取的CUDA算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindInsight查看详细的CUDA内核性能数据。
-- 异构场景下，获取的CPU性能数据字段信息（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）来源于算子耗时统计排名HOST CPU页面的（`op_occurrences(次)`, `op_total_time(us)`, `op_avg_time(us/次)`）信息，不同点在于使用算子性能接口获取的CPU算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindInsight查看详细的HOST CPU算子性能数据。
+- GPU平台下使用该接口获取的性能数据为CUDA内核数据，获取的性能数据字段（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）数据来源于图3所示内核信息列表的（`occurrences(次)`, `total_duration(us)`, `avg_duration(us/次)`）信息，不同点在于使用算子性能接口获取的CUDA算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindSpore Insight查看详细的CUDA内核性能数据。
+- 异构场景下，获取的CPU性能数据字段信息（`op_occurrences`，`op_total_time(us)`，`op_avg_time(us)`）来源于算子耗时统计排名HOST CPU页面的（`op_occurrences(次)`, `op_total_time(us)`, `op_avg_time(us/次)`）信息，不同点在于使用算子性能接口获取的CPU算子性能数据会依据算子的类型（Primitive算子类型）进行数据汇总，并根据算子的输入张量信息进行区分。若需要查看具体算子的信息，可启动MindSpore Insight查看详细的HOST CPU算子性能数据。
 - 对于`op_analyse()`接口，可使用device_id参数指定解析哪张卡的算子性能数据，当接口基于离线数据进行解析时，默认`device_id=0`。
 
 ### 动态shape迭代分析

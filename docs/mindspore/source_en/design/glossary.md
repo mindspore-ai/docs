@@ -44,7 +44,7 @@
 |  ME  |  Mind Expression, MindSpore frontend, which is used to compile tasks from user source code to computational graphs, control execution during training, maintain contexts (in non-sink mode), and dynamically generate graphs (in PyNative mode).  |
 |  MindSpore Armour  |  The security module of MindSpore, which improves the confidentiality, integrity and usability of the model through technical means such as differential privacy and adversarial attack and defense. MindSpore Armour prevents attackers from maliciously modifying the model or cracking the internal components of the model to steal the parameters of the model.  |
 |  MindData  |  MindSpore data framework, which provides data loading, enhancement, dataset management, and visualization.  |
-|  MindInsight  |  MindSpore visualization component, which visualizes information such as scalars, images, computational graphs, and model hyperparameters.  |
+|  MindSpore Insight  |  MindSpore visualization component, which visualizes information such as scalars, images, computational graphs, and model hyperparameters.  |
 |  MindIR  |  MindSpore IR, a functional IR based on graph representation, defines a scalable graph structure and operator IR representation, and stores the basic data structure of MindSpore.  |
 |  MindRecord  |  It is a data format defined by MindSpore, it is a module for reading, writing, searching and converting datasets in MindSpore format.  |
 |  MindSpore  |  Huawei-leaded open-source deep learning framework.  |

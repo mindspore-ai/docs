@@ -24,7 +24,7 @@ The direct symptoms of accuracy problems are generally reflected in model loss v
 
 The metrics-related symptoms are as follows: The metrics (such as accuracy or precision) of a model cannot meet the expectation.
 
-Direct phenomena of accuracy problems are easy to observe. With the help of visualization tools such as MindInsight, more phenomena can be observed on tensors such as gradients, weights, and activation values. Common symptoms are as follows:
+Direct phenomena of accuracy problems are easy to observe. With the help of visualization tools such as MindSpore Insight, more phenomena can be observed on tensors such as gradients, weights, and activation values. Common symptoms are as follows:
 
 1. Gradient disappearance.
 2. Gradient explosion.
@@ -113,7 +113,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          2. The weight is improperly shared (weights that should not be shared are shared).
 
-             This means that the weight that should be shared is not shared or the weight that should not be shared is shared. You can check this type of problems through MindInsight computational graph visualization.
+             This means that the weight that should be shared is not shared or the weight that should not be shared is shared. You can check this type of problems through MindSpore Insight computational graph visualization.
 
          3. The node is improperly connected. (The block that should be connected to the computational graph is not connected.)
 
@@ -125,7 +125,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          5. The weight is improperly frozen (weights that should not be frozen are frozen).
 
-             This means that the weight that should be frozen is not frozen or the weight that should not be frozen is frozen. In MindSpore, the freezing weight can be implemented by controlling the `params` parameter passed to the optimizer. Parameters that are not transferred to the optimizer will not be updated. You can check the weight freezing status by checking the script or viewing the parameter distribution histogram in MindInsight.
+             This means that the weight that should be frozen is not frozen or the weight that should not be frozen is frozen. In MindSpore, the freezing weight can be implemented by controlling the `params` parameter passed to the optimizer. Parameters that are not transferred to the optimizer will not be updated. You can check the weight freezing status by checking the script or viewing the parameter distribution histogram in MindSpore Insight.
 
          6. The loss function is incorrect.
 
@@ -181,11 +181,11 @@ When an accuracy problem occurs, the common debugging and tuning process is as f
 
     To check whether the accuracy meets the expectation, you need to review the overall accuracy tuning process and consider tuning methods such as adjusting hyperparameters, explaining models, and optimizing algorithms.
 
-Check the model structure and hyperparameters to check the static features of the model. Check the input data and loss curve to check the static features and dynamic training phenomena. To check whether the accuracy meets the expectation, you need to review the overall accuracy tuning process and consider tuning methods such as adjusting hyperparameters, explaining models, and optimizing algorithms. In addition, it is important to be familiar with the models and tools. To help users efficiently implement the preceding accuracy tuning process, MindInsight provides the following capabilities.
+Check the model structure and hyperparameters to check the static features of the model. Check the input data and loss curve to check the static features and dynamic training phenomena. To check whether the accuracy meets the expectation, you need to review the overall accuracy tuning process and consider tuning methods such as adjusting hyperparameters, explaining models, and optimizing algorithms. In addition, it is important to be familiar with the models and tools. To help users efficiently implement the preceding accuracy tuning process, MindSpore Insight provides the following capabilities.
 
 ![accuracy_thought](./images/accuracy_thought.png)
 
-*Figure 2 Accuracy problem locating process and MindInsight capabilities*
+*Figure 2 Accuracy problem locating process and MindSpore Insight capabilities*
 
 The following sections describe the process.
 
@@ -195,11 +195,11 @@ The following sections describe the process.
 
     Before accuracy tuning, review the algorithm design to ensure that the algorithm design is clear. If the model is implemented by referring to a paper, review all design details and hyperparameter selection in the paper. If the model is implemented by referring to other framework scripts, ensure that there is a unique benchmark script that meets the accuracy requirements. If the algorithm is newly developed, the important design details and hyperparameter selection must be specified. The information is an important basis for checking the script.
 
-    Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindInsight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of APIs and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
+    Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindSpore Insight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of APIs and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
 
-2. Be familiar with the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) tool.
+2. Be familiar with the [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) tool.
 
-    During accuracy problem locating, you are advised to use the MindInsight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
+    During accuracy problem locating, you are advised to use the MindSpore Insight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -232,11 +232,11 @@ When checking the script, pay attention to the hyperparameters. Hyperparameter p
 2. The `loss_scale` is set improperly.
 3. The weight initialization parameter is set improperly.
 
-MindInsight helps users check hyperparameters. In most cases, `SummaryCollector` automatically records common hyperparameters. You can use the training parameter details function and lineage analysis function of MindInsight to view hyperparameters. Based on the lineage analysis module of the MindInsight model and the code in the script, you can confirm the hyperparameter values and identify improper hyperparameters. If there is a benchmark script, you are advised to compare the hyperparameter values with those in the benchmark script one by one. If there are default parameter values, the default values should also be compared to avoid accuracy decrease or training errors caused by different default parameter values of different frameworks.
+MindSpore Insight helps users check hyperparameters. In most cases, `SummaryCollector` automatically records common hyperparameters. You can use the training parameter details function and lineage analysis function of MindSpore Insight to view hyperparameters. Based on the lineage analysis module of the MindSpore Insight model and the code in the script, you can confirm the hyperparameter values and identify improper hyperparameters. If there is a benchmark script, you are advised to compare the hyperparameter values with those in the benchmark script one by one. If there are default parameter values, the default values should also be compared to avoid accuracy decrease or training errors caused by different default parameter values of different frameworks.
 
 ![model_hyper_param](./images/model_hyper_param.png)
 
-*Figure 4 Viewing model hyperparameters through MindInsight training parameter details*
+*Figure 4 Viewing model hyperparameters through MindSpore Insight training parameter details*
 
 #### Checking the Model Structure
 
@@ -249,17 +249,17 @@ Common problems in the model structure are as follows:
 5. The loss function is incorrect.
 6. The optimizer algorithm is incorrect (if the optimizer is implemented).
 
-You are advised to check the model structure by checking the model code. In addition, MindInsight can help users check the model structure. In most cases, the `SummaryCollector` automatically records the computational graph. You can use MindInsight to view the computational graph.
+You are advised to check the model structure by checking the model code. In addition, MindSpore Insight can help users check the model structure. In most cases, the `SummaryCollector` automatically records the computational graph. You can use MindSpore Insight to view the computational graph.
 
 ![graph](./images/graph.png)
 
-*Figure 5 Viewing the model structure through the computational graph module on the MindInsight training dashboard*
+*Figure 5 Viewing the model structure through the computational graph module on the MindSpore Insight training dashboard*
 
-After the model script is executed, you are advised to use the MindInsight computational graph visualization module to view the model structure, deepen the understanding of the computational graph, and ensure that the model structure meets the expectation. If a benchmark script is available, you can view the computational graph by comparing it with the benchmark script to check whether there are important differences between the computational graph of the current script and that of the benchmark script.
+After the model script is executed, you are advised to use the MindSpore Insight computational graph visualization module to view the model structure, deepen the understanding of the computational graph, and ensure that the model structure meets the expectation. If a benchmark script is available, you can view the computational graph by comparing it with the benchmark script to check whether there are important differences between the computational graph of the current script and that of the benchmark script.
 
 Considering that the model structure is complex, it is unrealistic to find all model structure problems in this step. As long as the visual model structure to deepen the understanding of the computational graph, find obvious structural problems. In the following steps, if a more specific accuracy problem is found, we will go back to this step to check and confirm the problem again.
 
-> MindInsight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) in our tutorial for more information.
+> MindSpore Insight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) in our tutorial for more information.
 >
 > The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts. For more information, visit [Migrating From Third Party Frameworks With MindConverter](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html).
 
@@ -277,19 +277,19 @@ By checking the data of the input model, you can determine whether the data proc
 8. The data processing method in the training phase is different from that in the inference phase.
 9. The data processing parameters are incorrect.
 
-MindInsight helps users check input data and data processing pipelines. In most cases, `SummaryCollector` automatically records the input model data (data after processing) and data processing pipeline parameters. The data of the input model is displayed in the "Data Sampling" area, and the pipeline parameters are displayed in the "Data Graph" and "Dataset Lineage" areas.
+MindSpore Insight helps users check input data and data processing pipelines. In most cases, `SummaryCollector` automatically records the input model data (data after processing) and data processing pipeline parameters. The data of the input model is displayed in the "Data Sampling" area, and the pipeline parameters are displayed in the "Data Graph" and "Dataset Lineage" areas.
 
-You can use the data sampling module of MindInsight to check the data (processed by the data processing pipeline) of the input model. If the data is obviously not as expected (for example, the data is cropped too much or the data rotation angle is too large), the input data is incorrect.
+You can use the data sampling module of MindSpore Insight to check the data (processed by the data processing pipeline) of the input model. If the data is obviously not as expected (for example, the data is cropped too much or the data rotation angle is too large), the input data is incorrect.
 
-You can use the data graph and data lineage module of MindInsight to check the data processing process and parameter values of the data processing pipeline to find improper data processing methods.
+You can use the data graph and data lineage module of MindSpore Insight to check the data processing process and parameter values of the data processing pipeline to find improper data processing methods.
 
 ![data_input](./images/data_input.png)
 
-*Figure 6 Viewing the data of the input model through the data sampling module on the MindInsight training dashboard*
+*Figure 6 Viewing the data of the input model through the data sampling module on the MindSpore Insight training dashboard*
 
 ![data_pipeline](./images/data_pipeline.png)
 
-*Figure 7 Viewing the data processing pipeline through the data graph in the MindInsight training dashboard*
+*Figure 7 Viewing the data processing pipeline through the data graph in the MindSpore Insight training dashboard*
 
 If there is a benchmark script, you can compare it with the benchmark script to check whether the data output by the data processing pipeline is the same as the data in the current script. For example, save the data output by the data processing pipeline as the `npy` file, and then use the `numpy.allclose` method to compare the data in the benchmark script with that in the current script. If a difference is found, an accuracy problem may exist in the data processing phase.
 
@@ -309,31 +309,31 @@ Many accuracy problems are found during network training. The common problems or
 8. The number of training epochs is insufficient.
 9. The API computation results include NaN and INF.
 
-Some of the preceding problems or symptoms can be reflected by loss, and some are difficult to observe. MindInsight provides targeted functions to observe the preceding symptoms and automatically check problems, helping you quickly locate root causes. For example:
+Some of the preceding problems or symptoms can be reflected by loss, and some are difficult to observe. MindSpore Insight provides targeted functions to observe the preceding symptoms and automatically check problems, helping you quickly locate root causes. For example:
 
-- The parameter distribution histogram module of MindInsight can display the change trend of model weights during the training process.
-- The Tensor Visualization module of MindInsight can display the specific values of tensors and compare different tensors.
-- The [MindInsight debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
+- The parameter distribution histogram module of MindSpore Insight can display the change trend of model weights during the training process.
+- The Tensor Visualization module of MindSpore Insight can display the specific values of tensors and compare different tensors.
+- The [MindSpore Insight debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
 
 ![loss](./images/loss.png)
 
-*Figure 8 Viewing the loss curve through the scalar visualization module on the MindInsight training dashboard*
+*Figure 8 Viewing the loss curve through the scalar visualization module on the MindSpore Insight training dashboard*
 
-In most cases, the `SummaryCollector` automatically records the loss curve of the model. You can view the loss curve through the scalar visualization module of MindInsight. The loss curve reflects the dynamic trend of network training. By observing the loss curve, you can check whether the model is converged and whether the model is overfitting.
+In most cases, the `SummaryCollector` automatically records the loss curve of the model. You can view the loss curve through the scalar visualization module of MindSpore Insight. The loss curve reflects the dynamic trend of network training. By observing the loss curve, you can check whether the model is converged and whether the model is overfitting.
 
 ![histogram](./images/histogram_example.png)
 
-*Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
+*Figure 9 Viewing the weight changes during training through the MindSpore Insight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindSpore Insight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
 ![tensor](./images/tensor.png)
 
-*Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindInsight training dashboard*
+*Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindSpore Insight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
+Tensors are not automatically recorded. To view the tensor values through MindSpore Insight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
-The following describes how to use MindInsight to locate accuracy problems based on the common symptoms of the loss curve.
+The following describes how to use MindSpore Insight to locate accuracy problems based on the common symptoms of the loss curve.
 
 - An abnormal loss value is displayed.
 
@@ -381,11 +381,11 @@ The following describes how to use MindInsight to locate accuracy problems based
 
 #### Checking Whether the Accuracy Meets the Expectation
 
-MindInsight can record the accuracy result of each training for users. When the same `SummaryCollector` instance is used in `model.train` and `model.eval`, the model evaluation information (metrics) is automatically recorded. After the training is complete, you can use the model lineage module of MindInsight to check whether the accuracy of the training result meets the requirements.
+MindSpore Insight can record the accuracy result of each training for users. When the same `SummaryCollector` instance is used in `model.train` and `model.eval`, the model evaluation information (metrics) is automatically recorded. After the training is complete, you can use the model lineage module of MindSpore Insight to check whether the accuracy of the training result meets the requirements.
 
 ![lineage_model_chart](./images/lineage_model_chart.png)
 
-*Figure 11 Viewing model evaluation information using the MindInsight lineage analysis function*
+*Figure 11 Viewing model evaluation information using the MindSpore Insight lineage analysis function*
 
 - Check the accuracy of the training set.
 
@@ -401,15 +401,15 @@ MindInsight can record the accuracy result of each training for users. When the 
 
         (4) Check whether the convergence result and trend of the loss curve are normal.
 
-    2. Try to use the MindInsight lineage analysis function to optimize hyperparameters. The lineage analysis page analyzes the importance of hyperparameters. You need to preferentially adjust hyperparameters with high importance. You can observe the relationship between hyperparameters and optimization objectives in the scatter chart and adjust the hyperparameter values accordingly.
+    2. Try to use the MindSpore Insight lineage analysis function to optimize hyperparameters. The lineage analysis page analyzes the importance of hyperparameters. You need to preferentially adjust hyperparameters with high importance. You can observe the relationship between hyperparameters and optimization objectives in the scatter chart and adjust the hyperparameter values accordingly.
 
         ![lineage_model_chart_1](./images/lineage_model_chart_1.png)
 
-        *Figure 12 Checking parameter importance through MindInsight lineage analysis*
+        *Figure 12 Checking parameter importance through MindSpore Insight lineage analysis*
 
         ![lineage_model_chart_2](./images/lineage_model_chart_2.png)
 
-        *Figure 13 Viewing the relationship between parameters and optimization objectives in a scatter chart through MindInsight lineage analysis*
+        *Figure 13 Viewing the relationship between parameters and optimization objectives in a scatter chart through MindSpore Insight lineage analysis*
 
     3. Try the common tuning suggestions described in the following sections.
 

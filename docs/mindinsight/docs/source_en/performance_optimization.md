@@ -21,7 +21,7 @@ This section will introduce the common use of MindSpore Profiler through three t
 ### Case 1: Long Step Interval
 
 We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) with batch size set to 32, and we find that each step cost almost 90ms, with a poor performance.
-As we observed on the MindInsight UI page, the step interval in the step trace is too long, which may indicate that data is the performance bottleneck.
+As we observed on the MindSpore Insight UI page, the step interval in the step trace is too long, which may indicate that data is the performance bottleneck.
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
@@ -73,7 +73,7 @@ Therefore we try to increase the num_parallel_workers parameter to 12 and run tr
 data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=12)
 ```
 
-By observing the step trace on the MindInsight performance analysis page, you can see that the step interval is shortened from 72.8ms to 0.25ms, and each step time is shortened from 90ms to 18.07ms.
+By observing the step trace on the MindSpore Insight performance analysis page, you can see that the step interval is shortened from 72.8ms to 0.25ms, and each step time is shortened from 90ms to 18.07ms.
 
 ![short_step_interval](images/profiler_case1_short_step_interval.png)
 
@@ -83,7 +83,7 @@ By observing the step trace on the MindInsight performance analysis page, you ca
 
 We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , and each step cost almost 113.79ms, with a poor performance.
 
-As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized. In a single card training or inference process, the forward time consumption is usually considered whether there is a operator that can be optimized for the time consumption.
+As we observed on the MindSpore Insight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized. In a single card training or inference process, the forward time consumption is usually considered whether there is a operator that can be optimized for the time consumption.
 
 ![long_fp_bp](images/profiler_case2_long_fp_bp.png)
 
@@ -105,7 +105,7 @@ network = vgg16(config.num_classes, config, phase="test")
 network.add_flags_recursive(fp16=True)
 ```
 
-After the float16 format is set, the inference script is run. From the MindInsight performance analysis page to observe the step trace, we can see that the forward propagation interval is shorten from 82.45ms to 16.89ms and each step time consumption is shortened, which is shown as the following picture:
+After the float16 format is set, the inference script is run. From the MindSpore Insight performance analysis page to observe the step trace, we can see that the forward propagation interval is shorten from 82.45ms to 16.89ms and each step time consumption is shortened, which is shown as the following picture:
 
 ![short_fp](images/profiler_case2_short_fp.png)
 
@@ -115,7 +115,7 @@ After the float16 format is set, the inference script is run. From the MindInsig
 
 We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
 
-As we observed the step trace on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
+As we observed the step trace on the MindSpore Insight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
 
 ![long_step_tail](images/profiler_case3_long_step_tail.png)
 
@@ -141,7 +141,7 @@ else:
 init()
 ```
 
-We run ResNet50 8P script again after AllReduce is sliced. The step trace is observed in the MindInsight performance analysis page, and the step tail is shorten from 6.15ms to 4.20ms. The figure is shown in the following:
+We run ResNet50 8P script again after AllReduce is sliced. The step trace is observed in the MindSpore Insight performance analysis page, and the step tail is shorten from 6.15ms to 4.20ms. The figure is shown in the following:
 
 ![short_step_tail](images/profiler_case3_short_step_tail.png)
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindInsight provides a number of indicators from the perspective of single device and cluster to help users find performance bottlenecks. This paper focuses on the explanation of methodology. The purpose is to guide users how to use these indicators to find the performance bottlenecks in the network step by step.
+MindSpore Insight provides a number of indicators from the perspective of single device and cluster to help users find performance bottlenecks. This paper focuses on the explanation of methodology. The purpose is to guide users how to use these indicators to find the performance bottlenecks in the network step by step.
 For the meaning of each indicator, users can refer to the following tutorials:
 
 [Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
@@ -21,7 +21,7 @@ This document starts with the performance tuning of single device and help users
 
 ### Analyse Entry
 
-MindInsight provides Step Trace as the performance analyse entry. Step Trace has three phases, users can observe these phases and determine where performance bottlenecks are first.
+MindSpore Insight provides Step Trace as the performance analyse entry. Step Trace has three phases, users can observe these phases and determine where performance bottlenecks are first.
 
 - Step Interval: If this phase takes a long time, it indicates that the data processing speed cannot keep up with the training speed.
 - Forward and Backward Propagation: This phase is the duration for executing the forward and backward operations on the network, which handles the main calculation work of a step.
@@ -46,7 +46,7 @@ Users need to go to the data preparation page to further confirm whether there i
 
 Step 1：Please jump to the `step interval` tab on the `data preparation details` page to see how the size curve changes in the host queue. If the size in this queue is 0 in most cases, indicating that the data processing is a performance bottleneck, please refer to step 2 and continue to locate which operation should be optimized, otherwise the process of obtaining data from the iterator of the dataset module and sending it to device is a performance bottleneck, and users can continue to confirm in the following two steps:
 
-- Make sure if there is time-consuming custom logic in the script after getting data from the iterator of the dataset module, such as additional data cleaning, conversion, etc(MindInsight can not obtain the time spent by the customized logic and the user is required to obtain the duration manually). If so, the user is required to optimize for this custom logic. Code is shown below:
+- Make sure if there is time-consuming custom logic in the script after getting data from the iterator of the dataset module, such as additional data cleaning, conversion, etc(MindSpore Insight can not obtain the time spent by the customized logic and the user is required to obtain the duration manually). If so, the user is required to optimize for this custom logic. Code is shown below:
 
     ```python
     iterator = mindspore.dataset.Cifar100Dataset()
@@ -95,7 +95,7 @@ The main factors affecting cluster performance are the following:
 - Slow link：If there is a problem with some links in the cluster, resulting in less bandwidth, it can drag down the performance of the cluster.
 - Reasonable division：Mainly for the model parallel and pipeline model. For the model parallel, many collective communication operators will be inserted because of re-distribution, and thus affect the cluster performance. If the pure communication time ratio is large, user should consider if has better division strategy to decrease the pure communication time. For pipeline parallel, if the FLOPs is not balanced due to unreasonable division, additional data waiting time between stages will be result in.
 
-For the main factors that affect cluster performance, MindInsight provides different indicators for data parallel, model parallel, pipeline parallel, and hybrid parallel to help users quickly identify performance bottlenecks in the cluster.
+For the main factors that affect cluster performance, MindSpore Insight provides different indicators for data parallel, model parallel, pipeline parallel, and hybrid parallel to help users quickly identify performance bottlenecks in the cluster.
 
 ### Analyse Entry
 
@@ -132,7 +132,7 @@ Please refer to step 1 of "Data Parallel".
 
 Step 2: Observe the computation time in the cluster step trace page
 
-In the forward and backward propagation phase of model parallel, the calculation operators and the communication operators are alternately executed, and the slow nodes can not be found. So MindInsight provides computation time to help users find slow node from cluster.
+In the forward and backward propagation phase of model parallel, the calculation operators and the communication operators are alternately executed, and the slow nodes can not be found. So MindSpore Insight provides computation time to help users find slow node from cluster.
 Please refer to step 2 of "Data Parallel".
 
 Step 3: Observe the pure communication time in the cluster step trace page
@@ -140,7 +140,7 @@ Step 3: Observe the pure communication time in the cluster step trace page
 On the premise of confirming that there is no slow node through step 1 and step 2, the pure communication time of each card in the cluster should be basically the same. If this phase takes a short time, it means that the communication time caused by re-distribution of operators is very short, and users do not need to consider optimizing the parallel strategy. Otherwise, users need to focus on analyzing whether the parallel strategy can be optimized.
 Users need to have a certain understanding of the principle of model parallelism before continue to analyse. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
 
-- If this stage takes a long time, the user can choose any one of the devices and observe its timeline. In the timeline, MindInsight marks the pure communication time, refer to 'Pure Communication Op' below.
+- If this stage takes a long time, the user can choose any one of the devices and observe its timeline. In the timeline, MindSpore Insight marks the pure communication time, refer to 'Pure Communication Op' below.
 
     ![timeline.png](./images/timeline.png)
 

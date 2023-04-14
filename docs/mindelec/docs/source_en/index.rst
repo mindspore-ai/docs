@@ -33,7 +33,7 @@ Provides a series of optimization strategies to improve physical-driven and data
 Result Visualization
 -----------------------
 
-The simulation results, such as the S parameters or electromagnetic fields, can be saved in the CSV or VTK files. MindInsight can display the loss function changes during the training process and display the results on the web page in the form of images. ParaView is the third-party open-source software and can dynamically display advanced functions such as slicing and flipping.
+The simulation results, such as the S parameters or electromagnetic fields, can be saved in the CSV or VTK files. MindSpore Insight can display the loss function changes during the training process and display the results on the web page in the form of images. ParaView is the third-party open-source software and can dynamically display advanced functions such as slicing and flipping.
 
 .. toctree::
    :maxdepth: 1

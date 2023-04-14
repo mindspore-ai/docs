@@ -126,8 +126,8 @@
     {
         "version" : "",
         "label" : {
-            "zh": "可视化调试调优（MindInsight）",
-            "en": "MindInsight"
+            "zh": "可视化调试调优（MindSpore Insight）",
+            "en": "MindSpore Insight"
         },
         "repo_name" : "mindinsight"
     },

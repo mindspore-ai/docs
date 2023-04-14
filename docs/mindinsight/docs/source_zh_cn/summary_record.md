@@ -9,7 +9,7 @@
 ## 操作流程
 
 - 准备训练脚本，并在训练脚本中指定标量、图像、计算图、训练优化过程、模型超参等信息记录到summary日志文件，接着运行训练脚本。
-- 启动MindInsight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
+- 启动MindSpore Insight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
 - 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)。
 
 > 在ModelArts中查看可视数据，可参考[ModelArts上管理可视化作业](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html)。
@@ -278,9 +278,9 @@ def train(ds_train):
                 dataset_sink_mode=False)
 ```
 
-## 运行MindInsight
+## 运行MindSpore Insight
 
-按照上面教程完成数据收集后，启动MindInsight，即可可视化收集到的数据。启动MindInsight时，
+按照上面教程完成数据收集后，启动MindSpore Insight，即可可视化收集到的数据。启动MindSpore Insight时，
 需要通过 `--summary-base-dir` 参数指定summary日志文件目录。
 
 其中指定的summary日志文件目录可以是一次训练的输出目录，也可以是多次训练输出目录的父目录。
@@ -320,17 +320,17 @@ mindinsight start --summary-base-dir ./summary
 
 启动成功后，通过浏览器访问 `http://127.0.0.1:8080` 地址，即可查看可视化页面。
 
-停止MindInsight命令：
+停止MindSpore Insight命令：
 
 ```Bash
 mindinsight stop
 ```
 
-更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)页面。
+更多参数设置，请点击查看[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)页面。
 
 ## 注意事项
 
-1. 为了控制列出summary文件目录的用时，MindInsight最多支持发现999个summary文件目录。
+1. 为了控制列出summary文件目录的用时，MindSpore Insight最多支持发现999个summary文件目录。
 
 2. 不能同时使用多个 `SummaryRecord` 实例 （`SummaryCollector` 中使用了 `SummaryRecord`）。
 
@@ -368,7 +368,7 @@ mindinsight stop
     model.train(2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 
-3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
+3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindSpore Insight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
 
 4. 使用summary功能时，建议将`model.train`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
 

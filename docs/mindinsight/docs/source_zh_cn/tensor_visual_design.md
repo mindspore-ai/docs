@@ -10,7 +10,7 @@
 
 Tensor可视主要是解析由MindSpore的`TensorSummary` API记录的Tensor数据生成的Summary文件，并把结果返回给前端展示。
 
-MindInsight解析时会遵循proto文件（Google Protocol Buffer，是一种高效便捷的结构化数据存储方式）来解析Tensor数据，然后把数据缓存起来，在前端查询特定数据时将其返回供前端展示。
+MindSpore Insight解析时会遵循proto文件（Google Protocol Buffer，是一种高效便捷的结构化数据存储方式）来解析Tensor数据，然后把数据缓存起来，在前端查询特定数据时将其返回供前端展示。
 
 Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于零维的Tensor，需要通过`ScalarSummary`来记录并在标量可视中展示。
 
@@ -41,7 +41,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于�
 
 ### 接口设计
 
-在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindInsight和MindSpore进行数据对接的接口。 RESTful API接口是MindInsight前后端进行数据交互的接口，是内部接口。
+在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindSpore Insight和MindSpore进行数据对接的接口。 RESTful API接口是MindSpore Insight前后端进行数据交互的接口，是内部接口。
 
 #### 文件接口设计
 
