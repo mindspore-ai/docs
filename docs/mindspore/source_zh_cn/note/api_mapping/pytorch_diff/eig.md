@@ -34,6 +34,7 @@ MindSpore：返回 `eigenvalues` 和 `eigenvectors`。
 
 ```python
 # PyTorch
+import numpy as np
 import torch
 
 inputs = np.array([[1.0, 0.0], [0.0, 2.0]])
