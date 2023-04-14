@@ -21,12 +21,12 @@ Overview
 
 This section is used to introduce the various functional debugging capabilities provided by MindSpore for neural network developers and framework developers. Functional debugging refers to the debugging capabilities of developers in the process of developing neural network or framework functions, which is different from the debugging and tuning of performance and accuracy after the functions are implemented. The functional debugging is divided into network development debugging and framework development debugging from different purposes of use. Network development debugging is used to meet the debugging requirements of network developers (also known as users) for error debugging, control and observation of network execution during neural network development, and framework development debugging is used to meet the debugging requirements of framework developers.
 
--  network development debugging: The functional debugging capabilities for neural network developers can be divided into network error debugging and network execution debugging.
+- network development debugging: The functional debugging capabilities for neural network developers can be divided into network error debugging and network execution debugging.
 
-    -  network error debugging: Provide error diagnosis and debugging capabilities when network errors are reported, e.g., error description, debugging with PyNative.
-    -  network execution debugging: Provide the observation and execution control capabilities during normal network execution, e.g. callback, hook.
+  - network error debugging: Provide error diagnosis and debugging capabilities when network errors are reported, e.g., error description, debugging with PyNative.
+  - network execution debugging: Provide the observation and execution control capabilities during normal network execution, e.g. callback, hook.
 
--  Framework development debugging: Provide functional debugging capabilities for MindSpore framework developers, such as logging and RDR (run data saving).
+- Framework development debugging: Provide functional debugging capabilities for MindSpore framework developers, such as logging and RDR (run data saving).
 
 Network development debugging and framework development debugging are only distinguished from a more applicable perspective, not a strict functional division. Network developers can also use the framework development debugging function to debug problems, and vice versa.
 
@@ -94,8 +94,6 @@ Based on the error message and the location of the error code, combined with the
 -  FAQ
 
    MindSpore provides FAQ for common error reporting issues, including data processing, compilation execution, distributed parallelism and other scenarios. Based on the problem scenarios derived from the error analysis, you can search for problems by using the error description information.
-
-   For example, in the network compilation error report scenario, when the error "Shape Join Failed" is reported.
 
    The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/r2.0/faq/installation.html>`__\ .
 
