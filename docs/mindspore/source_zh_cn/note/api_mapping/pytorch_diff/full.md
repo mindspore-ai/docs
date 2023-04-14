@@ -57,8 +57,7 @@ print(torch_output.numpy())
 # MindSpore
 import mindspore
 
-full_value = [[1, 1, 1],[1, 1, 1]]
-ms_tensor_output = mindspore.ops.full((2, 3), full_value)
+ms_tensor_output = mindspore.ops.full((2, 3), 1)
 print(ms_tensor_output)
 # [[1 1 1]
 #  [1 1 1]]
