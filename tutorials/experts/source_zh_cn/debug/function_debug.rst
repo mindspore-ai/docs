@@ -103,13 +103,6 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    MindSpore提供常见报错问题FAQ，包括数据处理、编译执行、分布式并行等场景。可根据错误分析中得出的问题场景，使用报错描述信息进行问题搜索。
 
-   例如，在网络编译报错场景下，出现报错内容：“Shape Join
-   Failed”，搜索结果如图3所示。
-
-   .. image:: images/faq_result.png
-
-   图 3
-
    搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html>`__\ 。
 
 -  报错案例
