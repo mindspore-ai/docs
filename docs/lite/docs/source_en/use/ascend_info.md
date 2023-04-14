@@ -96,7 +96,7 @@ First, use the converter to convert a model into an `ms` model. Then, use the ru
 
 5. (Optional) Configuring configFile
 
-    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table.
+    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table,  Ascend initialization can be configured through the [acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html) parameter, and Ascend composition can be configured through the [acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html) parameter.
 
 6. Execute the converter to generate an Ascend `ms` model.
 

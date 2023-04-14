@@ -95,7 +95,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 5. 配置configFile(可选)
 
-    用户可以通过此选项配置用于转模型时的Ascend Option选项， 配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示。
+    用户可以通过此选项配置用于转模型时的Ascend Option选项， 配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示，针对Ascend初始化可以通过[acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html)参数进行配置，针对Ascend构图可以通过[acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html)参数进行配置。
 
 6. 执行converter，生成Ascend`ms`模型
 
