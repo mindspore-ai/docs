@@ -43,7 +43,7 @@
                 "title": "Toolset",
                 "children": [
                     {
-                        "name": "MindInsight",
+                        "name": "MindSpore Insight",
                         "id": "mindinsight"
                     },
                     {

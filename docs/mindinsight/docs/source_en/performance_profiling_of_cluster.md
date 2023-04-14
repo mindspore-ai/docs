@@ -19,7 +19,7 @@ This article describes how to use MindSpore Profiler for cluster performance deb
 
 1. Set up the distributed training environment, prepare a training script, add profiler APIs in the training script and run the training script.
 2. Collect Cluster Performance Data.
-3. Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+3. Start MindSpore Insight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 4. Find the cluster training in the list, click the cluster performance profiling link and view the data on the web page.
 
 > The images in this article are from the Ascend AI processor, and the differences between devices will be explained separately.
@@ -174,7 +174,7 @@ Script Parameter Description:
 - `host_train_id` In cluster training, the performance data saving path is set by the user. When the performance data save path is set to an absolute path, `host_train_id` is the value set by the user. For example, when the value is `/data/run`, multi devices performance data are saved in `/data/run/profiler` (`profiler`folder is automatically created by the program), the value of `host_train_id` should be set to `/data/run`. When the performance data saving path is set as a relative path, multi card performance data may be saved in different folders, such as `/data/run/device0/data/profiler`, `/data/run/device1/data/profiler`. Their common path is `/data/run/device/data/profiler`, and the performance data storage path of each device is `/data/run/device{device_id}/data/profiler`. The value of `host_train_id` should be set to `/data/run/device/data`.
 - `is_absolute_path` In the cluster performance data to be collected, whether the single machine and multi devices data are saved in the same directory. If yes, set to 1; Not set to 0.
 
-> The collected cluster performance jobs need to conform to the directory structure, otherwise, they cannot be visualized with MindInsight. It must contain the networking information file (the file name is optional) and host_ips_mapping.txt File (file name and suffix are unique).
+> The collected cluster performance jobs need to conform to the directory structure, otherwise, they cannot be visualized with MindSpore Insight. It must contain the networking information file (the file name is optional) and host_ips_mapping.txt File (file name and suffix are unique).
 
 The directory structure of cluster performance folder collected by script is as follows:
 
@@ -186,7 +186,7 @@ The directory structure of cluster performance folder collected by script is as 
 
 > The format of cluster directory and single device performance directory are unified.
 
-In MindInsight r1.3 and earlier versions, the cluster directory structure is as follows:
+In MindSpore Insight r1.3 and earlier versions, the cluster directory structure is as follows:
 
 ```text
 |-- run
@@ -198,13 +198,13 @@ In MindInsight r1.3 and earlier versions, the cluster directory structure is as 
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
+Through the data conversion script, you can convert the cluster performance directory created by users using MindSpore Insight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
 
 > This is the Ascend AI processor's introduction to collecting cluster performance data. For GPU cluster training, see the GPU distributed training tutorial.
 
-## Launch MindInsight
+## Launch MindSpore Insight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+The MindSpore Insight launch command can refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
 
 ## Training Performance
 
@@ -305,7 +305,7 @@ The whole network link information tab page displays the link information of all
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
-To use MindInsight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Ascend 910 AI processor. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
+To use MindSpore Insight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Ascend 910 AI processor. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
 
 ```bash
 pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.whl
@@ -480,7 +480,7 @@ The time overview is a double y-axis graph, showing the training time on the lef
 
 ## Specifications
 
-- To limit the data size generated by the Profiler, MindInsight suggests that for large neural networks, the profiled steps should be less than 10.
+- To limit the data size generated by the Profiler, MindSpore Insight suggests that for large neural networks, the profiled steps should be less than 10.
 
   > The number of steps can be controlled by controlling the size of training dataset. For example, the `num_samples` parameter in `mindspore.dataset.MindDataset` can control the size of the dataset. For details, please refer to:
   > <https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html>

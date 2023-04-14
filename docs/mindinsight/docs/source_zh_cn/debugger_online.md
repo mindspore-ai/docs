@@ -8,18 +8,18 @@
 
 ## 操作流程
 
-- 以调试模式启动MindInsight，等待训练连接；
+- 以调试模式启动MindSpore Insight，等待训练连接；
 - 配置相关环境变量，运行训练脚本；
-- 训练连接成功，在MindInsight调试器界面设置监测点；
-- 在MindInsight调试器界面分析训练执行情况。
+- 训练连接成功，在MindSpore Insight调试器界面设置监测点；
+- 在MindSpore Insight调试器界面分析训练执行情况。
 
 ## 调试器环境准备
 
-### 以调试模式启动MindInsight
+### 以调试模式启动MindSpore Insight
 
-开始训练前，请先安装MindInsight，并以调试模式启动。调试模式下，MindSpore会将训练信息发送给MindInsight调试服务，用户可在MindInsight调试器界面进行查看和分析。
+开始训练前，请先安装MindSpore Insight，并以调试模式启动。调试模式下，MindSpore会将训练信息发送给MindSpore Insight调试服务，用户可在MindSpore Insight调试器界面进行查看和分析。
 
-MindInsight调试服务启动命令：
+MindSpore Insight调试服务启动命令：
 
 ```text
 mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER_PORT}
@@ -30,16 +30,16 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |参数名|属性|功能描述|参数类型|默认值|取值范围|
 |---|---|---|---|---|---|
 |`--port {PORT}`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|
-|`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindInsight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
+|`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindSpore Insight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
 
 ### 以调试模式运行训练脚本
 
 以调试模式运行训练脚本，需要设置环境变量`export ENABLE_MS_DEBUGGER=1`或`export ENABLE_MS_DEBUGGER=True`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
-`export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
-`export MS_DEBUGGER_PORT=50051`(该端口需与MindInsight debugger-port一致)。
+`export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindSpore Insight host一致)；
+`export MS_DEBUGGER_PORT=50051`(该端口需与MindSpore Insight debugger-port一致)。
 
 如果用户设备的内存空间有限，可在运行训练前开启部分内存复用模式，以降低运行内存占用：`export MS_DEBUGGER_PARTIAL_MEM=1`。
 
@@ -49,7 +49,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ## 调试器页面介绍
 
-训练连接成功后，可以在MindInsight调试器界面查看计算图等训练元信息，调试器页面布局由计算图、节点列表、节点信息、监测点列表、监测点命中列表、堆栈列表、堆栈信息等部分组成。
+训练连接成功后，可以在MindSpore Insight调试器界面查看计算图等训练元信息，调试器页面布局由计算图、节点列表、节点信息、监测点列表、监测点命中列表、堆栈列表、堆栈信息等部分组成。
 
 ![debugger_init_page](images/debugger_init_page.png)
 
@@ -215,7 +215,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 2. 在终端运行训练脚本。
 
-3. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，如下图所示：
+3. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，如下图所示：
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
@@ -250,7 +250,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 - GPU场景：
     - 在GPU场景下，只有满足条件的参数节点可以与自身的上一轮次结果作对比：使用`下一个节点`执行过的节点、使用`运行到该节点`时选中的节点、作为`监测点`输入的参数节点。其他情况均无法使用`上一轮次对比`功能。
 
-- 使用调试器时要保证MindInsight和MindSpore的版本号相同。
+- 使用调试器时要保证MindSpore Insight和MindSpore的版本号相同。
 - 重新检查只检查当前有张量值的监测点。
 - 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。

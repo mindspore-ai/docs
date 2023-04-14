@@ -52,10 +52,10 @@
 
 ### 接口设计
 
-计算图中，主要有文件接口和RESTful API接口，其中文件接口为`summary.proto`文件，是MindInsight和MindSpore进行数据对接的接口。
-RESTful API接口是MindInsight前后端进行数据交互的接口。
+计算图中，主要有文件接口和RESTful API接口，其中文件接口为`summary.proto`文件，是MindSpore Insight和MindSpore进行数据对接的接口。
+RESTful API接口是MindSpore Insight前后端进行数据交互的接口。
 
 #### 文件接口设计
 
-MindSpore与MindInsight之间的数据交互，采用[protobuf](https://developers.google.cn/protocol-buffers/docs/pythontutorial?hl=zh-cn)定义数据格式。
+MindSpore与MindSpore Insight之间的数据交互，采用[protobuf](https://developers.google.cn/protocol-buffers/docs/pythontutorial?hl=zh-cn)定义数据格式。
 [summary.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_summary.proto)为总入口，计算图的消息对象定义为 `GraphProto`。`GraphProto`的详细定义可以参考[anf_ir.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto)。

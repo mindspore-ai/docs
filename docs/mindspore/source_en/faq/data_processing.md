@@ -225,7 +225,7 @@ A: Firstly, above error refers to failed sending data to the device through the 
           return dataset
           ```
 
-      - The data processing performance is slow, and cannot keep up with the speed of network training. For this case, you can use the profiler tool and MindInsight to see if there is an obvious iteration gap, or manually iterating the dataset, and print the average single batch time if it is longer than the combined forward and backward time of the network. There is a high probability that the performance of the data processing part needs to be optimized if yes.
+      - The data processing performance is slow, and cannot keep up with the speed of network training. For this case, you can use the profiler tool and MindSpore Insight to see if there is an obvious iteration gap, or manually iterating the dataset, and print the average single batch time if it is longer than the combined forward and backward time of the network. There is a high probability that the performance of the data processing part needs to be optimized if yes.
 
       - During the training process, the occurrence of abnormal data may resulted in exception, causing sending data failed. In this case, there will be other `ERROR` logs that shows which part of the data processing process is abnormal and checking advice. If it is not obvious, you can also try to find the abnormal data by iterating each data batch in the dataset (such as turning off shuffle, and using dichotomy).
 

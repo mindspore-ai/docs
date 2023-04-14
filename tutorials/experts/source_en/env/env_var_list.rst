@@ -321,9 +321,9 @@ Debugger
        0: disables Debugger.
      - This variable is used together with MS_DEBUGGER_HOST and MS_DEBUGGER_PORT.
    * - MS_DEBUGGER_HOST
-     - Specifies the IP of the MindInsight Debugger Server.
+     - Specifies the IP of the MindSpore Insight Debugger Server.
      - String
-     - IP address of the host where the MindInsight Debugger Server is located.
+     - IP address of the host where the MindSpore Insight Debugger Server is located.
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_PORT.
    * - MS_DEBUGGER_PARTIAL_MEM
      - Determines whether to enable partial memory overcommitment. (Memory overcommitment is disabled only for nodes selected on Debugger.)
@@ -333,7 +333,7 @@ Debugger
        0: disables memory overcommitment for nodes selected on Debugger.
      - 
    * - MS_DEBUGGER_PORT
-     - Specifies the port for connecting to the MindInsight Debugger Server.
+     - Specifies the port for connecting to the MindSpore Insight Debugger Server.
      - Integer
      - Port number ranges from 1 to 65536.
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.

@@ -1,4 +1,4 @@
-# 安装MindInsight
+# 安装MindSpore Insight
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/mindinsight_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -8,7 +8,7 @@
 - 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
     - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
     - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
-- MindInsight与MindSpore的版本需保持一致。
+- MindSpore Insight与MindSpore的版本需保持一致。
 - 若采用源码编译安装，还需确认安装以下依赖。
     - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上版本。
     - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
@@ -32,9 +32,9 @@ pip install mindinsight
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindinsight-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindInsight安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)），其余情况需自行安装。
-> - `{version}`表示MindInsight版本号，例如下载1.3.0版本MindInsight时，`{version}`应写为1.3.0。
-> - MindInsight支持使用x86 64位或ARM 64位架构的Linux发行版系统。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Insight安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)），其余情况需自行安装。
+> - `{version}`表示MindSpore Insight版本号，例如下载1.3.0版本MindSpore Insight时，`{version}`应写为1.3.0。
+> - MindSpore Insight支持使用x86 64位或ARM 64位架构的Linux发行版系统。
 
 ### 源码编译安装
 
@@ -44,7 +44,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 git clone https://gitee.com/mindspore/mindinsight.git
 ```
 
-#### 编译安装MindInsight
+#### 编译安装MindSpore Insight
 
 可选择以下任意一种安装方式：
 
@@ -58,7 +58,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
 2. 构建`whl`包进行安装。
 
-    进入源码的根目录，先执行`build`目录下的MindInsight编译脚本，再执行命令安装`output`目录下生成的`whl`包。
+    进入源码的根目录，先执行`build`目录下的MindSpore Insight编译脚本，再执行命令安装`output`目录下生成的`whl`包。
 
     ```bash
     cd mindinsight
@@ -68,7 +68,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
 ### Docker安装
 
-MindSpore的镜像包含MindInsight功能，请参考官网[安装指导](https://www.mindspore.cn/install)。
+MindSpore的镜像包含MindSpore Insight功能，请参考官网[安装指导](https://www.mindspore.cn/install)。
 
 ## 验证是否成功安装
 

@@ -83,7 +83,7 @@ of which,
 
 - `{tag}` corresponds to the label in the above table.
 
-If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
+If you want to use MindSpore Insight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
 docker run -it -u root --ipc=host \
@@ -155,9 +155,9 @@ The outputs should be the same as:
 
 So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
 
-If you need to verify the MindInsight installation:
+If you need to verify the MindSpore Insight installation:
 
-Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
+Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindSpore Insight has been installed successfully.
 
 ## Version Update
 

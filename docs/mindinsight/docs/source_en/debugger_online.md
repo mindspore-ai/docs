@@ -8,18 +8,18 @@ This article describes how to use Debugger in online mode.
 
 ## Operation Process
 
-- Launch MindInsight in debugger mode and wait for the training.
+- Launch MindSpore Insight in debugger mode and wait for the training.
 - Set debugger environment variables and run the training script.
-- After the training is connected, set watchpoints on the MindInsight Debugger UI.
-- Analyze the training progress on MindInsight Debugger UI.
+- After the training is connected, set watchpoints on the MindSpore Insight Debugger UI.
+- Analyze the training progress on MindSpore Insight Debugger UI.
 
 ## Debugger Environment Preparation
 
-### Launch MindInsight in Debugger Mode
+### Launch MindSpore Insight in Debugger Mode
 
-At first, install MindInsight and launch it in debugger mode. MindSpore will send training information to MindInsight Debugger Server in debugger mode, users can analyze the information on MindInsight UI.
+At first, install MindSpore Insight and launch it in debugger mode. MindSpore will send training information to MindSpore Insight Debugger Server in debugger mode, users can analyze the information on MindSpore Insight UI.
 
-The command to launch MindInsight in debugger mode is as follows:
+The command to launch MindSpore Insight in debugger mode is as follows:
 
 ```text
 mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER_PORT}
@@ -30,16 +30,16 @@ The Debugger related parameters:
 |Name|Argument|Description|Type|Default|Scope|
 |---|---|---|---|---|---|
 |`--port {PORT}`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|
-|`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
+|`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindSpore Insight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For more launch parameters, please refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
 
 ### Run the Training Script in Debug Mode
 
 Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
-`export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
-`export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
+`export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindSpore Insight host address);
+`export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindSpore Insight debugger-port).
 
 If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
 
@@ -49,7 +49,7 @@ After the environment and training script are prepared, run the training script.
 
 ## Debugger UI Introduction
 
-After the training is connected, you can view the training meta information such as a computational graph on the MindInsight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, watchpoint hit list, stack list, and stack information.
+After the training is connected, you can view the training meta information such as a computational graph on the MindSpore Insight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, watchpoint hit list, stack list, and stack information.
 The Debugger UI components are shown as follows.
 
 ![debugger_init_page](./images/debugger_init_page.png)
@@ -212,7 +212,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 ## Debugger Usage Example
 
-1. Prepare the debugger environment, and open the MindInsight Debugger UI.
+1. Prepare the debugger environment, and open the MindSpore Insight Debugger UI.
 
     ![debugger_waiting](./images/debugger_waiting.png)
 
@@ -222,7 +222,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 2. Run the training script on terminal.
 
-3. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints, as shown in the following figure.
+3. Wait for a moment. A dialog box is displayed on the MindSpore Insight UI, asking you whether to use the recommended watchpoints, as shown in the following figure.
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
@@ -257,7 +257,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 - GPU Scenario:
     - In the GPU scenario, only the parameter nodes that meet requirements can be compared with the previous step. For example, nodes executed on the `next node`, nodes selected when `Run to This Node` is chosen, and nodes input as `watchpoints` can be compared. In other cases, the `Compare with Previous Step` function cannot be used.
 
-- When using the debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
+- When using the debugger, make sure that the version numbers of MindSpore Insight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
 - To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
