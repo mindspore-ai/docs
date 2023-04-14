@@ -699,7 +699,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using C++ interface.
+										This tutorial provides an example program for MindSpore Lite to multi-model concurrent inference by using C++ interface.
 										</div>
 									</div>
 								</a>
@@ -712,7 +712,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using Java interface.
+										This tutorial provides an example program for MindSpore Lite to multi-model concurrent inference by using Java interface.
 										</div>
 									</div>
 								</a>
@@ -725,7 +725,7 @@ MindSpore Lite Documentation
 										</div>
 							
 										<div class="doc-article-desc">
-										This tutorial provides an example program for MindSpore Lite to multi-model parallel inference by using Python interface.
+										This tutorial provides an example program for MindSpore Lite to multi-model concurrent inference by using Python interface.
 										</div>
 									</div>
 								</a>
