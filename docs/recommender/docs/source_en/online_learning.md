@@ -33,7 +33,7 @@ kafka-python v2.0.2
 
 ## Example
 
-The following is an example of the process of online learning with the Criteo dataset training Wide&Deep. The sample code is located at [Online Learning](https://gitee.com/mindspore/recommender/tree/master/examples/online_learning).
+The following is an example of the process of online learning with the Criteo dataset training Wide&Deep. The sample code is located at [Online Learning](https://github.com/mindspore-lab/mindrec/tree/master/examples/online_learning).
 
 MindSpore Recommender provides a specialized algorithm model `RecModel` for online learning, which is combined with MindSpore Pandas, a real-time data source Kafka for data reading and feature processing, to implement a simple online learning process.
 First define a custom dataset for real-time data processing, where the constructor parameter `receiver` is of type `DataReceiver` in MindPands for receiving real-time data, and `__getitem__` means read data one at a time.
@@ -155,11 +155,11 @@ python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --datase
 # --map_dict： Dictionary of sparse feature columns
 ```
 
-The consumer needs 3 dataset-related files for feature engineering of criteo dataset: `all_val_max_dict.pkl`, `all_val_min_dict.pkl` and `cat2id_dict.pkl`. `$PATH_TO_VAL_MAX_DICT`, `$PATH_TO_VAL_MIN_DICT` and `$PATH_TO_CAT_TO_ID_DICT`, which are the absolute paths to these files on the environment, respectively. The specific production method of these 3 PKL files can be found in [process_data.py](https://gitee.com/mindspore/recommender/blob/master/datasets/criteo_1tb/process_data.py), switching the original criteo dataset to produce the corresponding .pkl files.
+The consumer needs 3 dataset-related files for feature engineering of criteo dataset: `all_val_max_dict.pkl`, `all_val_min_dict.pkl` and `cat2id_dict.pkl`. `$PATH_TO_VAL_MAX_DICT`, `$PATH_TO_VAL_MIN_DICT` and `$PATH_TO_CAT_TO_ID_DICT`, which are the absolute paths to these files on the environment, respectively. The specific production method of these 3 PKL files can be found in [process_data.py](https://github.com/mindspore-lab/mindrec/blob/master/datasets/criteo_1tb/process_data.py), switching the original criteo dataset to produce the corresponding .pkl files.
 
 ### Starting Online Training
 
-For fhe yaml used by config, please refer to [default_config.yaml](https://gitee.com/mindspore/recommender/blob/master/examples/online_learning/default_config.yaml).
+For fhe yaml used by config, please refer to [default_config.yaml](https://github.com/mindspore-lab/mindrec/blob/master/examples/online_learning/default_config.yaml).
 
 Single-card traininf:
 
