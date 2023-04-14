@@ -1,4 +1,4 @@
-# Using Python Interface to Perform Cloud-side Inference
+# Using Python Interface to Perform Concurrent Inference
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel_python.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
@@ -31,9 +31,9 @@ Concurrent inference with MindSpore Lite consists of the following main steps:
     python -m pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MINDSPORE_LITE_VERSION}/MindSpore/lite/release/centos_x86/cloud_fusion/mindspore_lite-${MINDSPORE_LITE_VERSION}-cp37-cp37m-linux_x86.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-### Create configuration context
+### Creating configuration context
 
-The [Context.parallel](https://mindspore.cn/lite/api/en/r2.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) attributes will hold some basic configuration parameters required for concurrent inference to guide the number of concurrent models as well as model compilation and model execution.
+The [Context.parallel](https://mindspore.cn/lite/api/en/r2.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) attributes, context related to multi-model concurrent inference, will hold some basic configuration parameters required for concurrent inference to guide the number of concurrent models as well as model compilation and model execution.
 
 The following sample code demonstrates how to set Context.parallel attributes and configure the number of workers for concurrent inference.
 
