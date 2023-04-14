@@ -24,7 +24,7 @@
 
 模型metrics一般表现为模型的accuracy、precision等metric达不到预期。
 
-精度问题的直接现象较容易观察，借助MindInsight等可视化工具，还可以在梯度、权重、激活值等张量上观察到更多现象。常见现象如：
+精度问题的直接现象较容易观察，借助MindSpore Insight等可视化工具，还可以在梯度、权重、激活值等张量上观察到更多现象。常见现象如：
 
 1. 梯度消失。
 2. 梯度爆炸。
@@ -113,7 +113,7 @@
 
          2. 权重共享错误（共享了不应共享的权重）。
 
-             权重共享错误，是指应该共享的权重未共享，或者不应该共享的权重共享了。通过MindInsight计算图可视，可以检查这一类问题。
+             权重共享错误，是指应该共享的权重未共享，或者不应该共享的权重共享了。通过MindSpore Insight计算图可视，可以检查这一类问题。
 
          3. 节点连接错误（应该连接到计算图中的block未连接）。
 
@@ -125,7 +125,7 @@
 
          5. 权重冻结错误（冻结了不应冻结的权重）。
 
-             权重冻结错误，是指应该冻结的权重未冻结，或者不应该冻结的权重冻结了。在MindSpore中，冻结权重可以通过控制传入优化器的`params`参数来实现。未传入优化器的Parameter将不会被更新。可以通过检查脚本，或者查看MindInsight中的参数分布图确认权重冻结情况。
+             权重冻结错误，是指应该冻结的权重未冻结，或者不应该冻结的权重冻结了。在MindSpore中，冻结权重可以通过控制传入优化器的`params`参数来实现。未传入优化器的Parameter将不会被更新。可以通过检查脚本，或者查看MindSpore Insight中的参数分布图确认权重冻结情况。
 
          6. loss函数有误。
 
@@ -183,11 +183,11 @@
 
     检查精度是否达到预期则是对整体精度调优过程重新审视，并考虑调整超参、解释模型、优化算法等调优手段。
 
-检查模型结构和超参重在检查模型的静态特征；检查输入数据和loss曲线则是将静态特征和动态训练现象结合检查；检查精度是否达到预期则是对整体精度调优过程重新审视，并考虑调整超参、解释模型、优化算法等调优手段。此外，熟悉模型和工具也很重要，为了帮助用户高效实施上述的精度调优思路，MindInsight提供了配套的能力，如下图。
+检查模型结构和超参重在检查模型的静态特征；检查输入数据和loss曲线则是将静态特征和动态训练现象结合检查；检查精度是否达到预期则是对整体精度调优过程重新审视，并考虑调整超参、解释模型、优化算法等调优手段。此外，熟悉模型和工具也很重要，为了帮助用户高效实施上述的精度调优思路，MindSpore Insight提供了配套的能力，如下图。
 
 ![accuracy_thought](./images/accuracy_thought.png)
 
-*图2 精度问题定位思路及MindInsight对应能力*
+*图2 精度问题定位思路及MindSpore Insight对应能力*
 
 下面将分别介绍这些思路。
 
@@ -197,11 +197,11 @@
 
     精度调优前，要先对算法设计做回顾，确保算法设计明确。如果参考论文实现模型，则应回顾论文中的全部设计细节和超参选择情况；如果参考其它框架脚本实现模型，则应确保有一个唯一的、精度能够达标的标杆脚本；如果是新开发的算法，也应将重要的设计细节和超参选择明确出来。这些信息是后面检查脚本步骤的重要依据。
 
-    精度调优前，还要全面熟悉模型。只有熟悉了模型，才能准确理解MindInsight提供的信息，判断是否存在问题，查找问题源头。因此，花时间理解模型算法和结构、理解模型中API的作用和参数的含义、理解模型所用优化器的特性等模型要素是很重要的。动手分析精度问题细节前，建议先带着问题加深对这些模型要素的了解。
+    精度调优前，还要全面熟悉模型。只有熟悉了模型，才能准确理解MindSpore Insight提供的信息，判断是否存在问题，查找问题源头。因此，花时间理解模型算法和结构、理解模型中API的作用和参数的含义、理解模型所用优化器的特性等模型要素是很重要的。动手分析精度问题细节前，建议先带着问题加深对这些模型要素的了解。
 
-2. 熟悉[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/index.html)工具。
+2. 熟悉[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/index.html)工具。
 
-    定位精度问题时，建议使用MindInsight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
+    定位精度问题时，建议使用MindSpore Insight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -234,11 +234,11 @@
 2. `loss_scale`参数不合理；
 3. 权重初始化参数不合理等。
 
-MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryCollector`会自动记录常见超参，您可以通过MindInsight的训练参数详情功能和溯源分析功能查看超参。结合MindInsight模型溯源分析模块和脚本中的代码，可以确认超参的取值，识别明显不合理的超参。如果有标杆脚本，建议同标杆脚本一一比对超参取值，如果有默认参数值，则默认值也应一并比对，以避免不同框架的参数默认值不同导致精度下降或者训练错误。
+MindSpore Insight可以辅助用户对超参做检查，大多数情况下，`SummaryCollector`会自动记录常见超参，您可以通过MindSpore Insight的训练参数详情功能和溯源分析功能查看超参。结合MindSpore Insight模型溯源分析模块和脚本中的代码，可以确认超参的取值，识别明显不合理的超参。如果有标杆脚本，建议同标杆脚本一一比对超参取值，如果有默认参数值，则默认值也应一并比对，以避免不同框架的参数默认值不同导致精度下降或者训练错误。
 
 ![model_hyper_param](./images/model_hyper_param.png)
 
-*图4 通过MindInsight训练参数详情查看模型超参*
+*图4 通过MindSpore Insight训练参数详情查看模型超参*
 
 #### 检查模型结构
 
@@ -251,17 +251,17 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 5. loss函数错误。
 6. 优化器算法错误（如果自行实现了优化器）等。
 
-建议通过检查模型代码的方式对模型结构进行检查。此外，MindInsight也可以辅助用户对模型结构进行检查。大多数情况下，`SummaryCollector`会自动记录计算图，通过MindInsight，用户可以方便地对计算图进行查看。
+建议通过检查模型代码的方式对模型结构进行检查。此外，MindSpore Insight也可以辅助用户对模型结构进行检查。大多数情况下，`SummaryCollector`会自动记录计算图，通过MindSpore Insight，用户可以方便地对计算图进行查看。
 
 ![graph](./images/graph.png)
 
-*图5 通过MindInsight训练看板中的计算图模块查看模型结构*
+*图5 通过MindSpore Insight训练看板中的计算图模块查看模型结构*
 
-模型脚本运行后，建议使用MindInsight计算图可视模块查看模型结构，加深对计算图的理解，确认模型结构符合预期。若有标杆脚本，还可以同标杆脚本对照查看计算图，检查当前脚本和标杆脚本的计算图是否存在重要的差异。
+模型脚本运行后，建议使用MindSpore Insight计算图可视模块查看模型结构，加深对计算图的理解，确认模型结构符合预期。若有标杆脚本，还可以同标杆脚本对照查看计算图，检查当前脚本和标杆脚本的计算图是否存在重要的差异。
 
 考虑到模型结构一般都很复杂，期望在这一步就能发现所有的模型结构问题是不现实的。只要通过可视化的模型结构加深对计算图的理解，发现明显的结构问题即可。后面的步骤中，发现了更明确的精度问题现象后，我们还会回到这一步重新检查确认。
 
-> MindInsight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/dashboard.html#计算图可视化)部分了解更多信息。
+> MindSpore Insight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/dashboard.html#计算图可视化)部分了解更多信息。
 >
 > 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本，请访问教程[使用工具迁移模型定义脚本](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/migrate_3rd_scripts_mindconverter.html)以了解更多信息。
 
@@ -279,19 +279,19 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 8. 训练阶段和推理阶段的数据处理方式不同；
 9. 数据处理参数不正确等。
 
-MindInsight可以辅助用户对输入数据、数据处理流水线进行检查。大多数情况下，`SummaryCollector`会自动记录输入模型的数据（数据处理后的数据）和数据处理流水线参数。输入模型的数据会展示在“数据抽样”模块，数据处理流水线参数会展示在“数据图”模块和“数据溯源”模块。
+MindSpore Insight可以辅助用户对输入数据、数据处理流水线进行检查。大多数情况下，`SummaryCollector`会自动记录输入模型的数据（数据处理后的数据）和数据处理流水线参数。输入模型的数据会展示在“数据抽样”模块，数据处理流水线参数会展示在“数据图”模块和“数据溯源”模块。
 
-通过MindInsight的数据抽样模块，可以检查输入模型的（数据处理流水线处理后的）数据。若数据明显不符合预期（例如数据被裁剪的范围过大，数据旋转的角度过大等），可以判断输入数据出现了一定的问题。
+通过MindSpore Insight的数据抽样模块，可以检查输入模型的（数据处理流水线处理后的）数据。若数据明显不符合预期（例如数据被裁剪的范围过大，数据旋转的角度过大等），可以判断输入数据出现了一定的问题。
 
-通过MindInsight的数据图和数据溯源模块，可以检查数据处理流水线的数据处理过程和具体参数取值，从而发现不合理的数据处理方法。
+通过MindSpore Insight的数据图和数据溯源模块，可以检查数据处理流水线的数据处理过程和具体参数取值，从而发现不合理的数据处理方法。
 
 ![data_input](./images/data_input.png)
 
-*图6 通过MindInsight训练看板中的数据抽样模块查看输入模型的数据*
+*图6 通过MindSpore Insight训练看板中的数据抽样模块查看输入模型的数据*
 
 ![data_pipeline](./images/data_pipeline.png)
 
-*图7 通过MindInsight训练看板中的数据图查看数据处理流水线*
+*图7 通过MindSpore Insight训练看板中的数据图查看数据处理流水线*
 
 如果有标杆脚本，还可以同标杆脚本对照，检查数据处理流水线输出的数据是否和当前脚本的数据相同。例如，将数据处理流水线输出的数据保存为`npy`文件，然后使用`numpy.allclose`方法对标杆脚本和当前脚本的数据进行对比。如果发现不同，则数据处理阶段可能存在精度问题。
 
@@ -312,31 +312,31 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 9. API计算结果存在NAN、INF；
 10. API计算过程溢出（计算过程中的溢出不一定都是有害的）等。
 
-上述这些问题或现象，有的可以通过loss表现出来，有的则难以观察。MindInsight提供了针对性的功能，可以观察上述现象、自动检查问题，帮助您更快定位问题根因。例如：
+上述这些问题或现象，有的可以通过loss表现出来，有的则难以观察。MindSpore Insight提供了针对性的功能，可以观察上述现象、自动检查问题，帮助您更快定位问题根因。例如：
 
-- MindInsight的参数分布图模块可以展示模型权重随训练过程的变化趋势；
-- MindInsight的张量可视模块可以展示张量的具体取值，对不同张量进行对比；
-- [MindInsight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF、API计算过程溢出等问题。
+- MindSpore Insight的参数分布图模块可以展示模型权重随训练过程的变化趋势；
+- MindSpore Insight的张量可视模块可以展示张量的具体取值，对不同张量进行对比；
+- [MindSpore Insight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF、API计算过程溢出等问题。
 
 ![loss](./images/loss.png)
 
-*图8 通过MindInsight训练看板中的标量可视模块查看loss曲线*
+*图8 通过MindSpore Insight训练看板中的标量可视模块查看loss曲线*
 
-大多数情况下，`SummaryCollector`会自动记录模型的loss曲线，可以通过MindInsight的标量可视模块查看。loss曲线能够反映网络训练的动态趋势，通过观察loss曲线，可以得到模型是否收敛、是否过拟合等信息。
+大多数情况下，`SummaryCollector`会自动记录模型的loss曲线，可以通过MindSpore Insight的标量可视模块查看。loss曲线能够反映网络训练的动态趋势，通过观察loss曲线，可以得到模型是否收敛、是否过拟合等信息。
 
 ![histogram](./images/histogram_example.png)
 
-*图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况*
+*图9 通过MindSpore Insight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindSpore Insight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
 
 ![tensor](./images/tensor.png)
 
-*图10 通过MindInsight训练看板中的张量可视模块查看特定张量的具体取值*
+*图10 通过MindSpore Insight训练看板中的张量可视模块查看特定张量的具体取值*
 
-张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
+张量不会被自动记录，如果想要通过MindSpore Insight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
 
-下面结合loss曲线的常见现象介绍使用MindInsight进行精度问题定位的思路。
+下面结合loss曲线的常见现象介绍使用MindSpore Insight进行精度问题定位的思路。
 
 - loss跑飞。
 
@@ -384,11 +384,11 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 #### 检查精度是否达到预期
 
-MindInsight可以为用户记录每次训练的精度结果。在`model.train`和`model.eval`中使用同一个`SummaryCollector`实例时，会自动记录模型评估（metrics）信息。训练结束后，可以通过MindInsight的模型溯源模块检查训练结果精度是否达标。
+MindSpore Insight可以为用户记录每次训练的精度结果。在`model.train`和`model.eval`中使用同一个`SummaryCollector`实例时，会自动记录模型评估（metrics）信息。训练结束后，可以通过MindSpore Insight的模型溯源模块检查训练结果精度是否达标。
 
 ![lineage_model_chart](./images/lineage_model_chart.png)
 
-*图11 通过MindInsight溯源分析功能查看模型评估信息*
+*图11 通过MindSpore Insight溯源分析功能查看模型评估信息*
 
 - 检查训练集上的精度。
 
@@ -404,15 +404,15 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
         4）检查loss曲线的收敛结果和收敛趋势是否存在异常
 
-    2. 尝试使用MindInsight溯源分析功能优化超参。溯源分析页面会对超参的重要性进行分析，用户应优先考虑调整重要性高的超参，从散点图中可以观察出超参和优化目标的关系，从而针对性地调整超参取值。
+    2. 尝试使用MindSpore Insight溯源分析功能优化超参。溯源分析页面会对超参的重要性进行分析，用户应优先考虑调整重要性高的超参，从散点图中可以观察出超参和优化目标的关系，从而针对性地调整超参取值。
 
         ![lineage_model_chart_1](./images/lineage_model_chart_1.png)
 
-        *图12 通过MindInsight溯源分析查看参数重要性*
+        *图12 通过MindSpore Insight溯源分析查看参数重要性*
 
         ![lineage_model_chart_2](./images/lineage_model_chart_2.png)
 
-        *图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系*
+        *图13 通过MindSpore Insight溯源分析以散点图形式查看参数和优化目标的关系*
 
     3. 尝试下文介绍的常用调优建议。
 

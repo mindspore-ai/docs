@@ -52,10 +52,10 @@ In the computational graph, nodes are divided into layers based on slashes (/) i
 
 ### API Design
 
-In the computational graph, there are file API and RESTful API. The file API is the `summary.proto` file, which is used for data interconnection between MindInsight and MindSpore.
-RESTful API is used for data interaction between the MindInsight frontend and backend.
+In the computational graph, there are file API and RESTful API. The file API is the `summary.proto` file, which is used for data interconnection between MindSpore Insight and MindSpore.
+RESTful API is used for data interaction between the MindSpore Insight frontend and backend.
 
 #### File API Design
 
-Data interaction between MindSpore and MindInsight uses the data format defined by [Protocol Buffer](https://developers.google.cn/protocol-buffers/docs/pythontutorial).
+Data interaction between MindSpore and MindSpore Insight uses the data format defined by [Protocol Buffer](https://developers.google.cn/protocol-buffers/docs/pythontutorial).
 The main entry is the [summary.proto file](https://gitee.com/mindspore/mindinsight/blob/r2.0/mindinsight/datavisual/proto_files/mindinsight_summary.proto). A message object of a computational graph is defined as `GraphProto`. For details about `GraphProto`, see the [anf_ir.proto file](https://gitee.com/mindspore/mindinsight/blob/r2.0/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto).

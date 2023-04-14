@@ -262,7 +262,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ### 常见计算图结构问题
 
-为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html)，将计算图保存到summary文件中，然后使用MindInsight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/dashboard.html#计算图可视化)。
+为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/summary_record.html)，将计算图保存到summary文件中，然后使用MindSpore Insight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/dashboard.html#计算图可视化)。
 
 检查结论：
 
@@ -272,7 +272,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-权重共享错误，是指应该共享的权重未共享，或者不应该共享的权重共享了。在MindInsight计算图页面对感兴趣的权重进行抽检，选中权重节点，根据权重节点的输出节点可以判断权重是否被共享，观察输出节点的名称，可以得知输出节点大致对应的代码。节点名称以Default开头的，一般为正向图中的节点，需要重点关注。节点名称以Gradients开头或者含有optimizer的，一般为反向图或者优化器相关的节点，检查时可以忽略。例如，要检查Conv2d的权重，可以在计算图页面右上角的搜索框中键入conv2d，然后选择任意感兴趣的conv2d节点，接着找到该节点的输入权重节点，即可对该权重节点进行检查。
+权重共享错误，是指应该共享的权重未共享，或者不应该共享的权重共享了。在MindSpore Insight计算图页面对感兴趣的权重进行抽检，选中权重节点，根据权重节点的输出节点可以判断权重是否被共享，观察输出节点的名称，可以得知输出节点大致对应的代码。节点名称以Default开头的，一般为正向图中的节点，需要重点关注。节点名称以Gradients开头或者含有optimizer的，一般为反向图或者优化器相关的节点，检查时可以忽略。例如，要检查Conv2d的权重，可以在计算图页面右上角的搜索框中键入conv2d，然后选择任意感兴趣的conv2d节点，接着找到该节点的输入权重节点，即可对该权重节点进行检查。
 
 检查结论：
 
@@ -296,7 +296,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在MindInsight计算图页面自顶向下地对重要的模型元素进行检查，确保这些元素体现在了计算图中。例如，检查LeNet5是否存在节点连接错误时，可以逐层展开MindInsight计算图页面显示的计算图，确认conv、relu、fc等重要元素存在于计算图中，并且连接正确。Gradients命名空间下的计算图为MindSpore自动微分生成，检查时可以忽略。
+在MindSpore Insight计算图页面自顶向下地对重要的模型元素进行检查，确保这些元素体现在了计算图中。例如，检查LeNet5是否存在节点连接错误时，可以逐层展开MindSpore Insight计算图页面显示的计算图，确认conv、relu、fc等重要元素存在于计算图中，并且连接正确。Gradients命名空间下的计算图为MindSpore自动微分生成，检查时可以忽略。
 
 检查结论：
 

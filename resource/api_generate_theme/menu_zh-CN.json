@@ -43,7 +43,7 @@
                 "title": "工具组件",
                 "children": [
                     {
-                        "name": "MindInsight",
+                        "name": "MindSpore Insight",
                         "id": "mindinsight"
                     },
                     {

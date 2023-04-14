@@ -28,6 +28,6 @@ Performance and Timeline. The data shown in these components include:
   performance page will show the statistics for streams and tasks.
 
 Users can click the detail link to see the details of each components.
-Besides, MindInsight Profiler will try to analyse the performance data,
+Besides, MindSpore Insight Profiler will try to analyse the performance data,
 the assistant on the left will show performance tuning suggestions for
 this training.

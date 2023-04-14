@@ -272,7 +272,7 @@ Since the gradient overflow may be encountered in the process of finding the gra
 
 > On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/r2.0/migration_guide/debug_and_tune.html#training-accuracy].
 >
-> The overflow can obtain overflow operator information via MindInsight [debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r2.0/debug/dump.html).
+> The overflow can obtain overflow operator information via MindSpore Insight [debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r2.0/debug/dump.html).
 >
 > General overflow manifests itself as loss Nan/INF, loss suddenly becomes large, etc.
 

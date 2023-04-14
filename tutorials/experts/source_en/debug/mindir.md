@@ -7,7 +7,7 @@
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an deep sorted ir can be generated. It can be switched back to the default ir file by setting environment variable `MS_DEV_SAVE_GRAPTHS_SORT_MODE` to any other value rather than 1.
-- .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
 
@@ -301,7 +301,7 @@ The transformed image is shown below, and we can visually see the model structur
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize compute graphs.
+For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize compute graphs.
 
 ## How to derive the cause of the failure based on the analyze_fail.ir file analysis graph
 

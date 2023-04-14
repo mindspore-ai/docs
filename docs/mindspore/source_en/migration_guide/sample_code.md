@@ -756,7 +756,7 @@ Set `use_profilor=True`. The `data` directory is generated in the running direct
 
 ![resnet_profiler1](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler1.png)
 
-The following figure shows the MindInsight profiler page. (This analysis is performed in the Ascend environment, which is similar to that in the GPU. The CPU does not support profiler.) There are three parts on the page.
+The following figure shows the MindSpore Insight profiler page. (This analysis is performed in the Ascend environment, which is similar to that in the GPU. The CPU does not support profiler.) There are three parts on the page.
 
 The first part is step trace, which is the most basic part for profiler. The data of a single device includes the step interval and forward and backward propagation. The forward and backward time is the actual running time of the model on the device, and the step interval time includes data processing, data printing, and time when parameters are saved on the CPU during the training process.
 It can be seen that the step trace time and forward and backward execution time are almost even, and non-device operations such as data processing account for a large part.
@@ -783,7 +783,7 @@ Go to the `profiler_v1/profiler/` directory and click the `aicore_intermediate_0
 
 ![resnet_profiler6](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
 
-In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#timeline-analysis).
+In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindSpore Insight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r2.0/performance_profiling_ascend.html#timeline-analysis).
 
 The third part is the performance data during data processing. You can view the data queue status in this part.
 

@@ -44,7 +44,7 @@
 |  ME  |  Mind Expression，MindSpore前端，主要完成从用户源码到计算图的编译任务、训练中控制执行及上下文维护（非下沉模式配置下）、动态图（PyNative模式）等。  |
 |  MindSpore Armour  |  MindSpore安全模块，通过差分隐私、对抗性攻防等技术手段，提升模型的保密性、完整性和可用性，阻止攻击者对模型进行恶意修改或是破解模型的内部构件，窃取模型的参数。  |
 |  MindData  |  MindSpore数据框架，提供数据加载、增强、数据集管理以及可视化。  |
-|  MindInsight  |  MindSpore可视化组件，可视化标量、图像、计算图以及模型超参等信息。  |
+|  MindSpore Insight  |  MindSpore可视化组件，可视化标量、图像、计算图以及模型超参等信息。  |
 |  MindIR  |  MindSpore IR，一种基于图表示的函数式IR，定义了可扩展的图结构以及算子IR表示，存储了MindSpore基础数据结构。 |
 |  MindRecord  |  MindSpore定义的一种数据格式，是一个执行读取、写入、搜索和转换MindSpore格式数据集的模块。  |
 |  MindSpore  |  华为主导开源的深度学习框架。  |

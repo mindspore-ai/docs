@@ -21,7 +21,7 @@ Profiler的功能介绍及使用说明请参见教程：
 ### 案例一：迭代间隙过长
 
 在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#)中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
-通过MindInsight性能分析页面观察到迭代轨迹中的迭代间隙过长，这通常说明数据是性能瓶颈点。
+通过MindSpore Insight性能分析页面观察到迭代轨迹中的迭代间隙过长，这通常说明数据是性能瓶颈点。
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
@@ -70,7 +70,7 @@ data_set = data_set.map(operations=trans, input_columns="image")
 data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=12)
 ```
 
-通过MindInsight性能分析页面观察迭代轨迹，可以看到迭代间隙时长由72.8ms缩短到0.25ms，单step时长由90ms缩短到18.07ms。
+通过MindSpore Insight性能分析页面观察迭代轨迹，可以看到迭代间隙时长由72.8ms缩短到0.25ms，单step时长由90ms缩短到18.07ms。
 
 ![short_step_interval](images/profiler_case1_short_step_interval.png)
 
@@ -79,7 +79,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 ### 案例二：前向运行时间长
 
 在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#)中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
-通过MindInsight性能分析页面观察到迭代轨迹中的前向运行时间很长。在单卡训练或推理过程中，前向耗时长通常考虑是否有算子的耗时时长可以优化。
+通过MindSpore Insight性能分析页面观察到迭代轨迹中的前向运行时间很长。在单卡训练或推理过程中，前向耗时长通常考虑是否有算子的耗时时长可以优化。
 
 ![long_fp_bp](images/profiler_case2_long_fpbp.png)
 
@@ -101,7 +101,7 @@ network = vgg16(config.num_classes, config, phase="test")
 network.add_flags_recursive(fp16=True)
 ```
 
-在设置float16格式后，再次运行推理脚本，通过MindInsight性能分析页面观察迭代轨迹，可以看到前向运行时长由82.45ms缩短到16.89ms，单step耗时大大缩短。如下图所示：
+在设置float16格式后，再次运行推理脚本，通过MindSpore Insight性能分析页面观察迭代轨迹，可以看到前向运行时长由82.45ms缩短到16.89ms，单step耗时大大缩短。如下图所示：
 
 ![short_fp_bp](images/profiler_case2_short_fpbp.png)
 
@@ -110,7 +110,7 @@ network.add_flags_recursive(fp16=True)
 ### 案例三： 优化迭代拖尾
 
 在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#)中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
-通过MindInsight性能分析页面观察迭代轨迹，发现迭代间隙与前反向已经没有多少优化的空间，考虑迭代拖尾是否可以优化。
+通过MindSpore Insight性能分析页面观察迭代轨迹，发现迭代间隙与前反向已经没有多少优化的空间，考虑迭代拖尾是否可以优化。
 
 ![long_tail](images/profiler_case3_long_tail.png)
 
@@ -134,7 +134,7 @@ else:
 init()
 ```
 
-对AllReduce进行切分后，再次运行ResNet50 8P脚本，通过MindInsight性能分析页面观察迭代轨迹，迭代拖尾时间由6.15ms缩短到4.20ms。如下图所示：
+对AllReduce进行切分后，再次运行ResNet50 8P脚本，通过MindSpore Insight性能分析页面观察迭代轨迹，迭代拖尾时间由6.15ms缩短到4.20ms。如下图所示：
 
 ![short_tail](images/profiler_case3_short_tail.png)
 

@@ -8,7 +8,7 @@
 
 ## 训练/测试过程可视化
 
-MindSpore Elec主要通过调用MindInsight的接口可视化训练/测试过程中的各项指标和结果，可视化文件通过回调函数Callback函数生成，其中数据集和网络定义具体可参照参数化教程。
+MindSpore Elec主要通过调用MindSpore Insight的接口可视化训练/测试过程中的各项指标和结果，可视化文件通过回调函数Callback函数生成，其中数据集和网络定义具体可参照参数化教程。
 
 ```python
 solver = Solver(network=model_net,
