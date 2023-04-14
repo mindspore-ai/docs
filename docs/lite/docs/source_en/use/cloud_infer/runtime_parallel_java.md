@@ -8,7 +8,7 @@ MindSpore Lite provides multi-model concurrent inference interface [ModelParalle
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [Java interface](https://www.mindspore.cn/lite/api/en/master/api_java/class_list.html).
 
-To use the MindSpore Lite parallel inference framework, perform the following steps:
+To use the MindSpore Lite concurrent inference framework, perform the following steps:
 
 1. Create a configuration item: Create a multi-model concurrent inference configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html#runnerconfig), which is used to configure multiple model concurrency.
 2. Initialization: initialization before multi-model concurrent inference.
@@ -27,7 +27,7 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 
 ## Creating Configuration
 
-The [configuration item](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html) will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
+The [configuration item](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
 
 The following sample code demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 
@@ -55,7 +55,7 @@ config.setWorkersNum(2);
 
 ## Initialization
 
-When using MindSpore Lite to execute concurrent reasoning, ModelParallelRunner is the main entry of concurrent reasoning. Through ModelParallelRunner, you can initialize and execute concurrent reasoning. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
+When using MindSpore Lite to execute concurrent inference, ModelParallelRunner is the main entry of concurrent inference. Through ModelParallelRunner, you can initialize and execute concurrent inference. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
 
 ```java
 ret = runner.predict(inputs,outputs);
@@ -69,7 +69,7 @@ if (!ret) {
 
 > For Initialization of ModelParallelRunner, you do not need to set the RunnerConfig configuration parameters, and the default parameters will be used for concurrent inference of multiple models.
 
-## Execute concurrent inference
+## Executing Concurrent Inference
 
 MindSpore Lite calls the Predict interface of ModelParallelRunner for model concurrent inference.
 

@@ -1,4 +1,4 @@
-# Using C++ Interface to Parallel Inference
+# Using C++ Interface to Perform Concurrent Inference
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -8,7 +8,7 @@ MindSpore Lite provides multi-model concurrent inference interface [ModelParalle
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
-To use the MindSpore Lite parallel inference framework, perform the following steps:
+To use the MindSpore Lite concurrent inference framework, perform the following steps:
 
 1. Create a configuration item: Create a multi-model concurrent inference configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html), which is used to configure multiple model concurrency.
 2. Initialization: initialization before multi-model concurrent inference.
@@ -27,9 +27,9 @@ To use the MindSpore Lite parallel inference framework, perform the following st
 
 ## Create configuration
 
-The [configuration item](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
+The [configuration item](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
 
-The following sample code from main.cc demonstrates how to create a RunnerConfig and configure the number of workers for concurrent reasoning:
+The following sample code from main.cc demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 
 ```cpp
 // Create and init context, add CPU device info
@@ -71,7 +71,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 ## Initialization
 
-When using MindSpore Lite to execute concurrent inference, ModelParallelRunner is the main entry of concurrent reasoning. Through ModelParallelRunner, you can initialize and execute concurrent reasoning. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
+When using MindSpore Lite to execute concurrent inference, ModelParallelRunner is the main entry of concurrent inference. Through ModelParallelRunner, you can initialize and execute concurrent inference. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
 
 ```cpp
 // Build model
@@ -85,7 +85,7 @@ delete model_runner;
 
 > For Initialization of ModelParallelRunner, you do not need to set the RunnerConfig configuration parameters, and the default parameters will be used for concurrent inference of multiple models.
 
-## Execute concurrent reasoning
+## Executing Concurrent Inference
 
 MindSpore Lite calls the Predict interface of ModelParallelRunner for model concurrent inference.
 
@@ -101,7 +101,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 > It is recommended to use GetInputs and GetOutputs to obtain the inputs and outputs of the Predict interface. Users can set the memory address of the data and Shape-related information through SetData.
 
-## Memory release
+## Memory Release
 
 When you do not need to use the MindSpore Lite inference framework, you need to release the created ModelParallelRunner.
 
