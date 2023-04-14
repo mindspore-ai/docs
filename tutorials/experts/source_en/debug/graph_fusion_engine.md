@@ -140,3 +140,16 @@ The fusion of this graph is shown in Figure 2, the left graph is without graph k
 ![cusom op example](images/graph_kernel_example_custom_op.png)
 
 *Figure 2 Custom combination operator on computational graph*
+
+## FAQs
+
+### Cuda header related issue
+
+Akg need header file "cuda_runtime.h" to generate kernels. If akg fail to auto-search the path of header file(hint: **error: cuda_runtime.h: No such file or directory**), please try to set related environment variables:
+
+```bash
+# Linux-X86_64 samples
+export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda/bin:$PATH
+```
