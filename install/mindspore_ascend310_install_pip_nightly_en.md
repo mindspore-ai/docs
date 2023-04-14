@@ -18,13 +18,13 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
+The following describes how to install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
 ## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running and compiling MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
@@ -64,7 +64,7 @@ Run the following command to check the Python version.
 python --version
 ```
 
-If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+If you are using ARM architecture, ensure that pip installed for current Python is 19.3 or later. If not, upgrade pip using the following command.
 
 ```bash
 python -m pip install -U pip
@@ -94,7 +94,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/loacl/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/local/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing GCC
 
@@ -168,7 +168,7 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Of which,
 
-- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - pip will be installing the latest version of MindSpore Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Configuring Environment Variables

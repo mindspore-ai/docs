@@ -16,13 +16,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
+The following describes how to install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
 ## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running and compiling MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
@@ -62,7 +62,7 @@ Run the following command to check the Python version.
 python --version
 ```
 
-If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+If you are using ARM architecture, ensure that pip installed for current Python is 19.3 or later. If not, upgrade pip using the following command.
 
 ```bash
 python -m pip install -U pip
@@ -91,7 +91,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/loacl/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/local/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing GCC
 

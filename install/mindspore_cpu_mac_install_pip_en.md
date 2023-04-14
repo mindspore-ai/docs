@@ -12,7 +12,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_pip_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore on macOS by pip.
+This document describes how to install MindSpore on macOS by pip.
 
 ## System Environment Information Confirmation
 
@@ -77,4 +77,4 @@ pip install --upgrade mindspore=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.
