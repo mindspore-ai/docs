@@ -319,9 +319,9 @@ Dump功能
        0：关闭Debugger
      - 与MS_DEBUGGER_HOST、MS_DEBUGGER_PORT一起使用
    * - MS_DEBUGGER_HOST
-     - MindInsight Debugger服务的IP
+     - MindSpore Insight Debugger服务的IP
      - String
-     - 启动MindInsight调试器的机器的IP
+     - 启动MindSpore Insight调试器的机器的IP
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_PORT一起使用
    * - MS_DEBUGGER_PARTIAL_MEM
      - 是否开启部分内存复用（只有在Debugger选中的节点才会关闭这些节点的内存复用）
@@ -331,9 +331,9 @@ Dump功能
        0：关闭Debugger选中节点的内存复用
      - 
    * - MS_DEBUGGER_PORT
-     - 连接MindInsight Debugger Server的端口
+     - 连接MindSpore Insight Debugger Server的端口
      - Integer
-     - 1~65536，连接MindInsight Debugger Server的端口
+     - 1~65536，连接MindSpore Insight Debugger Server的端口
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
 
 具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger.html>`_ 。

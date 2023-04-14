@@ -262,7 +262,7 @@ Enter here.
 
 ### Common Computational Graph Structure Problems
 
-To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r2.0/summary_record.html), and then use [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize the computational graph.
+To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r2.0/summary_record.html), and then use [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize the computational graph.
 
 Conclusion:
 
@@ -272,7 +272,7 @@ Enter here.
 
 Check method:
 
-The weight that should be shared is not shared or the weight that should not be shared is shared. On the MindInsight computing graph page, select a weight node, check whether the weight is shared based on the output node of the weight node, and view the name of the output node to obtain the code corresponding to the output node. The node whose name starts with Default is usually a node in the forward graph. Pay attention to the node. If the node name starts with Gradients or contains optimizer, the node is a backward graph or optimizer-related node. You can ignore it during the check. For example, to check the weight of Conv2d, enter conv2d in the search box in the upper right corner of the computational graph page, select any conv2d node that you are interested in, and find the input weight node of the node. Then you can check the weight node.
+The weight that should be shared is not shared or the weight that should not be shared is shared. On the MindSpore Insight computing graph page, select a weight node, check whether the weight is shared based on the output node of the weight node, and view the name of the output node to obtain the code corresponding to the output node. The node whose name starts with Default is usually a node in the forward graph. Pay attention to the node. If the node name starts with Gradients or contains optimizer, the node is a backward graph or optimizer-related node. You can ignore it during the check. For example, to check the weight of Conv2d, enter conv2d in the search box in the upper right corner of the computational graph page, select any conv2d node that you are interested in, and find the input weight node of the node. Then you can check the weight node.
 
 Conclusion:
 
@@ -296,7 +296,7 @@ Enter here.
 
 Check method:
 
-On the MindInsight computational graph page, check important model elements from top to bottom to ensure that these elements are displayed in the computational graph. For example, to check whether LeNet5 has node connection errors, you can expand the computational graph displayed on the MindInsight computational graph page layer by layer to ensure that important elements such as conv, relu, and fc exist in the computational graph and are correctly connected. The computational graph in the Gradients namespace is generated through MindSpore automatic differentiation and can be ignored during the check.
+On the MindSpore Insight computational graph page, check important model elements from top to bottom to ensure that these elements are displayed in the computational graph. For example, to check whether LeNet5 has node connection errors, you can expand the computational graph displayed on the MindSpore Insight computational graph page layer by layer to ensure that important elements such as conv, relu, and fc exist in the computational graph and are correctly connected. The computational graph in the Gradients namespace is generated through MindSpore automatic differentiation and can be ignored during the check.
 
 Conclusion:
 

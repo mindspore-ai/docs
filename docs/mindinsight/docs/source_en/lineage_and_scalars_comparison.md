@@ -93,7 +93,7 @@ Figure 9 shows the scalars comparison function area, which allows you to view sc
 
 ## Notices
 
-To ensure performance, MindInsight implements scalars comparison with the cache mechanism and the following restrictions:
+To ensure performance, MindSpore Insight implements scalars comparison with the cache mechanism and the following restrictions:
 
 - The scalars comparison supports only for trainings in cache.
 - The maximum of 15 latest trainings (sorted by modification time) can be retained in the cache.

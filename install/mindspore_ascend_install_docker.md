@@ -83,7 +83,7 @@ docker run -it -u root --ipc=host \
 
 - `{tag}`对应上述表格中的标签。
 
-如需使用MindInsight，需设置`--network`参数为”host”模式, 例如:
+如需使用MindSpore Insight，需设置`--network`参数为”host”模式, 例如:
 
 ```bash
 docker run -it -u root --ipc=host \
@@ -155,7 +155,7 @@ print(ops.add(x, y))
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
 
-验证MindInsight安装：
+验证MindSpore Insight安装：
 
 输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
 

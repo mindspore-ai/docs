@@ -19,7 +19,7 @@
 
 1. 搭建分布式训练环境，准备分布式训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
 2. 收集集群训练性能数据。
-3. 启动MindInsight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
+3. 启动MindSpore Insight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
 4. 在训练列表找到对应集群训练，点击性能分析，即可在页面中查看集群性能数据。
 
 > 本文图片均来源Ascend AI处理器，不同设备展示有差异之处会另外进行说明。
@@ -185,7 +185,7 @@ done
 
 > 集群性能目录和单卡性能目录格式进行了统一。
 
-在MindInsight r1.3以及之前的版本中，集群性能目录结构如下：
+在MindSpore Insight r1.3以及之前的版本中，集群性能目录结构如下：
 
 ```text
 |-- run
@@ -197,13 +197,13 @@ done
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/transform_cluster_profiler_data.py)。
+通过数据转换脚本，可以将用户使用MindSpore Insight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/transform_cluster_profiler_data.py)。
 
 > 以上为Ascend AI处理器关于收集集群性能数据的介绍，GPU集群训练请参考GPU分布式训练教程。
 
-## 启动MindInsight
+## 启动MindSpore Insight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html)。
+启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -305,7 +305,7 @@ done
 
 默认不收集通信性能数据，需要通过`mindspore.Profiler`中的`profile_communication`参数像`Profiler(profile_communication=True)`一样打开通信性能数据开关。只有多卡训练才能产生通信算子性能数据，在单卡训练场景中设置该参数是无效的。
 
-使用MindInsight可视化通信性能数据需要安装Ascend 910 AI处理器配套软件包提供的通信性能数据解析whl包，whl包随配套软件包发布，参考如下命令完成安装。
+使用MindSpore Insight可视化通信性能数据需要安装Ascend 910 AI处理器配套软件包提供的通信性能数据解析whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
 ```bash
 pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.whl

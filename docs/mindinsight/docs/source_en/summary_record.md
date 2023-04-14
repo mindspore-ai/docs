@@ -9,7 +9,7 @@ Scalars, images, computational graphs, training optimization process, and model 
 ## Operation Process
 
 - Prepare a training script, specify scalars, images, computational graphs, training optimization process, and model hyperparameters in the training script, record them in the summary log file, and run the training script.
-- Start MindInsight and specify the summary log file directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+- Start MindSpore Insight and specify the summary log file directory using startup parameters. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - During the training, when data is written into the summary log file, you can view the data on the web page.
 
 ## Preparing The Training Script
@@ -277,9 +277,9 @@ def train(ds_train):
                 dataset_sink_mode=False)
 ```
 
-## Run MindInsight
+## Run MindSpore Insight
 
-After completing the data collection in the tutorial above, you can start MindInsight to visualize the collected data. When start MindInsight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
+After completing the data collection in the tutorial above, you can start MindSpore Insight to visualize the collected data. When start MindSpore Insight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
 
 The specified summary log file directory can be the output directory of a training or the parent directory of the output directory of multiple training.
 
@@ -318,17 +318,17 @@ mindinsight start --summary-base-dir ./summary
 
 After successful startup, the visual page can be viewed by visiting the `http://127.0.0.1:8080` address through the browser.
 
-Stop MindInsight command:
+Stop MindSpore Insight command:
 
 ```Bash
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindSpore Insight related commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html) page.
 
 ## Notices
 
-1. To limit time of listing summaries, MindInsight lists at most 999 summary items.
+1. To limit time of listing summaries, MindSpore Insight lists at most 999 summary items.
 
 2. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
 
@@ -365,7 +365,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     model.train(2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 
-3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
+3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindSpore Insight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
 
 4. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommended that you set `collect_freq` manually.
 

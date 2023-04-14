@@ -24,7 +24,7 @@ As shown in the preceding figure, the interaction between the Profiler and other
 
 2. MindSpore Profiler parses the original data in the user script and generates the intermediate data results in the specified folder.
 
-3. MindInsight Profiler connects to the intermediate data and provides the visualized Profiler function for users.
+3. MindSpore Insight Profiler connects to the intermediate data and provides the visualized Profiler function for users.
 
 ### Module Structure
 

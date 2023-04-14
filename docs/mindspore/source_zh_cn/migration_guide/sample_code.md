@@ -756,7 +756,7 @@ else:
 
 ![resnet_profiler1](images/resnet_profiler1.png)
 
-MindInsight性能分析的界面如图所示（此分析是在Ascend环境上进行的，GPU上差不多，CPU暂不支持profiler）。整体上有三大部分。
+MindSpore Insight性能分析的界面如图所示（此分析是在Ascend环境上进行的，GPU上差不多，CPU暂不支持profiler）。整体上有三大部分。
 
 第一部分是迭代轨迹，这部分是进行性能分析最基本的，单卡的数据包括迭代间隙和前向反向，其中前向反向的时间是模型在device上实际运行的时间，迭代间隙是其他的时间，在训练过程中包括数据处理，打印数据，保存参数等在CPU上的时间。
 可以看到迭代间隙和前向反向执行的时间基本一半一半，数据处理等非device操作占了很大的一部分。
@@ -783,7 +783,7 @@ MindInsight性能分析的界面如图所示（此分析是在Ascend环境上进
 
 ![resnet_profiler6](images/resnet_profiler6.png)
 
-此外，`aicore_intermediate_0_detail.csv`是每个算子的详细数据，和MindInsight里显示的算子详细信息差不多。`ascend_timeline_display_0.json`是timeline数据文件，详情请参考[timeline](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/performance_profiling_ascend.html#timeline%E5%88%86%E6%9E%90)。
+此外，`aicore_intermediate_0_detail.csv`是每个算子的详细数据，和MindSpore Insight里显示的算子详细信息差不多。`ascend_timeline_display_0.json`是timeline数据文件，详情请参考[timeline](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/performance_profiling_ascend.html#timeline%E5%88%86%E6%9E%90)。
 
 第三部分是数据处理的性能数据，在这部分可以查看，数据队列的情况：
 

@@ -9,7 +9,7 @@ This article describes how to use MindSpore Profiler for performance debugging o
 ## Operation Process
 
 - Prepare a training script, add Profiler APIs in the training script and run the training script.
-- Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+- Start MindSpore Insight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - Find the training in the list, click the performance profiling link and view the data on the web page.
 
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
@@ -75,9 +75,9 @@ There are two ways to collect neural network performance data. You can enable Pr
     - `timeline_limit`(int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
     - `data_process`(bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
 
-## Launching MindInsight
+## Launching MindSpore Insight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html).
+The MindSpore Insight launch command can refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.0/mindinsight_commands.html).
 
 ## Training Performance
 
@@ -157,8 +157,8 @@ print(operation_info)  # json
 
 Description:
 
-- The performance data obtained from the GPU platform by using this interface is CUDA kernel data. The performance data fields(`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) data is derived from the (`occurrences(times)`, `total_duration(us)`, `avg_duration(us/time)`) information in the kernel information list shown in Figure 3. The difference is that CUDA operator performance data obtained by using the operator performance interface will be summarized according to the type of the operator(Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindInsight to view detailed CUDA kernel performance data.
-- In heterogeneous scenarios, the CPU performance data fields (`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) came from the information (`op_occurrences(times)`, `op_total_time(us)`, `op_avg_time(us/time)`) on the HOST CPU page. The difference is that the CPU operator performance data obtained by using the operator performance interface is summarized according to the type of the operator (Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindInsight to view detailed CPU kernel performance data.
+- The performance data obtained from the GPU platform by using this interface is CUDA kernel data. The performance data fields(`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) data is derived from the (`occurrences(times)`, `total_duration(us)`, `avg_duration(us/time)`) information in the kernel information list shown in Figure 3. The difference is that CUDA operator performance data obtained by using the operator performance interface will be summarized according to the type of the operator(Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindSpore Insight to view detailed CUDA kernel performance data.
+- In heterogeneous scenarios, the CPU performance data fields (`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) came from the information (`op_occurrences(times)`, `op_total_time(us)`, `op_avg_time(us/time)`) on the HOST CPU page. The difference is that the CPU operator performance data obtained by using the operator performance interface is summarized according to the type of the operator (Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindSpore Insight to view detailed CPU kernel performance data.
 - For the `op_analyse()` interface, the device_id parameter is used to specify which card's operator performance data to parse, which defaults to `device_id=0` when the interface is parsing based on offline data.
 
 ### Dynamic shape iterative analysis

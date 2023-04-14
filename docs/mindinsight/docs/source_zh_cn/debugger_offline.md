@@ -11,9 +11,9 @@
 1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/debug/dump.html) ；
 2. 使用离线调试器进行调试分析。
 
-   如果需要UI页面，可以通过MindInsight的离线调试器入口启动调试器。操作流程为：
+   如果需要UI页面，可以通过MindSpore Insight的离线调试器入口启动调试器。操作流程为：
 
-    1）启动MindInsight，并通过启动参数指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录（summary-dir为dump配置中的{path}的父目录）；
+    1）启动MindSpore Insight，并通过启动参数指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录（summary-dir为dump配置中的{path}的父目录）；
 
     2）从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
@@ -31,9 +31,9 @@
 
 需要注意的是，一个summary-dir目录下只能存放一个dump目录。例如，某一次训练的Dump配置文件中的path为“/home/workspace/data/dump_dir”，那么本次训练dump数据保存以后，再启动其它训练时，Dump配置文件中的path就不能指定为“/home/workspace/data”的子目录。
 
-然后，启动MindInsight，指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录，即可在UI页面中查询到离线调试器的入口。
+然后，启动MindSpore Insight，指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录，即可在UI页面中查询到离线调试器的入口。
 
-MindInsight启动命令：
+MindSpore Insight启动命令：
 
 ```text
 mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-debugger-mem-limit {OFFLINE_DEBUGGER_MEMORY_LIMIT} --max-offline-debugger-session-num {MAX_OFFLINE_DEBUGGER_SESSION_NUMBER}
@@ -48,9 +48,9 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|可选|指定单个离线调试器会话内存使用上限（单位MB），当出现内存不足导致MindInght离线调试器运行问题时，需要用户根据内存情况设置。|Integer|16*1024|6*1024~int32上限|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|可选|指定离线调试器会话数上限，会话数指的是能同时使用离线调试器调试的训练作业个数。|Integer|2|1~2|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html)。
+更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight_commands.html)。
 
-然后，打开MindInsight页面，从离线调试器入口进入调试器界面。
+然后，打开MindSpore Insight页面，从离线调试器入口进入调试器界面。
 
 ![debugger_offline_entry](images/debugger_offline_entry.png)
 
@@ -90,7 +90,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
     此时，调试器处于加载离线数据的状态。
 
-2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger_online.html#使用调试器进行调试) 。
+2. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger_online.html#使用调试器进行调试) 。
 
 3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger_offline.html#训练轮次重置) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger_offline.html#图执行历史) 来查看。
 
@@ -136,9 +136,9 @@ if __name__ == "__main__":
 - GPU场景：
     - 与在线调试器不同，离线调试器不支持逐节点执行。
 
-- 使用离线调试器时要保证MindInsight和MindSpore的版本号相同。
+- 使用离线调试器时要保证MindSpore Insight和MindSpore的版本号相同。
 - 如果同一路径下存在多个相同张量的Dump文件，离线调试器只会显示最新的张量。
 - 重新检查只检查当前有张量值的监测点。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 如果Dump数据对象为Ascend异步Dump产生的bin文件，则解析过程中会产生npy文件，占用磁盘空间。
-- 如果使用Ascend场景下的异步Dump数据，可以使用MindInsight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r2.0/mindinsight/parser) 。
+- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r2.0/mindinsight/parser) 。

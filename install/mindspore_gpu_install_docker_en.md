@@ -107,7 +107,7 @@ of which,
 - `{tag}` corresponds to the label in the above table.
 - `{cuda_version}` corresponds to CUDA version that MindSpore depends on, including `cuda10.1`, `cuda11.1` and `cuda11.6`.
 
-If you want to use the visual debugging tuning tool MindInsight, you need to set the `--network` parameter to `host` mode, for example:
+If you want to use the visual debugging tuning tool MindSpore Insight, you need to set the `--network` parameter to `host` mode, for example:
 
 ```bash
 docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
@@ -166,9 +166,9 @@ When the code is run successfully, the outputs should be the same as:
 
 It means MindSpore GPU has been installed by Docker successfully.
 
-- If you need to verify the MindInsight installation:
+- If you need to verify the MindSpore Insight installation:
 
-    Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
+    Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindSpore Insight has been installed successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 
