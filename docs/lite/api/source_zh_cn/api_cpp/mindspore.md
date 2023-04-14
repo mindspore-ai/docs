@@ -1313,6 +1313,133 @@ static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)
 
     状态码。
 
+#### BuildTransferLearning
+
+```cpp
+Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context,
+                      const std::shared_ptr<TrainCfg> &train_cfg = nullptr)
+```
+
+构建一个迁移学习模型，其中主干权重是固定的，头部权重是可训练的。
+
+- 参数
+
+    - `backbone`: 静态、不可学习部分。
+    - `head`: 可训练部分。
+    - `model_context`: 模型[Context](#context)。
+    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
+
+- 返回值
+
+    状态码。
+
+#### GetLearningRate
+
+```cpp
+float GetLearningRate()
+```
+
+获取学习率。
+
+- 返回值
+
+    float类型，获取学习率。如果为0.0，表示没有找到优化器。
+
+#### SetLearningRate
+
+```cpp
+Status SetLearningRate(float learning_rate)
+```
+
+设置学习率。
+
+- 参数
+
+    - `learning_rate`: 指定的学习率。
+
+- 返回值
+
+    状态码。
+
+#### SetupVirtualBatch
+
+```cpp
+Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f)
+```
+
+设置虚拟batch用于训练。
+
+- 参数
+
+    - `virtual_batch_multiplier`: 虚拟batch乘法器，当设置值小于1时，表示禁用虚拟batch。
+    - `lr`: 学习率，默认为-1.0f。
+    - `momentum`: 动量，默认为-1.0f。
+
+- 返回值
+
+    状态码。
+
+#### RunStep
+
+```cpp
+Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
+```
+
+单步训练模型。
+
+- 参数
+
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+
+- 返回值
+
+    状态码。
+
+#### GetFeatureMaps
+
+```cpp
+std::vector<MSTensor> GetFeatureMaps() const
+```
+
+获取模型的所有权重Tensors。
+
+- 返回值
+
+    获取模型的所有权重Tensor。
+
+#### UpdateFeatureMaps
+
+```cpp
+Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights)
+```
+
+更新模型的权重Tensor内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor。
+
+- 返回值
+
+    状态码。
+
+#### UpdateWeights
+
+```cpp
+Status UpdateWeights(const std::vector<MSTensor> &new_weights)
+```
+
+更新模型的权重Tensor的大小和内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
+
+- 返回值
+
+    状态码。
+
 ## MSTensor
 
 \#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
