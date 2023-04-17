@@ -1124,8 +1124,7 @@ pre span.gp,pre span.go{
 .version-select-wrap{
   position: relative;
   margin-left: 2rem;
-  line-height: 2rem;
-  margin-top: .5rem;
+  line-height: 2rem; 
 }
 .version-select-wrap .txt{
   font-size: 14px;

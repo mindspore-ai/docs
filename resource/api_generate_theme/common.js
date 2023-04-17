@@ -884,15 +884,8 @@ function createScriptSensor() {
     setTimeout(function () {
         // 页面内搜索框提示具体搜索内容
         $('.wy-grid-for-nav #rtd-search-form input').eq(0).attr('placeholder', '"文档"内搜索');
-        let welcomeText = isEn ? 'MindSpore Documentation': '欢迎查看MindSpore文档';
-        if(pathname.startsWith('/tutorials/')){
-          welcomeText = isEn ? 'MindSpore Tutorials': '欢迎查看MindSpore教程';
-        }
-        $('.wy-menu-vertical').before(
-          `<div class="docsHome"><a  href="#" class="welcome">${welcomeText}</a></div>`
-        );
   
-        $('.welcome')[0].attributes[0].nodeValue = $('.icon-home')[0].attributes[0].nodeValue;
+        // $('.welcome')[0].attributes[0].nodeValue = $('.icon-home')[0].attributes[0].nodeValue;
   
         var strTemp = $('header .selected').text();
         if(strTemp==''){

@@ -1961,8 +1961,7 @@ table td {
 }
 
 .docsHome {
-  margin: 1rem 0 .6rem 2rem;
-  height: 1rem;
+  margin: 1rem 0 .6rem 2rem; 
   line-height: 1rem;
 }
 
