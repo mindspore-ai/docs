@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.binary_cross_entropy的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BCELoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/binary_cross_entropy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.binary_cross_entropy
 
@@ -17,16 +17,18 @@ torch.nn.functional.binary_cross_entropy(
 
 更多内容详见[torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy)。
 
-## mindspore.nn.BCELoss
+## mindspore.ops.binary_cross_entropy
 
 ```text
-class mindspore.nn.BCELoss(
+mindspore.ops.binary_cross_entropy(
+    logits,
+    labels,
     weight=None,
-    reduction='none'
-)(logits, labels) -> Tensor
+    reduction='mean'
+) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BCELoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html)。
+更多内容详见[mindspore.ops.binary_cross_entropy](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.binary_cross_entropy.html)。
 
 ## 差异对比
 
@@ -38,10 +40,10 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 | ---- | ----- | --------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 | input     | logits    | 功能一致，参数名不同                                         |
 |      | 参数2 | target    | labels    | 功能一致，参数名不同                                         |
-|      | 参数3 | weight    | weight    | -                                                            |
+|      | 参数3 | weight    | weight    | 功能一致                                                            |
 |      | 参数4 | size_average    | -    | PyTorch的已弃用参数，功能由reduction参数取代          |
 |      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
-|      | 参数6 | reduction | reduction | 功能一致，默认值不同                                    |
+|      | 参数6 | reduction | reduction | 功能一致                                    |
 
 ### 代码示例1
 
@@ -63,12 +65,11 @@ print(loss.detach().numpy())
 import mindspore
 import numpy as np
 from mindspore import Tensor
-from mindspore import nn
+from mindspore import ops
 
-loss = nn.BCELoss(reduction='mean')
 logits = Tensor(np.array([0.1, 0.2, 0.3]), mindspore.float32)
 labels = Tensor(np.array([1., 1., 1.]), mindspore.float32)
-output = loss(logits, labels)
-print(output)
+loss = ops.binary_cross_entropy(logits, labels)
+print(loss)
 # 1.7053319
 ```
