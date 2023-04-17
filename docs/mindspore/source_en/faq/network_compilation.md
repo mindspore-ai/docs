@@ -337,7 +337,7 @@ For example：
 - The operator Conv2DBackpropFilter reported an error and printed the following code:
 
     ```text
-    In file /home/workspace/mindspore/build/package/mindspore/ops/_grad/grad_nn_ops.py(65)/        dw = filter_grad(dout, x, w_shape)/
+    In file /home/workspace/mindspore/build/package/mindspore/ops/_grad_experimental/grad_nn_ops.py(65)/        dw = filter_grad(dout, x, w_shape)/
     Corresponding forward node candidate:
      - In file /home/workspace/mindspore/build/package/mindspore/nn/layer/conv.py(266)/        output = self.conv2d(x, self.weight)/
        In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(149)/        out = self.conv1(x)/

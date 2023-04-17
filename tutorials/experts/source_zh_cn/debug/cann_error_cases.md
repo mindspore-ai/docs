@@ -41,7 +41,7 @@ except_msg: 2019-07-25 19:17:54.522852: Query except_msg:Traceback (most recent 
 RuntimeError: ({'errCode': 'E80000', 'op_name': 'strided_slice_grad_d', 'param_name': 'strides[0]', 'excepted_value': '1', 'real_value': '2'}, 'In op[strided_slice_grad_d], the parameter[strides[0]] should be , but actually is [2].')
 
 The function call stack:
-In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/_grad/grad_array_ops.py(700)/        dx = input_grad(dout, x_shape, begin, end, strides)/
+In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/_grad_experimental/grad_array_ops.py(700)/        dx = input_grad(dout, x_shape, begin, end, strides)/
 Corresponding forward node candidate:
 - In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/_compile_utils.py(306)/        return P.StridedSlice(begin_mask, end_mask, 0, 0, 0)(data, begin_strides, end_strides, step_strides)/
   In file /home/jenkins/models/official/cv/lenet/src/lenet.py(61)/        y = x[0::2] #切分操作，x.shape=(32,10) y.shape=(32)，导致降维/
