@@ -142,3 +142,16 @@ result: [[-0.015104 -0.015104 -0.015104 -0.015104]
 ![自定义组合算子融合示例](images/graph_kernel_example_custom_op.png)
 
 *图2：自定义组合算子优化计算图*
+
+## FAQs
+
+### Cuda头文件缺失
+
+Akg依赖cuda相关头文件用于生成cuda kernel，若自动搜索头文件失败（提示 **error: cuda_runtime.h: No such file or directory**），请尝试设置相关环境变量：
+
+```bash
+# Linux-X86_64系统示例
+export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda/bin:$PATH
+```
