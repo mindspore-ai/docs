@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.binary_cross_entropy
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/BCELoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/binary_cross_entropy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.binary_cross_entropy
 
@@ -17,16 +17,18 @@ torch.nn.functional.binary_cross_entropy(
 
 For more information, see [torch.nn.functional.binary_cross_entropy](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.binary_cross_entropy).
 
-## mindspore.nn.BCELoss
+## mindspore.ops.binary_cross_entropy
 
 ```text
-class mindspore.nn.BCELoss(
+mindspore.ops.binary_cross_entropy(
+    logits,
+    labels,
     weight=None,
-    reduction='none'
-)(logits, labels) -> Tensor
+    reduction='mean'
+) -> Tensor
 ```
 
-For more information, see [mindspore.nn.BCELoss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BCELoss.html).
+For more information, see [mindspore.ops.binary_cross_entropy](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.binary_cross_entropy.html).
 
 ## Differences
 
@@ -38,10 +40,10 @@ MindSpore: MindSpore API basically implements the same function as PyTorch.
 | ---- | ----- | ------- | --------- | -------------- |
 | Parameters | Parameter 1 | input     | logits    | Same function, different parameter names                  |
 |      | Parameter 2 | target    | labels    | Same function, different parameter names                 |
-|      | Parameter 3 | weight    | weight    | -  |
+|      | Parameter 3 | weight    | weight    | Same function  |
 |      | Parameter 4 | size_average    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter          |
 |      | Parameter 5 | reduce    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter        |
-|      | Parameter 6 | reduction | reduction | Same function, different default values. |
+|      | Parameter 6 | reduction | reduction | Same function |
 
 ### Code Example 1
 
@@ -63,12 +65,11 @@ print(loss.detach().numpy())
 import mindspore
 import numpy as np
 from mindspore import Tensor
-from mindspore import nn
+from mindspore import ops
 
-loss = nn.BCELoss(reduction='mean')
 logits = Tensor(np.array([0.1, 0.2, 0.3]), mindspore.float32)
 labels = Tensor(np.array([1., 1., 1.]), mindspore.float32)
-output = loss(logits, labels)
-print(output)
+loss = ops.binary_cross_entropy(logits, labels)
+print(loss)
 # 1.7053319
 ```
