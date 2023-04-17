@@ -39,6 +39,7 @@ import mindspore as ms
 import mindspore.ops as ops
 import mindspore.nn as nn
 import torch
+import torch.nn.functional as F
 import numpy as np
 
 # MindSpore
@@ -47,18 +48,18 @@ softmin = nn.Softmin()
 output1 = softmin(x)
 print(output1)
 # Out:
-# [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086 ]
+# [0.6364086 0.23412167 0.08612854 0.03168492 0.01165623]
 x = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
 output2 = softmin(x, axis=0)
 print(output2)
 # out:
-# [[0.01798621 0.11920292 0.5        0.880797   0.98201376]
-#  [0.98201376 0.880797   0.5        0.11920292 0.01798621]]
+# [[0.98201376 0.880797   0.5        0.11920292 0.01798621]
+#  [0.01798621 0.11920292 0.5        0.880797   0.98201376]]
 
 # PyTorch
 input = torch.tensor(np.array([1.0, 2.0, 3.0, 4.0, 5.0]))
-output3 = torch.nn.softmin(dim=0)(input)
+output3 = F.softmin(input, dim=0)
 print(output3)
 # Out:
-# tensor([0.0117, 0.0317, 0.0861, 0.2341, 0.6364], dtype=torch.float64)
+# tensor([0.6364, 0.2341, 0.0861, 0.0317, 0.0117], dtype=torch.float64)
 ```
