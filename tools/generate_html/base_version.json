@@ -51,7 +51,7 @@
         "version" : "",
         "versionAlias" : "2.0 RC1",
         "label" : {
-            "zh": "全场景推理框架（MindSpore Lite）",
+            "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
         },
         "repo_name" : "lite",
@@ -131,7 +131,7 @@
         "version" : "",
         "versionAlias" : "2.0 RC1",
         "label" : {
-            "zh": "可视化调试调优（MindSpore Insight）",
+            "zh": "MindSpore Insight",
             "en": "MindSpore Insight"
         },
         "repo_name" : "mindinsight"
@@ -140,7 +140,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "AI安全和隐私（MindSpore Armour）",
+            "zh": "MindSpore Armour",
             "en": "MindSpore Armour"
         },
         "repo_name" : "mindarmour"
@@ -149,7 +149,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "服务化部署框架（MindSpore Serving）",
+            "zh": "MindSpore Serving",
             "en": "MindSpore Serving"
         },
         "repo_name" : "serving"
@@ -158,7 +158,7 @@
         "version" : "",
         "versionAlias" : "new 0.1",
         "label" : {
-            "zh": "联邦学习（MindSpore Federated）",
+            "zh": "MindSpore Federated",
             "en": "MindSpore Federated"
         },
         "repo_name" : "federated"
@@ -176,7 +176,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "可解释AI（MindSpore XAI）",
+            "zh": "MindSpore XAI",
             "en": "MindSpore XAI"
         },
         "repo_name" : "xai"
@@ -194,7 +194,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "图学习框架（MindSpore Graph Learning）",
+            "zh": "MindSpore Graph Learning",
             "en": "MindSpore Graph Learning"
         },
         "repo_name" : "graphlearning"
@@ -203,7 +203,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "强化学习（MindSpore Reinforcement）",
+            "zh": "MindSpore Reinforcement",
             "en": "MindSpore Reinforcement"
         },
         "repo_name" : "reinforcement"
@@ -212,7 +212,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "概率编程（MindSpore Probability）",
+            "zh": "MindSpore Probability",
             "en": "MindSpore Probability"
         },
         "repo_name" : "probability"
@@ -221,7 +221,7 @@
         "version" : "",
         "versionAlias" : "",
         "label" : {
-            "zh": "预训练模型（MindSpore Hub）",
+            "zh": "MindSpore Hub",
             "en": "MindSpore Hub"
         },
         "repo_name" : "hub"
