@@ -19,25 +19,16 @@ $(function () {
   $('body').addClass('theme-lite');
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const pagePath = pathname.startsWith('/docs/')
-  ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
-  : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
+  const lang = isEn?'/en/':'/zh-CN/';
+  const pathPrefix = pathname.split(lang);
+  const currentVersion = pathPrefix[1].split('/')[0];
+  const pagePath = pathPrefix[0] +lang + currentVersion;
 
   let msDocsVersion = [],
       msVersionInfo = [],
       versionDropdownList = [],
       pageTitle = '';
 
-  // 获取当前版本 r1.10
-  function getCurrentVersion() {
-    let version = 'master';
-    if (pathname.startsWith('/docs/')) {
-        version = pathname.split('/')[3];
-    } else {
-        version = pathname.split('/')[4];
-    }
-    return version;
-}
   // 获取当前版本 不带R
   function curVersion(version) {
       return version === 'master'
@@ -48,12 +39,12 @@ $(function () {
   function pageVersionName (){
     let versionName= '';
     versionDropdownList.forEach((subitem) => {
-      if(getCurrentVersion().endsWith(subitem.version)){
+      if(currentVersion.endsWith(subitem.version)){
         versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
     });
     if(versionName ==='') {
-      versionName = getCurrentVersion();
+      versionName = currentVersion;
     }
     return curVersion(versionName);
   }
@@ -88,7 +79,7 @@ $(function () {
 
       let liteSubMenu = '';
       msDocsVersion.forEach(function (item) {
-          if (pathname.startsWith('/' + item.name)) {
+           
               versionDropdownList = item.versions.slice(0, 3);
               // 格式化版本拉下菜单
               pageSubMenu.forEach((item) => {
@@ -96,7 +87,7 @@ $(function () {
                     item.versions = versionDropdownList.map((sub) => {
                         return {
                             version: curVersion(sub.version),
-                            url: sub.url !=='' ? sub.url:item.url.replace(getCurrentVersion(), sub.version),
+                            url: sub.url !=='' ? sub.url:item.url.replace(currentVersion, sub.version),
                             versionAlias:sub.versionAlias
                         };
                     });
@@ -137,8 +128,7 @@ $(function () {
                         `;
                     })
                     .join('')}
-              </div></nav>`;
-          }
+              </div></nav>`; 
       });
 
       setTimeout(() => {
@@ -149,6 +139,11 @@ $(function () {
             $('.header-wapper-docs .top .version-select').hide();
           }
           $('.wy-breadcrumbs>li:first-of-type')[0].innerText = pageTitle + ' (' + pageVersionName() + ')';
+          
+          let welcomeText = isEn ? `${pageTitle} Documentation`: `欢迎查看${pageTitle}文档`;
+          $('.wy-menu-vertical').before(
+            `<div class="docsHome"><a  href="#" class="welcome">${welcomeText}</a></div>`
+          );
 
       }, 100);
 
