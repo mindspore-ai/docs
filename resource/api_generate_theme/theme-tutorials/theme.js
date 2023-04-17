@@ -21,25 +21,16 @@ $(function () {
 
   const pathname = window.location.pathname;
   const isEn = pathname.indexOf('/en/') !== -1;
-  const isTutorialsIndex =
-  pathname.startsWith('/tutorials/zh-CN/') ||
-  pathname.startsWith('/tutorials/en/')
-      ? true
-      : false;
-  // 获取文件路径
-  const pagePath = isTutorialsIndex
-      ? '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]
-      : '/'+ pathname.split('/')[1]+ '/'+pathname.split('/')[2]+ '/'+pathname.split('/')[3]+ '/'+pathname.split('/')[4];
+  const lang = isEn?'/en/':'/zh-CN/';
+  const pathPrefix = pathname.split(lang);
+  const currentVersion = pathPrefix[1].split('/')[0];
+  const pagePath = pathPrefix[0] +lang + currentVersion;
 
   let msDocsVersion = [],
       versionDropdownList = [],
       msVersionInfo = [],
       pageTitle ='';
-
-  // 获取当前版本
-  function getCurrentVersion() {
-    return isTutorialsIndex? pathname.split('/')[3] : pathname.split('/')[4];
-  }
+  
   // 获取当前版本 不带R
   function curVersion(version) {
       return version === 'master'
@@ -68,10 +59,13 @@ $(function () {
   function pageVersionName (){
     let name= '';
     versionDropdownList.forEach((subitem) => {
-      if(getCurrentVersion().endsWith(subitem.version)){
+      if(currentVersion.endsWith(subitem.version)){
         name= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
     });
+    if (versionName === '') {
+      versionName = currentVersion;
+    }
     return curVersion(name);
   }
 
@@ -101,8 +95,7 @@ $(function () {
       const pageSubMenu = isEn ? msVersionInfo.submenu.en  || []: msVersionInfo.submenu.zh  || [];
 
       let theme2Nav = '';
-      msDocsVersion.forEach(function (item) {
-          if (pathname.startsWith('/' + item.name)) {
+      msDocsVersion.forEach(function (item) { 
               versionDropdownList = item.versions.slice(0,3);
               // 格式化版本拉下菜单
               pageSubMenu.forEach((item) => {
@@ -112,7 +105,7 @@ $(function () {
                     }
                     return{
                         version: curVersion(sub.version),
-                        url: sub.url !=='' ? sub.url:item.url.replace(getCurrentVersion(), sub.version),
+                        url: sub.url !=='' ? sub.url:item.url.replace(currentVersion, sub.version),
                         versionAlias: sub.versionAlias
                     };
                 });
@@ -132,7 +125,7 @@ $(function () {
                   })
                   .join('')}
         </div></nav>`;
-          }
+           
       });
 
       // 教程首页中间导航点击在本页打开
@@ -148,6 +141,10 @@ $(function () {
           $('#rtd-search-form input').attr(
               'placeholder',
               isEn ? 'Search in Tutorials' : '"教程" 内搜索'
+          );
+          let welcomeText = isEn ? 'MindSpore Tutorials': '欢迎查看MindSpore教程';
+          $('.wy-menu-vertical').before(
+            `<div class="docsHome"><a  href="#" class="welcome">${welcomeText}</a></div>`
           );
 
           // 版本选择
