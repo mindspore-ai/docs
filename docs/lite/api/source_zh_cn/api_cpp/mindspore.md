@@ -259,6 +259,30 @@ bool GetEnableParallel() const;
 
   返回值为为true，代表支持并行。
 
+#### SetBuiltInDelegate
+
+```cpp
+void SetBuiltInDelegate(DelegateMode mode);
+```
+
+设置内置Delegate模式，以使用第三方AI框架辅助推理。
+
+- 参数
+
+    - `mode`: 内置Delegate模式，可选配置选项`kNoDelegate`、`kCoreML`、`kNNAPI`。`kNoDelegate`表示不使用第三方AI框架辅助推理，`kCoreML`表示使用CoreMI进行推理（在iOS上可选），`kNNAPI`表示使用NNAPI进行推理（在Android上可选）。
+
+#### GetBuiltInDelegate
+
+```cpp
+DelegateMode GetBuiltInDelegate() const;
+```
+
+获取当前内置Delegate模式。
+
+- 返回值
+
+  返回当前内置Delegate模式。
+
 #### SetDelegate
 
 ```cpp
@@ -306,6 +330,30 @@ std::shared_ptr<AbstractDelegate> get_delegate() const;
 - 返回值
 
   当前Delegate的指针。
+
+#### SetMultiModalHW
+
+```cpp
+void SetMultiModalHW(bool float_mode);
+```
+
+在多设备中，配置量化模型是否以浮点模式运行。
+
+- 参数
+
+    - `float_mode`: 是否以浮点模式运行。
+
+#### GetMultiModalHW
+
+```cpp
+bool GetMultiModalHW() const;
+```
+
+获取当前配置中，量化模型的运行模式。
+
+- 返回值
+
+  当前配置中，量化模型是否以浮点模式运行。
 
 #### MutableDeviceInfo
 
@@ -1395,6 +1443,55 @@ Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack 
 - 返回值
 
     状态码。
+
+#### PredictWithPreprocess
+
+```cpp
+Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs,
+                             const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
+```
+
+进行推理模型，并在推理前进行数据预处理。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+
+- 返回值
+
+    状态码。
+
+#### Preprocess
+
+```cpp
+Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs)
+```
+
+若模型配置了数据预处理，对模型输入数据进行数据预处理。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+
+- 返回值
+
+    状态码。
+
+#### HasPreprocess
+
+```cpp
+bool HasPreprocess()
+```
+
+模型是否配置了数据预处理。
+
+- 返回值
+
+    模型是否配置了数据预处理。
 
 #### GetFeatureMaps
 
