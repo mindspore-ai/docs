@@ -8,9 +8,7 @@
 
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
 
-- 对于动态图模式，MindSpore提供了Dump功能和Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出，也可以将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
-
-本文针对静态图模式，介绍如何基于Dump功能对网络数据进行分析对比。
+- 对于动态图模式，Dump功能仅支持Ascend后端的溢出检测能力。要想查看非溢出节点，可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。
 
 ### 调试过程
 
@@ -68,7 +66,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 - 在Ascend上开启同步Dump的时候，待Dump的算子会自动关闭内存复用。
 - 同步Dump目前支持Ascend、GPU和CPU上的图模式，暂不支持PyNative模式。
-- 异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
+- 异步Dump全量功能只支持Ascend上的图模式，异步Dump溢出检测功能只支持Ascend上的图模式和PyNative模式。开启异步Dump的时候不会关闭内存复用。
 - 默认使用用异步Dump模式，如果要使用同步Dump模式，需要在配置文件中设置"e2e_dump_settings"。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
 
@@ -401,10 +399,10 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.set_dump.html) 。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.set_dump.html) 。开启溢出检测时，此字段的设置失效，Dump只会保存溢出节点的数据。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
+    - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。PyNative模式开启溢出检测时，必须设置为"all"。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。异步Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：该项可以配置两种格式：
@@ -450,12 +448,45 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 若未配置`file_format`值或`file_format`值为`bin`，数据对象目录为以下结构。
 
-异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，目录结构如下所示：
+异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据。 如果开启溢出检测，还会在检测到溢出时保存溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）。
+
+图模式的Dump目录结构如下所示：
 
 ```text
 {path}/
     - rank_{rank_id}/
         - .dump_metadata/
+        - debug_files （仅在动态shape或者非任务下沉场景开启溢出检测时会有）/
+            - {iteration_id}/
+                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                ...
+        - {net_name}/
+            - {graph_id}/
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp} （仅在任务下沉场景开启溢出检测时会有）
+                    mapping.csv
+                - constants/
+                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
+            ...
+        - graphs/
+            ms_output_trace_code_graph_{graph_id}.pb
+            ms_output_trace_code_graph_{graph_id}.ir
+        - execution_order/
+            ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
+```
+
+PyNative模式的Dump目录结构如下所示：
+
+```text
+{path}/
+    - rank_{rank_id}/
+        - .dump_metadata/
+        - debug_files/
+            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+            ...
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
@@ -491,13 +522,15 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 如果按命名规则定义的张量文件名称长度超过了OS文件名称长度限制（一般是255个字符），则会将该张量文件重命名为一串随机数字，映射关系会保存在同目录下的“mapping.csv”。
 
+对于PyNative模式，由于没有前向图，只保存了反向图和优化图，可能出现溢出节点找不到对应的图文件的情况。
+
 ### 异步Dump数据文件介绍
 
 若配置文件中`file_format`值设置为`npy`，则数据文件介绍参考[同步Dump数据文件介绍](#同步dump数据文件介绍) 。
 
-若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/c748fd92) 。
+若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件或溢出检测生成的溢出文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/developmenttools/devtool/atlasaccuracy_16_0061.html) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/b04fcd04) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/developmenttools/devtool/atlasaccuracy_16_0060.html) 。
 
 异步Dump生成的数据文件是`bin`文件时，文件命名格式为：
 
@@ -511,7 +544,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r2.0/mindinsight/parser) 。MindSpore Insight解析出来的数据格式与同步dump的数据格式完全相同。
 
-若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
+若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/tfmoddevg/tfmigr1/atlasmprtg_13_9073.html) 。
 
 选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
 
@@ -539,7 +572,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
     {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100234052/b04fcd04> 。
+    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/developmenttools/devtool/atlasaccuracy_16_0060.html> 。
 
     如Dump生成的数据文件为：
 
