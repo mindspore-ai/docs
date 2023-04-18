@@ -50,7 +50,7 @@ MindSpore Insight包括以下内容：
 使用MindSpore Insight调试模型精度
 ----------------------------------
 
-1. `以调试模式启动MindSpore Insight <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#以调试模式启动mindinsight>`_
+1. `以调试模式启动MindSpore Insight <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#以调试模式启动mindspore-insight>`_
 
    通过配置 ``--enable-debugger True`` ``--debugger-port 50051`` 参数使MindSpore Insight以调试模式启动。
 
