@@ -232,7 +232,7 @@ The outputs should be the same as:
 
 ```text
 MindSpore version: __version__
-The result of multiplication calculation is correct, MindSpore has been installed successfully!
+The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
 It means MindSpore has been installed successfully.
