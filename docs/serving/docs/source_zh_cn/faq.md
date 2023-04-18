@@ -48,10 +48,6 @@ A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的
 
 <br/>
 
-<font size=3>**Q: 运行应用时报错`libmindspore.so: cannot open shared object file: No such file or directory`怎么办？**</font>
-
-A: 首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。
-
 <font size=3>**Q: 通过MindSpore Serving gRPC客户端发送超大消息报'assertion failed: slice_buffer->length <= UINT32_MAX'，什么原因?**</font>
 
 具体报错信息：
