@@ -16,7 +16,7 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-This document describes how to quickly install MindSpore Nightly by pip in a Linux system with a CPU environment.
+This document describes how to install MindSpore Nightly by pip on Linux in a CPU environment.
 
 In the process of confirming the system environment information, if you need to know how to install third-party dependent software, you can refer to the practice provided by the community - [Source code compilation and installation on Ubuntu (CPU) MindSpore](https://www.mindspore.cn/news/newschildren?id=365) in the third-party dependent software installation related section, hereby thank the community members [damon0626]( https://gitee.com/damon0626) sharing.
 
@@ -114,7 +114,7 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Of which,
 
-- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r2.0/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r2.0/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r2.0/requirements.txt).
+- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r2.0/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r2.0/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r2.0/requirements.txt).
 - pip will be installing the latest version of MindSpore Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Installation Verification
@@ -142,4 +142,4 @@ pip install --upgrade mindspore-dev=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified as the rc version number, e.g. 1.6.0rc1.dev20211125; When updating to the latest version automatically, `=={version}` could be removed.
+- When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.
