@@ -10,7 +10,7 @@ torch.randint_like(input, low=0, high, *, dtype=None, layout=torch.strided, devi
 
 For more information, see [torch.randint_like](https://pytorch.org/docs/1.8.1/generated/torch.randint_like.html#randint_like).
 
-## mindspore.ops.rarandint_likendint
+## mindspore.ops.randint_like
 
 ```text
 mindspore.ops.randint_like(input, low, high, *, dtype=None, seed=None)
