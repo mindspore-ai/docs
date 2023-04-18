@@ -50,7 +50,7 @@ Using MindSpore Insight to Analyze the Model Performance
 Using MindSpore Insight to Debug the Model Accuracy
 ------------------------------------------------------
 
-1. `Starting MindSpore Insight in Debugger Mode <https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger_online.html#launch-mindinsight-in-debugger-mode>`_
+1. `Starting MindSpore Insight in Debugger Mode <https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger_online.html#launch-mindspore-insight-in-debugger-mode>`_
 
    Configure the ``--enable-debugger True`` ``--debugger-port 50051`` parameter to start MindSpore Insight in debugger mode.
 
