@@ -732,7 +732,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">云侧推理模型离线转换</span>
+											<span class="doc-head-content">推理模型离线转换</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -745,7 +745,7 @@ MindSpore Lite文档
 								<a href="https://mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">云侧使用Python接口模型转换</span>
+											<span class="doc-head-content">使用Python接口模型转换</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite支持通过Python接口进行云侧模型转换，支持多种类型的模型转换，转换后的模型可用于推理。

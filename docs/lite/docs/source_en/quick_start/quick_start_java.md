@@ -1,4 +1,4 @@
-# Experience Java Simple Inference Demo
+# Experiencing Java Simplified Inference Demo
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/quick_start/quick_start_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
