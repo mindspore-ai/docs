@@ -20,9 +20,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by source code compilation in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
+This document describes how to install MindSpore by compiling source code on Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
@@ -44,13 +44,13 @@ This script performs the following operations:
 - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
 - Install Python3 and pip3 via APT and set them as default.
 
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, and then you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, then move on to [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) to compile MindSpore from source code.
 
 For more usage, see the script header description.
 
 ## Environment Preparation-manual
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|

@@ -14,7 +14,7 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest changes on MindSpore.
 
-This document describes how to quickly install MindSpore Nightly by pip in a Linux system with a GPU environment.
+This document describes how to install MindSpore Nightly by pip on Linux in a GPU environment.
 
 ## System Environment Information Confirmation
 
@@ -33,7 +33,7 @@ pip install mindspore-cuda11-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 Of which,
 
 - Currently, MindSpore GPU Nightly for Windows only provides CUDA11.6 version.
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - pip will be installing the latest version of MindSpore Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Installation Verification
@@ -61,6 +61,6 @@ pip install --upgrade mindspore-cuda11-dev=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.6.0rc1.dev20211125; When automatically updating to the latest version, `=={version}` could be removed.
+- When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.
 
 Note: Currently MindSpore GPU Nightly for Windows only provides CUDA11.6 version. If you wish to run on CUDA10.1 or CUDA11.1 environments, please refer to the source code compilation guide and compile MindSpore on corresponding environments.

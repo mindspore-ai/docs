@@ -20,11 +20,11 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to quickly install MindSpore by Conda in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
+This document describes how to install MindSpore by Conda on Linux in a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its dependencies.
+- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04 with a GPU environment, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its dependencies.
 
-- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
+- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
 
 ## Automatic Installation
 
@@ -44,7 +44,7 @@ sudo ubuntu-drivers autoinstall
 
 After the installation is complete, please reboot your system.
 
-The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Use the following commands to get the automatic installation script and execute. The automatic installation script only supports the installation of MindSpore>=1.6.0.
+The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Use the following commands to get the automatic installation script and execute. The automatic installation script supports only MindSpore>=1.6.0 or later.
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
@@ -81,7 +81,7 @@ For more usage, see the script header description.
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
 |[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
@@ -236,7 +236,7 @@ For CUDA 11.6:
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Installation Verification
 

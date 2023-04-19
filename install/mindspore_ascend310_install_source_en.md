@@ -20,9 +20,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
+The following describes how to install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script will automatically install the dependencies required to compile MindSpore.
 
 - If your system is one of Ubuntu 18.04/CentOS 7.6, or some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
@@ -68,7 +68,7 @@ For more usage, see the script header description.
 
 The following table lists the system environment and third-party dependencies required for compiling and installing MindSpore.
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
@@ -136,7 +136,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/loacl/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/local/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing GCC
 

@@ -18,15 +18,15 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by pip.
+This document describes how to install MindSpore by pip on Linux in an Ascend 910 environment.
 
 ## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
-|software|version|description|
+|Software|Version|Description|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
@@ -63,7 +63,7 @@ Run the following command to check the Python version.
 python --version
 ```
 
-If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+If you are using ARM architecture, ensure that pip installed for current Python is 19.3 or later. If not, upgrade pip using the following command.
 
 ```bash
 python -m pip install -U pip
@@ -77,7 +77,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Community edition has no restrictions, choose `6.0.1.alpha001` in [CANN community edition](https://www.hiascend.com/software/cann/community-history), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 Install the .whl packages provided in Ascend AI processor software package. If the .whl packages have been installed before, you should uninstall the .whl packages by running the following command.
 
@@ -93,7 +93,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/loacl/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/local/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing GCC
 
@@ -116,7 +116,7 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
     scl enable devtoolset-7 bash
     ```
 
-- On EulerOS and OpenEuler, run the following commands to install.
+- On EulerOS and openEuler, run the following commands to install.
 
     ```bash
     sudo yum install gcc -y
@@ -132,7 +132,7 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Of which,
 
-- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - pip will be installing the latest version of MindSpore Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Configuring Environment Variables
@@ -226,4 +226,4 @@ pip install --upgrade mindspore-dev=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified manually as the rc version number, e.g. 2.0.0.dev20221109; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.

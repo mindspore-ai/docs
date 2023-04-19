@@ -27,7 +27,7 @@
 
 - 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
-- 如果您的系统是Ubuntu 18.04/CentOS 7.6/OpenEuler 20.03/KylinV10 SP1其中之一，或者已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
+- 如果您的系统是Ubuntu 18.04、CentOS 7.6、openEuler 20.03或KylinV10 SP1其中之一，或者已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
 ## 环境准备-自动 推荐
 
@@ -75,7 +75,7 @@ conda activate mindspore_py37
 
 |软件名称|版本|作用|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
@@ -145,7 +145,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-当默认路径存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；默认路径优先级别为：/usr/local/Ascend/nnae高于/usr/loacl/Ascend/ascend-toolkit；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
+当默认路径存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；默认路径优先级别为：/usr/local/Ascend/nnae高于/usr/local/Ascend/ascend-toolkit；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
 
 ### 安装wheel和setuptools
 
@@ -177,7 +177,7 @@ pip install -U setuptools
     scl enable devtoolset-7 bash
     ```
 
-- EulerOS和OpenEuler可以使用以下命令安装。
+- EulerOS和openEuler可以使用以下命令安装。
 
     ```bash
     sudo yum install gcc -y
@@ -191,7 +191,7 @@ pip install -U setuptools
     sudo apt-get install git tcl patch libnuma-dev flex -y
     ```
 
-- CentOS 7，EulerOS和OpenEuler可以使用以下命令安装。
+- CentOS 7，EulerOS和openEuler可以使用以下命令安装。
 
     ```bash
     sudo yum install git tcl patch numactl-devel flex -y
@@ -215,7 +215,7 @@ pip install -U setuptools
     git lfs install
     ```
 
-- EulerOS和OpenEuler使用以下命令安装。
+- EulerOS和openEuler使用以下命令安装。
 
     根据系统架构选择相应的版本下载。
 

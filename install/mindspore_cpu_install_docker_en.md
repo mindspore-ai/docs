@@ -14,7 +14,7 @@
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
-This document describes how to quickly install MindSpore by Docker in a Linux system with a CPU environment.
+This document describes how to install MindSpore by Docker on Linux in a CPU environment.
 
 The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicloud.com/swr/index.html).
 
