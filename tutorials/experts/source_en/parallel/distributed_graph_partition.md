@@ -15,7 +15,7 @@ For `distributed graph partition`, each process represents a compute node (calle
 After `dynamic networking`, MindSpore assigns `role` and `rank`, the `role` and `id` of each process, based on the user startup configuration, both of which form a unique `tag` for each process and are input to the Python layer API `place`. With the correspondence, the user can set process labels for any operator by calling the `place` interface, and the MindSpore graph compiler module processes it to slice the computed graph into multiple subgraphs for distribution to different processes for execution. For the detailed use, please refer to [Primitive.place](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place) and [Cell.place](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place) interface document.
 As an example, the compute topology after distributed graph partition might be as follows:
 
-![image](https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
 
 As shown in the figure above, each `Worker` has a portion of subgraphs that have been sliced by the user, with their own weights and inputs, and each `Worker` interacts with each other through the built-in `Rpc communication operator` for data interaction.
 
