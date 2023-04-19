@@ -40,7 +40,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 ```python
 import numpy as np
 import mindspore
-from mindspore import Tensor
+from mindspore import Tensor, ops
 
 logits = Tensor(np.array([[-0.8, 1.2, 0.7], [-0.1, -0.4, 0.7]]), mindspore.float32)
 label = Tensor(np.array([[0.3, 0.8, 1.2], [-0.6, 0.1, 2.2]]), mindspore.float32)
