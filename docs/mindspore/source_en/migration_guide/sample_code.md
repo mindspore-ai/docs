@@ -72,7 +72,7 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
 | `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/r1.10/note/api_mapping/pytorch_diff/Dense.html)|
 | `torch.flatten`        | `nn.Flatten`       | No|
 
-By checking [PyTorch API Mapping] (https://www.mindspore.cn/docs/en/r1.10/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
+By checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/r1.10/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
 
 - Function analysis
 
@@ -753,7 +753,7 @@ else:
 
 Set `use_profilor=True`. The `data` directory is generated in the running directory. Rename the directory `profiler_v1` and run the `mindinsight start` command in the same directory.
 
-![resnet_profiler1](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler1.png)
+![resnet_profiler1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler1.png)
 
 The following figure shows the MindInsight profiler page. (This analysis is performed in the Ascend environment, which is similar to that in the GPU. The CPU does not support profiler.) There are three parts on the page.
 
@@ -762,35 +762,35 @@ It can be seen that the step trace time and forward and backward execution time 
 
 The second part is the forward and backward network execution time, where you can view details.
 
-![resnet_profiler2](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler2.png)
+![resnet_profiler2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler2.png)
 
 The upper part shows the proportion of each AI CORE operator to the total time, and the lower part shows the details of each operator.
 
-![resnet_profiler3](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler3.png)
+![resnet_profiler3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler3.png)
 
 You can click an operator to obtain the execution time, scope, shape, and type of the operator.
 
 In addition to the AI CORE operators, there may be AI CPU and HOST CPU operators on the network. These operators take more time than the AI CORE operators. You can click the tabs to view the time.
 
-![resnet_profiler4](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler4.png)
+![resnet_profiler4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler4.png)
 
 In addition to viewing the operator performance, you can also view the raw data for analysis.
 
-![resnet_profiler5](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler5.png)
+![resnet_profiler5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler5.png)
 
 Go to the `profiler_v1/profiler/` directory and click the `aicore_intermediate_0_type.csv` file to view the statistics of each operator. There are 30 AI Core operators in total. The total execution time is 37.526 ms.
 
-![resnet_profiler6](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
+![resnet_profiler6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler6.png)
 
 In addition, `aicore_intermediate_0_detail.csv` contains detailed data of each operator, which is similar to the operator details displayed in MindInsight. `ascend_timeline_display_0.json` is a timeline data file. For details, see [timeline](https://www.mindspore.cn/mindinsight/docs/en/r1.10/performance_profiling_ascend.html#timeline-analysis).
 
 The third part is the performance data during data processing. You can view the data queue status in this part.
 
-![resnet_profiler7](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler7.png)
+![resnet_profiler7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler7.png)
 
 And a queue status of each data processing operation:
 
-![resnet_profiler8](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler8.png)
+![resnet_profiler8](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler8.png)
 
 Now, let's analyze the process and solve the problem.
 
@@ -798,7 +798,7 @@ From the step trace, the step interval and forward and backward execution time a
 
 When `dataset_sink_mode=True` is set, the result of setting the profiler is as follows:
 
-![resnet_profiler9](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler9.png)
+![resnet_profiler9](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler9.png)
 
 The execution time is reduced by half.
 
@@ -812,13 +812,13 @@ MindSpore has three methods to use mixed precision:
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 
-![resnet_profiler10](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler10.png)
+![resnet_profiler10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler10.png)
 
 Each step takes only 23 ms.
 
 Finally, let's look at data processing.
 
-![resnet_profiler11](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler11.png)
+![resnet_profiler11](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler11.png)
 
 After the sink mode is added, there are two queues in total. The host queue is a queue in the memory. The dataset object continuously places the input data required by the network in the host queue.
 The other is a data queue on the device. The data in the host queue is cached to the data queue, and the network directly obtains the model input from the data queue.
@@ -827,7 +827,7 @@ The host queue is empty in many places, indicating that the dataset is quickly t
 
 If most of the data queues are empty, you need to optimize the data performance. For example:
 
-![resnet_profiler12](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
+![resnet_profiler12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
 
 In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/r1.10/dataset/optimize.html).
 
