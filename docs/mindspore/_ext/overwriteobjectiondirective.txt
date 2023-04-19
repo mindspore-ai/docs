@@ -52,14 +52,12 @@ def get_api(fullname):
 def get_example(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
-        if re.findall(r'Tutorial Examples:\n', api_doc):
-            return []
-        example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
+        example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
         if '.. note::' in example_str[0][0]:
             api_doc = re.sub(r'Examples:\n    \.\. note::(?:.|\n)*?    >>>', r'Examples:\n    >>>', api_doc)
-            example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
+            example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
             example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
             example_str = example_str.strip()
             example_list = example_str.split('\n')
@@ -275,7 +273,17 @@ class ObjectDescription(SphinxDirective):
                     else:
                         self.content.data[index_platforms] = '**样例：**'
                         self.content.data.insert(index_platforms+1, '')
-                    self.content.data.extend(example)
+                    index_example = 0
+                    for num, i in enumerate(self.content.data):
+                        if i.startswith('教程样例：'):
+                            index_example = num
+                            break
+                    if index_example:
+                        count = len(self.content.data)
+                        for i in example:
+                            self.content.data.insert(index_example-count, i)
+                    else:
+                        self.content.data.extend(example)
                 else:
                     index_num = 0
                     index_platforms = 0
@@ -297,10 +305,17 @@ class ObjectDescription(SphinxDirective):
                         else:
                             self.content.data[index_platforms] = '**样例：**'
                             self.content.data.insert(index_platforms+1, '')
+                        index_example = 0
+                        for num, i in enumerate(self.content.data[:index_num]):
+                            if i.startswith('教程样例：'):
+                                index_example = num
+                                break
+                        if not index_example:
+                            index_example = index_num
                         count = len(self.content.data)
                         count_plat = len(platforms)
                         for i in example:
-                            self.content.data.insert(index_num-count+count_plat, i)
+                            self.content.data.insert(index_example-count+count_plat, i)
                     else:
                         index_platforms = 0
                         for num, i in enumerate(self.content.data):
@@ -316,7 +331,17 @@ class ObjectDescription(SphinxDirective):
                         else:
                             self.content.data[index_platforms] = '**样例：**'
                             self.content.data.insert(index_platforms+1, '')
-                        self.content.data.extend(example)
+                        index_example = 0
+                        for num, i in enumerate(self.content.data):
+                            if i.startswith('教程样例：'):
+                                index_example = num
+                                break
+                        if index_example:
+                            count = len(self.content.data)
+                            for i in example:
+                                self.content.data.insert(index_example-count, i)
+                        else:
+                            self.content.data.extend(example)
             except Exception as e:
                 logger.warning(e)
         elif extra:
