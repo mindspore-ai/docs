@@ -119,7 +119,7 @@ The outputs should be the same as:
 
 ```text
 MindSpore version: __version__
-The result of multiplication calculation is correct, MindSpore has been installed successfully!
+The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
 So far, it means MindSpore Ascend 910 has been installed by Docker successfully.

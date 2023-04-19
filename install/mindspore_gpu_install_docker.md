@@ -130,7 +130,7 @@ python -c "import mindspore;mindspore.run_check()"
 
 ```text
 MindSpore version: 版本号
-The result of multiplication calculation is correct, MindSpore has been installed successfully!
+The result of multiplication calculation is correct, MindSpore has been installed on platform [GPU] successfully!
 ```
 
 至此，你已经成功通过Docker方式安装了MindSpore GPU版本。

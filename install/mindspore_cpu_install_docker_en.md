@@ -79,7 +79,7 @@ python -c "import mindspore;mindspore.run_check()"
 
 ```text
 MindSpore version: __version__
-The result of multiplication calculation is correct, MindSpore has been installed successfully!
+The result of multiplication calculation is correct, MindSpore has been installed on platform [CPU] successfully!
 ```
 
 So far, it means MindSpore CPU has been installed by Docker successfully.
