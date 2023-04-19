@@ -1,4 +1,4 @@
-# Compiling Cloud-side MindSpore Lite
+# Building Cloud-side MindSpore Lite
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/build.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

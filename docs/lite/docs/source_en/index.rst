@@ -28,7 +28,7 @@ MindSpore Lite Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Inference on Devices
+   :caption: Device-side Inference
    :hidden:
 
    device_infer_example
@@ -41,7 +41,7 @@ MindSpore Lite Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Training on Devices
+   :caption: Device-side Training
    :hidden:
 
    device_train_example
@@ -258,7 +258,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Getting Started to Device-side Inference</span>
+											<span class="doc-head-content">Quick Start to Device-side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -271,7 +271,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction_cloud.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Getting Started to Cloud-side Inference</span>
+											<span class="doc-head-content">Quick Start to Cloud-Side Inference</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -284,7 +284,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience C++ Simple Inference Demo</span>
+											<span class="doc-head-content">Experiencing C++ Simplified Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -297,7 +297,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience Java Simple Inference Demo</span>
+											<span class="doc-head-content">Experiencing Java Simplified Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -310,7 +310,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experiencing the Python Simplified Inference Demo</span>
+											<span class="doc-head-content">Experiencing Python Simplified Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -323,7 +323,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_c.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Expriencing Simpcified Inference Demo with C-language</span>
+											<span class="doc-head-content">Expriencing C-language Simpcified Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -411,7 +411,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Perform Inference on MCU or Small Systems</span>
+											<span class="doc-head-content">Performing Inference or Training on MCU or Small Systems</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite provides a light-weight Micro solution for deploying AI models to IOT devices.
@@ -473,7 +473,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Implement Device Training Based On C++ Interface</span>
+											<span class="doc-head-content">Implementing Device Training Based On C++ Interface</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -486,7 +486,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Implement Device Training Based On Java Interface</span>
+											<span class="doc-head-content">Implementing Device Training Based On Java Interface</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -523,7 +523,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Construct custom kernel by registering conversion tool</span>
+											<span class="doc-head-content">Building Custom Operators Offline</span>
 										</div>
 										<div class="doc-article-desc">
                                         MindSpore Lite provides a highly flexible tool for offline model conversion. It supports users to expand such as combining your own specific hardware with MindSpore Lite Inference Engine.
@@ -559,7 +559,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Converting Models for Inference</span>
+											<span class="doc-head-content">Offline Converting Models for Inference</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
@@ -571,7 +571,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Creating MindSpore Lite Models</span>
+											<span class="doc-head-content">Converting MindSpore Lite Models</span>
 										</div>
 										<div class="doc-article-desc">
 										This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
@@ -734,7 +734,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Converting Models for Cloud-side Inference</span>
+											<span class="doc-head-content">Offline Conversion of Inference Models</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite provides a tool for cloud-side offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
@@ -746,7 +746,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using Python Interface for Cloud-side Model Conversion</span>
+											<span class="doc-head-content">Using Python Interface to Perform Model Conversions</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite supports cloud-side model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference.
@@ -758,7 +758,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Cloud-side benchmark</span>
+											<span class="doc-head-content">benchmark</span>
 										</div>
 										<div class="doc-article-desc">
 										After model conversion and before cloud-side inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
