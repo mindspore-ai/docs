@@ -14,7 +14,7 @@ Get batched graph data from the IMDB-BINARY dataset. Each graph is a movie compo
 
 In the batched graph, multiple graphs can be trained at the same time, and the number of nodes/edges of each graph is different. mindspore_gl integrates the sub graph in the batch into a whole graph, and adds a virtual graph to unify the graph data to reduce memory consumption and speed up calculation.
 
-> Download the complete sample code here: [GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/gin).
+> Download the complete sample code here: [GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/model_zoo/gin).
 
 ## GIN Principles
 
@@ -90,7 +90,7 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/ginconv.py) code of mindspore_gl.nn.GINConv.
+For details about GINConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/conv/ginconv.py) code of mindspore_gl.nn.GINConv.
 
 ## Constructing a Dataset
 
@@ -256,7 +256,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/gin/trainval_imdb_binary.py) script to start training.
+Run the [trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/model_zoo/gin/trainval_imdb_binary.py) script to start training.
 
 ```bash
 cd model_zoo/gin

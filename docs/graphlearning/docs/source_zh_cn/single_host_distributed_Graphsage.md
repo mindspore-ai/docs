@@ -13,7 +13,7 @@ GraphSAGE是一个通用的归纳框架，它利用节点特征信息（例如�
 
 由于Reddit数据集较大，为了减少GraphSAGE训练时间，本例中在单机上执行分布式模型训练，以加快模型训练。
 
-> 下载完整的样例[GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/graphsage)代码。
+> 下载完整的样例[GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/model_zoo/graphsage)代码。
 
 ## GraphSAGE原理
 
@@ -88,7 +88,7 @@ class SAGENet(Cell):
         return ret
 ```
 
-SAGEConv执行的更多细节可以看mindspore_gl.nn.SAGEConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/sageconv.py)代码。
+SAGEConv执行的更多细节可以看mindspore_gl.nn.SAGEConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/conv/sageconv.py)代码。
 
 ## 定义loss函数
 
@@ -234,7 +234,7 @@ else:
 
 ### 执行结果
 
-执行脚本[distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/graphsage/distributed_run.sh)启动训练。
+执行脚本[distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/model_zoo/graphsage/distributed_run.sh)启动训练。
 
 - GPU
 

@@ -14,7 +14,7 @@ IMDB-BINARY是一个电影协作数据集，由1000名在IMDB中扮演电影角�
 
 批次图模式中每次能够对多张图同时进行训练，并且每张图的节点数/边数都完全不同。mindspore_gl提供了构建虚拟图的方法将对批次内图整合成一张整图，并对整图数据进行统一，以降低内存消耗及加速计算。
 
-> 下载完整的样例[GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/gin)代码。
+> 下载完整的样例[GIN](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/model_zoo/gin)代码。
 
 ## GIN原理
 
@@ -90,7 +90,7 @@ class GinNet(GNNCell):
         return score_over_layer
 ```
 
-GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/ginconv.py)代码。
+GINConv执行的更多细节可以看mindspore_gl.nn.GINConv的[API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/conv/ginconv.py)代码。
 
 ## 构造数据集
 
@@ -254,7 +254,7 @@ for data in train_dataloader:
 
 ### 执行结果
 
-执行脚本[trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/gin/trainval_imdb_binary.py)启动训练。
+执行脚本[trainval_imdb_binary.py](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/model_zoo/gin/trainval_imdb_binary.py)启动训练。
 
 ```bash
 cd model_zoo/gin

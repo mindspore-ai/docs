@@ -13,7 +13,7 @@ In the Reddit dataset, the authors sampled 50 large communities and constructed 
 
 Since the Reddit dataset size is large, to reduce the GraphSAGE training time, in this example, distributed model training is performed on single-host to accelerate the model training.
 
-> Download the complete sample code here: [GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/graphsage).
+> Download the complete sample code here: [GraphSAGE](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/model_zoo/graphsage).
 
 ## GraphSAGE Principles
 
@@ -88,7 +88,7 @@ class SAGENet(Cell):
         return ret
 ```
 
-For details about SAGENet implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/sageconv.py) code of mindspore_gl.nn.SAGEConv.
+For details about SAGENet implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/conv/sageconv.py) code of mindspore_gl.nn.SAGEConv.
 
 ## Defining a Loss Function
 
@@ -234,7 +234,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/graphsage/distributed_run.sh) script to start training.
+Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/model_zoo/graphsage/distributed_run.sh) script to start training.
 
 - GPU
 
