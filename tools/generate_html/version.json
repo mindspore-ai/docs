@@ -4,7 +4,7 @@
       "name" : "mindspore",
       "branch" : "r2.0",
       "whl_path" : "/MindSpore/unified/x86_64/",
-      "whl_name" : "mindspore-2.0.0a0-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindspore-2.0.0rc1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
    }, 
@@ -31,7 +31,7 @@
       "name" : "mindelec",
       "branch" : "r0.2",
       "whl_path" : "/MindScience/x86_64/",
-      "whl_name" : "mindscience_mindelec_ascend-0.2.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindscience_mindelec_ascend-0.2.0rc1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindscience_mindelec_ascend"
    },
@@ -40,7 +40,7 @@
       "name" : "mindsponge",
       "branch" : "r1.0",
       "whl_path" : "/MindScience/gpu/x86_64/cuda-10.1/",
-      "whl_name" : "mindsponge_gpu-1.0.0-py3-none-any.whl",
+      "whl_name" : "mindsponge_gpu-1.0.0rc1-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindsponge_gpu"
    },
@@ -49,7 +49,7 @@
       "name" : "mindflow",
       "branch" : "r0.1",
       "whl_path" : "/MindScience/gpu/x86_64/cuda-10.1/",
-      "whl_name" : "mindflow_gpu-0.1.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindflow_gpu-0.1.0rc1-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindflow_gpu"
    },
@@ -67,7 +67,7 @@
       "name" : "mindinsight",
       "branch" : "r2.0",
       "whl_path" : "/MindInsight/any/",
-      "whl_name" : "mindinsight-2.0.0-py3-none-any.whl",
+      "whl_name" : "mindinsight-2.0.0rc1-py3-none-any.whl",
       "environ" : "MI_PATH",
       "uninstall_name" : "mindinsight"
    },
@@ -76,7 +76,7 @@
       "name" : "graphlearning",
       "branch" : "r0.2.0",
       "whl_path" : "/GraphLearning/cpu/x86_64/",
-      "whl_name" : "mindspore_gl-0.2.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindspore_gl-0.2-cp37-cp37m-linux_x86_64.whl",
       "environ" : "GL_PATH",
       "uninstall_name" : "mindspore_gl"
    },
@@ -94,11 +94,11 @@
       "name" : "lite",
       "branch" : "r2.0",
       "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "whl_name" : "mindspore_lite-2.0.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindspore_lite-2.0.0rc1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore_lite",
       "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "tar_name" : "mindspore-lite-2.0.0a0-linux-x64.tar.gz"
+      "tar_name" : "mindspore-lite-2.0.0rc1-linux-x64.tar.gz"
    },
    {
       "id" : 11 ,
