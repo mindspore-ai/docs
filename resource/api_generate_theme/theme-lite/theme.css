@@ -2393,7 +2393,8 @@ position: relative;
   background: #f3f3f3 !important;
 }
 
-.function>dt {
+.function>dt,
+.data>dt  {
   width: 100%;
   margin: 1.5rem 0 .6rem !important;
   font-weight: normal !important;

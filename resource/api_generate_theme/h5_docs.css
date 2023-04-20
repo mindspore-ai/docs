@@ -978,7 +978,10 @@ pre span.gp,pre span.go{
   align-items: center;
   cursor: pointer;
 }
-
+.wy-grid-for-nav .wy-menu .caption .caption-text{
+  white-space: normal;
+  line-height: 20px;
+}
 .wy-grid-for-nav .wy-menu .caption img {
   width: 25px;
   height: 25px;
@@ -1124,7 +1127,8 @@ pre span.gp,pre span.go{
 .version-select-wrap{
   position: relative;
   margin-left: 2rem;
-  line-height: 2rem; 
+  line-height: 2rem;
+  margin-top: .5rem;
 }
 .version-select-wrap .txt{
   font-size: 14px;

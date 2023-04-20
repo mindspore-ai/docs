@@ -89,8 +89,8 @@
                         "id": "probability"
                     },
                     {
-                        "name": "MindSpore Pandas",
-                        "id": "mindpandas"
+                      "name": "MindSpore Pandas",
+                      "id": "mindpandas"
                     },
                     {
                         "name": "MindSpore Hub",
