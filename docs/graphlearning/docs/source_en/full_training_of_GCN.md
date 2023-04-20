@@ -13,7 +13,7 @@ The Cora dataset consists of 2708 scientific publications classified into one of
 
 The classification of Cora's literature is taken as the label,the word vector of the literature is taken as the node feature of GCN,and the reference of the literature is taken as the edge. The GCN is used to train the cora graph to predict which category the literature belongs to.
 
-> Download the complete sample code here: [GCN](https://gitee.com/mindspore/graphlearning/tree/r0.2/examples/).
+> Download the complete sample code here: [GCN](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/examples/).
 
 ## GCN Principles
 
@@ -50,7 +50,7 @@ class GCNNet(GNNCell):
 GCNNet is inherited from GNNCell. The last input of the construct function in GNNCell must be a graph or BatchedGraph, that is, the graph structure class supported by MindSpore Graph Learning. In addition, you must import mindspore at the header of the file to identify the execution backend when the code is translated.
 
 In GCNConv, data_feat_size indicates the feature dimension of the input node, hidden_dim_size indicates the feature dimension of the hidden layer, n_classes indicates the dimension of the output classification, and in_deg and out_deg indicate the indegree and outdegree of the node in the graph data, respectively.
-For details about GCN implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/conv/gcnconv.py) code of mindspore_gl.nn.GCNConv.
+For details about GCN implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/conv/gcnconv.py) code of mindspore_gl.nn.GCNConv.
 
 ## Defining a Loss Function
 
@@ -235,7 +235,7 @@ GNNCell.enable_display(screen_width=350)
 
 ### Execution Results
 
-Run the [vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/examples/vc_gcn_datanet.py) script to start training.
+Run the [vc_gcn_datanet.py](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/examples/vc_gcn_datanet.py) script to start training.
 
 ```bash
 cd examples
@@ -257,4 +257,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 Accuracy verified on CORA: 0.82 (thesis: 0.815)
 
-The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](https://gitee.com/mindspore/graphlearning/tree/r0.2/examples/).
+The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/examples/).

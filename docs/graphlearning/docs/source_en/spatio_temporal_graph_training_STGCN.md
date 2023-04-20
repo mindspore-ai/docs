@@ -13,7 +13,7 @@ METR-LA is a large-scale data set collected from 1,500 traffic loop detectors in
 
 The node feature shape of a general graph is `(nodes number, feature dimension)`, but the feature shape of a spatio-temporal graph is usually at least 3-dimensional `(nodes number, feature dimension, time step)`, and the feature fusion processing of neighbor nodes will be more complicated. And due to the convolution in the time dimension, the `time step` will also change. When calculating the loss, it is necessary to calculate the output time length in advance.
 
-> Download the complete sample code here: [STGCN](https://gitee.com/mindspore/graphlearning/tree/r0.2/model_zoo/stgcn).
+> Download the complete sample code here: [STGCN](https://gitee.com/mindspore/graphlearning/tree/r0.2.0/model_zoo/stgcn).
 
 ## STGCN Principles
 
@@ -34,7 +34,7 @@ edge_attr = ms.Tensor(edge_attr, ms.float32)
 edge_index, edge_weight = norm(edge_index, node_num, edge_attr, args.normalization)
 ```
 
-For details about laplacian normalization, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/graph/norm.py) code of mindspore_gl.graph.norm.
+For details about laplacian normalization, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/graph/norm.py) code of mindspore_gl.graph.norm.
 
 ## Defining a Network Model
 
@@ -79,7 +79,7 @@ class STGcnNet(GNNCell):
         return x
 ```
 
-For details about STConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2/mindspore_gl/nn/temporal/stconv.py) code of mindspore_gl.nn.temporal.STConv.
+For details about STConv implementation, see the [API](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/mindspore_gl/nn/temporal/stconv.py) code of mindspore_gl.nn.temporal.STConv.
 
 ## Defining a Loss Function
 
@@ -142,7 +142,7 @@ After running the program, translate the code and start training.
 
 ### Execution Results
 
-Run the [trainval_metr.py](https://gitee.com/mindspore/graphlearning/blob/r0.2/model_zoo/stgcn/trainval_metr.py) script to start training.
+Run the [trainval_metr.py](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/model_zoo/stgcn/trainval_metr.py) script to start training.
 
 ```bash
 cd model_zoo/stgcn

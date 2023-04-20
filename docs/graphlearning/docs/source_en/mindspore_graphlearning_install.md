@@ -15,7 +15,7 @@
 
 - Ensure that the hardware platform is GPU under the Linux system.
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to complete the installation of MindSpore, which requires at least version 1.6.0.
-- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2/requirements.txt).
+- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/requirements.txt).
 
 ### Installation Methods
 
@@ -35,7 +35,7 @@ You can install MindSpore Graph Learning either by pip or by source code.
     pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/GraphLearning/gpu/x86_64/cuda-{cuda_verison}/mindspore_gl-0.2.0a0-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2/requirements.txt). In other cases, you need to manually install dependency items.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.2.0/requirements.txt). In other cases, you need to manually install dependency items.
 > - `{system_structure}` denotes the Linux system architecture, and the option is `x86_64` and `arrch64`.
 > - `{cuda_verison}` denotes the CUDA version, and the option is `10.1`, `11.1` and `11.6`。
 
@@ -44,7 +44,7 @@ You can install MindSpore Graph Learning either by pip or by source code.
 1. Download source code from Gitee.
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git -b r0.2
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.2.0
     ```
 
 2. Compile and install in MindSpore Graph Learning directory.
