@@ -57,16 +57,16 @@ $(function () {
 
   // 版本名称显示
   function pageVersionName (){
-    let name= '';
+    let versionName= '';
     versionDropdownList.forEach((subitem) => {
       if(currentVersion.endsWith(subitem.version)){
-        name= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
+        versionName= subitem.versionAlias !==''?subitem.versionAlias:subitem.version;
       }
     });
     if (versionName === '') {
       versionName = currentVersion;
     }
-    return curVersion(name);
+    return curVersion(versionName);
   }
 
 
