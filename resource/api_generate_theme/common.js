@@ -442,7 +442,7 @@ function createScriptSensor() {
           if(typeof item.versions[1] === 'string'){
             version = item.versions.length >1 ? item.versions[1] : item.versions[0];
           }else{
-            version =item.versions[0].version;
+            version =item.versions[1].version;
           }
         }
       });
