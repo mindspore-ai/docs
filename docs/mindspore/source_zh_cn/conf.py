@@ -89,6 +89,18 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, sphinx_mathjax.__dict__)
 
+# Fix some dl-label lack class='simple'
+from docutils.writers import _html_base
+
+with open(_html_base.__file__, "r+", encoding="utf-8") as f:
+    code_str = f.read()
+    old_str = '''        if self.is_compactable(node):
+            classes.append('simple')'''
+    new_str = '''        if classes == []:
+            classes.append('simple')'''
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, _html_base.__dict__)
+
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
