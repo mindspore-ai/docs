@@ -12,7 +12,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 1. 不需要经过离线转换，直接进行推理执行。
 
-2. 使用离线转换，CPU/GPU后端设置optimize为"general"，NPU后端设置optimize为"ascend_oriented"，在离线阶段完成相关优化，减少推理执行的初始化时间。
+2. 使用离线转换，CPU/GPU后端设置optimize为"general"（使能通用优化），GPU后端设置optimize为"gpu_oriented"（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置optimize为"ascend_oriented"，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ## Linux环境使用说明
 
@@ -78,7 +78,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 设置导出模型的输入format，只对四维输入有效。 | Format.NCHW、Format.NHWC | - |
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | - |
-| optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"ascend_oriented" | - |
+| optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"gpu_oriented"、"ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | - |
@@ -88,7 +88,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 >
 > - 用法1：待转换模型的输入是动态shape，准备采用固定shape推理，则设置该属性为固定shape。设置之后，在对Converter后的模型进行推理时，默认输入的shape与该属性设置一样，无需再进行resize操作。
 > - 用法2：无论待转换模型的原始输入是否为动态shape，准备采用固定shape推理，并希望模型的性能尽可能优化，则设置该属性为固定shape。设置之后，将对模型结构进一步优化，但转换后的模型可能会失去动态shape的特征（部分跟shape强相关的算子会被融合）。
-> - `optimize` 该属性是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该属性设置为"none"，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该属性的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成"general"，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成"ascend_oriented"，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
+> - `optimize` 该属性是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该属性设置为"none"，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该属性的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成"general"，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成"gpu_oriented"，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成"ascend_oriented"，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
 >
 
 ### convert方法
