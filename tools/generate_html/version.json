@@ -131,7 +131,7 @@
       "id" : 14 ,
       "name" : "federated",
       "branch" : "r0.1",
-      "whl_path" : "/federated/x86_64/",
+      "whl_path" : "/Federated/x86_64/",
       "whl_name" : "mindspore_federated-0.1.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MF_PATH",
       "uninstall_name" : "mindspore_federated"
@@ -149,7 +149,7 @@
       "id" : 16 ,
       "name" : "recommender",
       "branch" : "r0.2",
-      "whl_path" : "/recommender/any/",
+      "whl_path" : "/Recommender/any/",
       "whl_name" : "mindspore_rec-0.2.0-py3-none-any.whl",
       "environ" : "RD_PATH",
       "uninstall_name" : "mindspore_rec"
