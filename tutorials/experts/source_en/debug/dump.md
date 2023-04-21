@@ -6,11 +6,9 @@
 
 The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 
-- For the dynamic graph mode, MindSpore provides the Dump function and native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script, it's also can save the graph and the input and output data of the operator during model training to a disk file.
+- For the dynamic graph mode, the Dump function only support overflow detection ability on Ascend. To view those nodes which are not overflow, please use the native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script.
 
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
-
-Aiming at the static graph mode, this tutorial introduces how to analyze and compare network data based on the Dump function.
 
 ### Debugging Process
 
@@ -68,7 +66,7 @@ The configuration files required for different modes and the data format of dump
 
 - When Dump is enabled on Ascend, the operator to be dumped will automatically close memory reuse.
 - Synchronous Dump supports the graph mode on Ascend, GPU and CPU, and currently does not support PyNative mode.
-- Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory reuse will not be turned off when asynchronous Dump is enabled.
+- Asynchronous Dump full ability only supports graph mode on Ascend, overflow detection ability only support graph mode and PyNative mode on Ascend. Memory reuse will not be turned off when asynchronous Dump is enabled.
 - Default is Asynchronous Dump mode. If synchronous Dump mode is needed, "e2e_dump_settings" should be set in configuration file.
 - Dump does not support heterogeneous training. If Dump is enabled for heterogeneous training scenario, the generated Dump data object directory maybe not in the expected directory structure.
 
@@ -403,10 +401,10 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     }
     ```
 
-    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`.
+    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
     - `path`: The absolute path to save Dump data.
     - `net_name`: The customized net name: "ResNet50".
-    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
+    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. When overflow detection is enabled for PyNative mode, it must be set to "all".
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Asynchronous statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception.
     - `input_output`: When set to 0, it means to Dump the operator's input and output; when set to 1, it means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
     - `kernels`: This item can be configured in two formats:
@@ -454,12 +452,45 @@ If set `file_format` to `npy`, see [Synchronous Dump Data Object Directory](#syn
 
 If the `file_format` value or the `file_format` value is `bin` is not configured, the data object directory is structured as follows.
 
-The data objects saved by asynchronous Dump include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. The directory structure is as follows:
+The data objects saved by asynchronous Dump include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. If overflow detection is enabled, the overflow file (file `Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`) will also be saved when overflow is detected.
+
+The directory structure of graph mode is as follows:
 
 ```text
 {path}/
     - rank_{rank_id}/
         - .dump_metadata/
+        - debug_files (Only be saved when overflow detection is enabled in dynamic shapes or non task sinking scenarios)/
+            - {iteration_id}/
+                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                ...
+        - {net_name}/
+            - {graph_id}/
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp} (Only be saved when overflow detection is enabled in task sinking scenarios)
+                    mapping.csv
+                - constants/
+                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
+            ...
+        - graphs/
+            ms_output_trace_code_graph_{graph_id}.pb
+            ms_output_trace_code_graph_{graph_id}.ir
+        - execution_order/
+            ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
+```
+
+The directory structure of Pynative mode is as follows:
+
+```text
+{path}/
+    - rank_{rank_id}/
+        - .dump_metadata/
+        - debug_files/
+            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+            ...
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
@@ -495,13 +526,15 @@ For multi-graph networks, such as dynamic shape scenario, the iterations of all 
 
 If the length of the tensor file name defined according to the naming rules exceeds the OS file name length limit (usually 255 characters), the tensor file will be renamed to a string of random numbers. The mapping relationship will be written to the file 'mapping.csv' in the same directory.
 
+For PyNative mode, since there is no forward graph and only the backward graph and optimization graph are saved, there may be situations where overflow nodes cannot find corresponding graph files.
+
 ### Introduction to Asynchronous Dump Data File
 
 If set `file_format` to `npy`, see [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file) for the introduction to dump data file.
 
-If not configured `file_format` or set `file_format` to `bin`, after the training is started, the original data file generated by asynchronous Dump is in protobuf format. It needs to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [How to view dump data files](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/c748fd92/how-do-i-view-a-dump-file).
+If not configured `file_format` or set `file_format` to `bin`, after the training is started, the original data file generated by asynchronous Dump or overflow files generated by overflow detection are in protobuf format. They need to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [How to view dump data files](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0078.html).
 
-The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The data format of the asynchronous dump is the Device side format. If you want to convert to the Host side format, you can refer to [How to convert dump data file format](https://support.huawei.com/enterprise/en/doc/EDOC1100234058/b04fcd04/how-do-i-convert-the-format-of-a-dump-file).
+The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The data format of the asynchronous dump is the Device side format. If you want to convert to the Host side format, you can refer to [How to convert dump data file format](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0077.html).
 
 If the file is saved in `bin` format, the file naming format is:
 
@@ -516,7 +549,7 @@ If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be con
 The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindSpore Insight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md#) for the usage of DumpParser.
 The data format parsed by MindSpore Insight is exactly the same as that of synchronous dump.
 
-If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
+If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file). The overflow file generated by overflow detection is in the `json` format, and the content analysis of the overflow file can refer to the [Analyzing the Data File of an Overflow/Underflow Operator](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/infacldevg/aclcppdevg/aclcppdevg_000160.html) .
 
 The `saved_data` option only takes effect when `file_format` is "npy". If `saved_data` is "statistic" or "full", tensor statistics will be dumped in `statistic.csv`. When `saved_data` is "tensor" or "full", full tensor data will be dumped in `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`. The format of the statistic file will be the same as that of synchonous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
 
@@ -544,7 +577,7 @@ Through the asynchronous Dump function, the data files generated by the operator
 
     The {file path of dump} can be path to a single `.bin` file, or the folder that include the `.bin` files.
 
-    If you need to convert the data format, please refer to the user instructions link <https://support.huawei.com/enterprise/en/doc/EDOC1100234058/b04fcd04/how-do-i-convert-the-format-of-a-dump-file>.
+    If you need to convert the data format, please refer to the user instructions link <https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0077.html>.
 
     For example, the data file generated by Dump is:
 
