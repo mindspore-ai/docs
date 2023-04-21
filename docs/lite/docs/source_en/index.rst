@@ -306,19 +306,6 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_python.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Experiencing Python Simplified Inference Demo</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										This tutorial provides a sample program for MindSpore Lite to perform inference, demonstrating the Python interface to perform the basic process of device-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite interfaces related to inference execution.
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-c stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_c.html" class="article-link">
 									<div>
@@ -575,18 +562,6 @@ MindSpore Lite Documentation
 										</div>
 										<div class="doc-article-desc">
 										This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_python.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Using Python Interface for Model Conversion</span>
-										</div>
-										<div class="doc-article-desc">
-										MindSpore Lite supports model conversion via Python interface, supporting multiple types of model conversion, and the converted models can be used for inference.
 										</div>
 									</div>
 								</a>
