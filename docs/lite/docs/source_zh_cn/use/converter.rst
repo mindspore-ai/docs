@@ -6,4 +6,3 @@
 
   converter_tool
   converter_train
-  converter_python

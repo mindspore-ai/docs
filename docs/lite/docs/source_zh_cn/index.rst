@@ -303,19 +303,6 @@ MindSpore Lite文档
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_python.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">体验Python极简推理Demo</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本教程提供了MindSpore Lite执行推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了Python接口进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-c stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_c.html" class="article-link">
 									<div>
@@ -574,18 +561,6 @@ MindSpore Lite文档
 										</div>
 										<div class="doc-article-desc">
 										本教程介绍了如何进行训练模型的转换。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/use/converter_python.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">使用Python接口模型转换</span>
-										</div>
-										<div class="doc-article-desc">
-										MindSpore Lite支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的模型可用于推理。
 										</div>
 									</div>
 								</a>
