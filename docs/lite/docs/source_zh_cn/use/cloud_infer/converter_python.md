@@ -53,6 +53,7 @@ mindspore_lite
 │   ├── libopencv_imgcodecs.so.4.5                              # OpenCV的动态库
 │   └── libopencv_imgproc.so.4.5                                # OpenCV的动态库
 ├── __init__.py        # 初始化包
+├── _checkparam.py     # 校验参数工具
 ├── context.py         # context接口相关代码
 ├── converter.py       # converter接口相关代码，转换入口
 ├── model.py           # model接口相关代码，推理入口
@@ -79,7 +80,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | - |
 | optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
-| save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR、ModelType.MINDIR_LITE | MINDIR模型使用MindSpore Lite云侧推理安装包，MINDIR_LITE使用MindSpore Lite端侧推理安装包 |
+| save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | - |
 
 > - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。

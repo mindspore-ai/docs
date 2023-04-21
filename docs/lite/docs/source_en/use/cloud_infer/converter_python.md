@@ -53,6 +53,7 @@ mindspore_lite
 │   ├── libopencv_imgcodecs.so.4.5                              # Dynamic library for OpenCV
 │   └── libopencv_imgproc.so.4.5                                # Dynamic library for OpenCV
 ├── __init__.py        # Initialization package
+├── _checkparam.py     # Check parameter tool
 ├── context.py         # Code related to context interface
 ├── converter.py       # Code related to converter interface, conversion portal
 ├── model.py           # Code related to model, inference portal
@@ -79,7 +80,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | Set the dimensions of the model input, and the order of the input dimensions is kept the same as the original model. For example: {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - |
 | optimize | str | `--optimize=<OPTIMIZE>` | Set the mode of optimization during the offline conversion. | "none", "general", "ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | Set the data type of the quantized model output Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model output Tensor are available. The default is to keep the same data type as the original model output Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
-| save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR, ModelType.MINDIR_LITE | The MINDIR model uses the MindSpore Lite cloud-side inference installation package, and MINDIR_LITE uses the MindSpore Lite device-side inference installation package|
+| save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in Float32 data format need to be stored in Float16 data format during model serialization. | True, False | - |
 
 > The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.0/use/cloud_infer/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
