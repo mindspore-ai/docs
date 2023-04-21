@@ -22,7 +22,8 @@ import mindspore as ms
 ms.set_context(enable_graph_kernel=True)
 ```
 
-> - Only Graph Mode is supported by graph kernel.
+> - Graph kernel fusion optimization can be enabled in either Graph or PyNative mode. After enabling, it will selectively perform fusion optimization according to the graph features and graph optimization capabilities. And the graph optimization capabilities may also change and evolve between different versions. For example: PyNative mode currently selectively fuses jit subgraphs or backward subgraphs, and some dynamic shape operators may skip fusion.
+> - For most scenarios, graph kernel fusion optimization can usually achieve positive performance gains and the same or similar calculation accuracy. But in a very few scenarios, it may also cause performance degradation. In addition, due to operator implementation differences, there may also be some changes in accuracy. It is recommended that users selectively use it according to their own scenarios.
 > - On the CPU platform, graph kernel fusion uses the [OpenMP](https://www.openmp.org/) parallel computing technology for operator acceleration. To get a better operator execution performance, it is suggested to use the environment variable: `OMP_NUM_THREADS` to set OpenMP parallel threads. The recommended value for `OMP_NUM_THREADS` is a positive integer, which should be no more than the number of CPU kernels, such as: `export OMP_NUM_THREADS=10`
 
 ### Sample Scripts
