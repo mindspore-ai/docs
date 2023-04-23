@@ -1,7 +1,7 @@
 [
     {
         "version" : "",
-        "versionAlias" : "2.0 RC1",
+        "versionAlias" : "2.0.0-rc1",
         "label" : {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,7 +10,7 @@
     }, 
     {
         "version" : "",
-        "versionAlias" : "2.0 RC1",
+        "versionAlias" : "2.0.0-rc1",
         "label" : {
             "zh": "教程",
             "en": "Tutorials"
@@ -49,7 +49,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "2.0 RC1",
+        "versionAlias" : "2.0.0-rc1",
         "label" : {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -129,7 +129,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "2.0 RC1",
+        "versionAlias" : "2.0.0-rc1",
         "label" : {
             "zh": "MindSpore Insight",
             "en": "MindSpore Insight"
@@ -228,7 +228,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "0.2 RC1",
+        "versionAlias" : "0.2.0-rc1",
         "label" : {
             "zh": "MindSpore Elec",
             "en": "MindSpore Elec"
@@ -237,7 +237,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "1.0 RC1",
+        "versionAlias" : "1.0.0-rc1",
         "label" : {
             "zh": "MindSpore SPONGE",
             "en": "MindSpore SPONGE"
@@ -246,7 +246,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "0.1 RC1",
+        "versionAlias" : "0.1.0-rc1",
         "label" : {
             "zh": "MindSpore Flow",
             "en": "MindSpore Flow"
