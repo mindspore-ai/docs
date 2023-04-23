@@ -17,7 +17,6 @@ import os
 import requests
 import mindspore as ms
 from mindspore import nn
-from mindspore import ops
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
 from mindspore import Profiler
@@ -124,7 +123,7 @@ if __name__ == "__main__":
     def train_step(data, label):
         """Define function of one-step training"""
         (loss, _), grads = grad_fn(data, label)
-        loss = ops.depend(loss, optimizer(grads))
+        optimizer(grads)
         return loss
 
 
