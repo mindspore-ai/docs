@@ -31,9 +31,9 @@
       "name" : "mindelec",
       "branch" : "r0.2",
       "whl_path" : "/MindScience/x86_64/",
-      "whl_name" : "mindscience_mindelec_ascend-0.2.0rc1-cp37-cp37m-linux_x86_64.whl",
+      "whl_name" : "mindelec_ascend-0.2.0rc1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
-      "uninstall_name" : "mindscience_mindelec_ascend"
+      "uninstall_name" : "mindelec_ascend"
    },
    {
       "id" : 4 ,
