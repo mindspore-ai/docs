@@ -179,12 +179,12 @@ def setup(app):
 
 import search_code
 
-src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE.md')
-des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-content = re.findall("## [\s\S\n]*", data)
-#result = content[0].replace('# MindFlow', '#', 1)
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+# src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE.md')
+# des_release = "./RELEASE.md"
+# with open(src_release, "r", encoding="utf-8") as f:
+#     data = f.read()
+# content = re.findall("## [\s\S\n]*", data)
+# #result = content[0].replace('# MindFlow', '#', 1)
+# with open(des_release, "w", encoding="utf-8") as p:
+#     p.write("# Release Notes"+"\n\n")
+#     p.write(content[0])
