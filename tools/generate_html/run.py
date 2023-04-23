@@ -394,6 +394,7 @@ if __name__ == "__main__":
     parser.add_argument('--pd', type=str, default="") # repo url password
     parser.add_argument('--wgetdir', type=str, default="") # repo url
     parser.add_argument('--release_url', type=str, default="") # repo url
+    parser.add_argument('--theme', type=str, default="") # theme.css/js
     args = parser.parse_args()
 
     password = args.pd
@@ -425,7 +426,7 @@ if __name__ == "__main__":
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
-        theme_path = os.path.join(DOCDIR, "../../resource/api_generate_theme")
+        theme_path = args.theme
         for f_name in os.listdir(theme_path):
             if os.path.isfile(os.path.join(theme_path, f_name)):
                 if os.path.exists(os.path.join(output_path, f_name)):
