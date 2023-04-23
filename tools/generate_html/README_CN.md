@@ -54,12 +54,13 @@
     比如构建1.9.0的发布版本：
 
     ```bash
-    python run.py --version="1.9.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0"
+    python run.py --version="1.9.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0" --theme="xxx/xxx"
     ```
 
     | 参数 | 值 | 必填 |
     | ---- | ---- | ---- |
     | version | 构建的版本号 | 是 |
+    | theme | theme样式的文件夹路径 | 是 |
     | release_url | 构建发布版本的基础网址 | 否 |
     | user | 每日构建网站的用户名 | 否 |
     | pd | 每日构建网站的密码 | 否 |
