@@ -277,43 +277,6 @@ def main(version, user, pd, WGETDIR, release_url):
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
-        if os.path.exists("source_zh_cn"):
-            # 输出中文
-            try:
-                print(f"当前输出-{i}- 的-中文-版本---->")
-                with open("Makefile", "r+") as f:
-                    content = f.read()
-                    content_mod = content.replace("source_en", "source_zh_cn")\
-                        .replace("build_en", "build_zh_cn")
-                    f.seek(0)
-                    f.truncate()
-                    f.write(content_mod)
-                subprocess.run(["make", "clean"])
-                cmd_make = ["make", "html"]
-                process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
-                _, stderr = process.communicate()
-                process.wait()
-                if stderr:
-                    for j in stderr.split("\n"):
-                        if ": WARNING:" in j:
-                            error_lists.append(deal_err(j))
-                if process.returncode != 0:
-                    print(f"{i} 的 中文版本运行失败")
-                    print(stderr)
-                    failed_list.append(stderr)
-                    failed_name_list.append(f'{i}的中文版本')
-                else:
-                    if i == "mindspore":
-                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
-                    else:
-                        TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
-            # pylint: disable=W0702
-            except:
-                print(f"{i} 的 中文版本运行失败")
 
         # 输出英文
         if os.path.exists("source_en"):
@@ -353,6 +316,44 @@ def main(version, user, pd, WGETDIR, release_url):
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 英文版本运行失败")
+
+        # 输出中文
+        if os.path.exists("source_zh_cn"):
+            try:
+                print(f"当前输出-{i}- 的-中文-版本---->")
+                with open("Makefile", "r+") as f:
+                    content = f.read()
+                    content_mod = content.replace("source_en", "source_zh_cn")\
+                        .replace("build_en", "build_zh_cn")
+                    f.seek(0)
+                    f.truncate()
+                    f.write(content_mod)
+                subprocess.run(["make", "clean"])
+                cmd_make = ["make", "html"]
+                process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
+                _, stderr = process.communicate()
+                process.wait()
+                if stderr:
+                    for j in stderr.split("\n"):
+                        if ": WARNING:" in j:
+                            error_lists.append(deal_err(j))
+                if process.returncode != 0:
+                    print(f"{i} 的 中文版本运行失败")
+                    print(stderr)
+                    failed_list.append(stderr)
+                    failed_name_list.append(f'{i}的中文版本')
+                else:
+                    if i == "mindspore":
+                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_zh_cn/html", TARGET)
+                    else:
+                        TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_zh_cn/html", TARGET)
+            # pylint: disable=W0702
+            except:
+                print(f"{i} 的 中文版本运行失败")
 
     # 将每个组件的warning写入文件
     if error_lists:
