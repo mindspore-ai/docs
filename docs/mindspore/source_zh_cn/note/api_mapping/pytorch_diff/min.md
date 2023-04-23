@@ -31,7 +31,7 @@ MindSpore：axis为None或者shape为空时，keepdims以及后面的参数均�
 | | 参数3 | keepdim    | keepdims     | 功能一致，参数名不同       |
 | | 参数4 | -      |initial    | 不涉及        |
 | | 参数5 |  -     |where    | 不涉及        |
-| | 参数3 | out    | -         | 不涉及 |
+| | 参数6 | out    | -         | 不涉及 |
 
 ## 代码示例
 
