@@ -93,11 +93,11 @@
       "id" : 10 ,
       "name" : "lite",
       "branch" : "r2.0",
-      "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
+      "whl_path" : "/MindSpore/lite/release/linux/x86_64/cloud_fusion/",
       "whl_name" : "mindspore_lite-2.0.0rc1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore_lite",
-      "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
+      "tar_path" : "/MindSpore/lite/release/linux/x86_64/cloud_fusion/",
       "tar_name" : "mindspore-lite-2.0.0rc1-linux-x64.tar.gz"
    },
    {
