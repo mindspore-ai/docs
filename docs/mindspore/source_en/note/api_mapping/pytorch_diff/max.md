@@ -5,12 +5,7 @@
 ## torch.max
 
 ```python
-torch.max(
-    input,
-    dim,
-    keepdim=False,
-    out=None
-)
+torch.max(input, dim, keepdim=False, *, out=None)
 ```
 
 For more information, see [torch.max](https://pytorch.org/docs/1.8.1/torch.html#torch.max).
@@ -18,11 +13,7 @@ For more information, see [torch.max](https://pytorch.org/docs/1.8.1/torch.html#
 ## mindspore.ops.max
 
 ```python
-class mindspore.ops.max(
-    x,
-    axis=0,
-    keep_dims=False
-)
+def mindspore.ops.max(input, axis=None, keepdims=False, *, initial=None, where=None)
 ```
 
 For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.max.html).
@@ -31,14 +22,16 @@ For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/maste
 
 PyTorch: Output tuple(max, index of max).
 
-MindSpore: Output tuple(index of max, max).
+MindSpore: When the axis is None or the shape is empty in MindSpore, the keepdims and subsequent parameters are not effective, and the function is consistent with torch.max(input), and the index returned is fixed at 0. Otherwise, the output is a tuple (max, index of max), which is consistent with torch.max(input, dim, keepdim=False, *, out=None).
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
 |Parameters | Parameter 1 | input        | x       | Same function, different parameter names |
 |      | Parameter 2 | dim       | axis      | Same function, different parameter names |
-|      | Parameter 3 | keepdim |  keep_dims   | Same function, different parameter names|
-| | Parameter 4 | out | - | Not involved |
+| | Parameter 3 | keepdim    | keepdims     | Same function, different parameter names       |
+| | Parameter 4 | -      |initial    | Not involved        |
+| | Parameter 5 |  -     |where    | Not involved        |
+| | Parameter 6 | out    | -         | Not involved |
 
 ## Code Example
 
@@ -48,19 +41,23 @@ import mindspore.ops as ops
 import torch
 import numpy as np
 
-# Output tuple(index of max, max).
-input_x = ms.Tensor(np.array([0.0, 0.4, 0.6, 0.7, 0.1]), ms.float32)
-index, output = ops.max(input_x)
-print(index)
-# 3
+np_x = np.array([[-0.0081, -0.3283, -0.7814, -0.0934],
+                 [1.4201, -0.3566, -0.3848, -0.1608],
+                 [-0.0446, -0.1843, -1.1348, 0.5722],
+                 [-0.6668, -0.2368, 0.2790, 0.0453]]).astype(np.float32)
+# mindspore
+input_x = ms.Tensor(np_x)
+output, index = ops.max(input_x, axis=1)
 print(output)
-# 0.7
+# [-0.0081  1.4201  0.5722  0.279 ]
+print(index)
+# [0 0 3 2]
 
-# Output tuple(max, index of max).
-input_x = torch.tensor([0.0, 0.4, 0.6, 0.7, 0.1])
-output, index = torch.max(input_x, 0)
-print(index)
-# tensor(3)
+# torch
+input_x = torch.tensor(np_x)
+output, index = torch.max(input_x, dim=1)
 print(output)
-# tensor(0.7000)
+# tensor([-0.0081,  1.4201,  0.5722,  0.2790])
+print(index)
+# tensor([0, 0, 3, 2])
 ```
