@@ -78,7 +78,6 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
    mindquantum.io
    mindquantum.engine
    mindquantum.utils
-   mindquantum.config
 
 .. toctree::
    :glob:
