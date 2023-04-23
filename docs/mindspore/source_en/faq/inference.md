@@ -38,6 +38,12 @@ A: Find the directory where the missing dynamic library file is located.
 
 <br/>
 
+<font size=3>**Q: After updating MindSpore version, the application compilation reports errors `WARNING: Package(s) not found: mindspore-ascend`, `CMake Error: The following variables are use in this project, but they are set to NOTFOUND. Please set them or make sure they are set and tested correctly in the CMake files: MS_LIB`. What should I do?**</font>
+
+A: MindSpore 2.0 has unified the installation packages of various platforms and no longer distinguishes different installation packages with suffixes such as `-ascend`, `-gpu`, etc. Therefore, the old compilation command or the old `build.sh` with ``MINDSPORE_PATH="`pip show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"`` needs to be modified to ``MINDSPORE_PATH="`pip show mindspore | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"``.
+
+<br/>
+
 <font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
 
 A: While Ascend 310 AI Processor software packages relied by MindSpore is installed, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
