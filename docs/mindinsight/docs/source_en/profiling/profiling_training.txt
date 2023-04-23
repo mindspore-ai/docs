@@ -42,7 +42,7 @@ Add the MindSpore Profiler interface to the training script.
      def train_step(data, label):
          """Define function of one-step training"""
          (loss, _), grads = grad_fn(data, label)
-         loss = ops.depend(loss, optimizer(grads))
+         optimizer(grads)
          return loss
 
 
@@ -51,9 +51,6 @@ Add the MindSpore Profiler interface to the training script.
 
      profiler.analyse()
 
-  .. note::
-     The default mode of MindSpore is PyNative. If functional programming network is used to collect the performance data of Profiler static graph mode,
-     mindspore.set_context(mode=mindspore.GRAPH_MODE) should be set into static graph mode.
 
 - Example 2: model.train is used for network training. The complete code is as follows:
 

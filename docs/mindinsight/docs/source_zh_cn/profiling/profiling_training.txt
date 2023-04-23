@@ -41,7 +41,7 @@
      def train_step(data, label):
          """Define function of one-step training"""
          (loss, _), grads = grad_fn(data, label)
-         loss = ops.depend(loss, optimizer(grads))
+         optimizer(grads)
          return loss
 
 
@@ -50,8 +50,6 @@
 
      profiler.analyse()
 
-  .. note::
-     MindSpore默认为PyNative模式，若使用函数式编程网络收集Profiler静态图模式的性能数据，需要通过mindspore.set_context(mode=mindspore.GRAPH_MODE)设置成静态图模式。
 
 - 样例二：使用model.train进行网络训练，完整代码如下所示。
 
