@@ -189,7 +189,7 @@ In the preceding example, HF, CCSD, and FCI are used to compute the total energy
 ```python
 molecule_of.save()
 molecule_file = molecule_of.filename
-print(molecule_file)
+print(molecule_file.split('/')[-1])
 ```
 
 One of the major obstacles to quantum chemistry is the volume of computation. As the system size (electron number and atomic number) increases, the time required for solving the FCI wave function and ground state energy increases by about $2^{N}$. Even for small molecules such as ethylene molecules, FCI computing is not easy. Quantum computers provide a possible solution to this problem. Research shows that quantum computers can simulate the time-dependent evolution of Hamiltonian in terms of polynomial time complexity. Compared with classical computers, quantum computers exponentially accelerate the chemical simulation on quantum processors. This tutorial introduces one of the quantum algorithms: VQE.
@@ -311,74 +311,128 @@ molecule_pqc = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp), t
 
 You can obtain the energy $E(\theta)=\langle \Psi_{UCC}(\theta) | \hat{H} | \Psi_{UCC}(\theta) \rangle$ corresponding to the variational parameter and the derivative of each variational parameter by transferring a specific value of the parameter to `molecule_pqc`.
 
-Next, steps 5 to 7 in VQE optimization need to be performed, that is, parameterized quantum circuits need to be optimized. Based on the MindSpore framework, you can use the parameterized quantum circuit operator `molecule_pqc` to build a neural network model, and then optimize the variational parameters by using a method similar to training the neural network.
+For example, we can use the following code to get the expectation of hamiltonian and the corresponding gradient when initial parameters of variational quantum circuit is zero.
 
 ```python
-from mindquantum.framework import MQAnsatzOnlyLayer
+import numpy as np
 
-molecule_pqcnet = MQAnsatzOnlyLayer(molecule_pqc, 'Zeros')
-```
-
-Here, we manually build a basic `MQAnsatzOnlyLayer` as a model example. This model can be used similar to a conventional machine learning model, for example, optimizing weights and calculating derivatives.
-
-The built `MQAnsatzOnlyLayer` uses the `"Zeros"` keyword to initialize all variational parameters to 0. The computing result of CCSD or second order Møller-Plesset perturbation theory (MP2) can also be used as the initial value of the variational parameters of unitary coupled-clusters. In this case, $E(\vec{0})=\langle \Psi_{UCC}(\vec{0}) | \hat{H} | \Psi_{UCC}(\vec{0}) \rangle = E_{HF}$.
-
-```python
-initial_energy = molecule_pqcnet()
-print("Initial energy: %20.16f" % (initial_energy.asnumpy()))
+n_params = len(total_circuit.params_name)
+p0 = np.zeros(n_params)
+f, g = molecule_pqc(p0)
+print("Energy: ", f, "\nshape: ", f.shape, '\n')
+print("Gradient: ", g, "\nshape: ", g.shape)
 ```
 
 ```bash
-Initial energy:  -7.8633575439453125
+Energy:  [[-7.86335762+0.j]]
+shape:  (1, 1)
+
+Gradient:  [[[-1.16994143e-10+0.j -8.60518140e-02+0.j  7.34833530e-09+0.j
+   -4.85545093e-02+0.j -1.36967588e-14+0.j -3.92769093e-02+0.j
+   -1.09638025e-14+0.j -9.59481736e-02+0.j  4.52856423e-15+0.j
+   -3.92769093e-02+0.j  1.10350609e-14+0.j -9.59481736e-02+0.j
+   -1.36448855e-10+0.j -2.89649669e-02+0.j  4.02379782e-10+0.j
+   -4.91813235e-01+0.j -9.35292655e-04+0.j -1.64675713e-16+0.j
+   -3.54669942e-17+0.j  1.57545914e-17+0.j  1.57929222e-16+0.j
+    2.47722711e-17+0.j -2.16194380e-17+0.j  5.06813144e-03+0.j
+    1.08542342e-02+0.j -1.28614257e-02+0.j -5.02920246e-17+0.j
+    7.35980769e-18+0.j  1.33973783e-01+0.j -3.03063678e-02+0.j
+   -6.13317366e-19+0.j -1.53329342e-18+0.j  4.01043916e-29+0.j
+    5.36652696e-17+0.j -3.74490333e-17+0.j  3.33490478e-17+0.j
+    2.14562992e-28+0.j  1.15391966e-16+0.j -3.03063678e-02+0.j
+   -5.42785870e-17+0.j  4.61905181e-17+0.j -4.22508288e-17+0.j
+   -2.44510200e-17+0.j -1.68035030e-03+0.j]]]
+shape:  (1, 1, 44)
 ```
 
-Finally, the Adam optimizer of MindSpore is used for optimization. The learning rate is set to $1\times 10^{-2}$, and the optimization termination standard is set to $\left.|\epsilon|\right. = \left.|E^{k+1} - E^{k}|\right. \le 1\times 10^{-8}$.
+Throw the above calculation, we get the energy and gradient value and the user can use these data according their practical needs. Now we following the step of (5)~(7) of optimization of VQE, to optimize of variational quantum circuit. Here we use the optimizer in scipy to optimize our quantum circuit. First, we need to define the optimization function that scipy required:
 
 ```python
-optimizer = ms.nn.Adagrad(molecule_pqcnet.trainable_params(), learning_rate=4e-2)
-train_pqcnet = ms.nn.TrainOneStepCell(molecule_pqcnet, optimizer)
+def fun(p0, molecule_pqc, energy_list=None):
+    f, g = molecule_pqc(p0)
+    f = np.real(f)[0, 0]
+    g = np.real(g)[0, 0]
+    if energy_list is not None:
+        energy_list.append(f)
+        if len(energy_list) % 5 == 0:
+            print(f"Step: {len(energy_list)},\tenergy: {f}")
+    return f, g
 
-eps = 1.e-8
-energy_diff = eps * 1000
-energy_last = initial_energy.asnumpy() + energy_diff
-iter_idx = 0
-while abs(energy_diff) > eps:
-    energy_i = train_pqcnet().asnumpy()
-    if iter_idx % 5 == 0:
-        print("Step %3d energy %20.16f" % (iter_idx, float(energy_i)))
-    energy_diff = energy_last - energy_i
-    energy_last = energy_i
-    iter_idx += 1
-
-print("Optimization completed at step %3d" % (iter_idx - 1))
-print("Optimized energy: %20.16f" % (energy_i))
-print("Optimized amplitudes: \n", molecule_pqcnet.weight.asnumpy())
+fun(p0, molecule_pqc)
 ```
 
 ```bash
-Step   0 energy  -7.8633575439453125
-Step   5 energy  -7.8726239204406738
-Step  10 energy  -7.8821778297424316
-Step  15 energy  -7.8822836875915527
-Step  20 energy  -7.8823199272155762
-Step  25 energy  -7.8823370933532715
-Optimization completed at step  27
-Optimized energy:  -7.8823390007019043
+(-7.8633576215369505,
+ array([-1.16994143e-10, -8.60518140e-02,  7.34833530e-09, -4.85545093e-02,
+        -1.36967588e-14, -3.92769093e-02, -1.09638025e-14, -9.59481736e-02,
+         4.52856423e-15, -3.92769093e-02,  1.10350609e-14, -9.59481736e-02,
+        -1.36448855e-10, -2.89649669e-02,  4.02379782e-10, -4.91813235e-01,
+        -9.35292655e-04, -1.64675713e-16, -3.54669942e-17,  1.57545914e-17,
+         1.57929222e-16,  2.47722711e-17, -2.16194380e-17,  5.06813144e-03,
+         1.08542342e-02, -1.28614257e-02, -5.02920246e-17,  7.35980769e-18,
+         1.33973783e-01, -3.03063678e-02, -6.13317366e-19, -1.53329342e-18,
+         4.01043916e-29,  5.36652696e-17, -3.74490333e-17,  3.33490478e-17,
+         2.14562992e-28,  1.15391966e-16, -3.03063678e-02, -5.42785870e-17,
+         4.61905181e-17, -4.22508288e-17, -2.44510200e-17, -1.68035030e-03]))
+```
+
+Here, the `fun` that we define can correctly to return the data that we need: a real energy value, and a array of gradient value with the same size of parameters. Now, we use `bfgs` optimizer in scipy to finish the optimization.
+
+```python
+from scipy.optimize import minimize
+
+energy_list = []
+res = minimize(fun, p0, args=(molecule_pqc, energy_list ), method='bfgs', jac=True)
+```
+
+```bash
+Step: 5,    energy: -7.880227726053251
+Step: 10,   energy: -7.88181712396991
+Step: 15,   energy: -7.882213242985563
+Step: 20,   energy: -7.882345337008383
+Step: 25,   energy: -7.882352494991607
+Step: 30,   energy: -7.882352691272302
+Step: 35,   energy: -7.882352697922093
+```
+
+So, we finished the gradient optimization of variational quantum circuit. Here, `energy_list` is going to store the energy during optimization. Here, we briefly introduce the usage of `minimize`:
+
+- `fun`: The first arg is the function you want to optimize.
+- `p0`: The second arg is the initial value of variables.
+- `args`: The other argument of `fun` except the first argument. According the definition of `fun`, we choose `args=(molecule_pqc, energy_list)`.
+- `method`: The optimization algorithm. Here we use a second order optimization algorithm `bfgs`. For more optimization algorithm, please refer: [scipy tutorial](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html).
+- `jac`: To info that whether `fun` return gradient. Here we use `True`, because MindSpore Quantum can calculate the accuracy gradient value of variational quantum circuit. If use `False`, `minimize` framework will calculate the approximated gradient value base on difference method.
+
+`res` is the optimization result of `scipy`, including optimized parameters, the optimized value and evolution steps.
+
+```python
+print(f"Ground state: \n{res.fun}\n")
+print(f"FCI: \n-7.882362286798721\n")
+print(f"Optimized amplitudes: \n{res.x}")
+```
+
+```bash
+Ground state:
+-7.882352708353374
+
+FCI:
+-7.882362286798721
+
 Optimized amplitudes:
- [ 2.7273933e-04  1.9072455e-03  2.9598266e-02  1.5151843e-02
-  1.5533751e-06  9.0890197e-04 -5.1002303e-07  1.4072354e-02
- -1.2779084e-05  9.0818782e-04  4.1782801e-06  1.4077923e-02
- -5.2711589e-04  4.2598479e-04  2.6523003e-03  5.3988658e-02
-  1.9281749e-04 -1.2321149e-07 -3.1405324e-07  1.9214883e-06
-  1.0062347e-06  1.0903094e-06 -1.4285328e-05 -7.8342858e-08
-  7.5983076e-04 -1.1218661e-04  8.8862755e-08 -7.2354385e-07
- -5.3567935e-02  3.0693393e-03 -1.3467404e-10 -4.6068820e-09
-  4.5405173e-09  1.1786257e-06  8.9121182e-05 -9.4004070e-05
- -1.0432483e-10 -2.8091000e-07  3.0693379e-03 -9.6705053e-06
-  7.7026058e-04 -7.3031953e-04  2.3029093e-06  3.5888454e-04]
+[ 2.38617266e-04  1.89071997e-03  3.52371725e-02  1.60368287e-02
+ -3.88585413e-09  9.09450204e-04 -1.31960456e-10  1.41641358e-02
+ -2.77241824e-09  9.08722622e-04  1.50885283e-10  1.41698519e-02
+ -5.47736126e-04  4.26814173e-04  2.87162290e-03  5.38110124e-02
+  2.34666985e-04 -4.31273238e-10 -1.05864122e-07  1.04891423e-07
+  2.04861474e-08 -3.59771636e-08  3.39882867e-08  1.32744726e-05
+ -1.04141351e-04  7.99026270e-04  3.53881973e-10  1.60036086e-10
+ -5.50005590e-02  3.09114423e-03 -2.85746198e-10  7.60919677e-09
+ -7.59032177e-09  5.62150158e-09 -6.40411683e-09  3.10490502e-09
+ -8.38905987e-13  2.81089918e-11  3.09113690e-03 -2.10016387e-08
+  1.83862009e-08 -1.68153439e-08 -6.09114800e-12  3.72796434e-04]
 ```
 
-It can be seen that the computing result of unitary coupled-cluster is very close to that of FCI, and has good accuracy.
+We can see here the result of ucc method is very close to FCI method with very good accuracy.
 
 ## Building a Unitary Coupled-Cluster Ansatz Step by Step
 
@@ -445,75 +499,61 @@ init_amplitudes_ccsd = uccsd_singlet_get_packed_amplitudes(
 init_amplitudes_ccsd = [init_amplitudes_ccsd[param_i] for param_i in ansatz_parameter_names]
 ```
 
-`MQAnsatzOnlyLayer` can be used to easily obtain a machine learning model based on a variational quantum circuit by using a parameter and a quantum circuit:
+Just like the previous method, we can get the `grad_ops` with MindSpore Quantum, and optimize it with scipy.
 
 ```python
 grad_ops = Simulator('mqvector', total_circuit.n_qubits).get_expectation_with_grad(
     Hamiltonian(hamiltonian_QubitOp.real),
     total_circuit)
-
-molecule_pqcnet = MQAnsatzOnlyLayer(grad_ops)
 ```
 
 `init_amplitudes_ccsd` (coupled-cluster coefficient computed by CCSD) is used as an initial variational parameter:
 
 ```python
-molecule_pqcnet.weight = ms.Parameter(ms.Tensor(init_amplitudes_ccsd, molecule_pqcnet.weight.dtype))
-initial_energy = molecule_pqcnet()
-print("Initial energy: %20.16f" % (initial_energy.asnumpy()))
+energy_list = []
+res = minimize(fun, init_amplitudes_ccsd, args=(grad_ops, energy_list), method='bfgs', jac=True)
 ```
 
 ```bash
-Initial energy:  -7.8173098564147949
+Step: 5,    energy: -7.878223282730576
+Step: 10,   energy: -7.880288481438869
+Step: 15,   energy: -7.88203566830419
+Step: 20,   energy: -7.882302370885842
+Step: 25,   energy: -7.882349803534311
+Step: 30,   energy: -7.882352702053698
+Step: 35,   energy: -7.882352707981867
+Step: 40,   energy: -7.882352708341503
 ```
 
-In this example, CCSD's initial guess does not provide a better starting point. You can test and explore more molecules and more types of initial values (such as initial guesses of random numbers). Finally, the VQE is optimized. The optimizer still uses Adam, and the convergence standard remains unchanged. The code used for optimization is basically the same as that described in the preceding sections. You only need to update the corresponding variables.
+The final optimized result is shown as below.
 
 ```python
-optimizer = ms.nn.Adagrad(molecule_pqcnet.trainable_params(), learning_rate=4e-2)
-train_pqcnet = ms.nn.TrainOneStepCell(molecule_pqcnet, optimizer)
-
-print("eps: ", eps)
-energy_diff = eps * 1000
-energy_last = initial_energy.asnumpy() + energy_diff
-iter_idx = 0
-while abs(energy_diff) > eps:
-    energy_i = train_pqcnet().asnumpy()
-    if iter_idx % 5 == 0:
-        print("Step %3d energy %20.16f" % (iter_idx, float(energy_i)))
-    energy_diff = energy_last - energy_i
-    energy_last = energy_i
-    iter_idx += 1
-
-print("Optimization completed at step %3d" % (iter_idx - 1))
-print("Optimized energy: %20.16f" % (energy_i))
-print("Optimized amplitudes: \n", molecule_pqcnet.weight.asnumpy())
+print(f"Ground state: \n{res.fun}\n")
+print(f"FCI: \n-7.882362286798721\n")
+print(f"Optimized amplitudes: \n{res.x}")
 ```
 
 ```bash
-eps:  1e-08
-Step   0 energy  -7.8173098564147949
-Step   5 energy  -7.8740758895874023
-Step  10 energy  -7.8818783760070801
-Step  15 energy  -7.8821649551391602
-Step  20 energy  -7.8822622299194336
-Step  25 energy  -7.8823080062866211
-Optimization completed at step  28
-Optimized energy:  -7.8823189735412598
+Ground state:
+-7.882352708341503
+
+FCI:
+-7.882362286798721
+
 Optimized amplitudes:
- [-2.92540470e-04  1.91678782e-03 -2.62904949e-02  1.46486172e-02
- -1.80548541e-05  9.08615650e-04  6.06753974e-06  1.40150227e-02
- -7.58499027e-06  9.07906622e-04  2.58140676e-06  1.40205137e-02
-  5.15393389e-04  4.25452046e-04 -2.52626487e-03  5.41330352e-02
-  1.68450730e-04 -1.45874014e-06  2.46176114e-05 -5.74097339e-06
- -6.37176697e-07  1.41116643e-05 -6.13132488e-06 -7.78824597e-06
-  7.36984774e-04 -1.16545329e-04  1.00961029e-06  4.41450794e-07
- -5.27810790e-02  3.05663864e-03  5.34516487e-10 -1.11836842e-08
-  1.16560805e-08  1.39018812e-05  1.05607708e-03 -1.11408660e-03
-  7.64744101e-10 -3.32643208e-06  3.05663352e-03  5.93083496e-06
-  4.49250219e-04 -4.74061235e-04 -1.41295470e-06  3.50885763e-04]
+[-2.38195252e-04  1.89063643e-03 -3.52375909e-02  1.60366971e-02
+ -1.65614925e-08  9.09491908e-04  2.38186936e-10  1.41647347e-02
+  9.24467076e-09  9.08692183e-04 -6.16653740e-10  1.41689929e-02
+  5.47235936e-04  4.26809292e-04 -2.87276305e-03  5.38108290e-02
+  2.34388089e-04 -2.72175513e-07  1.94745388e-07 -1.75983096e-07
+  2.40304213e-07  2.96373905e-08 -4.42183121e-08  1.32992416e-05
+  7.98572575e-04 -1.04555876e-04 -1.41365735e-09  5.97733807e-10
+ -5.50009283e-02  3.09145849e-03 -2.11953953e-08  4.90939781e-09
+ -3.50933024e-09 -1.34832630e-07  1.12110269e-08  2.70076674e-09
+ -6.16084033e-11 -4.20721078e-10  3.09116851e-03 -8.60550220e-08
+ -1.26395082e-08  1.94093958e-08 -3.50865290e-10  3.72983611e-04]
 ```
 
 ## Summary
 
-In this case, the ground state energy of the LiH molecule is obtained by using the quantum neural network in two methods. In the first method, we use the `generate_uccsd` function packaged by MindSpore Quantum to generate a quantum neural network that can solve this problem. In the second method, we build a similar quantum neural network step by step. The final results are the same.
+In this case, the ground state energy of the LiH molecule is obtained by using scipy in two methods. In the first method, we use the `generate_uccsd` function packaged by MindSpore Quantum to generate a quantum neural network that can solve this problem. In the second method, we build a similar gradient operator step by step. The final results are the same.
