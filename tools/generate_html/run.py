@@ -309,6 +309,10 @@ def main(version, user, pd, WGETDIR, release_url):
                         TARGET = f"{OUTPUTDIR}/docs/en/{ArraySource[i]}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_en/html", TARGET)
+                    elif "graphlearning" in i:
+                        TARGET = f"{OUTPUTDIR}/graphlearning/docs/en/r0.2"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_en/html", TARGET)
                     else:
                         TARGET = f"{OUTPUTDIR}/{i}/en/{ArraySource[i]}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
@@ -345,6 +349,10 @@ def main(version, user, pd, WGETDIR, release_url):
                 else:
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_zh_cn/html", TARGET)
+                    elif "graphlearning" in i:
+                        TARGET = f"{OUTPUTDIR}/graphlearning/docs/zh-CN/r0.2"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_zh_cn/html", TARGET)
                     else:
