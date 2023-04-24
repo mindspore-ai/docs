@@ -6,3 +6,4 @@
 
   converter_tool
   converter_python
+  converter_tool_ascend
