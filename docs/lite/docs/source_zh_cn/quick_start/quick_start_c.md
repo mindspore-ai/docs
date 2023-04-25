@@ -37,7 +37,7 @@
   bash build.sh
   ```
 
-  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_c/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_c/include`目录下。
+  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_c/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_c/include`目录下、`runtime/third_party/glog/`目录下的`libmindspore_glog.so.0`文件拷贝到`mindspore/lite/examples/quick_start_c/lib`目录下的`libmindspore_glog.so`。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_c/model`目录。
   >
