@@ -41,7 +41,6 @@ MindSpore AI 流体仿真套件
    :maxdepth: 1
    :caption: 数据驱动
 
-   data_driven/2D_steady
    data_driven/burgers_FNO1D
    data_driven/navier_stokes_FNO2D
 
