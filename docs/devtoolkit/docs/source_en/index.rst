@@ -20,38 +20,9 @@ System Requirements
 
   - 2020.3
 
-  - 2021.1
+  - 2021.X
 
-  - 2021.2
-
-  - 2021.3
-
-Installation
-----------------------------
-
-1. Obtain the plug-in installation package.
-
-   1.1 Download the `plug-in ZIP package <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.8.0.zip>`_.
-
-   1.2 See the following section "Source Code Build."
-
-2. Start the PyCharm. On the menu bar in the upper left corner, choose **File** > **Settings** > **Plugins** > **Install Plugin from Disk**.
-   See the following figure:
-
-   .. image:: ./images/clip_image050.jpg
-
-3. Select the ZIP package of the plug-in (take version 1.7 as an example).
-
-   .. image:: ./images/clip_image052.jpg
-
-4. The plug-in is installed successfully.
-
-   .. image:: ./images/clip_image054.jpg
-
-Source Code Build
-----------------------------
-
-See the `Source Code Compilation Guide <https://www.mindspore.cn/devtoolkit/docs/en/master/compiling.html>`_.
+  - 2022.X
 
 .. toctree::
    :glob:
