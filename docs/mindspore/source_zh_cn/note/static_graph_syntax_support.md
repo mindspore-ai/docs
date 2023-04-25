@@ -1213,9 +1213,9 @@ out2: [2]
 
 入参：
 
-- `x` -- 需要被转换为整数的对象，支持类型为`int`、`float`、`bool`、`str`、常量`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+- `x` -- 需要被转换为整数的对象，支持类型为`int`、`float`、`bool`、`str`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
-- `base` -- 待转换进制， 只有在`x`为`str`类型的时候， 才可以设置该输入。
+- `base` -- 待转换进制， 只有在`x`为常量`str`的时候， 才可以设置该输入。
 
 返回值：转换后的整数值。
 
@@ -1257,7 +1257,7 @@ e: 8
 
 调用：`float(x=0)`
 
-入参：`x` -- 需要被转换为浮点数的对象，支持类型为`int`、`float`、`bool`、`str`、常量`Tensor`以及第三方对象（例如`numpy.ndarray`）。
+入参：`x` -- 需要被转换为浮点数的对象，支持类型为`int`、`float`、`bool`、`str`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
 返回值：转换后的浮点数值。
 
