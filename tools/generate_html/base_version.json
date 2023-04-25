@@ -192,7 +192,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "",
+        "versionAlias" : "0.2",
         "label" : {
             "zh": "MindSpore Graph Learning",
             "en": "MindSpore Graph Learning"
