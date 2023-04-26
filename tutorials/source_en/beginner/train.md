@@ -44,8 +44,8 @@ def datapipe(path, batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-train_dataset = datapipe('MNIST_Data/train', 64)
-test_dataset = datapipe('MNIST_Data/test', 64)
+train_dataset = datapipe('MNIST_Data/train', batch_size=64)
+test_dataset = datapipe('MNIST_Data/test', batch_size=64)
 
 class Network(nn.Cell):
     def __init__(self):
@@ -90,8 +90,8 @@ In the formula, $n$ is the batch size, and $η$ is a learning rate. In addition,
 - **Learning rate**: If the learning rate is low, the convergence speed slows down. If the learning rate is high, unpredictable results such as no training convergence may occur. Gradient descent is widely used in parameter optimization algorithms for minimizing model errors. The gradient descent estimates the parameters of the model by iterating and minimizing the loss function at each step. The learning rate is used to control the learning progress of a model during iteration.
 
 ```python
-epochs = 10
-batch_size = 32
+epochs = 3
+batch_size = 64
 learning_rate = 1e-2
 ```
 
@@ -184,7 +184,6 @@ We pass the instantiated loss function and optimizer into `train_loop` and `test
 loss_fn = nn.CrossEntropyLoss()
 optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 
-epochs = 3
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
     train_loop(model, train_dataset)
