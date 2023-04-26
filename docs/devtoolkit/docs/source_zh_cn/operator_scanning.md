@@ -11,7 +11,7 @@
 
 ### 文件级别算子扫描
 
-1. 在当前文件任意位置处右键，打开菜单，点击菜单最上方的"operator scan"。
+1. 在当前文件任意位置处点击鼠标右键，打开菜单，点击菜单最上方的"operator scan"。
 
    ![img](./images/clip_image100.jpg)
 
@@ -29,7 +29,7 @@
 
 ### 项目级别算子扫描
 
-1. 在当前文件任意位置处右键，打开菜单，点击菜单上方第二个"operator scan project-level"，或在上方工具栏选择"Tools"，再选择"operator scan project-level"。
+1. 在当前文件任意位置处点击鼠标右键，打开菜单，点击菜单上方第二个"operator scan project-level"，或在上方工具栏选择"Tools"，再选择"operator scan project-level"。
 
    ![img](./images/clip_image104.jpg)
 
@@ -49,6 +49,6 @@
 
    ![img](./images/clip_image109.jpg)
 
-5. 点击”导出“按钮，可将内容导出到csv表格。
+5. 点击"导出"按钮，可将内容导出到csv表格。
 
    ![img](./images/clip_image110.jpg)

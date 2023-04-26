@@ -16,7 +16,7 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
 
   - MacOS（仅支持x86架构，补全功能暂未上线）
 
-- 插件支持的PyCharm版本:
+- 插件支持的PyCharm版本：
 
   - 2020.3
 
