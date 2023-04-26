@@ -61,10 +61,6 @@ print(x)
 
 支持在网络里构造`List`，即支持语法`y = [1, 2, 3]`。
 
-计算图中最终需要输出的`List`会转换为`Tuple`输出。
-
-需要注意的是MindSpore的List取值由于将其转换成了ListGetItem算子，该算子返回的始终为原List的一个拷贝，所以有时可能会和Python的List的引用表示有差异。
-
 比如：
 
 原生Python：
@@ -96,7 +92,7 @@ print('a:{}'.format(a))
 结果如下：
 
 ```text
-x: ((1, 2, 3), 4, 5)
+a:[[1, 2, 3], 4, 5]
 ```
 
 - 支持接口
@@ -121,7 +117,7 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: (1, 2, 3, 4)
+  x:[1, 2, 3, 4]
   ```
 
   `insert`: 在`list`里的指定位置插入指定的元素。
@@ -144,7 +140,7 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: (2, 1, 3, 4)
+  x:[2, 1, 3, 4]
   ```
 
   `pop`: 移除`list`里的指定位置的元素，默认移除最后一个。
@@ -168,7 +164,7 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: (1, 3)
+  x:[1, 3]
   y: 4
   ```
 
@@ -192,7 +188,7 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: ()
+  x:[]
   ```
 
   `extend`: 在`list`末尾追加另一个序列的多个值。
@@ -216,7 +212,7 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: (1, 2, 3, 4, 5, 6, 7)
+  x:[1, 2, 3, 4, 5, 6, 7]
   ```
 
   `reverse`: 逆转`list`中的元素。
@@ -239,10 +235,10 @@ x: ((1, 2, 3), 4, 5)
   结果如下：
 
   ```text
-  x: (4, 3, 2, 1)
+  x:[4, 3, 2, 1]
   ```
 
-  `count`: 统计`list`中的某个元素出现的次数。当前count方法仅支持常量场景。
+  `count`: 统计`list`中的某个元素出现的次数。
 
   示例如下：
 
@@ -265,7 +261,7 @@ x: ((1, 2, 3), 4, 5)
   num: 1
   ```
 
-  如果count的使用场景中存在Tensor变量，将会抛出相关异常。
+  框架内部提供SequenceCount算子来支持统计List中Tensor变量场景。
 
   ```python
   import mindspore as ms
@@ -277,14 +273,14 @@ x: ((1, 2, 3), 4, 5)
       return num
 
   input_x = ms.Tensor(2)
-  num = test_list_count()
+  num = test_list_count(input_x)
   print('num:', num)
   ```
 
   结果如下：
 
   ```text
-  The list count not support variable scene now. The count data is Tensor type.
+  num:1
   ```
 
 - 支持索引取值和赋值
@@ -421,7 +417,7 @@ x: ((1, 2, 3), 4, 5)
 
 支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`。
 
-当前`key`类型支持`String`、`Number`、常量`Tensor`以及只包含这些类型对象的`Tuple`，`value`类型支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`。需要注意的是，如果计算图的最终输出有`Dictionary`，返回的不是`Dictionary`，而是由其所有的`value`值组成的`Tuple`。
+当前`key`类型支持`String`、`Number`、常量`Tensor`以及只包含这些类型对象的`Tuple`，`value`类型支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`。
 
 - 支持接口
 
@@ -429,7 +425,7 @@ x: ((1, 2, 3), 4, 5)
 
   `values`：取出`dict`里所有的`value`值，组成`Tuple`返回。
 
-  `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，组成`Tuple`返回。
+  `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，最终组成`List`返回。
 
   `get`：`dict.get(key[, value])`返回指定`key`对应的`value`值，如果指定`key`不存在，返回默认值`None`或者设置的默认值`value`。
 
@@ -476,11 +472,11 @@ x: ((1, 2, 3), 4, 5)
   ```text
   x_keys:('a', 'b', 'c')
   x_values:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  x_items:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  x_items:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
   value_a:[1 2 3]
-  check_key: True
-  new_x: {'a': ms.Tensor(np.array([0, 0, 0])), 'b': ms.Tensor(np.array([4, 5, 6])), 'c': ms.Tensor(np.array([7, 8, 9]))}
-  new_dict: {'a': 123, 'b': 123, 'c': 123, 'd': 123}
+  check_key:True
+  new_x:{'a': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0]), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  new_dict:{'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
 - 支持索引取值和赋值
@@ -499,16 +495,40 @@ x: ((1, 2, 3), 4, 5)
       x["a"] = (2, 3, 4)
       return x, y
 
-  x, y = test_dict()
-  print('x:{}'.format(x))
-  print('y:{}'.format(y))
+  out1, out2 = test_dict()
+  print('out1:{}'.format(out1))
+  print('out2:{}'.format(out2))
   ```
 
   结果如下：
 
   ```text
-  x:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
-  y:[4 5 6]
+  out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  out2:[4 5 6]
+  ```
+
+- 支持计算图返回`Dictionary`
+
+  示例如下：
+
+  ```python
+  import mindspore as ms
+
+  @ms.jit()
+  def test_dict():
+      x = {'a': 'a', 'b': 'b'}
+      y = x.get('a')
+      z = dict(y=y)
+      return z
+
+  out = test_dict()
+  print("out:", out)
+  ```
+
+  结果如下：
+
+  ```text
+  out:{'y': 'a'}
   ```
 
 ### MindSpore自定义数据类型
@@ -597,8 +617,6 @@ TypeError: Only supported positional parameter type for python primitive, but go
 ```python
 import mindspore as ms
 from mindspore import nn, set_context
-import numpy as np
-from mindspore.ops import constexpr
 
 set_context(mode=ms.GRAPH_MODE)
 
@@ -808,10 +826,10 @@ ret:[[3. 3. 3. 3.]]
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
-n = 'yy'
+m = 1
+n = 2
 
 @ms.jit()
 def test_cond(x, y):
@@ -829,7 +847,7 @@ print('ret:{}'.format(ret))
 结果如下:
 
   ```text
-ret:xx
+ret:1
   ```
 
 示例2：
@@ -837,14 +855,14 @@ ret:xx
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
-n = 'yy'
+m = 1
+n = 2
 
 @ms.jit()
 def test_cond(x, y):
-    out = 'init'
+    out = 3
     if (x > y).any():
         out = m
     else:
@@ -860,7 +878,7 @@ print('ret:{}'.format(ret))
 结果如下:
 
 ```text
-ret:xx
+ret:1
 ```
 
 示例3：
@@ -868,13 +886,13 @@ ret:xx
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
+m = 1
 
 @ms.jit()
 def test_cond(x, y):
-    out = 'init'
+    out = 2
     if (x > y).any():
         out = m
     return out
@@ -888,7 +906,7 @@ print('ret:{}'.format(ret))
 结果如下:
 
 ```text
-ret:xx
+ret:1
 ```
 
 ### 循环语句
@@ -1044,14 +1062,14 @@ print('ret:{}'.format(ret))
 结果如下：
 
 ```text
-ret: 6
+ret:6
 ```
 
-限制：
+说明：
 
-- 函数必须有返回语句。
-- 最外层网络模型的`construct`函数不支持kwargs，即不支持 `def  construct(**kwargs):`。
-- 不支持变参和非变参的混合使用，即不支持 `def function(x, y, *args):`和 `def function(x = 1, y = 1, **kwargs):`。
+- 函数可以支持不写返回值，不写返回值默认函数的返回值为None。
+- 支持最外层网络模型的`construct`函数和内层网络函数输入kwargs，即支持 `def construct(**kwargs):`。
+- 支持变参和非变参的混合使用，即支持 `def function(x, y, *args):`和 `def function(x = 1, y = 1, **kwargs):`。
 
 #### lambda表达式
 
@@ -1076,7 +1094,7 @@ print('ret:{}'.format(ret))
 结果如下：
 
 ```text
-ret: 6
+ret:6
 ```
 
 ### 列表生成式和生成器表达式
@@ -1085,7 +1103,7 @@ ret: 6
 
 #### 列表生成式
 
-用于生成列表。由于编译器会自动把List类型转换成Tuple类型，经过编译后最终输出类型为Tuple。
+用于生成列表。
 
 使用方式：参考Python语法说明。
 
@@ -1106,7 +1124,7 @@ print('ret:{}'.format(ret))
 结果如下：
 
 ```text
-ret:(4, 16, 36, 64, 100)
+ret:[4, 16, 36, 64, 100]
 ```
 
 限制：
@@ -1127,7 +1145,7 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 
 #### 生成器表达式
 
-用于生成列表，与列表生成式动作完全一致，最终的输出类型同样是Tuple。此表达式即刻产生List值，与Python解释器中列表生成式的动作有所差异。
+用于生成列表。
 
 使用方式：同列表生成式。
 
@@ -1148,7 +1166,7 @@ print('ret:{}'.format(ret))
 结果如下：
 
 ```text
-ret:(4, 16, 36, 64, 100)
+ret:[4, 16, 36, 64, 100]
 ```
 
 使用限制同列表生成式。
@@ -1199,11 +1217,44 @@ out1: [5]
 out2: [2]
 ```
 
+### raise语句
+
+功能：根据提供的错误类型和报错语句抛出异常。
+
+调用：`raise Exception(error message)`
+
+入参：
+
+- `Exception` -- 异常类型。
+
+- `error message` -- 异常信息。
+
+返回值：None。
+
+示例如下：
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test(tensor_to_raise):
+    raise ValueError(f"input should not be {tensor_to_raise}")
+
+tensor_to_raise = ms.Tensor(1)
+ret = test(tensor_to_raise)
+```
+
+结果如下：
+
+```text
+ValueError: input should not be 1.
+```
+
 ## 函数
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`、`filter`和`raise`。图模式下内置函数的使用方法与对应的Python内置函数类似。
+当前支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`list`、`tuple`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`、`filter`。图模式下内置函数的使用方法与对应的Python内置函数类似。
 
 #### int
 
@@ -1428,6 +1479,7 @@ d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value
 代码用例如下：
 
 ```python
+import numpy as np
 import mindspore as ms
 
 @ms.jit
@@ -1447,13 +1499,11 @@ print("d_t: ", d_t)
 输出结果:
 
 ```text
-a_t: (1, 2, 3)
-b_t: (1, 2, 3)
-c_t: ('a', 'b', 'c')
-d_t: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+a_t: [1, 2, 3]
+b_t: [1, 2, 3]
+c_t: ['a', 'b', 'c']
+d_t: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3)]
 ```
-
-在静态图模式下，若返回值内存在列表，则会被自动转换为元组。因此上述用例的`a_t`、`b_t`、`c_t`、`d_t`均为元组。但是`a`、`b`、`c`、`d`仍为列表。
 
 #### getattr
 
@@ -2234,6 +2284,20 @@ class SingleSubNet(FatherNet):
         ret_father_construct = super().construct(x, y)
         ret_father_test = super(SingleSubNet, self).test_father(x)
         return ret_father_construct, ret_father_test
+
+x = 3
+y = 6
+z = 9
+f_net = FatherNet(x)
+net = SingleSubNet(x, z)
+out = net(x, y)
+print("out:", out)
+```
+
+结果如下：
+
+```text
+out: (9, 6)
 ```
 
 #### pow
@@ -2307,7 +2371,7 @@ ret = test(x, y)
 
 ```text
 Tensor(shape=[3], dtype=Int32, value= [1 2 3])
-3
+Tensor(shape=[], dtype=Int32, value=3)
 ```
 
 #### filter
@@ -2348,39 +2412,6 @@ print('ret:{}'.format(ret))
 
 ```text
 ret:(1, 3, 5)
-```
-
-#### raise
-
-功能：根据提供的错误类型和报错语句抛出异常。
-
-调用：`raise Exception(error message)`
-
-入参：
-
-- `Exception` -- 异常类型。
-
-- `error message` -- 异常信息。
-
-返回值：无。
-
-示例如下：
-
-```python
-import mindspore as ms
-
-@ms.jit()
-def test(tensor_to_raise):
-    raise ValueError(f"input should not be {tensor_to_raise}")
-
-tensor_to_raise = Tensor(1)
-ret = test(tensor_to_raise)
-```
-
-结果如下：
-
-```text
-ValueError: input should not be 1.
 ```
 
 ### 函数参数
@@ -2508,11 +2539,12 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
    ```
 
-2. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
+2. 当`construct`函数里，使用未定义的类成员时，将抛出`AttributeError`异常。
 
    示例如下：
 
    ```python
+   import mindspore as ms
    from mindspore import nn, set_context
 
    set_context(mode=ms.GRAPH_MODE)
@@ -2528,12 +2560,10 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    net(1)
    ```
 
-   上面所定义的网络里，`construct`里使用了并未定义的类成员`self.y`，此时会将`self.y`作为`None`处理。
-
    结果报错如下：
 
    ```Text
-   RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
+   AttributeError: External object has no attribute y
    ```
 
 3. `nn.Cell`不支持`classmethod`修饰的类方法。
