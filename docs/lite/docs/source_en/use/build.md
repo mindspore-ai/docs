@@ -446,9 +446,9 @@ Finally, the following files will be generated in the `output/` directory:
 ```text
 mindspore-lite.framework
 └── runtime
-    ├── Headers        # 推理框架头文件
-    ├── Info.plist     # 配置文件
-    └── mindspore-lite # 静态库
+    ├── Headers        # The inference framework header files
+    ├── Info.plist     # The configured files
+    └── mindspore-lite # The static library
 ```
 
 > Currently, device-side training and model conversion are not supported on macOS.
