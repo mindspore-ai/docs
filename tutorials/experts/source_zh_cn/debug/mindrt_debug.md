@@ -100,7 +100,7 @@ RuntimeError: Data type conversion of 'Parameter' is not supported, so data type
 
 [MindSpore 算子编译问题 - ScatterNdUpdate算子参数类型不一致报错](https://bbs.huaweicloud.com/forum/thread-182175-1-1.html)
 
-另外，有时候在算子编译过程中会出现`response is empty`的报错，如下所示：
+另外，有时候在算子编译过程中会出现`Response is empty`、`Try to send request before Open()`、`Try to get response before Open()`这一类的报错，如下所示：
 
 ```c++
 >       result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
@@ -114,13 +114,15 @@ E       mindspore/ccsrc/backend/common/session/kernel_build_client.h:100 Respons
 
 这个问题的直接原因一般是算子编译的子进程挂了或者调用阻塞卡住导致的超时，可以从以下几个方面进行排查：
 
-1. 检查日志，在这个错误前是否有其他错误日志，如果有请先解决前面的错误，一些算子相关的问题（比如昇腾上TBE包没装好，GPU上没有nvcc）会导致后续的`Response is empty`报错；
+1. 检查日志，在这个错误前是否有其他错误日志，如果有请先解决前面的错误，一些算子相关的问题（比如昇腾上TBE包没装好，GPU上没有nvcc）会导致后续的此类报错；
 
 2. 如果有使用图算融合特性，有可能是图算的AKG算子编译卡死超时导致，可以尝试关闭图算特性；
 
 3. 在昇腾上可以尝试减少算子并行编译的进程数，可以通过环境变量MS_BUILD_PROCESS_NUM设置，取值范围为1~24；
 
-4. 如果是在云上的训练环境遇到这个问题，可以尝试重启内核。
+4. 检查主机的内存和cpu占用情况，有可能是主机的内存和cpu占用过高，导致算子编译进程无法启动，出现了编译失败，可以尝试找出占用内存和cpu过高的进程，对其进行优化；
+
+5. 如果是在云上的训练环境遇到这个问题，可以尝试重启内核。
 
 ## 算子执行错误
 

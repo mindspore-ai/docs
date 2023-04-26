@@ -100,6 +100,30 @@ For details, visit the following website:
 
 [MindSpore Operator Build Error - Error Reported Due to Inconsistent ScatterNdUpdate Operator Parameter Types](https://bbs.huaweicloud.com/forum/thread-182175-1-1.html)
 
+In addition, sometimes errors such as `Response is empty`, `Try to send request before Open()` and `Try to get response before Open()` may appear during the operator compilation process, as shown below:
+
+```c++
+>       result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+E       RuntimeError: Response is empty
+E
+E       ----------------------------------------------------
+E       - C++ Call Stack: (For framework developers)
+E       ----------------------------------------------------
+E       mindspore/ccsrc/backend/common/session/kernel_build_client.h:100 Response
+```
+
+The direct cause of this problem is usually a timeout caused by the subprocess of operator compilation hanging or the call blocking, which can be investigated from the following aspects:
+
+1. Check the logs to see if there are any other error logs before this error. If yes, please resolve the previous errors first. Some operator related issues (for example, TBE package is not installed properly on Ascend and NVCC not available on GPU) can cause subsequent such errors;
+
+2. If the graph kernel fusion feature is used, it is possible that the AKG operator compilation of the graph is stuck and timed out, and you can try to turn off the graph kernel fusion feature;
+
+3. You can try to reduce the number of processes for parallel compilation of operators on Ascend by using the environment variable MS_BUILD_PROCESS_NUM setting, with a value range of 1-24;
+
+4. Check the memory and CPU usage of the host. It is possible that the host's memory and CPU usage are too high. As a result, the operator compilation process cannot be started and the compilation fails. You can try to identify the processes that occupy too much memory or CPU and optimize them；
+
+5. If you encounter this issue in a training environment on the cloud, you can try restarting the kernel.
+
 ## Operator Execution Errors
 
 Operator execution errors are mainly caused by improper input data , operator implementation, or operator initialization. Generally, the analogy method can be used to analyze operator execution errors.
