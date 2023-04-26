@@ -27,7 +27,7 @@ Cloud-side MindSpore Lite contains modules:
     - [Maven](https://archive.apache.org/dist/maven/maven-3/) >= 3.3.1
         - Configure environment variables: `export MAVEN_HOME=MAVEN path`
         - Add the bin directory to the PATH: `export PATH=${MAVEN_HOME}/bin:$PATH`
-    - [OpenJDK](https://openjdk.java.net/install/) 1.8 到 1.15
+    - [OpenJDK](https://openjdk.java.net/install/) between 1.8 and 1.15
         - Configure environment variables: `export JAVA_HOME=JDK path`
         - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`
 - Compilation dependency for the Python API module (optional), which is not compiled if Python3 or NumPy is not installed.
