@@ -27,14 +27,16 @@ System Requirements
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: operating guide
+   :caption: PyCharm Plugin Usage Guide
    :hidden:
 
+   PyCharm_plugin_install
    compiling
-   mindspore_project_wizard
-   operator_search
-   knowledge_search
    smart_completion
+   operator_search
+   operator_scanning
+   knowledge_search
+   mindspore_project_wizard
 
 .. toctree::
    :glob:
