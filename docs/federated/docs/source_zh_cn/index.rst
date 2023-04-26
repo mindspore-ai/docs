@@ -165,3 +165,10 @@ MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵�
    :caption: 参考文档
 
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

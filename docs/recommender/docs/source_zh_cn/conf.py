@@ -155,15 +155,15 @@ from custom_directives import IncludeCodeDirective
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
-# try:
-#     src_release = os.path.join(os.getenv("RD_PATH"), 'RELEASE_CN.md')
-#     des_release = "./RELEASE.md"
-#     with open(src_release, "r", encoding="utf-8") as f:
-#         data = f.read()
-#     content = re.findall("(## [\s\S\n]*?)\n## ", data)
-#     result = content[0].replace('# MindSpore', '#', 1)
-#     with open(des_release, "w", encoding="utf-8") as p:
-#         p.write("# Release Notes"+"\n\n")
-#         p.write(result)
-# except Exception as e:
-#     print('release文件拷贝失败，原因是：',e)
+try:
+    src_release = os.path.join(os.getenv("RD_PATH"), 'RELEASE_CN.md')
+    des_release = "./RELEASE.md"
+    with open(src_release, "r", encoding="utf-8") as f:
+        data = f.read()
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    result = content[0].replace('# MindSpore', '#', 1)
+    with open(des_release, "w", encoding="utf-8") as p:
+        p.write("# Release Notes"+"\n\n")
+        p.write(result)
+except Exception as e:
+    print('release文件拷贝失败，原因是：',e)
