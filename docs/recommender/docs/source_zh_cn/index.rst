@@ -34,3 +34,10 @@ MindSpore Recommender加速库由如下部分组成：
    :caption: API参考
 
    recommender
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
