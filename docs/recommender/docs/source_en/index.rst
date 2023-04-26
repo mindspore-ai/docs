@@ -34,3 +34,10 @@ The MindSpore Recommender acceleration library consists of the following compone
    :caption: API References
 
    recommender
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
