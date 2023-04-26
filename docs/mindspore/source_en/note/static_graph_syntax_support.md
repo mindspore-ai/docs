@@ -61,10 +61,6 @@ The result is as follows:
 
 `List` can be constructed on the network, that is, the syntax `y = [1, 2, 3]` is supported.
 
-`List` to be output in the computation graph will be converted into `Tuple`.
-
-When using List index to get the element，the reference type between MindSpore and Python interpreter may be different. Due to MindSpore using ListGetItem to implement getting value of the list, and the operator ListGetItem will return a copy of the variable, that make the reference type may not same with Python interpreter.
-
 For example:
 
 Python：
@@ -96,7 +92,7 @@ print('a:{}'.format(a))
 The result is as follows:
 
 ```text
-x: ((1, 2, 3), 4, 5)
+a:[[1, 2, 3], 4, 5]
 ```
 
 - Supported APIs
@@ -121,7 +117,7 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: (1, 2, 3, 4)
+  x:[1, 2, 3, 4]
   ```
 
   `insert`: inserts the specified element at the specified position in the `list`.
@@ -144,7 +140,7 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: (2, 1, 3, 4)
+  x:[2, 1, 3, 4]
   ```
 
   `pop`: removes the element at the specified position in `list`, removing the last one by default.
@@ -168,7 +164,7 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: (1, 3)
+  x:[1, 3]
   y: 4
   ```
 
@@ -192,7 +188,7 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: ()
+  x:[]
   ```
 
   `extend`: appends multiple elements of another sequence to the end of `list`.
@@ -216,7 +212,7 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: (1, 2, 3, 4, 5, 6, 7)
+  x:[1, 2, 3, 4, 5, 6, 7]
   ```
 
   `reverse`: reverses the elements of `list`.
@@ -239,10 +235,10 @@ x: ((1, 2, 3), 4, 5)
   The result is as follows:
 
   ```text
-  x: (4, 3, 2, 1)
+  x:[4, 3, 2, 1]
   ```
 
-  `count`: counts the number of occurrences of an element in `list`. The current count method only supports constant scenarios.
+  `count`: counts the number of occurrences of an element in `list`.
 
   For example:
 
@@ -265,7 +261,7 @@ x: ((1, 2, 3), 4, 5)
   num: 1
   ```
 
-  If there is a Tensor variable in the usage scenario of count, a related exception will be thrown.
+  The framework provides a SequenceCount operator to support count Tensor variable scenarios in the List.
 
   For example:
 
@@ -279,14 +275,14 @@ x: ((1, 2, 3), 4, 5)
       return num
 
   input_x = ms.Tensor(2)
-  num = test_list_count()
+  num = test_list_count(input_x)
   print('num:', num)
   ```
 
   The result is as follows:
 
   ```text
-  The list count not support variable scene now. The count data is Tensor type.
+  num:1
   ```
 
 - Supported index values and value assignment
@@ -426,7 +422,7 @@ The reference type of tuple is same as List, please  refer to List.
 
 `Dictionary` can be constructed on the network. That is, the syntax `y = {"a": 1, "b": 2}` is supported.
 
-Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` that contains these types. The `value` can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`. It should be noted that if the final output of the computational graph contains a `Dictionary`, it will not return a `Dictionary`, but a `Tuple` composed of all `value` values of the `Dictionary`.
+Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` that contains these types. The `value` can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`.
 
 - Supported APIs
 
@@ -434,7 +430,7 @@ Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` th
 
   `values`: extracts all `value` values from `dict` to form `Tuple` and return it.
 
-  `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `Tuple` and return it.
+  `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `List` and return it.
 
   `get`: `dict.get(key[, value])` returns the `value` value corresponding to the specified `key`, if the specified `key` does not exist, the default value `None` or the set default value `value` is returned .
 
@@ -481,11 +477,11 @@ Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` th
   ```text
   x_keys:('a', 'b', 'c')
   x_values:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
-  x_items:(('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])))
+  x_items:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
   value_a:[1 2 3]
-  check_key: True
-  new_x: {'a': ms.Tensor(np.array([0, 0, 0])), 'b': ms.Tensor(np.array([4, 5, 6])), 'c': ms.Tensor(np.array([7, 8, 9]))}
-  new_dict: {'a': 123, 'b': 123, 'c': 123, 'd': 123}
+  check_key:True
+  new_x:{'a': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0]), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  new_dict:{'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
 - Supported index values and value assignment
@@ -504,16 +500,40 @@ Currently, the `key` can be `String`, `Number`, constant `Tensor`, or `Tuple` th
       x["a"] = (2, 3, 4)
       return x, y
 
-  x, y = test_dict()
-  print('x:{}'.format(x))
-  print('y:{}'.format(y))
+  out1, out2 = test_dict()
+  print('out1:{}'.format(out1))
+  print('out2:{}'.format(out2))
   ```
 
   The result is as follows:
 
   ```text
-  x:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
-  y:[4 5 6]
+  out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  out2:[4 5 6]
+  ```
+
+- Supported calculation graph return 'Dictionary'
+
+  For example:
+
+  ```python
+  import mindspore as ms
+
+  @ms.jit()
+  def test_dict():
+      x = {'a': 'a', 'b': 'b'}
+      y = x.get('a')
+      z = dict(y=y)
+      return z
+
+  out = test_dict()
+  print("out:", out)
+  ```
+
+  The result is as follows:
+
+  ```text
+  out:{'y': 'a'}
   ```
 
 ### MindSpore User-defined Data Types
@@ -603,8 +623,6 @@ For example:
 ```python
 import mindspore as ms
 from mindspore import nn, set_context
-import numpy as np
-from mindspore.ops import constexpr
 
 set_context(mode=ms.GRAPH_MODE)
 
@@ -814,10 +832,10 @@ Example 1:
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
-n = 'yy'
+m = 1
+n = 2
 
 @ms.jit()
 def test_cond(x, y):
@@ -835,7 +853,7 @@ The data type of `m` returned by the `if` branch and `n` returned by the `else` 
 The result is as follows:
 
 ```text
-ret:xx
+ret:1
 ```
 
 Example 2:
@@ -843,14 +861,14 @@ Example 2:
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
-n = 'yy'
+m = 1
+n = 2
 
 @ms.jit()
 def test_cond(x, y):
-    out = 'init'
+    out = 3
     if (x > y).any():
         out = m
     else:
@@ -866,7 +884,7 @@ The variable or constant `m` assigned to `out` in `if` branch and the variable o
 The result is as follows:
 
 ```text
-ret:xx
+ret:1
 ```
 
 Example 3:
@@ -874,13 +892,13 @@ Example 3:
 ```python
 import mindspore as ms
 
-x = ms.Tensor([1, 2], ms.int32)
+x = ms.Tensor([1, 4], ms.int32)
 y = ms.Tensor([0, 3], ms.int32)
-m = 'xx'
+m = 1
 
 @ms.jit()
 def test_cond(x, y):
-    out = 'init'
+    out = 2
     if (x > y).any():
         out = m
     return out
@@ -894,7 +912,7 @@ The variable or constant `m` assigned to `out` in `if` branch and the variable o
 The result is as follows:
 
 ```text
-ret:xx
+ret:1
 ```
 
 ### Loop Statements
@@ -1050,14 +1068,14 @@ print('ret:{}'.format(ret))
 The result is as follows:
 
 ```text
-ret: 6
+ret:6
 ```
 
-Restrictions:
+Instructions:
 
-- The defined function must has `return` statement.
-- `Construct` function of the outermost network is not support  kwargs, like:`def construct(**kwargs):`.
-- Mixed use of variable argument and non-variable argument is not supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
+- The defined function supported has no `return` statement. That means the return value of default functions is None.
+- `Construct` function of the outermost network and the inner network function is support kwargs, like:`def construct(**kwargs):`.
+- Mixed use of variable argument and non-variable argument is supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
 
 #### lambda Expression
 
@@ -1082,7 +1100,7 @@ print('ret:{}'.format(ret))
 The result is as follows:
 
 ```text
-ret: 6
+ret:6
 ```
 
 ### List Comprehension and Generator Expression
@@ -1091,7 +1109,7 @@ Support List Comprehension and Generator Expression.
 
 #### List Comprehension
 
-Generates a list. Own to the implicit converting during compiling, the result of expression is a tuple.
+Generates a list.
 
 Usage: refer to Python official syntax description.
 
@@ -1112,7 +1130,7 @@ print('ret:{}'.format(ret))
 The result is as follows:
 
 ```text
-ret:(4, 16, 36, 64, 100)
+ret:[4, 16, 36, 64, 100]
 ```
 
 Restrictions:
@@ -1133,7 +1151,7 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 
 #### Generator Expression
 
-Generates a list. The same as List Comprehension. The expression would generate a list immediately, not like the behavior running in Python.
+Generates a list.
 
 Usage: Referencing List Comprehension.
 
@@ -1154,7 +1172,7 @@ print('ret:{}'.format(ret))
 The result is as follows:
 
 ```text
-ret:(4, 16, 36, 64, 100)
+ret:[4, 16, 36, 64, 100]
 ```
 
 Restrictions: The same as List Comprehension.
@@ -1205,11 +1223,44 @@ out1: [5]
 out2: [2]
 ```
 
+#### Raise Statement
+
+Raise error according to the input error type and error message.
+
+Calling: `raise Exception(error message)`
+
+Input parameters:
+
+- `Exception` -- Error type.
+
+- `error message` -- Error message.
+
+Return value: None.
+
+For example:
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test(tensor_to_raise):
+    raise ValueError(f"input should not be {tensor_to_raise}")
+
+tensor_to_raise = Tensor(1)
+ret = test(tensor_to_raise)
+```
+
+The result is as follows:
+
+```text
+ValueError: input should not be 1.
+```
+
 ## Functions
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`, and `raise`. The usage of built-in function is similar to the usage of  corresponding Python built-in function.
+Currently, the following built-in Python functions are supported: `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `round`, `any`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The usage of built-in function is similar to the usage of  corresponding Python built-in function.
 
 #### int
 
@@ -1335,7 +1386,7 @@ a: False
 b: False
 c: True
 d: True
-e: [True]    # e is boolean Tensor
+e: [ True]    # e is boolean Tensor
 ```
 
 #### str
@@ -1434,6 +1485,7 @@ Return value: list with elements of `x`, `x` is cut based on zero dimension.
 For example:
 
 ```python
+import numpy as np
 import mindspore as ms
 
 @ms.jit
@@ -1453,13 +1505,11 @@ print("d_t: ", d_t)
 The result is as follows:
 
 ```text
-a_t: (1, 2, 3)
-b_t: (1, 2, 3)
-c_t: ('a', 'b', 'c')
-d_t: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+a_t: [1, 2, 3]
+b_t: [1, 2, 3]
+c_t: ['a', 'b', 'c']
+d_t: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3)]
 ```
-
-In graph mode, if the return values contain list, the list will be converted to tuple automatically. So the `a_t`, `b_t`, `c_t` and `d_t` in the above example are all tuple. However, `a`, `b`, `c` and `d` are still list.
 
 #### getattr
 
@@ -2240,6 +2290,20 @@ class SingleSubNet(FatherNet):
         ret_father_construct = super().construct(x, y)
         ret_father_test = super(SingleSubNet, self).test_father(x)
         return ret_father_construct, ret_father_test
+
+x = 3
+y = 6
+z = 9
+f_net = FatherNet(x)
+net = SingleSubNet(x, z)
+out = net(x, y)
+print("out:", out)
+```
+
+The result is as follows:
+
+```text
+out: (9, 6)
 ```
 
 #### pow
@@ -2313,7 +2377,7 @@ The result is as follows:
 
 ```text
 Tensor(shape=[3], dtype=Int32, value= [1 2 3])
-3
+Tensor(shape=[], dtype=Int32, value=3)
 ```
 
 #### filter
@@ -2353,39 +2417,6 @@ The result is as follows:
 
 ```text
 ret:(1, 3, 5)
-```
-
-#### raise
-
-Raise error according to the input error type and error message.
-
-Calling: `raise Exception(error message)`
-
-Input parameters:
-
-- `Exception` -- Error type.
-
-- `error message` -- Error message.
-
-Return value: None.
-
-For example:
-
-```python
-import mindspore as ms
-
-@ms.jit()
-def test(tensor_to_raise):
-    raise ValueError(f"input should not be {tensor_to_raise}")
-
-tensor_to_raise = Tensor(1)
-ret = test(tensor_to_raise)
-```
-
-The result is as follows:
-
-```text
-ValueError: input should not be 1.
 ```
 
 ### Function Parameters
@@ -2516,11 +2547,12 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
    ```
 
-2. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
+2. When an undefined class member is used in the `construct` function, `AttributeError` exception will be thrown.
 
    For example:
 
    ```python
+   import mindspore as ms
    from mindspore import nn, set_context
 
    set_context(mode=ms.GRAPH_MODE)
@@ -2536,12 +2568,10 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    net(1)
    ```
 
-   In the preceding defined network, `construct` uses the undefined class member `self.y`. In this case, `self.y` is processed as `None`.
-
    The result would be:
 
    ```text
-   RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
+   AttributeError: External object has no attribute y
    ```
 
 3. Class methods modified by `classmethod` in `nn.Cell` are not supported.
