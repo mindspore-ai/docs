@@ -310,7 +310,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/r2.0/quick_start/quick_start_c.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Expriencing C-language Simpcified Inference Demo</span>
+											<span class="doc-head-content">Experiencing C-language Simplified Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
