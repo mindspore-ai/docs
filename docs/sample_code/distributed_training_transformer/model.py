@@ -35,7 +35,7 @@ class EmbeddingLayer(nn.Cell):
                                                  embedding_size=embedding_size,
                                                  parallel_config=parallel_config)
         self.add = ops.Add().shard(((parallel_config.data_parallel, 1, 1), (parallel_config.data_parallel, 1, 1)))
-        self.dropout = nn.Dropout(1 - dropout_rate)
+        self.dropout = nn.Dropout(p=dropout_rate)
         self.dropout.dropout.shard(((parallel_config.data_parallel, 1, 1),))
 
     def construct(self, input_ids, input_position):

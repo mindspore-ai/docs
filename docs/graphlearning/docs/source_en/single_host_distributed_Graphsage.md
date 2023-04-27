@@ -76,7 +76,7 @@ class SAGENet(Cell):
         self.dense_out = ms.nn.Dense(appr_feat_size, out_feat_size, has_bias=False,
                                      weight_init=XavierUniform(math.sqrt(2)))
         self.activation = ms.nn.ReLU()
-        self.dropout = ms.nn.Dropout(0.5)
+        self.dropout = ms.nn.Dropout(p=0.5)
 
     def construct(self, node_feat, edges, n_nodes, n_edges):
         """graphsage net forward"""
