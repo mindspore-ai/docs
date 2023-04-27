@@ -161,7 +161,10 @@ src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
-content = re.findall("## [\s\S\n]*", data)
+if len(re.findall("\n## (.*?)\n",data)) > 1:
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+else:
+    content = re.findall("(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
