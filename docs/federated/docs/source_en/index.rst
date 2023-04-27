@@ -131,6 +131,7 @@ Common Application Scenarios
 
    local_differential_privacy_training_noise
    local_differential_privacy_training_signds
+   local_differential_privacy_eval_laplace
    pairwise_encryption_training
    private_set_intersection
    secure_vertical_federated_learning_with_EmbeddingDP
