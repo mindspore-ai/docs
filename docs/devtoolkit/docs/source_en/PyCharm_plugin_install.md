@@ -8,6 +8,6 @@
 2. Start Pycharm and click on the upper left menu bar, select File->Settings->Plugins->Install Plugin from Disk.
    As shown in the figure:
 
-   ![image-20211223175637989](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/devtoolkit/docs/source_zh_cn/images/clip_image050.jpg)
+   ![image-20211223175637989](./images/clip_image050.jpg)
 
 3. Select the plug-in zip package.
