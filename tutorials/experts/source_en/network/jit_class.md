@@ -33,6 +33,10 @@ out = net()
 print(out)
 ```
 
+```text
+[1 2 3]
+```
+
 `jit_class` supports nesting use of the custom class, nesting uses scenarios of custom classes and nn. Cell. It should be noted that when a class inherits, if the parent class is decorated with `jit_class`, the subclass will also have the ability to `jit_class`.
 
 ```python
@@ -63,6 +67,10 @@ ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
+```
+
+```text
+[1 2 3]
 ```
 
 `jit_class` only support decorating custom classes, not nn. Cell and nonclass types. If you execute the following use case, an error will appear.
@@ -136,6 +144,10 @@ out = net(x, y)
 print(out)
 ```
 
+```text
+12
+```
+
 Calling private attributes and magic methods is not supported, and the method functions that are called must be within the syntax supported by static graph compilation. If you execute the following use case, an error will appear.
 
 ```python
@@ -193,6 +205,10 @@ out = net()
 print(out)
 ```
 
+```text
+5
+```
+
 For other scenarios, when creating an instance of a custom class, there is a restriction that no parameters must be constants. For example, the following use case:
 
 ```python
@@ -218,6 +234,10 @@ x = ms.Tensor(2, dtype=ms.int32)
 net = Net(x)
 out = net()
 print(out)
+```
+
+```text
+5
 ```
 
 ## Calling the Instance of the Custom Class
@@ -249,6 +269,10 @@ y = ms.Tensor(3, dtype=ms.int32)
 net = Net()
 out = net(x, y)
 print(out)
+```
+
+```text
+10
 ```
 
 If the class does not define the `__call__` function, an error message will be reported. If you execute the following use case, an error will appear.
