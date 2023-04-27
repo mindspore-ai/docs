@@ -41,6 +41,15 @@ System Requirements
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: VSCode Plugin Usage Guide
+   :hidden:
+
+   VSCode_plugin_install
+   VSCode_smart_completion
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: RELEASE NOTES
 
    RELEASE
