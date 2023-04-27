@@ -38,23 +38,23 @@
   <td style="text-align:center"> 1.10.0 </td> <td style="text-align:center"> 2.0.0 </td>
   </tr>
   <tr>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> from mindspore.nn import EmbeddingLookup
   >>>
   >>> input_indics = Tensor(np.array([[1, 0], [3, 2]]), mindspore.int32)
   >>> result = EmbeddingLookup(4,2)(input_indices)
   >>> print(result.shape)
   (2, 2, 2)
-  </code></pre>
+  </pre>
   </td>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> from mindspore.nn import EmbeddingLookup
   >>>
   >>> input_indics = Tensor(np.array([[1, 0], [3, 2]]), mindspore.int32)
   >>> result = EmbeddingLookup(4,2)(input_indices, sparse=False)
   >>> print(result.shape)
   (2, 2, 2)
-  </code></pre>
+  </pre>
   </td>
   </tr>
   </table>
@@ -66,19 +66,19 @@
   <td style="text-align:center"> 1.10.0 </td> <td style="text-align:center"> 2.0.0 </td>
   </tr>
   <tr>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> import nn.probability.bijector as msb
   >>> from mindspore import stype as mstype
   >>>
   >>> bijector = msb.GumbelCDF(loc=0.0, scale=1.0, dtype=mstype.float32)
-  </code></pre>
+  </pre>
   </td>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> import nn.probability.bijector as msb
   >>> from mindspore import stype as mstype
   >>>
   >>> bijector = msb.GumbelCDF(loc=0.0, scale=1.0)
-  </code></pre>
+  </pre>
   </td>
   </tr>
   </table>
@@ -90,13 +90,13 @@
   <td style="text-align:center"> 1.10.0 </td> <td style="text-align:center"> 2.0.0 </td>
   </tr>
   <tr>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> from mindspore.nn.layer.quant import Conv2dBnAct
-  </code></pre>
+  </pre>
   </td>
-  <td><pre style="display: block;"><code class="language-python">
+  <td><pre>
   >>> from mindspore.nn.layer.combined import Conv2dBnAct
-  </code></pre>
+  </pre>
   </td>
   </tr>
   </table>
