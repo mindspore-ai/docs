@@ -70,7 +70,7 @@ class EmbeddingLayer(nn.Cell):
                                                  parallel_config=config.parallel_config.embedding_dp_mp_config)
         self.add = ops.Add().shard(
             ((config.parallel_config.data_parallel, 1, 1), (config.parallel_config.data_parallel, 1, 1)))
-        self.dropout = nn.Dropout(1 - config.dropout_rate)
+        self.dropout = nn.Dropout(p=config.dropout_rate)
         self.dropout.dropout.shard(((config.parallel_config.data_parallel, 1, 1),))
         self.is_first_iteration = True
         self.use_past = config.use_past
@@ -261,7 +261,7 @@ class FeedForward(nn.Cell):
         self.projection.shard(strategy_matmul=((dp, mp), (mp, 1)),
                               strategy_bias=((dp, 1), (1,)))
         self.projection.bias.parallel_optimizer = False
-        self.dropout = nn.Dropout(1 - dropout_rate)
+        self.dropout = nn.Dropout(p=dropout_rate)
         self.dropout.dropout.shard(((dp, 1),))
         self.cast = ops.Cast()
 

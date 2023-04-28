@@ -145,10 +145,10 @@ class Vgg(nn.Cell):
         self.classifier = nn.SequentialCell([
             nn.Dense(512*7*7, 4096),
             nn.ReLU(),
-            nn.Dropout(dropout_ratio),
+            nn.Dropout(p=1.0 - dropout_ratio),
             nn.Dense(4096, 4096),
             nn.ReLU(),
-            nn.Dropout(dropout_ratio),
+            nn.Dropout(p=1.0 - dropout_ratio),
             nn.Dense(4096, num_classes)])
 
     def construct(self, x):
