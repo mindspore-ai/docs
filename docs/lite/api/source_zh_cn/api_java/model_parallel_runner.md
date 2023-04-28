@@ -38,7 +38,7 @@ public long getModelParallelRunnerPtr()
 public boolean init(String modelPath, RunnerConfig runnerConfig)
 ```
 
-根据路径读取加载模型，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。
+根据路径读取加载模型，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。该接口支持传入`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出），但对`ms`模型的支持，将在未来的迭代中删除，推荐使用`mindir`模型进行推理。当使用`ms`模型进行推理时，请保持模型的后缀名为`.ms`，否则无法识别。
 
 - 参数
 
@@ -54,7 +54,7 @@ public boolean init(String modelPath, RunnerConfig runnerConfig)
 public boolean init(String modelPath)
 ```
 
-根据路径读取加载模型，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。
+根据路径读取加载模型，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。该接口支持传入`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出），但对`ms`模型的支持，将在未来的迭代中删除，推荐使用`mindir`模型进行推理。当使用`ms`模型进行推理时，请保持模型的后缀名为`.ms`，否则无法识别。
 
 - 参数
 
