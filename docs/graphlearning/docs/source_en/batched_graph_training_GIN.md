@@ -85,7 +85,7 @@ class GinNet(GNNCell):
                 pooled_h = g.sum_nodes(h)
             else:
                 pooled_h = g.avg_nodes(h)
-            score_over_layer = score_over_layer + nn.Dropout(self.final_dropout)(
+            score_over_layer = score_over_layer + nn.Dropout(p=1.0 - self.final_dropout)(
                 self.linears_prediction[layer](pooled_h))
         return score_over_layer
 ```
