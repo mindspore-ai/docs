@@ -6,8 +6,7 @@
 
 In graph mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
-Currently, the function, and class (including Cell, Cell subclass, `@jit_class` decorated class, and common user defined class) methods modified by the `@jit` decorator can be built.
-For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
+There are two ways to use the graph mode. The first way is to call the `@jit` decorator to modify a function or a class member method, and then the decorated function or method will be compiled into a static computation graph. The second way is to set `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph.
 
 For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
