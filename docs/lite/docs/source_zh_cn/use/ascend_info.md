@@ -2,6 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
+> - 端侧推理集成Ascend后端版本将于后续弃用，Ascend后端相关使用请参考云侧推理版本文档。
+> - [云侧推理版本编译](https://mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/build.html)
+> - [云侧模型转换工具](https://mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/converter.html)
+> - [云侧基准测试工具](https://mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/benchmark.html)
+
 本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite支持Ascend310和310P芯片。
 
 ## 环境准备
