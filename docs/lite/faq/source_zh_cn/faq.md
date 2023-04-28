@@ -51,3 +51,8 @@ A：MindSpore轻量化推理框架MindSpore Lite已于r0.7版本正式上线，�
 A：需要使用keytool工具将相关网站的安全证书导入java的cacerts证书库 `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`。
 
 <br/>
+
+<font size=3>**Q：MindSpore Lite云上推理版本在GPU环境执行推理，出现`libpython3.7m.so.1.0: cannot open shared object file`问题时如何解决？**</font>
+
+A：`libpython3.7.m.so.1.0`是Python的so，默认在系统的lib目录下，如果没有，需要通过`export LD_LIBRARY_PATH=${USERPATH}/lib:{LD_LIBRARY_PATH}`进行配置，其中`${USERPATH}/lib`是`libpython3.7.m.so.1.0`的所在路径。
+<br/>
