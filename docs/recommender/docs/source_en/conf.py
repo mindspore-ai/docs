@@ -132,6 +132,6 @@ try:
     # result = content[0].replace('# MindSpore', '#', 1)
     with open(des_release, "w", encoding="utf-8") as p:
         p.write("# Release Notes"+"\n\n")
-        p.write(result)
+        p.write(content[0])
 except Exception as e:
     print('release文件拷贝失败，原因是：',e)
