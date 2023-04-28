@@ -6,8 +6,7 @@
 
 在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-当前支持`@jit`装饰器修饰函数，Cell及其子类、`@jit_class`修饰的类或者自定义普通类的成员方法。
-对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
+使用Graph模式有两种方式：一是调用`@jit`装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图；二是设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。
 
 `jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 
