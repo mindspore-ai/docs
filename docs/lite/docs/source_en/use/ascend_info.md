@@ -2,6 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+> - The Ascend backend support on device-side version will be deprecated later. For related usage of the Ascend backend, please refer to the cloud-side inference version documentation.
+> - [Build Cloud-side MindSpore Lite](https://mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html)
+> - [Cloud-side Model Converter](https://mindspore.cn/lite/docs/en/master/use/cloud_infer/converter.html)
+> - [Cloud-side Benchmark Tool](https://mindspore.cn/lite/docs/en/master/use/cloud_infer/benchmark.html)
+
 This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Ascend 310 and 310P AI processor.
 
 ## Environment Preparation
