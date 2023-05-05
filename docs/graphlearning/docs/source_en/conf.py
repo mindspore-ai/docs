@@ -71,6 +71,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+html_static_path = ['_static']
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -156,6 +158,7 @@ from myautosummary import MsPlatformAutoSummary
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
 
 src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"

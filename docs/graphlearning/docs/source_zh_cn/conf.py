@@ -78,6 +78,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+html_static_path = ['_static']
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
@@ -184,6 +186,7 @@ def setup(app):
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
+    app.add_stylesheet('css/bootstrap.min.css')
 
 src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
