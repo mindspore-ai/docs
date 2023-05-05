@@ -336,7 +336,7 @@ a:[[1, 2, 3], 4, 5]
 
 `Tuple` can be constructed on the network, that is, the syntax `y = (1, 2, 3)` is supported.
 
-The reference type of tuple is same as List, please  refer to List.
+The reference type of tuple is same as List, please refer to List.
 
 - Supported index values
 
@@ -1222,7 +1222,7 @@ out1: [5]
 out2: [2]
 ```
 
-#### Raise Statement
+### Raise Statement
 
 Raise error according to the input error type and error message.
 
