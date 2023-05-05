@@ -37,7 +37,7 @@ for d in data.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 Output:
 
-```python
+```text
 {'col1': {'number': array(0), 'square': array(0)}, 'col2': array(0, dtype=int64)}
 {'col1': {'number': array(1), 'square': array(1)}, 'col2': array(1, dtype=int64)}
 {'col1': {'number': array(2), 'square': array(4)}, 'col2': array(2, dtype=int64)}
@@ -73,7 +73,7 @@ for d in data.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 Output:
 
-```python
+```text
 {'col1': {'original_col1': array(0), 'square': array(0)}}
 {'col1': {'original_col1': array(1), 'square': array(1)}}
 {'col1': {'original_col1': array(2), 'square': array(4)}}
@@ -120,7 +120,7 @@ for d in data.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 Output:
 
-```python
+```text
 >>> before batch
 {'col1': {'powers': array([0, 0, 0])}, 'col2': array(0, dtype=int64)}
 {'col1': {'powers': array([1, 1, 1])}, 'col2': array(1, dtype=int64)}
@@ -160,7 +160,7 @@ for d in data.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 Output:
 
-```python
+```text
 {'col1': {'original_col1': [array(0), array(1), array(2)], 'index': array([0, 1, 2])}, 'col2': {'copied_col1': [array(0), array(1), array(2)]}}
 {'col1': {'original_col1': [array(3), array(4), array(5)], 'index': array([0, 1, 2])}, 'col2': {'copied_col1': [array(3), array(4), array(5)]}}
 {'col1': {'original_col1': [array(6), array(7), array(8)], 'index': array([0, 1, 2])}, 'col2': {'copied_col1': [array(6), array(7), array(8)]}}
@@ -197,7 +197,7 @@ for d in data.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 Output:
 
-```python
+```text
 >>> Iter dataset with converting all data to Tensor
 {'col1': {'my_data': Tensor(shape=[], dtype=Int64, value= 0)}, 'col2': Tensor(shape=[], dtype=Int64, value= 0)}
 {'col1': {'my_data': Tensor(shape=[], dtype=Int64, value= 1)}, 'col2': Tensor(shape=[], dtype=Int64, value= 1)}
