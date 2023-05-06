@@ -167,7 +167,6 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -176,7 +175,7 @@ class LeNet5(nn.Cell):
         x = self.conv2(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
-        x = self.reshape(x, (self.batch_size, -1))
+        x = ops.reshape(x, (self.batch_size, -1))
         x = self.fc1(x)
         x = self.relu(x)
         x = self.fc2(x)
@@ -362,7 +361,6 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -371,7 +369,7 @@ class LeNet5(nn.Cell):
         x = self.conv2(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
-        x = self.reshape(x, (self.batch_size, -1))
+        x = ops.reshape(x, (self.batch_size, -1))
         x = self.fc1(x)
         x = self.relu(x)
         x = self.fc2(x)
