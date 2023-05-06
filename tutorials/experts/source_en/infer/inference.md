@@ -27,7 +27,7 @@ Basic concepts and application scenarios of these formats are as follows:
     - It eliminates model differences between different backends and is generally used to perform inference tasks across hardware platforms.
 - ONNX
     - Open Neural Network Exchange is an open format built to represent machine learning models.
-    - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/python_api/index.html)).
+    - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html)).
     - Currently, the models supported for export are Resnet50, YOLOv3_darknet53, YOLOv4 and BERT. These models can be used on [ONNX Runtime](https://onnxruntime.ai/).
 - AIR
     - Ascend Intermediate Representation is an open file format defined by Huawei for machine learning.
