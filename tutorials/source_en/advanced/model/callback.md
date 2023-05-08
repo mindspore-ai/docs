@@ -284,13 +284,13 @@ class SaveCkptMonitor(ms.train.Callback):
             ms.save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
             print("Saved checkpoint, loss:{:8.7f}, current step num:{:4}.".format(cur_loss, cb_params.cur_step_num))
 
-trainer.train(1, train_dataset, callbacks=[SaveCkptMonitor(0.01)])
+trainer.train(1, train_dataset, callbacks=[SaveCkptMonitor(0.05)])
 ```
 
 The directory structure is as follows:
 
 ```text
-./
+./checkpoint/
 ├── 1_253.ckpt
 ├── 1_258.ckpt
 ├── 1_265.ckpt
