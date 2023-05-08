@@ -35,9 +35,9 @@
 
 ### 配置分布式环境
 
-- `OpenMPI-4.0.3`：MindSpore采用的多进程通信库。
+- `OpenMPI-4.1.4`：MindSpore采用的多进程通信库。
 
-  下载OpenMPI-4.0.3源码[openmpi-4.0.3.tar.gz](https://www.open-mpi.org/software/ompi/v4.0/)。
+  下载OpenMPI-4.1.4源码[openmpi-4.1.4.tar.gz](https://www.open-mpi.org/software/ompi/v4.1/)。
 
   参考[OpenMPI官网教程](https://www.open-mpi.org/faq/?category=building#easy-build)安装。
 

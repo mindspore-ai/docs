@@ -36,9 +36,9 @@ In order to ensure the normal progress of the distributed training, we need to c
 
 ### Configuring Distributed Environment
 
-- `OpenMPI-4.0.3`: multi-process communication library used by MindSpore.
+- `OpenMPI-4.1.4`: multi-process communication library used by MindSpore.
 
-  Download the OpenMPI-4.0.3 source code package [openmpi-4.0.3.tar.gz](https://www.open-mpi.org/software/ompi/v4.0/).
+  Download the OpenMPI-4.1.4 source code package [openmpi-4.1.4.tar.gz](https://www.open-mpi.org/software/ompi/v4.1/).
 
   For details about how to install OpenMPI, see the official tutorial: [easy-build](https://www.open-mpi.org/faq/?category=building#easy-build).
 
