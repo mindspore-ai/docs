@@ -41,7 +41,7 @@
     最多支持100档配置，每一档通过英文逗号分隔，每个档位数值限制为：[1~2048]。 例如配置文件中参数配置如下：
 
     ```
-    [ascned_context]
+    [ascend_context]
     input_shape=input:[-1,64,64,3]
     dynamic_dims=[1],[2]
     ```
@@ -51,7 +51,7 @@
     若存在多个输入，不同输入对应的挡位需要一致，并用`;`隔开。
 
     ```
-    [ascned_context]
+    [ascend_context]
     input_shape=input1:[-1,64,64,3];input2:[-1,256,256,3]
     dynamic_dims=[1],[2];[1],[2]
     ```
@@ -59,7 +59,7 @@
 - converter
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --outputFile=${model_name}
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --optimize=ascend_oriented --outputFile=${model_name}
     ```
 
     说明：使能动态BatchSize时，不需要指定inputShape参数，仅需要通过configFile配置[ascend_context]动态batch size，即上节示例中配置内容。
@@ -100,7 +100,7 @@
 - converter
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --outputFile=${model_name}
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --optimize=ascend_oriented --outputFile=${model_name}
     ```
 
     说明： 使能动态BatchSize时，不需要指定inputShape参数，仅需要通过configFile配置[ascend_context]动态分辨率，即上节示例中配置内容。
