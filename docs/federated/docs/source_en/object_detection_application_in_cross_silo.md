@@ -86,8 +86,8 @@ cross_silo_faster_rcnn
 1. Note that you can choose whether to record the loss value for each step by setting the parameter `dataset_sink_mode` in the `test_fl_fasterrcnn.py` file.
 
     ```python
-    model.train(config.client_epoch_num, dataset, callbacks=cb)  # Not setting dataset_sink_mode means that only the loss value of the last step in each epoch is recorded, which is the default mode in the code
-    model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=False)   # Set dataset_sink_mode=False to record the loss value of each step
+    model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=True)  # Not setting dataset_sink_mode means that only the loss value of the last step in each epoch is recorded.
+    model.train(config.client_epoch_num, dataset, callbacks=cb, dataset_sink_mode=False)   # Set dataset_sink_mode=False to record the loss value of each step, which is the default mode in the code.
     ```
 
 2. Set the following parameters in configuration file [default_config.yaml](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_silo_faster_rcnn/default_config.yaml):

@@ -246,7 +246,7 @@ Generally, MindSpore in static graph mode is much faster than that in PyNative m
 
 #### On-device Execution
 
-MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/zh-CN/r2.0/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `True` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/zh-CN/r2.0/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `False` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 #### Using Automatic Mixed Precision
 
