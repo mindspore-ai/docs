@@ -287,18 +287,25 @@ class SaveCkptMonitor(ms.train.Callback):
 trainer.train(1, train_dataset, callbacks=[SaveCkptMonitor(0.05)])
 ```
 
+```text
+    Saved checkpoint, loss:0.0390485, current step num: 154.
+    Saved checkpoint, loss:0.0481475, current step num: 234.
+    Saved checkpoint, loss:0.0477566, current step num: 361.
+    Saved checkpoint, loss:0.0314977, current step num: 444.
+    Saved checkpoint, loss:0.0463577, current step num: 513.
+    Saved checkpoint, loss:0.0408403, current step num: 764.
+    Saved checkpoint, loss:0.0308827, current step num: 899.
+```
+
 The directory structure is as follows:
 
 ```text
 ./checkpoint/
-├── 1_253.ckpt
-├── 1_258.ckpt
-├── 1_265.ckpt
-├── 1_332.ckpt
-├── 1_358.ckpt
-├── 1_380.ckpt
-├── 1_395.ckpt
-├── 1_1151.ckpt
-├── 1_1358.ckpt
-├── 1_1524.ckpt
+├── 1_154.ckpt
+├── 1_234.ckpt
+├── 1_361.ckpt
+├── 1_444.ckpt
+├── 1_513.ckpt
+├── 1_764.ckpt
+├── 1_899.ckpt
 ```
