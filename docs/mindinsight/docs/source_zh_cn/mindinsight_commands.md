@@ -39,7 +39,7 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 |`--port <PORT>`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|-|
 |`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|String|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是单点号(.)或双点号(..)。|
 |`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|Integer|3|0～300|设置为0时表示只加载一次数据。|
-|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindSpore Insight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。在ModelArts开发环境中，此参数可以指定为OBS路径，请参考[ModelArts文档](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0068.html)以了解更多信息。|
+|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindSpore Insight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。在ModelArts开发环境中，此参数可以指定为OBS路径，请参考[ModelArts文档](https://support.huaweicloud.com/devtool-modelarts/develop-modelarts-0068.html)以了解更多信息。|
 |`--enable-debugger <ENABLE_DEBUGGER>`|可选|是否开启Debugger功能|Boolean|False|True/False/1/0|只有开启了调试器，才会在MindSpore Insight页面显示调试器入口。|
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|可选|指定单个离线调试器会话内存使用上限（单位MB），当出现内存不足导致MindInght离线调试器运行问题时，需要用户根据内存情况设置。|Integer|16*1024|6*1024~int32上限|-|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|可选|指定离线调试器会话数上限，会话数指的是能同时使用离线调试器调试的训练作业个数。|Integer|2|1~2|-|
