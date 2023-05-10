@@ -459,7 +459,7 @@ epsr, _ = solver.eval(epsr_labels)
 
 基于上述方法反演得到的相对介电常数的`PSNR`和`SSIM`分别为：
 
-```log
+```text
 [epsr] PSNR: 27.835317 dB, SSIM: 0.963564
 ```
 
