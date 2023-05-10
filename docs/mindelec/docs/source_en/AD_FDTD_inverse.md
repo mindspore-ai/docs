@@ -459,7 +459,7 @@ epsr, _ = solver.eval(epsr_labels)
 
 The relative permittivity of `PSNR` and `SSIM` obtained by inversion based on the above method are:
 
-```log
+```text
 [epsr] PSNR: 27.835317 dB, SSIM: 0.963564
 ```
 
