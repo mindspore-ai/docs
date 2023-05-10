@@ -150,7 +150,7 @@ Through the above verification, for the data with label 2, the position where th
 
 ```python
 def GenerateTrainData(sample, word_dict):
-    n_qubits = np.int(np.ceil(np.log2(1 + max(word_dict.values()))))
+    n_qubits = np.int32(np.ceil(np.log2(1 + max(word_dict.values()))))
     data_x = []
     data_y = []
     for around, center in sample:
@@ -319,7 +319,7 @@ class LossMonitorWithCollection(ms.LossMonitor):
         if self._per_print_times != 0 and cb_params.cur_step_num % self._per_print_times == 0:
             print('')
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         loss = cb_params.net_outputs
 

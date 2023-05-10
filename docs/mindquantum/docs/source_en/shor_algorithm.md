@@ -166,7 +166,10 @@ register2 = range(4, 8)
 circuit = Circuit(X.on(2))  # Create a circuit where the input state is |0100⟩|0000⟩, that is, x=8, |8⟩|0⟩
 circuit += U_operator(15, 2, register1, register2)  # Apply the U operator
 
-print(circuit.get_qs(ket=True))  # Print the final state
+sim = Simulator('projectq', circuit.n_qubits)
+sim.apply_circuit(circuit)
+
+print(sim.get_qs(ket=True))   # Print the final state
 circuit # Print circuit
 ```
 

@@ -353,9 +353,14 @@ Next, we need to define the loss function, set the parameters to be optimized, a
 ```python
 from mindspore.nn import SoftmaxCrossEntropyWithLogits                         # Import the SoftmaxCrossEntropyWithLogits module to define the loss function
 from mindspore.nn import Adam                                                  # Import the Adam module, which is used to define optimization parameters.
-from mindspore.train import Accuracy                                           # Import the Accuracy module, which is used to evaluate the prediction accuracy respectively.
 import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset                               # Import the NumpySlicesDataset module for creating datasets that the model can recognize
+
+try:
+    from mindspore.train import Accuracy
+except ImportError:
+    from mindspore.nn import Accuracy
+# Import the Accuracy module, which is used to evaluate the prediction accuracy respectively.
 
 loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')            # The loss function is defined by SoftmaxCrossEntropyWithLogits, sparse=True indicates that the specified label uses a sparse format, and reduction='mean' indicates that the dimensionality reduction method of the loss function is averaging
 opti = Adam(QuantumNet.trainable_params(), learning_rate=0.1)                  # The parameters in Ansatz are optimized by the Adam optimizer. What needs to be optimized are the trainable parameters in Quantumnet, and the learning rate is set to 0.1
@@ -371,7 +376,7 @@ class StepAcc(ms.Callback):                                                     
         self.test_loader = test_loader
         self.acc = []
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         self.acc.append(self.model.eval(self.test_loader, dataset_sink_mode=False)['Acc'])
 
 monitor = ms.LossMonitor(16)                                                       # Monitor the loss during training and print the loss value every 16 steps
