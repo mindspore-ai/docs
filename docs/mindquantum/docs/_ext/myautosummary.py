@@ -363,6 +363,8 @@ class MsCnAutoSummary(Autosummary):
                 if content:
                     summary_str = summary_re.findall(content)
                     if summary_str:
+                        if re.findall("[:：,，。.;；]", summary_str[0][-1]):
+                            logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = summary_str[0] + '。'
                     else:
                         summary_str = ''
