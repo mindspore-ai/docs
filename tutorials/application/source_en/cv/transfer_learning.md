@@ -18,7 +18,7 @@ from download import download
 
 dataset_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/intermediate/Canidae_data.zip"
 
-download(dataset_url, "./datasets-Canidae", kind="zip")
+download(dataset_url, "./datasets-Canidae", kind="zip", replace=True)
 ```
 
 ```text
@@ -347,7 +347,7 @@ def _resnet(model_url: str, block: Type[Union[ResidualBlockBase, ResidualBlock]]
 
     if pretrained:
         # Load pre-trained models
-        download(url=model_url, path=pretrianed_ckpt)
+        download(url=model_url, path=pretrianed_ckpt, replace=True)
         param_dict = load_checkpoint(pretrianed_ckpt)
         load_param_into_net(model, param_dict)
 

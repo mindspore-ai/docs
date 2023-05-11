@@ -132,7 +132,7 @@ import os
 import shutil
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
-path = download(url, "./datasets", kind="tar.gz")
+path = download(url, "./datasets", kind="tar.gz", replace=True)
 
 test_path = "./datasets/cifar-10-batches-bin/test"
 train_path = "./datasets/cifar-10-batches-bin/train"
