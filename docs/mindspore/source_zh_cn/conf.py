@@ -227,6 +227,14 @@ try:
 except Exception as e:
     print(e)
 
+target_dir_mindspore="./api_python/mindspore/"
+try:
+    for filename in os.listdir(target_dir_mindspore):
+        newname = filename.replace("func_",'')
+        os.rename(os.path.join(target_dir_mindspore, filename),os.path.join(target_dir_mindspore, newname))
+except Exception as e:
+    print(e)
+
 target_dir_tensor="./api_python/mindspore/Tensor/"
 try:
     for filename in os.listdir(target_dir_tensor):
