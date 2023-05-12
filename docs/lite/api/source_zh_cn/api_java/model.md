@@ -63,7 +63,7 @@ public boolean build(MappedByteBuffer buffer, int modelType, MSContext context, 
 - 参数
 
     - `buffer`: 模型计算图内存块。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_OPT`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
     - `dec_key`: 模型解密秘钥。
     - `dec_mode`: 模型解密算法，可选AES-GCM、AES-CBC。
@@ -81,7 +81,7 @@ public boolean build(final MappedByteBuffer buffer, int modelType, MSContext con
 - 参数
 
     - `buffer`: 模型计算图内存块。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_OPT`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
 
 - 返回值
@@ -97,7 +97,7 @@ public boolean build(String modelPath, int modelType, MSContext context, char[] 
 - 参数
 
     - `modelPath`: 模型计算图文件。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_OPT`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
     - `dec_key`: 模型解密秘钥。
     - `dec_mode`: 模型解密算法，可选AES-GCM、AES-CBC。
@@ -115,7 +115,7 @@ public boolean build(String modelPath, int modelType, MSContext context)
 - 参数
 
     - `modelPath`: 模型计算图文件。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_OPT`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
 
 - 返回值
@@ -377,5 +377,5 @@ public static final int MT_MINDIR = 0;
 public static final int MT_AIR = 1;
 public static final int MT_OM = 2;
 public static final int MT_ONNX = 3;
-public static final int MT_MINDIR_OPT = 4;
+public static final int MT_MINDIR_LITE = 4;
 ```
