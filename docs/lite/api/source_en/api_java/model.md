@@ -63,7 +63,7 @@ Compile MindSpore model by computational graph buffer.
 - Parameters
 
     - `buffer`: computational graph buffer.
-    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_OPT`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_OPT is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
+    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
     - `dec_key`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
     - `dec_mode`: define the decryption mode. Options: AES-GCM, AES-CBC.
@@ -81,7 +81,7 @@ Compile MindSpore model by computational graph buffer, the default is MindIR mod
 - Parameters
 
     - `buffer`: computational graph buffer.
-    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_OPT`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_OPT is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
+    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
 
 - Returns
@@ -97,7 +97,7 @@ Compile MindSpore model by computational graph file.
 - Parameters
 
     - `modelPath`: computational graph file.
-    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_OPT`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_OPT is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
+    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
     - `dec_key`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
     - `dec_mode`: define the decryption mode. Options: AES-GCM, AES-CBC.
@@ -115,7 +115,7 @@ Compile MindSpore model by computational graph file,no decrypt.
 - Parameters
 
     - `modelPath`: computational graph file.
-    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_OPT`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_OPT is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
+    - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
 
 - Returns
@@ -373,5 +373,5 @@ public static final int MT_MINDIR = 0;
 public static final int MT_AIR = 1;
 public static final int MT_OM = 2;
 public static final int MT_ONNX = 3;
-public static final int MT_MINDIR_OPT = 4;
+public static final int MT_MINDIR_LITE = 4;
 ```
