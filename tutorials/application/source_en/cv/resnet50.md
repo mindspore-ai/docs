@@ -25,7 +25,7 @@ from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
 
-download(url, "./datasets-cifar10-bin", kind="tar.gz")
+download(url, "./datasets-cifar10-bin", kind="tar.gz", replace=True)
 ```
 
 ```tex
@@ -407,7 +407,7 @@ def _resnet(model_url: str, block: Type[Union[ResidualBlockBase, ResidualBlock]]
 
     if pretrained:
         # load pre-trained models
-        download(url=model_url, path=pretrained_ckpt)
+        download(url=model_url, path=pretrained_ckpt, replace=True)
         param_dict = load_checkpoint(pretrained_ckpt)
         load_param_into_net(model, param_dict)
 

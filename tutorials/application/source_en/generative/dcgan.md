@@ -61,7 +61,7 @@ from download import download
 
 url = "https://download.mindspore.cn/dataset/Faces/faces.zip"
 
-path = download(url, "./faces", kind="zip")
+path = download(url, "./faces", kind="zip", replace=True)
 ```
 
 ```text
