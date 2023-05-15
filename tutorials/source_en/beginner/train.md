@@ -153,7 +153,7 @@ def train_step(data, label):
 def train_loop(model, dataset):
     size = dataset.get_dataset_size()
     model.set_train()
-    for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
+    for batch, (data, label) in enumerate(dataset.create_tuple_iterator(num_epochs=1)):
         loss = train_step(data, label)
 
         if batch % 100 == 0:
@@ -168,7 +168,7 @@ def test_loop(model, dataset, loss_fn):
     num_batches = dataset.get_dataset_size()
     model.set_train(False)
     total, test_loss, correct = 0, 0, 0
-    for data, label in dataset.create_tuple_iterator():
+    for data, label in dataset.create_tuple_iterator(num_epochs=1):
         pred = model(data)
         total += len(data)
         test_loss += loss_fn(pred, label).asnumpy()
