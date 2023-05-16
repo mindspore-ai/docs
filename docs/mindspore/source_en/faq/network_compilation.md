@@ -517,3 +517,92 @@ The function call stack:
 2) The third-party library object is "External" type.
 
 <br/>
+
+<font size=3>**Q: What can I do if an error "ValueError: The shape of sense must not be dynamic shape." is reported? **</font>
+
+A: In graph mode, when the GradOperation is called and the parameter 'sens_param' is True, and setting the dynamic shape of sense through 'nn.Cell.set_inputs' will cause an error. The code example is as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+
+class Net(nn.Cell):
+    """ReLU Net"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.relu = ops.ReLU()
+
+    def construct(self, x):
+        return self.relu(x)
+
+class GradWithSense(nn.Cell):
+    """Grad Net"""
+    def __init__(self, network):
+        super(GradWithSense, self).__init__()
+        self.grad = ops.GradOperation(get_all=True, sens_param=True)
+        self.network = network
+
+    def construct(self, input_, sense):
+        return self.grad(self.network)(input_, sense)
+
+x = np.array([[1, 1], [1, -1]]).astype(np.float32)
+sense = np.array([[2, 3], [4, 5]]).astype(np.float32)
+dynamic_x = Tensor(shape=[2, None], dtype=mindspore.float32)
+sense_x = Tensor(shape=[1, None], dtype=mindspore.float32)
+net = GradWithSense(Net())
+net.set_inputs(dynamic_x, sense_x)
+print(net(Tensor(x))) # ValueError: The shape of sense must not be dynamic shape.
+```
+
+In graph mode, the dynamic shape of sense is not supported. It is recommended to change it to the following code:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+
+class Net(nn.Cell):
+    """ReLU Net"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.relu = ops.ReLU()
+
+    def construct(self, x):
+        return self.relu(x)
+
+class Grad(nn.Cell):
+    """Grad Net"""
+    def __init__(self, network):
+        super(Grad, self).__init__()
+        self.grad = ops.GradOperation(get_all=True)
+        self.network = network
+
+    def construct(self, input_):
+        return self.grad(self.network)(input_)
+
+x = np.array([[1, 1], [1, -1]]).astype(np.float32)
+dynamic_x = Tensor(shape=[2, None], dtype=mindspore.float32)
+net = Grad(Net())
+net.set_inputs(dynamic_x)
+out = net(Tensor(x))
+sense = Tensor(np.array([[2, 3], [4, 5]]).astype(np.float32))
+print(out * sense)
+```
+
+The result is as follows:
+
+```text
+[[[2. 3.]
+  [4. 0.]]]
+```
+
+<br/>
