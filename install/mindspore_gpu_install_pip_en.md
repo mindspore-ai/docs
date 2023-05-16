@@ -318,3 +318,5 @@ pip install --upgrade mindspore=={version}
 Of which,
 
 - When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.
+
+Note: CUDA11 version is selected by default when upgrading version 1.3.0 and above. If you still want to use CUDA10 version, please select the corresponding full wheel installation package.
