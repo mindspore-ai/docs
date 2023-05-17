@@ -6,6 +6,31 @@
 
 也欢迎更多的MindSpore开发者参与完善映射内容。
 
+## API映射一致标准及例外场景
+
+API映射一致标准：API功能一致，参数个数或顺序一致，参数数据类型一致，参数默认值一致，参数名一致。同时满足所有一致条件被认为是API映射一致。
+
+以下例外场景也被认为是API映射一致，
+
+例外场景1：相较于API映射一致标准，仅API参数的输入数据类型支持范围不一样，包含以下3种子场景：
+
+1. MindSpore的API支持传入int，float，bool等类型的参数，但不支持传入int8或float64等小位宽数据类型的参数。
+2. MindSpore的API不支持传入复数类型的参数。
+3. MindSpore的API不支持传入8D及以上的参数。
+
+例外场景2：相较于MindSpore的API，PyTorch的API多出的参数是[通用差异参数](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表)。通用差异参数存在的原因是PyTorch有部分参数是为性能优化等非功能性而增加的参数，MindSpore的性能优化机制与PyTorch不同。
+
+例外场景3：如果能保证MindSpore的API在使用默认配置（或用户不配置）的情况下，能够实现与PyTorch对应API完全一致的功能，则MindSpore的API多于PyTorch的API的参数，功能不被认为是差异。
+
+例外场景4：MindSpore将API中与PyTorch重载机制相关参数的默认值设置为None，PyTorch对应API的相应参数无默认值。
+
+下面是例外场景4的举例，
+在PyTorch 1.8.1中，torch.argmax具有两种API重载形式，分别是torch.argmax(input)和torch.argmax(input, dim, keepdim=False)，其中torch.argmax(input)返回输入Tensor中的最大值元素的索引，torch.argmax(input, dim, keepdim=False)返回输入Tensor在指定轴上最大值的索引。
+
+mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=None, keepdim=False)，但mindspore.ops.argmax(input)与torch.argmax(input)功能相同，mindspore.ops.argmax(input, dim, keepdim)与torch.argmax(input, dim, keepdim)功能相同。相较于torch.argmax，mindspore.ops.argmax参数dim的默认值被设置为None，仅是为了适配torch.argmax的两种API重载形式，因此例外场景4也被认为是API映射一致。
+
+## 通用差异参数表
+
 因为框架机制原因，MindSpore不提供PyTorch的以下参数：
 
 |    参数名     |                        功能                        |
