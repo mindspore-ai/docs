@@ -1,5 +1,4 @@
 #!/bin/bash
-# run_gpu_cluster.sh
 
 echo "=========================================="
 echo "Please run the script as: "
@@ -16,8 +15,8 @@ cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
 cd ./device
 echo "start training"
 
-# Launch 8 workers.
-for((i=0;i<8;i++));
+# Launch 1-4 workers.
+for((i=0;i<4;i++));
 do
     export MS_WORKER_NUM=8
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address

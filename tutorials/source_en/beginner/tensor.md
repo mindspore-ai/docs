@@ -59,11 +59,11 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     ```text
     tensor1:
-    [[1. 1.]
-    [1. 1.]]
+     [[1. 1.]
+     [1. 1.]]
     tensor2:
-    [[-0.00063482 -0.00916224]
-    [ 0.01324238 -0.0171206 ]]
+     [[-0.00063482 -0.00916224]
+     [ 0.01324238 -0.0171206 ]]
     ```
 
     The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
@@ -82,10 +82,10 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     ```text
     Ones Tensor:
-    [1 1 1 1]
+     [1 1 1 1]
 
     Zeros Tensor:
-    [0 0 0 0]
+     [0 0 0 0]
     ```
 
 ## Tensor Attributes
