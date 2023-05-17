@@ -12,6 +12,7 @@ Cloud-side MindSpore Lite contains modules:
 | runtime(cpp, java) | Linux    | Model Inference Framework |
 | benchmark          | Linux    | Benchmarking Tool |
 | minddata           | Linux    | Image Processing Library   |
+| akg                | Linux                   | Polyhedral-based deep learning operator compiler（[Auto Kernel Generator](https://gitee.com/mindspore/akg)） |
 
 ## Environment Requirements
 
@@ -34,6 +35,9 @@ Cloud-side MindSpore Lite contains modules:
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
+- Compilation dependency for AKG (optional, compiled by default), which is not compiled if LLVM-12 or Python3 is not installed. To compile the AKG for the Ascend backend, git-lfs must be installed.
+    - [llvm](#Installing-LLVM) == 12.0.1
+    - [git-lfs](https://git-lfs.com/)
 
 > Gradle recommends using [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all), and configuring other versions of gradle will use the gradle wrapper mechanism to automatically download ` gradle-6.6.1-complete`.
 >
@@ -55,6 +59,7 @@ The `build.sh` script in the MindSpore root directory can be used to compile clo
 | -d | Set this parameter to compile the Debug version, otherwise compile the Release version  | None | None |
 | -i | Set this parameter for incremental compilation, otherwise for full compilation | None | None |
 | -j[n] | Set the number of threads used at compile time, otherwise the default setting is 8 threads | Integer | 8 |
+| -K | Set whether to compile AKG during compilation, otherwise the default setting is on | on, off | on |
 
 > - If the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package is compiled at the same time.
 > - Add the `-i` parameter for incremental compilation does not take effect when the `-I` parameter changes, e.g. `-I x86_64` becomes `-I arm64`.
@@ -145,6 +150,17 @@ Download the corresponding version of the TensorRT archive and set the directory
 
 Use x86_64 or ARM64 environment.
 
+##### Installing LLVM
+
+Run the following commands to install [LLVM](https://llvm.org/).
+
+```bash
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
+sudo apt-get update
+sudo apt-get install llvm-12-dev -y
+```
+
 ### Executing Compilation
 
 Three-backend-unification packages need to configure the following environment variables:
@@ -172,6 +188,12 @@ Execute the following command in the source root directory to compile different 
     bash build.sh -I arm64 -j32
     ```
 
+- Compile the x86_64 architecture version while setting the number of threads, but do not compile AKG.
+
+    ```bash
+    bash build.sh -I x86_64 -j32 -K off
+    ```
+
 Finally, the following file will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-{os}-{arch}.tar.gz`: contains runtime and companion tools.
@@ -193,6 +215,12 @@ After installation, you can use the following command to check whether the insta
 
 ```bash
 python -c "import mindspore_lite"
+```
+
+After installation, you can use the following command to check if the built-in AKG in MindSpore Lite is installed successfully: if no error is reported, the installation is successful.
+
+```bash
+python -c "import mindspore_lite.akg"
 ```
 
 After successful installation, you can use the `pip show mindspore_lite` command to see where the Python modules for MindSpore Lite are installed.
@@ -219,6 +247,8 @@ mindspore-lite-{version}-linux-{arch}
 │       ├── libjpeg-turbo
 │       └── securec
 └── tools
+    ├── akg
+    |    └── akg-{version}-{python}-{os}-{arch}.whl # AKG Python whl package
     ├── benchmark              # Benchmarking Tools
     │   └── benchmark          # Benchmarking tool executable file
     └── converter              # Model converter

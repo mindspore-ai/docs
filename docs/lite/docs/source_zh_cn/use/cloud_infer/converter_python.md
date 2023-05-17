@@ -30,6 +30,12 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
     python -c "import mindspore_lite"
     ```
 
+- 安装后可以使用以下命令检查MindSpore Lite内置的AKG是否安装成功：若无报错，则表示安装成功。
+
+  ```bash
+  python -c "import mindspore_lite.akg"
+  ```
+
 ### 目录结构
 
 安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite云侧推理的Python模块的安装位置。
@@ -37,8 +43,10 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 ```text
 mindspore_lite
 ├── __pycache__
+├── akg                                                         # AKG相关的接口
 ├── include
 ├── lib
+|   ├── libakg.so                                               # AKG使用的动态链接库
 │   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite 云侧推理python模块封装C++接口的框架的动态库
 │   ├── libmindspore_converter.so                               # 模型转换动态库
 │   ├── libmindspore_core.so                                    # MindSpore Core动态库

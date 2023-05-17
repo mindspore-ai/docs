@@ -177,7 +177,7 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
 
 2. 获取Ascend自定义算子包
 
-    Mindspore Lite云侧推理包中会包含Ascend自定义算子包目录，其相对目录为``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``，解压MindSpore Lite云侧推理包后，进入对应目录。
+    MindSpore Lite云侧推理包中会包含Ascend自定义算子包目录，其相对目录为``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``，解压MindSpore Lite云侧推理包后，进入对应目录。
 
     ```bash
     tar zxf mindspore-lite-{version}-linux-{arch}.tar.gz
