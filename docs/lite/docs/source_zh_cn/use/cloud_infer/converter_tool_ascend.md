@@ -1,10 +1,10 @@
-# Ascend配置文件说明
+# Ascend转换工具功能说明
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/cloud_infer/converter_tool_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本文档介绍云侧模型转换工具在Ascend后端指定configFile参数时，配置文件的选项说明。
+本文档介绍云侧推理模型转换工具在Ascend后端的相关功能，如配置文件的选项、动态shape、AOE、自定义算子等。
 
 ## 配置文件
 
@@ -160,3 +160,74 @@ AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具�
 > - 性能提升结果会因不同环境存在差异，实际时延减少百分比不完全等同于调优日志中所展示的结果。
 > - AOE调优会在执行任务的当前目录下产生``aoe_workspace``目录，用于保存调优前后的模型，用于性能提升对比，以及调优所必须的过程数据和结果文件。该目录会占用额外磁盘空间，如500MB左右的原始模型会占用2~10GB的磁盘空间，视模型大小，算子种类结构，输入shape的大小等因素浮动。因此建议预留足够的磁盘空间，否则可能导致调优失败。
 > - ``aoe_workspace``目录需要手动删除来释放磁盘空间。
+
+## 部署Ascend自定义算子
+
+MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模型转换为MindSpore Lite的模型，通过自定义算子，可以在特殊场景下使用自定义算子对模型推理性能进行优化，如使用自定义的MatMul实现更高的矩阵乘法计算，使用MindSpore Lite提供的transformer融合算子提升transformer模型性能（待上线）以及使用AKG图算融合算子对模型进行自动融合优化提升推理性能等。
+
+如果MindSpore Lite转换Ascend模型时有自定义算子，用户需要在调用converter之前部署自定义算子到ACL的算子库中才能正常完成转换，以下描述了部署Ascend自定义算子的关键步骤：
+
+1. 配置环境变量
+
+    ``${ASCEND_OPP_PATH}``为昇腾软件CANN包的算子库路径，通常是在昇腾软件安装路径下，默认一般是``/usr/local/Ascend/latest/opp``。
+
+    ```bash
+    export ASCEND_OPP_PATH=/usr/local/Ascend/latest/opp
+    ```
+
+2. 获取Ascend自定义算子包
+
+    Mindspore Lite云侧推理包中会包含Ascend自定义算子包目录，其相对目录为``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``，解压MindSpore Lite云侧推理包后，进入对应目录。
+
+    ```bash
+    tar zxf mindspore-lite-{version}-linux-{arch}.tar.gz
+    cd tools/custom_kernels/ascend
+    ```
+
+3. 运行install.sh脚本部署自定义算子
+
+    在算子包目录下运行安装脚本部署自定义算子。
+
+    ```bash
+    bash install.sh
+    ```
+
+4. 查看昇腾算子库目录检查是否安装成功
+
+    完成部署自定义算子之后，进入昇腾算子库目录``/usr/local/Ascend/latest/opp/vendors/``，查看其下目录是否有对应的自定义算子文件，当前主要提供了基本算子样例和AKG图算融合算子实现，具体文件结构如下。
+
+    ```text
+    /usr/local/Ascend/latest/opp/vendors/
+    ├── config.ini                                                     # 自定义算子vendor配置文件，定义不同vendor间优先级，需要有mslite的vendor配置
+    └── mslite                                                         # mslite提供的自定义算子目录
+        ├── framework                                                  # 第三方框架适配配置
+        │    └── tensorflow                                            # tensorflow适配配置，非必需
+        │       └── npu_supported_ops.json
+        ├── op_impl                                                    # 自定义算子实现目录
+        │   ├── ai_core                                                # 运行在ai_core的算子实现目录
+        │   │   └── tbe                                                # tbe算子实现目录
+        │   │       ├── config                                         # 不同芯片的算子配置
+        │   │       │   ├── ascend310                                  # 310芯片的算子配置
+        │   │       │       └── aic_ascend310-ops-info.json
+        │   │       │   ├── ascend310p                                 # 310p芯片的算子配置
+        │   │       │       └── aic_ascend310p-ops-info.json
+        │   │       │   ├── ascend910                                  # 910芯片的算子配置
+        │   │       │       └── aic_ascend910-ops-info.json
+        │   │       └── mslite_impl                                    # 算子的实现逻辑目录
+        │   │           ├── add_dsl.py                                 # 基于dsl开发的add样例逻辑实现文件
+        │   │           ├── add_tik.py                                 # 基于tik开发的add样例逻辑实现文件
+        │   │           ├── compiler.py                                # akg图算需要的算子编译逻辑文件
+        │   │           ├── custom.py                                  # akg自定义算子实现文件
+        │   │           ├── matmul_tik.py                              # 基于tik开发的matmul样例逻辑实现文件
+        │   ├── cpu                                                    # aicpu自定义算子目录，非必需
+        │   │   └── aicpu_kernel
+        │   │       └── impl
+        │   └── vector_core                                            # 运行在vector_core的算子实现目录
+        │       └── tbe                                                # tbe算子实现目录
+        │           └── mslite_impl                                    # 算子的实现逻辑目录
+        │               ├── add_dsl.py                                 # 基于dsl开发的add样例逻辑实现文件
+        │               ├── add_tik.py                                 # 基于tik开发的add样例逻辑实现文件
+        │               └── matmul_tik.py                              # 基于tik开发的matmul样例逻辑实现文件
+        └── op_proto                                                   # 算子远行定义包目录
+            └── libcust_op_proto.so                                    # 算子原型定义so文件，akg自定义算子默认注册，不需要此文件
+    ```
