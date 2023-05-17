@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
 
 | 分类  | 子类  | PyTorch       | MindSpore | 差异                         |
 |-----|-----|---------------|-----------|----------------------------|
-| 参数  | 参数1 | size          | shape     | MindSpore只支持int或tuple类型的输入 |
+| 参数  | 参数1 | size          | shape     | MindSpore支持int、tuple或Tensor类型的输入 |
 |     | 参数2 | out           | -         | 不涉及                        |
 |     | 参数3 | dtype         | dtype     | 无差异                        |
 |     | 参数4 | layout        | -         | 不涉及                        |
