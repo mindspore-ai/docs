@@ -8,22 +8,6 @@ A: When the user starts distributed training on the Ascend and meets the error t
 
 <br/>
 
-<font size=3>**Q: How to fix the error below when running MindSpore distributed training with GPU:**</font>
-
-```text
-Loading libgpu_collective.so failed. Many reasons could cause this:
-1.libgpu_collective.so is not installed.
-2.nccl is not installed or found.
-3.mpi is not installed or found
-```
-
-A: This message means that MindSpore is failed to dynamically load the collection communication library. The Possible causes are:
-
-- OpenMPI or NCCL relied by the diatributed training is not installed in this environment.
-- NCCL version is not updated to `v2.7.6`: MindSpore `v1.1.0` adds GPU P2P communication operator which relies on NCCL `v2.7.6`. The loading failure is caused if NCCL is not updated to this version.
-
-<br/>
-
 <font size=3>**Q: In the GPU distributed training scenario, if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur.**</font>
 
 A: In this scenario, some training processes will prompt the following error:
