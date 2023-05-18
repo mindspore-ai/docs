@@ -228,6 +228,6 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
         │               ├── add_dsl.py                                 # 基于dsl开发的add样例逻辑实现文件
         │               ├── add_tik.py                                 # 基于tik开发的add样例逻辑实现文件
         │               └── matmul_tik.py                              # 基于tik开发的matmul样例逻辑实现文件
-        └── op_proto                                                   # 算子远行定义包目录
+        └── op_proto                                                   # 算子原型定义包目录
             └── libcust_op_proto.so                                    # 算子原型定义so文件，akg自定义算子默认注册，不需要此文件
     ```

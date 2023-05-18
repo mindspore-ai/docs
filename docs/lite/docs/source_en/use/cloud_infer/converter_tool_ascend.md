@@ -1,10 +1,10 @@
-# Ascend Configuration File Description
+# Ascend Conversion Tool Description
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/converter_tool_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction
 
-This article describes the options for the configuration file when the cloud-side model conversion tool specifies the configFile parameter on the Ascend backend.
+This article introduces the related features of the cloud-side inference model conversion tool in Ascend back-end, such as profile options, dynamic shape, AOE, custom operators.
 
 ## Configuration File
 
@@ -160,3 +160,74 @@ AOE is a computational graph performance auto-tuning tool built specifically for
 > - The performance improvements will vary from environment to environment, and the actual latency reduction percentage is not exactly the same as the results shown in the tuning logs.
 > - AOE tuning generates ``aoe_workspace`` directory in the current directory where the task is executed, which is used to save the models before and after tuning for performance improvement comparison, as well as the process data and result files necessary for tuning. This directory will occupy additional disk space, e.g., 2~10GB for a 500MB raw model, depending on the model size, operator type structure, input shape size and other factors. Therefore, it is recommended to reserve enough disk space, otherwise it may lead to tuning failure.
 > - The ``aoe_workspace`` directory needs to be deleted manually to free up disk space.
+
+## Deploying Ascend Custom Operators
+
+MindSpore Lite converter supports converting models with MindSpore Lite custom Ascend operators to MindSpore Lite models. Custom operators can be used to optimize model inference performance in special scenarios, such as using custom MatMul to achieve higher matrix multiplication, using the transformer fusion operators provided by MindSpore Lite to improve transformer model performance (to be launched) and using the AKG graph fusion operator to automatically fuse models to improve inference performance.
+
+If MindSpore Lite converts Ascend models with custom operators, user needs to deploy the custom operators to the ACL operator library before calling the converter in order to complete the conversion properly. The following describes the key steps to deploy Ascend custom operators:
+
+1. Configure environment variables
+
+    ``${ASCEND_OPP_PATH}`` is the operator library path of Ascend software CANN package, usually under Ascend software installation path. The default is usually ``/usr/local/Ascend/latest/opp``.
+
+    ```bash
+    export ASCEND_OPP_PATH=/usr/local/Ascend/latest/opp
+    ```
+
+2. Obtain Ascend custom operator package
+
+    Mindspore Lite cloud-side inference package will contain Ascend custom operator package directory whose relative directory is ``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``. After unzip the Mindspore Lite cloud-side inference package, enter the corresponding directory.
+
+    ```bash
+    tar zxf mindspore-lite-{version}-linux-{arch}.tar.gz
+    cd tools/custom_kernels/ascend
+    ```
+
+3. Run install.sh script to deploy custom operator
+
+    Run the installation script in the operator package directory to deploy the custom operator.
+
+    ```bash
+    bash install.sh
+    ```
+
+4. Check the Ascend library directory to see if the installation is successful
+
+    After deploying the custom operator, go to the Ascend operator library directory ``/usr/local/Ascend/latest/opp/vendors/`` and check whether there are corresponding custom operator files in the directory. At present, we mainly provide the basic operator sample and the AKG graph fusion operator implementation. The specific file structure is as follows:
+
+    ```text
+    /usr/local/Ascend/latest/opp/vendors/
+    ├── config.ini                                                     # Custom operator vendor configuration file, define the priority between different vendors, which needs to have vendor configuration of mslite
+    └── mslite                                                         # Custom operator directory provided by mslite
+        ├── framework                                                  # Third-party framework adaptation configuration
+        │    └── tensorflow                                            # tensorflow adaptation configuration, not required
+        │       └── npu_supported_ops.json
+        ├── op_impl                                                    # Custom operator implementation directory
+        │   ├── ai_core                                                # Run operator implementation directory in ai_core
+        │   │   └── tbe                                                # tbe operator implementation directory
+        │   │       ├── config                                         # Operator configurations for different chips
+        │   │       │   ├── ascend310                                  # Operator configuration of 310 chip
+        │   │       │       └── aic_ascend310-ops-info.json
+        │   │       │   ├── ascend310p                                 # Operator configuration of 310p chip
+        │   │       │       └── aic_ascend310p-ops-info.json
+        │   │       │   ├── ascend910                                  # Operator configuration of 910 chip
+        │   │       │       └── aic_ascend910-ops-info.json
+        │   │       └── mslite_impl                                    # Implementation logic directory of operators
+        │   │           ├── add_dsl.py                                 # add sample logic implementation file based on dsl development
+        │   │           ├── add_tik.py                                 # add sample logic implementation file based on tik development
+        │   │           ├── compiler.py                                # Operator compilation logic file needed for akg graph
+        │   │           ├── custom.py                                  # akg custom operator implementation file
+        │   │           ├── matmul_tik.py                              # matmul sample logic implementation file based on tik development
+        │   ├── cpu                                                    # aicpu custom operator subdirectory, not required
+        │   │   └── aicpu_kernel
+        │   │       └── impl
+        │   └── vector_core                                            # Run operator implementation directory in vector_core
+        │       └── tbe                                                # tbe operator implementation directory
+        │           └── mslite_impl                                    # Implementation logic directory of operators
+        │               ├── add_dsl.py                                 # add sample logic implementation file based on dsl development
+        │               ├── add_tik.py                                 # add sample logic implementation file based on tik development
+        │               └── matmul_tik.py                              # matmul sample logic implementation file based on tik development
+        └── op_proto                                                   # Operator prototype definition package directory
+            └── libcust_op_proto.so                                    # operator prototype definition so file. akg custom operator is registered by default, and do not need this file
+    ```
