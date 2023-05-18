@@ -66,6 +66,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--decryptMode=<DECRYPTMODE>` | 否 | 设定加载密文MindIR的模式，只在指定了decryptKey时有效。 | AES-GCM、AES-CBC | AES-GCM | - |
 | `--inputDataType=<INPUTDATATYPE>` | 否 | 设定量化模型输入tensor的data type。仅当模型输入tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输入tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | - |
 | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设定量化模型输出tensor的data type。仅当模型输出tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输出tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | - |
+| `--outputDataFormat=<OUTPUTDATAFORMAT>` | 否 | 设定导出模型的输出format，只对四维输出有效。 | NHWC、NCHW | - | - |
 | `--encryptKey=<ENCRYPTKEY>` | 否 | 设定导出加密`ms`模型的密钥，密钥用十六进制表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | - | - | - |
 | `--encryption=<ENCRYPTION>` | 否 | 设定导出`ms`模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | true、false | true | - |
 | `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false | - |
