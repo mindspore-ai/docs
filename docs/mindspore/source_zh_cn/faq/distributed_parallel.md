@@ -8,22 +8,6 @@ A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_t
 
 <br/>
 
-<font size=3>**Q: MindSpore执行GPU分布式训练报错如下，如何解决:**</font>
-
-```text
-Loading libgpu_collective.so failed. Many reasons could cause this:
-1.libgpu_collective.so is not installed.
-2.nccl is not installed or found.
-3.mpi is not installed or found
-```
-
-A: 此问题为MindSpore动态加载集合通信库失败，可能原因如下:
-
-- 执行环境未安装分布式训练依赖的OpenMPI以及NCCL。
-- NCCL版本未更新至`v2.7.6`: MindSpore `v1.1.0`新增GPU P2P通信算子，该特性依赖于NCCL `v2.7.6`，若环境使用的NCCL未升级为此版本，则会引起加载失败错误。
-
-<br/>
-
 <font size=3>**Q：GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题。**</font>
 
 A：此场景下，部分训练进程会提示如下报错：
