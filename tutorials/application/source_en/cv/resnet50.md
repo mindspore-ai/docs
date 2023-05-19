@@ -544,6 +544,42 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
 ```
 
+```text
+Start Training Loop ...
+Epoch: [  1/  5], Steps: [  1/196], Train Loss: [2.389]
+Epoch: [  1/  5], Steps: [101/196], Train Loss: [1.467]
+Epoch: [  1/  5], Steps: [196/196], Train Loss: [1.093]
+--------------------------------------------------
+Epoch: [  1/  5], Average Train Loss: [1.641], Accuracy: [0.595]
+--------------------------------------------------
+Epoch: [  2/  5], Steps: [  1/196], Train Loss: [1.253]
+Epoch: [  2/  5], Steps: [101/196], Train Loss: [0.974]
+Epoch: [  2/  5], Steps: [196/196], Train Loss: [0.832]
+--------------------------------------------------
+Epoch: [  2/  5], Average Train Loss: [1.019], Accuracy: [0.685]
+--------------------------------------------------
+Epoch: [  3/  5], Steps: [  1/196], Train Loss: [0.917]
+Epoch: [  3/  5], Steps: [101/196], Train Loss: [0.879]
+Epoch: [  3/  5], Steps: [196/196], Train Loss: [0.743]
+--------------------------------------------------
+Epoch: [  3/  5], Average Train Loss: [0.852], Accuracy: [0.721]
+--------------------------------------------------
+Epoch: [  4/  5], Steps: [  1/196], Train Loss: [0.911]
+Epoch: [  4/  5], Steps: [101/196], Train Loss: [0.703]
+Epoch: [  4/  5], Steps: [196/196], Train Loss: [0.768]
+--------------------------------------------------
+Epoch: [  4/  5], Average Train Loss: [0.777], Accuracy: [0.737]
+--------------------------------------------------
+Epoch: [  5/  5], Steps: [  1/196], Train Loss: [0.793]
+Epoch: [  5/  5], Steps: [101/196], Train Loss: [0.809]
+Epoch: [  5/  5], Steps: [196/196], Train Loss: [0.734]
+--------------------------------------------------
+Epoch: [  5/  5], Average Train Loss: [0.745], Accuracy: [0.742]
+--------------------------------------------------
+================================================================================
+End of validation the best Accuracy is:  0.742, save the best ckpt file in ./BestCheckpoint/resnet50-best.ckpt
+```
+
 ## Visualizing Model Prediction Results
 
 Define the `visualize_model` function, use the model with the highest validation accuracy described above to predict the CIFAR-10 dataset, and visualize the prediction result. If the prediction result is in blue, the prediction is correct. If the prediction result is in red, the prediction is incorrect.
