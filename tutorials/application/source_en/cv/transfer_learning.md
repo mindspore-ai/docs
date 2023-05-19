@@ -475,6 +475,27 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
 ```
 
+```Text
+Start Training Loop ...
+--------------------
+Epoch: [  1/ 10], Average Train Loss: [0.582], Accuracy: [1.000]
+epoch time: 201648.793 ms, per step time: 14403.485 ms
+--------------------
+Epoch: [  2/ 10], Average Train Loss: [0.290], Accuracy: [0.967]
+epoch time: 171260.342 ms, per step time: 12232.882 ms
+--------------------
+Epoch: [  3/ 10], Average Train Loss: [0.126], Accuracy: [1.000]
+epoch time: 204468.052 ms, per step time: 14604.861 ms
+
+......
+
+--------------------
+Epoch: [ 10/ 10], Average Train Loss: [0.057], Accuracy: [1.000]
+epoch time: 1339063.144 ms, per step time: 95647.367 ms
+================================================================================
+End of validation the best Accuracy is:  1.000, save the best ckpt file in ./BestCheckpoint/resnet50-best.ckpt
+```
+
 #### Visualizing the Model Prediction
 
 Define the `visualize_mode` function to visualize model predictions.
@@ -647,6 +668,27 @@ for epoch in range(num_epochs):
 print("=" * 80)
 print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
+```
+
+```Text
+Start Training Loop ...
+--------------------
+Epoch: [  1/ 10], Average Train Loss: [0.692], Accuracy: [0.617]
+epoch time: 88396.114 ms, per step time: 6314.008 ms
+--------------------
+Epoch: [  2/ 10], Average Train Loss: [0.579], Accuracy: [0.983]
+epoch time: 89851.366 ms, per step time: 6417.955 ms
+--------------------
+Epoch: [  3/ 10], Average Train Loss: [0.511], Accuracy: [0.983]
+epoch time: 73737.748 ms, per step time: 5266.982 ms
+
+......
+
+--------------------
+Epoch: [ 10/ 10], Average Train Loss: [0.280], Accuracy: [1.000]
+epoch time: 69964.226 ms, per step time: 4997.445 ms
+================================================================================
+End of validation the best Accuracy is:  1.000, save the best ckpt file in ./BestCheckpoint/resnet50-best-freezing-param.ckpt
 ```
 
 #### Visualize Model Prediction

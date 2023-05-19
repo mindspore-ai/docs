@@ -185,13 +185,13 @@ Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配�
 |                       | \*predict_data)       | 次预编译，输出算子\ | 的切分信息。       |
 |                       |                       | 的切分信息。        |                    |
 +-----------------------+-----------------------+---------------------+--------------------+
-|                       | load_distributed_chec\| 加载分布式权重，需\ | 加载分布式权重，以\|
-|                       | kpoint(network,\      | 每台机器预先放置全\ | 进行分布式推理。   |
-|                       | checkpoint_filenames,\| 量的ckpt。其中\     |                    |
-|                       | predict_strategy=None\| network代表\        |                    |
-|                       | ,\                    | 推理网络，\         |                    |
-|                       | train_strategy_filena\| checkpoint\_\       |                    |
-|                       | me=None)              | filenames代表\      |                    |
+|                       | load_distributed_c\   | 加载分布式权重，需\ | 加载分布式权重，以\|
+|                       | heckpoint(network,\   | 每台机器预先放置全\ | 进行分布式推理。   |
+|                       | checkpoint_filenames\ | 量的ckpt。其中\     |                    |
+|                       | ,predict_strategy\    | network代表\        |                    |
+|                       | =None,\               | 推理网络，\         |                    |
+|                       | train_strategy_f\     | checkpoint\_\       |                    |
+|                       | ilename=None)         | filenames代表\      |                    |
 |                       |                       | checkpoint\         |                    |
 |                       |                       | 文件，\             |                    |
 |                       |                       | predict_strategy为\ |                    |
