@@ -6,6 +6,30 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 
 More MindSpore developers are also welcome to participate in improving the mapping content.
 
+## API Mapping Consistency Criteria and Exceptions
+
+API mapping consistency criteria: consistent API function, consistent number or sequence of parameters, consistent parameter data type, consistent default value, consistent parameter name. Satisfying all the consistency conditions at the same time is considered as consistent API mapping.
+
+The following exceptions are also considered to be consistent the API mapping:
+
+Exception Scenario 1: Compared to the API mapping consistency criteria, only the input data types of API parameters are not supported in the same range, including the following 3 sub-scenarios:
+
+1. MindSpore API supports passing parameters of int, float, bool, but does not support passing parameters of small bit-width data types such as int8 or float64.
+2. MindSpore API does not support passing parameters of plural type.
+3. MindSpore API does not support passing parameters of 8D and above.
+
+Exception Scenario 2: Compared to MindSpore APIss, the extra parameters of PyTorch API are [general difference parameters](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). General difference parameters exist because PyTorch has some parameters that are added for non-functionality such as performance optimization, and the performance optimization mechanism of MindSpore is different from that of PyTorch.
+
+Exception Scenario 3: If it can be guaranteed that MindSpore API uses the default configuration (or that the user does not configure it), MindSpore API can implement the same functionality as the PyTorch API, and MindSpore API has more parameters than PyTorch API. The functionality is not considered a difference.
+
+Exception Scenario 4: MindSpore sets the default value of the parameters related to the PyTorch overloading mechanism in the API to None, and the corresponding parameters of the PyTorch counterpart API have no default value.
+
+The following is an example of the exception scenario 4. In PyTorch 1.8.1, torch.argmax has two API overloads in the form of torch.argmax(input) and torch.argmax(input, dim, keepdim=False), respectively, where torch.argmax(input) returns the index of the maximum value element in the input Tensor, and torch.argmax(input, dim, keepdim=False) returns the index of the maximum value of the input Tensor on the specified axis.
+
+mindspore.ops.argmax has only one API form, namely mindspore.ops.argmax(input, dim=None, keepdim=False), but mindspore.ops.argmax(input) and torch.argmax(input) have the same function. mindspore.ops.argmax(input, dim, keepdim) and torch.argmax(input, dim, keepdim)have the same function. Compared to torch.argmax, the default value of mindspore.ops.argmax parameter dim is set to None only to adapt the two API overload forms of torch.argmax, so the exception scenario 4 is also considered to be consistent API mapping.
+
+## General Difference Parameter Table
+
 Because of the framework mechanism, MindSpore does not provide the following parameters for PyTorch:
 
 | Parameter Names |                          Functions                           |
