@@ -12,6 +12,7 @@
 | runtime(cpp、java) | Linux    | 模型推理框架 |
 | benchmark          | Linux    | 基准测试工具 |
 | minddata           | Linux    | 图像处理库   |
+| akg                | Linux                   | 基于Polyhedral的算子编译器（[Auto Kernel Generator](https://gitee.com/mindspore/akg)） |
 
 ## 环境要求
 
@@ -34,6 +35,9 @@
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
+- AKG（可选，默认编译），未安装LLVM-12或者Python3则不编译akg，未安装git-lfs则无法编译ascend后端的akg。
+  - [llvm](#安装LLVM-12) == 12.0.1
+  - [git-lfs](https://git-lfs.com/)
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
 >
@@ -55,6 +59,7 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 | -d    | 设置该参数，则编译Debug版本，否则编译Release版本 | 无            | 无     |
 | -i    | 设置该参数，则进行增量编译，否则进行全量编译     | 无            | 无     |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程      | Integer       | 8      |
+| -K    | 设定编译时是否编译akg，否则默认编译akg      | on、off       | on      |
 
 > - 若配置了JAVA_HOME环境变量并安装了Gradle，则同时编译JAR包。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
@@ -145,6 +150,17 @@ GPU环境编译，使用TensorRT需要集成CUDA、TensorRT。当前版本适配
 
 使用x86_64或ARM64环境。
 
+##### 安装LLVM-12
+
+可以通过以下命令安装LLVM。
+
+```shell
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
+sudo apt-get update
+sudo apt-get install llvm-12-dev -y
+```
+
 ### 执行编译
 
 三后端合一包需配置如下环境变量
@@ -172,6 +188,12 @@ export MSLITE_ENABLE_ACL=on
     bash build.sh -I arm64 -j32
     ```
 
+- 编译x86_64架构版本，同时设定线程数，但是不编译AKG。
+
+    ```bash
+    bash build.sh -I x86_64 -j32 -K off
+    ```
+
 最后，会在`output/`目录中生成如下文件：
 
 - `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含runtime和配套工具。
@@ -193,6 +215,12 @@ pip install mindspore-lite-{version}-{python}-{os}-{arch}.whl
 
 ```bash
 python -c "import mindspore_lite"
+```
+
+安装后可以使用以下命令检查mindspore_lite内置的AKG是否安装成功：若无报错，则表示安装成功。
+
+```bash
+python -c "import mindspore_lite.akg"
 ```
 
 安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite的Python模块的安装位置。
@@ -219,6 +247,8 @@ mindspore-lite-{version}-linux-{arch}
 │       ├── libjpeg-turbo
 │       └── securec
 └── tools
+    ├── akg
+    |    └── akg-{version}-{python}-linux-{arch}.whl # AKG的whl包
     ├── benchmark              # 基准测试工具
     │   └── benchmark          # 基准测试工具可执行文件
     └── converter              # 模型转换工具
