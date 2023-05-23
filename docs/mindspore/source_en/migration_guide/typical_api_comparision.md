@@ -395,45 +395,15 @@ rank_id = get_rank()
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
-## Differences with PyTorch Optimizer Module
+## Differences with PyTorch Optimizer
 
-### Single-step Execution Optimizer
+### Optimizer Support Differences
 
-#### Fixed Learning Rate
+A comparison of the similarities and differences between the optimizers supported by both PyTorch and MindSpore is detailed in the [API mapping table](https://mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torch-optim). Optimizers not supported in MindSpore at the moment: LBFGS, NAdam, RAdam.
 
-In the fixed learning rate scenario, when PyTorch executes the optimizer in a single step, you need to manually execute the `zero_grad()` method to set the historical gradient to 0 (or None), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights. The use of the optimizer in MindSpore requires only a direct calculation of the gradients, and then you can use `optimizer(grads)` to perform the update of the network weights.
+### Optimizer Execution and Usage Differences
 
-PyTorch:
-
-```python
-from torch.nn import optim
-
-optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
-def train_step(data, label):
-    optimizer.zero_grad()
-    output = model(data)
-    loss = loss_fn(output, label)
-    loss.backward()
-    optimizer.step()
-```
-
-MindSpore:
-
-```python
-import mindspore
-from mindspore import nn
-
-optimizer = nn.SGD(group_params, learning_rate=0.1)
-grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
-def train_step(data, label):
-    (loss, _), grads = grad_fn(data, label)
-    optimizer(grads)
-    return loss
-```
-
-#### Dynamic Learning Rate
-
-In the dynamic learning rate scenario, the `LRScheduler` class is defined in PyTorch to manage the learning rate. When using the dynamic learning rate, the users pass the `optimizer` instance in the `LRScheduler` subclass, and by calling `scheduler.step()` in a loop, the learning rate is calculated according to the update logic of the current dynamic learning rate, and the changes are synchronized to the optimizer.
+When PyTorch executes the optimizer in a single step, it is usually necessary to manually execute the `zero_grad()` method to set the historical gradient to 0 (or None), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights;
 
 ```python
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
@@ -449,7 +419,104 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-The dynamic learning rate in MindSpore is implemented in `Cell` and `list`. Please refer to <https://mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate>. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the list of learning rates directly according to the computational logic. Both types of dynamic learning rates are used in the same way, and are passed in the optimizer after instantiation. The learning rate update is implemented internally during the training process:
+The use of the optimizer in MindSpore requires only a direct calculation of the gradients and then uses `optimizer(grads)` to perform the update of the network weights.
+
+```python
+import mindspore
+from mindspore import nn
+
+optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01)
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+```
+
+### Hyperparameter Differences
+
+#### Hyperparameter Names
+
+Similarities and differences between network weight and learning rate parameter names:
+
+| Parameters   | PyTorch | MindSpore | Differences    |
+|------|---------| --------- |-------|
+| network weight | params  | params      | The parameters are the same |
+| learning rate  | lr      | learning_rate      | The parameters are different |
+
+MindSpore:
+
+```python
+from mindspore import nn
+
+optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01)
+```
+
+PyTorch:
+
+```python
+from torch import optim
+
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+```
+
+#### Hyperparameter Configuration Methods
+
+- The parameters are not grouped:
+
+  The data types of the `params` different: input types in PyTorch are `iterable(Tensor)` and `iterable(dict)`, which support iterator types, while input types in MindSpore are `list(Parameter)`, `list(dict)`, which do not support iterators.
+
+  Other hyperparameter configurations and support differences are detailed in the [API mapping table](https://mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torch-optim).
+
+- The parameters are grouped:
+
+  PyTorch supports all parameter groupings:
+
+  ```python
+  optim.SGD([
+            {'params': model.base.parameters()},
+            {'params': model.classifier.parameters(), 'lr': 1e-3}
+          ], lr=1e-2, momentum=0.9)
+  ```
+
+  MindSpore supports certain key groupings: "params", "lr", "weight_decay", "grad_centralization", "order_params".
+
+  ```python
+  conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
+  no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
+  group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.02},
+               {'params': no_conv_params}]
+
+  optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9)
+  ```
+
+#### Runtime Hyperparameter Modification
+
+PyTorch supports modifying arbitrary optimizer parameters during training, and provides `LRScheduler` for dynamically modifying the learning rate;
+
+MindSpore currently does not support modifying optimizer parameters during training, but provides a way to modify the learning rate and weight decay. See the [Learning Rate](#learning-rate) and [Weight Decay](#weight-decay) sections for details.
+
+### Learning Rate
+
+#### Dynamic Learning Rate Differences
+
+The `LRScheduler` class is defined in PyTorch to manage the learning rate. To use dynamic learning rates, pass an `optimizer` instance into the `LRScheduler` subclass, call `scheduler.step()` in a loop to perform learning rate modifications, and synchronize the changes to the optimizer.
+
+```python
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+scheduler = ExponentialLR(optimizer, gamma=0.9)
+
+for epoch in range(20):
+    for input, target in dataset:
+        optimizer.zero_grad()
+        output = model(input)
+        loss = loss_fn(output, target)
+        loss.backward()
+        optimizer.step()
+    scheduler.step()
+```
+
+There are two implementations of dynamic learning rates in MindSpore, `Cell` and `list`. Both types of dynamic learning rates are used in the same way and are passed into the optimizer after instantiation is complete. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the learning rate list directly according to the computational logic, and updates the learning rate internally during the training process. Please refer to [Dynamic Learning Rate](https://mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) for details.
 
 ```python
 polynomial_decay_lr = nn.PolynomialDecayLR(learning_rate=0.1, end_learning_rate=0.01, decay_steps=4, power=0.5)
@@ -462,7 +529,57 @@ def train_step(data, label):
     return loss
 ```
 
-### Obatining the Learning Rate
+#### Custom Learning Rate Differences
+
+PyTorch dynamic learning rate module, `LRScheduler`, provides a `LambdaLR` interface for custom learning rate adjustment rules, which can be specified by passing lambda expressions or custom functions.
+
+```python
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+lbd = lambda epoch: epoch // 5
+scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lbd)
+
+for epoch in range(20):
+    train(...)
+    validate(...)
+    scheduler.step()
+```
+
+MindSpore does not provide a similar lambda interface. Custom learning rate adjustment rules can be implemented through custom functions or custom `LearningRateSchedule`.
+
+Way 1: Define the calculation logic specified by the python function, and return a list of learning rates:
+
+```python
+def dynamic_lr(lr, total_step, step_per_epoch):
+    lrs = []
+    for i in range(total_step):
+        current_epoch = i // step_per_epoch
+        factor = current_epoch // 5
+        lrs.append(lr * factor)
+    return lrs
+
+decay_lr = dynamic_lr(lr=0.01, total_step=200, step_per_epoch=10)
+optim = nn.SGD(params, learning_rate=decay_lr)
+```
+
+Way 2: Inherit `LearningRateSchedule` and define the change policy in the `construct` method:
+
+```python
+class DynamicDecayLR(LearningRateSchedule):
+    def __init__(self, lr, step_per_epoch):
+        super(DynamicDecayLR, self).__init__()
+        self.lr = lr
+        self.step_per_epoch = step_per_epoch
+        self.cast = P.Cast()
+
+    def construct(self, global_step):
+        current_epoch = self.cast(global_step, mstype.float32) // step_per_epoch
+        return self.learning_rate * (current_epoch // 5)
+
+decay_lr = DynamicDecayLR(lr=0.01, step_per_epoch=10)
+optim = nn.SGD(params, learning_rate=decay_lr)
+```
+
+#### Obatining the Learning Rate
 
 PyTorch:
 
@@ -472,6 +589,78 @@ PyTorch:
 
 MindSpore:
 
-- In the fixed learning rate  , i.e., the input `learning_rate` is of type int/float/scalar Tensor, when the parameters are not grouped, the learning rate Parameter can be obtained by using `optimizer.get_lr()` and viewed by using `optimizer.get_lr().value()`;
+- The interface to view the learning rate directly is not provided at present, and the problem will be fixed in the subsequent version.
 
-- In the dynamic learning rate scenario, the interface to view the learning rate directly is not provided at present, and the problem will be fixed in the subsequent version.
+### Weight Decay
+
+Modify weight decay in PyTorch:
+
+```python
+from torch.nn import optim
+
+optimizer = optim.SGD(param_groups, lr=0.01, weight_decay=0.1)
+decay_factor = 0.1
+def train_step(data, label):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = loss_fn(output, label)
+    loss.backward()
+    optimizer.step()
+    for param_group in optimizer.param_groups:
+        param_group["weight_decay"] *= decay_factor
+```
+
+Implement dynamic weight decay in MindSpore: Users can inherit the class of 'Cell' custom dynamic weight decay and pass it into the optimizer.
+
+```python
+class ExponentialWeightDecay(Cell):
+
+    def __init__(self, weight_decay, decay_rate, decay_steps):
+        super(ExponentialWeightDecay, self).__init__()
+        self.weight_decay = weight_decay
+        self.decay_rate = decay_rate
+        self.decay_steps = decay_steps
+
+    def construct(self, global_step):
+        p = global_step / self.decay_steps
+        return self.weight_decay * ops.pow(self.decay_rate, p)
+
+weight_decay = ExponentialWeightDecay(weight_decay=0.1, decay_rate=0.1, decay_steps=10000)
+optimizer = nn.SGD(net.trainable_params(), weight_decay=weight_decay)
+```
+
+### Saving and Loading Optimizer State
+
+PyTorch optimizer module provides `state_dict()` for viewing and saving the optimizer state, and `load_state_dict` for loading the optimizer state.
+
+- Optimizer saving. You can use `torch.save()` to save the obtained `state_dict` to a pkl file:
+
+  ```python
+  optimizer = optim.SGD(param_groups, lr=0.01)
+  torch.save(optimizer.state_dict(), save_path)
+  ```
+
+Optimizer loading. You can use `torch.load()` to load the saved `state_dict` and then use `load_state_dict` to load the obtained `state_dict` into the optimizer:
+
+```python
+optimizer = optim.SGD(param_groups, lr=0.01)
+state_dict = torch.load(save_path)
+optimizer.load_state_dict(state_dict)
+```
+
+MindSpore optimizer module is inherited from `Cell`. The optimizer is saved and loaded in the same way as the network is saved and loaded, usually in conjunction with `save_checkpoint` and `load_checkpoint`.
+
+Optimizer saving. You can use `mindspore.save_checkpoint()` to save the optimizer instance to a ckpt file:
+
+```python
+optimizer = nn.SGD(param_groups, lr=0.01)
+state_dict = mindspore.save_checkpoint(opt, save_path)
+```en
+
+Optimizer loading. You can use `mindspore.load_checkpoint()` to load the saved ckpt file, and then use `load_param_into_net` to load the obtained `param_dict` into the optimizer:
+
+```python
+optimizer = nn.SGD(param_groups, lr=0.01)
+param_dict = mindspore.load_checkpoint(save_path)
+mindspore.load_param_into_net(opt, param_dict)
+```
