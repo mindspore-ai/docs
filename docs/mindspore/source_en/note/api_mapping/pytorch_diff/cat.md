@@ -1,4 +1,4 @@
-# Function Differences with torch.cat
+# Differences with torch.cat
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/cat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -25,19 +25,21 @@ For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/maste
 
 ## Differences
 
-PyTorch: Splice the input Tensor on the specified axis. When the data type of input tensor is different, the low precision tensor will be automatically converted to high precision tensor.
+MindSpore's API function is consistent with PyTorch.
 
-MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch. Currently, the data type of the input tensors are required to remain the same. If not, the low-precision tensor can be converted to a high-precision tensor through ops.cast and then call the concat operator.
+PyTorch: Splice the input Tensor on the specified axis. When the data precision of the input Tensors is different, the low precision Tensor will be automatically converted to high precision Tensor.
+
+MindSpore: Currently, the data type and precision of the the input Tensors are required to remain the same. If not, the low-precision Tensor can be converted to a high-precision Tensor through ops.cast and then call the concat operator.
 
 |Categories|Subcategories|PyTorch|MindSpore|Differences|
 | --- | --- | --- | --- |---|
-| Input | Single input | tensors  | tensors | Consistent function |
-|Parameters | Parameter 1 | dim | axis |Consistent function, different parameter names |
-|  | Parameter 2  | out | - | Not involved          |
+| Input | Single input | tensors  | tensors | The data type and precision of the `tensors` in MindSpore are required to remain the same, while the precision of the `tensors` in PyTorch can be different |
+|Parameters | Parameter 1 | dim | axis | Different parameter names |
+|  | Parameter 2  | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
-### Code Example 1
+### Code Example
 
-> MindSpore currently requires that the data type of the input tensor is consistent. If it is inconsistent, the low-precision tensor can be converted to a high-precision type through ops.cast before calling the concat operator.
+> MindSpore currently requires that the data type and precision of the input Tensors are consistent. If it is inconsistent, the low-precision tensor can be converted to a high-precision type through ops.cast before calling the concat operator.
 
 ```python
 # PyTorch
