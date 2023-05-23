@@ -155,7 +155,7 @@ optimizer = nn.Momentum(net.trainable_params(), learning_rate=0.01,
                         momentum=0.9, weight_decay=0.9)
 ```
 
-In addition, MindSpore supports dynamic weight decay. In this case, `weight_decay` is a customized Cell called `weight_decay_schedule`. During training, the optimizer calls the instance of the Cell and transfers `global_step` to compute the `weight_decay` value of the current step. `global_step` is an internally maintained variable. The value of `global_step` increases by 1 each time a step is trained. Note that the `construct` of the customized `weight_decay_schedule` receives only one input. The following is an example of exponential decay during training.
+In addition, MindSpore supports dynamic weight decay. In this case, `weight_decay` is a customized Cell. During training, the optimizer calls the instance of the Cell and transfers `global_step` to compute the `weight_decay` value of the current step. `global_step` is an internally maintained variable. The value of `global_step` increases by 1 each time a step is trained. The following is an example of exponential decay during training.
 
 ```python
 from mindspore.nn import Cell
