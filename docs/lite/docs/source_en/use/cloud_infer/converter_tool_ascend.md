@@ -177,7 +177,7 @@ If MindSpore Lite converts Ascend models with custom operators, user needs to de
 
 2. Obtain Ascend custom operator package
 
-    Mindspore Lite cloud-side inference package will contain Ascend custom operator package directory whose relative directory is ``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``. After unzip the Mindspore Lite cloud-side inference package, enter the corresponding directory.
+    MindSpore Lite cloud-side inference package will contain Ascend custom operator package directory whose relative directory is ``${LITE_PACKAGE_PATH}/tools/custom_kernels/ascend``. After unzip the Mindspore Lite cloud-side inference package, enter the corresponding directory.
 
     ```bash
     tar zxf mindspore-lite-{version}-linux-{arch}.tar.gz

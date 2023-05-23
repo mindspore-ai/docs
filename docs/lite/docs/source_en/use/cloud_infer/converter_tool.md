@@ -63,7 +63,7 @@ Detailed parameter descriptions are provided below.
 | `--configFile=<CONFIGFILE>` | Not | 1. can be used as a post-training quantization profile path; 2. can be used as an extended function profile path.  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model inputs, and keep the order of the input dimensions the same as the original model. The model structure can be further optimized for some specific models, but the converted model will probably lose the dynamic shape properties. Multiple inputs are split by `;`, along with double quotes `""`. | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
 | `--saveType=<SAVETYPE>` | Not | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
-| `--optimize=<OPTIMIZE>` | Not | Set the optimization accomplished in the process of converting model. | none, general, gpu_oriented, ascend_oriented | general | - |
+| `--optimize=<OPTIMIZE>` | Not | Set the optimization accomplished in the process of converting model. | none, general, gpu_oriented, ascend_oriented| general | - |
 | `--decryptKey=<DECRYPTKEY>` | Not | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk` is MINDIR. | - | - | - |
 | `--decryptMode=<DECRYPTMODE>` | Not | Set the mode to load the cipher MindIR, valid only when decryptKey is specified. | AES-GCM, AES-CBC | AES-GCM | - |
 | `--encryptKey=<ENCRYPTKEY>` | Not | Set the key to export the encryption `mindir` model. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | - |
