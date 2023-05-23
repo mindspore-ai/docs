@@ -14,7 +14,7 @@ MindSpore Lite的whl包和tar包默认内置AKG。通过源码安装的MindSpore
 
 1. 安装tar包内置的AKG发布件
 
-    首先，前往[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite端侧推理和云测推理的tar包发布件，然后安装tools/akg/的akg的whl包。
+    首先，前往[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite端侧推理和云侧推理的tar包发布件，然后安装tools/akg/的akg的whl包。
     接着在命令行中使用以下命令检查AKG是否安装成功：若无报错，则表示安装成功。
 
     ```shell

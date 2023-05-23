@@ -30,6 +30,12 @@ The following environment preparation is required for model conversion by using 
     python -c "import mindspore_lite"
     ```
 
+- After installation, you can use the following command to check if MindSpore Lite built-in AKG is successfully installed. If no error is reported, the installation is successful.
+
+  ```bash
+  python -c "import mindspore_lite.akg"
+  ```
+
 ### Directory Structure
 
 After successful installation, you can use the `pip show mindspore_lite` command to see where the Python module for MindSpore Lite cloud-side inference is installed.
@@ -37,8 +43,10 @@ After successful installation, you can use the `pip show mindspore_lite` command
 ```text
 mindspore_lite
 ├── __pycache__
+├── akg                                                         # AKG-related interfaces
 ├── include
 ├── lib
+|   ├── libakg.so                                               # Dynamic link libraries used by AKG
 │   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite cloud-side inference python module encapsulates the dynamic library of the C++ interface framework
 │   ├── libmindspore_converter.so                               # Dynamic library for model conversion
 │   ├── libmindspore_core.so                                    # MindSpore Core Dynamic Library
