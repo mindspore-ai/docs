@@ -15,6 +15,10 @@ Application
    cv/transfer_learning
    cv/fgsm
    cv/vit
+   cv/cnnctc
+   cv/fcn8s
+   cv/shufflenet
+   cv/ssd
    
 .. toctree::
    :glob:
@@ -23,11 +27,16 @@ Application
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
+   nlp/sequence_to_sequence
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Generative
 
+   generative/gan
    generative/dcgan
+   generative/pix2pix
+   generative/cyclegan
+   generative/diffusion
 
