@@ -1,4 +1,4 @@
-# Function Differences with torch.ger
+# Differences with torch.ger
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/normal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -23,6 +23,8 @@ For more information, see [mindspore.ops.normal](https://www.mindspore.cn/docs/e
 
 ## Differences
 
+API function of MindSpore is consistent with that of PyTorch.
+
 PyTorch: Four interface usages are supported.
 
 - `mean` and `std` are both Tensor, requiring the same number of members for `mean` and `std`. The shape of the return value matches the shape of `mean` .
@@ -32,18 +34,16 @@ PyTorch: Four interface usages are supported.
 
 MindSpore: The data types supported by `mean` and `std` are Tensor, and the shape of the return value is broadcast by `shape`, `mean`, and `stddev`.
 
-There is no difference in function.
-
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | -            | shape         | This value in MindSpore is used to broadcast the shape of the return value together with `mean` and `stddev` |
 |            | Parameter 2   | mean         | mean          | The data type supported in MindSpore is Tensor. Tensor and float are supported in PyTorch, corresponding to different usages |
 |            | Parameter 3   | std          | stddev        | The data type supported in MindSpore is Tensor. Tensor and float are supported in PyTorch, corresponding to different usages |
-|            | Parameter 4   | generator    | seed          | MindSpore uses a random number seed to generate random numbers |
+|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 5   | size         | -             | The shape of the return value in PyTorch, used under the specified interface usage |
-|            | Parameter 6   | out          | -             | Not involved  |
+|            | Parameter 6   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
-## Code Example
+## Code Example 1
 
 > In PyTorch, 'mean' and 'std' are both Tensor.
 
@@ -70,6 +70,8 @@ print(output.shape)
 # (2, 2)
 ```
 
+## Code Example 2
+
 > In PyTorch, 'mean' is the float and 'std' is the Tensor.
 
 ```python
@@ -95,6 +97,8 @@ print(output.shape)
 # (2, 2)
 ```
 
+## Code Example 3
+
 > In PyTorch, 'mean' is Tensor, and 'std' is the float.
 
 ```python
@@ -119,6 +123,8 @@ output = ms.ops.normal(shape, mean, stddev)
 print(output.shape)
 # (2, 2)
 ```
+
+## Code Example 4
 
 > In PyTorch, 'mean' and 'std' are both float.
 

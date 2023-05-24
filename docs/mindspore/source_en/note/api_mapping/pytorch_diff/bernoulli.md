@@ -1,4 +1,4 @@
-# Function Differences with torch.bernoulli
+# Differences with torch.bernoulli
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/bernoulli.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -27,11 +27,11 @@ For more information, see [mindspore.ops.bernoulli](https://www.mindspore.cn/doc
 
 ## Differences
 
+API function of MindSpore is consistent with that of PyTorch.
+
 PyTorch: The probability value of the Bernoulli distribution is stored in the parameter `input` , and the shape of the returned value is the same as that of `input` .
 
 MindSpore: The probability value of the Bernoulli distribution is stored in the parameter `p` , with a default value of 0.5. The shape of `p` needs to be consistent with the shape of `input` , and the shape of the return value should be the same as the shape of `input` .
-
-There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |

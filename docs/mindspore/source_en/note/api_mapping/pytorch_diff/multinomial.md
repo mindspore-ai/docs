@@ -1,4 +1,4 @@
-# Function Differences with torch.multinomial
+# Differences with torch.multinomial
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/multinomial.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -27,15 +27,19 @@ For more information, see [mindspore.ops.multinomial](https://www.mindspore.cn/d
 
 ## Differences
 
-There are differences in parameter names and default values between MindSpore and PyTorch, but there is no difference in functionality.
+API function of MindSpore is consistent with that of PyTorch.
+
+MindSpore: The default value of the parameter `replacement` is ``True`` , which means the sampled data is put back after each sampling.
+
+PyTorch: The default value of the parameter `replacement` is ``False`` , which means the sampled data is not put back after each sampling.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | num_samples  | num_samples   | Consistent    |
-|            | Parameter 3   | replacement  | replacement   | The functionality is the same, the default values are different. The default value for PyTorch is False and the default value for MindSpore is True  |
-|            | Parameter 4   | generator    | seed          | MindSpore uses a random number seed to generate random numbers |
-|            | Parameter 5   | out          | -             | Not involved  |
+|            | Parameter 3   | replacement  | replacement   | The default value for PyTorch is ``False`` and the default value for MindSpore is ``True``  |
+|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 5   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example
 

@@ -25,7 +25,7 @@ For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/maste
 
 ## Differences
 
-MindSpore's API function is consistent with PyTorch.
+API function of MindSpore is consistent with that of PyTorch.
 
 PyTorch: Splice the input Tensor on the specified axis. When the data precision of the input Tensors is different, the low precision Tensor will be automatically converted to high precision Tensor.
 

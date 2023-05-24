@@ -1,4 +1,4 @@
-# 比较与torch.svd的功能差异
+# 比较与torch.svd的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -27,17 +27,23 @@ mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 
 ## 差异对比
 
+MindSpore此API功能与PyTorch不一致。
+
 PyTorch:
 
 - 如果参数 `some` 为True，该接口返回缩减后的奇异值分解结果。
 
-- 如果参数 `compute_uv` 为True输出值的顺序是 u，s，v。
+- 始终有三个输出值，输出值的顺序是 u，s，v。
+
+- 如果参数 `compute_uv` 为False，u 和 v 的值是全0的矩阵。
 
 MindSpore:
 
 - 如果参数 `full_matrices` 为False，该接口返回缩减后的奇异值分解结果。
 
-- 如果参数 `compute_uv` 为True输出值的顺序是 s，u，v。
+- 如果参数 `compute_uv` 为False，只有一个输出值 s。
+
+- 如果参数 `compute_uv` 为True，有三个输出值，顺序是 s，u，v。
 
 > 自PyTorch 1.8.0及以后的版本中，已经弃用了接口 `torch.svd()` ，推荐使用的替换接口是 `torch.linalg.svd()` ，该接口和 `mindspore.ops.svd` 有相同的传参 `full_matrices` 。
 
@@ -47,11 +53,33 @@ MindSpore:
 | ---------- | ------------ | ------------ | ---------      | ------------- |
 | 参数       | 参数 1       | input         | input         | 一致           |
 |            | 参数 2       | some          | full_matrices | 若要返回缩减后的奇异值分解结果，MindSpore配置 `full_matrices` 为False，PyTorch配置 `some` 为True |
-|            | 参数 3       | compute_uv    | compute_uv    | 如果参数 `compute_uv` 为True，MindSpore的输出值的顺序是 s，u，v，PyTorch的输出值的顺序是 u，s，v。 |
-|            | 参数 4       | out           | -             | 不涉及        |
+|            | 参数 3       | compute_uv    | compute_uv    | 如果参数 `compute_uv` 为False，MindSpore只有一个输出值 s，PyTorch有三个输出值 u，s，v，其中 u 和 v 的值是全0的矩阵。如果 `compute_uv` 为True，MindSpore的输出值的顺序是 s，u，v，PyTorch的输出值的顺序是 u，s，v。 |
+|            | 参数 4       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
-## 差异分析与示例
+## 代码示例 1
 
+> `compute_uv` 为False时，PyTorch有三个输出值。
+
+```python
+# PyTorch
+import torch
+input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
+u, s, v = torch.svd(input, some=False, compute_uv=False)
+print(s)
+print(u)
+print(v)
+# tensor([7.0653, 1.0401])
+# tensor([[0., 0., 0.],
+#         [0., 0., 0.],
+#         [0., 0., 0.]])
+# tensor([[0., 0.],
+#         [0., 0.]])
+# MindSpore目前无法支持该功能
+```
+
+## 代码示例 2
+
+> `compute_uv` 为True的时候，输出值顺序不一致。
 > 奇异值分解的输出不是唯一的。
 
 ```python

@@ -1,4 +1,4 @@
-# Function Differences with torch.svd
+# Differences with torch.svd
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -27,31 +27,57 @@ For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/m
 
 ## Differences
 
+API function of MindSpore is not consistent with that of PyTorch.
+
 PyTorch:
 
 - If `some` is True, the method returns the reduced singular value decomposition.
 
-- If `compute_uv` is True, the order of output values is u, s, v.
+- There are always three output values, and the order of the output values is u, s, v.
+
+- If `compute_uv` is False, the returned u and v will be zero-filled matrices.
 
 MindSpore:
 
 - If `full_matrices` is False, the method returns the reduced singular value decomposition.
 
-- If `compute_uv` is True, the order of output values is s, u, v.
+- If `compute_uv` is False, there is only one output value s.
+
+- If `compute_uv` is True, there are three output values in the order s, u, v.
 
 > `torch.svd()` has been deprecated in PyTorch 1.8.0 and later, and alternative api `torch.linalg.svd()` is recommended, which has the same parameter `full_matrices` as `mindspore.ops.svd`.
-
-There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | some         | full_matrices | To return the reduced singular value decomposition, MindSpore should set `full_matrices` to False, and PyTorch should set `some` to True |
-|            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is True, the order of output values of MindSpore is s, u, v, and the order of PyTorch is u, s, v |
-|            | Parameter 4   | out          | -             | Not involved  |
+|            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is False, MindSpore has only one output value s, and PyTorch has three output values u, s, v, where the values of u and v are zero-filled matrices. If `compute_uv` is True, the order of MindSpore's output values is s, u, v, and the order of PyTorch's output values is u, s, v. |
+|            | Parameter 4   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
-## Code Example
+## Code Example 1
 
+> When `compute_uv` is False, PyTorch has three output values.
+
+```python
+# PyTorch
+import torch
+input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
+u, s, v = torch.svd(input, some=False, compute_uv=False)
+print(s)
+print(u)
+print(v)
+# tensor([7.0653, 1.0401])
+# tensor([[0., 0., 0.],
+#         [0., 0., 0.],
+#         [0., 0., 0.]])
+# tensor([[0., 0.],
+#         [0., 0.]])
+# MindSpore doesn't support this feature currently.
+```
+
+## Code Example 2
+
+> When `compute_uv` is True, the order of output values is inconsistent.
 > The output values of singular value decomposition are not unique.
 
 ```python
