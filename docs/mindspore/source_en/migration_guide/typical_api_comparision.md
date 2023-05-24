@@ -394,3 +394,84 @@ rank_id = get_rank()
 # Configure data parallel mode in distributed mode.
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
+
+## Differences with PyTorch Optimizer Module
+
+### Single-step Execution Optimizer
+
+#### Fixed Learning Rate
+
+In the fixed learning rate scenario, when PyTorch executes the optimizer in a single step, you need to manually execute the `zero_grad()` method to set the historical gradient to 0 (or None), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights. The use of the optimizer in MindSpore requires only a direct calculation of the gradients, and then you can use `optimizer(grads)` to perform the update of the network weights.
+
+PyTorch:
+
+```python
+from torch.nn import optim
+
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+def train_step(data, label):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = loss_fn(output, label)
+    loss.backward()
+    optimizer.step()
+```
+
+MindSpore:
+
+```python
+import mindspore
+from mindspore import nn
+
+optimizer = nn.SGD(group_params, learning_rate=0.1)
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+```
+
+#### Dynamic Learning Rate
+
+In the dynamic learning rate scenario, the `LRScheduler` class is defined in PyTorch to manage the learning rate. When using the dynamic learning rate, the users pass the `optimizer` instance in the `LRScheduler` subclass, and by calling `scheduler.step()` in a loop, the learning rate is calculated according to the update logic of the current dynamic learning rate, and the changes are synchronized to the optimizer.
+
+```python
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+scheduler = ExponentialLR(optimizer, gamma=0.9)
+
+for epoch in range(20):
+    for input, target in dataset:
+        optimizer.zero_grad()
+        output = model(input)
+        loss = loss_fn(output, target)
+        loss.backward()
+        optimizer.step()
+    scheduler.step()
+```
+
+The dynamic learning rate in MindSpore is implemented in `Cell` and `list`. Please refer to <https://mindspore.cn/docs/en/r2.0/api_python/mindspore.nn.html#dynamic-learning-rate>. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the list of learning rates directly according to the computational logic. Both types of dynamic learning rates are used in the same way, and are passed in the optimizer after instantiation. The learning rate update is implemented internally during the training process:
+
+```python
+polynomial_decay_lr = nn.PolynomialDecayLR(learning_rate=0.1, end_learning_rate=0.01, decay_steps=4, power=0.5)
+optim = nn.Momentum(params, learning_rate=polynomial_decay_lr, momentum=0.9, weight_decay=0.0)
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+```
+
+### Obatining the Learning Rate
+
+PyTorch:
+
+- In the fixed learning rate scenario, the learning rate is usually viewed and printed by `optimizer.state_dict()`. For example, when parameters are grouped, use `optimizer.state_dict()['param_groups'][n]['lr']` for the nth parameter group, and use `optimizer.state_dict()['param_groups'][0]['lr']` when the parameters are not grouped;
+
+- In the dynamic learning rate scenario, you can use the `get_lr` method of the `LRScheduler` to get the current learning rate or the `print_lr` method to print the learning rate.
+
+MindSpore:
+
+- In the fixed learning rate  , i.e., the input `learning_rate` is of type int/float/scalar Tensor, when the parameters are not grouped, the learning rate Parameter can be obtained by using `optimizer.get_lr()` and viewed by using `optimizer.get_lr().value()`;
+
+- In the dynamic learning rate scenario, the interface to view the learning rate directly is not provided at present, and the problem will be fixed in the subsequent version.
