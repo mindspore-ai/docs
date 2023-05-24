@@ -1,4 +1,4 @@
-# 比较与torch.cat的功能差异
+# 比较与torch.cat的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cat.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -25,19 +25,21 @@ mindspore.ops.cat(tensors, axis=0) -> Tensor
 
 ## 差异对比
 
-PyTorch：在指定轴上拼接输入Tensor。输入tensor的数据类型不同时，低精度tensor会自动转成高精度tensor。
+MindSpore此API功能与PyTorch一致。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。当前要求输入tensor的数据类型保持一致，若不一致时可通过ops.cast把低精度tensor转成高精度类型再调用concat算子。
+PyTorch：在指定轴上拼接输入Tensors。输入Tensors的精度不一致时，低精度Tensor会自动转成高精度Tensor。
+
+MindSpore：当前要求输入Tensors的数据类型及精度保持一致。在输入Tensor的精度不一致时，可通过ops.cast把低精度Tensor转成高精度Tensor再调用concat算子。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-| 输入 | 单输入 | tensors  | tensors | 功能一致 |
-|参数 | 参数1 | dim | axis |功能一致，参数名不同 |
-|  | 参数2  | out | - | 不涉及          |
+| 输入 | 单输入 | tensors  | tensors | MindSpore中tensors序列中的各Tensor精度必须保持一致，PyTorch中tensors序列中的各Tensor的精度可以不同 |
+|参数 | 参数1 | dim | axis | 参数名不一致 |
+|  | 参数2  | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
-### 代码示例1
+### 代码示例
 
-> MindSpore当前要求输入tensor的数据类型保持一致，若不一致时可通过ops.cast把低精度tensor转成高精度类型再调用concat算子。
+> MindSpore当前要求输入Tensors的数据类型及精度保持一致，若不一致时可通过ops.cast把低精度Tensor转成高精度Tensor再调用concat算子。
 
 ```python
 # PyTorch

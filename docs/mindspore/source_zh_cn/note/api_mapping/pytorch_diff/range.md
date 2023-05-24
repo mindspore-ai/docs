@@ -1,4 +1,4 @@
-# 比较与torch.range的功能差异
+# 比较与torch.range的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/range.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -32,37 +32,41 @@ mindspore.ops.range(start,
 
 ## 差异对比
 
-MindSpore: 输出Tensor的dtype取决于输入。
+MindSpore此API功能与PyTorch一致。
 
-PyTorch: 输出Tensor的dtype取决于参数 `dtype` 。
+MindSpore: 输出Tensor的dtype与输入Tensor相同。
+
+PyTorch: 输出Tensor的dtype由参数 `dtype` 指定 。
 
 | 分类  | 子类   | PyTorch       | MindSpore | 差异                                 |
 |-----|------|---------------|-----------|------------------------------------|
-| 输入  | 输入 1 | start         | start     | MindSpore必须为Tensor，然而PyTorch为float |
-|     | 输入 2 | end           | end       | MindSpore必须为Tensor，然而PyTorch为float |
-|     | 输入 3 | step          | step      | MindSpore必须为Tensor，然而PyTorch为float |
-|     | 输入 4 | out           | -         | 不涉及                                |
-|     | 输入 5 | dtype         | -         | 不涉及                                |
-|     | 输入 6 | layout        | -         | 不涉及                                |
-|     | 输入 7 | device        | -         | 不涉及                                |
-|     | 输入 8 | requires_grad | -         | 不涉及                                |
+| 输入  | 输入 1 | start         | start     | MindSpore中参数 `start` 的数据类型为Tensor，无默认值。PyTorch中参数 `start` 的数据类型为float，默认值为0 |
+|     | 输入 2 | end           | end       | MindSpore中参数 `end` 的数据类型为Tensor，PyTorch中参数 `end` 的数据类型为float |
+|     | 输入 3 | step          | step      | MindSpore中参数 `step` 的数据类型为Tensor，无默认值。PyTorch中参数 `step` 的数据类型为float，默认值为1 |
+|     | 输入 4 | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 5 | dtype         | -         | MindSpore输出Tensor的dtype与输入Tensor相同，PyTorch的输出Tensor的dtype由参数 `dtype`指定 |
+|     | 输入 6 | layout        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 7 | device        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 8 | requires_grad | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例
 
 ```python
-import mindspore as ms
-import torch
-from mindspore import Tensor, ops
-
 # PyTorch
-torch.range(0, 10, 4)
+import torch
+
+output = torch.range(0, 10, 4, dtype=torch.float32)
+print(output)
 # tensor([0., 4., 8.])
 
 # MindSpore
-start = Tensor(0, ms.int32)
-limit = Tensor(10, ms.int32)
-delta = Tensor(4, ms.int32)
+import mindspore as ms
+from mindspore import Tensor, ops
+
+start = Tensor(0, ms.float32)
+limit = Tensor(10, ms.float32)
+delta = Tensor(4, ms.float32)
 output = ops.range(start, limit, delta)
 print(output)
-# [0 4 8]
+# [0. 4. 8.]
 ```

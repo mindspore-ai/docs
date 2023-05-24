@@ -1,4 +1,4 @@
-# Function Differences with torch.range
+# Differences with torch.range
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/range.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -32,37 +32,41 @@ For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en
 
 ## Differences
 
-MindSpore: The dtype of the output tensor depends on the input tensor.
+MindSpore's API function is consistent with PyTorch.
 
-PyTorch: The dtype of the output tensor depends on the parameter `dtype`.
+MindSpore: The dtype of output Tensor is the same as input Tensor.
+
+PyTorch: the dtype of output Tensor is determined by the parameter `dtype`.
 
 | Categories | Subcategories | PyTorch       | MindSpore | Difference                                            |
 |------------|---------------|---------------|-----------|-------------------------------------------------------|
-| input      | input 1       | start         | start     | MindSpore must be a Tensor, whereas, PyTorch is float |
-|            | input 2       | end           | end       | MindSpore must be a Tensor, whereas, PyTorch is float |
-|            | input 3       | step          | step      | MindSpore must be a Tensor, whereas, PyTorch is float |
-|            | input 4       | out           | -         | Not involved                                          |
-|            | input 5       | dtype         | -         | Not involved                                          |
-|            | input 6       | layout        | -         | Not involved                                          |
-|            | input 7       | device        | -         | Not involved                                          |
-|            | input 8       | requires_grad | -         | Not involved                                          |
+| input      | input 1       | start         | start     | The data type of `start` parameter in MindSpore is Tensor and the `start` has no default value, while the data type of `start` parameter in PyTorch is float and the default value is 0 |
+|            | input 2       | end           | end       | The data type of `end` parameter in MindSpore is Tensor, while the data type of `end` parameter in PyTorch is float |
+|            | input 3       | step          | step      | The data type of `step` parameter in MindSpore is Tensor and the `step` has no default value, while the data type of `step` parameter in PyTorch is float and the default value is 0 |
+|            | input 4       | out           | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 5       | dtype         | -         | The dtype of output Tensor in MindSpore is the same as input Tensor，while the dtype of output Tensor in PyTorch is determined by the parameter `dtype` |
+|            | input 6       | layout        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 7       | device        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 8       | requires_grad | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example
 
 ```python
-import mindspore as ms
-import torch
-from mindspore import Tensor, ops
-
 # PyTorch
-torch.range(0, 10, 4)
+import torch
+
+output = torch.range(0, 10, 4, dtype=torch.float32)
+print(output)
 # tensor([0., 4., 8.])
 
 # MindSpore
-start = Tensor(0, ms.int32)
-limit = Tensor(10, ms.int32)
-delta = Tensor(4, ms.int32)
+import mindspore as ms
+from mindspore import Tensor, ops
+
+start = Tensor(0, ms.float32)
+limit = Tensor(10, ms.float32)
+delta = Tensor(4, ms.float32)
 output = ops.range(start, limit, delta)
 print(output)
-# [0 4 8]
+# [0. 4. 8.]
 ```
