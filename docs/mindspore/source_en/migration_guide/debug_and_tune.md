@@ -234,7 +234,6 @@ If a single operator takes a long time and the performance of the same operator 
 1. Use data types with less computational workload. For example, if there is no obvious difference between the precision of the same operator in float16 and float32 modes, you can use the float16 format with less calculation workload.
 2. Use other operators with the same algorithm to avoid this problem.
 3. Pay attention to 16-alignment in the Ascend environment. Due to the design of the Ascend AI Processors, it is recommended that the calculation on the AI core be 16-alignment (each dimension in the shape is a multiple of 16).
-4. [Operator Tuning](https://mindspore.cn/tutorials/experts/en/r2.0/debug/auto_tune.html).
 
 If you find an operator with poor performance, you are advised to contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback. We will optimize the operator in time after confirming that the problem is caused by poor performance.
 
