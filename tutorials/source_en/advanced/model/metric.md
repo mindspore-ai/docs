@@ -66,7 +66,7 @@ print(result)
 ```
 
 ```text
-    0.1499999612569809
+0.1499999612569809
 ```
 
 ## Using Metrics in Model Training
@@ -119,26 +119,26 @@ model.fit(10, train_dataset, eval_dataset, callbacks=LossMonitor(train_dataset_s
 ```
 
 ```text
-    epoch: 1 step: 10, loss is 5.908090114593506
-    Eval result: epoch 1, metrics: {'MAE': 5.1329233884811405}
-    epoch: 2 step: 10, loss is 3.9280264377593994
-    Eval result: epoch 2, metrics: {'MAE': 3.0886757612228393}
-    epoch: 3 step: 10, loss is 2.9104671478271484
-    Eval result: epoch 3, metrics: {'MAE': 2.461756193637848}
-    epoch: 4 step: 10, loss is 1.8725224733352661
-    Eval result: epoch 4, metrics: {'MAE': 2.11311993598938}
-    epoch: 5 step: 10, loss is 2.1637942790985107
-    Eval result: epoch 5, metrics: {'MAE': 1.6749439239501953}
-    epoch: 6 step: 10, loss is 1.3848766088485718
-    Eval result: epoch 6, metrics: {'MAE': 1.317658966779709}
-    epoch: 7 step: 10, loss is 1.052016258239746
-    Eval result: epoch 7, metrics: {'MAE': 1.043285644054413}
-    epoch: 8 step: 10, loss is 1.1781564950942993
-    Eval result: epoch 8, metrics: {'MAE': 0.8706761479377747}
-    epoch: 9 step: 10, loss is 0.8200418949127197
-    Eval result: epoch 9, metrics: {'MAE': 0.7817940771579742}
-    epoch: 10 step: 10, loss is 0.7065591812133789
-    Eval result: epoch 10, metrics: {'MAE': 0.7885207533836365}
+epoch: 1 step: 10, loss is 5.908090114593506
+Eval result: epoch 1, metrics: {'MAE': 5.1329233884811405}
+epoch: 2 step: 10, loss is 3.9280264377593994
+Eval result: epoch 2, metrics: {'MAE': 3.0886757612228393}
+epoch: 3 step: 10, loss is 2.9104671478271484
+Eval result: epoch 3, metrics: {'MAE': 2.461756193637848}
+epoch: 4 step: 10, loss is 1.8725224733352661
+Eval result: epoch 4, metrics: {'MAE': 2.11311993598938}
+epoch: 5 step: 10, loss is 2.1637942790985107
+Eval result: epoch 5, metrics: {'MAE': 1.6749439239501953}
+epoch: 6 step: 10, loss is 1.3848766088485718
+Eval result: epoch 6, metrics: {'MAE': 1.317658966779709}
+epoch: 7 step: 10, loss is 1.052016258239746
+Eval result: epoch 7, metrics: {'MAE': 1.043285644054413}
+epoch: 8 step: 10, loss is 1.1781564950942993
+Eval result: epoch 8, metrics: {'MAE': 0.8706761479377747}
+epoch: 9 step: 10, loss is 0.8200418949127197
+Eval result: epoch 9, metrics: {'MAE': 0.7817940771579742}
+epoch: 10 step: 10, loss is 0.7065591812133789
+Eval result: epoch 10, metrics: {'MAE': 0.7885207533836365}
 ```
 
 ### Using Customized Evaluation Metrics
@@ -158,24 +158,24 @@ model.fit(10, train_dataset, eval_dataset, callbacks=LossMonitor(train_dataset_s
 ```
 
 ```text
-    epoch: 1 step: 10, loss is 0.7992362380027771
-    Eval result: epoch 1, metrics: {'MAE': 0.8640150725841522}
-    epoch: 2 step: 10, loss is 0.8377518653869629
-    Eval result: epoch 2, metrics: {'MAE': 0.9286439001560212}
-    epoch: 3 step: 10, loss is 0.894376277923584
-    Eval result: epoch 3, metrics: {'MAE': 0.8669328391551971}
-    epoch: 4 step: 10, loss is 0.8098692893981934
-    Eval result: epoch 4, metrics: {'MAE': 0.9018074989318847}
-    epoch: 5 step: 10, loss is 0.8556416630744934
-    Eval result: epoch 5, metrics: {'MAE': 0.8721640467643738}
-    epoch: 6 step: 10, loss is 0.8508825302124023
-    Eval result: epoch 6, metrics: {'MAE': 0.8601282179355622}
-    epoch: 7 step: 10, loss is 0.7443522810935974
-    Eval result: epoch 7, metrics: {'MAE': 0.9004024684429168}
-    epoch: 8 step: 10, loss is 0.7394096851348877
-    Eval result: epoch 8, metrics: {'MAE': 0.9380556881427765}
-    epoch: 9 step: 10, loss is 0.7989674210548401
-    Eval result: epoch 9, metrics: {'MAE': 0.8629323005676269}
-    epoch: 10 step: 10, loss is 0.6581473350524902
-    Eval result: epoch 10, metrics: {'MAE': 0.9144346475601196}
+epoch: 1 step: 10, loss is 0.7992362380027771
+Eval result: epoch 1, metrics: {'MAE': 0.8640150725841522}
+epoch: 2 step: 10, loss is 0.8377518653869629
+Eval result: epoch 2, metrics: {'MAE': 0.9286439001560212}
+epoch: 3 step: 10, loss is 0.894376277923584
+Eval result: epoch 3, metrics: {'MAE': 0.8669328391551971}
+epoch: 4 step: 10, loss is 0.8098692893981934
+Eval result: epoch 4, metrics: {'MAE': 0.9018074989318847}
+epoch: 5 step: 10, loss is 0.8556416630744934
+Eval result: epoch 5, metrics: {'MAE': 0.8721640467643738}
+epoch: 6 step: 10, loss is 0.8508825302124023
+Eval result: epoch 6, metrics: {'MAE': 0.8601282179355622}
+epoch: 7 step: 10, loss is 0.7443522810935974
+Eval result: epoch 7, metrics: {'MAE': 0.9004024684429168}
+epoch: 8 step: 10, loss is 0.7394096851348877
+Eval result: epoch 8, metrics: {'MAE': 0.9380556881427765}
+epoch: 9 step: 10, loss is 0.7989674210548401
+Eval result: epoch 9, metrics: {'MAE': 0.8629323005676269}
+epoch: 10 step: 10, loss is 0.6581473350524902
+Eval result: epoch 10, metrics: {'MAE': 0.9144346475601196}
 ```

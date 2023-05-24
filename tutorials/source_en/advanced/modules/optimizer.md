@@ -50,7 +50,7 @@ print(net.trainable_params())
 ```
 
 ```text
-    [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True), Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)]
+[Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True), Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)]
 ```
 
 You can manually change the default value of the `requires_grad` attribute of `Parameter` in the network weight to determine which parameters need to be updated.
@@ -66,7 +66,7 @@ optim = nn.Adam(params=net.trainable_params())
 ```
 
 ```text
-    [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)]
+[Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)]
 ```
 
 ### Learning Rate
@@ -108,7 +108,7 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     ```
 
     ```text
-        [0.1, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
+    [0.1, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
     ```
 
 - LearningRateSchedule Class
@@ -126,9 +126,9 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 
     for i in range(decay_steps):
-    step = Tensor(i, mindspore.int32)
-    result = exponential_decay_lr(step)
-    print(f"step{i+1}, lr:{result}")
+        step = Tensor(i, mindspore.int32)
+        result = exponential_decay_lr(step)
+        print(f"step{i+1}, lr:{result}")
 
     net = Net()
 
@@ -137,10 +137,10 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     ```
 
     ```text
-        step1, lr:0.1
-        step2, lr:0.097400375
-        step3, lr:0.094868325
-        step4, lr:0.09240211
+    step1, lr:0.1
+    step2, lr:0.097400375
+    step3, lr:0.094868325
+    step4, lr:0.09240211
     ```
 
 ### Weight Decay

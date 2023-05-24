@@ -96,7 +96,12 @@ print('out: ', out)
 ```
 
 ```text
-out:  [-0.26551223  3.0243678   0.706525  ]
+...
+matmul:
+Tensor(shape=[3], dtype=Float32, value=[-4.01971531e+00 -5.79053342e-01  3.41115999e+00])
+add bias:
+Tensor(shape=[3], dtype=Float32, value=[-3.94732714e+00 -1.46257186e+00  4.50144434e+00])
+out:  [-3.9473271 -1.4625719  4.5014443]
 ```
 
 ### Static Graph Syntax
