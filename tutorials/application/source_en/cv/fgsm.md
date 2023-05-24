@@ -98,6 +98,14 @@ dataset_eval = dataset_eval.map(operations=lambda x: x.astype("int32"), input_co
 dataset_eval = dataset_eval.batch(batch_size=32, drop_remainder=True)
 ```
 
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|███████████████████████████| 10.8M/10.8M [00:11<00:00, 961kB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
+```
+
 The directory structure of the downloaded dataset files is as follows:
 
 ```text
@@ -183,11 +191,11 @@ model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(1875)])
 ```
 
 ```text
-epoch: 1 step: 1875, loss is 0.022706642746925354
-epoch: 2 step: 1875, loss is 0.11357966810464859
-epoch: 3 step: 1875, loss is 0.011764582246541977
-epoch: 4 step: 1875, loss is 0.014187423512339592
-epoch: 5 step: 1875, loss is 0.0022521568462252617
+epoch: 1 step: 1875, loss is 0.05328045040369034
+epoch: 2 step: 1875, loss is 0.05333159118890762
+epoch: 3 step: 1875, loss is 0.010423079133033752
+epoch: 4 step: 1875, loss is 0.000635102391242981
+epoch: 5 step: 1875, loss is 0.23182234168052673
 ```
 
 Test the current network. You can see that LeNet has reached a high accuracy.
@@ -198,7 +206,7 @@ print("{}".format(acc))
 ```
 
 ```text
-    {'accuracy': 0.9888822115384616}
+{'accuracy': 0.9879807692307693}
 ```
 
 Load the trained LeNet model:
@@ -304,7 +312,7 @@ print(accuracy)
 ```
 
 ```text
-    0.9888822115384616
+0.9879808
 ```
 
 Set $\varepsilon$ to 0.5 and try to run the attack.
@@ -318,7 +326,7 @@ print(accuracy)
 ```
 
 ```text
-    0.36828926282051283
+0.411258
 ```
 
 The preceding result shows that the accuracy of the LeNet model is greatly reduced.

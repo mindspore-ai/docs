@@ -36,8 +36,8 @@ The directory structure of the dataset is as follows:
 datasets-Canidae/data/
 └── Canidae
     ├── train
-    │   ├── dogs
-    │   └── wolves
+    │   ├── dogs
+    │   └── wolves
     └── val
         ├── dogs
         └── wolves
