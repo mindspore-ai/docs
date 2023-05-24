@@ -1,4 +1,4 @@
-# 比较与torch.scatter的功能差异
+# 比较与torch.scatter的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/scatter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
@@ -27,20 +27,22 @@ mindspore.ops.scatter(input, axis, index, src)
 
 ## 差异对比
 
+MindSpore此API功能与PyTorch不一致。
+
 PyTorch：在任意维度 `d` 上，要求 `index.size(d) <= src.size(d)` ，即 `index` 可以选择 `src` 的部分或全部数据分散到 `input` 里。
 
 MindSpore： `index` 的shape必须和 `src` 的shape一致，即 `src` 的所有数据都会被 `index` 分散到 `input` 里。
 
-功能上无差异。
-
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
 | 参数       | 参数 1       | input         | input         | 一致           |
-|            | 参数 2       | dim           | axis          | 功能一致，参数名不同 |
+|            | 参数 2       | dim           | axis          | 参数名不一致 |
 |            | 参数 3       | index         | index         | MindSpore的 `index` 的shape必须和 `src` 的shape一致，PyTorch要求在任意维度 `d` 上， `index.size(d) <= src.size(d)` |
 |            | 参数 4       | src           | src           | 一致           |
 
-## 差异分析与示例
+## 代码示例 1
+
+> 对 `src` 的部分数据进行scatter操作。
 
 ```python
 # PyTorch
@@ -54,6 +56,26 @@ print(out)
 # tensor([[1., 2., 0., 0., 0.],
 #         [4., 5., 0., 0., 0.],
 #         [7., 8., 0., 0., 0.],
+#         [0., 0., 0., 0., 0.],
+#         [0., 0., 0., 0., 0.]])
+# MindSpore不支持对部分数据进行scatter操作。
+```
+
+## 代码示例 2
+
+> 对 `src` 的全部数据进行scatter操作。
+
+```python
+import torch
+import numpy as np
+input = torch.tensor(np.zeros((5, 5)), dtype=torch.float32)
+src = torch.tensor(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), dtype=torch.float32)
+index = torch.tensor(np.array([[0, 1], [0, 1], [0, 1]]), dtype=torch.int64)
+out = torch.scatter(input=input, dim=1, index=index, src=src)
+print(out)
+# tensor([[1., 2., 3., 0., 0.],
+#         [4., 5., 6., 0., 0.],
+#         [7., 8., 9., 0., 0.],
 #         [0., 0., 0., 0., 0.],
 #         [0., 0., 0., 0., 0.]])
 
