@@ -181,7 +181,6 @@ class Attention(nn.Cell):
         self.attn_drop = nn.Dropout(p=1.0-attention_keep_prob)
         self.out = nn.Dense(dim, dim)
         self.out_drop = nn.Dropout(p=1.0-keep_prob)
-
         self.attn_matmul_v = ops.BatchMatMul()
         self.q_matmul_k = ops.BatchMatMul(transpose_b=True)
         self.softmax = nn.Softmax(axis=-1)
@@ -528,6 +527,33 @@ model.train(epoch_size,
             dataset_sink_mode=False,)
 ```
 
+```text
+Downloading data from https://download.mindspore.cn/vision/classification/vit_b_16_224.ckpt (330.2 MB)
+
+file_sizes: 100%|████████████████████████████| 346M/346M [00:05<00:00, 59.5MB/s]
+Successfully downloaded file to ./ckpt/vit_b_16_224.ckpt
+epoch: 1 step: 125, loss is 1.903618335723877
+Train epoch time: 99857.517 ms, per step time: 798.860 ms
+epoch: 2 step: 125, loss is 1.448015570640564
+Train epoch time: 95555.111 ms, per step time: 764.441 ms
+epoch: 3 step: 125, loss is 1.2555729150772095
+Train epoch time: 95553.210 ms, per step time: 764.426 ms
+epoch: 4 step: 125, loss is 1.3787992000579834
+Train epoch time: 95569.835 ms, per step time: 764.559 ms
+epoch: 5 step: 125, loss is 1.7505667209625244
+Train epoch time: 95463.133 ms, per step time: 763.705 ms
+epoch: 6 step: 125, loss is 2.5462236404418945
+Train epoch time: 95428.906 ms, per step time: 763.431 ms
+epoch: 7 step: 125, loss is 1.5103509426116943
+Train epoch time: 95411.338 ms, per step time: 763.291 ms
+epoch: 8 step: 125, loss is 1.4719784259796143
+Train epoch time: 95644.054 ms, per step time: 765.152 ms
+epoch: 9 step: 125, loss is 1.2415032386779785
+Train epoch time: 95511.758 ms, per step time: 764.094 ms
+epoch: 10 step: 125, loss is 1.098097562789917
+Train epoch time: 95270.282 ms, per step time: 762.162 ms
+```
+
 ### Model Validation
 
 The model validation process mainly applies interfaces such as ImageFolderDataset, CrossEntropySmooth and Model.
@@ -769,6 +795,10 @@ for i, image in enumerate(dataset_infer.create_dict_iterator(output_numpy=True))
     show_result(img="./dataset/infer/n01440764/ILSVRC2012_test_00000279.JPEG",
                 result=output,
                 out_file="./dataset/infer/ILSVRC2012_test_00000279.JPEG")
+```
+
+```text
+{236: 'Doberman'}
 ```
 
 After the inference process is completed, the inference result of the picture can be found under the inference folder, and it can be seen that the prediction result is Doberman, which is the same as the expected result and verifies the accuracy of the model.

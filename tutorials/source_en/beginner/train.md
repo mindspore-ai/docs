@@ -27,8 +27,9 @@ from mindspore.dataset import MnistDataset
 from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
-      "notebook/datasets/MNIST_Data.zip\"
+      "notebook/datasets/MNIST_Data.zip"
 path = download(url, "./", kind="zip", replace=True)
+
 
 def datapipe(path, batch_size):
     image_transforms = [
@@ -72,7 +73,7 @@ Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com
 
 file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:05<00:00, 2.07MB/s]
 Extracting zip file...
-"Successfully downloaded / unzipped to ./
+Successfully downloaded / unzipped to ./
 ```
 
 ## Hyperparameter

@@ -104,7 +104,7 @@ print(image.shape, image.dtype)
 ```
 
 ```text
-(28, 28, 1) Uint8
+(28, 28, 1) UInt8
 ```
 
 ```python
