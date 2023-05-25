@@ -52,6 +52,9 @@ Downloading data from https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspo
 
 file_sizes: 100%|███████████████████████████| 17.1k/17.1k [00:00<00:00, 883kB/s]
 Successfully downloaded file to ./banana.jpg
+```
+
+```text
 './banana.jpg'
 ```
 

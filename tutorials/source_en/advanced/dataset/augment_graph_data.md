@@ -132,11 +132,11 @@ The following demonstrates how to use the `MindDataset` class in the `MindSpore.
     ```
 
     ```text
-        graph info: {'node_type': [0], 'edge_type': [0], 'node_num': {0: 2708}, 'edge_num': {0: 10858}, 'node_feature_type': [1, 2], 'edge_feature_type': []}
-        node shape: 2708
-        features shape: (2708, 1433)
-        labels shape: (2708,)
-        labels: [3 4 4 ... 3 3 3]
+    graph info: {'node_type': [0], 'edge_type': [0], 'node_num': {0: 2708}, 'edge_num': {0: 10858}, 'node_feature_type': [1, 2], 'edge_feature_type': []}
+    node shape: 2708
+    features shape: (2708, 1433)
+    labels shape: (2708,)
+    labels: [3 4 4 ... 3 3 3]
     ```
 
 ## Data Processing
@@ -153,14 +153,14 @@ The following demonstrates how to build a pipeline and perform operations such a
     ```
 
     ```text
-        neighbor:
-        [[   0  633 1862 ...   -1   -1   -1]
-        [   1    2  652 ...   -1   -1   -1]
-        [   2 1986  332 ...   -1   -1   -1]
-        ...
-        [2705  287   -1 ...   -1   -1   -1]
-        [2706  165 2707 ...   -1   -1   -1]
-        [2707  598  165 ...   -1   -1   -1]]
+    neighbor:
+     [[   0  633 1862 ...   -1   -1   -1]
+      [   1    2  652 ...   -1   -1   -1]
+      [   2 1986  332 ...   -1   -1   -1]
+      ...
+      [2705  287   -1 ...   -1   -1   -1]
+      [2706  165 2707 ...   -1   -1   -1]
+      [2707  598  165 ...   -1   -1   -1]]
     ```
 
 2. Build the adjacency matrix according to the neighboring node information.
@@ -179,14 +179,14 @@ The following demonstrates how to build a pipeline and perform operations such a
     ```
 
     ```text
-        adj:
-        [[0. 0. 0. ... 0. 0. 0.]
-        [0. 0. 1. ... 0. 0. 0.]
-        [0. 1. 0. ... 0. 0. 0.]
-        ...
-        [0. 0. 0. ... 0. 0. 0.]
-        [0. 0. 0. ... 0. 0. 1.]
-        [0. 0. 0. ... 0. 1. 0.]]
+    adj:
+     [[0. 0. 0. ... 0. 0. 0.]
+      [0. 0. 1. ... 0. 0. 0.]
+      [0. 1. 0. ... 0. 0. 0.]
+      ...
+      [0. 0. 0. ... 0. 0. 0.]
+      [0. 0. 0. ... 0. 0. 1.]
+      [0. 0. 0. ... 0. 1. 0.]]
     ```
 
 3. Perform node sampling. Common methods such as multi-hop sampling and random walk sampling are supported.
@@ -207,50 +207,50 @@ The following demonstrates how to build a pipeline and perform operations such a
     ```
 
     ```text
-        neighbor:
-        [[   0 1862  633]
-        [   1  654    2]
-        [   2 1666    1]
-        [   3 2544 2544]
-        [   4 1256 1761]
-        [   5 1659 1629]
-        [   6 1416  373]
-        [   7  208  208]
-        [   8  281 1996]
-        [   9  723 2614]
-        [  10 2545  476]
-        [  11 1655 1839]
-        [  12 2662 1001]
-        [  13 1810 1701]
-        [  14 2668 2077]
-        [  15 1093 1271]
-        [  16 2444  970]
-        [  17 2140 1315]
-        [  18 2082 1560]
-        [  19 1939 1939]
-        [  20 2375 2269]]
-        walks:
-        [[   0 1862]
-        [   1  654]
-        [   2 1666]
-        [   3 2544]
-        [   4 2176]
-        [   5 1659]
-        [   6 1042]
-        [   7  208]
-        [   8  281]
-        [   9  723]
-        [  10 2545]
-        [  11 1839]
-        [  12 2662]
-        [  13 1701]
-        [  14 2034]
-        [  15 1271]
-        [  16 2642]
-        [  17 2140]
-        [  18 2145]
-        [  19 1939]
-        [  20 2269]]
+    neighbor:
+     [[   0 1862  633]
+     [   1  654    2]
+     [   2 1666    1]
+     [   3 2544 2544]
+     [   4 1256 1761]
+     [   5 1659 1629]
+     [   6 1416  373]
+     [   7  208  208]
+     [   8  281 1996]
+     [   9  723 2614]
+     [  10 2545  476]
+     [  11 1655 1839]
+     [  12 2662 1001]
+     [  13 1810 1701]
+     [  14 2668 2077]
+     [  15 1093 1271]
+     [  16 2444  970]
+     [  17 2140 1315]
+     [  18 2082 1560]
+     [  19 1939 1939]
+     [  20 2375 2269]]
+    walks:
+     [[   0 1862]
+     [   1  654]
+     [   2 1666]
+     [   3 2544]
+     [   4 2176]
+     [   5 1659]
+     [   6 1042]
+     [   7  208]
+     [   8  281]
+     [   9  723]
+     [  10 2545]
+     [  11 1839]
+     [  12 2662]
+     [  13 1701]
+     [  14 2034]
+     [  15 1271]
+     [  16 2642]
+     [  17 2140]
+     [  18 2145]
+     [  19 1939]
+     [  20 2269]]
     ```
 
     > If the random walk-based node neighbor sampling is used, different results may be displayed during execution.
@@ -271,18 +271,18 @@ The following demonstrates how to build a pipeline and perform operations such a
     ```
 
     ```text
-        part edges: [0 1 2 3 4 5 6 7 8 9]
-        nodes: [[   0  633]
-        [   0 1862]
-        [   0 2582]
-        [   1    2]
-        [   1  652]
-        [   1  654]
-        [   2 1986]
-        [   2  332]
-        [   2 1666]
-        [   2    1]]
-        edges: [ 0  4  7 11]
+    part edges: [0 1 2 3 4 5 6 7 8 9]
+    nodes: [[   0  633]
+     [   0 1862]
+     [   0 2582]
+     [   1    2]
+     [   1  652]
+     [   1  654]
+     [   2 1986]
+     [   2  332]
+     [   2 1666]
+     [   2    1]]
+    edges: [ 0  4  7 11]
     ```
 
 ## References

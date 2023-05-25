@@ -356,7 +356,7 @@ len(word_to_idx)
 ```
 
 ```text
-    21
+21
 ```
 
 Instantiate the model, select an optimizer, and send the model and optimizer to the Wrapper.
@@ -404,16 +404,12 @@ data.shape, label.shape, seq_length.shape
 ```
 
 ```text
-    ((2, 11), (2, 11), (2,))
+((2, 11), (2, 11), (2,))
 ```
 
 After the model is precompiled, 500 steps are trained.
 
 > Training process visualization depends on the `tqdm` library, which can be installed by running the `pip install tqdm` command.
-
-```text
-    100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:23<00:00, 21.13it/s, loss=0.3487625]
-```
 
 ```python
 from tqdm import tqdm
@@ -426,6 +422,10 @@ with tqdm(total=steps) as t:
         t.update(1)
 ```
 
+```text
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:23<00:00, 21.13it/s, loss=0.3487625]
+```
+
 Finally, let's observe the model effect after 500 steps of training. First, use the model to predict possible path scores and candidate sequences.
 
 ```python
@@ -434,9 +434,9 @@ score
 ```
 
 ```text
-    Tensor(shape=[2, 3], dtype=Float32, value=
-    [[ 3.15928860e+01,  3.63119812e+01,  3.17248516e+01],
-     [ 2.81416149e+01,  2.61749763e+01,  3.24760780e+01]])
+Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 3.15928860e+01,  3.63119812e+01,  3.17248516e+01],
+ [ 2.81416149e+01,  2.61749763e+01,  3.24760780e+01]])
 ```
 
 Perform post-processing on the predicted score.
@@ -447,7 +447,7 @@ predict
 ```
 
 ```text
-    [[0, 1, 1, 1, 2, 2, 2, 0, 1, 2, 2], [0, 1, 2, 2, 2, 2, 0, 2, 2]]
+[[0, 1, 1, 1, 2, 2, 2, 0, 1, 2, 2], [0, 1, 2, 2, 2, 2, 0, 2, 2]]
 ```
 
 Finally, convert the predicted index sequence into a label sequence, print the output result, and view the effect.
@@ -467,6 +467,6 @@ sequence_to_tag(predict, idx_to_tag)
 ```
 
 ```text
-    [['B', 'I', 'I', 'I', 'O', 'O', 'O', 'B', 'I', 'O', 'O'],
-     ['B', 'I', 'O', 'O', 'O', 'O', 'B', 'O', 'O']]
+[['B', 'I', 'I', 'I', 'O', 'O', 'O', 'B', 'I', 'O', 'O'],
+ ['B', 'I', 'O', 'O', 'O', 'O', 'B', 'O', 'O']]
 ```

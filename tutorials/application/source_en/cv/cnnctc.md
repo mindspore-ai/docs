@@ -144,7 +144,7 @@ url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 download(url, ".", kind="tar.gz", replace=True)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc_dataset.tar.gz (545.4 MB)
@@ -459,7 +459,7 @@ for epoch in range(epochs):
 print("Done!")
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 dataset_size: 57600
@@ -493,7 +493,7 @@ url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 download(url, "cnnctc.ckpt")
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc.ckpt (169.0 MB)
@@ -602,7 +602,7 @@ print(f'accuracy: {correct_count/count:.4f}\n',
 
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Parameters loaded! from:  ./cnnctc.ckpt
@@ -639,7 +639,7 @@ plt.imshow(img_PIL)
 plt.show()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Predict:  ['parking']

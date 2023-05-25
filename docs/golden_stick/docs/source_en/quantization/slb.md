@@ -288,7 +288,7 @@ model.train(config.epoch_size - config.has_trained_epoch, dataset, callbacks=cb,
             sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
 ```
 
-The running result is as follows:
+Output:
 
 ```text
 epoch: 1 step: 1562, loss is 1.4536957

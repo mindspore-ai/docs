@@ -29,6 +29,12 @@ z = add(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
 ```
 
+```text
+x: [1. 2.]
+y: [3. 5.]
+z: [4. 7.]
+```
+
 ### Executing Function
 
 Execute the custom function `add_func`. The sample code is as follows:
@@ -45,6 +51,12 @@ x = ms.Tensor(np.array([1, 2]).astype(np.float32))
 y = ms.Tensor(np.array([3, 5]).astype(np.float32))
 z = add_func(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
+```
+
+```text
+x: [1. 2.]
+y: [3. 5.]
+z: [5. 9.]
 ```
 
 ### Executing Network
@@ -66,6 +78,12 @@ y = ms.Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
 z = net(x, y)
 
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
+```
+
+```text
+x: [1. 2. 3.]
+y: [4. 5. 6.]
+z: [ 4. 10. 18.]
 ```
 
 ## Synchronous Execution
@@ -494,4 +512,3 @@ print(output)
 ```text
 (Tensor(shape=[], dtype=Float32, value= 3), Tensor(shape=[], dtype=Float32, value= 2))
 ```
-

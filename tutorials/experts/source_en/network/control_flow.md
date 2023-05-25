@@ -117,7 +117,7 @@ print("output:", output)
 ```
 
 ```text
-    output: 1
+output: 1
 ```
 
 ## for Statement
@@ -157,7 +157,7 @@ print("output:", output)
 ```
 
 ```text
-    output: 5
+output: 5
 ```
 
 The `for` statement expands the loop body. Therefore, the preceding code is equivalent to the following code:
@@ -202,7 +202,7 @@ print("output:", output)
 ```
 
 ```text
-    output: 5
+output: 5
 ```
 
 According to the preceding sample code, using the `for` statement may cause too many subgraphs in some scenarios. To reduce hardware resource overhead and improve network build performance, you can convert the `for` statement to the `while` statement whose condition expression is a variable condition.
@@ -247,7 +247,7 @@ print("output:", output)
 ```
 
 ```text
-    output: 5
+output: 5
 ```
 
 ### while Statement Under a Variable Condition
@@ -286,7 +286,7 @@ print("output:", output)
     ```
 
     ```text
-        output: 5
+    output: 5
     ```
 
     It should be noted that in the preceding code, the condition expression of the `while` statement is a variable condition, and the `while` loop body is not expanded. The expressions in the `while` loop body are computed during the running of each step. In addition, the following constraints are generated:
