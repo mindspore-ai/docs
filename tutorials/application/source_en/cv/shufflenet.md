@@ -305,6 +305,8 @@ if __name__ == '__main__':
     train()
 ```
 
+The running results are as follows:
+
 ```text
 model size is  2.0x
 ============== Starting Training ==============
@@ -359,6 +361,8 @@ if __name__ == '__main__':
     test()
 ```
 
+The running results are as follows:
+
 ```text
 model size is  2.0x
 result:{'Loss': 1.0217913215673422, 'Top_1_Acc': 0.8152, 'Top_5_Acc': 0.975}, ckpt:'./shufflenetv1-250_391.ckpt', time: 0h 0m 21s
@@ -407,6 +411,8 @@ for image in show_images_lst:
     plt.axis("off")
 plt.show()
 ```
+
+The running results are as follows:
 
 ```text
 model size is  2.0x

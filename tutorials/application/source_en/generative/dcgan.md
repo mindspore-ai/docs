@@ -64,6 +64,8 @@ url = "https://download.mindspore.cn/dataset/Faces/faces.zip"
 path = download(url, "./faces", kind="zip", replace=True)
 ```
 
+The running results are as follows:
+
 ```text
 Downloading data from https://download.mindspore.cn/dataset/Faces/faces.zip (274.6 MB)
 
@@ -358,6 +360,8 @@ for epoch in range(num_epochs):
     mindspore.save_checkpoint(generator, "./generator.ckpt")
     mindspore.save_checkpoint(discriminator, "./discriminator.ckpt")
 ```
+
+The running results are as follows:
 
 ```text
 [ 1/10][  1/549]   Loss_D: 0.8013  Loss_G: 0.5065

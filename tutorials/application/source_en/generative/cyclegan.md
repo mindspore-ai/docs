@@ -61,6 +61,8 @@ dataset = data.batch(batch_size)
 datasize = dataset.get_dataset_size()
 ```
 
+The running results are as follows:
+
 ```text
 Datasize:  1019
 ```
@@ -498,6 +500,8 @@ for epoch in range(epochs):
 
 print('End of training! ')
 ```
+
+The running results are as follows:
 
 ```text
 Output exceeds the size limit. Open the full output data in a text editor

@@ -98,6 +98,8 @@ dataset_eval = dataset_eval.map(operations=lambda x: x.astype("int32"), input_co
 dataset_eval = dataset_eval.batch(batch_size=32, drop_remainder=True)
 ```
 
+The running results are as follows:
+
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
 
@@ -190,6 +192,8 @@ model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'}
 model.train(5, dataset_train, callbacks=[ckpoint, LossMonitor(1875)])
 ```
 
+The running results are as follows:
+
 ```text
 epoch: 1 step: 1875, loss is 0.05328045040369034
 epoch: 2 step: 1875, loss is 0.05333159118890762
@@ -205,6 +209,8 @@ acc = model.eval(dataset_eval)
 print("{}".format(acc))
 ```
 
+The running results are as follows:
+
 ```text
 {'accuracy': 0.9879807692307693}
 ```
@@ -217,6 +223,8 @@ from mindspore import load_checkpoint, load_param_into_net
 param_dict = load_checkpoint("checkpoint_lenet-5_1875.ckpt")
 load_param_into_net(network, param_dict)
 ```
+
+The running results are as follows:
 
 ```text
 []
@@ -311,6 +319,8 @@ accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
 print(accuracy)
 ```
 
+The running results are as follows:
+
 ```text
 0.9879808
 ```
@@ -324,6 +334,8 @@ adv_predicts = model.predict(advs).argmax(1)
 accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
 print(accuracy)
 ```
+
+The running results are as follows:
 
 ```text
 0.411258
