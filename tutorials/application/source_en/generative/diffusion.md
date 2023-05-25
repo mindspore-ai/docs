@@ -596,6 +596,8 @@ url = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 path = download(url, './', kind="zip", replace=True)
 ```
 
+The running results are as follows:
+
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/image_cat.zip (170 kB)
 
@@ -642,6 +644,8 @@ dataset_2 = dataset_1.batch(1, drop_remainder=True)
 x_start = next(dataset_2.create_tuple_iterator())[0]
 print(x_start.shape)
 ```
+
+The running results are as follows:
 
 ```text
 (1, 3, 128, 128)
@@ -703,6 +707,8 @@ noisy_image = get_noisy_image(x_start, t)
 print(noisy_image)
 noisy_image.show()
 ```
+
+The running results are as follows:
 
 ```text
 <PIL.Image.Image image mode=RGB size=128x128 at 0x7F54569F3950>
@@ -772,6 +778,8 @@ url = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 path = download(url, './', kind="zip", replace=True)
 ```
 
+The running results are as follows:
+
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/dataset.zip (29.4 MB)
 
@@ -811,6 +819,8 @@ dataset = dataset.batch(16, drop_remainder=True)
 x = next(dataset.create_dict_iterator())
 print(x.keys())
 ```
+
+The running results are as follows:
 
 ```text
 dict_keys(['image'])
@@ -929,6 +939,8 @@ for epoch in range(epochs):
 print("Training Success!")
 ```
 
+The running results are as follows:
+
 ```text
  epoch:  0  step:  0  Loss:  0.43375123
  epoch:  0  step:  500  Loss:  0.113769315
@@ -1038,6 +1050,8 @@ samples = sample(unet_model, image_size=image_size, batch_size=64, channels=chan
 random_index = 5
 plt.imshow(samples[-1][random_index].reshape(image_size, image_size, channels), cmap="gray")
 ```
+
+The running results are as follows:
 
 ```text
 <matplotlib.image.AxesImage at 0x7f5175ea1690>

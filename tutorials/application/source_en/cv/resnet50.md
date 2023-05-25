@@ -28,6 +28,8 @@ url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 download(url, "./datasets-cifar10-bin", kind="tar.gz", replace=True)
 ```
 
+The running results are as follows:
+
 ```tex
 './datasets-cifar10-bin'
 ```
@@ -155,6 +157,8 @@ for i in range(6):
     plt.axis("off")
 plt.show()
 ```
+
+The running results are as follows:
 
 ```text
 Image shape: (256, 3, 32, 32), Label shape: (256,)
@@ -543,6 +547,8 @@ print("=" * 80)
 print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
 ```
+
+The running results are as follows:
 
 ```text
 Start Training Loop ...
