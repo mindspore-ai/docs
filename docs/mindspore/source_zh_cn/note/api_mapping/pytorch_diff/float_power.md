@@ -20,7 +20,7 @@ torch.float_power(input, exponent, *, out=None) -> Tensor
 ## mindspore.ops.float_power
 
 ```python
-mindspore.ops.float_power(x, exponent)
+mindspore.ops.float_power(input, exponent)
 ```
 
 更多内容详见[mindspore.ops.float_power](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.float_power.html#mindspore.ops.float_power)。
@@ -33,7 +33,7 @@ MindSpore：如果两个输入都是实数，MindSpore此API实现功能与PyTor
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                 |
 | ---- | ----- | ------- | --------- | -------------------- |
-| 参数 | 参数1 | input   | x         | 功能一致，参数名不同 |
+| 参数 | 参数1 | input   | input         | 功能一致 |
 |      | 参数2 | exponent | exponent | 功能一致 |
 |      | 参数3 | out     | -         | 不涉及              |
 
