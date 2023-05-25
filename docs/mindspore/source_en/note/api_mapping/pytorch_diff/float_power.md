@@ -20,7 +20,7 @@ For more information, see [torch.float_power](https://pytorch.org/docs/1.8.1/gen
 ## mindspore.ops.float_power
 
 ```python
-mindspore.ops.float_power(x, exponent)
+mindspore.ops.float_power(input, exponent)
 ```
 
 For more information, see [mindspore.ops.float_power](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.float_power.html#mindspore.ops.float_power).
@@ -33,7 +33,7 @@ MindSpore: If the inputs are all real numbers, MindSpore API implements the same
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences       |
 | ---- | ----- | ------- | --------- | -------------------- |
-|Parameter | Parameter 1 | input   | x | The function is the same, and the parameter name is different |
+|Parameter | Parameter 1 | input   | input | The function is the same |
 |      | Parameter 2 | exponent | exponent | The function is the same |
 |      | Parameter 3 | out     | -         | MindSpore does not have this Parameter      |
 
