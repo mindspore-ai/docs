@@ -265,7 +265,7 @@ class Net(nn.Cell):
         out2 = self.cos(x)
         return out1, out2
 
-x_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
+x_train = Tensor(np.array([3.1415926]), dtype=ms.float32)
 
 net = Net()
 firstgrad = ms.grad(net)
@@ -335,8 +335,8 @@ class Net(nn.Cell):
         out2 = self.cos(x) - self.sin(y)
         return out1, out2
 
-x_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
-y_train = ms.Tensor(np.array([3.1415926]), dtype=ms.float32)
+x_train = Tensor(np.array([3.1415926]), dtype=ms.float32)
+y_train = Tensor(np.array([3.1415926]), dtype=ms.float32)
 
 net = Net()
 firstgrad = ms.grad(net, grad_position=(0, 1))

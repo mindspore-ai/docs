@@ -57,7 +57,7 @@ from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/dataset_fcn8s.tar"
 
-download(url, "./dataset", kind="tar")
+download(url, "./dataset", kind="tar"", replace=True)
 ```
 
 ### Data Preprocessing
@@ -576,7 +576,7 @@ DATA_FILE = "dataset/dataset_fcn8s/mindname.mindrecord"
 
 # Download the trained weight file.
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/FCN8s.ckpt"
-download(url, "FCN8s.ckpt")
+download(url, "FCN8s.ckpt", replace=True)
 net = FCN8s(n_class=num_classes)
 
 ckpt_file = "FCN8s.ckpt"
