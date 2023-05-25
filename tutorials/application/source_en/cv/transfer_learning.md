@@ -383,10 +383,6 @@ avg_pool = nn.AvgPool2d(kernel_size=7)
 network.avg_pool = avg_pool
 ```
 
-```text
-Replace is False and data exists, so doing nothing. Use replace=True to re-download the data.
-```
-
 ```python
 import mindspore as ms
 
@@ -599,10 +595,6 @@ def train_step(inputs, targets):
 
 # Instantiate models
 model1 = train.Model(net_work, loss_fn, opt, metrics={"Accuracy": train.Accuracy()})
-```
-
-```text
-Replace is False and data exists, so doing nothing. Use replace=True to re-download the data.
 ```
 
 #### Training and Evaluation

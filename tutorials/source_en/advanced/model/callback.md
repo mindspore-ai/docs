@@ -125,9 +125,9 @@ trainer.train(1, train_dataset, callbacks=[loss_monitor])
 ```
 
 ```text
-    epoch: 1 step: 300, loss is 0.45305341482162476
-    epoch: 1 step: 600, loss is 0.2915695905685425
-    epoch: 1 step: 900, loss is 0.5174192190170288
+epoch: 1 step: 300, loss is 0.45305341482162476
+epoch: 1 step: 600, loss is 0.2915695905685425
+epoch: 1 step: 900, loss is 0.5174192190170288
 ```
 
 During training, LossMonitor monitors the loss value of training. And when you train and infer at the same time, LossMonitor monitors the loss value of training and the Metrics value of inferring.
@@ -137,10 +137,10 @@ trainer.fit(1, train_dataset, test_dataset, callbacks=[loss_monitor])
 ```
 
 ```text
-    epoch: 1 step: 300, loss is 0.3167177438735962
-    epoch: 1 step: 600, loss is 0.36215940117836
-    epoch: 1 step: 900, loss is 0.25714176893234253
-    Eval result: epoch 1, metrics: {'accuracy': 0.9202}
+epoch: 1 step: 300, loss is 0.3167177438735962
+epoch: 1 step: 600, loss is 0.36215940117836
+epoch: 1 step: 900, loss is 0.25714176893234253
+Eval result: epoch 1, metrics: {'accuracy': 0.9202}
 ```
 
 ### TimeMonitor
@@ -248,8 +248,8 @@ trainer.train(5, train_dataset, callbacks=[LossMonitor(datasize), StopTimeMonito
 ```
 
 ```text
-    Begin training, time is: 1665892816.363511
-    End training, time: 1665892820.3696215, epoch: 1, step: 575, loss:Tensor(shape=[], dtype=Float32, value= 0.35758)
+Begin training, time is: 1665892816.363511
+End training, time: 1665892820.3696215, epoch: 1, step: 575, loss:Tensor(shape=[], dtype=Float32, value= 0.35758)
 ```
 
 According to the preceding information, when step 4673 of the third epoch is complete, the running time reaches the threshold and the training ends.
@@ -288,13 +288,13 @@ trainer.train(1, train_dataset, callbacks=[SaveCkptMonitor(0.05)])
 ```
 
 ```text
-    Saved checkpoint, loss:0.0390485, current step num: 154.
-    Saved checkpoint, loss:0.0481475, current step num: 234.
-    Saved checkpoint, loss:0.0477566, current step num: 361.
-    Saved checkpoint, loss:0.0314977, current step num: 444.
-    Saved checkpoint, loss:0.0463577, current step num: 513.
-    Saved checkpoint, loss:0.0408403, current step num: 764.
-    Saved checkpoint, loss:0.0308827, current step num: 899.
+Saved checkpoint, loss:0.0390485, current step num: 154.
+Saved checkpoint, loss:0.0481475, current step num: 234.
+Saved checkpoint, loss:0.0477566, current step num: 361.
+Saved checkpoint, loss:0.0314977, current step num: 444.
+Saved checkpoint, loss:0.0463577, current step num: 513.
+Saved checkpoint, loss:0.0408403, current step num: 764.
+Saved checkpoint, loss:0.0308827, current step num: 899.
 ```
 
 The directory structure is as follows:

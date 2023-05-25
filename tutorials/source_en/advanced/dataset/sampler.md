@@ -76,8 +76,8 @@ for data in dataset2.create_tuple_iterator(output_numpy=True):
 ```
 
 ```text
-    With Replacement: 4 5 6 6 1
-    Without Replacement: 4 1 5 6 2
+With Replacement: 4 5 6 6 1
+Without Replacement: 4 1 5 6 2
 ```
 
 According to the preceding result, when the sampler with replacement is used, the same piece of data may be obtained for multiple times. When the sampler without replacement is used, the same piece of data can be obtained only once.
@@ -115,12 +115,12 @@ plt_result(dataset, 2)
 ```
 
 ```text
-    Image shape: (32, 32, 3) , Label: 6
-    Image shape: (32, 32, 3) , Label: 6
-    Image shape: (32, 32, 3) , Label: 9
-    Image shape: (32, 32, 3) , Label: 9
-    Image shape: (32, 32, 3) , Label: 9
-    Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 6
 ```
 
 ![png](images/output_5_1.png)
@@ -146,12 +146,12 @@ plt_result(dataset, 2)
 ```
 
 ```text
-    Image shape: (32, 32, 3) , Label: 9
-    Image shape: (32, 32, 3) , Label: 1
-    Image shape: (32, 32, 3) , Label: 4
-    Image shape: (32, 32, 3) , Label: 9
-    Image shape: (32, 32, 3) , Label: 6
-    Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 4
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 1
 ```
 
 ![png](images/output_7_1.png)
@@ -175,16 +175,16 @@ plt_result(dataset, 3)
 ```
 
 ```text
-    Image shape: (32, 32, 3) , Label: 0
-    Image shape: (32, 32, 3) , Label: 0
-    Image shape: (32, 32, 3) , Label: 1
-    Image shape: (32, 32, 3) , Label: 1
-    Image shape: (32, 32, 3) , Label: 2
-    Image shape: (32, 32, 3) , Label: 2
-    Image shape: (32, 32, 3) , Label: 3
-    Image shape: (32, 32, 3) , Label: 3
-    Image shape: (32, 32, 3) , Label: 4
-    Image shape: (32, 32, 3) , Label: 4
+Image shape: (32, 32, 3) , Label: 0
+Image shape: (32, 32, 3) , Label: 0
+Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 2
+Image shape: (32, 32, 3) , Label: 2
+Image shape: (32, 32, 3) , Label: 3
+Image shape: (32, 32, 3) , Label: 3
+Image shape: (32, 32, 3) , Label: 4
+Image shape: (32, 32, 3) , Label: 4
 ```
 
 ![png](images/output_9_1.png)
@@ -213,9 +213,9 @@ for data in dataset.create_dict_iterator():
 ```
 
 ```text
-    {'data': Tensor(shape=[], dtype=Int64, value= 0)}
-    {'data': Tensor(shape=[], dtype=Int64, value= 4)}
-    {'data': Tensor(shape=[], dtype=Int64, value= 8)}
+{'data': Tensor(shape=[], dtype=Int64, value= 0)}
+{'data': Tensor(shape=[], dtype=Int64, value= 4)}
+{'data': Tensor(shape=[], dtype=Int64, value= 8)}
 ```
 
 According to the preceding result, the dataset is divided into four slices, and each slice has three samples. The samples in the slice whose ID is 0 are obtained this time.
@@ -249,7 +249,7 @@ for data in dataset.create_tuple_iterator(output_numpy=True):
 ```
 
 ```text
-    a c e g i
+a c e g i
 ```
 
 According to the preceding information, the customized sampler reads the sample data whose subscripts are 0, 2, 4, 6, and 8, which is the same as the sampling purpose of the customized sampler.
@@ -281,7 +281,7 @@ for data in dataset.create_tuple_iterator(output_numpy=True):
 ```
 
 ```text
-    d e d c a l f f f j b l l l l i
+d e d c a l f f f j b l l l l i
 ```
 
 According to the preceding information, the customized sampler reads the sample data which index is `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` , which is the same as the sampling purpose of the customized sampler.

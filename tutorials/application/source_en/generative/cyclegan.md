@@ -61,7 +61,7 @@ dataset = data.batch(batch_size)
 datasize = dataset.get_dataset_size()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Datasize:  1019
@@ -501,7 +501,7 @@ for epoch in range(epochs):
 print('End of training! ')
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 
@@ -537,7 +537,7 @@ loss_g:1.88, loss_d:0.55, loss_g_a: 0.37, loss_g_b: 0.14, loss_c_a: 0.45, loss_c
 Epoch:[  7/ 7], step:[ 960/1019], time:0.936919s,
 loss_g:2.49, loss_d:0.54, loss_g_a: 0.38, loss_g_b: 0.14, loss_c_a: 0.66, loss_c_b: 0.53, loss_idt_a: 0.34, loss_idt_b：0.44
 Epoch:[  7/ 7], epoch time:911.41s, per step time:0.89, mean_g_loss:2.89, mean_d_loss:0.79,
-End of training！
+End of training!
 ```
 
 ## Model Inference

@@ -305,7 +305,7 @@ if __name__ == '__main__':
     train()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 model size is  2.0x
@@ -361,7 +361,7 @@ if __name__ == '__main__':
     test()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 model size is  2.0x
@@ -412,7 +412,7 @@ for image in show_images_lst:
 plt.show()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 model size is  2.0x

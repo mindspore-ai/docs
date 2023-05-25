@@ -12,7 +12,7 @@ The Seq2Seq model consists of encoder and decoder. The encoder encodes an input 
 
 > Image source:
 >
-> https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb
+> <https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb>
 
 Later, an attention mechanism is introduced after encoder and decoder, so that the model performs better in each task.
 
@@ -142,7 +142,7 @@ for de, en in test_dataset:
     break
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 de = ['ein', 'mann', 'mit', 'einem', 'orangefarbenen', 'hut', ',', 'der', 'etwas', 'anstarrt', '.']
@@ -214,7 +214,7 @@ vocab = Vocab(word_count, min_freq=2)
 len(vocab)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 7
@@ -244,7 +244,7 @@ de_vocab, en_vocab = build_vocab(train_dataset)
 print('Unique tokens in de vocabulary:', len(de_vocab))
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Unique tokens in de vocabulary: 7882
@@ -364,7 +364,7 @@ After observing the last word in a sentence, each RNN network outputs a context 
 
 > Image source:
 >
-> https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb
+> <https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb>
 
 The encoder returns `outputs` and `hidden`.
 
@@ -427,7 +427,7 @@ The attention mechanism is to give higher weight to corresponding words in the s
 
 > Image source:
 >
-> https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb
+> <https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb>
 
 First, we need to calculate the matching degree $E_t$ between each hidden state in the encoder and the hidden state at the previous time in the decoder.
 
@@ -509,7 +509,7 @@ $$\hat{y}_{t+1} = f(d(y_t), w_t, s_t)$$
 
 > Image source:
 >
-> https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb
+> <https://github.com/bentrevett/pytorch-seq2seq/blob/master/3%20-%20Neural%20Machine%20Translation%20by%20Jointly%20Learning%20to%20Align%20and%20Translate.ipynb>
 
 ```python
 class Decoder(nn.Cell):
@@ -838,7 +838,7 @@ for i in range(num_epochs):
         save_checkpoint(model, ckpt_file_name)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Epoch: 0: 100%|██████████| 226/226 [04:17<00:00,  1.14s/it, loss=4.90]
@@ -917,7 +917,7 @@ print(f'src = {src}')
 print(f'trg = {trg}')
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 src = ['ein', 'mann', 'mit', 'einem', 'orangefarbenen', 'hut', ',', 'der', 'etwas', 'anstarrt', '.']
@@ -932,7 +932,7 @@ translation = translate_sentence(src, de_vocab, en_vocab, model)
 print(f'predicted trg = {translation}')
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 predicted trg = ['a', 'man', 'in', 'an', 'orange', 'hat', ',', 'something', '.']
@@ -978,7 +978,7 @@ bleu_score = calculate_bleu(test_dataset, de_vocab, en_vocab, model)
 print(f'BLEU score = {bleu_score*100:.2f}')
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 BLEU score = 31.54

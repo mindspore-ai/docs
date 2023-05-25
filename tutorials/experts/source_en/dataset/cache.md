@@ -36,6 +36,14 @@ Before using the single-node cache serve, you need to enter the following comman
 cache_admin --start
 ```
 
+```text
+Cache server startup completed successfully!
+The cache server daemon has been created as process id 14678 and listening on port 50052.
+
+Recommendation:
+Since the server is detached into its own daemon process, monitor the server logs (under /tmp/mindspore/cache/log) for any issues that may happen after startup
+```
+
 If the above information is output, it means that the cache server starts successfully.
 
 The preceding commands can use the `-h` and `-p` parameters to specify the server, or the user can specify it by configuring environment variables `MS_CACHE_HOST` and `MS_CACHE_PORT`. If not specified, the default operation is performed on servers with IP 127.0.0.1 and port number 50052.
@@ -48,6 +56,21 @@ To enable the data overflow feature, the user must set the overflow path with th
 
 ```bash
 cache_admin --server_info
+```
+
+```text
+Cache Server Configuration:
+----------------------------------------
+         config name          value
+----------------------------------------
+            hostname      127.0.0.1
+                port          50052
+   number of workers              8
+           log level              1
+           spill dir           None
+----------------------------------------
+Active sessions:
+No active sessions.
 ```
 
 The Cache Server Configuration table lists the IP address, port number, number of worker threads, log level, overflow path and other detailed configuration information of the current server. The Active sessions module displays a list of session IDs that are enabled in the current server.
@@ -64,12 +87,23 @@ If there is no cache session in the cache server, you need to create a cache ses
 cache_admin -g
 ```
 
+```text
+Session created for server on port 50052: 780643335
+```
+
 where 780643335 is the cache session id assigned to the server on port 50052, and the cache session id is assigned by the server.
 
 The `cache_admin --list_sessions` command can be used to check all cache session information existing in the current server.
 
 ```bash
 cache_admin --list_sessions
+```
+
+```text
+Listing sessions for server on port 50052
+
+     Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
+   780643335         n/a         n/a         n/a             n/a       n/a
 ```
 
 Output parameters description:
@@ -176,10 +210,24 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
     num_iter += 1
 ```
 
+```text
+0 image shape: (32, 32, 3)
+1 image shape: (32, 32, 3)
+2 image shape: (32, 32, 3)
+3 image shape: (32, 32, 3)
+```
+
 You can run the `cache_admin --list_sessions` command to check whether there are four data records in the current session. If yes, the data is successfully cached.
 
 ```bash
 cache_admin --list_sessions
+```
+
+```text
+Listing sessions for server on port 50052
+
+     Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
+   780643335  2044459912           4         n/a            3226         4
 ```
 
 #### Cache the data processed by argumentation
@@ -220,6 +268,14 @@ You can run the `cache_admin --list_sessions` command to check whether there are
 cache_admin --list_sessions
 ```
 
+```text
+Listing sessions for server on port 50052
+
+     Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
+   780643335   112867845           5         n/a           12442         5
+   780643335  2044459912           4         n/a            3226         4
+```
+
 ### 5. Destroy the cache session
 
 After the training is complete, you can destroy the current cache and release the memory.
@@ -230,6 +286,10 @@ destroy_session = 'cache_admin --destroy_session' + str(session_id)
 
 ```bash
 destroy_session
+```
+
+```text
+Drop session successfully for server on port 50052
 ```
 
 The preceding command is used to destroy the cache with the session ID 1456416665 on the server with the port number 50052.
@@ -244,6 +304,10 @@ After using the cache server, you can stop it. This operation will destroy all c
 cache_admin --stop
 ```
 
+```text
+Cache server on port 50052 has been stopped successfully.
+```
+
 The preceding command is used to shut down the server with the port number 50052.
 
 If you choose not to shut down the server, the cache sessions on the server will be retained for future use. During the next training, you can create a cache session or reuse the existing cache.
@@ -256,12 +320,11 @@ During the single-node multi-device distributed training, the cache operation al
 
     ```bash
     $cache_admin --start
-    ```
-
     Cache server startup completed successfully!
     The cache server daemon has been created as process id 39337 and listening on port 50052
     Recommendation:
-        Since the server is detached into its own daemon process, monitor the server logs (under/tmp/mindspore/cache/log) for any issues that may happen after startup
+    Since the server is detached into its own daemon process, monitor the server logs (under/tmp/mindspore/cache/log) for any issues that may happen after startup
+    ```
 
 2. Create a cache session.
 
@@ -407,17 +470,17 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 
     ```bash
     bootup_cache_server()
-       {
-         echo "Booting up cache server..."
-         result=$(cache_admin --start 2>&1)
-         echo "${result}"
-       }
+    {
+        echo "Booting up cache server..."
+        result=$(cache_admin --start 2>&1)
+        echo "${result}"
+    }
 
-       generate_cache_session()
-       {
-         result=$(cache_admin -g | awk 'END {print $NF}')
-         echo "${result}"
-       }
+    generate_cache_session()
+    {
+        result=$(cache_admin -g | awk 'END {print $NF}')
+        echo "${result}"
+    }
     ```
 
     > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/cache/cache_util.sh).
@@ -426,10 +489,10 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 
     ```bash
     CURPATH="${dirname "$0"}"
-       source ${CURPATH}/cache_util.sh
+    source ${CURPATH}/cache_util.sh
 
-       bootup_cache_server
-       CACHE_SESSION_ID=$(generate_cache_session)
+    bootup_cache_server
+    CACHE_SESSION_ID=$(generate_cache_session)
     ```
 
 3. Pass in the `CACHE_SESSION_ID` and other parameters when starting Python training:
@@ -449,8 +512,6 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 4. In the `train_parse_args()` function of Python's parameter parsing script `args.py`, the incoming `cache_session_id` is received by the following code:
 
     ```python
-    cache_session_id：
-
     import argparse
 
     def train_parse_args():
@@ -516,10 +577,10 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
     The following table shows the average epoch time on gpu servers of using cache versus or not using cache:
 
     ```text
-       | 4p, MobileNetV2, imagenet2012            | without cache | with cache |
-       | ---------------------------------------- | ------------- | ---------- |
-       | first epoch time                         | 1649s         | 3384s      |
-       | average epoch time (exclude first epoch) | 458s          | 421s       |
+    | 4p, MobileNetV2, imagenet2012            | without cache | with cache |
+    | ---------------------------------------- | ------------- | ---------- |
+    | first epoch time                         | 1649s         | 3384s      |
+    | average epoch time (exclude first epoch) | 458s          | 421s       |
     ```
 
     You can see that after using the cache, the completion time of the first epoch increases more than if the cache is not used, which is mainly due to the overhead of writing cache data to the cache server. However, each subsequent epoch after caching data writes can get a large performance gain. Therefore, the greater the total number of episodes trained, the more pronounced the benefits of using the cache.
@@ -553,4 +614,3 @@ However, we may not benefit from cache in the following scenarios:
 - Data processed by `batch`, `concat`, `filter`, `repeat`, `skip`, `split`, `take`, and `zip` does not support cache.
 - Data processed by random data argumentation operations (such as `RandomCrop`) does not support cache.
 - The same cache instance cannot be nested in different locations of the same pipeline.
-

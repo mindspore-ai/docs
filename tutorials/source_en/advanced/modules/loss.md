@@ -49,11 +49,10 @@ print("loss_none:", loss_none(input_data, target_data))
 ```
 
 ```text
-    loss: 1.5
-    loss_sum: 9.0
-    loss_none:
-     [[1. 0. 2.]
-     [1. 2. 3.]]
+loss: 1.5
+loss_sum: 9.0
+loss_none:[[1. 0. 2.]
+ [1. 2. 3.]]
 ```
 
 ## Customized Loss Functions
@@ -91,7 +90,7 @@ print(output)
 ```
 
 ```text
-    0.033333335
+0.033333335
 ```
 
 ### `nn.LossBase`-based Loss Function Build
@@ -117,7 +116,7 @@ print(output)
 ```
 
 ```text
-    0.033333335
+0.033333335
 ```
 
 ## Loss Function and Model Training
@@ -155,16 +154,16 @@ model.train(10, train_dataset, callbacks=[LossMonitor(10)])
 ```
 
 ```text
-    epoch: 1 step: 10, loss is 6.525373935699463
-    epoch: 2 step: 10, loss is 4.005467414855957
-    epoch: 3 step: 10, loss is 2.1115174293518066
-    epoch: 4 step: 10, loss is 2.7334954738616943
-    epoch: 5 step: 10, loss is 1.7042752504348755
-    epoch: 6 step: 10, loss is 1.6317998170852661
-    epoch: 7 step: 10, loss is 1.035435438156128
-    epoch: 8 step: 10, loss is 0.6060740351676941
-    epoch: 9 step: 10, loss is 1.0374044179916382
-    epoch: 10 step: 10, loss is 0.736151397228241
+epoch: 1 step: 10, loss is 6.525373935699463
+epoch: 2 step: 10, loss is 4.005467414855957
+epoch: 3 step: 10, loss is 2.1115174293518066
+epoch: 4 step: 10, loss is 2.7334954738616943
+epoch: 5 step: 10, loss is 1.7042752504348755
+epoch: 6 step: 10, loss is 1.6317998170852661
+epoch: 7 step: 10, loss is 1.035435438156128
+epoch: 8 step: 10, loss is 0.6060740351676941
+epoch: 9 step: 10, loss is 1.0374044179916382
+epoch: 10 step: 10, loss is 0.736151397228241
 ```
 
 ## Multi-label Loss Function and Model Training
@@ -239,16 +238,15 @@ train_dataset = create_multilabel_dataset(num_data=160)
 loss_fn = MAELossForMultiLabel()
 # Define the optimizer.
 opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
+```
 
-# Define forward function
+```python
 def forward_fn(data, label1, label2):
     output = network(data)
     return loss_fn(output, label1, label2)
 
-# Get gradient function
 grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
-# Define function of one-step training
 def train_step(data, label1, label2):
     loss, grads = grad_fn(data, label1, label2)
     optimizer(grads)
@@ -263,7 +261,9 @@ def train(model, dataset):
         if batch % 2 == 0:
             loss, current = loss.asnumpy(), batch
             print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
+```
 
+```python
 epochs = 5
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
@@ -272,42 +272,42 @@ print("Done!")
 ```
 
 ```text
-    Epoch 1
-    -------------------------------
-    loss: 0.739832  [  0/ 10]
-    loss: 0.949316  [  2/ 10]
-    loss: 1.052085  [  4/ 10]
-    loss: 0.982260  [  6/ 10]
-    loss: 0.784400  [  8/ 10]
-    Epoch 2
-    -------------------------------
-    loss: 0.963160  [  0/ 10]
-    loss: 0.899232  [  2/ 10]
-    loss: 0.934914  [  4/ 10]
-    loss: 0.757601  [  6/ 10]
-    loss: 0.965961  [  8/ 10]
-    Epoch 3
-    -------------------------------
-    loss: 0.815042  [  0/ 10]
-    loss: 0.999898  [  2/ 10]
-    loss: 1.008266  [  4/ 10]
-    loss: 1.024307  [  6/ 10]
-    loss: 0.798073  [  8/ 10]
-    Epoch 4
-    -------------------------------
-    loss: 0.844747  [  0/ 10]
-    loss: 0.958094  [  2/ 10]
-    loss: 0.898447  [  4/ 10]
-    loss: 0.879910  [  6/ 10]
-    loss: 0.969592  [  8/ 10]
-    Epoch 5
-    -------------------------------
-    loss: 0.917983  [  0/ 10]
-    loss: 0.862990  [  2/ 10]
-    loss: 0.947069  [  4/ 10]
-    loss: 0.854086  [  6/ 10]
-    loss: 0.910622  [  8/ 10]
-    Done!
+Epoch 1
+-------------------------------
+loss: 0.739832  [  0/ 10]
+loss: 0.949316  [  2/ 10]
+loss: 1.052085  [  4/ 10]
+loss: 0.982260  [  6/ 10]
+loss: 0.784400  [  8/ 10]
+Epoch 2
+-------------------------------
+loss: 0.963160  [  0/ 10]
+loss: 0.899232  [  2/ 10]
+loss: 0.934914  [  4/ 10]
+loss: 0.757601  [  6/ 10]
+loss: 0.965961  [  8/ 10]
+Epoch 3
+-------------------------------
+loss: 0.815042  [  0/ 10]
+loss: 0.999898  [  2/ 10]
+loss: 1.008266  [  4/ 10]
+loss: 1.024307  [  6/ 10]
+loss: 0.798073  [  8/ 10]
+Epoch 4
+-------------------------------
+loss: 0.844747  [  0/ 10]
+loss: 0.958094  [  2/ 10]
+loss: 0.898447  [  4/ 10]
+loss: 0.879910  [  6/ 10]
+loss: 0.969592  [  8/ 10]
+Epoch 5
+-------------------------------
+loss: 0.917983  [  0/ 10]
+loss: 0.862990  [  2/ 10]
+loss: 0.947069  [  4/ 10]
+loss: 0.854086  [  6/ 10]
+loss: 0.910622  [  8/ 10]
+Done!
 ```
 
 The preceding describes how to define a loss function and use a Model for model training in the multi-label dataset scenario. In many other scenarios, this method may also be used for model training.

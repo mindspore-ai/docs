@@ -552,7 +552,7 @@ callbacks.append(ckpt_callback)
 model.train(train_epochs, dataset, callbacks=callbacks)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 epoch: 1 step: 1, loss is 3.0904884338378906
@@ -604,7 +604,7 @@ dataset_eval = dataset.get_dataset()
 model.eval(dataset_eval)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 {'pixel accuracy': 0.9734971889839162,

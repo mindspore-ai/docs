@@ -62,7 +62,7 @@ path = "./"
 path = download(dataset_url, path, kind="zip", replace=True)
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/ssd_datasets.zip (16.6 MB)
@@ -991,7 +991,7 @@ ms.save_checkpoint(network, "ssd-60_9.ckpt")
 print("=================== Training Success =====================")
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 
@@ -1124,7 +1124,7 @@ def eval_net():
 eval_net()
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 Start Eval!

@@ -400,7 +400,7 @@ for epoch in range(epoch_num):
         mindspore.save_checkpoint(net_generator, ckpt_dir + "Generator.ckpt")
 ```
 
-The running results are as follows:
+Output:
 
 ```text
 ms per step:532.31   epoch:1/100  step:0/25  Dloss:0.6940  Gloss:38.1245
