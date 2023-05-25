@@ -504,7 +504,6 @@ print('End of training! ')
 The running results are as follows:
 
 ```text
-Output exceeds the size limit. Open the full output data in a text editor
 
 Start training!
 Epoch:[  1/ 7], step:[   0/1019], time:6.202873s,
@@ -531,6 +530,9 @@ loss_g:3.17, loss_d:0.49, loss_g_a: 0.34, loss_g_b: 0.18, loss_c_a: 0.75, loss_c
 ...
 Epoch:[  7/ 7], step:[ 720/1019], time:0.760178s,
 loss_g:2.56, loss_d:0.40, loss_g_a: 0.43, loss_g_b: 0.37, loss_c_a: 0.47, loss_c_b: 0.70, loss_idt_a: 0.19, loss_idt_b：0.42
+Epoch:[  7/ 7], step:[ 800/1019], time:0.850483s,
+loss_g:2.10, loss_d:0.61, loss_g_a: 0.33, loss_g_b: 0.13, loss_c_a: 0.58, loss_c_b: 0.55, loss_idt_a: 0.27, loss_idt_b：0.24
+Epoch:[  7/ 7], step:[ 880/1019], time:0.854865s,
 loss_g:1.88, loss_d:0.55, loss_g_a: 0.37, loss_g_b: 0.14, loss_c_a: 0.45, loss_c_b: 0.43, loss_idt_a: 0.20, loss_idt_b：0.29
 Epoch:[  7/ 7], step:[ 960/1019], time:0.936919s,
 loss_g:2.49, loss_d:0.54, loss_g_a: 0.38, loss_g_b: 0.14, loss_c_a: 0.66, loss_c_b: 0.53, loss_idt_a: 0.34, loss_idt_b：0.44

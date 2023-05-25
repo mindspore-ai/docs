@@ -58,7 +58,7 @@ from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/application/dataset_pix2pix.tar"
 
-download(url, "./dataset", kind="tar")
+download(url, "./dataset", kind="tar", replace=True)
 ```
 
 ### Data Display

@@ -994,7 +994,6 @@ print("=================== Training Success =====================")
 The running results are as follows:
 
 ```text
-Output exceeds the size limit. Open the full output data in a text editor
 
 =================== Starting Training =====================
 Epoch:[1/60], loss:1365.3849 , time:42.76231384277344s
@@ -1021,6 +1020,38 @@ Epoch:[21/60], loss:422.35846 , time:40.40337634086609s
 Epoch:[22/60], loss:385.95758 , time:41.0706627368927s
 Epoch:[23/60], loss:356.3252 , time:41.02973508834839s
 Epoch:[24/60], loss:332.2302 , time:41.101938009262085s
+Epoch:[25/60], loss:312.56158 , time:40.12760329246521s
+Epoch:[26/60], loss:296.3943 , time:40.62085247039795s
+Epoch:[27/60], loss:282.99237 , time:42.20474720001221s
+Epoch:[28/60], loss:271.7844 , time:40.27843761444092s
+Epoch:[29/60], loss:262.32687 , time:40.6625394821167s
+Epoch:[30/60], loss:254.28302 , time:41.42288422584534s
+Epoch:[31/60], loss:247.38882 , time:40.49200940132141s
+Epoch:[32/60], loss:241.44067 , time:41.48827362060547s
+Epoch:[33/60], loss:236.28123 , time:41.1355299949646s
+Epoch:[34/60], loss:231.78201 , time:40.45781660079956s
+Epoch:[35/60], loss:227.84433 , time:40.92684364318848s
+Epoch:[36/60], loss:224.38614 , time:40.89856195449829s
+Epoch:[37/60], loss:221.34372 , time:41.585039138793945s
+Epoch:[38/60], loss:218.66156 , time:40.8972954750061s
+Epoch:[39/60], loss:216.29553 , time:42.22093486785889s
+Epoch:[40/60], loss:214.20854 , time:40.75188755989075s
+Epoch:[41/60], loss:212.36868 , time:41.51768183708191s
+Epoch:[42/60], loss:210.74985 , time:40.3460476398468s
+Epoch:[43/60], loss:209.32901 , time:40.65240502357483s
+Epoch:[44/60], loss:208.08626 , time:41.250218629837036s
+Epoch:[45/60], loss:207.00375 , time:40.334686040878296s
+Epoch:[46/60], loss:206.06656 , time:40.822086811065674s
+Epoch:[47/60], loss:205.2609 , time:40.492422103881836s
+Epoch:[48/60], loss:204.57387 , time:41.39555335044861s
+Epoch:[49/60], loss:203.9947 , time:40.29546666145325s
+Epoch:[50/60], loss:203.51189 , time:39.61115860939026s
+Epoch:[51/60], loss:203.11642 , time:41.232492446899414s
+Epoch:[52/60], loss:202.79791 , time:40.896180152893066s
+Epoch:[53/60], loss:202.54779 , time:40.62282419204712s
+Epoch:[54/60], loss:202.35779 , time:40.751235485076904s
+Epoch:[55/60], loss:202.2188 , time:41.790447473526s
+Epoch:[56/60], loss:202.12277 , time:41.371476888656616s
 Epoch:[57/60], loss:202.05978 , time:41.00389575958252s
 Epoch:[58/60], loss:202.02513 , time:40.384965658187866s
 Epoch:[59/60], loss:202.00772 , time:40.91265916824341s
@@ -1098,7 +1129,6 @@ The running results are as follows:
 ```text
 Start Eval!
 Load Checkpoint!
-Output exceeds the size limit. Open the full output data in a text editor
 
 
 ========================================
@@ -1125,7 +1155,9 @@ DONE (t=0.20s).
  Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.016
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.005
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.037
- ···
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.071
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.057
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.328
 
 ========================================

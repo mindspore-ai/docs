@@ -206,7 +206,6 @@ for name, param in model.parameters_and_names():
 ```
 
 ```text
-Output exceeds the size limit. Open the full output data in a text editor
 
 Model structure: Network<
   (flatten): Flatten<>
@@ -233,7 +232,19 @@ Values : [0. 0.]
 
 Layer: dense_relu_sequential.2.weight
 Size: (512, 512)
-
+Values : [[ 0.00565423  0.00354313  0.00637383 ... -0.00352688  0.00262949
+   0.01157355]
+ [-0.01284141  0.00657666 -0.01217057 ...  0.00318963  0.00319115
+  -0.00186801]]
+Layer: dense_relu_sequential.2.bias
+Size: (512,)
+Values : [0. 0.]
+Layer: dense_relu_sequential.4.weight
+Size: (10, 512)
+Values : [[ 0.0087168  -0.00381866 -0.00865665 ... -0.00273731 -0.00391623
+   0.00612853]
+ [-0.00593031  0.0008721  -0.0060081  ... -0.00271535 -0.00850481
+  -0.00820513]]
 Layer: dense_relu_sequential.4.bias
 Size: (10,)
 Values : [0. 0.]

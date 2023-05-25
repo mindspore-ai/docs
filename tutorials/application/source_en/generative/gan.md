@@ -221,7 +221,7 @@ class Discriminator(nn.Cell):
         self.model.append(nn.Dense(img_size * img_size, 512))  # The number of input features is 784, and the number of output features is 512.
         self.model.append(nn.LeakyReLU())  # Nonlinear mapping activation function with a default slope of 0.2.
         # [N, 512] -> [N, 256]
-        self.model.append(nn.Dense (512, 256)) # Linear mapping.
+        self.model.append(nn.Dense(512, 256)) # Linear mapping.
         self.model.append(nn.LeakyReLU())
         # [N, 256] -> [N, 1]
         self.model.append(nn.Dense(256, 1))

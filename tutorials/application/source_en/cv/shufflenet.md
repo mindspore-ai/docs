@@ -222,7 +222,7 @@ from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz"
 
-download(url, "./dataset", kind="tar.gz")
+download(url, "./dataset", kind="tar.gz", replace=True)
 ```
 
 ```python
