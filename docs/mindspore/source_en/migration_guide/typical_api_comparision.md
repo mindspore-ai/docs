@@ -640,30 +640,30 @@ PyTorch optimizer module provides `state_dict()` for viewing and saving the opti
   torch.save(optimizer.state_dict(), save_path)
   ```
 
-Optimizer loading. You can use `torch.load()` to load the saved `state_dict` and then use `load_state_dict` to load the obtained `state_dict` into the optimizer:
+- Optimizer loading. You can use `torch.load()` to load the saved `state_dict` and then use `load_state_dict` to load the obtained `state_dict` into the optimizer:
 
-```python
-optimizer = optim.SGD(param_groups, lr=0.01)
-state_dict = torch.load(save_path)
-optimizer.load_state_dict(state_dict)
-```
+  ```python
+  optimizer = optim.SGD(param_groups, lr=0.01)
+  state_dict = torch.load(save_path)
+  optimizer.load_state_dict(state_dict)
+  ```
 
 MindSpore optimizer module is inherited from `Cell`. The optimizer is saved and loaded in the same way as the network is saved and loaded, usually in conjunction with `save_checkpoint` and `load_checkpoint`.
 
-Optimizer saving. You can use `mindspore.save_checkpoint()` to save the optimizer instance to a ckpt file:
+- Optimizer saving. You can use `mindspore.save_checkpoint()` to save the optimizer instance to a ckpt file:
 
-```python
-optimizer = nn.SGD(param_groups, lr=0.01)
-state_dict = mindspore.save_checkpoint(opt, save_path)
-```en
+  ```python
+  optimizer = nn.SGD(param_groups, lr=0.01)
+  state_dict = mindspore.save_checkpoint(opt, save_path)
+  ```
 
-Optimizer loading. You can use `mindspore.load_checkpoint()` to load the saved ckpt file, and then use `load_param_into_net` to load the obtained `param_dict` into the optimizer:
+- Optimizer loading. You can use `mindspore.load_checkpoint()` to load the saved ckpt file, and then use `load_param_into_net` to load the obtained `param_dict` into the optimizer:
 
-```python
-optimizer = nn.SGD(param_groups, lr=0.01)
-param_dict = mindspore.load_checkpoint(save_path)
-mindspore.load_param_into_net(opt, param_dict)
-```
+  ```python
+  optimizer = nn.SGD(param_groups, lr=0.01)
+  param_dict = mindspore.load_checkpoint(save_path)
+  mindspore.load_param_into_net(opt, param_dict)
+  ```
 
 ## Differences between random generators
 
