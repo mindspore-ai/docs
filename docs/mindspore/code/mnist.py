@@ -26,17 +26,18 @@ def create_dataset(with_preprocess=True, need_download=True):
     Download, load and preprocess MNIST dataset.
     '''
     if need_download:
-        # Download the opensource dataset, MNIST.
+        # download the opensource dataset, MNIST.
         mnist_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip"
         download(mnist_url, "./", kind="zip", replace=True)
 
     if not os.path.exists("MNIST_Data/train"):
         raise RuntimeError("MNIST dataset file was ruined, set download to True for a new one.")
 
-    # Load MNIST dataset
+    # load MNIST dataset
     mnist_dataset = ds.MnistDataset("MNIST_Data/train")
 
     if with_preprocess:
+        # preprocess the dataset
         resize_height, resize_width = 32, 32
         rescale = 1.0 / 255.0
         rescale_nml = 1 / 0.3081

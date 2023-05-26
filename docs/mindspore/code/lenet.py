@@ -24,10 +24,10 @@ class LeNet5(nn.Cell):
     Args:
         num_class (int): Number of classes. Default: 10.
         num_channel (int): Number of channels. Default: 1.
-        include_top (bool): If includes fc layers.Default: True.
+        include_top (bool): If includes fc layers. Default: True.
 
     Returns:
-        Tensor, output tensor
+        Tensor, output tensor.
 
     Examples:
         >>> LeNet5(num_class=10)
