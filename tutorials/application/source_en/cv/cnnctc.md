@@ -152,6 +152,9 @@ Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com
 file_sizes: 100%|████████████████████████████| 572M/572M [08:38<00:00, 1.10MB/s]
 Extracting tar.gz file...
 Successfully downloaded / unzipped to .
+```
+
+```text
 '.'
 ```
 
@@ -500,6 +503,9 @@ Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com
 
 file_sizes: 100%|████████████████████████████| 177M/177M [02:56<00:00, 1.01MB/s]
 Successfully downloaded file to cnnctc.ckpt
+```
+
+```text
 'cnnctc.ckpt'
 ```
 

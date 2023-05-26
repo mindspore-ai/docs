@@ -52,7 +52,7 @@ Use the `download` API to download the dataset and decompress it to the current 
 
 The directory structure of the downloaded dataset is as follows:
 
-```Text
+```text
 ./MNIST_Data/
 ├─ train
 │ ├─ train-images-idx3-ubyte

@@ -447,7 +447,7 @@ $$a_t = \text{softmax}(\hat{a_t})$$
 
 ```python
 class Attention(nn.Cell):
-    def __init__(self, enc_hid_dim, dec_hid_dim):
+    def __init__(self, enc_hid_dim, dec_hid_dim, is_ascend):
         super().__init__()
 
         if is_ascend:
@@ -700,7 +700,7 @@ src_pad_idx = de_vocab.pad_idx  # Numeric index of the pad placeholder in the Ge
 trg_pad_idx = en_vocab.pad_idx  # Numeric index of the pad placeholder in the English vocabulary
 
 is_ascend = mindspore.get_context('device_target') == 'Ascend'
-compute_dtype = mindspore.float32  # Data type in calculation
+compute_dtype = mindspore.float16  # Data type in calculation
 dtype = mindspore.float32 # Type of the returned data
 
 attn = Attention(enc_hid_dim, dec_hid_dim, is_ascend)

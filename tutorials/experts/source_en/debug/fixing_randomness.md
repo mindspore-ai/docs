@@ -19,13 +19,13 @@ This document applies to Graph mode on Ascend.
     ```python
     import random
 
-     import numpy
+    import numpy
 
-     import mindspore
+    import mindspore
 
-     mindspore.set_seed(1)
-     numpy.random.seed(1)
-     random.seed(1)
+    mindspore.set_seed(1)
+    numpy.random.seed(1)
+    random.seed(1)
     ```
 
 2. Fix hyperparameter.
@@ -50,8 +50,8 @@ This document applies to Graph mode on Ascend.
     ```python
     import mindspore.dataset as ds
 
-     data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=1, shuffle=False)
-     data_set.map(operations=trans, input_columns="image", num_parallel_workers=1)
+    data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=1, shuffle=False)
+    data_set.map(operations=trans, input_columns="image", num_parallel_workers=1)
     ```
 
 5. Fix network.

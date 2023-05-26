@@ -138,7 +138,7 @@ In `step_parallel_begin_xxx.ir`, each computation operator is annotated with a S
 In `xx_validate_xxx.ir`, each input and output tensor in the computation operator is sliced according to the Sharding Strategy.
 
 ```text
-…
+...
   %2(equivx) = MatMul(%0, %1) {instance name: matmul} primitive_attrs: {input_names: [x1, x2], out_strategy: None, transpose_x2: false, transpose_b: false, in_strategy: ((2, 1), (1, 4)), output_names: [output], transpose_a: false, transpose_x1: false}
  {in_strategy: ((2, 1), (1, 4))}      : (<Tensor[Float32], (32, 64)>, <Tensor[Float32], (64, 16)>) -> (<Tensor[Float32], (32, 16)>)
       # In file ./train.py(33)/        x = self.matmul(x, self.weight)/
@@ -163,7 +163,7 @@ In `xx_validate_xxx.ir`, each input and output tensor in the computation operato
       : (<Ref[Tensor(F32)], (16)>, <UMonad>) -> (<Tensor[Float32], (16)>)
   %11(equivx) = Add(%9, %10) {instance name: add} primitive_attrs: {output_names: [output], input_names: [x, y]}
  {in_strategy: ((2, 4), (4))}      : (<Tensor[Float32], (32, 16)>, <Tensor[Float32], (16)>) -> (<Tensor[Float32], (32, 16)>)
-…
+...
 ```
 
 ## Empirical Principles on Configuring Sharding Strategies

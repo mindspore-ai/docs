@@ -106,10 +106,10 @@ The parameter name is weight and the slice strategy is to perform slice in a 4-d
 1. Obtain the data value on all nodes for model parallel parameters.
 
    ```python
-    sliced_parameters = []
-    for i in range(4):
-        parameter = param_dicts[i].get("weight")
-        sliced_parameters.append(parameter)
+   sliced_parameters = []
+   for i in range(4):
+       parameter = param_dicts[i].get("weight")
+       sliced_parameters.append(parameter)
    ```
 
    > To ensure that the parameter update speed remains unchanged, you need to integrate the parameters saved in the optimizer, for example, moments.weight.
@@ -262,80 +262,80 @@ User process:
    integrate\_checkpoint.py:
 
    ```python
-    import numpy as np
-    import os
-    import mindspore.nn as nn
-    import mindspore as ms
-    import mindspore.ops as ops
+   import numpy as np
+   import os
+   import mindspore.nn as nn
+   import mindspore as ms
+   import mindspore.ops as ops
 
-    class Net(nn.Cell):
-        def __init__(self,weight_init):
-            super(Net, self).__init__()
-            self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
-            self.fc = ops.MatMul(transpose_b=True)
+   class Net(nn.Cell):
+       def __init__(self,weight_init):
+           super(Net, self).__init__()
+           self.weight = ms.Parameter(ms.Tensor(weight_init), layerwise_parallel=True)
+           self.fc = ops.MatMul(transpose_b=True)
 
-        def construct(self, x):
-            x = self.fc(x, self.weight)
-            return x
+       def construct(self, x):
+           x = self.fc(x, self.weight)
+           return x
 
-    def integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size):
-        weight = np.ones([2, 8]).astype(np.float32)
-        net = Net(weight)
-        opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
-        net = TrainOneStepCell(net, opt)
+   def integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size):
+       weight = np.ones([2, 8]).astype(np.float32)
+       net = Net(weight)
+       opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
+       net = TrainOneStepCell(net, opt)
 
-        # load CheckPoint into net in rank id order
-        param_dicts = []
-        for i in range(rank_size):
-            file_name = os.path.join("./node"+str(i), old_ckpt_file)
-            param_dict = ms.load_checkpoint(file_name)  
-            ms.load_param_into_net(net, param_dict)
-            param_dict = {}
-            for _, param in net.parameters_and_names():
-                param_dict[param.name] = param
-                param_dicts.append(param_dict)
+       # load CheckPoint into net in rank id order
+       param_dicts = []
+       for i in range(rank_size):
+           file_name = os.path.join("./node"+str(i), old_ckpt_file)
+           param_dict = ms.load_checkpoint(file_name)  
+           ms.load_param_into_net(net, param_dict)
+           param_dict = {}
+           for _, param in net.parameters_and_names():
+               param_dict[param.name] = param
+               param_dicts.append(param_dict)
 
-        strategy = ms.build_searched_strategy(strategy_file)
-        param_dict = {}
+       strategy = ms.build_searched_strategy(strategy_file)
+       param_dict = {}
 
-        for paramname in ["weight", "moments.weight"]:
-            # get layer wise model parallel parameter
-            sliced_parameters = []
-            for i in range(rank_size):
-                parameter = param_dicts[i].get(paramname)
-                sliced_parameters.append(parameter)
+       for paramname in ["weight", "moments.weight"]:
+           # get layer wise model parallel parameter
+           sliced_parameters = []
+           for i in range(rank_size):
+               parameter = param_dicts[i].get(paramname)
+               sliced_parameters.append(parameter)
 
-            # merge the parallel parameters of the model
-            merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
-            param_dict[paramname] = merged_parameter
+           # merge the parallel parameters of the model
+           merged_parameter = ms.merge_sliced_parameter(sliced_parameters, strategy)
+           param_dict[paramname] = merged_parameter
 
-        # convert param_dict to list type data
-        param_list = []
-        for (key, value) in param_dict.items():
-            each_param = {}
-            each_param["name"] = key
-            if isinstance(value.data, ms.Tensor):
-                param_data = value.data
-            else:
-                param_data = ms.Tensor(value.data)
-            each_param["data"] = param_data
-            param_list.append(each_param)
+       # convert param_dict to list type data
+       param_list = []
+       for (key, value) in param_dict.items():
+           each_param = {}
+           each_param["name"] = key
+           if isinstance(value.data, ms.Tensor):
+               param_data = value.data
+           else:
+               param_data = ms.Tensor(value.data)
+           each_param["data"] = param_data
+           param_list.append(each_param)
 
-        # call the API to generate a new CheckPoint file
-        ms.save_checkpoint(param_list, new_ckpt_file)
+       # call the API to generate a new CheckPoint file
+       ms.save_checkpoint(param_list, new_ckpt_file)
 
-        return
+       return
 
-    if __name__ == "__main__":
-        try:
-            old_ckpt_file = sys.argv[1]
-            new_ckpt_file = sys.argv[2]
-            strategy_file = sys.argv[3]
-            rank_size = int(sys.argv[4])
-            integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size)
-        except:
-            print("Fail to integrate checkpoint file")
-            sys.exit(-1)
+   if __name__ == "__main__":
+       try:
+           old_ckpt_file = sys.argv[1]
+           new_ckpt_file = sys.argv[2]
+           strategy_file = sys.argv[3]
+           rank_size = int(sys.argv[4])
+           integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size)
+       except:
+           print("Fail to integrate checkpoint file")
+           sys.exit(-1)
    ```
 
    The command output is as follows.

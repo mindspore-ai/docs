@@ -11,7 +11,7 @@ Common errors you may encounter in the data preparation phase include dataset pa
 Error log:
 
 ```text
-RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\models-master\official\cv\ssd\MsindRecord_COCO\test.mindrecord
+RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\models-master\official\cv\ssd\MindRecord_COCO\test.mindrecord
 ```
 
 Two solutions are available:

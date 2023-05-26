@@ -30,13 +30,13 @@ download(url, "./datasets-cifar10-bin", kind="tar.gz", replace=True)
 
 Output:
 
-```tex
+```text
 './datasets-cifar10-bin'
 ```
 
 The directory structure of the CIFAR-10 dataset file is as follows:
 
-```Text
+```text
 datasets-cifar10-bin/cifar-10-batches-bin
 ├── batches.meta.text
 ├── data_batch_1.bin

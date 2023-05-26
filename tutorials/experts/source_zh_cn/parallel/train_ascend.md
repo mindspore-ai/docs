@@ -516,7 +516,7 @@ echo "Please run the script as: "
 echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
 echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
 echo "It is better to use the absolute path."
-echo "The time interval between multiple machines to execute the script should not exceed 120s"
+echo "The time interval between multiple hosts to execute the script should not exceed 120s"
 echo "=============================================================================================================="
 
 execute_path=$(pwd)
