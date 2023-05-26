@@ -21,22 +21,28 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 
-def create_dataset(with_preprocess=True, need_download=True):
+def create_dataset(usage="train", aug=True, batch_size=128, need_download=True):
     '''
     Download, load and preprocess MNIST dataset.
+
+    Args:
+        usage (str): Specify the "train" or "test" part of dataset. Default: "train".
+        aug (bool): If applies augmentations on dataset. Default: True.
+        batch_size(int): Batch the dataset with given batch size. Default: 128.
+        need_download (bool): If needs to download source dataset files. Default: True.
     '''
     if need_download:
-        # download the opensource dataset, MNIST.
+        # Download the opensource dataset, MNIST.
         mnist_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip"
         download(mnist_url, "./", kind="zip", replace=True)
 
-    if not os.path.exists("MNIST_Data/train"):
+    if not os.path.exists("MNIST_Data"):
         raise RuntimeError("MNIST dataset file was ruined, set download to True for a new one.")
 
-    # load MNIST dataset
-    mnist_dataset = ds.MnistDataset("MNIST_Data/train")
+    # Load MNIST dataset
+    mnist_dataset = ds.MnistDataset("MNIST_Data/" + usage)
 
-    if with_preprocess:
+    if aug:
         # preprocess the dataset
         resize_height, resize_width = 32, 32
         rescale = 1.0 / 255.0
@@ -55,7 +61,7 @@ def create_dataset(with_preprocess=True, need_download=True):
         mnist_dataset = mnist_dataset.map(operations=rescale_nml_op, input_columns="image")
         mnist_dataset = mnist_dataset.map(operations=hwc2chw_op, input_columns="image")
 
-        # batch operation
-        mnist_dataset = mnist_dataset.batch(128, drop_remainder=True)
+    # batch operation
+    mnist_dataset = mnist_dataset.batch(batch_size, drop_remainder=True)
 
     return mnist_dataset
