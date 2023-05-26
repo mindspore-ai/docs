@@ -46,12 +46,12 @@ print(f"trainable parameter numbers: {len(trainable_params)}")
 ```
 
 ```text
-    fc.weight (1, 1)
-    fc.bias (1,)
-    all parameter numbers: 2
-    fc.weight (1, 1)
-    fc.bias (1,)
-    trainable parameter numbers: 2
+fc.weight (1, 1)
+fc.bias (1,)
+all parameter numbers: 2
+fc.weight (1, 1)
+fc.bias (1,)
+trainable parameter numbers: 2
 ```
 
 #### Obtaining PyTorch Parameters
@@ -88,10 +88,10 @@ print(f"trainable parameter numbers: {len(trainable_params)}")
 ```
 
 ```text
-    fc.weight torch.Size([1, 1])
-    fc.bias torch.Size([1])
-    all parameter numbers: 2
-    trainable parameter numbers: 2
+fc.weight torch.Size([1, 1])
+fc.bias torch.Size([1])
+all parameter numbers: 2
+trainable parameter numbers: 2
 ```
 
 The parameters of MindSpore and PyTorch are similar except BatchNorm. Note that MindSpore does not have parameters corresponding to `num_batches_tracked`. You can replace this parameter with `global_step` in the optimizer.
@@ -190,14 +190,14 @@ for i, data in enumerate(iterator):
 ```
 
 ```text
-    step: 0, loss: 138.42825, overflow:False, scale:1.0
-    step: 1, loss: 118.172104, overflow:False, scale:1.0
-    step: 2, loss: 159.14542, overflow:False, scale:1.0
-    step: 3, loss: 150.65671, overflow:False, scale:1.0
-    ... ...
-    step: 97, loss: 69.513245, overflow:False, scale:1.0
-    step: 98, loss: 51.903114, overflow:False, scale:1.0
-    step: 99, loss: 42.250656, overflow:False, scale:1.0
+step: 0, loss: 138.42825, overflow:False, scale:1.0
+step: 1, loss: 118.172104, overflow:False, scale:1.0
+step: 2, loss: 159.14542, overflow:False, scale:1.0
+step: 3, loss: 150.65671, overflow:False, scale:1.0
+... ...
+step: 97, loss: 69.513245, overflow:False, scale:1.0
+step: 98, loss: 51.903114, overflow:False, scale:1.0
+step: 99, loss: 42.250656, overflow:False, scale:1.0
 ```
 
 - Check the optimizer, loss, and parameter initialization. In addition to the model and dataset, only the optimizer, loss, and parameter initialization are added in the entire training process. If the training is abnormal, check the optimizer, loss, and parameter initialization. Especially for loss and parameter initialization, there is a high probability that the problem occurs.

@@ -188,12 +188,13 @@ encoder.svg()
 ```
 
 ```text
-==================================Circuit Summary==================================
-|Total number of gates  : 17.                                                     |
-|Parameter gates        : 7.                                                      |
-|with 7 parameters are  : alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6. |
-|Number qubit of circuit: 4                                                       |
-===================================================================================
+=================================Circuit Summary=================================
+|Total number of gates  : 17.                                                   |
+|Parameter gates        : 7.                                                    |
+|with 7 parameters are  :                                                       |
+|alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6                        .|
+|Number qubit of circuit: 4                                                     |
+=================================================================================
 
 q0: ──H────RZ(alpha0)────●──────────────────●──────────────────────────────────────────────────
                          │                  │
@@ -231,12 +232,13 @@ ansatz.svg()
 ```
 
 ```text
-====================================================Circuit Summary====================================================
-|Total number of gates  : 25.                                                                                         |
-|Parameter gates        : 16.                                                                                         |
-|with 16 parameters are : d0_n0_0, d0_n1_0, d0_n2_0, d0_n3_0, d1_n0_0, d1_n1_0, d1_n2_0, d1_n3_0, d2_n0_0, d2_n1_0... |
-|Number qubit of circuit: 4                                                                                           |
-=======================================================================================================================
+===================================================Circuit Summary===================================================
+|Total number of gates  : 25.                                                                                       |
+|Parameter gates        : 16.                                                                                       |
+|with 16 parameters are :                                                                                           |
+|d0_n0_0, d0_n1_0, d0_n2_0, d0_n3_0, d1_n0_0, d1_n1_0, d1_n2_0, d1_n3_0, d2_n0_0, d2_n1_0..                        .|
+|Number qubit of circuit: 4                                                                                         |
+=====================================================================================================================
 
 q0: ──RY(d0_n0_0)────●────RY(d1_n0_0)────────────────────────●─────────RY(d2_n0_0)────────────────────────●─────────RY(d3_n0_0)────────────────────────────────
                      │                                       │                                            │
@@ -266,7 +268,8 @@ circuit.svg()
 ================================================Circuit Summary================================================
 |Total number of gates  : 42.                                                                                 |
 |Parameter gates        : 23.                                                                                 |
-|with 23 parameters are : alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6, d0_n0_0, d0_n1_0, d0_n2_0...|
+|with 23 parameters are :                                                                                     |
+|alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6, d0_n0_0, d0_n1_0, d0_n2_0..                        . |
 |Number qubit of circuit: 4                                                                                   |
 ===============================================================================================================
 
@@ -295,7 +298,8 @@ for h in hams:
 ```
 
 ```text
-[1.0 [Z2] , 1.0 [Z3] ]
+1 [Z2]
+1 [Z3]
 ```
 
 It can be seen from the above print that there are 2 Hamiltonians constructed at this time, which are to perform the Pauli Z operator on the second and third qubits respectively, and set the coefficients to 1. We can obtain 2 Hamiltonian measurement values by the Pauli Z operator measurement. If the first measurement value is larger, the sample will be classified into the class labeled "0". Similarly, if the second measurement value is larger, this sample will be classified into the class with the label "1". By the training of the neural network, it is expected that the 1st measurement value of the sample labeled "0" in the training sample is larger, and the 2nd measurement value of the sample labeled "1" is larger, and finally this model is applied to predict the classification of new samples.
@@ -366,26 +370,26 @@ model.train(20, train_loader, callbacks=[monitor, acc], dataset_sink_mode=False)
 ```
 
 ```text
-epoch: 1 step: 16, loss is 0.6600145
-epoch: 2 step: 16, loss is 0.4009103
-epoch: 3 step: 16, loss is 0.39099234
-epoch: 4 step: 16, loss is 0.3733629
-epoch: 5 step: 16, loss is 0.3705962
-epoch: 6 step: 16, loss is 0.37426245
-epoch: 7 step: 16, loss is 0.37181872
-epoch: 8 step: 16, loss is 0.37131247
-epoch: 9 step: 16, loss is 0.37142643
-epoch: 10 step: 16, loss is 0.37067422
-epoch: 11 step: 16, loss is 0.3701976
-epoch: 12 step: 16, loss is 0.36975253
-epoch: 13 step: 16, loss is 0.36923727
-epoch: 14 step: 16, loss is 0.3688001
-epoch: 15 step: 16, loss is 0.3684062
-epoch: 16 step: 16, loss is 0.36804128
-epoch: 17 step: 16, loss is 0.36773998
-epoch: 18 step: 16, loss is 0.36747772
-epoch: 19 step: 16, loss is 0.36726192
-epoch: 20 step: 16, loss is 0.36708587
+epoch: 1 step: 16, loss is 0.6140301823616028
+epoch: 2 step: 16, loss is 0.48262983560562134
+epoch: 3 step: 16, loss is 0.43457236886024475
+epoch: 4 step: 16, loss is 0.4101267457008362
+epoch: 5 step: 16, loss is 0.4027639925479889
+epoch: 6 step: 16, loss is 0.39859312772750854
+epoch: 7 step: 16, loss is 0.39496558904647827
+epoch: 8 step: 16, loss is 0.3970319926738739
+epoch: 9 step: 16, loss is 0.3954522907733917
+epoch: 10 step: 16, loss is 0.39520972967147827
+epoch: 11 step: 16, loss is 0.3955090641975403
+epoch: 12 step: 16, loss is 0.3953099250793457
+epoch: 13 step: 16, loss is 0.39525243639945984
+epoch: 14 step: 16, loss is 0.3952508568763733
+epoch: 15 step: 16, loss is 0.39521533250808716
+epoch: 16 step: 16, loss is 0.39519912004470825
+epoch: 17 step: 16, loss is 0.39518338441848755
+epoch: 18 step: 16, loss is 0.395169198513031
+epoch: 19 step: 16, loss is 0.39515653252601624
+epoch: 20 step: 16, loss is 0.3951443135738373
 ```
 
 As can be seen from the above print, after 20 iterations, the loss value keeps decreasing and tends to stabilize, finally converging to about 0.367.

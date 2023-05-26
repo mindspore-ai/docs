@@ -51,7 +51,7 @@ print("loss_none:", loss_none(input_data, target_data))
 ```text
 loss: 1.5
 loss_sum: 9.0
-loss_none:[[1. 0. 2.]
+loss_none: [[1. 0. 2.]
  [1. 2. 3.]]
 ```
 

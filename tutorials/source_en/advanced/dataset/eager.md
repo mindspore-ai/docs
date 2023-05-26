@@ -50,7 +50,7 @@ download(url, './banana.jpg', replace=True)
 ```text
 Downloading data from https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg (17 kB)
 
-file_sizes: 100%|███████████████████████████| 17.1k/17.1k [00:00<00:00, 883kB/s]
+file_sizes: 100%|███████████████████████████| 17.1k/17.1k [00:00<00:00, 677kB/s]
 Successfully downloaded file to ./banana.jpg
 ```
 
@@ -132,7 +132,8 @@ print("ToNumber result: {}, type: {}".format(txt, txt[0].dtype))
 ```
 
 ```text
-Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i' 'n' 'g' ' ' '!']
+Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i' 'n' 'g'
+ ' ' '!']
 ToNumber result: [123456], int32
 ```
 

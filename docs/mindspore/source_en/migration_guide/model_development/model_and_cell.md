@@ -28,7 +28,7 @@ print(my_net.trainable_params())
 ```
 
 ```text
-    [Parameter (name=net.weight, shape=(240, 120, 4, 4), dtype=Float32, requires_grad=True)]
+[Parameter (name=net.weight, shape=(240, 120, 4, 4), dtype=Float32, requires_grad=True)]
 ```
 
 A parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
@@ -59,7 +59,7 @@ for i in pt_net.parameters():
 ```
 
 ```text
-    torch.Size([240, 120, 4, 4])
+torch.Size([240, 120, 4, 4])
 ```
 
 With the script for building the `Cell`, you need to use the same input data and parameters to compare the output.
@@ -118,7 +118,7 @@ print(diff)
 ```
 
 ```text
-    2.9355288e-06
+2.9355288e-06
 ```
 
 The overall error is about 0.01%, which basically meets the expectation. **During cell migration, you are advised to perform a unit test on each cell to ensure migration consistency.**
@@ -267,8 +267,8 @@ print(net.trainable_params())
 ```
 
 ```text
-    [Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
-    [Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
 ```
 
 When defining an optimizer, use `net.trainable_params()` to obtain the list of parameters that need to be updated.
@@ -317,13 +317,13 @@ for param in net.get_parameters():
 ```
 
 ```text
-    weight [[-0.0042482  -0.00427286]]
-    bias [0.]
-    {'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
-    weight [[-0.0042482  -0.00427286]]
-    bias [0.]
-    weight [[1. 1.]]
-    bias [1.]
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+{'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+weight [[1. 1.]]
+bias [1.]
 ```
 
 ### Dynamic and Static Graphs
@@ -405,19 +405,19 @@ print("dx", grad)
 ```
 
 ```text
-    x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
-     [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
-    pos_values forword [[0.90699774 2.1609735  0.90699774]
-     [0.5587806  1.6164502  0.5587806 ]]
-    pos_indices forword [[3 1 3]
-     [1 4 1]]
-    pos_values forword [[0.90699774 1.251066   2.1609735 ]
-     [1.1903024  1.1903024  0.5587806 ]]
-    pos_indices forword [[3 0 1]
-     [3 3 1]]
-    dx (Tensor(shape=[2, 5], dtype=Float32, value=
-    [[0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000],
-     [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
+x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
+ [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
+pos_values forword [[0.90699774 2.1609735  0.90699774]
+ [0.5587806  1.6164502  0.5587806 ]]
+pos_indices forword [[3 1 3]
+ [1 4 1]]
+pos_values forword [[0.90699774 1.251066   2.1609735 ]
+ [1.1903024  1.1903024  0.5587806 ]]
+pos_indices forword [[3 0 1]
+ [3 3 1]]
+dx (Tensor(shape=[2, 5], dtype=Float32, value=
+[[0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000],
+ [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
 When we do not construct this backward process, the gradient will be truncated because the numpy method is used to calculate the `pos_value`.
@@ -434,15 +434,15 @@ print("dx", grad)
 ```
 
 ```text
-    x [[1.2519144  1.6760695  0.42116082 0.59430444 2.4022336 ]
-     [2.9047847  0.9402725  2.076968   2.6291676  2.68382   ]]
-    pos_values forword [[1.2519144 1.2519144 1.6760695]
-     [2.6291676 2.076968  0.9402725]]
-    pos_indices forword [[0 0 1]
-     [3 2 1]]
-    dx (Tensor(shape=[2, 5], dtype=Float32, value=
-    [[0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000],
-     [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
+x [[1.2519144  1.6760695  0.42116082 0.59430444 2.4022336 ]
+ [2.9047847  0.9402725  2.076968   2.6291676  2.68382   ]]
+pos_values forword [[1.2519144 1.2519144 1.6760695]
+ [2.6291676 2.076968  0.9402725]]
+pos_indices forword [[0 0 1]
+ [3 2 1]]
+dx (Tensor(shape=[2, 5], dtype=Float32, value=
+[[0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000],
+ [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
 Now, let's see how to [customize backward network construction](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向).
@@ -505,19 +505,19 @@ print("dx", grad)
 ```
 
 ```text
-    x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
-     [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
-    pos_values forword [[0.90699774 2.1609735  0.90699774]
-     [0.5587806  1.6164502  0.5587806 ]]
-    pos_indices forword [[3 1 3]
-     [1 4 1]]
-    pos_indices backward [[3 1 3]
-     [1 4 1]]
-    grad_x backward [[1. 1. 1.]
-     [1. 1. 1.]]
-    dx (Tensor(shape=[2, 5], dtype=Float32, value=
-    [[0.00000000e+000, 1.00000000e+000, 0.00000000e+000, 2.00000000e+000, 0.00000000e+000],
-     [0.00000000e+000, 2.00000000e+000, 0.00000000e+000, 0.00000000e+000, 1.00000000e+000]]),)
+x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
+ [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
+pos_values forword [[0.90699774 2.1609735  0.90699774]
+ [0.5587806  1.6164502  0.5587806 ]]
+pos_indices forword [[3 1 3]
+ [1 4 1]]
+pos_indices backward [[3 1 3]
+ [1 4 1]]
+grad_x backward [[1. 1. 1.]
+ [1. 1. 1.]]
+dx (Tensor(shape=[2, 5], dtype=Float32, value=
+[[0.00000000e+000, 1.00000000e+000, 0.00000000e+000, 2.00000000e+000, 0.00000000e+000],
+ [0.00000000e+000, 2.00000000e+000, 0.00000000e+000, 0.00000000e+000, 1.00000000e+000]]),)
 ```
 
 The `bprop` method is added to the `MySampler` class. The input of this method is forward input (expanded write), forward output (a tuple), and output gradient (a tuple). In this method, a gradient-to-input backward propagation process is constructed.
@@ -582,8 +582,8 @@ print("box_select_torch", box_select_torch(torch.from_numpy(box), torch.from_num
 ```
 
 ```text
-    box_select_ms [0.14675589 0.09233859 0.18626021 0.34556073]
-    box_select_torch tensor([[0.1468, 0.0923, 0.1863, 0.3456]])
+box_select_ms [0.14675589 0.09233859 0.18626021 0.34556073]
+box_select_torch tensor([[0.1468, 0.0923, 0.1863, 0.3456]])
 ```
 
 However, after this operation, dynamic shape is generated, which may cause problems in subsequent network calculation. Currently, you are advised to use the mask to avoid this problem.
@@ -665,14 +665,14 @@ print("cls_loss_ms", cls_loss_ms)
 ```
 
 ```text
-    pred [[4.17021990e-01 7.20324516e-01]
-     [1.14374816e-04 3.02332580e-01]
-     [1.46755889e-01 9.23385918e-02]
-     [1.86260208e-01 3.45560730e-01]
-     [3.96767467e-01 5.38816750e-01]]
-    label [-1  0  1  1  0]
-    cls_loss_pt tensor(0.7207)
-    cls_loss_ms 0.7207259
+pred [[4.17021990e-01 7.20324516e-01]
+ [1.14374816e-04 3.02332580e-01]
+ [1.46755889e-01 9.23385918e-02]
+ [1.86260208e-01 3.45560730e-01]
+ [3.96767467e-01 5.38816750e-01]]
+label [-1  0  1  1  0]
+cls_loss_pt tensor(0.7207)
+cls_loss_ms 0.7207259
 ```
 
 #### Shape Changes Introduced by Different Branches of Control Flows
@@ -697,11 +697,11 @@ print(y)
 ```
 
 ```text
-    [4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
-     1.46755889e-01 9.23385918e-02 1.86260208e-01 3.45560730e-01
-     3.96767467e-01 5.38816750e-01]
-    True
-    [0.7203245  0.53881675]
+[4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
+ 1.46755889e-01 9.23385918e-02 1.86260208e-01 3.45560730e-01
+ 3.96767467e-01 5.38816750e-01]
+True
+[0.7203245  0.53881675]
 ```
 
 In `cond=True` mode, the maximum shape is the same as x. According to the preceding mask adding method, the maximum shape can be written as follows:
@@ -725,12 +725,12 @@ print(y)
 ```
 
 ```text
-    [4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
-     1.46755889e-01 9.23385918e-02 1.86260208e-01 3.45560730e-01
-     3.96767467e-01 5.38816750e-01]
-    True
-    [0.         0.7203245  0.         0.         0.         0.
-     0.         0.         0.         0.53881675]
+[4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
+ 1.46755889e-01 9.23385918e-02 1.86260208e-01 3.45560730e-01
+ 3.96767467e-01 5.38816750e-01]
+True
+[0.         0.7203245  0.         0.         0.         0.
+ 0.         0.         0.         0.53881675]
 ```
 
 Note that if y is subsequently involved in other calculations, it needs to be passed in mask to do filtering on the valid positions.
