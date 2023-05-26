@@ -427,7 +427,11 @@ net = Net()
 net()
 ```
 
-The output appears normally: `AssertionError`.
+The output appears normally:
+
+```text
+AssertionError
+```
 
 #### Calling Python Built-in Functions
 
@@ -725,5 +729,3 @@ When using JIT Fallback, please note the following points:
     ```text
     TypeError: For 'Tensor', the type of input_data should be one of '['Tensor', 'ndarray', 'str_', 'list', 'tuple', 'float', 'int', 'bool', 'complex']', but got 'None' with type 'NoneType'.
     ```
-
-

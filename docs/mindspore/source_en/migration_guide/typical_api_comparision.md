@@ -150,8 +150,8 @@ print(ret2.shape)
 ```
 
 ```text
-    torch.Size([4, 2, 3, 1])
-    torch.Size([4, 3, 2, 1])
+torch.Size([4, 2, 3, 1])
+torch.Size([4, 3, 2, 1])
 ```
 
 The `transpose` operator of MindSpore has the same function as that of TensorFlow. Although the operator is named `transpose`, it can transform multiple axes at the same time, which is equivalent to `Tensor.permute`. Therefore, MindSpore does not provide operators similar to `torch.tranpose`.
@@ -168,7 +168,7 @@ print(ret.shape)
 ```
 
 ```text
-    (4, 3, 2, 1)
+(4, 3, 2, 1)
 ```
 
 For more information, visit [MindSpore Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose), [PyTorch Transpose](https://pytorch.org/docs/stable/generated/torch.transpose.html), [PyTorch Permute](https://pytorch.org/docs/stable/generated/torch.Tensor.permute.html), and [TensforFlow Transpose](https://www.tensorflow.org/api_docs/python/tf/transpose).
@@ -206,11 +206,11 @@ print(op(ms.Tensor(data)))
 ```
 
 ```text
-    [[[[0. 1. 2.]
-       [3. 4. 5.]
-       [6. 7. 8.]]]]
-    [[[[4. 5.]
-       [7. 8.]]]]
+[[[[0. 1. 2.]
+   [3. 4. 5.]
+   [6. 7. 8.]]]]
+[[[[4. 5.]
+   [7. 8.]]]]
 ```
 
 During MindSpore model migration, if the PyTorch pre-training model is loaded to the model and fine-tune is performed in MindSpore, the difference may cause precision decrease. Developers need to pay special attention to the convolution whose padding policy is same.
@@ -231,8 +231,8 @@ print(res)
 ```
 
 ```text
-    [[[[0. 2.]
-       [6. 8.]]]]
+[[[[0. 2.]
+   [6. 8.]]]]
 ```
 
 ### Different Default Weight Initialization

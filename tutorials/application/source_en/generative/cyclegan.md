@@ -498,7 +498,7 @@ for epoch in range(epochs):
         save_checkpoint(net_d_a, os.path.join(save_ckpt_dir, f"d_a_{epoch}.ckpt"))
         save_checkpoint(net_d_b, os.path.join(save_ckpt_dir, f"d_b_{epoch}.ckpt"))
 
-print('End of training! ')
+print('End of training!')
 ```
 
 Output:

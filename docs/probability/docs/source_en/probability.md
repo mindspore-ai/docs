@@ -333,7 +333,7 @@ entropy:  1.4189385
 prob:  [0.35206532 0.3989423  0.35206532]
 cdf:  [0.30853754 0.5        0.69146246]
 kl:  0.44314718
-dist_arg: (Tensor(shape=[], dtype=Float32, value= 0), Tensor(shape=[], dtype=Float32, value= 1))
+dist_arg:  (Tensor(shape=[], dtype=Float32, value= 0), Tensor(shape=[], dtype=Float32, value= 1))
 ```
 
 ### Probability Distribution Class Application in Graph Mode
@@ -442,8 +442,8 @@ bijector:
  Exp<exp>
 cdf:
  [0.7558914 0.9462397 0.9893489]
-sample shape:
-(3, 2)
+sample:
+ (3, 2)
 ```
 
 When the `TransformedDistribution` is constructed to map the transformed `is_constant_jacobian = true` (for example, `ScalarAffine`), the constructed `TransformedDistribution` instance can use the `mean` API to calculate the average value. For example:
@@ -501,7 +501,7 @@ The output is as follows:
 
 ```text
 cdf:  [0.7558914  0.86403143 0.9171715  0.9462397 ]
-sample shape:  (2, 3)
+sample:  (2, 3)
 ```
 
 ## Probability Distribution Mapping

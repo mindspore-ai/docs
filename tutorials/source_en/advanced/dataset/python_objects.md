@@ -125,14 +125,14 @@ Output:
 {'col1': {'powers': array([0, 0, 0])}, 'col2': array(0, dtype=int64)}
 {'col1': {'powers': array([1, 1, 1])}, 'col2': array(1, dtype=int64)}
 {'col1': {'powers': array([2, 4, 8])}, 'col2': array(2, dtype=int64)}
-{'col1': {'powers': array([ 3,  9, 27])}, 'col2': array(3, dtype=int64)}
-{'col1': {'powers': array([ 4, 16, 64])}, 'col2': array(4, dtype=int64)}
+{'col1': {'powers': array([3, 9, 27])}, 'col2': array(3, dtype=int64)}
+{'col1': {'powers': array([4, 16, 64])}, 'col2': array(4, dtype=int64)}
 >>> after batch
-{'col1': {'powers': array([[ 0,  0,  0],
-                           [ 1,  1,  1],
-                           [ 2,  4,  8],
-                           [ 3,  9, 27],
-                           [ 4, 16, 64]])},
+{'col1': {'powers': array([[0,  0,  0],
+                           [1,  1,  1],
+                           [2,  4,  8],
+                           [3,  9, 27],
+                           [4, 16, 64]])},
  'col2': array([0, 1, 2, 3, 4], dtype=int64)}
 ```
 
@@ -223,7 +223,7 @@ In the model training/inference scenario, there are the following constraints wh
   def my_generator():
       for i in range(5):
           col1 = {"my_data": np.array(i), "my_data2": np.array(i + 1)}
-          yield col1,
+          yield col1
 
   data = ds.GeneratorDataset(source=my_generator, column_names=["col1"])
 

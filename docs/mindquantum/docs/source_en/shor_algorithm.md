@@ -100,8 +100,8 @@ print('f(x): ', f)
 ```
 
 ```text
-    x:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-    f(x):  [1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8]
+x:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+f(x):  [1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8]
 ```
 
 We then compute $|0\rangle |0\rangle \langle 0| \langle 1|+|1\rangle |0\rangle \langle 1| \langle 2|+|2\rangle |0\rangle \langle 2|\langle 4|+...$ what we get is the matrix representation of the transformation $U$, where $|0\rangle |0\rangle$, $|0\rangle |1\rangle$, $|0\rangle |2\rangle$... can be expressed as mutually orthogonal column vectors with 256 entries, in which only one entity is 1 and the rest are 0. For example the first element in $|0\rangle |0\rangle$ is 1, the second element in $|0\rangle |1\rangle$ is 1, the 17th element in $|1\rangle |0\rangle$ is 1, and so on.
@@ -171,7 +171,7 @@ circuit.svg() # Print circuit
 ```
 
 ```text
-    1¦00010100⟩
+1¦00010100⟩
 ```
 
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
@@ -212,7 +212,7 @@ Next we need to implement the period finding algorithm.
     \sum_{x=0}^{Q-1}|x\rangle|f(x)\rangle=\sum_{i=0}^{r-1}(|i\rangle+|i+r\rangle+| i+2r\rangle+...)\ |f(i)\rangle
     $$
 
-4. Perform an inverse Fourier transform on register 1. This transform uses a $Q$-order unit root $\omega^{2\pi i/Q}$, which evenly distributes the amplitude of any given state $|x\rangle$ on $Q$ states of $|y\rangle$. As shown in step 3, the equivalent states of $|i\rangle$ and $|i+r\rangle$ in register 1 are both entangled with the same state $|f(i)\rangle$ in register 2, with the Quantum interference effect, and finally, when the unit vector $\omega^{2\pi iry/Q}$ is closer to 1 (pointing to the positive real number axis), the probability of measuring the state $|y\rangle$ is greater. In other words, our measured state $|y\rangle$ has a high probability to make $\frac{ry}{Q}$ close to a certain integer $c$. For a more detailed mathematical description, please refer to the link: https://en.wikipedia.org/wiki/Shor%27s_algorithm Algorithm "Quantum Part: Period Finding Subroutine".
+4. Perform an inverse Fourier transform on register 1. This transform uses a $Q$-order unit root $\omega^{2\pi i/Q}$, which evenly distributes the amplitude of any given state $|x\rangle$ on $Q$ states of $|y\rangle$. As shown in step 3, the equivalent states of $|i\rangle$ and $|i+r\rangle$ in register 1 are both entangled with the same state $|f(i)\rangle$ in register 2, with the Quantum interference effect, and finally, when the unit vector $\omega^{2\pi iry/Q}$ is closer to 1 (pointing to the positive real number axis), the probability of measuring the state $|y\rangle$ is greater. In other words, our measured state $|y\rangle$ has a high probability to make $\frac{ry}{Q}$ close to a certain integer $c$. For a more detailed mathematical description, please refer to the link: <https://en.wikipedia.org/wiki/Shor%27s_algorithm>.
 5. Measure register 1 to get the binary string. Convert the binary string to the decimal number $y$, at this time $\frac{y}{Q}\sim\frac{c}{r}$, where $c$ is an unknown integer. Calculate the irreducible fraction (the denominator is not greater than $N$) approximated by $\frac{y}{Q}$ using the continued fraction factorization method, the period $r$ is its denominator. However, among irreducible fractions which denominator is less than $N$, there may be fractions that are closer to $\frac{y}{Q}$ than $\frac{c}{r}$, or $c$ and $r$ have a common factor, the obtained $r$ will be the factor of the real function period. At this time, the calculation fails, we need to recalculate.
 
 Taking the example of $N=15, a=2$ again, in `constructing Oracle`, we calculated each $f(x)$, from which we can directly see that the function period is 4. Now we can build the corresponding period-finding subroutine and run 100 simulations to see what we get.
@@ -388,9 +388,9 @@ print("q =", q)
 ```
 
 ```python
-    Factoring N = p * q = 15
-    p = 5
-    q = 3
+Factoring N = p * q = 15
+p = 5
+q = 3
 ```
 
 As we can see from the results, we successfully decomposed 15 into two prime factors 3 and 5.
@@ -398,4 +398,3 @@ As we can see from the results, we successfully decomposed 15 into two prime fac
 So far, we have successfully implemented the Shor's algorithm using MindSpore Quantum.
 
 For more information about MindSpore Quantum API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
-

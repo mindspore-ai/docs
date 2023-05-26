@@ -86,6 +86,9 @@ X.matrix()
 
 ```text
 Gate name: X
+```
+
+```text
 array([[0, 1],
        [1, 0]])
 ```
@@ -97,6 +100,9 @@ Y.matrix()
 
 ```text
 Gate name: Y
+```
+
+```text
 array([[ 0.+0.j, -0.-1.j],
        [ 0.+1.j,  0.+0.j]])
 ```
@@ -110,6 +116,9 @@ Z.matrix()
 
 ```text
 Gate name: Z
+```
+
+```text
 array([[ 1,  0],
        [ 0, -1]])
 ```
@@ -121,6 +130,9 @@ H.matrix()
 
 ```text
 Gate name: H
+```
+
+```text
 array([[ 0.70710678,  0.70710678],
        [ 0.70710678, -0.70710678]])
 ```
@@ -178,6 +190,9 @@ rx.matrix({'theta': 0})   # Assign a value of theta to 0
 
 ```text
 Gate name: RX(theta)
+```
+
+```text
 array([[1.+0.j, 0.+0.j],
        [0.+0.j, 1.+0.j]])
 ```
@@ -192,6 +207,9 @@ ry.matrix({'theta': np.pi/2})   # pi needs to be imported from np, assigning the
 
 ```text
 Gate name: RY(theta)
+```
+
+```text
 array([[ 0.70710678+0.j, -0.70710678+0.j],
        [ 0.70710678+0.j,  0.70710678+0.j]])
 ```
@@ -206,6 +224,9 @@ np.round(rz.matrix({'theta': np.pi}))   # The value of pi is assigned to theta, 
 
 ```text
 Gate name: RZ(theta)
+```
+
+```text
 array([[0.-1.j, 0.+0.j],
        [0.+0.j, 0.+1.j]])
 ```

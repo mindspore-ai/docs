@@ -57,7 +57,7 @@ from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/dataset_fcn8s.tar"
 
-download(url, "./dataset", kind="tar"", replace=True)
+download(url, "./dataset", kind="tar", replace=True)
 ```
 
 ### Data Preprocessing
@@ -344,7 +344,7 @@ from download import download
 from mindspore import load_checkpoint, load_param_into_net
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/fcn8s_vgg16_pretrain.ckpt"
-download(url, "fcn8s_vgg16_pretrain.ckpt")
+download(url, "fcn8s_vgg16_pretrain.ckpt", replace=True)
 def load_vgg16():
     ckpt_vgg16 = "fcn8s_vgg16_pretrain.ckpt"
     param_vgg = load_checkpoint(ckpt_vgg16)

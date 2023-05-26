@@ -64,7 +64,9 @@ encoder.svg()
 |with 3 parameters are  : alpha0, alpha1, alpha2. |
 |Number qubit of circuit: 1                       |
 ===================================================
+```
 
+```text
 q0: ──H────RX(alpha0)────RY(alpha1)────RZ(alpha2)──
 ```
 
