@@ -92,7 +92,7 @@ RuntimeError: Unexpected error. Invalid data, the number of schema should be pos
 错误日志：
 
 ```text
-RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset’s num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
+RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
 ```
 
 参考解决方法：
@@ -220,7 +220,7 @@ RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source
 错误日志：
 
 ```text
-TypeError：parse() missing 1 required positionnal argument：'self'
+TypeError: parse() missing 1 required positionnal argument: 'self'
 ```
 
 参考解决方法：
@@ -338,7 +338,7 @@ for item in ds_test.create_dict_iterator():
 错误日志：
 
 ```text
-TypeError：Invalid object  with type'<class 'PIL.Image.Image'>' and value'<PIL.Image.Image image mode=RGB size=180x180 at 0xFFFF6132EA58>'.
+TypeError: Invalid object with type'<class 'PIL.Image.Image'>' and value'<PIL.Image.Image image mode=RGB size=180x180 at 0xFFFF6132EA58>'.
 ```
 
 参考解决方法：

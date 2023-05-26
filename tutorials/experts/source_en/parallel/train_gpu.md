@@ -316,10 +316,10 @@ export DATA_PATH=${DATA_PATH}
 
 rm -rf device
 mkdir device
-cp ./resnet50_distributed_training.py ./resnet.py ./device
+cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
 cd ./device
 echo "start training"
-mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
+mpirun -n 8 pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 ```
 
 The script will run in the bachground. The log file is saved in the device directory, we will run 10 epochs and each epochs contain 234 steps, and the loss result is saved in train.log. The output loss values of the grep command are as follows:
@@ -357,7 +357,7 @@ Each line in the hostfile is in the format of `[hostname] slots=[slotnum]`, wher
 
 ```text
 DEVICE1 slots=8
-DEVICE2 slots=8
+192.168.0.1 slots=8
 ```
 
 The following is the execution script of the 16-device two-host cluster. The variables `DATA_PATH` and `HOSTFILE` need to be transferred, indicating the dataset path and hostfile path. We need to set the btl parameter of mca in mpi to specify the network card that communicates with mpi, otherwise it may fail to initialize when calling the mpi interface. The btl parameter specifies the TCP protocol between nodes and the loop within the nodes for communication. The IP address of the network card through which the specified nodes communication of  btl_tcp_if_include needs to be in the given subnet. For details about more mpirun options, see the OpenMPI official website.
@@ -370,10 +370,10 @@ HOSTFILE=$2
 
 rm -rf device
 mkdir device
-cp ./resnet50_distributed_training.py ./resnet.py ./device
+cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
 cd ./device
 echo "start training"
-mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
+mpirun -n 16 --mca btl tcp,self --mca btl_tcp_if_include 192.168.0.0/24 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 mpirun_gpu_clusher.sh &
 ```
 
 Considering that some environment variables on different machines may be different, we take the form of mpirun to start a `mpirun_gpu_cluster.sh` and specify the required environment variables in the script file on different machines. Here we have configured the `NCCL_SOCKET_IFNAME` to specify the NIC when the NCCL communicates.

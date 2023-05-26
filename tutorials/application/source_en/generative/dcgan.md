@@ -41,7 +41,7 @@ Successfully downloaded / unzipped to ./faces
 The directory structure of the downloaded dataset is as follows:
 
 ```text
-./datasets/faces
+./faces/faces
 ├── 0.jpg
 ├── 1.jpg
 ├── 2.jpg
@@ -273,10 +273,10 @@ def discriminator_forward(real_imgs, gen_imgs, valid, fake):
     return d_loss
 
 grad_generator_fn = ms.value_and_grad(generator_forward, None,
-                                       optimizer_G.parameters,
-                                       has_aux=True)
+                                      optimizer_G.parameters,
+                                      has_aux=True)
 grad_discriminator_fn = ms.value_and_grad(discriminator_forward, None,
-                                           optimizer_D.parameters)
+                                          optimizer_D.parameters)
 
 @ms.jit
 def train_step(imgs):

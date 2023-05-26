@@ -57,7 +57,7 @@
        3：不开启算子debug功能，默认值
 
        4：生成TBE指令映射文件 `*.cce` 和UB融合计算描述文件 `{$kernel_name}_compute.json`
-     - 发生AICore Error时，如果需要保存算子cce文件，可以设置 `MS_COMPILER_OP_LEVEL `为1或2。
+     - 发生AICore Error时，如果需要保存算子cce文件，可以设置 `MS_COMPILER_OP_LEVEL` 为1或2。
    * - MS_DEV_DISABLE_PREBUILD
      - Ascend后端编译时，关闭算子预编译，默认不设置此环境变量。算子预编译可能会修正算子注册的fusion_type属性进而影响到算子融合，如遇到融合算子性能较差时，可尝试开启此环境变量验证是否是融合算子本身问题。
 

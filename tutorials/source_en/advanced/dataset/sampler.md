@@ -76,7 +76,7 @@ for data in dataset2.create_tuple_iterator(output_numpy=True):
 ```
 
 ```text
-With Replacement: 4 5 6 6 1
+With Replacement:    4 5 6 6 1
 Without Replacement: 4 1 5 6 2
 ```
 

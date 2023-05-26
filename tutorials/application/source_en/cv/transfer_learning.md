@@ -27,12 +27,15 @@ Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com
 file_sizes: 100%|██████████████████████████| 11.9M/11.9M [00:00<00:00, 17.1MB/s]
 Extracting zip file...
 Successfully downloaded / unzipped to ./datasets-Canidae
+```
+
+```text
 './datasets-Canidae'
 ```
 
 The directory structure of the dataset is as follows:
 
-```Text
+```text
 datasets-Canidae/data/
 └── Canidae
     ├── train
@@ -471,7 +474,7 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
 ```
 
-```Text
+```text
 Start Training Loop ...
 --------------------
 Epoch: [  1/ 10], Average Train Loss: [0.582], Accuracy: [1.000]
@@ -662,7 +665,7 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
       f"save the best ckpt file in {best_ckpt_path}", flush=True)
 ```
 
-```Text
+```text
 Start Training Loop ...
 --------------------
 Epoch: [  1/ 10], Average Train Loss: [0.692], Accuracy: [0.617]

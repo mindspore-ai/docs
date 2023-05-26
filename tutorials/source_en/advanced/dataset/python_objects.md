@@ -232,7 +232,7 @@ In the model training/inference scenario, there are the following constraints wh
       print(d)
 
   def dict_to_tuple(d):
-    return tuple([i for i in d.values()])
+      return tuple([i for i in d.values()])
 
   # flatten the dict object bedfore it passed into network
   data = data.map(dict_to_tuple, input_columns=["col1"], output_columns=["my_data", "my_data2"])
