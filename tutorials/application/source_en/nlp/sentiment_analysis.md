@@ -165,7 +165,7 @@ After the IMDB dataset is loaded to the memory and built as an iteration object,
 import mindspore.dataset as ds
 
 def load_imdb(imdb_path):
-    imdb_train = ds.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"], shuffle=True)
+    imdb_train = ds.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"], shuffle=False)
     imdb_test = ds.GeneratorDataset(IMDBData(imdb_path, "test"), column_names=["text", "label"], shuffle=False)
     return imdb_train, imdb_test
 ```
