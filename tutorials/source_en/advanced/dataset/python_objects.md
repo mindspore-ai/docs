@@ -222,12 +222,12 @@ In the model training/inference scenario, there are the following constraints wh
 
   def my_generator():
       for i in range(5):
-          col1 = {"my_data": np.array(i), "my_data2": np.array(i + 1)}
+          col1 = {'my_data': np.array(i), 'my_data2': np.array(i + 1)}
           yield col1
 
-  data = ds.GeneratorDataset(source=my_generator, column_names=["col1"])
+  data = ds.GeneratorDataset(source=my_generator, column_names=['col1'])
 
-  print(">>> get data in dict type")
+  print('>>> get data in dict type')
   for d in data:
       print(d)
 
@@ -235,9 +235,9 @@ In the model training/inference scenario, there are the following constraints wh
       return tuple([i for i in d.values()])
 
   # flatten the dict object bedfore it passed into network
-  data = data.map(dict_to_tuple, input_columns=["col1"], output_columns=["my_data", "my_data2"])
+  data = data.map(dict_to_tuple, input_columns=['col1'], output_columns=['my_data', 'my_data2'])
 
-  print(">>> get data in sequence type")
+  print('>>> get data in sequence type')
   for d in data:
       print(d)
   ```

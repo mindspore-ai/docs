@@ -493,7 +493,7 @@ During model validation, select the parameter file saved during model training a
 ```python
 # Download the weight file.
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc.ckpt"
-download(url, "cnnctc.ckpt")
+download(url, "cnnctc.ckpt", replace=True)
 ```
 
 Output:

@@ -62,6 +62,6 @@ print(res)
 Running the above script, you can get:
 
 ```text
- [[10. 10. 10.]
-  [10. 10. 10.]]
+[[10. 10. 10.]
+ [10. 10. 10.]]
 ```
