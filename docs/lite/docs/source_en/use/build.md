@@ -242,7 +242,7 @@ After successful installation, you can use the command of `pip show mindspore_li
     │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-    │   │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
+    │   │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
     │   │   └── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `MSLITE_ENABLE_MODEL_OBF` option.
     │   └── third_party
     │       ├── hiai_ddk

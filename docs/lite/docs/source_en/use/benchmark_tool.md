@@ -189,11 +189,11 @@ Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.17900
 When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`, which indicate cache reference times / cache reference ratio / cache miss times / cache miss ratio(to all cache misses, not to cache references); when `perfEvent` is set as `STALL`, the columns will be`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`, which indicate CPU front-end stall cycles / front-end stall cycles ratio / back-end stall cycles / back-end stall cycles ratio. For example:
 
 ```bash
-./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1 --perfEvent="CACHE"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="CACHE"
 ```
 
 ```bash
-./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1 --perfEvent="STALL"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="STALL"
 ```
 
 ### Dump
@@ -274,7 +274,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 - Add the path of dynamic library required by the benchmark to the environment variables PATH.
 
     ````bash
-    set PATH=%PACKAGE_ROOT_PATH%\inference\lib;%PATH%
+    set PATH=%PACKAGE_ROOT_PATH%\runtime\lib;%PATH%
     ````
 
     %PACKAGE_ROOT_PATH% is the decompressed package path obtained by compiling.

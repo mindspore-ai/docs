@@ -121,7 +121,7 @@
    转换成功输出如下：
 
    ```sh
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```
 
    这表明MindSpore模型成功转换为MindSpore端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：
@@ -134,7 +134,7 @@
 
 ## 模拟启动多客户端参与联邦学习
 
-### 为客户端准备好模型文件。
+### 为客户端准备好模型文件
 
 本例在端侧使用lenet模拟实际用的网络，其中lenet的`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)，由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run_client_x86.py`中，已自动为每个客户端拷贝.ms文件。
 具体见[启动脚本](https://gitee.com/mindspore/federated/blob/r0.1/example/cross_device_lenet_femnist/simulate_x86/run_client_x86.py)中的copy_ms函数。
@@ -160,7 +160,7 @@
 
     设置模型脚本所生成的jar包`quick_start_flclient.jar`的路径，x86环境联邦学习jar包获取可参考[横向联邦端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html)。
 
- - `--lite_jar_path`
+- `--lite_jar_path`
 
     设置mindspore lite的端侧jar包`mindspore-lite-java.jar`的路径，位于端侧包mindspore-lite-{version}-linux-x64.tar.gz中，x86环境联邦学习jar包获取可参考[横向端侧部署中构建环境依赖](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/deploy_federated_client.html)。
 
@@ -178,7 +178,7 @@
 
 - `--domain_name`
 
-    用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.1:6666 或者http://127.0.0.1:6666 ，其中`127.0.0.1`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
+    用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：<https://127.0.0.1:6666> 或者<http://127.0.0.1:6666> ，其中`127.0.0.1`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
 
     注意1，当该参数设置为`http://......`时代表使用HTTP通信，可能会存在通信安全风险，请知悉。
 

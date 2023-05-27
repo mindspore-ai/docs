@@ -78,7 +78,7 @@ Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands
 ```bash
 mkdir output
 cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{version}-linux-x64.tar.gz
-cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
+cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
 You can also [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
@@ -92,7 +92,7 @@ Turning on the 'USB debugging' mode of your Android device and connect it with y
 Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
 ```bash
-cd /mindspore/lite/examples/train_lenet_cpp
+cd mindspore/lite/examples/train_lenet_cpp
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -172,7 +172,7 @@ Accuracy is 0.965244
 ===Running Inference Model=====
 There are 1 input tensors with sizes:
 tensor 0: shape is [32 32 32 1]
-There are 1 output tensor with sizes:
+There are 1 output tensors with sizes:
 tensor 0: shape is [32 10]
 The predicted classes are:
 4, 0, 2, 8, 9, 4, 5, 6, 3, 5, 2, 1, 4, 6, 8, 0, 5, 7, 3, 5, 8, 3, 4, 1, 9, 8, 7, 3, 0, 2, 3, 6,
@@ -422,4 +422,3 @@ int NetRunner::Main() {
     return 0.0;
     }
     ```
-

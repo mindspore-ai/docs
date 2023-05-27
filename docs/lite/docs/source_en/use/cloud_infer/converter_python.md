@@ -183,7 +183,7 @@ The following selects common examples to illustrate the use of the conversion co
     In all of the above cases, the following conversion success message is displayed and the `model.mindir` target file is obtained at the same time.
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 ### Advanced Usage

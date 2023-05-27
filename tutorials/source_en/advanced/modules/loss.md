@@ -240,15 +240,12 @@ loss_fn = MAELossForMultiLabel()
 # Define the optimizer.
 opt = nn.Momentum(network.trainable_params(), learning_rate=0.005, momentum=0.9)
 
-# Define forward function
 def forward_fn(data, label1, label2):
     output = network(data)
     return loss_fn(output, label1, label2)
 
-# Get gradient function
 grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
-# Define function of one-step training
 def train_step(data, label1, label2):
     loss, grads = grad_fn(data, label1, label2)
     optimizer(grads)

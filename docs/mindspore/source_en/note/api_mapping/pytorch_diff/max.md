@@ -13,7 +13,7 @@ For more information, see [torch.max](https://pytorch.org/docs/1.8.1/torch.html#
 ## mindspore.ops.max
 
 ```python
-def mindspore.ops.max(input, axis=None, keepdims=False, *, initial=None, where=None)
+mindspore.ops.max(input, axis=None, keepdims=False, *, initial=None, where=None)
 ```
 
 For more information, see [mindspore.ops.max](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.max.html).
@@ -26,7 +26,7 @@ MindSpore: When the axis is None or the shape is empty in MindSpore, the keepdim
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameters | Parameter 1 | input        | x       | Same function, different parameter names |
+|Parameters | Parameter 1 | input        | input       | Same function |
 |      | Parameter 2 | dim       | axis      | Same function, different parameter names |
 | | Parameter 3 | keepdim    | keepdims     | Same function, different parameter names       |
 | | Parameter 4 | -      |initial    | Not involved        |

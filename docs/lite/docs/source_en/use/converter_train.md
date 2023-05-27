@@ -55,7 +55,7 @@ Suppose the file to be converted is `my_model.mindir` and run the following comm
 If the command executes successfully, the `model.ms` target file will be obtained and the console will print as follows:
 
 ```bash
-CONVERTER RESULT SUCCESS:0
+CONVERT RESULT SUCCESS:0
 ```
 
 If running the conversion command is failed, an errorcode will be output.

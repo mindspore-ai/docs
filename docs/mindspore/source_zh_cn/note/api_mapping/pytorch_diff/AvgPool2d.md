@@ -13,7 +13,7 @@ torch.nn.AvgPool2d(kernel_size, stride=None, padding=0, ceil_mode=False, count_i
 ## mindspore.nn.AvgPool2d
 
 ```text
-mindspore.nn.AvgPool2d(kernel_size=1, stride=1, pad_mode='valid', padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None, data_format=’NCHW’)(x) -> Tensor
+mindspore.nn.AvgPool2d(kernel_size=1, stride=1, pad_mode='valid', padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None, data_format='NCHW')(x) -> Tensor
 ```
 
 更多内容详见[mindspore.nn.AvgPool2d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.AvgPool2d.html)。

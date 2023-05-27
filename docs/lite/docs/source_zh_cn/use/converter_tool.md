@@ -158,7 +158,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 > 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/r2.0/use/post_training_quantization.html>。
@@ -223,7 +223,7 @@ set GLOG_v=1
    结果显示为：
 
    ```text
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```
 
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
@@ -259,5 +259,5 @@ set GLOG_v=1
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
