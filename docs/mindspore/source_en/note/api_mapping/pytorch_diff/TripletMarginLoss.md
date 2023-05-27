@@ -1,4 +1,4 @@
-# Function Differences with torch.nn.TripletMarginLoss
+# Differences with torch.nn.TripletMarginLoss
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TripletMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -40,6 +40,8 @@ For more information, see [mindspore.nn.TripletMarginLoss](https://mindspore.cn/
 
 ## Differences
 
+API function of MindSpore is consistent with that of PyTorch.
+
 PyTorch:
 
 - PyTorch has two initialization parameters `size_average` and `reduce` , which are deprecated and replaced by `reduction` .
@@ -55,8 +57,6 @@ MindSpore:
 - The input parameter `x` of MindSpore corresponds to the input parameter `anchor` of PyTorch.
 
 - MindSpore's initialization parameters 'swap' and 'eps' are positioned in a different order than PyTorch.
-
-There is no difference in functions.
 
 | Categories | Subcategories | PyTorch      | MindSpore   | Differences   |
 | ---------- | ------------- | ------------ | ---------   | ------------- |

@@ -1,4 +1,4 @@
-# 比较与torch.nn.TripletMarginLoss的功能差异
+# 比较与torch.nn.TripletMarginLoss的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TripletMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -36,9 +36,11 @@ mindspore.nn.TripletMarginLoss(
 )(margin, x, positive, negative) -> Tensor/Scalar
 ```
 
-更多内容详见[mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TripletMarginLoss.html)。
+更多内容详见[mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TripletMarginLoss.html)。
 
 ## 差异对比
+
+MindSpore此API功能与PyTorch一致。
 
 PyTorch：
 
@@ -56,8 +58,6 @@ MindSpore：
 
 - MindSpore的初始化参数 `swap` 和 `eps` 位置顺序和PyTorch不同。
 
-功能上无差异。
-
 | 分类       | 子类         | PyTorch      | MindSpore   | 差异          |
 | ---------- | ------------ | ------------ | ---------   | ------------- |
 | 参数       | 参数 1       | margin       | -           | 位置不同，功能一致。数据类型是float。 |
@@ -72,7 +72,7 @@ MindSpore：
 |            | 输入 3       | positive     | positive    | -             |
 |            | 输入 4       | negative     | negative    | -             |
 
-## 差异分析与示例
+## 代码示例
 
 ```python
 # PyTorch
