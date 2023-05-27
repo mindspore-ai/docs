@@ -88,8 +88,8 @@ The MindSpore Lite inference steps are as follows:
   After the build, go to the `mindspore/lite/examples/quick_start_cpp/build` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
 
   ```bash
-  set PATH=../lib;%PATH%
-  call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
+  set PATH=..\lib;%PATH%
+  call mindspore_quick_start_cpp.exe ..\model\mobilenetv2.ms
   ```
 
   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data.

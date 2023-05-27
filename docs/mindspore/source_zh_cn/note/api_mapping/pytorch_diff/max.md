@@ -13,7 +13,7 @@ torch.max(input, dim, keepdim=False, *, out=None)
 ## mindspore.ops.max
 
 ```python
-def mindspore.ops.max(input, axis=None, keepdims=False, *, initial=None, where=None)
+mindspore.ops.max(input, axis=None, keepdims=False, *, initial=None, where=None)
 ```
 
 更多内容详见[mindspore.ops.max](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.max.html)。
@@ -26,7 +26,7 @@ MindSpore：axis为None或者shape为空时，keepdims以及后面的参数均�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | x |功能一致，参数名不同 |
+|参数 | 参数1 | input | input |功能一致 |
 | | 参数2 | dim | axis | 功能一致，参数名不同|
 | | 参数3 | keepdim    | keepdims     | 功能一致，参数名不同       |
 | | 参数4 | -      |initial    | 不涉及        |

@@ -411,10 +411,6 @@ After the model is precompiled, 500 steps are trained.
 
 > Training process visualization depends on the `tqdm` library, which can be installed by running the `pip install tqdm` command.
 
-```text
-    100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:23<00:00, 21.13it/s, loss=0.3487625]
-```
-
 ```python
 from tqdm import tqdm
 
@@ -424,6 +420,10 @@ with tqdm(total=steps) as t:
         loss = train_step(data, seq_length, label)
         t.set_postfix(loss=loss)
         t.update(1)
+```
+
+```text
+    100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:23<00:00, 21.13it/s, loss=0.3487625]
 ```
 
 Finally, let's observe the model effect after 500 steps of training. First, use the model to predict possible path scores and candidate sequences.

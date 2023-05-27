@@ -145,7 +145,7 @@ Currently, weight quantization supports mixed bit quantization. According to the
 The general form of the mixed bit weight requantization command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
 The mixed bit weight quantification configuration file is as follows:

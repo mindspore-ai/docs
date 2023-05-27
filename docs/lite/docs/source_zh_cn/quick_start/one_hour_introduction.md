@@ -147,7 +147,7 @@ mindspore-lite-{version}-linux-x64
     执行命令后，若转换成功，结果显示如下，并在当前目录生成名为`mobilenetv2.ms`的新模型文件。
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 5. 高级功能
@@ -921,7 +921,7 @@ mindspore-lite-{version}-win-x64
     执行命令后，若转换成功，结果显示如下，并在当前目录生成名为`mobilenetv2.ms`的新模型文件。
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 5. 高级功能
