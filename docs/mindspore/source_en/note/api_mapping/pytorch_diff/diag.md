@@ -1,4 +1,4 @@
-# Function Differences with torch.diag
+# Differences with torch.diag
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -27,19 +27,21 @@ For more information, see [mindspore.ops.diag](https://www.mindspore.cn/docs/en/
 
 ## Differences
 
+API function of MindSpore is not consistent with that of PyTorch.
+
 PyTorch: If the input is a one-dimensional tensor, the diagonal tensor is constructed by using the one-dimensional tensor composed of the diagonal values of the input. If the input is a matrix, the one-dimensional tensor composed of the diagonal elements of the input is returned.
 
-MindSpore: If the input is a one-dimensional tensor, MindSpore API achieves the same function as PyTorch. If the input is a matrix, it does not achieve the same function as PyTorch, and there is no `diagonal` parameter to control the position of the diagonals to be considered.
+MindSpore: If the input is a one-dimensional tensor, MindSpore API achieves the same function as PyTorch. If the input is a matrix, it does not achieve the same function as PyTorch, and there is no `diagonal` parameter to control the position of the diagonals.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 |Parameters | Parameter 1 | input | input |- |
-| | Parameter 2 | diagonal | - | The value of `diagonal` in PyTorch is used to control the position of the diagonal to be considered. MindSpore does not have this parameter. |
-| | Parameter 3 | out | - | Not involved |
+| | Parameter 2 | diagonal | - | The value of `diagonal` in PyTorch is used to control the position of the diagonal. MindSpore does not have this parameter. |
+| | Parameter 3 | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ### Code Example 1
 
-> The PyTorch API parameter `x` supports both multidimensional and one-dimensional tensors, and there is a `diagonal` parameter to control the position of the diagonal to be considered, while the MindSpore API does not have a `diagonal` parameter. When the input parameter x is a one-dimensional tensor and `diagonal` is 0, the two APIs achieve the same function.
+> The PyTorch API parameter `x` supports both multidimensional and one-dimensional tensors, and there is a `diagonal` parameter to control the position of the diagonal, while the MindSpore API does not have a `diagonal` parameter. When the input parameter x is a one-dimensional tensor and `diagonal` is 0, the two APIs achieve the same function.
 
 ```python
 # PyTorch
@@ -68,7 +70,7 @@ print(output)
 
 ### Code Example 2
 
-> When the input parameter `x` is a one-dimensional tensor and `diagonal` is not 0, this API of PyTorch controls the position of the diagonal to be considered, while this API of MindSpore does not have a `diagonal` parameter, and the output obtained from this API can be processed by mindspore.ops.pad to achieve the same function.
+> When the input parameter `x` is a one-dimensional tensor and `diagonal` is not 0, this API of PyTorch controls the position of the diagonal, while this API of MindSpore does not have a `diagonal` parameter, and the output obtained from this API can be processed by mindspore.ops.pad to achieve the same function.
 
 ```python
 # PyTorch
