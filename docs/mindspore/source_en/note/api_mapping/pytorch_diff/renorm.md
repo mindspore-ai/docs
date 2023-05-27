@@ -1,4 +1,4 @@
-# Function Differences with torch.renorm
+# Differences with torch.renorm
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/renorm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -27,17 +27,19 @@ For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/ma
 
 ## Differences
 
-PyTorch: Renormalize the sub-tensor of input `input` along dimension `dim` and the p norm of each sub-tensor does not exceed the given maximum norm maxnorm.
+API function of MindSpore is consistent with that of PyTorch.
 
-MindSpore: MindSpore API implements the same function as PyTorch, with only differences in parameter types.
+PyTorch: The data type of parameter `p` is ``float`` .
+
+MindSpore: The data type of parameter `p` is ``int`` .
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences  |
 | --- |---------------|---------| --- |-------------|
 | Parameters | Parameter 1 |input | input | -  |
-| | Parameter 2 | p | p | The parameter is of type float in torch and is int in mindspore |
-|  | Parameter 3 | dim        | axis | Same function, different parameter names  |
+| | Parameter 2 | p | p | The data type supported by PyTorch is ``float`` , the data type supported by MindSpore is ``int`` . |
+|  | Parameter 3 | dim        | axis | Different parameter names  |
 | | Parameter 4 | maxnorm | maxnorm |  - |
-| | Parameter 5 | out | - | Not involved |
+| | Parameter 5 | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ### Code Example 1
 
@@ -45,12 +47,11 @@ MindSpore: MindSpore API implements the same function as PyTorch, with only diff
 # PyTorch
 import torch
 x = torch.tensor([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]], dtype=torch.float32)
-out = torch.renorm(x, 2, 0, 5)
+out = torch.renorm(x, 2.0, 0, 5.0)
 print(out.numpy())
 # [[0.        1.        2.        3.       ]
 #  [1.7817416 2.2271771 2.6726124 3.1180477]
 #  [2.0908334 2.3521876 2.6135418 2.874896 ]]
-
 
 # MindSpore
 import mindspore
