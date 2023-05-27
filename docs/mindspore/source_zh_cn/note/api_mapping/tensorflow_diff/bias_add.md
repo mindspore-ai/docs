@@ -8,7 +8,7 @@
 class tf.nn.bias_add(value, bias, data_format=None, name=None)
 ```
 
-更多内容详见[tf.nn.bias_add](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/bias_add?hl=zh-cn%3B)。
+更多内容详见[tf.nn.bias_add](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/nn/bias_add)。
 
 ## mindspore.ops.bias_add
 

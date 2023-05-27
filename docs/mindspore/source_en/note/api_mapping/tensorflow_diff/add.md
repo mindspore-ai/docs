@@ -8,7 +8,7 @@
 tf.math.add(x, y, name=None) -> Tensor
 ```
 
-For more information, see [tf.math.add](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/add?hl=zh-cn%3B).
+For more information, see [tf.math.add](https://tensorflow.google.cn/versions/r2.6/api_docs/python/tf/math/add).
 
 ## mindspore.ops.add
 
