@@ -1,4 +1,4 @@
-# 比较与torch.diag的功能差异
+# 比较与torch.diag的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
@@ -27,19 +27,21 @@ mindspore.ops.diag(input) -> Tensor
 
 ## 差异对比
 
+MindSpore此API功能与PyTorch不一致。
+
 PyTorch：若输入为一维张量，用输入的对角线值构成的一维张量来构造对角线张量；若输入为矩阵，则返回由输入的对角线元素组成的一维张量。
 
-MindSpore：MindSpore此API，若输入为一维张量，则实现与PyTorch相同的功能；若输入为矩阵，则不能实现与PyTorch相同的功能，且没有`diagonal`参数控制要考虑的对角线的位置。
+MindSpore：MindSpore此API，若输入为一维张量，则实现与PyTorch相同的功能；若输入为矩阵，则不能实现与PyTorch相同的功能，且没有`diagonal`参数控制对角线的位置。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | input | input |- |
-| | 参数2 | diagonal | - | PyTorch中`diagonal`的取值用于控制要考虑的对角线的位置，MindSpore无此参数 |
-| | 参数3 | out | - | 不涉及 |
+| | 参数2 | diagonal | - | PyTorch中`diagonal`的取值用于控制对角线的位置，MindSpore无此参数 |
+| | 参数3 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ### 代码示例1
 
-> PyTorch的此API参数`x`支持多维张量和一维张量，且存在`diagonal`参数用于控制要考虑的对角线的位置，而MindSpore此API不存在`diagonal`参数；当输入参数x为一维张量且`diagonal`为0时，两API实现相同的功能。
+> PyTorch的此API参数`x`支持多维张量和一维张量，且存在`diagonal`参数用于控制对角线的位置，而MindSpore此API不存在`diagonal`参数；当输入参数x为一维张量且`diagonal`为0时，两API实现相同的功能。
 
 ```python
 # PyTorch
@@ -68,7 +70,7 @@ print(output)
 
 ### 代码示例2
 
-> 当输入参数`x`为一维张量且`diagonal`不为0时，PyTorch的此API可控制要考虑的对角线的位置，而MindSpore的此API没有`diagonal`参数，可以将此API得到的输出使用mindspore.ops.pad进行处理，从而实现相同功能。
+> 当输入参数`x`为一维张量且`diagonal`不为0时，PyTorch的此API可控制对角线的位置，而MindSpore的此API没有`diagonal`参数，可以将此API得到的输出使用mindspore.ops.pad进行处理，从而实现相同功能。
 
 ```python
 # PyTorch
