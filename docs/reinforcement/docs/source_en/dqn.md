@@ -264,8 +264,8 @@ The DQN algorithm is an *off-policy* algorithm that learns using a epsilon-greed
 
 ```python
 class DQNPolicy():
-     def __init__(self, params):
-         ...
+    def __init__(self, params):
+        ...
         self.init_policy = RandomPolicy(params['action_space_dim'])
         self.collect_policy = EpsilonGreedyPolicy(self.policy_network, (1, 1), params['epsi_high'],
                                                   params['epsi_low'], params['decay'], params['action_space_dim'])
@@ -320,10 +320,10 @@ The constructor of the `DQNActor` class defines the environment, the reply buffe
 
 ```python
 class DQNActor(Actor):
-     def __init__(self, params):
-         self._environment = params['collect_environment']
-         self._eval_env = params['eval_environment']
-         ...
+    def __init__(self, params):
+        self._environment = params['collect_environment']
+        self._eval_env = params['eval_environment']
+        ...
 ```
 
 ### Defining the DQNLearner class

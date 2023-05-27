@@ -327,12 +327,12 @@ print("dist_arg: ", dist_arg)
 The output is as follows:
 
 ```text
-mean:  0.0
-var:  1.0
-entropy:  1.4189385
-prob:  [0.35206532 0.3989423  0.35206532]
-cdf:  [0.30853754 0.5        0.69146246]
-kl:  0.44314718
+mean:  0.0
+var:  1.0
+entropy:  1.4189385
+prob:  [0.35206532 0.3989423  0.35206532]
+cdf:  [0.30853754 0.5        0.69146246]
+kl:  0.44314718
 dist_arg:  (Tensor(shape=[], dtype=Float32, value= 0), Tensor(shape=[], dtype=Float32, value= 1))
 ```
 
@@ -433,15 +433,15 @@ The output is as follows:
 
 ```text
 TransformedDistribution<
-  (_bijector): Exp<exp>
-  (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
-  >
+  (_bijector): Exp<exp>
+  (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
+  >
 underlying distribution:
- Normal<mean = 0.0, standard deviation = 1.0>
+ Normal<mean = 0.0, standard deviation = 1.0>
 bijector:
- Exp<exp>
+ Exp<exp>
 cdf:
- [0.7558914 0.9462397 0.9893489]
+ [0.7558914 0.9462397 0.9893489]
 sample:
  (3, 2)
 ```
@@ -643,10 +643,10 @@ The output is as follows:
 
 ```text
 PowerTransform<power = 2.0>
-forward:  [2.236068  2.6457515 3.        3.3166249]
-inverse:  [ 1.5       4.        7.5      12.000001]
-forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
-inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
+forward:  [2.236068  2.6457515 3.        3.3166249]
+inverse:  [ 1.5       4.        7.5      12.000001]
+forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
+inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```
 
 ### Invoking a Bijector Instance in Graph Mode

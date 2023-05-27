@@ -290,19 +290,19 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 3. 模型训练与测试。
 
    ```python
-    LOGGER.info(TAG, "============== Starting Training ==============")
-    model.train(cfg['epoch_size'], ds_train,
-                callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
-                dataset_sink_mode=cfg.dataset_sink_mode)
+   LOGGER.info(TAG, "============== Starting Training ==============")
+   model.train(cfg['epoch_size'], ds_train,
+               callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
+               dataset_sink_mode=cfg.dataset_sink_mode)
 
-    LOGGER.info(TAG, "============== Starting Testing ==============")
-    ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_234.ckpt'
-    param_dict = ms.load_checkpoint(ckpt_file_name)
-    ms.load_param_into_net(network, param_dict)
-    ds_eval = generate_mnist_dataset(os.path.join(cfg.data_path, 'test'),
-                                     batch_size=cfg.batch_size)
-    acc = model.eval(ds_eval, dataset_sink_mode=False)
-    LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
+   LOGGER.info(TAG, "============== Starting Testing ==============")
+   ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_234.ckpt'
+   param_dict = ms.load_checkpoint(ckpt_file_name)
+   ms.load_param_into_net(network, param_dict)
+   ds_eval = generate_mnist_dataset(os.path.join(cfg.data_path, 'test'),
+                                    batch_size=cfg.batch_size)
+   acc = model.eval(ds_eval, dataset_sink_mode=False)
+   LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
    ```
 
 4. 运行命令。
@@ -310,7 +310,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    运行脚本，可在命令行输入命令：
 
    ```bash
-   python lenet_dp.py
+   python lenet5_dp.py
    ```
 
    其中`lenet5_dp.py`替换成你的脚本的名字。

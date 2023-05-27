@@ -73,8 +73,6 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 └── train
     ├── train-images-idx3-ubyte
     └── train-labels-idx1-ubyte
-
-2 directories, 4 files
 ```
 
 ### Defining the Dataset Enhancement Method
@@ -279,5 +277,5 @@ Epoch: 6    Training Loss: 4898.9741    Training Accuracy: 0.9754    validation 
 Epoch: 7    Training Loss: 4505.7502    Training Accuracy: 0.9775    validation Accuracy: 0.9784
 Epoch: 8    Training Loss: 4099.8783    Training Accuracy: 0.9797    validation Accuracy: 0.9791
 Epoch: 9    Training Loss: 3795.2288    Training Accuracy: 0.9810    validation Accuracy: 0.9796
-Epoch: 10    Training Loss: 3581.4254    Training Accuracy: 0.9823    validation Accuracy: 0.9773
+Epoch: 10   Training Loss: 3581.4254    Training Accuracy: 0.9823    validation Accuracy: 0.9773
 ```

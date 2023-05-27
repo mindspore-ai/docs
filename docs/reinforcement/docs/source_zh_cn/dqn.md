@@ -265,8 +265,8 @@ DQN算法是一种*off-policy*算法，使用epsilon-贪婪策略学习。它使
 
 ```python
 class DQNPolicy():
-     def __init__(self, params):
-         ...
+    def __init__(self, params):
+        ...
         self.init_policy = RandomPolicy(params['action_space_dim'])
         self.collect_policy = EpsilonGreedyPolicy(self.policy_network, (1, 1), params['epsi_high'],
                                                   params['epsi_low'], params['decay'], params['action_space_dim'])
@@ -325,10 +325,10 @@ class DQNActor(Actor):
 
 ```python
 class DQNActor(Actor):
-     def __init__(self, params):
-         self._environment = params['collect_environment']
-         self._eval_env = params['eval_environment']
-         ...
+    def __init__(self, params):
+        self._environment = params['collect_environment']
+        self._eval_env = params['eval_environment']
+        ...
 ```
 
 ### 定义DQNLearner类
@@ -360,10 +360,10 @@ class DQNLearner(Learner):
 
 ```python
 class DQNLearner(Learner):
-        def __init__(self, params=None):
-            super(DQNLearner, self).__init__()
-            self.policy_network = params['policy_network']
-            self.target_network = params['target_network']
+    def __init__(self, params=None):
+        super(DQNLearner, self).__init__()
+        self.policy_network = params['policy_network']
+        self.target_network = params['target_network']
 ```
 
 ## 执行并查看结果

@@ -256,7 +256,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     在样本数量足够大时，如果上述指标均大于0.6，我们认为目标模型就存在隐私泄露的风险。
 
     ```python
-        metrics = ["precision", "accuracy", "recall"]
+    metrics = ["precision", "accuracy", "recall"]
     ```
 
 4. 训练成员推理模型，并给出评估结果。

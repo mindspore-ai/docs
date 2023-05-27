@@ -152,7 +152,7 @@ For details about the API configuration, see the `set_context`.
    # make initial seeds
    initial_seeds = []
    for img, label in zip(test_images, test_labels):
-    initial_seeds.append([img, label])
+       initial_seeds.append([img, label])
    initial_seeds = initial_seeds[:100]
    ```
 
