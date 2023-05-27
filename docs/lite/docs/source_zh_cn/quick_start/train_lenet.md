@@ -46,10 +46,10 @@
 目录结构如下：
 
 ```text
-MNIST_Data/
+./MNIST_Data/
 ├── test
-│   ├── t10k-images-idx3-ubyte
-│   └── t10k-labels-idx1-ubyte
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
 └── train
     ├── train-images-idx3-ubyte
     └── train-labels-idx1-ubyte
@@ -186,12 +186,12 @@ The predicted classes are:
 ### 示例程序结构
 
 ```text
-  train_lenet_cpp/
+train_lenet_cpp/
   ├── model
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
   │   └── train_utils.py
-  |
+  │
   ├── scripts
   │   ├── batch_of32.dat
   │   ├── eval.sh

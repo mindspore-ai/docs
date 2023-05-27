@@ -94,9 +94,10 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-{version}-android-{arch} #MindSpore Lite version
+|   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
-│   |   └── MindSporeNetnative.h # header file
+│   |   ├── MindSporeNetnative.h # header file
+│   |   └── MsNetWork.cpp # MindSpore API
 │   |
 │   ├── java # application code at the Java layer
 │   │   └── com.mindspore.classification

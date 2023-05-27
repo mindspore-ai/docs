@@ -20,7 +20,7 @@ For more information, see [torch.amax](https://pytorch.org/docs/1.8.1/generated/
 ## mindspore.ops.amax
 
 ```text
-mindspore.ops.amax((x, axis=(), keepdims=False) -> Tensor
+mindspore.ops.amax(x, axis=(), keepdims=False) -> Tensor
 ```
 
 For more information, see [mindspore.ops.amax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.amax.html).

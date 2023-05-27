@@ -213,7 +213,7 @@ if __name__ == '__main__':
 ```text
 app
 │   ├── libs # Android库项目的二进制归档文件
-|   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite针对Android版本的归档文件
+|   |   ├── mindspore-lite-full-{version}.aar #  MindSpore Lite针对Android版本的归档文件
     |   └── mindspore-lite-java-flclient.jar #  MindSpore Federated针对Android版本的归档文件
 ├── src/main
 │   ├── assets # 资源目录

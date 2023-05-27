@@ -96,7 +96,7 @@ app
 |   |       └── mobilenetv2.ms # 存放的模型文件
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
-|   |   ├── ..
+|   |   ├── ...
 |   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
@@ -141,7 +141,7 @@ android{
         }
 
         ndk{
-            abiFilters'armeabi-v7a', 'arm64-v8a'  
+            abiFilters'armeabi-v7a', 'arm64-v8a'
         }
     }
 }

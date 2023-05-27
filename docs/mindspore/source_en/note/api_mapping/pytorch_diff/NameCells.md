@@ -32,21 +32,21 @@ import numpy as np
 from mindspore import nn
 
 class ConvBN(nn.Cell):
-  def __init__(self):
-    super(ConvBN, self).__init__()
-    self.conv = nn.Conv2d(3, 64, 3)
-    self.bn = nn.BatchNorm2d(64)
-  def construct(self, x):
-    x = self.conv(x)
-    x = self.bn(x)
-    return x
+    def __init__(self):
+        super(ConvBN, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return x
 
 class MyNet(nn.Cell):
-  def __init__(self):
-    super(MyNet, self).__init__()
-    self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
-  def construct(self, x):
-    return self.build_block(x)
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.build_block = nn.SequentialCell(ConvBN(), nn.ReLU())
+    def construct(self, x):
+        return self.build_block(x)
 
 # The following implements mindspore.nn.Cell.name_cells() with MindSpore.
 net = MyNet()
@@ -65,28 +65,28 @@ OrderedDict([('build_block', SequentialCell<
 import torch.nn as nn
 
 class ConvBN(nn.Module):
-  def __init__(self):
-    super(ConvBN, self).__init__()
-    self.conv = nn.Conv2d(3, 64, 3)
-    self.bn = nn.BatchNorm2d(64)
-  def forward(self, x):
-    x = self.conv(x)
-    x = self.bn(x)
-    return x
+    def __init__(self):
+        super(ConvBN, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return x
 
 class MyNet(nn.Module):
-  def __init__(self):
-    super(MyNet, self).__init__()
-    self.build_block = nn.Sequential(ConvBN(), nn.ReLU())
-  def construct(self, x):
-    return self.build_block(x)
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.build_block = nn.Sequential(ConvBN(), nn.ReLU())
+    def construct(self, x):
+        return self.build_block(x)
 
 # The following implements torch.nn.Module.named_children() with torch.
 net = MyNet()
 print(net.named_children(), "\n")
 for name, child in net.named_children():
-  print("Name: ", name)
-  print("Child: ", child)
+    print("Name: ", name)
+    print("Child: ", child)
 ```
 
 ```text

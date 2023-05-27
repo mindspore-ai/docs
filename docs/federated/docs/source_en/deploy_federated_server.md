@@ -88,7 +88,7 @@ redis-server --port 23456 --save ""
 1. [examples](https://gitee.com/mindspore/federated/tree/master/example/cross_device_lenet_femnist/).
 
     ```bash
-    cd tests/st/cross_device_lenet_femnist
+    cd example/cross_device_lenet_femnist
     ```
 
 2. Modify the yaml configuration file according to the actual running: `default_yaml_config.yaml`. [sample configuration of Lenet](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/yamls/lenet/default_yaml_config.yaml) is as follows:
