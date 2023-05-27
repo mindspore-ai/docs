@@ -261,5 +261,5 @@ Several common examples are selected below to illustrate the use of conversion c
    In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
 
    ```text
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```

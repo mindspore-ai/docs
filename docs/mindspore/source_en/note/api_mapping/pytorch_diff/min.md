@@ -26,7 +26,7 @@ MindSpore: When the axis is None or the shape is empty in MindSpore, the keepdim
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameters | Parameter 1 | input        | input       | Same function, different parameter names |
+|Parameters | Parameter 1 | input        | input       | Consistent |
 |      | Parameter 2 | dim       | axis      | Same function, different parameter names |
 | | Parameter 3 | keepdim    | keepdims     | Same function, different parameter names       |
 | | Parameter 4 | -      |initial    | Not involved        |

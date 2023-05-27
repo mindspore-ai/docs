@@ -112,7 +112,7 @@ First, use the converter to convert a model into an `ms` model. Then, use the ru
     ${model_name} indicates the model file name. The execution result is as follows:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     For details about parameters of the converter_lite converter, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).

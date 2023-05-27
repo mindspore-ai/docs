@@ -191,7 +191,7 @@ nnie.cfg文件的示例参考如下：
     ${model_name}为模型文件名称，运行后的结果显示为：
 
      ```text
-     CONVERTER RESULT SUCCESS:0
+     CONVERT RESULT SUCCESS:0
      ```
 
      用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。

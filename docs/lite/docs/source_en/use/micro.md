@@ -100,7 +100,7 @@ The following describes how to prepare the environment for using the conversion 
     The following information is displayed when the code is run successfully:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
@@ -223,7 +223,7 @@ Table 1: micro_param Parameter Definition
    The following information is displayed when the code is run successfully:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
@@ -436,7 +436,7 @@ For preparing environment section, refer to the [above](#preparing-environment),
     The following information is displayed when the code is run successfully:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     After the conversion tool is successfully executed, the generated code is saved in the specified `outputFile` directory. In this example, the my_model folder is in the current conversion directory. The content is as follows:

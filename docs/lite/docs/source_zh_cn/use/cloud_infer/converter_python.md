@@ -191,7 +191,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.mindir`目标文件。
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 ### 高级用法
