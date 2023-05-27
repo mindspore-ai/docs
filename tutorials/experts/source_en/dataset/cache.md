@@ -261,7 +261,7 @@ During the single-node multi-device distributed training, the cache operation al
     Cache server startup completed successfully!
     The cache server daemon has been created as process id 39337 and listening on port 50052
     Recommendation:
-        Since the server is detached into its own daemon process, monitor the server logs (under/tmp/mindspore/cache/log) for any issues that may happen after startup
+        Since the server is detached into its own daemon process, monitor the server logs (under /tmp/mindspore/cache/log) for any issues that may happen after startup
 
 2. Create a cache session.
 

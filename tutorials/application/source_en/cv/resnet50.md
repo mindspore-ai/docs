@@ -28,7 +28,7 @@ url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 download(url, "./datasets-cifar10-bin", kind="tar.gz", replace=True)
 ```
 
-```tex
+```text
 './datasets-cifar10-bin'
 ```
 

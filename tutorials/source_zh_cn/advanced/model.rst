@@ -33,7 +33,6 @@
 
     import mindspore
     from mindspore import nn
-    from mindspore import ops
     from mindspore.dataset import vision, transforms
     from mindspore.dataset import MnistDataset
     from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonitor
