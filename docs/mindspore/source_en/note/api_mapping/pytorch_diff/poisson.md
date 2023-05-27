@@ -1,4 +1,4 @@
-# Function Differences with torch.poisson
+# Differences with torch.poisson
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/poisson.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -20,17 +20,17 @@ For more information, see [mindspore.ops.random_poisson](https://www.mindspore.c
 
 ## Differences
 
+API function of MindSpore is consistent with that of PyTorch.
+
 PyTorch: The shape and data type of the return value are the same as `input`.
 
 MindSpore: `shape` determines the shape of the random number tensor sampled under each distribution, and the shape of the return value is `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` . When the value of `shape` is `Tensor([])`, the shape of the return value is the same as that in PyTorch, which is the same as the shape of `rate`. The data type of the return value is determined by `dtype` .
-
-There is no difference in function.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | -            | shape         | The shape of the random number tensor sampled under each distribution under MindSpore, the shape of the return value is the same as PyTorch when the value `Tensor([])` |
 |            | Parameter 2   | input        | rate          | Parameters of the Poisson distribution |
-|            | Parameter 3   | generator    | seed          | MindSpore uses a random number seed to generate random numbers |
+|            | Parameter 3   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 4   | -            | dtype         | The data type of the returned value in MindSpore supports int32/64, float16/32/64 |
 
 ## Code Example

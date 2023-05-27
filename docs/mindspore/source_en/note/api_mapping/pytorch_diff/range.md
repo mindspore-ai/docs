@@ -32,7 +32,7 @@ For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en
 
 ## Differences
 
-MindSpore's API function is consistent with PyTorch.
+API function of MindSpore is consistent with that of PyTorch.
 
 MindSpore: The dtype of output Tensor is the same as input Tensor.
 
