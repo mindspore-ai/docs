@@ -42,7 +42,7 @@ PyTorch: 输出Tensor的dtype由参数 `dtype` 指定 。
 |-----|------|---------------|-----------|------------------------------------|
 | 输入  | 输入 1 | start         | start     | MindSpore中参数 `start` 的数据类型为Union[Tensor, int, float],PyTorch中参数 `start` 的数据类型为float |
 |     | 输入 2 | end           | end       | MindSpore中参数 `end` 的数据类型为Union[Tensor, int, float]，PyTorch中参数 `end` 的数据类型为float |
-|     | 输入 3 | steps         | steps     | MindSpore中参数 `step` 的数据类型为Union[Tensor, int]，PyTorch中参数 `steps` 的数据类型为int |
+|     | 输入 3 | steps         | steps     | MindSpore中参数 `steps` 的数据类型为Union[Tensor, int]，PyTorch中参数 `steps` 的数据类型为int |
 |     | 输入 4 | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 |     | 输入 5 | dtype         | -         | MindSpore输出Tensor的dtype与参数 `start`相同，PyTorch的输出Tensor的dtype由参数 `dtype`指定 |
 |     | 输入 6 | layout        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |

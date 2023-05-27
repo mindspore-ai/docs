@@ -13,7 +13,7 @@ For more information, see [torch.min](https://pytorch.org/docs/1.8.1/torch.html#
 ## mindspore.ops.min
 
 ```python
-def mindspore.ops.min(input, axis=None, keepdims=False, *, initial=None, where=None)
+mindspore.ops.min(input, axis=None, keepdims=False, *, initial=None, where=None)
 ```
 
 For more information, see [mindspore.ops.min](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.min.html).
@@ -26,7 +26,7 @@ MindSpore: When the axis is None or the shape is empty in MindSpore, the keepdim
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameters | Parameter 1 | input        | x       | Same function, different parameter names |
+|Parameters | Parameter 1 | input        | input       | Same function, different parameter names |
 |      | Parameter 2 | dim       | axis      | Same function, different parameter names |
 | | Parameter 3 | keepdim    | keepdims     | Same function, different parameter names       |
 | | Parameter 4 | -      |initial    | Not involved        |

@@ -42,7 +42,7 @@ PyTorch: the dtype of output Tensor is determined by the parameter `dtype`.
 |------------|---------------|---------------|-----------|-------------------------------------------------------|
 | input      | input 1       | start         | start     | The data type of `start` parameter in MindSpore is Union[Tensor, int, float], while the data type of `start` parameter in PyTorch is float |
 |            | input 2       | end           | end       | The data type of `end` parameter in MindSpore is Union[Tensor, int, float], while the data type of `end` parameter in PyTorch is float |
-|            | input 3       | steps          | steps      | The data type of `step` parameter in MindSpore is Union[Tensor, int], while the data type of `step` parameter in PyTorch is int |
+|            | input 3       | steps          | steps      | The data type of `steps` parameter in MindSpore is Union[Tensor, int], while the data type of `steps` parameter in PyTorch is int |
 |            | input 4       | out           | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | input 5       | dtype         | -         | The dtype of output Tensor in MindSpore is the same as the parameter `start`，while the dtype of output Tensor in PyTorch is determined by the parameter `dtype` |
 |            | input 6       | layout        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
