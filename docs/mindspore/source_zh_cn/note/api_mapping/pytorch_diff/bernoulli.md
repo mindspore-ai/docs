@@ -1,4 +1,4 @@
-# 比较与torch.bernoulli的功能差异
+# 比较与torch.bernoulli的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bernoulli.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
@@ -27,11 +27,11 @@ mindspore.ops.bernoulli(input, p=0.5, seed=None)
 
 ## 差异对比
 
+MindSpore此API功能与PyTorch一致。
+
 PyTorch: 参数 `input` 里保存了伯努利分布的概率值，返回值的shape和 `input` 一致。
 
 MindSpore: 参数 `p` 里保存了伯努利分布的概率值，默认值为0.5。 `p` 的shape需要和 `input` 的shape一致，返回值的shape和 `input` 的shape一致。
-
-功能上无差异。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
@@ -40,7 +40,7 @@ MindSpore: 参数 `p` 里保存了伯努利分布的概率值，默认值为0.5�
 |            | 参数 3       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
 |            | 参数 4       | out           | -             | 不涉及            |
 
-## 差异分析与示例
+## 代码示例
 
 ```python
 # PyTorch

@@ -1,4 +1,4 @@
-# 比较与torch.multinomial的功能差异
+# 比较与torch.multinomial的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/multinomial.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
@@ -27,17 +27,21 @@ mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 
 ## 差异对比
 
-MindSpore下的参数名和默认值和PyTorch存在差异，功能上无差异。
+MindSpore此API功能与PyTorch一致。
+
+MindSpore: 参数 `replacement` 的默认值为 ``True`` ，即每次采样后把采样的数据放回。
+
+PyTorch: 参数 `replacement` 的默认值为 ``False`` ，即每次采样后不把采样的数据放回。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
 | 参数       | 参数 1       | input         | input         | 一致           |
 |            | 参数 2       | num_samples   | num_samples   | 一致           |
-|            | 参数 3       | replacement   | replacement   | 功能一致，默认值不同。PyTorch的默认值为False，MindSpore的默认值为True |
-|            | 参数 4       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
-|            | 参数 5       | out           | -             | 不涉及        |
+|            | 参数 3       | replacement   | replacement   | PyTorch的默认值为 ``False`` ，MindSpore的默认值为 ``True`` |
+|            | 参数 4       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 5       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
-## 差异分析与示例
+## 代码示例
 
 ```python
 # PyTorch
