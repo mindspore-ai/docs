@@ -41,7 +41,7 @@ MindSpore: The data type of parameter `p` is ``int`` .
 | | Parameter 4 | maxnorm | maxnorm |  - |
 | | Parameter 5 | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
-### Code Example 1
+### Code Example
 
 ```python
 # PyTorch
