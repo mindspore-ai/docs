@@ -77,8 +77,8 @@ boundary.set_sampling_config(create_config_from_edict(bc_sampling_config))
 
 # final sampling fields
 geom_dict = {src_region : ["domain", "IC"],
-                 no_src_region : ["domain", "IC"],
-                 boundary : ["BC"]}
+                no_src_region : ["domain", "IC"],
+                boundary : ["BC"]}
 ```
 
 The MindSpore Elec Dataset API combines different sampled data into a unified training dataset.

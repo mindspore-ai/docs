@@ -192,7 +192,7 @@ sens = 1.0
 def test_net(a, b):
     return a, b
 
-@ms.jit
+@ms.jit()
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i is a scalar shape: (1), dtype:Float64, value:1.0
     # sens_i = (sens_i, sens_i)
@@ -272,7 +272,7 @@ import mindspore as ms
 
 ZERO = ms.Tensor([0], ms.int32)
 ONE = ms.Tensor([1], ms.int32)
-@ms.jit
+@ms.jit()
 def f(x):
     y = ZERO
     if x < 0:
@@ -518,7 +518,7 @@ The function call stack:
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "ValueError: The shape of sense must not be dynamic shape." is reported? **</font>
+<font size=3>**Q: What can I do if an error "ValueError: The shape of sense must not be dynamic shape." is reported?**</font>
 
 A: In graph mode, when the GradOperation is called and the parameter 'sens_param' is True, and setting the dynamic shape of sense through 'nn.Cell.set_inputs' will cause an error. The code example is as follows:
 

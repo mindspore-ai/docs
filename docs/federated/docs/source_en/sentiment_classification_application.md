@@ -18,19 +18,19 @@ The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/n
 
 ```text
 mobile/datasets/train/
-├── 0.tsv  # Training data of user 0
-├── 1.tsv  # Training data of user 1
-│
-│          ......
-│
-└── 19.tsv  # Training data of user 19
+    ├── 0.tsv  # Training data of user 0
+    ├── 1.tsv  # Training data of user 1
+    │
+    │          ......
+    │
+    └── 19.tsv  # Training data of user 19
 ```
 
 The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz) contains one chat file. The directory structure is as follows:
 
 ```text
 datasets/supervise/eval/
-└── eval.txt  # Validation data
+    └── eval.txt  # Validation data
 ```
 
 The labels in the training data and validation data correspond to four types of emojis: `good`, `leimu`, `xiaoku`, `xin`.
@@ -40,7 +40,7 @@ The labels in the training data and validation data correspond to four types of 
 The directory structures of the [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) and the [mapping file of dictionary ID](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt) related to the model file are as follows:
 
 ```text
-mobile/models/
+mobile/
 ├── vocab.txt  # Dictionary
 └── vocab_map_ids.txt  # Mapping file of Dictionary ID
 ```
@@ -212,12 +212,13 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 ```text
 app
 │   ├── libs # Binary archive file of the Android library project
-|   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite archive file of the Android version
+|   |   ├── mindspore-lite-full-{version}.aar #  MindSpore Lite archive file of the Android version
+|   |   └── mindspore-lite-java-flclient.jar #  MindSpore Federate archive file of the Android version
 ├── src/main
 │   ├── assets # Resource directory
 |   |   └── model # Model directory
-|   |       └── albert_ad_train.mindir.ms # Pre-trained model file
-│   |       └── albert_ad_infer.mindir.ms # Inference model file
+|   |       └── albert_supervise.mindir.ms # Pre-trained model file
+│   |       └── albert_inference.mindir.ms # Inference model file
 │   |   └── data # Data directory
 |   |       └── 0.txt # training data file
 |   |       └── vocab.txt # Dictionary file
@@ -479,7 +480,7 @@ app
         compileSdkVersion 30
         buildToolsVersion "30.0.3"
         defaultConfig {
-            applicationId "com.huawei.flAndroid"
+            applicationId "com.mindspore.flAndroid"
             minSdkVersion 27
             targetSdkVersion 30
             versionCode 1
@@ -507,7 +508,7 @@ app
     }
     dependencies {
         // AAR package to be scanned in the libs directory
-        implementation fileTree(dir:'libs',include:['*.aar'])
+        implementation fileTree(dir:'libs',include:['*.aar', '*.jar'])
         implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation 'com.google.android.material:material:1.1.0'
         implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

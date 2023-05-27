@@ -101,7 +101,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
         data = ms.Tensor(np.random.rand(32, 3, 32, 32).astype(np.float32))
         label = ms.Tensor(np.random.randint(0, 1, (32, 62)).astype(np.float32))
         ms.export(train_network, data, label, file_name=mindir_path,
-                    file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
+                  file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
     ```
 
     The parameter `--mindir_path` is used to set the path of the generated file in MindIR format.
@@ -179,7 +179,7 @@ Taking the LeNet network as an example, some of the input parameters in the `run
 
 - `--domain_name`
 
-    Used to set the url for device-cloud communication. Currently, https and http communication are supported, and the corresponding formats are like as: https://......, http://....... When `if_use_elb` is set to true, the format must be: https://127.0.0.1:6666 or http://127.0.0.1:6666, where `127.0.0.1` corresponds to the ip of the machine ip providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
+    Used to set the url for device-cloud communication. Currently, https and http communication are supported, and the corresponding formats are like as: https://......, http://....... When `if_use_elb` is set to true, the format must be: <https://127.0.0.1:6666> or <http://127.0.0.1:6666>, where `127.0.0.1` corresponds to the ip of the machine ip providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
 
     Note 1: When this parameter is set to `http://......`, it means that HTTP communication is used, and there may be communication security risks.
 

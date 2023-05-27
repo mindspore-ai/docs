@@ -315,7 +315,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[22.0, 44.0, 55.0], [22.0, 44.0, 55.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[11., 22., 33.], [44., 55., 66.]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[11.0, 22.0, 33.0], [44.0, 55.0, 66.0]])
     ```
 
 - `slice`索引赋值

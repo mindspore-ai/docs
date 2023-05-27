@@ -616,7 +616,7 @@ Traceback (most recent call last):
 ```
 
 ```text
- tsd client wait response fail, device response code[1]. unknown device  error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
+tsd client wait response fail, device response code[1]. unknown device  error.[FUNC:WaitRsp][FILE:process_mode_manager.cpp][LINE:233]
 ```
 
 另外在一些情况下，CANN会抛出一些内部错误(Inner Error)，例如：错误码为 "EI9999: Inner Error" 此种情况如果在MindSpore官网或者论坛无法搜索到案例说明，可在社区提单求助。

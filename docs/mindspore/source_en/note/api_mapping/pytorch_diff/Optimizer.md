@@ -98,8 +98,8 @@ net = Net()
 all_params = net.named_parameters()
 no_conv_params = []
 for pname, p in all_params:
-  if "conv" not in pname:
-    no_conv_params.append(p)
+    if "conv" not in pname:
+        no_conv_params.append(p)
 optim_sgd = optim.SGD(no_conv_params, lr=0.01)
 ```
 
@@ -221,10 +221,10 @@ conv_params = []
 no_conv_params = []
 
 for pname, p in net.named_parameters():
-  if 'conv' in pname:
-    conv_params += [p]
-  else:
-    no_conv_params += [p]
+    if 'conv' in pname:
+        conv_params += [p]
+    else:
+        no_conv_params += [p]
 
 group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.01},
                 {'params': no_conv_params, 'nesterov': True}]

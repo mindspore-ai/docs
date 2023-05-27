@@ -420,7 +420,7 @@ class InnerNet(nn.Cell):
 
     def construct(self, x):
         if x > 0:
-           return self.param1.value(), self.param2.value()
+            return self.param1.value(), self.param2.value()
         return self.param2.value(), self.param1.value()
 
 class Net(nn.Cell):

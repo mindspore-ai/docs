@@ -87,9 +87,9 @@ MindSpore Elec提供了将不同的采样数据合并为统一训练数据集的
 # create dataset for train
 elec_train_dataset = create_random_dataset(config)
 train_dataset = elec_train_dataset.create_dataset(batch_size=config["batch_size"],
-                                                shuffle=True,
-                                                prebatched_data=True,
-                                                drop_remainder=True)
+                                                  shuffle=True,
+                                                  prebatched_data=True,
+                                                  drop_remainder=True)
 ```
 
 ### 定义控制方程及初边值条件
@@ -258,19 +258,19 @@ latent_init = np.random.randn(num_scenarios, latent_size) / np.sqrt(latent_size)
 latent_vector = Parameter(Tensor(latent_init, ms_type.float32), requires_grad=True)
 
 network = MultiScaleFCCell(config["input_size"],
-                        config["output_size"],
-                        layers=config["layers"],
-                        neurons=config["neurons"],
-                        residual=config["residual"],
-                        weight_init=HeUniform(negative_slope=math.sqrt(5)),
-                        act="sin",
-                        num_scales=config["num_scales"],
-                        amp_factor=config["amp_factor"],
-                        scale_factor=config["scale_factor"],
-                        input_scale=config["input_scale"],
-                        input_center=config["input_center"],
-                        latent_vector=latent_vector
-                        )
+                           config["output_size"],
+                           layers=config["layers"],
+                           neurons=config["neurons"],
+                           residual=config["residual"],
+                           weight_init=HeUniform(negative_slope=math.sqrt(5)),
+                           act="sin",
+                           num_scales=config["num_scales"],
+                           amp_factor=config["amp_factor"],
+                           scale_factor=config["scale_factor"],
+                           input_scale=config["input_scale"],
+                           input_center=config["input_center"],
+                           latent_vector=latent_vector
+                           )
 ```
 
 ### 自适应加权损失函数加速收敛
@@ -324,7 +324,7 @@ model.input_scale.to_float(mstype.float32)
 # optimizer
 params = model.trainable_params() + mtl.trainable_params()
 lr_scheduler = MultiStepLR(config["lr"], config["milestones"], config["lr_gamma"],
-                        epoch_steps, config["train_epoch"])
+                           epoch_steps, config["train_epoch"])
 optimizer = nn.Adam(params, learning_rate=Tensor(lr_scheduler.get_lr()))
 
 # problem solver

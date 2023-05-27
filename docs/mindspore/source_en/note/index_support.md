@@ -57,7 +57,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
     ```text
     data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
-    data_multi: Tensor(shape=[1, 0, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3  , 4, 5]]]])
+    data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3  , 4, 5]]]])
     ```
 
 - `None` index value
@@ -306,7 +306,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[...] = 88.0
-    tensor_y[...]= np.array([[22, 44, 55], [22, 44, 55]])
+    tensor_y[...] = np.array([[22, 44, 55], [22, 44, 55]])
     tensor_z[...] = ([11, 22, 33], [44, 55, 66])
     ```
 
@@ -495,4 +495,3 @@ Index value augmented-assignment can be regarded as taking the value of the posi
     tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 8.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
     tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
     ```
-

@@ -199,7 +199,7 @@ class LeaderGradNet(nn.Cell):
 ```python
 def construct(self, local_data_batch, remote_data_batch):
     """
-    The back propagation of the leader net.
+    The backward propagation of the leader net.
     """
     # data processing
     id_hldr = local_data_batch['id_hldr']

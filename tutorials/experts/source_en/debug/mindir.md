@@ -349,11 +349,11 @@ An error happens.
 ```text
   1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
   2 FunctionGraph ID : func.18
-  3 NodeInfo: In file test.py(17)
-  4     def func(x, y):IR file with different graph printing order
+  3 NodeInfo: In file test.py(19)
+  4     def func(x, y):
   5
   6 Traceback (most recent call last):
-  7   File "test.py", line 29, in <module>
+  7   File "test.py", line 31, in <module>
   8     out = net(input1, input2)
   9   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 404, in __call__
  10     out = self.compile_and_run(*inputs)
@@ -365,7 +365,7 @@ An error happens.
  16     result = self._graph_executor.compile(obj, args_list, phase, use_vm, self.queue_name)
  17 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
  18 FunctionGraph ID : func.18
- 19 NodeInfo: In file test.py(17)
+ 19 NodeInfo: In file test.py(19)
  20     def func(x, y):
  21
  22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details):

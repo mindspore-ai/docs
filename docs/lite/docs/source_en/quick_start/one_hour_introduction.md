@@ -1159,6 +1159,7 @@ In the previous section, the official inference test tool is used to perform the
         ├── include
         └── lib
             ├── libgcc_s_seh-1.dll      # MinGW dynamic library
+            ├── libmindspore-lite.a     # Static library of the MindSpore Lite inference framework
             ├── libmindspore-lite.dll   # Dynamic library of the MindSpore Lite inference framework
             ├── libmindspore-lite.dll.a # Link file of the dynamic library of the MindSpore Lite inference framework
             ├── libssp-0.dll            # MinGW dynamic library

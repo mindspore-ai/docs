@@ -255,11 +255,11 @@ import mindspore.nn as nn
 import mindspore as ms
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self):
-      return ms.Tensor(1, dtype=ms.int32)
+    def construct(self):
+        return ms.Tensor(1, dtype=ms.int32)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -269,7 +269,7 @@ print(net())
 Output the result:
 
 ```text
-1
+[1]
 ```
 
 #### Calling the Third-party Libraries
@@ -286,14 +286,14 @@ import mindspore as ms
 import mindspore.nn as nn
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self):
-      a = np.array([1, 2, 3])
-      b = np.array([4, 5, 6])
-      c = a + b
-      return ms.Tensor(c)
+    def construct(self):
+        a = np.array([1, 2, 3])
+        b = np.array([4, 5, 6])
+        c = a + b
+        return ms.Tensor(c)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -318,19 +318,19 @@ import mindspore as ms
 import mindspore.nn as nn
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self):
-      x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-      y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-      tensor_sum = x + y
-      print("tensor_sum: ", tensor_sum)
-      x = np.array([1, 2, 3, 4, 5])
-      y = np.array([1, 2, 3, 4, 5])
-      np_sum = x + y
-      print("np_sum: ", np_sum)
-      return tensor_sum, ms.Tensor(np_sum)
+    def construct(self):
+        x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
+        y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
+        tensor_sum = x + y
+        print("tensor_sum: ", tensor_sum)
+        x = np.array([1, 2, 3, 4, 5])
+        y = np.array([1, 2, 3, 4, 5])
+        np_sum = x + y
+        print("np_sum: ", np_sum)
+        return tensor_sum, ms.Tensor(np_sum)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -352,16 +352,16 @@ import mindspore as ms
 import mindspore.nn as nn
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self, input_x, input_y):
-      tensor_sum = input_x + input_y
-      x = np.array([1, 2, 3, 4, 5])
-      y = np.array([1, 2, 3, 4, 5])
-      np_sum = x + y
-      print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
-      return tensor_sum, ms.Tensor(np_sum)
+    def construct(self, input_x, input_y):
+        tensor_sum = input_x + input_y
+        x = np.array([1, 2, 3, 4, 5])
+        y = np.array([1, 2, 3, 4, 5])
+        np_sum = x + y
+        print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
+        return tensor_sum, ms.Tensor(np_sum)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
@@ -386,15 +386,15 @@ When using raise, it is required that conditional statements and thrown exceptio
 import mindspore.nn as nn
 import mindspore as ms
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self, x):
-      if x <= 0:
-         raise ValueError("x should be greater than 0.")
-      else:
-         x += 1
-      return x
+    def construct(self, x):
+        if x <= 0:
+            raise ValueError("x should be greater than 0.")
+        else:
+            x += 1
+        return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -414,13 +414,13 @@ import mindspore.nn as nn
 import mindspore as ms
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   def construct(self):
-      x = 1
-      assert 1 in [2, 3, 4]
-      return x
+    def construct(self):
+        x = 1
+        assert 1 in [2, 3, 4]
+        return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -430,7 +430,7 @@ net()
 The output appears normally:
 
 ```text
-AssertionError
+AssertionError.
 ```
 
 #### Calling Python Built-in Functions
@@ -452,17 +452,17 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = dict()                                          # Create an empty dictionary
-   b = dict(a='a', b='b', t='t')                       # Pass in keywords
-   c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # Mapping function approach to constructing dictionaries
-   d = dict([('one', 1), ('two', 2), ('three', 3)])    # Iterable object approach to constructing dictionaries
-   return a, b, c, d
+    a = dict()                                          # Create an empty dictionary
+    b = dict(a='a', b='b', t='t')                       # Pass in keywords
+    c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # Mapping function approach to constructing dictionaries
+    d = dict([('one', 1), ('two', 2), ('three', 3)])    # Iterable object approach to constructing dictionaries
+    return a, b, c, d
 
 a, b, c, d = func()
-print("a: ",a)
-print("b: ",b)
-print("c: ",c)
-print("d: ",d)
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
 ```
 
 Output the result:
@@ -470,7 +470,7 @@ Output the result:
 ```text
 a: {}
 b: {'a': 'a', 'b': 'b', 't': 't'}
-c: {'one': 1, 'two': 2, 'three': 3}  
+c: {'one': 1, 'two': 2, 'three': 3}
 d: {'one': 1, 'two': 2, 'three': 3}
 ```
 
@@ -497,14 +497,14 @@ def func():
    g = type(ms.Tensor([1, 2, 3]))
    return a, b, c, d, e, f, g
 
-a, b, c, d ,e, f, g = func()
-print("a: ",a)
-print("b: ",b)
-print("c: ",c)
-print("d: ",d)
-print("e: ",e)
-print("f: ",f)
-print("g: ",g)
+a, b, c, d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
 ```
 
 Output the result:
@@ -533,10 +533,10 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   x = np.array(1)
-   if x <= 1:
-     x += 1
-   return ms.Tensor(x)
+    x = np.array(1)
+    if x <= 1:
+        x += 1
+    return ms.Tensor(x)
 
 res = func()
 print("res: ", res)
@@ -581,7 +581,7 @@ import mindspore as ms
 
 @ms.jit
 def test_return_list():
-    return [1, "a", True, None]
+    return [1, "a", True, None, ms.Tensor([2])]
 
 res = test_return_list()
 print(res)
@@ -590,7 +590,7 @@ print(res)
 Output the results:
 
 ```text
-[1, "a", True, None]
+[1, "a", True, None, Tensor([2])]
 ```
 
 ##### The Top-level Graph Supports Returning dicts
@@ -613,7 +613,7 @@ print(res)
 Output the results:
 
 ```text
-{'a': Tensor(shape=[1], dtype=Int64, value= [1])}
+{'a': Tensor(np.array(1), ms.int64)}
 ```
 
 ##### The Top-level Graph Supports Returning scalars

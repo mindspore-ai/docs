@@ -274,7 +274,7 @@ Add the library directory of the program corresponding to the current `python` c
 A: This error usually occurs in an environment where multiple Python versions are installed. First, confirm whether the `lib` directory of Python is in the environment variable `LD_LIBRARY_PATH`, this command can set it:
 
 ```bash
-export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig ; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
 ```
 
 Then, if Python 3.7.6 or lower does not contain this dynamic library in the Conda virtual environment, you can run the command to upgrade the Python version in Conda, such as: `conda install python=3.7.11`.
