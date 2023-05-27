@@ -310,7 +310,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    运行脚本，可在命令行输入命令：
 
    ```bash
-   python lenet_dp.py
+   python lenet5_dp.py
    ```
 
    其中`lenet5_dp.py`替换成你的脚本的名字。

@@ -75,7 +75,7 @@ Successfully downloaded / unzipped to ./faces
 The directory structure of the downloaded dataset is as follows:
 
 ```text
-./datasets/faces
+./faces/faces
 ├── 0.jpg
 ├── 1.jpg
 ├── 2.jpg

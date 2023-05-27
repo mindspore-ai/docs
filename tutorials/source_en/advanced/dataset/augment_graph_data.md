@@ -132,7 +132,7 @@ The following demonstrates how to use the `MindDataset` class in the `MindSpore.
     ```
 
     ```text
-        graph info: {'node_type': [0], 'edge_type': [0], 'node_num': {0: 2708}, 'edge_num': {0: 10858}, 'node_feature_type': [1, 2], 'edge_feature_type': []}
+        graph info: {'node_type': [0], 'edge_type': [0], 'node_num': {0: 2708}, 'edge_num': {0: 10858}, 'node_feature_type': [1, 2], 'edge_feature_type': [], 'graph_feature_type': []}
         node shape: 2708
         features shape: (2708, 1433)
         labels shape: (2708,)

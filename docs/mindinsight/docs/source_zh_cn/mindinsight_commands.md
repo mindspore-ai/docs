@@ -69,7 +69,7 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 执行命令：
 
 ```bash
-mindinsight start --port 8000 --workspace /path/to/workspace/dir --summary-base-dir /path/summary/base/dir
+mindinsight start --port 8000 --workspace /path/to/workspace/dir --summary-base-dir /path/to/summary/base/dir
 ```
 
 如果出现以下提示，说明启动成功：
