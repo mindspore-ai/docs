@@ -26,8 +26,8 @@
     import mindspore.dataset.vision as vision
 
     set_context(mode=GRAPH_MODE,
-                            device_target="Ascend",
-                            device_id=0)
+                device_target="Ascend",
+                device_id=0)
 
     model = "mindspore/1.6/googlenet_cifar10"
 

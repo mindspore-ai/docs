@@ -106,52 +106,52 @@ The LeNet model is used as an example. You can also create and train your own mo
 1. Define the LeNet model network.
 
    ```python
-    def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
-        weight = weight_variable()
-        return nn.Conv2d(in_channels, out_channels,
-                         kernel_size=kernel_size, stride=stride, padding=padding,
-                         weight_init=weight, has_bias=False, pad_mode="valid")
+   def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+       weight = weight_variable()
+       return nn.Conv2d(in_channels, out_channels,
+                        kernel_size=kernel_size, stride=stride, padding=padding,
+                        weight_init=weight, has_bias=False, pad_mode="valid")
 
 
-    def fc_with_initialize(input_channels, out_channels):
-        weight = weight_variable()
-        bias = weight_variable()
-        return nn.Dense(input_channels, out_channels, weight, bias)
+   def fc_with_initialize(input_channels, out_channels):
+       weight = weight_variable()
+       bias = weight_variable()
+       return nn.Dense(input_channels, out_channels, weight, bias)
 
 
-    def weight_variable():
-        return TruncatedNormal(0.02)
+   def weight_variable():
+       return TruncatedNormal(0.02)
 
 
-    class LeNet5(nn.Cell):
-        """
-        Lenet network
-        """
-        def __init__(self):
-            super(LeNet5, self).__init__()
-            self.conv1 = conv(1, 6, 5)
-            self.conv2 = conv(6, 16, 5)
-            self.fc1 = fc_with_initialize(16*5*5, 120)
-            self.fc2 = fc_with_initialize(120, 84)
-            self.fc3 = fc_with_initialize(84, 10)
-            self.relu = nn.ReLU()
-            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-            self.flatten = nn.Flatten()
+   class LeNet5(nn.Cell):
+       """
+       Lenet network
+       """
+       def __init__(self):
+           super(LeNet5, self).__init__()
+           self.conv1 = conv(1, 6, 5)
+           self.conv2 = conv(6, 16, 5)
+           self.fc1 = fc_with_initialize(16*5*5, 120)
+           self.fc2 = fc_with_initialize(120, 84)
+           self.fc3 = fc_with_initialize(84, 10)
+           self.relu = nn.ReLU()
+           self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+           self.flatten = nn.Flatten()
 
-        def construct(self, x):
-            x = self.conv1(x)
-            x = self.relu(x)
-            x = self.max_pool2d(x)
-            x = self.conv2(x)
-            x = self.relu(x)
-            x = self.max_pool2d(x)
-            x = self.flatten(x)
-            x = self.fc1(x)
-            x = self.relu(x)
-            x = self.fc2(x)
-            x = self.relu(x)
-            x = self.fc3(x)
-            return x
+       def construct(self, x):
+           x = self.conv1(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           x = self.conv2(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           x = self.flatten(x)
+           x = self.fc1(x)
+           x = self.relu(x)
+           x = self.fc2(x)
+           x = self.relu(x)
+           x = self.fc3(x)
+           return x
    ```
 
 2. Train LeNet model. Use the defined data loading function `generate_mnist_dataset` to load data.
@@ -305,7 +305,7 @@ LOGGER.info(TAG, 'The average confidence of true class is : %s',
 
 ```text
 accuracy of TEST data on defensed model is : 0.974259
-accuracy of adv data on defensed model is :  0.856370
+accuracy of adv data on defensed model is : 0.856370
 defense mis-classification rate of adversaries is : 0.143629
 The average confidence of adversarial class is : 0.616670
 The average confidence of true class is : 0.177374

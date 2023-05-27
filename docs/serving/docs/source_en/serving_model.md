@@ -103,7 +103,8 @@ def postprocess_top1(score):
 def postprocess_top5(score):
     """
     Define postprocess. This example has one input and two outputs.
-    The input is the numpy tensor of the score. The first output is the str joined by labels of top five, and the second output is the score tensor of the top five.
+    The input is the numpy tensor of the score. The first output is the str joined by labels of top five,
+    and the second output is the score tensor of the top five.
     """
     idx = np.argsort(score)[::-1][:5]  # top 5
     ret_label = [idx_2_label[i] for i in idx]
