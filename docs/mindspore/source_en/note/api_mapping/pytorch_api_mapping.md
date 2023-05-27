@@ -24,7 +24,8 @@ Exception Scenario 3: If it can be guaranteed that MindSpore API uses the defaul
 
 Exception Scenario 4: MindSpore sets the default value of the parameters related to the PyTorch overloading mechanism in the API to None, and the corresponding parameters of the PyTorch counterpart API have no default value.
 
-The following is an example of the exception scenario 4. In PyTorch 1.8.1, torch.argmax has two API overloads in the form of torch.argmax(input) and torch.argmax(input, dim, keepdim=False), respectively, where torch.argmax(input) returns the index of the maximum value element in the input Tensor, and torch.argmax(input, dim, keepdim=False) returns the index of the maximum value of the input Tensor on the specified axis.
+The following is an example of the exception scenario 4.
+In PyTorch 1.8.1, torch.argmax has two API overloads in the form of torch.argmax(input) and torch.argmax(input, dim, keepdim=False), respectively, where torch.argmax(input) returns the index of the maximum value element in the input Tensor, and torch.argmax(input, dim, keepdim=False) returns the index of the maximum value of the input Tensor on the specified axis.
 
 mindspore.ops.argmax has only one API form, namely mindspore.ops.argmax(input, dim=None, keepdim=False), but mindspore.ops.argmax(input) and torch.argmax(input) have the same function. mindspore.ops.argmax(input, dim, keepdim) and torch.argmax(input, dim, keepdim)have the same function. Compared to torch.argmax, the default value of mindspore.ops.argmax parameter dim is set to None only to adapt the two API overload forms of torch.argmax, so the exception scenario 4 is also considered to be consistent API mapping.
 
