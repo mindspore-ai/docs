@@ -22,7 +22,7 @@ torch.linspace(start,
 ## mindspore.ops.linspace
 
 ```python
-mindspore.ops.range(start,
+mindspore.ops.linspace(start,
                     end,
                     steps
                     )
