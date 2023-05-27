@@ -147,7 +147,7 @@ The model conversion procedure is as follows:
     If the conversion is successful, the following information is displayed, and a new model file named `mobilenetv2.ms` is generated in the current directory:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 5. Perform advanced functions.
@@ -921,7 +921,7 @@ The model conversion procedure is as follows:
     If the conversion is successful, the following information is displayed, and a new model file named `mobilenetv2.ms` is generated in the current directory:
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
 5. Perform advanced functions.

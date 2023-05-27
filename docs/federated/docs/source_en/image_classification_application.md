@@ -121,7 +121,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
     If the conversion is successful, the following information is displayed:
 
     ```sh
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     This indicates that the MindSpore model is successfully converted to the MindSpore device-side model and the new file `lenet_train.ms` is generated. If the conversion fails, the following information is displayed:

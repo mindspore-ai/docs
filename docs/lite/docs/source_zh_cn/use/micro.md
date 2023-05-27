@@ -100,7 +100,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     运行成功后的结果显示为：
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
@@ -223,7 +223,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
    运行成功后的结果显示为：
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
    用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
@@ -434,7 +434,7 @@ target_device=DSP
     运行成功后的结果显示为：
 
     ```text
-    CONVERTER RESULT SUCCESS:0
+    CONVERT RESULT SUCCESS:0
     ```
 
     在转换工具执行成功后，生成的代码被保存在用户指定的`outputFile`路径下，在本例中，为当前转换目录下的my_model文件夹，内容如下：

@@ -121,7 +121,7 @@
    转换成功输出如下：
 
    ```sh
-   CONVERTER RESULT SUCCESS:0
+   CONVERT RESULT SUCCESS:0
    ```
 
    这表明MindSpore模型成功转换为MindSpore端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：

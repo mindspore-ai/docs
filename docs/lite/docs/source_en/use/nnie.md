@@ -191,7 +191,7 @@ The following is an example of the `nnie.cfg` file:
     ${model_name} indicates the model file name. The execution result is as follows:
 
      ```text
-     CONVERTER RESULT SUCCESS:0
+     CONVERT RESULT SUCCESS:0
      ```
 
      For details about the parameters of the converter_lite conversion tool, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#example).
