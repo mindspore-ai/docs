@@ -23,9 +23,9 @@ torch.linspace(start,
 
 ```python
 mindspore.ops.linspace(start,
-                    end,
-                    steps
-                    )
+                       end,
+                       steps
+                      )
 ```
 
 更多内容详见[mindspore.ops.linspace](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.linspace.html)。

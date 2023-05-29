@@ -90,10 +90,10 @@ app
 ├── src/main
 │   ├── assets # resource files
 |   |   └── model # model files
-|   |        └── mobilenetv2.ms # stored model file
+|   |       └── mobilenetv2.ms # stored model file
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
-|   |   |── ...
+|   |   ├── ...
 |   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   ├── MindSporeNetnative.h # header file

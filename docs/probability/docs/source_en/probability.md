@@ -644,7 +644,7 @@ The output is as follows:
 ```text
 PowerTransform<power = 2.0>
 forward:  [2.236068  2.6457515 3.        3.3166249]
-inverse:  [ 1.5       4.        7.5      12.000001]
+inverse:  [ 1.5       4.        7.5      12.000001]
 forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
 inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```
@@ -686,8 +686,8 @@ print("inverse_log_jacobian: ", inverse_log_jaco)
 The output is as follows:
 
 ```text
-forward:  [2.236068  2.6457515 3.        3.3166249]
-inverse:  [ 1.5       4.        7.5      12.000001]
-forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
-inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
+forward:  [2.236068  2.6457515 3.        3.3166249]
+inverse:  [ 1.5       4.        7.5      12.000001]
+forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
+inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```

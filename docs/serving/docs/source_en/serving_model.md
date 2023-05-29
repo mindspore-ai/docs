@@ -144,7 +144,7 @@ In the preceding code:
     # Input1 indicates the input shape information of the model, without the batch dimension information.
     # input0: [N,3,416,416], input1: [2]
     yolov_model = register.declare_model(model_file="yolov3_darknet53.mindir", model_format="MindIR",
-                                        with_batch_dim=True, without_batch_dim_inputs=1)
+                                         with_batch_dim=True, without_batch_dim_inputs=1)
     ```
 
 5. If you want to configure run-time parameters about model and the device information, you can use the argument `context` and `config_file` of `declare_model`. You can refer to [API document](https://www.mindspore.cn/serving/docs/en/master/server.html#mindspore_serving.server.register.declare_model).

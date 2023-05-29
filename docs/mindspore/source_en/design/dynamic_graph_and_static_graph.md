@@ -488,14 +488,14 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = type(1)
-   b = type(1.0)
-   c = type([1, 2, 3])
-   d = type((1, 2, 3))
-   e = type({'a': 1, 'b': 2})
-   f = type(np.array([1, 2, 3]))
-   g = type(ms.Tensor([1, 2, 3]))
-   return a, b, c, d, e, f, g
+    a = type(1)
+    b = type(1.0)
+    c = type([1, 2, 3])
+    d = type((1, 2, 3))
+    e = type({'a': 1, 'b': 2})
+    f = type(np.array([1, 2, 3]))
+    g = type(ms.Tensor([1, 2, 3]))
+    return a, b, c, d, e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -613,7 +613,7 @@ print(res)
 Output the results:
 
 ```text
-{'a': Tensor(np.array(1), ms.int64)}
+{'a': ms.Tensor(np.array(1), ms.int64)}
 ```
 
 ##### The Top-level Graph Supports Returning scalars

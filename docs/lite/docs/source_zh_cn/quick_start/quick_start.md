@@ -90,6 +90,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ```text
 app
+|
 ├── src/main
 │   ├── assets # 资源文件
 |   |   └── model # 模型文件
@@ -99,8 +100,8 @@ app
 |   |   ├── ...
 |   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
-│   |   └── MindSporeNetnative.h # 头文件
-|   |   └── MsNetWork.cpp # MindSpore接口封装
+│   |   ├── MindSporeNetnative.h # 头文件
+│   |   └── MsNetWork.cpp # MindSpore接口封装
 │   |
 │   ├── java # java层应用代码
 │   │   └── com.mindspore.classification
