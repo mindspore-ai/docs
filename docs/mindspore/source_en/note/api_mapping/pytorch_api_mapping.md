@@ -14,9 +14,11 @@ The following exceptions are also considered to be consistent the API mapping:
 
 Exception Scenario 1: Compared to the API mapping consistency criteria, only the input data types of API parameters are not supported in the same range, including the following 3 sub-scenarios:
 
-1. MindSpore API supports passing parameters of int, float, bool, but does not support passing parameters of small bit-width data types such as int8 or float64.
-2. MindSpore API does not support passing parameters of plural type.
-3. MindSpore API does not support passing parameters of 8D and above.
+(1) MindSpore API supports passing parameters of int, float, bool, but does not support passing parameters of small bit-width data types such as int8 or float64.
+
+(2) MindSpore API does not support passing parameters of plural type.
+
+(3) MindSpore API does not support passing parameters of 8D and above.
 
 Exception Scenario 2: Compared to MindSpore APIss, the extra parameters of PyTorch API are [general difference parameters](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). General difference parameters exist because PyTorch has some parameters that are added for non-functionality such as performance optimization, and the performance optimization mechanism of MindSpore is different from that of PyTorch.
 
@@ -177,10 +179,10 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.index_select](https://pytorch.org/docs/1.8.1/generated/torch.index_select.html) | [mindspore.ops.index_select](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.index_select.html) | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.inner](https://pytorch.org/docs/1.8.1/generated/torch.inner.html) | [mindspore.ops.inner](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.inner.html) | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.inverse](https://pytorch.org/docs/1.8.1/generated/torch.inverse.html) | [mindspore.ops.inverse](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.inverse.html) | Consistent |
-| [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isclose.html) | The functions are consistent, but the parameter names are inconsistent. |
-| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isfinite.html) | Consistent|
+| [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isclose.html) | [The functions are consistent, but the parameter data types are inconsistent.](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/isclose.html) |
+| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isfinite.html) | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.isinf](https://pytorch.org/docs/1.8.1/generated/torch.isinf.html) | [mindspore.ops.isinf](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isinf.html) | Consistent|
-| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isnan.html) |Consistent |
+| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isnan.html) | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.isneginf](https://pytorch.org/docs/1.8.1/generated/torch.isneginf.html) | [mindspore.ops.isneginf](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isneginf.html) | Consistent |
 | [torch.isposinf](https://pytorch.org/docs/1.8.1/generated/torch.isposinf.html) | [mindspore.ops.isposinf](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isposinf.html) | Consistent |
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isreal.html) | Consistent |
