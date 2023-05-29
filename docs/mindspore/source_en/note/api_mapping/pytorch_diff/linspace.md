@@ -14,7 +14,7 @@ torch.linspace(start,
                layout=torch.strided,
                device=None,
                requires_grad=False
-             )
+              )
 ```
 
 For more information, see [torch.linspace](https://pytorch.org/docs/1.8.1/generated/torch.linspace.html#torch.linspace).

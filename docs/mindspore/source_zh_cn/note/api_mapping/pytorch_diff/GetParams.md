@@ -67,6 +67,7 @@ for params in net.get_parameters():
 
 ```text
 # Out:
+<class 'generator'>
 
 Name:  build_block.0.conv.weight
 params:  Parameter (name=build_block.0.conv.weight, shape=(64, 3, 3, 3), dtype=Float32, requires_grad=True)

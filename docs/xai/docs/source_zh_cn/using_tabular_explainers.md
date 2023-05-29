@@ -89,12 +89,12 @@ for i, exps in enumerate(lime_outputs):
 输出:
 
 ```text
-LIMETabular：
+LIMETabular:
 
 对于第 0 个样本的类别 setosa 的解释:
 
 [('petal length (cm) <= 1.60', 0.8182714590301656),
-('sepal width (cm) 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
+('sepal width (cm) > 3.30', 0.0816516722404966), ('petal width (cm) <= 0.30', 0.03557190104069489),
 ('sepal length (cm) <= 5.10', -0.021441399016492325)]
 ```
 
