@@ -6,6 +6,8 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 
 More MindSpore developers are also welcome to participate in improving the mapping content.
 
+## General Difference Parameter Table
+
 Because of the framework mechanism, MindSpore does not provide the following parameters for PyTorch:
 
 | Parameter Names |                          Functions                           |
