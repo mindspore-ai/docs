@@ -195,8 +195,8 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
-    data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
+    data_single: Tensor(shape=[3, 2, 3], dtype=Int64, value=[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16, 17]], [[0, 1, 2], [3, 4, 5]]])
+    data_multi: Tensor(shape=[2, 2, 3], dtype=Int64, value=[[[6, 7, 8], [9, 10, 11]], [[0, 1, 2], [3, 4, 5]]])
     ```
 
 - `Tuple` index value

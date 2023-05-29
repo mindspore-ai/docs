@@ -17,13 +17,13 @@ For details, see [Server Environment Configuration](https://www.mindspore.cn/fed
 The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 20 user chat files. The directory structure is as follows:
 
 ```text
-mobile/datasets/train/
-    ├── 0.tsv  # Training data of user 0
-    ├── 1.tsv  # Training data of user 1
+datasets/supervise/client/
+    ├── 0.txt  # Training data of user 0
+    ├── 1.txt  # Training data of user 1
     │
     │          ......
     │
-    └── 19.tsv  # Training data of user 19
+    └── 19.txt  # Training data of user 19
 ```
 
 The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz) contains one chat file. The directory structure is as follows:
@@ -40,9 +40,9 @@ The labels in the training data and validation data correspond to four types of 
 The directory structures of the [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) and the [mapping file of dictionary ID](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt) related to the model file are as follows:
 
 ```text
-mobile/
-├── vocab.txt  # Dictionary
-└── vocab_map_ids.txt  # Mapping file of Dictionary ID
+datasets/
+    ├── vocab.txt  # Dictionary
+    └── vocab_map_ids.txt  # Mapping file of Dictionary ID
 ```
 
 ## Defining the Network

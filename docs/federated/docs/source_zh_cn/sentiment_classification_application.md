@@ -40,7 +40,7 @@ datasets/supervise/eval/
 模型相关的[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)和[词典ID映射文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt)的目录结构如下：
 
 ```text
-models/
+datasets/
     ├── vocab.txt  # 词典
     └── vocab_map_ids.txt  # 词典ID映射文件
 ```
