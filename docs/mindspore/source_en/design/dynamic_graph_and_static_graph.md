@@ -609,7 +609,7 @@ print(res)
 Output the results:
 
 ```text
-{'a': Tensor(shape=[1], dtype=Int64, value= [1])}
+{'a': ms.Tensor(np.array(1), ms.int64)}
 ```
 
 ##### The Top-level Graph Supports Returning scalars
