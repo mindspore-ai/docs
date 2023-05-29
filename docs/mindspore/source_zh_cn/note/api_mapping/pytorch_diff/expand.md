@@ -5,7 +5,7 @@
 ## torch.Tensor.expand
 
 ```text
-torch.Tensor.expand(*sizes) → Tensor
+torch.Tensor.expand(*sizes) -> Tensor
 ```
 
 更多内容详见[torch.Tensor.expand](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.expand)。
@@ -16,7 +16,7 @@ torch.Tensor.expand(*sizes) → Tensor
 mindspore.Tensor.expand(size) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.expand](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.expand.html)。
+更多内容详见[mindspore.Tensor.expand](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.expand.html)。
 
 ## 差异对比
 

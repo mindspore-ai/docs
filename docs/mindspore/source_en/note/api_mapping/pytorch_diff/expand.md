@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.expand](https://pytorch.org/docs/1.8.1/t
 mindspore.Tensor.expand(size) -> Tensor
 ```
 
-For more information, see [mindspore.ops.expand](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.expand.html).
+For more information, see [mindspore.Tensor.expand](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.expand.html).
 
 ## Differences
 
