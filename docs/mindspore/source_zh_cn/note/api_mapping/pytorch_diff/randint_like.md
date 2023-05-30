@@ -53,7 +53,7 @@ import mindspore
 
 # MindSpore 必须将torch中low的默认值（此处为0），作为输入传入。
 x = mindspore.Tensor([[2, 3], [1, 2]], mindspore.float32)
-x = mindspore.ops.randint_like(x, 0, 10, )
-print(x.shape)
+y = mindspore.ops.randint_like(y, 0, 10)
+print(y.shape)
 # (2, 2)
 ```
