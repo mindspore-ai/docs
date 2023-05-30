@@ -71,22 +71,27 @@ print(result)
 > Use pad mode to ensure functional consistency.
 
 ```python
-import mindspore as ms
-from mindspore import Tensor
-import mindspore.nn as nn
+# PyTorch
 import torch
 import numpy as np
 
 np_x = np.random.randint(0, 10, [1, 2, 4, 4])
-
-x = Tensor(np_x, ms.float32)
-max_pool = nn.MaxPool2d(kernel_size=2, stride=1, pad_mode='pad', padding=1, dilation=1, return_indices=False)
-output = max_pool(x)
-result = output.shape
-print(result)
-# (1, 2, 5, 5)
 x = torch.tensor(np_x, dtype=torch.float32)
 max_pool = torch.nn.MaxPool2d(kernel_size=2, stride=1, padding=1, dilation=1, return_indices=False)
+output = max_pool(x)
+result = output.shape
+print(tuple(result))
+# (1, 2, 5, 5)
+
+# MindSpore
+import mindspore as ms
+from mindspore import Tensor
+import mindspore.nn as nn
+import numpy as np
+
+np_x = np.random.randint(0, 10, [1, 2, 4, 4])
+x = Tensor(np_x, ms.float32)
+max_pool = nn.MaxPool2d(kernel_size=2, stride=1, pad_mode='pad', padding=1, dilation=1, return_indices=False)
 output = max_pool(x)
 result = output.shape
 print(result)
