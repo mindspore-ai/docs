@@ -50,7 +50,8 @@ print(output1)
 # Out:
 # [0.6364086 0.23412167 0.08612854 0.03168492 0.01165623]
 x = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
-output2 = softmin(x, axis=0)
+softmin = nn.Softmin(axis=0)
+output2 = softmin(x)
 print(output2)
 # out:
 # [[0.98201376 0.880797   0.5        0.11920292 0.01798621]

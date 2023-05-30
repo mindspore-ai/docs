@@ -36,20 +36,24 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 ### Code Example
 
 ```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
+# PyTorch
 import torch
-
-logits = Tensor(np.array([0.2, 0.7, 0.1]), mindspore.float32)
-labels = Tensor(np.array([0., 1., 0.]), mindspore.float32)
-output = mindspore.ops.kl_div(logits, labels, 'mean')
-print(output)
-# -0.23333333
+import numpy as np
 
 logits = torch.tensor(np.array([0.2, 0.7, 0.1]))
 labels = torch.tensor(np.array([0., 1., 0.]))
 output = torch.nn.functional.kl_div(logits, labels)
+print(output)
+# tensor(-0.2333, dtype=torch.float64)
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import numpy as np
+
+logits = Tensor(np.array([0.2, 0.7, 0.1]), mindspore.float32)
+labels = Tensor(np.array([0., 1., 0.]), mindspore.float32)
+output = mindspore.ops.kl_div(logits, labels, 'mean')
 print(output)
 # -0.23333333
 ```
