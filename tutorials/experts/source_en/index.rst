@@ -71,6 +71,7 @@ For Experts
    debug/function_debug
    debug/performance_optimization
    Precision Optimization↗ <https://mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html>
+   debug/fault_recover
 
 .. toctree::
    :glob:
