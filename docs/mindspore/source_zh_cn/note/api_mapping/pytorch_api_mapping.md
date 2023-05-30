@@ -14,9 +14,11 @@ API映射一致标准：API功能一致，参数个数或顺序一致，参数�
 
 例外场景1：相较于API映射一致标准，仅API参数的输入数据类型支持范围不一样，包含以下3种子场景：
 
-1. MindSpore的API支持传入int，float，bool等类型的参数，但不支持传入int8或float64等小位宽数据类型的参数。
-2. MindSpore的API不支持传入复数类型的参数。
-3. MindSpore的API不支持传入8D及以上的参数。
+（1）MindSpore的API支持传入int，float，bool等类型的参数，但不支持传入int8或float64等小位宽数据类型的参数。
+
+（2）MindSpore的API不支持传入复数类型的参数。
+
+（3）MindSpore的API不支持传入8D及以上的参数。
 
 例外场景2：相较于MindSpore的API，PyTorch的API多出的参数是[通用差异参数](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表)。通用差异参数存在的原因是PyTorch有部分参数是为性能优化等非功能性而增加的参数，MindSpore的性能优化机制与PyTorch不同。
 
@@ -177,10 +179,10 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.index_select](https://pytorch.org/docs/1.8.1/generated/torch.index_select.html) | [mindspore.ops.index_select](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.index_select.html) | 功能一致，参数名不同 |
 | [torch.inner](https://pytorch.org/docs/1.8.1/generated/torch.inner.html) | [mindspore.ops.inner](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inner.html) | 功能一致，参数名不同 |
 | [torch.inverse](https://pytorch.org/docs/1.8.1/generated/torch.inverse.html) | [mindspore.ops.inverse](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.inverse.html) | 一致 |
-| [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isclose.html) | 功能一致，参数名不同 |
-| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isfinite.html) | 一致 |
+| [torch.isclose](https://pytorch.org/docs/1.8.1/generated/torch.isclose.html) | [mindspore.ops.isclose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isclose.html) | [功能一致，参数数据类型不一致](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/isclose.html |
+| [torch.isfinite](https://pytorch.org/docs/1.8.1/generated/torch.isfinite.html) | [mindspore.ops.isfinite](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isfinite.html) | 功能一致，参数名不同 |
 | [torch.isinf](https://pytorch.org/docs/1.8.1/generated/torch.isinf.html) | [mindspore.ops.isinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isinf.html) | 一致 |
-| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isnan.html) | 一致 |
+| [torch.isnan](https://pytorch.org/docs/1.8.1/generated/torch.isnan.html) | [mindspore.ops.isnan](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isnan.html) | 功能一致，参数名不同 |
 | [torch.isneginf](https://pytorch.org/docs/1.8.1/generated/torch.isneginf.html) | [mindspore.ops.isneginf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isneginf.html) | 一致 |
 | [torch.isposinf](https://pytorch.org/docs/1.8.1/generated/torch.isposinf.html) | [mindspore.ops.isposinf](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isposinf.html) | 一致 |
 | [torch.isreal](https://pytorch.org/docs/1.8.1/generated/torch.isreal.html) | [mindspore.ops.isreal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.isreal.html) | 一致 |
