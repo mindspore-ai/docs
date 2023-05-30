@@ -90,7 +90,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ```text
 app
-|
+│
 ├── src/main
 │   ├── assets # 资源文件
 |   |   └── model # 模型文件
