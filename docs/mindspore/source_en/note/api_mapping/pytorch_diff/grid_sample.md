@@ -64,12 +64,16 @@ input_x = Tensor(np.arange(16).reshape((2, 2, 2, 2)).astype(np.float32))
 grid = Tensor(np.arange(0.2, 1, 0.1).reshape((2, 2, 1, 2)).astype(np.float32))
 output = ops.grid_sample(input_x, grid, mode='bilinear', padding_mode='zeros', align_corners=False)
 print(output)
-#[[[[ 2.29999995e+00],
-#   [ 2.89999986e+00]],
-#  [[ 6.30000019e+00],
-#   [ 6.89999962e+00]]],
-# [[[ 7.91999912e+00],
-#   [ 4.62000036e+00]],
-#  [[ 1.07999983e+01],
-#   [ 6.30000067e+00]]]])
+#[[[[ 2.3      ]
+#   [ 2.8999999]]
+#
+#  [[ 6.3      ]
+#   [ 6.8999996]]]
+#
+#
+# [[[ 7.919999 ]
+#   [ 4.6200004]]
+#
+#  [[10.799998 ]
+#   [ 6.3000007]]]]
 ```
