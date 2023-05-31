@@ -7,7 +7,7 @@
 |     PyTorch APIs      |      MindSpore APIs       |
 | :-------------------: | :-----------------------: |
 | torch.nn.AdaptiveMaxPool1d | mindspore.nn.AdaptiveMaxPool1d |
-| torch.ops.adaptive_max_pool1d | mindspore.nn.adaptive_max_pool1d |
+| torch.nn.functional.adaptive_max_pool1d | mindspore.ops.adaptive_max_pool1d |
 
 ## torch.nn.AdaptiveMaxPool1d
 
