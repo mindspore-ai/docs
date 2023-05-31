@@ -272,6 +272,82 @@ Output the result:
 [1]
 ```
 
+The above example uses the interface of Tensor class to create a Tensor.
+In some cases, it may be necessary to create a Tensor at runtime.
+In this case, you can use either the aforementioned ms.Tensor interface or the [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor.
+The code example is shown below.
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+
+class Net(nn.Cell):
+   def __init__(self):
+      super(Net, self).__init__()
+
+   @ms.jit
+   def construct(self, x):
+      return ms.tensor(x.asnumpy(), dtype=ms.float32)
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+x = ms.Tensor(1, dtype=ms.int32)
+print(net(x))
+```
+
+Output the result:
+
+```text
+1.0
+```
+
+#### Annotation
+
+For JIT fallback support at runtime, nodes are generated that cannot be derived by type and are called Any types. Since the correct type cannot be inferred at compile time, Any types will be operated with a default maximum precision of Float64 to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of Any types. When the user knows exactly what type of statement will be generated through JIT fallback support, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of Any types.
+
+For example, the difference between the Tensor class and the tensor interface in the above example is that the annotation mechanism is used within the tensor interface. When the dtype of the tensor function is determined, the function will use annotations to specify the output type and avoid the generation of Any types. To use annotations, simply add a comment above or below the corresponding Python statement, such as # @jit.typing: () -> tensor_type[float32], where -> tensor_type[float32] indicates the output type of the annotated statement.
+
+The code example is as follows.
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import ops, Tensor
+
+class Net(nn.Cell):
+   def __init__(self):
+      super(Net, self).__init__()
+      self.abs = ops.Abs()
+   @ms.jit
+   def construct(self, x):
+      y1 = ms.tensor(x.asnumpy(), dtype=ms.float32)
+      y2 = Tensor(x.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+      y3 = Tensor(x.asnumpy())
+      y4 = Tensor(x.asnumpy(), dtype=ms.float32)
+      return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+x = ms.Tensor(-1, dtype=ms.int32)
+y1, y2, y3, y4 = net(x)
+
+print(f"y1 value is {y1}, dtype is {y1.dtype}")
+print(f"y2 value is {y2}, dtype is {y2.dtype}")
+print(f"y3 value is {y3}, dtype is {y3.dtype}")
+print(f"y4 value is {y4}, dtype is {y4.dtype}")
+```
+
+Output the result:
+
+```text
+y1 value is 1.0, dtype is Float32
+y2 value is 1.0, dtype is Float32
+y3 value is 1.0, dtype is Float64
+y4 value is 1.0, dtype is Float64
+```
+
+"The above examples show the differences in creating Tensors using JIT Fallback Runtime. Due to the lack of Annotation indication in the Tensor class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision Float64. For y1, the corresponding type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified type. y2 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the generation of Any type."
+
 #### Calling the Third-party Libraries
 
 JIT Fallback supports calling objects and methods of third-party libraries in the static graph mode.
