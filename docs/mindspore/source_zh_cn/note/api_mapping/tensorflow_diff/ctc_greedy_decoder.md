@@ -39,7 +39,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow一致，部分参数名不�
 |  | 参数2 | sequence_length       | sequence_length         | - |
 |  | 参数3 | merge_repeated       | merge_repeated         | - |
 |  | 参数4 | blank_index       | -         | 定义用于空白标签的类索引，Tensorflow默认值为None，此时该算子和MindSpore用法一致。 |
-|返回参数| 参数5 | decoded       | decoded_indices 、decoded_values 、decoded_shape          | TensorFlow的decoded为SparseTesnor，包含三个密集张量，为indices、values、dense_shape，对应MindSpore的decoded_indices 、decoded_values 、decoded_shape三个输出。 |
+|返回参数| 参数5 | decoded       | decoded_indices, decoded_values, decoded_shape          | TensorFlow的decoded为SparseTesnor，包含三个密集张量，为indices、values、dense_shape，对应MindSpore的decoded_indices 、decoded_values 、decoded_shape三个输出。 |
 |  | 参数6 | neg_sum_logits       | log_probability          | 功能一致，参数名不同 |
 
 ### 代码示例1

@@ -65,15 +65,16 @@ MindSpore: MindSpore can compute output sequences and final states based on inpu
 | | Parameter 21 | stateful              | -             | Whether to use the last state of each sample at index i in the batch as the initial state of the samples at index i in the next batch. Default value: False. MindSpore does not have this parameter.    |
 | | Parameter 22 | time_major     | -             | Selects the shape format of the input and output tensor. If True, the input and output will be [timesteps, batch, feature], while in the case of False, it will be [batch, timesteps, feature]. Default value: False. MindSpore does not have this parameter, but by default both shapes are possible |
 | | Parameter 23 | unroll                | -             | If True, the network will be expanded, otherwise a symbolic loop will be used. Default value: False. MindSpore does not have this parameter.    |
-| | Parameter 24 | inputs   | x        | Same function, different parameter names    |
-| | Parameter 25 | mask        | -             | A binary tensor of the shape [batch, timesteps] indicating whether the given time step should be masked or not (optional, default is None). A single True entry indicates that the corresponding time step should be utilized, while a False entry indicates that the corresponding time step should be ignored. MindSpore does not have this parameter      |
-| | Parameter 26 | training              | -             | Python bool indicating whether layer should be run in training mode or inference mode. This parameter is passed to the cell when the cell is called. This is only relevant when using dropout or recurrent_dropout (optional, default is None). MindSpore does not have this parameter                      |
-| | Parameter 27 | initial_state         | hx            | The initial state tensor list to be passed to the cell for the first call (optional, default is None, which will result in the creation of a zero-padded initial state tensor). The role in MindSpore is to give the initial state tensor.    |
-| | Parameter 28 | -                     | input_size    | Automatically determine the input size. TensorFlow does not have this parameter|
-| | Parameter 29 | -                     | num_layers    | Set the number of network layers. Default value: 1. TensorFlow does not have this parameter|
-| | Parameter 30 | -                     | batch_first   | The first dimension of the default input is batch_size, and TensorFlow does not have this parameter |
-| | Parameter 31 | -                     | bidirectional | The function is to set the bi-directional LSTM, and TensorFlow does not have this parameter |
-| | Parameter 32 | -                     | seq_length    | Specify the sequence length of the input batch. TensorFlow does not have this parameter |
+| | Parameter 24 | **kwargs | - | Not involved |
+| | Parameter 25 | inputs   | x        | Same function, different parameter names    |
+| | Parameter 26 | mask        | -             | A binary tensor of the shape [batch, timesteps] indicating whether the given time step should be masked or not (optional, default is None). A single True entry indicates that the corresponding time step should be utilized, while a False entry indicates that the corresponding time step should be ignored. MindSpore does not have this parameter      |
+| | Parameter 27 | training              | -             | Python bool indicating whether layer should be run in training mode or inference mode. This parameter is passed to the cell when the cell is called. This is only relevant when using dropout or recurrent_dropout (optional, default is None). MindSpore does not have this parameter                      |
+| | Parameter 28 | initial_state         | hx            | The initial state tensor list to be passed to the cell for the first call (optional, default is None, which will result in the creation of a zero-padded initial state tensor). The role in MindSpore is to give the initial state tensor.    |
+| | Parameter 29 | -                     | input_size    | Automatically determine the input size. TensorFlow does not have this parameter|
+| | Parameter 30 | -                     | num_layers    | Set the number of network layers. Default value: 1. TensorFlow does not have this parameter|
+| | Parameter 31 | -                     | batch_first   | The first dimension of the default input is batch_size, and TensorFlow does not have this parameter |
+| | Parameter 32 | -                     | bidirectional | The function is to set the bi-directional LSTM, and TensorFlow does not have this parameter |
+| | Parameter 33 | -                     | seq_length    | Specify the sequence length of the input batch. TensorFlow does not have this parameter |
 
 ### Code Example
 
