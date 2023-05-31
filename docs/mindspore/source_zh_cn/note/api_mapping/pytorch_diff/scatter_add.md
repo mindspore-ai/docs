@@ -2,12 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/scatter_add.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
-以下映射关系均可参考本文。
-
-|     PyTorch APIs      |      MindSpore APIs       |
-| :-------------------: | :-----------------------: |
-|   torch.scatter_add    |   mindspore.ops.tensor_scatter_elements    |
-
 ## torch.scatter_add
 
 ```python
