@@ -27,13 +27,19 @@ MindSpore Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Specification
+   :caption: Models
    :hidden:
 
-   note/benchmark
-   Network List↗ <https://gitee.com/mindspore/models/blob/master/README.md#table-of-contents>
-   note/operator_list
-   note/syntax_list
+   note/official_models
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Syntax Support
+   :hidden:
+
+   note/static_graph_syntax_support
+   note/index_support
 
 .. toctree::
    :glob:
@@ -132,7 +138,7 @@ MindSpore Documentation
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/syntax_list.html" class="article-link">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Specifications</span>

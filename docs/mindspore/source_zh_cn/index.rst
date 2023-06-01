@@ -27,13 +27,19 @@ MindSpore 文档
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 规格
+   :caption: 模型库
    :hidden:
 
-   note/benchmark
-   网络支持↗ <https://gitee.com/mindspore/models/blob/master/README_CN.md#目录>
-   note/operator_list
-   note/syntax_list
+   note/official_models
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 语法支持
+   :hidden:
+
+   note/static_graph_syntax_support
+   note/index_support
 
 .. toctree::
    :glob:
@@ -132,7 +138,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/syntax_list.html" class="article-link">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">规格</span>
