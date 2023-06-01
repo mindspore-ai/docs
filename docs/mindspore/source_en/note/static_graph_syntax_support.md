@@ -699,8 +699,6 @@ ret:[[3. 3. 3. 3.]]
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`.
 
-For details about the rules, click [conversion-rules](https://www.mindspore.cn/docs/en/master/note/operator_list_implicit.html#conversion-rules).
-
 ### Unary Arithmetic Operators
 
 | Unary Arithmetic Operator | Supported Type                               |
