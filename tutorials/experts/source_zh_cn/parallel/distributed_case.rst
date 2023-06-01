@@ -4,7 +4,7 @@
 .. toctree::
   :maxdepth: 1
 
-  train_ascend
-  train_gpu
-  train_cpu
   pangu_alpha
+  comm_fusion
+  comm_subgraph
+  dataset_slice
