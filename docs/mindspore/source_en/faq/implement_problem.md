@@ -627,3 +627,32 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference]（ https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html )。
 <br/>
+
+<font size=3>**Q: How `Tensor.asnumpy()` shares the underlying storage with Tensor?**</font>
+
+A: `Tensor.asnumpy()` will convert the Tensor to a NumPy ndarray. This tensor and the returned ndarray by `Tensor.asnumpy()` share the same underlying storage on the host side. On the host side, changes to Tensor will be reflected in the ndarray and vice versa. It should be noted that changes on the host side cannot be automatically synchronized to the device side. For example:
+
+```text
+import mindspore as ms
+x = ms.Tensor([1, 2, 3]) + ms.Tensor([4, 5, 6])
+y = x.asnumpy()
+
+# x is the result of operation calculation on the device side, and y is on the host side.
+# The changes of y on the host side cannot be automatically synchronized to x on the device side.
+y[0] = 11
+print(y)
+
+# Printing x triggers a data sync, which syncs the data of x to y.
+print(x)
+print(y)
+```
+
+The result is as follows:
+
+```text
+[11 7 9]
+[5 7 9]
+[5 7 9]
+```
+
+<br/>

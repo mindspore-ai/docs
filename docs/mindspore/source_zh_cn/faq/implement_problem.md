@@ -628,3 +628,31 @@ tsd client wait response fail, device response code[1]. unknown device  error.[F
 A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printoptions`对输出的值进行控制。在Graph静态图模式下，因为`print`方法需要转化成为算子，所以暂时无法对输出的值进行控制。print算子具体用法可[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)。
 
 <br/>
+
+<font size=3>**Q: `Tensor.asnumpy()`是怎么和Tensor共享内存地址的？**</font>
+
+A: `Tensor.asnumpy()`会将Tensor本身转换为NumPy的ndarray。这个Tensor和`Tensor.asnumpy()`返回的ndarray共享host侧的内存地址，在host侧，对Tensor本身的修改会反映到相应的ndarray上，反之亦然。需要注意的是，host侧的修改无法自动同步到device侧。如：
+
+```text
+import mindspore as ms
+x = ms.Tensor([1, 2, 3]) + ms.Tensor([4, 5, 6])
+y = x.asnumpy()
+
+# x 是 device 侧算子计算的结果，而 y 在 host 侧。host 侧对 y 的修改无法自动同步到 device 侧的 x。
+y[0] = 11
+print(y)
+
+# 打印 x 会触发数据同步，将 x 的数据同步到 y。
+print(x)
+print(y)
+```
+
+运行结果如下:
+
+```text
+[11 7 9]
+[5 7 9]
+[5 7 9]
+```
+
+<br/>
