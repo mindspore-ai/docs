@@ -27,64 +27,13 @@ A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 
 
 <br/>
 
-<font size=3>**Q: 编译时报错“TypeError: Do not support to convert <class xxx> object into graph node.”怎么办？**</font>
-
-A: 该报错表示在网络编译中使用了无法解析的对象。例如：在图模式中使用自定义类的对象时，需要用 `jit_class` 修饰该类，否则会出现该错误。
-
-<br/>
-
-<font size=3>**Q: 编译时报错“TypeError: Do not support to get attribute from xxx object xxx ”怎么办？**</font>
-
-A: 在 `getattr(data, attr)` 语法中， `data` 不能是第三方对象（例如： `numpy.ndarray` ），可以使用 `data.attr` 方式来替代。
-
-<br/>
-
 <font size=3>**Q: 编译时报错“Unsupported expression 'Yield'”怎么办？**</font>
 
-A: MindSpore在静态图模式下不支持 `yield` 语法。另外，在静态图模式下，如果代码中错误使用了 `net.trainable_params()` 不支持语法，也会触发该报错，因为其内部实现使用了 `list(filter(iterator))` 语法，隐式调用了 `yield` 语法。代码样例如下：
-
-```python
-import mindspore as ms
-from mindspore import set_context, nn
-
-class Net(nn.Cell):
-    def construct(self):
-        return True
-
-class TestNet(nn.Cell):
-    def __init__(self):
-        super(TestNet, self).__init__()
-        self.net = Net()
-
-    def construct(self):
-        return net.trainable_params()
-
-set_context(mode=ms.GRAPH_MODE)
-net = TestNet()
-out = net()
-```
-
-执行结果如下：
-
-```text
-RuntimeError: Unsupported expression 'Yield'.
-More details please refer to syntax support at https://www.mindspore.cn
-
-----------------------------------------------------
-- The Traceback of Net Construct Code:
-----------------------------------------------------
-The function call stack (See file 'analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
-# 0 In file test.py:13
-        return net.trainable_params()
-               ^
-# 1 In file /home/workspace/mindspore/build/package/mindspore/nn/cell.py:1257
-        return list(filter(lambda x: x.requires_grad, self.get_parameters(expand=recurse)))
-                                                      ^
-```
+A: MindSpore在静态图模式下不支持 `yield` 语法。
 
 <br/>
 
-<font size=3>**Q: 编译时报错“Type Join Failed”或“Shape Join Failed”怎么办？**</font>
+<font size=3>**Q: 编译时报错“Type Join Failed”怎么办？**</font>
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含 `type`、`shape` 等)进行推导，常见抽象类型包括 `AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList` 等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行 `join` 合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者 `type`/`shape` 不一致，则会抛出以上异常。
 
@@ -125,51 +74,6 @@ For more details, please refer to https://www.mindspore.cn/search?inputValue=Typ
 
 Inner Message:
 The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue).
-The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
-
-The function call stack (See file 'analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
-# 0 In file test.py(14)
-        if a > b:
-        ^
-```
-
-当出现类似“Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()”的报错时，说明 `shape` 不一致，导致抽象类型合并失败。代码样例如下:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
-from mindspore import nn
-
-ms.set_context(mode=ms.GRAPH_MODE)
-class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.relu = ops.ReLU()
-        self.reducesum = ops.ReduceSum()
-
-    def construct(self, x, a, b):
-        if a > b:    # if的两个分支返回值的shape不一致
-            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
-        else:
-            return self.reducesum(x)    # shape:(), dype: Float32
-
-input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = ms.Tensor(2, ms.float32)
-input_b = ms.Tensor(6, ms.float32)
-net = Net()
-out = net(input_x, input_a, input_b)
-```
-
-执行结果如下：
-
-```text
-ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
-Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
-For more details, please refer to https://www.mindspore.cn/search?inputValue=Type%20Join%20Failed.
-
-Inner Message:
-The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue).
 The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
 
 The function call stack (See file 'analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
@@ -242,6 +146,7 @@ class BpropUserDefinedNet(nn.Cell):
         def bprop(self, x, y, out):
             return self.zeros_like(out), self.zeros_like(out)
 
+ms.set_context(mode=ms.GRAPH_MODE)
 net = BpropUserDefinedNet()
 x = Tensor(2, mstype.float32)
 y = Tensor(6, mstype.float32)
@@ -262,32 +167,7 @@ In file test.py(13)
 
 <font size=3>**Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？**</font>
 
-A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。代码样例如下：
-
-```python
-import mindspore as ms
-
-ZERO = ms.Tensor([0], ms.int32)
-ONE = ms.Tensor([1], ms.int32)
-@ms.jit()
-def f(x):
-    y = ZERO
-    if x < 0:
-        y = f(x - 3)
-    elif x < 3:
-        y = x * f(x - 1)
-    elif x < 5:
-        y = x * f(x - 2)
-    else:
-        y = f(x - 4)
-    z = y + 1
-    return z
-
-def test_endless():
-    ms.set_context(mode=ms.GRAPH_MODE)
-    x = ms.Tensor([5], ms.int32)
-    f(x)
-```
+A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
 
 <br/>
 
@@ -343,46 +223,6 @@ A: “Corresponding forward node candidate:”为关联的正向网络中的代�
     ```
 
     第一行是该算子的相应源码，该算子是反向算子，故由MindSpore实现。第二行提示此算子有关联的正向节点，第四行则指向了网络脚本文件第149行的“out = self.conv1(x)”。综上可知，算子Conv2DBackpropFilter是一个反向算子，相应的正向节点是一个卷积算子。
-
-<br/>
-
-<font size=3>**Q: 什么是“JIT Fallback”？编译时报错“Should not use Python object in runtime”怎么办？**</font>
-
-A: JIT Fallback从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验。JIT Fallback的环境变量开关是 `DEV_ENV_ENABLE_FALLBACK`，默认使用JIT Fallback。
-
-当出现“Should not use Python object in runtime”和“We suppose all nodes generated by JIT Fallback would not return to outside of graph”的报错信息时，说明静态图模式代码中出现了错误使用语法。JIT Fallback处理不支持的语法表达式时，将会生成相应的节点，并在编译时阶段完成推导和执行，否则这些节点传递到运行时后会引发报错。当前JIT Fallback有条件地支持Graph模式的部分常量场景，编写代码时请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)和[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html#jit-fallback)。
-
-例如，在调用第三方库NumPy时，JIT Fallback支持使用 `np.add(x, y)` 和 `Tensor(np.add(x, y))` 语法，但MindSpore不支持NumPy类型作为返回值，否则将会出现报错。代码样例如下：
-
-```python
-import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
-
-ms.set_context(mode=ms.GRAPH_MODE)
-
-class Net(nn.Cell):
-    def construct(self):
-        x = np.array([1, 2])
-        y = np.array([3, 4])
-        return np.add(x, y)
-
-net = Net()
-out = net()
-```
-
-执行结果如下：
-
-```text
-RuntimeError: Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[4 6]'.
-Line: In file test.py(11)
-        return np.add(x, y)
-        ^
-
-We suppose all nodes generated by JIT Fallback not return to outside of graph. For more information about JIT Fallback, please refer to https://www.mindspore.cn/search?inputValue=JIT%20Fallback
-```
-
-出现JIT Fallback相关的报错时，请根据[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)以及报错代码行，重新检视代码语法并修改。如果需要关闭JIT Fallback，可以设置 `export DEV_ENV_ENABLE_FALLBACK=0`。
 
 <br/>
 
@@ -459,56 +299,6 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 <br/>
 
-<font size=3>**Q: 编译过程中 “External” 类型是什么意思？**</font>
-
-A: “External” 类型表示在图模式中使用了无法原生支持的对象。例如：
-
-1) 自定义类的对象是 “External” 类型。代码样例如下：
-
-```python
-import numpy as np
-from mindspore import Tensor, nn, context, jit_class
-context.set_context(mode=context.GRAPH_MODE)
-
-#建议使用@jit_class来装饰自定义类。
-class UserDefinedNet:
-    value = 10
-
-    def func(self, t):
-        return 2 * t
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.net = UserDefinedNet()
-
-    def construct(self, x, y):
-        x = self.net.value + self.net.func(x)
-        return x
-
-input_x = np.random.randn(2, 2, 3).astype(np.float32)
-input_y = np.random.randn(2, 3, 2).astype(np.float32)
-net = Net()
-out = net(Tensor(input_x), Tensor(input_y))
-print(out)
-```
-
-执行结果如下：
-
-```text
-RuntimeError: For operation 'add', current input arguments types are <External, External>. The 1-th argument type 'External' is not supported now.
-the support argument types of 'add' operation as follows:
-<Number, Number>
-
-The function call stack:
-# 0 In file test.py(18)
-    x = self.net.value + self.net.func(x)
-```
-
-2）第三方库对象是 “External” 类型。
-
-<br/>
-
 <font size=3>**Q: 编译时报错"ValueError: The shape of sense must not be dynamic shape."怎么办？**</font>
 
 A: 在图模式中，当调用GradOperation接口且参数sens_param=True时，通过nn.Cell.set_inputs传入动态shape的sense参数时会导致报错。代码样例如下：
@@ -543,11 +333,11 @@ class GradWithSense(nn.Cell):
 
 x = np.array([[1, 1], [1, -1]]).astype(np.float32)
 sense = np.array([[2, 3], [4, 5]]).astype(np.float32)
-dynamic_x = Tensor(shape=[2, None], dtype=mindspore.float32)
-sense_x = Tensor(shape=[1, None], dtype=mindspore.float32)
+dynamic_x = Tensor(shape=[2, None], dtype=ms.float32)
+sense_x = Tensor(shape=[1, None], dtype=ms.float32)
 net = GradWithSense(Net())
 net.set_inputs(dynamic_x, sense_x)
-print(net(Tensor(x))) # ValueError: The shape of sense must not be dynamic shape.
+print(net(Tensor(x), Tensor(sense_x))) # ValueError: The shape of sense must not be dynamic shape.
 ```
 
 图模式下，不支持动态shape的sense，建议修改为以下代码：
@@ -581,7 +371,7 @@ class Grad(nn.Cell):
         return self.grad(self.network)(input_)
 
 x = np.array([[1, 1], [1, -1]]).astype(np.float32)
-dynamic_x = Tensor(shape=[2, None], dtype=mindspore.float32)
+dynamic_x = Tensor(shape=[2, None], dtype=ms.float32)
 net = Grad(Net())
 net.set_inputs(dynamic_x)
 out = net(Tensor(x))
