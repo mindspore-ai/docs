@@ -2,6 +2,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/official_models.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
+## Traditional AI
+
 |  Domain | Sub Domain    | Network  | Ascend  | GPU | CPU |
 |:------   |:------| :-----------  |:------:   |:------:  |:-----: |
 | Audio | Speaker Recognition | [ecapa_tdnn](https://gitee.com/mindspore/models/tree/master/official/audio/EcapaTDNN) |✅|   |   |
@@ -75,3 +77,7 @@
 | Text | Pre Training | [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha) |✅| ✅ |   |
 | Text | Natural Language Understanding | [transformer](https://gitee.com/mindspore/models/tree/master/official/nlp/Transformer) |✅| ✅ |   |
 | Video | Video Classification | [c3d](https://gitee.com/mindspore/models/tree/master/official/cv/C3D) |✅| ✅ |   |
+
+## Scientific Computing
+
+## Foundation Model
