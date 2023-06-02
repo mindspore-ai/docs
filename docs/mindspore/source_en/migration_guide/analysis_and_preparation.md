@@ -455,10 +455,6 @@ Generally, when a neural network model is trained, the default data type is FP32
 
 MindSpore not only allows you to customize data augmentation, but also provides an automatic data augmentation mode to automatically perform data augmentation on images based on specific policies.
 
-### [Multi Dimensional](https://www.mindspore.cn/tutorials/experts/en/master/parallel/multi_dimensional.html)
-
-With the development of deep learning, the model scale becomes larger and larger. For example, in the NLP field, the number of parameters has increased from 100 million in BERT to 170 billion in GPT-3, and then to 200 billion in PanGu-Alpha. Currently, the industry even proposes millions of parameters. It can be seen that the parameter scale has an exponential growth trend in recent years. On the other hand, with the development of technologies in fields such as big data and the Internet, datasets that can be used for model training also increase rapidly. For example, the size of datasets in scenarios such as recommendation and natural language processing can reach TB level.
-
 ### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.

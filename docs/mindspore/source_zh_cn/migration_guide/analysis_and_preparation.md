@@ -454,10 +454,6 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 MindSpore除了可以让用户自定义数据增强的使用，还提供了一种自动数据增强方式，可以基于特定策略自动对图像进行数据增强处理。
 
-### [多维度混合并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/multi_dimensional.html)
-
-随着深度学习的发展，模型规模越来越大。如NLP领域，短短几年时间，参数量就从BERT的亿级，发展到GPT-3的1700亿，再到盘古alpha 2000亿，以及当前业界甚至提出百万亿级。由此可以看出，近年来参数规模呈指数增长趋势。另一方面，随着大数据、互联网等领域相关技术的发展，可供模型训练的数据集也极速扩增，例如推荐、自然语言处理等场景的数据集可达数TB。
-
 ### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)
 
 梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。

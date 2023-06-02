@@ -23,10 +23,10 @@
 
 ## 阅读指引
 
-Mindspore为您提供了一系列简单易用的并行训练组件。为了更好的了解Mindspore的分布式并行训练组件，我们建议您按照以下顺序阅读本教程。
+MindSpore为您提供了一系列简单易用的并行训练组件。为了更好的了解MindSpore的分布式并行训练组件，我们建议您按照以下顺序阅读本教程。
 
 - 如果您的模型参数规模能在单卡运算，您可以阅读数据并行教程
-- 如果您的模型参数规模不能在单卡运行，则您可以阅读[算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html)和[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)教程，了解Mindspore是如何为您提供模型并行能力的
+- 如果您的模型参数规模不能在单卡运行，则您可以阅读[算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html)和[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)教程，了解MindSpore是如何为您提供模型并行能力的
 - 如果您想了解如何降低模型并行时的显存占用，则您可以阅读[重计算](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/recompute.html)和[host&device侧异构](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/host_device_training.html)教程
-- 如果您想体验Mindspore简单易用的模型并行接口，您可以阅读[半自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)和[自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parallel_training_quickstart.html)教程
-- 如果您已对并行训练有深入了解，想进一步了解Mindspore分布式并行的高阶配置与应用请阅读[分布式并行案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_case.html)章节
+- 如果您想体验MindSpore简单易用的模型并行接口，您可以阅读[半自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)和[自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parallel_training_quickstart.html)教程
+- 如果您已对并行训练有深入了解，想进一步了解MindSpore分布式并行的高阶配置与应用请阅读[分布式并行案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_case.html)章节
