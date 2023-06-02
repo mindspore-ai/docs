@@ -181,7 +181,7 @@ Otherwise, set max_call_depth can change the recursive depth of MindSpore, and i
 
 <br/>
 
-<font size=3>**Q: What can I do if an error that 'could not get source code' and 'Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.' is displayed during compilation?**</font>
+<font size=3>**Q: What can I do if an error that 'could not get source code' and 'MindSpore can not compile temporary source code in terminal. Please write source code to a python file and run the file.' is displayed during compilation?**</font>
 
 A: When compiling a network, MindSpore uses `inspect.getsourcelines(self.fn)` to get the file located in the network code. If the network is the temporary code which is edited in terminal, MindSpore will report an error as the title. It can be solved if writing the network to a Python file.
 
