@@ -147,20 +147,22 @@ print(image.shape, image.dtype)
 
 ## Customizing Dataset
 
-`mindspore.dataset` provides the loading interface for some common datasets and standard format datasets. For those datasets that MindSpore does not support directly, you can generate datasets by constructing customized dataset classes or customized dataset generator functions, and then implement customized dataset loading through the `GeneratorDataset` interface.
+`mindspore.dataset` provides the loading APIs for some common datasets and standard format datasets. For those datasets that MindSpore does not support yet, it is suggested to load data by constructing customized classes or customized generators. `GeneratorDataset` can help to load dataset based on the logic inside these classes/functions.
 
-`GeneratorDataset` supports constructing customized datasets from iterable objects, iterators and generator functions, which are explained in detail below.
+`GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
 
-### Iterable Objects
+### Random-accessible Dataset
 
-Iterable object means that Python can use a for loop to traverse over all elements and we can construct an iterable object by implementing the `__getitem__` method and loading it into the `GeneratorDataset`.
+A Random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
+
+For example, when access a dataset with `dataset[idx]`, it should read the idx-th data inside the dataset content.
 
 ```python
-# Iterable object as input source
-class Iterable:
+# Random-accessible object as input source
+class RandomAccessDataset:
     def __init__(self):
-        self._data = np.random.sample((5, 2))
-        self._label = np.random.sample((5, 1))
+        self._data = np.ones((5, 2))
+        self._label = np.zeros((5, 1))
 
     def __getitem__(self, index):
         return self._data[index], self._label[index]
@@ -170,44 +172,96 @@ class Iterable:
 ```
 
 ```python
-data = Iterable()
-dataset = GeneratorDataset(source=data, column_names=["data", "label"])
+loader = RandomAccessDataset()
+dataset = GeneratorDataset(source=loader, column_names=["data", "label"])
+
+for data in dataset:
+    print(data)
+```
+
+```text
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
 ```
 
 ```python
-# list, dict, tuple are also iterable object.
-dataset = GeneratorDataset(source=[(np.array(0),), (np.array(1),), (np.array(2),)], column_names=["col"])
+# list, tuple are also supported.
+loader = [np.array(0), np.array(1), np.array(2)]
+dataset = GeneratorDataset(source=loader, column_names=["data"])
+
+for data in dataset:
+    print(data)
 ```
 
-### Iterator
+```text
+[Tensor(shape=[], dtype=Int64, value= 2)]
+[Tensor(shape=[], dtype=Int64, value= 0)]
+[Tensor(shape=[], dtype=Int64, value= 1)]
+```
 
-Objects in Python that have `__iter__` and `__next__` methods built in are called iterators (Iterators). The following constructs a simple iterator and loads it into `GeneratorDataset`.
+### Iterable Dataset
+
+An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of datasets is suitable for cases where random access are expensive or forbidden.
+
+For example, when access a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
 
 ```python
 # Iterator as input source
-class Iterator:
-    def __init__(self):
-        self._index = 0
-        self._data = np.random.sample((5, 2))
-        self._label = np.random.sample((5, 1))
-
+class IterableDataset():
+    def __init__(self, start, end):
+        '''init the class object to hold the data'''
+        self.start = start
+        self.end = end
     def __next__(self):
-        if self._index >= len(self._data):
-            raise StopIteration
-        else:
-            item = (self._data[self._index], self._label[self._index])
-            self._index += 1
-            return item
-
+        '''iter one data and return'''
+        return next(self.data)
     def __iter__(self):
-        self._index = 0
+        '''reset the iter'''
+        self.data = iter(range(self.start, self.end))
         return self
-
-    def __len__(self):
-        return len(self._data)
 ```
 
 ```python
-data = Iterator()
-dataset = GeneratorDataset(source=data, column_names=["data", "label"])
+loader = IterableDataset(1, 5)
+dataset = GeneratorDataset(source=loader, column_names=["data"])
+
+for d in dataset:
+    print(d)
+```
+
+```text
+[Tensor(shape=[], dtype=Int64, value= 1)]
+[Tensor(shape=[], dtype=Int64, value= 2)]
+[Tensor(shape=[], dtype=Int64, value= 3)]
+[Tensor(shape=[], dtype=Int64, value= 4)]
+```
+
+### Generator
+
+Generator also belongs to iterable dataset types, and it can be a Python's generator to return data until the generator throws a `StopIteration` exception.
+
+Example constructs a generator and loads it into the 'GeneratorDataset'.
+
+```python
+# Generator
+def my_generator(start, end):
+    for i in range(start, end):
+        yield i
+```
+
+```python
+# since a generator instance can be only itered once, we need to wrapper it by lambda to generate multiple instances
+dataset = GeneratorDataset(source=lambda: my_generator(3, 6), column_names=["data"])
+
+for d in dataset:
+    print(d)
+```
+
+```text
+[Tensor(shape=[], dtype=Int64, value= 3)]
+[Tensor(shape=[], dtype=Int64, value= 4)]
+[Tensor(shape=[], dtype=Int64, value= 5)]
 ```
