@@ -33,7 +33,7 @@ A: MindSpore does not support the `yield` syntax in graph mode.
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "Type Join Failed"is reported?**</font>
+<font size=3>**Q: What can I do if an error "Type Join Failed" is reported?**</font>
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be `join` to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
@@ -167,7 +167,7 @@ In file test.py(13)
 
 <font size=3>**Q: What can I do if an error "There isn't any branch that can be evaluated" is reported during compilation?**</font>
 
-A: When an error similar to "There isn't any branch that can be evaluated" appears, it means that there may be infinite recursion or loop in the code, which causes each branch of the if condition to be unable to deduce the correct type and dimension information.
+A: When an error "There isn't any branch that can be evaluated" appears, it means that there may be infinite recursion or loop in the code, which causes that each branch of the if condition is unable to deduce the correct type and dimension information.
 
 <br/>
 

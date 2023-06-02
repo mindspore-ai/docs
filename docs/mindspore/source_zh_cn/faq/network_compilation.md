@@ -167,7 +167,7 @@ In file test.py(13)
 
 <font size=3>**Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？**</font>
 
-A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
+A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
 
 <br/>
 
