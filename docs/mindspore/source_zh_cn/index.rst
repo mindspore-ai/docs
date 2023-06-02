@@ -138,13 +138,13 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                     <a href="./note/official_models.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">规格</span>
+                              <span class="doc-head-content">模型库</span>
                            </div>
                            <div class="doc-article-desc">
-                              基准性能、网络支持、API支持和语法支持等规格说明。
+                              包含不同领域的模型示例和性能数据。
                            </div>
                         </div>
                      </a>
@@ -153,6 +153,22 @@ MindSpore 文档
 				</div>
          </div>
          <div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">语法支持</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              静态图、Tensor索引等语法支持。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -169,7 +185,9 @@ MindSpore 文档
                   </div>
 					</div>
 				</div>
-				<div class="col-md-6">
+         </div>
+         <div class="row">
+            <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./note/api_mapping/pytorch_api_mapping.html" class="article-link">
@@ -185,8 +203,6 @@ MindSpore 文档
                   </div>
 					</div>
 				</div>
-         </div>
-         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -203,6 +219,8 @@ MindSpore 文档
                   </div>
 					</div>
 				</div>
+         </div>
+         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -213,6 +231,22 @@ MindSpore 文档
                            </div>
                            <div class="doc-article-desc">
                               常见问题与解答，包括安装、数据处理、编译执行、调试调优、分布式并行、推理等。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./RELEASE.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">RELEASE NOTES</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              包含发布版本的主要特性和增强，API变更等信息。
                            </div>
                         </div>
                      </a>
