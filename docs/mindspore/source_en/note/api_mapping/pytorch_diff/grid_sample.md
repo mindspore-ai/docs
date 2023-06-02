@@ -8,7 +8,7 @@
 torch.nn.functional.grid_sample(input, grid, mode='bilinear', padding_mode='zero', align_corners=None) -> Tensor
 ```
 
-For more information, see [torch.nn.functional.grid_sample](https://pytorch.org/docs/1.8.1/generated/torch.nn.functional.grid_sample.html).
+For more information, see [torch.nn.functional.grid_sample](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.grid_sample).
 
 ## mindspore.ops.grid_sample
 
