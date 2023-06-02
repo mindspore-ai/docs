@@ -79,16 +79,18 @@ For Experts
    :caption: Distributed Parallel
    :titlesonly:
 
-   parallel/introduction
+   parallel/overview
+   parallel/operator_parallel
+   parallel/pipeline_parallel
+   parallel/optimizer_parallel
+   parallel/recompute
+   parallel/host_device_training
+   parallel/parameter_server_training
+   parallel/train_ascend
    parallel/parallel_training_quickstart
-   parallel/communicate_ops
-   parallel/distributed_case
+   parallel/startup_method
    parallel/distributed_inference
-   parallel/save_load
-   parallel/fault_recover
-   parallel/multi_dimensional
-   parallel/resilience_train_and_predict
-   parallel/other_features
+   parallel/distributed_case
 
 .. toctree::
    :glob:
