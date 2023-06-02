@@ -491,19 +491,22 @@ class MsCnAutoSummary(Autosummary):
                     row.append(nodes.entry('', node))
             body.append(row)
         append_row(*self.table_head)
-        if not self.table_head:
-            for name, summary in items:
-                qualifier = 'obj'
-                col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
-                col2 = summary
-                append_row(col1, col2)
-        else:
-            for name, summary, other in items:
-                qualifier = 'obj'
-                col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
-                col2 = summary
-                col3 = other
-                append_row(col1, col2, col3)
+        try:
+            if not self.table_head:
+                for name, summary in items:
+                    qualifier = 'obj'
+                    col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
+                    col2 = summary
+                    append_row(col1, col2)
+            else:
+                for name, summary, other in items:
+                    qualifier = 'obj'
+                    col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
+                    col2 = summary
+                    col3 = other
+                    append_row(col1, col2, col3)
+        except ValueError:
+            logger.warning(items)
         return [table_spec, table]
 
 def get_api(fullname):
