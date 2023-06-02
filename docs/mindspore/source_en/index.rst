@@ -138,13 +138,13 @@ MindSpore Documentation
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                     <a href="./note/official_models.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Specifications</span>
+                              <span class="doc-head-content">Model Libraries</span>
                            </div>
                            <div class="doc-article-desc">
-                              Specifications of benchmark performance, network support, API support and syntax support.
+                              Contains model examples and performance data for different domains.
                            </div>
                         </div>
                      </a>
@@ -153,6 +153,22 @@ MindSpore Documentation
 				</div>
          </div>
          <div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Syntax Support</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Syntax support for static graphs, Tensor indexes, etc.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -169,7 +185,9 @@ MindSpore Documentation
                   </div>
 					</div>
 				</div>
-				<div class="col-md-6">
+         </div>
+         <div class="row">
+            <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./note/api_mapping/pytorch_api_mapping.html" class="article-link">
@@ -185,8 +203,6 @@ MindSpore Documentation
                   </div>
 					</div>
 				</div>
-         </div>
-         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -203,6 +219,8 @@ MindSpore Documentation
                   </div>
 					</div>
 				</div>
+         </div>
+         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -213,6 +231,22 @@ MindSpore Documentation
                            </div>
                            <div class="doc-article-desc">
                               Frequently asked questions and answers, including installation, data processing, compilation and execution, debugging and tuning, distributed parallelism, inference, etc.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./RELEASE.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">RELEASE NOTES</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Contains information on major features and augments, API changes for the release versions.
                            </div>
                         </div>
                      </a>
