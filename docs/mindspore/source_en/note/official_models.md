@@ -4,79 +4,208 @@
 
 ## Traditional AI
 
-|  Domain | Sub Domain    | Network  | Ascend  | GPU | CPU |
-|:------   |:------| :-----------  |:------:   |:------:  |:-----: |
-| Audio | Speaker Recognition | [ecapa_tdnn](https://gitee.com/mindspore/models/tree/master/official/audio/EcapaTDNN) |✅|   |   |
-| Audio | Speech Synthesis | [lpcnet](https://gitee.com/mindspore/models/tree/master/official/audio/LPCNet) |✅| ✅ |   |
-| Audio | Speech Synthesis | [melgan](https://gitee.com/mindspore/models/tree/master/official/audio/MELGAN) |✅| ✅ |   |
-| Audio | Speech Synthesis | [tacotron2](https://gitee.com/mindspore/models/tree/master/official/audio/Tacotron2) |✅|   |   |
-| Graph Neural Network | Text Classification | [gcn](https://gitee.com/mindspore/models/tree/master/official/gnn/GCN) |✅| ✅ |   |
-| Recommendation | Recommender System | [tbnet](https://gitee.com/mindspore/models/tree/master/official/recommend/Tbnet) |✅| ✅ |   |
-| Image | Scene Text Recognition | [crnn](https://gitee.com/mindspore/models/tree/master/official/cv/CRNN) |✅| ✅ | ✅ |
-| Image | Object Detection | [ctpn](https://gitee.com/mindspore/models/tree/master/official/cv/CTPN) |✅| ✅ |   |
-| Image | Text Detection | [dbnet](https://gitee.com/mindspore/models/tree/master/official/cv/DBNet) |✅| ✅ | ✅ |
-| Image | Semantic Segmentation | [deeplabv3](https://gitee.com/mindspore/models/tree/master/official/cv/DeepLabV3P) |✅| ✅ | ✅ |
-| Image | Text Detection | [deeptext](https://gitee.com/mindspore/models/tree/master/official/cv/DeepText) |✅| ✅ |   |
-| Image | Depth Estimation | [depthnet](https://gitee.com/mindspore/models/tree/master/official/cv/DepthNet) |✅|   |   |
-| Image | Image Classification | [efficientnet](https://gitee.com/mindspore/models/tree/master/official/cv/Efficientnet) | | ✅ | ✅ |
-| Image | Object Detection | [FasterRCNN_Inception_Resnetv2](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) |✅| ✅ |   |
-| Image | Object Detection | [FasterRCNN_ResNetV1.5_50](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) |✅| ✅ |   |
-| Image | Object Detection | [FasterRCNN_ResNetV1_101](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) |✅| ✅ |   |
-| Image | Object Detection | [FasterRCNN_ResNetV1_152](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) |✅| ✅ |   |
-| Image | Object Detection | [FasterRCNN_ResNetV1_50](https://gitee.com/mindspore/models/tree/master/official/cv/FasterRCNN) |✅| ✅ |   |
-| Image | Image Classification | [inceptionv3](https://gitee.com/mindspore/models/tree/master/official/cv/Inception/inceptionv3) |✅| ✅ | ✅ |
-| Image | Image Classification | [inceptionv4](https://gitee.com/mindspore/models/tree/master/official/cv/Inception/inceptionv4) |✅| ✅ | ✅ |
-| Image | Object Detection | [maskrcnn_resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/MaskRCNN/maskrcnn_resnet50) |✅| ✅ |   |
-| Image | Object Detection | [maskrcnn_mobilenetv1](https://gitee.com/mindspore/models/tree/master/official/cv/MaskRCNN/maskrcnn_mobilenetv1) |✅| ✅ | ✅ |
-| Image | Image Classification | [mobilenetv1](https://gitee.com/mindspore/models/tree/master/official/cv/MobileNet/mobilenetv1) |✅| ✅ |   |
-| Image | Image Classification | [mobilenetv2](https://gitee.com/mindspore/models/tree/master/official/cv/MobileNet/mobilenetv2) |✅| ✅ | ✅ |
-| Image | Image Classification | [mobilenetv3](https://gitee.com/mindspore/models/tree/master/official/cv/MobileNet/mobilenetv3) |✅| ✅ | ✅ |
-| Image | Point Cloud Model | [octsqueeze](https://gitee.com/mindspore/models/tree/master/official/cv/OctSqueeze) |✅| ✅ |   |
-| Image | Keypoint Detection | [openpose](https://gitee.com/mindspore/models/tree/master/official/cv/OpenPose) |✅|   |   |
-| Image | Defect Detection | [patchcore](https://gitee.com/mindspore/models/tree/master/official/cv/PatchCore) |✅| ✅ |   |
-| Image | Pose Estimation | [pvnet](https://gitee.com/mindspore/models/tree/master/official/cv/PVNet) |✅|   |   |
-| Image | Optical Flow Estimation | [pwcnet](https://gitee.com/mindspore/models/tree/master/official/cv/PWCNet) |✅| ✅ |   |
-| Image | Image Classification | [resnet101](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [resnet152](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [resnet18](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [resnet34](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [resnet50_thor](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ |   |
-| Image | Image Classification | [resnext101](https://gitee.com/mindspore/models/tree/master/official/cv/ResNeXt) |✅| ✅ |   |
-| Image | Image Classification | [resnext50](https://gitee.com/mindspore/models/tree/master/official/cv/ResNeXt) |✅| ✅ |   |
-| Image | Object Detection | [retinaface_resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/RetinaFace_ResNet50) | | ✅ |   |
-| Image | Object Detection | [retinanet](https://gitee.com/mindspore/models/tree/master/official/cv/RetinaNet) |✅| ✅ |   |
-| Image | Image Matting | [semantic_human_matting](https://gitee.com/mindspore/models/tree/master/official/cv/SemanticHumanMatting) |✅|   |   |
-| Image | Image Classification | [se-resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet) |✅| ✅ | ✅ |
-| Image | Image Classification | [shufflenetv1](https://gitee.com/mindspore/models/tree/master/official/cv/ShuffleNet/shufflenetv1) |✅| ✅ | ✅ |
-| Image | Image Classification | [shufflenetv2](https://gitee.com/mindspore/models/tree/master/official/cv/ShuffleNet/shufflenetv2) |✅| ✅ | ✅ || Image | Object Detection | [ssd_mobilenet-v1-fpn](https://gitee.com/mindspore/models/tree/master/official/cv/SSD) |✅| ✅ | ✅ |
-| Image | Object Detection | [ssd-mobilenet-v2](https://gitee.com/mindspore/models/tree/master/official/cv/SSD) |✅| ✅ | ✅ |
-| Image | Object Detection | [ssd-resnet50-fpn](https://gitee.com/mindspore/models/tree/master/official/cv/SSD) |✅| ✅ | ✅ |
-| Image | Object Detection | [ssd-vgg16](https://gitee.com/mindspore/models/tree/master/official/cv/SSD) |✅| ✅ | ✅ |
-| Image | Defect Detection | [ssim-ae](https://gitee.com/mindspore/models/tree/master/official/cv/SSIM-AE) |✅|   |   |
-| Image | Semantic Segmentation | [UNet_nested](https://gitee.com/mindspore/models/tree/master/official/cv/Unet) |✅| ✅ |   |
-| Image | Semantic Segmentation | [unet2d](https://gitee.com/mindspore/models/tree/master/official/cv/Unet) |✅| ✅ |   |
-| Image | Semantic Segmentation | [unet3d](https://gitee.com/mindspore/models/tree/master/official/cv/Unet3d) |✅| ✅ |   |
-| Image | Image Classification | [vgg16](https://gitee.com/mindspore/models/tree/master/official/cv/VGG/vgg16) |✅| ✅ | ✅ |
-| Image | Image Classification | [vit](https://gitee.com/mindspore/models/tree/master/official/cv/VIT) |✅| ✅ |   |
-| Image | Image Classification | [xception](https://gitee.com/mindspore/models/tree/master/official/cv/Inception/xception) |✅| ✅ |   |
-| Image | Object Detection | [yolov3_darknet53](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3) |✅| ✅ |   |
-| Image | Object Detection | [yolov4](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv4) |✅|   |   |
-| Image | Object Detection | [yolov5s](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv5) |✅| ✅ |   |
-| Recommendation | Click-Through Rate Prediction | [deepfm](https://gitee.com/mindspore/models/tree/master/official/recommend/DeepFM) |✅| ✅ |   |
-| Recommendation | Click-Through Rate Prediction | [wide_and_deep](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) |✅| ✅ |   |
-| Recommendation | Click-Through Rate Prediction | [wide_and_deep_multitable](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep_Multitable) |✅| ✅ |   |
-| Text | Natural Language Understanding | [bert_base](https://gitee.com/mindspore/models/tree/master/official/nlp/Bert) |✅| ✅ |   |
-| Text | Natural Language Understanding | [bert_bilstm_crf](https://gitee.com/mindspore/models/tree/master/official/nlp/Bert) |✅| ✅ |   |
-| Text | Natural Language Understanding | [bert_finetuning](https://gitee.com/mindspore/models/tree/master/official/nlp/Bert) |✅| ✅ |   |
-| Text | Natural Language Understanding | [bert_large](https://gitee.com/mindspore/models/tree/master/official/nlp/Bert) |✅|   |   |
-| Text | Natural Language Understanding | [bert_nezha](https://gitee.com/mindspore/models/tree/master/official/nlp/Bert) |✅| ✅ |   |
-| Text | Natural Language Understanding | [gpt3](https://gitee.com/mindspore/models/tree/master/official/nlp/GPT) |✅|   |   |
-| Text | Natural Language Understanding | [gru](https://gitee.com/mindspore/models/tree/master/official/nlp/GRU) |✅| ✅ |   |
-| Text | Emotion Classification | [lstm](https://gitee.com/mindspore/models/tree/master/official/nlp/LSTM) |✅| ✅ |   |
-| Text | Pre Training | [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha) |✅| ✅ |   |
-| Text | Natural Language Understanding | [transformer](https://gitee.com/mindspore/models/tree/master/official/nlp/Transformer) |✅| ✅ |   |
-| Video | Video Classification | [c3d](https://gitee.com/mindspore/models/tree/master/official/cv/C3D) |✅| ✅ |   |
+### Computer Vision
+
+#### Image Classification（backbone）
+
+| model | acc@1 | mindcv recipe | vanilla mindspore |
+:-:     | :-:        | :-:    | :-:  
+|  vgg11           |  71.86   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vgg)           |
+|  vgg13           |  72.87   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vgg)           |
+|  vgg16           |  74.61   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vgg)           |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/VGG/vgg16)
+|  vgg19           |  75.21   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vgg)           |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/VGG/vgg19)
+| resnet18         |  70.21   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnet)        |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet)
+| resnet34         |  74.15   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnet)        |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet)
+| resnet50         |  76.69   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnet)        |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet)
+| resnet101        |  78.24   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnet)        |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet)
+| resnet152        |  78.72   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnet)        |   [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ResNet)
+| resnetv2_50      |  76.90   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnetv2)      |
+| resnetv2_101     |  78.48   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnetv2)      |
+| dpn92            |  79.46   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/dpn)           |
+| dpn98            |  79.94   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/dpn)           |
+| dpn107           |  80.05   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/dpn)           |
+| dpn131           |  80.07   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/dpn)           |
+| densenet121      |  75.64   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/densenet)      |
+| densenet161      |  79.09   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/densenet)      |
+| densenet169      |  77.26   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/densenet)      |
+| densenet201      |  78.14   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/densenet)      |
+| seresnet18       |  71.81   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/senet)         |
+| seresnet34       |  75.36   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/senet)         |
+| seresnet50       |  78.31   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/senet)         |
+| seresnext26      |  77.18   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/senet)         |
+| seresnext50      |  78.71   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/senet)         |
+| skresnet18       |  73.09   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/sknet)              |
+| skresnet34       |  76.71   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/sknet)              |
+| skresnet50_32x4d |  79.08   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/sknet)              |
+| resnext50_32x4d  |  78.53   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnext)            |
+| resnext101_32x4d |  79.83   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnext)            |
+| resnext101_64x4d |  80.30   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnext)            |
+| resnext152_64x4d |  80.52   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnext)            |
+| rexnet_x09       |  77.07   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/rexnet)             |
+| rexnet_x10       |  77.38   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/rexnet)             |
+| rexnet_x13       |  79.06   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/rexnet)             |
+| rexnet_x15       |  79.94   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/rexnet)             |
+| rexnet_x20       |  80.64   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/rexnet)             |
+| resnest50        |  80.81   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnest)            |
+| resnest101       |  82.50   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/resnest)            |
+| res2net50        |  79.35   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
+| res2net101       |  79.56   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
+| res2net50_v1b    |  80.32   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
+| res2net101_v1b   |  95.41   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
+| googlenet        |  72.68   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/googlenet)          |
+| mobilenet_v1_025 |  53.87   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
+| mobilenet_v1_050 |  65.94   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
+| mobilenet_v1_075 |  70.44   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
+| mobilenet_v1_100 |  72.95   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
+| mobilenet_v2_075 |  69.98   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv2)        |
+| mobilenet_v2_100 |  72.27   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv2)        |
+| mobilenet_v2_140 |  75.56   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv2)        |
+| mobilenet_v3_small     | 68.10 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv3)      |
+| mobilenet_v3_large     | 75.23 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv3)      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/MobileNet/mobilenetv3) |
+| xception               | 79.01 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/xception)         | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Inception/xception) |
+| ghostnet_50            | 66.03 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
+| ghostnet_100           | 73.78 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
+| ghostnet_130           | 75.50 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
+| nasnet_a_4x1056        | 73.65 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/nasnet)           |
+| mnasnet_0.5            | 68.07 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
+| mnasnet_0.75           | 71.81 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
+| mnasnet_1.0            | 74.28 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
+| mnasnet_1.4            | 76.01 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
+| efficientnet_b0        | 76.89 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/efficientnet)     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Efficientnet/efficientnet-b0)
+| efficientnet_b1        | 78.95 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/efficientnet)     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Efficientnet/efficientnet-b1)
+| efficientnet_b2        | 79.80 |     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Efficientnet/efficientnet-b2)
+| efficientnet_b3        | 80.50 |     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Efficientnet/efficientnet-b3)
+| efficientnet_v2        | 83.77 |     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Efficientnet/efficientnetv2)
+| regnet_x_200mf         | 68.74 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_x_400mf         | 73.16 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_x_600mf         | 73.34 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_x_800mf         | 76.04 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_y_200mf         | 70.30 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_y_400mf         | 73.91 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_y_600mf         | 75.69 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| regnet_y_800mf         | 76.52 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/regnet)     |
+| mixnet_s               | 75.52 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mixnet)     |
+| mixnet_m               | 76.64 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mixnet)     |
+| mixnet_l               | 78.73 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mixnet)     |
+| hrnet_w32              | 80.64 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/hrnet)      |
+| hrnet_w48              | 81.19 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/hrnet)      |
+| bit_resnet50           | 76.81 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/bit)         |
+| bit_resnet50x3         | 80.63 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/bit)        |
+| bit_resnet101          | 77.93 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/bit)        |
+| repvgg_a0              | 72.19 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_a1              | 74.19 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_a2              | 76.63 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_b0              | 74.99 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_b1              | 78.81 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_b2              | 79.29 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)     |
+| repvgg_b3            | 80.46 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)       |
+| repvgg_b1g2          | 78.03 |[config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)        |
+| repvgg_b1g4          | 77.64 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)       |
+| repvgg_b2g4          | 78.80 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repvgg)       |
+| repmlp_t224          | 76.71 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/repmlp)       |
+| convnext_tiny        | 81.91 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convnext)     |
+| convnext_small       | 83.40 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convnext)     |
+| convnext_base        | 83.32 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convnext)     |
+| vit_b_32_224         | 75.86 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vit)          |  [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/VIT)
+| vit_l_16_224         | 76.34| [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vit)           |
+| vit_l_32_224         | 73.71 |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vit)         |
+| swintransformer_tiny | 80.82 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/swintransformer) | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/SwinTransformer)
+| pvt_tiny            | 74.81 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pvt)           |
+| pvt_small           | 79.66 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pvt)           |
+| pvt_medium          | 81.82 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pvt)           |
+| pvt_large           | 81.75 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pvt)           |
+| pit_ti              | 72.96 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pit)           |
+| pit_xs              | 78.41 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pit)           |
+| pit_s               | 80.56 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pit)           |
+| pit_b               | 81.87 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/pit)           |
+| coat_lite_tiny      | 77.35 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/coat)          |
+| coat_lite_mini      | 78.51 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/coat)          |
+| coat_tiny           | 79.67 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/coat)          |
+| convit_tiny         | 73.66 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| convit_tiny_plus    | 77.00 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| convit_small        | 81.63 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| convit_small_plus   | 81.80 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| convit_base         | 82.10 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| convit_base_plus    | 81.96 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/convit)        |
+| crossvit_9          | 73.56 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/crossvit)      |
+| crossvit_15         | 81.08 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/crossvit)      |
+| crossvit_18         | 81.93 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/crossvit)      |
+| mobilevit_xx_small  | 68.90 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilevit)     |
+| mobilevit_x_small   | 74.98 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilevit)     |
+| mobilevit_small     | 78.48 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilevit)     |
+| visformer_tiny      | 78.28 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/visformer)     |
+| visformer_tiny_v2   | 78.82 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/visformer)     |
+| visformer_small     | 81.76 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/visformer)     |
+| visformer_small_v2  | 82.17 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/visformer)     |
+| edgenext_xx_small   | 71.02 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/edgenext)      |
+| edgenext_x_small    | 75.14 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/edgenext)      |
+| edgenext_small      | 79.15 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/edgenext)      |
+| edgenext_base       | 82.24 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/edgenext)      |
+| poolformer_s12      | 77.33 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/poolformer)    |
+| xcit_tiny_12_p16    | 77.67 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/xcit)          |
+
+### Object Detection
+
+#### yolo
+
+| model | map |  mindyolo recipe | vanilla mindspore
+:-: | :-: | :-: | :-: |
+| yolov7_t | 37.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_l | 50.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_x |  52.4| [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov5_n | 27.3 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
+| yolov5_s | 37.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) | [link](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv5) |
+| yolov5_m | 44.9 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
+| yolov5_l | 48.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
+| yolov5_x | 50.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
+| yolov4_csp       | 45.4 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov4) |
+| yolov4_csp(silu) | 45.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov4) | [link](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv4) |
+| yolov3_darknet53 | 45.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov3) | [link](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3) |
+| yolox_n | 24.1 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_t | 33.3 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_s | 40.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_m | 46.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_l | 49.2 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_x | 51.6 |[config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+| yolox_darknet53 | 47.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolox) |
+
+#### Classic
+
+| model |  map | mind_series recipe | vanilla mindspore
+:-:     |  :-:            | :-:        |  :-:
+|  ssd_vgg16                 | 23.2  |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/SSD)|
+|  ssd_mobilenetv1           | 22.0  |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/SSD)|
+|  ssd_mobilenetv2           | 29.1  |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/SSD)|
+|  ssd_resnet50              | 34.3  |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/SSD)|
+|  fastrcnn                  | 58    |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/FasterRCNN) |
+|  maskrcnn_mobilenetv1      | coming soon   |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/MaskRCNN/maskrcnn_mobilenetv1) |
+|  maskrcnn_resnet50         | coming soon   |   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/MaskRCNN/maskrcnn_resnet50) |
+
+### Semantic Segmentation
+
+| model |  mind_series recipe | vanilla mindspore
+:-:     |  :-:            | :-:
+| ocrnet          |      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/OCRNet/)         |
+| deeplab v3      |      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/DeepLabv3)       |
+| deeplab v3 plus |      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/DeepLabV3P)      |
+| unet            |      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Unet)            |
+| unet3d          |      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Unet3d)          |
+
+### OCR
+
+| model | dataset | fscore | mindocr recipe | vanilla mindspore
+:-:     |  :-:       | :-:        | :-:   | :-:
+| dbnet_mobilenetv3  | icdar2015          | 77.28 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/dbnet)  |
+| dbnet_resnet18     | icdar2015          | 83.71 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/dbnet)  |
+| dbnet_resnet50     | icdar2015          | 84.99 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/dbnet)  | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/DBNet/)  |
+| dbnet_resnet50     | msra-td500         | 85.03 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/dbnet)  |
+| dbnet++_resnet50   | icdar2015          | 86.60 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/dbnet)  |
+| psenet_resnet152   | icdar2015          | 82.06 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/psenet) | [link](https://gitee.com/mindspore/models/tree/r2.0/research/cv/psenet)   |
+| east_resnet50      | icdar2015          | 84.87 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/det/east)   | [link](https://gitee.com/mindspore/models/tree/r2.0/research/cv/east)     |
+| svtr_tiny          | IC03,13,15,IIT,etc | 89.02 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/rec/svtr)   |  
+| crnn_vgg7          | IC03,13,15,IIT,etc | 82.03 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/rec/crnn)   | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/CRNN)     |
+| crnn_resnet34_vd   | IC03,13,15,IIT,etc | 84.45 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/rec/crnn)   |
+| rare_resnet34_vd   | IC03,13,15,IIT,etc | 85.19 | [config](https://github.com/mindspore-lab/mindocr/tree/main/configs/rec/rare)   |
 
 ## Scientific Computing
 
