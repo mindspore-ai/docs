@@ -16,10 +16,8 @@
 |  多进程启动     |  不支持 |  支持  |  不支持  |
 |  动态组网     |  支持 |  支持  |  支持  |
 
-## 云上启动mindspore分布式并行训练
+## 云上启动MindSpore分布式并行训练
 
-MindSpore Operator
-是MindSpore在Kubernetes上进行分布式训练的插件。CRD（Custom Resource
-Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配置yaml文件，即可轻松实现分布式训练。
+MindSpore Operator是MindSpore在Kubernetes上进行分布式训练的插件。CRD（Custom Resource Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配置yaml文件，即可轻松实现分布式训练。
 
-当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。详细流程请参考 [ms-operator](https://gitee.com/mindspore/ms-operator>)。
+当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。详细流程请参考 [ms-operator](https://gitee.com/mindspore/ms-operator)。

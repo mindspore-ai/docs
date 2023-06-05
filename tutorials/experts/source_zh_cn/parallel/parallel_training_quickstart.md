@@ -115,7 +115,7 @@ class Net(Cell):
         return out
 ```
 
-其中，`shard()`方法的详细介绍见[自动并行原理](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)，接口介绍见[函数式算子切分](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pynative_shard_function_parallel.html)。
+其中，`shard()`方法的详细介绍见[自动并行原理](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)，接口介绍见[函数式算子切分](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/mindspore/pynative_shard_function_parallel.html)。
 
 对于上述例子中设置的并行切分策略，在单机8卡环境下，前向传播过程的`matmul`算子计算过程示意图如下：
 
