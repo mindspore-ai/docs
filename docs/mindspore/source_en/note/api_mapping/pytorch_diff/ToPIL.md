@@ -10,7 +10,7 @@ class torchvision.transforms.ToPILImage(
     )
 ```
 
-For more information, see [torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToPILImage).
+For more information, see [torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ToPILImage).
 
 ## mindspore.dataset.vision.ToPIL
 
@@ -22,9 +22,13 @@ For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/
 
 ## Differences
 
-PyTorch: Converts a tensor or numpy array to PIL Image. The input can be a torch Tensor in the format of <C, H, W>, or a numpy array in the format of <H, W, C>.
+PyTorch: Converts a tensor or Numpy array to PIL Image. The input can be a torch Tensor in the format of <C, H, W>, or a numpy array in the format of <H, W, C>.
 
-MindSpore: The input is a decoded numpy array, which is converted into a PIL type image.
+MindSpore: Convert a Numpy array in <H, W, C> format (such as decoded image) into a PIL image, color space is not support to specified.
+
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | mode    | -    | Color space and pixel depth of input data |
 
 ## Code Example
 

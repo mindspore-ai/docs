@@ -8,7 +8,7 @@
 class torchvision.transforms.ToTensor
 ```
 
-更多内容详见[torchvision.transforms.ToTensor](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToTensor)。
+更多内容详见[torchvision.transforms.ToTensor](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ToTensor)。
 
 ## mindspore.dataset.vision.ToTensor
 
@@ -20,11 +20,11 @@ class mindspore.dataset.vision.ToTensor(
 
 更多内容详见[mindspore.dataset.vision.ToTensor](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToTensor.html#mindspore.dataset.vision.ToTensor)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：将PIL类型的Image或numpy 数组转换为 torch中的Tensor，输入的numpy数组通常是<H, W, C>格式且取值在[0, 255]范围，输出是<C, H, W>格式且取值在[0.0, 1.0]的torch Tensor。
+PyTorch：将PIL类型的Image或Numpy数组转换为torch中的Tensor，输入的Numpy数组通常是<H, W, C>格式且取值在[0, 255]范围，输出是<C, H, W>格式且取值在[0.0, 1.0]的torch Tensor。
 
-MindSpore：输入为PIL类型的图像或<H, W, C>格式且取值在[0, 255]范围内的numpy数组，输出为[0.0, 1.0]范围内且具有<C, H, W>格式的numpy数组；等同于在原始输入图像上做了通道转换及像素值归一化两种操作。
+MindSpore：输入为PIL类型的图像或<H, W, C>格式且取值在[0, 255]范围内的Numpy数组，输出为[0.0, 1.0]范围内且具有<C, H, W>格式的Numpy数组；等同于在原始输入图像上做了通道转换及像素值归一化两种操作。
 
 ## 代码示例
 

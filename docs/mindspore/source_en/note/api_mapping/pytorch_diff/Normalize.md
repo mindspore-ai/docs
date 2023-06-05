@@ -1,0 +1,64 @@
+# Function Differences with torchvision.transforms.Normalize
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Normalize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+## torchvision.transforms.Normalize
+
+```python
+class torchvision.transforms.Normalize(mean, std, inplace=False)
+```
+
+For more information, see [torchvision.transforms.Normalize](https://pytorch.org/vision/0.14/generated/torchvision.transforms.Normalize.html).
+
+## mindspore.dataset.vision.Normalize
+
+```python
+class mindspore.dataset.vision.Normalize(mean, std, is_hwc=True)
+```
+
+For more information, see [mindspore.dataset.vision.Normalize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html).
+
+## Differences
+
+PyTorch: Normalize the input image based on the mean and standard deviation, specified format is not supported.
+
+MindSpore: Normalize the input image based on the mean and standard deviation, in-place option is not supported.
+
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | mean   | mean     | - |
+|     | Parameter2 | std    |std   | - |
+|     | Parameter3 | inplace | -   | Whether to make this operation in-place |
+|     | Parameter4 | -   | is_hwc    | Whether the input image is HWC or CHW |
+
+## Code Example
+
+```python
+from download import download
+from PIL import Image
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
+import torchvision.transforms as T
+
+to_tensor = T.ToTensor()
+normalize = T.Normalize(mean=[0, 0, 0], std=[1, 1, 1])
+img_torch = T.Compose([to_tensor, normalize])((orig_img))
+print(img_torch.shape)
+# Torch tensor is in C,H,W format
+# Out: torch.Size([3, 292, 471])
+
+# MindSpore
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
+
+to_tensor = vision.ToTensor()
+normalize = vision.Normalize(mean=[0, 0, 0], std=[1, 1, 1], is_hwc=False)
+img_ms = transforms.Compose([to_tensor, normalize])((orig_img))
+print(img_ms[0].shape)
+# vision.ToTensor change the format from HWC to CHW, so normalize have to specify `is_hwc=False`
+# Out: (3, 292, 471)
+```

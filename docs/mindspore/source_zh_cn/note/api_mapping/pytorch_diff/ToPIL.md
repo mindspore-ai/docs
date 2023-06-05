@@ -10,7 +10,7 @@ class torchvision.transforms.ToPILImage(
     )
 ```
 
-更多内容详见[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToPILImage)。
+更多内容详见[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ToPILImage)。
 
 ## mindspore.dataset.vision.ToPIL
 
@@ -20,11 +20,15 @@ class mindspore.dataset.vision.ToPIL
 
 更多内容详见[mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：将torch中的Tensor或numpy数组转换为PIL类型的图像。输入可以是<C, H, W> 格式的torch Tensor，或者<H, W, C> 格式的numpy数组。
+PyTorch：将torch中的Tensor或Numpy数组转换为PIL类型的图像。输入可以是<C, H, W> 格式的torch Tensor，或者<H, W, C> 格式的Numpy数组。
 
-MindSpore：输入为解码后的numpy数组，将其转换为PIL类型的图像。
+MindSpore：将<H, W, C>格式的Numpy数组（如解码后的图像）转换为PIL图像，不支持指定输入图像的颜色空间。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        |---  |
+|参数 | 参数1 | mode    | -    | 输入原始数据的颜色空间 |
 
 ## 代码示例
 

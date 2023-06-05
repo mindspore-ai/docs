@@ -11,7 +11,7 @@ class torchvision.transforms.RandomSolarize(
     )
 ```
 
-更多内容详见[torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize)。
+更多内容详见[torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomSolarize)。
 
 ## mindspore.dataset.vision.RandomSolarize
 
@@ -23,55 +23,40 @@ class mindspore.dataset.vision.RandomSolarize(
 
 更多内容详见[mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：通过反转高于阈值的所有像素值，以给定的概率随机对图像进行曝光操作。
 
 MindSpore：从指定阈值范围内随机选择一个子范围，并将图像像素值调整在子范围内。
 
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        | PyTorch为反转高于阈值的所有像素值，MindSpore为指定阈值范围内随机选择一个子范围进行反转  |
+|参数 | 参数1 | threshold   | threshold   | - |
+|     | 参数2 | p      | -   | 指定对图像应用变换的概率 |
+
 ## 代码示例
 
 ```python
+from download import download
 from PIL import Image
-from pathlib import Path
-import numpy as np
-import matplotlib.pyplot as plt
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
 import torchvision.transforms as T
+
+transform = T.RandomSolarize(threshold=128, p=1)
+img_torch = T.Compose([transform])(orig_img)
+
+
+# MindSpore
 import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
-orig_img = Image.open(Path('.') / 'test.jpg')
-
-def show_diff_image(image_original, image_transformed):
-
-    num = 2
-
-    plt.subplot(1, num, 1)
-    plt.imshow(image_original)
-    plt.title("Original image")
-
-    plt.subplot(1, num, 2)
-    plt.imshow(image_transformed)
-    plt.title("Random Solaried image")
-
-    plt.show()
+transform = vision.RandomSolarize(threshold=(128, 128))
+img_ms = transforms.Compose([transform])(orig_img)
 
 
-# In MindSpore, randomly selects a subrange within the specified threshold range and sets the pixel value within the subrange to (255 - pixel).
-
-solarizer  = vision.RandomSolarize(threshold=(10,100))
-rand_sola_img = solarizer(orig_img)
-show_diff_image(orig_img, rand_sola_img)
-
-# Out:
-# Original image and Solarized image are showed with matplotlib tools
-
-
-# In torch, the RandomSolarize transform randomly solarizes the image by inverting all pixel values above the threshold.
-
-solarizer = T.RandomSolarize(threshold=192.0)
-solarized_imgs = solarizer(orig_img)
-show_diff_image(orig_img, solarized_imgs)
-
-# Out:
-# Original image and Solarized image are showed with matplotlib tools
 ```

@@ -1,0 +1,57 @@
+# Function Differences with torchvision.transforms.RandomPerspective
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomPerspective.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
+## torchvision.transforms.RandomPerspective
+
+```python
+class torchvision.transforms.RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=InterpolationMode.BILINEAR, fill=0)
+```
+
+For more information, see [torchvision.transforms.RandomPerspective](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomPerspective.html).
+
+## mindspore.dataset.vision.RandomPerspective
+
+```python
+class mindspore.dataset.vision.RandomPerspective(distortion_scale=0.5, prob=0.5, interpolation=Inter.BICUBIC)
+```
+
+For more information, see [mindspore.dataset.vision.RandomPerspective](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomPerspective.html).
+
+## Differences
+
+PyTorch: Performs a random perspective transformation of the given image with a given probability. Pixel fill value for the area outside the transformed image can be specified.
+
+MindSpore: Performs a random perspective transformation of the given image with a given probability. Pixel fill value for the area outside the transformed image will always be black.
+
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | distortion_scale   | distortion_scale   | - |
+|     | Parameter2 | p     | prob   |- |
+|     | Parameter3 | interpolation     | interpolation    | The default value is different |
+|     | Parameter4 | fill    | -   | Pixel fill value for the area outside the transformed image |
+
+## Code Example
+
+```python
+from download import download
+from PIL import Image
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
+import torchvision.transforms as T
+
+transform = T.RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=T.InterpolationMode.BILINEAR)
+img_torch = T.Compose([transform])(orig_img)
+
+
+# MindSpore
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
+
+transform = vision.RandomPerspective(distortion_scale=0.5, prob=0.5, interpolation=vision.Inter.BILINEAR)
+img_ms = transforms.Compose([transform])(orig_img)
+```

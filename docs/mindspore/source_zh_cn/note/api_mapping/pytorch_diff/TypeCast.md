@@ -10,7 +10,7 @@ class torchvision.transforms.ConvertImageDtype(
     )
 ```
 
-更多内容详见[torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ConvertImageDtype)。
+更多内容详见[torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ConvertImageDtype)。
 
 ## mindspore.dataset.transforms.TypeCast
 
@@ -22,7 +22,7 @@ class mindspore.dataset.transforms.TypeCast(
 
 更多内容详见[mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：将张量图像转换为给定的数据类型并相应缩放值，此算子不支持PIL图像。
 
@@ -31,57 +31,30 @@ MindSpore：将输入的numpy.ndarray图像转换为所需的数据类型。
 ## 代码示例
 
 ```python
-import numpy as np
-import mindspore.dataset as ds
+from download import download
+from PIL import Image
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
 import torch
 import torchvision.transforms as T
-import torchvision.datasets as datasets
-from torch.utils.data import DataLoader
+
+to_tensor = T.ToTensor()
+convert = T.ConvertImageDtype(torch.float)
+img_torch = T.Compose([to_tensor, convert])((orig_img))
+print(img_torch.dtype)
+# Out: torch.float32
+
+# MindSpore
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 
-# In MindSpore, TypeCast act through map operation.
-
-coco_dataset_dir = "/path/to/coco/testCOCO/train"
-coco_annotation_file = "/path/to/coco/testCOCO/annotations/train.json"
-
-dataset = ds.CocoDataset(
-    dataset_dir=coco_dataset_dir,
-    annotation_file=coco_annotation_file,
-    task='Detection')
-transforms_list = transforms.Compose(
-    [vision.Decode(to_pil=True),
-    vision.ToTensor(),
-    transforms.TypeCast(np.float32)])
-dataset  = dataset.map(operations=transforms_list, input_columns="image")
-
-for item in dataset:
-    print(len(item[0]))
-    break
-# Out:
-#  3
-
-# In torch, ConvertImageDtype act through Sequential operation.
-coco_dataset_dir = "/path/to/coco_dataset_directory/images"
-coco_annotation_file = "/path/to/coco_dataset_directory/annotation_file"
-
-#Convert a PIL Image or numpy.ndarray to tensor. This transform does not support torchscript.
-dataset = datasets.CocoDetection(coco_dataset_dir, coco_annotation_file, transform=T.ToTensor())
-dataloader = DataLoader(dataset=dataset, num_workers=8, batch_size=1, shuffle=True)
-
-for epoch in range(1):
-    for i, batch in enumerate(dataloader):
-        transformers = T.Compose([T.ConvertImageDtype(torch.float)])
-        real_a = batch[0]
-        real_a = transformers(real_a)
-        print(real_a.shape)
-        print(real_a.dtype)
-# Out:
-# loading annotations into memory...
-# Done (t=0.00s)
-# creating index...
-# index created!
-# torch.Size([1, 3, 561, 595])
-# torch.float32
-# ...
+to_tensor = vision.ToTensor()
+convert = transforms.TypeCast("float32")
+img_ms = transforms.Compose([to_tensor, convert])((orig_img))
+print(img_ms[0].dtype)
+# Out: float32
 ```
