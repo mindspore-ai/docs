@@ -118,7 +118,7 @@ Based on the error message and the location of the error code, combined with the
    In addition, MindSpore open source community has a lot of issues feedbacked by developers, involving network development error reporting, framework failure and many other issues. Users can search for similar problems using, for example, network name, error reporting content keywords. The keyword selection can refer to the error reporting case.
 
    The search address is as follows: \ `MindSpore
-   Issues <https://gitee.com/mindspore/mindspore/issues>`__\ .
+   Issues <https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0631105934233557004>`__\ .
 
 Debug Positioning
 ~~~~~~~~~~~~~~~~~~
