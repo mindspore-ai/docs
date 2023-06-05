@@ -12,15 +12,15 @@ A: You can implement by referring to the [test_tdt_data_transfer.py](https://git
 
 A: You can refer to the following steps to reduce the memory occupation, which may also reduce the efficiency of data processing.
 
-  1. Before defining the dataset `**Dataset` object, set the prefetch size of `Dataset`  data processing, `ds.config.set_prefetch_size(2)`.
+1. Before defining the dataset `**Dataset` object, set the prefetch size of `Dataset`  data processing, `ds.config.set_prefetch_size(2)`.
 
-  2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` as 1.
+2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` as 1.
 
-  3. If you further use `.map(...)` operation on `**Dataset` object, you can set `.map(...)` operation's parameter `num_parallel_workers` as 1.
+3. If you further use `.map(...)` operation on `**Dataset` object, you can set `.map(...)` operation's parameter `num_parallel_workers` as 1.
 
-  4. If you further use `.batch(...)` operation on `**Dataset` object, you can set `.batch(...)` operation's parameter `num_parallel_workers` as 1.
+4. If you further use `.batch(...)` operation on `**Dataset` object, you can set `.batch(...)` operation's parameter `num_parallel_workers` as 1.
 
-  5. If you further use `.shuffle(...)` operation on `**Dataset` object, you can reduce the parameter `buffer_size`.
+5. If you further use `.shuffle(...)` operation on `**Dataset` object, you can reduce the parameter `buffer_size`.
 
 <br/>
 
@@ -28,11 +28,11 @@ A: You can refer to the following steps to reduce the memory occupation, which m
 
 A: You can refer to the following steps to reduce CPU consumption (mainly due to resource competition between third-party library multithreading and data processing multithreading) and further improve performance.
 
-  1. If there is a `cv2` operation of opencv in the data processing, use `cv2.setNumThreads(2)` to set the number of `cv2` global threads.
+1. If there is a `cv2` operation of opencv in the data processing, use `cv2.setNumThreads(2)` to set the number of `cv2` global threads.
 
-  2. If there is a `numpy` operation in the data processing, use `export OPENBLAS_NUM_THREADS=1` to set the number of `OPENBLAS` threads.
+2. If there is a `numpy` operation in the data processing, use `export OPENBLAS_NUM_THREADS=1` to set the number of `OPENBLAS` threads.
 
-  3. If there is a `numba` operation in the data processing, use `numba.set_num_threads(1)` to set the number of threads for `numba`.
+3. If there is a `numba` operation in the data processing, use `numba.set_num_threads(1)` to set the number of threads for `numba`.
 
 <br/>
 
@@ -211,27 +211,27 @@ A: MindSpore Dataset module makes it easy for users to define data preprocessing
 
 A: Firstly, above error refers to failed sending data to the device through the training data transfer channel (TDT). Here are several possible reasons for this error. Therefore, the corresponding checking suggestions are given in the log. In detail:
 
-  1. Commonly, we will find the first error (the first ERROR level error) or error TraceBack thrown in the log, and try to find information that helps locate the cause of the error.
+1. Commonly, we will find the first error (the first ERROR level error) or error TraceBack thrown in the log, and try to find information that helps locate the cause of the error.
 
-  2. **When error raised in the graph compiling stage, as training has not started** (for example, the loss has not been printed in the log), please check the error log if there are errors reported by the network related operators or the environment configuration resulted Errors (such as hccl.json is incorrect, resulted abnormal initialization of multi-card communication)
+2. **When error raised in the graph compiling stage, as training has not started** (for example, the loss has not been printed in the log), please check the error log if there are errors reported by the network related operators or the environment configuration resulted Errors (such as hccl.json is incorrect, resulted abnormal initialization of multi-card communication)
 
-  3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with `get_dataset_size` interface，several possible reason are as follows:
+3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with `get_dataset_size` interface，several possible reason are as follows:
 
-      - With checking the print times of loss to figure out that when data amount(trained steps) is just an integer multiple of the batches number in an epoch, there may be a processing existence problem in the data processing part involving Epoch processing, such as the following case:
+    - With checking the print times of loss to figure out that when data amount(trained steps) is just an integer multiple of the batches number in an epoch, there may be a processing existence problem in the data processing part involving Epoch processing, such as the following case:
 
-          ```python
-          ...
-          dataset = dataset.create_tuple_iteator(num_epochs=-1) # Here, if you want to return an iterator, num_epochs should be 1, but it is recommended to return dataset directly
-          return dataset
-          ```
+        ```python
+        ...
+        dataset = dataset.create_tuple_iteator(num_epochs=-1) # Here, if you want to return an iterator, num_epochs should be 1, but it is recommended to return dataset directly
+        return dataset
+        ```
 
-      - The data processing performance is slow, and cannot keep up with the speed of network training. For this case, you can use the profiler tool and MindSpore Insight to see if there is an obvious iteration gap, or manually iterating the dataset, and print the average single batch time if it is longer than the combined forward and backward time of the network. There is a high probability that the performance of the data processing part needs to be optimized if yes.
+    - The data processing performance is slow, and cannot keep up with the speed of network training. For this case, you can use the profiler tool and MindSpore Insight to see if there is an obvious iteration gap, or manually iterating the dataset, and print the average single batch time if it is longer than the combined forward and backward time of the network. There is a high probability that the performance of the data processing part needs to be optimized if yes.
 
-      - During the training process, the occurrence of abnormal data may resulted in exception, causing sending data failed. In this case, there will be other `ERROR` logs that shows which part of the data processing process is abnormal and checking advice. If it is not obvious, you can also try to find the abnormal data by iterating each data batch in the dataset (such as turning off shuffle, and using dichotomy).
+    - During the training process, the occurrence of abnormal data may resulted in exception, causing sending data failed. In this case, there will be other `ERROR` logs that shows which part of the data processing process is abnormal and checking advice. If it is not obvious, you can also try to find the abnormal data by iterating each data batch in the dataset (such as turning off shuffle, and using dichotomy).
 
-  4. **When after training** the log is printed (this is probably caused by forced release of resources), this error can be ignored.
+4. **When after training** the log is printed (this is probably caused by forced release of resources), this error can be ignored.
 
-  5. If the specific cause cannot be located, please create issue or raise question to ask the module developers for help.
+5. If the specific cause cannot be located, please create issue or raise question to ask the module developers for help.
 
 <br/>
 
@@ -449,5 +449,66 @@ A: When the `GeneratorDataset` is used to load Numpy array returned by Pyfunc, M
     data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
 
     ```
+
+<br/>
+
+<font size=3>**Q: How to determine the cause of GetNext timeout based on the exit status of data preprocessing?**</font>
+
+A: When using the data sinking mode (where `data preprocessing` -> `sending queue` -> `network computing` form the pipeline mode) for training and there is a GetNext timeout error, the data preprocessing module will output status information to help users analyze the cause of the error. Users can see the following situations in the log, and for the specific reasons and improvement methods, refer to:
+
+1. When the log output is similar to the following, it indicates that the data preprocessing has not generated any data that can be used for training.
+
+    ```
+    preprocess_batch: 0;
+    batch_queue: ;
+                push_start_time -> push_end_time
+    ```
+
+    Improvement method: You can loop through the dataset to confirm if the dataset preprocessing is normal.
+
+2. When the log output is similar to the following, it indicates that data preprocessing has generated a batch of data, but it has not been sent to the device side yet.
+
+    ```
+    preprocess_batch: 0;
+    batch_queue: 1;
+                push_start_time -> push_end_time
+    2022-05-09-11:36:00.521.386 ->
+    ```
+
+    Improvement method: You can check if the device plog has an error message.
+
+3. When the log output is similar to the following, it indicates that data preprocessing has generated three batches of data, all of which have been sent to the device side, and the fourth batch of data is being preprocessed.
+
+    ```
+    preprocess_batch: 3;
+    batch_queue: 1, 0, 1;
+                push_start_time -> push_end_time
+    2022-05-09-11:36:00.521.386 -> 2022-05-09-11:36:00.782.215
+    2022-05-09-11:36:01.212.621 -> 2022-05-09-11:36:01.490.139
+    2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
+    ```
+
+    Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through `mindspore.set_context(op_timeout=xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to improve data preprocessing performance.
+
+4. When the log output is similar to the following, it indicates that data preprocessing has generated 182 batches of data and the 183st batch of data is being sent to the device.
+
+    ```
+    preprocess_batch: 182;
+    batch_queue: 1, 0, 1, 1, 2, 1, 0, 1, 1, 0;
+                push_start_time -> push_end_time
+                                -> 2022-05-09-14:31:00.603.866
+    2022-05-09-14:31:00.621.146 -> 2022-05-09-14:31:01.018.964
+    2022-05-09-14:31:01.043.705 -> 2022-05-09-14:31:01.396.650
+    2022-05-09-14:31:01.421.501 -> 2022-05-09-14:31:01.807.671
+    2022-05-09-14:31:01.828.931 -> 2022-05-09-14:31:02.179.945
+    2022-05-09-14:31:02.201.960 -> 2022-05-09-14:31:02.555.941
+    2022-05-09-14:31:02.584.413 -> 2022-05-09-14:31:02.943.839
+    2022-05-09-14:31:02.969.583 -> 2022-05-09-14:31:03.309.299
+    2022-05-09-14:31:03.337.607 -> 2022-05-09-14:31:03.684.034
+    2022-05-09-14:31:03.717.230 -> 2022-05-09-14:31:04.038.521
+    2022-05-09-14:31:04.064.571 ->
+    ```
+
+    Improvement method: You can check if the device plog has an error message.
 
 <br/>
