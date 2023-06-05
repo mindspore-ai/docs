@@ -245,11 +245,11 @@ def forward_fn(data, label1, label2):
     output = network(data)
     return loss_fn(output, label1, label2)
 
-grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, opt.parameters)
 
 def train_step(data, label1, label2):
     loss, grads = grad_fn(data, label1, label2)
-    optimizer(grads)
+    opt(grads)
     return loss
 
 def train(model, dataset):
