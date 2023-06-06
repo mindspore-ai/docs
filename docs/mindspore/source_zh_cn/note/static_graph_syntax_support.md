@@ -58,274 +58,387 @@ print(x)
 
 #### List
 
-支持在网络里构造`List`，即支持语法`y = [1, 2, 3]`。
-
-比如：
-
-原生Python：
+`List` 以及 `Tuple` 是Python中最基本的序列内置类型，`List` 与 `Tuple` 最核心的区别是 `List` 是可以改变的对象，而 `Tuple` 是不可以更改的。 这意味着 `Tuple` 一旦被创建， 就不可以在对象地址不变的情况下被更改。而 `List` 则可以通过一系列inplace操作，在不改变对象地址的情况下， 对对象进行修改。 例如：
 
 ```python
->>>a = [[1,2,3],4,5]
->>>b = a[0]
->>>b[0] = 123123
->>>a
-[123123, 2, 3], 4, 5]
+a = [1, 2, 3, 4]
+a_id = id(a)
+a.append(5)
+a_after_id = id(a)
+assert a_id == a_after_id
 ```
 
-MindSpore:
+上述示例代码中，通过 `append` 这个inplace语法更改 `List` 对象时候， 其对象的地址并没有被修改。 而 `Tuple` 是不支持这种inplace操作的。 在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，静态图模式可以支持部分 `List` 对象的inplace操作。
 
-```python
-import mindspore as ms
+MindSpore图模式语法扩展了对 `List` 的支持，方便用户使用 `List` 进行网络构建。
 
-@ms.jit
-def test_list():
-    a = [[1,2,3],4,5]
-    b = a[0]
-    b[0] = 123123
-    return a
+- 图模式支持图内创建List
 
-a = test_list()
-print('a:{}'.format(a))
-```
+  支持在图模式内创建 `List` 对象，且 `List` 内对象的元素可以包含任意图模式支持的类型，也支持多层嵌套。 例如：
 
-结果如下：
+  ```python
+  import numpy as np
+  import mindspore as ms
 
-```text
-a:[[1, 2, 3], 4, 5]
-```
+  @ms.jit
+  def generate_list():
+    a = [1, 2, 3, 4]
+    b = ["1", "2", "a"]
+    c = [ms.Tensor([1]), ms.Tensor([2])]
+    d = [np.array([1, 2, 3]), np.array(["1, 2, 3"])]
+    d = [a, b, c, d, (4, 5)]
+    return d
+  ```
 
-- 支持接口
+  上述示例代码中，所有的 `List` 对象都可以被正常的创建。
 
-  `append`: 向`list`里追加元素。
+- 图模式支持返回List
 
-  示例如下：
+  在MindSpore2.0版本之前，当图模式返回 `List` 对象时，`List` 会被转换为 `Tuple`。MindSpore2.0版本已经可以支持返回 `List` 对象。例如：
 
   ```python
   import mindspore as ms
 
-  @ms.jit()
-  def test_list():
-      x = [1, 2, 3]
-      x.append(4)
+  @ms.jit
+  def list_func():
+      a = [1, 2, 3, 4]
+      return d
+
+  output = list_func()  # output: [1, 2, 3, 4]
+  ```
+
+  与图模式内创建 `List` 相同，图模式返回 `List` 对象可以包括任意图模式支持的类型，也支持多层嵌套。
+
+- 图模式支持从全局变量中获取List对象
+
+  图模式可以从全局变量中获取 `List` 对象。例如：
+
+  ```python
+  import mindspore as ms
+
+  global_list = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func():
+      global_list.reverse()
+      return global_list
+
+  output = list_func()  # output: [4, 3, 2, 1]
+  assert id(global_list) == id(output)
+  ```
+
+  在上述示例中，静态图获取到 `List` 对象，并在原有对象上进行了图模式支持的inplace操作 `list.reverse()`, 并将原有对象返回。可以看到图模式返回的对象与原有的全局变量对象id相同， 即两者为同一对象。 若 `JIT_SYNTAX_LEVEL` 设置为 `STRICT` 选项，则返回的 `List` 对象与全局对象为两个不同的对象。
+
+- 图模式支持以List作为输入
+
+  图模式支持 `List` 作为静态图的输入， 作为输入的 `List` 对象的元素必须为图模式支持的输入类型, 也支持多层嵌套。
+
+  ```python
+  import mindspore as ms
+
+  list_input = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func(x):
       return x
 
-  x = test_list()
-  print('x:{}'.format(x))
+  output = list_func()  # output: [1, 2, 3, 4]
   ```
 
-  结果如下：
+  `List` 作为静态图输入存在两点注意事项：
 
-  ```text
-  x:[1, 2, 3, 4]
-  ```
+  1) `List` 作为静态图输入的时候，无论其内部的元素是什么类型， 一律被视为常量。
 
-  `insert`: 在`list`里的指定位置插入指定的元素。
-
-  示例如下：
+  2) `List` 作为静态图输入的时候，会对该 `List` 对象进行一次复制，并使用该复制对象进行后续的计算， 因此无法对原输入对象进行inplace操作。 例如：
 
   ```python
   import mindspore as ms
 
-  @ms.jit()
-  def test_list_insert():
-      x = [1, 3, 4]
-      x.insert(0, 2)
-      return x
+  list_input = [1, 2, 3, 4]
 
-  x = test_list_insert()
-  print('x:{}'.format(x))
-  ```
-
-  结果如下：
-
-  ```text
-  x:[2, 1, 3, 4]
-  ```
-
-  `pop`: 移除`list`里的指定位置的元素，默认移除最后一个。
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_list_pop():
-      x = [1, 3, 4]
-      y = x.pop()
-      return x, y
-
-  x, y = test_list_pop()
-  print('x:{}'.format(x))
-  print('y:', y)
-  ```
-
-  结果如下：
-
-  ```text
-  x:[1, 3]
-  y: 4
-  ```
-
-  `clear`: 清空`list`里的元素。
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_list_clear():
-      x = [1, 3, 4]
-      x.clear()
-      return x
-
-  x = test_list_clear()
-  print('x:{}'.format(x))
-  ```
-
-  结果如下：
-
-  ```text
-  x:[]
-  ```
-
-  `extend`: 在`list`末尾追加另一个序列的多个值。
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_list_extend():
-      x = [1, 2, 3, 4]
-      y = [5, 6, 7]
-      x.extend(y)
-      return x
-
-  x = test_list_extend()
-  print('x:{}'.format(x))
-  ```
-
-  结果如下：
-
-  ```text
-  x:[1, 2, 3, 4, 5, 6, 7]
-  ```
-
-  `reverse`: 逆转`list`中的元素。
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_list_reverse():
-      x = [1, 2, 3, 4]
+  @ms.jit
+  def list_func(x):
       x.reverse()
       return x
 
-  x = test_list_reverse()
-  print('x:{}'.format(x))
+  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  assert id(output) != id(list_input)
   ```
 
-  结果如下：
+  如上述用例所示，`List` 对象作为图模式输入时无法在原有对象上进行inplace操作。图模式返回的对象与输入的对象id不同，为不同对象。
 
-  ```text
-  x:[4, 3, 2, 1]
-  ```
+- 图模式支持List的内置方法
 
-  `count`: 统计`list`中的某个元素出现的次数。
+  在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，图模式部分 `List` 内置函数支持inplace。在 `JIT_SYNTAX_LEVEL` 为 `STRICT` 的情况下，所有方法均不支持inplace操作。  
+  图模式支持的 `List` 内置方法如下表所示：
 
-  示例如下：
+  | 方法名       | 是否支持inplace （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
+  | ----------  | ------------      |
+  | 索引取值      | 非inplace操作      |
+  | 索引赋值      | 不支持             |
+  | append      | 不支持             |
+  | clear       | 不支持             |
+  | extend      | 支持               |
+  | pop         | 支持               |
+  | reverse     | 支持               |
+  | insert      | 支持               |
 
-  ```python
-  import mindspore as ms
+  `List` 内置方法的详细介绍如下：
 
-  @ms.jit()
-  def test_list_count():
-      x = [1, 2, 3, 4]
-      num = x.count(2)
-      return num
+    - List索引取值
 
-  num = test_list_count()
-  print('num:', num)
-  ```
+      基础语法：```element = list_object[index]```。
 
-  结果如下：
+      基础语义：将 `List` 对象中位于第 `index` 位的元素提取出来（ `index` 从0开始）。支持多层索引取值。
 
-  ```text
-  num: 1
-  ```
+      索引值`index` 支持类型包括 `int`， `Tensor` 和`slice`。其中，`int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
 
-  框架内部提供SequenceCount算子来支持统计List中Tensor变量场景。
+      示例如下：
 
-  ```python
-  import mindspore as ms
+      ```python
+      import mindspore as ms
+      @ms.jit()
+      def list_getitem_func():
+          x = [[1, 2], 3, 4]
+          a = x[0]
+          b = x[0][ms.Tensor([1])]
+          c = x[1:3:1]
+          return a, b, c
 
-  @ms.jit()
-  def test_list_count(input_x):
-      x = [1, 2, 3, 4]
-      num = x.count(input_x)
-      return num
+      a, b, c = list_getitem_func()
+      print('a:{}'.format(a))
+      print('b:{}'.format(b))
+      print('c:{}'.format(c))
+      ```
 
-  input_x = ms.Tensor(2)
-  num = test_list_count(input_x)
-  print('num:', num)
-  ```
+      结果如下：
 
-  结果如下：
+      ```text
+        a:[1, 2]
+        b:2
+        c:[3, 4]
+      ```
 
-  ```text
-  num:1
-  ```
+    - List索引赋值
 
-- 支持索引取值和赋值
+      基础语法：```list_object[index] = target_element```。
 
-  支持单层和多层索引取值以及赋值。
+      基础语义：将 `List` 对象中位于第 `index` 位的元素赋值为 `target_element`（ `index` 从0开始）。支持多层索引赋值。
 
-  索引值仅支持`int`和`slice`。
-  `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。
-  赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
-  当前切片赋值右值为`Tensor`时，需要将`Tensor`转换为`List`，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html#jit-fallback)实现，所以暂时不能支持变量场景。
+      索引值 `index` 支持类型包括 `int`， `Tensor` 和`slice`。 其中， `int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
 
-  示例如下：
+      索引赋值对象 `target_element` 支持所有图模式支持的类型。
 
-  ```python
-  import mindspore as ms
-  import numpy as np
+      目前，`List` 索引赋值不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
 
-  t = ms.Tensor(np.array([1, 2, 3]))
+      示例如下：
 
-  @ms.jit()
-  def test_index():
-      x = [[1, 2], 2, 3, 4]
-      m = x[0][1]
-      z = x[1::2]
-      x[1] = t
-      x[2] = "ok"
-      x[3] = (1, 2, 3)
-      x[0][1] = 88
-      n = x[-3]
-      return m, z, x, n
+      ```python
+      import mindspore as ms
+      import numpy as np
 
-  m, z, x, n = test_index()
-  print('m:{}'.format(m))
-  print('z:{}'.format(z))
-  print('x:{}'.format(x))
-  print('n:{}'.format(n))
-  ```
+      @ms.jit()
+      def test_setitem_func():
+          x = [[0, 1], 2, 3, 4]
+          x[1] = 10
+          x[2] = "ok"
+          x[3] = (1, 2, 3)
+          x[0][1] = 88
+          return x
 
-  结果如下：
+      output = test_index()
+      print('output:{}'.format(output))
+       ```
 
-  ```text
-  m:2
-  z:[2, 4]
-  x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
-  n:[1 2 3]
-  ```
+      结果如下：
+
+      ```text
+        output:[[0, 88], 10, "ok", (1, 2, 3)]
+      ```
+
+    - List.append
+
+      基础语法：```list_object.append(target_element)```。
+
+      基础语义：向 `List` 对象 `list_object` 的最后追加元素 `target_element`。
+
+      目前，`List.append` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+
+      示例如下：
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list():
+          x = [1, 2, 3]
+          x.append(4)
+          return x
+
+      x = test_list()
+      print('x:{}'.format(x))
+      ```
+
+      结果如下：
+
+      ```text
+      x:[1, 2, 3, 4]
+      ```
+
+    - List.clear
+
+      基础语法：```list_object.clear()```。
+
+      基础语义：向 `List` 对象 `list_object` 的内的对象清空。
+
+      目前，`List.clear` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+
+      示例如下：
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list_clear():
+          x = [1, 3, 4]
+          x.clear()
+          return x
+
+      x = test_list_clear()
+      print('x:{}'.format(x))
+      ```
+
+      结果如下：
+
+      ```text
+      x:[]
+      ```
+
+    - List.extend
+
+      基础语法：```list_object.extend(target)```。
+
+      基础语义：向 `List` 对象 `list_object` 的最后依次插入 `target` 内的所有元素。
+
+      `target` 支持的类型为 `Tuple`， `List` 以及 `Tensor`。其中，如果 `target` 类型为 `Tensor` 的情况下，会先将该 `Tensor` 转换为 `List`，在进行插入操作。
+
+      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，`List.extend` 支持inplace操作，函数运行后不生成新的对象。
+
+      示例如下：
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list_extend():
+          x1 = [1, 2, 3]
+          x1.extends((4, "a"))
+          x2 = [1, 2, 3]
+          x2.extends(ms.Tensor([4, 5]))
+          return x1, x2
+
+      output1, output2 = test_list_extend()
+      print('output1:{}'.format(output1))
+      print('output2:{}'.format(output2))
+      ```
+
+      结果如下：
+
+      ```text
+      output1:[1, 2, 3, 4, "a"]
+      output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
+      ```
+
+    - List.pop
+
+      基础语法：```pop_element = list_object.pop(index=-1)```。
+
+      基础语义：将 `List` 对象 `list_object` 的的第 `index` 个元素从 `list_object` 中删除，并返回该元素。
+
+      `index` 要求必须为常量 `int`, 当 `list_object` 的长度为 `list_obj_size` 时，`index` 的取之范围为： `[-list_obj_size， list_obj_size-1]`。 `index` 为负数代表从后往前的位数。当没有输入 `index` 时， 默认值为-1， 即删除最后一个元素。
+
+      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.pop` 支持inplace操作，函数运行后不生成新的对象。
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list_pop():
+          x = [1, 2, 3]
+          b = x.pop()
+          return b, x
+
+      pop_element, res_list = test_list_extend()
+      print('pop_element:{}'.format(pop_element))
+      print('res_list:{}'.format(res_list))
+      ```
+
+      结果如下：
+
+      ```text
+      pop_element:3
+      res_list:[1, 2]
+      ```
+
+    - List.reverse
+
+      基础语法：```list_object.reverse()```。
+
+      基础语义：将 `List` 对象 `list_object` 的元素顺序倒转。
+
+      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.reverse` 支持inplace操作，函数运行后不生成新的对象。
+
+      示例如下：
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list_reverse():
+          x = [1, 2, 3]
+          x.reverse()
+          return x
+
+      output = test_list_extend()
+      print('output:{}'.format(output))
+      ```
+
+      结果如下：
+
+      ```text
+      output1:[3, 2, 1]
+      ```
+
+    - List.insert
+
+      基础语法：```list_object.insert(index, target_obj)```。
+
+      基础语义：将 `target_obj` 插入到 `list_object` 的第 `index` 位。
+
+      `index` 要求必须为常量 `int`。 如果 `list_object` 的长度为 `list_obj_size` 。当 `index < -list_obj_size` 时，插入到 `List` 的第一位。当 `index >= -list_obj_size` 时，插入到 `List` 的最后。 `index` 为负数代表从后往前的位数。
+
+      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.insert` 支持inplace操作，函数运行后不生成新的对象。
+
+      示例如下：
+
+      ```python
+      import mindspore as ms
+
+      @ms.jit()
+      def test_list_reverse():
+          x = [1, 2, 3]
+          x.reverse()
+          return x
+
+      output = test_list_extend()
+      print('output:{}'.format(output))
+      ```
+
+      结果如下：
+
+      ```text
+      output1:[3, 2, 1]
+      ```
 
 #### Tuple
 
