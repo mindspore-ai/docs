@@ -16,7 +16,7 @@ The running backend specified by the script must match the actual hardware devic
 
 For details, visit the following website:
 
-[MindSpore Configuration Error - 'set_context' Configuration Error](https://bbs.huaweicloud.com/forum/thread-183514-1-1.html)
+[MindSpore Configuration Error - 'set_context' Configuration Error](https://www.hiascend.com/forum/thread-0229106885219029083-1-1.html)
 
 For details about the context configuration, see ['set_context'](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.set_context.html).
 
@@ -40,7 +40,7 @@ This is because the function parameter list is incorrect when the user-defined `
 
 For details, visit the following website:
 
-[MindSpore Syntax Error - 'construct' Definition Error](https://bbs.huaweicloud.com/forum/thread-178902-1-1.html)
+[MindSpore Syntax Error - 'construct' Definition Error](https://www.hiascend.com/forum/thread-0230106556970619074-1-1.html)
 
 ### Incorrect Control Flow Syntax
 
@@ -74,7 +74,7 @@ One solution to the problem that the function call stack exceeds the threshold i
 
 For details, visit the following website:
 
-[MindSpore Syntax Error - Exceed function call depth limit](https://bbs.huaweicloud.com/forum/thread-182165-1-1.html)
+[MindSpore Syntax Error - Exceed function call depth limit](https://www.hiascend.com/forum/thread-0223111589074862027-1-1.html)
 
 ## Operator Build Errors
 
@@ -88,7 +88,7 @@ RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x
 
 For details, visit the following website:
 
-[MindSpore Operator Build Error - ReduceSum Operator Does Not Support Input of More Than Eight Dimensions](https://bbs.huaweicloud.com/forum/thread-182168-1-1.html)
+[MindSpore Operator Build Error - ReduceSum Operator Does Not Support Input of More Than Eight Dimensions](https://www.hiascend.com/forum/thread-0229108037306667164-1-1.html)
 
 For example, the Parameter parameter does not support automatic type conversion. When the Parameter operator is used, an error is reported during data type conversion. The error message is as follows:
 
@@ -98,7 +98,7 @@ RuntimeError: Data type conversion of 'Parameter' is not supported, so data type
 
 For details, visit the following website:
 
-[MindSpore Operator Build Error - Error Reported Due to Inconsistent ScatterNdUpdate Operator Parameter Types](https://bbs.huaweicloud.com/forum/thread-182175-1-1.html)
+[MindSpore Operator Build Error - Error Reported Due to Inconsistent ScatterNdUpdate Operator Parameter Types](https://www.hiascend.com/forum/thread-0232107351416081120-1-1.html)
 
 In addition, sometimes errors such as `Response is empty`, `Try to send request before Open()` and `Try to get response before Open()` may appear during the operator compilation process, as shown below:
 
@@ -130,10 +130,10 @@ Operator execution errors are mainly caused by improper input data , operator im
 
 For details, see the following example:
 
-[MindSpore Operator Execution Error - nn.GroupNorm Operator Output Exception](https://bbs.huaweicloud.com/forum/thread-182191-1-1.html)
+[MindSpore Operator Execution Error - nn.GroupNorm Operator Output Exception](https://www.hiascend.com/forum/thread-0229107351277363132-1-1.html)
 
 ## Insufficient Resources
 
 During network debugging, `Out Of Memory` errors often occur. MindSpore divides the memory into four layers for management on the Ascend device, including runtime, context, dual cursors, and memory overcommitment.
 
-For details about memory management and FAQs of MindSpore on the Ascend device, see [MindSpore Ascend Memory Management](https://bbs.huaweicloud.com/forum/thread-171161-1-1.html).
+For details about memory management and FAQs of MindSpore on the Ascend device, see [MindSpore Ascend Memory Management](https://www.hiascend.com/forum/thread-0229107352026042135-1-1.html).

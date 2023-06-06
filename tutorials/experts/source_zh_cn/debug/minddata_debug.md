@@ -22,7 +22,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
 参考实例链接：
 
-[MindRecord 数据准备 - Unexpected error. Failed to open file_MindSpore](https://bbs.huaweicloud.com/forum/thread-183183-1-1.html)
+[MindRecord 数据准备 - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
 ### MindRecord文件问题
 
@@ -42,7 +42,7 @@ MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
 
 参考实例链接：
 
-[MindSpore 数据准备 - MindRecord File could not open successfully](https://bbs.huaweicloud.com/forum/thread-184006-1-1.html)
+[MindSpore 数据准备 - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
 #### 文件被移动
 
@@ -63,7 +63,7 @@ RuntimeError: Unexpected error. Invalid file, DB file can not match file
 
 参考实例链接：
 
-[MindSpore 数据准备 - Invalid file,DB file can not match_MindSpore](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183187&page=1&authorid=&replytype=&extra=#pid1436140)
+[MindSpore 数据准备 - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
 
 #### 自定义数据时类型设置错误
 
@@ -79,7 +79,7 @@ RuntimeError: Unexpected error. Invalid data, the number of schema should be pos
 
 参考实例链接：
 
-[MindSpore 数据准备 - Unexpected error. Invalid data](https://bbs.huaweicloud.com/forum/thread-189349-1-1.html)
+[MindSpore 数据准备 - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
 ## 数据加载
 
@@ -125,7 +125,7 @@ writer.set_page_size(1 << 26) # 128MB
 
 参考实例链接：
 
-[MindSpore 数据加载 - Invalid data,Page size is too small"](https://bbs.huaweicloud.com/forum/thread-190004-1-1.html)
+[MindSpore 数据加载 - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
 
 ### `GeneratorDataset` 相关问题
 
@@ -143,7 +143,7 @@ writer.set_page_size(1 << 26) # 128MB
 
 参考实例链接：
 
-[MindSpore 数据加载 - GeneratorDataset 线程卡死](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183188&page=1&authorid=&replytype=&extra=#pid1436147)
+[MindSpore 数据加载 - GeneratorDataset 线程卡死](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
 
 #### 自定义数据返回类型不正确
 
@@ -165,7 +165,7 @@ Unexpected error. Invalid data type.
 
 参考实例链接：
 
-[MindSpore 数据集加载 - Unexpected error. Invalid data type_MindSpore](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183190&page=1&authorid=&replytype=&extra=#pid1436154)
+[MindSpore 数据集加载 - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
 #### 自定义采样器初始化错误
 
@@ -181,7 +181,7 @@ AttributeError: 'IdentitySampler' object has no attribute 'child_sampler'
 
 参考实例链接：
 
-[MindSpore 数据集加载 - 'IdentitySampler' has no attribute child_sampler](https://bbs.huaweicloud.com/forum/thread-184010-1-1.html#pid1439794)
+[MindSpore 数据集加载 - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
 
 #### 重复定义访问方式
 
@@ -197,7 +197,7 @@ For 'Tensor', the type of "input_data" should be one of ...
 
 参考实例链接：
 
-[MindSpore 数据集加载 - the type of `input_data` should be one of](https://bbs.huaweicloud.com/forum/thread-184041-1-1.html)
+[MindSpore 数据集加载 - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
 
 #### 自定义数据返回字段与定义数目不一致
 
@@ -213,7 +213,7 @@ RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source
 
 参考实例链接：
 
-[MindSpore 数据集加载 - Exception thrown from PyFunc](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=189645&page=1&authorid=&replytype=&extra=#pid1474252)
+[MindSpore 数据集加载 - Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
 
 #### 用户脚本问题
 
@@ -249,7 +249,7 @@ RuntimeError: Exception thrown from PyFunc. RuntimeError: mindspore/ccsrc/pipeli
 
 参考实例链接：
 
-[MindSpore 数据集加载 - The pointer[cnode] is null](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183191)
+[MindSpore 数据集加载 - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
 
 #### 迭代初始化错误导致下标越界
 
@@ -265,7 +265,7 @@ list index out of range
 
 参考实例链接：
 
-[MindSpore 数据集加载 - list index out of range](https://bbs.huaweicloud.com/forum/thread-184036-1-1.html)
+[MindSpore 数据集加载 - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
 
 #### 未进行迭代初始化
 
@@ -305,7 +305,7 @@ oserror: [errno 24] too many open files
 
 参考实例链接：
 
-[MindSpore 数据加载 - too many open files](https://bbs.huaweicloud.com/forum/thread-184134-1-1.html)
+[MindSpore 数据加载 - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
 
 #### 错误使用从迭代器中获取数据的方法
 
@@ -327,7 +327,7 @@ for item in ds_test.create_dict_iterator():
 
 参考实例链接：
 
-[MindSpore 数据集加载- 'DictIterator' has no attribute 'get_next'](https://bbs.huaweicloud.com/forum/thread-184026-1-1.html#pid1439832)
+[MindSpore 数据集加载- 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
 
 ## 数据增强
 
@@ -347,7 +347,7 @@ TypeError：Invalid object  with type'<class 'PIL.Image.Image'>' and value'<PIL.
 
 参考实例链接：
 
-[MindSpore 数据增强 - TypeError: Invalid with type](https://bbs.huaweicloud.com/forum/thread-184123-1-1.html)
+[MindSpore 数据增强 - TypeError: Invalid with type](https://www.hiascend.com/forum/thread-0229107679078336149-1-1.html)
 
 ### 自定义数据增强操作参数类型错误
 
@@ -363,7 +363,7 @@ Exception thrown from PyFunc. TypeError: args should be Numpy narray. Got <class
 
 参考实例链接：
 
-[MindSpore 数据增强 - args should be Numpy narray](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183196&page=1&authorid=&replytype=&extra=#pid1436178)
+[MindSpore 数据增强 - args should be Numpy narray](https://www.hiascend.com/forum/thread-0230107678833189122-1-1.html)
 
 ### 数据集有两个消费节点发生冲突
 
@@ -383,7 +383,7 @@ dataset 定义上发生了分支，导致 dataset 无法确定分叉的走向。
 
 参考实例链接：
 
-[MindSpore 数据增强 - The data pipeline is not a tree](https://bbs.huaweicloud.com/forum/thread-183193-1-1.html)
+[MindSpore 数据增强 - The data pipeline is not a tree](https://www.hiascend.com/forum/thread-0230107678474985121-1-1.html)
 
 ### 数据 shape 不一致导致的 batch 操作问题
 
@@ -411,4 +411,4 @@ MindSpore 进行数据增强过程中，如果内存不足，可能会自动退�
 
 参考实例链接：
 
-[MindSpore 数据增强 - 内存不足，自动退出](https://bbs.huaweicloud.com/forum/thread-190001-1-1.html)
+[MindSpore 数据增强 - 内存不足，自动退出](https://www.hiascend.com/forum/thread-0230107679768460124-1-1.html)

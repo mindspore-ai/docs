@@ -22,7 +22,7 @@ Two solutions are available:
 
 For details, visit the following website:
 
-[MindRecord Data Preparation - Unexpected error. Failed to open file_MindSpore](https://bbs.huaweicloud.com/forum/thread-183183-1-1.html)
+[MindRecord Data Preparation - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
 ### MindRecord File Error
 
@@ -42,7 +42,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Preparation - MindRecord File could not open successfully](https://bbs.huaweicloud.com/forum/thread-184006-1-1.html)
+[MindSpore Data Preparation - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
 #### The File Is Moved
 
@@ -63,7 +63,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183187&page=1&authorid=&replytype=&extra=#pid1436140)
+[MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
 
 #### The User-defined Data Type Is Incorrect
 
@@ -79,7 +79,7 @@ Modify the input data type to ensure that it is consistent with the type definit
 
 For details, visit the following website:
 
-[MindSpore Data Preparation - Unexpected error. Invalid data](https://bbs.huaweicloud.com/forum/thread-189349-1-1.html)
+[MindSpore Data Preparation - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
 ## Data Loading
 
@@ -125,7 +125,7 @@ writer.set_page_size(1 << 26) # 128MB
 
 For details, visit the following website:
 
-[MindSpore Data Loading - Invalid data,Page size is too small"](https://bbs.huaweicloud.com/forum/thread-190004-1-1.html)
+[MindSpore Data Loading - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
 
 ### `GeneratorDataset`
 
@@ -143,7 +143,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Loading - Suspended GeneratorDataset Thread](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183188&page=1&authorid=&replytype=&extra=#pid1436147)
+[MindSpore Data Loading - Suspended GeneratorDataset Thread](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
 
 #### Incorrect User-defined Return Type
 
@@ -165,7 +165,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183190&page=1&authorid=&replytype=&extra=#pid1436154)
+[MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
 #### User-defined Sampler Initialization Error
 
@@ -181,7 +181,7 @@ In the user-defined sampler initialization method '\_\_init\_\_()', use 'super()
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://bbs.huaweicloud.com/forum/thread-184010-1-1.html#pid1439794)
+[MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
 
 #### Repeated Access Definition
 
@@ -197,7 +197,7 @@ Select a proper data input method: random access (`__getitem__`) or sequential a
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - the type of `input_data` should be one of](https://bbs.huaweicloud.com/forum/thread-184041-1-1.html)
+[MindSpore Dataset Loading - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
 
 #### Inconsistency Between the Fields Returned by the User-defined Data and the Defined Fields
 
@@ -213,7 +213,7 @@ Check whether the fields returned by `GeneratorDataset` are the same as those de
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading -Exception thrown from PyFunc](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=189645&page=1&authorid=&replytype=&extra=#pid1474252)
+[MindSpore Dataset Loading -Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
 
 #### Incorrect User Script
 
@@ -249,7 +249,7 @@ In the user-defined Pyfunc, do not use MindSpore tensor operations or operators 
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - The pointer[cnode] is null](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183191)
+[MindSpore Dataset Loading - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
 
 #### Index Out of Range Due to Incorrect Iteration Initialization
 
@@ -265,7 +265,7 @@ Remove unnecessary `index` member variables, or set `index` to 0 before each ite
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - list index out of range](https://bbs.huaweicloud.com/forum/thread-184036-1-1.html)
+[MindSpore Dataset Loading - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
 
 #### No Iteration Initialization
 
@@ -305,7 +305,7 @@ Use the dict iterator `create_dict_iterator()` and tuple iterator `create_tuple_
 
 For details, visit the following website:
 
-[MindSpore Data Loading - too many open files](https://bbs.huaweicloud.com/forum/thread-184134-1-1.html)
+[MindSpore Data Loading - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
 
 #### Improper Data Acquisition from the Iterator
 
@@ -327,7 +327,7 @@ for item in ds_test.create_dict_iterator():
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://bbs.huaweicloud.com/forum/thread-184026-1-1.html#pid1439832)
+[MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
 
 ## Data Augmentation
 
@@ -347,7 +347,7 @@ Check the data type requirements of the third-party library API used in the user
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - TypeError: Invalid with type](https://bbs.huaweicloud.com/forum/thread-184123-1-1.html)
+[MindSpore Data Augmentation - TypeError: Invalid with type](https://www.hiascend.com/forum/thread-0229107679078336149-1-1.html)
 
 ### Incorrect Parameter Type in A User-defined Data Augmentation Operation
 
@@ -363,7 +363,7 @@ Change the number of input parameters of `call` (except `self`) to the number of
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - args should be Numpy narray](https://bbs.huaweicloud.com/forum/forum.php?mod=viewthread&tid=183196&page=1&authorid=&replytype=&extra=#pid1436178)
+[MindSpore Data Augmentation - args should be Numpy narray](https://www.hiascend.com/forum/thread-0230107678833189122-1-1.html)
 
 ### Consumption Node Conflict in the Dataset
 
@@ -383,7 +383,7 @@ Check the dataset name. Generally, retain the same dataset name.
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - The data pipeline is not a tree](https://bbs.huaweicloud.com/forum/thread-183193-1-1.html)
+[MindSpore Data Augmentation - The data pipeline is not a tree](https://www.hiascend.com/forum/thread-0230107678474985121-1-1.html)
 
 ### Improper Batch Operation Due to Inconsistent Data Shapes
 
@@ -411,4 +411,4 @@ If the memory is insufficient when MindSpore performs data augmentation, MindSpo
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - Automatic Exit Due to Insufficient Memory](https://bbs.huaweicloud.com/forum/thread-190001-1-1.html)
+[MindSpore Data Augmentation - Automatic Exit Due to Insufficient Memory](https://www.hiascend.com/forum/thread-0230107679768460124-1-1.html)
