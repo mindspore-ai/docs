@@ -6,6 +6,7 @@
 
   train_cpu
   train_gpu
+  dynamic_cluster
   pangu_alpha
   comm_fusion
   comm_subgraph
