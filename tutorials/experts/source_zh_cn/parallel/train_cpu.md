@@ -19,6 +19,8 @@
 
 其中，`resnet.py`和`resnet50_distributed_training.py`是训练网络定义脚本，`run.sh`是分布式训练执行脚本。
 
+> 本教程使用**动态组网**启动方式执行CPU分布式训练，详细用法请参考[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)
+
 ## 准备环节
 
 ### 下载数据集
@@ -225,4 +227,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## 安全认证
 
-CPU安全认证可参考[GPU分布式训练安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)。
+CPU安全认证可参考[动态组网安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html#安全认证)。

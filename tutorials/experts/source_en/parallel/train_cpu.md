@@ -19,6 +19,8 @@ The directory structure is as follows:
 
 where `resnet.py` and `resnet50_distributed_training.py` are the training network definition scripts and `run.sh` is the distributed training execution script.
 
+> This tutorial makes use of **Dynamic Cluster** to launch CPU distributed job. Please refer to [this link](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html) for more details about **Dynamic Cluster**.
+
 ## Preparation
 
 ### Downloading the Datasets
@@ -225,4 +227,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## Security Authentication
 
-For CPU security authentication, refer to [GPU Distributed Training Security Authentication](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#security-authentication).
+For CPU security authentication, refer to [Dynamic Cluster Security Authentication](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html#security-authentication).

@@ -8,13 +8,13 @@ Currently GPU, Ascend and CPU support multiple startup methods respectively, thr
 
 - Multi-process startup. The user needs to start the process corresponding to the number of cards, as well as configure the rank_table table. You can visit [Run Script](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script) to learn how to start multi-card tasks by multi-processing.
 - OpenMPI. The user can start running scripts via the mpirun command, at which point the user needs to provide the host file file. The user can visit [Running Scripts through OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi) to learn how to use OpenMPI to start a multi-card task.
-- Dynamic networking. MindSpore uses an internal dynamic networking module that does not require dependencies on external profiles or modules to help implement multi-card tasks. The user can visit [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) to learn how to use dynamic networking way to start multi-card tasks.
+- Dynamic cluster. MindSpore uses an internal dynamic networking module that does not require dependencies on external profiles or modules to help implement multi-card tasks. The user can visit [Dynamic Cluster](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html) to learn how to use dynamic networking way to start multi-card tasks.
 
 |              |  GPU   |  Ascend  |  CPU  |
 | ------------ |  ----  |  ----  |  ----  |
 |  OpenMPI     |  Supported   |  Supported  |  Not supported  |
 |  Multi-process startup     |  Not supported |  Supported  |  Not supported  |
-|  Dynamic networking     |  Supported |  Supported  |  Supported  |
+|  Dynamic cluster     |  Supported |  Supported  |  Supported  |
 
 ## Startup MindSpore Distributed Parallel Training on the Cloud
 
