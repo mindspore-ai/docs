@@ -65,6 +65,7 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
    quantum_phase_estimation
    grover_search_algorithm
    shor_algorithm
+   hhl_algorithm
 
 .. toctree::
    :maxdepth: 1
