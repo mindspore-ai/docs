@@ -116,7 +116,7 @@ OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程
 
 > 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
 
-### 1. 准备Python训练脚本：
+### 1. 准备Python训练脚本
 
 ```python
 import mindspore as ms
@@ -220,7 +220,7 @@ echo "start training"
 # 循环启动Worker1到Worker4，4个Worker训练进程
 for((i=0;i<4;i++));
 do
-    export MS_WORKER_NUM=8                    # 设置集群中Worker进程总数为8（包括其他器节点进程）
+    export MS_WORKER_NUM=8                    # 设置集群中Worker进程总数为8（包括其他节点进程）
     export MS_SCHED_HOST=<node_1 ip address>  # 设置Scheduler IP地址为节点1 IP地址
     export MS_SCHED_PORT=8118                 # 设置Scheduler端口
     export MS_ROLE=MS_WORKER                  # 设置启动的进程为MS_WORKER角色
@@ -229,7 +229,7 @@ do
 done
 
 # 在节点1启动1个Scheduler进程
-export MS_WORKER_NUM=8                        # 设置集群中Worker进程总数为8（包括其他器节点进程）
+export MS_WORKER_NUM=8                        # 设置集群中Worker进程总数为8（包括其他节点进程）
 export MS_SCHED_HOST=<node_1 ip address>      # 设置Scheduler IP地址为节点1 IP地址
 export MS_SCHED_PORT=8118                     # 设置Scheduler端口
 export MS_ROLE=MS_SCHED                       # 设置启动的进程为MS_SCHED角色
@@ -259,7 +259,7 @@ echo "start training"
 # 循环启动Worker5到Worker8，4个Worker训练进程
 for((i=4;i<8;i++));
 do
-    export MS_WORKER_NUM=8                    # 设置集群中Worker进程总数为8（包括其他器节点进程）
+    export MS_WORKER_NUM=8                    # 设置集群中Worker进程总数为8（包括其他节点进程）
     export MS_SCHED_HOST=<node_1 ip address>  # 设置Scheduler IP地址为节点1 IP地址
     export MS_SCHED_PORT=8118                 # 设置Scheduler端口
     export MS_ROLE=MS_WORKER                  # 设置启动的进程为MS_WORKER角色
@@ -313,7 +313,7 @@ epoch: 10 step: 234, loss is 1.1533381
 
 在上述场景下，训练过程中如果有节点挂掉，保证在相同的环境变量（`MS_ENABLE_RECOVERY` 和 `MS_RECOVERY_PATH`）下，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。
 
-1） 开启容灾：
+1）开启容灾：
 
 通过环境变量开启容灾：
 
@@ -424,11 +424,11 @@ Worker进程出现异常退出处理方式类似(注：Worker进程出现异常�
 }
 ```
 
-- server_cert_path: 服务端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
-- crl_path: 吊销列表（用于区分无效不可信证书和有效可信证书）的文件路径。
-- client_cert_path: 客户端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
-- ca_cert_path: 根证书路径。
-- cipher_list: 密码套件（支持的SSL加密类型列表）。
-- cert_expire_warning_time_in_day: 证书过期的告警时间。
+- server_cert_path：服务端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
+- crl_path：吊销列表（用于区分无效不可信证书和有效可信证书）的文件路径。
+- client_cert_path：客户端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
+- ca_cert_path：根证书路径。
+- cipher_list：密码套件（支持的SSL加密类型列表）。
+- cert_expire_warning_time_in_day：证书过期的告警时间。
 
 p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
