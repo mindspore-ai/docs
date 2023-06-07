@@ -10,3 +10,4 @@ Distributed High-Level Configuration Case
   comm_fusion
   comm_subgraph
   dataset_slice
+  distributed_graph_partition
