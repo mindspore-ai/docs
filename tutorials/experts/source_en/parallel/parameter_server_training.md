@@ -18,6 +18,8 @@ The ps-lite architecture consists of three independent components: server, worke
 
 - Scheduler: establishes the communication relationship between the server and worker.
 
+> Parameter Server training does not support `PyNative` mode.
+
 ## Practice
 
 The following describes how to use parameter server to train LeNet on Ascend 910:
