@@ -8,7 +8,7 @@
 
 - 多进程启动方式。用户需要启动和卡数对应的进程，以及配置rank_table表。可以访问[运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本)，学习如何通过多进程方式启动多卡任务。
 - OpenMPI。用户可以通过mpirun命令来启动运行脚本，此时用户需要提供host file文件。用户可以访问[通过OpenMPI运行脚本](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本)，学习如何使用OpenMPI启动多卡任务。
-- 动态组网。MindSpore使用内部动态组网模块，无需对外部配置文件或者模块产生依赖，帮助实现多卡任务。用户可以访问[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练)，学习如何使用动态组网方式启动多卡任务。
+- 动态组网。MindSpore使用内部动态组网模块，无需对外部配置文件或者模块产生依赖，帮助实现多卡任务。用户可以访问[动态组网启动章节](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)，学习如何使用动态组网方式启动多卡任务。
 
 |              |  GPU   |  Ascend  |  CPU  |
 | ------------ |  ----  |  ----  |  ----  |
