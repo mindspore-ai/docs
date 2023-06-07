@@ -16,7 +16,7 @@ class torchvision.datasets.VOCDetection(
     )
 ```
 
-For more information, see [torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCDetection).
+For more information, see [torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.VOCDetection.html).
 
 ## mindspore.dataset.VOCDataset
 

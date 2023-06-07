@@ -14,7 +14,7 @@ class torchvision.datasets.CocoDetection(
     )
 ```
 
-For more information, see [torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.CocoDetection).
+For more information, see [torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CocoDetection.html).
 
 ## mindspore.dataset.CocoDataset
 

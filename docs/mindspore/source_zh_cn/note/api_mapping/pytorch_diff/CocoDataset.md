@@ -14,7 +14,7 @@ class torchvision.datasets.CocoDetection(
     )
 ```
 
-更多内容详见[torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.CocoDetection)。
+更多内容详见[torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CocoDetection.html)。
 
 ## mindspore.dataset.CocoDataset
 
@@ -37,7 +37,7 @@ class mindspore.dataset.CocoDataset(
 
 更多内容详见[mindspore.dataset.CocoDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：输入COCO格式数据集，返回创建出的数据集对象，可通过遍历数据集对象获取数据。
 

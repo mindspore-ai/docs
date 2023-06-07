@@ -16,7 +16,7 @@ class torchvision.datasets.VOCSegmentation(
     )
 ```
 
-更多内容详见[torchvision.datasets.VOCSegmentation](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCSegmentation)。
+更多内容详见[torchvision.datasets.VOCSegmentation](https://pytorch.org/vision/0.14/generated/torchvision.datasets.VOCSegmentation.html)。
 
 ## mindspore.dataset.VOCDataset
 
@@ -40,7 +40,7 @@ class mindspore.dataset.VOCDataset(
 
 更多内容详见[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset)。
 
-## 使用方式
+## 差异对比
 
 PyTorch：生成PASCAL VOC图像分割格式数据集。
 

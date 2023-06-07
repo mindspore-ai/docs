@@ -8,7 +8,7 @@
 class torchvision.transforms.ToTensor
 ```
 
-For more information, see [torchvision.transforms.ToTensor](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToTensor).
+For more information, see [torchvision.transforms.ToTensor](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ToTensor).
 
 ## mindspore.dataset.vision.ToTensor
 
