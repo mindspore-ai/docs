@@ -38,20 +38,21 @@ import numpy as np
 import torch
 
 inputs = np.array([[1.0, 0.0], [0.0, 2.0]])
-value, vector = torch.eig(torch.tensor(inputs))
+value, vector = torch.eig(torch.tensor(inputs), eigenvectors=True)
 print(value)
-# [1.+0.j 2.+0.j]
+# tensor([[1., 0.],
+#         [2., 0.]], dytpe=torch.float64)
 print(vector)
-# [[1.+0.j 0.+0.j]
-#  [0.+0.j 1.+0.j]]
+# tensor([[1., 0.],
+#         [0., 1.]], dytpe=torch.float64)
 
 # MindSpore
 import mindspore
+from mindspore import Tensor
 
 value, vector = mindspore.ops.eig(Tensor(inputs, mindspore.float32))
 print(value)
 # [1.+0.j 2.+0.j]
 print(vector)
 # [[1.+0.j 0.+0.j]
-#  [0.+0.j 1.+0.j]]
 ```

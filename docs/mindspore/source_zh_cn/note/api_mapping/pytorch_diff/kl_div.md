@@ -33,23 +33,27 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，但未设置 `log_targ
 | | 参数4 | reduction | reduction | 功能一致，参数名相同 |
 | | 参数5 | log_target | - | 参数未设定 |
 
-### 代码示例1
+### 代码示例
 
 ```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
+# PyTorch
 import torch
-
-logits = Tensor(np.array([0.2, 0.7, 0.1]), mindspore.float32)
-labels = Tensor(np.array([0., 1., 0.]), mindspore.float32)
-output = mindspore.ops.kl_div(logits, labels, 'mean')
-print(output)
-# -0.23333333
+import numpy as np
 
 logits = torch.tensor(np.array([0.2, 0.7, 0.1]))
 labels = torch.tensor(np.array([0., 1., 0.]))
 output = torch.nn.functional.kl_div(logits, labels)
+print(output)
+# tensor(-0.2333, dtype=torch.float64)
+
+# MindSpore
+import mindspore
+from mindspore import Tensor
+import numpy as np
+
+logits = Tensor(np.array([0.2, 0.7, 0.1]), mindspore.float32)
+labels = Tensor(np.array([0., 1., 0.]), mindspore.float32)
+output = mindspore.ops.kl_div(logits, labels, 'mean')
 print(output)
 # -0.23333333
 ```
