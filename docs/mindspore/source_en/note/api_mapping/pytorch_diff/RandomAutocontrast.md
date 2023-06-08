@@ -10,13 +10,13 @@ class torchvision.transforms.RandomAutocontrast(p=0.5)
 
 For more information, see [torchvision.transforms.RandomAutocontrast](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomAutocontrast.html).
 
-## mindspore.dataset.vision.RandomAutocontrast
+## mindspore.dataset.vision.RandomAutoContrast
 
 ```python
 class mindspore.dataset.vision.RandomAutoContrast(cutoff=0.0, ignore=None, prob=0.5)
 ```
 
-For more information, see [mindspore.dataset.vision.RandomAutocontrast](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomAutoContrast.html).
+For more information, see [mindspore.dataset.vision.RandomAutoContrast](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomAutoContrast.html).
 
 ## Differences
 

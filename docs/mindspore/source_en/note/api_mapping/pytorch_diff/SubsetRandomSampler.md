@@ -26,8 +26,9 @@ MindSpore: Samples the elements randomly from a sequence of indices, random gene
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter1 | indices  | indices | - |
-|     | Parameter2 | generator  | -  | Specifies sampling logic. MindSpore uses global random sampling. |
+|Parameter | Parameter 1 | indices  | indices | - |
+|     | Parameter 2 | generator  | -  | Specifies sampling logic. MindSpore uses global random sampling. |
+|     | Parameter 3 | -   | num_samples  | The number of samples obtained, which can be used to partially obtain the samples obtained by sampling |
 
 ## Code Example
 

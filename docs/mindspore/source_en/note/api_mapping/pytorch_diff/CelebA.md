@@ -5,7 +5,7 @@
 ## torchvision.datasets.CelebA
 
 ```python
-class torchvision.datasets.CelebA
+class torchvision.datasets.CelebA(
     root: str,
     split: str = 'train',
     target_type: Union[List[str], str] = 'attr',

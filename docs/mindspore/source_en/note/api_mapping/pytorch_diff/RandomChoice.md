@@ -10,13 +10,13 @@ class torchvision.transforms.RandomChoice(transforms, p=None)
 
 For more information, see [torchvision.transforms.RandomChoice](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomChoice.html).
 
-## mindspore.dataset.vision.RandomChoice
+## mindspore.dataset.transforms.RandomChoice
 
 ```python
 class mindspore.dataset.transforms.RandomChoice(transforms)
 ```
 
-For more information, see [mindspore.dataset.vision.RandomChoice](https://mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomChoice.html).
+For more information, see [mindspore.dataset.transforms.RandomChoice](https://mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomChoice.html).
 
 ## Differences
 
