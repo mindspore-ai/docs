@@ -25,7 +25,7 @@ class mindspore.dataset.GeneratorDataset(
 
 For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
-### Difference
+## Difference
 
 PyTorch: DataLoader accepts a data loading class, sampler, and parameters such as batch processing, shuffling, and multi-processing options to create an iterator for data iteration.
 The `dataset` parameter can be inherited from the user-defined class of `torch.utils.data.Dataset`. or transfer the dataset loading class predefined in components such as `torchvision.datasets`, `torchtext.datasets`, and `torchaudio.datasets` modules.

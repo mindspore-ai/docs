@@ -12,6 +12,10 @@ The **Dynami Cluster** feature starts multiple MindSpore training processes as `
 
 > Dynamic cluster startup scripts can be quickly migrated between multiple hardware platforms without additional modifications.
 
+## Precautions
+
+- Dynamic cluster does not currently support `PyNative` mode.
+
 ## Environment Variables
 
 Several environment variables need to be exported before the training script can be started for dynamic cluster, as shown in the following table:

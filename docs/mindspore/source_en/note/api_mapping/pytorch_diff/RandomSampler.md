@@ -31,7 +31,7 @@ MindSpore: Samples elements randomly, random generator is not supported.
 |     | Parameter3 | num_samples   | num_samples  |- |
 |     | Parameter4 | generator  | -  | Specifies sampling logic. MindSpore uses global random sampling. |
 
-## Code Example
+### Code Example
 
 ```python
 import torch
