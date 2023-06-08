@@ -8,4 +8,5 @@ nbsphinx
 IPython
 ipykernel
 jieba
+chardet
 jinja2 < 3.1
