@@ -239,11 +239,11 @@ print(res)
 
 We know that weight initialization is very important for network training. Generally, each operator has an implicit declaration weight. In different frameworks, the implicit declaration weight may be different. Even if the operator functions are the same, if the implicitly declared weight initialization mode distribution is different, the training process is affected or even cannot be converged.
 
-Common operators that implicitly declare weights include Conv, Dense(Linear), Embedding, and LSTM. The Conv and Dense operators differ greatly.
+Common operators that implicitly declare weights include Conv, Dense(Linear), Embedding, and LSTM. The Conv and Dense operators differ greatly. The Conv and Dense operators of MindSpore and PyTorch have the same distribution of weight and bias initialization methods for implicit declarations.
 
 - Conv2d
 
-    - mindspore.nn.Conv2d (weight: $\mathcal{N} (0, 1) $, bias: zeros)
+    - mindspore.nn.Conv2d (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
     - torch.nn.Conv2d (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
     - tf.keras.Layers.Conv2D (weight: glorot_uniform, bias: zeros)
 
@@ -251,8 +251,8 @@ Common operators that implicitly declare weights include Conv, Dense(Linear), Em
 
 - Dense(Linear)
 
-    - mindspore.nn.Linear (weight: $\mathcal{N} (0, 1) $, bias: zeros)
-    - torch.nn.Dense (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - mindspore.nn.Dense (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - torch.nn.Linear (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
     - tf.keras.Layers.Dense (weight: glorot_uniform, bias: zeros)
 
     In the preceding information, $k=\frac{groups}{in\_features}$

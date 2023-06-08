@@ -33,8 +33,8 @@ class mindspore.nn.Conv3d(
     dilation=1,
     group=1,
     has_bias=False,
-    weight_init='normal',
-    bias_init='zeros',
+    weight_init=None,
+    bias_init=None,
     data_format='NCDHW'
 )(x) -> Tensor
 ```
@@ -78,8 +78,9 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 
 ### Weight Initialization Difference
 
-1. mindspore.nn.Conv2d (weight：$\mathcal{N}(0, 1)$，bias：zeros)
-2. torch.nn.Conv2d (weight：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+When `weight_init` of mindspore.nn.Conv3d is ``None`` , the weight is initialized using HeUniform. This is the same as PyTorch weight initialization.
+
+When `bias_init` of mindspore.nn.Conv3d is ``None`` , the bias is initialized using Uniform. This is the same as the PyTorch bias initialization.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|

@@ -33,8 +33,8 @@ class mindspore.nn.Conv1d(
     dilation=1,
     group=1,
     has_bias=False,
-    weight_init='normal',
-    bias_init='zeros'
+    weight_init=None,
+    bias_init=None
 )(x) -> Tensor
 ```
 
@@ -73,8 +73,9 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 
 ### 权重初始化差异
 
-1. mindspore.nn.Conv1d的weight为：$\mathcal{N}(0, 1)$，bias为：zeros。
-2. torch.nn.Conv1d的weight为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$
+mindspore.nn.Conv1d的 `weight_init` 是 ``None`` 时，权重使用HeUniform初始化。此时和PyTorch权重初始化方式一致。
+
+mindspore.nn.Conv1d的 `bias_init` 是 ``None`` 时，偏差使用Uniform初始化。此时和PyTorch偏差初始化方式一致。
 
 ### 权重迁移差异
 
