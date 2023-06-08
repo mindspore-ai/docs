@@ -4,8 +4,6 @@ myst_parser == 0.14.0
 sphinx-markdown-tables
 sphinx_rtd_theme == 0.5.2
 numpy
-opencv-python
-chardet
 nbsphinx
 IPython
 ipykernel

@@ -44,8 +44,8 @@ orig_img = Image.open('flamingos.jpg')
 # PyTorch
 import torchvision.transforms as T
 
-to_tensor = T.ToTensor()
 normalize = T.Normalize(mean=[0, 0, 0], std=[1, 1, 1])
+to_tensor = T.ToTensor()
 img_torch = T.Compose([to_tensor, normalize])((orig_img))
 print(img_torch.shape)
 # Torch tensor is in C,H,W format
@@ -55,8 +55,8 @@ print(img_torch.shape)
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 
-to_tensor = vision.ToTensor()
 normalize = vision.Normalize(mean=[0, 0, 0], std=[1, 1, 1], is_hwc=False)
+to_tensor = vision.ToTensor()
 img_ms = transforms.Compose([to_tensor, normalize])((orig_img))
 print(img_ms[0].shape)
 # vision.ToTensor change the format from HWC to CHW, so normalize have to specify `is_hwc=False`

@@ -5,7 +5,7 @@
 ## torch.utils.data.SubsetRandomSampler
 
 ```python
-class torch.utils.data.WeightedRandomSampler(weights, num_samples, replacement=True, generator=None)
+class torch.utils.data.SubsetRandomSampler(indices, generator=None)
 ```
 
 For more information, see [torch.utils.data.SubsetRandomSampler](https://pytorch.org/docs/1.8.1/data.html#torch.utils.data.SubsetRandomSampler).
