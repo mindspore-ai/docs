@@ -715,45 +715,69 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 原型代表编程语言中最紧密绑定的操作。
 
-### 属性引用
+### 属性引用与属性修改
 
-属性引用是后面带有一个句点加一个名称的原型。
+属性引用是后面带有一个句点加一个名称的原型。以下两种情况的属性引用是允许进行修改的：
 
-在MindSpore的Cell 实例中使用属性引用作为左值需满足如下要求：
+- 被修改的属性属于本 `cell` 对象， 即必须为 `self.xxx`。 且该属性在Cell的 `__init__` 函数中完成初始化。 示例如下：
 
-- 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
-- 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
 
-示例如下：
+  class Net(nn.Cell):
+      def __init__(self):
+          super().__init__()
+          self.weight = ms.Parameter(ms.Tensor([1]), name="w")
+          self.m = 2
 
-```python
-import mindspore as ms
-from mindspore import nn, set_context
+      def construct(self, x, y):
+          self.weight = x  # 满足条件可以修改
+          self.m = 3  # 满足条件可以修改
+          # self.a = 2 属性a未在__init__内初始化， 无法进行修改。
+          return x
 
-set_context(mode=ms.GRAPH_MODE)
+  net = Net()
+  ret = net(1, 2)
+  print('net.weight:{}'.format(net.weight))
+  print('net.m:{}'.format(net.m))
+  ```
 
-class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
-        self.m = 2
+  结果如下:
 
-    def construct(self, x, y):
-        self.weight = x  # 满足条件可以修改
-        # self.m = 3  # self.m 非Parameter类型禁止修改
-        # y.weight = x  # y不是self，禁止修改
-        return x
+  ```text
+  net.weight:Parameter (name=w, shape=(1,), dtype=Int64, requires_grad=True)
+  net.x:3
+  ```
 
-net = Net()
-ret = net(1, 2)
-print('ret:{}'.format(ret))
-```
+- 被修改属性的对象为全局对象， 示例如下：
 
-结果如下:
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
 
-```text
-ret:1
-```
+  set_context(mode=ms.GRAPH_MODE)
+
+  class AssignTarget:
+      def __init__(self):
+          self.x = 1
+
+  data_obj = AssignTarget()
+
+  @ms.jit
+  def test_assign():
+      data_obj.x = 10
+
+  test_assign()
+  print('data_obj.x:{}'.format(data_obj.x))
+  ```
+
+  结果如下:
+
+  ```text
+  data_obj.x:10
+  ```
 
 ### 索引取值
 
@@ -860,12 +884,6 @@ ret:[[3. 3. 3. 3.]]
 | `>>=`    | `Number` >>= `Number`。                                                                                                                                                                                                                                         |
 
 限制：
-
-- 对于 `=`来说，不支持下列场景:
-
-  在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
-
-  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#属性引用)。
 
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 
