@@ -45,7 +45,7 @@ import torch
 
 # PyTorch does not need to input the value of low, which is equivalent to low=0 in MindSpore.
 x = torch.randint(10, (3, 3))
-print(x.shape)
+print(tuple(x.shape))
 # (3, 3)
 
 # MindSpore

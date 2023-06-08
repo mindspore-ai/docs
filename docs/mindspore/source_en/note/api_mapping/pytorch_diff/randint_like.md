@@ -45,7 +45,7 @@ import torch
 # PyTorch does not need to input the value of low, which is equivalent to low=0 in MindSpore.
 x = torch.tensor([[2, 3], [1, 2]], dtype=torch.float32)
 y = torch.randint_like(x, 10)
-print(y.shape)
+print(tuple(y.shape))
 # (2, 2)
 
 # MindSpore

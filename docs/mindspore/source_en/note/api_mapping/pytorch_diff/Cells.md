@@ -52,13 +52,13 @@ class MyNet(nn.Cell):
 net = MyNet()
 print(net.cells())
 # Out:
-odict_values([SequentialCell<
-  (0): ConvBN<
-    (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=Falseweight_init=normal, bias_init=zeros, format=NCHW>
-    (bn): BatchNorm2d<num_features=64, eps=1e-05, momentum=0.9, gamma=Parameter (name=build_block.0.bn.gamma, shape=(64,), dtype=Float32, requires_grad=True), beta=Parameter (name=build_block.0.bn.beta, shape=(64,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=build_block.0.bn.moving_mean, shape=(64,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=build_block.0.bn.moving_variance, shape=(64,), dtype=Float32, requires_grad=False)>
-    >
-  (1): ReLU<>
-  >])
+# odict_values([SequentialCell<
+#   (0): ConvBN<
+#     (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=Falseweight_init=normal, bias_init=zeros, format=NCHW>
+#     (bn): BatchNorm2d<num_features=64, eps=1e-05, momentum=0.9, gamma=Parameter (name=build_block.0.bn.gamma, shape=(64,), dtype=Float32, requires_grad=True), beta=Parameter (name=build_block.0.bn.beta, shape=(64,), dtype=Float32, requires_grad=True), moving_mean=Parameter (name=build_block.0.bn.moving_mean, shape=(64,), dtype=Float32, requires_grad=False), moving_variance=Parameter (name=build_block.0.bn.moving_variance, shape=(64,), dtype=Float32, requires_grad=False)>
+#     >
+#   (1): ReLU<>
+#   >])
 ```
 
 ```python
@@ -88,11 +88,11 @@ print(net.children())
 for child in net.children():
     print(child)
 # Out:
-Sequential(
-  (0): ConvBN(
-    (conv): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1))
-    (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-  )
-  (1): ReLU()
-)
+# Sequential(
+#   (0): ConvBN(
+#     (conv): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1))
+#     (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+#   )
+#   (1): ReLU()
+# )
 ```
