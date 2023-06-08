@@ -53,6 +53,8 @@
 | res2net50_v1b    |  80.32   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
 | res2net101_v1b   |  95.41   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/res2net)            |
 | googlenet        |  72.68   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/googlenet)          |
+| inceptionv3      |  79.11   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/inception_v3)        | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Inception/inceptionv3) |
+| inceptionv4      |  80.88   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/inception_v4)        | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Inception/inceptionv4) |
 | mobilenet_v1_025 |  53.87   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
 | mobilenet_v1_050 |  65.94   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
 | mobilenet_v1_075 |  70.44   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv1)        |
@@ -62,7 +64,16 @@
 | mobilenet_v2_140 |  75.56   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv2)        |
 | mobilenet_v3_small     | 68.10 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv3)      |
 | mobilenet_v3_large     | 75.23 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mobilenetv3)      | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/MobileNet/mobilenetv3) |
+| shufflenet_v1_g3_x0_5  | 57.05 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v1)     |
+| shufflenet_v1_g3_x1_5  | 67.77 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v1)     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ShuffleNet/shufflenetv1) |
+| shufflenet_v2_x0_5     | 57.05 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v2)     |
+| shufflenet_v2_x1_0     | 67.77 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v2)     | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/ShuffleNet/shufflenetv2) |
+| shufflenet_v2_x1_5     | 57.05 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v2)     |
+| shufflenet_v2_x2_0     | 67.77 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/shufflenet_v2)     |
 | xception               | 79.01 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/xception)         | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/Inception/xception) |
+| ghostnet_50            | 66.03 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
+| ghostnet_100           | 73.78 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
+| ghostnet_130           | 75.50 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/ghostnet)         |
 | nasnet_a_4x1056        | 73.65 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/nasnet)           |
 | mnasnet_0.5            | 68.07 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
 | mnasnet_0.75           | 71.81 | [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/mnasnet)          |
@@ -152,9 +163,14 @@
 
 | model | map |  mindyolo recipe | vanilla mindspore
 :-: | :-: | :-: | :-: |
-| yolov7_t | 37.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
-| yolov7_l | 50.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
-| yolov7_x |  52.4| [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov8_n <font color=red>热门</font> | 37.2 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_s <font color=red>热门</font> | 44.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_m <font color=red>热门</font> | 50.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_l <font color=red>热门</font> | 52.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_x <font color=red>热门</font> | 53.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov7_t <font color=red>热门</font> | 37.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_l <font color=red>热门</font> | 50.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_x <font color=red>热门</font> |  52.4| [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
 | yolov5_n | 27.3 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
 | yolov5_s | 37.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) | [link](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv5) |
 | yolov5_m | 44.9 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
