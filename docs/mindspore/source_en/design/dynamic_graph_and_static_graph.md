@@ -282,12 +282,12 @@ import mindspore as ms
 import mindspore.nn as nn
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
+    def __init__(self):
+        super(Net, self).__init__()
 
-   @ms.jit
-   def construct(self, x):
-      return ms.tensor(x.asnumpy(), dtype=ms.float32)
+    @ms.jit
+    def construct(self, x):
+        return ms.tensor(x.asnumpy(), dtype=ms.float32)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
@@ -315,16 +315,16 @@ import mindspore.nn as nn
 from mindspore import ops, Tensor
 
 class Net(nn.Cell):
-   def __init__(self):
-      super(Net, self).__init__()
-      self.abs = ops.Abs()
-   @ms.jit
-   def construct(self, x):
-      y1 = ms.tensor(x.asnumpy(), dtype=ms.float32)
-      y2 = Tensor(x.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
-      y3 = Tensor(x.asnumpy())
-      y4 = Tensor(x.asnumpy(), dtype=ms.float32)
-      return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
+    def __init__(self):
+        super(Net, self).__init__()
+        self.abs = ops.Abs()
+    @ms.jit
+    def construct(self, x):
+        y1 = ms.tensor(x.asnumpy(), dtype=ms.float32)
+        y2 = ms.Tensor(x.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+        y3 = Tensor(x.asnumpy())
+        y4 = Tensor(x.asnumpy(), dtype=ms.float32)
+        return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
