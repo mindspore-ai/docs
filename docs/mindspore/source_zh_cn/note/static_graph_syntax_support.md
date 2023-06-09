@@ -2633,41 +2633,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### 网络使用约束
 
-1. 不允许修改网络的非`Parameter`类型数据成员。
-
-   示例如下：
-
-   ```python
-   import mindspore as ms
-   from mindspore import nn, set_context
-   import numpy as np
-
-   set_context(mode=ms.GRAPH_MODE)
-
-   class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
-           self.x = 2
-           self.par = ms.Parameter(ms.Tensor(np.ones((2, 3, 4))), name="par")
-
-       def construct(self, x, y):
-           self.par[0] = y
-           self.x = x
-           return x + y
-
-   net = Net()
-   net(1, 2)
-   ```
-
-   上面所定义的网络里，`self.x`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
-
-   结果报错如下：
-
-   ```Text
-   TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
-   ```
-
-2. 当`construct`函数里，使用未定义的类成员时，将抛出`AttributeError`异常。
+1. 当`construct`函数里，使用未定义的类成员时，将抛出`AttributeError`异常。
 
    示例如下：
 
@@ -2694,4 +2660,4 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    AttributeError: External object has no attribute y
    ```
 
-3. `nn.Cell`不支持`classmethod`修饰的类方法。
+2. `nn.Cell`不支持`classmethod`修饰的类方法。
