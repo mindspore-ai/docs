@@ -2510,41 +2510,7 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 ### Network Constraints
 
-1. You are not allowed to modify non-`Parameter` data members of the network.
-
-   For example:
-
-   ```python
-   import mindspore as ms
-   from mindspore import nn, set_context
-   import numpy as np
-
-   set_context(mode=ms.GRAPH_MODE)
-
-   class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
-           self.x = 2
-           self.par = ms.Parameter(ms.Tensor(np.ones((2, 3, 4))), name="par")
-
-       def construct(self, x, y):
-           self.par[0] = y
-           self.x = x
-           return x + y
-
-   net = Net()
-   net(1, 2)
-   ```
-
-   In the preceding defined network, `self.x` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
-
-   The result would be:
-
-   ```Text
-   TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
-   ```
-
-2. When an undefined class member is used in the `construct` function, `AttributeError` exception will be thrown.
+1. When an undefined class member is used in the `construct` function, `AttributeError` exception will be thrown.
 
    For example:
 
@@ -2571,4 +2537,4 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    AttributeError: External object has no attribute y
    ```
 
-3. Class methods modified by `classmethod` in `nn.Cell` are not supported.
+2. Class methods modified by `classmethod` in `nn.Cell` are not supported.
