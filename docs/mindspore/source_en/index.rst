@@ -35,15 +35,6 @@ MindSpore Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Syntax Support
-   :hidden:
-
-   note/static_graph_syntax_support
-   note/index_support
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: API
    :hidden:
 
@@ -88,6 +79,15 @@ MindSpore Documentation
    migration_guide/debug_and_tune
    migration_guide/sample_code
    migration_guide/faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Syntax Support
+   :hidden:
+
+   note/static_graph_syntax_support
+   note/index_support
 
 .. toctree::
    :glob:
@@ -156,22 +156,6 @@ MindSpore Documentation
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/static_graph_syntax_support.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">Syntax Support</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              Syntax support for static graphs, Tensor indexes, etc.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
                      <a href="./api_python/mindspore.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
@@ -185,8 +169,6 @@ MindSpore Documentation
                   </div>
 					</div>
 				</div>
-         </div>
-         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -203,6 +185,8 @@ MindSpore Documentation
                   </div>
 					</div>
 				</div>
+         </div>
+         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -213,6 +197,22 @@ MindSpore Documentation
                            </div>
                            <div class="doc-article-desc">
                               The complete steps and considerations for migrating neural networks from other machine learning frameworks to MindSpore.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Syntax Support</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Syntax support for static graphs, Tensor indexes, etc.
                            </div>
                         </div>
                      </a>

@@ -35,15 +35,6 @@ MindSpore 文档
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 语法支持
-   :hidden:
-
-   note/static_graph_syntax_support
-   note/index_support
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: API
    :hidden:
 
@@ -88,6 +79,15 @@ MindSpore 文档
    migration_guide/debug_and_tune
    migration_guide/sample_code
    migration_guide/faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 语法支持
+   :hidden:
+
+   note/static_graph_syntax_support
+   note/index_support
 
 .. toctree::
    :glob:
@@ -156,22 +156,6 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/static_graph_syntax_support.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">语法支持</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              静态图、Tensor索引等语法支持。
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
                      <a href="./api_python/mindspore.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
@@ -185,8 +169,6 @@ MindSpore 文档
                   </div>
 					</div>
 				</div>
-         </div>
-         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -203,6 +185,8 @@ MindSpore 文档
                   </div>
 					</div>
 				</div>
+         </div>
+         <div class="row">
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
@@ -213,6 +197,22 @@ MindSpore 文档
                            </div>
                            <div class="doc-article-desc">
                               从其他机器学习框架将神经网络迁移到MindSpore的完整步骤和注意事项。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">语法支持</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              静态图、Tensor索引等语法支持。
                            </div>
                         </div>
                      </a>

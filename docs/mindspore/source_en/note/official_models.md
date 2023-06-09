@@ -163,14 +163,14 @@
 
 | model | map |  mindyolo recipe | vanilla mindspore
 :-: | :-: | :-: | :-: |
-| yolov8_n <font color=red>Hot</font> | 37.2 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
-| yolov8_s <font color=red>Hot</font> | 44.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
-| yolov8_m <font color=red>Hot</font> | 50.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
-| yolov8_l <font color=red>Hot</font> | 52.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
-| yolov8_x <font color=red>Hot</font> | 53.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
-| yolov7_t <font color=red>Hot</font> | 37.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
-| yolov7_l <font color=red>Hot</font> | 50.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
-| yolov7_x <font color=red>Hot</font> |  52.4| [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov8_n <font color=red><sup>🔥</sup></font> | 37.2 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_s <font color=red><sup>🔥</sup></font> | 44.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_m <font color=red><sup>🔥</sup></font> | 50.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_l <font color=red><sup>🔥</sup></font> | 52.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov8_x <font color=red><sup>🔥</sup></font> | 53.7 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov8) |
+| yolov7_t <font color=red><sup>🔥</sup></font> | 37.5 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_l <font color=red><sup>🔥</sup></font> | 50.8 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
+| yolov7_x <font color=red><sup>🔥</sup></font> |  52.4| [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov7) |
 | yolov5_n | 27.3 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
 | yolov5_s | 37.6 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) | [link](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv5) |
 | yolov5_m | 44.9 | [config](https://github.com/mindspore-lab/mindyolo/tree/master/configs/yolov5) |
