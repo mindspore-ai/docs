@@ -4,7 +4,7 @@
 
 ## Overview
 
-For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#multi-card-startup-method) to check the support of multi-card startup method on different platforms.
+For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html#multi-card-startup-method) to check the support of multi-card startup method on different platforms.
 
 OpenMPI synchronizes data on the Host side and clustering between processes in a distributed training scenario. The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial.
 

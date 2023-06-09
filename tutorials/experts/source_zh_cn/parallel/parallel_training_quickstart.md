@@ -84,10 +84,10 @@ class Net(Cell):
 
 ### 半自动并行
 
-目前MindSpore支持四种并行模式，详见：[分布式并行训练模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#分布式并行训练模式)。
+目前MindSpore支持四种并行模式，详见：[分布式并行训练模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/overview.html#分布式并行训练模式)。
 
 本例中演示全自动并行，通过`set_auto_parallel_context()`接口配置`parallel_mode=ms.ParallelMode.AUTO_PARALLEL`实现。
-全自动并行下共有三种可配置的并行策略搜索算法，详见：[全自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#全自动并行)。本例中，选择**切分策略传播算法**，通过`set_auto_parallel_context()`接口配置`search_mode="sharding_propagation"`实现，并手动设置`matmul`算子切分策略，其他算子的切分策略由并行策略搜索算法自动给出，代码如下：
+全自动并行下共有三种可配置的并行策略搜索算法，详见：[全自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/overview.html#全自动并行)。本例中，选择**切分策略传播算法**，通过`set_auto_parallel_context()`接口配置`search_mode="sharding_propagation"`实现，并手动设置`matmul`算子切分策略，其他算子的切分策略由并行策略搜索算法自动给出，代码如下：
 
 ```python
 class Net(Cell):
