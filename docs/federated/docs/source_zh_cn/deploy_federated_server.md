@@ -123,7 +123,7 @@ redis-server --port 23456 --save ""
       eval_type: SILHOUETTE_SCORE
 
     encrypt:
-      encrypt_type: NOT_ENCRYPT
+      encrypt_train_type: NOT_ENCRYPT
       pw_encrypt:
         share_secrets_ratio: 1.0
         cipher_time_window: 3000

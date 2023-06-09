@@ -4,7 +4,7 @@
 
 ## 隐私保护背景
 
-联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案，启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式，是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
+联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案，启动`server`时，`encrypt_train_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式，是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
 
 这种联邦学习方案并不是毫无隐私泄漏的，使用上述`not_encrypt`方案进行训练，服务端Server收到客户端Client上传的本地训练模型，仍可通过一些攻击方法[1]重构用户训练数据，从而泄露用户隐私，所以`not_encrypt`方案需要进一步增加用户隐私保护机制。
 
@@ -147,10 +147,10 @@ $$
 
 ```python
 encrypt:
-  encrypt_type: SIGNDS
+  encrypt_train_type: SIGNDS
   ...
   signds:
-    sign_k: 0.01
+    sign_k: 0.2
     sign_eps: 100
     sign_thr_ratio: 0.6
     sign_global_lr: 0.1
@@ -168,7 +168,9 @@ encrypt:
 
 ## LeNet实验结果
 
-使用`3500_clients_bin`其中的100个client数据集，联邦聚合200个iteration，每个client本地运行20个epoch，端侧本地训练使用学习率为0.01，SignDS相关参数为`k=0.01,eps=100,ratio=0.6,lr=4,out=0`，最终所有用户的准确率为66.5%，不加密的普通联邦场景为69%。不加密场景中，端侧训练结束上传到云侧的数据长度为266084，但SignDS上传的数据长度仅为656。
+使用`3500_clients_bin`其中的100个client数据集，联邦聚合600个iteration，每个client本地运行20个epoch，端侧本地训练使用学习率为0.01，SignDS相关参数为`k=0.2,eps=100,ratio=0.6,lr=4,out=0`，Loss和Auc的变化曲线如下图所示。端侧训练结束上传到云侧的数据长度为266084，但SignDS上传的数据长度仅为656。
+
+![loss](./images/lenet_signds_loss_auc.png)
 
 ## 参考文献
 
