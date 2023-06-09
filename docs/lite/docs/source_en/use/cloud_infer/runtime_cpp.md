@@ -158,6 +158,13 @@ device_info->SetDeviceID(device_id);
 device_list.push_back(gpu_device_info);
 ```
 
+If the backend is Ascend deployed on the Elastic Cloud Server, use the `SetProvider` to set the provider to `ge`.
+
+```c++
+// Set the provider to ge.
+device_info->SetProvider("ge");
+```
+
 The user can configure the precision mode by calling the `SetPrecisionMode()` interface, and the usage scenarios are shown in the following table:
 
 | user configure precision mode param | ACL obtain precision mode param  | ACL scenario description   |

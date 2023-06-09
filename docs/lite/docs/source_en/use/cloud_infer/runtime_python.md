@@ -104,6 +104,12 @@ context.cpu.thread_num = 1
 context.cpu.thread_affinity_mode=2
 ```
 
+If the backend is Ascend deployed on the Elastic Cloud Server, set the `provider` to `ge`.
+
+```python
+context.ascend.provider = "ge"
+```
+
 If the user needs to run inference on a GPU device, they need to set Context's target to gpu.
 
 ```python

@@ -72,7 +72,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false | - |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
-> - 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要打开指定编译选项进行本地编译。转换PyTorch模型需满足以下前提：编译前需要`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on`。转换前加入libtorch的环境变量：`export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到`/home/user/libtorch`的目录下。
+> - 由于支持转换PyTorch模型的编译选项默认关闭，因此下载的安装包不支持转换PyTorch模型。需要打开指定编译选项进行本地编译。转换PyTorch模型需满足以下前提：编译前需要`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on`。转换前加入libtorch的环境变量：`export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip)后解压到`/home/user/libtorch`的目录下。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#集成nnie使用说明))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
