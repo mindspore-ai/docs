@@ -378,7 +378,7 @@ if __name__=="__main__":
 
 #### MindSpore Distributed Settings
 
-The distributed configuration of MindSpore uses runtime configuration items. For details, see [Distributed Parallel Training Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html). For example:
+The distributed configuration of MindSpore uses runtime configuration items. For details, see [Distributed Parallel Training Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html). For example:
 
 ```python
 import mindspore as ms

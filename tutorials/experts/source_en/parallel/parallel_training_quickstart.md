@@ -84,10 +84,10 @@ where `in_dim` is the network input dimension, `out_dim` is the output dimension
 
 ### Semi-automatic Parallelism
 
-Currently MindSpore supports four parallel modes, and see [Distributed Parallel Training Modes](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#distributed-parallel-training-mode-1) for details.
+Currently MindSpore supports four parallel modes, and see [Distributed Parallel Training Modes](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html#distributed-parallel-training-mode-1) for details.
 
 This example demonstrates fully automatic parallelism, which is achieved by configuring `parallel_mode=ms.ParallelMode.AUTO_PARALLEL` through the `set_auto_parallel_context()` interface.
-There are three configurable parallel strategy search algorithms under fully automatic parallelism, see: [Fully automatic parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#fully-automatic-parallelism) for details. In this example, the **sharding strategy propagation algorithm** is selected, which is implemented by configuring `search_mode="sharding_propagation"` through the `set_auto_parallel_context()` interface, and manually setting the `matmul` operator sharding strategy. The sharding strategy of other operators is given by the parallel strategy search algorithm automatically. The code is as follows:
+There are three configurable parallel strategy search algorithms under fully automatic parallelism, see: [Fully automatic parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html#fully-automatic-parallelism) for details. In this example, the **sharding strategy propagation algorithm** is selected, which is implemented by configuring `search_mode="sharding_propagation"` through the `set_auto_parallel_context()` interface, and manually setting the `matmul` operator sharding strategy. The sharding strategy of other operators is given by the parallel strategy search algorithm automatically. The code is as follows:
 
 ```python
 class Net(Cell):

@@ -292,7 +292,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `AllReduce.Sum` operation is applied. The value `True` indicates that the `AllReduce.Mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
-> For more information about distributed parallelism configuration items, see [Distributed Parallel Overview](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html).
+> For more information about distributed parallelism configuration items, see [Distributed Parallel Overview](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html).
 
 If multiple network cases exist in the script, call `reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
@@ -552,7 +552,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ## Running the Script through OpenMPI
 
-Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html#multi-card-startup-method) to check the support of multi-card startup method in different platforms.
+Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html#multi-card-startup-method) to check the support of multi-card startup method in different platforms.
 
 ### Single-host Training
 

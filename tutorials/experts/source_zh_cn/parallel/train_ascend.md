@@ -292,7 +292,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 - `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`AllReduce.Mean`操作，False对应`AllReduce.Sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
-> 更多分布式并行配置项用户请参考[分布式并行总览](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html)。
+> 更多分布式并行配置项用户请参考[分布式并行总览](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/overview.html)。
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`reset_auto_parallel_context`将所有参数还原到默认值。
 
@@ -552,7 +552,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ## 通过OpenMPI运行脚本
 
-当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html#多卡启动方式)查看多卡启动方式在不同平台的支持情况。
+当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/overview.html#多卡启动方式)查看多卡启动方式在不同平台的支持情况。
 
 ### 单机多卡训练
 
