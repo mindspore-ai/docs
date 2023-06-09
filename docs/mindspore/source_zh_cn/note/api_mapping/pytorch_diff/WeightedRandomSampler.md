@@ -10,7 +10,7 @@ class torch.utils.data.WeightedRandomSampler(weights, num_samples, replacement=T
 
 更多内容详见[torch.utils.data.WeightedRandomSampler](https://pytorch.org/docs/1.8.1/data.html#torch.utils.data.WeightedRandomSampler)。
 
-## mindspore.dataset.SubsetRandomSampler
+## mindspore.dataset.WeightedRandomSampler
 
 ```python
 class mindspore.dataset.WeightedRandomSampler(weights, num_samples=None, replacement=True)
