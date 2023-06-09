@@ -1241,7 +1241,8 @@ import mindspore as ms
 
 @ms.jit()
 def test(tensor_to_raise):
-    raise ValueError(f"input should not be {tensor_to_raise}")
+    if tensor_to_raise > 0:
+        raise ValueError(f"input should not be {tensor_to_raise}")
 
 tensor_to_raise = Tensor(1)
 ret = test(tensor_to_raise)

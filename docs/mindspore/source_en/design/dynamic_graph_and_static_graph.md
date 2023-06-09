@@ -236,13 +236,16 @@ print(out)
 
 In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
 
-JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose whether to use the JIT Fallback feature, the switch `MS_DEV_ENABLE_FALLBACK` is provided and is currently turned on by default. If you need to turn it off, you can use the command: `export MS_DEV_ENABLE_FALLBACK=0`.
+JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose to use the JIT Fallback feature, the JIT syntax support level option 'jit_syntax_level' is provided. The value must be in [STRICT(0), COMPATIBLE(1), LAX(2)]. Default: LAX(2). All levels support all backends.
+STRICT(0): Only basic syntax is supported, and execution performance is optimal.
+COMPATIBLE(1): Besides basic syntax, supports more syntax, such as operations of dict, list, and scalar.
+LAX(2): Compatible with all Python syntax as much as possible. However, execution performance may be affected and not optimal.
 
 This document describes the support scope and usage notes of JIT Fallback so that you can use JIT Fallback features more effectively.
 
 #### Support Scope
 
-The current JIT Fallback feature is applied to constant scenarios mainly, which requires that the actual value can be determined during compilation. There is limited support for some variable scenarios. The JIT Fallback feature is still being improved, and the following is a list of static graph compilation syntaxes that are currently supported by this feature.
+The JIT Fallback feature is still being improved, and the following is a list of static graph compilation syntaxes that are currently supported by this feature.
 
 #### Creating and Using Tensor
 
@@ -269,7 +272,7 @@ print(net())
 Output the result:
 
 ```text
-[1]
+1
 ```
 
 The above example uses the interface of Tensor class to create a Tensor.
@@ -420,70 +423,40 @@ np_sum: [2 4 6 8 10]
 tensor_sum: (2, 4, 6, 8, 10)
 ```
 
-Currently it is not supported to use the same print to print both compile-time and run-time execution information, for example putting np_sum and tensor_sum in the same print will report an error. An example of the error code is as follows:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self, input_x, input_y):
-        tensor_sum = input_x + input_y
-        x = np.array([1, 2, 3, 4, 5])
-        y = np.array([1, 2, 3, 4, 5])
-        np_sum = x + y
-        print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
-        return tensor_sum, ms.Tensor(np_sum)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-net = Net()
-net(x, y)
-```
-
-The error message is as follows:
-
-```text
-ValueError: When using JIT Fallback to handle script 'print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)', the inputs should be constant, but found variable 'tensor_sum' to be nonconstant.
-```
-
 #### Using the raise and assert
 
 JIT Fallback supports the use of raise and assert in static graph mode.
 
-When using raise, it is required that conditional statements and thrown exception statements conform to the conditions of the constant scenario, otherwise unpredictable results may occur. The correct code example is as follows:
+Support the use of raise, the test case is as follows:
 
 ```python
 import mindspore.nn as nn
 import mindspore as ms
+
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
 
-    def construct(self, x):
-        if x <= 0:
-            raise ValueError("x should be greater than 0.")
+    def construct(self, x, y):
+        if x <= y:
+            raise ValueError("x should be greater than y.")
         else:
             x += 1
         return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net(-1)
+net(ms.Tensor(-2), ms.Tensor(-1))
+
 ```
 
 Output the result:
 
 ```text
-ValueError: x should be greater than 0.
+ValueError: x should be greater than y.
 ```
 
-Similarly, when using assert, the conditions of the constant scenario need to be met. The correct code example is as follows:
+Support the use of assert, the test case is as follows:
 
 ```python
 import mindspore.nn as nn
@@ -493,14 +466,13 @@ class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
 
-    def construct(self):
-        x = 1
-        assert 1 in [2, 3, 4]
+    def construct(self, x):
+        assert x in [2, 3, 4]
         return x
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net()
+net(ms.Tensor(-1))
 ```
 
 The output appears normally:
@@ -597,9 +569,9 @@ g: <class 'mindspore.common.tensor.Tensor'>
 
 > There is another way to use type as a native Python function, i.e. type(name, bases, dict) returns a class object of type name, which is not supported currently because of the low usage scenario.
 
-#### Supporting Control Flow in Constant Scenarios
+#### Supporting Control Flow
 
-In order to improve Python standard syntax support and achieve dynamic unification in constant scenarios, the use of control flow statements in constant scenarios is achieved through JIT Fallback. Control flow statements are process control statements such as if, for, and while. The JIT Fallback feature supports creating and using Tensor in static graph mode, calling third-party libraries such as Numpy to create and use constants, and supporting some of Python built-in functions. In theory, the constant syntax supported by JIT Fallback is also supported in constant control flow scenarios.
+In order to improve Python standard syntax support and achieve dynamic unification, the use of control flow statements is achieved through JIT Fallback. Control flow statements are process control statements such as if, for, and while. The JIT Fallback feature supports creating and using Tensor in static graph mode, calling third-party libraries such as Numpy to create and use constants and variables, and supporting some of Python built-in functions. In theory, the syntax supported by JIT Fallback is also supported in control flow scenarios.
 
 Examples of code usage are as follows:
 
@@ -666,7 +638,7 @@ print(res)
 Output the results:
 
 ```text
-[1, "a", True, None, Tensor([2])]
+[1, 'a', True, None, Tensor(shape=[1], dtype=Int64, value= [2])]
 ```
 
 ##### The Top-level Graph Supports Returning dicts
@@ -689,7 +661,7 @@ print(res)
 Output the results:
 
 ```text
-{'a': ms.Tensor(np.array(1), ms.int64)}
+{'a': Tensor(shape=[1], dtype=Int64, value= [1])}
 ```
 
 ##### The Top-level Graph Supports Returning scalars
@@ -734,11 +706,9 @@ Output the results:
 
 When using JIT Fallback, please note the following points:
 
-1. The current JIT Fallback only supports constant scenarios, which require that the actual value can be determined during compilation.
+1. The ability of JIT Fallback to support scalar dynamic graphs shall be within the scope of dynamic graph syntax, including but not limited to data types.
 
-2. The ability of JIT Fallback to support scalar dynamic graphs shall be within the scope of dynamic graph syntax, including but not limited to data types.
-
-3. The current constant control flow scenario does not support the assignment of subscripts to Numpy Array data at this time, and the wrong code example is as follows:
+2. The current constant control flow scenario does not support the assignment of subscripts to Numpy Array data at this time, and the wrong code example is as follows:
 
    ```python
    import numpy as np
@@ -757,51 +727,5 @@ When using JIT Fallback, please note the following points:
    The error message is reported as follows:
 
    ```text
-   RuntimeError: The 'setitem' operation does not support the type [External, Int64, Int64].
+   RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
    ```
-
-4. It should be noted that in the constant scenario, the operation results on NumPy integer data and floating-point data will be converted to constants for storage, so their results can be used as function return values. For example:
-
-    ```python
-    import numpy as np
-    import mindspore as ms
-
-    @ms.jit
-    def test_np_add_constant():
-        x = 1.0
-        y = 2.0
-        return np.add(x, y)
-
-    res = test_np_add_constant()
-    print("res:", res)
-    ```
-
-    Output the results:
-
-    ```text
-    res: 3.0
-    ```
-
-5. The NumPy third-party library supported by JIT Fallback and differs from the [mindspore.numpy](https://mindspore.cn/docs/en/master/api_python/mindspore.numpy.html) provided by MindSpore.
-
-    mindspore.numpy is implemented through the operator capabilities of the MindSpore framework and involves operator computation in the runtime phase and cannot derive its results in the compile-time phase (the derivation of variables results in None). The sample code is as follows, using the Tensor() method on the result of `mnp.average(x)`, which does not meet the conditions of the constant scenario, will raise an error.
-
-    ```python
-    import mindspore as ms
-    import mindspore.numpy as mnp
-
-    @ms.jit
-    def test_mnp_average():
-        x = mnp.array(([[1., 2.], [3., 4.]]))
-        x_average = mnp.average(x)
-        return ms.Tensor(x_average)
-
-    out = test_mnp_average()
-    print(out)
-    ```
-
-    The error message is reported as follows:
-
-    ```text
-    TypeError: For 'Tensor', the type of input_data should be one of '['Tensor', 'ndarray', 'str_', 'list', 'tuple', 'float', 'int', 'bool', 'complex']', but got 'None' with type 'NoneType'.
-    ```
