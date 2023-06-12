@@ -8,6 +8,8 @@
 
 #### 图像分类（骨干类)
 
+以下数据基于Ascend 910A环境和ImageNet-1K数据集获得。
+
 | model | acc@1 | mindcv recipe | vanilla mindspore |
 :-:     | :-:        | :-:    | :-:  
 |  vgg11           |  71.86   |  [config](https://github.com/mindspore-lab/mindcv/tree/main/configs/vgg)           |
@@ -159,6 +161,8 @@
 
 ### 目标检测
 
+以下数据基于Ascend 910A环境和COCO2017数据集获得。
+
 #### yolo
 
 | model | map |  mindyolo recipe | vanilla mindspore
@@ -239,6 +243,39 @@
 | retinaface_mobilenet_0.25    | WiderFace        | 90.77/88.2/74.76  | [config](https://github.com/mindspore-lab/mindface/tree/main/mindface/detection)  | [link](https://gitee.com/mindspore/models/tree/r2.0/research/cv/retinaface) |
 | retinaface_r50               | WiderFace        | 95.07/93.61/84.84 | [config](https://github.com/mindspore-lab/mindface/tree/main/mindface/detection)  | [link](https://gitee.com/mindspore/models/tree/r2.0/official/cv/RetinaFace_ResNet50) |
 
+### 强化学习
+
+| Algorithm | RL Version | Action Space (Discrete) | Action Space (Continuous) | Device (CPU) | Device (GPU) | Device (Ascend) | Example Environment |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdqn) <sup>🔥</sup> | >= 0.1 | ✔️ | / | ✔️ | ✔️ | ✔️| [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [PPO](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fppo) <sup>🔥</sup> | >= 0.1 | / | ✔️ | ✔️ | ✔️ | ✔️ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
+| [AC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fac) | >= 0.1 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [A2C](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fa2c) | >= 0.2 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [DDPG](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fddpg) <sup>🔥</sup> | >= 0.3 | / | ✔️ | ✔️ | ✔️ | ✔️ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
+| [QMIX](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fqmix) <sup>🔥</sup> | >= 0.5 | ✔️ | / | ✔️ | ✔️ | ✔️ | [SMAC, Simple Spread](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Foxwhirl%2Fsmac%2F) |
+| [SAC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fsac) <sup>🔥</sup> | >= 0.5 | / | ✔️ | ✔️ | ✔️ | ✔️ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
+| [TD3](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Ftd3) <sup>🔥</sup> | >= 0.6 | / | ✔️ | ✔️ | ✔️ | ✔️ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
+| [C51](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fc51) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [A3C](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fa3c) | >= 0.6 | ✔️ | / | / | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [CQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fcql) | >= 0.6 | / | ✔️ | ✔️ | ✔️ | ✔️ | [Hopper-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhopper) |
+| [MAPPO](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmappo) <sup>🔥</sup> | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [Simple Spread](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fopenai%2Fmultiagent-particle-envs) |
+| [GAIL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fgail) | >= 0.6 | / | ✔️ | ✔️ | ✔️ | ✔️ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
+| [MCTS](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmcts) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | / | [Tic-Tac-Toe](https://gitee.com/mindspore/reinforcement/blob/master/mindspore_rl/environment/tic_tac_toe_environment.py) |
+| [AWAC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fawac) | >= 0.6 | / | ✔️ | ✔️ | ✔️ | ✔️ | [Ant-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fant) |
+| [Dreamer](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdreamer) <sup>🔥</sup> | >= 0.6 | / | ✔️ | / | ✔️ | ✔️️️️ | [Walker-walk](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fdeepmind%2Fdm_control) |
+| [IQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fiql) | >= 0.6 | / | ✔️ | ✔️ | ✔️ | ✔️ | [Walker2d-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fwalker2d%2F) |
+| [MADDPG](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmaddpg) <sup>🔥</sup> | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [simple_spread](https://gitee.com/link?target=https%3A%2F%2Fpettingzoo.farama.org%2Fenvironments%2Fmpe%2Fsimple_spread%2F) |
+| [Double DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdouble_dqn) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [Policy Gradient](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fpg) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+| [Dueling DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdueling_dqn) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+
 ## 科学计算类
 
 ## 大模型类
+
+### 推荐
+
+| model | dataset | auc | mindrec recipe | vanilla mindspore |
+| --- | --- | --- | --- | --- |
+| Wide&Deep <font color=red><sup>🔥</sup></font> | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep) | [link](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) |
+| Deep&Cross Network (DCN) | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/deep_and_cross) | [link](https://gitee.com/mindspore/models/tree/master/research/recommend/deep_and_cross) |
