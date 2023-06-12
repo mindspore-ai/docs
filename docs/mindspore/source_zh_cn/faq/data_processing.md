@@ -446,3 +446,9 @@ A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框
     ```
 
 <br/>
+
+<font size=3>**Q: 含有`ops.CTCLoss()`的网络训练时abort可能是什么原因？**</font>
+
+A: 检查构造的CTCLoss的输入是否存在异常值，比如labels_indices是否越界，如果确认没问题，请通过提issue或者论坛提问等方式找开发人员协助定位。
+
+<br/>
