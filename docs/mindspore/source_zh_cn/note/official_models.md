@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/official_models.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 传统AI类
+## 领域套件与扩展包
 
 ### 计算机视觉
 
@@ -269,9 +269,9 @@
 | [Policy Gradient](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fpg) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
 | [Dueling DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdueling_dqn) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
 
-## 科学计算类
+## 科学计算套件
 
-## 大模型类
+## 大模型套件
 
 ### Transformers
 
