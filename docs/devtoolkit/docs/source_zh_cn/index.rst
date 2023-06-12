@@ -1,7 +1,7 @@
 MindSpore Dev Toolkit文档
 ============================
 
-MindSpore Dev Toolkit是一款支持MindSpore开发的 `PyCharm <https://www.jetbrains.com/pycharm/>`_ （多平台Python IDE）插件，提供 `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/mindspore_project_wizard.html>`_ 、 `智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/smart_completion.html>`_ 、 `API互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/operator_search.html>`_ 和 `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/knowledge_search.html>`_ 等功能。
+MindSpore Dev Toolkit是一款支持MindSpore开发的 `PyCharm <https://www.jetbrains.com/pycharm/>`_ （多平台Python IDE）插件，提供 `创建项目 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/mindspore_project_wizard.html>`_ 、 `智能补全 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/smart_completion.html>`_ 、 `API互搜 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/api_search.html>`_ 和 `文档搜索 <https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/knowledge_search.html>`_ 等功能。
 
 MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术，打造智能计算最佳体验，致力于全面提升MindSpore框架的易用性，助力MindSpore生态推广。
 
@@ -33,8 +33,8 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
    PyCharm_plugin_install
    compiling
    smart_completion
-   operator_search
-   operator_scanning
+   api_search
+   api_scanning
    knowledge_search
    mindspore_project_wizard
 
