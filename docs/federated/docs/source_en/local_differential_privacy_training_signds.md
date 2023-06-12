@@ -4,7 +4,7 @@
 
 ## Privacy Protection Background
 
-Federated learning enables the client user to participate in global model training without uploading the original dataset by allowing the participant to upload only the new model after local training or update the update information of the model, breaking through the data silos. This common scenario of federated learning corresponds to the default scheme in the MindSpore federated learning framework, where the `encrypt_type` switch defaults to `not_encrypt` when starting the `server`. The `installation and deployment` and `application practices` in the federated learning tutorial both use this approach by default, which is a common federated seeking averaging scheme without any privacy-protecting treatment such as cryptographic perturbation. For the convenience of description, `not_encrypt' is used below to refer specifically to this default scheme.
+Federated learning enables the client user to participate in global model training without uploading the original dataset by allowing the participant to upload only the new model after local training or update the update information of the model, breaking through the data silos. This common scenario of federated learning corresponds to the default scheme in the MindSpore federated learning framework, where the `encrypt_train_type` switch defaults to `not_encrypt` when starting the `server`. The `installation and deployment` and `application practices` in the federated learning tutorial both use this approach by default, which is a common federated seeking averaging scheme without any privacy-protecting treatment such as cryptographic perturbation. For the convenience of description, `not_encrypt' is used below to refer specifically to this default scheme.
 
 This federated learning scheme is not free from privacy leakage, using the above `not_encrypt` scheme for training. The Server receives the local training model uploaded by the Client, which can still reconstruct the user training data through some attack methods [1], thus leaking user privacy, so the `not_encrypt` scheme needs to further increase the user privacy protection mechanism.
 
@@ -147,10 +147,10 @@ Local differential privacy SignDS training currently only supports cross-device 
 
 ```python
 encrypt:
-  encrypt_type: SIGNDS
+  encrypt_train_type: SIGNDS
   ...
   signds:
-    sign_k: 0.01
+    sign_k: 0.2
     sign_eps: 100
     sign_thr_ratio: 0.6
     sign_global_lr: 0.1
@@ -167,7 +167,9 @@ For the detailed example, refer to [Implementing an Image Classification Applica
 
 ## LeNet Experiment results
 
-Use 100 client datasets of `3500_clients_bin`, 200 iterations of federated aggregation. 20 epochs run locally per client, and using learning rate of device-side local training is 0.01. The related parameter of SignDS is `k=0.01, eps=100, ratio=0.6, lr=4, out=0`, and the final accuracy is 66.5% for all users and 69% for the common federated scenario without encryption. In the unencrypted scenario, the length of the data uploaded to the cloud side at the end of training on the device side is 266,084, but the length of the data uploaded by SignDS is only 656.
+Use 100 client datasets of `3500_clients_bin`, 600 iterations of federated aggregation. 20 epochs run locally per client, and using learning rate of device-side local training is 0.01. The related parameter of SignDS is `k=0.2, eps=100, ratio=0.6, lr=4, out=0`, and the variation curves of Loss and Auc are shown in the following figure. In the unencrypted scenario, the length of the data uploaded to the cloud side at the end of training on the device side is 266,084, but the length of the data uploaded by SignDS is only 656.
+
+![loss](./images/lenet_signds_loss_auc.png)
 
 ## References
 

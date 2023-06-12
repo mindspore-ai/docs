@@ -48,7 +48,7 @@ String certPath  =  "CARoot.pem";             //  the self-signed root certifica
 flParameter.setCertPath(certPath);
 ```
 
-Note 4: In the Android environment, when `pkiVerify` is set to true and encrypt_type is set to PW_ENCRYPT on the cloud side, the following parameters need to be set. The setting examples are as follows:
+Note 4: In the Android environment, when `pkiVerify` is set to true and encrypt_train_type is set to PW_ENCRYPT on the cloud side, the following parameters need to be set. The setting examples are as follows:
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();

@@ -48,7 +48,7 @@ String certPath  =  "CARoot.pem";             //  端云https通信所使用的�
 flParameter.setCertPath(certPath);
 ```
 
-注意4，在Android环境中, 当pkiVerify设置为true且云侧设置encrypt_type=PW_ENCRYPT时，还需要对以下参数进行设置，设置示例如下：
+注意4，在Android环境中, 当pkiVerify设置为true且云侧设置encrypt_train_type=PW_ENCRYPT时，还需要对以下参数进行设置，设置示例如下：
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();

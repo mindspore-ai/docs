@@ -43,7 +43,7 @@ If you are interested in the specific steps of the algorithm, refer to the paper
 
 ### Cross device scenario
 
-Enabling pairwise encryption training is simple. Just set the `encrypt_type` field to `PW_ENCRYPT` through yaml file when starting the cloud-side service.
+Enabling pairwise encryption training is simple. Just set the `encrypt_train_type` field to `PW_ENCRYPT` through yaml file when starting the cloud-side service.
 
 In addition, most of the workers participating in the training are unstable edge computing nodes such as mobile phones, so the problems of dropping the line and secret key reconstruction should be considered. Related parameters are `share_secrets_ratio`, `reconstruct_secrets_threshold`, and `cipher_time_window`.
 
@@ -58,7 +58,7 @@ When the server and client are colluded, the value of `reconstruct_secrets_thres
 
 ### Cross silo scenario
 
-In cross silo scenario, you only need to set the `encrypt_type` field to `PW_ENCRYPT` through yaml file in the cloud-side startup script.
+In cross silo scenario, you only need to set the `encrypt_train_type` field to `PW_ENCRYPT` through yaml file in the cloud-side startup script.
 
 Different from cross silo scenario, all of the workers are stable computing nodes in cross silo scenario. You only need to set the parameter `cipher_time_window`.
 
