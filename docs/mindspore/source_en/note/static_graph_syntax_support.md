@@ -34,7 +34,7 @@ When the data is constant, the value of the data can be achieved at compile time
 
 `String` can be constructed on the network. That is, the syntax `y = "abcd"` is supported.
 
-Use str() to change the constant value to string, str.format() can use to format the string, but not supported to input a kwargs type arguments and the argument of format function cannot be a variable.
+Use str() to change the constant value to string.
 
 For example:
 

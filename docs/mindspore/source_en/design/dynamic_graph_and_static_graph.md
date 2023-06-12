@@ -321,18 +321,20 @@ class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.abs = ops.Abs()
+
     @ms.jit
-    def construct(self, x):
-        y1 = ms.tensor(x.asnumpy(), dtype=ms.float32)
-        y2 = ms.Tensor(x.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
-        y3 = Tensor(x.asnumpy())
-        y4 = Tensor(x.asnumpy(), dtype=ms.float32)
+    def construct(self, x, y):
+        y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+        y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+        y3 = Tensor(x.asnumpy() + y.asnumpy())
+        y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
         return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
 
 ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 x = ms.Tensor(-1, dtype=ms.int32)
-y1, y2, y3, y4 = net(x)
+y = ms.Tensor(-1, dtype=ms.float32)
+y1, y2, y3, y4 = net(x, y)
 
 print(f"y1 value is {y1}, dtype is {y1.dtype}")
 print(f"y2 value is {y2}, dtype is {y2.dtype}")
@@ -343,13 +345,13 @@ print(f"y4 value is {y4}, dtype is {y4.dtype}")
 Output the result:
 
 ```text
-y1 value is 1.0, dtype is Float32
-y2 value is 1.0, dtype is Float32
-y3 value is 1.0, dtype is Float64
-y4 value is 1.0, dtype is Float64
+y1 value is 2.0, dtype is Float32
+y2 value is 2.0, dtype is Float32
+y3 value is 2.0, dtype is Float64
+y4 value is 2.0, dtype is Float64
 ```
 
-"The above examples show the differences in creating Tensors using JIT Fallback Runtime. Due to the lack of Annotation indication in the Tensor class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision Float64. For y1, the corresponding type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified type. y2 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the generation of Any type."
+"The above examples show the differences in creating Tensors using JIT Fallback Runtime. Due to the lack of Annotation indication in the Tensor class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision Float64. For y2, the corresponding type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified type. y1 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the generation of Any type."
 
 #### Calling the Third-party Libraries
 
