@@ -306,5 +306,5 @@
 
 | model | dataset | auc | mindrec recipe | vanilla mindspore |
 | --- | --- | --- | --- | --- |
-| Wide&Deep <img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/hot.png"> | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep) | [link](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) |
-| Deep&Cross Network (DCN) | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/deep_and_cross) | [link](https://gitee.com/mindspore/models/tree/master/research/recommend/deep_and_cross) |
+| Wide&Deep <img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/hot.png"> | Criteo | 0.8 | [config](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep) | [link](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) |
+| Deep&Cross Network (DCN) | Criteo | 0.8 | [config](https://github.com/mindspore-lab/mindrec/tree/master/models/deep_and_cross) | [link](https://gitee.com/mindspore/models/tree/master/research/recommend/deep_and_cross) |
