@@ -1,6 +1,6 @@
-# Operator Scanning
+# API Scanning
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/devtoolkit/docs/source_en/operator_scanning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/devtoolkit/docs/source_en/api_scanning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
 ## Functions Introduction
 
@@ -9,9 +9,9 @@
 
 ## Usage Steps
 
-### Document-level Operator Scanning
+### Document-level API Scanning
 
-1. Right click anywhere in the current file to open the menu, and click "operator scan" at the top of the menu.
+1. Right click anywhere in the current file to open the menu, and click "API scan" at the top of the menu.
 
    ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/devtoolkit/docs/source_zh_cn/images/clip_image100.jpg)
 
@@ -27,9 +27,9 @@
 
    ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/devtoolkit/docs/source_zh_cn/images/clip_image103.jpg)
 
-### Project-level Operator Scanning
+### Project-level API Scanning
 
-1. Right-click anywhere on the current file to open the menu, click the second option "operator scan project-level" at the top of the menu, or select "Tools" in the toolbar above, and then select "operator scan project-level".
+1. Right-click anywhere on the current file to open the menu, click the second option "API scan project-level" at the top of the menu, or select "Tools" in the toolbar above, and then select "operator scan project-level".
 
    ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/devtoolkit/docs/source_zh_cn/images/clip_image104.jpg)
 
