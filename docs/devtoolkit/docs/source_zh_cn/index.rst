@@ -33,8 +33,8 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
    PyCharm_plugin_install
    compiling
    smart_completion
-   operator_search
-   operator_scanning
+   api_search
+   api_scanning
    knowledge_search
    mindspore_project_wizard
 

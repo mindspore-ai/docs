@@ -33,8 +33,8 @@ System Requirements
    PyCharm_plugin_install
    compiling
    smart_completion
-   operator_search
-   operator_scanning
+   api_search
+   api_scanning
    knowledge_search
    mindspore_project_wizard
 
