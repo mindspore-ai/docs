@@ -224,7 +224,11 @@ def main(version, user, pd, WGETDIR, release_url):
         elif version != "daily":
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
+                if data[i]['name'] not in ['lite', 'mindspore', 'mindinsight']:
+                    download_url = release_url.replace('/2.0.0', '/2.0.0rc1') + data[i]['whl_path']\
+                        + data[i]['whl_name']
+                else:
+                    download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
                 dowmloaded = requests.get(download_url, stream=True, verify=False)
                 with open(data[i]['whl_name'], 'wb') as fd:
                     shutil.copyfileobj(dowmloaded.raw, fd)
@@ -232,7 +236,11 @@ def main(version, user, pd, WGETDIR, release_url):
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                    download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
+                    if data[i]['name'] not in ['lite', 'mindspore', 'mindinsight']:
+                        download_url = release_url.replace('/2.0.0', '/2.0.0rc1') + data[i]['tar_path']\
+                            + data[i]['tar_name']
+                    else:
+                        download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
                     dowmloaded = requests.get(download_url, stream=True, verify=False)
                     with open(data[i]['tar_name'], 'wb') as fd:
                         shutil.copyfileobj(dowmloaded.raw, fd)
