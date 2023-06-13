@@ -1,6 +1,6 @@
 # Function Differences with tf.expand_dims
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/expand_dims.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/expand_dims.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.expand_dims
 
@@ -16,7 +16,7 @@ For more information, see [tf.expand_dims](https://tensorflow.google.cn/versions
 mindspore.ops.expand_dims(input_x, axis) -> Tensor
 ```
 
-For more information, see [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.expand_dims.html).
+For more information, see [mindspore.ops.expand_dims](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.expand_dims.html).
 
 ## Differences
 

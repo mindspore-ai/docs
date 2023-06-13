@@ -1,6 +1,6 @@
 # Differences Between MindSpore and PyTorch
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## Differences Between MindSpore and PyTorch APIs
 
@@ -50,7 +50,7 @@ In addition, the `Tensor` returned after the network runs is copied to the CPU d
 
 When PyTorch is used to build a network structure, the `nn.Module` class is used. Generally, network elements are defined and initialized in the `__init__` function, and the graph structure expression of the network is defined in the `forward` function. Objects of these classes are invoked to build and train the entire model. `nn.Module` not only provides us with graph building interfaces, but also provides us with some common [APIs](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) to help us execute more complex logic.
 
-The `nn.Cell` class in MindSpore plays the same role as the `nn.Module` class in PyTorch. Both classes are used to build graph structures. MindSpore also provides various [APIs](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html) for developers. Although the names are not the same, the mapping of common functions in `nn.Module` can be found in `nn.Cell`.
+The `nn.Cell` class in MindSpore plays the same role as the `nn.Module` class in PyTorch. Both classes are used to build graph structures. MindSpore also provides various [APIs](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.Cell.html) for developers. Although the names are not the same, the mapping of common functions in `nn.Module` can be found in `nn.Cell`.
 
 The following uses several common methods as examples:
 
@@ -98,7 +98,7 @@ In MindSpore, the probability value corresponds to the `keep_prob` attribute of 
 
 In PyTorch and TensorFlow, the probability values correspond to the attributes `p` and `rate` of the Dropout operator, respectively. They indicate the probability that the input is set to 0, which is opposite to the meaning of `keep_prob` in MindSpore.nn.Dropout.
 
-For more information, visit [MindSpore Dropout](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout), [PyTorch Dropout](https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html), and [TensorFlow Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout).
+For more information, visit [MindSpore Dropout](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout), [PyTorch Dropout](https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html), and [TensorFlow Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout).
 
 ### nn.BatchNorm2d
 
@@ -131,7 +131,7 @@ The meaning of the momentum parameter of the BatchNorm series operators in MindS
 
 $$momentum_{pytorch} = 1 - momentum_{mindspore}$$
 
-References: [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.BatchNorm2d.html), [torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+References: [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.BatchNorm2d.html), [torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
 
 ### ops.Transpose
 
@@ -171,7 +171,7 @@ print(ret.shape)
     (4, 3, 2, 1)
 ```
 
-For more information, visit [MindSpore Transpose](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose), [PyTorch Transpose](https://pytorch.org/docs/stable/generated/torch.transpose.html), [PyTorch Permute](https://pytorch.org/docs/stable/generated/torch.Tensor.permute.html), and [TensforFlow Transpose](https://www.tensorflow.org/api_docs/python/tf/transpose).
+For more information, visit [MindSpore Transpose](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose), [PyTorch Transpose](https://pytorch.org/docs/stable/generated/torch.transpose.html), [PyTorch Permute](https://pytorch.org/docs/stable/generated/torch.Tensor.permute.html), and [TensforFlow Transpose](https://www.tensorflow.org/api_docs/python/tf/transpose).
 
 ### Conv and Pooling
 
@@ -179,17 +179,17 @@ For operators similar to convolution and pooling, the size of the output feature
 
 If `pad_mode` is set to `valid`, the height and width of the output feature map are calculated as follows:
 
-![conv-formula](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/migration_guide/model_development/images/conv_formula.png)
+![conv-formula](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/docs/mindspore/source_zh_cn/migration_guide/model_development/images/conv_formula.png)
 
 If pad_mode (corresponding to the padding attribute in PyTorch, which has a different meaning from pad_mode) is set to `same`, automatic padding needs to be performed on the input feature map sometimes. When the padding element is an even number, padding elements are evenly distributed on the top, bottom, left, and right of the feature map. In this case, the behavior of this type of operators in MindSpore, PyTorch, and TensorFlow is the same.
 
 However, when the padding element is an odd number, PyTorch is preferentially filled on the left and upper sides of the input feature map.
 
-![padding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern1.png)
+![padding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern1.png)
 
 MindSpore and TensorFlow are preferentially filled on the right and bottom of the feature map.
 
-![padding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern2.png)
+![padding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/docs/mindspore/source_zh_cn/migration_guide/model_development/images/padding_pattern2.png)
 
 The following is an example:
 
@@ -292,7 +292,7 @@ When MindSpore performs automatic differentiation, the forward graph structure n
 
 Finally, not only the forward graph is executed, but also the graph structure contains both the forward operator and the backward operator added by MindSpore. That is, MindSpore adds an invisible `Cell` after the defined forward graph, the `Cell` is a backward operator derived from the forward graph.
 
-The interface that helps us build the backward graph is [GradOperation](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.GradOperation.html).
+The interface that helps us build the backward graph is [GradOperation](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.GradOperation.html).
 
 ```python
 import mindspore as ms
@@ -313,7 +313,7 @@ Similarly, when we add an optimizer structure to the network, the optimizer also
 
 In MindSpore, most operations are finally converted into real operator operations and finally added to the computational graph. Therefore, the number of operators actually executed in the computational graph is far greater than the number of operators defined at the beginning.
 
-MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.0/migration_guide/model_development/training_and_evaluation_procession.html).
+MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r1.11/migration_guide/model_development/training_and_evaluation_procession.html).
 
 ### Learning Rate Update
 
@@ -323,7 +323,7 @@ PyTorch provides the `torch.optim.lr_scheduler` package for dynamically modifyin
 
 #### MindSpore Learning Rate Update Policy
 
-The learning rate of MindSpore is packaged in the optimizer. Each time the optimizer is invoked, the learning rate update step is automatically updated. For details, see [Learning Rate and Optimizer](https://www.mindspore.cn/docs/en/r2.0/migration_guide/model_development/learning_rate_and_optimizer.html).
+The learning rate of MindSpore is packaged in the optimizer. Each time the optimizer is invoked, the learning rate update step is automatically updated. For details, see [Learning Rate and Optimizer](https://www.mindspore.cn/docs/en/r1.11/migration_guide/model_development/learning_rate_and_optimizer.html).
 
 ### Distributed Scenarios
 
@@ -378,7 +378,7 @@ if __name__=="__main__":
 
 #### MindSpore Distributed Settings
 
-The distributed configuration of MindSpore uses runtime configuration items. For details, see [Distributed Parallel Training Mode](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/introduction.html). For example:
+The distributed configuration of MindSpore uses runtime configuration items. For details, see [Distributed Parallel Training Mode](https://www.mindspore.cn/tutorials/experts/en/r1.11/parallel/introduction.html). For example:
 
 ```python
 import mindspore as ms
@@ -399,7 +399,7 @@ ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradie
 
 ### Optimizer Support Differences
 
-A comparison of the similarities and differences between the optimizers supported by both PyTorch and MindSpore is detailed in the [API mapping table](https://mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#torch-optim). Optimizers not supported in MindSpore at the moment: LBFGS, NAdam, RAdam.
+A comparison of the similarities and differences between the optimizers supported by both PyTorch and MindSpore is detailed in the [API mapping table](https://mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#torch-optim). Optimizers not supported in MindSpore at the moment: LBFGS, NAdam, RAdam.
 
 ### Optimizer Execution and Usage Differences
 
@@ -466,7 +466,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 
   The data types of the `params` different: input types in PyTorch are `iterable(Tensor)` and `iterable(dict)`, which support iterator types, while input types in MindSpore are `list(Parameter)`, `list(dict)`, which do not support iterators.
 
-  Other hyperparameter configurations and support differences are detailed in the [API mapping table](https://mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#torch-optim).
+  Other hyperparameter configurations and support differences are detailed in the [API mapping table](https://mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#torch-optim).
 
 - The parameters are grouped:
 
@@ -516,7 +516,7 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-There are two implementations of dynamic learning rates in MindSpore, `Cell` and `list`. Both types of dynamic learning rates are used in the same way and are passed into the optimizer after instantiation is complete. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the learning rate list directly according to the computational logic, and updates the learning rate internally during the training process. Please refer to [Dynamic Learning Rate](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.nn.html#dynamic-learning-rate) for details.
+There are two implementations of dynamic learning rates in MindSpore, `Cell` and `list`. Both types of dynamic learning rates are used in the same way and are passed into the optimizer after instantiation is complete. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the learning rate list directly according to the computational logic, and updates the learning rate internally during the training process. Please refer to [Dynamic Learning Rate](https://mindspore.cn/docs/en/r1.11/api_python/mindspore.nn.html#dynamic-learning-rate) for details.
 
 ```python
 polynomial_decay_lr = nn.PolynomialDecayLR(learning_rate=0.1, end_learning_rate=0.01, decay_steps=4, power=0.5)

@@ -1,6 +1,6 @@
 # Debugging in PyNative Mode
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/debug/pynative_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_en/debug/pynative_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Introduction
 
@@ -64,7 +64,7 @@ print("grads: ", grads)
 
     As shown in Figure 1, the script stops at the `out = self.pow(x-y, 2)` command and waits for the next pdb command.
 
-    ![pynative_debug.png](https://gitee.com/mindspore/docs/raw/r2.0/tutorials/experts/source_zh_cn/debug/images/pynative_debug.png)
+    ![pynative_debug.png](https://gitee.com/mindspore/docs/raw/r1.11/tutorials/experts/source_zh_cn/debug/images/pynative_debug.png)
 
     Figure 1
 

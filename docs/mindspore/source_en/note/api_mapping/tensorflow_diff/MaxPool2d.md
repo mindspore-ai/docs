@@ -1,6 +1,6 @@
 # Function Differences with tf.nn.max_pool2d
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.nn.max_pool2d
 
@@ -28,7 +28,7 @@ class mindspore.nn.MaxPool2d(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.MaxPool2d.html).
+For more information, see [mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.MaxPool2d.html).
 
 ## Differences
 
@@ -41,7 +41,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow.
 |Parameters | Parameter 1 | input | x |Same function, different parameter names |
 | | Parameter 2 | ksize | kernel_size | Same function, different parameter names, no default values for TensorFlow |
 | | Parameter 3 | strides | stride | Same function, different parameter names, no default values for TensorFlow |
-| | Parameter 4 | padding | pad_mode | Same function, different parameter names, no default values for TensorFlow. For more information, see [Conv and Pooling](https://www.mindspore.cn/docs/en/r2.0/migration_guide/typical_api_comparision.html#conv-and-pooling) |
+| | Parameter 4 | padding | pad_mode | Same function, different parameter names, no default values for TensorFlow. For more information, see [Conv and Pooling](https://www.mindspore.cn/docs/en/r1.11/migration_guide/typical_api_comparision.html#conv-and-pooling) |
 | | Parameter 5 | data_format | data_format | - |
 | | Parameter 6 | name | - | Not involved |
 

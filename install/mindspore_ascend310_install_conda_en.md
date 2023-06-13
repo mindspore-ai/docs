@@ -16,13 +16,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_ascend310_install_conda_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/install/mindspore_ascend310_install_conda_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
 The following describes how to install MindSpore by Conda on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to install MindSpore by Conda on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.0/scripts/install/euleros-ascend-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
+- If you want to install MindSpore by Conda on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.11/scripts/install/euleros-ascend-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 
 - If your system is Ubuntu 18.04/CentOS 7.6, or some dependencies, such as Python and GCC, have been installed, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
 
@@ -33,7 +33,7 @@ Before running the automatic installation script, you need to make sure that the
 Run the following command to obtain and run the automatic installation script. The automatic installation script supports only MindSpore>=1.6.0 or later.
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/r2.0/scripts/install/euleros-ascend-conda.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.11/scripts/install/euleros-ascend-conda.sh
 # install Python 3.7 and the latest MindSpore by default
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 bash -i ./euleros-ascend-conda.sh
@@ -168,7 +168,7 @@ Ensure that you are in the Conda virtual environment and run the following comma
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r2.0/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r2.0/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r2.0/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.11/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r1.11/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.11/requirements.txt).
 
 ## Configuring Environment Variables
 

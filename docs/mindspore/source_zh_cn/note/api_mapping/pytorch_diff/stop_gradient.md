@@ -1,6 +1,6 @@
 # 比较与torch.autograd.enable_grad和torch.autograd.no_grad的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/stop_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/stop_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.autograd.enable_grad
 
@@ -24,10 +24,10 @@ torch.autograd.no_grad()
 mindspore.ops.stop_gradient(input)
 ```
 
-更多内容详见[mindspore.ops.stop_gradient](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.stop_gradient.html)。
+更多内容详见[mindspore.ops.stop_gradient](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.stop_gradient.html)。
 
 ## 使用方式
 
 PyTorch：使用`torch.autograd.enable_grad`启用梯度计算，使用`torch.autograd.no_grad`禁用梯度计算。
 
-MindSpore：使用[stop_gradient](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.stop_gradient.html)禁止网络内的算子对梯度的影响。
+MindSpore：使用[stop_gradient](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.stop_gradient.html)禁止网络内的算子对梯度的影响。

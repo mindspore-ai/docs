@@ -1,6 +1,6 @@
 # 比较与torch.normal的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/normal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/normal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.normal
 
@@ -19,7 +19,7 @@ torch.normal(mean, std, size, *, out=None)
 mindspore.ops.normal(shape, mean, stddev, seed=None)
 ```
 
-更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.normal.html)。
+更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.normal.html)。
 
 ## 差异对比
 
@@ -39,9 +39,9 @@ MindSpore: `mean` 和 `std` 支持的数据类型是Tensor，返回值的shape�
 | 参数       | 参数 1       | -             | shape         | MindSpore下用于和 `mean` , `stddev` 共同广播得到返回值的shape |
 |            | 参数 2       | mean          | mean          | MindSpore下支持的数据类型是Tensor。PyTorch下支持Tensor、float，对应不同用法 |
 |            | 参数 3       | std           | stddev        | MindSpore下支持的数据类型是Tensor。PyTorch下支持Tensor、float，对应不同用法 |
-|            | 参数 4       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 4       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r1.11/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 |            | 参数 5       | size          | -             | PyTorch下的返回值的shape，指定的接口用法下使用 |
-|            | 参数 6       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 6       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r1.11/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例 1
 

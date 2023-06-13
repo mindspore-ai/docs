@@ -1,24 +1,24 @@
 # Host&Device Heterogeneous
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/host_device_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_en/parallel/host_device_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogeneous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training. When the size of a model is hundreds of GBs or several TBs, the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly efficient method for addressing huge model problem.
 
-In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/r2.0/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
+In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/r1.11/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
 
 ## Basic Principle
 
 Pipeline parallel and operator-level parallel are suitable for the model to have a large number of operators, and the parameters are more evenly distributed among the operators. What if the number of operators in the model is small, and the parameters are concentrated in only a few operators? Wide & Deep is an example of this, as shown in the image below. The Embedding table in Wide & Deep can be trained as a parameter of hundreds of GIGabytes or even a few terabytes. If it is executed on an accelerator ( device ) , the number of accelerators required is huge, and the training cost is expensive. On the other hand, if you use accelerator computing, the training acceleration obtained is limited, and it will also trigger cross-server traffic, and the end-to-end training efficiency will not be very high.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/experts/source_zh_cn/parallel/images/host_device_image_0_zh.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/experts/source_zh_cn/parallel/images/host_device_image_0_zh.png)
 
 *Figure: Part of the structure of the Wide & Deep model*
 
 A careful analysis of the special structure of the Wide & Deep model can be obtained: although the Embedding table has a huge amount of parameters, it participates in very little computation, and the Embedding table and its corresponding operator, the EmbeddingLookup operator, can be placed on the Host side, by using the CPU for calculation, and the rest of the operators are placed on the accelerator side. This can take advantage of the large amount of memory on the Host side and the fast computing of the accelerator side, while taking advantage of the high bandwidth of the Host to accelerator of the same server. The following diagram shows how Wide & Deep heterogeneous slicing works:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/experts/source_zh_cn/parallel/images/host_device_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/experts/source_zh_cn/parallel/images/host_device_image_1_zh.png)
 
 *Figure: Wide & Deep Heterogeneous Approach*
 
@@ -26,11 +26,11 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Sample Code Description
 
-1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/r2.0/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
+1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/r1.11/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
-3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r2.0/utils/hccl_tools).
+3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r1.11/utils/hccl_tools).
 
 ### Configuring for Hybrid Training
 

@@ -1,6 +1,6 @@
 # Function Differences with tf.eye
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/eye.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/eye.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.eye
 
@@ -22,7 +22,7 @@ For more information, see [tf.eye](https://tensorflow.google.cn/versions/r2.6/ap
 mindspore.ops.eye(n, m, t) -> Tensor
 ```
 
-For more information, see [mindspore.ops.eye](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.eye.html).
+For more information, see [mindspore.ops.eye](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.eye.html).
 
 ## Differences
 

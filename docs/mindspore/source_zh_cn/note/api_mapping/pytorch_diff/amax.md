@@ -1,6 +1,6 @@
 # 比较与torch.amax的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/amax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/amax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.amax(input, dim, keepdim=False, *, out=None) -> Tensor
 mindspore.ops.amax(x, axis=(), keepdims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.amax](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.amax.html)。
+更多内容详见[mindspore.ops.amax](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.amax.html)。
 
 ## 差异对比
 

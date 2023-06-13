@@ -1,6 +1,6 @@
 # Function Differences with tf.clip_by_value
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorClip.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorClip.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.clip_by_value
 
@@ -18,7 +18,7 @@ For more information, see [tf.clip_by_value](https://tensorflow.google.cn/versio
 mindspore.Tensor.clip(xmin, xmax, dtype=None)
 ```
 
-For more information, see [mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip).
+For more information, see [mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/r1.11/api_python/mindspore/Tensor/mindspore.Tensor.clip.html#mindspore.Tensor.clip).
 
 ## Usage
 

@@ -1,8 +1,8 @@
 Function Debug
 ===============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png
-    :target: https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/debug/function_debug.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png
+    :target: https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_en/debug/function_debug.rst
 
 .. toctree::
   :maxdepth: 1
@@ -54,7 +54,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png
 
 -  Python stack information:
 
@@ -95,7 +95,7 @@ Based on the error message and the location of the error code, combined with the
 
    MindSpore provides FAQ for common error reporting issues, including data processing, compilation execution, distributed parallelism and other scenarios. Based on the problem scenarios derived from the error analysis, you can search for problems by using the error description information.
 
-   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/r2.0/faq/installation.html>`__\ .
+   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/r1.11/faq/installation.html>`__\ .
 
 -  Error reporting case
 
@@ -136,7 +136,7 @@ Strategy Selection
 
    Dynamic diagram mode uses asynchronous execution by default in order to improve the efficiency of dynamic diagram execution, and error information are displayed at the last stage of execution. In Figure 3, you can see that the asynchronous execution method of error reporting will have alarm messages that interfere with the error reporting analysis.
 
-   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/r2.0/advanced/compute_graph.html>`__\ .
+   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/r1.11/advanced/compute_graph.html>`__\ .
 
 -  Dichotomy Strategy
 
@@ -149,7 +149,7 @@ Strategy Selection
 Problem Recurrence
 ^^^^^^^^^^^^^^^^^^^
 
-Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations. MindSpore provides ideas and methods for fixed randomness. Please refer to \ `Fixed Randomness <https://mindspore.cn/tutorials/experts/en/r2.0/debug/fixing_randomness.html>`__\ for details.
+Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations. MindSpore provides ideas and methods for fixed randomness. Please refer to \ `Fixed Randomness <https://mindspore.cn/tutorials/experts/en/r1.11/debug/fixing_randomness.html>`__\ for details.
 
 Debugging Verification
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -197,7 +197,7 @@ Debugging Verification
 
       4. Check the correspondence between diagram nodes and source code.
 
-      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/r2.0/debugger.html>`__\ .
+      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/r1.11/debugger.html>`__\ .
 
 Network Execution Debugging
 ----------------------------
@@ -213,39 +213,39 @@ Network execution debugging is the corresponding debugging capability provided b
 | Execution observation     | Visualization of the training process    | The scalar, image, computation graph, training optimization process                                         | `Collect Summary data <https://ww                     |
 |                           |                                          | and model superparameter information during the training process are recorded in a file                     | w.mindspore.cn/mindin                                 |
 |                           |                                          | and made available for users to view through the MindSpore Insight visualization interface,                 | sight/docs/en                                         |
-|                           |                                          | including: scalar visualization, parameter distribution visualization, computational graph visualization,   | /r2.0/summary                                         |
+|                           |                                          | including: scalar visualization, parameter distribution visualization, computational graph visualization,   | /r1.11/summary                                         |
 |                           |                                          | data graph visualization, image visualization, tensor visualization and optimization process visualization. | _record.html>`_                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Training traceability and comparison     | The model traceability, data traceability, and comparison dashboard allow users to observe                  | `Viewing Lineage and Scalars Comparison               |
 |                           |                                          | different scalar trend graphs to identify problems and then use the traceability function                   | <https://www.mindspore.cn/                            |
-|                           |                                          | to locate the cause of the problem, providing users with the ability to efficiently                         | mindinsight/docs/en/r2.0/                             |
+|                           |                                          | to locate the cause of the problem, providing users with the ability to efficiently                         | mindinsight/docs/en/r1.11/                             |
 |                           |                                          | tune the data augmentation and deep neural networks.                                                        | lineage_and_scalars_                                  |
 |                           |                                          |                                                                                                             | comparison.html>`_                                    |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | metrics                                  | When the training is finished,                                                                              | `MindSpore metrics function                           |
 |                           |                                          | metrics can be used to evaluate the training results.                                                       | introduction <https://www.mindspore.cn/tutorials      |
-|                           |                                          | A variety of metrics are provided for evaluation,                                                           | /experts/en/r2.0/debug/custom_debug.html              |
+|                           |                                          | A variety of metrics are provided for evaluation,                                                           | /experts/en/r1.11/debug/custom_debug.html              |
 |                           |                                          | such as: accuracy, loss, preci sion, recall, F1.                                                            | #mindspore-metrics-introduction>`_                    |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Print operator                           | The Print operator prints out the Tensor or                                                                 | `Print operator introduction <https://www.minds       |
-|                           |                                          | string information entered by the user.                                                                     | pore.cn/tutorials/experts/en/r2.0/debug               |
+|                           |                                          | string information entered by the user.                                                                     | pore.cn/tutorials/experts/en/r1.11/debug               |
 |                           |                                          |                                                                                                             | /custom_debug.html#mindspore-print-                   |
 |                           |                                          |                                                                                                             | operator-introduction>`_                              |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Intermediate file saving                 | Used to save the intermediate files generated                                                               | `Reading IR <https://www.mindspore.cn/tutorials       |
-|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /experts/en/r2.0/debug/mindir.html>`_                 |
+|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /experts/en/r1.11/debug/mindir.html>`_                 |
 |                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Data Dump                                | When training the network, if the training result deviates from the expectation,                            | `Dump function debugging <https://www.mindspore.cn/   |
-|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/experts/en/r2.0/debug/dump.html>`_          |
+|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/experts/en/r1.11/debug/dump.html>`_          |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Execution control         | Callback                                 | Users can use callback functions to perform specific actions                                                | `Callback mechanism <https://www.                     |
 |                           |                                          | at specific times or to observe network information                                                         | mindspore.cn/tutorials/experts                        |
-|                           |                                          | during training, e.g., save model parameters, monitor loss,                                                 | /en/r2.0/debug/custom_debug.html                      |
+|                           |                                          | during training, e.g., save model parameters, monitor loss,                                                 | /en/r1.11/debug/custom_debug.html                      |
 |                           |                                          | dynamically adjust parameters, terminate training tasks early.                                              | #introduction-to-callback>`_                          |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Hook                                     | The Hook function in pynative mode captures the input and output data                                       | `Hook function <https://www.mindspore.cn/             |
-|                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/experts/en/r2.0/                            |
+|                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/experts/en/r1.11/                            |
 |                           |                                          | Four forms of Hook functions are available:                                                                 | debug/pynative.html#hook-function>`_                  |
 |                           |                                          | HookBackward operator and register_forward_pre_hook, register_forward_hook,                                 |                                                       |
 |                           |                                          | and register_backward_hook functions                                                                        |                                                       |
@@ -274,10 +274,10 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 | Data records            | RDR                      | Running Data Recorder (RDR) provides the ability              | `Running Data Recorder                                |
 |                         |                          | to record framework execution status data                     | <https://www.mindspore.cn/                            |
 |                         |                          | while the training program is running.                        | ps://www.mind                                         |
-|                         |                          | It can also save key frame state data, such as IR,            | tutorials/experts/en/r2.0/                            |
+|                         |                          | It can also save key frame state data, such as IR,            | tutorials/experts/en/r1.11/                            |
 |                         |                          | graph execution order,                                        | debug/custom_debug.html#running-data-recorder>`_      |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
-|                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/r2.0/debug                       |
+|                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/r1.11/debug                       |
 |                         |                          |                                                               | /custom_debug.html#memory-reuse>`_                    |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+

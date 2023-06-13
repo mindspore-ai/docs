@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.kl_div
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/kl_div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/kl_div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.kl_div
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.kl_div](https://pytorch.org/docs/
 mindspore.ops.kl_div(logits, labels, reduction='mean')
 ```
 
-For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
+For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
 
 ## Differnnces
 

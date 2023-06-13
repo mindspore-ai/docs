@@ -1,6 +1,6 @@
 # Function Differences with torch.prod
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/prod.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/prod.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.prod](https://pytorch.org/docs/1.8.1/generated/
 mindspore.ops.prod(input, axis=(), keep_dims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.prod](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.prod.html.
+For more information, see [mindspore.ops.prod](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.prod.html.
 
 ## Differences
 

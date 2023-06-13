@@ -1,6 +1,6 @@
 # Function Differences with torch.linalg.qr
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/qr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/qr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.linalg.qr
 
@@ -16,7 +16,7 @@ For more information, see [torch.linalg.qr](https://pytorch.org/docs/1.8.1/linal
 mindspore.ops.qr(input, mode='reduced') -> (Tensor, Tensor)
 ```
 
-For more information, see [mindspore.ops.qr](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.qr.html).
+For more information, see [mindspore.ops.qr](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.qr.html).
 
 ## Differences
 

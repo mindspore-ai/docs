@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.LeakyReLU
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LeakyReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LeakyReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.LeakyReLU
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.LeakyReLU](https://pytorch.org/docs/1.8.1/ge
 class mindspore.nn.LeakyReLU(alpha=0.2)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LeakyReLU](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.LeakyReLU.html).
+For more information, see [mindspore.nn.LeakyReLU](https://mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.LeakyReLU.html).
 
 ## Differences
 

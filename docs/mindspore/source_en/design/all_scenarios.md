@@ -1,22 +1,22 @@
 # Full-scenarios Unification
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/design/all_scenarios.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/design/all_scenarios.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 MindSpore is designed to provide an device-edge-cloud full-scenarios AI framework that can be deployed in different hardware environments on the device-edge-cloud to meet the differentiated needs of different environments, such as supporting lightweight deployment on the device-side and rich training features such as automatic differentiation, hybrid precision and easy programming of models on the cloud side.
 
 > The cloud side includes NVIDIA GPU, Huawei Ascend, Intel x86, etc., and the device side includes Arm, Qualcomm, Kirin, etc.
 
-![intro](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindspore/source_zh_cn/design/images/all_scenarios_intro.png)
+![intro](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/docs/mindspore/source_zh_cn/design/images/all_scenarios_intro.png)
 
 ## Important Features of Full-scenarios
 
 Several important features of MindSpore full scenarios:
 
-1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/r2.0/quick_start/train_lenet.html).
+1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/r1.11/quick_start/train_lenet.html).
 2. Model unification. The device and cloud use the same model format and definition, and the software architecture is consistent. MindSpore supports the execution of Ascend, GPU, CPU (x86, Arm) and other hardware, and is used in multiple deployments for one training.
 3. Diversified arithmetic support. Provide a unified southbound interface to support the quick addition of new hardware for use.
 4. Model miniaturization techniques, adapted to the requirements of different hardware environments and business scenarios, such as quantization compression.
-5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/r0.1/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.0/use/runtime_train.html) and other new technologies.
+5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/r0.1/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r1.11/use/runtime_train.html) and other new technologies.
 
 ## Full-scenarios Support Mode
 

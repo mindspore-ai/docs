@@ -31,7 +31,7 @@ MindSpore 文档
    :hidden:
 
    note/benchmark
-   网络支持↗ <https://gitee.com/mindspore/models/blob/r2.0/README_CN.md#目录>
+   网络支持↗ <https://gitee.com/mindspore/models/blob/r1.11/README_CN.md#目录>
    note/operator_list
    note/syntax_list
 
@@ -57,7 +57,7 @@ MindSpore 文档
    api_python/mindspore.boost
    api_python/mindspore.numpy
    api_python/mindspore.scipy
-   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/r2.0/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

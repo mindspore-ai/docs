@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.AvgPool1d
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AvgPool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AvgPool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.AvgPool1d
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.AvgPool1d](https://pytorch.org/docs/1.8.1/ge
 mindspore.nn.AvgPool1d(kernel_size=1, stride=1, pad_mode="valid", padding=0, ceil_mode=False, count_include_pad=True)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.AvgPool1d.html).
+For more information, see [mindspore.nn.AvgPool1d](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.AvgPool1d.html).
 
 ## Differences
 

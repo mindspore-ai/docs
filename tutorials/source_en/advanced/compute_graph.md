@@ -1,8 +1,8 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_en/advanced/compute_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_en/advanced/compute_graph.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 # Computational Graph
 
-![comp-graph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/source_zh_cn/advanced/images/comp-graph.png)
+![comp-graph.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/source_zh_cn/advanced/images/comp-graph.png)
 
 A computational graph is a form of representing mathematical expressions by using directed graphs. As shown in the figure, the neural network structure can be regarded as a computational graph consisting of Tensor data and Tensor operations as nodes, so constructing a neural network and training it by using a deep learning framework is the process of constructing a computational graph and executing it. The current support for computational graphs in the industry framework is divided into two modes: dynamic graphs are executed by interpretation, with dynamic syntax affinity and flexible expression, and static graphs are executed by using JIT (just in time) compilation optimization. There are more restrictions on the syntax for using static syntax.
 
@@ -79,7 +79,7 @@ ms.set_context(mode=ms.GRAPH_MODE)
 
 ### Graph Compilation Based on Source Code Conversion
 
-In static graph mode, MindSpore converts Python source code into Intermediate Representation IR (IR) by means of source code conversion, and based on this, optimizes the IR graph, and finally executes the optimized graph on hardware devices. MindSpore uses a functional IR based on graph representation, called MindIR. For details, see [Intermediate Representation MindIR](https://www.mindspore.cn/docs/en/r2.0/design/mindir.html).
+In static graph mode, MindSpore converts Python source code into Intermediate Representation IR (IR) by means of source code conversion, and based on this, optimizes the IR graph, and finally executes the optimized graph on hardware devices. MindSpore uses a functional IR based on graph representation, called MindIR. For details, see [Intermediate Representation MindIR](https://www.mindspore.cn/docs/en/r1.11/design/mindir.html).
 
 MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph. However, in practice, it is not sensed when the instantiated Cell object is called. MindSpore encapsulates both phases in the `__call__` method of the Cell, so the actual calling process is as follows:
 
@@ -101,11 +101,11 @@ out:  [-0.26551223  3.0243678   0.706525  ]
 
 ### Static Graph Syntax
 
-In Graph mode, Python code is not executed by the Python interpreter, but the code is compiled into a static computational graph, and then the static computational graph is executed. Therefore, the compiler cannot support the full amount of Python syntax. MindSpore static graph compiler maintains a subset of Python common syntax to support the construction and training of neural networks. For details, refer to [Static graph syntax support](https://www.mindspore.cn/docs/en/r2.0/note/static_graph_syntax_support.html).
+In Graph mode, Python code is not executed by the Python interpreter, but the code is compiled into a static computational graph, and then the static computational graph is executed. Therefore, the compiler cannot support the full amount of Python syntax. MindSpore static graph compiler maintains a subset of Python common syntax to support the construction and training of neural networks. For details, refer to [Static graph syntax support](https://www.mindspore.cn/docs/en/r1.11/note/static_graph_syntax_support.html).
 
 ### Static Graph Control Flow
 
-In PyNative mode, MindSpore fully supports flow control statements in Python native syntax. In Graph mode, MindSpore is compiled with performance optimizations, so there are some special constraints on the use of flow control statements when defining networks, but the rest remains consistent with the native Python syntax. For details, refer to [flow control statements](https://mindspore.cn/tutorials/experts/en/r2.0/network/control_flow.html).
+In PyNative mode, MindSpore fully supports flow control statements in Python native syntax. In Graph mode, MindSpore is compiled with performance optimizations, so there are some special constraints on the use of flow control statements when defining networks, but the rest remains consistent with the native Python syntax. For details, refer to [flow control statements](https://mindspore.cn/tutorials/experts/en/r1.11/network/control_flow.html).
 
 ## Just-in-time Compilation
 

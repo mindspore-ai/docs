@@ -1,6 +1,6 @@
 # Function Differences with torch.median
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/median.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/median.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.median](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.median(input, axis=-1, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.median.html).
+For more information, see [mindspore.ops.median](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.median.html).
 
 ## Differences
 

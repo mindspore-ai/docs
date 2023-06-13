@@ -1,6 +1,6 @@
 # Differences with torch.svd
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/svd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.svd](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
-For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.svd.html).
+For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.svd.html).
 
 ## Differences
 
@@ -52,7 +52,7 @@ MindSpore:
 | Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | some         | full_matrices | To return the reduced singular value decomposition, MindSpore should set `full_matrices` to False, and PyTorch should set `some` to True |
 |            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is True, the order of output values of MindSpore is s, u, v, and the order of PyTorch is u, s, v |
-|            | Parameter 4   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 4   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example 1
 

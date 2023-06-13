@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.0/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0/beginner/transforms.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r1.11/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.11/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.11/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.11/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.11/beginner/transforms.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/r1.11/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.11/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.11/beginner/save_load.html)
 
 # Building a Network
 
@@ -17,7 +17,7 @@ from mindspore import nn, ops
 
 When define a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
 
-> `construct` means neural network (computational graph) construction. For more details, see [computational graph](https://www.mindspore.cn/tutorials/en/r2.0/advanced/compute_graph.html).
+> `construct` means neural network (computational graph) construction. For more details, see [computational graph](https://www.mindspore.cn/tutorials/en/r1.11/advanced/compute_graph.html).
 
 ```python
 class Network(nn.Cell):
@@ -239,4 +239,4 @@ Size: (10,)
 Values : [0. 0.]
 ```
 
-For more built-in neural network layers, see [mindspore.nn API](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore.nn.html).
+For more built-in neural network layers, see [mindspore.nn API](https://www.mindspore.cn/docs/en/r1.11/api_python/mindspore.nn.html).

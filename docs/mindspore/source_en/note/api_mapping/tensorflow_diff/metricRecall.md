@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.metrics.Recall
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricRecall.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricRecall.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.metrics.Recall
 
@@ -18,7 +18,7 @@ For more information, see [tf.keras.metrics.Recall](https://tensorflow.google.cn
 mindspore.train.Recall(eval_type="classification")
 ```
 
-For more information, see [mindspore.train.Recall](https://mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall).
+For more information, see [mindspore.train.Recall](https://mindspore.cn/docs/en/r1.11/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall).
 
 ## Usage
 

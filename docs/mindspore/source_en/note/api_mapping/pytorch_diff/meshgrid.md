@@ -1,6 +1,6 @@
 # Function Differences with torch.meshgrid
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/meshgrid.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/meshgrid.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.meshgrid
 
@@ -17,7 +17,7 @@ For more information, see [torch.meshgrid](https://pytorch.org/docs/1.8.1/genera
 mindspore.ops.meshgrid(*inputs, indexing='xy')
 ```
 
-For more information, see [mindspore.ops.meshgrid](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.meshgrid.html).
+For more information, see [mindspore.ops.meshgrid](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.meshgrid.html).
 
 ## Differences
 

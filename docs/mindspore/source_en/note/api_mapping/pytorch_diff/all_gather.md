@@ -1,6 +1,6 @@
 # Function Differences with torch.distributed.all_gather
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_gather.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_gather.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.distributed.all_gather
 
@@ -21,7 +21,7 @@ For more information, see [torch.distributed.all_gather](https://pytorch.org/doc
 class mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
 ```
 
-For more information, see [mindspore.ops.AllGather](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather).
+For more information, see [mindspore.ops.AllGather](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather).
 
 ## Differences
 

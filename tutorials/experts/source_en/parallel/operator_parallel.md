@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_en/parallel/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -59,7 +59,7 @@ The following is an illustration of operator-level parallelism by taking an Asce
 
 ### Sample Code Description
 
-> Download the complete sample code here: [operator_parallel](https://gitee.com/mindspore/docs/tree/r2.0/docs/sample_code/operator_parallel).
+> Download the complete sample code here: [operator_parallel](https://gitee.com/mindspore/docs/tree/r1.11/docs/sample_code/operator_parallel).
 
 The directory structure is as follows:
 
@@ -76,7 +76,7 @@ The `rank_table_8pcs.json` is the networking information file to configure the A
 
 ### Configuring the Distributed Environment
 
-The configuration of the distributed environment can be found in: [Configuring Distributed Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/train_ascend.html#configuring-distributed-environment-variables) tutorial.
+The configuration of the distributed environment can be found in: [Configuring Distributed Environment Variables](https://www.mindspore.cn/tutorials/experts/en/r1.11/parallel/train_ascend.html#configuring-distributed-environment-variables) tutorial.
 
 ### Defining the Network
 

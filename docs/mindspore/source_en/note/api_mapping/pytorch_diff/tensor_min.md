@@ -1,6 +1,6 @@
 # Function Differences with torch.Tensor.min
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_min.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_min.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.Tensor.min
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.min](https://pytorch.org/docs/1.8.1/tens
 mindspore.Tensor.min(axis=None, keepdims=False, *, initial=None, where=True, return_indices=False)
 ```
 
-For more information, see [mindspore.Tensor.min](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.min.html).
+For more information, see [mindspore.Tensor.min](https://www.mindspore.cn/docs/en/r1.11/api_python/mindspore/Tensor/mindspore.Tensor.min.html).
 
 ## Differences
 

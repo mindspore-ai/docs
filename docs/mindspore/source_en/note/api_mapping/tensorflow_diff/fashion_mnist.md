@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.datasets.fashion_mnist
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/fashion_mnist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/fashion_mnist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.datasets.fashion_mnist
 
@@ -26,7 +26,7 @@ class mindspore.dataset.FashionMnistDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/en/r2.0/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset).
+For more information, see [mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/en/r1.11/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset).
 
 ## Differences
 

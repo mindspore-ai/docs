@@ -1,6 +1,6 @@
 # Function Differences with tf.math.reduce_std
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorStd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorStd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.math.reduce_std
 
@@ -16,7 +16,7 @@ For more information, see [tf.math.reduce_std](https://tensorflow.google.cn/vers
 mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.Tensor.std](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std).
+For more information, see [mindspore.Tensor.std](https://mindspore.cn/docs/en/r1.11/api_python/mindspore/Tensor/mindspore.Tensor.std.html#mindspore.Tensor.std).
 
 ## Usage
 

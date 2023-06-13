@@ -1,6 +1,6 @@
 # 比较与tf.nn.ctc_greedy_decoder的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ctc_greedy_decoder.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/ctc_greedy_decoder.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## tf.nn.ctc_greedy_decoder
 
@@ -25,7 +25,7 @@ mindspore.ops.ctc_greedy_decoder(
 )(decoded_indices, decoded_values, decoded_shape, log_probability) -> Tuple
 ```
 
-更多内容详见[mindspore.ops.ctc_greedy_decoder](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ctc_greedy_decoder.html)。
+更多内容详见[mindspore.ops.ctc_greedy_decoder](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.ctc_greedy_decoder.html)。
 
 ## 差异对比
 

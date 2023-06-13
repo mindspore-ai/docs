@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.initializers.RandomUniform
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/initUniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/initUniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.initializers.RandomUniform
 
@@ -18,7 +18,7 @@ For more information, see [tf.keras.initializers.RandomUniform](https://tensorfl
 class mindspore.common.initializer.Uniform(scale=0.07)
 ```
 
-For more information, see [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform).
+For more information, see [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/en/r1.11/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform).
 
 ## Usage
 

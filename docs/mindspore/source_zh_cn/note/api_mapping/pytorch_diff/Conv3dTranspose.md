@@ -1,6 +1,6 @@
 # 比较与torch.nn.ConvTranspose3d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Conv3dTranspose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Conv3dTranspose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.nn.ConvTranspose3d
 
@@ -41,7 +41,7 @@ class mindspore.nn.Conv3dTranspose(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Conv3dTranspose](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Conv3dTranspose.html)。
+更多内容详见[mindspore.nn.Conv3dTranspose](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/nn/mindspore.nn.Conv3dTranspose.html)。
 
 ## 差异对比
 

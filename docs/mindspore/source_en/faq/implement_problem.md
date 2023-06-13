@@ -1,10 +1,10 @@
 # Implement Problem
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
-A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/r2.0/official/cv/YOLOv3).
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/r1.11/official/cv/YOLOv3).
 
 <br/>
 
@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
 
-A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore.nn.html#learningrateschedule-class).
+A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r1.11/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r1.11/api_python/mindspore.nn.html#learningrateschedule-class).
 
 <br/>
 
@@ -94,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/models/blob/r2.0/research/cv/tinynet/src/utils.py).
+[Script Link](https://gitee.com/mindspore/models/blob/r1.11/research/cv/tinynet/src/utils.py).
 
 <br/>
 
@@ -124,7 +124,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <font size=3>**Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
@@ -144,7 +144,7 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 <font size=3>**Q: How does MindSpore implement the early stopping function?**</font>
 
-A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.EarlyStopping.html).
+A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/r1.11/api_python/train/mindspore.train.EarlyStopping.html).
 
 <br/>
 
@@ -244,13 +244,13 @@ print(network.layers)
 
 <font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
 
-A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/r2.0/advanced/dataset.html).
+A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/r1.11/advanced/dataset.html).
 
 <br/>
 
 <font size=3>**Q: What are the available recommendation or text generation networks or models provided by MindSpore?**</font>
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.0/README.md#).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r1.11/README.md#).
 
 <br/>
 
@@ -316,7 +316,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: How do I use MindSpore to fit quadratic functions such as $f(x)=ax^2+bx+c$?**</font>
 
-A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/r2.0/docs/sample_code/linear_regression.py).
+A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/r1.11/docs/sample_code/linear_regression.py).
 
 Modify the following items to fit $f(x) = ax^2 + bx + c$:
 
@@ -625,5 +625,5 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 <font size=3>**Q: How to control the Tensor value printed by the 'print' method?**</font>
 
-A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference]（ https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Print.html )。
+A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference]（ https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.Print.html )。
 <br/>
