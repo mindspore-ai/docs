@@ -117,7 +117,6 @@ class ResNet(nn.Cell):
 为了使能流水线并行，需要在训练脚本中加一些必要的配置：
 
 - 在`set_auto_parallel_context`中设置`pipeline_stages`，`pipeline_stages`用来表明`stage`的总数。
-- 目前流水线并行只支持`SEMI_AUTO_PARALLEL`模式，数据集要以`full_batch`模式导入。
 - 需要定义LossCell，本例中调用了`nn.WithLossCell`接口。
 - 目前流水线并行不支持自动混合精度特性。
 - 最后，需要在LossCell外包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于`stage`的数量。
