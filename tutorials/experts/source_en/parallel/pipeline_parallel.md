@@ -119,7 +119,6 @@ class ResNet(nn.Cell):
 To enable pipeline parallelism, you need to add the following configurations to the training script:
 
 - Set `pipeline_stages` in `set_auto_parallel_context` to specify the total number of `stages`.
-- Set the `SEMI_AUTO_PARALLEL` mode. Currently, the pipeline parallelism supports only this mode.
 - Define the LossCell. In this example, the `nn.WithLossCell` API is called.
 - Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization, MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the number of `stages`.
 
