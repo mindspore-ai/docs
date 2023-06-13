@@ -251,6 +251,30 @@ MindSpore Lite文档
 									</div>
 								</a>
 							</div>
+                            <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Ascend转换工具功能说明</span>
+										</div>
+										<div class="doc-article-desc">
+										本文档介绍云侧推理模型转换工具在Ascend后端的相关功能，如配置文件的选项、动态shape、AOE、自定义算子等。
+										</div>
+									</div>
+								</a>
+							</div>
+                            <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_graph_kernel.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">图算融合配置说明（beta特性）</span>
+										</div>
+										<div class="doc-article-desc">
+										图算融合是MindSpore特有的网络性能优化技术。它可以通过自动分析和优化现有网络计算图逻辑，并结合目标硬件能力，对计算图进行计算化简和替代、算子拆分和融合、算子特例化编译等优化，以提升设备计算资源利用率，实现对网络性能的整体优化。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html" class="article-link">
 									<div>
