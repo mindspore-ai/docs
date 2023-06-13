@@ -254,6 +254,30 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
+                            <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Ascend Conversion Tool Description</span>
+										</div>
+										<div class="doc-article-desc">
+										This article introduces the related features of the cloud-side inference model conversion tool in Ascend back-end, such as profile options, dynamic shape, AOE, custom operators.
+										</div>
+									</div>
+								</a>
+							</div>
+                            <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_graph_kernel.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Graph Kernel Fusion Configuration Instructions (Beta Feature)</span>
+										</div>
+										<div class="doc-article-desc">
+										Graph kernel fusion is a unique network performance optimization technique in MindSpore. It can automatically analyze and optimize the existing network computational graph logic and combine with the target hardware capabilities to perform optimizations, such as computational simplification and substitution, operator splitting and fusion, operator special case compilation, to improve the utilization of device computational resources and achieve the overall optimization of network performance.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html" class="article-link">
 									<div>
