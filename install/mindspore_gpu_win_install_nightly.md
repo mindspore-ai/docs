@@ -61,6 +61,6 @@ pip install --upgrade mindspore-cuda11-dev=={version}
 
 其中：
 
-- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.0.0rc1.dev20211125；如果希望自动升级到最新版本，`=={version}`字段可以缺省。
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.0.0.dev20211125；如果希望自动升级到最新版本，`=={version}`字段可以缺省。
 
 注意：当前MindSpore GPU Nightly for Windows仅提供CUDA11.6版本，若仍希望使用CUDA10.1或者CUDA11.1版本，请参考源码编译指导在对应环境上自行编译。
