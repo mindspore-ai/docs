@@ -1,7 +1,7 @@
 [
     {
         "version" : "",
-        "versionAlias" : "2.0.0-rc1",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,7 +10,7 @@
     }, 
     {
         "version" : "",
-        "versionAlias" : "2.0.0-rc1",
+        "versionAlias" : "",
         "label" : {
             "zh": "教程",
             "en": "Tutorials"
@@ -49,7 +49,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "2.0.0-rc1",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -129,7 +129,7 @@
     },
     {
         "version" : "",
-        "versionAlias" : "2.0.0-rc1",
+        "versionAlias" : "",
         "label" : {
             "zh": "MindSpore Insight",
             "en": "MindSpore Insight"
