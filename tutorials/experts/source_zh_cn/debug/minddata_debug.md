@@ -103,7 +103,7 @@ RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset's num
 
 参考实例链接：
 
-[MindSpore 数据加载 - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://bbs.huaweicloud.com/forum/thread-189861-1-1.html)
+[MindSpore 数据加载 - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://www.hiascend.com/forum/thread-0215121940801939033-1-1.html)
 
 #### PageSize 设置问题
 
@@ -229,7 +229,7 @@ TypeError: parse() missing 1 required positionnal argument: 'self'
 
 参考实例链接：
 
-[MindSpore 数据集加载 - parse() missing 1 required positional](https://bbs.huaweicloud.com/forum/thread-189950-1-1.html)
+[MindSpore 数据集加载 - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
 
 #### 自定义数据集使用了算子或Tensor操作
 
@@ -283,7 +283,7 @@ Unable to fetch data from GeneratorDataset, try iterate the source function of G
 
 参考实例链接：
 
-[MindSpore 数据集加载 - Unable to fetch data from GeneratorDataset](https://bbs.huaweicloud.com/forum/thread-189895-1-1.html)
+[MindSpore 数据集加载 - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
 
 ### 迭代器相关问题
 
@@ -401,7 +401,7 @@ RuntimeError: Unexpected error. Inconsistent batch shapes, batch operation expec
 
 参考实例链接：
 
-[MindSpore 数据增强 - Unexpected error. Inconsistent batch](https://bbs.huaweicloud.com/forum/thread-190394-1-1.html)
+[MindSpore 数据增强 - Unexpected error. Inconsistent batch](https://www.hiascend.com/forum/thread-0254121940499220038-1-1.html)
 
 ### 数据增强操作占用内存高
 

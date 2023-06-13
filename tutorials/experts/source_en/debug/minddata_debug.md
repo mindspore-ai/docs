@@ -103,7 +103,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Loading - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://bbs.huaweicloud.com/forum/thread-189861-1-1.html)
+[MindSpore Data Loading - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://www.hiascend.com/forum/thread-0215121940801939033-1-1.html)
 
 #### Incorrect PageSize Setting
 
@@ -229,7 +229,7 @@ Debug the code step by step and check the syntax in the script to see whether '(
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - parse() missing 1 required positional](https://bbs.huaweicloud.com/forum/thread-189950-1-1.html)
+[MindSpore Dataset Loading - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
 
 #### Incorrect Use of Tensor Operations or Operators in Custom Datasets
 
@@ -283,7 +283,7 @@ Clear the value of `iter`.
 
 For details, visit the following website:
 
-[MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://bbs.huaweicloud.com/forum/thread-189895-1-1.html)
+[MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
 
 ### Iterator
 
@@ -401,7 +401,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - Unexpected error. Inconsistent batch](https://bbs.huaweicloud.com/forum/thread-190394-1-1.html)
+[MindSpore Data Augmentation - Unexpected error. Inconsistent batch](https://www.hiascend.com/forum/thread-0254121940499220038-1-1.html)
 
 ### High Memory Usage Due to Data Augmentation
 
