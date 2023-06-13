@@ -1,4 +1,6 @@
-# 函数接口动态shape支持情况
+# ops接口动态shape支持情况
+
+> 部分接口在动态shape场景下可能会存在数据类型支持不全的问题，后续版本会逐步进行完善。如遇到数据类型不支持的问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html)算子解决。
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/dynamic_shape_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
