@@ -1,6 +1,6 @@
 # 比较与torch.median的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/median.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/median.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.median(input, dim=-1, keepdim=False, *, out=None) -> Tensor
 mindspore.ops.median(input, axis=-1, keepdims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.median](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.median.html)。
+更多内容详见[mindspore.ops.median](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.median.html)。
 
 ## 差异对比
 

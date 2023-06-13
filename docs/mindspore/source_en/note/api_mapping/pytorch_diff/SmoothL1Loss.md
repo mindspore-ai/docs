@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.SmoothL1Loss
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SmoothL1Loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SmoothL1Loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.SmoothL1Loss
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.SmoothL1Loss](https://pytorch.org/docs/1.8.1
 class mindspore.nn.SmoothL1Loss(beta=1.0, reduction='none')(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SmoothL1Loss.html).
+For more information, see [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.SmoothL1Loss.html).
 
 ## Differences
 

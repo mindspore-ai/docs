@@ -1,6 +1,6 @@
 # Differences with torch.multinomial
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/multinomial.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/multinomial.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.multinomial](https://pytorch.org/docs/1.8.1/gen
 mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 ```
 
-For more information, see [mindspore.ops.multinomial](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.multinomial.html).
+For more information, see [mindspore.ops.multinomial](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.multinomial.html).
 
 ## Differences
 
@@ -38,8 +38,8 @@ PyTorch: The default value of the parameter `replacement` is ``False`` , which m
 | Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | num_samples  | num_samples   | Consistent    |
 |            | Parameter 3   | replacement  | replacement   | The default value for PyTorch is ``False`` and the default value for MindSpore is ``True``  |
-|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
-|            | Parameter 5   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 5   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example
 

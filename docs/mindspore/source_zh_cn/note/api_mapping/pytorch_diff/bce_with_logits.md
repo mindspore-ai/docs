@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.binary_cross_entropy_with_logits的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bce_with_logits.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bce_with_logits.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.binary_cross_entropy_with_logits
 
@@ -16,7 +16,7 @@ torch.nn.functional.binary_cross_entropy_with_logits(input, target, weight=None,
 mindspore.ops.binary_cross_entropy_with_logits(logits, label, weight, pos_weight, reduction='mean')
 ```
 
-更多内容详见[mindspore.ops.binary_cross_entropy_with_logits](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html)。
+更多内容详见[mindspore.ops.binary_cross_entropy_with_logits](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html)。
 
 ## 差异对比
 

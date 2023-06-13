@@ -1,6 +1,6 @@
 # Comparing the function difference with torch.nn.Module.buffers
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/UnTrainableParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/UnTrainableParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Module.buffers
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.buffers](https://pytorch.org/docs/1.5
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
-For more information, see [mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
+For more information, see [mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
 
 ## Differences
 

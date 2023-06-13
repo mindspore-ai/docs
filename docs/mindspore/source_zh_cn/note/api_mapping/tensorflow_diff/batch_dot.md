@@ -1,6 +1,6 @@
 # 比较与tf.keras.backend.batch_dot的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/batch_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/batch_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## tf.keras.backend.batch_dot
 
@@ -16,7 +16,7 @@ tf.keras.backend.batch_dot(x, y, axes=None)
 mindspore.ops.batch_dot(x1, x2, axes=None)
 ```
 
-更多内容详见[mindspore.ops.batch_dot](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.batch_dot.html)。
+更多内容详见[mindspore.ops.batch_dot](https://mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.batch_dot.html)。
 
 ## 差异对比
 

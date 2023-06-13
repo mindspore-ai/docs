@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.dropout2d
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/dropout2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/dropout2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.dropout2d
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.dropout2d](https://pytorch.org/do
 mindspore.ops.dropout2d(input, p=0.5, training=True) -> Tensor
 ```
 
-For more information, see [mindspore.ops.dropout2d](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.dropout2d.html).
+For more information, see [mindspore.ops.dropout2d](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.dropout2d.html).
 
 ## Differences
 

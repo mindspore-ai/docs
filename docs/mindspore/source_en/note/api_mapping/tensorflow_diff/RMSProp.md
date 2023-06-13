@@ -1,6 +1,6 @@
 # Function Differences with tf.compat.v1.train.RMSPropOptimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/RMSProp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/RMSProp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.compat.v1.train.RMSPropOptimizer
 
@@ -34,7 +34,7 @@ class mindspore.nn.RMSProp(
 )(gradients) -> Tensor
 ```
 
-For more information, see [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.RMSProp.html).
+For more information, see [mindspore.nn.RMSProp](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.RMSProp.html).
 
 ## Differences
 

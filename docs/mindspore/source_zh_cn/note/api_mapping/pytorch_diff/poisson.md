@@ -1,6 +1,6 @@
 # 比较与torch.poisson的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/poisson.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/poisson.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.poisson
 
@@ -16,7 +16,7 @@ torch.poisson(input, generator=None)
 mindspore.ops.random_poisson(shape, rate, seed=None, dtype=mstype.float32)
 ```
 
-更多内容详见[mindspore.ops.random_poisson](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.random_poisson.html)。
+更多内容详见[mindspore.ops.random_poisson](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.random_poisson.html)。
 
 ## 差异对比
 
@@ -30,7 +30,7 @@ MindSpore: `shape` 决定了每个分布下采样的随机数张量的形状，�
 | ---------- | ------------ | ------------ | ---------      | ------------- |
 | 参数       | 参数 1       | -             | shape         | MindSpore下每个分布下采样的随机数张量的形状，值为 `Tensor([])` 时返回值的shape和PyTorch一样 |
 | 参数       | 参数 2       | input         | rate          | 泊松分布的参数 |
-|            | 参数 3       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 3       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r1.11/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 |            | 参数 4       | -             | dtype         | MindSpore下返回值的数据类型，支持int32/64，float16/32/64 |
 
 ## 代码示例

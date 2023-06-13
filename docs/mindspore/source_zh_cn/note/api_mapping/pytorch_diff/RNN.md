@@ -1,6 +1,6 @@
 # 比较与torch.nn.RNN的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RNN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RNN.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.nn.RNN
 
@@ -16,7 +16,7 @@ class torch.nn.RNN(*args, **kwargs)(input, h_0)
 class mindspore.nn.RNN(*args, **kwargs)(x, h_x, seq_length)
 ```
 
-更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.RNN.html)。
+更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/nn/mindspore.nn.RNN.html)。
 
 ## 差异对比
 

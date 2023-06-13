@@ -1,6 +1,6 @@
 # 比较与tf.data.experimental.bucket_by_sequence_length的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/bucket_by_sequence_length.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/bucket_by_sequence_length.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## tf.data.experimental.bucket_by_sequence_length
 
@@ -33,7 +33,7 @@ mindspore.dataset.GeneratorDataset.bucket_batch_by_length(
 )
 ```
 
-更多内容详见[mindspore.dataset.GeneratorDataset.bucket_batch_by_length](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.bucket_batch_by_length.html#mindspore.dataset.Dataset.bucket_batch_by_length)。
+更多内容详见[mindspore.dataset.GeneratorDataset.bucket_batch_by_length](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.bucket_batch_by_length.html#mindspore.dataset.Dataset.bucket_batch_by_length)。
 
 ## 使用方式
 

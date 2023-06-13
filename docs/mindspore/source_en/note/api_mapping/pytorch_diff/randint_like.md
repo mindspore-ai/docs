@@ -1,6 +1,6 @@
 # Function Differences with torch.randint_like
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/randint_like.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/randint_like.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.randint_like
 
@@ -18,7 +18,7 @@ mindspore.ops.randint_like(input, low, high, *, dtype=None, seed=None)
 ```
 
 For more information,
-see [mindspore.ops.randint_like](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like).
+see [mindspore.ops.randint_like](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.randint_like.html#mindspore.ops.randint_like).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Function Differences with tf.arg_min
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorArgmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorArgmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.arg_min
 
@@ -16,7 +16,7 @@ For more information, see [tf.arg_min](https://tensorflow.google.cn/versions/r1.
 mindspore.Tensor.argmin(axis=None)
 ```
 
-For more information, see [mindspore.Tensor.argmin](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.argmin.html#mindspore.Tensor.argmin).
+For more information, see [mindspore.Tensor.argmin](https://mindspore.cn/docs/en/r1.11/api_python/mindspore/Tensor/mindspore.Tensor.argmin.html#mindspore.Tensor.argmin).
 
 ## Usage
 

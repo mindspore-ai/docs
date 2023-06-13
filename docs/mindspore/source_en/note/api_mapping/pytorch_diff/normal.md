@@ -1,6 +1,6 @@
 # Differences with torch.ger
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/normal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/normal.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.normal
 
@@ -19,7 +19,7 @@ For more information, see [torch.normal](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.normal(shape, mean, stddev, seed=None)
 ```
 
-For more information, see [mindspore.ops.normal](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.normal.html).
+For more information, see [mindspore.ops.normal](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.normal.html).
 
 ## Differences
 
@@ -39,9 +39,9 @@ MindSpore: The data types supported by `mean` and `std` are Tensor, and the shap
 | Parameters | Parameter 1   | -            | shape         | This value in MindSpore is used to broadcast the shape of the return value together with `mean` and `stddev` |
 |            | Parameter 2   | mean         | mean          | The data type supported in MindSpore is Tensor. Tensor and float are supported in PyTorch, corresponding to different usages |
 |            | Parameter 3   | std          | stddev        | The data type supported in MindSpore is Tensor. Tensor and float are supported in PyTorch, corresponding to different usages |
-|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 4   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 5   | size         | -             | The shape of the return value in PyTorch, used under the specified interface usage |
-|            | Parameter 6   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 6   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example 1
 

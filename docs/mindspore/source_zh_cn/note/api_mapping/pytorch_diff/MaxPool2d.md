@@ -1,6 +1,6 @@
 # 比较与torch.nn.MaxPool2d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.nn.MaxPool2d
 
@@ -16,7 +16,7 @@ torch.nn.MaxPool2d(kernel_size, stride=None, padding=0, dilation=1, return_indic
 mindspore.nn.MaxPool2d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False, data_format="NCHW")(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.MaxPool2d.html)。
+更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/nn/mindspore.nn.MaxPool2d.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # Differences with torch.poisson
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/poisson.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/poisson.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.poisson
 
@@ -16,7 +16,7 @@ For more information, see [torch.poisson](https://pytorch.org/docs/1.8.1/generat
 mindspore.ops.random_poisson(shape, rate, seed=None, dtype=mstype.float32)
 ```
 
-For more information, see [mindspore.ops.random_poisson](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.random_poisson.html).
+For more information, see [mindspore.ops.random_poisson](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.random_poisson.html).
 
 ## Differences
 
@@ -30,7 +30,7 @@ MindSpore: `shape` determines the shape of the random number tensor sampled unde
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | -            | shape         | The shape of the random number tensor sampled under each distribution under MindSpore, the shape of the return value is the same as PyTorch when the value `Tensor([])` |
 |            | Parameter 2   | input        | rate          | Parameters of the Poisson distribution |
-|            | Parameter 3   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.0/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 3   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r1.11/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 4   | -            | dtype         | The data type of the returned value in MindSpore supports int32/64, float16/32/64 |
 
 ## Code Example

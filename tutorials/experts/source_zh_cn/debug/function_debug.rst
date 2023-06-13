@@ -1,8 +1,8 @@
 功能调试
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/debug/function_debug.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_zh_cn/debug/function_debug.rst
 
 .. toctree::
   :maxdepth: 1
@@ -92,7 +92,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/debug/error_analyze.html>`__\ 。
+具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/debug/error_analyze.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
@@ -103,7 +103,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    MindSpore提供常见报错问题FAQ，包括数据处理、编译执行、分布式并行等场景。可根据错误分析中得出的问题场景，使用报错描述信息进行问题搜索。
 
-   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r2.0/faq/installation.html>`__\ 。
+   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r1.11/faq/installation.html>`__\ 。
 
 -  报错案例
 
@@ -146,7 +146,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
    MindSpore提供切换同步执行的方法，通过设置\ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``
-   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r2.0/advanced/compute_graph.html>`__\ 。
+   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r1.11/advanced/compute_graph.html>`__\ 。
 
 -  二分法策略
 
@@ -159,7 +159,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 问题复现
 ^^^^^^^^
 
-问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考\ `固定随机性 <https://mindspore.cn/tutorials/experts/zh-CN/r2.0/debug/fixing_randomness.html>`__\ 。
+问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考\ `固定随机性 <https://mindspore.cn/tutorials/experts/zh-CN/r1.11/debug/fixing_randomness.html>`__\ 。
 
 调试验证
 ^^^^^^^^
@@ -173,7 +173,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    2. 正常运行.py文件，在终端会出现下面类似结果，在(Pdb)位置后输入相应的pdb命令进行调试；
    3. 在pdb交互模式下输入l、p等命令可以查看相应的代码、变量，进而排查相关的问题。
 
-   具体内容请参考\ `PyNative调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/debug/pynative_debug.html>`__\ 。
+   具体内容请参考\ `PyNative调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/debug/pynative_debug.html>`__\ 。
 
 -  静态图调试
 
@@ -207,7 +207,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
       4. 查看图节点和源代码的对应关系。
 
-      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/debugger.html>`__\ 。
+      具体使用方法参考：\ `可视化调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.11/debugger.html>`__\ 。
 
 网络执行调试
 ------------
@@ -222,21 +222,21 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +==========+================+==============================================+===================================+
 | 执行观测 | 训练过程可视   | 将训练过程中的标量、图像、计算图、训练优化过\| `收集Summary数据 <https://w       |
 |          |                | 程以及模型超参等信息记录到文件中，通过Min\   | ww.mindspore.cn/mindins           |
-|          |                | dSpore Insight可视化界面供用户查看，包含：\  | ight/docs/zh-CN/r2.0/             |
+|          |                | dSpore Insight可视化界面供用户查看，包含：\  | ight/docs/zh-CN/r1.11/             |
 |          |                | 标量可视化、参数分布图可视化、计算图可视化、\| summary_record.html>`__           |
 |          |                | 数据图可视化、图像可视化、张量可视化和优化过\|                                   |
 |          |                | 程可视化等。                                 |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 训练溯源及对比 | 提供了模型溯源、数据溯源和对比看板，通过对比\| `查看溯源和对比看板 <https://www  |
 |          |                | 看板可以观察不同标量趋势图以发现问题，再使用\| .mindspore.cn/mindinsig           |
-|          |                | 溯源功能定位问题原因，给用户在数据增强和深度\| ht/docs/zh-CN/r2.0/li             |
+|          |                | 溯源功能定位问题原因，给用户在数据增强和深度\| ht/docs/zh-CN/r1.11/li             |
 |          |                | 神经网络中提供高效调优的能力。               | neage_and_scalars_compa           |
 |          |                |                                              | rison.html>`__                    |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | metrics        | 当训练结束后，可以使用metrics评估训练\       | `MindSpore \                      |
 |          |                | 结果的好坏。提供了多种metrics评估指标\       | metrics功能介绍 <https://ww       |
 |          |                | ，如：accuracy、loss、preci\                 | w.mindspore.cn/tutorial           |
-|          |                | sion、recall、F1                             | s/experts/zh-CN/r2.0/             |
+|          |                | sion、recall、F1                             | s/experts/zh-CN/r1.11/             |
 |          |                |                                              | debug/custom_debug.html           |
 |          |                |                                              | #mindspore-metrics%E5%8           |
 |          |                |                                              | A%9F%E8%83%BD%E4%BB%8B%           |
@@ -252,25 +252,25 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
 |          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/ex           |
-|          |                | 诊断。                                       | perts/zh-CN/r2.0/debu             |
+|          |                | 诊断。                                       | perts/zh-CN/r1.11/debu             |
 |          |                |                                              | g/mindir.html>`__                 |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 数据Dump       | 训练网络时，若训练结果和预期有偏差，通过Du\  | `Dump功能调试 <https://www.       |
 |          |                | mp功能保存算子输入输出数据进行调试。         | mindspore.cn/tutorials/           |
-|          |                |                                              | experts/zh-CN/r2.0/de             |
+|          |                |                                              | experts/zh-CN/r1.11/de             |
 |          |                |                                              | bug/dump.html>`__                 |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\| `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、\| Callback <https://www.m           |
 |          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials/e           |
-|          |                | 等。                                         | xperts/zh-CN/r2.0/deb             |
+|          |                | 等。                                         | xperts/zh-CN/r1.11/deb             |
 |          |                |                                              | ug/custom_debug.html#ca           |
 |          |                |                                              | llback%E4%BB%8B%E7%BB%8           |
 |          |                |                                              | D>`__                             |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
 |          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials/ex           |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | perts/zh-CN/r2.0/debu             |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | perts/zh-CN/r1.11/debu             |
 |          |                | kBackward算子和在Cell对象上进行\             | g/pynative.html#hook功能>`__      |
 |          |                | 注册的register_forward_pr\                   |                                   |
 |          |                | e_hook、register_forwar\                     |                                   |
@@ -279,7 +279,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 同步执行       | 在动态图模式下，为了提升性能，算子在devi\    | `动态图同步执行 <https://www.m    |
 |          |                | ce上使用了异步执行方式，因此算子执行错误可\  | indspore.cn/tutorials/z           |
-|          |                | 能会在程序执行最后才显示。针对这种情况，Mi\  | h-CN/r2.0/advanced/co             |
+|          |                | 能会在程序执行最后才显示。针对这种情况，Mi\  | h-CN/r1.11/advanced/co             |
 |          |                | ndSpore提供了同步执行的设置来控制算子\       | mpute_graph.html#动               |
 |          |                | 在device上是否使用异步执行。                 | 态图>`__                          |
 +----------+----------------+----------------------------------------------+-----------------------------------+
@@ -324,7 +324,7 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | ，用于排查或调试怀疑与内存\ | //www.mindspo             |
 |               |                       | 复用相关的问题。            | re.cn/tutoria             |
 |               |                       |                             | ls/experts/zh             |
-|               |                       |                             | -CN/r2.0/de               |
+|               |                       |                             | -CN/r1.11/de               |
 |               |                       |                             | bug/custom_de             |
 |               |                       |                             | bug.html#%E5%             |
 |               |                       |                             | 86%85%E5%AD%9             |

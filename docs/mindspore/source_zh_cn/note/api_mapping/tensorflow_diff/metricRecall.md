@@ -1,6 +1,6 @@
 # 比较与tf.keras.metrics.Recall的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricRecall.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/metricRecall.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## tf.keras.metrics.Recall
 
@@ -18,7 +18,7 @@ tf.keras.metrics.Recall(
 mindspore.train.Recall(eval_type="classification")
 ```
 
-更多内容详见[mindspore.train.Recall](https://mindspore.cn/docs/zh-CN/r2.0/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall)。
+更多内容详见[mindspore.train.Recall](https://mindspore.cn/docs/zh-CN/r1.11/api_python/train/mindspore.train.Recall.html#mindspore.train.Recall)。
 
 ## 使用方式
 

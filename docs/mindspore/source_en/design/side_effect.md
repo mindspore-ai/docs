@@ -1,6 +1,6 @@
 # Side Effects
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/design/side_effect.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/design/side_effect.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## Concepts
 
@@ -36,7 +36,7 @@ Because of the side effects, `a`, `b` and `c` in the above program should be eva
 
 ## Design
 
-MindSpore uses a functional intermediate representation based on a graph representation, and refer to [MindIR](https://www.mindspore.cn/docs/en/r2.0/design/mindir.html).
+MindSpore uses a functional intermediate representation based on a graph representation, and refer to [MindIR](https://www.mindspore.cn/docs/en/r1.11/design/mindir.html).
 Conceptually, the functions in MindIR are pure functions and do not have side effects.
 However, MindSpore can support computational models with side effects and provide operators with side effects, such as optimizer operators that will directly modify the input parameters.
 In order to support operator and computational models with side effects, MindSpore converts the side effects in the code to pure functional form when compiling the model. This ensures that computations with side effects are executed in the desired order while keeping MindIR pure functional semantics.

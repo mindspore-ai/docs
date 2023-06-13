@@ -1,6 +1,6 @@
 # Function Differences with torch.cdist
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/cdist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/cdist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.cdist
 
@@ -16,7 +16,7 @@ For more information, see [torch.cdist](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
-For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.cdist.html).
+For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.cdist.html).
 
 ## Differences
 

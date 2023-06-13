@@ -1,6 +1,6 @@
 # 比较与tf.compat.v1.assign_sub的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/assign_sub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/assign_sub.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## tf.compat.v1.assign_sub
 
@@ -16,7 +16,7 @@ tf.compat.v1.assign_sub(ref, value, use_locking=None, name=None) -> Tensor
 mindspore.ops.assign_sub(variable, value)-> Tensor
 ```
 
-更多内容详见[mindspore.ops.assign_sub](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.assign_sub.html)。
+更多内容详见[mindspore.ops.assign_sub](https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/ops/mindspore.ops.assign_sub.html)。
 
 ## 差异对比
 

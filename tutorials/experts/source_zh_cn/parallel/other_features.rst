@@ -1,8 +1,8 @@
 其他特性
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_zh_cn/parallel/other_features.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_zh_cn/parallel/other_features.rst
 
 .. toctree::
   :maxdepth: 1
@@ -16,12 +16,12 @@
   pynative_shard_function_parallel
   ms_operator
 
-`切分策略传播 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/sharding_propagation.html>`_
+`切分策略传播 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/sharding_propagation.html>`_
 -------------------------------------------------------------------------------------------------------------
 
 在算子级并行中，需要用户配置正向网络中每个算子的切分策略（若不配置，则默认使用数据并行的策略）。而切分策略传播特性可以仅配置若干个算子的切分策略，为未配置切分策略的算子自动生成可行的切分策略，并且达到最小化通信开销的效果。
 
-`Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/parameter_server_training.html>`_
+`Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/parameter_server_training.html>`_
 --------------------------------------------------------------------------------------------------------------------------
 
 Parameter
@@ -30,27 +30,27 @@ Server具有更好的灵活性、可扩展性以及节点容灾的能力。参�
 Gradient
 Descent，随机梯度下降)，也支持异步SGD的训练算法。在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩(新增或者删除Worker和Server资源)。另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
 
-`通信算子融合 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/comm_fusion.html>`_
+`通信算子融合 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/comm_fusion.html>`_
 ----------------------------------------------------------------------------------------------------
 
 在分布式训练场景下，跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈。通信算子融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
-`通信子图提取与复用 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/comm_subgraph.html>`_
+`通信子图提取与复用 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/comm_subgraph.html>`_
 --------------------------------------------------------------------------------------------------------------------------------
 
 在分布式训练场景下，随着模型规模的扩大，训练时所需要的通信算子数量不断增多，一方面会增加模型编译的通信耗时；另一方面会消耗大量的流资源，当所需的流数量超过硬件限制，模型规模就无法继续扩大，从而成为大模型发展的一个瓶颈。通过对通信算子进行归类，提取通信子图并进行复用，可以减少图编译中的通信算子数量。一方面可以减少通信耗时，减少模型编译耗时；另一方面减少了流的占用，使得模型可以进一步扩展。
 
-`数据集切分 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/dataset_slice.html>`_
+`数据集切分 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/dataset_slice.html>`_
 ----------------------------------------------------------------------------------------------------
 
 在进行分布式训练时，需要将训练数据集导入到每个设备上。常见的导入方式有两种：1）以数据并行的方式导入，即将数据按batch维度进行切分，每个设备导入一部分。2）每个设备导入全量的数据。另外，当数据的某些维度特别大时（如遥感图片的H/W维可能特别大），即使样本数很少，也需要对图片进行切分，即将数据按H/W维度进行切分，每张设备读取一部分图片。此特性能支持将数据集按特定维度切分，以满足大幅面图片处理领域的训练诉求。
 
-`函数式算子切分 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/pynative_shard_function_parallel.html>`_
+`函数式算子切分 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/pynative_shard_function_parallel.html>`_
 ---------------------------------------------------------------------------------------------------------------------------
 
 在动态图模式下，指定网络结构中的某个部分以图模式执行，并进行各种并行操作。
 
-`在K8s集群中使用ms-operator进行分布式训练 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/parallel/ms_operator.html>`_
+`在K8s集群中使用ms-operator进行分布式训练 <https://www.mindspore.cn/tutorials/experts/zh-CN/r1.11/parallel/ms_operator.html>`_
 --------------------------------------------------------------------------------------------------------------------------------
 
 MindSpore Operator

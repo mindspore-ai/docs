@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.Model
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.Model
 
@@ -16,7 +16,7 @@ For more information, see [tf.keras.Model](https://tensorflow.google.cn/versions
 mindspore.train.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-For more information, see [mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
+For more information, see [mindspore.train.Model](https://www.mindspore.cn/docs/en/r1.11/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
 ## Usage
 

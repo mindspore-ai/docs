@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.preprocessing.image.random_rotation
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_rotation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/random_rotation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.preprocessing.image.random_rotation
 
@@ -31,7 +31,7 @@ class mindspore.dataset.vision.RandomRotation(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/en/r2.0/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation).
+For more information, see [mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/en/r1.11/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Comparing the functional differences with torch.autograd.enable_grad and torch.autograd.no_grad
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/stop_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/stop_gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.autograd.enable_grad
 
@@ -24,10 +24,10 @@ For more information, see [torch.autograd.no_grad](https://pytorch.org/docs/1.5.
 mindspore.ops.stop_gradient(input)
 ```
 
-For more information, see [mindspore.ops.stop_gradient](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.stop_gradient.html).
+For more information, see [mindspore.ops.stop_gradient](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.stop_gradient.html).
 
 ## Differences
 
 PyTorch: Use `torch.autograd.enable_grad` to enable gradient calculation, and `torch.autograd.no_grad` to disable gradient calculation.
 
-MindSpore: Use [stop_gradient](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.stop_gradient.html) to disable calculation of gradient for certain operators.
+MindSpore: Use [stop_gradient](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.stop_gradient.html) to disable calculation of gradient for certain operators.

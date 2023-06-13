@@ -1,11 +1,11 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_modelarts.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_modelarts.png
     :target: https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svcjIuMC90dXRvcmlhbHMvemhfY24vYWR2YW5jZWQvbW9kZWwvbWluZHNwb3JlX21vZGVsLmlweW5i=&imageid=b8671c1e-c439-4ae2-b9c6-69b46db134ae
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_notebook.png
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.0/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_download_code.png
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.0/tutorials/zh_cn/advanced/model/mindspore_model.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_zh_cn/advanced/model/model.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_notebook.png
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.11/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_download_code.png
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.11/tutorials/zh_cn/advanced/model/mindspore_model.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model
 ===============
@@ -25,7 +25,7 @@
 
 本文档首先对MindSpore的Model进行基本介绍，然后重点讲解如何使用\ ``Model``\ 进行模型训练、评估和推理。
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/source_zh_cn/advanced/model/images/model.png
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/source_zh_cn/advanced/model/images/model.png
    :alt: model
 
 
@@ -41,7 +41,7 @@
 Model基本介绍
 -------------
 
-`Model <https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
+`Model <https://www.mindspore.cn/docs/zh-CN/r1.11/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
 
 -  ``network``\ ：用于训练或推理的神经网络。
 -  ``loss_fn``\ ：所使用的损失函数。

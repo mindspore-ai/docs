@@ -15,11 +15,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following describes how to install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to install MindSpore by pip on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.0/scripts/install/euleros-ascend310-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
+- If you want to install MindSpore by pip on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.11/scripts/install/euleros-ascend310-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 
 - If your system is Ubuntu 18.04/CentOS 7.6, or some dependencies, such as Python and GCC, have been installed, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
 
@@ -30,7 +30,7 @@ Before running the automatic installation script, you need to make sure that the
 Run the following command to obtain and run the automatic installation script. The automatic installation script supports only MindSpore>=1.6.0 or later.
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/r2.0/scripts/install/euleros-ascend310-pip.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.11/scripts/install/euleros-ascend310-pip.sh
 # install MindSpore 2.0.0rc1 and Python 3.7
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 MINDSPORE_VERSION=2.0.0rc1 bash -i ./euleros-ascend310-pip.sh
@@ -226,7 +226,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/r2.0/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/r2.0/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r2.0/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.11/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/r1.11/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.11/requirements.txt).
 
 ## Configuring Environment Variables
 

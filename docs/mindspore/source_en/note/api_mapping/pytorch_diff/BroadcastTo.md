@@ -1,6 +1,6 @@
 # Function Differences with torch.broadcast_tensors
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/BroadcastTo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/BroadcastTo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.broadcast_tensors
 
@@ -18,7 +18,7 @@ For more information, see [torch.broadcast_tensors](https://pytorch.org/docs/1.5
 class mindspore.ops.BroadcastTo(shape)(input_x)
 ```
 
-For more information, see [mindspore.ops.BroadcastTo](https://mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo).
+For more information, see [mindspore.ops.BroadcastTo](https://mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo).
 
 ## Differences
 

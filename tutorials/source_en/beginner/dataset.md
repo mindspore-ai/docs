@@ -1,10 +1,10 @@
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.0/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.0/beginner/tensor.html) || **Dataset** || [Transforms](https://www.mindspore.cn/tutorials/en/r2.0/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.0/beginner/save_load.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r1.11/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.11/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.11/beginner/tensor.html) || **Dataset** || [Transforms](https://www.mindspore.cn/tutorials/en/r1.11/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r1.11/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r1.11/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.11/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.11/beginner/save_load.html)
 
 # Dataset
 
-Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network. MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r2.0/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/r2.0/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r2.0/beginner/transforms.html), where Dataset is the start of Pipeline and is used to load raw data. `mindspore.dataset` provides built-in dataset interfaces for loading text, image, audio, etc., and provides interfaces for loading customized datasets.
+Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network. MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r1.11/design/data_engine.html) and achieves efficient data preprocessing through [Dataset](https://www.mindspore.cn/tutorials/en/r1.11/beginner/dataset.html) and [Transforms](https://www.mindspore.cn/tutorials/en/r1.11/beginner/transforms.html), where Dataset is the start of Pipeline and is used to load raw data. `mindspore.dataset` provides built-in dataset interfaces for loading text, image, audio, etc., and provides interfaces for loading customized datasets.
 
 In addition, MindSpore's domain development library also provides a large number of preloaded datasets that can be downloaded and used with one click through the API. This tutorial will elaborate on different dataset loading methods, common dataset operations and customized dataset methods respectively.
 
@@ -82,7 +82,7 @@ The following are the common operations of datasets.
 
 Random `shuffle` of datasets can eliminate the problem of uneven distribution caused by data alignment.
 
-![op-shuffle](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/source_zh_cn/advanced/dataset/images/op_shuffle.png)
+![op-shuffle](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/source_zh_cn/advanced/dataset/images/op_shuffle.png)
 
 The datasets provided by `mindspore.dataset` can be configured with `shuffle=True` at loading time, or using the following operation:
 
@@ -96,7 +96,7 @@ visualize(train_dataset)
 
 The `map` is the key operation of data preprocessing, which can add data transforms to a specified column of the dataset, apply data transforms to each element of the column data, and return a new dataset containing the transformed elements. Here data scaling is performed on the Mnist dataset by dividing the image uniformly by 255 and converting the data type from uint8 to float32.
 
-> For the different types of transforms supported by dataset, see [Data Transforms](https://www.mindspore.cn/tutorials/en/r2.0/beginner/transforms.html).
+> For the different types of transforms supported by dataset, see [Data Transforms](https://www.mindspore.cn/tutorials/en/r1.11/beginner/transforms.html).
 
 ```python
 image, label = next(train_dataset.create_tuple_iterator())
@@ -126,7 +126,7 @@ print(image.shape, image.dtype)
 
 Packing the dataset into a fixed size `batch` is a compromise method for model optimization using gradient descent with limited hardware resources, which can ensure the randomness of gradient descent and optimize the computational effort.
 
-![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/tutorials/source_zh_cn/advanced/dataset/images/op_batch.png)
+![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/tutorials/source_zh_cn/advanced/dataset/images/op_batch.png)
 
 Generally we set a fixed batch size to divide the continuous data into several batches (batches).
 

@@ -1,6 +1,6 @@
 # Function Differences with torch.std
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/std.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/std.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.std](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.std(input, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.ops.std](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.std.html).
+For more information, see [mindspore.ops.std](https://www.mindspore.cn/docs/en/r1.11/api_python/ops/mindspore.ops.std.html).
 
 ## Differences
 

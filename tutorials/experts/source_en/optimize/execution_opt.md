@@ -1,6 +1,6 @@
 # Sinking Mode
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/optimize/execution_opt.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_en/optimize/execution_opt.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -22,13 +22,13 @@ To improve the execution performance of the network, a dedicated chip is usually
 
 As seen from the above figure, each training iteration needs to copy data from Host to Device, and the overhead of copying input data between Host and Device can be eliminated by data sinking.
 
-When data sinking is enabled, MindSpore creates a dedicated data cache queue on the Device side. The MindSpore data processing engine uses a high-performance data channel to send the pre-processed results of the data to the data queue on the Device side, and the computational graph copies the input data directly from the data queue via the GetNext operator. The Host sends data to the data queue and the computational graph reads data from the data queue to form a running parallel, and the data for the next iteration can be sent to the data queue while executing the current iteration, thus hiding the overhead of the Host-Device data copy. For the principle of MindSpore high-performance data processing engine, refer to [here](https://www.mindspore.cn/docs/en/r2.0/design/data_engine.html).
+When data sinking is enabled, MindSpore creates a dedicated data cache queue on the Device side. The MindSpore data processing engine uses a high-performance data channel to send the pre-processed results of the data to the data queue on the Device side, and the computational graph copies the input data directly from the data queue via the GetNext operator. The Host sends data to the data queue and the computational graph reads data from the data queue to form a running parallel, and the data for the next iteration can be sent to the data queue while executing the current iteration, thus hiding the overhead of the Host-Device data copy. For the principle of MindSpore high-performance data processing engine, refer to [here](https://www.mindspore.cn/docs/en/r1.11/design/data_engine.html).
 
 Both GPU backend and Ascend backend support data sinking, and the Host-Device interaction flow for GPU data sinking is as follows:
 
 ![data-sink](./images/image-data-sink.png)
 
-Users can control whether to enable data sink through `dataset_sink_mode` of the [train](https://mindspore.cn/docs/en/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface.
+Users can control whether to enable data sink through `dataset_sink_mode` of the [train](https://mindspore.cn/docs/en/r1.11/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface.
 
 ## Graph Sinking
 
@@ -46,7 +46,7 @@ When data sinking and graph sinking are enabled, the computed results of each it
 
 ![loop-sink](./images/image-loop-sink.png)
 
-The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/r2.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host.
+The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/r1.11/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host.
 
 ## Usage
 
@@ -67,7 +67,7 @@ When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if `data
 > - The current CPU does not support data sinking.
 > - When set to GRAPH mode, the shape of each batch of data must be the same, while when set to PYNATIVE mode, the size of each batch of data is required to be the same.
 > - Since the traversal of the dataset by data sinking is continuous, non-continuous traversal is not currently supported.
-> - If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/r2.0/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
+> - If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/r1.11/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
 
 Code samples are as follows:
 
@@ -251,18 +251,18 @@ When dataset_sink_mode is False, the sink_size parameter setting is invalid.
 
 ### `data_sink` Implements Data Sinking
 
-In MindSpore functional programming paradigm, it is also possible to use the [data_sink interface](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.data_sink.html) to bind the execution functions and datasets of the modes for data sinking. The meaning of the parameters is as follows:
+In MindSpore functional programming paradigm, it is also possible to use the [data_sink interface](https://mindspore.cn/docs/en/r1.11/api_python/mindspore/mindspore.data_sink.html) to bind the execution functions and datasets of the modes for data sinking. The meaning of the parameters is as follows:
 
 - `fn`: The execution function of the sink model.
-- `dataset`: Datasets, generated by [mindspore.dataset](https://mindspore.cn/docs/en/r2.0/api_python/mindspore.dataset.html).
+- `dataset`: Datasets, generated by [mindspore.dataset](https://mindspore.cn/docs/en/r1.11/api_python/mindspore.dataset.html).
 - `sink_size`: Used to adjust the amount of data executed per sink, and specified as any positive number. Default value is 1, i.e. only one step of data is executed per sink. If you want to sink the data of an entire epoch in a single execution, you can use the `get_datasize_size()` method of `dataset` to specify its value. You can also sink multiple epochs at once and set the value to `epoch * get_datasize_size()`. (Multiple calls to `data_sink` traverse the dataset consecutively, with the next call continuing from the end of the previous call)
-- `jit_config`: The JitConfig configuration item used suring compilation. For details, please refer to [mindspore.JitConfig](https://mindspore.cn/docs/en/r2.0/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig). Default value: None, which means run in PyNative mode.
+- `jit_config`: The JitConfig configuration item used suring compilation. For details, please refer to [mindspore.JitConfig](https://mindspore.cn/docs/en/r1.11/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig). Default value: None, which means run in PyNative mode.
 - `input_signature`: Used to represent the Tensor of input parameters. The Tensor's shape and dtype will be used as the input shape and dtype of the function. Default value: None.
 
 > - The current CPU does not support data sinking.
 > - When set to GRAPH mode, the shape of each batch of data must be the same, while when set to PYNATIVE mode, the size of each batch of data is required to be the same.
 > - Since the traversal of the dataset by data sinking is continuous, non-continuous traversal is not currently supported.
-> - If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/r2.0/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
+> - If you get `fault kernel_name=GetNext`, `GetNext... task error` or `outputs = self.get_next()` and other similar errors, it is possible that some samples are too time-consuming to be processed during data processing, causing the network computation side to fail to get the data for a long time to report errors, when using data sinking mode. At this point, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface to loop the dataset separately. Refer to [data processing performance optimization](https://mindspore.cn/tutorials/experts/en/r1.11/dataset/optimize.html) to tune the data processing to ensure high performance of data processing.
 
 The code samples are as follows:
 

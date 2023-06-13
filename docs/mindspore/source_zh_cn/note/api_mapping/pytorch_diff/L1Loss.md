@@ -1,6 +1,6 @@
 # 比较与torch.nn.L1Loss的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/L1Loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/L1Loss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
 
 ## torch.nn.L1Loss
 
@@ -16,7 +16,7 @@ torch.nn.L1Loss(size_average=None, reduce=None, reduction='mean')(input, target)
 mindspore.nn.L1Loss(reduction='mean')(logits, labels) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.L1Loss](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.L1Loss.html)。
+更多内容详见[mindspore.nn.L1Loss](https://mindspore.cn/docs/zh-CN/r1.11/api_python/nn/mindspore.nn.L1Loss.html)。
 
 ## 差异对比
 

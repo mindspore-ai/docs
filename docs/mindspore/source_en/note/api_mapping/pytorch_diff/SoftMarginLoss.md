@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.soft_margin_loss
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SoftMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SoftMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.soft_margin_loss
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.soft_margin_loss](https://pytorch
 class mindspore.nn.SoftMarginLoss(reduction='mean')(logits, labels)  -> Tensor
 ```
 
-For more information, see [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.SoftMarginLoss.html).
+For more information, see [mindspore.nn.SoftMarginLoss](https://www.mindspore.cn/docs/en/r1.11/api_python/nn/mindspore.nn.SoftMarginLoss.html).
 
 ## Differences
 
