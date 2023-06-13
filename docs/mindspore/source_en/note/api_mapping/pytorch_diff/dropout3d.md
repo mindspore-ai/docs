@@ -1,4 +1,4 @@
-# Function Differences with torch.nn.functional.dropout3d
+# Differences with torch.nn.functional.dropout3d
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/dropout3d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -20,9 +20,11 @@ For more information, see [mindspore.ops.dropout3d](https://www.mindspore.cn/doc
 
 ## Differences
 
+API function of MindSpore is consistent with that of PyTorch, with differences in the supported data types for parameters.
+
 PyTorch: During training, dropout3d randomly zeroes some channels of the input tensor with probability p from a Bernoulli distribution, each channel will be zeroed out independently on every forward call which based on Bernoulli distribution probability p. Zeroing some channels of the input tensor is proved that it can effectively reduce over fitting and prevent neuronal coadaptation.
 
-MindSpore: MindSpore API Basically achieves the same function as PyTorch.
+MindSpore: Mindspore only supports a tensor with a rank of 5 as input.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ----|
