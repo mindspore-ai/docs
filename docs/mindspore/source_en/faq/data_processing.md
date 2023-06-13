@@ -451,3 +451,9 @@ A: When the `GeneratorDataset` is used to load Numpy array returned by Pyfunc, M
     ```
 
 <br/>
+
+<font size=3>**Q: What are the causes of abort during network training with `ops.CTCLoss()`?**</font>
+
+A: Check if the constructed CTCLoss input contains abnormal values, for example, whether labels_indices is out of range. If yes, submit an issue or ask questions in the forum to development personnel for assistance.
+
+<br/>
