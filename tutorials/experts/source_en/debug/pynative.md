@@ -22,10 +22,9 @@ ms.set_context(mode=ms.PYNATIVE_MODE)
 The following is example code of executing Add operator [mindspore.ops.Add](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add):
 
 ```python
-add = ops.Add()
 x = ms.Tensor(np.array([1, 2]).astype(np.float32))
 y = ms.Tensor(np.array([3, 5]).astype(np.float32))
-z = add(x, y)
+z = ops.add(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
 ```
 
@@ -40,11 +39,9 @@ z: [4. 7.]
 Execute the custom function `add_func`. The sample code is as follows:
 
 ```python
-add = ops.Add()
-
 def add_func(x, y):
-    z = add(x, y)
-    z = add(z, x)
+    z = ops.add(x, y)
+    z = ops.add(z, x)
     return z
 
 x = ms.Tensor(np.array([1, 2]).astype(np.float32))
@@ -67,10 +64,9 @@ Execute a custom network `Net` to define the network structure in the construst,
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.mul = ops.Mul()
 
     def construct(self, x, y):
-        return self.mul(x, y)
+        return ops.mul(x, y)
 
 net = Net()
 x = ms.Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
@@ -198,7 +194,6 @@ The sample code is as follows:
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-import mindspore.ops as ops
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
@@ -411,13 +406,11 @@ print("-------------\n", output)
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
 [[[[ 9.99994993e-01]],
   [[ 9.99994993e-01]]]]),)
-(Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
-[[[[ 1.99998999e+00,  1.99998999e+00],
-   [ 1.99998999e+00,  1.99998999e+00]]]]),)
+[[[[1.99999 1.99999]
+   [1.99999 1.99999]]]]
 -------------
- (Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
-[[[[ 1.99998999e+00,  1.99998999e+00],
-   [ 1.99998999e+00,  1.99998999e+00]]]]),)
+ [[[[1.99999 1.99999]
+   [1.99999 1.99999]]]]
 ```
 
 When the `register_backward_hook` function and the `register_forward_pre_hook` function, and the `register_forward_hook` function act on the same Cell object at the same time, if the `register_forward_pre_hook` and the `register_forward_hook` functions add other operators for data processing, these new operators will participate in the forward calculation of the data before or after the execution of the Cell object, but the backward gradient of these new operators is not captured by the `register_backward_hook` function. The Hook function registered in `register_backward_hook` only captures the input and output gradients of the original Cell object.
