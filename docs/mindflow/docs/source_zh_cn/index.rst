@@ -11,6 +11,8 @@ MindSpore Flow是基于昇思MindSpore开发的流体仿真领域套件，支持
 
 MindSpore AI 流体仿真套件
 
+代码仓地址： <https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindFlow>
+
 .. toctree::
    :glob:
    :maxdepth: 1

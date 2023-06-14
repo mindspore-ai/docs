@@ -25,6 +25,8 @@ MindSpore Pandas的架构图如下图所示：
 
 6. MindSpore Pandas提供了基于共享内存的数据管道，数据无需落盘即可从MindSpore Pandas数据处理进程传输至MindSpore训练进程，解决了数据分析扩展包与训练框架割裂的问题。
 
+代码仓地址： <https://gitee.com/mindspore/mindpandas>
+
 设计特点
 ---------
 

@@ -12,6 +12,8 @@ Federated learning is a cryptographically distributed machine learning technique
 
 MindSpore Federated provides a horizontal federated model with sample federation and a vertical federation model with feature federation. Support commercial deployment for millions of stateless terminal devices, as well as cloud federated between data centers across trusted zones.
 
+Code repository address: <https://gitee.com/mindspore/federated>
+
 Advantages of the MindSpore Federated Horizontal Framework
 -----------------------------------------------------------
 

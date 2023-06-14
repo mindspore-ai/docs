@@ -14,6 +14,8 @@ The MindSpore Recommender acceleration library consists of the following compone
 - data processing: MindSpore Pandas and MindData provide the ability to read and process data online and offline, saving the overhead of multiple languages and frameworks through full-Python expression support, and opening up efficient data flow links for data processing and model training.
 - model library: includes continuous rich training of typical recommendation models. After rigorous validation for accuracy and performance, it can be used right after installation.
 
+Code repository address: <https://github.com/mindspore-lab/mindrec>
+
 .. toctree::
    :glob:
    :maxdepth: 1
