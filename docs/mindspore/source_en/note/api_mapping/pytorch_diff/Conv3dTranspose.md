@@ -35,8 +35,8 @@ class mindspore.nn.Conv3dTranspose(
     group=1,
     output_padding=0,
     has_bias=False,
-    weight_init='normal',
-    bias_init='zeros',
+    weight_init=None,
+    bias_init=None,
     data_format='NCDHW'
 )(x) -> Tensor
 ```
@@ -52,6 +52,12 @@ $W_{out}=(W_{in}−1)×stride[2]−2×padding[2]+dilation[2]×(kernel\underline{
 
 MindSpore: MindSpore API implements essentially the same function as PyTorch, but with the new "pad_mode" parameter. When "pad_mode" = "pad", it is the same as the PyTorch default, and the weight_init and bias_init parameters can be used to configure the initialization method.
 
+### Weight Initialization Difference
+
+When `weight_init` of mindspore.nn.Conv3dTranspose is ``None`` , the weight is initialized using HeUniform. This is the same as PyTorch weight initialization.
+
+When `bias_init` of mindspore.nn.Conv3dTranspose is ``None`` , the bias is initialized using Uniform. This is the same as the PyTorch bias initialization.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 | Parameters | Parameter 1 | in_channels    | in_channels          | -  |
@@ -65,8 +71,8 @@ MindSpore: MindSpore API implements essentially the same function as PyTorch, bu
 |      | Parameter 9 | dilation   |  dilation     | -  |
 |      | Parameter 10 |  padding_mode   |   -      | Numeric padding mode, only support "zeros" that is, padding 0. MindSpore does not have this parameter, but the default padding 0 |
 |      | Parameter 11 |  -   | pad_mode       | Specify the padding mode. Optional values are "same", "valid", "pad", in "same" and "valid" mode. padding must be set to 0, and default is "same". PyTorch does not have this parameter. |
-|      | Parameter 12 |    - | weight_init        | The initialization method for the weight parameter. Can be Tensor, str, Initializer or numbers.Number. When using str, the values of "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. The default is "normal". PyTorch does not have this parameter. |
-|     | Parameter 13 | -  | bias_init  | The initialization method for the bias parameter. Optional parameter is the same as "weight_init", and default is "zeros". PyTorch does not have this parameter. |
+|      | Parameter 12 |    - | weight_init        | The initialization method for the weight parameter. The type can be Tensor, str, Initializer or numbers.Number. When using str, the values of "TruncatedNormal", "Normal", "Uniform", "HeUniform" and "XavierUniform" distributions and the constants "One" and "Zero" distributions can be selected. The default is None. PyTorch does not have this parameter. |
+|     | Parameter 13 | -  | bias_init  | The initialization method for the bias parameter. Optional parameter is the same as "weight_init", and default is None. PyTorch does not have this parameter. |
 |      | Parameter 14 |   -   |   data_format  |Optional value for the data format. Currently only "NCDHW" is supported, in the same order as the default in PyTorch. PyTorch does not have this parameter.|
 |Input | Single input | input | x | Same function, different parameter names |
 

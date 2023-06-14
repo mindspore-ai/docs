@@ -146,7 +146,7 @@ model.train(10, train_dataset, callbacks=[ckpoint_cb, my_callback], dataset_sink
      └── lenet-6_1875.ckpt
 ```
 
-> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名CheckPoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加”_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta 文件。例如：`lenet_3-2_1875.ckpt` 表示运行第3次脚本生成的第2个epoch的第1875个step的CheckPoint文件。
+> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名CheckPoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加”_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta 文件。例如：`lenet_3-2_1875.ckpt` 表示运行第4次脚本生成的第2个epoch的第1875个step的CheckPoint文件。
 
 用户可以使用自定义脚本找到最新保存的CheckPoint文件。
 

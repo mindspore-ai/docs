@@ -25,11 +25,11 @@ class Network(nn.Cell):
         super().__init__()
         self.flatten = nn.Flatten()
         self.dense_relu_sequential = nn.SequentialCell(
-            nn.Dense(28*28, 512),
+            nn.Dense(28*28, 512, weight_init="normal", bias_init="zeros"),
             nn.ReLU(),
-            nn.Dense(512, 512),
+            nn.Dense(512, 512, weight_init="normal", bias_init="zeros"),
             nn.ReLU(),
-            nn.Dense(512, 10)
+            nn.Dense(512, 10, weight_init="normal", bias_init="zeros")
         )
 
     def construct(self, x):

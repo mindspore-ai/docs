@@ -20,8 +20,8 @@ class torch.nn.Linear(
 class mindspore.nn.Dense(
     in_channels,
     out_channels,
-    weight_init='normal',
-    bias_init='zeros',
+    weight_init=None,
+    bias_init=None,
     has_bias=True,
     activation=None
 )(x) -> Tensor
@@ -34,6 +34,12 @@ class mindspore.nn.Dense(
 PyTorch：全连接层，实现矩阵相乘的运算。
 
 MindSpore：MindSpore此API实现功能与PyTorch基本一致，而且可以在全连接层后添加激活函数。
+
+### 权重初始化差异
+
+mindspore.nn.Dense的 `weight_init` 是 ``None`` 时，权重使用HeUniform初始化。此时和PyTorch权重初始化方式一致。
+
+mindspore.nn.Dense的 `bias_init` 是 ``None`` 时，偏差使用Uniform初始化。此时和PyTorch偏差初始化方式一致。
 
 | 分类 | 子类  | PyTorch      | MindSpore    | 差异                         |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |

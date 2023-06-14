@@ -34,8 +34,8 @@ class mindspore.nn.Conv1dTranspose(
     dilation=1,
     group=1,
     has_bias=False,
-    weight_init='normal',
-    bias_init='zeros'
+    weight_init=None,
+    bias_init=None
 )(x) -> Tensor
 ```
 
@@ -46,6 +46,12 @@ class mindspore.nn.Conv1dTranspose(
 PyTorch：计算一维转置卷积，可以视为Conv1d对输入求梯度，也称为反卷积（实际不是真正的反卷积）。输入的shape通常是$(N,C_{in}, L_{in})$，其中$N$是batch size，$C$是空间维度，$L$是序列的长度。输出的shape为$(N,C_{out},L_{out})$，其中$L_{out}=(L_{in}−1)×stride−2×padding+dilation×(kernel\_size−1)+output\_padding+1$
 
 MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充模式参数"pad_mode"，当"pad_mode" = "pad"时与PyTorch默认方式相同，利用weight_init 和bias_init 参数可以配置初始化方式。
+
+### 权重初始化差异
+
+mindspore.nn.Conv1dTranspose的 `weight_init` 是 ``None`` 时，权重使用HeUniform初始化。此时和PyTorch权重初始化方式一致。
+
+mindspore.nn.Conv1dTranspose的 `bias_init` 是 ``None`` 时，偏差使用Uniform初始化。此时和PyTorch偏差初始化方式一致。
 
 | 分类 | 子类   | PyTorch        | MindSpore    | 差异                                                         |
 | ---- | ------ | -------------- | ------------ | ------------------------------------------------------------ |
@@ -60,8 +66,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，新增了填充�
 |      | 参数9  | dilation       | dilation     | -                                                            |
 |      | 参数10 | padding_mode   | -            | 数值填充模式，只支持"zeros"即填充0。MindSpore无此参数，但默认填充0 |
 |      | 参数11 | -              | pad_mode     | 指定填充模式。可选值为"same"、"valid"、"pad"，在"same"和"valid"模式下，padding必须设置为0，默认为"same"，PyTorch无此参数 |
-|      | 参数12 | -              | weight_init  | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值，默认为"normal"，PyTorch无此参数 |
-|      | 参数13 | -              | bias_init    | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为"zeros"，PyTorch无此参数 |
+|      | 参数12 | -              | weight_init  | 权重参数的初始化方法。可为Tensor，str，Initializer或numbers.Number。当使用str时，可选"TruncatedNormal"，"Normal"，"Uniform"，"HeUniform"和"XavierUniform"分布以及常量"One"和"Zero"分布的值，默认为None，PyTorch无此参数 |
+|      | 参数13 | -              | bias_init    | 偏置参数的初始化方法。初始化方法与"weight_init"相同，默认为None，PyTorch无此参数 |
 | 输入 | 单输入 | input          | x            | 功能一致，参数名不同                                         |
 
 ### 代码示例1

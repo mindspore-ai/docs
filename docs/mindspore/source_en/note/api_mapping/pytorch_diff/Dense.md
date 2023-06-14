@@ -20,8 +20,8 @@ For more information, see [torch.nn.Linear](https://pytorch.org/docs/1.8.1/gener
 class mindspore.nn.Dense(
     in_channels,
     out_channels,
-    weight_init='normal',
-    bias_init='zeros',
+    weight_init=None,
+    bias_init=None,
     has_bias=True,
     activation=None
 )(x) -> Tensor
@@ -34,6 +34,12 @@ For more information, see [mindspore.nn.Dense](https://www.mindspore.cn/docs/en/
 Pytorch: Fully connected layer that implements the matrix multiplication operation.
 
 MindSpore: The implementation function of the API in MindSpore is basically the same as that of PyTorch, and it is possible to add activation functions after the fully connected layer.
+
+### Weight Initialization Difference
+
+When `weight_init` of mindspore.nn.Dense is ``None`` , the weight is initialized using HeUniform. This is the same as PyTorch weight initialization.
+
+When `bias_init` of mindspore.nn.Dense is ``None`` , the bias is initialized using Uniform. This is the same as the PyTorch bias initialization.
 
 | Categories | Subcategories   | PyTorch             | MindSpore   | Differences    |
 | ---- | ----- | ------------ | ------------ | ---------------------------- |
