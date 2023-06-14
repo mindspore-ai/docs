@@ -78,7 +78,6 @@
 |[mindspore.ops.erfc](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.erfc.html)|✔️|✔️|✔️|
 |[mindspore.ops.erfinv](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.erfinv.html)|✔️|✔️|✔️|
 |[mindspore.ops.exp](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.exp.html)|✔️|✔️|✔️|
-|[mindspore.ops.expand](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.expand.html)|✔️|✔️|✔️|
 |[mindspore.ops.expand_dims](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.expand_dims.html)|✔️|✔️|✔️|
 |[mindspore.ops.expm1](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.expm1.html)|✔️|✔️|✔️|
 |[mindspore.ops.eye](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.eye.html)|✔️|✔️|✔️|

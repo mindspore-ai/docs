@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.masked_scatter](https://pytorch.org/docs
 mindspore.Tensor.masked_scatter(mask, tensor) -> Tensor
 ```
 
-For more information, see [mindspore.Tensor.masked_scatter](https://www.mindspore.cn/docs/en/r2.0/api_python/Tensor/mindspore.Tensor.masked_scatter.html).
+For more information, see [mindspore.Tensor.masked_scatter](https://www.mindspore.cn/docs/en/r2.0/api_python/mindspore/Tensor/mindspore.Tensor.masked_scatter.html).
 
 ## Differences
 

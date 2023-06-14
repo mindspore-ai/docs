@@ -9,6 +9,8 @@ MindSpore Reinforcement为编写强化学习算法提供了简洁的API抽象，
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/reinforcement/docs/source_zh_cn/images/mindspore_rl_architecture.png" width="700px" alt="" >
 
+代码仓地址： <https://github.com/mindspore-lab/mindrl>
+
 设计特点
 --------
 

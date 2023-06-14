@@ -1,9 +1,11 @@
 MindSpore Dev Toolkit
 ============================
 
-MindSpore Dev Toolkit is a development kit supporting the `PyCharm <https://www.jetbrains.com/pycharm/>`_ (cross-platform Python IDE) plug-in developed by MindSpore, and provides functions such as `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/mindspore_project_wizard.html>`_ , `intelligent supplement <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/smart_completion.html>`_ , `API search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/operator_search.html>`_ , and `Document search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/knowledge_search.html>`_ .
+MindSpore Dev Toolkit is a development kit supporting the `PyCharm <https://www.jetbrains.com/pycharm/>`_ (cross-platform Python IDE) plug-in developed by MindSpore, and provides functions such as `Project creation <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/mindspore_project_wizard.html>`_ , `intelligent supplement <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/smart_completion.html>`_ , `API search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/api_search.html>`_ , and `Document search <https://www.mindspore.cn/devtoolkit/docs/en/r2.0/knowledge_search.html>`_ .
 
 MindSpore Dev Toolkit creates the best intelligent computing experience, improve the usability of the MindSpore framework, and facilitate the promotion of the MindSpore ecosystem through deep learning, intelligent search, and intelligent recommendation.
+
+Code repository address: <https://gitee.com/mindspore/ide-plugin>
 
 System Requirements
 ------------------------------

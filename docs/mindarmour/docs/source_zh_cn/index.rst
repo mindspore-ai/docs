@@ -9,6 +9,8 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
 
+代码仓地址： <https://gitee.com/mindspore/mindarmour>
+
 使用MindSpore Armour的典型场景
 ------------------------------
 
