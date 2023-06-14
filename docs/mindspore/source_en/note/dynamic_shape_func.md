@@ -1,8 +1,8 @@
 # Dynamic Shape Support Status of ops Interface
 
-> Some interfaces may have incomplete data type support in dynamic shape scenarios. This will be gradually improved in future versions. If issues with unsupported data types is encountered, you can resolve them by manually inserting a [Cast](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator.
-
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/dynamic_shape_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+
+> Some interfaces may have incomplete data type support in dynamic shape scenarios. This will be gradually improved in future versions. If issues with unsupported data types is encountered, you can resolve them by manually inserting a [Cast](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator.
 
 | API name  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
