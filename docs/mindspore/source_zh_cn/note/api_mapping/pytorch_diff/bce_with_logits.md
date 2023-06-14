@@ -31,7 +31,7 @@ MindSpore：MindSpore此API实现功能与PyTorch一致，仅输入参数 `weigh
 |      | 参数3 | weight    | weight    | 功能一致，参数名默认值未设定                                      |
 |      | 参数4 | size_average    | -    | PyTorch的已弃用参数，功能由reduction参数取代          |
 |      | 参数5 | reduce    | -    | PyTorch的已弃用参数，功能由reduction参数取代                 |
-|      | 参数6 | reduction | reduction | 功能一致，默认值不同                                    |
+|      | 参数6 | reduction | reduction | 功能一致，默认值相同                                    |
 |      | 参数7 | pos_weight    | pos_weight    | 功能一致，参数名默认值未设定                                      |
 
 ### 代码示例1
