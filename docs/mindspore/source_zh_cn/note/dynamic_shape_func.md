@@ -71,7 +71,6 @@
 |[mindspore.ops.dropout](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dropout.html)|✔️|✔️|✔️|
 |[mindspore.ops.dropout2d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dropout2d.html)|✔️|✔️|✔️|
 |[mindspore.ops.dropout3d](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dropout3d.html)|✔️|✔️|✔️|
-|[mindspore.ops.eig](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.eig.html)|❌|❌|❌|
 |[mindspore.ops.einsum](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.einsum.html)|✔️|✔️|✔️|
 |[mindspore.ops.elu](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.elu.html)|✔️|✔️|✔️|
 |[mindspore.ops.equal](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.equal.html)|✔️|✔️|✔️|
@@ -113,7 +112,6 @@
 |[mindspore.ops.hardtanh](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.hardtanh.html)|✔️|✔️|✔️|
 |[mindspore.ops.heaviside](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.heaviside.html)|✔️|✔️|✔️|
 |[mindspore.ops.hypot](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.hypot.html)|✔️|✔️|✔️|
-|[mindspore.ops.igamma](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.igamma.html)|❌|❌|❌|
 |[mindspore.ops.igammac](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.igammac.html)|✔️|✔️|✔️|
 |[mindspore.ops.imag](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.imag.html)|✔️|✔️|✔️|
 |[mindspore.ops.index_select](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.index_select.html)|✔️|✔️|✔️|
