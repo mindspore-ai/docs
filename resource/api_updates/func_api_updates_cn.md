@@ -21,7 +21,6 @@
 [mindspore.ops.dstack](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dstack.html#mindspore.ops.dstack)|New|将多个Tensor沿着第三维度进行堆叠。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.dyn_shape](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.dyn_shape.html#mindspore.ops.dyn_shape)|New|返回输入Tensor的shape。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.einsum](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.einsum.html#mindspore.ops.einsum)|New|基于爱因斯坦求和约定（Einsum）符号，沿着指定维度对输入Tensor元素的乘积求和。|r2.0: GPU|Array操作
-[mindspore.ops.expand](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.expand.html#mindspore.ops.expand)|New|返回一个当前Tensor的新视图，其中单维度扩展到更大的尺寸。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.flip](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.flip.html#mindspore.ops.flip)|New|沿给定轴翻转Tensor中元素的顺序。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.fliplr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.fliplr.html#mindspore.ops.fliplr)|New|将输入Tensor中每一行的元素沿左右进行翻转，但保持矩阵的列不变。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.flipud](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.flipud.html#mindspore.ops.flipud)|New|将输入Tensor中每一列的元素沿上下进行翻转，但保持矩阵的行不变。|r2.0: Ascend/GPU/CPU|Array操作
