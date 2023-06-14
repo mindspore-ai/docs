@@ -10,7 +10,7 @@ class torchvision.transforms.ConvertImageDtype(
     )
 ```
 
-For more information, see [torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ConvertImageDtype).
+For more information, see [torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.ConvertImageDtype).
 
 ## mindspore.dataset.transforms.TypeCast
 

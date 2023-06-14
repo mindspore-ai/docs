@@ -16,7 +16,7 @@ class torchvision.datasets.VOCDetection(
     )
 ```
 
-更多内容详见[torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.VOCDetection.html)。
+更多内容详见[torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.VOCDetection)。
 
 ## mindspore.dataset.VOCDataset
 
@@ -34,7 +34,8 @@ class mindspore.dataset.VOCDataset(
     num_shards=None,
     shard_id=None,
     cache=None,
-    extra_metadata=False
+    extra_metadata=False,
+    decrypt=None
     )
 ```
 
@@ -45,6 +46,28 @@ class mindspore.dataset.VOCDataset(
 PyTorch：生成PASCAL VOC 目标检测格式数据集。
 
 MindSpore：用于读取和分析VOC数据集的源数据集。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        |---  |
+|参数 | 参数1 | root    | dataset_dir    | - |
+|     | 参数2 | year      | -    | MindSpore不支持 |
+|     | 参数3 | image_set      | usage  |- |
+|     | 参数4 | download      | -    | MindSpore不支持 |
+|     | 参数5 | transform    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数6 | target_transform    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数7 | transforms    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数8 | -      | task  | 指定读取VOC数据的任务类型 |
+|     | 参数9 | -      | class_indexing  | 指定一个从label名称到label索引的映射 |
+|     | 参数10 | -    | num_samples | 指定从数据集中读取的样本数 |
+|     | 参数11 | -    | num_parallel_workers | 指定读取数据的工作线程数 |
+|     | 参数12 | -    | shuffle  | 指定是否混洗数据集 |
+|     | 参数13 | -    | decode | 指定是否对图像进行解码 |
+|     | 参数14 | -    | sampler  | 指定采样器 |
+|     | 参数15 | -    | num_shards | 指定分布式训练时将数据集进行划分的分片数 |
+|     | 参数16 | -    | shard_id | 指定分布式训练时使用的分片ID号 |
+|     | 参数17 | -    | cache | 指定单节点数据缓存服务 |
+|     | 参数18 | -    | extra_metadata | 用于指定是否额外输出一个数据列用于表示图片元信息 |
+|     | 参数19 | -    | decrypt | 图像解密函数 |
 
 ## 代码示例
 

@@ -12,7 +12,7 @@ class torchvision.datasets.ImageFolder(
     is_valid_file: bool = None)
 ```
 
-For more information, see [torchvision.datasets.ImageFolder](https://pytorch.org/vision/0.14/generated/torchvision.datasets.ImageFolder.html).
+For more information, see [torchvision.datasets.ImageFolder](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.ImageFolder).
 
 ## mindspore.dataset.ImageFolderDataset
 

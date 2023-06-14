@@ -8,7 +8,7 @@
 class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=InterpolationMode.BILINEAR, antialias: Optional[bool] = None)
 ```
 
-更多内容详见[torchvision.transforms.RandomResizedCrop](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomResizedCrop.html)。
+更多内容详见[torchvision.transforms.RandomResizedCrop](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomResizedCrop)。
 
 ## mindspore.dataset.vision.RandomResizedCrop
 
@@ -20,9 +20,9 @@ class mindspore.dataset.vision.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=
 
 ## 差异对比
 
-PyTorch：对输入图像进行随机裁剪，并使用指定的插值方式将图像调整为指定的尺寸大小，对BILINEAR、BICUBIC插值类型支持抗锯齿。
+PyTorch：对输入图像进行随机裁剪，并使用指定的插值方式将图像调整为指定的尺寸大小。
 
-MindSpore：对输入图像进行随机裁剪，并使用指定的插值方式将图像调整为指定的尺寸大小，不支持抗锯齿。
+MindSpore：对输入图像进行随机裁剪，并使用指定的插值方式将图像调整为指定的尺寸大小。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
@@ -30,5 +30,4 @@ MindSpore：对输入图像进行随机裁剪，并使用指定的插值方式�
 |     | 参数2 | scale      | scale   |- |
 |     | 参数3 | ratio     | ratio    | - |
 |     | 参数4 | interpolation     | interpolation   | - |
-|     | 参数5 | antialias     | -   | 抗锯齿选项 |
-|     | 参数6 | -     | max_attempts   | 生成随机裁剪位置的最大尝试次数，超过该次数时将使用中心裁剪 |
+|     | 参数5 | -     | max_attempts   | 生成随机裁剪位置的最大尝试次数，超过该次数时将使用中心裁剪 |

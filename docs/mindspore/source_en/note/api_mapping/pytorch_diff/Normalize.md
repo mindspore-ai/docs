@@ -8,7 +8,7 @@
 class torchvision.transforms.Normalize(mean, std, inplace=False)
 ```
 
-For more information, see [torchvision.transforms.Normalize](https://pytorch.org/vision/0.14/generated/torchvision.transforms.Normalize.html).
+For more information, see [torchvision.transforms.Normalize](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.Normalize).
 
 ## mindspore.dataset.vision.Normalize
 

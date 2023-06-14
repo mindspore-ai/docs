@@ -14,7 +14,7 @@ class torchvision.datasets.CelebA(
     download: bool = False)
 ```
 
-更多内容详见[torchvision.datasets.CelebA](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CelebA.html)。
+更多内容详见[torchvision.datasets.CelebA](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.CelebA)。
 
 ## mindspore.dataset.CelebADataset
 
@@ -64,19 +64,27 @@ MindSpore：读取CelebA（CelebFaces Attributes）数据集，不支持下载�
 ## 代码示例
 
 ```python
-# Torch
+# PyTorch
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.CelebA(root, split='train', transform=T.ToTensor())
+dataset = datasets.CelebA(root, split='train', target_type="attr", transform=T.ToTensor(), download=True)
 dataloader = DataLoader(dataset)
 
 # MindSpore
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
+# Download CelebA dataset files, unzip the img_align_celeba.zip and put list_attr_celeba.txt together like
+# .
+# └── /path/to/dataset_directory/
+#      ├── list_attr_celeba.txt
+#      ├── 000001.jpg
+#      ├── 000002.jpg
+#      ├── 000003.jpg
+#      ├── ...
 root = "/path/to/dataset_directory/"
 ms_dataloader = ds.CelebADataset(root, usage='train', decode=True)
 ms_dataloader = ms_dataloader.map(vision.ToTensor(), ["image"])

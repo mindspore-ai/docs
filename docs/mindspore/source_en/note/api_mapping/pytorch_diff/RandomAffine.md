@@ -8,7 +8,7 @@
 class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, interpolation=InterpolationMode.NEAREST, fill=0, center=None)
 ```
 
-For more information, see [torchvision.transforms.RandomAffine](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomAffine.html).
+For more information, see [torchvision.transforms.RandomAffine](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomAffine).
 
 ## mindspore.dataset.vision.RandomAffine
 
@@ -32,7 +32,8 @@ MindSpore: Apply random affine transformation to the input image. The rotation c
 |     | Parameter4 | shear   | shear   | - |
 |     | Parameter5 | interpolation   | resample  | - |
 |     | Parameter6 | fill   | fill_value | - |
-|     | Parameter7 | center   | -  | Specify the center of rotation |
+|     | Parameter7 | fillcolor   | -  | Deprecated in PyTorch, same with fill |
+|     | Parameter8 | resample    | -  | Deprecated in PyTorch, same with interpolation |
 
 ## Code Example
 
@@ -47,16 +48,13 @@ orig_img = Image.open('flamingos.jpg')
 # PyTorch
 import torchvision.transforms as T
 
-affine_transfomer = T.RandomAffine(degrees=(30, 70), translate=(0.1, 0.3), center=(0, 0))
+affine_transfomer = T.RandomAffine(degrees=(30, 70), translate=(0.1, 0.3), fill=0)
 img_torch = affine_transfomer(orig_img)
 
 # MindSpore
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 
-# If need to specify center of rotation, use RandomRotation + RandomAffine
-rotation_transfomer = vision.RandomRotation(degrees=(30, 70), center=(0, 0))
-affine_transfomer = vision.RandomAffine(degrees=(0, 0), translate=(0.1, 0.3))
-transformer = transforms.Compose([rotation_transfomer, affine_transfomer])
-img_ms = transformer(orig_img)
+affine_transfomer = vision.RandomAffine(degrees=(30, 70), translate=(0.1, 0.3), fill_value=0)
+img_ms = affine_transfomer(orig_img)
 ```

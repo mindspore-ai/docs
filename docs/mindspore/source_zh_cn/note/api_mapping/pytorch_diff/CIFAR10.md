@@ -13,7 +13,7 @@ class torchvision.datasets.CIFAR10(
     download: bool = False)
 ```
 
-更多内容详见[torchvision.datasets.CIFAR10](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CIFAR10.html)。
+更多内容详见[torchvision.datasets.CIFAR10](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.CIFAR10)。
 
 ## mindspore.dataset.Cifar10Dataset
 
@@ -34,9 +34,9 @@ class mindspore.dataset.Cifar10Dataset(
 
 ## 差异对比
 
-PyTorch：读取CIFAR-10数据集。将image和label的变换操作集成在参数中。
+PyTorch：读取CIFAR-10数据集（仅支持CIFAR-10 python version版本）。将image和label的变换操作集成在参数中。
 
-MindSpore：读取CIFAR-10数据集，不支持下载，对image和label的变换需要使用`mindspore.dataset.map`操作。
+MindSpore：读取CIFAR-10数据集（仅支持CIFAR-10 binary version版本），不支持下载，对image和label的变换需要使用`mindspore.dataset.map`操作。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
@@ -57,19 +57,30 @@ MindSpore：读取CIFAR-10数据集，不支持下载，对image和label的变�
 ## 代码示例
 
 ```python
-# Torch
+# PyTorch
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.CIFAR10(root, train=True, transform=T.RandomCrop((28, 28)))
+dataset = datasets.CIFAR10(root, train=True, transform=T.RandomCrop((28, 28)), download=True)
 dataloader = DataLoader(dataset)
 
 # MindSpore
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
+# Download the dataset files, unzip into the following structure
+#  .
+#  └── /path/to/dataset_directory/
+#       ├── data_batch_1.bin
+#       ├── data_batch_2.bin
+#       ├── data_batch_3.bin
+#       ├── data_batch_4.bin
+#       ├── data_batch_5.bin
+#       ├── test_batch.bin
+#       ├── readme.html
+#       └── batches.meta.txt
 root = "/path/to/dataset_directory/"
 ms_dataloader = ds.Cifar10Dataset(root, usage='train')
 ms_dataloader = ms_dataloader.map(vision.RandomCrop((28, 28)), ["image"])

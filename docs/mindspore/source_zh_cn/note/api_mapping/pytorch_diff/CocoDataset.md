@@ -14,7 +14,7 @@ class torchvision.datasets.CocoDetection(
     )
 ```
 
-更多内容详见[torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CocoDetection.html)。
+更多内容详见[torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.CocoDetection)。
 
 ## mindspore.dataset.CocoDataset
 
@@ -31,7 +31,8 @@ class mindspore.dataset.CocoDataset(
     num_shards=None,
     shard_id=None,
     cache=None,
-    extra_metadata=False
+    extra_metadata=False,
+    decrypt=None
     )
 ```
 
@@ -42,6 +43,25 @@ class mindspore.dataset.CocoDataset(
 PyTorch：输入COCO格式数据集，返回创建出的数据集对象，可通过遍历数据集对象获取数据。
 
 MindSpore：输入COCO格式数据集及指定任务类型（目标检测，全景分割等），返回给定任务类型的数据集对象，可通过创建迭代器获取数据。
+
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        |---  |
+|参数 | 参数1 | root    | dataset_dir    | - |
+|     | 参数2 | annFile      | annotation_file    |- |
+|     | 参数3 | transform    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数4 | target_transform    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数5 | transforms    | -   | MindSpore通过 `mindspore.dataset.map` 操作支持 |
+|     | 参数6 | -      | task  | 指定COCO数据的任务类型 |
+|     | 参数7 | -    | num_samples | 指定从数据集中读取的样本数 |
+|     | 参数8 | -    | num_parallel_workers | 指定读取数据的工作线程数 |
+|     | 参数9 | -    | shuffle  | 指定是否混洗数据集 |
+|     | 参数10 | -    | decode | 指定是否对图像进行解码 |
+|     | 参数11 | -    | sampler  | 指定采样器 |
+|     | 参数12 | -    | num_shards | 指定分布式训练时将数据集进行划分的分片数 |
+|     | 参数13 | -    | shard_id | 指定分布式训练时使用的分片ID号 |
+|     | 参数14 | -    | cache | 指定单节点数据缓存服务 |
+|     | 参数15 | -    | extra_metadata | 用于指定是否额外输出一个数据列用于表示图片元信息 |
+|     | 参数16 | -    | decrypt | 图像解密函数 |
 
 ## 代码示例
 

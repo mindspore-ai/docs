@@ -12,7 +12,7 @@ torchtext.data.functional.numericalize_tokens_from_iterator(
 )
 ```
 
-For more information, see [torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/text/0.10.0/data_functional.html#numericalize-tokens-from-iterator).
+For more information, see [torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/text/0.9.0/data_functional.html#numericalize-tokens-from-iterator).
 
 ## mindspore.dataset.text.Lookup
 
@@ -32,42 +32,35 @@ PyTorch: Generate the id list corresponding to the vocabulary from the word segm
 
 MindSpore: Look up a word into an id according to the input vocabulary table.
 
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | vocab     | vocab     | - |
+|     | Parameter2 | iterator   |-     | Strings to be tokenized, see usage below in MindSpore |
+|     | Parameter3 | removed_tokens    |-     | Removed tokens from output dataset, not support by MindSpore |
+|     | Parameter4 | -   |unknown_token    | Word is used in case of the target word is out of vocabulary |
+|     | Parameter5 | -   |data_type    | The data type that lookup |
+
 ## Code Example
 
 ```python
-import mindspore.dataset as ds
-from mindspore.dataset import text
-import torch as T
-from torchtext.data.functional import simple_space_split, numericalize_tokens_from_iterator
+# PyTorch
+from torchtext.data.functional import numericalize_tokens_from_iterator
 
-# In MindSpore, return id of given word with looking up the vocab.
-
-Vocab_file_path = '/path/to/testVocab/vocab_list.txt'
-
-vocab = text.Vocab.from_file(Vocab_file_path, ",", None, ["<pad>", "<unk>"], True)
-lookup = text.Lookup(vocab)
-
-text_file_dataset_dir = '/path/to/testVocab/words.txt'
-
-text_file_dataset = ds.TextFileDataset(dataset_files=text_file_dataset_dir)
-text_file_dataset = text_file_dataset.map(operations=lookup,  input_columns=["text"])
-for d in text_file_dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-   print(d["text"])
-# Out:
-# 14
-# 12
-# 13
-# 10
-# 15
-# 11
-
-# In torch, return the ids iterator with looking up the vocab.
+def gen():
+    yield ["Sentencepiece", "as", "encode"]
 
 vocab = {'Sentencepiece' : 0, 'encode' : 1, 'as' : 2, 'pieces' : 3}
-ids_iter = numericalize_tokens_from_iterator(vocab, simple_space_split(["Sentencepiece as pieces", "as pieces"]))
+ids_iter = numericalize_tokens_from_iterator(vocab, gen())
 for ids in ids_iter:
     print([num for num in ids])
-# Out:
-# [0, 2, 3]
-# [2, 3]
+# Out: [0, 2, 1]
+
+
+# MindSpore
+import mindspore.dataset.text as text
+
+vocab = text.Vocab.from_dict({'Sentencepiece' : 0, 'encode' : 1, 'as' : 2, 'pieces' : 3})
+result = text.Lookup(vocab)(["Sentencepiece", "as", "encode"])
+print(result)
+# Out: [0 2 1]
 ```
