@@ -14,7 +14,7 @@ Dynamic graphs are characterized by the fact that the construction and computati
 
 In MindSpore, the dynamic graph pattern is also known as the PyNative pattern. Due to interpreted execution of dynamic graphs, it is recommended to use dynamic graph mode for debugging during script development and network process debugging.
 
-> Default computational graph mode in MindSpore is PyNative mode.
+> Default computational graph mode in MindSpore is PyNative mode. The performance in PyNative mode is continuously improving. It is recommended to use it for debugging. Please use the Graph mode for formal production training.
 
 If you need to manually control the framework to adopt PyNative mode, you can configure it with the following code:
 
