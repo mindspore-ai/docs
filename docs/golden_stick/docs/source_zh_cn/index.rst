@@ -22,6 +22,8 @@ MindSpore Golden Stick由华为诺亚团队和华为MindSpore团队联合设计�
 .. note::
     架构图是MindSpore Golden Stick的全貌，其中包含了当前版本已经实现的功能以及规划在RoadMap中能力。具体开放的功能可以参考对应版本的ReleaseNotes。
 
+代码仓地址： <https://gitee.com/mindspore/golden-stick>
+
 设计思路
 ---------------------------------------
 

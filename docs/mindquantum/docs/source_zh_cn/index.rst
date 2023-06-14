@@ -9,6 +9,8 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
+代码仓地址： <https://gitee.com/mindspore/mindquantum>
+
 使用MindSpore Quantum的典型场景
 --------------------------------
 

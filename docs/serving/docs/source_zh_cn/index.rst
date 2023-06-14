@@ -17,6 +17,8 @@ MindSpore Serving包含以下功能：
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/serving/docs/source_zh_cn/images/serving_cn.png" width="700px" alt="" >
 
+代码仓地址： <https://gitee.com/mindspore/serving>
+
 使用MindSpore Serving的典型场景
 --------------------------------
 

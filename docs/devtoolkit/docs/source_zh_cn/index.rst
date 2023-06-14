@@ -5,6 +5,8 @@ MindSpore Dev Toolkit是一款支持MindSpore开发的 `PyCharm <https://www.jet
 
 MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术，打造智能计算最佳体验，致力于全面提升MindSpore框架的易用性，助力MindSpore生态推广。
 
+代码仓地址： <https://gitee.com/mindspore/ide-plugin>
+
 系统需求
 ------------------------------
 

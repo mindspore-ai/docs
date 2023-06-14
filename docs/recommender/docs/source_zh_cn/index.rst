@@ -14,6 +14,8 @@ MindSpore Recommender加速库由如下部分组成：
 - 数据处理：MindSpore Pandas和MindData提供了在离线数据的读取和处理能力，通过全Python的表达支持，节省了多语言和多框架开销，同时打通了数据处理和模型训练的高效数据流转链路；
 - 模型库：包含持续丰富的典型推荐模型训练，经过严格的精度和性能验证，支持开箱即用。
 
+代码仓地址： <https://github.com/mindspore-lab/mindrec>
+
 .. toctree::
    :glob:
    :maxdepth: 1

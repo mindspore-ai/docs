@@ -9,6 +9,8 @@ MindSpore Reinforcement offers a clean API abstraction for writing reinforcement
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_zh_cn/images/mindspore_rl_architecture.png" width="700px" alt="" >
 
+Code repository address: <https://github.com/mindspore-lab/mindrl>
+
 Unique Design Features
 -----------------------
 

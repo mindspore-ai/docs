@@ -17,6 +17,8 @@ MindSpore Insight provides the following functions:
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindinsight/docs/source_en/images/mindinsight_en.png" width="700px" alt="" >
 
+Code repository address: <https://gitee.com/mindspore/mindinsight>
+
 Using MindSpore Insight to Visualize the Training Process
 -----------------------------------------------------------
 

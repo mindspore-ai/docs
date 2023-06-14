@@ -12,6 +12,8 @@ MindSpore Federated是面向MindSpore开发者的开源联邦学习工具，在�
 
 MindSpore Federated提供样本联合的横向联邦模式和特征联合的纵向联邦模式。可支持面向亿级无状态终端设备的商用化部署，也可支持跨可信区的数据中心之间的云云联邦。
 
+代码仓地址： <https://gitee.com/mindspore/federated>
+
 使用MindSpore Federated横向框架的优势
 ----------------------------------------
 

@@ -8,6 +8,8 @@ MindSpore Graph Learning是一款图学习套件，支持以点为中心编程�
 .. image:: ./images/graphlearning_cn.png
   :width: 700px
 
+代码仓地址： <https://gitee.com/mindspore/graphlearning>
+
 设计特点
 ---------
 

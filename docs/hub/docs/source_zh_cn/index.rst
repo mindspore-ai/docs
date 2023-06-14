@@ -26,6 +26,8 @@ MindSpore Hub包含以下功能：
    
    # ...
 
+代码仓地址： <https://gitee.com/mindspore/hub>
+
 使用MindSpore Hub的典型场景
 ----------------------------
 

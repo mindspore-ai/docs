@@ -27,6 +27,8 @@ MindSpore SPONGE是一款基于MindSpore的计算生物领域套件，支持分�
 - 高通量的分子模拟；
 - 分子设计等。
 
+代码仓地址： <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE>
+
 MindSpore SPONGE 安装说明
 -------------------------
 
