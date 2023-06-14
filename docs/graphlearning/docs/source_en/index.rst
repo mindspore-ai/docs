@@ -8,6 +8,8 @@ Thanks to the MindSpore graph kernel fusion, MindSpore Graph Learning can optimi
 .. image:: ./images/graphlearning_en.png
   :width: 700px
 
+Code repository address: <https://gitee.com/mindspore/graphlearning>
+
 Design Features
 ----------------
 

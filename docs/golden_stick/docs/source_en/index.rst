@@ -22,6 +22,8 @@ MindSpore Golden jointly designed and developed by Huawei's Noah team and Huawei
 .. note::
     The architecture diagram is the overall picture of MindSpore Golden Stick, which includes the features that have been implemented in the current version and the capabilities planned in RoadMap. Please refer to release notes for available features in current version.
 
+Code repository address: <https://gitee.com/mindspore/golden-stick>
+
 Design Guidelines
 ---------------------------------------
 

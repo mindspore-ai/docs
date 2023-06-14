@@ -25,6 +25,8 @@ The architecture diagram of MindSpore Pandas is shown below:
 
 6. MindSpore Pandas provides a data pipeline based on shared memory. Data can be transferred from the MindSpore Pandas data processing process to the MindSpore training process without being stored on disks. This resolves the problem that the data analysis extension package is separated from the training framework.
 
+Code repository address: <https://gitee.com/mindspore/mindpandas>
+
 Design Features
 ------------------
 

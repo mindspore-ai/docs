@@ -46,6 +46,8 @@ and application scenarios, such as:
 - High throughput molecular simulation;
 - Molecular design, etc.
 
+Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE>
+
 Installation
 ------------
 

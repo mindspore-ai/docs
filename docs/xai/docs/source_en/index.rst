@@ -9,6 +9,8 @@ Currently, most deep learning models are black-box models with good performance 
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/xai/docs/source_en/images/xai_en.png" width="700px" alt="" >
 
+Code repository address: <https://gitee.com/mindspore/xai>
+
 .. toctree::
    :glob:
    :maxdepth: 1

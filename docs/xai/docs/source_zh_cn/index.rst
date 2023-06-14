@@ -9,6 +9,8 @@ MindSpore XAI是可解释AI工具，用于比较和选择最适合于特定场�
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/xai/docs/source_zh_cn/images/xai_cn.png" width="700px" alt="" >
 
+代码仓地址： <https://gitee.com/mindspore/xai>
+
 .. toctree::
    :glob:
    :maxdepth: 1

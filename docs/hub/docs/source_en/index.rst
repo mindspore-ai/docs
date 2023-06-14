@@ -24,6 +24,8 @@ MindSpore Hub is a pre-trained model application tool of the MindSpore ecosystem
    
    # ...
 
+Code repository address: <https://gitee.com/mindspore/hub>
+
 Typical Application Scenarios
 --------------------------------------------
 
