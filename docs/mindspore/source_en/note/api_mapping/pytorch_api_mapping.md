@@ -448,6 +448,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.Softmax2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.Softmax2d.html) | [mindspore.nn.Softmax2d]( https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softmax2d.html) |Consistent |
 | [torch.nn.Softshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Softshrink.html) | [mindspore.nn.SoftShrink](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SoftShrink.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/SoftShrink.html)   |
 | [torch.nn.Softsign](https://pytorch.org/docs/1.8.1/generated/torch.nn.Softsign.html) | [mindspore.nn.Softsign](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softsign.html) | Consistent |
+| [torch.nn.SyncBatchNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.SyncBatchNorm.html) | [mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SyncBatchNorm.html) |     Difference comparison is under development                   |
 | [torch.nn.Tanh](https://pytorch.org/docs/1.8.1/generated/torch.nn.Tanh.html) | [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanh.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Tanh.html) |
 | [torch.nn.Tanhshrink](https://pytorch.org/docs/1.8.1/generated/torch.nn.Tanhshrink.html) | [mindspore.nn.Tanhshrink](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanhshrink.html) | Consistent |
 | [torch.nn.Threshold](https://pytorch.org/docs/1.8.1/generated/torch.nn.Threshold.html) | [mindspore.nn.Threshold](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Threshold.html) | Consistent |
@@ -913,7 +914,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.ParameterList](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.ParameterList) | [mindspore.ParameterTuple](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/ParameterTuple.html)|
 | [torch.nn.ReplicationPad2d](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.ReplicationPad2d) | [mindspore.nn.Pad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) |                                                              |
 | [torch.nn.SELU](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.SELU) | [mindspore.ops.SeLU](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.SeLU.html#mindspore.ops.SeLU) |                                                              |
-| [torch.nn.SyncBatchNorm.convert_sync_batchnorm](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.SyncBatchNorm.convert_sync_batchnorm) | [mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SyncBatchNorm.html#mindspore.nn.SyncBatchNorm) |                                                              |
 
 ### torch.nn.functional
 
