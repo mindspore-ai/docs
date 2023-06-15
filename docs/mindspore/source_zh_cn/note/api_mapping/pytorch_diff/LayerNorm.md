@@ -37,7 +37,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但MindSpore中�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | normalized_shape | normalized_shape | - |
+|参数 | 参数1 | normalized_shape | normalized_shape | PyTorch支持int/list，MindSpore此参数支持tuple/list |
 | | 参数2 | eps | epsilon | 功能一致，参数名不同，默认值不同 |
 | | 参数3 | elementwise_affine | - | PyTorch中此参数用于控制是否采用可学习参数，MindSpore无此参数|
 | | 参数4 | - | begin_norm_axis | MindSpore中的此参数控制归一化开始计算的轴，PyTorch无此参数|
@@ -73,4 +73,28 @@ m = nn.LayerNorm(shape1, begin_norm_axis=1, begin_params_axis=1)
 output = m(x).shape
 print(output)
 # (20, 5, 10, 10)
+```
+
+> 当PyTorch的`num_features`为`int`类型时，MindSpore应为`tuple(int)`类型
+
+```python
+# PyTorch
+import torch
+import torch.nn as nn
+
+input_tensor = torch.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=30)
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: torch.Size([10, 20, 30])
+
+# MindSpore
+import mindspore
+from mindspore import nn
+
+input_tensor = mindspore.ops.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=(30,))
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: (10, 20, 30)
 ```

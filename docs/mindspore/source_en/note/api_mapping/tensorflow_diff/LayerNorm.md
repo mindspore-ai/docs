@@ -45,7 +45,7 @@ MindSpore: When all the parameters in this API of TensorFlow are default, MindSp
 
 | Categories | Subcategories |TensorFlow | MindSpore | Differences |
 | --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | axis | begin_norm_axis | Same function, different parameter names|
+|Parameters | Parameter 1 | axis | begin_norm_axis | PyTorch supports both int and list. However, in MindSpore, this parameter supports tuple and list |
 | | Parameter 2 | epsilon | epsilon | Same function, same parameter name, different default value |
 | | Parameter 3 | center | - | This parameter is used in TensorFlow to control whether to use the beta offset. MindSpore does not have this parameter|
 | | Parameter 4 | scale | - | This parameter is used in TensorFlow to control whether gamma is used. MindSpore does not have this parameter|
@@ -86,4 +86,28 @@ m = nn.LayerNorm(shape1, begin_norm_axis=1, begin_params_axis=1)
 output = m(x).shape
 print(output)
 # (20, 5, 10, 10)
+```
+
+> When the `num_features` parameter in PyTorch is of type `int`, in MindSpore it should be of type `tuple(int)`
+
+```python
+# PyTorch
+import torch
+import torch.nn as nn
+
+input_tensor = torch.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=30)
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: torch.Size([10, 20, 30])
+
+# MindSpore
+import mindspore
+from mindspore import nn
+
+input_tensor = mindspore.ops.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=(30,))
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: (10, 20, 30)
 ```
