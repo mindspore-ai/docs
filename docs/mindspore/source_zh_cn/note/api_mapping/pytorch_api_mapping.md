@@ -245,7 +245,6 @@
 | [torch.renorm](https://pytorch.org/docs/1.8.1/generated/torch.renorm.html) | [mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.renorm.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.0/note/api_mapping/pytorch_diff/renorm.html) |
 | [torch.repeat_interleave](https://pytorch.org/docs/1.8.1/generated/torch.repeat_interleave.html) | [mindspore.ops.repeat_interleave](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.repeat_interleave.html) | 功能一致，参数名不同|
 | [torch.reshape](https://pytorch.org/docs/1.8.1/generated/torch.reshape.html#torch.reshape) | [mindspore.ops.reshape](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.reshape.html) | 一致 |
-| [torch.roll](https://pytorch.org/docs/1.8.1/generated/torch.roll.html)                         | [mindspore.ops.roll](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.roll.html) |  一致 |
 | [torch.rot90](https://pytorch.org/docs/1.8.1/generated/torch.rot90.html)                         | [mindspore.ops.rot90](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.rot90.html) |  一致 |
 | [torch.round](https://pytorch.org/docs/1.8.1/generated/torch.round.html)| [mindspore.ops.round](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.round.html)|一致|
 | [torch.rsqrt](https://pytorch.org/docs/1.8.1/generated/torch.rsqrt.html)                           | [mindspore.ops.rsqrt](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.rsqrt.html)                           | 一致|

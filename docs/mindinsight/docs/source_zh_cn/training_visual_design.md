@@ -22,7 +22,7 @@
 
 训练信息收集API包括：
 
-- 基于summary算子的训练信息收集API。这部分API主要包括4个summary算子，即用于记录标量数据的ScalarSummary算子，用于记录图片数据的ImageSummary算子，用于记录参数分布图（直方图）数据的HistogramSummary算子和用于记录张量数据的TensorSummary算子。请访问[算子支持列表](https://www.mindspore.cn/docs/zh-CN/r2.0/note/operator_list.html)以获取关于这些算子的信息。
+- 基于summary算子的训练信息收集API。这部分API主要包括4个summary算子，即用于记录标量数据的ScalarSummary算子，用于记录图片数据的ImageSummary算子，用于记录参数分布图（直方图）数据的HistogramSummary算子和用于记录张量数据的TensorSummary算子。
 
 - 基于Python API的训练信息收集API。通过[SummaryRecord.add_value](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord.add_value)方法，可以在Python代码中完成训练信息的收集。
 

@@ -245,8 +245,6 @@ The meaning of each parameter in the parameter update formula is as follows:
 
 As can be seen from the parameter update formula, what the THOR optimizer needs to calculate additionally is the FIM matrix for each layer. The FIM matrix can be adaptively adjusted to the step size and direction in each layer of parameter updates, and reduce the complexity of parameters tuning while accelerating the convergence.
 
-For more detailed introduction to THOR optimizer, refer to [THOR article](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
-
 When calling the MindSpore-encapsulated second-order optimizer THOR, the optimizer automatically calls the transformation interface to convert the Conv2d layer and Dense layer in the previously defined ResNet50 network into the corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/r2.0/mindspore/python/mindspore/nn/layer/thor_layer.py).
 And the computation and storage of the second-order information matrix can be done in Conv2dThor and DenseThor.
 
