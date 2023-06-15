@@ -48,7 +48,7 @@ MindSpore: The functionality is basically the same as PyTorch, but support for s
 | ---- | ----- | ------- | --------- | ---- |
 | Parameter | Parameter 1 | size | size | - |
 |  | Parameter 2 | scale_factor | scale_factor | Function is consistent. Currently only supports 'area' mode directly pass in `scale_factor`. For unsupported modes, you can bypass by setting `recompute_scale_factor` parameter to True (when `scale_factor` is a floating-point number, there may be precision errors) |
-|  | Parameter 3 | mode | mode | Function is consistent, MindSpore does not support 'nearest' (5D) and 'trilinear' modes |
+|  | Parameter 3 | mode | mode | Function is consistent |
 |  | Parameter 4 | align_corners | align_corners | Function is consistent, but in 'bicubic' mode `align_corners=False`, the calculation method is the same as TensorFlow, and the results are different from PyTorch |
 |  | Parameter 5 | recompute_scale_factor | recompute_scale_factor | - |
 | Input | Single input | input | x | Same function, different parameter names |
