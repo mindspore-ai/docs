@@ -40,7 +40,7 @@ mindspore.ops.interpolate(
 
 ## 使用方式
 
-PyTorch：根据 `size` 或者 `scale_factor` 对数据进行上采样或者下采样。 `recompute_scale_factor` 控制是否重新计算用于插值计算的 `scale_factor` 。如果 `recompute_scale_factor` 为True，则必须传入 `scale_factor` ，并使用 `scale_factor` 计算输出大小。所计算的输出大小将用于推断插值的新比例。当 `scale_factor` 是浮点数时，由于舍入和精度问题，它可能与重新计算的比例不同。如果 `recompute_scale_factor` 为False，则直接使用 `size` 或 `scale_factor` 进行插值。插值方式可以选择'nearest' | 'linear' | 'bilinear' | 'bicubic' | 'trilinear' | 'area'等六种模式。 `align_corners` 控制对齐坐标的对齐方式，对'linear' | 'bilinear' | 'bicubic' | 'trilinear'模式生效，默认为False。
+PyTorch：根据 `size` 或者 `scale_factor` 对数据进行上采样或者下采样。 `recompute_scale_factor` 控制是否重新计算用于插值计算的 `scale_factor` 。如果 `recompute_scale_factor` 为True，则必须传入 `scale_factor` ，并使用 `scale_factor` 计算输出大小。所计算的输出大小将用于推断插值的新比例。当 `scale_factor` 是浮点数时，由于舍入和精度问题，它可能与重新计算的比例不同。如果 `recompute_scale_factor` 为False，则直接使用 `size` 或 `scale_factor` 进行插值。插值方式可以选择'nearest' | 'linear' | 'bilinear' | 'bicubic' | 'area'等五种模式。 `align_corners` 控制对齐坐标的对齐方式，对'linear' | 'bilinear' | 'bicubic' 模式生效，默认为False。
 
 MindSpore：和PyTorch实现功能基本一致，但是对于一些参数支持不完善，例如一些模式不能直接传入 `scale_factor` ，但可以通过设置 `recompute_scale_factor` 参数为True进行规避（当 `scale_factor` 为浮点数时，可能产生精度误差），具体差异如下。
 
