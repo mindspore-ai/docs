@@ -392,3 +392,9 @@ The result is as follows:
 ```
 
 <br/>
+
+<font size=3>**Q: What can I do if an error "'External' TypeError" is reported?**</font>
+
+A: The "External" type indicates that an object that cannot be natively supported is used in graph mode. For example: The third-party library object is "External" type.
+
+<br/>

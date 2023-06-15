@@ -387,3 +387,9 @@ print(out * sense)
 ```
 
 <br/>
+
+<font size=3>**Q: 编译时报错 "'External' TypeError" 怎么办？**</font>
+
+A: “External” 类型表示在图模式中使用了无法原生支持的对象。例如：第三方库对象是 “External” 类型。
+
+<br/>
